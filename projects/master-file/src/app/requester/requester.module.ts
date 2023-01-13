@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {RequesterDetailsComponent} from './requester.details/requester.details.component';
 import {RequesterRecordComponent} from './requester-record/requester-record.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -10,26 +9,23 @@ import {ErrorModule} from '../error-msg/error-ui.module';
 import {RequesterListComponent} from './requester.list/requester.list.component';
 import {RequesterListService} from './requester.list/requester-list.service';
 import {CommonFeatureModule} from '../common/common-feature.module';
-import {TranslateModule} from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    SelectModule,
+    // SelectModule,
     FileIoModule,
     ErrorModule,
     CommonFeatureModule,
-    TranslateModule
-
+    SharedModule
   ],
   declarations: [
     RequesterRecordComponent,
     RequesterDetailsComponent,
     RequesterListComponent
-
   ],
   exports: [
     RequesterRecordComponent,

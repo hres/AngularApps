@@ -118,7 +118,7 @@ export abstract class ListOperations {
     const serviceResult = service.deleteModelRecord(id);
     for (let i = 0; i < recordList.controls.length; i++) {
       const temp = <FormGroup> recordList.controls[i];
-      if (temp.controls.id.value === id) {
+      if (temp.controls['id'].value === id) {
         recordList.removeAt(i);
         if (id === service.getCurrentIndex()) {
           service.setIndex(id - 1);
@@ -140,7 +140,7 @@ export abstract class ListOperations {
   public getRecord(id: number, recordList) {
     for (let i = 0; i < recordList.controls.length; i++) {
       let temp = <FormGroup> recordList.controls[i];
-      if (temp.controls.id.value === id) {
+      if (temp.controls['id'].value === id) {
         return temp;
       }
     }

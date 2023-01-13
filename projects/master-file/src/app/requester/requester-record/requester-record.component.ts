@@ -119,7 +119,7 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
    */
   setToLocalModel() {
     this.requesterRecordModel = this.requesterFormRecord;
-    this.sequenceNum = Number(this.requesterRecordModel.controls.id.value) + 1;
+    this.sequenceNum = Number(this.requesterRecordModel.controls['id'].value) + 1;
     this.requesterRecordModel.markAsPristine();
   }
 
@@ -179,12 +179,12 @@ export class RequesterRecordComponent implements OnInit, AfterViewInit {
     } else {
       // id is used for an error to ensure the record gets saved
       let temp = this.requesterRecordModel.value.id;
-      this.requesterRecordModel.controls.id.setValue(1);
+      this.requesterRecordModel.controls['id'].setValue(1);
       if (this.requesterRecordModel.valid) {
-        this.requesterRecordModel.controls.id.setValue(temp);
+        this.requesterRecordModel.controls['id'].setValue(temp);
         this.saveRecord.emit((this.requesterRecordModel));
       } else {
-        this.requesterRecordModel.controls.id.setValue(temp);
+        this.requesterRecordModel.controls['id'].setValue(temp);
         RequesterRecordService.mapFormModelToDataModel(this.requesterRecordModel, this.requesterModel, this.userList);
         this._emitErrors();
       }

@@ -6,22 +6,22 @@
         <label for="dossierType" class="full-width">
           <span class="field-name" >{{ 'dossier.type'|translate }}</span>
           <input id="dossierType" class="form-control full-width"
-                 [formControl]="mfDetailsFormLocalModel.controls.dossierType"  [readonly]="true"/>
+                 [formControl]="mfDetailsFormLocalModel.controls['dossierType'] | formControl"  [readonly]="true"/>
         </label>
       </div>
       <div class="form-group col-xs-6 minWidth300" >
         <label for="dossierId" class="required full-width">
           <span class="field-name" >{{ 'dossier.id'|translate }} {{ 'minAlphanum6.m'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.dossierId.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['dossierId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.dossierId"
+                            [control]="mfDetailsFormLocalModel.controls['dossierId'] | formControl"
                             controlId="dossierId" label="dossier.id" parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <span class="rep-input-group">
             <span class="input-group-addon">HC6-024-</span>
             <input id="dossierId" name="dossierId" class="form-control full-width"  (blur)="onblur()"
-                   [formControl]="mfDetailsFormLocalModel.controls.dossierId" maxlength="7" />
+                   [formControl]="mfDetailsFormLocalModel.controls['dossierId'] | formControl" maxlength="7" />
           </span>
         </label>
       </div>
@@ -31,26 +31,26 @@
         <label for="manuCompanyId" class="required full-width" aria-required="true">
           <span class="field-name" >{{ 'manufacturing.company.id'|translate }} {{ 'minNumber6'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.manuCompanyId.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['manuCompanyId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.manuCompanyId"
+                            [control]="mfDetailsFormLocalModel.controls['manuCompanyId'] | formControl"
                             controlId="manuCompanyId" label="manufacturing.company.id" parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="manuCompanyId" name="manuCompanyId" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.manuCompanyId" maxlength="6" />
+                 [formControl]="mfDetailsFormLocalModel.controls['manuCompanyId'] | formControl" maxlength="6" />
         </label>
       </div>
       <div class=".form-inline col-xs-6 minWidth300" >
         <label for="reguCompanyId" class="required full-width" aria-required="true">
           <span class="field-name" >{{ 'regulatory.company.id'|translate }} {{ 'minNumber6'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.reguCompanyId.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['reguCompanyId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.reguCompanyId"
+                            [control]="mfDetailsFormLocalModel.controls['reguCompanyId'] | formControl"
                             controlId="reguCompanyId" label="regulatory.company.id" parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="reguCompanyId" name="reguCompanyId" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.reguCompanyId" maxlength="6" />
+                 [formControl]="mfDetailsFormLocalModel.controls['reguCompanyId'] | formControl" maxlength="6" />
         </label>
       </div>
     </div>
@@ -59,13 +59,13 @@
         <label for="manuContactId" class="required full-width" aria-required="true">
           <span class="field-name" >{{ 'manufacturing.contact.id'|translate }} {{ 'minNumber5'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.manuContactId.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['manuContactId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.manuContactId"
+                            [control]="mfDetailsFormLocalModel.controls['manuContactId'] | formControl"
                             controlId="manuContactId" label="manufacturing.contact.id" parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="manuContactId" name="manuContactId" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.manuContactId" maxlength="5" />
+                 [formControl]="mfDetailsFormLocalModel.controls['manuContactId'] | formControl" maxlength="5" />
         </label>
       </div>
       <div class=".form-inline col-xs-6 minWidth300" >
@@ -75,13 +75,13 @@
           <sup id="tr3-rf">
             <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr3}}</a>
           </sup>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.reguContactId.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['reguContactId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.reguContactId"
+                            [control]="mfDetailsFormLocalModel.controls['reguContactId'] | formControl"
                             controlId="reguContactId" label="regulatory.contact.id" parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="reguContactId" name="reguContactId" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.reguContactId" maxlength="5" />
+                 [formControl]="mfDetailsFormLocalModel.controls['reguContactId'] | formControl" maxlength="5" />
         </label>
       </div>
     </div>
@@ -90,14 +90,14 @@
         <label for="activityLead" class="required full-width">
           <span class="field-name" >{{ 'activity.lead' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.activityLead.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['activityLead'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.activityLead"
+                            [control]="mfDetailsFormLocalModel.controls['activityLead'] | formControl"
                             controlId="activityLead" label="activity.lead"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <select id="activityLead" name="activityLead" required class="form-control full-width" (blur)="activityLeadOnblur()" (click)="activityLeadOnblur()"
-                  (selected)="activityLeadOnblur()" [formControl]="mfDetailsFormLocalModel.controls.activityLead">
+                  (selected)="activityLeadOnblur()" [formControl]="mfDetailsFormLocalModel.controls['activityLead'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let lead of actLeadList" [ngValue]="lead.id"> {{ lead.text|translate }}</option>
           </select>
@@ -107,15 +107,15 @@
         <label for="activityType" class="required full-width">
           <span class="field-name" >{{ 'activity.type' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.activityType.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['activityType'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.activityType"
+                            [control]="mfDetailsFormLocalModel.controls['activityType'] | formControl"
                             controlId="activityType" label="activity.type"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <select id="activityType" name="activityType" required class="form-control full-width" (blur)="activityTypeOnblur()"
                   (click)="activityTypeOnblur()"
-                  (selected)="activityTypeOnblur()" [formControl]="mfDetailsFormLocalModel.controls.activityType">
+                  (selected)="activityTypeOnblur()" [formControl]="mfDetailsFormLocalModel.controls['activityType'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{ type.text|translate }}</option>
           </select>
@@ -127,15 +127,15 @@
         <label for="descriptionType" class="required full-width">
           <span class="field-name" >{{ 'mf.description' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.descriptionType.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['descriptionType'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.descriptionType"
+                            [control]="mfDetailsFormLocalModel.controls['descriptionType'] | formControl"
                             controlId="descriptionType" label="mf.description"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <select id="descriptionType" name="descriptionType" required class="form-control full-width" (blur)="descrDeviceOnblur()"
                   (click)="descrDeviceOnblur()"
-                  (selected)="descrDeviceOnblur()" [formControl]="mfDetailsFormLocalModel.controls.descriptionType">
+                  (selected)="descrDeviceOnblur()" [formControl]="mfDetailsFormLocalModel.controls['descriptionType'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let desc of mfDescList" [ngValue]="desc.id"> {{ desc.text|translate }}</option>
 
@@ -149,15 +149,15 @@
           <sup id="tr2a-rf">
             <a class="fn-lnk" href="#tr2a"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr2a}}</a>
           </sup>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.deviceClass.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['deviceClass'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.deviceClass"
+                            [control]="mfDetailsFormLocalModel.controls['deviceClass'] | formControl"
                             controlId="deviceClass" label="device.class"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <select id="deviceClass" name="deviceClass" required class="form-control full-width" (blur)="descrDeviceOnblur()"
                   (selected)="descrDeviceOnblur()" (click)="descrDeviceOnblur()"
-                  [formControl]="mfDetailsFormLocalModel.controls.deviceClass">
+                  [formControl]="mfDetailsFormLocalModel.controls['deviceClass'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let class of devClassList" [ngValue]="class.id"> {{ class.id|translate }}</option>
           </select>
@@ -169,21 +169,21 @@
           <legend class="legend-rep">
             <span class="required">{{ 'amend.reason' | translate }}</span>
             <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-            <control-messages *ngIf="mfDetailsFormLocalModel.controls.amendReason.invalid"
+            <control-messages *ngIf="mfDetailsFormLocalModel.controls['amendReason'].invalid"
                   [showError]="showFieldErrors"
-                  [control]="mfDetailsFormLocalModel.controls.amendReason"
+                  [control]="mfDetailsFormLocalModel.controls['amendReason'] | formControl"
                   controlId="amendReason" label="amend.reason"
                   parentId="amendReasons"
                   parentLabel="MasterFile Information"></control-messages>
             <input id="amendReason" name="amendReason" type="hidden" class="form-control full-width"
-                   [formControl]="mfDetailsFormLocalModel.controls.amendReason"/>
+                   [formControl]="mfDetailsFormLocalModel.controls['amendReason'] | formControl"/>
           </legend>
           <div class="row" *ngIf="reasonArray[0]">
             <div class="col-sm-12">
               <div class="checkbox">
                 <label for="classChange">
                   <input type="checkbox" (blur)="reasonOnblur(0)"
-                         [formControl]="mfDetailsFormLocalModel.controls.classChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['classChange'] | formControl"
                          id="classChange"/>
                   <span>{{ 'classification.change'|translate }}</span>
                 </label>
@@ -195,7 +195,7 @@
               <div class="checkbox">
                 <label for="licenceChange">
                   <input type="checkbox" name="licenceChange" (blur)="reasonOnblur(1)"
-                         [formControl]="mfDetailsFormLocalModel.controls.licenceChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['licenceChange'] | formControl"
                          id="licenceChange"/>
                   <span>{{ 'licence.change'|translate }}</span>
                 </label>
@@ -207,7 +207,7 @@
               <div class="checkbox">
                 <label for="deviceChange">
                   <input type="checkbox" name="deviceChange" (blur)="reasonOnblur(2)"
-                         [formControl]="mfDetailsFormLocalModel.controls.deviceChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['deviceChange'] | formControl"
                          id="deviceChange"/>
                   <span>{{ 'device.change'|translate }}</span>
                 </label>
@@ -219,7 +219,7 @@
               <div class="checkbox">
                 <label for="processChange">
                   <input type="checkbox" name="processChange" (blur)="reasonOnblur(3)"
-                         [formControl]="mfDetailsFormLocalModel.controls.processChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['processChange'] | formControl"
                          id="processChange"/>
                   <span>{{ 'process.change'|translate }}</span>
                 </label>
@@ -231,7 +231,7 @@
               <div class="checkbox">
                 <label for="qualityChange">
                   <input type="checkbox" name="qualityChange" (blur)="reasonOnblur(4)"
-                         [formControl]="mfDetailsFormLocalModel.controls.qualityChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['qualityChange'] | formControl"
                          id="qualityChange"/>
                   <span>{{ 'quality.change'|translate }}</span>
                 </label>
@@ -243,7 +243,7 @@
               <div class="checkbox">
                 <label for="designChange">
                   <input type="checkbox" name="designChange" (blur)="reasonOnblur(5)"
-                         [formControl]="mfDetailsFormLocalModel.controls.designChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['designChange'] | formControl"
                          id="designChange"/>
                   <span>{{ 'design.change'|translate }}</span>
                 </label>
@@ -255,7 +255,7 @@
               <div class="checkbox">
                 <label for="materialsChange">
                   <input type="checkbox" name="materialsChange" (blur)="reasonOnblur(6)"
-                         [formControl]="mfDetailsFormLocalModel.controls.materialsChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['materialsChange'] | formControl"
                          id="materialsChange"/>
                   <span>{{ 'materials.change'|translate }}</span>
                 </label>
@@ -267,7 +267,7 @@
               <div class="checkbox">
                 <label for="labellingChange">
                   <input type="checkbox" name="labellingChange" (blur)="reasonOnblur(7)"
-                         [formControl]="mfDetailsFormLocalModel.controls.labellingChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['labellingChange'] | formControl"
                          id="labellingChange"/>
                   <span>{{ 'labelling.change'|translate }}</span>
                 </label>
@@ -279,7 +279,7 @@
               <div class="checkbox">
                 <label for="safetyChange">
                   <input type="checkbox" name="safetyChange" (blur)="reasonOnblur(8)"
-                         [formControl]="mfDetailsFormLocalModel.controls.safetyChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['safetyChange'] | formControl"
                          id="safetyChange"/>
                   <span>{{ 'safety.change'|translate }}</span>
                 </label>
@@ -291,7 +291,7 @@
               <div class="checkbox">
                 <label for="purposeChange">
                   <input type="checkbox" (blur)="reasonOnblur(9)"
-                         [formControl]="mfDetailsFormLocalModel.controls.purposeChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['purposeChange'] | formControl"
                          id="purposeChange" name="purposeChange"/>
                   <span>{{ 'purpose.change'|translate }}</span>
                 </label>
@@ -303,7 +303,7 @@
               <div class="checkbox">
                 <label for="addChange">
                   <input type="checkbox" (blur)="reasonOnblur(10)"
-                         [formControl]="mfDetailsFormLocalModel.controls.addChange"
+                         [formControl]="mfDetailsFormLocalModel.controls['addChange'] | formControl"
                          id="addChange" name="addChange"/>
                   <span>{{ 'add.delete.change'|translate }}</span>
                 </label>
@@ -316,13 +316,13 @@
       <div class="col-xs-12 form-group">
         <label class="required full-width" for="rationale" >{{ 'rationale' | translate }}
         <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.rationale.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['rationale'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.rationale"
+                            [control]="mfDetailsFormLocalModel.controls['rationale'] | formControl"
                             controlId="rationale" label="rationale"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
-          <textarea  row="3" id="rationale" name="rationale" class="form-control full-width"  maxlength="500" [formControl]="mfDetailsFormLocalModel.controls.rationale" (blur)="onblur()" required ></textarea>
+          <textarea  row="3" id="rationale" name="rationale" class="form-control full-width"  maxlength="500" [formControl]="mfDetailsFormLocalModel.controls['rationale'] | formControl" (blur)="onblur()" required ></textarea>
         </label>
       </div>
     </div>
@@ -330,13 +330,13 @@
       <div class="col-xs-12 form-group">
         <label class="required full-width" for="proposedIndication" >{{ 'proposed.indication' | translate }}
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.proposedIndication.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['proposedIndication'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.proposedIndication"
+                            [control]="mfDetailsFormLocalModel.controls['proposedIndication'] | formControl"
                             controlId="proposedIndication" label="proposed.indication"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
-          <textarea  row="3" id="proposedIndication" name="proposedIndication" class="form-control full-width"  [formControl]="mfDetailsFormLocalModel.controls.proposedIndication" (blur)="onblur()" required ></textarea>
+          <textarea  row="3" id="proposedIndication" name="proposedIndication" class="form-control full-width"  [formControl]="mfDetailsFormLocalModel.controls['proposedIndication'] | formControl" (blur)="onblur()" required ></textarea>
         </label>
       </div>
     </div>
@@ -345,14 +345,14 @@
         <label for="requestDate" class="required full-width">
           <span class="field-name" >{{ 'request.version' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.requestVersion.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['requestVersion'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.requestVersion"
+                            [control]="mfDetailsFormLocalModel.controls['requestVersion'] | formControl"
                             controlId="requestVersion" label="request.version"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="requestVersion" name="requestVersion" type="text" class="form-control full-width" (blur)="onblur()" maxlength="10"
-                 [formControl]="mfDetailsFormLocalModel.controls.requestVersion" />
+                 [formControl]="mfDetailsFormLocalModel.controls['requestVersion'] | formControl" />
         </label>
       </div>
 
@@ -360,14 +360,14 @@
         <label for="requestDate" class="required full-width">
           <span class="field-name" >{{ 'request.date' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.requestDate.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['requestDate'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.requestDate"
+                            [control]="mfDetailsFormLocalModel.controls['requestDate'] | formControl"
                             controlId="requestDate" label="request.date"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="requestDate" name="requestDate" type="date" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.requestDate" min="1970-01-01" max="2099-12-31" pattern="\d{4}-\d{2}-\d{2}"/>
+                 [formControl]="mfDetailsFormLocalModel.controls['requestDate'] | formControl" min="1970-01-01" max="2099-12-31" pattern="\d{4}-\d{2}-\d{2}"/>
         </label>
       </div>
     </div>
@@ -376,28 +376,28 @@
         <label for="requestFrom" class="required full-width">
           <span class="field-name" >{{ 'request.from' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.requestDate.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['requestDate'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.requestDate"
+                            [control]="mfDetailsFormLocalModel.controls['requestDate'] | formControl"
                             controlId="requestDate" label="request.date"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="requestFrom" name="requestDate" type="date" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.requestDate" min="1970-01-01" max="2099-12-31"/>
+                 [formControl]="mfDetailsFormLocalModel.controls['requestDate'] | formControl" min="1970-01-01" max="2099-12-31"/>
         </label>
       </div>
       <div class="form-group col-xs-6">
         <label for="requestTo" class="required full-width">
           <span class="field-name" >{{ 'request.to' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.requestDate.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['requestDate'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.requestDate"
+                            [control]="mfDetailsFormLocalModel.controls['requestDate'] | formControl"
                             controlId="requestDate" label="request.date"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="requestTo" name="requestTo" type="date" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.requestTo" min="1970-01-01" max="2099-12-31"/>
+                 [formControl]="mfDetailsFormLocalModel.controls['requestTo'] | formControl" min="1970-01-01" max="2099-12-31"/>
         </label>
       </div>
 
@@ -410,14 +410,14 @@
           <sup id="tr2b-rf">
             <a class="fn-lnk" href="#tr2b"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr2b}}</a>
           </sup>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.appNum.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['appNum'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.appNum"
+                            [control]="mfDetailsFormLocalModel.controls['appNum'] | formControl"
                             controlId="appNum" label="application.number"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="appNum" name="appNum" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.appNum" maxlength="6" />
+                 [formControl]="mfDetailsFormLocalModel.controls['appNum'] | formControl" maxlength="6" />
         </label>
       </div>
       <div class="form-group col-xs-6" *ngIf="isMmUd()">
@@ -426,21 +426,21 @@
           <sup id="tr2b-rf">
             <a class="fn-lnk" href="#tr2b"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr2b}}</a>
           </sup>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.appNumOpt.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['appNumOpt'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.appNumOpt"
+                            [control]="mfDetailsFormLocalModel.controls['appNumOpt'] | formControl"
                             controlId="appNumOpt" label="application.number"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="appNumOpt" name="appNumOpt" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.appNumOpt" maxlength="6" />
+                 [formControl]="mfDetailsFormLocalModel.controls['appNumOpt'] | formControl" maxlength="6" />
         </label>
       </div>
       <div class="form-group col-xs-6" *ngIf="isMm()">
         <label for="meetingId" class="full-width">
           <span class="field-name" >{{ 'meeting.id' |translate }}</span>
           <input id="meetingId" name="meetingId" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.meetingId" maxlength="6" />
+                 [formControl]="mfDetailsFormLocalModel.controls['meetingId'] | formControl" maxlength="6" />
         </label>
       </div>
       <div class="form-group col-xs-6" *ngIf="isInitialAndLicence()">
@@ -450,14 +450,14 @@
           <sup id="tr2c-rf">
             <a class="fn-lnk" href="#tr2c"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr2c}}</a>
           </sup>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.deviceName.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['deviceName'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.deviceName"
+                            [control]="mfDetailsFormLocalModel.controls['deviceName'] | formControl"
                             controlId="deviceName" label="device.name"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="deviceName" name="deviceName" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.deviceName" maxlength="150" />
+                 [formControl]="mfDetailsFormLocalModel.controls['deviceName'] | formControl" maxlength="150" />
         </label>
       </div>
     </div>
@@ -469,14 +469,14 @@
         <label for="licenceName" class="required full-width">
           <span class="field-name" >{{ 'licence.name' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.licenceName.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['licenceName'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.licenceName"
+                            [control]="mfDetailsFormLocalModel.controls['licenceName'] | formControl"
                             controlId="licenceName" label="licence.name"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input class="form-control full-width" id="licenceName" name="licenceName" (blur)="onblur()"
-                 required [formControl]="mfDetailsFormLocalModel.controls.licenceName" maxlength="150" />
+                 required [formControl]="mfDetailsFormLocalModel.controls['licenceName'] | formControl" maxlength="150" />
         </label>
       </div>
     </div>
@@ -495,14 +495,14 @@
         <label for="briefDesc" class="required full-width">
           <span class="field-name" >{{ 'brief.descr' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.briefDesc.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['briefDesc'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.briefDesc"
+                            [control]="mfDetailsFormLocalModel.controls['briefDesc'] | formControl"
                             controlId="briefDesc" label="brief.descr"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <textarea type="text" class="form-control full-width" id="briefDesc" name="briefDesc" (blur)="onblur()"
-                    required [formControl]="mfDetailsFormLocalModel.controls.briefDesc"></textarea>
+                    required [formControl]="mfDetailsFormLocalModel.controls['briefDesc'] | formControl"></textarea>
         </label>
       </div>
     </div>
@@ -514,14 +514,14 @@
         <sup id="tr4-rf">
           <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr4}}</a>
         </sup>
-        <control-messages *ngIf="mfDetailsFormLocalModel.controls.licenceNum.invalid"
+        <control-messages *ngIf="mfDetailsFormLocalModel.controls['licenceNum'].invalid"
                           [showError]="showFieldErrors"
-                          [control]="mfDetailsFormLocalModel.controls.licenceNum"
+                          [control]="mfDetailsFormLocalModel.controls['licenceNum'] | formControl"
                           controlId="licenceNum" label="licence.number"
                           parentId="mfDetails"
                           parentLabel="MasterFile Information"></control-messages>
         <input id="licenceNum" name="licenceNum" class="form-control" (blur)="licenceNumOnblur()"
-               [formControl]="mfDetailsFormLocalModel.controls.licenceNum" maxlength="6" />
+               [formControl]="mfDetailsFormLocalModel.controls['licenceNum'] | formControl" maxlength="6" />
       </label>
       </div>
     </div>
@@ -530,28 +530,28 @@
         <label for="orgManufactureId" class="required">
           <span class="field-name" placement="left"  data-original-title="Tooltip on left">{{ 'orgManufactureId' |translate }} {{ 'minNumber6'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.orgManufactureId.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['orgManufactureId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.orgManufactureId"
+                            [control]="mfDetailsFormLocalModel.controls['orgManufactureId'] | formControl"
                             controlId="orgManufactureId" label="orgManufactureId"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="orgManufactureId" name="orgManufactureId" class="form-control" (blur)="onblur()" only-digits
-                 [formControl]="mfDetailsFormLocalModel.controls.orgManufactureId" minlength="6" maxlength="6" />
+                 [formControl]="mfDetailsFormLocalModel.controls['orgManufactureId'] | formControl" minlength="6" ng-maxlength="6" />
         </label>
       </div>
       <div class="col-xs-6">
         <label for="orgManufactureLicId" class="required">
           <span class="field-name" >{{ 'orgManufactureLic' |translate }} {{ 'minNumber6'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls.orgManufactureLic.invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['orgManufactureLic'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls.orgManufactureLic"
+                            [control]="mfDetailsFormLocalModel.controls['orgManufactureLic'] | formControl"
                             controlId="orgManufactureLicId" label="orgManufactureLic"
                             parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
           <input id="orgManufactureLicId" name="orgManufactureLicId" class="form-control" (blur)="onOrgManufactureLicblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls.orgManufactureLic" maxlength="6" only-digits />
+                 [formControl]="mfDetailsFormLocalModel.controls['orgManufactureLic'] | formControl" ng-maxlength="6" only-digits />
         </label>
       </div>
     </div>
@@ -560,7 +560,7 @@
 <!--        <div class="checkbox">-->
 <!--          <label for="hasDdt">-->
 <!--            <input type="checkbox" (blur)="onblur()"-->
-<!--                   [formControl]="mfDetailsFormLocalModel.controls.hasDdt"-->
+<!--                   [formControl]="mfDetailsFormLocalModel.controls['hasDdt']"-->
 <!--                   id="hasDdt" name="hasDdt"/>-->
 <!--            <strong>{{'has.ddt'|translate}}</strong>-->
 <!--            <sup id="tr5-rf">-->
@@ -579,16 +579,16 @@
             <sup id="tr5-rf">
               <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.tr5}}</a>
             </sup>
-            <control-messages *ngIf="mfDetailsFormLocalModel.controls.hasDdtMan.invalid"
+            <control-messages *ngIf="mfDetailsFormLocalModel.controls['hasDdtMan'].invalid"
                               [showError]="showFieldErrors"
-                              [control]="mfDetailsFormLocalModel.controls.hasDdtMan"
+                              [control]="mfDetailsFormLocalModel.controls['hasDdtMan'] | formControl"
                               controlId="hasDdtMan" label="has.ddt"
                               parentId="mfDetails"
                               parentLabel="MasterFile Information"></control-messages>
 <!--            <input type="checkbox" (blur)="onblur()"-->
-<!--                   [formControl]="mfDetailsFormLocalModel.controls.hasDdtMan"-->
+<!--                   [formControl]="mfDetailsFormLocalModel.controls['hasDdtMan']"-->
 <!--                   id="hasDdtMan" name="hasDdtMan"/>-->
-            <select id="hasDdtMan" name="hasDdtMan" class="form-control" (blur)="onblur()" (click)="onblur()" (selected)="onblur()" [formControl]="mfDetailsFormLocalModel.controls.hasDdtMan">
+            <select id="hasDdtMan" name="hasDdtMan" class="form-control" (blur)="onblur()" (click)="onblur()" (selected)="onblur()" [formControl]="mfDetailsFormLocalModel.controls['hasDdtMan'] | formControl">
               <option label=" " value=""></option>
               <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{ opt | translate }}</option>
             </select>
@@ -601,7 +601,7 @@
         <div class="checkbox">
           <label for="hasAppInfo">
             <input type="checkbox" (blur)="onblur()"
-                   [formControl]="mfDetailsFormLocalModel.controls.hasAppInfo"
+                   [formControl]="mfDetailsFormLocalModel.controls['hasAppInfo'] | formControl"
                    id="hasAppInfo" name="hasAppInfo"/>
             <strong>{{ 'has.app.info'|translate }}</strong>
           </label>
@@ -612,13 +612,13 @@
       <div class="form-group col-xs-12 rep-margin-top-12" >
         <label for="isSolicitedInfo" class="full-width">
           <span class="field-name">{{ 'is.solicited' |translate }}</span>
-          <!--<control-messages *ngIf="mfDetailsFormLocalModel.controls.isSolicitedInfo.invalid"-->
+          <!--<control-messages *ngIf="mfDetailsFormLocalModel.controls['isSolicitedInfo'].invalid"-->
                             <!--[showError]="showFieldErrors"-->
-                            <!--[control]="mfDetailsFormLocalModel.controls.isSolicitedInfo"-->
+                            <!--[control]="mfDetailsFormLocalModel.controls['isSolicitedInfo']"-->
                             <!--controlId="isSolicitedInfo" label="is.solicited"-->
                             <!--parentId="mfDetails"-->
                             <!--parentLabel="MasterFile Information"></control-messages>-->
-          <select id="isSolicitedInfo" name="isSolicitedInfo" class="form-control" (blur)="isSolicitedOnblur()" (click)="isSolicitedOnblur()" (selected)="isSolicitedOnblur()" [formControl]="mfDetailsFormLocalModel.controls.isSolicitedInfo">
+          <select id="isSolicitedInfo" name="isSolicitedInfo" class="form-control" (blur)="isSolicitedOnblur()" (click)="isSolicitedOnblur()" (selected)="isSolicitedOnblur()" [formControl]="mfDetailsFormLocalModel.controls['isSolicitedInfo'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{ opt | translate }}</option>
           </select>

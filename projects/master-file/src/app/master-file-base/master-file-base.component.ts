@@ -7,7 +7,7 @@ import {FileConversionService} from '../filereader/file-io/file-conversion.servi
 import {ConvertResults} from '../filereader/file-io/convert-results';
 import {GlobalsService} from '../globals/globals.service';
 
-import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 import {MasterFileDataLoaderService} from '../data-loader/master-file-data-loader.service';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';

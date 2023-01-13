@@ -314,7 +314,7 @@ export class AddressListComponent extends ListOperations implements OnInit, OnCh
    * @param record
    */
   public revertAddress(record): void {
-    let recordId = record.controls.id.value;
+    let recordId = record.controls['id'].value;
 
     let modelRecord = this.service.getModelRecord(recordId);
     // IF a new record, there will be no id in the model

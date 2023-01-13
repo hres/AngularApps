@@ -6,7 +6,7 @@ import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
 import {AddressDetailsService} from './address.details.service';
 import {isArray} from 'util';
-import {noUndefined} from '@angular/compiler/src/util';
+// import {noUndefined} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'address-details',
@@ -57,7 +57,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     if (!this.addressFormLocalModel) {
       this.addressFormLocalModel = AddressDetailsService.getReactiveModel(this._fb);
     }
-    // this._setCountryState(this.addressFormLocalModel.controls.country.value,this.addressFormLocalModel);
+    // this._setCountryState(this.addressFormLocalModel.controls['country'].value,this.addressFormLocalModel);
     this.detailsChanged = 0;
   }
 
@@ -105,12 +105,12 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     if (changes['detailsChanged']) { // used as a change indicator for the model
       // console.log("the details cbange");
       if (this.addressFormRecord) {
-        this._setCountryState(this.addressFormRecord.controls.country.value, this.addressFormRecord);
+        this._setCountryState(this.addressFormRecord.controls['country'].value, this.addressFormRecord);
         this.setToLocalModel();
 
       } else {
         this.addressFormLocalModel = AddressDetailsService.getReactiveModel(this._fb);
-        this._setCountryState(this.addressFormLocalModel.controls.country.value, this.addressFormLocalModel);
+        this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
         this.addressFormLocalModel.markAsPristine();
       }
     }
@@ -137,9 +137,9 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
       const dataModel = changes['addressModel'].currentValue;
       AddressDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressFormLocalModel),
         this.countryList, this.provinceList.concat(this.stateList));
-      if (this.addressFormLocalModel.controls.country &&
-          this.addressFormLocalModel.controls.country.value) {
-        this._setCountryState(this.addressFormLocalModel.controls.country.value, this.addressFormLocalModel);
+      if (this.addressFormLocalModel.controls['country'] &&
+          this.addressFormLocalModel.controls['country'].value) {
+        this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
       }
     }
   }
@@ -174,7 +174,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   processCountry(event) {
     // console.log(event);
-    this.addressFormLocalModel.controls.country.setValue([event]);
+    this.addressFormLocalModel.controls['country'].setValue([event]);
     this._setCountryState(event, this.addressFormLocalModel);
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
       this.addressModel, this.countryList, this.provStateList);
@@ -195,20 +195,20 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   // note ng-select expects an array of values even with a single select
   selected(rec) {
 
-    // this.addressFormLocalModel.controls.country.setValue([rec.id]);
-    // this.addressFormLocalModel.controls.country.setValue([rec]);
+    // this.addressFormLocalModel.controls['country'].setValue([rec.id]);
+    // this.addressFormLocalModel.controls['country'].setValue([rec]);
   }
 
   removed(rec) {
     console.log(rec);
-    // this.addressFormLocalModel.controls.country.setValue(null)
+    // this.addressFormLocalModel.controls['country'].setValue(null)
   }
 
   typed(rec) {
     let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
     // console.log('country is typed');
     if (content && this.existsInList(content)) {
-      this.addressFormLocalModel.controls.country.setValue([content]);
+      this.addressFormLocalModel.controls['country'].setValue([content]);
       AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
         this.addressModel, this.countryList, this.provStateList);
     }

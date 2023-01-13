@@ -35,18 +35,18 @@ export class CompanyAddressRecordService {
   public static mapFormModelToDataModel(formRecord: FormGroup, addressRecordModel, countryList) {
     console.log(addressRecordModel);
     console.log(formRecord);
-    addressRecordModel.id = formRecord.controls.id.value;
-    addressRecordModel.company = formRecord.controls.companyName.value;
-    AddressDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.addressDetails), addressRecordModel, countryList, null);
+    addressRecordModel.id = formRecord.controls['id'].value;
+    addressRecordModel.company = formRecord.controls['companyName'].value;
+    AddressDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['addressDetails']), addressRecordModel, countryList, null);
 
   }
 
 
   public static mapDataModelFormModel(addressRecordModel, formRecord: FormGroup, countryList) {
-    formRecord.controls.id.setValue(addressRecordModel.id);
-    formRecord.controls.isNew.setValue(false);
-    formRecord.controls.companyName.setValue(addressRecordModel.company);
-    AddressDetailsService.mapDataModelToFormModel(addressRecordModel, <FormGroup>formRecord.controls.addressDetails, countryList, null);
+    formRecord.controls['id'].setValue(addressRecordModel.id);
+    formRecord.controls['isNew'].setValue(false);
+    formRecord.controls['companyName'].setValue(addressRecordModel.company);
+    AddressDetailsService.mapDataModelToFormModel(addressRecordModel, <FormGroup>formRecord.controls['addressDetails'], countryList, null);
   }
 
   public static extend(dest, src) {

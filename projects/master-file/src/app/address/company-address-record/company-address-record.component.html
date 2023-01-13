@@ -4,21 +4,21 @@
                  headingLevel="h2" label="Company Address Record" compId="addressRec"></error-summary>
 
   <div class="row">
-    <div class="form-group col-xs-12" [ngClass]="{'has-error':addressRecordModel.controls.companyName.invalid}">
+    <div class="form-group col-xs-12" [ngClass]="{'has-error':addressRecordModel.controls['companyName'].invalid}">
       <label for="company" class="required full-width" aria-required="true">
         <span class="field-name" i18n>{{'company.name.full'|translate}}</span>
         <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-        <input id="company" class="form-control full-width" [formControl]="addressRecordModel.controls.companyName" maxlength="80"/>
-        <control-messages *ngIf="addressRecordModel.controls.companyName.invalid"
+        <input id="company" class="form-control full-width" [formControl]="addressRecordModel.controls['companyName'] | formControl" maxlength="80"/>
+        <control-messages *ngIf="addressRecordModel.controls['companyName'].invalid"
                           [showError]="showErrors"
-                          [control]="addressRecordModel.controls.companyName"
+                          [control]="addressRecordModel.controls['companyName'] | formControl"
                           controlId="company" label="company.name.full" parentId="companyAddressRecood"
                           parentLabel="REP Address"></control-messages>
       </label>
     </div>
   </div>
   <address-details [showErrors]="showErrors" [countryList]="countryList"
-                   [detailsChanged]="updateChild" [group]="addressRecordModel.controls.addressDetails"
+                   [detailsChanged]="updateChild" [group]="addressRecordModel.controls['addressDetails'] | formGroup"
                    (errorList)="updateErrorList($event)"></address-details>
 
   <div class="row">

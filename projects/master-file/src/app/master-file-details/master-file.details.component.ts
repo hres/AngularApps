@@ -9,7 +9,7 @@ import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {GlobalsService} from '../globals/globals.service';
 import {isArray} from 'util';
-import {noUndefined} from '@angular/compiler/src/util';
+// import {noUndefined} from '@angular/compiler/src/util';
 // import {forEach} from '@angular/router/src/utils/collection';
 
 
@@ -52,7 +52,7 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
   private detailsService: MasterFileDetailsService;
   public rawActTypes;
   public rawDescTypes;
-  private showVersion: boolean;
+  showVersion: boolean;
   private rawDescMap;
   // public showRationalRequired: boolean;
   // public showProposeIndication: boolean;
@@ -148,7 +148,7 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
       }
       MasterFileDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.mfDetailsFormLocalModel), this.lang);
       this._updateLists();
-      this._setDescFieldFlags(this.mfDetailsFormLocalModel.controls.descriptionType.value);
+      this._setDescFieldFlags(this.mfDetailsFormLocalModel.controls['descriptionType'].value);
     }
     if (changes['userList']) {
       this.userList = changes['userList'].currentValue;
@@ -156,35 +156,35 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
   }
   private  _updateLists() {
     if (this.actLeadList && this.actLeadList.length > 0 ) {
-      if (this.mfDetailsFormLocalModel.controls.activityLead.value === this.actLeadList[0].id) {
+      if (this.mfDetailsFormLocalModel.controls['activityLead'].value === this.actLeadList[0].id) {
         this.actTypeList = MasterFileDetailsService.getActivityTypeMDBList(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityLead.value === this.actLeadList[1].id) {
+      } else if (this.mfDetailsFormLocalModel.controls['activityLead'].value === this.actLeadList[1].id) {
         this.actTypeList = MasterFileDetailsService.getActivityTypePVList(this.lang);
       }
     }
 
     if (this.rawActTypes && this.rawActTypes.length > 0 ) {
-      if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[1].id) { // 'B02-20160301-039'
+      if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[1].id) { // 'B02-20160301-039'
         this.mfDescList = MasterFileDetailsService.getLicenceDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[0].id) { // 'B02-20160301-033'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[0].id) { // 'B02-20160301-033'
         this.mfDescList = MasterFileDetailsService.getFaxbackDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[2].id) { // 'B02-20160301-040'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[2].id) { // 'B02-20160301-040'
         this.mfDescList = MasterFileDetailsService.getLicenceDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[3].id) { // 'B02-20160301-081'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[3].id) { // 'B02-20160301-081'
         this.mfDescList = MasterFileDetailsService.getS36394041Descriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[4].id) { // 'B02-20190627-02'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[4].id) { // 'B02-20190627-02'
         this.mfDescList = MasterFileDetailsService.getPAPVDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[5].id) { // 'B02-20160301-079'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[5].id) { // 'B02-20160301-079'
         this.mfDescList = MasterFileDetailsService.getPSURPVDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[6].id) { // 'B02-20190627-04'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[6].id) { // 'B02-20190627-04'
         this.mfDescList = MasterFileDetailsService.getRCPVDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[7].id) { // 'B02-20190627-03'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[7].id) { // 'B02-20190627-03'
         this.mfDescList = MasterFileDetailsService.getPSAPVDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[8].id) { // 'B02-20190627-05'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[8].id) { // 'B02-20190627-05'
         this.mfDescList = MasterFileDetailsService.getREGPVDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id) { // 'B02-20160301-073'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[9].id) { // 'B02-20160301-073'
         this.mfDescList = MasterFileDetailsService.getPRVLDDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id) { // 'B02-20160301-074'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[10].id) { // 'B02-20160301-074'
         this.mfDescList = MasterFileDetailsService.getPRVLDADescriptions(this.lang);
       }
     }
@@ -212,10 +212,10 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
   }
 
   activityLeadOnblur() {
-    if (this.mfDetailsFormLocalModel.controls.activityLead.value) {
-      if (this.mfDetailsFormLocalModel.controls.activityLead.value === this.actLeadList[0].id) {
+    if (this.mfDetailsFormLocalModel.controls['activityLead'].value) {
+      if (this.mfDetailsFormLocalModel.controls['activityLead'].value === this.actLeadList[0].id) {
         this.actTypeList = MasterFileDetailsService.getActivityTypeMDBList(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityLead.value === this.actLeadList[1].id) {
+      } else if (this.mfDetailsFormLocalModel.controls['activityLead'].value === this.actLeadList[1].id) {
         this.actTypeList = MasterFileDetailsService.getActivityTypePVList(this.lang);
       }
     } else {
@@ -226,28 +226,28 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
   }
 
   activityTypeOnblur() {
-    if (this.mfDetailsFormLocalModel.controls.activityType.value) {
-      if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[1].id) {
+    if (this.mfDetailsFormLocalModel.controls['activityType'].value) {
+      if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[1].id) {
         this.mfDescList = MasterFileDetailsService.getLicenceDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[0].id) { // 'B02-20160301-033'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[0].id) { // 'B02-20160301-033'
         this.mfDescList = MasterFileDetailsService.getFaxbackDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[2].id) { // 'B02-20160301-040'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[2].id) { // 'B02-20160301-040'
         this.mfDescList = MasterFileDetailsService.getLicenceDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[3].id) { // 'B02-20160301-081'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[3].id) { // 'B02-20160301-081'
         this.mfDescList = MasterFileDetailsService.getS36394041Descriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[4].id) { // 'B02-20160621-01'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[4].id) { // 'B02-20160621-01'
         this.mfDescList = MasterFileDetailsService.getPAPVDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[5].id) { // 'B02-20160621-01'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[5].id) { // 'B02-20160621-01'
         this.mfDescList = MasterFileDetailsService.getPSURPVDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[6].id) { // 'B02-20160621-01'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[6].id) { // 'B02-20160621-01'
         this.mfDescList = MasterFileDetailsService.getRCPVDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[7].id) { // 'B02-20160621-01'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[7].id) { // 'B02-20160621-01'
         this.mfDescList = MasterFileDetailsService.getPSAPVDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[8].id) { // 'B02-20160621-01'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[8].id) { // 'B02-20160621-01'
         this.mfDescList = MasterFileDetailsService.getREGPVDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id) { // 'B02-20160301-073'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[9].id) { // 'B02-20160301-073'
         this.mfDescList = MasterFileDetailsService.getPRVLDDescriptions(this.lang);
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id) { // 'B02-20160301-074'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[10].id) { // 'B02-20160301-074'
         this.mfDescList = MasterFileDetailsService.getPRVLDADescriptions(this.lang);
       }
     } else {
@@ -258,53 +258,53 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
   }
 
   descrDeviceOnblur() {
-    const descValue = this.mfDetailsFormLocalModel.controls.descriptionType.value;
+    const descValue = this.mfDetailsFormLocalModel.controls['descriptionType'].value;
     this._updateReasonArray();
     this._setDescFieldFlags(descValue);
     this._resetReasonValues();
     this.onblur();
   }
   private _cleanActivityType() {
-    this.mfDetailsFormLocalModel.controls.activityType.setValue(null);
-    this.mfDetailsFormLocalModel.controls.activityType.markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['activityType'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['activityType'].markAsUntouched();
     this._cleanActivityDescription();
   }
   private _cleanActivityDescription() {
-    this.mfDetailsFormLocalModel.controls.descriptionType.setValue(null);
-    this.mfDetailsFormLocalModel.controls.descriptionType.markAsUntouched();
-    this._setDescFieldFlags(this.mfDetailsFormLocalModel.controls.descriptionType.value);
+    this.mfDetailsFormLocalModel.controls['descriptionType'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['descriptionType'].markAsUntouched();
+    this._setDescFieldFlags(this.mfDetailsFormLocalModel.controls['descriptionType'].value);
     this._cleanDeviceClass();
     this._cleanOthers();
   }
   private _cleanDeviceClass() {
-    this.mfDetailsFormLocalModel.controls.deviceClass.setValue(null);
-    this.mfDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['deviceClass'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['deviceClass'].markAsUntouched();
   }
   private _cleanOthers() {
     this._resetReasonValues();
   }
   isSolicitedOnblur() {
-    this.isSolicitedFlag.emit(this.mfDetailsFormLocalModel.controls.isSolicitedInfo.value === GlobalsService.YES);
+    this.isSolicitedFlag.emit(this.mfDetailsFormLocalModel.controls['isSolicitedInfo'].value === GlobalsService.YES);
     this.onblur();
   }
   onOrgManufactureLicblur() {
-    if (this.mfDetailsFormLocalModel.controls.orgManufactureLic.value
-        && this.mfDetailsFormLocalModel.controls.orgManufactureLic.value.toString().length < 6) {
-      this.mfDetailsFormLocalModel.controls.orgManufactureLic.setValue(
-        ('000000' + this.mfDetailsFormLocalModel.controls.orgManufactureLic.value )
-          .slice(this.mfDetailsFormLocalModel.controls.orgManufactureLic.value.toString().length) );
+    if (this.mfDetailsFormLocalModel.controls['orgManufactureLic'].value
+        && this.mfDetailsFormLocalModel.controls['orgManufactureLic'].value.toString().length < 6) {
+      this.mfDetailsFormLocalModel.controls['orgManufactureLic'].setValue(
+        ('000000' + this.mfDetailsFormLocalModel.controls['orgManufactureLic'].value )
+          .slice(this.mfDetailsFormLocalModel.controls['orgManufactureLic'].value.toString().length) );
     }
     this.onblur();
   }
   // reasonArray is the flags to display the reason chexk box list
   private _updateReasonArray() {
-    const descValue = this.mfDetailsFormLocalModel.controls.descriptionType.value;
-    if (this.mfDetailsFormLocalModel.controls.activityType.value !== this.rawActTypes[1].id
-      && this.mfDetailsFormLocalModel.controls.activityType.value !== this.rawActTypes[9].id
+    const descValue = this.mfDetailsFormLocalModel.controls['descriptionType'].value;
+    if (this.mfDetailsFormLocalModel.controls['activityType'].value !== this.rawActTypes[1].id
+      && this.mfDetailsFormLocalModel.controls['activityType'].value !== this.rawActTypes[9].id
       && descValue === this.rawDescTypes[this.rawDescMap.indexOf('i5')].id &&
-      this.mfDetailsFormLocalModel.controls.deviceClass.value) {
-      if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[2].id ) { // 'B02-20160301-040'
-        switch (this.mfDetailsFormLocalModel.controls.deviceClass.value) {
+      this.mfDetailsFormLocalModel.controls['deviceClass'].value) {
+      if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[2].id ) { // 'B02-20160301-040'
+        switch (this.mfDetailsFormLocalModel.controls['deviceClass'].value) {
           case 'DC2':
             this.reasonArray = [true, true, true, false, false, false, false, false, false, true, true];
             break;
@@ -316,9 +316,9 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
             break;
         }
 
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[0].id ) { // 'B02-20160301-033'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[0].id ) { // 'B02-20160301-033'
         this.reasonArray = [false, true, true, false, false, false, false, false, false, false, true];
-      } else if (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id ) { // 'B02-20160301-033'
+      } else if (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[10].id ) { // 'B02-20160301-033'
         this.reasonArray = [true, true, true, false, false, false, false, false, false, true, true];
       }
     } else {
@@ -338,13 +338,13 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
       || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i21')].id) ? true : false;
     this.showVersion = (descValue === this.rawDescTypes[2].id || descValue === this.rawDescTypes[21].id) ? true : false;
     // this.showRationalRequired = (
-    //   (this.rawDescTypes[9].id === this.mfDetailsFormLocalModel.controls.descriptionType.value) &&
-    //   (this.rawActTypes[0].id === this.mfDetailsFormLocalModel.controls.activityType.value
-    //     || (this.rawActTypes[2].id === this.mfDetailsFormLocalModel.controls.activityType.value && (
-    //         this.mfDetailsFormLocalModel.controls.classChange.value ||
-    //         this.mfDetailsFormLocalModel.controls.licenceChange.value ||
-    //         this.mfDetailsFormLocalModel.controls.deviceChange.value ||
-    //         this.mfDetailsFormLocalModel.controls.addChange.value
+    //   (this.rawDescTypes[9].id === this.mfDetailsFormLocalModel.controls['descriptionType'].value) &&
+    //   (this.rawActTypes[0].id === this.mfDetailsFormLocalModel.controls['activityType'].value
+    //     || (this.rawActTypes[2].id === this.mfDetailsFormLocalModel.controls['activityType'].value && (
+    //         this.mfDetailsFormLocalModel.controls['classChange'].value ||
+    //         this.mfDetailsFormLocalModel.controls['licenceChange'].value ||
+    //         this.mfDetailsFormLocalModel.controls['deviceChange'].value ||
+    //         this.mfDetailsFormLocalModel.controls['addChange'].value
     //       ))
     //     )) ? true : false;
     this.showPeriod = descValue === this.rawDescTypes[this.rawDescMap.indexOf('i3')].id ? true : false;
@@ -352,154 +352,154 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
 
   private _resetReasonValues() {
     this.reasonResults = [false, false, false, false, false, false, false, false, false, false, false];
-    this.mfDetailsFormLocalModel.controls.amendReason.setValue(null);
-    this.mfDetailsFormLocalModel.controls.amendReason.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.classChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.classChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.licenceChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.licenceChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.deviceChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.deviceChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.processChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.processChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.qualityChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.qualityChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.designChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.designChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.materialsChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.materialsChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.labellingChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.labellingChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.safetyChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.safetyChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.purposeChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.purposeChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.addChange.setValue(false);
-    this.mfDetailsFormLocalModel.controls.addChange.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.licenceNum.setValue(null);
-    this.mfDetailsFormLocalModel.controls.licenceNum.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.orgManufactureId.setValue(null);
-    this.mfDetailsFormLocalModel.controls.orgManufactureId.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.orgManufactureLic.setValue(null);
-    this.mfDetailsFormLocalModel.controls.orgManufactureLic.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.appNum.setValue(null);
-    this.mfDetailsFormLocalModel.controls.appNum.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.deviceName.setValue(null);
-    this.mfDetailsFormLocalModel.controls.deviceName.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.requestDate.setValue(null);
-    this.mfDetailsFormLocalModel.controls.requestDate.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.briefDesc.setValue(null);
-    this.mfDetailsFormLocalModel.controls.briefDesc.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.rationale.setValue(null);
-    this.mfDetailsFormLocalModel.controls.rationale.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.proposedIndication.setValue(null);
-    this.mfDetailsFormLocalModel.controls.proposedIndication.markAsUntouched();
-    this.mfDetailsFormLocalModel.controls.requestTo.setValue(null);
-    this.mfDetailsFormLocalModel.controls.requestTo.markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['amendReason'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['amendReason'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['classChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['classChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['licenceChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['licenceChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['deviceChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['deviceChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['processChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['processChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['qualityChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['qualityChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['designChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['designChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['materialsChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['materialsChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['labellingChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['labellingChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['safetyChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['safetyChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['purposeChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['purposeChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['addChange'].setValue(false);
+    this.mfDetailsFormLocalModel.controls['addChange'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['licenceNum'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['licenceNum'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['orgManufactureId'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['orgManufactureId'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['orgManufactureLic'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['orgManufactureLic'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['appNum'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['appNum'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['deviceName'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['deviceName'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['requestDate'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['requestDate'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['briefDesc'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['briefDesc'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['rationale'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['rationale'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['proposedIndication'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['proposedIndication'].markAsUntouched();
+    this.mfDetailsFormLocalModel.controls['requestTo'].setValue(null);
+    this.mfDetailsFormLocalModel.controls['requestTo'].markAsUntouched();
   }
 
   reasonOnblur(int) {
     let itemValue = false;
     switch (int) {
       case 0:
-        itemValue = this.mfDetailsFormLocalModel.controls.classChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['classChange'].value;
         break;
       case 1:
-        itemValue = this.mfDetailsFormLocalModel.controls.licenceChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['licenceChange'].value;
         break;
       case 2:
-        itemValue = this.mfDetailsFormLocalModel.controls.deviceChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['deviceChange'].value;
         break;
       case 3:
-        itemValue = this.mfDetailsFormLocalModel.controls.processChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['processChange'].value;
         break;
       case 4:
-        itemValue = this.mfDetailsFormLocalModel.controls.qualityChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['qualityChange'].value;
         break;
       case 5:
-        itemValue = this.mfDetailsFormLocalModel.controls.designChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['designChange'].value;
         break;
       case 6:
-        itemValue = this.mfDetailsFormLocalModel.controls.materialsChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['materialsChange'].value;
         break;
       case 7:
-        itemValue = this.mfDetailsFormLocalModel.controls.labellingChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['labellingChange'].value;
         break;
       case 8:
-        itemValue = this.mfDetailsFormLocalModel.controls.safetyChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['safetyChange'].value;
         break;
       case 9:
-        itemValue = this.mfDetailsFormLocalModel.controls.purposeChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['purposeChange'].value;
         break;
       case 10:
-        itemValue = this.mfDetailsFormLocalModel.controls.addChange.value;
+        itemValue = this.mfDetailsFormLocalModel.controls['addChange'].value;
         break;
     }
     if (itemValue) {
-      this.mfDetailsFormLocalModel.controls.amendReason.setValue('reasonFilled');
+      this.mfDetailsFormLocalModel.controls['amendReason'].setValue('reasonFilled');
       this.reasonResults[int] = true;
     } else {
       this.reasonResults[int] = false;
       this._resetReasonFlag();
     }
     // this.showRationalRequired = (
-    //   (this.rawDescTypes[9].id === this.mfDetailsFormLocalModel.controls.descriptionType.value) &&
-    //   (this.rawActTypes[2].id === this.mfDetailsFormLocalModel.controls.activityType.value && (
-    //       this.mfDetailsFormLocalModel.controls.classChange.value ||
-    //       this.mfDetailsFormLocalModel.controls.licenceChange.value ||
-    //       this.mfDetailsFormLocalModel.controls.deviceChange.value ||
-    //       this.mfDetailsFormLocalModel.controls.addChange.value
+    //   (this.rawDescTypes[9].id === this.mfDetailsFormLocalModel.controls['descriptionType'].value) &&
+    //   (this.rawActTypes[2].id === this.mfDetailsFormLocalModel.controls['activityType'].value && (
+    //       this.mfDetailsFormLocalModel.controls['classChange'].value ||
+    //       this.mfDetailsFormLocalModel.controls['licenceChange'].value ||
+    //       this.mfDetailsFormLocalModel.controls['deviceChange'].value ||
+    //       this.mfDetailsFormLocalModel.controls['addChange'].value
     //     ))
     //   ) ? true : false;
-    // this.showProposeIndication =  (this.rawDescTypes[9].id === this.mfDetailsFormLocalModel.controls.descriptionType.value &&
-    //   this.rawActTypes[2].id === this.mfDetailsFormLocalModel.controls.activityType.value &&
-    //   this.devClassList[0].id === this.mfDetailsFormLocalModel.controls.deviceClass.value &&
-    //   this.mfDetailsFormLocalModel.controls.purposeChange.value
+    // this.showProposeIndication =  (this.rawDescTypes[9].id === this.mfDetailsFormLocalModel.controls['descriptionType'].value &&
+    //   this.rawActTypes[2].id === this.mfDetailsFormLocalModel.controls['activityType'].value &&
+    //   this.devClassList[0].id === this.mfDetailsFormLocalModel.controls['deviceClass'].value &&
+    //   this.mfDetailsFormLocalModel.controls['purposeChange'].value
     //   ) ? true : false;
     this.onblur();
   }
   showRationaleRequired() {
-    if ((this.rawDescTypes[this.rawDescMap.indexOf('i5')].id === this.mfDetailsFormLocalModel.controls.descriptionType.value &&
-      this.mfDetailsFormLocalModel.controls.deviceClass.value ) && (this.rawActTypes[0].id === this.mfDetailsFormLocalModel.controls.activityType.value ||
-      (this.rawActTypes[2].id === this.mfDetailsFormLocalModel.controls.activityType.value && (
-        this.mfDetailsFormLocalModel.controls.classChange.value ||
-        this.mfDetailsFormLocalModel.controls.licenceChange.value ||
-        this.mfDetailsFormLocalModel.controls.deviceChange.value ||
-        this.mfDetailsFormLocalModel.controls.addChange.value
+    if ((this.rawDescTypes[this.rawDescMap.indexOf('i5')].id === this.mfDetailsFormLocalModel.controls['descriptionType'].value &&
+      this.mfDetailsFormLocalModel.controls['deviceClass'].value ) && (this.rawActTypes[0].id === this.mfDetailsFormLocalModel.controls['activityType'].value ||
+      (this.rawActTypes[2].id === this.mfDetailsFormLocalModel.controls['activityType'].value && (
+        this.mfDetailsFormLocalModel.controls['classChange'].value ||
+        this.mfDetailsFormLocalModel.controls['licenceChange'].value ||
+        this.mfDetailsFormLocalModel.controls['deviceChange'].value ||
+        this.mfDetailsFormLocalModel.controls['addChange'].value
       )))) {
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.rationale.setValue(null);
-      this.mfDetailsFormLocalModel.controls.rationale.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['rationale'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['rationale'].markAsUntouched();
     }
     return false;
   }
   showProposeIndication() {
-    if (this.rawDescTypes[this.rawDescMap.indexOf('i5')].id === this.mfDetailsFormLocalModel.controls.descriptionType.value &&
-      this.rawActTypes[2].id === this.mfDetailsFormLocalModel.controls.activityType.value &&
-      this.devClassList[0].id === this.mfDetailsFormLocalModel.controls.deviceClass.value &&
-      this.mfDetailsFormLocalModel.controls.purposeChange.value) {
+    if (this.rawDescTypes[this.rawDescMap.indexOf('i5')].id === this.mfDetailsFormLocalModel.controls['descriptionType'].value &&
+      this.rawActTypes[2].id === this.mfDetailsFormLocalModel.controls['activityType'].value &&
+      this.devClassList[0].id === this.mfDetailsFormLocalModel.controls['deviceClass'].value &&
+      this.mfDetailsFormLocalModel.controls['purposeChange'].value) {
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.proposedIndication.setValue(null);
-      this.mfDetailsFormLocalModel.controls.proposedIndication.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['proposedIndication'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['proposedIndication'].markAsUntouched();
     }
     return false;
   }
 
   licenceNumOnblur() {
-    if (this.mfDetailsFormLocalModel.controls.licenceNum.value && !isNaN(this.mfDetailsFormLocalModel.controls.licenceNum.value)) {
-      const lnum = '000000' + this.mfDetailsFormLocalModel.controls.licenceNum.value;
-      this.mfDetailsFormLocalModel.controls.licenceNum.setValue(lnum.substring(lnum.length - 6));
+    if (this.mfDetailsFormLocalModel.controls['licenceNum'].value && !isNaN(this.mfDetailsFormLocalModel.controls['licenceNum'].value)) {
+      const lnum = '000000' + this.mfDetailsFormLocalModel.controls['licenceNum'].value;
+      this.mfDetailsFormLocalModel.controls['licenceNum'].setValue(lnum.substring(lnum.length - 6));
     }
     this.onblur();
   }
 
   private _resetReasonFlag() {
-    this.mfDetailsFormLocalModel.controls.amendReason.setValue(null);
+    this.mfDetailsFormLocalModel.controls['amendReason'].setValue(null);
     for (const reason of this.reasonResults){
       if (reason) {
-        this.mfDetailsFormLocalModel.controls.amendReason.setValue('reasonFilled');
+        this.mfDetailsFormLocalModel.controls['amendReason'].setValue('reasonFilled');
         break;
       }
     }
@@ -507,56 +507,56 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
 
   // set reason result after load data
   private _updateReasonResults() {
-    this.reasonResults[0] = this.mfDetailsFormLocalModel.controls.classChange.value;
-    this.reasonResults[1] = this.mfDetailsFormLocalModel.controls.licenceChange.value;
-    this.reasonResults[2] = this.mfDetailsFormLocalModel.controls.deviceChange.value;
-    this.reasonResults[3] = this.mfDetailsFormLocalModel.controls.processChange.value;
-    this.reasonResults[4] = this.mfDetailsFormLocalModel.controls.qualityChange.value;
-    this.reasonResults[5] = this.mfDetailsFormLocalModel.controls.designChange.value;
-    this.reasonResults[6] = this.mfDetailsFormLocalModel.controls.materialsChange.value;
-    this.reasonResults[7] = this.mfDetailsFormLocalModel.controls.labellingChange.value;
-    this.reasonResults[8] = this.mfDetailsFormLocalModel.controls.safetyChange.value;
-    this.reasonResults[9] = this.mfDetailsFormLocalModel.controls.purposeChange.value;
-    this.reasonResults[10] = this.mfDetailsFormLocalModel.controls.addChange.value;
+    this.reasonResults[0] = this.mfDetailsFormLocalModel.controls['classChange'].value;
+    this.reasonResults[1] = this.mfDetailsFormLocalModel.controls['licenceChange'].value;
+    this.reasonResults[2] = this.mfDetailsFormLocalModel.controls['deviceChange'].value;
+    this.reasonResults[3] = this.mfDetailsFormLocalModel.controls['processChange'].value;
+    this.reasonResults[4] = this.mfDetailsFormLocalModel.controls['qualityChange'].value;
+    this.reasonResults[5] = this.mfDetailsFormLocalModel.controls['designChange'].value;
+    this.reasonResults[6] = this.mfDetailsFormLocalModel.controls['materialsChange'].value;
+    this.reasonResults[7] = this.mfDetailsFormLocalModel.controls['labellingChange'].value;
+    this.reasonResults[8] = this.mfDetailsFormLocalModel.controls['safetyChange'].value;
+    this.reasonResults[9] = this.mfDetailsFormLocalModel.controls['purposeChange'].value;
+    this.reasonResults[10] = this.mfDetailsFormLocalModel.controls['addChange'].value;
   }
 
   isInitial() {
-    return (this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i5')].id);
+    return (this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i5')].id);
   }
 
   isLicence() {
-    return (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[1].id
-      || this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id);
+    return (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[1].id
+      || this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[9].id);
   }
 
   isClassSet() {
-    return (this.mfDetailsFormLocalModel.controls.deviceClass.value);
+    return (this.mfDetailsFormLocalModel.controls['deviceClass'].value);
   }
 
   isNotInitial() {
-    return (this.mfDetailsFormLocalModel.controls.descriptionType.value && !this.isInitial());
+    return (this.mfDetailsFormLocalModel.controls['descriptionType'].value && !this.isInitial());
   }
 
   isDescInitial() {
     if (this.isInitial()) {
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.deviceClass.setValue(null);
-      this.mfDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
-      this.mfDetailsFormLocalModel.controls.amendReason.setValue(null);
-      this.mfDetailsFormLocalModel.controls.amendReason.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['deviceClass'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['deviceClass'].markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['amendReason'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['amendReason'].markAsUntouched();
     }
     return false;
   }
 
   // isInitialNotLicence() {
-  //   if (this.isInitial() && this.mfDetailsFormLocalModel.controls.activityType.value && !this.isLicence()) {
+  //   if (this.isInitial() && this.mfDetailsFormLocalModel.controls['activityType'].value && !this.isLicence()) {
   //       return true;
   //   } else {
-  //     this.mfDetailsFormLocalModel.controls.deviceClass.setValue(null);
-  //     this.mfDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
-  //     this.mfDetailsFormLocalModel.controls.amendReason.setValue(null);
-  //     this.mfDetailsFormLocalModel.controls.amendReason.markAsUntouched();
+  //     this.mfDetailsFormLocalModel.controls['deviceClass'].setValue(null);
+  //     this.mfDetailsFormLocalModel.controls['deviceClass'].markAsUntouched();
+  //     this.mfDetailsFormLocalModel.controls['amendReason'].setValue(null);
+  //     this.mfDetailsFormLocalModel.controls['amendReason'].markAsUntouched();
   //   }
   //   return false;
   // }
@@ -565,8 +565,8 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
     if (this.isInitial() && !this.isLicence() && this.isClassSet()) {
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.amendReason.setValue(null);
-      this.mfDetailsFormLocalModel.controls.amendReason.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['amendReason'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['amendReason'].markAsUntouched();
     }
     return false;
   }
@@ -575,18 +575,18 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
     if (this.isInitial() && this.isLicence()) {
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.deviceName.setValue(null);
-      this.mfDetailsFormLocalModel.controls.deviceName.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['deviceName'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['deviceName'].markAsUntouched();
     }
     return false;
   }
 
   isNotUnsolicited() {
-    if (this.mfDetailsFormLocalModel.controls.descriptionType.value !== this.rawDescTypes[this.rawDescMap.indexOf('i25')].id) {
+    if (this.mfDetailsFormLocalModel.controls['descriptionType'].value !== this.rawDescTypes[this.rawDescMap.indexOf('i25')].id) {
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.isSolicitedInfo.setValue(null);
-      this.mfDetailsFormLocalModel.controls.isSolicitedInfo.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['isSolicitedInfo'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['isSolicitedInfo'].markAsUntouched();
       this.isSolicitedFlag.emit(false);
     }
     return false;
@@ -594,67 +594,67 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
 
   isNotInitialMmUd() {
     if (this.isNotInitial() && (
-      this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i1')].id ||
-          this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i7')].id ||
-      this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i14')].id ||
-      this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i15')].id ||
-      this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i20')].id ||
-      this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i26')].id
+      this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i1')].id ||
+          this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i7')].id ||
+      this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i14')].id ||
+      this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i15')].id ||
+      this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i20')].id ||
+      this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i26')].id
       )) {
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.appNum.setValue(null);
-      this.mfDetailsFormLocalModel.controls.appNum.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['appNum'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['appNum'].markAsUntouched();
     }
     return false;
   }
 
   isMmUd() {
-    if (this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i8')].id ||
-      this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i9')].id ||
-      this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i10')].id ||
-      this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i18')].id ||
-      this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i19')].id ) {
+    if (this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i8')].id ||
+      this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i9')].id ||
+      this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i10')].id ||
+      this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i18')].id ||
+      this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i19')].id ) {
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.appNumOpt.setValue(null);
-      this.mfDetailsFormLocalModel.controls.appNumOpt.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['appNumOpt'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['appNumOpt'].markAsUntouched();
     }
     return false;
   }
 
   isHasDdtMandatory() {
-    if (this.isInitialAndLicence() || this.mfDetailsFormLocalModel.controls.deviceChange.value) {
-      this.mfDetailsFormLocalModel.controls.hasDdt.setValue(null);
-      this.mfDetailsFormLocalModel.controls.hasDdt.markAsUntouched();
+    if (this.isInitialAndLicence() || this.mfDetailsFormLocalModel.controls['deviceChange'].value) {
+      this.mfDetailsFormLocalModel.controls['hasDdt'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['hasDdt'].markAsUntouched();
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.hasDdtMan.setValue(null);
-      this.mfDetailsFormLocalModel.controls.hasDdtMan.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['hasDdtMan'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['hasDdtMan'].markAsUntouched();
     }
     return false;
   }
 
   isLicenceNameChanged() {
-    if (this.mfDetailsFormLocalModel.controls.licenceChange.value) {
+    if (this.mfDetailsFormLocalModel.controls['licenceChange'].value) {
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.licenceName.setValue(null);
-      this.mfDetailsFormLocalModel.controls.licenceName.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['licenceName'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['licenceName'].markAsUntouched();
     }
     return false;
   }
 
   isDeviceNameChanged() {
-    return (this.mfDetailsFormLocalModel.controls.deviceChange.value);
+    return (this.mfDetailsFormLocalModel.controls['deviceChange'].value);
   }
 
   isMm() {
-    if (this.mfDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i9')].id) {
+    if (this.mfDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i9')].id) {
       return true;
     } else {
-      this.mfDetailsFormLocalModel.controls.meetingId.setValue(null);
-      this.mfDetailsFormLocalModel.controls.meetingId.markAsUntouched();
+      this.mfDetailsFormLocalModel.controls['meetingId'].setValue(null);
+      this.mfDetailsFormLocalModel.controls['meetingId'].markAsUntouched();
     }
     return false;
   }
@@ -664,10 +664,10 @@ export class MasterFileDetailsComponent implements OnInit, OnChanges, AfterViewI
   }
 
   showOrgManufactureId() {
-    if (this.mfDetailsFormLocalModel.controls.descriptionType.value
-        && this.mfDetailsFormLocalModel.controls.descriptionType.value !== this.rawDescTypes[this.rawDescMap.indexOf('i26')].id
-        && (this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id
-            || this.mfDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id
+    if (this.mfDetailsFormLocalModel.controls['descriptionType'].value
+        && this.mfDetailsFormLocalModel.controls['descriptionType'].value !== this.rawDescTypes[this.rawDescMap.indexOf('i26')].id
+        && (this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[9].id
+            || this.mfDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[10].id
             )
       ) {
       return true;

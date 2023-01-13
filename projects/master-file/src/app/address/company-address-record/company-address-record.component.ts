@@ -168,12 +168,12 @@ export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
     } else {
       // id is used for an error to ensure the record gets saved
       let temp = this.addressRecordModel.value.id;
-      this.addressRecordModel.controls.id.setValue(1);
+      this.addressRecordModel.controls['id'].setValue(1);
       if (this.addressRecordModel.valid) {
-        this.addressRecordModel.controls.id.setValue(temp);
+        this.addressRecordModel.controls['id'].setValue(temp);
         this.saveRecord.emit((this.addressRecordModel));
       } else {
-        this.addressRecordModel.controls.id.setValue(temp);
+        this.addressRecordModel.controls['id'].setValue(temp);
         this.showErrorSummary = true;
         this.showErrors = true;
       }

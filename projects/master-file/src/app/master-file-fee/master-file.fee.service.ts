@@ -51,15 +51,15 @@ export class MasterFileFeeService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, mfFeeModel) {
-    mfFeeModel.has_fees = formRecord.controls.hasFees.value;
-    mfFeeModel.billing_company_id = formRecord.controls.billCompanyId.value;
-    mfFeeModel.billing_contact_id = formRecord.controls.billContactId.value;
+    mfFeeModel.has_fees = formRecord.controls['hasFees'].value;
+    mfFeeModel.billing_company_id = formRecord.controls['billCompanyId'].value;
+    mfFeeModel.billing_contact_id = formRecord.controls['billContactId'].value;
   }
 
   public static mapDataModelToFormModel(mfFeeModel, formRecord: FormGroup) {
-    formRecord.controls.hasFees.setValue(mfFeeModel.has_fees);
-    formRecord.controls.billCompanyId.setValue(mfFeeModel.billing_company_id);
-    formRecord.controls.billContactId.setValue(mfFeeModel.billing_contact_id);
+    formRecord.controls['hasFees'].setValue(mfFeeModel.has_fees);
+    formRecord.controls['billCompanyId'].setValue(mfFeeModel.billing_company_id);
+    formRecord.controls['billContactId'].setValue(mfFeeModel.billing_contact_id);
   }
 
 }

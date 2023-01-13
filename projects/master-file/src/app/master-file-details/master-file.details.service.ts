@@ -492,7 +492,7 @@ export class MasterFileDetailsService {
     const dcArray = MasterFileDetailsService._convertListText(
             MasterFileDetailsService.getDeviceClassList(), MasterFileDetailsService.lang);
     // masterFileModel.routing_id = formRecord.controls.routingId.value;
-    masterFileModel.dossier_id = formRecord.controls.dossierId.value;
+    masterFileModel.dossier_id = formRecord.controls['dossierId'].value;
     masterFileModel.dossier_type = {
       '__text': 'Medical Device',
       '_id': 'D23',
@@ -500,18 +500,18 @@ export class MasterFileDetailsService {
       '_label_fr': 'Medical Device'
     };
 
-    if (formRecord.controls.manuCompanyId.value) {
-      masterFileModel.company_id = 'K' + formRecord.controls.manuCompanyId.value;
+    if (formRecord.controls['manuCompanyId'].value) {
+      masterFileModel.company_id = 'K' + formRecord.controls['manuCompanyId'].value;
     }
-    masterFileModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
-    if (formRecord.controls.reguCompanyId.value) {
-      masterFileModel.regulatory_company_id = 'K' + formRecord.controls.reguCompanyId.value;
+    masterFileModel.manufacturing_contact_id = formRecord.controls['manuContactId'].value;
+    if (formRecord.controls['reguCompanyId'].value) {
+      masterFileModel.regulatory_company_id = 'K' + formRecord.controls['reguCompanyId'].value;
     }
-    masterFileModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
-   // masterFileModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
+    masterFileModel.regulatory_contact_id = formRecord.controls['reguContactId'].value;
+   // masterFileModel.regulatory_activity_lead = formRecord.controls['activityLead'].value;
 
-    if (formRecord.controls.activityLead.value) {
-      const recordIndex1 = ListService.getRecord(activityLeadList, formRecord.controls.activityLead.value, 'id');
+    if (formRecord.controls['activityLead'].value) {
+      const recordIndex1 = ListService.getRecord(activityLeadList, formRecord.controls['activityLead'].value, 'id');
       if (recordIndex1 > -1) {
         masterFileModel.regulatory_activity_lead = {
           '__text': activityLeadList[recordIndex1].text,
@@ -524,9 +524,9 @@ export class MasterFileDetailsService {
       masterFileModel.regulatory_activity_lead = null;
     }
 
-    // masterFileModel.activity_type = formRecord.controls.activityType.value;
-    if (formRecord.controls.activityType.value) {
-      const recordIndex2 = ListService.getRecord(activityTypeList, formRecord.controls.activityType.value, 'id');
+    // masterFileModel.activity_type = formRecord.controls['activityType'].value;
+    if (formRecord.controls['activityType'].value) {
+      const recordIndex2 = ListService.getRecord(activityTypeList, formRecord.controls['activityType'].value, 'id');
       if (recordIndex2 > -1) {
         masterFileModel.regulatory_activity_type = {
           '__text': activityTypeList[recordIndex2].text,
@@ -539,8 +539,8 @@ export class MasterFileDetailsService {
       masterFileModel.regulatory_activity_type = null;
     }
 
-    if (formRecord.controls.descriptionType.value) {
-      const recordIndex3 = ListService.getRecord(descArray, formRecord.controls.descriptionType.value, 'id');
+    if (formRecord.controls['descriptionType'].value) {
+      const recordIndex3 = ListService.getRecord(descArray, formRecord.controls['descriptionType'].value, 'id');
       if (recordIndex3 > -1) {
         masterFileModel.description_type = {
           '__text': descArray[recordIndex3].text,
@@ -552,9 +552,9 @@ export class MasterFileDetailsService {
     } else {
       masterFileModel.description_type = null;
     }
-    // masterFileModel.device_class = formRecord.controls.deviceClass.value;
-    if (formRecord.controls.deviceClass.value) {
-      const recordIndex4 = ListService.getRecord(dcArray, formRecord.controls.deviceClass.value, 'id');
+    // masterFileModel.device_class = formRecord.controls['deviceClass'].value;
+    if (formRecord.controls['deviceClass'].value) {
+      const recordIndex4 = ListService.getRecord(dcArray, formRecord.controls['deviceClass'].value, 'id');
       if (recordIndex4 > -1) {
         masterFileModel.device_class = {
           '__text': dcArray[recordIndex4].text,
@@ -566,84 +566,84 @@ export class MasterFileDetailsService {
     } else {
       masterFileModel.device_class = null;
     }
-    masterFileModel.amend_reasons.classification_change = formRecord.controls.classChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.amend_reasons.licence_change = formRecord.controls.licenceChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.amend_reasons.device_change = formRecord.controls.deviceChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.amend_reasons.process_change = formRecord.controls.processChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.amend_reasons.quality_change = formRecord.controls.qualityChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.amend_reasons.design_change = formRecord.controls.designChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.amend_reasons.materials_change = formRecord.controls.materialsChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.amend_reasons.labelling_change = formRecord.controls.labellingChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.amend_reasons.safety_change = formRecord.controls.safetyChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.amend_reasons.purpose_change = formRecord.controls.purposeChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.amend_reasons.add_delete_change = formRecord.controls.addChange.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.licence_number = formRecord.controls.licenceNum.value;
-    if (formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i9')].id &&
-      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i2')].id &&
-      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i3')].id &&
-      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i6')].id &&
-      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i7')].id &&
-      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i10')].id &&
-      formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i12')].id) {
-      masterFileModel.application_number = formRecord.controls.appNum.value;
-    } else if (formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i2')].id  ||
-            formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i3')].id  ||
-            formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i6')].id  ||
-            formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i7')].id  ||
-            formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i10')].id  ||
-            formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i12')].id ) {
-      masterFileModel.application_number = formRecord.controls.appNumOpt.value;
+    masterFileModel.amend_reasons.classification_change = formRecord.controls['classChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.amend_reasons.licence_change = formRecord.controls['licenceChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.amend_reasons.device_change = formRecord.controls['deviceChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.amend_reasons.process_change = formRecord.controls['processChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.amend_reasons.quality_change = formRecord.controls['qualityChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.amend_reasons.design_change = formRecord.controls['designChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.amend_reasons.materials_change = formRecord.controls['materialsChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.amend_reasons.labelling_change = formRecord.controls['labellingChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.amend_reasons.safety_change = formRecord.controls['safetyChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.amend_reasons.purpose_change = formRecord.controls['purposeChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.amend_reasons.add_delete_change = formRecord.controls['addChange'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.licence_number = formRecord.controls['licenceNum'].value;
+    if (formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i9')].id &&
+      formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i2')].id &&
+      formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i3')].id &&
+      formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i6')].id &&
+      formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i7')].id &&
+      formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i10')].id &&
+      formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i12')].id) {
+      masterFileModel.application_number = formRecord.controls['appNum'].value;
+    } else if (formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i2')].id  ||
+            formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i3')].id  ||
+            formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i6')].id  ||
+            formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i7')].id  ||
+            formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i10')].id  ||
+            formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i12')].id ) {
+      masterFileModel.application_number = formRecord.controls['appNumOpt'].value;
     }
-    masterFileModel.meeting_id = formRecord.controls.meetingId.value;
-    masterFileModel.device_name = formRecord.controls.deviceName.value;
-    masterFileModel.proposed_licence_name = formRecord.controls.licenceName.value;
-    masterFileModel.request_version = formRecord.controls.requestVersion.value;
-    masterFileModel.request_date = formRecord.controls.requestDate.value;
-    masterFileModel.request_to = formRecord.controls.requestTo.value;
-    masterFileModel.brief_description = formRecord.controls.briefDesc.value;
+    masterFileModel.meeting_id = formRecord.controls['meetingId'].value;
+    masterFileModel.device_name = formRecord.controls['deviceName'].value;
+    masterFileModel.proposed_licence_name = formRecord.controls['licenceName'].value;
+    masterFileModel.request_version = formRecord.controls['requestVersion'].value;
+    masterFileModel.request_date = formRecord.controls['requestDate'].value;
+    masterFileModel.request_to = formRecord.controls['requestTo'].value;
+    masterFileModel.brief_description = formRecord.controls['briefDesc'].value;
     masterFileModel.master_file_description = MasterFileDetailsService._setConcatDetails(masterFileModel);
-    // if (formRecord.controls.deviceChange.value ||
-    //     (formRecord.controls.activityType.value === activityTypeList[1].id &&
-    //           formRecord.controls.descriptionType.value === descArray[9].id)) {
-      masterFileModel.has_ddt = formRecord.controls.hasDdtMan.value;
+    // if (formRecord.controls['deviceChange'].value ||
+    //     (formRecord.controls['activityType'].value === activityTypeList[1].id &&
+    //           formRecord.controls['descriptionType'].value === descArray[9].id)) {
+      masterFileModel.has_ddt = formRecord.controls['hasDdtMan'].value;
     // } else {
-    //   masterFileModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
+    //   masterFileModel.has_ddt = formRecord.controls['hasDdt'].value ? GlobalsService.YES : GlobalsService.NO;
     // }
-    masterFileModel.has_app_info = formRecord.controls.hasAppInfo.value ? GlobalsService.YES : GlobalsService.NO;
-    masterFileModel.is_solicited_info = formRecord.controls.isSolicitedInfo.value;
-    masterFileModel.rationale = formRecord.controls.rationale.value;
-    masterFileModel.proposed_indication = formRecord.controls.proposedIndication.value;
-    masterFileModel.org_manufacture_id = formRecord.controls.orgManufactureId.value;
-    masterFileModel.org_manufacture_lic = formRecord.controls.orgManufactureLic.value;
+    masterFileModel.has_app_info = formRecord.controls['hasAppInfo'].value ? GlobalsService.YES : GlobalsService.NO;
+    masterFileModel.is_solicited_info = formRecord.controls['isSolicitedInfo'].value;
+    masterFileModel.rationale = formRecord.controls['rationale'].value;
+    masterFileModel.proposed_indication = formRecord.controls['proposedIndication'].value;
+    masterFileModel.org_manufacture_id = formRecord.controls['orgManufactureId'].value;
+    masterFileModel.org_manufacture_lic = formRecord.controls['orgManufactureLic'].value;
   }
 
   public static mapDataModelToFormModel(masterFileModel, formRecord: FormGroup, lang) {
     // formRecord.controls.routingId.setValue(masterFileModel.routing_id);
-    formRecord.controls.dossierId.setValue(masterFileModel.dossier_id);
+    formRecord.controls['dossierId'].setValue(masterFileModel.dossier_id);
     if (masterFileModel.company_id) {
-      formRecord.controls.manuCompanyId.setValue(masterFileModel.company_id.slice(1));
+      formRecord.controls['manuCompanyId'].setValue(masterFileModel.company_id.slice(1));
     }
-    formRecord.controls.manuContactId.setValue(masterFileModel.manufacturing_contact_id);
+    formRecord.controls['manuContactId'].setValue(masterFileModel.manufacturing_contact_id);
     if (masterFileModel.regulatory_company_id) {
-      formRecord.controls.reguCompanyId.setValue(masterFileModel.regulatory_company_id.slice(1));
+      formRecord.controls['reguCompanyId'].setValue(masterFileModel.regulatory_company_id.slice(1));
     }
-    formRecord.controls.reguContactId.setValue(masterFileModel.regulatory_contact_id);
+    formRecord.controls['reguContactId'].setValue(masterFileModel.regulatory_contact_id);
 
     /**
-     formRecord.controls.activityLead.setValue(masterFileModel.activity_lead);
-     formRecord.controls.activityType.setValue(masterFileModel.activity_type);
+     formRecord.controls['activityLead'].setValue(masterFileModel.activity_lead);
+     formRecord.controls['activityType'].setValue(masterFileModel.activity_type);
 */
 
     if (masterFileModel.regulatory_activity_lead) {
       const activityLeads = MasterFileDetailsService._convertListText(MasterFileDetailsService.getRawActivityLeadList(), lang);
       const recordIndex = ListService.getRecord(activityLeads, masterFileModel.regulatory_activity_lead._id, 'id');
       if (recordIndex > -1) {
-        formRecord.controls.activityLead.setValue(activityLeads[recordIndex].id);
+        formRecord.controls['activityLead'].setValue(activityLeads[recordIndex].id);
       } else {
-        formRecord.controls.activityLead.setValue(null);
+        formRecord.controls['activityLead'].setValue(null);
       }
     } else {
-      formRecord.controls.activityLead.setValue(null);
+      formRecord.controls['activityLead'].setValue(null);
     }
 
 
@@ -651,64 +651,64 @@ export class MasterFileDetailsService {
     if (masterFileModel.regulatory_activity_type) {
       const recordIndex = ListService.getRecord(activityTypes, masterFileModel.regulatory_activity_type._id, 'id');
       if (recordIndex > -1) {
-        formRecord.controls.activityType.setValue(activityTypes[recordIndex].id);
+        formRecord.controls['activityType'].setValue(activityTypes[recordIndex].id);
       } else {
-        formRecord.controls.activityType.setValue(null);
+        formRecord.controls['activityType'].setValue(null);
       }
     } else {
-      formRecord.controls.activityType.setValue(null);
+      formRecord.controls['activityType'].setValue(null);
     }
 
     const descriptions = MasterFileDetailsService._convertListText(MasterFileDetailsService.getRawMFDescList(), lang);
     if (masterFileModel.description_type) {
       const recordIndex = ListService.getRecord(descriptions, masterFileModel.description_type._id, 'id');
       if (recordIndex > -1) {
-        formRecord.controls.descriptionType.setValue(descriptions[recordIndex].id);
+        formRecord.controls['descriptionType'].setValue(descriptions[recordIndex].id);
       } else {
-        formRecord.controls.descriptionType.setValue(null);
+        formRecord.controls['descriptionType'].setValue(null);
       }
     } else {
-      formRecord.controls.descriptionType.setValue(null);
+      formRecord.controls['descriptionType'].setValue(null);
     }
 
-    // formRecord.controls.deviceClass.setValue(masterFileModel.device_class);
+    // formRecord.controls['deviceClass'].setValue(masterFileModel.device_class);
     const dcs = MasterFileDetailsService._convertListText(MasterFileDetailsService.getDeviceClassList(), lang);
     if (masterFileModel.device_class) {
       const recordIndex = ListService.getRecord(dcs, masterFileModel.device_class._id, 'id');
       if (recordIndex > -1) {
-        formRecord.controls.deviceClass.setValue(dcs[recordIndex].id);
+        formRecord.controls['deviceClass'].setValue(dcs[recordIndex].id);
       } else {
-        formRecord.controls.deviceClass.setValue(null);
+        formRecord.controls['deviceClass'].setValue(null);
       }
     } else {
-      formRecord.controls.deviceClass.setValue(null);
+      formRecord.controls['deviceClass'].setValue(null);
     }
     const clsc = masterFileModel.amend_reasons.classification_change === GlobalsService.YES ? true : false;
-    formRecord.controls.classChange.setValue(clsc);
+    formRecord.controls['classChange'].setValue(clsc);
     const licc = masterFileModel.amend_reasons.licence_change === GlobalsService.YES ? true : false;
-    formRecord.controls.licenceChange.setValue(licc);
+    formRecord.controls['licenceChange'].setValue(licc);
     const decc = masterFileModel.amend_reasons.device_change === GlobalsService.YES ? true : false;
-    formRecord.controls.deviceChange.setValue(decc);
+    formRecord.controls['deviceChange'].setValue(decc);
     const proc = masterFileModel.amend_reasons.process_change === GlobalsService.YES ? true : false;
-    formRecord.controls.processChange.setValue(proc);
+    formRecord.controls['processChange'].setValue(proc);
     const quac = masterFileModel.amend_reasons.quality_change === GlobalsService.YES ? true : false;
-    formRecord.controls.qualityChange.setValue(quac);
+    formRecord.controls['qualityChange'].setValue(quac);
     const desc = masterFileModel.amend_reasons.design_change === GlobalsService.YES ? true : false;
-    formRecord.controls.designChange.setValue(desc);
+    formRecord.controls['designChange'].setValue(desc);
     const matc = masterFileModel.amend_reasons.materials_change === GlobalsService.YES ? true : false;
-    formRecord.controls.materialsChange.setValue(matc);
+    formRecord.controls['materialsChange'].setValue(matc);
     const labc = masterFileModel.amend_reasons.labelling_change === GlobalsService.YES ? true : false;
-    formRecord.controls.labellingChange.setValue(labc);
+    formRecord.controls['labellingChange'].setValue(labc);
     const safc = masterFileModel.amend_reasons.safety_change === GlobalsService.YES ? true : false;
-    formRecord.controls.safetyChange.setValue(safc);
+    formRecord.controls['safetyChange'].setValue(safc);
     const purc = masterFileModel.amend_reasons.purpose_change === GlobalsService.YES ? true : false;
-    formRecord.controls.purposeChange.setValue(purc);
+    formRecord.controls['purposeChange'].setValue(purc);
     const addc = masterFileModel.amend_reasons.add_delete_change === GlobalsService.YES ? true : false;
-    formRecord.controls.addChange.setValue(addc);
+    formRecord.controls['addChange'].setValue(addc);
     if (clsc || licc || decc || proc || quac || desc || matc || labc || safc || purc || addc) {
-      formRecord.controls.amendReason.setValue('reasonFilled');
+      formRecord.controls['amendReason'].setValue('reasonFilled');
     }
-    formRecord.controls.licenceNum.setValue(masterFileModel.licence_number);
+    formRecord.controls['licenceNum'].setValue(masterFileModel.licence_number);
     if (masterFileModel.description_type._id &&
       (masterFileModel.description_type._id === descriptions[2].id ||
         masterFileModel.description_type._id === descriptions[3].id ||
@@ -716,33 +716,33 @@ export class MasterFileDetailsService {
         masterFileModel.description_type._id === descriptions[7].id ||
         masterFileModel.description_type._id === descriptions[10].id ||
         masterFileModel.description_type._id === descriptions[12].id)) {
-      formRecord.controls.appNumOpt.setValue(masterFileModel.application_number);
+      formRecord.controls['appNumOpt'].setValue(masterFileModel.application_number);
     } else {
-      formRecord.controls.appNum.setValue(masterFileModel.application_number);
+      formRecord.controls['appNum'].setValue(masterFileModel.application_number);
     }
-    formRecord.controls.meetingId.setValue(masterFileModel.meeting_id);
-    formRecord.controls.deviceName.setValue(masterFileModel.device_name);
-    formRecord.controls.licenceName.setValue(masterFileModel.proposed_licence_name);
-    formRecord.controls.requestVersion.setValue(masterFileModel.request_version);
-    formRecord.controls.requestDate.setValue(masterFileModel.request_date);
-    formRecord.controls.requestTo.setValue(masterFileModel.request_to);
-    formRecord.controls.briefDesc.setValue(masterFileModel.brief_description);
-    formRecord.controls.mfDescription.setValue(masterFileModel.master_file_description);
+    formRecord.controls['meetingId'].setValue(masterFileModel.meeting_id);
+    formRecord.controls['deviceName'].setValue(masterFileModel.device_name);
+    formRecord.controls['licenceName'].setValue(masterFileModel.proposed_licence_name);
+    formRecord.controls['requestVersion'].setValue(masterFileModel.request_version);
+    formRecord.controls['requestDate'].setValue(masterFileModel.request_date);
+    formRecord.controls['requestTo'].setValue(masterFileModel.request_to);
+    formRecord.controls['briefDesc'].setValue(masterFileModel.brief_description);
+    formRecord.controls['mfDescription'].setValue(masterFileModel.master_file_description);
     // const hasddt = masterFileModel.has_ddt === GlobalsService.YES ? true : false;
-    // if (formRecord.controls.deviceChange.value ||
+    // if (formRecord.controls['deviceChange'].value ||
     //   (masterFileModel.regulatory_activity_type._id === activityTypes[1].id &&
     //         masterFileModel.description_type._id === descriptions[9].id)) {
-      formRecord.controls.hasDdtMan.setValue(masterFileModel.has_ddt);
+      formRecord.controls['hasDdtMan'].setValue(masterFileModel.has_ddt);
     // } else {
-    //   formRecord.controls.hasDdt.setValue(hasddt);
+    //   formRecord.controls['hasDdt'].setValue(hasddt);
     // }
     const hasapp = masterFileModel.has_app_info === GlobalsService.YES ? true : false;
-    formRecord.controls.hasAppInfo.setValue(hasapp);
-    formRecord.controls.isSolicitedInfo.setValue(masterFileModel.is_solicited_info);
-    formRecord.controls.rationale.setValue(masterFileModel.rationale);
-    formRecord.controls.proposedIndication.setValue(masterFileModel.proposed_indication);
-    formRecord.controls.orgManufactureId.setValue(masterFileModel.org_manufacture_id);
-    formRecord.controls.orgManufactureLic.setValue(masterFileModel.org_manufacture_lic);
+    formRecord.controls['hasAppInfo'].setValue(hasapp);
+    formRecord.controls['isSolicitedInfo'].setValue(masterFileModel.is_solicited_info);
+    formRecord.controls['rationale'].setValue(masterFileModel.rationale);
+    formRecord.controls['proposedIndication'].setValue(masterFileModel.proposed_indication);
+    formRecord.controls['orgManufactureId'].setValue(masterFileModel.org_manufacture_id);
+    formRecord.controls['orgManufactureLic'].setValue(masterFileModel.org_manufacture_lic);
   }
 
   /***

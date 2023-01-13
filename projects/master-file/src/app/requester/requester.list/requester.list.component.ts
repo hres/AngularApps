@@ -239,7 +239,7 @@ export class RequesterListComponent extends ListOperations implements OnInit, On
    * @param record
    */
   public revertRequester(record): void {
-    let recordId = record.controls.id.value;
+    let recordId = record.controls['id'].value;
 
     let modelRecord = this.service.getModelRecord(recordId);
     if (!modelRecord) {

@@ -38,9 +38,9 @@ export class RequesterDetailsService {
 
 
   public static mapFormModelToDataModel(formRecord: FormGroup, requesterModel, requesterList) {
-    if (formRecord.controls.requester.value && formRecord.controls.requester.value.length > 0) {
-      requesterModel.requester_text = formRecord.controls.requester.value[0].text;
-      const requester_record = RequesterDetailsService.findRecordByTerm(requesterList, formRecord.controls.requester.value[0], 'id');
+    if (formRecord.controls['requester'].value && formRecord.controls['requester'].value.length > 0) {
+      requesterModel.requester_text = formRecord.controls['requester'].value[0].text;
+      const requester_record = RequesterDetailsService.findRecordByTerm(requesterList, formRecord.controls['requester'].value[0], 'id');
       // this removes the 'text' property that the control needs
       if (requester_record && requester_record.id) {
         requesterModel.requester = {
@@ -51,10 +51,10 @@ export class RequesterDetailsService {
         };
       } else {
         requesterModel.requester = {
-          '__text': formRecord.controls.requester.value,
-          '_id': formRecord.controls.requester.value,
-          '_label_en': formRecord.controls.requester.value,
-          '_label_fr': formRecord.controls.requester.value
+          '__text': formRecord.controls['requester'].value,
+          '_id': formRecord.controls['requester'].value,
+          '_label_en': formRecord.controls['requester'].value,
+          '_label_fr': formRecord.controls['requester'].value
         };
       }
     } else {
@@ -69,7 +69,7 @@ export class RequesterDetailsService {
     if (recordIndex > -1) {
       labelText = requesterList[recordIndex].text;
       if (requesterModel.requester) {
-        formRecord.controls.requester.setValue(labelText
+        formRecord.controls['requester'].setValue(labelText
           // {
           //   'id': requesterList[recordIndex].id,
           //   'text': labelText,
@@ -77,10 +77,10 @@ export class RequesterDetailsService {
           // }
         );
       } else {
-        formRecord.controls.requester.setValue(null);
+        formRecord.controls['requester'].setValue(null);
       }
     } else if (requesterModel.requester._id) {
-      formRecord.controls.requester.setValue(requesterModel.requester.__text
+      formRecord.controls['requester'].setValue(requesterModel.requester.__text
         // {
         //   'id': requesterModel.requester._id,
         //   'text': requesterModel.requester.__text,
@@ -88,7 +88,7 @@ export class RequesterDetailsService {
         // }
       );
     } else if (requesterModel.requester) {
-      formRecord.controls.requester.setValue([
+      formRecord.controls['requester'].setValue([
         {
           'id': requesterModel.requester,
           'text': requesterModel.requester,
@@ -99,14 +99,14 @@ export class RequesterDetailsService {
   }
 
   public static getRecordId(record: FormGroup) {
-    return (record.controls.id.value);
+    return (record.controls['id'].value);
   }
 
   public static setRecordId(record: FormGroup, value: number): void {
     if (!record) {
       return;
     }
-    record.controls.id.setValue(value);
+    record.controls['id'].setValue(value);
   }
 
   /**

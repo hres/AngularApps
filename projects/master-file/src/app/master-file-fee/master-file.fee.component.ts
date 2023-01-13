@@ -10,7 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {GlobalsService} from '../globals/globals.service';
 import {ListService} from '../list-service';
 import {isArray} from 'util';
-import {noUndefined} from '@angular/compiler/src/util';
+// import {noUndefined} from '@angular/compiler/src/util';
 
 
 @Component({
@@ -140,14 +140,14 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
 
 
   hasFeeYes() {
-    if (this.mfFeeFormLocalModel.controls.hasFees.value) {
-      if (this.mfFeeFormLocalModel.controls.hasFees.value === GlobalsService.YES) {
+    if (this.mfFeeFormLocalModel.controls['hasFees'].value) {
+      if (this.mfFeeFormLocalModel.controls['hasFees'].value === GlobalsService.YES) {
         return true;
       } else {
-        this.mfFeeFormLocalModel.controls.billCompanyId.setValue(null);
-        this.mfFeeFormLocalModel.controls.billCompanyId.markAsUntouched();
-        this.mfFeeFormLocalModel.controls.billContactId.setValue(null);
-        this.mfFeeFormLocalModel.controls.billContactId.markAsUntouched();
+        this.mfFeeFormLocalModel.controls['billCompanyId'].setValue(null);
+        this.mfFeeFormLocalModel.controls['billCompanyId'].markAsUntouched();
+        this.mfFeeFormLocalModel.controls['billContactId'].setValue(null);
+        this.mfFeeFormLocalModel.controls['billContactId'].markAsUntouched();
         // todo: add more fields under hasfees here ???
       }
     }

@@ -55,8 +55,13 @@
             </h2>
           </header>
           <div class="panel-body">
-            <master-file-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
+            <!--<master-file-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
                               [detailsChanged]="updateChild" [masterFileModel]="masterFileModel"
+                              (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpIndex"
+                              (detailErrorList)="processDetailErrors($event)"></master-file-details> -->
+            <!--todo clean the not used parameters, detailsChanged, userList .. -->
+            <master-file-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
+                              [masterFileModel]="masterFileModel"
                               (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpIndex"
                               (detailErrorList)="processDetailErrors($event)"></master-file-details>
 

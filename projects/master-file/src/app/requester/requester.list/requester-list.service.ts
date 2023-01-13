@@ -79,17 +79,17 @@ export class RequesterListService extends ListService implements IMasterDetails 
   }
 
   public saveRecord(record: FormGroup) {
-    if (record.controls.isNew.value) {
+    if (record.controls['isNew'].value) {
       // this.setRecordId(record, this.getNextIndex());
-      record.controls.isNew.setValue(false);
+      record.controls['isNew'].setValue(false);
       let requesterModel = this.getRequesterModel();
       // this.requesterFormToData(record, requesterModel, this.userList);
-      const value = record.controls.requesterDetails.value.requester;
+      const value = record.controls['requesterDetails'].value.requester;
       requesterModel = {'id': this.getCurrentIndex(), 'requester': {'_id': value, '_label_en': value, '_label_fr': value,'__text': value}, 'requester_text': value};
       this.requesterList.push(requesterModel);
       return requesterModel.id;
     } else {
-      const modelRecord = this.getModelRecord(record.controls.id.value);
+      const modelRecord = this.getModelRecord(record.controls['id'].value);
       const updatedModel = this.requesterFormToData(record, modelRecord, this.userList);
       modelRecord.requester_text = updatedModel.value.requesterDetails.requester;
     }

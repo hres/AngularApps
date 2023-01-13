@@ -71,7 +71,7 @@ export class ExpanderComponent implements OnChanges {
    * The number of columns for this expander. Used to determine columnSpan
    * @type {number}
    */
-  private numberColSpan = 1;
+  numberColSpan = 1;
   public dataItems = [];
   private _expanderValid: boolean;
 

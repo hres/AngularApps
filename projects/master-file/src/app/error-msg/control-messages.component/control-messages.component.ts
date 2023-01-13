@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {ValidationService} from '../../validation.service';
-import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
+import {NgbNav} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'control-messages',
@@ -49,7 +49,7 @@ export class ControlMessagesComponent implements OnChanges {
    *  A reference the tabset control NgbTabset from Angular bootstrap
    * @type {null}
    */
-  public tabSet: NgbTabset;
+  public tabSet: NgbNav;
   /**
    * Th id of the target tab, the tab containing the error
    * @type (string)

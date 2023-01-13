@@ -5,12 +5,12 @@
         <label for="hasFees" class="required full-width">
           <span class="field-name" i18n>{{'are.fees' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="mfFeeFormLocalModel.controls.hasFees.invalid"
+          <control-messages *ngIf="mfFeeFormLocalModel.controls['hasFees'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfFeeFormLocalModel.controls.hasFees"
+                            [control]="mfFeeFormLocalModel.controls['hasFees'] | formControl"
                             controlId="hasFees" label="are.fees" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
-          <select id="hasFees" required class="form-control" (blur)="onblur()" [formControl]="mfFeeFormLocalModel.controls.hasFees">
+          <select id="hasFees" required class="form-control" (blur)="onblur()" [formControl]="mfFeeFormLocalModel.controls['hasFees'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
           </select>
@@ -22,26 +22,26 @@
         <label for="billCompanyId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'billing.company.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="mfFeeFormLocalModel.controls.billCompanyId.invalid"
+          <control-messages *ngIf="mfFeeFormLocalModel.controls['billCompanyId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfFeeFormLocalModel.controls.billCompanyId"
+                            [control]="mfFeeFormLocalModel.controls['billCompanyId'] | formControl"
                             controlId="billCompanyId" label="billing.company.id" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
           <input id="billCompanyId" class="form-control" (blur)="onblur()" name="billCompanyId" autofocus
-                 [formControl]="mfFeeFormLocalModel.controls.billCompanyId" maxlength="6"/>
+                 [formControl]="mfFeeFormLocalModel.controls['billCompanyId'] | formControl" maxlength="6"/>
         </label>
       </div>
       <div class="form-group col-xs-6 minWidth300" >
         <label for="billContactId" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'billing.contact.id'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="mfFeeFormLocalModel.controls.billContactId.invalid"
+          <control-messages *ngIf="mfFeeFormLocalModel.controls['billContactId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfFeeFormLocalModel.controls.billContactId"
+                            [control]="mfFeeFormLocalModel.controls['billContactId'] | formControl"
                             controlId="billContactId" label="billing.contact.id" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
           <input id="billContactId" class="form-control"  (blur)="onblur()" name="billContactId"
-                 [formControl]="mfFeeFormLocalModel.controls.billContactId" maxlength="5"/>
+                 [formControl]="mfFeeFormLocalModel.controls['billContactId'] | formControl" maxlength="5"/>
         </label>
       </div>
       <div class="col-xs-12 form-group alert alert-info" role="alert">

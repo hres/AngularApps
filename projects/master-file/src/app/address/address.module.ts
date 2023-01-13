@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {AddressDetailsComponent} from './address.details/address.details.component';
 import {CompanyAddressRecordComponent} from './company-address-record/company-address-record.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -10,20 +9,18 @@ import {ErrorModule} from '../error-msg/error-ui.module';
 import {AddressListComponent} from './address.list/address.list.component';
 import {AddressListService} from './address.list/address-list.service';
 import {CommonFeatureModule} from '../common/common-feature.module';
-import {TranslateModule} from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    SelectModule,
+    // SelectModule,
     FileIoModule,
     ErrorModule,
     CommonFeatureModule,
-    TranslateModule
-
+    SharedModule
   ],
   declarations: [
     CompanyAddressRecordComponent,

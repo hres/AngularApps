@@ -1,5 +1,5 @@
 import {ExpanderComponent} from '../../common/expander/expander.component';
-import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
+import {NgbNav} from '@ng-bootstrap/ng-bootstrap';
 
 export interface ErrorSummaryObject {
 
@@ -8,7 +8,7 @@ export interface ErrorSummaryObject {
   controlId: string;
   error: string;
   type: string;
-  tabSet: NgbTabset;
+  tabSet: NgbNav;
   tabId:number,
   componentId: string;
   tableId: string;

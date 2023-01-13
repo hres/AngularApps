@@ -6,7 +6,6 @@ import {AppComponent} from './app.component';
 import {ValidationService} from '../app/validation.service';
 import {ErrorModule} from '../app/error-msg/error-ui.module';
 import {MasterFileBaseComponent} from '../app/master-file-base/master-file-base.component';
-import {MainPipeModule} from '../app/main-pipe/main-pipe.module';
 import {GlobalsService} from '../app/globals/globals.service';
 import {MasterFileDetailsComponent} from '../app/master-file-details/master-file.details.component';
 import {MasterFileHelpEnComponent} from '../app/master-file-help-en/master-file-help-en.component';
@@ -19,9 +18,9 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonFeatureModule} from '../app/common/common-feature.module';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataLoaderModule} from '../app/data-loader/data-loader.module';
 import {MasterFileDataLoaderService} from '../app/data-loader/master-file-data-loader.service';
+import { NgPipesModule } from './pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -36,13 +35,13 @@ import {MasterFileDataLoaderService} from '../app/data-loader/master-file-data-l
     FormsModule,
     ReactiveFormsModule,
     ErrorModule,
-    RequesterModule,
-    MainPipeModule,
+    // RequesterModule,
     FileIoModule,
     HttpClientModule,
     CommonFeatureModule,
     DataLoaderModule,
     NumbersOnlyModule,
+    NgPipesModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -59,6 +58,7 @@ import {MasterFileDataLoaderService} from '../app/data-loader/master-file-data-l
   ],
   exports: [
     NumbersOnlyModule,
+    NgPipesModule,
     TranslateModule
   ],
   bootstrap: [AppComponent]
