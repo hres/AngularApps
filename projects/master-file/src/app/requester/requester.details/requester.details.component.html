@@ -1,0 +1,20 @@
+<div>
+  <div [formGroup]="requesterFormLocalModel">
+
+    <div class="row">
+      <div class="form-group col-sm-12" >
+        <label for="requester" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'requester.title'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="requesterFormLocalModel.controls.requester.invalid && showRequesterError()"
+                            [showError]="showFieldErrors"
+                            [control]="requesterFormLocalModel.controls.requester"
+                            controlId="requester" label="requester.title" parentId="requesterDetails"
+                            parentLabel="Requester Details"></control-messages>
+        </label>
+            <input type="text" maxlength="64" id="requester" class="full-width" [formControl]="requesterFormLocalModel.controls.requester" required (blur)="onblur($event)">
+      </div>
+    </div>
+    <!-- <pre>{{requesterFormLocalModel.value |json}}</pre>-->
+  </div>
+</div>

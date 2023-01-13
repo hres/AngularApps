@@ -1,0 +1,31 @@
+<section>
+<div class="row">
+  <div class="form-group">
+    <div class="col-sm-4">
+      <label for="fileLoad">
+        <span class="field-name rep-margin-left" i18n>Select a file to load</span>
+      </label>
+    </div>
+    <div class="col-sm-8">
+      <input type="file" id="fileLoad" name="fileLoad" accept=".xml, .hcsc" (change)="changeListener($event)"/>
+    </div>
+    <div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12" aria-live='polite'>
+    <p><br/><span *ngIf="showFileLoadStatus">{{status | translate}}</span></p>
+  </div>
+</div>
+<div class="row" *ngIf="showAmendNote">
+  <div class="col-sm-8 alert alert-info rep-margin-left" aria-live='polite'>
+    <span>{{'amend.note' | translate}}</span>
+  </div>
+</div>
+  <div class="row">
+    <div class="col-sm-12" aria-live='polite'>
+      <p><br/><span>{{'refresh.page' | translate}}</span></p>
+    </div>
+  </div>
+</section>

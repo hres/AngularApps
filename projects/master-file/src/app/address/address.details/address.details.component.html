@@ -1,0 +1,125 @@
+<div>
+  <div [formGroup]="addressFormLocalModel">
+    <div class="row">
+      <div class="form-group col-xs-12" >
+        <label for="companyName" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'company.name.full'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="addressFormLocalModel.controls.companyName.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="addressFormLocalModel.controls.companyName"
+                            controlId="companyName" label="company.name.full" parentId="addressDetails"
+                            parentLabel="REP Address"></control-messages>
+          <input name="companyName" id="companyName" class="form-control full-width" (blur)="onblur()"
+                 [formControl]="addressFormLocalModel.controls.companyName" maxlength="80"/>
+        </label>
+      </div>
+    </div>
+    <!--<div class="row">-->
+      <!--<div class="form-group col-xs-6" >-->
+        <!--<label for="businessNum">-->
+          <!--<span class="field-name">{{'business.num' |translate}}</span>-->
+          <!--<sup id="co3-rf">-->
+            <!--<a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.busNumInx}}</a>-->
+          <!--</sup>-->
+          <!--<input name="businessNum" id="businessNum" class="form-control full-width"-->
+                 <!--[formControl]="addressFormLocalModel.controls.businessNum" (blur)="onblur()"  maxlength="9"/>-->
+        <!--</label>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="row">
+      <div class="form-group col-xs-12" >
+        <label for="address" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'addressDetails.street'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="addressFormLocalModel.controls.address.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="addressFormLocalModel.controls.address"
+                            controlId="address" label="addressDetails.street" parentId="addressDetails"
+                            parentLabel="REP Address"></control-messages>
+          <input name="address" id="address" class="form-control full-width" (blur)="onblur()"
+            [formControl]="addressFormLocalModel.controls.address" maxlength="120"/>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-6 col-xs-12" >
+        <label for="city" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'addressDetails.city'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="addressFormLocalModel.controls.city.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="addressFormLocalModel.controls.city"
+                            controlId="city" label="addressDetails.city" parentId="addressDetails"
+                            parentLabel="REP Address"></control-messages>
+          <input name="city" id="city" class="form-control full-width"  (blur)="onblur()"
+                 [formControl]="addressFormLocalModel.controls.city" maxlength="35"/>
+        </label>
+      </div>
+      <div class="form-group col-sm-5 col-xs-12" >
+        <label for="country" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'addressDetails.country'|translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="addressFormLocalModel.controls.country.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="addressFormLocalModel.controls.country"
+                            controlId="country" label="addressDetails.country" parentId="addressDetails"
+                            parentLabel="REP Address"></control-messages>
+          <div class="margin-top-small">
+            <ng-select id="country" [formControl]="addressFormLocalModel.controls.country" class="required"
+                       [allowClear]="false"
+                       [items]="countries"
+                       (typed)="typed($event)"
+                       (blur)="typed($event)"
+                       (add)="typed($event)"
+                       (selected)="processCountry($event)"
+                       (removed)="removed($event)">
+            </ng-select>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngIf="!showProvText" class="form-group col-xs-12 col-sm-6" >
+        <label for="provState" class="required full-width">
+          <span class="field-name">{{provinceLabel |translate}}</span>
+          <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="addressFormLocalModel.controls.provList.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="addressFormLocalModel.controls.provList"
+                            controlId="provState" label="{{provinceLabel}}" parentId="addressDetails"
+                            parentLabel="REP Address"></control-messages>
+          <select id="provState" required class="form-control full-width" (blur)="onblur()" [formControl]="addressFormLocalModel.controls.provList">
+            <option label=" " value=""></option>
+            <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov.text}}</option>
+          </select>
+        </label>
+      </div>
+      <div *ngIf="showProvText" class="form-group col-xs-12 col-sm-6">
+        <label for="provText" class="full-width">
+          <span class="field-name">{{'addressDetails.provState'|translate}}</span>
+          <input name="provText" id="provText" class="form-control full-width" (blur)="onblur()"
+                 [formControl]="addressFormLocalModel.controls.provText" maxlength="40"/>
+        <!--  <control-messages *ngIf="addressFormLocalModel.controls.provText.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="addressFormLocalModel.controls.provText"
+                            controlId="provText" label="addressDetails.provState" parentId="addressDetails"
+                            parentLabel="REP Address"></control-messages>-->
+        </label>
+      </div>
+      <div class="form-group col-sm-6 col-xs-12">
+        <label for="postal" [ngClass]="{'required':!showProvText}" aria-required="true">
+          <span class="field-name" i18n>{{postalLabel |translate}}</span>
+          <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="addressFormLocalModel.controls.postal.invalid"
+                            [showError]="showFieldErrors"
+                            [control]="addressFormLocalModel.controls.postal"
+                            controlId="postal" label="{{postalLabel}}" parentId="addressDetails"
+                            parentLabel="REP Address"></control-messages>
+          <input name="postal" id="postal" class="form-control" [formControl]="addressFormLocalModel.controls.postal"  (blur)="onblur()"
+                 maxlength="10" />
+        </label>
+    </div>
+    <!-- <pre>{{addressFormLocalModel.value |json}}</pre>-->
+  </div>
+</div>

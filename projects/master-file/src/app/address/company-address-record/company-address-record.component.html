@@ -1,0 +1,44 @@
+<div class="container-fluid" [formGroup]="addressRecordModel">
+  <h3>{{'heading.addressDetails'| translate}}</h3>
+  <error-summary *ngIf="showErrorSummary && errorList.length>0" [errorList]="errorList" headingPreamble="heading.addressRecord"
+                 headingLevel="h2" label="Company Address Record" compId="addressRec"></error-summary>
+
+  <div class="row">
+    <div class="form-group col-xs-12" [ngClass]="{'has-error':addressRecordModel.controls.companyName.invalid}">
+      <label for="company" class="required full-width" aria-required="true">
+        <span class="field-name" i18n>{{'company.name.full'|translate}}</span>
+        <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+        <input id="company" class="form-control full-width" [formControl]="addressRecordModel.controls.companyName" maxlength="80"/>
+        <control-messages *ngIf="addressRecordModel.controls.companyName.invalid"
+                          [showError]="showErrors"
+                          [control]="addressRecordModel.controls.companyName"
+                          controlId="company" label="company.name.full" parentId="companyAddressRecood"
+                          parentLabel="REP Address"></control-messages>
+      </label>
+    </div>
+  </div>
+  <address-details [showErrors]="showErrors" [countryList]="countryList"
+                   [detailsChanged]="updateChild" [group]="addressRecordModel.controls.addressDetails"
+                   (errorList)="updateErrorList($event)"></address-details>
+
+  <div class="row">
+    <div class="btn-group-sm col-xs-12 text-right">
+      <button class="btn btn-primary" (click)="saveAddressRecord()" i18n>{{'save.address'|translate}}</button>
+      <button class="btn btn-danger" (click)="deleteAddressRecord()" i18n>{{'delete.address'|translate}}</button>
+      <button class="btn btn-default" (click)="revertAddressRecord()" i18n>{{'revert.address'|translate}}</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="addressRecordModel.dirty">
+    <div class="col-xs-7 form-group">
+      <div class="alert alert-info" role="alert"
+           aria-live="polite">
+        <span>{{'common.saveRevert'|translate}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- <pre>{{addressRecordModel.value |json}}</pre>-->
+</div>
+
+
+
