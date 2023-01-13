@@ -12,7 +12,7 @@ export class JsonKeysPipe implements PipeTransform {
    * @param {string[]} args
    * @returns {any}
    */
-  transform(value, args: string[]): any {
+  transform(value): any {
     const keys = [];
     for (const key in value) {
       keys.push({key: key, value: value[key]});
