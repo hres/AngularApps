@@ -13,4 +13,6 @@ see https://github.com/ng-bootstrap/ng-bootstrap/issues/3492.
 
 6. search todo in the codes
 
-7. 
+7. is polyfills.ts needed?
+
+8. 
