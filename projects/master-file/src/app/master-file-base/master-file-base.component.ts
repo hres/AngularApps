@@ -63,8 +63,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     if (!this.masterFileForm) {
       this.masterFileForm = MasterFileBaseService.getReactiveModel(this._fb);
     }
-    this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
-    console.log();
+    // this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
+    // console.log();
   }
   ngAfterViewInit(): void {
     document.location.href = '#def-top';

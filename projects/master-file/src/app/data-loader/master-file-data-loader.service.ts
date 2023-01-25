@@ -7,24 +7,24 @@ import {GlobalsService} from '../globals/globals.service';
 export class MasterFileDataLoaderService {
 
   private _requesterList = [];
-  private usersJsonPath = GlobalsService.DATA_PATH + 'users.json';
+  // private usersJsonPath = GlobalsService.DATA_PATH + 'users.json';
 
   constructor(private http: HttpClient) {
   }
 
-  async getRequesterJSON(): Promise<any> {
-    const response = await this.http.get(this.usersJsonPath).toPromise();
-    return response;
-  }
+  // async getRequesterJSON(): Promise<any> {
+  //   const response = await this.http.get(this.usersJsonPath).toPromise();
+  //   return response;
+  // }
 
-  async getRequesters(lang) {
-    if (!this._requesterList || this._requesterList.length === 0) {
-      const rawList = await this.getRequesterJSON();
-      this._requesterList = this._convertListText(rawList, lang);
-    }
-    return (this._requesterList);
+  // async getRequesters(lang) {
+  //   if (!this._requesterList || this._requesterList.length === 0) {
+  //     const rawList = await this.getRequesterJSON();
+  //     this._requesterList = this._convertListText(rawList, lang);
+  //   }
+  //   return (this._requesterList);
 
-  }
+  // }
 
   /***
    * Converts the list iteems of id, label_en, and label_Fr
