@@ -3,7 +3,11 @@ import {ExpanderComponent} from './common/expander/expander.component';
 import {ErrorSummaryComponent} from './error-msg/error-summary/error-summary.component';
 import {ViewChild} from '@angular/core';
 import {IMasterDetails} from './master-details';
+import { Component } from '@angular/core';
 
+@Component({
+  template: ''
+})
 
 export abstract class ListOperations {
 
@@ -52,7 +56,7 @@ export abstract class ListOperations {
 
     if (!this.expander) {
       console.warn('ListOperations-syncCurrentExpandedRow: There is no expander');
-      return;
+      return null;
     }
     const rowNum = this.expander.getExpandedRow();
     // used to sync the expander with the details

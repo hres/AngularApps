@@ -1,5 +1,4 @@
 import {FormGroup} from '@angular/forms';
-import {TheraClassService} from './therapeutic/therapeutic-classification/thera-class.service';
 
 export interface IMasterDetails {
 

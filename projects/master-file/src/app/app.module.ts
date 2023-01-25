@@ -35,7 +35,7 @@ import { NgPipesModule } from './pipes/pipes.module';
     FormsModule,
     ReactiveFormsModule,
     ErrorModule,
-    // RequesterModule,
+    RequesterModule,
     FileIoModule,
     HttpClientModule,
     CommonFeatureModule,
