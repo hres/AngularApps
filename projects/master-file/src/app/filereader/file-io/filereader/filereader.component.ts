@@ -62,7 +62,7 @@ export class FilereaderComponent implements OnInit {
         self.status = convertResult.messages[0];
       }
       self.showFileLoadStatus = true;
-      self.showAmendNote = (convertResult.data.DEVICE_COMPANY_ENROL.general_information.status === GlobalsService.FINAL);
+     // self.showAmendNote = (convertResult.data.DEVICE_COMPANY_ENROL.general_information.status === GlobalsService.FINAL);
       self.complete.emit(convertResult);
     };
     if (file && file.name) {
