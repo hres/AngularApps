@@ -5,7 +5,7 @@ import {
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
 import {AddressDetailsService} from './address.details.service';
-import {isArray} from 'util';
+// import {isArray} from 'util';
 // import {noUndefined} from '@angular/compiler/src/util';
 
 @Component({
@@ -149,7 +149,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     // console.log("calling set country");
     // console.log(countryValue);
     let countryJson = null;
-    if (isArray(countryValue)) {
+    if (Array.isArray(countryValue)) {
       countryJson = countryValue[0];
     } else {
       countryJson = countryValue;

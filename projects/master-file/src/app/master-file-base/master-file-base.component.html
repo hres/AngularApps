@@ -66,7 +66,7 @@
                               (detailErrorList)="processDetailErrors($event)"></master-file-details>
 
           </div>
-          <section class="panel  panel-default" *ngIf="isSolicited()">
+          <!-- <section class="panel  panel-default" *ngIf="isSolicited()">
             <header class="panel-heading clearfix">
               <h3 class="panel-title">{{'heading.requesters'|translate}}</h3>
             </header>
@@ -74,7 +74,22 @@
               <requester-list  (errors)="processRequesterErrors($event)"  [userList]="userList" [showErrors]="showErrors"
                                [requesterModel]="requesterModel"></requester-list>
             </div>
-          </section>
+          </section> -->
+
+          <div>
+            <section class="panel  panel-default">
+              <header class="panel-heading clearfix">
+                <h3 class="panel-title">{{'heading.addressInfo'|translate}}</h3>
+              </header>
+              <div class="panel-body">
+                <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
+                  [provinceList]="provinceList" [addressModel]="mfAddressModel"
+                  [stateList]="stateList" [helpTextSequences]="helpIndex"
+                  (errorList)="processAddressErrors($event)"></address-details>
+              </div>
+            </section>
+          </div>
+
           <section class="panel panel-default">
             <header class="panel-heading clearfix">
               <h3 class="panel-title">{{'fees'|translate}}</h3>

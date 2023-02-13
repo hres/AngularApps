@@ -6,6 +6,7 @@ import {MasterFileBaseService} from './master-file-base.service';
 import {FileConversionService} from '../filereader/file-io/file-conversion.service';
 import {ConvertResults} from '../filereader/file-io/convert-results';
 import {GlobalsService} from '../globals/globals.service';
+// import {AddressDetailsComponent} from '../address/address.details/address.details.component';
 
 // import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 import {MasterFileDataLoaderService} from '../data-loader/master-file-data-loader.service';
@@ -31,20 +32,31 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   private _masterFileDetailErrors = [];
   private _requesterErrors = [];
   private _transFeeErrors = [];
+  private _addressErrors = [];
+  private _contactErrors = [];
+  private _agentAddressErrors = [];
+  private _agentContactErrors = [];
   public masterFileForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
-  public rootTagText = 'MASTER_FILE_ENROL';
+  public rootTagText = 'TRANSACTION_ENROL';
   public userList = [];
   public showErrors: boolean;
   public isSolicitedFlag: boolean;
   public title = '';
   public headingLevel = 'h2';
   public masterFileModel = MasterFileBaseService.getEmptyMasterFileDetailsModel();
+  public mfAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  public agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  public mfContactModel = MasterFileBaseService.getEmptyContactModel();
+  public agentContactModel = MasterFileBaseService.getEmptyContactModel();
   public requesterModel = [];
+  public countryList = [];
+  public provinceList = [];
+  public stateList = [];
  // public transFeeModel = [];
   public transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
   public fileServices: FileConversionService;
-  public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MDS_RT_2_0.xsl';
+  public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MF_RT_1_0.xsl';
   public helpIndex = MasterFileBaseService.getHelpTextIndex();
 
 
@@ -54,6 +66,9 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
     dataLoader = new MasterFileDataLoaderService(this.http);
     this.userList = [];
+    this.countryList = [];
+    this.provinceList = [];
+    this.stateList = [];
     this.showErrors = false;
     this.isSolicitedFlag = false;
     this.fileServices = new FileConversionService();
@@ -63,6 +78,9 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     if (!this.masterFileForm) {
       this.masterFileForm = MasterFileBaseService.getReactiveModel(this._fb);
     }
+    this.countryList = await (this.dataLoader.getCountries(this.translate.currentLang));
+    this.provinceList = await (this.dataLoader.getProvinces(this.translate.currentLang));
+    this.stateList = await (this.dataLoader.getStates(this.translate.currentLang));
     // this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
     // console.log();
   }
@@ -75,7 +93,10 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
     this.errorList = [];
     // concat the two array
-    this.errorList = this._masterFileDetailErrors.concat(this._requesterErrors.concat(this._transFeeErrors));
+    this.errorList = this._masterFileDetailErrors.concat(
+        this._requesterErrors.concat(this._addressErrors.concat(
+          this._contactErrors.concat(this._agentAddressErrors.concat(
+            this._agentContactErrors.concat(this._transFeeErrors))))));
     // .concat(this._theraErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -92,6 +113,26 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   processTransFeeErrors(errorList) {
     this._transFeeErrors = errorList;
+    this.processErrors();
+  }
+
+  processAddressErrors(errorList) {
+    this._addressErrors = errorList;
+    this.processErrors();
+  }
+
+  processContactErrors(errorList) {
+    this._contactErrors = errorList;
+    this.processErrors();
+  }
+
+  processAgentAddressErrors(errorList) {
+    this._agentAddressErrors = errorList;
+    this.processErrors();
+  }
+
+  processAgentContactErrors(errorList) {
+    this._agentContactErrors = errorList;
     this.processErrors();
   }
 
@@ -123,11 +164,15 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
-    const result = {'MASTER_FILE_ENROL': {
+    const result = {'TRANSACTION_ENROL': {
       'application_info': this.masterFileModel,
       'requester_of_solicited_information': {
         'requester': this._deleteText(this.requesterModel)
       },
+      'mf_holder_address': this.mfAddressModel,
+      'mf_holder_contact': this.mfContactModel,
+      'agent_address': this.agentAddressModel,
+      'agent_contact': this.agentContactModel,
       'transFees': this.transFeeModel
     }};
     const fileName = 'rt-' + this.masterFileModel.dossier_id + '-' + this.masterFileModel.last_saved_date;
@@ -137,13 +182,13 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public processFile(fileData: ConvertResults) {
      console.log('processing file.....');
      console.log(fileData);
-    this.masterFileModel = fileData.data.MASTER_FILE_ENROL.application_info;
-    const req = fileData.data.MASTER_FILE_ENROL.requester_of_solicited_information.requester;
+    this.masterFileModel = fileData.data.TRANSACTION_ENROL.application_info;
+    const req = fileData.data.TRANSACTION_ENROL.requester_of_solicited_information.requester;
     if (req) {
       this.requesterModel = (req instanceof Array) ? req : [req];
       this._insertTextfield();
     }
-    this.transFeeModel = fileData.data.MASTER_FILE_ENROL.transFees;
+    this.transFeeModel = fileData.data.TRANSACTION_ENROL.transFees;
   }
 
   isSolicited() {
@@ -180,9 +225,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     // console.log("Calling preload")
   }
 
-  public updateChild() {
-    // console.log("Calling updateChild")
-  }
+
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
       $event.returnValue = true;
@@ -191,11 +234,15 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   _saveXML() {
     if ( this.errorList && this.errorList.length < 1 ) {
       const result = {
-        'MASTER_FILE_ENROL': {
+        'TRANSACTION_ENROL': {
           'application_info': this.masterFileModel,
           'requester_of_solicited_information': {
             'requester': this._deleteText(this.requesterModel)
           },
+          'mf_holder_address': this.mfAddressModel,
+          'mf_holder_contact': this.mfContactModel,
+          'agent_address': this.agentAddressModel,
+          'agent_contact': this.agentContactModel,
           'transFees': this.transFeeModel
         }
       };

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {AddressDetailsComponent} from './address.details/address.details.component';
+// import {AddressDetailsComponent} from './address.details/address.details.component';
 import {CompanyAddressRecordComponent} from './company-address-record/company-address-record.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
@@ -24,13 +24,13 @@ import { SharedModule } from '../shared/shared.module';
   ],
   declarations: [
     CompanyAddressRecordComponent,
-    AddressDetailsComponent,
+    // AddressDetailsComponent,
     AddressListComponent
 
   ],
   exports: [
     CompanyAddressRecordComponent,
-    AddressDetailsComponent,
+    // AddressDetailsComponent,
     AddressListComponent
   ],
   providers: [

@@ -11,6 +11,8 @@ import {MasterFileDetailsComponent} from '../app/master-file-details/master-file
 import {MasterFileHelpEnComponent} from '../app/master-file-help-en/master-file-help-en.component';
 import {MasterFileFeeComponent} from '../app/master-file-fee/master-file.fee.component';
 import {RequesterModule} from '../app/requester/requester.module';
+import {AddressDetailsComponent} from '../app/address/address.details/address.details.component';
+//import {ContactModule} from '../app/contact/contact.module';
 import {FileIoModule} from '../app/filereader/file-io/file-io.module';
 import {NumbersOnlyModule} from '../app/number-only/number-only.module';
 
@@ -25,6 +27,7 @@ import { NgPipesModule } from './pipes/pipes.module';
 @NgModule({
   declarations: [
     AppComponent,
+    AddressDetailsComponent,
     MasterFileDetailsComponent,
     MasterFileFeeComponent,
     MasterFileBaseComponent,

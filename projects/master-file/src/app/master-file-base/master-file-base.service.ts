@@ -112,6 +112,56 @@ export class MasterFileBaseService {
       }
     );
   }
+  
+  /**
+   * Gets an empty Address Details Model
+   *
+   */
+  public static getEmptyAddressDetailsModel() {
+
+    return (
+      {
+        company_name: '',
+        address: '',
+        city: '',
+        country: {
+          '__text': '',
+          '_id': '',
+          '_label_en': '',
+          '_label_fr': ''
+        },
+        prov_lov: {
+          '__text': '',
+          '_id': '',
+          '_label_en': '',
+          '_label_fr': ''
+        },
+        prov_text: '',
+        postal: ''
+      }
+    );
+  }
+  
+  /**
+   * Gets an empty contact model
+   *
+   */
+  public static getEmptyContactModel() {
+
+    return (
+      {
+        contact_id: '',
+        fist__name: '',
+        last_name: '',
+        language: '',
+        job_title: '',
+        phone_number: '',
+        phone_extension: '',
+        fax_number: '',
+        email: ''
+      }
+    );
+  }
   /**
    * Sets the Help Text Index
    *
