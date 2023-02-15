@@ -8,7 +8,15 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start demo": "ng run demo:serve --port 3000 -o",
-    "start master-file": "ng serve --project=masterFile --port 3001 -o"
+    "start master-file": "ng serve --project=masterFile --port 3001 -o",
+
+    "prod-build": "npm run prod-masterFile-build",
+
+    "prod-masterFile-build": "npm run prod-masterFile-build-en & npm run prod-masterFile-build-fr",
+    "prod-masterFile-build-en": "ng run masterFile:build:production-en --output-path=dist/prod/masterFile/en & npm run replace-in-file-mf-en",
+    "prod-masterFile-build-fr": "ng run masterFile:build:production-fr --output-path=dist/prod/masterFile/fr & npm run replace-in-file-mf-fr",
+    "replace-in-file-mf-en": "replace-in-file --configFile=projects/master-file/src/replace-config-mf-en.json",
+    "replace-in-file-mf-fr": "replace-in-file --configFile=projects/master-file/src/replace-config-mf-fr.json"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,5 @@
+{
+  "files": "./dist/prod/masterFile/en/index.html",
+  "from": ["<!--build:mainHeading--><!--endbuild-->","<!--build:mainTitle-->","<!--build:langHtml--><!--endbuild-->"],
+  "to": ["Drug Master File Applications Form(Version 1.0.0)","Drug Master File Applications Form","../fr/index.html"]
+}
