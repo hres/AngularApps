@@ -154,6 +154,14 @@
                   "with": "projects/master-file/src/environments/environment.prod-fr.ts"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           }
         },
@@ -195,6 +203,5 @@
         }
       }
     }
-  },
-  "defaultProject": "masterFile"
+  }
 }
