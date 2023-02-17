@@ -116,8 +116,7 @@
               "projects/master-file/src/assets"
             ],
             "styles": [
-              "projects/master-file/src/styles/styles.css",
-              "projects/master-file/src/styles/rep.css"
+              "projects/master-file/src/styles.css"
             ],
             "scripts": []
           },
@@ -192,7 +191,6 @@
             ],
             "tsConfig": "projects/master-file/tsconfig.spec.json",
             "assets": [
-              "projects/master-file/src/favicon.ico",
               "projects/master-file/src/assets"
             ],
             "styles": [
