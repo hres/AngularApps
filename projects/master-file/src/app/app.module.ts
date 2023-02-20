@@ -22,7 +22,8 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonFeatureModule} from '../app/common/common-feature.module';
 import {DataLoaderModule} from '../app/data-loader/data-loader.module';
 import {MasterFileDataLoaderService} from '../app/data-loader/master-file-data-loader.service';
-import { NgPipesModule } from './pipes/pipes.module';
+import {NgPipesModule} from './pipes/pipes.module';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NgPipesModule } from './pipes/pipes.module';
     DataLoaderModule,
     NumbersOnlyModule,
     NgPipesModule,
+    NgSelectModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

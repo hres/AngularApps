@@ -66,23 +66,13 @@
                             controlId="country" label="addressDetails.country" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <div class="margin-top-small">
-            <!-- <ng-select id="country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required"
-                       [allowClear]="false"
-                       [items]="countries"
+			      <ng-select id="country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required solid"                      
                        (typed)="typed($event)"
                        (blur)="typed($event)"
                        (add)="typed($event)"
                        (selected)="processCountry($event)"
                        (removed)="removed($event)">
-            </ng-select>
-			todo       [allowClear]="false"
-                       [items]="countries" -->
-			<ng-select id="country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required"
-                       (typed)="typed($event)"
-                       (blur)="typed($event)"
-                       (add)="typed($event)"
-                       (selected)="processCountry($event)"
-                       (removed)="removed($event)">
+                  <ng-option *ngFor="let ctry of countries" [value]="ctry.id" class="select-choice">{{ctry.en}}</ng-option>
             </ng-select>
           </div>
         </label>
