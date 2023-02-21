@@ -20,14 +20,15 @@ import {RequesterListComponent} from '../requester/requester.list/requester.list
   selector: 'master-file-base',
   templateUrl: './master-file-base.component.html',
   styleUrls: ['./master-file-base.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-
 export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public errors;
   @Input() isInternal;
   @Input() lang;
-  @ViewChild(RequesterListComponent, {static: false}) requesterListChild: RequesterListComponent;
+  @Input() helpTextSequences;
+  @ViewChild(RequesterListComponent, { static: false })
+  requesterListChild: RequesterListComponent;
 
   private _masterFileDetailErrors = [];
   private _requesterErrors = [];
@@ -36,7 +37,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   private _contactErrors = [];
   private _agentAddressErrors = [];
   private _agentContactErrors = [];
-  public masterFileForm: FormGroup;  // todo: do we need it? could remove?
+  public masterFileForm: FormGroup; // todo: do we need it? could remove?
   public errorList = [];
   public rootTagText = 'TRANSACTION_ENROL';
   public userList = [];
@@ -44,26 +45,31 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public isSolicitedFlag: boolean;
   public title = '';
   public headingLevel = 'h2';
-  public masterFileModel = MasterFileBaseService.getEmptyMasterFileDetailsModel();
+  public masterFileModel =
+    MasterFileBaseService.getEmptyMasterFileDetailsModel();
   public mfAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-  public agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  public agentAddressModel =
+    MasterFileBaseService.getEmptyAddressDetailsModel();
   public mfContactModel = MasterFileBaseService.getEmptyContactModel();
   public agentContactModel = MasterFileBaseService.getEmptyContactModel();
   public requesterModel = [];
   public countryList = [];
   public provinceList = [];
   public stateList = [];
- // public transFeeModel = [];
+  // public transFeeModel = [];
   public transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
   public fileServices: FileConversionService;
   public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MF_RT_1_0.xsl';
-  public helpIndex = MasterFileBaseService.getHelpTextIndex();
-
+  // public helpIndex = MasterFileBaseService.getHelpTextIndex();
 
   /* public customSettings: TinyMce.Settings | any;*/
-  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private dataLoader: MasterFileDataLoaderService,
-              private http: HttpClient, private translate: TranslateService) {
-
+  constructor(
+    private _fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    private dataLoader: MasterFileDataLoaderService,
+    private http: HttpClient,
+    private translate: TranslateService
+  ) {
     dataLoader = new MasterFileDataLoaderService(this.http);
     this.userList = [];
     this.countryList = [];
@@ -78,9 +84,15 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     if (!this.masterFileForm) {
       this.masterFileForm = MasterFileBaseService.getReactiveModel(this._fb);
     }
-    this.countryList = await (this.dataLoader.getCountries(this.translate.currentLang));
-    this.provinceList = await (this.dataLoader.getProvinces(this.translate.currentLang));
-    this.stateList = await (this.dataLoader.getStates(this.translate.currentLang));
+    this.countryList = await this.dataLoader.getCountries(
+      this.translate.currentLang
+    );
+    this.provinceList = await this.dataLoader.getProvinces(
+      this.translate.currentLang
+    );
+    this.stateList = await this.dataLoader.getStates(
+      this.translate.currentLang
+    );
     // this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
     // console.log();
   }
@@ -94,9 +106,16 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.errorList = [];
     // concat the two array
     this.errorList = this._masterFileDetailErrors.concat(
-        this._requesterErrors.concat(this._addressErrors.concat(
-          this._contactErrors.concat(this._agentAddressErrors.concat(
-            this._agentContactErrors.concat(this._transFeeErrors))))));
+      this._requesterErrors.concat(
+        this._addressErrors.concat(
+          this._contactErrors.concat(
+            this._agentAddressErrors.concat(
+              this._agentContactErrors.concat(this._transFeeErrors)
+            )
+          )
+        )
+      )
+    );
     // .concat(this._theraErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -144,11 +163,16 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   }
 
   public hideErrorSummary() {
-    return (this.showErrors && this.errorList && this.errorList.length > 0);
+    return this.showErrors && this.errorList && this.errorList.length > 0;
   }
 
   public saveXmlFile() {
-    if (!this.requesterListChild || this.requesterListChild && this.requesterListChild.requesterListForm.pristine && this.requesterListChild.requesterListForm.valid ) {
+    if (
+      !this.requesterListChild ||
+      (this.requesterListChild &&
+        this.requesterListChild.requesterListForm.pristine &&
+        this.requesterListChild.requesterListForm.valid)
+    ) {
       this._updatedAutoFields();
       this.showErrors = true;
       this._saveXML();
@@ -156,49 +180,64 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       if (this.lang === GlobalsService.ENGLISH) {
         alert('Please save the unsaved input data before generating XML file.');
       } else {
-        alert('Veuillez sauvegarder les données d\'entrée non enregistrées avant de générer le fichier XML.');
+        alert(
+          "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML."
+        );
       }
-
     }
   }
 
   public saveWorkingCopyFile() {
     this._updatedSavedDate();
-    const result = {'TRANSACTION_ENROL': {
-      'application_info': this.masterFileModel,
-      'requester_of_solicited_information': {
-        'requester': this._deleteText(this.requesterModel)
+    const result = {
+      TRANSACTION_ENROL: {
+        application_info: this.masterFileModel,
+        requester_of_solicited_information: {
+          requester: this._deleteText(this.requesterModel),
+        },
+        mf_holder_address: this.mfAddressModel,
+        mf_holder_contact: this.mfContactModel,
+        agent_address: this.agentAddressModel,
+        agent_contact: this.agentContactModel,
+        transFees: this.transFeeModel,
       },
-      'mf_holder_address': this.mfAddressModel,
-      'mf_holder_contact': this.mfContactModel,
-      'agent_address': this.agentAddressModel,
-      'agent_contact': this.agentContactModel,
-      'transFees': this.transFeeModel
-    }};
-    const fileName = 'rt-' + this.masterFileModel.dossier_id + '-' + this.masterFileModel.last_saved_date;
+    };
+    const fileName =
+      'rt-' +
+      this.masterFileModel.dossier_id +
+      '-' +
+      this.masterFileModel.last_saved_date;
     this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
   public processFile(fileData: ConvertResults) {
-     console.log('processing file.....');
-     console.log(fileData);
+    console.log('processing file.....');
+    console.log(fileData);
     this.masterFileModel = fileData.data.TRANSACTION_ENROL.application_info;
-    const req = fileData.data.TRANSACTION_ENROL.requester_of_solicited_information.requester;
+    const req =
+      fileData.data.TRANSACTION_ENROL.requester_of_solicited_information
+        .requester;
     if (req) {
-      this.requesterModel = (req instanceof Array) ? req : [req];
+      this.requesterModel = req instanceof Array ? req : [req];
       this._insertTextfield();
     }
     this.transFeeModel = fileData.data.TRANSACTION_ENROL.transFees;
   }
 
   isSolicited() {
-    return (this.isSolicitedFlag || this.masterFileModel.is_solicited_info === GlobalsService.YES);
+    return (
+      this.isSolicitedFlag ||
+      this.masterFileModel.is_solicited_info === GlobalsService.YES
+    );
   }
 
   private _updatedSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    this.masterFileModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd-hhmm');
+    this.masterFileModel.last_saved_date = pipe.transform(
+      today,
+      'yyyy-MM-dd-hhmm'
+    );
   }
 
   private _updatedAutoFields() {
@@ -208,15 +247,18 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   private _deleteText(dataModel) {
     const dataCopy = JSON.parse(JSON.stringify(dataModel));
-    dataCopy.forEach (item => {
+    dataCopy.forEach((item) => {
       delete item.requester_text;
     });
     return dataCopy;
   }
 
   private _insertTextfield() {
-    this.requesterModel.forEach (item => {
-      item.requester_text = this.lang === GlobalsService.ENGLISH ? item.requester._label_en : item.requester._label_fr;
+    this.requesterModel.forEach((item) => {
+      item.requester_text =
+        this.lang === GlobalsService.ENGLISH
+          ? item.requester._label_en
+          : item.requester._label_fr;
       item.id = Number(item.id);
     });
   }
@@ -225,31 +267,34 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     // console.log("Calling preload")
   }
 
-
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
-      $event.returnValue = true;
+    $event.returnValue = true;
   }
 
   _saveXML() {
-    if ( this.errorList && this.errorList.length < 1 ) {
+    if (this.errorList && this.errorList.length < 1) {
       const result = {
-        'TRANSACTION_ENROL': {
-          'application_info': this.masterFileModel,
-          'requester_of_solicited_information': {
-            'requester': this._deleteText(this.requesterModel)
+        TRANSACTION_ENROL: {
+          application_info: this.masterFileModel,
+          requester_of_solicited_information: {
+            requester: this._deleteText(this.requesterModel),
           },
-          'mf_holder_address': this.mfAddressModel,
-          'mf_holder_contact': this.mfContactModel,
-          'agent_address': this.agentAddressModel,
-          'agent_contact': this.agentContactModel,
-          'transFees': this.transFeeModel
-        }
+          mf_holder_address: this.mfAddressModel,
+          mf_holder_contact: this.mfContactModel,
+          agent_address: this.agentAddressModel,
+          agent_contact: this.agentContactModel,
+          transFees: this.transFeeModel,
+        },
       };
-      const fileName = 'rt-' + this.masterFileModel.dossier_id + '-' + this.masterFileModel.last_saved_date;
+      const fileName =
+        'rt-' +
+        this.masterFileModel.dossier_id +
+        '-' +
+        this.masterFileModel.last_saved_date;
       console.log('save ...');
       this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
-      return ;
+      return;
     }
     document.location.href = '#topErrorSummaryId';
   }

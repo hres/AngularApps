@@ -1,23 +1,6 @@
 <div class="container-fluid">
   <form name="MasterFileForm" [formGroup]="masterFileForm" novalidate>
-    <div>
-      <span id="privacy"></span>
-      <div>
-        <h2 class="panel-title mrgn-tp-sm mrgn-bttm-sm">{{'privacy.statement' | translate}}</h2>
-        <section class="module-attention"><app-privacy-component></app-privacy-component></section>
-      </div>
-      <span id="security"></span>
-      <div>
-        <h2 class="panel-title mrgn-tp-sm mrgn-bttm-sm">{{'security.declaimer' | translate}}</h2>
-        <section class="module-attention">
-          <app-security-component></app-security-component>
-        </section>
-      </div>
-      <aside class="wb-fnote" role="note" id="instructions">
-        <h2>{{'instruction.help'|translate}}</h2>
-        <section><master-file-help-en [helpTextSequences]="helpIndex"></master-file-help-en></section>
-      </aside>
-      <span id="main"></span>
+
       <div class="row mrgn-tp-md">
         <div class="col-md-12">
           <div class="text-right">
@@ -43,14 +26,14 @@
       </div>
       <div id="topErrorSummaryId">
         <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-                       headingPreamble="errorSummary.master.file"></error-summary>
+                                       headingPreamble="errorSummary.master.file"></error-summary>
       </div>
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <h2 class="panel-title">{{'heading.master.file'|translate}}
               <sup id="tr2-rf">
-                <a class="fn-lnk" href="#tr2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.tr2}}</a>
+                <a class="fn-lnk" href="#tr2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.tr2}}</a>
               </sup>
             </h2>
           </header>
@@ -62,7 +45,7 @@
             <!--todo clean the not used parameters, detailsChanged, userList .. -->
             <master-file-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
                               [masterFileModel]="masterFileModel"
-                              (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpIndex"
+                              (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpTextSequences"
                               (detailErrorList)="processDetailErrors($event)"></master-file-details>
 
           </div>
@@ -84,8 +67,8 @@
               <div class="panel-body">
                 <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
                   [provinceList]="provinceList" [addressModel]="mfAddressModel"
-                  [stateList]="stateList" [helpTextSequences]="helpIndex"
-                  (errorList)="processAddressErrors($event)"></address-details>
+                  [stateList]="stateList" [helpTextSequences]="helpTextSequences"
+                  (errorList)="processAddressErrors($event)"></address-details> -->
               </div>
             </section>
           </div>
@@ -102,8 +85,6 @@
 
         </section>
       </div>
-
-    </div>
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">
         <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" i18n>
