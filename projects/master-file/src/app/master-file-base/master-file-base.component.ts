@@ -60,7 +60,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
   public fileServices: FileConversionService;
   public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MF_RT_1_0.xsl';
-  // public helpIndex = MasterFileBaseService.getHelpTextIndex();
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(

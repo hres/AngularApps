@@ -1,0 +1,15 @@
+.solid {
+    border-style: groove;
+}
+
+.select-container .select-choice {
+    height: 37px !important;
+    padding: 6px 12px !important;
+    margin: 0;
+    position: relative;
+    display: block;
+    zoom: 1;
+    vertical-align: middle;
+    min-width: 100% !important;
+    width: 100% !important;
+}

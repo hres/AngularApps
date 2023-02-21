@@ -9,9 +9,7 @@
     "test": "ng test",
     "start demo": "ng run demo:serve --port 3000 -o",
     "start master-file": "ng serve --project=masterFile --port 3001 -o",
-
     "prod-build": "npm run prod-masterFile-build",
-
     "prod-masterFile-build": "npm run prod-masterFile-build-en & npm run prod-masterFile-build-fr",
     "prod-masterFile-build-en": "ng run masterFile:build:production-en --output-path=dist/prod/masterFile/en & npm run replace-in-file-mf-en",
     "prod-masterFile-build-fr": "ng run masterFile:build:production-fr --output-path=dist/prod/masterFile/fr & npm run replace-in-file-mf-fr",
@@ -30,6 +28,7 @@
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
+    "@ng-select/ng-select": "^10.0.3",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "file-saver": "^2.0.5",

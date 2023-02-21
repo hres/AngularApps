@@ -24,12 +24,15 @@ export class AppComponent implements AfterViewInit {
               private elementRef: ElementRef,
               public titleService: Title) {
                 translate.setDefaultLang(environment.lang);
-                // this.language = environment.lang;
-                this.language = 'fr';
-                console.log(environment.lang);
+                this.language = environment.lang;
+                // this.language = 'fr';
+                console.log(
+                  'AppComponent ~ environment.lang',
+                  environment.lang
+                );
                 this.translateInstance = translate;
                 // the lang to use, if the lang isn't available, it will use the current loader to get them
-                translate.use('fr');
+                translate.use(this.language);
                 this.translate
                   .get('commmon.required.bracket')
                   .subscribe((res) => {
@@ -38,13 +41,16 @@ export class AppComponent implements AfterViewInit {
                 this.isInternal =
                   elementRef.nativeElement.getAttribute('isInternal');
                 // console.log('isInternal: ' + this.isInternal);
+                // todo cleanup?
                 this.setTitle(
                   'Master File Template: Regulatory Enrolment Process (REP)'
                 );
-              }
+  }
+  
   ngAfterViewInit() {
     const hello = document.querySelector('#wb-cont');
   }
+  
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
   }

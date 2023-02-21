@@ -12,19 +12,17 @@ import { GlobalsService } from '../app/globals/globals.service';
 import { RequesterModule } from '../app/requester/requester.module';
 // import { AddressDetailsComponent } from '../app/address/address.details/address.details.component';
 //import {ContactModule} from '../app/contact/contact.module';
-
+import { FileIoModule } from '../app/filereader/file-io/file-io.module';
 import { NumbersOnlyModule } from '../app/number-only/number-only.module';
-
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CommonFeatureModule } from '../app/common/common-feature.module';
-import { DataLoaderModule } from '../app/data-loader/data-loader.module';
-import { MasterFileDataLoaderService } from '../app/data-loader/master-file-data-loader.service';
-// import { NgPipesModule } from './pipes/pipes.module';
-
 import { ContainerModule } from './container/container.module';
 import { SharedModule } from './shared/shared.module';
+
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {CommonFeatureModule} from '../app/common/common-feature.module';
+import {DataLoaderModule} from '../app/data-loader/data-loader.module';
+import {MasterFileDataLoaderService} from '../app/data-loader/master-file-data-loader.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +35,7 @@ import { SharedModule } from './shared/shared.module';
     NumbersOnlyModule,
     SharedModule,
     ContainerModule,
+    
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
