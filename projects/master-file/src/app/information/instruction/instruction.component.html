@@ -2,7 +2,7 @@
     <dl>
         <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.loadFileInx}}</dt>
         <dd id="tr1">
-            <p>{{'master.file.load.file'|translate}}</p>
+            <p>{{'load.file'|translate}}</p>
             <ul>
                 <li>{{'hlp_load1'|translate}}</li>
                 <li>{{'hlp_load2'|translate}}</li>
@@ -14,11 +14,9 @@
         </dd>
         <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr2}}</dt>
         <dd id="tr2">
-            <p>{{'panel.title.regulatoryInfo'|translate}}</p>
-            <ul>
-                <li>{{'hlp_master_file1'|translate}}</li>
-                <li>{{'hlp_master_file2'|translate}}</li>
-            </ul>
+            <p>{{'dossier.id'|translate}}</p>
+            <p [innerHTML]="'instruction.dossier.id.line1'|translate"></p>
+            <p [innerHTML]="'instruction.dossier.id.line2'|translate"></p>
             <p class="fn-rtn"><a href="#tr2-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
                     {{helpTextSequences.tr2}}
                     <span class="wb-inv"> referrer</span></a></p>
