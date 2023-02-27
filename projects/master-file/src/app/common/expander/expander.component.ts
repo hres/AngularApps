@@ -236,8 +236,7 @@ export class ExpanderComponent implements OnChanges {
      return 'Expand Row ' + (i + 1);
    } else if (this.isExpanded(i)) {
      return 'Collapse Row ' + (i + 1);
-   } else {
-    return "";
    }
+   return null;
   }
 }

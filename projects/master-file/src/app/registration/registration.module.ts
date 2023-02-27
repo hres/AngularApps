@@ -6,6 +6,7 @@ import { MasterFileDetailsComponent } from '../master-file-details/master-file.d
 import { MasterFileFeeComponent } from '../master-file-fee/master-file.fee.component';
 import { FileIoModule } from '../filereader/file-io/file-io.module';
 import { AddressDetailsComponent } from '../address/address.details/address.details.component';
+import { ContactDetailsComponent } from '../contact/contact.details/contact.details.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { AddressDetailsComponent } from '../address/address.details/address.deta
     MasterFileDetailsComponent,
     MasterFileFeeComponent,
     AddressDetailsComponent,
+    ContactDetailsComponent
   ],
   imports: [CommonModule, SharedModule, FileIoModule],
   exports: [
@@ -20,6 +22,7 @@ import { AddressDetailsComponent } from '../address/address.details/address.deta
     MasterFileDetailsComponent,
     MasterFileFeeComponent,
     AddressDetailsComponent,
+    ContactDetailsComponent
   ],
 })
 export class RegistrationModule {}

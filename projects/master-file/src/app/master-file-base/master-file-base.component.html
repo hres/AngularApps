@@ -63,9 +63,28 @@
             <h3 class="panel-title">{{'panel.title.contactInfo'|translate}}</h3>
             </header>
             <div class="panel-body">
-              <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
-              [provinceList]="provinceList" [addressModel]="mfAddressModel" [stateList]="stateList"
-              [helpTextSequences]="helpTextSequences" (errorList)="processAddressErrors($event)"></address-details> -->
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.holder.address'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                  <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang" [provinceList]="provinceList"
+                    [addressModel]="holderAddressModel" [stateList]="stateList" [helpTextSequences]="helpTextSequences"
+                    (errorList)="processAddressErrors($event)">
+                  </address-details>
+                </div>
+              </section>
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.holder.contact'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                  <contact-details [showErrors]="showErrors" [lang]="lang"
+                    [contactDetailsModel]="holderContactModel" [helpTextSequences]="helpTextSequences"
+                    (errorList)="processContactErrors($event)">
+                  </contact-details>
+                </div>
+              </section>
           </div>
         </section>
       </div>

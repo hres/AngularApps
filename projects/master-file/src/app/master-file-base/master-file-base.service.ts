@@ -108,7 +108,26 @@ export class MasterFileBaseService {
         has_app_info: '',
         is_solicited_info: '',
         org_manufacture_id: '',
-        org_manufacture_lic: ''
+        org_manufacture_lic: '',
+        mf_holder_address: {
+          company_name: '',
+          address: '',
+          city: '',
+          country: {
+            '__text': '',
+            '_id': '',
+            '_label_en': '',
+            '_label_fr': ''
+          },
+          prov_lov: {
+            '__text': '',
+            '_id': '',
+            '_label_en': '',
+            '_label_fr': ''
+          },
+          prov_text: '',
+          postal: ''
+        }
       }
     );
   }

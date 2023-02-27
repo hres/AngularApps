@@ -164,6 +164,7 @@
   "hlp_licenceNumber2": "fr_If the Licence number has not yet been assigned, use 000000.",
   "hlp_deviceDetail": "fr_The identifiers listed in the device details table must appear on and match the identifier listed on the submitted labelling.",
   
+  "heading.holder.address": "Nom et adresse du propriétaire de la fiche maîtresse",
   "addressDetails.street": "fr_Street Address",
   "addressDetails.city": "fr_City or Town",
   "addressDetails.country": "fr_Country",
@@ -174,6 +175,7 @@
   "addressDetails.provState": "fr_Province or State",
   "addressDetails.cityTown": "fr_City or Town",
   "company.name.full": "fr_Company Name",
+  "heading.holder.contact": "Coordonnées du propriétaire de la fiche maîtresse",
   "heading.contactInfo": "fr_Company Representative Information",
   "heading.contactRecord": "fr_Company Representative Record",
   "heading.contactDetails": "fr_Company Representative Detail",

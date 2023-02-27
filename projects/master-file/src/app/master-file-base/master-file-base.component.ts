@@ -47,10 +47,10 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public headingLevel = 'h2';
   public masterFileModel =
     MasterFileBaseService.getEmptyMasterFileDetailsModel();
-  public mfAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  public holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
   public agentAddressModel =
     MasterFileBaseService.getEmptyAddressDetailsModel();
-  public mfContactModel = MasterFileBaseService.getEmptyContactModel();
+  public holderContactModel = MasterFileBaseService.getEmptyContactModel();
   public agentContactModel = MasterFileBaseService.getEmptyContactModel();
   public requesterModel = [];
   public countryList = [];
@@ -194,8 +194,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
         requester_of_solicited_information: {
           requester: this._deleteText(this.requesterModel),
         },
-        mf_holder_address: this.mfAddressModel,
-        mf_holder_contact: this.mfContactModel,
+        mf_holder_address: this.holderAddressModel,
+        mf_holder_contact: this.holderContactModel,
         agent_address: this.agentAddressModel,
         agent_contact: this.agentContactModel,
         transFees: this.transFeeModel,
@@ -221,6 +221,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this._insertTextfield();
     }
     this.transFeeModel = fileData.data.TRANSACTION_ENROL.transFees;
+    this.holderAddressModel = fileData.data.TRANSACTION_ENROL.mf_holder_address;
+    this.holderContactModel = fileData.data.TRANSACTION_ENROL.mf_holder_contact;
   }
 
   isSolicited() {
@@ -279,8 +281,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
           requester_of_solicited_information: {
             requester: this._deleteText(this.requesterModel),
           },
-          mf_holder_address: this.mfAddressModel,
-          mf_holder_contact: this.mfContactModel,
+          mf_holder_address: this.holderAddressModel,
+          mf_holder_contact: this.holderContactModel,
           agent_address: this.agentAddressModel,
           agent_contact: this.agentContactModel,
           transFees: this.transFeeModel,

@@ -21,6 +21,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   public contactFormLocalModel: FormGroup;
   @Input('group') public contactRecord: FormGroup;
+  @Input() public contactDetailsModel;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
@@ -133,12 +134,12 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
     // this.contactFormLocalModel.controls.country.setValue(null)
   }
 
-  recordPrcsOnblur() {
-    // console.log('');
-    if (!this.contactFormLocalModel.controls.recordProcessed.value) {
-      this.contactFormLocalModel.controls.recordProcessed.setValue('');
-    }
-  }
+  // recordPrcsOnblur() {
+  //   // console.log('');
+  //   if (!this.contactFormLocalModel.controls[recordProcessed].value) {
+  //     this.contactFormLocalModel.controls.recordProcessed.setValue('');
+  //   }
+  // }
 
   onblur() {
     // console.log(' BLRRE$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');

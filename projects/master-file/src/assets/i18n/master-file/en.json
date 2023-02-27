@@ -160,6 +160,7 @@
   "hlp_licenceNumber2": "If the Licence number has not yet been assigned, use 000000.",
   "hlp_deviceDetail": "The identifiers listed in the device details table must appear on and match the identifier listed on the submitted labelling.",
   
+  "heading.holder.address": "Master File Holder Name and Address",
   "addressDetails.street": "Street Address",
   "addressDetails.city": "City or Town",
   "addressDetails.country": "Country",
@@ -170,7 +171,7 @@
   "addressDetails.provState": "Province or State",
   "addressDetails.cityTown": "City or Town",
   "company.name.full": "Company Name",
-  "heading.contactInfo": "Company Representative Information",
+  "heading.holder.contact": "Master File Holder Contact",
   "heading.contactRecord": "Company Representative Record",
   "heading.contactDetails": "Company Representative Detail",
   "first.name": "First Name",
