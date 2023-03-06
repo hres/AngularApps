@@ -60,6 +60,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
   public fileServices: FileConversionService;
   public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MF_RT_1_0.xsl';
+  
+  public notApplicable: boolean = false;
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
@@ -298,5 +300,9 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       return;
     }
     document.location.href = '#topErrorSummaryId';
+  }
+  
+  agentInfoOnChange() {
+    this.notApplicable = this.masterFileForm.controls['notApplicable'].value;
   }
 }

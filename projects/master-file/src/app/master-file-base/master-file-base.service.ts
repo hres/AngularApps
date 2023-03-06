@@ -52,7 +52,8 @@ export class MasterFileBaseService {
       transDescription: [null, []],
       hasDdt: [false, []],
       hasAppInfo: [false, []],
-      isSolicitedInfo: [null, Validators.required]
+      isSolicitedInfo: [null, Validators.required],
+      notApplicable: [false, []]
     });
   }
 
@@ -127,7 +128,48 @@ export class MasterFileBaseService {
           },
           prov_text: '',
           postal: ''
+        },
+        mf_holder_contact: {
+          fist__name: '',
+          last_name: '',
+          language: '',
+          job_title: '',
+          phone_number: '',
+          phone_extension: '',
+          fax_number: '',
+          email: ''
+        },
+        agent_not_applicable: '',
+        agent_address: {
+          company_name: '',
+          address: '',
+          city: '',
+          country: {
+            '__text': '',
+            '_id': '',
+            '_label_en': '',
+            '_label_fr': ''
+          },
+          prov_lov: {
+            '__text': '',
+            '_id': '',
+            '_label_en': '',
+            '_label_fr': ''
+          },
+          prov_text: '',
+          postal: ''
+        },
+        agent_contact: {
+          fist__name: '',
+          last_name: '',
+          language: '',
+          job_title: '',
+          phone_number: '',
+          phone_extension: '',
+          fax_number: '',
+          email: ''
         }
+
       }
     );
   }
@@ -169,7 +211,6 @@ export class MasterFileBaseService {
 
     return (
       {
-        contact_id: '',
         fist__name: '',
         last_name: '',
         language: '',
