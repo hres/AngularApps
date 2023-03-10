@@ -10,7 +10,7 @@
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
         <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'master.file.load.file'|translate}}
+          <h2 class="panel-title">{{'load.file'|translate}}
             <sup id="tr1-rf">
               <a class="fn-lnk" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>1</a>
             </sup>
@@ -28,25 +28,36 @@
         headingPreamble="errorSummary.master.file"></error-summary>
     </div>
     <div>
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
+<section class="panel panel-primary mrgn-tp-lg">
+  <header class="panel-heading clearfix">
+    <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
+    </header>
+    <div class="panel-body">
+      <app-regulatory-information [showErrors]="showErrors" [lang]="lang" [dataModel]="ectdModel"
+        (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpTextSequences"
+        (errorList)="processRegulatoryInfoErrors($event)"></app-regulatory-information>
+    </div>
+    </section>
+    
+    <!-- <section class="panel panel-primary mrgn-tp-lg">
+                        <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}
             <sup id="tr2-rf">
               <a class="fn-lnk" href="#tr2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.tr2}}</a>
               </sup>
               </h2>
               </header>
-              <div class="panel-body">
+              <div class="panel-body"> -->
                 <!--<master-file-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
                               [detailsChanged]="updateChild" [masterFileModel]="masterFileModel"
                               (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpIndex"
                               (detailErrorList)="processDetailErrors($event)"></master-file-details> -->
           <!--todo clean the not used parameters, detailsChanged, userList .. -->
-          <master-file-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
+          <!-- <master-file-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
             [masterFileModel]="masterFileModel" (isSolicitedFlag)="processIsSolicitedFlag($event)"
             [helpIndex]="helpTextSequences" (detailErrorList)="processDetailErrors($event)"></master-file-details>
 
-        </div>
+        </div> -->
         <!-- <section class="panel  panel-default" *ngIf="isSolicited()">
             <header class="panel-heading clearfix">
               <h3 class="panel-title">{{'heading.requesters'|translate}}</h3>
@@ -56,7 +67,7 @@
                                [requesterModel]="requesterModel"></requester-list>
             </div>
           </section> -->
-      </section>
+      <!-- </section> -->
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
