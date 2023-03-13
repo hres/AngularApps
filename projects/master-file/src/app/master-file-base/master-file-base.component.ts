@@ -47,14 +47,20 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public isSolicitedFlag: boolean;
   public title = '';
   public headingLevel = 'h2';
+
   // public masterFileModel =
   //   MasterFileBaseService.getEmptyMasterFileDetailsModel();
   public transactionEnrollModel = MasterFileBaseService.getEmptyTransactionEnrol();
   public ectdModel = this.transactionEnrollModel.ectd;
-  public mfAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  //public mfAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+
+  //public masterFileModel =
+  //  MasterFileBaseService.getEmptyMasterFileDetailsModel();
+  public holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+
   public agentAddressModel =
     MasterFileBaseService.getEmptyAddressDetailsModel();
-  public mfContactModel = MasterFileBaseService.getEmptyContactModel();
+  public holderContactModel = MasterFileBaseService.getEmptyContactModel();
   public agentContactModel = MasterFileBaseService.getEmptyContactModel();
   public requesterModel = [];
   public countryList = [];
@@ -67,6 +73,10 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     GlobalsService.STYLESHEETS_1_0_PREFIX +
     GlobalsService.MASTER_FILE_OUTPUT_PREFIX +
     '_1_0.xsl'; // todo version mumber
+
+  //public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MF_RT_1_0.xsl';
+  
+  public notApplicable: boolean = false;
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
@@ -202,20 +212,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveWorkingCopyFile() {
-    // this._updatedSavedDate();
-    // const result = {
-    //   TRANSACTION_ENROL: {
-    //     application_info: this.masterFileModel,
-    //     requester_of_solicited_information: {
-    //       requester: this._deleteText(this.requesterModel),
-    //     },
-    //     mf_holder_address: this.mfAddressModel,
-    //     mf_holder_contact: this.mfContactModel,
-    //     agent_address: this.agentAddressModel,
-    //     agent_contact: this.agentContactModel,
-    //     transFees: this.transFeeModel,
-    //   },
-    // };
     const result = this._prepareForSaving(false);
     const fileName = this._generateFileName();
     this.fileServices.saveJsonToFile(result, fileName, null);
@@ -226,14 +222,11 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     console.log(fileData);
     this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
     this.ectdModel = this.transactionEnrollModel.ectd;
-    // const req =
-    //   fileData.data.TRANSACTION_ENROL.requester_of_solicited_information
-    //     .requester;
-    // if (req) {
-    //   this.requesterModel = req instanceof Array ? req : [req];
-    //   this._insertTextfield();
-    // }
-    // this.transFeeModel = fileData.data.TRANSACTION_ENROL.transFees;
+    this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
+    this.holderAddressModel = fileData.data.TRANSACTION_ENROL.holder_name_address;
+    this.holderContactModel = fileData.data.TRANSACTION_ENROL.holder_contact;
+    this.agentAddressModel = fileData.data.TRANSACTION_ENROL.holder_name_address;
+    this.agentContactModel = fileData.data.TRANSACTION_ENROL.holder_contact;
   }
 
   // isSolicited() {
@@ -246,7 +239,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   private _updatedSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    this.transactionEnrollModel.date_saved = pipe.transform(
+    this.transactionEnrollModel.last_saved_date = pipe.transform(
       today,
       'yyyy-MM-dd-hhmm'
     );
@@ -286,26 +279,28 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   _saveXML() {
     if (this.errorList && this.errorList.length < 1) {
-      // const result = {
-      //   TRANSACTION_ENROL: {
-      //     application_info: this.masterFileModel,
-      //     requester_of_solicited_information: {
-      //       requester: this._deleteText(this.requesterModel),
-      //     },
-      //     mf_holder_address: this.mfAddressModel,
-      //     mf_holder_contact: this.mfContactModel,
-      //     agent_address: this.agentAddressModel,
-      //     agent_contact: this.agentContactModel,
-      //     transFees: this.transFeeModel,
-      //   },
-      // };
-      // const fileName =
-      //   'rt-' +
-      //   this.masterFileModel.dossier_id +
-      //   '-' +
-      //   this.masterFileModel.last_saved_date;
       const result = this._prepareForSaving(true);
       const fileName = this._generateFileName();
+/*
+      const result = {
+        TRANSACTION_ENROL: {
+          application_info: this.masterFileModel,
+          requester_of_solicited_information: {
+            requester: this._deleteText(this.requesterModel),
+          },
+          mf_holder_address: this.holderAddressModel,
+          mf_holder_contact: this.holderContactModel,
+          agent_address: this.agentAddressModel,
+          agent_contact: this.agentContactModel,
+          transFees: this.transFeeModel,
+        },
+      };
+      const fileName =
+        'rt-' +
+        this.masterFileModel.dossier_id +
+        '-' +
+        this.masterFileModel.last_saved_date;
+        */
       console.log('save ...');
       this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
       return;
@@ -333,7 +328,11 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       GlobalsService.MASTER_FILE_OUTPUT_PREFIX +
       this.transactionEnrollModel.ectd.dossier_id +
       '-' +
-      this.transactionEnrollModel.date_saved;
+      this.transactionEnrollModel.last_saved_date;
     return fileName;
+  }
+  
+  public agentInfoOnChange() {
+    this.notApplicable = this.masterFileForm.controls['notApplicable'].value;
   }
 }

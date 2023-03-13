@@ -136,7 +136,7 @@
                   "with": "projects/master-file/src/environments/environment.prod-en.ts"
                 }
               ]
-            },
+                },
             "production-fr": {
               "index": "projects/master-file/src/index-fr.html",
               "optimization": true,

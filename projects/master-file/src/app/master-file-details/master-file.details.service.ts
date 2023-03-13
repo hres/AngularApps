@@ -22,10 +22,10 @@ export class MasterFileDetailsService {
     return fb.group({
       dossierId: ['', [Validators.required, ValidationService.dossierIdValidator]],
       dossierType: ['Medical device', []],
-      manuCompanyId: ['', [Validators.required, ValidationService.companyIdValidator]],
-      manuContactId: ['', [Validators.required, ValidationService.dossierContactIdValidator]],
+      mfName: ['', [Validators.required]],
       reguCompanyId: ['', [Validators.required, ValidationService.regulatoryCompanyIdValidator]],
-      reguContactId: ['', [Validators.required, ValidationService.regulatoryContactIdValidator]],
+      controlNumber: ['000000', []],
+      masterfileNumber: ['', []],
       activityLead: ['', Validators.required],
       activityType: ['', Validators.required],
       descriptionType: ['', Validators.required],
@@ -75,9 +75,9 @@ export class MasterFileDetailsService {
         dossier_id: '',
         dossier_type: 'Medical Device',
         company_id: '',
-        manufacturing_contact_id: '',
+        control_number: '',
         regulatory_company_id: '',
-        regulatory_contact_id: '',
+        master_file_number: '',
         regulatory_activity_lead: '',
         regulatory_activity_type: '',
         description_type: '',
@@ -229,9 +229,9 @@ export class MasterFileDetailsService {
   public static getDossierType() {
     return [
       {
-        id: 'D23',
-        en: 'Medical Device',
-        fr: 'Medical Device'
+        id: 'D25',
+        en: 'Master File',
+        fr: 'la fiche maîtresse'
       }
     ];
   }
@@ -500,14 +500,14 @@ export class MasterFileDetailsService {
       '_label_fr': 'Medical Device'
     };
 
-    if (formRecord.controls['manuCompanyId'].value) {
-      masterFileModel.company_id = 'K' + formRecord.controls['manuCompanyId'].value;
+    if (formRecord.controls['mfName'].value) {
+      masterFileModel.company_id = 'K' + formRecord.controls['mfName'].value;
     }
-    masterFileModel.manufacturing_contact_id = formRecord.controls['manuContactId'].value;
-    if (formRecord.controls['reguCompanyId'].value) {
-      masterFileModel.regulatory_company_id = 'K' + formRecord.controls['reguCompanyId'].value;
-    }
-    masterFileModel.regulatory_contact_id = formRecord.controls['reguContactId'].value;
+    masterFileModel.control_number = formRecord.controls['controlNumber'].value;
+    
+    masterFileModel.regulatory_company_id = formRecord.controls['reguCompanyId'].value;
+    
+    masterFileModel.master_file_number = formRecord.controls['masterfileNumber'].value;
    // masterFileModel.regulatory_activity_lead = formRecord.controls['activityLead'].value;
 
     if (formRecord.controls['activityLead'].value) {
@@ -621,13 +621,13 @@ export class MasterFileDetailsService {
     // formRecord.controls.routingId.setValue(masterFileModel.routing_id);
     formRecord.controls['dossierId'].setValue(masterFileModel.dossier_id);
     if (masterFileModel.company_id) {
-      formRecord.controls['manuCompanyId'].setValue(masterFileModel.company_id.slice(1));
+      formRecord.controls['mfName'].setValue(masterFileModel.company_id.slice(1));
     }
-    formRecord.controls['manuContactId'].setValue(masterFileModel.manufacturing_contact_id);
+    formRecord.controls['controlNumber'].setValue(masterFileModel.control_number);
     if (masterFileModel.regulatory_company_id) {
       formRecord.controls['reguCompanyId'].setValue(masterFileModel.regulatory_company_id.slice(1));
     }
-    formRecord.controls['reguContactId'].setValue(masterFileModel.regulatory_contact_id);
+    formRecord.controls['masterfileNumber'].setValue(masterFileModel.master_file_number);
 
     /**
      formRecord.controls['activityLead'].setValue(masterFileModel.activity_lead);

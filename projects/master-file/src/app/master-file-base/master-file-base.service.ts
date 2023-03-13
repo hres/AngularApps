@@ -58,16 +58,19 @@ export class MasterFileBaseService {
       transDescription: [null, []],
       hasDdt: [false, []],
       hasAppInfo: [false, []],
-      isSolicitedInfo: [null, Validators.required]
+      isSolicitedInfo: [null, Validators.required],
+      notApplicable: [false, []]
     });
   }
 
   public static getEmptyMasterFileFeeModel() {
     return (
       {
-      has_fees: '',
-      billing_company_id: '',
-        billing_contact_id: ''
+		  are_there_access_letters: null,
+		  number_of_access_letters: '',
+		  who_responsible_fee: '',
+		  account_number: '',
+		  cra_business_number: ''
       }
     );
   }
@@ -80,41 +83,101 @@ export class MasterFileBaseService {
 
     return (
       {
-      software_version: GlobalsService.SOFTWARE_VERSION,
-      enrol_version: '0.0',
-      last_saved_date: '',  // todo: to map into form model ???
-      dossier_id: '',
-      dossier_type: 'Medical Device',
-      company_id: '',
-      manufacturing_contact_id: '',
-      regulatory_company_id: '',
-      regulatory_contact_id: '',
-      regulatory_activity_lead: '',
-      regulatory_activity_type: '',
-      description_type: '',
-      device_class: '',
-      amend_reasons: {
-        classification_change: '',
-        licence_change: '',
-        process_change: '',
-        quality_change: '',
-        design_change: '',
-        materials_change: '',
-        labelling_change: '',
-        safety_change: '',
-        purpose_change: '',
-        add_delete_change: ''
-      },
-      licence_number: '',
-      application_number: '',
-      device_name: '',
-      request_date: '',
-      master_file_description: '',
-      has_ddt: '',
-      has_app_info: '',
-      is_solicited_info: '',
-      org_manufacture_id: '',
-      org_manufacture_lic: ''
+        software_version: GlobalsService.SOFTWARE_VERSION,
+        enrol_version: '0.0',
+        last_saved_date: '',  // todo: to map into form model ???
+        dossier_id: '',
+        dossier_type: 'Medical Device',
+        company_id: '',
+        manufacturing_contact_id: '',
+        regulatory_company_id: '',
+        regulatory_contact_id: '',
+        regulatory_activity_lead: '',
+        regulatory_activity_type: '',
+        description_type: '',
+        device_class: '',
+        amend_reasons: {
+          classification_change: '',
+          licence_change: '',
+          process_change: '',
+          quality_change: '',
+          design_change: '',
+          materials_change: '',
+          labelling_change: '',
+          safety_change: '',
+          purpose_change: '',
+          add_delete_change: ''
+        },
+        licence_number: '',
+        application_number: '',
+        device_name: '',
+        request_date: '',
+        master_file_description: '',
+        has_ddt: '',
+        has_app_info: '',
+        is_solicited_info: '',
+        org_manufacture_id: '',
+        org_manufacture_lic: '',
+        mf_holder_address: {
+          company_name: '',
+          address: '',
+          city: '',
+          country: {
+            '__text': '',
+            '_id': '',
+            '_label_en': '',
+            '_label_fr': ''
+          },
+          prov_lov: {
+            '__text': '',
+            '_id': '',
+            '_label_en': '',
+            '_label_fr': ''
+          },
+          prov_text: '',
+          postal: ''
+        },
+        mf_holder_contact: {
+          fist__name: '',
+          last_name: '',
+          language: '',
+          job_title: '',
+          phone_number: '',
+          phone_extension: '',
+          fax_number: '',
+          email: ''
+        },
+        agent_not_applicable: '',
+        agent_address: {
+          company_name: '',
+          address: '',
+          city: '',
+          country: {
+            '__text': '',
+            '_id': '',
+            '_label_en': '',
+            '_label_fr': ''
+          },
+          prov_lov: {
+            '__text': '',
+            '_id': '',
+            '_label_en': '',
+            '_label_fr': ''
+          },
+          prov_text: '',
+          postal: ''
+        },
+        agent_contact: {
+          fist__name: '',
+          last_name: '',
+          language: '',
+          job_title: '',
+          phone_number: '',
+          phone_extension: '',
+          fax_number: '',
+          email: ''
+        }
+
       }
     );
   }
@@ -127,23 +190,13 @@ export class MasterFileBaseService {
 
     return (
       {
-      company_name: '',
-      address: '',
-      city: '',
-      country: {
-          '__text': '',
-          '_id': '',
-          '_label_en': '',
-          '_label_fr': ''
-      },
-      prov_lov: {
-          '__text': '',
-          '_id': '',
-          '_label_en': '',
-          '_label_fr': ''
-      },
-      prov_text: '',
-        postal: ''
+	      company_name: '',
+	      street_address: '',
+	      city: '',
+	      country: undefined,
+	      province_lov: undefined,
+	      province_text: '',
+	      postal_code: ''
       }
     );
   }
@@ -156,14 +209,13 @@ export class MasterFileBaseService {
 
     return (
       {
-      contact_id: '',
-      fist__name: '',
-      last_name: '',
-      language: '',
-      job_title: '',
-      phone_number: '',
-      phone_extension: '',
-      fax_number: '',
+        first_name: '',
+        last_name: '',
+        language_correspondance: '',
+        job_title: '',
+        phone_number: '',
+        phone_extension: '',
+        fax_number: '',
         email: ''
       }
     );
@@ -195,19 +247,74 @@ export class MasterFileBaseService {
   public static getEmptyTransactionEnrol(): TransactionEnrol {
     const TransactionEnrol: TransactionEnrol = {
       template_type: 'PHARMA',
-      date_saved: undefined,
-      software_version: '',
+      software_version: GlobalsService.SOFTWARE_VERSION,
+      enrol_version: '0.0',
+      last_saved_date: undefined,  // todo: to map into form model ???
       data_checksum: '',
       ectd: this.getEmptyEctd(),
       is_fees: '',
       fee_details: undefined,
       is_activity_changes: '',
-      company_name: '',
-      regulatory_activity_address: undefined,
-      regulatory_activity_contact: undefined,
-      confirm_regulatory_contact: '',
+     // regulatory_activity_address: undefined,
+     // regulatory_activity_contact: undefined,
+     // confirm_regulatory_contact: '',
+      holder_name_address: {
+          company_name: '',
+          street_address: '',
+          city: '',
+          country: {
+            '__text': '',
+            '_id': '',
+            '_label_en': '',
+            '_label_fr': ''
+          },
+          province_lov: {
+            '__text': '',
+            '_id': ''
+          },
+          province_text: '',
+          postal_code: ''
+      },
+      holder_contact: {
+          first_name: '',
+          last_name: '',
+          language_correspondance: '',
+          job_title: '',
+          phone_number: '',
+          phone_extension: '',
+          fax_number: '',
+          email: ''
+      },
+      agent_not_applicable: undefined,
+      agent_name_address: {
+          company_name: '',
+          street_address: '',
+          city: '',
+          country: {
+            '__text': '',
+            '_id': '',
+            '_label_en': '',
+            '_label_fr': ''
+          },
+          province_lov: {
+            '__text': '',
+            '_id': ''
+          },
+          province_text: '',
+          postal_code: ''
+      },
+      agent_contact: {
+          first_name: '',
+          last_name: '',
+          language_correspondance: '',
+          job_title: '',
+          phone_number: '',
+          phone_extension: '',
+          fax_number: '',
+          email: ''
+      }
     };
-
+    
     // const transaction: Transaction = {
     //   TRANSACTION_ENROL: TransactionEnrol,
     // };

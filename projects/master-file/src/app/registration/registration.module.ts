@@ -9,6 +9,7 @@ import { MasterFileFeeComponent } from '../master-file-fee/master-file.fee.compo
 import { AddressDetailsComponent } from '../address/address.details/address.details.component';
 import { DataService } from '../shared/data.service';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
+import { ContactDetailsComponent } from '../contact/contact.details/contact.details.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { RegulatoryInformationService } from '../regulatory-information/regulato
     MasterFileDetailsComponent,
     MasterFileFeeComponent,
     AddressDetailsComponent,
+    ContactDetailsComponent
   ],
   imports: [CommonModule, SharedModule, FileIoModule],
   exports: [
@@ -25,6 +27,7 @@ import { RegulatoryInformationService } from '../regulatory-information/regulato
     MasterFileDetailsComponent,
     MasterFileFeeComponent,
     AddressDetailsComponent,
+    ContactDetailsComponent
   ],
   providers: [RegulatoryInformationService, DataService],
 })
