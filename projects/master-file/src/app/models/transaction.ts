@@ -9,7 +9,7 @@ export interface TransactionEnrol {
   software_version: string;
   enrol_version: string;
   data_checksum: string;
-  last_saved_date: Date;
+  last_saved_date: string;
   // is_third_party: string;
   // is_priority: string;
   // is_noc: string;
