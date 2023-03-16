@@ -38,7 +38,7 @@ export interface LifecycleRecord {
   master_file_use: IIdTextLabel;
   regulatory_activity_lead: IIdText;
   regulatory_activity_type: IIdTextLabel;
-  sequence_description_value: IIdText;
+  sequence_description_value: IIdTextLabel;
   sequence_from_date: Date;
   // sequence_to_date: string;
   // sequence_details: string;

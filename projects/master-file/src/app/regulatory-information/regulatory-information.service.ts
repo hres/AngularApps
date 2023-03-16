@@ -17,7 +17,7 @@ import {
 } from 'rxjs';
 import { GlobalsService, DataMapping } from '../globals/globals.service';
 import { Ectd, TransactionEnrol } from '../models/transaction';
-import { ICodeDefinition, IParentChildren } from '../shared/data';
+import { ICode, ICodeDefinition, IParentChildren } from '../shared/data';
 import { DataService } from '../shared/data.service';
 import { ValidationService } from '../validation.service';
 
@@ -28,6 +28,9 @@ export class RegulatoryInformationService {
   constructor(private _fb: FormBuilder, private _dataService: DataService) {}
 
   mfTypeOptions$: Observable<ICodeDefinition[]>;
+  mfUseOptions$: Observable<ICode[]>;
+  txDescs$: Observable<ICodeDefinition[]>;
+  mfTypeTxDescOptions$: Observable<IParentChildren[]>;
 
   getMasterFileTypes(): Observable<ICodeDefinition[]> {
     this.mfTypeOptions$ = this._dataService
@@ -37,6 +40,16 @@ export class RegulatoryInformationService {
         shareReplay(1)
       );
     return this.mfTypeOptions$;
+  }
+
+  getTxDescriptions(): Observable<ICodeDefinition[]> {
+    this.txDescs$ = this._dataService
+      .getData<ICodeDefinition>('txDescriptions.json')
+      .pipe(
+        tap((_) => console.log('getTxDescriptions is executed')),
+        shareReplay(1)
+      );
+    return this.txDescs$;
   }
 
   getMasterFileTypeAndTransactionDescription(): Observable<IParentChildren[]> {
@@ -52,21 +65,10 @@ export class RegulatoryInformationService {
         catchError(this._dataService.handleError)
       );
 
-    const transactionDescription$ = this._dataService
-      .getData<ICodeDefinition>('txDescriptions.json')
-      .pipe(
-        // tap((data) =>
-        //   console.log(
-        //     'getMasterFileTypeAndTransactionDescription ~ descriptions: ',
-        //     JSON.stringify(data)
-        //   )
-        // ),
-        catchError(this._dataService.handleError)
-      );
 
-    const arr3$ = combineLatest([
+    this.mfTypeTxDescOptions$ = combineLatest([
       mfTypeAndTransactionDescription$,
-      transactionDescription$,
+      this.getTxDescriptions(),
     ]).pipe(
       map(([arr1, arr2]) => {
         return arr1.map((item) => ({
@@ -75,10 +77,19 @@ export class RegulatoryInformationService {
             return item.descIds.includes(x.id);
           }),
         }));
-      })
+      }),
+      shareReplay(1)
     );
 
-    return arr3$;
+    return this.mfTypeTxDescOptions$;
+  }
+
+  getMasterFileUses(): Observable<ICode[]> {
+    this.mfUseOptions$ = this._dataService.getData<ICode>('mfUses.json').pipe(
+      tap((_) => console.log('getMasterFileUses is executed')),
+      shareReplay(1)
+    );
+    return this.mfUseOptions$;
   }
 
   public getRegularInfoForm() {
@@ -96,6 +107,7 @@ export class RegulatoryInformationService {
         [Validators.required, ValidationService.masterfileNumberValidator],
       ],
       masterFileType: ['', Validators.required],
+      masterFileUse: ['', Validators.required],
       descriptionType: ['', Validators.required],
       requestDate: ['', Validators.required],
       requester: ['', Validators.required],
@@ -554,13 +566,25 @@ export class RegulatoryInformationService {
     new DataMapping(
       'masterFileNumber',
       GlobalsService.FC_TYPE_INPUT,
-      'master_file_number',
+      'lifecycle_record.master_file_number',
       GlobalsService.OP_TYPE_TEXT
     ),
     new DataMapping(
       'masterFileType',
       GlobalsService.FC_TYPE_ICODE,
       'lifecycle_record.regulatory_activity_type',
+      GlobalsService.OP_TYPE_IDTEXTLABEL
+    ),
+    new DataMapping(
+      'masterFileUse',
+      GlobalsService.FC_TYPE_ICODE,
+      'lifecycle_record.master_file_use',
+      GlobalsService.OP_TYPE_IDTEXTLABEL
+    ),
+    new DataMapping(
+      'descriptionType',
+      GlobalsService.FC_TYPE_ICODE,
+      'lifecycle_record.sequence_description_value',
       GlobalsService.OP_TYPE_IDTEXTLABEL
     ),
   ];
@@ -722,6 +746,7 @@ export class RegulatoryInformationService {
     formRecord: FormGroup,
     lang: string
   ): void {
+    // loop through all mappings to set form values from the data model
     for (let mapping of this.regInfoDataMappings) {
       GlobalsService.convertOutputModelToFormData(
         mapping,
@@ -729,12 +754,23 @@ export class RegulatoryInformationService {
         dataModel,
         lang
       );
+    }
+
+    // loop through all mappings again to deal with  those form controls whose value is an object
+    // it will use the object id, which is set to the from control by previous looping, to find the object from the object subscription and then assign the object to the form control
+    for (let mapping of this.regInfoDataMappings) {
       if (mapping.outputDataType === GlobalsService.OP_TYPE_IDTEXTLABEL) {
         const control = formRecord.controls[
           mapping.formControlName
         ] as FormControl;
-        if (mapping.formControlName === 'masterFileType') {
-          this.setMasterFileTypeValue(control);
+        const controlName = mapping.formControlName;
+
+        if (controlName === 'masterFileType') {
+          GlobalsService.updateControlValue(controlName, control,  this.mfTypeOptions$ );
+        } else if (controlName === 'masterFileUse') {
+          GlobalsService.updateControlValue(controlName, control, this.mfUseOptions$);
+        } else if (controlName === 'descriptionType') {
+          GlobalsService.updateControlValue(controlName, control, this.txDescs$);
         }
       }
     }
@@ -871,29 +907,6 @@ export class RegulatoryInformationService {
     // formRecord.controls['proposedIndication'].setValue(masterFileModel.proposed_indication);
     // formRecord.controls['orgManufactureId'].setValue(masterFileModel.org_manufacture_id);
     // formRecord.controls['orgManufactureLic'].setValue(masterFileModel.org_manufacture_lic);
-  }
-
-  private setMasterFileTypeValue(control: FormControl<any>) {
-    let temp = control.value;
-    // console.log(
-    //   '\tgetReactiveModel ~ filter masterFileTypeOptions for ',
-    //   temp
-    // );
-    let selectedMfType: ICodeDefinition[];
-    this.mfTypeOptions$
-      .pipe(
-        map((item) => {
-          // console.log('111=>', item);
-          return item.filter((x) => x.id === temp);
-        })
-      )
-      .subscribe((response) => {
-        // console.log('222=>', response);
-        selectedMfType = response;
-      });
-    // console.log('\tgetReactiveModel ~ selectedMfType', selectedMfType[0]);
-    // reassign the value of the formControl
-    control.setValue(selectedMfType[0]);
   }
 
   // private static _setConcatDetails(masterFileModel) {

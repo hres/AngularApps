@@ -79,6 +79,26 @@
     </div>
     <div class="row">
         <div class="form-group col-xs-6 minWidth300">
+            <label for="masterFileUse" class="required full-width">
+                <span class="field-name">{{ 'masterfile.use' |translate }}</span>
+                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                <control-messages *ngIf="mfDetailsFormLocalModel.controls['masterFileUse'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="mfDetailsFormLocalModel.controls['masterFileUse'] | formControl"
+                    controlId="masterFileUse" label="masterfile.use" parentId="regulatoryInfo"
+                    parentLabel="MasterFile Information"></control-messages>
+                <select id="masterFileUse" name="masterFileUse" required class="form-control full-width"
+                    (change)="onblur()"
+                    [formControl]="mfDetailsFormLocalModel.controls['masterFileUse'] | formControl">
+                    <option label=" " value=""></option>
+                    <option *ngFor="let mfUse of mfUseOptions" [ngValue]="mfUse"> {{ mfUse.en }}</option>
+
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-6 minWidth300">
             <label for="descriptionType" class="required full-width">
                 <span class="field-name">{{ 'transaction.description' |translate }}</span>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
