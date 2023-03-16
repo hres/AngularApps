@@ -17,6 +17,7 @@
   "masterfile.name": "Nom de la fiche maîtresse",
   "masterfile.number": "Numéro de fiche maîtresse (si attribué)",
   "masterfile.type": "Type de la fiche maîtresse",
+  "masterfile.use": "Usage du fiche maîtresse",
   "transaction.description": "Description de la transaction",
   "manufacturing.company.id": "fr_Manufacturer Company Identifier",
   "manufacturing.contact.id": "fr_Manufacturer Contact Identifier",
