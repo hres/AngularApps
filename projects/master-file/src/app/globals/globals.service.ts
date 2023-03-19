@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Injectable, SimpleChanges } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Observable, map } from 'rxjs';
 import { IIdTextLabel } from '../models/transaction';
-import { ICode } from '../shared/data';
+import { ICode, ICodeDefinition, IParentChildren } from '../shared/data';
 
 @Injectable()
 export class GlobalsService {
@@ -74,7 +75,7 @@ export class GlobalsService {
     //   splitted
     // );
 
-    // hard code to handle max of one level down of the data structure. eg lifecycle_record.regulatory_activity_type
+    // hard code to handle max of two levels of the data structure. eg lifecycle_record.regulatory_activity_type
     if (splitted.length == 2) {
       output[splitted[0]][splitted[1]] = val;
     } else if (splitted.length == 1) {
@@ -82,6 +83,10 @@ export class GlobalsService {
     }
   }
 
+  /*
+  set form control's value from data model
+  if the form control's value is an object, it will ONLY set the object's id to the form control
+  */
   static convertOutputModelToFormData(
     mapping: DataMapping,
     formRecord: FormGroup,
@@ -91,7 +96,7 @@ export class GlobalsService {
     //  formRecord.controls['dossierId'].setValue(dataModel.dossier_id);
     var splitted = mapping.outputDataName.split('.');
 
-    // hard code to handle max of one level down of the data structure. eg lifecycle_record.regulatory_activity_type
+    // hard code to handle two levels of the data structure. eg lifecycle_record.regulatory_activity_type
     let val: any;
     if (splitted.length == 2) {
       val = output[splitted[0]][splitted[1]];
@@ -191,6 +196,51 @@ export class GlobalsService {
   //   const result = m_names[date.getUTCMonth()] + '. ' + date.getUTCDate() + ', ' + date.getFullYear();
   //   return result;
   // }
+
+  // when formControl's value is an object, mapDataModelToFormModel method will set the object id to the formControl first
+  // then we use the object id to filter the object list, once found, the object will be set to the formControl
+  public static updateControlValue(controlName: string, control: FormControl<any>, ob$: Observable<ICode[]>) {
+    let _objId = control.value;
+    let _selectedOption: ICodeDefinition[] | ICode[];
+    // console.log('updateControlValue ~ controlName is ', controlName, ' filter for id ', _objId );
+
+    ob$.pipe(
+        map((item) => {
+          // console.log('item=>', item);
+          return item.filter((x) => x.id === _objId);
+        })
+      ).subscribe((response) => {
+        // console.log('response=>', response);
+        _selectedOption = response;
+      });
+    // console.log('updateControlValue ~ _selectedOption ', _selectedOption[0]);
+    // update the value of the formControl
+    control.setValue(_selectedOption[0]);
+  }
+
+  /*
+  check if the component is first time loaded
+  Object.values to retrieve all changes as an array
+  Array.some to check whether any of the changes has isFirstChange set
+  Beware: If no @Input is set at all, isFirstChange will be false because Array.some stops at the first true value.
+  */
+  public static isFirstChange(changes: SimpleChanges): boolean{
+   return Object.values(changes).some(c => c.isFirstChange());
+  }
+
+  // filter an IParentChildren array by parentId and return its children
+  public static filterParentChildrenArray(arr: IParentChildren[], pId: string) : ICodeDefinition[]{
+    const filteredArray = arr.filter(
+      (x) => x.parentId === pId
+    );
+    //    console.log(
+    //      'filterParentChildrenArray ~ filteredArray',
+    //      filteredArray
+    // );
+
+    return filteredArray[0]['children'];
+  }  
+
 }
 
 // a mapping of form control to output data model

@@ -41,6 +41,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   yesNoList: string[] = GlobalsService.YESNOList;
   mfTypeOptions: ICodeDefinition[];
   mfTypeDescArray: IParentChildren[] = [];
+  mfUseOptions: ICode[];
   txDescOptions: ICode[];
   selectedMfTypeDefinition: string;
   selectedTxDescDefinition: string;
@@ -48,9 +49,10 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   public showDateAndRequester: boolean = false;
   mfTypeSub!: Subscription;
   mfTypeTxDescSub!: Subscription;
+  mfUseSub!: Subscription;
 
   showDateAndRequesterTxDescs: string[] = ['12', '13', '14']; // Transaction Description values are defined in txDescriptions.json
-  filter;
+
   constructor(private _regulatoryInfoService: RegulatoryInformationService) {
     this.showFieldErrors = false;
     this.mfDetailsFormLocalModel = _regulatoryInfoService.getRegularInfoForm();
@@ -66,6 +68,11 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     this.mfTypeTxDescSub = this._regulatoryInfoService
       .getMasterFileTypeAndTransactionDescription()
       .subscribe((response) => (this.mfTypeDescArray = response));
+
+
+    this.mfUseSub = this._regulatoryInfoService
+      .getMasterFileUses()
+      .subscribe((response) => (this.mfUseOptions = response));
   }
 
   ngAfterViewInit() {
@@ -87,6 +94,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    const isFirstChange = GlobalsService.isFirstChange(changes);
+    console.log("RegulatoryInformationComponent ~ ngOnChanges ~ isFirstChange:", isFirstChange);
+    
     // since we can't detect changes on objects, using a separate flag
     // if (changes['detailsChanged']) {
     //   // used as a change indicator for the model
@@ -100,44 +110,51 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     //     this.mfDetailsFormLocalModel.markAsPristine();
     //   }
     // }
-    if (changes['showErrors']) {
-      this.showFieldErrors = changes['showErrors'].currentValue;
-      console.log(
-        'MasterFileDetailsComponent ~ ngOnChanges ~ this.showFieldErrors',
-        this.showFieldErrors
-      );
-      const temp = [];
-      if (this.msgList) {
-        this.msgList.forEach((item) => {
-          temp.push(item);
-          // console.log(item);
-        });
+    
+    // Ignore first trigger of ngOnChanges
+    if (!isFirstChange) {
+      if (changes['showErrors']) {
+        this.showFieldErrors = changes['showErrors'].currentValue;
+        console.log(
+          'MasterFileDetailsComponent ~ ngOnChanges ~ this.showFieldErrors',
+          this.showFieldErrors
+        );
+        const temp = [];
+        if (this.msgList) {
+          this.msgList.forEach((item) => {
+            temp.push(item);
+            // console.log(item);
+          });
+        }
+        this.errorList.emit(temp);
       }
-      this.errorList.emit(temp);
-    }
-    if (changes['mfDetailsFormLocalModel']) {
-      //?????????
-      // console.log('**********the master-file details changed');
-      this.mfDetailsFormRecord = this.mfDetailsFormLocalModel;
-    }
-    if (changes['dataModel']) {
-      console.log('**********the dataModel changed');
-      const dataModelCurrentValue = changes['dataModel'].currentValue as Ectd;
-      // if (!this.mfDetailsFormLocalModel) {
-      //   this.mfDetailsFormLocalModel = this.detailsService.getReactiveModel(
-      //     this._fb
-      //   );
-      //   this.mfDetailsFormLocalModel.markAsPristine();
-      // }
-      this._regulatoryInfoService.mapDataModelToFormModel(
-        dataModelCurrentValue,
-        <FormGroup>this.mfDetailsFormLocalModel,
-        this.lang
-      );
-      // this._updateLists();
-      // this._setDescFieldFlags(
-      //   this.mfDetailsFormLocalModel.controls['descriptionType'].value
-      // );
+      if (changes['mfDetailsFormLocalModel']) {
+        //?????????
+        // console.log('**********the master-file details changed');
+        this.mfDetailsFormRecord = this.mfDetailsFormLocalModel;
+      }
+      if (changes['dataModel']) {
+        const dataModelCurrentValue = changes['dataModel'].currentValue as Ectd;
+        // if (!this.mfDetailsFormLocalModel) {
+        //   this.mfDetailsFormLocalModel = this.detailsService.getReactiveModel(
+        //     this._fb
+        //   );
+        //   this.mfDetailsFormLocalModel.markAsPristine();
+        // }
+        this._regulatoryInfoService.mapDataModelToFormModel(
+          dataModelCurrentValue,
+          <FormGroup>this.mfDetailsFormLocalModel,
+          this.lang
+        );
+
+        // get the transaction description dropdown list
+        this._getTransactionDescriptions();
+
+        // this._updateLists();
+        // this._setDescFieldFlags(
+        //   this.mfDetailsFormLocalModel.controls['descriptionType'].value
+        // );
+      }
     }
     //   if (changes['userList']) {
     //     this.userList = changes['userList'].currentValue;
@@ -148,6 +165,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     // unsubscribe the subscription(s)
     this.mfTypeSub.unsubscribe();
     this.mfTypeTxDescSub.unsubscribe();
+    this.mfUseSub.unsubscribe();
   }
 
   onblur() {
@@ -159,17 +177,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     const mfTypeControl = this.mfDetailsFormLocalModel.get('masterFileType');
     // todo check lang for defEn/defFr
     this.selectedMfTypeDefinition = mfTypeControl?.value.defEn;
-    // console.log(selectedMfTypeDefinition.value);
-    const selectedMfTypeId = mfTypeControl?.value.id;
-    const filteredMfTypeDescArray = this.mfTypeDescArray.filter(
-      (x) => x.parentId === selectedMfTypeId
-    );
-    //    console.log(
-    //      'onMfTypeSelected ~ filteredMfTypeDescArray',
-    //      filteredMfTypeDescArray
-    // );
 
-    this.txDescOptions = filteredMfTypeDescArray[0]['children'];
+    // get the transaction description dropdown list
+    this._getTransactionDescriptions();
     this._saveData();
   }
 
@@ -209,4 +219,13 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       this.lang
     );
   }
+  
+  // dynamically load the transaction description dropdowns according to the master type value
+  private _getTransactionDescriptions(): void {
+    const mfTypeControl = this.mfDetailsFormLocalModel.get('masterFileType');
+    const selectedMfTypeId = mfTypeControl?.value.id;
+    // console.log("RegulatoryInformationComponent ~ _getTransactionDescriptions ~ selectedMfTypeId:", selectedMfTypeId);
+    this.txDescOptions = GlobalsService.filterParentChildrenArray(this.mfTypeDescArray, selectedMfTypeId);
+  }
+
 }

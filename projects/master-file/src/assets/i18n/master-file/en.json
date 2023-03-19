@@ -16,6 +16,7 @@
   "masterfile.name": "Master File Name",
   "masterfile.number": "Master File Number (if issued)",
   "masterfile.type": "Master File Type",
+  "masterfile.use": "Master File Use",
   "transaction.description": "Transaction Description",
   "dossier.id": "Dossier Identifier (a lowercase letter followed by 6 or 7 numbers)",
   "dossier.type": "Dossier Type",

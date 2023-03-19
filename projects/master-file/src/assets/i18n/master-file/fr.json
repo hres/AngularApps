@@ -16,6 +16,7 @@
   "masterfile.name": "Nom de la fiche maîtresse",
   "masterfile.number": "Numéro de fiche maîtresse (si attribué)",
   "masterfile.type": "Type de la fiche maîtresse",
+  "masterfile.use": "Usage du fiche maîtresse",
   "transaction.description": "Description de la transaction",
   "dossier.id": "Numéro de dossier (composé d’une lettre minuscule suivie de six ou sept chiffres)",
   "dossier.type": "fr_Dossier Type",
