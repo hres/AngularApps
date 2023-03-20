@@ -123,16 +123,16 @@ export class MasterFileBaseService {
           address: '',
           city: '',
           country: {
-            '__text': '',
-            '_id': '',
-            '_label_en': '',
-            '_label_fr': ''
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
           },
           prov_lov: {
-            '__text': '',
-            '_id': '',
-            '_label_en': '',
-            '_label_fr': ''
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
           },
           prov_text: '',
           postal: ''
@@ -153,16 +153,16 @@ export class MasterFileBaseService {
           address: '',
           city: '',
           country: {
-            '__text': '',
-            '_id': '',
-            '_label_en': '',
-            '_label_fr': ''
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
           },
           prov_lov: {
-            '__text': '',
-            '_id': '',
-            '_label_en': '',
-            '_label_fr': ''
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
           },
           prov_text: '',
           postal: ''
@@ -263,14 +263,14 @@ export class MasterFileBaseService {
           street_address: '',
           city: '',
           country: {
-            '__text': '',
-            '_id': '',
-            '_label_en': '',
-            '_label_fr': ''
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
           },
           province_lov: {
-            '__text': '',
-            '_id': ''
+            __text: '',
+            _id: ''
           },
           province_text: '',
           postal_code: ''
@@ -291,14 +291,14 @@ export class MasterFileBaseService {
           street_address: '',
           city: '',
           country: {
-            '__text': '',
-            '_id': '',
-            '_label_en': '',
-            '_label_fr': ''
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
           },
           province_lov: {
-            '__text': '',
-            '_id': ''
+            __text: '',
+            _id: ''
           },
           province_text: '',
           postal_code: ''

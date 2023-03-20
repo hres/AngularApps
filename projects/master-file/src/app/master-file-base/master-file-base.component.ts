@@ -315,9 +315,16 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
     this._updatedSavedDate();
 
+    this.transactionEnrollModel.holder_name_address = this.holderAddressModel;
+    this.transactionEnrollModel.holder_contact = this.holderContactModel;
+    this.transactionEnrollModel.agent_name_address = this.agentAddressModel;
+    this.transactionEnrollModel.agent_contact = this.agentContactModel;
+    this.transactionEnrollModel.fee_details = this.transFeeModel;
+
     const result: Transaction = {
       TRANSACTION_ENROL: this.transactionEnrollModel,
     };
+
     console.log('_prepareForSaving ~ result', JSON.stringify(result));
 
     return result;

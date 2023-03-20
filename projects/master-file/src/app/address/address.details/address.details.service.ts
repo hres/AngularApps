@@ -105,12 +105,13 @@ export class AddressDetailsService {
     formRecord.controls['address'].setValue(addressModel.address);
     formRecord.controls['city'].setValue(addressModel.city);
     formRecord.controls['postal'].setValue(addressModel.postal);
-    const recordIndex = ListService.getRecord(countryList, addressModel.country._id, 'id');
-    let labelText = '';
-    if (recordIndex > -1) {
-      labelText = countryList[recordIndex].text;
-    }
+
     if (addressModel.country) {
+      const recordIndex = ListService.getRecord(countryList, addressModel.country._id, 'id');
+      let labelText = '';
+      if (recordIndex > -1) {
+        labelText = countryList[recordIndex].text;
+      }
       formRecord.controls['country'].setValue([
         {
           'id': addressModel.country._id,
