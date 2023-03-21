@@ -1,14 +1,26 @@
 <div>
   <div [formGroup]="mfDetailsFormLocalModel">
     <div class="row">
-
+      <div class=".form-inline col-xs-6 minWidth300">
+        <label for="reguCompanyId" class="required full-width" aria-required="true">
+          <span class="field-name">{{ 'regulatory.company.id'|translate }} {{ 'minNumber6'|translate }}</span>
+          <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['reguCompanyId'].invalid" [showError]="showFieldErrors"
+            [control]="mfDetailsFormLocalModel.controls['reguCompanyId'] | formControl" controlId="reguCompanyId"
+            label="regulatory.company.id" parentId="mfDetails" parentLabel="MasterFile Information"></control-messages>
+          <input id="reguCompanyId" name="reguCompanyId" class="form-control full-width" (blur)="onblur()"
+            [formControl]="mfDetailsFormLocalModel.controls['reguCompanyId'] | formControl" maxlength="6" />
+        </label>
+      </div>
       <div class="form-group col-xs-6 minWidth300">
         <label for="dossierType" class="full-width">
           <span class="field-name" >{{ 'dossier.type'|translate }}</span>
           <input id="dossierType" class="form-control full-width"
-                 [formControl]="mfDetailsFormLocalModel.controls['dossierType'] | formControl"  [readonly]="true"/>
+                 [formControl]="mfDetailsFormLocalModel.controls['dossierType'] | formControl" [readonly]="true"/>
         </label>
-      </div>
+      </div></div>
+      
+      <div class="row">
       <div class="form-group col-xs-6 minWidth300" >
         <label for="dossierId" class="required full-width">
           <span class="field-name" >{{ 'dossier.id'|translate }} {{ 'minAlphanum6.m'|translate }}</span>
@@ -28,33 +40,37 @@
     </div>
     <div class="row">
       <div class=".form-inline col-xs-6 minWidth300">
-        <label for="manuCompanyId" class="required full-width" aria-required="true">
-          <span class="field-name" >{{ 'manufacturing.company.id'|translate }} {{ 'minNumber6'|translate }}</span>
+        <label for="mfName" class="required full-width" aria-required="true">
+          <span class="field-name" >{{ 'masterfile.name'|translate }} {{ 'minNumber6'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls['manuCompanyId'].invalid"
+          <control-messages *ngIf="mfDetailsFormLocalModel.controls['mfName'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls['manuCompanyId'] | formControl"
-                            controlId="manuCompanyId" label="manufacturing.company.id" parentId="mfDetails"
+                            [control]="mfDetailsFormLocalModel.controls['mfName'] | formControl"
+                            controlId="mfName" label="manufacturing.company.id" parentId="mfDetails"
                             parentLabel="MasterFile Information"></control-messages>
-          <input id="manuCompanyId" name="manuCompanyId" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls['manuCompanyId'] | formControl" maxlength="6" />
+          <input id="mfName" name="mfName" class="form-control full-width" (blur)="onblur()"
+                 [formControl]="mfDetailsFormLocalModel.controls['mfName'] | formControl" maxlength="6" />
         </label>
       </div>
       <div class=".form-inline col-xs-6 minWidth300" >
-        <label for="reguCompanyId" class="required full-width" aria-required="true">
-          <span class="field-name" >{{ 'regulatory.company.id'|translate }} {{ 'minNumber6'|translate }}</span>
-          <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="mfDetailsFormLocalModel.controls['reguCompanyId'].invalid"
-                            [showError]="showFieldErrors"
-                            [control]="mfDetailsFormLocalModel.controls['reguCompanyId'] | formControl"
-                            controlId="reguCompanyId" label="regulatory.company.id" parentId="mfDetails"
-                            parentLabel="MasterFile Information"></control-messages>
-          <input id="reguCompanyId" name="reguCompanyId" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="mfDetailsFormLocalModel.controls['reguCompanyId'] | formControl" maxlength="6" />
+        <label for="controlNumber" class="required full-width" aria-required="true">
+          <span class="field-name" >{{ 'control.number'|translate }} </span>
+          <input id="controlNumber" name="controlNumber" class="form-control full-width"  [readonly]="true" [value]="000000" />
+                 <!-- [formControl]="mfDetailsFormLocalModel.controls['controlNumber'] | formControl" maxlength="6" [value]="000000"/> -->
         </label>
       </div>
     </div>
     <div class="row">
+      <div class=".form-inline col-xs-6 minWidth300">
+        <label for="masterfileNumber" class="required full-width" aria-required="true">
+          <span class="field-name">{{ 'masterfile.number'|translate }}</span>
+          <input id="masterfileNumber" name="masterfileNumber" class="form-control full-width" (blur)="onblur()"
+            [formControl]="mfDetailsFormLocalModel.controls['masterfileNumber'] | formControl" maxlength="6" />
+        </label>
+      </div>
+    </div>
+    <!--todo-->
+    <!-- <div class="row">
       <div class=".form-inline col-xs-6 minWidth300" >
         <label for="manuContactId" class="required full-width" aria-required="true">
           <span class="field-name" >{{ 'manufacturing.contact.id'|translate }} {{ 'minNumber5'|translate }}</span>
@@ -84,8 +100,15 @@
                  [formControl]="mfDetailsFormLocalModel.controls['reguContactId'] | formControl" maxlength="5" />
         </label>
       </div>
-    </div>
+    </div> -->
     <div class="row">
+      <!-- <div class="form-group col-xs-6 minWidth300">
+        <label for="dossierType" class="full-width">
+          <span class="field-name">{{ 'dossier.type'|translate }}</span>
+          <input id="dossierType" class="form-control full-width"
+            [formControl]="mfDetailsFormLocalModel.controls['dossierType'] | formControl" [readonly]="true" />
+        </label>
+      </div> -->
       <div class="form-group col-xs-6 minWidth300" >
         <label for="activityLead" class="required full-width">
           <span class="field-name" >{{ 'activity.lead' |translate }}</span>

@@ -5,9 +5,11 @@ export interface Transaction {
 
 export interface TransactionEnrol {
   template_type: string;
-  date_saved: string;
+  //date_saved: string;
   software_version: string;
+  enrol_version: string;
   data_checksum: string;
+  last_saved_date: string;
   // is_third_party: string;
   // is_priority: string;
   // is_noc: string;
@@ -17,10 +19,12 @@ export interface TransactionEnrol {
   is_fees: string;
   fee_details: FeeDetails;
   is_activity_changes: string;
-  company_name: string;
-  regulatory_activity_address: RegulatoryActivityAddress;
-  regulatory_activity_contact: RegulatoryActivityContact;
-  confirm_regulatory_contact: string;
+  holder_name_address: HolderNameAddress;
+  holder_contact: HolderContact;
+  // confirm_regulatory_contact: string;
+  agent_not_applicable: boolean;
+  agent_name_address: HolderNameAddress;
+  agent_contact: HolderContact;
 }
 
 export interface Ectd {
@@ -55,23 +59,15 @@ export interface LifecycleRecord {
 }
 
 export interface FeeDetails {
-  submission_class: IIdTextLabel;
-  submission_description: IIdTextLabel;
-  fee: string;
-  mitigation: Mitigation;
+  are_there_access_letters: boolean;
+  number_of_access_letters: string;
+  who_responsible_fee: string;
+  account_number: string;
+  cra_business_number: string
 }
 
-export interface Mitigation {
-  mitigation_type: IIdTextLabel;
-  certify_organization: string;
-  small_business_fee_application: string;
-  certify_goverment_organization: string;
-  certify_urgent_health_need: string;
-  certify_funded_health_institution: string;
-  certify_isad: string;
-}
-
-export interface RegulatoryActivityAddress {
+export interface HolderNameAddress {
+  company_name: string;
   street_address: string;
   city: string;
   province_lov: IIdText;
@@ -80,17 +76,15 @@ export interface RegulatoryActivityAddress {
   postal_code: string;
 }
 
-export interface RegulatoryActivityContact {
-  given_name: string;
-  initials: string;
-  surname: string;
+export interface HolderContact {
+  first_name: string;
+  last_name: string;
   job_title: string;
-  language_correspondance: IIdText;
-  phone_num: string;
-  phone_ext: string;
-  fax_num: string;
+  language_correspondance: string;
+  phone_number: string;
+  phone_extension: string;
+  fax_number: string;
   email: string;
-  RoutingID: string;
 }
 
 export interface IText {

@@ -58,9 +58,9 @@ export class ContactDetailsService {
       status: 'NEW',
       // hcStatus: [null, Validators.required],
       // salutation: [null, Validators.required],
-      fullName: [null, Validators.required],
+      firstName: [null, Validators.required],
       // initials: '',
-      // lastName: [null, Validators.required],
+      lastName: [null, Validators.required],
       language: '',
       jobTitle: [null, Validators.required],
       faxNumber: ['', [Validators.minLength(10), ValidationService.faxNumberValidator]],
@@ -85,9 +85,9 @@ export class ContactDetailsService {
         status_text: '',
         // hc_status: '',
         // salutation: '',
-        full_name: '',
+        first_name: '',
         // initials: '',
-        // last_name: '',
+        last_name: '',
         language: '',
         job_title: '',
         fax_number: '',
@@ -101,10 +101,10 @@ export class ContactDetailsService {
 
 
   public static mapFormModelToDataModel(formRecord: FormGroup, contactModel) {
-    contactModel.contact_id = formRecord.controls.contactId.value;
-    if (formRecord.controls.status.value) {
+    contactModel.contact_id = formRecord.controls['contactId'].value;
+    if (formRecord.controls['status'].value) {
       const statList = this._convertListText(this.statusListInternal, this.lang);
-      const recordIndex = ListService.getRecord(statList, formRecord.controls.status.value, 'id');
+      const recordIndex = ListService.getRecord(statList, formRecord.controls['status'].value, 'id');
       if (recordIndex > -1) {
         contactModel.status = {
           '__text': statList[recordIndex].text,
@@ -117,10 +117,10 @@ export class ContactDetailsService {
     } else {
       contactModel.status = null;
     }
-    // contactModel.hc_status = formRecord.controls.hcStatus.value;
-    // if (formRecord.controls.salutation.value) {
+    // contactModel.hc_status = formRecord.controls['hcStatus.value;
+    // if (formRecord.controls['salutation.value) {
     //   const salutList = this._convertListText(this.salutationList, this.lang);
-    //   const recordIndex2 = ListService.getRecord(salutList, formRecord.controls.salutation.value, 'id');
+    //   const recordIndex2 = ListService.getRecord(salutList, formRecord.controls['salutation.value, 'id');
     //   if (recordIndex2 > -1) {
     //     contactModel.salutation = {
     //       '__text': salutList[recordIndex2].text,
@@ -132,12 +132,12 @@ export class ContactDetailsService {
     // } else {
     //   contactModel.salutation = null;
     // }
-    contactModel.full_name = formRecord.controls.fullName.value;
-    // contactModel.initials = formRecord.controls.initials.value;
-    // contactModel.last_name = formRecord.controls.lastName.value;
-    if (formRecord.controls.language.value) {
+    contactModel.first_name = formRecord.controls['firstName'].value;
+    // contactModel.initials = formRecord.controls['initials.value;
+    contactModel.last_name = formRecord.controls['lastName'].value;
+    if (formRecord.controls['language'].value) {
       const langList = this._convertListText(this.languageList, this.lang);
-      const recordIndex3 = ListService.getRecord(langList, formRecord.controls.language.value, 'id');
+      const recordIndex3 = ListService.getRecord(langList, formRecord.controls['language'].value, 'id');
       if (recordIndex3 > -1) {
         contactModel.language = {
           '__text': langList[recordIndex3].text,
@@ -149,67 +149,67 @@ export class ContactDetailsService {
     } else {
       contactModel.language = null;
     }
-    contactModel.job_title = formRecord.controls.jobTitle.value;
-    contactModel.fax_number = formRecord.controls.faxNumber.value;
-    contactModel.phone_number = formRecord.controls.phoneNumber.value;
-    contactModel.phone_extension = formRecord.controls.phoneExtension.value;
-    contactModel.email = formRecord.controls.email.value;
-    contactModel.RoutingID = formRecord.controls.routingId.value;
-    // contactModel.hc_status = formRecord.controls.recordProcessed.value ? GlobalsService.YES : GlobalsService.NO;
+    contactModel.job_title = formRecord.controls['jobTitle'].value;
+    contactModel.fax_number = formRecord.controls['faxNumber'].value;
+    contactModel.phone_number = formRecord.controls['phoneNumber'].value;
+    contactModel.phone_extension = formRecord.controls['phoneExtension'].value;
+    contactModel.email = formRecord.controls['email'].value;
+    contactModel.RoutingID = formRecord.controls['routingId'].value;
+    // contactModel.hc_status = formRecord.controls['recordProcessed.value ? GlobalsService.YES : GlobalsService.NO;
   }
 
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
-    formRecord.controls.contactId.setValue(contactModel.contact_id);
+    formRecord.controls['contactId'].setValue(contactModel.contact_id);
     if (contactModel.status) {
       const recordIndex = ListService.getRecord(this.statusListInternal, contactModel.status._id, 'id');
       if (recordIndex > -1) {
-        formRecord.controls.status.setValue(this.statusListInternal[recordIndex].id);
+        formRecord.controls['status'].setValue(this.statusListInternal[recordIndex].id);
       }
     } else {
-      formRecord.controls.status.setValue(null);
+      formRecord.controls['status'].setValue(null);
     }
-    // formRecord.controls.hcStatus.setValue(contactModel.hc_status);
+    // formRecord.controls['hcStatus.setValue(contactModel.hc_status);
     // if (contactModel.salutation) {
     //   const recordIndex2 = ListService.getRecord(this.salutationList, contactModel.salutation._id, 'id');
     //   if (recordIndex2 > -1) {
-    //     formRecord.controls.salutation.setValue(this.salutationList[recordIndex2].id);
+    //     formRecord.controls['salutation.setValue(this.salutationList[recordIndex2].id);
     //   }
     // } else {
-    //   formRecord.controls.salutation.setValue(null);
+    //   formRecord.controls['salutation.setValue(null);
     // }
 
-    formRecord.controls.fullName.setValue(contactModel.full_name);
-    // formRecord.controls.initials.setValue(contactModel.initials);
-    // formRecord.controls.lastName.setValue(contactModel.last_name);
+    formRecord.controls['firstName'].setValue(contactModel.first_name);
+    // formRecord.controls['initials.setValue(contactModel.initials);
+    formRecord.controls['lastName'].setValue(contactModel.last_name);
     if (contactModel.language) {
       const recordIndex3 = ListService.getRecord(this.languageList, contactModel.language._id, 'id');
       if (recordIndex3 > -1) {
-        formRecord.controls.language.setValue(this.languageList[recordIndex3].id);
+        formRecord.controls['language'].setValue(this.languageList[recordIndex3].id);
       }
     } else {
-      formRecord.controls.language.setValue(null);
+      formRecord.controls['language'].setValue(null);
     }
-    formRecord.controls.jobTitle.setValue(contactModel.job_title);
-    formRecord.controls.faxNumber.setValue(contactModel.fax_number);
-    formRecord.controls.phoneNumber.setValue(contactModel.phone_number);
-    formRecord.controls.phoneExtension.setValue(contactModel.phone_extension);
-    formRecord.controls.email.setValue(contactModel.email);
-    formRecord.controls.routingId.setValue(contactModel.RoutingID);
+    formRecord.controls['jobTitle'].setValue(contactModel.job_title);
+    formRecord.controls['faxNumber'].setValue(contactModel.fax_number);
+    formRecord.controls['phoneNumber'].setValue(contactModel.phone_number);
+    formRecord.controls['phoneExtension'].setValue(contactModel.phone_extension);
+    formRecord.controls['email'].setValue(contactModel.email);
+    formRecord.controls['routingId'].setValue(contactModel.RoutingID);
     // if (contactModel.hc_status) {
     //   const hcs = contactModel.hc_status === GlobalsService.YES ? true : false;
-    //   formRecord.controls.recordProcessed.setValue(hcs);
+    //   formRecord.controls['recordProcessed.setValue(hcs);
     // }
   }
 
   public static getRecordId(record: FormGroup) {
-    return (record.controls.id.value);
+    return (record.controls['id'].value);
   }
 
   public static setRecordId(record: FormGroup, value: number): void {
     if (!record) {
       return;
     }
-    record.controls.id.setValue(value);
+    record.controls['id'].setValue(value);
   }
 
   /***

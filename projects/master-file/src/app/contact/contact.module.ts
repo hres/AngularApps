@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ContactDetailsComponent} from './contact.details/contact.details.component';
+// import {ContactDetailsComponent} from './contact.details/contact.details.component';
 import {CompanyContactRecordComponent} from './company-contact-record/company-contact-record.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
-import {SelectModule} from 'ng2-select';
+// import {SelectModule} from 'ng2-select';
 import {FileIoModule} from '../filereader/file-io/file-io.module';
 import {ErrorModule} from '../error-msg/error-ui.module';
 import {ContactListComponent} from './contact.list/contact.list.component';
@@ -19,7 +19,7 @@ import {NumbersOnlyModule} from '../number-only/number-only.module';
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    SelectModule,
+    // SelectModule,
     FileIoModule,
     ErrorModule,
     NumbersOnlyModule,
@@ -28,14 +28,14 @@ import {NumbersOnlyModule} from '../number-only/number-only.module';
   ],
   declarations: [
     CompanyContactRecordComponent,
-    ContactDetailsComponent,
+    // ContactDetailsComponent,
     ContactListComponent
 
   ],
   exports: [
     NumbersOnlyModule,
     CompanyContactRecordComponent,
-    ContactDetailsComponent,
+    // ContactDetailsComponent,
     ContactListComponent
   ],
   providers: [
