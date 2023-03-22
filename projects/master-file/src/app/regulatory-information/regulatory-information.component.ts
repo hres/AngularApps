@@ -147,8 +147,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
           this.lang
         );
 
-        // get the transaction description dropdown list
-        this._getTransactionDescriptions();
+        this.onMfTypeSelected(null);
+
+        this.onTxDescriptionSelected(null);
 
         // this._updateLists();
         // this._setDescFieldFlags(
@@ -177,10 +178,13 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     const mfTypeControl = this.mfDetailsFormLocalModel.get('masterFileType');
     // todo check lang for defEn/defFr
     this.selectedMfTypeDefinition = mfTypeControl?.value.defEn;
-
     // get the transaction description dropdown list
     this._getTransactionDescriptions();
-    this._saveData();
+
+    if (e) {
+      // when the action is triggered from the UI
+      this._saveData();
+    }
   }
 
   onTxDescriptionSelected(e: any): void {
@@ -191,25 +195,11 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     this.showDateAndRequester = this.showDateAndRequesterTxDescs.includes(
       txDescControl?.value.id
     );
-    this._saveData();
-  }
 
-  descrDeviceOnblur() {
-    console.log('descrDeviceOnblur ~ descrDeviceOnblur');
-    const descValue =
-      this.mfDetailsFormLocalModel.controls['descriptionType'].value;
-    // this._updateReasonArray();
-    // this._setDescFieldFlags(descValue);
-    // this._resetReasonValues();
-    this.onblur();
-  }
-
-  descrDeviceOnClick() {
-    console.log('descrDeviceOnClick ~ descrDeviceOnClick');
-  }
-
-  descrDeviceOnSelected() {
-    console.log('descrDeviceOnSelected ~ descrDeviceOnSelected');
+    if (e) {
+      // when the action is triggered from the UI    
+      this._saveData();
+    }
   }
 
   private _saveData() {

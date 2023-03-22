@@ -104,23 +104,23 @@ export class GlobalsService {
       val = output[splitted[0]];
     }
 
-    console.log(
-      'convertOutputModelToFormData ~ mapping ',
-      mapping,
-      '~ outputValue ',
-      val
-    );
+    // console.log(
+    //   'convertOutputModelToFormData ~ mapping ',
+    //   mapping,
+    //   '~ outputValue ',
+    //   val
+    // );
 
     if (mapping.outputDataType === GlobalsService.OP_TYPE_TEXT) {
-      console.log('1 typeof val ', typeof val);
+      // console.log('1 typeof val ', typeof val);
       formRecord.controls[mapping.formControlName].setValue(val);
     } else if (mapping.outputDataType === GlobalsService.OP_TYPE_IDTEXTLABEL) {
-      console.log('2 typeof val ', typeof val);
-      if (this.isIIdTextLabel(val)) {
-        console.log('2.1 is IIdTextLabel');
-      } else {
-        console.log('2.1 is NOT IIdTextLabel');
-      }
+      // console.log('2 typeof val ', typeof val);
+      // if (this.isIIdTextLabel(val)) {
+      //   console.log('2.1 is IIdTextLabel');
+      // } else {
+      //   console.log('2.1 is NOT IIdTextLabel');
+      // }
 
       formRecord.controls[mapping.formControlName].setValue(
         (val as IIdTextLabel)._id
@@ -240,6 +240,11 @@ export class GlobalsService {
 
     return filteredArray[0]['children'];
   }  
+
+  public static concat(...param): string{
+    // console.log(param.join(' ')) // [1,2]
+    return param.join(' ');
+  }
 
 }
 

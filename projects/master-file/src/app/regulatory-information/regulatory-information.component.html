@@ -127,19 +127,7 @@
         </div>
     </div>
     <div class="row" *ngIf="showDateAndRequester">
-        <div class="form-group col-xs-6"><!-- *ngIf="showVersion" -->
-            <!-- <label for="requestDate" class="required full-width">
-                <span class="field-name">{{ 'request.version' |translate }}</span>
-                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                <control-messages *ngIf="mfDetailsFormLocalModel.controls['requestVersion'].invalid"
-                    [showError]="showFieldErrors"
-                    [control]="mfDetailsFormLocalModel.controls['requestVersion'] | formControl"
-                    controlId="requestVersion" label="request.version" parentId="mfDetails"
-                    parentLabel="MasterFile Information"></control-messages>
-                <input id="requestVersion" name="requestVersion" type="text" class="form-control full-width"
-                    (blur)="onblur()" maxlength="10"
-                    [formControl]="mfDetailsFormLocalModel.controls['requestVersion'] | formControl" />
-            </label> -->
+        <div class="form-group col-xs-6">
             <label for="requestDate" class="required full-width">
                 <span class="field-name">{{ 'request.date' |translate }}</span>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
