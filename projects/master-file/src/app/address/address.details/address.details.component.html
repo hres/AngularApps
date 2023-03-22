@@ -66,7 +66,7 @@
                             controlId="country" label="addressDetails.country" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <div class="margin-top-small">
-			      <ng-select id="country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required solid"                      
+			      <ng-select id="country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required custom"                      
                        (typed)="typed($event)"
                        (blur)="typed($event)"
                        (add)="typed($event)"
@@ -108,12 +108,12 @@
       </div>
       <div class="form-group col-sm-6 col-xs-12">
         <label for="postal" [ngClass]="{'required':!showProvText}" aria-required="true">
-          <span class="field-name" i18n>{{postalLabel |translate}}</span>
+          <span class="field-name" i18n>{{'addressDetails.postalCode' |translate}}</span>
           <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['postal'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['postal'] | formControl"
-                            controlId="postal" label="{{postalLabel}}" parentId="addressDetails"
+                            controlId="postal" label="{{'addressDetails.postalCode'}}" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <input name="postal" id="postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
                  maxlength="10" />

@@ -136,6 +136,8 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     }
     if (changes['addressModel']) {
       const dataModel = changes['addressModel'].currentValue;
+      if (!this.addressFormLocalModel)
+        this.addressFormLocalModel = AddressDetailsService.getReactiveModel(this._fb);
       AddressDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressFormLocalModel),
         this.countryList, this.provinceList.concat(this.stateList));
       if (this.addressFormLocalModel.controls['country'] &&

@@ -74,12 +74,66 @@
             <h3 class="panel-title">{{'panel.title.contactInfo'|translate}}</h3>
             </header>
             <div class="panel-body">
-              <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
-              [provinceList]="provinceList" [addressModel]="mfAddressModel" [stateList]="stateList"
-              [helpTextSequences]="helpTextSequences" (errorList)="processAddressErrors($event)"></address-details> -->
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.holder.address'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                  <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang" [provinceList]="provinceList"
+                    [addressModel]="holderAddressModel" [stateList]="stateList" [helpTextSequences]="helpTextSequences"
+                    (errorList)="processAddressErrors($event)">
+                  </address-details>
+                </div>
+              </section>
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.holder.contact'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                  <contact-details [showErrors]="showErrors" [lang]="lang"
+                    [contactDetailsModel]="holderContactModel" [helpTextSequences]="helpTextSequences"
+                    (errorList)="processContactErrors($event)">
+                  </contact-details>
+                </div>
+              </section>
+                
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.agent.address'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                 
+                  <div class="row rep-margin-left">
+                    <div class="col-xs-12">
+                      <div class="checkbox">
+                        <label for="notApplicable">
+                          <input name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
+                            id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl"/>
+                          <span><b>{{'not.applicable'|translate}}</b></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <address-details *ngIf="!notApplicable" [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
+                    [provinceList]="provinceList" [addressModel]="agentAddressModel" [stateList]="stateList"
+                    [helpTextSequences]="helpTextSequences" (errorList)="processAddressErrors($event)">
+                  </address-details>
+                </div>
+              </section>
+              <section class="panel  panel-default" *ngIf="!notApplicable">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.agent.contact'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                  <contact-details [showErrors]="showErrors" [lang]="lang" [contactDetailsModel]="agentContactModel"
+                    [helpTextSequences]="helpTextSequences" (errorList)="processContactErrors($event)">
+                  </contact-details>
+                </div>
+              </section>
           </div>
         </section>
       </div>
+
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
