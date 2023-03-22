@@ -176,8 +176,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
 
   onMfTypeSelected(e: any): void {
     const mfTypeControl = this.mfDetailsFormLocalModel.get('masterFileType');
-    // todo check lang for defEn/defFr
-    this.selectedMfTypeDefinition = mfTypeControl?.value.defEn;
+    this.selectedMfTypeDefinition = GlobalsService.getCodeDefinitionByLang(mfTypeControl?.value, this.lang);
+    
     // get the transaction description dropdown list
     this._getTransactionDescriptions();
 
@@ -198,6 +198,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
 
     if (e) {
       // when the action is triggered from the UI    
+      // reset requestDate and requester fields values
+      GlobalsService.resetControlValue(this.mfDetailsFormLocalModel.controls['requestDate'], this.mfDetailsFormLocalModel.controls['requester']);
       this._saveData();
     }
   }

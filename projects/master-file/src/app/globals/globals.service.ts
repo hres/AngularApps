@@ -1,7 +1,7 @@
 import { Injectable, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Observable, map } from 'rxjs';
-import { IIdTextLabel } from '../models/transaction';
+import { Ectd, IIdTextLabel } from '../models/transaction';
 import { ICode, ICodeDefinition, IParentChildren } from '../shared/data';
 
 @Injectable()
@@ -241,10 +241,32 @@ export class GlobalsService {
     return filteredArray[0]['children'];
   }  
 
-  public static concat(...param): string{
+  // return a concatated string, delimited by a space
+  public static concat(...param: string[]): string{
     // console.log(param.join(' ')) // [1,2]
     return param.join(' ');
   }
+
+  // reset form control's value
+  public static resetControlValue(...controls: AbstractControl<any, any>[]): void{
+    controls.forEach(c=> {
+      c.setValue(null);
+      c.markAsUntouched();
+    })
+  }
+  
+  // reset form control's value
+  public static getCodeDefinitionByLang(codeDefinition: ICodeDefinition, lang:string): string{
+    if (codeDefinition) {
+      if (this.isFrench(lang)) {
+        return codeDefinition.defFr;
+      } else {
+        return codeDefinition.defEn;
+      }
+    } else {
+      return null;
+    }
+  }  
 
 }
 
@@ -256,10 +278,10 @@ export class DataMapping {
   outputDataType: string;
 
   constructor(
-    formControlName,
-    formControlType,
-    outputDataName,
-    outputDataType
+    formControlName: string,
+    formControlType: string,
+    outputDataName: string,
+    outputDataType: string
   ) {
     this.formControlName = formControlName;
     this.formControlType = formControlType;
