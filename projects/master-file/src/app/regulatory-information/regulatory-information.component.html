@@ -36,7 +36,7 @@
             </label>
         </div>
         <div class=".form-inline col-xs-6 minWidth300">
-            <label for="masterFileNumber" class="required full-width" aria-required="true">
+            <label for="masterFileNumber" class="full-width" aria-required="true">
                 <span class="field-name">{{ 'masterfile.number'|translate }} </span>
                 <control-messages *ngIf="mfDetailsFormLocalModel.controls['masterFileNumber'].invalid"
                     [showError]="showFieldErrors"
@@ -44,7 +44,8 @@
                     controlId="masterFileNumber" label="masterfile.number" parentId="regulatoryInfo"
                     parentLabel="MasterFile Information"></control-messages>
                 <input id="masterFileNumber" name="masterFileNumber" class="form-control full-width" (blur)="onblur()"
-                    [formControl]="mfDetailsFormLocalModel.controls['masterFileNumber'] | formControl" />
+                    [formControl]="mfDetailsFormLocalModel.controls['masterFileNumber'] | formControl" 
+                    pattern="\d{4}-\d{3}" />
             </label>
         </div>
     </div>
@@ -62,7 +63,7 @@
                     (change)="onMfTypeSelected($any($event.target).value)"
                     [formControl]="mfDetailsFormLocalModel.controls['masterFileType'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let mfType of mfTypeOptions" [ngValue]="mfType"> {{mfType.en}}
+                    <option *ngFor="let mfType of mfTypeOptions" [ngValue]="mfType"> {{mfType | textTransform: lang }}
                     </option>
                 </select>
             </label>
@@ -91,8 +92,7 @@
                     (change)="onblur()"
                     [formControl]="mfDetailsFormLocalModel.controls['masterFileUse'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let mfUse of mfUseOptions" [ngValue]="mfUse"> {{ mfUse.en }}</option>
-
+                    <option *ngFor="let mfUse of mfUseOptions" [ngValue]="mfUse"> {{ mfUse | textTransform: lang }}</option>
                 </select>
             </label>
         </div>
@@ -111,8 +111,7 @@
                     (change)="onTxDescriptionSelected($any($event.target).value)"
                     [formControl]="mfDetailsFormLocalModel.controls['descriptionType'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let desc of txDescOptions" [ngValue]="desc"> {{ desc.en }}</option>
-
+                    <option *ngFor="let desc of txDescOptions" [ngValue]="desc"> {{ desc | textTransform: lang  }}</option>
                 </select>
             </label>
         </div>

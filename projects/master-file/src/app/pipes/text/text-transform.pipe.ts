@@ -10,7 +10,6 @@ import { ICode } from '../../shared/data';
 export class TextTransformPipe implements PipeTransform {
 
   transform(value: ICode, lang: string): unknown {
-    console.log("TextTransformPipe ~ transform ~ lang:", lang);
     return GlobalsService.isFrench(lang) ? value.fr : value.en;
   }
 

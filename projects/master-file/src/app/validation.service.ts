@@ -258,16 +258,16 @@ export class ValidationService {
     }
   }
 
-  // 4 numeric - 3 numeric
-  static masterfileNumberValidator(control) {
-    // todo
-    if (!control.value) {
-      return null;
-    }
-    if (control.value.match(/^[0-9]{4}-[0-9]{3}$/)) {
-      return null;
-    } else {
-      return { 'error.mgs.company.id': true }; // todo update the error message
-    }
-  }
+  // // 4 numeric - 3 numeric
+  // static masterfileNumberValidator(control) {
+  //   // todo
+  //   if (!control.value) {
+  //     return null;
+  //   }
+  //   if (control.value.match(/^[0-9]{4}-[0-9]{3}$/)) {
+  //     return null;
+  //   } else {
+  //     return { 'error.mgs.company.id': true }; // todo update the error message
+  //   }
+  // }
 }

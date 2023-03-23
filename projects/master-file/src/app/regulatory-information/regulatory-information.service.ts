@@ -102,10 +102,7 @@ export class RegulatoryInformationService {
         [Validators.required, ValidationService.dossierIdValidator],
       ],
       masterFileName: ['', Validators.required],
-      masterFileNumber: [
-        '',
-        [Validators.required, ValidationService.masterfileNumberValidator],
-      ],
+      masterFileNumber: [''],
       masterFileType: ['', Validators.required],
       masterFileUse: ['', Validators.required],
       descriptionType: ['', Validators.required],

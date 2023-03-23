@@ -189,9 +189,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
 
   onTxDescriptionSelected(e: any): void {
     const txDescControl = this.mfDetailsFormLocalModel.get('descriptionType');
-    // console.log(txDescControl.value);
-    // todo check lang for defEn/defFr
-    this.selectedTxDescDefinition = txDescControl?.value.defEn;
+    this.selectedTxDescDefinition = GlobalsService.getCodeDefinitionByLang(txDescControl?.value, this.lang);
+    
     this.showDateAndRequester = this.showDateAndRequesterTxDescs.includes(
       txDescControl?.value.id
     );
