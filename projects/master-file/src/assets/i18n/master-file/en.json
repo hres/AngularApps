@@ -124,7 +124,6 @@
   "minAlphanumeric5": "(5 characters)",
   "minAlphanumeric7": "(1 letter and 6 numbers)",
   "alphanumeric6or7": "(a lowercase letter followed by 6 or 7 numbers)",
-  "reason.amend": "Reason for amendment",
   "save.working.copy": "Save Working Copy",
   "generate.final": "Generate Final XML",
   "msg.success.load": "The file was loaded successfully",
@@ -137,7 +136,7 @@
   "msg.err.checksum.fail": "The checksum in the file does not match the calculated checksum",
   "error.msg.number": "Please enter a valid number",
 
-  "return.instruction": "Return to instruction",
+  "return.instruction": "Return to instruction reference",
   "template.version": "Template version: ",
   "rationale": "Rationale",
   "proposed.indication": "Proposed purpose/Indication for Use",
