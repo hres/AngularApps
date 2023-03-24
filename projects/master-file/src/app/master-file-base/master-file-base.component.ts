@@ -60,8 +60,10 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   public agentAddressModel =
     MasterFileBaseService.getEmptyAddressDetailsModel();
-  public holderContactModel = MasterFileBaseService.getEmptyContactModel();
-  public agentContactModel = MasterFileBaseService.getEmptyContactModel();
+  public holderContactModel = this.transactionEnrollModel.holder_contact; // derive it from transactionEnrollModel object instead of creating a new object
+  // MasterFileBaseService.getEmptyContactModel();
+  public agentContactModel = this.transactionEnrollModel.agent_contact;
+  // MasterFileBaseService.getEmptyContactModel();
   public requesterModel = [];
   public countryList = [];
   public provinceList = [];

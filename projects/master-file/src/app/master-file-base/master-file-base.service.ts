@@ -205,7 +205,7 @@ export class MasterFileBaseService {
    * Gets an empty contact model
    *
    */
-  public static getEmptyContactModel() {
+  private static getEmptyContactModel() {
 
     return (
       {
@@ -252,16 +252,7 @@ export class MasterFileBaseService {
           province_text: '',
           postal_code: ''
       },
-      holder_contact: {
-          first_name: '',
-          last_name: '',
-          language_correspondance: '',
-          job_title: '',
-          phone_number: '',
-          phone_extension: '',
-          fax_number: '',
-          email: ''
-      },
+      holder_contact: this.getEmptyContactModel(),    // call the private method to initialize it instead of repeating it
       agent_not_applicable: undefined,
       agent_name_address: {
           company_name: '',
