@@ -146,11 +146,16 @@ export class ValidationService {
     }
   }
 
+  // if first letter is e, then followed by 6 numbers
+  // if first letter is f, then followed by 7 numbers
   static dossierIdValidator(control) {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[m]{1}[0-9]{6}$/)) {
+    if (
+      control.value.match(/^[e]{1}[0-9]{6}$/) ||
+      control.value.match(/^[f]{1}[0-9]{7}$/)
+    ) {
       return null;
     } else {
       return {'error.mgs.dossier.id': true};
@@ -189,8 +194,6 @@ export class ValidationService {
       return {'error.mgs.licence.number': true};
     }
   }
-
-
 
   static appNumValidator(control) {
     if (!control.value) {
@@ -251,7 +254,20 @@ export class ValidationService {
     if (control.value.match(/^[0-9]{6}$/)) {
       return null;
     } else {
-      return {'error.mgs.company.id': true};
+      return { 'error.mgs.company.id': true };
     }
   }
+
+  // // 4 numeric - 3 numeric
+  // static masterfileNumberValidator(control) {
+  //   // todo
+  //   if (!control.value) {
+  //     return null;
+  //   }
+  //   if (control.value.match(/^[0-9]{4}-[0-9]{3}$/)) {
+  //     return null;
+  //   } else {
+  //     return { 'error.mgs.company.id': true }; // todo update the error message
+  //   }
+  // }
 }

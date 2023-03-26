@@ -3,6 +3,12 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GlobalsService} from '../globals/globals.service';
 import {ValidationService} from '../validation.service';
 import {ListService} from '../list-service';
+import {
+  Ectd,
+  LifecycleRecord,
+  TransactionEnrol,
+  Transaction,
+} from '../models/transaction';
 
 @Injectable()
 export class MasterFileBaseService {
@@ -60,9 +66,11 @@ export class MasterFileBaseService {
   public static getEmptyMasterFileFeeModel() {
     return (
       {
-        has_fees: '',
-        billing_company_id: '',
-        billing_contact_id: ''
+		  are_there_access_letters: null,
+		  number_of_access_letters: '',
+		  who_responsible_fee: '',
+		  account_number: '',
+		  cra_business_number: ''
       }
     );
   }
@@ -115,16 +123,16 @@ export class MasterFileBaseService {
           address: '',
           city: '',
           country: {
-            '__text': '',
-            '_id': '',
-            '_label_en': '',
-            '_label_fr': ''
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
           },
           prov_lov: {
-            '__text': '',
-            '_id': '',
-            '_label_en': '',
-            '_label_fr': ''
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
           },
           prov_text: '',
           postal: ''
@@ -145,16 +153,16 @@ export class MasterFileBaseService {
           address: '',
           city: '',
           country: {
-            '__text': '',
-            '_id': '',
-            '_label_en': '',
-            '_label_fr': ''
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
           },
           prov_lov: {
-            '__text': '',
-            '_id': '',
-            '_label_en': '',
-            '_label_fr': ''
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
           },
           prov_text: '',
           postal: ''
@@ -173,7 +181,7 @@ export class MasterFileBaseService {
       }
     );
   }
-  
+
   /**
    * Gets an empty Address Details Model
    *
@@ -182,38 +190,28 @@ export class MasterFileBaseService {
 
     return (
       {
-        company_name: '',
-        address: '',
-        city: '',
-        country: {
-          '__text': '',
-          '_id': '',
-          '_label_en': '',
-          '_label_fr': ''
-        },
-        prov_lov: {
-          '__text': '',
-          '_id': '',
-          '_label_en': '',
-          '_label_fr': ''
-        },
-        prov_text: '',
-        postal: ''
+	      company_name: '',
+	      street_address: '',
+	      city: '',
+	      country: undefined,
+	      province_lov: undefined,
+	      province_text: '',
+	      postal_code: ''
       }
     );
   }
-  
+
   /**
    * Gets an empty contact model
    *
    */
-  public static getEmptyContactModel() {
+  private static getEmptyContactModel() {
 
     return (
       {
-        fist__name: '',
+        first_name: '',
         last_name: '',
-        language: '',
+        language_correspondance: '',
         job_title: '',
         phone_number: '',
         phone_extension: '',
@@ -222,28 +220,108 @@ export class MasterFileBaseService {
       }
     );
   }
-  /**
-   * Sets the Help Text Index
-   *
-   */
-  public static getHelpTextIndex() {
 
-    const helpTextInx = {
-      loadFileInx: 0,
-      tr2: 0,
-      tr3: 0,
-      tr2a: 0,
-      tr2b: 0,
-      tr2c: 0,
-      tr4: 0,
-      tr5: 0
+  public static getEmptyTransactionEnrol(): TransactionEnrol {
+    const TransactionEnrol: TransactionEnrol = {
+      template_type: 'PHARMA',
+      software_version: GlobalsService.SOFTWARE_VERSION,
+      enrol_version: '0.0',
+      last_saved_date: undefined,  // todo: to map into form model ???
+      data_checksum: '',
+      ectd: this.getEmptyEctd(),
+      is_fees: '',
+      fee_details: undefined,
+      is_activity_changes: '',
+     // regulatory_activity_address: undefined,
+     // regulatory_activity_contact: undefined,
+     // confirm_regulatory_contact: '',
+      holder_name_address: {
+          company_name: '',
+          street_address: '',
+          city: '',
+          country: {
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
+          },
+          province_lov: {
+            __text: '',
+            _id: ''
+          },
+          province_text: '',
+          postal_code: ''
+      },
+      holder_contact: this.getEmptyContactModel(),    // call the private method to initialize it instead of repeating it
+      agent_not_applicable: undefined,
+      agent_name_address: {
+          company_name: '',
+          street_address: '',
+          city: '',
+          country: {
+            __text: '',
+            _id: '',
+            _label_en: '',
+            _label_fr: ''
+          },
+          province_lov: {
+            __text: '',
+            _id: ''
+          },
+          province_text: '',
+          postal_code: ''
+      },
+      agent_contact: {
+          first_name: '',
+          last_name: '',
+          language_correspondance: '',
+          job_title: '',
+          phone_number: '',
+          phone_extension: '',
+          fax_number: '',
+          email: ''
+      }
     };
-    const keys = Object.keys(helpTextInx);
-    for (let i = 0; i < keys.length; i++) {
-      helpTextInx[keys[i]] = i + 1;
-    }
+    
+    // const transaction: Transaction = {
+    //   TRANSACTION_ENROL: TransactionEnrol,
+    // };
 
-    return helpTextInx;
+    return TransactionEnrol;
   }
 
+  private static getEmptyEctd(): Ectd {
+    const ectd: Ectd = {
+      company_id: 'unassigned',
+      dossier_id: '',
+      dossier_type: { _id: 'D25' },
+      product_name: '',
+      product_protocol: '',
+      lifecycle_record: MasterFileBaseService.getEmptyLifecycleRecord(),
+    };
+    return ectd;
+  }
+
+  private static getEmptyLifecycleRecord(): LifecycleRecord {
+    const lifecycleRecord: LifecycleRecord = {
+      control_number: '000000',
+      master_file_number: '',
+      master_file_use: undefined,
+      regulatory_activity_lead: {
+        _id: 'B14-20160301-07',
+      },
+      regulatory_activity_type: undefined,
+      sequence_description_value: undefined,
+      sequence_from_date: undefined,
+      transaction_description: '',
+      requester_of_solicited_information: '',
+    };
+
+    // console.log(
+    //   'getEmptyMasterFileDetailsModel ~ lifecycleRecord',
+    //   JSON.stringify(lifecycleRecord)
+    // );
+
+    return lifecycleRecord;
+  }
 }

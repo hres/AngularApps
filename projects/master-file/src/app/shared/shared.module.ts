@@ -5,6 +5,7 @@ import { NgPipesModule } from '../pipes/pipes.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateModule } from '@ngx-translate/core';
 import { ErrorModule } from '../error-msg/error-ui.module';
+import { UpperCaseInputDirective } from './directives/to-uppercase.directive';
 
 @NgModule({
   exports: [
@@ -15,6 +16,8 @@ import { ErrorModule } from '../error-msg/error-ui.module';
     NgSelectModule,
     ErrorModule,
     TranslateModule,
+    UpperCaseInputDirective,
   ],
+  declarations: [UpperCaseInputDirective],
 })
 export class SharedModule {}

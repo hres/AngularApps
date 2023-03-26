@@ -313,3 +313,23 @@ div .module-attention {
     font-weight: 700;
     font-family: "Noto Sans", sans-serif;
 }
+
+.ng-select.custom .ng-select-container {
+    margin-top: 5px;
+    min-height: 37px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 37px !important;
+    padding: 6px 12px !important;
+    position: relative;
+    display: block;
+    zoom: 1;
+    vertical-align: middle;
+    min-width: 100% !important;
+    width: 100% !important;
+}
+
+ng-select-container .ng-select-choice>.ng-select-chosen {
+    min-width: 100%;
+    width: 100%;
+}
