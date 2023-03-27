@@ -18,9 +18,11 @@ export class MasterFileFeeService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      hasFees: [null, Validators.required],
-      billCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
-      billContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]]
+      areAccessLetters: [null, Validators.required],
+      numOfAccessLetter: [null, [Validators.required]],
+      whoResponsible: [null, [Validators.required]],
+      accountNumber: '',
+      businessNumber: ''
     });
   }
 
@@ -32,9 +34,11 @@ export class MasterFileFeeService {
 
     return (
       {
-        has_fees: '',
-        billing_company_id: '',
-        billing_contact_id: ''
+        are_there_access_letters: '',
+        number_of_access_letters: '',
+        who_responsible_fee: '',
+        account_number: '',
+        cra_business_number: ''
       }
     );
   }
@@ -51,15 +55,19 @@ export class MasterFileFeeService {
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, mfFeeModel) {
-    mfFeeModel.has_fees = formRecord.controls['hasFees'].value;
-    mfFeeModel.billing_company_id = formRecord.controls['billCompanyId'].value;
-    mfFeeModel.billing_contact_id = formRecord.controls['billContactId'].value;
+    mfFeeModel.are_there_access_letters = formRecord.controls['areAccessLetters'].value;
+    mfFeeModel.number_of_access_letters = formRecord.controls['numOfAccessLetter'].value;
+    mfFeeModel.who_responsible_fee = formRecord.controls['whoResponsible'].value;
+    mfFeeModel.account_number = formRecord.controls['accountNumber'].value;
+    mfFeeModel.cra_business_number = formRecord.controls['businessNumber'].value;
   }
 
   public static mapDataModelToFormModel(mfFeeModel, formRecord: FormGroup) {
-    formRecord.controls['hasFees'].setValue(mfFeeModel.has_fees);
-    formRecord.controls['billCompanyId'].setValue(mfFeeModel.billing_company_id);
-    formRecord.controls['billContactId'].setValue(mfFeeModel.billing_contact_id);
+    formRecord.controls['areAccessLetters'].setValue(mfFeeModel.are_there_access_letters);
+    formRecord.controls['numOfAccessLetter'].setValue(mfFeeModel.number_of_access_letters);
+    formRecord.controls['whoResponsible'].setValue(mfFeeModel.who_responsible_fee);
+    formRecord.controls['accountNumber'].setValue(mfFeeModel.account_number);
+    formRecord.controls['businessNumber'].setValue(mfFeeModel.cra_business_number);
   }
 
 }

@@ -16,7 +16,6 @@ export interface TransactionEnrol {
   // is_admin_sub: string;
   // sub_type: string;
   ectd: Ectd;
-  is_fees: string;
   fee_details: FeeDetails;
   is_activity_changes: string;
   holder_name_address: HolderNameAddress;
@@ -25,6 +24,7 @@ export interface TransactionEnrol {
   agent_not_applicable: boolean;
   agent_name_address: HolderNameAddress;
   agent_contact: HolderContact;
+  contact_info_confirm: string;
 }
 
 export interface Ectd {
@@ -49,7 +49,7 @@ export interface LifecycleRecord {
 }
 
 export interface FeeDetails {
-  are_there_access_letters: boolean;
+  are_there_access_letters: string;
   number_of_access_letters: string;
   who_responsible_fee: string;
   account_number: string;

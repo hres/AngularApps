@@ -59,7 +59,8 @@ export class MasterFileBaseService {
       hasDdt: [false, []],
       hasAppInfo: [false, []],
       isSolicitedInfo: [null, Validators.required],
-      notApplicable: [false, []]
+      notApplicable: [false, []],
+      contactInfoConfirm: [null, Validators.required]
     });
   }
 
@@ -176,6 +177,14 @@ export class MasterFileBaseService {
           phone_extension: '',
           fax_number: '',
           email: ''
+        },
+        contact_info_confirm: '',
+        fee_details: {
+          are_there_access_letters: '',
+          number_of_access_letters: '',
+          who_responsible_fee: '',
+          account_number: '',
+          cra_business_number: ''
         }
 
       }
@@ -205,7 +214,7 @@ export class MasterFileBaseService {
    * Gets an empty contact model
    *
    */
-  public static getEmptyContactModel() {
+  private static getEmptyContactModel() {
 
     return (
       {
@@ -229,8 +238,6 @@ export class MasterFileBaseService {
       last_saved_date: undefined,  // todo: to map into form model ???
       data_checksum: '',
       ectd: this.getEmptyEctd(),
-      is_fees: '',
-      fee_details: undefined,
       is_activity_changes: '',
      // regulatory_activity_address: undefined,
      // regulatory_activity_contact: undefined,
@@ -252,16 +259,7 @@ export class MasterFileBaseService {
           province_text: '',
           postal_code: ''
       },
-      holder_contact: {
-          first_name: '',
-          last_name: '',
-          language_correspondance: '',
-          job_title: '',
-          phone_number: '',
-          phone_extension: '',
-          fax_number: '',
-          email: ''
-      },
+      holder_contact: this.getEmptyContactModel(),    // call the private method to initialize it instead of repeating it
       agent_not_applicable: undefined,
       agent_name_address: {
           company_name: '',
@@ -289,7 +287,16 @@ export class MasterFileBaseService {
           phone_extension: '',
           fax_number: '',
           email: ''
+      },
+      contact_info_confirm: '',
+      fee_details: {
+        are_there_access_letters: '',
+        number_of_access_letters: '',
+        who_responsible_fee: '',
+        account_number: '',
+        cra_business_number: ''
       }
+
     };
     
     // const transaction: Transaction = {
