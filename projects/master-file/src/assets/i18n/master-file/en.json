@@ -161,6 +161,21 @@
   "heading.agent.address": "Authorized Agent or Authorized Third Party Name and Address",
   "not.applicable": "Not applicable",
   "heading.agent.contact": "Authorized Agent or Authorized Third Party Contact",
-  "info.confirmation": "I confirm that the above information is valid"
+  "info.confirmation": "I confirm that the above information is valid",
 
+  "fee.warning1": "Do not send fee payment with your Master File, Update or Letter of Access transactions. Health Canada will verify the fee and issue an invoice accordingly.",
+  "fee.warning2": "For information on Master File fees and payment of invoices, please refer to the",
+  "fee.warning.link.title": "Funding and Fees webpage.",
+  "fee.warning.link.url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/funding-fees.html",
+  "fee.warning3": "Failure to pay fees will result in your Master File being denied access and future transactions being placed on hold or rejected.",
+  "are.access.letters": "Are there Letter(s) of Access being filed with this transaction?",
+  "number.of.letters": "Number of Letter(s) of Access?",
+  "who.responsible": "Who is responsible for payment of fees?",
+  "account.num": "Customer/Client Account Number (if issued)",
+  "business.num": "Canada Revenue Agency Business Number (if applicable)",
+  "mf.holder": "Master File Holder",
+  "mf.agent": "Authorized Master File Agent / Authorized Third Party"
 }
+
+
+

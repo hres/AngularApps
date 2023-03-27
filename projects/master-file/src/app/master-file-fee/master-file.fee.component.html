@@ -1,6 +1,6 @@
 <div>
   <div [formGroup]="mfFeeFormLocalModel">
-    <div class="row">
+    <!-- <div class="row">
       <div class="form-group col-xs-12" >
         <label for="hasFees" class="required full-width">
           <span class="field-name" i18n>{{'are.fees' |translate}}</span>
@@ -16,38 +16,80 @@
           </select>
         </label>
       </div>
+    </div> -->
+    <div class="col-xs-12 form-group alert alert-info" role="alert">
+      <span>
+        <p aria-live="polite">{{'fee.warning1'|translate}}</p>
+        <p aria-live="polite">{{'fee.warning2'|translate}}
+          <a href="{{'fee.warning.link.url'}}">{{'fee.warning.link.title'|translate}}</a>
+          {{'fee.warning3'|translate}}
+        </p>
+      </span>
     </div>
-    <div class="row"  *ngIf="hasFeeYes()">
-      <div class="form-group col-xs-6 minWidth300" >
-        <label for="billCompanyId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'billing.company.id'|translate}}</span>
+    <div class="row form-group">
+      <fieldset class="col-md-12 chkbxrdio-grp"
+        data-ng-class="{'has-error':mfFeeFormLocalModel.controls['areAccessLetters'].$invalid}">
+        <legend class="required">
+          {{'are.access.letters' |translate}}
+          <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+          <control-messages *ngIf="mfFeeFormLocalModel.controls['areAccessLetters'].invalid" [showError]="showFieldErrors"
+            [control]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" controlId="areAccessLetters"
+            label="are.access.letters" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
+        </legend>
+        <input type="radio" id="areAccessLettersId" name="areAccessLetters" value="Y"
+          [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl"  required />
+        <label for="areAccessLettersId">&nbsp;{{'yes'|translate}}</label>
+        <input type="radio" id="areAccessLettersId_1" name="areAccessLettersId_1" value="N"
+          [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" required />
+        <label for="areAccessLettersId_1">&nbsp;{{'no'|translate}}</label>
+      </fieldset>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-12 minWidth300" >
+        <label for="numOfAccessLetter" class="required full-width" aria-required="true">
+          <span class="field-name" i18n>{{'number.of.letters'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="mfFeeFormLocalModel.controls['billCompanyId'].invalid"
+          <control-messages *ngIf="mfFeeFormLocalModel.controls['numOfAccessLetter'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="mfFeeFormLocalModel.controls['billCompanyId'] | formControl"
-                            controlId="billCompanyId" label="billing.company.id" parentId="mfFees"
+                            [control]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl"
+                            controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
-          <input id="billCompanyId" class="form-control" (blur)="onblur()" name="billCompanyId" autofocus
-                 [formControl]="mfFeeFormLocalModel.controls['billCompanyId'] | formControl" maxlength="6"/>
+          <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter"
+                 [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" />
         </label>
       </div>
+    </div>
+    <div class="row form-group">
+      <fieldset class="col-md-12 chkbxrdio-grp"
+        data-ng-class="{'has-error':mfFeeFormLocalModel.controls['whoResponsible'].$invalid}">
+        <legend class="required">
+          {{'who.responsible' |translate}}
+          <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+          <control-messages *ngIf="mfFeeFormLocalModel.controls['whoResponsible'].invalid" [showError]="showFieldErrors"
+            [control]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" controlId="whoResponsible"
+            label="who.responsible" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
+        </legend>
+        <input type="radio" id="whoResponsibleId" name="whoResponsible" value=""
+          [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
+        <label for="whoResponsibleId">&nbsp;{{'mf.holder'|translate}}</label>
+        <input type="radio" id="whoResponsibleId_1" name="whoResponsible_1" value=""
+          [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
+        <label for="whoResponsibleId_1">&nbsp;{{'mf.agent'|translate}}</label>
+      </fieldset>
+    </div>
+    <div class="row">
       <div class="form-group col-xs-6 minWidth300" >
-        <label for="billContactId" class="required full-width" aria-required="true">
-          <span class="field-name" i18n>{{'billing.contact.id'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="mfFeeFormLocalModel.controls['billContactId'].invalid"
-                            [showError]="showFieldErrors"
-                            [control]="mfFeeFormLocalModel.controls['billContactId'] | formControl"
-                            controlId="billContactId" label="billing.contact.id" parentId="mfFees"
-                            parentLabel="Master File Fees"></control-messages>
-          <input id="billContactId" class="form-control"  (blur)="onblur()" name="billContactId"
-                 [formControl]="mfFeeFormLocalModel.controls['billContactId'] | formControl" maxlength="5"/>
+        <label for="accountNumber" class="full-width">
+          <span class="field-name" i18n>{{'account.num'|translate}}</span>
+          <input id="accountNumber" class="form-control" name="accountNumber"
+                 [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
-      </div>
-      <div class="col-xs-12 form-group alert alert-info" role="alert">
-           <span>
-            <p aria-live="polite">{{'completed.fee.required'|translate}}</p>
-           </span>
+      </div><div class="form-group col-xs-6 minWidth300">
+        <label for="businessNumber" class="full-width">
+          <span class="field-name" i18n>{{'business.num'|translate}}</span>
+          <input id="businessNumber" class="form-control" name="businessNumber"
+            [formControl]="mfFeeFormLocalModel.controls['businessNumber'] | formControl" maxlength="9" />
+        </label>
       </div>
     </div>
 

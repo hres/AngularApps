@@ -321,6 +321,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.transactionEnrollModel.holder_contact = this.holderContactModel;
     this.transactionEnrollModel.agent_name_address = this.agentAddressModel;
     this.transactionEnrollModel.agent_contact = this.agentContactModel;
+    this.transactionEnrollModel.contact_info_confirm = this.masterFileForm.controls['contactInfoConfirm'].value;
     this.transactionEnrollModel.fee_details = this.transFeeModel;
 
     const result: Transaction = {

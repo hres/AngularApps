@@ -59,7 +59,8 @@ export class MasterFileBaseService {
       hasDdt: [false, []],
       hasAppInfo: [false, []],
       isSolicitedInfo: [null, Validators.required],
-      notApplicable: [false, []]
+      notApplicable: [false, []],
+      contactInfoConfirm: [null, Validators.required]
     });
   }
 
@@ -176,6 +177,14 @@ export class MasterFileBaseService {
           phone_extension: '',
           fax_number: '',
           email: ''
+        },
+        contact_info_confirm: '',
+        fee_details: {
+          are_there_access_letters: '',
+          number_of_access_letters: '',
+          who_responsible_fee: '',
+          account_number: '',
+          cra_business_number: ''
         }
 
       }
@@ -229,8 +238,6 @@ export class MasterFileBaseService {
       last_saved_date: undefined,  // todo: to map into form model ???
       data_checksum: '',
       ectd: this.getEmptyEctd(),
-      is_fees: '',
-      fee_details: undefined,
       is_activity_changes: '',
      // regulatory_activity_address: undefined,
      // regulatory_activity_contact: undefined,
@@ -280,7 +287,16 @@ export class MasterFileBaseService {
           phone_extension: '',
           fax_number: '',
           email: ''
+      },
+      contact_info_confirm: '',
+      fee_details: {
+        are_there_access_letters: '',
+        number_of_access_letters: '',
+        who_responsible_fee: '',
+        account_number: '',
+        cra_business_number: ''
       }
+
     };
     
     // const transaction: Transaction = {

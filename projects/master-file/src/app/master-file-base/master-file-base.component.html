@@ -130,6 +130,23 @@
                   </contact-details>
                 </div>
               </section>
+              <div class="col-xs-12 full-width">
+                <div class="checkbox required">
+                  <label for="contactInfoConfirm">
+
+                  <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
+                                    [showError]="showErrors" parentId="mfDetails"
+                                    [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
+                                    controlId="contactInfoConfirmId" label="contactInfoConfirm"
+                                    parentLabel="MasterFile Information"></control-messages>
+                    <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId"
+                      [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
+
+                    <span><b>{{'info.confirmation'|translate}}</b></span>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                  </label>
+                </div>
+              </div>
           </div>
         </section>
       </div>

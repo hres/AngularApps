@@ -72,7 +72,7 @@
                        (add)="typed($event)"
                        (selected)="processCountry($event)"
                        (removed)="removed($event)">
-                  <ng-option *ngFor="let ctry of countries" [value]="ctry.id" class="select-choice">{{ctry.en}}</ng-option>
+                  <ng-option *ngFor="let ctry of countries" [value]="ctry.id" class="select-choice">{{lang=='en' ? ctry.en : ctry.fr}}</ng-option>
             </ng-select>
           </div>
         </label>
@@ -90,7 +90,7 @@
                             parentLabel="REP Address"></control-messages>
           <select id="provState" required class="form-control full-width" (blur)="onblur()" [formControl]="addressFormLocalModel.controls['provList'] | formControl">
             <option label=" " value=""></option>
-            <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov.text}}</option>
+            <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov | textTransform: lang}}</option>
           </select>
         </label>
       </div>

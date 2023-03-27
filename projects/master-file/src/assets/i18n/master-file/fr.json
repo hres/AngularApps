@@ -166,5 +166,20 @@
   "heading.agent.address": "Nom et adresse de l’agent autorisé ou du tiers au nom du titulaire",
   "not.applicable": "Not applicable",
   "heading.agent.contact": "Coordonnées de l’agent autorisé ou du tiers au nom du titulaire",
-  "info.confirmation": "J’atteste que les informations ci-dessus sont valides"
+  "info.confirmation": "J’atteste que les informations ci-dessus sont valides",
+
+  "fee.warning1": "Ne joignez aucun paiement à votre présentation, supplément ou demande. Santé Canada examinera votre document et émettra une facture en conséquence.",
+  "fee.warning2": "Pour plus d’informations sur les frais liés à la fiche maîtresse et sur le paiement des factures, veuillez consulter ",
+  "fee.warning.link.title": "la page Web dédiée au financement et aux frais.",
+  "fee.warning.link.url": "https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/financement-frais.html",
+  "fee.warning3": " Le non-paiement des frais peut entraîner le non-traitement de votre demande de la fiche maîtresse.",
+  "are.access.letters": "Joignez-vous une ou plusieurs lettres d’accès à cette transaction?",
+  "number.of.letters": "Nombre de lettre(s) d’accès?",
+  "who.responsible": "Qui paiera les frais?",
+  "account.num": "Numéro de compte du client (si émis)",
+  "business.num": "Numéro d’entreprise de l'Agence du revenu du Canada (le cas échéant)",
+  "mf.holder": "de la fiche maîtresse",
+  "mf.agent": "Agent autorisé de la fiche maîtresse / Tiers au nom du titulaire autorisé"
 }
+ 
+
