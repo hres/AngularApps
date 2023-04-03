@@ -323,6 +323,9 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.transactionEnrollModel.agent_contact = this.agentContactModel;
     this.transactionEnrollModel.contact_info_confirm = this.masterFileForm.controls['contactInfoConfirm'].value;
     this.transactionEnrollModel.fee_details = this.transFeeModel;
+    this.transactionEnrollModel.certify_accurate_complete = this.masterFileForm.controls['certifyAccurateComplete'].value;
+    this.transactionEnrollModel.full_name = this.masterFileForm.controls['fullName'].value;
+    this.transactionEnrollModel.submit_date = this.masterFileForm.controls['submitDate'].value;
 
     const result: Transaction = {
       TRANSACTION_ENROL: this.transactionEnrollModel,

@@ -168,7 +168,67 @@
             <h3 class="panel-title">{{'panel.title.certification'|translate}}</h3>
           </header>
           <div class="panel-body">
-            todo
+            <div class="row col-xs-12 full-width">
+              <div class="checkbox required">
+                <label for="certifyAccurateComplete">
+                  <control-messages *ngIf="masterFileForm.controls['certifyAccurateComplete'].invalid" [showError]="showErrors"
+                    parentId="mfDetails" [control]="masterFileForm.controls['certifyAccurateComplete'] | formControl"
+                    controlId="certifyAccurateCompleteId" label="certifyAccurateComplete"
+                    parentLabel="MasterFile Information"></control-messages>
+                  <input name="certifyAccurateCompleteName" type="checkbox" id="certifyAccurateCompleteId"
+                    [formControl]="masterFileForm.controls['certifyAccurateComplete'] | formControl" />
+                  <span><b>{{'certify.info'|translate}}</b></span>
+                  <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6 required">
+                <label for="fullName">
+                  <span><b>{{'full.name'|translate}}</b></span>
+                  <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                  <control-messages *ngIf="masterFileForm.controls['fullName'].invalid" [showError]="showErrors"
+                    parentId="mfDetails" [control]="masterFileForm.controls['fullName'] | formControl"
+                    controlId="fullNameId" label="fullName"
+                    parentLabel="MasterFile Information"></control-messages>
+                  <input name="fullName" class="form-control" id="fullNameId"
+                    [formControl]="masterFileForm.controls['fullName'] | formControl" />
+                </label>
+              </div>
+              <div class="col-xs-6 required">
+                <label for="submitDate">
+                  <span><b>{{'submit.date'|translate}}</b></span><br>
+                  <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                  <control-messages *ngIf="masterFileForm.controls['submitDate'].invalid" [showError]="showErrors"
+                    parentId="mfDetails" [control]="masterFileForm.controls['submitDate'] | formControl" controlId="submitDateId"
+                    label="submitDate" parentLabel="MasterFile Information"></control-messages>
+                  <input name="submitDate" class="form-control" id="submitDateId"
+                    [formControl]="masterFileForm.controls['submitDate'] | formControl" />
+                </label>
+              </div>
+            </div>
+
+            <div class="row col-xs-12 form-group alert alert-info" role="alert">
+              <span>
+                <p aria-live="polite">{{'agent.warning'|translate}}</p>
+              </span>
+            </div>
+            <div class="row col-xs-12 full-width">
+              <div class="checkbox required">
+                <label for="consentPrivacy">            
+                  <control-messages *ngIf="masterFileForm.controls['consentPrivacy'].invalid" [showError]="showErrors"
+                    parentId="mfDetails" [control]="masterFileForm.controls['consentPrivacy'] | formControl"
+                    controlId="consentPrivacyId" label="consentPrivacy"
+                    parentLabel="MasterFile Information"></control-messages>
+                  <input name="consentPrivacyName" type="checkbox" id="consentPrivacyId"
+                    [formControl]="masterFileForm.controls['consentPrivacy'] | formControl" />
+                  <span><b>{{'consent.privacy'|translate}}</b></span>
+                  <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                </label>
+              </div>
+            </div>
+
           </div>
         </section>
       </div>

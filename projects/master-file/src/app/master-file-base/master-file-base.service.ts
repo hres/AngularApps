@@ -60,7 +60,11 @@ export class MasterFileBaseService {
       hasAppInfo: [false, []],
       isSolicitedInfo: [null, Validators.required],
       notApplicable: [false, []],
-      contactInfoConfirm: [null, Validators.required]
+      contactInfoConfirm: [null, Validators.required],
+      certifyAccurateComplete: [null, Validators.required],
+      fullName: [null, Validators.required],
+      submitDate: [null, Validators.required],
+      consentPrivacy: [null, Validators.required]
     });
   }
 
@@ -185,8 +189,10 @@ export class MasterFileBaseService {
           who_responsible_fee: '',
           account_number: '',
           cra_business_number: ''
-        }
-
+        },
+        certify_accurate_complete: '',
+        full_name: '',
+        submit_date: ''
       }
     );
   }
@@ -295,7 +301,10 @@ export class MasterFileBaseService {
         who_responsible_fee: '',
         account_number: '',
         cra_business_number: ''
-      }
+      },
+        certify_accurate_complete: undefined,
+        full_name: '',
+        submit_date: ''
 
     };
     

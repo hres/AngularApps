@@ -25,6 +25,10 @@ export interface TransactionEnrol {
   agent_name_address: HolderNameAddress;
   agent_contact: HolderContact;
   contact_info_confirm: string;
+
+  certify_accurate_complete: boolean;
+  full_name: string;
+  submit_date: string;
 }
 
 export interface Ectd {
