@@ -174,7 +174,12 @@
   "account.num": "Customer/Client Account Number (if issued)",
   "business.num": "Canada Revenue Agency Business Number (if applicable)",
   "mf.holder": "Master File Holder",
-  "mf.agent": "Authorized Master File Agent / Authorized Third Party"
+  "mf.agent": "Authorized Master File Agent / Authorized Third Party",
+  "certify.info": "I certify that the information and material included in this Master File Application/Transaction is accurate and complete.",
+  "full.name": "Full name",
+  "submit.date": "Date (YYYY-MM-DD)",
+  "agent.warning": "If the signing official is an Authorized Master File Agent or Authorized Third Party filing on behalf of the Master File Holder, an authorization letter signed by the Master File Holder must be submitted in Module 1.2.1 Application Form. The Agent appointment letter or Third Party Authorization letter is required with the initial Master File Registration transaction or any transaction where a new agent or third party is appointed or the agent or third party's role has changed.",
+  "consent.privacy": "By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the Privacy Notice Statement."
 }
 
 
