@@ -198,7 +198,7 @@
               </div>
               <div class="col-xs-6 required">
                 <label for="submitDate">
-                  <span><b>{{'submit.date'|translate}}</b></span><br>
+                  <span><b>{{'submit.date'|translate}}</b></span>
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                   <control-messages *ngIf="masterFileForm.controls['submitDate'].invalid" [showError]="showErrors"
                     parentId="mfDetails" [control]="masterFileForm.controls['submitDate'] | formControl" controlId="submitDateId"
