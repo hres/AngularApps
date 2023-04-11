@@ -105,6 +105,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "outputPath": "",
+            "index": "projects/master-file/src/index.html",
             "main": "projects/master-file/src/main.ts",
             "polyfills": [
               "zone.js"
