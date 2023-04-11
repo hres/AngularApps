@@ -24,7 +24,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() public contactDetailsModel;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
-  @Input() isInternal: boolean;
   @Input() lang;
   @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
@@ -50,7 +49,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   ngOnInit() {
     if (!this.contactFormLocalModel) {
-      this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb, this.isInternal);
+      this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb);
     }
     this.detailsChanged = 0;
     ContactDetailsService.setLang(this.lang);
@@ -86,10 +85,10 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['isInternal'] && changes['isInternal'].currentValue) {
-      // console.log('this.isInterannnnnl in ContactListComponent: ' + this.isInternal);
-      this.statuses = ContactDetailsService.statusListInternal;
-    }
+    // if (changes['isInternal'] && changes['isInternal'].currentValue) {
+    //   // console.log('this.isInterannnnnl in ContactListComponent: ' + this.isInternal);
+    //   this.statuses = ContactDetailsService.statusListInternal;
+    // }
 
     // since we can't detect changes on objects, using a separate flag
     if (changes['detailsChanged']) { // used as a change indicator for the model
@@ -98,7 +97,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
         this.setToLocalModel();
 
       } else {
-        this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb, this.isInternal);
+        this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb);
         this.contactFormLocalModel.markAsPristine();
       }
     }
@@ -116,6 +115,14 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
       this.errorList.emit(temp);
     }
 
+    if (changes['contactDetailsModel']) {
+      const dataModel = changes['contactDetailsModel'].currentValue;
+      if (!this.contactFormLocalModel) {
+        this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb);
+      }
+      ContactDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.contactFormLocalModel));
+      
+    }
   }
 
   /**
@@ -143,6 +150,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   onblur() {
     // console.log(' BLRRE$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+    ContactDetailsService.mapFormModelToDataModel((<FormGroup>this.contactFormLocalModel), this.contactDetailsModel);
 
   }
 }

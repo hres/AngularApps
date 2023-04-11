@@ -37,19 +37,21 @@
                             [control]="contactFormLocalModel.controls['firstName'] | formControl"
                             controlId="firstName" label="first.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="firstName" id="firstName" class="form-control full-width" maxlength="45" [formControl]="contactFormLocalModel.controls['firstName'] | formControl"/>
+          <input name="firstName" id="firstName" class="form-control full-width" maxlength="45" 
+            [formControl]="contactFormLocalModel.controls['firstName'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
       <div class="form-group col-sm-6" >
         <label for="lastName" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'last.name'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="contactFormLocalModel.controls['lastName.invalid'] | formControl"
+          <control-messages *ngIf="contactFormLocalModel.controls['lastName.invalid']"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls['lastName'] | formControl"
                             controlId="lastName" label="last.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="lastName" id="lastName" class="form-control full-width" maxlength="20" [formControl]="contactFormLocalModel.controls['lastName'] | formControl"/>
+          <input name="lastName" id="lastName" class="form-control full-width" maxlength="20" 
+            [formControl]="contactFormLocalModel.controls['lastName'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
     </div>
@@ -63,7 +65,7 @@
                             [control]="contactFormLocalModel.controls['language'] | formControl"
                             controlId="language" label="lang.correspond" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <select id="language" required class="form-control" [formControl]="contactFormLocalModel.controls['language'] | formControl">
+          <select id="language" required class="form-control" [formControl]="contactFormLocalModel.controls['language'] | formControl" (blur)="onblur()">
             <option label=" " value=""></option>
             <option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option>
           </select>
@@ -78,7 +80,8 @@
                             [control]="contactFormLocalModel.controls['jobTitle'] | formControl"
                             controlId="jobTitle" label="job.title" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="45" [formControl]="contactFormLocalModel.controls['jobTitle'] | formControl"/>
+          <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="45" 
+          [formControl]="contactFormLocalModel.controls['jobTitle'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
     </div>
@@ -93,13 +96,14 @@
                             controlId="phoneNumber" label="phone.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
           <input name="phoneNumber" id="phoneNumber" class="form-control only-digits full-width" 
-            [formControl]="contactFormLocalModel.controls['phoneNumber'] | formControl" maxlength="16"/>
+            [formControl]="contactFormLocalModel.controls['phoneNumber'] | formControl" maxlength="16" (blur)="onblur()"/>
         </label>
       </div>
       <div class="form-group col-sm-3">
         <label for="phoneExtension">
           <span class="field-name" i18n>{{'phone.extension' |translate}}</span>
-          <input name="phoneExtension" id="phoneExtension" class="form-control" maxlength="10" [formControl]="contactFormLocalModel.controls['phoneExtension'] | formControl"/>
+          <input name="phoneExtension" id="phoneExtension" class="form-control" maxlength="10" 
+          [formControl]="contactFormLocalModel.controls['phoneExtension'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
     </div>
@@ -113,7 +117,7 @@
                             controlId="faxNumber" label="fax.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
           <input name="faxNumber" id="faxNumber" class="form-control col-sm-6" only-digits maxlength="16"
-                 [formControl]="contactFormLocalModel.controls['faxNumber'] | formControl"/>
+                 [formControl]="contactFormLocalModel.controls['faxNumber'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
     </div>
@@ -127,7 +131,8 @@
                             [control]="contactFormLocalModel.controls['email'] | formControl"
                             controlId="email" label="contact.email" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="email" id="email" class="form-control full-width" maxlength="50" [formControl]="contactFormLocalModel.controls['email'] | formControl"/>
+          <input name="email" id="email" class="form-control full-width" maxlength="50" 
+            [formControl]="contactFormLocalModel.controls['email'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
       <!-- <div class="form-group col-sm-6" >
