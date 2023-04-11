@@ -227,8 +227,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
     this.holderAddressModel = fileData.data.TRANSACTION_ENROL.holder_name_address;
     this.holderContactModel = fileData.data.TRANSACTION_ENROL.holder_contact;
-    this.agentAddressModel = fileData.data.TRANSACTION_ENROL.holder_name_address;
-    this.agentContactModel = fileData.data.TRANSACTION_ENROL.holder_contact;
+    this.agentAddressModel = fileData.data.TRANSACTION_ENROL.agent_name_address;
+    this.agentContactModel = fileData.data.TRANSACTION_ENROL.agent_contact;
   }
 
   // isSolicited() {
