@@ -69,10 +69,10 @@
             [control]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" controlId="whoResponsible"
             label="who.responsible" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
         </legend>
-        <input type="radio" id="whoResponsibleId" name="whoResponsible" value=""
+        <input type="radio" id="whoResponsibleId" name="whoResponsible" value="MasterFileHolder"
           [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
         <label for="whoResponsibleId">&nbsp;{{'mf.holder'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="radio" id="whoResponsibleId_1" name="whoResponsible_1" value=""
+        <input type="radio" id="whoResponsibleId_1" name="whoResponsible_1" value="AuthorizedMasterFileAgent"
           [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
         <label for="whoResponsibleId_1">&nbsp;{{'mf.agent'|translate}}</label>
       </fieldset>
