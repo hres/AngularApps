@@ -16,6 +16,7 @@ import {DatePipe} from '@angular/common';
 // import { timeout } from 'rxjs/operators';
 import {RequesterListComponent} from '../requester/requester.list/requester.list.component';
 import { Transaction } from '../models/transaction';
+import { VersionService } from '../shared/version.service';
 
 @Component({
   selector: 'master-file-base',
@@ -48,22 +49,20 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public title = '';
   public headingLevel = 'h2';
 
-  // public masterFileModel =
-  //   MasterFileBaseService.getEmptyMasterFileDetailsModel();
+  private appVersion: string;
+  private xslName: string;
+
   public transactionEnrollModel = MasterFileBaseService.getEmptyTransactionEnrol();
   public ectdModel = this.transactionEnrollModel.ectd;
   //public mfAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
 
-  //public masterFileModel =
-  //  MasterFileBaseService.getEmptyMasterFileDetailsModel();
-  public holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  public holderAddressModel =
+    MasterFileBaseService.getEmptyAddressDetailsModel();
 
   public agentAddressModel =
     MasterFileBaseService.getEmptyAddressDetailsModel();
-  public holderContactModel = this.transactionEnrollModel.holder_contact; // derive it from transactionEnrollModel object instead of creating a new object
-  // MasterFileBaseService.getEmptyContactModel();
+  public holderContactModel = this.transactionEnrollModel.holder_contact;
   public agentContactModel = this.transactionEnrollModel.agent_contact;
-  // MasterFileBaseService.getEmptyContactModel();
   public requesterModel = [];
   public countryList = [];
   public provinceList = [];
@@ -71,13 +70,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   // public transFeeModel = [];
   public transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
   public fileServices: FileConversionService;
-  public xslName =
-    GlobalsService.STYLESHEETS_1_0_PREFIX +
-    GlobalsService.MASTER_FILE_OUTPUT_PREFIX +
-    '_1_0.xsl'; // todo version mumber
 
-  //public xslName = GlobalsService.STYLESHEETS_1_0_PREFIX + 'REP_MF_RT_1_0.xsl';
-  
   public notApplicable: boolean = false;
 
   /* public customSettings: TinyMce.Settings | any;*/
@@ -86,7 +79,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private dataLoader: MasterFileDataLoaderService,
     private http: HttpClient,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private _versionService: VersionService
   ) {
     dataLoader = new MasterFileDataLoaderService(this.http);
     this.userList = [];
@@ -96,6 +90,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.showErrors = false;
     this.isSolicitedFlag = false;
     this.fileServices = new FileConversionService();
+    this.appVersion = this._versionService.getApplicationVersion();
+    this.xslName = GlobalsService.MASTER_FILE_OUTPUT_PREFIX + '_' + this.appVersion + '.xsl';
   }
 
   async ngOnInit() {
@@ -231,14 +227,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.agentContactModel = fileData.data.TRANSACTION_ENROL.agent_contact;
   }
 
-  // isSolicited() {
-  //   return (
-  //     this.isSolicitedFlag ||
-  //     this.masterFileModel.is_solicited_info === GlobalsService.YES
-  //   );
-  // }
-
-  private _updatedSavedDate() {
+  private _updateSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');
     this.transactionEnrollModel.last_saved_date = pipe.transform(
@@ -247,8 +236,12 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     );
   }
 
+  private _updateSoftwareVersion() {
+    this.transactionEnrollModel.software_version = this.appVersion;
+  }
+
   // private _updatedAutoFields() {
-  //   this._updatedSavedDate();
+  //   this._updateSavedDate();
   //   // this.masterFileModel.enrol_version = this.masterFileModel.enrol_version; // todo do we need the enrol_version field?
   // }
 
@@ -283,26 +276,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length < 1) {
       const result = this._prepareForSaving(true);
       const fileName = this._generateFileName();
-/*
-      const result = {
-        TRANSACTION_ENROL: {
-          application_info: this.masterFileModel,
-          requester_of_solicited_information: {
-            requester: this._deleteText(this.requesterModel),
-          },
-          mf_holder_address: this.holderAddressModel,
-          mf_holder_contact: this.holderContactModel,
-          agent_address: this.agentAddressModel,
-          agent_contact: this.agentContactModel,
-          transFees: this.transFeeModel,
-        },
-      };
-      const fileName =
-        'rt-' +
-        this.masterFileModel.dossier_id +
-        '-' +
-        this.masterFileModel.last_saved_date;
-        */
       console.log('save ...');
       this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
       return;
@@ -315,17 +288,22 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       // this.masterFileModel.enrol_version = this.masterFileModel.enrol_version; // todo do we need the enrol_version field?
     }
 
-    this._updatedSavedDate();
+    this._updateSavedDate();
+    this._updateSoftwareVersion();
 
     this.transactionEnrollModel.holder_name_address = this.holderAddressModel;
     this.transactionEnrollModel.holder_contact = this.holderContactModel;
     this.transactionEnrollModel.agent_name_address = this.agentAddressModel;
     this.transactionEnrollModel.agent_contact = this.agentContactModel;
-    this.transactionEnrollModel.contact_info_confirm = this.masterFileForm.controls['contactInfoConfirm'].value;
+    this.transactionEnrollModel.contact_info_confirm =
+      this.masterFileForm.controls['contactInfoConfirm'].value;
     this.transactionEnrollModel.fee_details = this.transFeeModel;
-    this.transactionEnrollModel.certify_accurate_complete = this.masterFileForm.controls['certifyAccurateComplete'].value;
-    this.transactionEnrollModel.full_name = this.masterFileForm.controls['fullName'].value;
-    this.transactionEnrollModel.submit_date = this.masterFileForm.controls['submitDate'].value;
+    this.transactionEnrollModel.certify_accurate_complete =
+      this.masterFileForm.controls['certifyAccurateComplete'].value;
+    this.transactionEnrollModel.full_name =
+      this.masterFileForm.controls['fullName'].value;
+    this.transactionEnrollModel.submit_date =
+      this.masterFileForm.controls['submitDate'].value;
 
     const result: Transaction = {
       TRANSACTION_ENROL: this.transactionEnrollModel,
@@ -344,7 +322,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.transactionEnrollModel.last_saved_date;
     return fileName;
   }
-  
+
   public agentInfoOnChange() {
     this.notApplicable = this.masterFileForm.controls['notApplicable'].value;
   }

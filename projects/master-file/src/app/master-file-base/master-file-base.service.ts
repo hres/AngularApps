@@ -1,14 +1,13 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {GlobalsService} from '../globals/globals.service';
-import {ValidationService} from '../validation.service';
-import {ListService} from '../list-service';
+import { GlobalsService } from '../globals/globals.service';
 import {
   Ectd,
   LifecycleRecord,
   TransactionEnrol,
   Transaction,
 } from '../models/transaction';
+import { VersionService } from '../shared/version.service';
 
 @Injectable()
 export class MasterFileBaseService {
@@ -27,38 +26,6 @@ export class MasterFileBaseService {
       return null;
     }
     return fb.group({
-      softwareVersion: GlobalsService.SOFTWARE_VERSION,
-      enrolVersion: '0.0',
-      lastSavedDate: '',
-      dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
-      dossierType: ['Medical device', []],
-      manuCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
-      manuContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]],
-      reguCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
-      reguContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]],
-      activityLead: [null, Validators.required],
-      activityType: [null, Validators.required],
-      descriptionType: [null, Validators.required],
-      deviceClass: [null, Validators.required],
-      amendReason: [null, Validators.required],
-      classChange: [false, []],
-      licenceChange: [false, []],
-      processChange: [false, []],
-      qualityChange: [false, []],
-      designChange: [false, []],
-      materialsChange: [false, []],
-      labellingChange: [false, []],
-      safetyChange: [false, []],
-      purposeChange: [false, []],
-      addChange: [false, []],
-      licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator]],
-      appNum: [null, [Validators.required, ValidationService.appNumValidator]],
-      deviceName: [null, Validators.required],
-      requestDate: [null, Validators.required],
-      transDescription: [null, []],
-      hasDdt: [false, []],
-      hasAppInfo: [false, []],
-      isSolicitedInfo: [null, Validators.required],
       notApplicable: [false, []],
       contactInfoConfirm: [null, Validators.required],
       certifyAccurateComplete: [null, Validators.required],
@@ -80,124 +47,7 @@ export class MasterFileBaseService {
     );
   }
 
-  /**
-   * Gets an empty Address Details Model
-   *
-   */
-  public static getEmptyMasterFileDetailsModel() {
-
-    return (
-      {
-        software_version: GlobalsService.SOFTWARE_VERSION,
-        enrol_version: '0.0',
-        last_saved_date: '',  // todo: to map into form model ???
-        dossier_id: '',
-        dossier_type: 'Medical Device',
-        company_id: '',
-        manufacturing_contact_id: '',
-        regulatory_company_id: '',
-        regulatory_contact_id: '',
-        regulatory_activity_lead: '',
-        regulatory_activity_type: '',
-        description_type: '',
-        device_class: '',
-        amend_reasons: {
-          classification_change: '',
-          licence_change: '',
-          process_change: '',
-          quality_change: '',
-          design_change: '',
-          materials_change: '',
-          labelling_change: '',
-          safety_change: '',
-          purpose_change: '',
-          add_delete_change: ''
-        },
-        licence_number: '',
-        application_number: '',
-        device_name: '',
-        request_date: '',
-        master_file_description: '',
-        has_ddt: '',
-        has_app_info: '',
-        is_solicited_info: '',
-        org_manufacture_id: '',
-        org_manufacture_lic: '',
-        mf_holder_address: {
-          company_name: '',
-          address: '',
-          city: '',
-          country: {
-            __text: '',
-            _id: '',
-            _label_en: '',
-            _label_fr: ''
-          },
-          prov_lov: {
-            __text: '',
-            _id: '',
-            _label_en: '',
-            _label_fr: ''
-          },
-          prov_text: '',
-          postal: ''
-        },
-        mf_holder_contact: {
-          fist__name: '',
-          last_name: '',
-          language: '',
-          job_title: '',
-          phone_number: '',
-          phone_extension: '',
-          fax_number: '',
-          email: ''
-        },
-        agent_not_applicable: '',
-        agent_address: {
-          company_name: '',
-          address: '',
-          city: '',
-          country: {
-            __text: '',
-            _id: '',
-            _label_en: '',
-            _label_fr: ''
-          },
-          prov_lov: {
-            __text: '',
-            _id: '',
-            _label_en: '',
-            _label_fr: ''
-          },
-          prov_text: '',
-          postal: ''
-        },
-        agent_contact: {
-          fist__name: '',
-          last_name: '',
-          language: '',
-          job_title: '',
-          phone_number: '',
-          phone_extension: '',
-          fax_number: '',
-          email: ''
-        },
-        contact_info_confirm: '',
-        fee_details: {
-          are_there_access_letters: '',
-          number_of_access_letters: '',
-          who_responsible_fee: '',
-          account_number: '',
-          cra_business_number: ''
-        },
-        certify_accurate_complete: '',
-        full_name: '',
-        submit_date: ''
-      }
-    );
-  }
-
-  /**
+   /**
    * Gets an empty Address Details Model
    *
    */
@@ -239,60 +89,57 @@ export class MasterFileBaseService {
   public static getEmptyTransactionEnrol(): TransactionEnrol {
     const TransactionEnrol: TransactionEnrol = {
       template_type: 'PHARMA',
-      software_version: GlobalsService.SOFTWARE_VERSION,
+      software_version: '',
       enrol_version: '0.0',
-      last_saved_date: undefined,  // todo: to map into form model ???
+      last_saved_date: undefined,
       data_checksum: '',
       ectd: this.getEmptyEctd(),
       is_activity_changes: '',
-     // regulatory_activity_address: undefined,
-     // regulatory_activity_contact: undefined,
-     // confirm_regulatory_contact: '',
       holder_name_address: {
-          company_name: '',
-          street_address: '',
-          city: '',
-          country: {
-            __text: '',
-            _id: '',
-            _label_en: '',
-            _label_fr: ''
-          },
-          province_lov: {
-            __text: '',
-            _id: ''
-          },
-          province_text: '',
-          postal_code: ''
+        company_name: '',
+        street_address: '',
+        city: '',
+        country: {
+          __text: '',
+          _id: '',
+          _label_en: '',
+          _label_fr: ''
+        },
+        province_lov: {
+          __text: '',
+          _id: ''
+        },
+        province_text: '',
+        postal_code: ''
       },
-      holder_contact: this.getEmptyContactModel(),    // call the private method to initialize it instead of repeating it
+      holder_contact: this.getEmptyContactModel(),
       agent_not_applicable: undefined,
       agent_name_address: {
-          company_name: '',
-          street_address: '',
-          city: '',
-          country: {
-            __text: '',
-            _id: '',
-            _label_en: '',
-            _label_fr: ''
-          },
-          province_lov: {
-            __text: '',
-            _id: ''
-          },
-          province_text: '',
-          postal_code: ''
+        company_name: '',
+        street_address: '',
+        city: '',
+        country: {
+          __text: '',
+          _id: '',
+          _label_en: '',
+          _label_fr: ''
+        },
+        province_lov: {
+          __text: '',
+          _id: ''
+        },
+        province_text: '',
+        postal_code: ''
       },
       agent_contact: {
-          first_name: '',
-          last_name: '',
-          language_correspondance: '',
-          job_title: '',
-          phone_number: '',
-          phone_extension: '',
-          fax_number: '',
-          email: ''
+        first_name: '',
+        last_name: '',
+        language_correspondance: '',
+        job_title: '',
+        phone_number: '',
+        phone_extension: '',
+        fax_number: '',
+        email: ''
       },
       contact_info_confirm: '',
       fee_details: {
@@ -302,8 +149,8 @@ export class MasterFileBaseService {
         account_number: '',
         cra_business_number: ''
       },
-        certify_accurate_complete: undefined,
-        full_name: '',
+      certify_accurate_complete: undefined,
+      full_name: '',
         submit_date: ''
 
     };
