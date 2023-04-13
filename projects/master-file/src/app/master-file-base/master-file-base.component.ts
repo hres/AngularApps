@@ -32,7 +32,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(RequesterListComponent, { static: false })
   requesterListChild: RequesterListComponent;
 
-  private _masterFileDetailErrors = [];   // todo remove masterFileDetail related codes
   private _regulatoryInfoErrors = [];
   private _requesterErrors = [];
   private _transFeeErrors = [];
@@ -120,13 +119,11 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.errorList = [];
     // concat the two array
     this.errorList = this._regulatoryInfoErrors.concat(
-      this._masterFileDetailErrors.concat(
-        this._requesterErrors.concat(
-          this._addressErrors.concat(
-            this._contactErrors.concat(
-              this._agentAddressErrors.concat(
-                this._agentContactErrors.concat(this._transFeeErrors)
-              )
+      this._requesterErrors.concat(
+        this._addressErrors.concat(
+          this._contactErrors.concat(
+            this._agentAddressErrors.concat(
+              this._agentContactErrors.concat(this._transFeeErrors)
             )
           )
         )
@@ -138,11 +135,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   processRegulatoryInfoErrors(errorList) {
     this._regulatoryInfoErrors = errorList;
-    this.processErrors();
-  }
-
-  processDetailErrors(errorList) {
-    this._masterFileDetailErrors = errorList;
     this.processErrors();
   }
 

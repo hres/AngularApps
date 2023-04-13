@@ -21,8 +21,7 @@ export class GlobalsService {
   public static FINAL: string = 'FINAL';
 
   public static STYLESHEETS_1_0_PREFIX = ''; // todo the value??
-  // public static STYLESHEETS_1_0_PREFIX  = 'https://raw.githubusercontent.com/HealthCanada/HPFB/master/Medical-Device-REP/v_1_0/Style-Sheets/';
-  public static SOFTWARE_VERSION: string = '2.0';
+  // // public static STYLESHEETS_1_0_PREFIX  = 'https://raw.githubusercontent.com/HealthCanada/HPFB/master/Medical-Device-REP/v_1_0/Style-Sheets/';
 
   public static MASTER_FILE_OUTPUT_PREFIX = 'mf-';
 
