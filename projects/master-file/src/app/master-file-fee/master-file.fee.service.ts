@@ -1,8 +1,5 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {GlobalsService} from '../globals/globals.service';
-import {ValidationService} from '../validation.service';
-import {ListService} from '../list-service';
 
 @Injectable()
 export class MasterFileFeeService {
@@ -41,17 +38,6 @@ export class MasterFileFeeService {
         cra_business_number: ''
       }
     );
-  }
-
-  /**
-   * Gets an yesno array
-   *
-   */
-  public getYesNoList() {
-    return [
-      GlobalsService.YES,
-      GlobalsService.NO
-    ];
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, mfFeeModel) {

@@ -35,7 +35,6 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  yesNoList: string[] = GlobalsService.YESNOList;
   mfTypeOptions: ICodeDefinition[];
   mfTypeDescArray: IParentChildren[] = [];
   mfUseOptions: ICode[];

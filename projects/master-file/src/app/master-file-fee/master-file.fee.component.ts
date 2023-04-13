@@ -8,10 +8,6 @@ import {MasterFileFeeService} from './master-file.fee.service';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {GlobalsService} from '../globals/globals.service';
-import {ListService} from '../list-service';
-import {isArray} from 'util';
-// import {noUndefined} from '@angular/compiler/src/util';
-
 
 @Component({
   selector: 'master-file-fee',
@@ -36,7 +32,7 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
-  public yesNoList: Array<any> = [];
+  // public yesNoList: Array<any> = [];
   public showFieldErrors = false;
   private feeService: MasterFileFeeService;
 
@@ -46,7 +42,7 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
     this.showFieldErrors = false;
     this.showErrors = false;
     this.feeService = new MasterFileFeeService();
-    this.yesNoList = this.feeService.getYesNoList();
+    // this.yesNoList = GlobalsService.getYesNoList();
   }
 
   async ngOnInit() {
