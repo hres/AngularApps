@@ -1,5 +1,6 @@
 {
-  "master.file.form.title": "Formulaire de demande de fiches maîtresses (Version todo)",
+  "master.file.form.title": "Formulaire de demande de fiches maîtresses",
+  "version": "Version ",
   "top.fromHC": "De <a href='https://www.canada.ca/fr/sante-canada.html'>Santé Canada</a>",
   "top.toc": "Table de matières",
   "top.privacy.statement": "Énoncé de confidentialité",
@@ -121,7 +122,7 @@
   "error.msg.number": "fr_Please enter a valid number",
 
   "return.instruction": "Revenir à la référence de l'instruction",
-  "template.version": "fr_Template version: ",
+
   "rationale": "fr_Rationale",
   "proposed.indication": "fr_Proposed purpose/Indication for Use",
   "section.show.option": "[ Cette section peut ne pas être visible. ]",

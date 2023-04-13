@@ -1,5 +1,6 @@
 {
-  "master.file.form.title": "Master File Applications Form (Version todo)",
+  "master.file.form.title": "Master File Applications Form",
+  "version": "Version ",
   "top.fromHC": "From <a href='https://www.canada.ca/en/health-canada.html'>Health Canada</a>",
   "top.toc": "Table of contents",
   "top.privacy.statement": "Privacy Notice Statement",
@@ -117,7 +118,7 @@
   "error.msg.number": "Please enter a valid number",
 
   "return.instruction": "Return to instruction reference",
-  "template.version": "Template version: ",
+
   "rationale": "Rationale",
   "proposed.indication": "Proposed purpose/Indication for Use",
   "section.show.option": "[ This section may not be visible. ] ",

@@ -6,6 +6,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateModule } from '@ngx-translate/core';
 import { ErrorModule } from '../error-msg/error-ui.module';
 import { UpperCaseInputDirective } from './directives/to-uppercase.directive';
+import { VersionService } from './version.service';
 
 @NgModule({
   exports: [
@@ -18,6 +19,7 @@ import { UpperCaseInputDirective } from './directives/to-uppercase.directive';
     TranslateModule,
     UpperCaseInputDirective,
   ],
+  providers: [VersionService],
   declarations: [UpperCaseInputDirective],
 })
 export class SharedModule {}
