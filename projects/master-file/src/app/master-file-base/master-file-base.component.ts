@@ -8,7 +8,6 @@ import {MasterFileDataLoaderService} from '../data-loader/master-file-data-loade
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
-import {RequesterListComponent} from '../requester/requester.list/requester.list.component';
 import { Transaction } from '../models/transaction';
 import { VersionService } from '../shared/version.service';
 
@@ -23,11 +22,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   @Input() isInternal;
   @Input() lang;
   @Input() helpTextSequences;
-  @ViewChild(RequesterListComponent, { static: false })
-  requesterListChild: RequesterListComponent;
 
   private _regulatoryInfoErrors = [];
-  private _requesterErrors = [];
   private _transFeeErrors = [];
   private _addressErrors = [];
   private _contactErrors = [];
@@ -48,7 +44,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
   public holderContactModel = this.transactionEnrollModel.holder_contact;
   public agentContactModel = this.transactionEnrollModel.agent_contact;
-  public requesterModel = [];
   public countryList = [];
   public provinceList = [];
   public stateList = [];
@@ -101,27 +96,20 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.errorList = [];
     // concat the two array
     this.errorList = this._regulatoryInfoErrors.concat(
-      this._requesterErrors.concat(
-        this._addressErrors.concat(
-          this._contactErrors.concat(
-            this._agentAddressErrors.concat(
-              this._agentContactErrors.concat(this._transFeeErrors)
-            )
+      this._addressErrors.concat(
+        this._contactErrors.concat(
+          this._agentAddressErrors.concat(
+            this._agentContactErrors.concat(this._transFeeErrors)
           )
         )
       )
     );
-    // .concat(this._theraErrors);
+
     this.cdr.detectChanges(); // doing our own change detection
   }
 
   processRegulatoryInfoErrors(errorList) {
     this._regulatoryInfoErrors = errorList;
-    this.processErrors();
-  }
-
-  processRequesterErrors(errorList) {
-    this._requesterErrors = errorList;
     this.processErrors();
   }
 
@@ -150,37 +138,13 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  // processIsSolicitedFlag(isSolicited) {
-  //   if (!isSolicited) {
-  //     this.requesterModel = [];
-  //   }
-  //   this.isSolicitedFlag = isSolicited;
-  // }
-
   public hideErrorSummary() {
     return this.showErrors && this.errorList && this.errorList.length > 0;
   }
 
   public saveXmlFile() {
-    if (
-      //todo not used, remove??
-      !this.requesterListChild ||
-      (this.requesterListChild &&
-        this.requesterListChild.requesterListForm.pristine &&
-        this.requesterListChild.requesterListForm.valid)
-    ) {
-      // this._updatedAutoFields();
-      this.showErrors = true;
-      this._saveXML();
-    } else {
-      if (this.lang === GlobalsService.ENGLISH) {
-        alert('Please save the unsaved input data before generating XML file.');
-      } else {
-        alert(
-          "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML."
-        );
-      }
-    }
+    this.showErrors = true;
+    this._saveXML();  
   }
 
   public saveWorkingCopyFile() {
@@ -212,29 +176,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   private _updateSoftwareVersion() {
     this.transactionEnrollModel.software_version = this.appVersion;
-  }
-
-  // private _updatedAutoFields() {
-  //   this._updateSavedDate();
-  //   // this.masterFileModel.enrol_version = this.masterFileModel.enrol_version; // todo do we need the enrol_version field?
-  // }
-
-  private _deleteText(dataModel) {
-    const dataCopy = JSON.parse(JSON.stringify(dataModel));
-    dataCopy.forEach((item) => {
-      delete item.requester_text;
-    });
-    return dataCopy;
-  }
-
-  private _insertTextfield() {
-    this.requesterModel.forEach((item) => {
-      item.requester_text =
-        this.lang === GlobalsService.ENGLISH
-          ? item.requester._label_en
-          : item.requester._label_fr;
-      item.id = Number(item.id);
-    });
   }
 
   public preload() {

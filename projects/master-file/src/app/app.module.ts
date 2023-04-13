@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ValidationService } from '../app/validation.service';
 import { GlobalsService } from '../app/globals/globals.service';
-import { RequesterModule } from '../app/requester/requester.module';
 import { NumbersOnlyModule } from '../app/number-only/number-only.module';
 import { ContainerModule } from './container/container.module';
 
@@ -19,7 +18,6 @@ import {MasterFileDataLoaderService} from '../app/data-loader/master-file-data-l
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RequesterModule,
     HttpClientModule,
     CommonFeatureModule,
     DataLoaderModule,
