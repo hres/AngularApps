@@ -1,19 +1,13 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
-// import {TranslateService} from '@ngx-translate/core';
 import {MasterFileBaseService} from './master-file-base.service';
 import {FileConversionService} from '../filereader/file-io/file-conversion.service';
 import {ConvertResults} from '../filereader/file-io/convert-results';
 import {GlobalsService} from '../globals/globals.service';
-// import {AddressDetailsComponent} from '../address/address.details/address.details.component';
-
-// import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 import {MasterFileDataLoaderService} from '../data-loader/master-file-data-loader.service';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
-// import { timeout } from 'rxjs/operators';
 import {RequesterListComponent} from '../requester/requester.list/requester.list.component';
 import { Transaction } from '../models/transaction';
 import { VersionService } from '../shared/version.service';
@@ -41,34 +35,25 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   private _agentContactErrors = [];
   public masterFileForm: FormGroup; // todo: do we need it? could remove?
   public errorList = [];
-  public rootTagText = 'TRANSACTION_ENROL';
-  public userList = [];
   public showErrors: boolean;
-  public isSolicitedFlag: boolean;
-  public title = '';
   public headingLevel = 'h2';
-
+  
+  public rootTagText = 'TRANSACTION_ENROL';
   private appVersion: string;
   private xslName: string;
 
   public transactionEnrollModel = MasterFileBaseService.getEmptyTransactionEnrol();
   public ectdModel = this.transactionEnrollModel.ectd;
-  //public mfAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-
-  public holderAddressModel =
-    MasterFileBaseService.getEmptyAddressDetailsModel();
-
-  public agentAddressModel =
-    MasterFileBaseService.getEmptyAddressDetailsModel();
+  public holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  public agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
   public holderContactModel = this.transactionEnrollModel.holder_contact;
   public agentContactModel = this.transactionEnrollModel.agent_contact;
   public requesterModel = [];
   public countryList = [];
   public provinceList = [];
   public stateList = [];
-  // public transFeeModel = [];
+
   public transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
-  public fileServices: FileConversionService;
 
   public notApplicable: boolean = false;
 
@@ -79,16 +64,15 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     private dataLoader: MasterFileDataLoaderService,
     private http: HttpClient,
     private translate: TranslateService,
-    private _versionService: VersionService
+    private _versionService: VersionService, 
+    private fileServices: FileConversionService
   ) {
     dataLoader = new MasterFileDataLoaderService(this.http);
-    this.userList = [];
+
     this.countryList = [];
     this.provinceList = [];
     this.stateList = [];
     this.showErrors = false;
-    this.isSolicitedFlag = false;
-    this.fileServices = new FileConversionService();
     this.appVersion = this._versionService.getApplicationVersion();
     this.xslName = GlobalsService.MASTER_FILE_OUTPUT_PREFIX + '_' + this.appVersion + '.xsl';
   }
@@ -106,8 +90,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.stateList = await this.dataLoader.getStates(
       this.translate.currentLang
     );
-    // this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
-    // console.log();
   }
   ngAfterViewInit(): void {
     document.location.href = '#def-top';
@@ -168,12 +150,12 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processIsSolicitedFlag(isSolicited) {
-    if (!isSolicited) {
-      this.requesterModel = [];
-    }
-    this.isSolicitedFlag = isSolicited;
-  }
+  // processIsSolicitedFlag(isSolicited) {
+  //   if (!isSolicited) {
+  //     this.requesterModel = [];
+  //   }
+  //   this.isSolicitedFlag = isSolicited;
+  // }
 
   public hideErrorSummary() {
     return this.showErrors && this.errorList && this.errorList.length > 0;
@@ -308,7 +290,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   private _generateFileName(): string {
     let fileName =
-      GlobalsService.MASTER_FILE_OUTPUT_PREFIX +
+      GlobalsService.MASTER_FILE_OUTPUT_PREFIX + "-" + 
       this.transactionEnrollModel.ectd.dossier_id +
       '-' +
       this.transactionEnrollModel.last_saved_date;

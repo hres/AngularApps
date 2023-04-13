@@ -1,13 +1,11 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { GlobalsService } from '../globals/globals.service';
 import {
   Ectd,
   LifecycleRecord,
   TransactionEnrol,
   Transaction,
 } from '../models/transaction';
-import { VersionService } from '../shared/version.service';
 
 @Injectable()
 export class MasterFileBaseService {
@@ -155,10 +153,6 @@ export class MasterFileBaseService {
 
     };
     
-    // const transaction: Transaction = {
-    //   TRANSACTION_ENROL: TransactionEnrol,
-    // };
-
     return TransactionEnrol;
   }
 

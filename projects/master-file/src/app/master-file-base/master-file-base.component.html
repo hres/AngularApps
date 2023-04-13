@@ -28,46 +28,17 @@
         headingPreamble="errorSummary.master.file"></error-summary>
     </div>
     <div>
-<section class="panel panel-primary mrgn-tp-lg">
-  <header class="panel-heading clearfix">
-    <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
-    </header>
-    <div class="panel-body">
-      <app-regulatory-information [showErrors]="showErrors" [lang]="lang" [dataModel]="ectdModel"
-        (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpTextSequences"
-        (errorList)="processRegulatoryInfoErrors($event)"></app-regulatory-information>
-    </div>
-    </section>
-    
-    <!-- <section class="panel panel-primary mrgn-tp-lg">
-                        <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}
-            <sup id="tr2-rf">
-              <a class="fn-lnk" href="#tr2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.tr2}}</a>
-              </sup>
-              </h2>
-              </header>
-              <div class="panel-body"> -->
-                <!--<master-file-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
-                              [detailsChanged]="updateChild" [masterFileModel]="masterFileModel"
-                              (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpIndex"
-                              (detailErrorList)="processDetailErrors($event)"></master-file-details> -->
-          <!--todo clean the not used parameters, detailsChanged, userList .. -->
-          <!-- <master-file-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
-            [masterFileModel]="masterFileModel" (isSolicitedFlag)="processIsSolicitedFlag($event)"
-            [helpIndex]="helpTextSequences" (detailErrorList)="processDetailErrors($event)"></master-file-details>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <app-regulatory-information [showErrors]="showErrors" [lang]="lang" [dataModel]="ectdModel"
+              [helpIndex]="helpTextSequences"
+              (errorList)="processRegulatoryInfoErrors($event)"></app-regulatory-information>
+          </div>
+      </section>
 
-        </div> -->
-        <!-- <section class="panel  panel-default" *ngIf="isSolicited()">
-            <header class="panel-heading clearfix">
-              <h3 class="panel-title">{{'heading.requesters'|translate}}</h3>
-            </header>
-            <div class="panel-body">
-              <requester-list  (errors)="processRequesterErrors($event)"  [userList]="userList" [showErrors]="showErrors"
-                               [requesterModel]="requesterModel"></requester-list>
-            </div>
-          </section> -->
-      <!-- </section> -->
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
