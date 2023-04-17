@@ -80,17 +80,17 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
 
   ngOnChanges(changes: SimpleChanges) {
 
-    // since we can't detect changes on objects, using a separate flag
-    if (changes['detailsChanged']) { // used as a change indicator for the model
-      // console.log("the details cbange");
-      if (this.transFeeFormRecord) {
-        this.setToLocalModel();
+    // // since we can't detect changes on objects, using a separate flag
+    // if (changes['detailsChanged']) { // used as a change indicator for the model
+    //   // console.log("the details cbange");
+    //   if (this.transFeeFormRecord) {
+    //     this.setToLocalModel();
 
-      } else {
-        this.mfFeeFormLocalModel = this.feeService.getReactiveModel(this._fb);
-        this.mfFeeFormLocalModel.markAsPristine();
-      }
-    }
+    //   } else {
+    //     this.mfFeeFormLocalModel = this.feeService.getReactiveModel(this._fb);
+    //     this.mfFeeFormLocalModel.markAsPristine();
+    //   }
+    // }
     if (changes['showErrors']) {
 
       this.showFieldErrors = changes['showErrors'].currentValue;
