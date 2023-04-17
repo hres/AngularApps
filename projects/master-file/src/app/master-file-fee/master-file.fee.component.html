@@ -36,10 +36,10 @@
             [control]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" controlId="areAccessLetters"
             label="are.access.letters" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
         </legend>
-        <input type="radio" id="areAccessLettersId" name="areAccessLetters" value="Y"
+        <input type="radio" id="areAccessLettersId" name="areAccessLetters" value="Y" (blur)="onblur()"
           [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl"  required />
         <label for="areAccessLettersId">&nbsp;{{'yes'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="radio" id="areAccessLettersId_1" name="areAccessLettersId_1" value="N"
+        <input type="radio" id="areAccessLettersId_1" name="areAccessLettersId_1" value="N" (blur)="onblur()"
           [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" required />
         <label for="areAccessLettersId_1">&nbsp;{{'no'|translate}}</label>
       </fieldset>
@@ -54,7 +54,7 @@
                             [control]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl"
                             controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
-          <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter"
+          <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" (blur)="onblur()"
                  [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" />
         </label>
       </div>
@@ -69,10 +69,10 @@
             [control]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" controlId="whoResponsible"
             label="who.responsible" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
         </legend>
-        <input type="radio" id="whoResponsibleId" name="whoResponsible" value="MasterFileHolder"
+        <input type="radio" id="whoResponsibleId" name="whoResponsible" value="MasterFileHolder" (blur)="onblur()"
           [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
         <label for="whoResponsibleId">&nbsp;{{'mf.holder'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="radio" id="whoResponsibleId_1" name="whoResponsible_1" value="AuthorizedMasterFileAgent"
+        <input type="radio" id="whoResponsibleId_1" name="whoResponsible_1" value="AuthorizedMasterFileAgent" (blur)="onblur()"
           [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
         <label for="whoResponsibleId_1">&nbsp;{{'mf.agent'|translate}}</label>
       </fieldset>
@@ -81,13 +81,13 @@
       <div class="form-group col-xs-6 minWidth300" >
         <label for="accountNumber" class="full-width">
           <span class="field-name" i18n>{{'account.num'|translate}}</span>
-          <input id="accountNumber" class="form-control" name="accountNumber"
+          <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()"
                  [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
       </div><div class="form-group col-xs-6 minWidth300">
         <label for="businessNumber" class="full-width">
           <span class="field-name" i18n>{{'business.num'|translate}}</span>
-          <input id="businessNumber" class="form-control" name="businessNumber"
+          <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()"
             [formControl]="mfFeeFormLocalModel.controls['businessNumber'] | formControl" maxlength="9" />
         </label>
       </div>

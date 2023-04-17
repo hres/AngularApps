@@ -174,7 +174,7 @@
                   <control-messages *ngIf="masterFileForm.controls['submitDate'].invalid" [showError]="showErrors"
                     parentId="mfDetails" [control]="masterFileForm.controls['submitDate'] | formControl" controlId="submitDateId"
                     label="submitDate" parentLabel="MasterFile Information"></control-messages>
-                  <input name="submitDate" class="form-control" id="submitDateId"
+                  <input name="submitDate" class="form-control" id="submitDateId" type="date"
                     [formControl]="masterFileForm.controls['submitDate'] | formControl" />
                 </label>
               </div>

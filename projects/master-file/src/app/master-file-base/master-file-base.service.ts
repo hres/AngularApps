@@ -190,4 +190,13 @@ export class MasterFileBaseService {
 
     return lifecycleRecord;
   }
+
+  public static mapDataModelToFormModel(mfDataModel, formRecord: FormGroup) {
+
+    formRecord.controls['notApplicable'].setValue(mfDataModel.agent_not_applicable);
+    formRecord.controls['contactInfoConfirm'].setValue(mfDataModel.contact_info_confirm);
+    formRecord.controls['certifyAccurateComplete'].setValue(mfDataModel.certify_accurate_complete);
+    formRecord.controls['fullName'].setValue(mfDataModel.full_name);
+    formRecord.controls['submitDate'].setValue(mfDataModel.submit_date);
+  }
 }
