@@ -163,6 +163,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.holderContactModel = fileData.data.TRANSACTION_ENROL.holder_contact;
     this.agentAddressModel = fileData.data.TRANSACTION_ENROL.agent_name_address;
     this.agentContactModel = fileData.data.TRANSACTION_ENROL.agent_contact;
+
+    MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
   }
 
   private _updateSavedDate() {
