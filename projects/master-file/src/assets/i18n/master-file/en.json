@@ -49,7 +49,6 @@
   "discard.changes": "Discard Changes",
   "commmon.required.bracket": " (required)",
   "common.saveRevert": "Please save or revert the record",
-  "errorSummary.master.file": "Master File Transaction and Application Form",
   "error.found.because": " could not be saved because ",
   "error.found.plural": " errors were found",
   "error.found.singular": " error was found",
