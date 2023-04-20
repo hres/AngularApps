@@ -23,7 +23,10 @@ const config = {
 
 try {
     
-    if (process.env.npm_config_language == 'en') {
+    let argLang = process.env.npm_config_language;
+
+
+    if (argLang == 'en') {
         const refTopHtml = fs.readFileSync(config.en.staticFilePath + 'refTop.html', 'utf8');
         const topEnHtml = fs.readFileSync(config.en.staticFilePath + 'top-en.html', 'utf8');
         const prefFooterEnHtml = fs.readFileSync(config.en.staticFilePath + 'preFooter-en.html', 'utf8');
@@ -41,13 +44,13 @@ try {
             countMatches: true,
         };
 
-        changeFiles(process.env.npm_config_language, optionsEn);
+        changeFiles(argLang, optionsEn);
         // Rename index files
         fs.rename(config.en.indexFileOldPath, config.en.indexFileNewPath, () => { });
         // remove the static
         fs.rmSync(config.en.staticFilePath, { recursive: true, force: true });
 
-    } else if (process.env.npm_config_language == 'fr') {
+    } else if (argLang == 'fr') {
         const refTopHtml = fs.readFileSync(config.fr.staticFilePath + 'refTop.html', 'utf8');
         const topFrHtml = fs.readFileSync(config.fr.staticFilePath + 'top-fr.html', 'utf8');
         const prefFooterFrHtml = fs.readFileSync(config.fr.staticFilePath + 'preFooter-fr.html', 'utf8');
@@ -65,14 +68,14 @@ try {
             countMatches: true,
         };
 
-        changeFiles(process.env.npm_config_language, optionsFr);
+        changeFiles(argLang, optionsFr);
         // Rename index files
         fs.rename(config.fr.indexFileOldPath, config.fr.indexFileNewPath, () => { });
         // remove the static
         fs.rmSync(config.fr.staticFilePath, { recursive: true, force: true });
     }
 
-    console.error("UPDATE DIST FILES ARE SUCCESSFULLY COMPLETED!");
+    console.error("\nUPDATING DIST FILES IS SUCCESSFULLY COMPLETED for", argLang);
 
 } catch (err) {
     console.error("ERROR OCCURED DURING UPDATING DIST FILES");
@@ -90,7 +93,7 @@ function formatDate(date, format) {
 }
 
 function changeFiles(lang, options) {
-    console.log("==> process dist file text replacement for ", lang);
+    console.log("==> start processing dist file text replacement for", lang);
     let results = replace.sync(options);
     if (results == 0) {
         throw "Nothing was changed!!";
