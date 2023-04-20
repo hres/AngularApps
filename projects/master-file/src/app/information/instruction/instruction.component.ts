@@ -9,9 +9,9 @@ export class InstructionComponent {
   @Input() helpTextSequences;
   @Input() lang;
   constructor() {
-    console.log(
-      'InstructionComponent ~ helpTextSequences',
-      this.helpTextSequences
-    );
+    // console.log(
+    //   'InstructionComponent ~ helpTextSequences',
+    //   this.helpTextSequences
+    // );
   }
 }

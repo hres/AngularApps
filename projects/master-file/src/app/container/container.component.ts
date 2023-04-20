@@ -15,10 +15,10 @@ export class ContainerComponent implements OnInit {
 
   ngOnInit() {
     this.helpIndex = this.instructionService.getHelpTextIndex();
-    console.log(
-      'ContainerComponent ~ ngOnInit ~ this.helpIndex',
-      this.helpIndex
-    );
-    console.log('ContainerComponent ~ ngOnInit ~ this.currlang', this.lang);
+    // console.log(
+    //   'ContainerComponent ~ ngOnInit ~ this.helpIndex',
+    //   this.helpIndex
+    // );
+    // console.log('ContainerComponent ~ ngOnInit ~ this.currlang', this.lang);
   }
 }

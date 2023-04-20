@@ -36,7 +36,7 @@ export class RegulatoryInformationService {
     this.mfTypeOptions$ = this._dataService
       .getData<ICodeDefinition>('mfTypes.json')
       .pipe(
-        tap((_) => console.log('getMasterFileTypeOptions is executed')),
+        //tap((_) => console.log('getMasterFileTypeOptions is executed')),
         shareReplay(1)
       );
     return this.mfTypeOptions$;
@@ -46,7 +46,7 @@ export class RegulatoryInformationService {
     this.txDescs$ = this._dataService
       .getData<ICodeDefinition>('txDescriptions.json')
       .pipe(
-        tap((_) => console.log('getTxDescriptions is executed')),
+        //tap((_) => console.log('getTxDescriptions is executed')),
         shareReplay(1)
       );
     return this.txDescs$;
@@ -86,7 +86,7 @@ export class RegulatoryInformationService {
 
   getMasterFileUses(): Observable<ICode[]> {
     this.mfUseOptions$ = this._dataService.getData<ICode>('mfUses.json').pipe(
-      tap((_) => console.log('getMasterFileUses is executed')),
+      //tap((_) => console.log('getMasterFileUses is executed')),
       shareReplay(1)
     );
     return this.mfUseOptions$;
