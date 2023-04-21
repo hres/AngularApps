@@ -92,7 +92,6 @@ export class MasterFileBaseService {
       last_saved_date: undefined,
       data_checksum: '',
       ectd: this.getEmptyEctd(),
-      is_activity_changes: '',
       holder_name_address: {
         company_name: '',
         street_address: '',

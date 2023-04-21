@@ -17,7 +17,6 @@ export interface TransactionEnrol {
   // sub_type: string;
   ectd: Ectd;
   fee_details: FeeDetails;
-  is_activity_changes: string;
   holder_name_address: HolderNameAddress;
   holder_contact: HolderContact;
   // confirm_regulatory_contact: string;
