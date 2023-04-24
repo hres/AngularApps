@@ -8,8 +8,8 @@ import { ICode, ICodeDefinition, IParentChildren } from '../shared/data';
 export class GlobalsService {
   public static errorSummClassName: string = 'ErrorSummaryComponent';
   public static errorSummleastOneRcd: string = 'leastOneRecordError';
-  public static CANADA: string = 'CAN';
-  public static USA: string = 'USA';
+  public static CANADA: string = 'CA';
+  public static USA: string = 'US';
   public static DATA_PATH: string = './assets/data/';
   public static ENGLISH: string = 'en';
   public static FRENCH: string = 'fr';
