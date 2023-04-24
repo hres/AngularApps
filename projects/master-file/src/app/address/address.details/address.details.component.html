@@ -67,11 +67,10 @@
                             parentLabel="REP Address"></control-messages>
           <div class="margin-top-small">
 			      <ng-select id="country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required custom"                      
-                       (typed)="typed($event)"
-                       (blur)="typed($event)"
-                       (add)="typed($event)"
-                       (selected)="processCountry($event)"
-                       (removed)="removed($event)">
+                       (typed)="typed()"
+                       (blur)="typed()"
+                       (add)="typed()"
+                       (selected)="processCountry()">
                   <ng-option *ngFor="let ctry of countries" [value]="ctry.id" class="select-choice">{{lang=='en' ? ctry.en : ctry.fr}}</ng-option>
             </ng-select>
           </div>

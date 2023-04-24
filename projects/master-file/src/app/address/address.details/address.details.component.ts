@@ -175,10 +175,10 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
 
-  processCountry(event) {
+  processCountry() {
     // console.log(event);
-    this.addressFormLocalModel.controls['country'].setValue([event]);
-    this._setCountryState(event, this.addressFormLocalModel);
+    // this.addressFormLocalModel.controls['country'].setValue([event]);
+    this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
       this.addressModel, this.countryList, this.provStateList);
   }
@@ -207,14 +207,15 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     // this.addressFormLocalModel.controls['country'].setValue(null)
   }
 
-  typed(rec) {
-    let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
-    // console.log('country is typed');
-    if (content && this.existsInList(content)) {
-      this.addressFormLocalModel.controls['country'].setValue([content]);
+  typed() {
+    // let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
+    console.log('country is typed: ' + this.addressFormLocalModel.controls['country']);
+    // if (content && this.existsInList(content)) {
+      // this.addressFormLocalModel.controls['country'].setValue([content]);
       AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
         this.addressModel, this.countryList, this.provStateList);
-    }
+      this.processCountry();
+    // }
   }
 
   onblur() {
