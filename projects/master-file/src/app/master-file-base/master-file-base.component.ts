@@ -69,7 +69,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.stateList = [];
     this.showErrors = false;
     this.appVersion = this._versionService.getApplicationVersion();
-    this.xslName = GlobalsService.MASTER_FILE_OUTPUT_PREFIX + '_' + this.appVersion + '.xsl';
+    let xsltVersion = this.appVersion.split('.',2).join(".");
+    this.xslName = GlobalsService.MASTER_FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
   }
 
   async ngOnInit() {

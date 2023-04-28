@@ -118,11 +118,11 @@ export class FileConversionService {
     let xmlResult = this.convertJSONObjectsToXML(jsonObj);
 
     if (addXsl) {
-      if (!xslName) {
-        xmlResult = '<?xml version="1.0" encoding="UTF-8"?>' + '<?xml-stylesheet  type="text/xsl" href=' + FileIoGlobalsService.defaultXSLName + '?>' + xmlResult;
-      } else {
+      // if (!xslName) {
+      //   xmlResult = '<?xml version="1.0" encoding="UTF-8"?>' + '<?xml-stylesheet  type="text/xsl" href=' + FileIoGlobalsService.defaultXSLName + '?>' + xmlResult;
+      // } else {
         xmlResult = '<?xml version="1.0" encoding="UTF-8"?>' + '<?xml-stylesheet  type="text/xsl" href="' + xslName + '"?>' + xmlResult;
-      }
+      // }
     }
     let blob = new Blob([xmlResult], {type: 'text/plain;charset=utf-8'});
     if (!fileName) {
