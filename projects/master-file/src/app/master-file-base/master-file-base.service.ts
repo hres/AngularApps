@@ -93,7 +93,7 @@ export class MasterFileBaseService {
       last_saved_date: undefined,
       data_checksum: '',
       ectd: this.getEmptyEctd(),
-      contact_info: this.getEptyContactInfo(),
+      contact_info: this.getEmptyContactInfo(),
       fee_details: {
         are_there_access_letters: '',
         number_of_access_letters: '',
@@ -154,7 +154,7 @@ export class MasterFileBaseService {
     formRecord.controls['submitDate'].setValue(mfDataModel.submit_date);
   }
 
-  public static getEptyContactInfo() {
+  public static getEmptyContactInfo() {
      const conInfo: ContactInfo = {
        holder_name_address: {
         company_name: '',
