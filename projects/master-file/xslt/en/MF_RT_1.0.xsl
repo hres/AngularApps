@@ -966,13 +966,13 @@ span.normalWeight {
       <div class="col-xs-6">
         <strong>First Name:&#160;</strong>
         <span class="mouseHover normalWeight">
-          <xsl:value-of select="holder_contact/first_name"/>
+          <xsl:value-of select="holder_contact/given_name"/>
         </span>
       </div>
       <div class="col-xs-6">
         <strong>Last Name:&#160;</strong>
         <span class="mouseHover normalWeight">
-          <xsl:value-of select="$value/last_name"/>
+          <xsl:value-of select="$value/surname"/>
         </span>
       </div>
     </div>
@@ -994,13 +994,13 @@ span.normalWeight {
       <div class="col-xs-6">
         <strong>Phone Number:&#160;</strong>
         <span class="mouseHover normalWeight">
-          <xsl:value-of select="$value/phone_number"/>
+          <xsl:value-of select="$value/phone_num"/>
         </span>
       </div>
       <div class="col-xs-6">
         <strong>Phone Extension:&#160;</strong>
         <span class="mouseHover normalWeight">
-          <xsl:value-of select="$value/phone_extension"/>
+          <xsl:value-of select="$value/phone_ext"/>
         </span>
       </div>
     </div>
@@ -1008,7 +1008,7 @@ span.normalWeight {
       <div class="col-xs-6">
         <strong>Fax Number:&#160;</strong>
         <span class="mouseHover normalWeight">
-          <xsl:value-of select="$value/fax_number"/>
+          <xsl:value-of select="$value/fax_num"/>
         </span>
       </div>
       <div class="col-xs-6">
