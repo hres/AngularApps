@@ -5,6 +5,7 @@ import {
   LifecycleRecord,
   TransactionEnrol,
   Transaction,
+  ContactInfo,
 } from '../models/transaction';
 
 @Injectable()
@@ -68,17 +69,17 @@ export class MasterFileBaseService {
    * Gets an empty contact model
    *
    */
-  private static getEmptyContactModel() {
+  public static getEmptyContactModel() {
 
     return (
       {
-        first_name: '',
-        last_name: '',
+        given_name: '',
+        surname: '',
         language_correspondance: '',
         job_title: '',
-        phone_number: '',
-        phone_extension: '',
-        fax_number: '',
+        phone_num: '',
+        phone_ext: '',
+        fax_num: '',
         email: ''
       }
     );
@@ -92,53 +93,7 @@ export class MasterFileBaseService {
       last_saved_date: undefined,
       data_checksum: '',
       ectd: this.getEmptyEctd(),
-      holder_name_address: {
-        company_name: '',
-        street_address: '',
-        city: '',
-        country: {
-          __text: '',
-          _id: '',
-          _label_en: '',
-          _label_fr: ''
-        },
-        province_lov: {
-          __text: '',
-          _id: ''
-        },
-        province_text: '',
-        postal_code: ''
-      },
-      holder_contact: this.getEmptyContactModel(),
-      agent_not_applicable: undefined,
-      agent_name_address: {
-        company_name: '',
-        street_address: '',
-        city: '',
-        country: {
-          __text: '',
-          _id: '',
-          _label_en: '',
-          _label_fr: ''
-        },
-        province_lov: {
-          __text: '',
-          _id: ''
-        },
-        province_text: '',
-        postal_code: ''
-      },
-      agent_contact: {
-        first_name: '',
-        last_name: '',
-        language_correspondance: '',
-        job_title: '',
-        phone_number: '',
-        phone_extension: '',
-        fax_number: '',
-        email: ''
-      },
-      contact_info_confirm: '',
+      contact_info: this.getEptyContactInfo(),
       fee_details: {
         are_there_access_letters: '',
         number_of_access_letters: '',
@@ -197,5 +152,58 @@ export class MasterFileBaseService {
     formRecord.controls['certifyAccurateComplete'].setValue(mfDataModel.certify_accurate_complete);
     formRecord.controls['fullName'].setValue(mfDataModel.full_name);
     formRecord.controls['submitDate'].setValue(mfDataModel.submit_date);
+  }
+
+  public static getEptyContactInfo() {
+     const conInfo: ContactInfo = {
+       holder_name_address: {
+        company_name: '',
+        street_address: '',
+        city: '',
+        country: {
+          __text: '',
+          _id: '',
+          _label_en: '',
+          _label_fr: ''
+        },
+        province_lov: {
+          __text: '',
+          _id: ''
+        },
+        province_text: '',
+        postal_code: ''
+      },
+      holder_contact: this.getEmptyContactModel(),
+      agent_not_applicable: undefined,
+      agent_name_address: {
+        company_name: '',
+        street_address: '',
+        city: '',
+        country: {
+          __text: '',
+          _id: '',
+          _label_en: '',
+          _label_fr: ''
+        },
+        province_lov: {
+          __text: '',
+          _id: ''
+        },
+        province_text: '',
+        postal_code: ''
+      },
+      agent_contact: {
+        given_name: '',
+        surname: '',
+        language_correspondance: '',
+        job_title: '',
+        phone_num: '',
+        phone_ext: '',
+        fax_num: '',
+        email: ''
+      },
+      contact_info_confirm: ''
+    }
+    return conInfo;
   }
 }

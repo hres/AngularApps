@@ -33,6 +33,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   @Input() lang;
   @Input() helpIndex;
   @Output() errorList = new EventEmitter(true);
+  @Output() trDescUpdated = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   mfTypeOptions: ICodeDefinition[];
@@ -43,11 +44,13 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   selectedTxDescDefinition: string;
   public showFieldErrors: boolean = false;
   public showDateAndRequester: boolean = false;
+  public showContactFees: boolean = true;
   mfTypeSub!: Subscription;
   mfTypeTxDescSub!: Subscription;
   mfUseSub!: Subscription;
 
   showDateAndRequesterTxDescs: string[] = ['12', '13', '14']; // Transaction Description values are defined in txDescriptions.json
+  showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService) {
     this.showFieldErrors = false;
@@ -190,12 +193,18 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     this.showDateAndRequester = this.showDateAndRequesterTxDescs.includes(
       txDescControl?.value.id
     );
+    
+    this.showContactFees = !this.showDateAndRequesterOnlyTxDescs.includes(
+      txDescControl?.value.id
+    );
 
     if (e) {
       // when the action is triggered from the UI    
       // reset requestDate and requester fields values
       GlobalsService.resetControlValue(this.regulartoryFormModel.controls['requestDate'], this.regulartoryFormModel.controls['requester']);
       this._saveData();
+
+      this.trDescUpdated.emit(this.showContactFees);
     }
   }
 

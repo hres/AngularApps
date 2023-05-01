@@ -17,13 +17,7 @@ export interface TransactionEnrol {
   // sub_type: string;
   ectd: Ectd;
   fee_details: FeeDetails;
-  holder_name_address: HolderNameAddress;
-  holder_contact: HolderContact;
-  // confirm_regulatory_contact: string;
-  agent_not_applicable: boolean;
-  agent_name_address: HolderNameAddress;
-  agent_contact: HolderContact;
-  contact_info_confirm: string;
+  contact_info: ContactInfo;
 
   certify_accurate_complete: boolean;
   full_name: string;
@@ -37,6 +31,15 @@ export interface Ectd {
   product_name: string;
   product_protocol: string;
   lifecycle_record: LifecycleRecord;
+}
+
+export interface ContactInfo {
+  holder_name_address: HolderNameAddress;
+  holder_contact: HolderContact;
+  agent_not_applicable: boolean;
+  agent_name_address: HolderNameAddress;
+  agent_contact: HolderContact;
+  contact_info_confirm: string;
 }
 
 export interface LifecycleRecord {
@@ -70,13 +73,13 @@ export interface HolderNameAddress {
 }
 
 export interface HolderContact {
-  first_name: string;
-  last_name: string;
+  given_name: string;
+  surname: string;
   job_title: string;
   language_correspondance: string;
-  phone_number: string;
-  phone_extension: string;
-  fax_number: string;
+  phone_num: string;
+  phone_ext: string;
+  fax_num: string;
   email: string;
 }
 

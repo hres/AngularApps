@@ -76,14 +76,14 @@ export class ContactDetailsService {
         status_text: '',
         // hc_status: '',
         // salutation: '',
-        first_name: '',
+        given_name: '',
         // initials: '',
-        last_name: '',
+        surname: '',
         language: '',
         job_title: '',
-        fax_number: '',
-        phone_number: '',
-        phone_extension: '',
+        fax_num: '',
+        phone_num: '',
+        phone_ext: '',
         email: '',
         RoutingID: ''
       }
@@ -92,9 +92,9 @@ export class ContactDetailsService {
 
 
   public static mapFormModelToDataModel(formRecord: FormGroup, contactModel) {
-    contactModel.first_name = formRecord.controls['firstName'].value;
+    contactModel.given_name = formRecord.controls['firstName'].value;
     // contactModel.initials = formRecord.controls['initials.value;
-    contactModel.last_name = formRecord.controls['lastName'].value;
+    contactModel.surname = formRecord.controls['lastName'].value;
     if (formRecord.controls['language'].value) {
       const langList = this._convertListText(this.languageList, this.lang);
       const recordIndex3 = ListService.getRecord(langList, formRecord.controls['language'].value, 'id');
@@ -110,17 +110,17 @@ export class ContactDetailsService {
       contactModel.language = null;
     }
     contactModel.job_title = formRecord.controls['jobTitle'].value;
-    contactModel.fax_number = formRecord.controls['faxNumber'].value;
-    contactModel.phone_number = formRecord.controls['phoneNumber'].value;
-    contactModel.phone_extension = formRecord.controls['phoneExtension'].value;
+    contactModel.fax_num = formRecord.controls['faxNumber'].value;
+    contactModel.phone_num = formRecord.controls['phoneNumber'].value;
+    contactModel.phone_ext = formRecord.controls['phoneExtension'].value;
     contactModel.email = formRecord.controls['email'].value;
   }
 
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
 
-    formRecord.controls['firstName'].setValue(contactModel.first_name);
+    formRecord.controls['firstName'].setValue(contactModel.given_name);
     // formRecord.controls['initials.setValue(contactModel.initials);
-    formRecord.controls['lastName'].setValue(contactModel.last_name);
+    formRecord.controls['lastName'].setValue(contactModel.surname);
     if (contactModel.language) {
       const recordIndex3 = ListService.getRecord(this.languageList, contactModel.language._id, 'id');
       if (recordIndex3 > -1) {
@@ -130,9 +130,9 @@ export class ContactDetailsService {
       formRecord.controls['language'].setValue(null);
     }
     formRecord.controls['jobTitle'].setValue(contactModel.job_title);
-    formRecord.controls['faxNumber'].setValue(contactModel.fax_number);
-    formRecord.controls['phoneNumber'].setValue(contactModel.phone_number);
-    formRecord.controls['phoneExtension'].setValue(contactModel.phone_extension);
+    formRecord.controls['faxNumber'].setValue(contactModel.fax_num);
+    formRecord.controls['phoneNumber'].setValue(contactModel.phone_num);
+    formRecord.controls['phoneExtension'].setValue(contactModel.phone_ext);
     formRecord.controls['email'].setValue(contactModel.email);
   }
 

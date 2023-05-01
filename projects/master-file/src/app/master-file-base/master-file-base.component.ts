@@ -32,6 +32,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public masterFileForm: FormGroup; // todo: do we need it? could remove?
   public errorList = [];
   public showErrors: boolean;
+  public showContactFees: boolean;
   public headingLevel = 'h2';
   
   public rootTagText = 'TRANSACTION_ENROL';
@@ -42,8 +43,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public ectdModel = this.transactionEnrollModel.ectd;
   public holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
   public agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-  public holderContactModel = this.transactionEnrollModel.holder_contact;
-  public agentContactModel = this.transactionEnrollModel.agent_contact;
+  public holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
+  public agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
   public countryList = [];
   public provinceList = [];
   public stateList = [];
@@ -68,6 +69,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.provinceList = [];
     this.stateList = [];
     this.showErrors = false;
+    this.showContactFees = true;
     this.appVersion = this._versionService.getApplicationVersion();
     let xsltVersion = this.appVersion.split('.',2).join(".");
     this.xslName = GlobalsService.MASTER_FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
@@ -160,10 +162,10 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
     this.ectdModel = this.transactionEnrollModel.ectd;
     this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
-    this.holderAddressModel = fileData.data.TRANSACTION_ENROL.holder_name_address;
-    this.holderContactModel = fileData.data.TRANSACTION_ENROL.holder_contact;
-    this.agentAddressModel = fileData.data.TRANSACTION_ENROL.agent_name_address;
-    this.agentContactModel = fileData.data.TRANSACTION_ENROL.agent_contact;
+    this.holderAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_name_address;
+    this.holderContactModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_contact;
+    this.agentAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_name_address;
+    this.agentContactModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_contact;
 
     MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
   }
@@ -184,6 +186,19 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public preload() {
     // console.log("Calling preload")
   }
+
+  public setShowContactFeesFlag(flag) {
+    this.showContactFees = flag;
+
+    if (this.showContactFees === false) {
+      this.transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
+      this.holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+      this.holderContactModel = MasterFileBaseService.getEmptyContactModel();
+      this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+      this.agentContactModel = MasterFileBaseService.getEmptyContactModel();
+    }
+  }
+
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
@@ -208,14 +223,15 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
     this._updateSavedDate();
     this._updateSoftwareVersion();
-
-    this.transactionEnrollModel.holder_name_address = this.holderAddressModel;
-    this.transactionEnrollModel.holder_contact = this.holderContactModel;
-    this.transactionEnrollModel.agent_name_address = this.agentAddressModel;
-    this.transactionEnrollModel.agent_contact = this.agentContactModel;
-    this.transactionEnrollModel.contact_info_confirm =
+    if (this.showContactFees) {
+      this.transactionEnrollModel.contact_info.holder_name_address = this.holderAddressModel;
+      this.transactionEnrollModel.contact_info.holder_contact = this.holderContactModel;
+      this.transactionEnrollModel.contact_info.agent_name_address = this.agentAddressModel;
+      this.transactionEnrollModel.contact_info.agent_contact = this.agentContactModel;
+      this.transactionEnrollModel.fee_details = this.transFeeModel;
+    }
+    this.transactionEnrollModel.contact_info.contact_info_confirm =
       this.masterFileForm.controls['contactInfoConfirm'].value;
-    this.transactionEnrollModel.fee_details = this.transFeeModel;
     this.transactionEnrollModel.certify_accurate_complete =
       this.masterFileForm.controls['certifyAccurateComplete'].value;
     this.transactionEnrollModel.full_name =
