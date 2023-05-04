@@ -5,20 +5,13 @@ export interface Transaction {
 
 export interface TransactionEnrol {
   template_type: string;
-  //date_saved: string;
+  date_saved: string;
   software_version: string;
   enrol_version: string;
   data_checksum: string;
-  last_saved_date: string;
-  // is_third_party: string;
-  // is_priority: string;
-  // is_noc: string;
-  // is_admin_sub: string;
-  // sub_type: string;
   ectd: Ectd;
   fee_details: FeeDetails;
   contact_info: ContactInfo;
-
   certify_accurate_complete: boolean;
   full_name: string;
   submit_date: string;

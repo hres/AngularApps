@@ -90,7 +90,7 @@ export class MasterFileBaseService {
       template_type: 'PHARMA',
       software_version: '',
       enrol_version: '0.0',
-      last_saved_date: undefined,
+      date_saved: undefined,
       data_checksum: '',
       ectd: this.getEmptyEctd(),
       contact_info: this.getEmptyContactInfo(),

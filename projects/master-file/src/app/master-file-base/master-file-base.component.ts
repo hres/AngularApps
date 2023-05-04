@@ -173,7 +173,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   private _updateSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    this.transactionEnrollModel.last_saved_date = pipe.transform(
+    this.transactionEnrollModel.date_saved = pipe.transform(
       today,
       'yyyy-MM-dd-hhmm'
     );
@@ -253,7 +253,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       GlobalsService.MASTER_FILE_OUTPUT_PREFIX + "-" + 
       this.transactionEnrollModel.ectd.dossier_id +
       '-' +
-      this.transactionEnrollModel.last_saved_date;
+      this.transactionEnrollModel.date_saved;
     return fileName;
   }
 

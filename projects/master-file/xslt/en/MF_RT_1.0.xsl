@@ -432,7 +432,7 @@ span.normalWeight {
           </td>
           <td style="text-align: center;">
             <span class="mouseHover normalWeight">
-              <xsl:value-of select="substring(last_saved_date, 1, 10)"/>
+              <xsl:value-of select="substring(date_saved, 1, 10)"/>
             </span>
           </td>
         </tr>
