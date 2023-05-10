@@ -52,33 +52,38 @@ export class GlobalsService {
     output,
     lang: string
   ): void {
-    var splitted = mapping.outputDataName.split('.');
 
-    let val: any;
-    if (mapping.formControlType === GlobalsService.FC_TYPE_INPUT) {
-      val = formRecord.controls[mapping.formControlName].value;
-    } else if (mapping.formControlType === GlobalsService.FC_TYPE_ICODE) {
-      val = this.convertCodeToIdTextLabel(
-        formRecord.controls[mapping.formControlName].value,
-        lang
-      );
-    }
+    try{
+      var splitted = mapping.outputDataName.split('.');
 
-    // console.log(
-    //   'convertFormDataToOutputModel ~ mapping ',
-    //   mapping,
-    //   '~ formControlValue ',
-    //   val,
-    //   ' ~ splitted',
-    //   splitted.length,
-    //   splitted
-    // );
+      let val: any;
+      if (mapping.formControlType === GlobalsService.FC_TYPE_INPUT) {
+        val = formRecord.controls[mapping.formControlName].value;
+      } else if (mapping.formControlType === GlobalsService.FC_TYPE_ICODE) {
+        val = this.convertCodeToIdTextLabel(
+          formRecord.controls[mapping.formControlName].value,
+          lang
+        );
+      }
 
-    // hard code to handle max of two levels of the data structure. eg lifecycle_record.regulatory_activity_type
-    if (splitted.length == 2) {
-      output[splitted[0]][splitted[1]] = val;
-    } else if (splitted.length == 1) {
-      output[splitted[0]] = val;
+      // console.log(
+      //   'convertFormDataToOutputModel ~ mapping ',
+      //   mapping,
+      //   '~ formControlValue ',
+      //   val,
+      //   ' ~ splitted',
+      //   splitted.length,
+      //   splitted
+      // );
+
+      // hard code to handle max of two levels of the data structure. eg lifecycle_record.regulatory_activity_type
+      if (splitted.length == 2) {
+        output[splitted[0]][splitted[1]] = val;
+      } else if (splitted.length == 1) {
+        output[splitted[0]] = val;
+      }
+    } catch (ex) {
+      console.log('convertFormDataToOutputModel ~ ', ex.message)
     }
   }
 
@@ -92,38 +97,44 @@ export class GlobalsService {
     output,
     lang: string
   ): void {
-    //  formRecord.controls['dossierId'].setValue(dataModel.dossier_id);
-    var splitted = mapping.outputDataName.split('.');
 
-    // hard code to handle two levels of the data structure. eg lifecycle_record.regulatory_activity_type
-    let val: any;
-    if (splitted.length == 2) {
-      val = output[splitted[0]][splitted[1]];
-    } else if (splitted.length == 1) {
-      val = output[splitted[0]];
-    }
+    try{
+      //  formRecord.controls['dossierId'].setValue(dataModel.dossier_id);
+      var splitted = mapping.outputDataName.split('.');
 
-    // console.log(
-    //   'convertOutputModelToFormData ~ mapping ',
-    //   mapping,
-    //   '~ outputValue ',
-    //   val
-    // );
+      // hard code to handle two levels of the data structure. eg lifecycle_record.regulatory_activity_type
+      let val: any;
+      if (splitted.length == 2) {
+        val = output[splitted[0]][splitted[1]];
+      } else if (splitted.length == 1) {
+        val = output[splitted[0]];
+      }
 
-    if (mapping.outputDataType === GlobalsService.OP_TYPE_TEXT) {
-      // console.log('1 typeof val ', typeof val);
-      formRecord.controls[mapping.formControlName].setValue(val);
-    } else if (mapping.outputDataType === GlobalsService.OP_TYPE_IDTEXTLABEL) {
-      // console.log('2 typeof val ', typeof val);
-      // if (this.isIIdTextLabel(val)) {
-      //   console.log('2.1 is IIdTextLabel');
-      // } else {
-      //   console.log('2.1 is NOT IIdTextLabel');
-      // }
+      // console.log(
+      //   'convertOutputModelToFormData ~ mapping ',
+      //   mapping,
+      //   '~ outputValue ',
+      //   val
+      // );
 
-      formRecord.controls[mapping.formControlName].setValue(
-        (val as IIdTextLabel)._id
-      );
+      if (mapping.outputDataType === GlobalsService.OP_TYPE_TEXT) {
+        // console.log('1 typeof val ', typeof val);
+        formRecord.controls[mapping.formControlName].setValue(val);
+      } else if (mapping.outputDataType === GlobalsService.OP_TYPE_IDTEXTLABEL) {
+        // console.log('2 typeof val ', typeof val);
+        // if (this.isIIdTextLabel(val)) {
+        //   console.log('2.1 is IIdTextLabel');
+        // } else {
+        //   console.log('2.1 is NOT IIdTextLabel');
+        // }
+
+        // console.log("==>", mapping.formControlName , "  ", val)
+        formRecord.controls[mapping.formControlName].setValue(
+          (val as IIdTextLabel)._id
+        );
+      }
+    } catch (ex) {
+      console.log('convertFormDataToOutputModel ~ ', ex.message)
     }
 
     // console.log(

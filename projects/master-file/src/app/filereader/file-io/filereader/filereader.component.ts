@@ -14,8 +14,8 @@ import {FileIoGlobalsService} from '../file-io-globals.service';
 
 export class FilereaderComponent implements OnInit {
   @Output() complete = new EventEmitter();
-  @ Input() rootTag:string = '';
-  //@Input() saveType: string = FileIoGlobalsService.draftFileType;
+  @Input() rootTag : string = '';
+
   public status = FileIoGlobalsService.importSuccess;
   public showFileLoadStatus = false;
   private rootId = '';
@@ -57,6 +57,8 @@ export class FilereaderComponent implements OnInit {
       FilereaderComponent._readFile(file.name, myReader.result, self.rootId, convertResult);
       if (convertResult.messages && convertResult.messages.length > 0) {
         self.status = convertResult.messages[0];
+      } else {
+        self.status = FileIoGlobalsService.importSuccess;
       }
       self.showFileLoadStatus = true;
      
@@ -80,12 +82,16 @@ export class FilereaderComponent implements OnInit {
     let fileType = splitFile[splitFile.length - 1];
     let conversion:FileConversionService =new FileConversionService();
 
-    if ((fileType.toLowerCase()) === FileIoGlobalsService.draftFileType) {
-      conversion.convertToJSONObjects(result, convertResult);
-     FilereaderComponent.checkRootTagMatch(convertResult, rootId);
-    } else if ((fileType.toLowerCase() === FileIoGlobalsService.finalFileType)) {
-      conversion.convertXMLToJSONObjects(result, convertResult);
-      FilereaderComponent.checkRootTagMatch(convertResult, rootId);
+    if ((fileType.toLowerCase()) === FileIoGlobalsService.draftFileType || fileType.toLowerCase() === FileIoGlobalsService.finalFileType) {
+      if ((fileType.toLowerCase()) === FileIoGlobalsService.draftFileType) {
+        conversion.convertToJSONObjects(result, convertResult);
+      } else {
+        conversion.convertXMLToJSONObjects(result, convertResult);
+      }
+      // console.log(convertResult.data);
+      if (convertResult.messages.length === 0) {
+        FilereaderComponent.checkRootTagMatch(convertResult, rootId);
+      }     
     } else {
       convertResult.data = null;
       convertResult.messages=[]; //clear msessages
@@ -98,7 +104,7 @@ export class FilereaderComponent implements OnInit {
     if (!convertResult.data[rootName]) {
       convertResult.data = null;
       convertResult.messages = [];
-      convertResult.messages.push(FileIoGlobalsService.dataTypeError);
+      convertResult.messages.push(FileIoGlobalsService.formTypeError);
     }
   }
 

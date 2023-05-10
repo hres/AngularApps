@@ -10,7 +10,7 @@ export class FileIoGlobalsService {
   public static jsonParseFail = 'msg.err.jsonparse'; // json key
   public static xmlParseFail = 'msg.err.xmlparse';
   public static fileTypeError = 'msg.err.file.type';
-  public static dataTypeError = 'msg.err.file.type';
+  public static formTypeError = 'msg.err.form.type';
   public static draftFileType = 'hcsc';
   public static finalFileType = 'xml';
 
