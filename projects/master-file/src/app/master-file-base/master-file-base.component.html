@@ -85,7 +85,7 @@
                   </div>
                   <address-details *ngIf="!notApplicable" [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
                     [provinceList]="provinceList" [addressModel]="agentAddressModel" [stateList]="stateList"
-                    [helpTextSequences]="helpTextSequences" (errorList)="processAddressErrors($event)">
+                    [helpTextSequences]="helpTextSequences" (errorList)="processAgentAddressErrors($event)">
                   </address-details>
                 </div>
               </section>
@@ -95,7 +95,7 @@
                 </header>
                 <div class="panel-body">
                   <contact-details [showErrors]="showErrors" [lang]="lang" [contactDetailsModel]="agentContactModel"
-                    [helpTextSequences]="helpTextSequences" (errorList)="processContactErrors($event)">
+                    [helpTextSequences]="helpTextSequences" (errorList)="processAgentContactErrors($event)">
                   </contact-details>
                 </div>
               </section>
@@ -144,7 +144,7 @@
                     parentId="mfDetails" [control]="masterFileForm.controls['certifyAccurateComplete'] | formControl"
                     controlId="certifyAccurateCompleteId" label="certifyAccurateComplete"
                     parentLabel="MasterFile Information"></control-messages>
-                  <input name="certifyAccurateCompleteName" type="checkbox" id="certifyAccurateCompleteId"
+                  <input name="certifyAccurateCompleteName" type="checkbox" id="certifyAccurateCompleteId" (blur)="processErrors()"
                     [formControl]="masterFileForm.controls['certifyAccurateComplete'] | formControl" />
                   <span><b>{{'certify.info'|translate}}</b></span>
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -161,7 +161,7 @@
                     parentId="mfDetails" [control]="masterFileForm.controls['fullName'] | formControl"
                     controlId="fullNameId" label="fullName"
                     parentLabel="MasterFile Information"></control-messages>
-                  <input name="fullName" class="form-control" id="fullNameId"
+                  <input name="fullName" class="form-control" id="fullNameId" (blur)="processErrors()"
                     [formControl]="masterFileForm.controls['fullName'] | formControl" />
                 </label>
               </div>
@@ -172,7 +172,7 @@
                   <control-messages *ngIf="masterFileForm.controls['submitDate'].invalid" [showError]="showErrors"
                     parentId="mfDetails" [control]="masterFileForm.controls['submitDate'] | formControl" controlId="submitDateId"
                     label="submitDate" parentLabel="MasterFile Information"></control-messages>
-                  <input name="submitDate" class="form-control" id="submitDateId" type="date"
+                  <input name="submitDate" class="form-control" id="submitDateId" type="date" (blur)="processErrors()"
                     [formControl]="masterFileForm.controls['submitDate'] | formControl" />
                 </label>
               </div>
@@ -190,7 +190,7 @@
                     parentId="mfDetails" [control]="masterFileForm.controls['consentPrivacy'] | formControl"
                     controlId="consentPrivacyId" label="consentPrivacy"
                     parentLabel="MasterFile Information"></control-messages>
-                  <input name="consentPrivacyName" type="checkbox" id="consentPrivacyId"
+                  <input name="consentPrivacyName" type="checkbox" id="consentPrivacyId" (blur)="processErrors()"
                     [formControl]="masterFileForm.controls['consentPrivacy'] | formControl" />
                   <span><b>{{'consent.privacy'|translate}}</b></span>
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>

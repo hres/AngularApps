@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, Input, HostListener, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MasterFileBaseService} from './master-file-base.service';
 import {FileConversionService} from '../filereader/file-io/file-conversion.service';
@@ -10,6 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
 import { Transaction } from '../models/transaction';
 import { VersionService } from '../shared/version.service';
+import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
 
 @Component({
   selector: 'master-file-base',
@@ -22,6 +23,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   @Input() isInternal;
   @Input() lang;
   @Input() helpTextSequences;
+  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   private _regulatoryInfoErrors = [];
   private _transFeeErrors = [];
@@ -29,6 +31,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   private _contactErrors = [];
   private _agentAddressErrors = [];
   private _agentContactErrors = [];
+  private _baseErrors = [];
   public masterFileForm: FormGroup; // todo: do we need it? could remove?
   public errorList = [];
   public showErrors: boolean;
@@ -52,6 +55,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
 
   public notApplicable: boolean = false;
+
+  showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
@@ -92,21 +97,43 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     document.location.href = '#def-top';
     document.location.href = '#main';
+    
+    this.msgList.changes.subscribe(errorObjs => {
+      let temp = [];
+      this._updateErrorList(errorObjs);
+    });
+    this.msgList.notifyOnChanges();
   }
+
+  private _updateErrorList(errorObjs) {
+    let temp = [];
+    if (errorObjs) {
+      errorObjs.forEach(
+        error => {
+          temp.push(error);
+        }
+      );
+    }
+    this._baseErrors = temp;
+
+  }
+
 
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
     this.errorList = [];
     // concat the two array
-    this.errorList = this._regulatoryInfoErrors.concat(
-      this._addressErrors.concat(
-        this._contactErrors.concat(
-          this._agentAddressErrors.concat(
-            this._agentContactErrors.concat(this._transFeeErrors)
-          )
-        )
-      )
-    );
+    this.errorList = this._baseErrors.concat(this._regulatoryInfoErrors);
+    if (this.showContactFees) {
+      this.errorList = this.errorList.concat(
+        this._addressErrors.concat(this._contactErrors)
+      );
+      if(!this.notApplicable)
+        this.errorList = this.errorList.concat(
+          this._agentAddressErrors.concat(this._agentContactErrors)
+        );
+      this.errorList = this.errorList.concat(this._transFeeErrors);
+    }
 
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -147,6 +174,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   public saveXmlFile() {
     this.showErrors = true;
+    this.processErrors();
     this._saveXML();  
   }
 
@@ -161,11 +189,17 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     console.log(fileData);
     this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
     this.ectdModel = this.transactionEnrollModel.ectd;
-    this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
-    this.holderAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_name_address;
-    this.holderContactModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_contact;
-    this.agentAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_name_address;
-    this.agentContactModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_contact;
+    
+    this.showContactFees = !this.showDateAndRequesterOnlyTxDescs.includes(
+      this.ectdModel?.lifecycle_record.sequence_description_value._id
+    );
+    if (this.showContactFees) {
+      this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
+      this.holderAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_name_address;
+      this.holderContactModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_contact;
+      this.agentAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_name_address;
+      this.agentContactModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_contact;
+    }
 
     MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
   }
@@ -196,6 +230,11 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.holderContactModel = MasterFileBaseService.getEmptyContactModel();
       this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
       this.agentContactModel = MasterFileBaseService.getEmptyContactModel();
+      this._addressErrors = null;
+      this._agentAddressErrors = null;
+      this._contactErrors = null;
+      this._agentContactErrors = null;
+      this._transFeeErrors = null;
     }
   }
 
@@ -223,15 +262,22 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
     this._updateSavedDate();
     this._updateSoftwareVersion();
+    
+    this.showContactFees = !this.showDateAndRequesterOnlyTxDescs.includes(
+      this.ectdModel?.lifecycle_record.sequence_description_value._id
+    );
     if (this.showContactFees) {
       this.transactionEnrollModel.contact_info.holder_name_address = this.holderAddressModel;
       this.transactionEnrollModel.contact_info.holder_contact = this.holderContactModel;
       this.transactionEnrollModel.contact_info.agent_name_address = this.agentAddressModel;
       this.transactionEnrollModel.contact_info.agent_contact = this.agentContactModel;
+      this.transactionEnrollModel.contact_info.contact_info_confirm =
+        this.masterFileForm.controls['contactInfoConfirm'].value;
       this.transactionEnrollModel.fee_details = this.transFeeModel;
+    } else {
+      this.transactionEnrollModel.contact_info = null;
+      this.transactionEnrollModel.fee_details = null;
     }
-    this.transactionEnrollModel.contact_info.contact_info_confirm =
-      this.masterFileForm.controls['contactInfoConfirm'].value;
     this.transactionEnrollModel.certify_accurate_complete =
       this.masterFileForm.controls['certifyAccurateComplete'].value;
     this.transactionEnrollModel.full_name =
@@ -259,5 +305,13 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   public agentInfoOnChange() {
     this.notApplicable = this.masterFileForm.controls['notApplicable'].value;
+
+    if (this.notApplicable) {
+      this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+      this.agentContactModel = MasterFileBaseService.getEmptyContactModel();
+      this._agentAddressErrors = null;
+      this._agentContactErrors = null;
+    }
+    this.processErrors();
   }
 }
