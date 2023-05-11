@@ -45,6 +45,7 @@
   "error.mgs.company.id": "fr_Please specify a valid manufacturer company Identifier.",
   "error.mgs.regu.company.id": "fr_Please specify a valid regulatory company Identifier.",
   "error.mgs.regu.contact.id": "fr_Please specify a valid regulatory manufacturer contact Identifier.",
+  "error.mgs.incorrectFormat": "Format incorrect.",
   "discard.changes": "fr_Discard Changes",
   "commmon.required.bracket": " (requis)",
   "common.saveRevert": "fr_Please save or revert the record",
