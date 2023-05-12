@@ -106,7 +106,7 @@
   "phone.number": "Numéro de téléphone",
   "phone.extension": "Numéro de l'extension",
   "heading.agent.address": "Nom et adresse de l’agent autorisé ou du tiers au nom du titulaire",
-  "not.applicable": "Not applicable",
+  "not.applicable": "Sans object",
   "heading.agent.contact": "Coordonnées de l’agent autorisé ou du tiers au nom du titulaire",
   "info.confirmation": "J’atteste que les informations ci-dessus sont valides",
   "fee.warning1": "Ne joignez aucun paiement à votre présentation, supplément ou demande. Santé Canada examinera votre document et émettra une facture en conséquence.",
