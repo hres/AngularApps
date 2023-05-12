@@ -37,7 +37,7 @@
                             [control]="contactFormLocalModel.controls['firstName'] | formControl"
                             controlId="firstName" label="first.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="firstName" id="firstName" class="form-control full-width" maxlength="45" 
+          <input name="firstName" id="firstName" class="form-control full-width" maxlength="60" 
             [formControl]="contactFormLocalModel.controls['firstName'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
@@ -50,7 +50,7 @@
                             [control]="contactFormLocalModel.controls['lastName'] | formControl"
                             controlId="lastName" label="last.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="lastName" id="lastName" class="form-control full-width" maxlength="20" 
+          <input name="lastName" id="lastName" class="form-control full-width" maxlength="60" 
             [formControl]="contactFormLocalModel.controls['lastName'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
@@ -96,7 +96,7 @@
                             controlId="phoneNumber" label="phone.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
           <input name="phoneNumber" id="phoneNumber" class="form-control only-digits full-width" 
-            [formControl]="contactFormLocalModel.controls['phoneNumber'] | formControl" maxlength="16" (blur)="onblur()"/>
+            [formControl]="contactFormLocalModel.controls['phoneNumber'] | formControl" maxlength="25" (blur)="onblur()"/>
         </label>
       </div>
       <div class="form-group col-sm-3">
@@ -131,7 +131,7 @@
                             [control]="contactFormLocalModel.controls['email'] | formControl"
                             controlId="email" label="contact.email" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="email" id="email" class="form-control full-width" maxlength="50" 
+          <input name="email" id="email" class="form-control full-width" maxlength="80" 
             [formControl]="contactFormLocalModel.controls['email'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
