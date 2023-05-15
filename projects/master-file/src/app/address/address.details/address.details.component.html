@@ -11,7 +11,7 @@
                             controlId="{{addrType}}CompanyName" label="company.name.full" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <input name="companyName" id="{{addrType}}CompanyName" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="addressFormLocalModel.controls['companyName'] | formControl" maxlength="80"/>
+                 [formControl]="addressFormLocalModel.controls['companyName'] | formControl" maxlength="200"/>
         </label>
       </div>
     </div>
@@ -38,7 +38,7 @@
                             controlId="{{addrType}}Address" label="addressDetails.street" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <input name="address" id="{{addrType}}Address" class="form-control full-width" (blur)="onblur()"
-            [formControl]="addressFormLocalModel.controls['address'] | formControl" maxlength="120"/>
+            [formControl]="addressFormLocalModel.controls['address'] | formControl" maxlength="80"/>
         </label>
       </div>
     </div>
@@ -53,7 +53,7 @@
                             controlId="{{addrType}}City" label="addressDetails.city" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <input name="city" id="{{addrType}}City" class="form-control full-width"  (blur)="onblur()"
-                 [formControl]="addressFormLocalModel.controls['city'] | formControl" maxlength="35"/>
+                 [formControl]="addressFormLocalModel.controls['city'] | formControl" maxlength="60"/>
         </label>
       </div>
       <div class="form-group col-sm-5 col-xs-12" >

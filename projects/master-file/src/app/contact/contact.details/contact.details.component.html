@@ -11,7 +11,7 @@
                             [control]="contactFormLocalModel.controls['firstName'] | formControl"
                             controlId="{{contType}}FirstName" label="first.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="firstName" id="{{contType}}FirstName" class="form-control full-width" maxlength="45" 
+          <input name="firstName" id="{{contType}}FirstName" class="form-control full-width" maxlength="60" 
             [formControl]="contactFormLocalModel.controls['firstName'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
@@ -24,7 +24,7 @@
                             [control]="contactFormLocalModel.controls['lastName'] | formControl"
                             controlId="{{contType}}LastName" label="last.name" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="lastName" id="{{contType}}LastName" class="form-control full-width" maxlength="20" 
+          <input name="lastName" id="{{contType}}LastName" class="form-control full-width" maxlength="60" 
             [formControl]="contactFormLocalModel.controls['lastName'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
@@ -70,7 +70,7 @@
                             controlId="{{contType}}PhoneNumber" label="phone.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
           <input name="phoneNumber" id="{{contType}}PhoneNumber" class="form-control only-digits full-width" 
-            [formControl]="contactFormLocalModel.controls['phoneNumber'] | formControl" maxlength="16" (blur)="onblur()"/>
+            [formControl]="contactFormLocalModel.controls['phoneNumber'] | formControl" maxlength="25" (blur)="onblur()"/>
         </label>
       </div>
       <div class="form-group col-sm-3">
@@ -101,7 +101,7 @@
                             [control]="contactFormLocalModel.controls['email'] | formControl"
                             controlId="{{contType}}Email" label="contact.email" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="email" id="{{contType}}Email" class="form-control full-width" maxlength="50" 
+          <input name="email" id="{{contType}}Email" class="form-control full-width" maxlength="80" 
             [formControl]="contactFormLocalModel.controls['email'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
