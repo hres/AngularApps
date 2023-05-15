@@ -53,8 +53,9 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public stateList = [];
 
   public transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
-
   public notApplicable: boolean = false;
+  public holder: string = 'holder';
+  public agent: string = 'agent';
 
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
 

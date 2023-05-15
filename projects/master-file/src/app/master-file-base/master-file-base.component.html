@@ -50,7 +50,7 @@
                 <div class="panel-body">
                   <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang" [provinceList]="provinceList"
                     [addressModel]="holderAddressModel" [stateList]="stateList" [helpTextSequences]="helpTextSequences"
-                    (errorList)="processAddressErrors($event)">
+                    (errorList)="processAddressErrors($event)" [addrType]="holder">
                   </address-details>
                 </div>
               </section>
@@ -61,7 +61,7 @@
                 <div class="panel-body">
                   <contact-details [showErrors]="showErrors" [lang]="lang"
                     [contactDetailsModel]="holderContactModel" [helpTextSequences]="helpTextSequences"
-                    (errorList)="processContactErrors($event)">
+                    (errorList)="processContactErrors($event)" [contType]="holder">
                   </contact-details>
                 </div>
               </section>
@@ -84,7 +84,7 @@
                     </div>
                   </div>
                   <address-details *ngIf="!notApplicable" [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
-                    [provinceList]="provinceList" [addressModel]="agentAddressModel" [stateList]="stateList"
+                    [provinceList]="provinceList" [addressModel]="agentAddressModel" [stateList]="stateList" [addrType]="agent"
                     [helpTextSequences]="helpTextSequences" (errorList)="processAgentAddressErrors($event)">
                   </address-details>
                 </div>
@@ -95,7 +95,7 @@
                 </header>
                 <div class="panel-body">
                   <contact-details [showErrors]="showErrors" [lang]="lang" [contactDetailsModel]="agentContactModel"
-                    [helpTextSequences]="helpTextSequences" (errorList)="processAgentContactErrors($event)">
+                    [helpTextSequences]="helpTextSequences" (errorList)="processAgentContactErrors($event)" [contType]="agent">
                   </contact-details>
                 </div>
               </section>
