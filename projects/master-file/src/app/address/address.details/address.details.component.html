@@ -8,9 +8,9 @@
           <control-messages *ngIf="addressFormLocalModel.controls['companyName'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['companyName'] | formControl"
-                            controlId="companyName" label="company.name.full" parentId="addressDetails"
+                            controlId="{{addrType}}CompanyName" label="company.name.full" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input name="companyName" id="companyName" class="form-control full-width" (blur)="onblur()"
+          <input name="companyName" id="{{addrType}}CompanyName" class="form-control full-width" (blur)="onblur()"
                  [formControl]="addressFormLocalModel.controls['companyName'] | formControl" maxlength="80"/>
         </label>
       </div>
@@ -35,9 +35,9 @@
           <control-messages *ngIf="addressFormLocalModel.controls['address'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['address'] | formControl"
-                            controlId="address" label="addressDetails.street" parentId="addressDetails"
+                            controlId="{{addrType}}Address" label="addressDetails.street" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input name="address" id="address" class="form-control full-width" (blur)="onblur()"
+          <input name="address" id="{{addrType}}Address" class="form-control full-width" (blur)="onblur()"
             [formControl]="addressFormLocalModel.controls['address'] | formControl" maxlength="120"/>
         </label>
       </div>
@@ -50,9 +50,9 @@
           <control-messages *ngIf="addressFormLocalModel.controls['city'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['city'] | formControl"
-                            controlId="city" label="addressDetails.city" parentId="addressDetails"
+                            controlId="{{addrType}}City" label="addressDetails.city" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input name="city" id="city" class="form-control full-width"  (blur)="onblur()"
+          <input name="city" id="{{addrType}}City" class="form-control full-width"  (blur)="onblur()"
                  [formControl]="addressFormLocalModel.controls['city'] | formControl" maxlength="35"/>
         </label>
       </div>
@@ -63,10 +63,10 @@
           <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['country'] | formControl"
-                            controlId="country" label="addressDetails.country" parentId="addressDetails"
+                            controlId="{{addrType}}Country" label="addressDetails.country" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <div class="margin-top-small">
-			      <ng-select id="country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required custom"                      
+			      <ng-select id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required custom"                      
                        (typed)="typed()"
                        (blur)="typed()"
                        (add)="typed()"
@@ -85,9 +85,9 @@
           <control-messages *ngIf="addressFormLocalModel.controls['provList'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['provList'] | formControl"
-                            controlId="provState" label="{{provinceLabel}}" parentId="addressDetails"
+                            controlId="{{addrType}}ProvState" label="{{provinceLabel}}" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <select id="provState" required class="form-control full-width" (blur)="onblur()" [formControl]="addressFormLocalModel.controls['provList'] | formControl">
+          <select id="{{addrType}}ProvState" required class="form-control full-width" (blur)="onblur()" [formControl]="addressFormLocalModel.controls['provList'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov | textTransform: lang}}</option>
           </select>
@@ -112,9 +112,9 @@
           <control-messages *ngIf="addressFormLocalModel.controls['postal'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['postal'] | formControl"
-                            controlId="postal" label="{{'addressDetails.postalCode'}}" parentId="addressDetails"
+                            controlId="{{addrType}}Postal" label="{{'addressDetails.postalCode'}}" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input name="postal" id="postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
+          <input name="{{addrType}}Postal" id="postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
                  maxlength="10" />
         </label>
     </div>

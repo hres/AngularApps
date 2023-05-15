@@ -30,6 +30,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() stateList: Array<any>;
   @Input() addressModel;
   @Input() lang;
+  @Input() addrType;
   @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
