@@ -54,7 +54,7 @@
                             [control]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl"
                             controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
-          <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" (blur)="onblur()"
+          <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3" (blur)="onblur()"
                  [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" />
         </label>
       </div>

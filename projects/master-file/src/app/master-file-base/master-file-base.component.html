@@ -161,7 +161,7 @@
                     parentId="mfDetails" [control]="masterFileForm.controls['fullName'] | formControl"
                     controlId="fullNameId" label="fullName"
                     parentLabel="MasterFile Information"></control-messages>
-                  <input name="fullName" class="form-control" id="fullNameId" (blur)="processErrors()"
+                  <input name="fullName" class="form-control" id="fullNameId" maxlength="120" (blur)="processErrors()"
                     [formControl]="masterFileForm.controls['fullName'] | formControl" />
                 </label>
               </div>

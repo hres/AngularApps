@@ -54,7 +54,7 @@
                             [control]="contactFormLocalModel.controls['jobTitle'] | formControl"
                             controlId="{{contType}}JobTitle" label="job.title" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="jobTitle" id="{{contType}}JobTitle" class="form-control full-width" maxlength="45" 
+          <input name="jobTitle" id="{{contType}}JobTitle" class="form-control full-width" maxlength="60" 
           [formControl]="contactFormLocalModel.controls['jobTitle'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
@@ -86,7 +86,7 @@
         <label class="full-width" for="faxNumber">
           <span class="field-name" i18n>{{'fax.number' |translate}}</span>
           
-          <input name="faxNumber" id="faxNumber" class="form-control" only-digits maxlength="16"
+          <input name="faxNumber" id="faxNumber" class="form-control" only-digits maxlength="10"
                  [formControl]="contactFormLocalModel.controls['faxNumber'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
