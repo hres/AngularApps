@@ -21,8 +21,12 @@
       <span>
         <p aria-live="polite">{{'fee.warning1'|translate}}</p>
         <p aria-live="polite">{{'fee.warning2'|translate}}
-          <a href="{{'fee.warning.link.url'}}">{{'fee.warning.link.title'|translate}}</a>
+          <a href="{{'fee.warning.link.url'|translate}}">{{'fee.warning.link.title'|translate}}</a>
           {{'fee.warning3'|translate}}
+          <sup id="tr6-rf">
+            <a class="fn-lnk" href="#tr6"><span
+                class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.feeNoteIndx}}</a>
+          </sup>
         </p>
       </span>
     </div>
@@ -32,6 +36,10 @@
         <legend class="required">
           {{'are.access.letters' |translate}}
           <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+          <sup id="tr7-rf">
+            <a class="fn-lnk" href="#tr7"><span
+                class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.accessLetrIndx}}</a>
+          </sup>
           <control-messages *ngIf="mfFeeFormLocalModel.controls['areAccessLetters'].invalid" [showError]="showFieldErrors"
             [control]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" controlId="areAccessLetters"
             label="are.access.letters" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
@@ -81,6 +89,10 @@
       <div class="form-group col-xs-6 minWidth300" >
         <label for="accountNumber" class="full-width">
           <span class="field-name" i18n>{{'account.num'|translate}}</span>
+          <sup id="tr8-rf">
+            <a class="fn-lnk" href="#tr8"><span
+                class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.accountNumIndx}}</a>
+          </sup>
           <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()"
                  [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>

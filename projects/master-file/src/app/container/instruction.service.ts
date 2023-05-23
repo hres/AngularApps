@@ -9,21 +9,21 @@ export class InstructionService {
    *
    */
   getHelpTextIndex() {
-    const helpTextInx = {
-      loadFileInx: 0,
-      tr2: 0,
-      tr3: 0,
-      tr2a: 0,
-      tr2b: 0,
-      tr2c: 0,
-      tr4: 0,
-      tr5: 0,
+    const helpTextIndx = {
+      loadFileIndx: 0,
+      dossierIdIndx: 0,
+      holderAddrIndx: 0,
+      agentAddrIndx: 0,
+      confmValidIndx: 0,
+      feeNoteIndx: 0,
+      accessLetrIndx: 0,
+      accountNumIndx: 0,
     };
-    const keys = Object.keys(helpTextInx);
+    const keys = Object.keys(helpTextIndx);
     for (let i = 0; i < keys.length; i++) {
-      helpTextInx[keys[i]] = i + 1;
+      helpTextIndx[keys[i]] = i + 1;
     }
 
-    return helpTextInx;
+    return helpTextIndx;
   }
 }
