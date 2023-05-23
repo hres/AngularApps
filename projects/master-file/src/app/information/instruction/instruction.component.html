@@ -1,6 +1,6 @@
 <aside class="wb-fnote" role="note">
     <dl>
-        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.loadFileInx}}</dt>
+        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.loadFileIndx}}</dt>
         <dd id="tr1">
             <p>{{'load.file'|translate}}</p>
             <ul>
@@ -9,16 +9,16 @@
                 <li>{{'hlp_load3'|translate}}</li>
             </ul>
             <p class="fn-rtn"><a href="#tr1-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                    {{helpTextSequences.loadFileInx}}
+                    {{helpTextSequences.loadFileIndx}}
                     <span class="wb-inv"> referrer</span></a></p>
         </dd>
-        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr2}}</dt>
+        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.dossierIdIndx}}</dt>
         <dd id="tr2">
             <p>{{'dossier.id'|translate}}</p>
             <p [innerHTML]="'instruction.dossier.id.line1'|translate"></p>
             <p [innerHTML]="'instruction.dossier.id.line2'|translate"></p>
             <p class="fn-rtn"><a href="#tr2-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                    {{helpTextSequences.tr2}}
+                    {{helpTextSequences.dossierIdIndx}}
                     <span class="wb-inv"> referrer</span></a></p>
         </dd>
         <!--<dt><span class="wb-inv">{{'Instruction'|translate}} </span>3</dt>-->
@@ -28,57 +28,55 @@
         <!--<p class="fn-rtn"><a href="#tr3a-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>3-->
         <!--<span class="wb-inv"> referrer</span></a></p>-->
         <!--</dd>-->
-        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr3}}</dt>
+        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.holderAddrIndx}}</dt>
         <dd id="tr3">
-            <p>{{'regulatory.contact.id'|translate}}</p>
-            <p>{{'hlp_contactId' | translate}}</p>
+            <p>{{'heading.holder.address'|translate}}</p>
+            <p>{{'hlp_holder.address1' | translate}}</p>
+            <p>{{'hlp_holder.address2' | translate}}</p>
+            <p>{{'hlp_holder.address3' | translate}}</p>
+            
             <p class="fn-rtn"><a href="#tr3-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                    {{helpTextSequences.tr3}}
+                    {{helpTextSequences.holderAddrIndx}}
                     <span class="wb-inv"> referrer</span></a></p>
         </dd>
-        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr2a}}</dt>
-        <dd id="tr2a">
-            <p>{{'section.show.option' | translate}}{{'device.class' |translate}}</p>
-            <p>{{'hlp_deviceClass1' | translate}}<a
-                    href="https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-document-guidance-risk-based-classification-system-non-vitro-diagnostic.html">
-                    {{'hlp_deviceClass2' | translate}}</a></p>
-            <p class="fn-rtn"><a href="#tr2a-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                    {{helpTextSequences.tr2a}}
-                    <span class="wb-inv"> referrer</span></a></p>
-        </dd>
-        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr2b}}</dt>
-        <dd id="tr2b">
-            <p>{{'section.show.option' | translate}}{{'application.number' |translate}}</p>
-            <p>{{'hlp_appNumber' | translate}}</p>
-            <p class="fn-rtn"><a href="#tr2b-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                    {{helpTextSequences.tr2b}}
-                    <span class="wb-inv"> referrer</span></a></p>
-        </dd>
-        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr2c}}</dt>
-        <dd id="tr2c">
-            <p>{{'section.show.option' | translate}}{{'device.name' |translate}}</p>
-            <p>{{'hlp_deviceName'|translate}}</p>
-            <p class="fn-rtn"><a href="#tr2c-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                    {{helpTextSequences.tr2c}}
-                    <span class="wb-inv"> referrer</span></a></p>
-        </dd>
-        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr4}}</dt>
+        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.agentAddrIndx}}</dt>
         <dd id="tr4">
-            <p>{{'licence.number' |translate}}</p>
-            <ul>
-                <li>{{'hlp_licenceNumber1'|translate}}</li>
-                <li>{{'hlp_licenceNumber2'|translate}}</li>
-            </ul>
+            <p>{{'heading.agent.address' |translate}}</p>
+            <p>{{'hlp_agent.address' | translate}}</p>
             <p class="fn-rtn"><a href="#tr4-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                    {{helpTextSequences.tr4}}
+                    {{helpTextSequences.agentAddrIndx}}
                     <span class="wb-inv"> referrer</span></a></p>
         </dd>
-        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.tr5}}</dt>
+        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.confmValidIndx}}</dt>
         <dd id="tr5">
-            <p>{{'has.ddt'|translate}}</p>
-            <p>{{'hlp_deviceDetail'|translate}}</p>
+            <p>{{'info.confirmation' |translate}}</p>
+            <p>{{'hlp_confirm' | translate}}</p>
             <p class="fn-rtn"><a href="#tr5-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                    {{helpTextSequences.tr5}}
+                    {{helpTextSequences.confmValidIndx}}
+                    <span class="wb-inv"> referrer</span></a></p>
+        </dd>
+        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.feeNoteIndx}}</dt>
+        <dd id="tr6">
+            <p>{{'panel.title.fees' |translate}}</p>
+            <p>{{'hlp_fee.note'|translate}}</p>
+            <p class="fn-rtn"><a href="#tr6-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                    {{helpTextSequences.feeNoteIndx}}
+                    <span class="wb-inv"> referrer</span></a></p>
+        </dd>
+        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.accessLetrIndx}}</dt>
+        <dd id="tr7">
+            <p>{{'are.access.letters' |translate}}</p>
+            <p>{{'hlp_access.letter' |translate}}</p>
+            <p class="fn-rtn"><a href="#tr7-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                    {{helpTextSequences.accessLetrIndx}}
+                    <span class="wb-inv"> referrer</span></a></p>
+        </dd>
+        <dt><span class="wb-inv">{{'Instruction'|translate}} </span>{{helpTextSequences.accountNumIndx}}</dt>
+        <dd id="tr8">
+            <p>{{'account.num'|translate}}</p>
+            <p>{{'hlp_account.num'|translate}}</p>
+            <p class="fn-rtn"><a href="#tr8-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                    {{helpTextSequences.accountNumIndx}}
                     <span class="wb-inv"> referrer</span></a></p>
         </dd>
     </dl>

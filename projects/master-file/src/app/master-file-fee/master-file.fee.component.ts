@@ -27,6 +27,7 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
   @Input() showErrors: boolean;
   @Input() transFeeModel;
   @Input() lang;
+  @Input() helpTextSequences;
   @Output() feeErrorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 

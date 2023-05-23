@@ -12,7 +12,7 @@
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'load.file'|translate}}
             <sup id="tr1-rf">
-              <a class="fn-lnk" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>1</a>
+              <a class="fn-lnk" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.loadFileIndx}}</a>
             </sup>
           </h2>
         </header>
@@ -45,7 +45,12 @@
             <div class="panel-body">
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix">
-                  <h3 class="panel-title">{{'heading.holder.address'|translate}}</h3>
+                  <h3 class="panel-title">{{'heading.holder.address'|translate}}
+                    <sup id="tr3-rf">
+                      <a class="fn-lnk" href="#tr3"><span
+                          class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.holderAddrIndx}}</a>
+                    </sup>
+                  </h3>
                 </header>
                 <div class="panel-body">
                   <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang" [provinceList]="provinceList"
@@ -68,7 +73,12 @@
                 
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix">
-                  <h3 class="panel-title">{{'heading.agent.address'|translate}}</h3>
+                  <h3 class="panel-title">{{'heading.agent.address'|translate}}
+                    <sup id="tr4-rf">
+                      <a class="fn-lnk" href="#tr4"><span
+                          class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.agentAddrIndx}}</a>
+                    </sup>
+                  </h3>
                 </header>
                 <div class="panel-body">
                  <!-- extract this to a separate component and remove notApplicable field from the base component -->
@@ -113,6 +123,10 @@
 
                     <span><b>{{'info.confirmation'|translate}}</b></span>
                     <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <sup id="tr5-rf">
+                      <a class="fn-lnk" href="#tr5"><span
+                          class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.confmValidIndx}}</a>
+                    </sup>
                   </label>
                 </div>
               </div>
@@ -127,7 +141,7 @@
             </header>
             <div class="panel-body">
             <master-file-fee (feeErrorList)="processTransFeeErrors($event)" [showErrors]="showErrors"
-              [transFeeModel]="transFeeModel"></master-file-fee>
+              [helpTextSequences]="helpTextSequences" [transFeeModel]="transFeeModel"></master-file-fee>
             </div>
         </section>
       </div>
