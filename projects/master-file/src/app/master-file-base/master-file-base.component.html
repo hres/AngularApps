@@ -87,9 +87,12 @@
                       <div class="checkbox">
                         <label for="notApplicable">
                           <input name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
-                            id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl"/>
+                            id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl" 
+                            [checked]="masterFileForm.controls['notApplicable']" />
+                            
                           <span><b>{{'not.applicable'|translate}}</b></span>
                         </label>
+
                       </div>
                     </div>
                   </div>

@@ -41,7 +41,7 @@
                             parentLabel="REP Contact"></control-messages>
           <select id="{{contType}}Language" required class="form-control" [formControl]="contactFormLocalModel.controls['language'] | formControl" (blur)="onblur()">
             <option label=" " value=""></option>
-            <option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option>
+            <option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option> 
           </select>
         </label>
       </div>
@@ -88,7 +88,7 @@
           <control-messages *ngIf="contactFormLocalModel.controls['faxNumber'].invalid" [showError]="showFieldErrors"
             [control]="contactFormLocalModel.controls['faxNumber'] | formControl" controlId="{{contType}}FaxNumber" label="fax.number"
             parentId="contactDetails" parentLabel="REP Contact"></control-messages>
-          <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control" only-digits maxlength="10"
+          <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control" only-digits maxlength="25"
                  [formControl]="contactFormLocalModel.controls['faxNumber'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
