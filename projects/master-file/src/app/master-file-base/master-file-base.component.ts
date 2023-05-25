@@ -123,8 +123,9 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
     this.errorList = [];
-    // concat the two array
-    this.errorList = this._baseErrors.concat(this._regulatoryInfoErrors);
+
+    this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
+
     if (this.showContactFees) {
       this.errorList = this.errorList.concat(
         this._addressErrors.concat(this._contactErrors)
@@ -135,6 +136,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
         );
       this.errorList = this.errorList.concat(this._transFeeErrors);
     }
+
+    this.errorList = this.errorList.concat(this._baseErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -201,8 +204,12 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.agentAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_name_address;
       this.agentContactModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_contact;
     }
+    this.notApplicable = fileData.data.TRANSACTION_ENROL.contact_info.agent_not_applicable;
+    console.log (this.notApplicable);
+
 
     MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
+    this.agentInfoOnChange();
   }
 
   private _updateSavedDate() {
@@ -285,6 +292,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.masterFileForm.controls['fullName'].value;
     this.transactionEnrollModel.submit_date =
       this.masterFileForm.controls['submitDate'].value;
+    this.transactionEnrollModel.contact_info.agent_not_applicable = this.notApplicable;
+
 
     const result: Transaction = {
       TRANSACTION_ENROL: this.transactionEnrollModel,
@@ -313,6 +322,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this._agentAddressErrors = null;
       this._agentContactErrors = null;
     }
+
     this.processErrors();
   }
 }
