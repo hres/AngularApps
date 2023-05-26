@@ -29,8 +29,8 @@ export class ContactDetailsService {
   //   {id: 'MS', label_en: 'Ms.', label_fr: 'fr_Ms.'}
   // ];
   public static languageList: Array<any> = [
-    {'id': 'EN', 'label_en': 'English', 'label_fr': 'Anglais'},
-    {'id': 'FR', 'label_en': 'French', 'label_fr': 'Français'}
+    {id: 'EN', label_en: 'English', label_fr: 'Anglais'},
+    {id: 'FR', label_en: 'French', label_fr: 'Français'}
   ];
 
   constructor() {

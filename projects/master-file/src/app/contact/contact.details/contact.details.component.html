@@ -90,7 +90,7 @@
           <control-messages *ngIf="contactFormLocalModel.controls['faxNumber'].invalid" [showError]="showFieldErrors"
             [control]="contactFormLocalModel.controls['faxNumber'] | formControl" controlId="{{contType}}FaxNumber" label="fax.number"
             parentId="contactDetails" parentLabel="REP Contact"></control-messages>
-          <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control" only-digits maxlength="10"
+          <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control" only-digits maxlength="25"
                  [formControl]="contactFormLocalModel.controls['faxNumber'] | formControl" (blur)="onblur()"/>
         </label>
       </div>

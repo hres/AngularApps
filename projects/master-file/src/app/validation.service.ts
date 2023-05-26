@@ -10,6 +10,7 @@ export class ValidationService {
 
 
   static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
+
     // TODO sucky need to make the keys the same as the translation for the error summary
     const config = {
       'required': 'required',
