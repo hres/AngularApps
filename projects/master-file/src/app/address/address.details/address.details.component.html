@@ -112,9 +112,9 @@
           <control-messages *ngIf="addressFormLocalModel.controls['postal'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['postal'] | formControl"
-                            controlId="{{addrType}}Postal" label="{{'addressDetails.postalCode'}}" parentId="addressDetails"
+                            controlId="{{addrType}}Postal" label="addressDetails.postalCode" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input name="{{addrType}}Postal" id="postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
+          <input name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
                  maxlength="10" />
         </label>
     </div>

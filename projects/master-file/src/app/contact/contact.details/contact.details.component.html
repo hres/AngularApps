@@ -41,7 +41,9 @@
                             parentLabel="REP Contact"></control-messages>
           <select id="{{contType}}Language" required class="form-control" [formControl]="contactFormLocalModel.controls['language'] | formControl" (blur)="onblur()">
             <option label=" " value=""></option>
-            <option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option>
+            <option label="English">{{'lang.English' |translate}}</option>
+            <option label="French">{{'lang.French' |translate}}</option>
+            <!--<option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option>-->
           </select>
         </label>
       </div>

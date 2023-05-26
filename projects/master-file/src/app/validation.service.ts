@@ -19,7 +19,7 @@ export class ValidationService {
       'error.msg.email': 'error.msg.email',
       'minlength': `Minimum length ${validatorValue.requiredLength}`,
       'error.msg.postal': 'error.msg.postal',
-      'error.mgs.zip': 'error.mgs.zip',
+      'error.msg.zip': 'error.msg.zip',
       'error.mgs.company.id': 'error.mgs.company.id',
       'error.mgs.contact.id': 'error.mgs.contact.id',
       'error.mgs.primary.company.id': 'error.mgs.primary.company.id',
@@ -77,7 +77,7 @@ export class ValidationService {
     if (control.value.match(/^[0-9]{5}(?:-[0-9]{4})?$/)) {
       return null;
     } else {
-      return {'error.mgs.zip': true};
+      return {'error.msg.zip': true};
     }
   }
 
