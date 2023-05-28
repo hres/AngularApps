@@ -36,12 +36,14 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
   // public yesNoList: Array<any> = [];
   public showFieldErrors = false;
   private feeService: MasterFileFeeService;
+  public showNumOfAccessLetter: boolean;
 
   constructor(private _fb: FormBuilder,
               private http: HttpClient, private translate: TranslateService,
               private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     this.showErrors = false;
+    this.showNumOfAccessLetter = false;
     this.feeService = new MasterFileFeeService();
     // this.yesNoList = GlobalsService.getYesNoList();
   }
@@ -105,7 +107,7 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
       this.feeErrorList.emit(temp);
     }
     if (changes['mfFeeFormLocalModel']) {
-      console.log('**********the Master File fees changed');
+      // console.log('**********the Master File fees changed');
       this.transFeeFormRecord = this.mfFeeFormLocalModel;
     }
     if (changes['transFeeModel']) {
@@ -115,6 +117,11 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
         this.mfFeeFormLocalModel.markAsPristine();
       }
       MasterFileFeeService.mapDataModelToFormModel(dataModel, (<FormGroup>this.mfFeeFormLocalModel));
+      if (dataModel.are_there_access_letters && dataModel.are_there_access_letters === 'Y') {
+        this.showNumOfAccessLetter = true;
+      } else {
+        this.showNumOfAccessLetter = false;
+      }
     }
   }
 
@@ -134,7 +141,21 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
     MasterFileFeeService.mapFormModelToDataModel((<FormGroup>this.mfFeeFormLocalModel),
       this.transFeeModel);
   }
-
+  
+  areAccessLettersChanged(e) {
+    this.mfFeeFormLocalModel.controls['areAccessLetters'].setValue(null);
+    this.mfFeeFormLocalModel.controls['areAccessLetters'].setValue(e.target.value);
+    if (e.target.value && e.target.value === 'Y') {
+      this.showNumOfAccessLetter = true;
+    } else {
+      this.showNumOfAccessLetter = false;
+    }
+  }
+  
+  whoResponsibleChanged(e) {
+    this.mfFeeFormLocalModel.controls['whoResponsible'].setValue(null);
+    this.mfFeeFormLocalModel.controls['whoResponsible'].setValue(e.target.value);
+  }
 
   hasFeeYes() {
     if (this.mfFeeFormLocalModel.controls['hasFees'].value) {

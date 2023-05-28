@@ -44,13 +44,14 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   selectedTxDescDefinition: string;
   public showFieldErrors: boolean = false;
   public showDateAndRequester: boolean = false;
-  public showContactFees: boolean = true;
+  public showContactFees: boolean[] = [true, true];
   mfTypeSub!: Subscription;
   mfTypeTxDescSub!: Subscription;
   mfUseSub!: Subscription;
 
   showDateAndRequesterTxDescs: string[] = ['12', '13', '14']; // Transaction Description values are defined in txDescriptions.json
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
+  NoFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService) {
     this.showFieldErrors = false;
@@ -194,7 +195,10 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       txDescControl?.value.id
     );
     
-    this.showContactFees = !this.showDateAndRequesterOnlyTxDescs.includes(
+    this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
+      txDescControl?.value.id
+    );
+    this.showContactFees[1] = !this.NoFeeTxDescs.includes(
       txDescControl?.value.id
     );
 

@@ -9,6 +9,7 @@ import { AddressDetailsComponent } from '../address/address.details/address.deta
 import { DataService } from '../shared/data.service';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 import { ContactDetailsComponent } from '../contact/contact.details/contact.details.component';
+import { NumbersOnlyModule } from '../number-only/number-only.module';
 
 @NgModule({
   declarations: [
@@ -18,13 +19,14 @@ import { ContactDetailsComponent } from '../contact/contact.details/contact.deta
     AddressDetailsComponent,
     ContactDetailsComponent
   ],
-  imports: [CommonModule, SharedModule, FileIoModule],
+  imports: [CommonModule, SharedModule, FileIoModule, NumbersOnlyModule],
   exports: [
     MasterFileBaseComponent,
     RegulatoryInformationComponent,
     MasterFileFeeComponent,
     AddressDetailsComponent,
-    ContactDetailsComponent
+    ContactDetailsComponent,
+    NumbersOnlyModule
   ],
   providers: [RegulatoryInformationService, DataService],
 })
