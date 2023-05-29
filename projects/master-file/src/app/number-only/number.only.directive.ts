@@ -8,12 +8,25 @@ export class NumbersOnlyDirective {
 
   private regex: RegExp = new RegExp(/[0-9]/g);
   // Allow key codes for special events. Reflect :
-  private specialKeys: Array<number> = [46, 8, 9, 27, 13, 110, 190, 35, 36, 37, 39];
+  private navigationKeys = [
+    'Backspace',
+    'Delete',
+    'Tab',
+    'Escape',
+    'Enter',
+    'Home',
+    'End',
+    'ArrowLeft',
+    'ArrowRight',
+    'Clear',
+    'Copy',
+    'Paste',
+  ];
   // Backspace, tab, end, home
 
-  @Input() maxlength: number;
-  @Input() min: number;
-  @Input() max: number;
+  // @Input() maxlength: number;
+  // @Input() min: number;
+  // @Input() max: number;
 
   constructor(private el: ElementRef) {
   }
@@ -21,29 +34,31 @@ export class NumbersOnlyDirective {
   onKeyDown(event: KeyboardEvent) {
     let e = <KeyboardEvent>event;
 
-    if ((
-        (this.specialKeys.indexOf(event.which) > -1) ||
-        // to allow backspace, enter, escape, arrows
-        (e.which === 65 && e.ctrlKey === true) ||
-        // Allow: Ctrl+C
-        (e.which === 67 && e.ctrlKey === true) ||
-        // Allow: Ctrl+X
-        (e.which === 88 && e.ctrlKey === true))) {
+  if (
+      this.navigationKeys.indexOf(e.key) > -1 || // Allow: navigation keys: backspace, delete, arrows etc.
+      ((e.key === 'a' || e.code === 'KeyA') && e.ctrlKey === true) || // Allow: Ctrl+A
+      ((e.key === 'c' || e.code === 'KeyC') && e.ctrlKey === true) || // Allow: Ctrl+C
+      ((e.key === 'v' || e.code === 'KeyV') && e.ctrlKey === true) || // Allow: Ctrl+V
+      ((e.key === 'x' || e.code === 'KeyX') && e.ctrlKey === true) || // Allow: Ctrl+X
+      ((e.key === 'a' || e.code === 'KeyA') && e.metaKey === true) || // Allow: Cmd+A (Mac)
+      ((e.key === 'c' || e.code === 'KeyC') && e.metaKey === true) || // Allow: Cmd+C (Mac)
+      ((e.key === 'v' || e.code === 'KeyV') && e.metaKey === true) || // Allow: Cmd+V (Mac)
+      ((e.key === 'x' || e.code === 'KeyX') && e.metaKey === true) // Allow: Cmd+X (Mac)
+    ) {
+      // let it happen, don't do anything
       return;
-    } else if (// to allow numbers
-    (e.which >= 48 && e.which <= 57) ||
+    }
+  if (// to allow numbers
+    e.code.startsWith("Digit") ||
     // to allow numpad number
-    (event.which >= 96 && event.which <= 105)) {
+    e.code.startsWith("Numpad") ) {
     } else {
       event.preventDefault();
     }
     let current: string = this.el.nativeElement.value;
 
     let next: string = current.concat(event.key);
-    if ((next && !String(next).match(this.regex)) ||
-      (this.maxlength && next.length > this.maxlength) ||
-      (this.min && +next < this.min) ||
-      (this.max && +next >= this.max)) {
+    if (next && !String(next).match(this.regex) ) {
       event.preventDefault();
     }
 

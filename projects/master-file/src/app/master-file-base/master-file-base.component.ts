@@ -35,7 +35,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public masterFileForm: FormGroup; // todo: do we need it? could remove?
   public errorList = [];
   public showErrors: boolean;
-  public showContactFees: boolean;
+  public showContactFees: boolean[];
   public headingLevel = 'h2';
   
   public rootTagText = 'TRANSACTION_ENROL';
@@ -58,6 +58,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public agent: string = 'agent';
 
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
+  NoFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
@@ -75,7 +76,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.provinceList = [];
     this.stateList = [];
     this.showErrors = false;
-    this.showContactFees = true;
+    this.showContactFees = [true, true];
     this.appVersion = this._versionService.getApplicationVersion();
     let xsltVersion = this.appVersion.split('.',2).join(".");
     this.xslName = GlobalsService.MASTER_FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
@@ -126,7 +127,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
     this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
 
-    if (this.showContactFees) {
+    if (this.showContactFees[0] === true) {
       this.errorList = this.errorList.concat(
         this._addressErrors.concat(this._contactErrors)
       );
@@ -134,6 +135,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
         this.errorList = this.errorList.concat(
           this._agentAddressErrors.concat(this._agentContactErrors)
         );
+    }
+    if (this.showContactFees[1] === true) {
       this.errorList = this.errorList.concat(this._transFeeErrors);
     }
 
@@ -194,16 +197,22 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
     this.ectdModel = this.transactionEnrollModel.ectd;
     
-    this.showContactFees = !this.showDateAndRequesterOnlyTxDescs.includes(
-      this.ectdModel?.lifecycle_record.sequence_description_value._id
-    );
-    if (this.showContactFees) {
-      this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
+    if (this.ectdModel.lifecycle_record.sequence_description_value) {
+      this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
+        this.ectdModel?.lifecycle_record.sequence_description_value._id);
+      this.showContactFees[1] = !this.NoFeeTxDescs.includes(
+        this.ectdModel?.lifecycle_record.sequence_description_value._id);
+    }
+    if (this.showContactFees[0] === true) {
       this.holderAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_name_address;
       this.holderContactModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_contact;
       this.agentAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_name_address;
       this.agentContactModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_contact;
     }
+    if (this.showContactFees[1] === true) {
+      this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
+    }
+
     this.notApplicable = fileData.data.TRANSACTION_ENROL.contact_info.agent_not_applicable;
     console.log (this.notApplicable);
 
@@ -232,8 +241,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public setShowContactFeesFlag(flag) {
     this.showContactFees = flag;
 
-    if (this.showContactFees === false) {
-      this.transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
+    if (this.showContactFees[0] === false) {
       this.holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
       this.holderContactModel = MasterFileBaseService.getEmptyContactModel();
       this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
@@ -242,6 +250,9 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this._agentAddressErrors = null;
       this._contactErrors = null;
       this._agentContactErrors = null;
+    }
+    if (this.showContactFees[1] === false) {
+      this.transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
       this._transFeeErrors = null;
     }
   }
@@ -271,21 +282,28 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this._updateSavedDate();
     this._updateSoftwareVersion();
     
-    this.showContactFees = !this.showDateAndRequesterOnlyTxDescs.includes(
-      this.ectdModel?.lifecycle_record.sequence_description_value._id
-    );
-    if (this.showContactFees) {
+    if (this.ectdModel.lifecycle_record.sequence_description_value) {
+      this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
+        this.ectdModel?.lifecycle_record.sequence_description_value._id);
+      this.showContactFees[1] = !this.NoFeeTxDescs.includes(
+        this.ectdModel?.lifecycle_record.sequence_description_value._id);
+    }
+    if (this.showContactFees[0] === true) {
       this.transactionEnrollModel.contact_info.holder_name_address = this.holderAddressModel;
       this.transactionEnrollModel.contact_info.holder_contact = this.holderContactModel;
       this.transactionEnrollModel.contact_info.agent_name_address = this.agentAddressModel;
       this.transactionEnrollModel.contact_info.agent_contact = this.agentContactModel;
       this.transactionEnrollModel.contact_info.contact_info_confirm =
         this.masterFileForm.controls['contactInfoConfirm'].value;
-      this.transactionEnrollModel.fee_details = this.transFeeModel;
     } else {
       this.transactionEnrollModel.contact_info = null;
+    }
+    if (this.showContactFees[1] === true) {
+      this.transactionEnrollModel.fee_details = this.transFeeModel;
+    } else {
       this.transactionEnrollModel.fee_details = null;
     }
+
     this.transactionEnrollModel.certify_accurate_complete =
       this.masterFileForm.controls['certifyAccurateComplete'].value;
     this.transactionEnrollModel.full_name =
@@ -324,5 +342,11 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     }
 
     this.processErrors();
+  }
+  
+  public onChanged(e, controlName) {
+    if (e?.target?.checked === false) {
+      this.masterFileForm.controls[controlName].reset();
+    }
   }
 }

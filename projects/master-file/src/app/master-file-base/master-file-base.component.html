@@ -37,7 +37,7 @@
           </div>
       </section>
 
-      <div *ngIf="showContactFees">
+      <div *ngIf="showContactFees[0]">
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <h3 class="panel-title">{{'panel.title.contactInfo'|translate}}</h3>
@@ -122,6 +122,7 @@
                                     controlId="contactInfoConfirmId" label="contactInfoConfirm"
                                     parentLabel="MasterFile Information"></control-messages>
                     <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId"
+                    (change)="onChanged($event, 'contactInfoConfirm')"
                       [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
 
                     <span><b>{{'info.confirmation'|translate}}</b></span>
@@ -137,7 +138,7 @@
         </section>
       </div>
 
-      <div *ngIf="showContactFees">
+      <div *ngIf="showContactFees[1]">
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <h3 class="panel-title">{{'panel.title.fees'|translate}}</h3>
@@ -162,6 +163,7 @@
                     controlId="certifyAccurateCompleteId" label="certifyAccurateComplete"
                     parentLabel="MasterFile Information"></control-messages>
                   <input name="certifyAccurateCompleteName" type="checkbox" id="certifyAccurateCompleteId" (blur)="processErrors()"
+                    (change)="onChanged($event, 'certifyAccurateComplete')"
                     [formControl]="masterFileForm.controls['certifyAccurateComplete'] | formControl" />
                   <span><b>{{'certify.info'|translate}}</b></span>
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -208,6 +210,7 @@
                     controlId="consentPrivacyId" label="consentPrivacy"
                     parentLabel="MasterFile Information"></control-messages>
                   <input name="consentPrivacyName" type="checkbox" id="consentPrivacyId" (blur)="processErrors()"
+                    (change)="onChanged($event, 'consentPrivacy')"
                     [formControl]="masterFileForm.controls['consentPrivacy'] | formControl" />
                   <span><b>{{'consent.privacy'|translate}}</b></span>
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>

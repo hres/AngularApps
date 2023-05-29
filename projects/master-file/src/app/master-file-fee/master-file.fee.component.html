@@ -41,18 +41,20 @@
                 class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.accessLetrIndx}}</a>
           </sup>
           <control-messages *ngIf="mfFeeFormLocalModel.controls['areAccessLetters'].invalid" [showError]="showFieldErrors"
-            [control]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" controlId="areAccessLetters"
+            [control]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" controlId="areAccessLettersId"
             label="are.access.letters" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
         </legend>
         <input type="radio" id="areAccessLettersId" name="areAccessLetters" value="Y" (blur)="onblur()"
+          (change)="areAccessLettersChanged($event)"
           [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl"  required />
         <label for="areAccessLettersId">&nbsp;{{'yes'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <input type="radio" id="areAccessLettersId_1" name="areAccessLettersId_1" value="N" (blur)="onblur()"
+          (change)="areAccessLettersChanged($event)"
           [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" required />
         <label for="areAccessLettersId_1">&nbsp;{{'no'|translate}}</label>
       </fieldset>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="showNumOfAccessLetter">
       <div class="form-group col-xs-12 minWidth300" >
         <label for="numOfAccessLetter" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'number.of.letters'|translate}}</span>
@@ -63,7 +65,7 @@
                             controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
           <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3" (blur)="onblur()"
-                 [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" />
+                 [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" only-digits/>
         </label>
       </div>
     </div>
@@ -74,13 +76,15 @@
           {{'who.responsible' |translate}}
           <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
           <control-messages *ngIf="mfFeeFormLocalModel.controls['whoResponsible'].invalid" [showError]="showFieldErrors"
-            [control]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" controlId="whoResponsible"
+            [control]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" controlId="whoResponsibleId"
             label="who.responsible" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
         </legend>
         <input type="radio" id="whoResponsibleId" name="whoResponsible" value="MasterFileHolder" (blur)="onblur()"
+          (change)="whoResponsibleChanged($event)"
           [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
         <label for="whoResponsibleId">&nbsp;{{'mf.holder'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <input type="radio" id="whoResponsibleId_1" name="whoResponsible_1" value="AuthorizedMasterFileAgent" (blur)="onblur()"
+          (change)="whoResponsibleChanged($event)"
           [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
         <label for="whoResponsibleId_1">&nbsp;{{'mf.agent'|translate}}</label>
       </fieldset>
@@ -93,13 +97,13 @@
             <a class="fn-lnk" href="#tr8"><span
                 class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.accountNumIndx}}</a>
           </sup>
-          <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()"
+          <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" only-digits
                  [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
       </div><div class="form-group col-xs-6 minWidth300">
         <label for="businessNumber" class="full-width">
           <span class="field-name" i18n>{{'business.num'|translate}}</span>
-          <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()"
+          <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" only-digits
             [formControl]="mfFeeFormLocalModel.controls['businessNumber'] | formControl" maxlength="9" />
         </label>
       </div>
