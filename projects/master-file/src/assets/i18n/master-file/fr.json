@@ -94,7 +94,7 @@
   "label.holder": "Propriétaire de la fiche maîtresse",
   "label.agent": "L’agent autorisé ou du tiers au nom du titulaire",
   "heading.holder.address": "Nom et adresse du propriétaire de la fiche maîtresse",
-  "addressDetails.street": "Rue",
+  "addressDetails.street": "Adresse",
   "addressDetails.city": "Ville",
   "addressDetails.country": "Pays",
   "addressDetails.province": "Province",
