@@ -2,15 +2,15 @@
   <div [formGroup]="addressFormLocalModel">
     <div class="row">
       <div class="form-group col-xs-12" >
-        <label for="companyName" class="required full-width" aria-required="true">
+        <label for="companyName" class="required full-width">
           <span class="field-name" i18n>{{'company.name.full'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" i18n aria-required="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['companyName'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['companyName'] | formControl"
-                            controlId="{{addrType}}CompanyName" label="company.name.full" parentId="addressDetails"
+                            controlId="companyName" label="company.name.full" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <input name="companyName" id="{{addrType}}CompanyName" class="form-control full-width" (blur)="onblur()"
+          <input name="companyName" id="companyName" class="form-control full-width" (blur)="onblur()"
                  [formControl]="addressFormLocalModel.controls['companyName'] | formControl" maxlength="200"/>
         </label>
       </div>
