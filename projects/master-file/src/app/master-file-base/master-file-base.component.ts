@@ -8,7 +8,7 @@ import {MasterFileDataLoaderService} from '../data-loader/master-file-data-loade
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
-import { Transaction } from '../models/transaction';
+import { LifecycleRecord, Transaction } from '../models/transaction';
 import { VersionService } from '../shared/version.service';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
 
@@ -57,6 +57,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public holder: string = 'holder';
   public agent: string = 'agent';
 
+  showDateAndRequesterTxDescs: string[] = ['12', '13', '14'];
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
   NoFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
@@ -267,6 +268,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length < 1) {
       const result = this._prepareForSaving(true);
       const fileName = this._generateFileName();
+      
       console.log('save ...');
       this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
       return;

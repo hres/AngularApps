@@ -6,10 +6,23 @@ strong.error {
     /* TODO what is being overridden in wet white-space: normal;*/
 }
 
+label.whoResponsibleFees {
+    position:relative;
+    padding-left:2.5ch;
+    display: block;
+    margin-bottom: 5px;
+}
+  
+
 /* Specifically nesting inputs so need to add this*/
 label>input {
     margin-top: 5px;
     font-weight: normal;
+}
+
+label > [type=radio] {
+    position: absolute;
+    left: 0;
 }
 
 label>select {
