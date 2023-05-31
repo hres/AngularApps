@@ -79,14 +79,16 @@
             [control]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" controlId="whoResponsibleId"
             label="who.responsible" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
         </legend>
-        <input type="radio" id="whoResponsibleId" name="whoResponsible" value="MasterFileHolder" (blur)="onblur()"
-          (change)="whoResponsibleChanged($event)"
-          [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
-        <label for="whoResponsibleId">&nbsp;{{'mf.holder'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="radio" id="whoResponsibleId_1" name="whoResponsible_1" value="AuthorizedMasterFileAgent" (blur)="onblur()"
-          (change)="whoResponsibleChanged($event)"
-          [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
-        <label for="whoResponsibleId_1">&nbsp;{{'mf.agent'|translate}}</label>
+        <label class="whoResponsibleFees" for="whoResponsibleId">&nbsp;{{'mf.holder'|translate}}
+          <input type="radio" id="whoResponsibleId" name="whoResponsible" value="MasterFileHolder" (blur)="onblur()"
+            (change)="whoResponsibleChanged($event)"
+            [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
+        </label>
+        <label class="whoResponsibleFees" for="whoResponsibleId_1">&nbsp;{{'mf.agent'|translate}}
+          <input type="radio" id="whoResponsibleId_1" name="whoResponsible_1" value="AuthorizedMasterFileAgent" (blur)="onblur()"
+              (change)="whoResponsibleChanged($event)"
+              [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
+        </label>
       </fieldset>
     </div>
     <div class="row">

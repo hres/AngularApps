@@ -8,7 +8,7 @@ import {MasterFileDataLoaderService} from '../data-loader/master-file-data-loade
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
-import { Transaction } from '../models/transaction';
+import { LifecycleRecord, Transaction } from '../models/transaction';
 import { VersionService } from '../shared/version.service';
 import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
 
@@ -57,6 +57,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public holder: string = 'holder';
   public agent: string = 'agent';
 
+  showDateAndRequesterTxDescs: string[] = ['12', '13', '14'];
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
   NoFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
@@ -266,12 +267,35 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   _saveXML() {
     if (this.errorList && this.errorList.length < 1) {
       const result = this._prepareForSaving(true);
+      result.TRANSACTION_ENROL.ectd.lifecycle_record.transaction_description = this._prepareXmlTxDesc(result.TRANSACTION_ENROL.ectd.lifecycle_record); // Add the word "dated" between txDescription and date for XML
+
       const fileName = this._generateFileName();
       console.log('save ...');
       this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
       return;
     }
     document.location.href = '#topErrorSummaryId';
+  }
+
+  private _prepareXmlTxDesc(lifecycleRec : LifecycleRecord) {
+    // Adds the word "dated" between Description Type and Date
+    const txDescId = lifecycleRec.sequence_description_value._id;
+    let modifiedTxDescription = "";
+
+    if (this.showDateAndRequesterTxDescs.includes(txDescId)) {
+      const txDescWithDate = lifecycleRec.transaction_description;
+
+      // Find the position of the date within the original string
+      const dateIndex = txDescWithDate.lastIndexOf(" ");
+      const txDesc = txDescWithDate.slice(0, dateIndex);
+      const txDescDate = txDescWithDate.slice(dateIndex);
+
+      // Create a new string by concatenating the substrings
+      modifiedTxDescription = txDesc + " dated " + txDescDate;
+
+      console.log(modifiedTxDescription);
+    }
+    return modifiedTxDescription;
   }
 
   private _prepareForSaving(finalFile: boolean): Transaction {
