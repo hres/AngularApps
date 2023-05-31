@@ -180,7 +180,7 @@ export class RegulatoryInformationService {
     // save concatenated data to the dataModel
     // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
     dataModel.lifecycle_record.transaction_description = 
-      GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, dataModel.lifecycle_record.sequence_from_date);
+      GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "dated", dataModel.lifecycle_record.sequence_from_date);
   }
 
   public mapDataModelToFormModel(
