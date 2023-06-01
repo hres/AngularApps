@@ -246,14 +246,14 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.holderContactModel = MasterFileBaseService.getEmptyContactModel();
       this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
       this.agentContactModel = MasterFileBaseService.getEmptyContactModel();
-      this._addressErrors = null;
-      this._agentAddressErrors = null;
-      this._contactErrors = null;
-      this._agentContactErrors = null;
+      this._addressErrors = [];
+      this._agentAddressErrors = [];
+      this._contactErrors = [];
+      this._agentContactErrors = [];
     }
     if (this.showContactFees[1] === false) {
       this.transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
-      this._transFeeErrors = null;
+      this._transFeeErrors = [];
     }
   }
 
@@ -289,12 +289,14 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
         this.ectdModel?.lifecycle_record.sequence_description_value._id);
     }
     if (this.showContactFees[0] === true) {
+      this.transactionEnrollModel.contact_info = MasterFileBaseService.getEmptyContactInfo();
       this.transactionEnrollModel.contact_info.holder_name_address = this.holderAddressModel;
       this.transactionEnrollModel.contact_info.holder_contact = this.holderContactModel;
       this.transactionEnrollModel.contact_info.agent_name_address = this.agentAddressModel;
       this.transactionEnrollModel.contact_info.agent_contact = this.agentContactModel;
       this.transactionEnrollModel.contact_info.contact_info_confirm =
         this.masterFileForm.controls['contactInfoConfirm'].value;
+      this.transactionEnrollModel.contact_info.agent_not_applicable = this.notApplicable;
     } else {
       this.transactionEnrollModel.contact_info = null;
     }
@@ -310,7 +312,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.masterFileForm.controls['fullName'].value;
     this.transactionEnrollModel.submit_date =
       this.masterFileForm.controls['submitDate'].value;
-    this.transactionEnrollModel.contact_info.agent_not_applicable = this.notApplicable;
 
 
     const result: Transaction = {
