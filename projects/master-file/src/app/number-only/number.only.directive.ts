@@ -33,7 +33,6 @@ export class NumbersOnlyDirective {
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     let e = <KeyboardEvent>event;
-    const key = e.key || e.code;
 
   if (
       this.navigationKeys.indexOf(e.key) > -1 || // Allow: navigation keys: backspace, delete, arrows etc.
