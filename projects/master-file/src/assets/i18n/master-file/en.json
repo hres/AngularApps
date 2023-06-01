@@ -53,6 +53,7 @@
   "discard.changes": "Discard Changes",
   "commmon.required.bracket": " (required)",
   "common.saveRevert": "Please save or revert the record",
+  "error.found.title": "Master File Application Form",
   "error.found.because": " could not be saved because ",
   "error.found.plural": " errors were found",
   "error.found.singular": " error was found",
