@@ -71,14 +71,14 @@
                             [control]="contactFormLocalModel.controls['phoneNumber'] | formControl"
                             controlId="{{contType}}PhoneNumber" label="phone.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="phoneNumber" id="{{contType}}PhoneNumber" class="form-control only-digits full-width" 
+          <input name="phoneNumber" id="{{contType}}PhoneNumber" class="form-control full-width" only-digits
             [formControl]="contactFormLocalModel.controls['phoneNumber'] | formControl" maxlength="25" (blur)="onblur()"/>
         </label>
       </div>
       <div class="form-group col-sm-3">
         <label for="phoneExtension">
           <span class="field-name" i18n>{{'phone.extension' |translate}}</span>
-          <input name="phoneExtension" id="phoneExtension" class="form-control" maxlength="10" 
+          <input name="phoneExtension" id="phoneExtension" class="form-control" maxlength="10" only-digits
           [formControl]="contactFormLocalModel.controls['phoneExtension'] | formControl" (blur)="onblur()"/>
         </label>
       </div>

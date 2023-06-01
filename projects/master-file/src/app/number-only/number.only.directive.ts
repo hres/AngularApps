@@ -6,7 +6,7 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 })
 export class NumbersOnlyDirective {
 
-  private regex: RegExp = new RegExp(/[0-9]/g);
+  private regex: RegExp = new RegExp('^[0-9]*$');
   // Allow key codes for special events. Reflect :
   private navigationKeys = [
     'Backspace',
@@ -33,6 +33,7 @@ export class NumbersOnlyDirective {
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     let e = <KeyboardEvent>event;
+    const key = e.key || e.code;
 
   if (
       this.navigationKeys.indexOf(e.key) > -1 || // Allow: navigation keys: backspace, delete, arrows etc.
@@ -55,6 +56,7 @@ export class NumbersOnlyDirective {
     } else {
       event.preventDefault();
     }
+
     let current: string = this.el.nativeElement.value;
 
     let next: string = current.concat(event.key);
