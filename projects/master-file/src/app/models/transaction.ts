@@ -28,10 +28,10 @@ export interface Ectd {
 
 export interface ContactInfo {
   holder_name_address: HolderNameAddress;
-  holder_contact: HolderContact;
+  holder_contact: IContact;
   agent_not_applicable: boolean;
   agent_name_address: HolderNameAddress;
-  agent_contact: HolderContact;
+  agent_contact: IContact;
   contact_info_confirm: string;
 }
 
@@ -65,11 +65,11 @@ export interface HolderNameAddress {
   postal_code: string;
 }
 
-export interface HolderContact {
+export interface IContact {
   given_name: string;
   surname: string;
   job_title: string;
-  language_correspondance: string;
+  language_correspondance: IIdTextLabel;
   phone_num: string;
   phone_ext: string;
   fax_num: string;
