@@ -6,6 +6,7 @@ import {
   TransactionEnrol,
   Transaction,
   ContactInfo,
+  IContact,
 } from '../models/transaction';
 
 @Injectable()
@@ -69,13 +70,13 @@ export class MasterFileBaseService {
    * Gets an empty contact model
    *
    */
-  public static getEmptyContactModel() {
+  public static getEmptyContactModel() : IContact{
 
     return (
       {
         given_name: '',
         surname: '',
-        language_correspondance: '',
+        language_correspondance: undefined,
         job_title: '',
         phone_num: '',
         phone_ext: '',
@@ -89,7 +90,6 @@ export class MasterFileBaseService {
     const TransactionEnrol: TransactionEnrol = {
       template_type: 'PHARMA',
       software_version: '',
-      enrol_version: '0.0',
       date_saved: undefined,
       data_checksum: '',
       ectd: this.getEmptyEctd(),
@@ -103,7 +103,7 @@ export class MasterFileBaseService {
       },
       certify_accurate_complete: undefined,
       full_name: '',
-        submit_date: ''
+      submit_date: ''
 
     };
     
@@ -154,7 +154,7 @@ export class MasterFileBaseService {
     // formRecord.controls['submitDate'].setValue(mfDataModel.submit_date);
   }
 
-  public static getEmptyContactInfo() {
+  public static getEmptyContactInfo() : ContactInfo {
      const conInfo: ContactInfo = {
        holder_name_address: {
         company_name: '',
@@ -192,16 +192,7 @@ export class MasterFileBaseService {
         province_text: '',
         postal_code: ''
       },
-      agent_contact: {
-        given_name: '',
-        surname: '',
-        language_correspondance: '',
-        job_title: '',
-        phone_num: '',
-        phone_ext: '',
-        fax_num: '',
-        email: ''
-      },
+      agent_contact: this.getEmptyContactModel(),
       contact_info_confirm: ''
     }
     return conInfo;

@@ -1,9 +1,9 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-// import {TheraClassService} from '../../therapeutic/therapeutic-classification/thera-class.service';
 import {GlobalsService} from '../../globals/globals.service';
 import {ValidationService} from '../../validation.service';
 import {ListService} from '../../list-service';
+import { IContact } from '../../models/transaction';
 
 @Injectable()
 export class ContactDetailsService {
@@ -11,16 +11,16 @@ export class ContactDetailsService {
   private static lang = GlobalsService.ENGLISH;
 
   // todo: move statice data to data loader serivce
-  public static statusListExternal: Array<any> = [
-    {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
-    {id: 'REVISE', label_en: 'Revise', label_fr: 'fr_Revise'},
-    {id: 'REMOVE', label_en: 'Remove', label_fr: 'fr_Remove'},
-    {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
-  ];
-  public static statusListAdd: Array<any> = [
-    {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
-  ];
-  public static statusListInternal: Array<any> = ContactDetailsService.statusListExternal;
+  // public static statusListExternal: Array<any> = [
+  //   {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
+  //   {id: 'REVISE', label_en: 'Revise', label_fr: 'fr_Revise'},
+  //   {id: 'REMOVE', label_en: 'Remove', label_fr: 'fr_Remove'},
+  //   {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
+  // ];
+  // public static statusListAdd: Array<any> = [
+  //   {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
+  // ];
+  // public static statusListInternal: Array<any> = ContactDetailsService.statusListExternal;
 
   // public static salutationList: Array<any> = [
   //   {id: 'DR', label_en: 'Dr.', label_fr: 'fr_Dr.'},
@@ -29,8 +29,8 @@ export class ContactDetailsService {
   //   {id: 'MS', label_en: 'Ms.', label_fr: 'fr_Ms.'}
   // ];
   public static languageList: Array<any> = [
-    {id: 'EN', label_en: 'English', label_fr: 'Anglais'},
-    {id: 'FR', label_en: 'French', label_fr: 'Français'}
+    {id: 'EN', en: 'English', fr: 'Anglais'},
+    {id: 'FR', en: 'French', fr: 'Français'}
   ];
 
   constructor() {
@@ -63,51 +63,17 @@ export class ContactDetailsService {
     });
   }
 
-  /**
-   * Gets an empty
-   *
-   */
-  public static getEmptyModel() {
-
-    return (
-      {
-        contact_id: '',
-        status: 'NEW',
-        status_text: '',
-        // hc_status: '',
-        // salutation: '',
-        given_name: '',
-        // initials: '',
-        surname: '',
-        language: '',
-        job_title: '',
-        fax_num: '',
-        phone_num: '',
-        phone_ext: '',
-        email: '',
-        RoutingID: ''
-      }
-    );
-  }
-
-
-  public static mapFormModelToDataModel(formRecord: FormGroup, contactModel) {
+  public static mapFormModelToDataModel(formRecord: FormGroup, contactModel : IContact) {
     contactModel.given_name = formRecord.controls['firstName'].value;
     // contactModel.initials = formRecord.controls['initials.value;
     contactModel.surname = formRecord.controls['lastName'].value;
     if (formRecord.controls['language'].value) {
-      const langList = this._convertListText(this.languageList, this.lang);
-      const recordIndex3 = ListService.getRecord(langList, formRecord.controls['language'].value, 'id');
+      const recordIndex3 = ListService.getRecord(this.languageList, formRecord.controls['language'].value, 'id');
       if (recordIndex3 > -1) {
-        contactModel.language = {
-          '__text': langList[recordIndex3].text,
-          '_id': langList[recordIndex3].id,
-          '_label_en': langList[recordIndex3].label_en,
-          '_label_fr': langList[recordIndex3].label_fr
-        };
+        contactModel.language_correspondance = GlobalsService.convertCodeToIdTextLabel(this.languageList[recordIndex3], this.lang);
       }
     } else {
-      contactModel.language = null;
+      contactModel.language_correspondance = null;
     }
     contactModel.job_title = formRecord.controls['jobTitle'].value;
     contactModel.fax_num = formRecord.controls['faxNumber'].value;
@@ -116,13 +82,13 @@ export class ContactDetailsService {
     contactModel.email = formRecord.controls['email'].value;
   }
 
-  public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
+  public static mapDataModelToFormModel(contactModel : IContact, formRecord: FormGroup) {
 
     formRecord.controls['firstName'].setValue(contactModel.given_name);
     // formRecord.controls['initials.setValue(contactModel.initials);
     formRecord.controls['lastName'].setValue(contactModel.surname);
-    if (contactModel.language) {
-      const recordIndex3 = ListService.getRecord(this.languageList, contactModel.language._id, 'id');
+    if (contactModel.language_correspondance) {
+      const recordIndex3 = ListService.getRecord(this.languageList, contactModel.language_correspondance._id, 'id');
       if (recordIndex3 > -1) {
         formRecord.controls['language'].setValue(this.languageList[recordIndex3].id);
       }
@@ -145,31 +111,6 @@ export class ContactDetailsService {
       return;
     }
     record.controls['id'].setValue(value);
-  }
-
-  /***
-   * Converts the list iteems of id, label_en, and label_Fr
-   * @param rawList
-   * @param lang
-   * @private
-   */
-  private static _convertListText(rawList, lang) {
-    const result = [];
-    if (lang === GlobalsService.FRENCH) {
-      rawList.forEach(item => {
-        item.text = item.label_fr;
-        result.push(item);
-        //  console.log(item);
-      });
-    } else {
-      rawList.forEach(item => {
-        item.text = item.label_en;
-        // console.log("adding country"+item.text);
-        result.push(item);
-        // console.log(item);
-      });
-    }
-    return result;
   }
 
 }

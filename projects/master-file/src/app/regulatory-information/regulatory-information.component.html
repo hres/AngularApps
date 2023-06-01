@@ -62,7 +62,7 @@
                     (change)="onMfTypeSelected($any($event.target).value)"
                     [formControl]="regulartoryFormModel.controls['masterFileType'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let mfType of mfTypeOptions" [ngValue]="mfType" aria-label="five"> {{mfType | textTransform: lang }}
+                    <option *ngFor="let mfType of mfTypeOptions" [ngValue]="mfType"> {{mfType | textTransform: lang }}
                     </option>
                 </select>
             </label>

@@ -156,7 +156,7 @@ export class GlobalsService {
     return (<IIdTextLabel>obj)._id !== undefined;
   }
 
-  private static convertCodeToIdTextLabel(
+  public static convertCodeToIdTextLabel(
     codeObj: ICode,
     lang: string
   ): IIdTextLabel {
@@ -171,7 +171,7 @@ export class GlobalsService {
       return idTextLabelObj;
     }
   }
-  /***
+    /***
    * Converts the list iteems of id, label_en, and label_Fr
    * @param rawList
    * @param lang

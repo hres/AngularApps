@@ -7,7 +7,6 @@ export interface TransactionEnrol {
   template_type: string;
   date_saved: string;
   software_version: string;
-  enrol_version: string;
   data_checksum: string;
   ectd: Ectd;
   fee_details: FeeDetails;
@@ -27,11 +26,11 @@ export interface Ectd {
 }
 
 export interface ContactInfo {
-  holder_name_address: HolderNameAddress;
-  holder_contact: HolderContact;
+  holder_name_address: INameAddress;
+  holder_contact: IContact;
   agent_not_applicable: boolean;
-  agent_name_address: HolderNameAddress;
-  agent_contact: HolderContact;
+  agent_name_address: INameAddress;
+  agent_contact: IContact;
   contact_info_confirm: string;
 }
 
@@ -55,7 +54,7 @@ export interface FeeDetails {
   cra_business_number: string
 }
 
-export interface HolderNameAddress {
+export interface INameAddress {
   company_name: string;
   street_address: string;
   city: string;
@@ -65,11 +64,11 @@ export interface HolderNameAddress {
   postal_code: string;
 }
 
-export interface HolderContact {
+export interface IContact {
   given_name: string;
   surname: string;
   job_title: string;
-  language_correspondance: string;
+  language_correspondance: IIdTextLabel;
   phone_num: string;
   phone_ext: string;
   fax_num: string;
