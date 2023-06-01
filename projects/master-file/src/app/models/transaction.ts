@@ -27,10 +27,10 @@ export interface Ectd {
 }
 
 export interface ContactInfo {
-  holder_name_address: HolderNameAddress;
+  holder_name_address: INameAddress;
   holder_contact: IContact;
   agent_not_applicable: boolean;
-  agent_name_address: HolderNameAddress;
+  agent_name_address: INameAddress;
   agent_contact: IContact;
   contact_info_confirm: string;
 }
@@ -55,7 +55,7 @@ export interface FeeDetails {
   cra_business_number: string
 }
 
-export interface HolderNameAddress {
+export interface INameAddress {
   company_name: string;
   street_address: string;
   city: string;
