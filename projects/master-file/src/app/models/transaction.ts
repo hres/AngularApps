@@ -7,7 +7,6 @@ export interface TransactionEnrol {
   template_type: string;
   date_saved: string;
   software_version: string;
-  enrol_version: string;
   data_checksum: string;
   ectd: Ectd;
   fee_details: FeeDetails;
