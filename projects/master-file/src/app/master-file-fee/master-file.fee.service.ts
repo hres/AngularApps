@@ -19,7 +19,7 @@ export class MasterFileFeeService {
       numOfAccessLetter: [null, [Validators.required]],
       whoResponsible: [null, [Validators.required]],
       accountNumber: '',
-      businessNumber: ''
+      businessNumber: ['', [Validators.minLength(9)]]
     });
   }
 

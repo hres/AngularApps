@@ -105,6 +105,11 @@
       </div><div class="form-group col-xs-6 minWidth300">
         <label for="businessNumber" class="full-width">
           <span class="field-name" i18n>{{'business.num'|translate}}</span>
+          <control-messages *ngIf="mfFeeFormLocalModel.controls['businessNumber'].invalid"
+                            [showError]="showFieldErrors"
+                            [control]="mfFeeFormLocalModel.controls['businessNumber'] | formControl"
+                            controlId="businessNumber" label="business.number" parentId="mfFees"
+                            parentLabel="Master File Fees"></control-messages>
           <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" only-digits
             [formControl]="mfFeeFormLocalModel.controls['businessNumber'] | formControl" maxlength="9" />
         </label>
