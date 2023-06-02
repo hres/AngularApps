@@ -99,6 +99,11 @@
             <a class="fn-lnk" href="#tr8"><span
                 class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.accountNumIndx}}</a>
           </sup>
+          <control-messages *ngIf="mfFeeFormLocalModel.controls['accountNumber'].invalid"
+                            [showError]="showFieldErrors"
+                            [control]="mfFeeFormLocalModel.controls['accountNumber'] | formControl"
+                            controlId="accountNumber" label="account.number" parentId="mfFees"
+                            parentLabel="Master File Fees"></control-messages>
           <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" only-digits
                  [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
