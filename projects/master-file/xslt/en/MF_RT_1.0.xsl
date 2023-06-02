@@ -762,9 +762,12 @@ span.normalWeight {
     <div class="row">
       <div class="col-xs-6">
         <strong>Province or State:&#160;</strong>
-        <span class="mouseHover normalWeight">
-          <xsl:value-of select="$value/province_lov"/>
-        </span>
+          <xsl:if test="$value/province_lov != ''">
+            <xsl:value-of select="$value/province_lov"/>
+          </xsl:if>
+          <xsl:if test="$value/province_text != ''">
+            <xsl:value-of select="$value/province_text"/>
+          </xsl:if>
       </div>
       <div class="col-xs-6">
         <strong>Postal Code:&#160;</strong>
