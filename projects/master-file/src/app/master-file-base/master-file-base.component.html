@@ -85,7 +85,7 @@
                   <div class="row rep-margin-left">
                     <div class="col-xs-12">
                       <div class="checkbox">
-                        <label for="notApplicable">
+                        <label for="notApplicableId">
                           <input name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
                             id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl" 
                             [checked]="masterFileForm.controls['notApplicable']" />
@@ -114,7 +114,7 @@
               </section>
               <div class="col-xs-12 full-width">
                 <div class="checkbox required">
-                  <label for="contactInfoConfirm">
+                  <label for="contactInfoConfirmId">
 
                   <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
                                     [showError]="showErrors" parentId="mfDetails"
@@ -157,7 +157,7 @@
           <div class="panel-body">
             <div class="row col-xs-12 full-width">
               <div class="checkbox required">
-                <label for="certifyAccurateComplete">
+                <label for="certifyAccurateCompleteId">
                   <control-messages *ngIf="masterFileForm.controls['certifyAccurateComplete'].invalid" [showError]="showErrors"
                     parentId="mfDetails" [control]="masterFileForm.controls['certifyAccurateComplete'] | formControl"
                     controlId="certifyAccurateCompleteId" label="certifyAccurateComplete"
@@ -174,7 +174,7 @@
             <div class="row">
               <div class="col-xs-6">
                 <div class="required">
-                  <label for="fullName" class="required">
+                  <label for="fullNameId" class="required">
                     <span><strong>{{'full.name'|translate}}</strong></span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="masterFileForm.controls['fullName'].invalid" [showError]="showErrors"
@@ -187,7 +187,7 @@
                 </div>
               </div>
               <div class="col-xs-6">
-                <label for="submitDate" class="required">
+                <label for="submitDateId" class="required">
                   <span><b>{{'submit.date'|translate}}</b></span>
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                   <control-messages *ngIf="masterFileForm.controls['submitDate'].invalid" [showError]="showErrors"
@@ -206,7 +206,7 @@
             </div>
             <div class="row col-xs-12 full-width">
               <div class="checkbox required">
-                <label for="consentPrivacy">            
+                <label for="consentPrivacyId">            
                   <control-messages *ngIf="masterFileForm.controls['consentPrivacy'].invalid" [showError]="showErrors"
                     parentId="mfDetails" [control]="masterFileForm.controls['consentPrivacy'] | formControl"
                     controlId="consentPrivacyId" label="consentPrivacy"
