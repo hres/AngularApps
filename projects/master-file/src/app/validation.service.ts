@@ -1,15 +1,17 @@
+import { Injectable } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
+@Injectable()
 export class ValidationService {
 
-  constructor() {
+  constructor(private translateService : TranslateService) {
     // private translate: TranslateService
     // this.translate.get('error.msg.required').subscribe(res => { console.log(res); });
 
   }
 
 
-  static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
+  public getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
 
     // TODO sucky need to make the keys the same as the translation for the error summary
     const config = {
@@ -18,7 +20,7 @@ export class ValidationService {
       'error.msg.phone': 'error.msg.phone',
       'error.msg.fax': 'error.msg.fax',
       'error.msg.email': 'error.msg.email',
-      'minlength': `Minimum length ${validatorValue.requiredLength}`,
+      'minlength': `${this.translateService.instant('minlength')}${validatorValue.requiredLength}`,
       'error.msg.postal': 'error.msg.postal',
       'error.msg.zip': 'error.msg.zip',
       'error.mgs.company.id': 'error.mgs.company.id',

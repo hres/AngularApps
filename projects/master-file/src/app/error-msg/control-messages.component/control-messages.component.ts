@@ -65,9 +65,8 @@ export class ControlMessagesComponent implements OnChanges {
   /**
    * Validation service to translate the errors
    */
-  private _validationService: ValidationService;
 
-  constructor() {
+  constructor(private validationService: ValidationService) {
     this.tabSet = null;
     this.tabId = null;
     this._errorVisible = false;
@@ -93,7 +92,7 @@ export class ControlMessagesComponent implements OnChanges {
   get errorMessage() {
     for (let propertyName in this.control.errors) {
       this.currentError = propertyName;
-      return ValidationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
+      return this.validationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
     }
     this.currentError = '';
     return null;
