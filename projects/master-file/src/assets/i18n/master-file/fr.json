@@ -64,7 +64,7 @@
   "minAlphanumeric7": "fr_(1 letter and 6 numbers)",
   "alphanumeric6or7": "(composé d’une lettre minuscule suivie de 6 ou 7 chiffres)",
   "save.working.copy": "Enregistrer une copie de travail",
-  "generate.final": "Enregistrer le brouillon XML",
+  "generate.final": "Générer le XML",
   "msg.success.load": "Le fichier a été chargé avec succès",
   "msg.err.parseFail": "Erreur: il y a eu une erreur en analysant le fichier de travail.",
   "msg.err.jsonparse": "Il y a eu une erreur en analysant le fichier de travail.",
