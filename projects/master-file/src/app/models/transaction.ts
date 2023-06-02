@@ -14,6 +14,7 @@ export interface TransactionEnrol {
   certify_accurate_complete: boolean;
   full_name: string;
   submit_date: string;
+  consent_privacy: boolean
 }
 
 export interface Ectd {
