@@ -516,7 +516,7 @@ span.normalWeight {
           </header>
           <div class="panel-body">
             <xsl:call-template name="nameAddress">
-              <xsl:with-param name="value" select="holder_name_address"/>
+              <xsl:with-param name="value" select="contact_info/holder_name_address"/>
             </xsl:call-template>
           </div>
         </section>
@@ -526,7 +526,7 @@ span.normalWeight {
           </header>
           <div class="panel-body">
             <xsl:call-template name="contact">
-              <xsl:with-param name="value" select="holder_contact"/>
+              <xsl:with-param name="value" select="contact_info/holder_contact"/>
             </xsl:call-template>
           </div>
         </section>
@@ -535,26 +535,43 @@ span.normalWeight {
             <h3 class="panel-title">Authorized Agent or Authorized Third Party Name and Address</h3>
           </header>
           <div class="panel-body">
-            <xsl:call-template name="nameAddress">
-              <xsl:with-param name="value" select="agent_name_address"/>
-            </xsl:call-template>
+            <xsl:if test="contact_info/agent_not_applicable = 'true'">
+              <div class="row">
+                <div class="col-xs-12">
+                  <strong>
+                    <xsl:call-template name="hp-checkbox">
+                      <xsl:with-param name="value" select="contact_info/agent_not_applicable"/>
+                    </xsl:call-template>
+                    <span class="mouseHover normalWeight">Not applicable
+                    </span>
+                  </strong>
+                </div>
+              </div>
+            </xsl:if>
+            <xsl:if test="contact_info/agent_not_applicable = 'false'">
+              <xsl:call-template name="nameAddress">
+                <xsl:with-param name="value" select="contact_info/agent_name_address"/>
+              </xsl:call-template>
+            </xsl:if>
           </div>
         </section>
-        <section class="panel  panel-default">
-          <header class="panel-heading clearfix">
-            <h3 class="panel-title">Authorized Agent or Authorized Third Party Contact</h3>
-          </header>
-          <div class="panel-body">
-            <xsl:call-template name="contact">
-              <xsl:with-param name="value" select="agent_contact"/>
-            </xsl:call-template>
-          </div>
-        </section>
+        <xsl:if test="contact_info/agent_not_applicable = 'false'">
+          <section class="panel  panel-default">
+            <header class="panel-heading clearfix">
+              <h3 class="panel-title">Authorized Agent or Authorized Third Party Contact</h3>
+            </header>
+            <div class="panel-body">
+              <xsl:call-template name="contact">
+                <xsl:with-param name="value" select="contact_info/agent_contact"/>
+              </xsl:call-template>
+            </div>
+          </section>
+        </xsl:if>
         <div class="row">
           <div class="col-xs-12">
             <strong>
               <xsl:call-template name="hp-checkbox">
-                <xsl:with-param name="value" select="contact_info_confirm"/>
+                <xsl:with-param name="value" select="contact_info/contact_info_confirm"/>
               </xsl:call-template>
               <span class="mouseHover normalWeight">I confirm that the above information is valid
               </span>
@@ -563,58 +580,62 @@ span.normalWeight {
         </div>
       </div>
     </section>
-    <section class="panel panel-primary mrgn-tp-lg">
-      <header class="panel-heading clearfix">
-        <h3 class="panel-title">Master File Fees</h3>
-      </header>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-xs-12">
-            <strong>Are there Letter(s) of Access being filed with this transaction? &#160;</strong>
-            <xsl:call-template name="YesNoUnknow">
-              <xsl:with-param name="value" select="fee_details/are_there_access_letters"/>
-            </xsl:call-template>
+    <xsl:if test="fee_details != ''">
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h3 class="panel-title">Master File Fees</h3>
+        </header>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <strong>Are there Letter(s) of Access being filed with this transaction? &#160;</strong>
+              <xsl:call-template name="YesNoUnknow">
+                <xsl:with-param name="value" select="fee_details/are_there_access_letters"/>
+              </xsl:call-template>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <strong>Number of Letter(s) of Access: &#160;</strong>
-            <xsl:value-of select="fee_details/number_of_access_letters"/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <strong>Who is responsible for payment of fees? &#160;</strong>
-            <xsl:choose>
-              <xsl:when test=" 'AuthorizedMasterFileAgent' = fee_details/who_responsible_fee">
-                Authorized Master File Agent / Authorized Third Party
-              </xsl:when>
-              <xsl:when test=" 'MasterFileHolder' = fee_details/who_responsible_fee">
-                Master File Holder
-              </xsl:when>
-            </xsl:choose>
-          </div>
-        </div>
-        <div class="row">
-          <xsl:if test="fee_details/account_number != ''">
-            <div class="col-xs-6">
-              <strong>Customer/Client Account Number (if issued):&#160;</strong>
-              <span class="mouseHover normalWeight">
-                <xsl:value-of select="fee_details/account_number"/>
-              </span>
+          <xsl:if test="fee_details/number_of_access_letters != ''">
+            <div class="row">
+              <div class="col-xs-12">
+                <strong>Number of Letter(s) of Access: &#160;</strong>
+                <xsl:value-of select="fee_details/number_of_access_letters"/>
+              </div>
             </div>
           </xsl:if>
-          <xsl:if test="fee_details/cra_business_number != ''">
-            <div class="col-xs-6">
-              <strong>Canada Revenue Agency Business Number (if applicable):&#160;</strong>
-              <span class="mouseHover normalWeight">
-                <xsl:value-of select="fee_details/cra_business_number"/>
-              </span>
+          <div class="row">
+            <div class="col-xs-12">
+              <strong>Who is responsible for payment of fees? &#160;</strong>
+              <xsl:choose>
+                <xsl:when test=" 'AuthorizedMasterFileAgent' = fee_details/who_responsible_fee">
+                  Authorized Master File Agent / Authorized Third Party
+                </xsl:when>
+                <xsl:when test=" 'MasterFileHolder' = fee_details/who_responsible_fee">
+                  Master File Holder
+                </xsl:when>
+              </xsl:choose>
             </div>
-          </xsl:if>
+          </div>
+          <div class="row">
+            <xsl:if test="fee_details/account_number != ''">
+              <div class="col-xs-6">
+                <strong>Customer/Client Account Number (if issued):&#160;</strong>
+                <span class="mouseHover normalWeight">
+                  <xsl:value-of select="fee_details/account_number"/>
+                </span>
+              </div>
+            </xsl:if>
+            <xsl:if test="fee_details/cra_business_number != ''">
+              <div class="col-xs-6">
+                <strong>Canada Revenue Agency Business Number (if applicable):&#160;</strong>
+                <span class="mouseHover normalWeight">
+                  <xsl:value-of select="fee_details/cra_business_number"/>
+                </span>
+              </div>
+            </xsl:if>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </xsl:if>
     <section class="panel panel-primary mrgn-tp-lg">
       <header class="panel-heading clearfix">
         <h3 class="panel-title">Certification</h3>
@@ -645,7 +666,14 @@ span.normalWeight {
             </span>
           </div>
         </div>
-
+        <div class="row">
+          <strong>
+            <xsl:call-template name="hp-checkbox">
+              <xsl:with-param name="value" select="consent_privacy"/>
+            </xsl:call-template>
+            <span class="mouseHover normalWeight">By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the Privacy Notice Statement. </span>
+          </strong>
+        </div>          
       </div>
     </section>
   </xsl:template>
@@ -699,219 +727,6 @@ span.normalWeight {
     <xsl:value-of select="translate(substring($value,2), $uppercase, $smallcase)"/>
   </xsl:template>
 
-  <xsl:template name="converter">
-    <xsl:param name="value" select="/.."/>
-    <xsl:choose>
-      <xsl:when test=" 'en' = $value">
-        <xsl:value-of select="'English'"/>
-      </xsl:when>
-      <xsl:when test=" 'fr' = $value">
-        <xsl:value-of select="'French'"/>
-      </xsl:when>
-      <xsl:when test=" 'SALUT_MR' = $value">
-        <xsl:value-of select="'Mr.'"/>
-      </xsl:when>
-      <xsl:when test=" 'SALUT_MS' = $value">
-        <xsl:value-of select="'Ms.'"/>
-      </xsl:when>
-      <xsl:when test=" 'SALUT_DR' = $value">
-        <xsl:value-of select="'Dr.'"/>
-      </xsl:when>
-      <xsl:when test=" 'SALUT_MRS' = $value">
-        <xsl:value-of select="'Mrs.'"/>
-      </xsl:when>
-      <xsl:when test=" 'AB' = $value">
-        <xsl:value-of select="'Alberta'"/>
-      </xsl:when>
-      <xsl:when test=" 'BC' = $value">
-        <xsl:value-of select="'British Columbia'"/>
-      </xsl:when>
-      <xsl:when test=" 'MB' = $value">
-        <xsl:value-of select="'Manitoba'"/>
-      </xsl:when>
-      <xsl:when test=" 'NB' = $value">
-        <xsl:value-of select="'New Brunswick'"/>
-      </xsl:when>
-      <xsl:when test=" 'NL' = $value">
-        <xsl:value-of select="'Newfoundland and Labrador'"/>
-      </xsl:when>
-      <xsl:when test=" 'NT' = $value">
-        <xsl:value-of select="'Northwest Territories'"/>
-      </xsl:when>
-      <xsl:when test=" 'NS' = $value">
-        <xsl:value-of select="'Nova Scotia'"/>
-      </xsl:when>
-      <xsl:when test=" 'NU' = $value">
-        <xsl:value-of select="'Nunavut'"/>
-      </xsl:when>
-      <xsl:when test=" 'ON' = $value">
-        <xsl:value-of select="'Ontario'"/>
-      </xsl:when>
-      <xsl:when test=" 'PE' = $value">
-        <xsl:value-of select="'Prince Edward Island'"/>
-      </xsl:when>
-      <xsl:when test=" 'QC' = $value">
-        <xsl:value-of select="'Quebec'"/>
-      </xsl:when>
-      <xsl:when test=" 'SK' = $value">
-        <xsl:value-of select="'Saskatchewan'"/>
-      </xsl:when>
-      <xsl:when test=" 'YT' = $value">
-        <xsl:value-of select="'Yukon'"/>
-      </xsl:when>
-      <xsl:when test=" 'AL' = $value">
-        <xsl:value-of select="'Alabama'"/>
-      </xsl:when>
-      <xsl:when test=" 'AK' = $value">
-        <xsl:value-of select="'Alaska'"/>
-      </xsl:when>
-      <xsl:when test=" 'AZ' = $value">
-        <xsl:value-of select="'Arizona'"/>
-      </xsl:when>
-      <xsl:when test=" 'AR' = $value">
-        <xsl:value-of select="'Arkansas'"/>
-      </xsl:when>
-      <xsl:when test=" 'CA' = $value">
-        <xsl:value-of select="'California'"/>
-      </xsl:when>
-      <xsl:when test=" 'CO' = $value">
-        <xsl:value-of select="'Colorado'"/>
-      </xsl:when>
-      <xsl:when test=" 'CT' = $value">
-        <xsl:value-of select="'Connecticut'"/>
-      </xsl:when>
-      <xsl:when test=" 'DE' = $value">
-        <xsl:value-of select="'Delaware'"/>
-      </xsl:when>
-      <xsl:when test=" 'FL' = $value">
-        <xsl:value-of select="'Florida'"/>
-      </xsl:when>
-      <xsl:when test=" 'GA' = $value">
-        <xsl:value-of select="'Georgia'"/>
-      </xsl:when>
-      <xsl:when test=" 'HI' = $value">
-        <xsl:value-of select="'Hawaii'"/>
-      </xsl:when>
-      <xsl:when test=" 'ID' = $value">
-        <xsl:value-of select="'Idaho'"/>
-      </xsl:when>
-      <xsl:when test=" 'IL' = $value">
-        <xsl:value-of select="'Illinois'"/>
-      </xsl:when>
-      <xsl:when test=" 'IN' = $value">
-        <xsl:value-of select="'Indiana'"/>
-      </xsl:when>
-      <xsl:when test=" 'IA' = $value">
-        <xsl:value-of select="'Iowa'"/>
-      </xsl:when>
-      <xsl:when test=" 'KS' = $value">
-        <xsl:value-of select="'Kansas'"/>
-      </xsl:when>
-      <xsl:when test=" 'KY' = $value">
-        <xsl:value-of select="'Kentucky'"/>
-      </xsl:when>
-      <xsl:when test=" 'LA' = $value">
-        <xsl:value-of select="'Louisiana'"/>
-      </xsl:when>
-      <xsl:when test=" 'ME' = $value">
-        <xsl:value-of select="'Maine'"/>
-      </xsl:when>
-      <xsl:when test=" 'MD' = $value">
-        <xsl:value-of select="'Maryland'"/>
-      </xsl:when>
-      <xsl:when test=" 'MA' = $value">
-        <xsl:value-of select="'Massachusetts'"/>
-      </xsl:when>
-      <xsl:when test=" 'MI' = $value">
-        <xsl:value-of select="'Michigan'"/>
-      </xsl:when>
-      <xsl:when test=" 'MN' = $value">
-        <xsl:value-of select="'Minnesota'"/>
-      </xsl:when>
-      <xsl:when test=" 'MS' = $value">
-        <xsl:value-of select="'Mississippi'"/>
-      </xsl:when>
-      <xsl:when test=" 'MO' = $value">
-        <xsl:value-of select="'Missouri'"/>
-      </xsl:when>
-      <xsl:when test=" 'MT' = $value">
-        <xsl:value-of select="'Montana'"/>
-      </xsl:when>
-      <xsl:when test=" 'NE' = $value">
-        <xsl:value-of select="'Nebraska'"/>
-      </xsl:when>
-      <xsl:when test=" 'NV' = $value">
-        <xsl:value-of select="'Nevada'"/>
-      </xsl:when>
-      <xsl:when test=" 'NH' = $value">
-        <xsl:value-of select="'New Hampshire'"/>
-      </xsl:when>
-      <xsl:when test=" 'NJ' = $value">
-        <xsl:value-of select="'New Jersey'"/>
-      </xsl:when>
-      <xsl:when test=" 'NM' = $value">
-        <xsl:value-of select="'New Mexico'"/>
-      </xsl:when>
-      <xsl:when test=" 'NY' = $value">
-        <xsl:value-of select="'New York'"/>
-      </xsl:when>
-      <xsl:when test=" 'NC' = $value">
-        <xsl:value-of select="'North Carolina'"/>
-      </xsl:when>
-      <xsl:when test=" 'ND' = $value">
-        <xsl:value-of select="'North Dakota'"/>
-      </xsl:when>
-      <xsl:when test=" 'OH' = $value">
-        <xsl:value-of select="'Ohio'"/>
-      </xsl:when>
-      <xsl:when test=" 'OK' = $value">
-        <xsl:value-of select="'Oklahoma'"/>
-      </xsl:when>
-      <xsl:when test=" 'OR' = $value">
-        <xsl:value-of select="'Oregon'"/>
-      </xsl:when>
-      <xsl:when test=" 'PA' = $value">
-        <xsl:value-of select="'Pennsylvania'"/>
-      </xsl:when>
-      <xsl:when test=" 'RI' = $value">
-        <xsl:value-of select="'Rhode Island'"/>
-      </xsl:when>
-      <xsl:when test=" 'SC' = $value">
-        <xsl:value-of select="'South Carolina'"/>
-      </xsl:when>
-      <xsl:when test=" 'SD' = $value">
-        <xsl:value-of select="'South Dakota'"/>
-      </xsl:when>
-      <xsl:when test=" 'TN' = $value">
-        <xsl:value-of select="'Tennessee'"/>
-      </xsl:when>
-      <xsl:when test=" 'TX' = $value">
-        <xsl:value-of select="'Texas'"/>
-      </xsl:when>
-      <xsl:when test=" 'UT' = $value">
-        <xsl:value-of select="'Utah'"/>
-      </xsl:when>
-      <xsl:when test=" 'VT' = $value">
-        <xsl:value-of select="'Vermont'"/>
-      </xsl:when>
-      <xsl:when test=" 'VA' = $value">
-        <xsl:value-of select="'Virginia'"/>
-      </xsl:when>
-      <xsl:when test=" 'WA' = $value">
-        <xsl:value-of select="'Washington'"/>
-      </xsl:when>
-      <xsl:when test=" 'WV' = $value">
-        <xsl:value-of select="'West Virginia'"/>
-      </xsl:when>
-      <xsl:when test=" 'WI' = $value">
-        <xsl:value-of select="'Wisconsin'"/>
-      </xsl:when>
-      <xsl:when test=" 'WY' = $value">
-        <xsl:value-of select="'Wyoming'"/>
-      </xsl:when>
-    </xsl:choose>
-  </xsl:template>
-
   <xsl:template name="nameAddress">
     <xsl:param name="value" select="/.."/>
     <div class="row">
@@ -926,7 +741,7 @@ span.normalWeight {
       <div class="col-xs-12">
         <strong>Street Address:&#160;</strong>
         <span class="mouseHover normalWeight">
-          <xsl:value-of select="$value/address"/>
+          <xsl:value-of select="$value/street_address"/>
         </span>
       </div>
     </div>
@@ -954,7 +769,7 @@ span.normalWeight {
       <div class="col-xs-6">
         <strong>Postal Code:&#160;</strong>
         <span class="mouseHover normalWeight">
-          <xsl:value-of select="$value/postal"/>
+          <xsl:value-of select="$value/postal_code"/>
         </span>
       </div>
     </div>
@@ -966,7 +781,7 @@ span.normalWeight {
       <div class="col-xs-6">
         <strong>First Name:&#160;</strong>
         <span class="mouseHover normalWeight">
-          <xsl:value-of select="holder_contact/given_name"/>
+          <xsl:value-of select="$value/given_name"/>
         </span>
       </div>
       <div class="col-xs-6">
@@ -980,7 +795,7 @@ span.normalWeight {
       <div class="col-xs-6">
         <strong>Language of Correspondence:&#160;</strong>
         <span class="mouseHover normalWeight">
-          <xsl:value-of select="$value/language"/>
+          <xsl:value-of select="$value/language_correspondance"/>
         </span>
       </div>
       <div class="col-xs-6">
