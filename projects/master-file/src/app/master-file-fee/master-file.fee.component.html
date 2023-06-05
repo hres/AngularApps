@@ -113,7 +113,7 @@
           <control-messages *ngIf="mfFeeFormLocalModel.controls['businessNumber'].invalid"
                             [showError]="showFieldErrors"
                             [control]="mfFeeFormLocalModel.controls['businessNumber'] | formControl"
-                            controlId="businessNumber" label="business.number" parentId="mfFees"
+                            controlId="businessNumber" label="business.num" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
           <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" only-digits
             [formControl]="mfFeeFormLocalModel.controls['businessNumber'] | formControl" maxlength="9" />
