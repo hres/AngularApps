@@ -32,7 +32,7 @@ export class AddressDetailsService {
       provList: '',
       city: ['', [Validators.required, Validators.min(5)]],
       country: [null, [Validators.required, ValidationService.countryValidator]],
-      postal: ['', []]
+      postal: ['', [Validators.required]]
     });
   }
 
@@ -130,7 +130,7 @@ export class AddressDetailsService {
 
   public setProvinceState(record: FormGroup, eventValue, provList, stateList) {
 
-    //if (AddressDetailsService.isCanadaOrUSA(eventValue)) {
+    if (AddressDetailsService.isCanadaOrUSA(eventValue)) {
 
       record.controls['provText'].setValue('');
       record.controls['provList'].setValidators([Validators.required]);
@@ -145,14 +145,15 @@ export class AddressDetailsService {
       record.controls['provList'].updateValueAndValidity();
       record.controls['postal'].updateValueAndValidity();
       return this.provinces;
-    //} else {
-    //  record.controls['provList'].setValidators([]);
-    //  record.controls['provList'].setValue('');
-    //  record.controls['postal'].setValidators([]);
-    //  record.controls['provList'].updateValueAndValidity();
-    //  record.controls['postal'].updateValueAndValidity();
-    //  return [];
-    //}
+
+    } else {
+      record.controls['provList'].setValidators([]);
+      record.controls['provList'].setValue('');
+      record.controls['postal'].setValidators([Validators.required]);
+      record.controls['provList'].updateValueAndValidity();
+      record.controls['postal'].updateValueAndValidity();
+      return [];
+    }
 
   }
 
