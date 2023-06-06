@@ -314,6 +314,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.masterFileForm.controls['fullName'].value;
     this.transactionEnrollModel.submit_date =
       this.masterFileForm.controls['submitDate'].value;
+    this.transactionEnrollModel.consent_privacy = 
+      this.masterFileForm.controls['consentPrivacy'].value;
 
 
     const result: Transaction = {

@@ -103,7 +103,8 @@ export class MasterFileBaseService {
       },
       certify_accurate_complete: undefined,
       full_name: '',
-      submit_date: ''
+      submit_date: '',
+      consent_privacy: undefined
 
     };
     

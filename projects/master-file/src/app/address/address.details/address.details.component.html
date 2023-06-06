@@ -57,7 +57,7 @@
         </label>
       </div>
       <div class="form-group col-sm-5 col-xs-12" >
-        <label class="required full-width" aria-required="true">
+        <label for="{{addrType}}Country" class="required full-width" aria-required="true">
           <span class="field-name" i18n>{{'addressDetails.country'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
@@ -71,7 +71,7 @@
                        (blur)="typed()"
                        (add)="typed()"
                        (selected)="processCountry()">
-                  <ng-option *ngFor="let ctry of countries" [value]="ctry.id" class="select-choice">{{lang=='en' ? ctry.en : ctry.fr}}</ng-option>
+                  <ng-option id="{{addrType}}Country" *ngFor="let ctry of countries" [value]="ctry.id" class="select-choice">{{lang=='en' ? ctry.en : ctry.fr}}</ng-option>
             </ng-select>
           </div>
         </label>
@@ -108,7 +108,7 @@
       <div class="form-group col-sm-6 col-xs-12">
         <label for="{{addrType}}Postal" [ngClass]="{'required':!showProvText}" aria-required="true">
           <span class="field-name" i18n>{{'addressDetails.postalCode' |translate}}</span>
-          <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['postal'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['postal'] | formControl"
