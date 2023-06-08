@@ -8,6 +8,7 @@ import {
   ContactInfo,
   IContact,
 } from '../models/transaction';
+import { GlobalsService } from '../globals/globals.service';
 
 @Injectable()
 export class MasterFileBaseService {
@@ -147,8 +148,8 @@ export class MasterFileBaseService {
   }
 
   public static mapDataModelToFormModel(mfDataModel, formRecord: FormGroup) {
-
-    formRecord.controls['notApplicable'].setValue(mfDataModel.contact_info.agent_not_applicable);
+    // console.log(mfDataModel.contact_info.agent_not_applicable, typeof mfDataModel.contact_info.agent_not_applicable);
+    formRecord.controls['notApplicable'].setValue(GlobalsService.toBoolean(mfDataModel.contact_info.agent_not_applicable));
     formRecord.controls['contactInfoConfirm'].setValue(mfDataModel.contact_info_confirm);
     // formRecord.controls['certifyAccurateComplete'].setValue(mfDataModel.certify_accurate_complete);
     // formRecord.controls['fullName'].setValue(mfDataModel.full_name);

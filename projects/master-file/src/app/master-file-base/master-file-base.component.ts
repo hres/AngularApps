@@ -214,10 +214,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
     }
 
-    this.notApplicable = fileData.data.TRANSACTION_ENROL.contact_info.agent_not_applicable;
-    console.log (this.notApplicable);
-
-
     MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
     this.agentInfoOnChange();
   }
@@ -338,6 +334,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   public agentInfoOnChange() {
     this.notApplicable = this.masterFileForm.controls['notApplicable'].value;
+    // console.log ("this.notApplicable=",this.notApplicable, typeof this.notApplicable);
 
     if (this.notApplicable) {
       this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();

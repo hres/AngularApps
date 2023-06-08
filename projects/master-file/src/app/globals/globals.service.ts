@@ -278,6 +278,10 @@ export class GlobalsService {
     }
   }  
 
+  // return true if the value is in the array of valid values
+  public static toBoolean = (value: string | number | boolean): boolean => 
+  [true, 'true', 'True', 'TRUE', '1', 1].includes(value);
+
 }
 
 // a mapping of form control to output data model
