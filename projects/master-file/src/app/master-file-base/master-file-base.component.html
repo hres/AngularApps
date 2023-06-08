@@ -92,12 +92,9 @@
                                     controlId="notApplicableId" label="notApplicable"
                                     parentLabel="MasterFile Information"></control-messages>
                           <input name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
-                            id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl" 
-                            [checked]="masterFileForm.controls['notApplicable']" />
-                            
+                            id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl" />
                           <span><b>{{'not.applicable'|translate}}</b></span>
                         </label>
-
                       </div>
                     </div>
                   </div>
