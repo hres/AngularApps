@@ -126,11 +126,12 @@
                                     [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
                                     controlId="contactInfoConfirmId" label="contactInfoConfirm"
                                     parentLabel="MasterFile Information"></control-messages>
+                    <label for="contactInfoConfirmId" onclick="ContactDetailsService.onCertifyClick()">
                     <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId"
                     (change)="onChanged($event, 'contactInfoConfirm')"
                       [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
 
-                    <span><b>{{'info.confirmation'|translate}}</b></span>
+                    <span><b>{{'info.confirmation'|translate}}</b></span></label>
                     <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <sup id="tr5-rf">
                       <a class="fn-lnk" href="#tr5"><span

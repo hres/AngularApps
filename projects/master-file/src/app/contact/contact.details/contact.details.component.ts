@@ -155,6 +155,11 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this._saveData();
   }
 
+  onCertifyClick() {
+    // console.log(' BLRRE$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+    this._saveData();
+  }
+
   onLanguageSelected(e: any): void {
     if (e) {
       // when the action is triggered from the UI
