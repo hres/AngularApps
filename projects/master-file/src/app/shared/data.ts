@@ -4,6 +4,7 @@ export interface ICode {
   id: string;
   en: string;
   fr: string;
+  sortPriority?: number;
 }
 
 export interface ICodeDefinition extends ICode {
@@ -14,4 +15,9 @@ export interface ICodeDefinition extends ICode {
 export interface IParentChildren {
   parentId: string;
   children: ICodeDefinition[];
+}
+
+export enum SortOn {
+  ID,
+  PRIORITY
 }

@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, map, mergeMap, of, throwError, toArray } from 'rxjs';
 import { GlobalsService } from '../globals/globals.service';
+import { SortOn } from './data';
 
 @Injectable()
 export class DataService {
@@ -9,6 +10,26 @@ export class DataService {
 
   public getData<T>(filename: string): Observable<T[]> {
     return this.http.get<any>(GlobalsService.DATA_PATH + filename);
+  }
+
+  public getSortedData<T>(filename: string, compareField: SortOn): Observable<T[]> {
+    const sortByPriority = (a, b) => {
+      const valA = a.sortPriority == null ? -1 : a.sortPriority;
+      const valB = b.sortPriority == null ? -1 : b.sortPriority;
+      return valA < valB ? -1 : valA > valB ? 1 : 0;
+    };
+
+    const sortById = (a, b) => {
+      const valA = +a.id;   // convert id from string to number
+      const valB = +b.id;
+      return valA < valB ? -1 : valA > valB ? 1 : 0;
+    };
+
+    const compareFn = compareField === SortOn.PRIORITY? sortByPriority : sortById;
+
+    return this.getData<T>(filename).pipe(
+      map(data => data.sort(compareFn))
+    );
   }
 
   public handleError(err: HttpErrorResponse): Observable<never> {

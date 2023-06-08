@@ -17,7 +17,7 @@ import {
 } from 'rxjs';
 import { GlobalsService, DataMapping } from '../globals/globals.service';
 import { Ectd, TransactionEnrol } from '../models/transaction';
-import { ICode, ICodeDefinition, IParentChildren } from '../shared/data';
+import { ICode, ICodeDefinition, IParentChildren, SortOn } from '../shared/data';
 import { DataService } from '../shared/data.service';
 import { ValidationService } from '../validation.service';
 
@@ -44,7 +44,7 @@ export class RegulatoryInformationService {
 
   getTxDescriptions(): Observable<ICodeDefinition[]> {
     this.txDescs$ = this._dataService
-      .getData<ICodeDefinition>('txDescriptions.json')
+      .getSortedData<ICodeDefinition>('txDescriptions.json', SortOn.PRIORITY) 
       .pipe(
         //tap((_) => console.log('getTxDescriptions is executed')),
         shareReplay(1)

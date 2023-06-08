@@ -59,7 +59,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // console.log('ngOnInit ~ yesNoList', this.yesNoList);
+    // this line can be used to debug the loaded Transaction Descriptions' values and orders
+    // console.log('==>',  this._regulatoryInfoService.getTxDescriptions().subscribe(r => console.log(r)));
 
     this.mfTypeSub = this._regulatoryInfoService
       .getMasterFileTypes()
