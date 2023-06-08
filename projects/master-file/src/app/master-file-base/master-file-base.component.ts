@@ -59,7 +59,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   showDateAndRequesterTxDescs: string[] = ['12', '13', '14'];
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
-  NoFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
+  noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
@@ -201,7 +201,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     if (this.ectdModel.lifecycle_record.sequence_description_value) {
       this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
         this.ectdModel?.lifecycle_record.sequence_description_value._id);
-      this.showContactFees[1] = !this.NoFeeTxDescs.includes(
+      this.showContactFees[1] = !this.noFeeTxDescs.includes(
         this.ectdModel?.lifecycle_record.sequence_description_value._id);
     }
     if (this.showContactFees[0] === true) {
@@ -283,7 +283,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     if (this.ectdModel.lifecycle_record.sequence_description_value) {
       this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
         this.ectdModel?.lifecycle_record.sequence_description_value._id);
-      this.showContactFees[1] = !this.NoFeeTxDescs.includes(
+      this.showContactFees[1] = !this.noFeeTxDescs.includes(
         this.ectdModel?.lifecycle_record.sequence_description_value._id);
     }
     if (this.showContactFees[0] === true) {

@@ -51,7 +51,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
 
   showDateAndRequesterTxDescs: string[] = ['12', '13', '14']; // Transaction Description values are defined in txDescriptions.json
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
-  NoFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
+  noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService) {
     this.showFieldErrors = false;
@@ -199,7 +199,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
       txDescControl?.value.id
     );
-    this.showContactFees[1] = !this.NoFeeTxDescs.includes(
+    this.showContactFees[1] = !this.noFeeTxDescs.includes(
       txDescControl?.value.id
     );
 
