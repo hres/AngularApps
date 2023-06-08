@@ -20,7 +20,7 @@ export class ValidationService {
       'error.msg.phone': 'error.msg.phone',
       'error.msg.fax': 'error.msg.fax',
       'error.msg.email': 'error.msg.email',
-      'minlength': `${this.translateService.instant('minlength')}${validatorValue.requiredLength}`,
+      'minlength': `${this.translateService.instant('minlength')}${validatorValue.requiredLength}${this.translateService.instant('minlength.number')}`,
       'error.msg.postal': 'error.msg.postal',
       'error.msg.zip': 'error.msg.zip',
       'error.mgs.company.id': 'error.mgs.company.id',

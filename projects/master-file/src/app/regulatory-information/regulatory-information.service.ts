@@ -32,6 +32,8 @@ export class RegulatoryInformationService {
   txDescs$: Observable<ICodeDefinition[]>;
   mfTypeTxDescOptions$: Observable<IParentChildren[]>;
 
+  showDateAndRequesterTxDescs: string[] = ['12', '13', '14'];
+
   getMasterFileTypes(): Observable<ICodeDefinition[]> {
     this.mfTypeOptions$ = this._dataService
       .getData<ICodeDefinition>('mfTypes.json')
@@ -179,8 +181,14 @@ export class RegulatoryInformationService {
 
     // save concatenated data to the dataModel
     // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
-    dataModel.lifecycle_record.transaction_description = 
+
+    if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
+      dataModel.lifecycle_record.transaction_description = 
       GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "dated", dataModel.lifecycle_record.sequence_from_date);
+    } else {
+      dataModel.lifecycle_record.transaction_description = 
+      GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, dataModel.lifecycle_record.sequence_from_date);
+    }
   }
 
   public mapDataModelToFormModel(
