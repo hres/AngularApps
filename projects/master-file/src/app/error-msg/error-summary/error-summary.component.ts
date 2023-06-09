@@ -77,6 +77,8 @@ export class ErrorSummaryComponent implements AfterViewInit {
       controlError.componentId = err.componentId; // error summary only uses this
       controlError.expander = err.expander; // error summary only uses
       controlError.compRef = err;
+      controlError.minLength = err.requiredLength;
+
       if (err.controlId === 'hasMaterial') {
         err.type = GlobalsService.errorSummleastOneRcd;
         err.tableId = 'materialListTable';
@@ -143,7 +145,9 @@ export class ErrorSummaryComponent implements AfterViewInit {
       componentId: '',
       tableId: '',
       expander: null,
-      compRef: null
+      compRef: null,
+      minLength: ''
+
     };
     return (controlError);
   }
