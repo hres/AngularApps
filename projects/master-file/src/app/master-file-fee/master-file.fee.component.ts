@@ -149,6 +149,7 @@ export class MasterFileFeeComponent implements OnInit, OnChanges, AfterViewInit 
       this.showNumOfAccessLetter = true;
     } else {
       this.showNumOfAccessLetter = false;
+      this.mfFeeFormLocalModel.controls['numOfAccessLetter'].setValue(''); // null or empty? 
     }
   }
   

@@ -32,7 +32,7 @@ export interface ContactInfo {
   agent_not_applicable: boolean;
   agent_name_address: INameAddress;
   agent_contact: IContact;
-  contact_info_confirm: string;
+  contact_info_confirm: boolean;
 }
 
 export interface LifecycleRecord {

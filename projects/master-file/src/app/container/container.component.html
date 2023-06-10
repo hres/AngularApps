@@ -1,22 +1,7 @@
-<section>
-    <div class="panel panel-default">
-        <header class="panel-heading">
-            <h2 class="panel-title">{{ "top.toc" | translate }}</h2>
-        </header>
-        <div class="panel-body">
-            <ul>
-                <li><a href="#privacy">{{ "top.privacy.statement" | translate }}</a></li>
-                <li><a href="#security">{{ "top.security.declaimer" | translate }}</a></li>
-                <li><a href="#instructions">{{ "top.instruction" | translate }}</a></li>
-                <li><a href="#main">{{ "toc.form" | translate }}</a></li>
-            </ul>
-        </div>
-    </div>
-</section>
 <!-- todo use div or section? module-attention class and background-medium class don't work -->
 <section class="module-attention">
     <details>
-        <summary class="background-medium" id="privacy">{{ "top.privacy.statement" | translate }}</summary>
+        <summary class="background-medium">{{ "top.privacy.statement" | translate }}</summary>
         <app-privacy-statement [lang]="lang"></app-privacy-statement>
     </details>
 
@@ -24,14 +9,14 @@
 
 <div class="module-attention">
     <details>
-        <summary class="background-medium" id="security">{{ "top.security.declaimer" | translate }}</summary>
+        <summary class="background-medium">{{ "top.security.declaimer" | translate }}</summary>
         <app-security-disclaimer [lang]="lang"></app-security-disclaimer>
     </details>
 </div>
 
 <section class="module-attention">
     <details>
-        <summary class="background-medium" id="instructions">{{ "top.instruction" | translate }}</summary>
+        <summary class="background-medium">{{ "top.instruction" | translate }}</summary>
 
 
         <app-instruction [helpTextSequences]="helpIndex" [lang]="lang"></app-instruction>
