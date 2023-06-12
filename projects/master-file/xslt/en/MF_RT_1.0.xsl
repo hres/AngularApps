@@ -505,81 +505,84 @@ span.normalWeight {
       </div>
     </section>
 
-    <section class="panel panel-primary mrgn-tp-lg">
-      <header class="panel-heading clearfix">
-        <h3 class="panel-title">Contact Information</h3>
-      </header>
-      <div class="panel-body">
-        <section class="panel  panel-default">
-          <header class="panel-heading clearfix">
-            <h3 class="panel-title">Master File Holder Name and Address</h3>
-          </header>
-          <div class="panel-body">
-            <xsl:call-template name="nameAddress">
-              <xsl:with-param name="value" select="contact_info/holder_name_address"/>
-            </xsl:call-template>
-          </div>
-        </section>
-        <section class="panel  panel-default">
-          <header class="panel-heading clearfix">
-            <h3 class="panel-title">Master File Holder Contact</h3>
-          </header>
-          <div class="panel-body">
-            <xsl:call-template name="contact">
-              <xsl:with-param name="value" select="contact_info/holder_contact"/>
-            </xsl:call-template>
-          </div>
-        </section>
-        <section class="panel  panel-default">
-          <header class="panel-heading clearfix">
-            <h3 class="panel-title">Authorized Agent or Authorized Third Party Name and Address</h3>
-          </header>
-          <div class="panel-body">
-            <xsl:if test="contact_info/agent_not_applicable = 'true'">
-              <div class="row">
-                <div class="col-xs-12">
-                  <strong>
-                    <xsl:call-template name="hp-checkbox">
-                      <xsl:with-param name="value" select="contact_info/agent_not_applicable"/>
-                    </xsl:call-template>
-                    <span class="mouseHover normalWeight">Not applicable
-                    </span>
-                  </strong>
-                </div>
-              </div>
-            </xsl:if>
-            <xsl:if test="contact_info/agent_not_applicable = 'false'">
-              <xsl:call-template name="nameAddress">
-                <xsl:with-param name="value" select="contact_info/agent_name_address"/>
-              </xsl:call-template>
-            </xsl:if>
-          </div>
-        </section>
-        <xsl:if test="contact_info/agent_not_applicable = 'false'">
+    <xsl:if test="contact_info !=''">
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h3 class="panel-title">Contact Information</h3>
+        </header>
+        <div class="panel-body">
           <section class="panel  panel-default">
             <header class="panel-heading clearfix">
-              <h3 class="panel-title">Authorized Agent or Authorized Third Party Contact</h3>
+              <h3 class="panel-title">Master File Holder Name and Address</h3>
             </header>
             <div class="panel-body">
-              <xsl:call-template name="contact">
-                <xsl:with-param name="value" select="contact_info/agent_contact"/>
+              <xsl:call-template name="nameAddress">
+                <xsl:with-param name="value" select="contact_info/holder_name_address"/>
               </xsl:call-template>
             </div>
           </section>
-        </xsl:if>
-        <div class="row">
-          <div class="col-xs-12">
-            <strong>
-              <xsl:call-template name="hp-checkbox">
-                <xsl:with-param name="value" select="contact_info/contact_info_confirm"/>
+          <section class="panel  panel-default">
+            <header class="panel-heading clearfix">
+              <h3 class="panel-title">Master File Holder Contact</h3>
+            </header>
+            <div class="panel-body">
+              <xsl:call-template name="contact">
+                <xsl:with-param name="value" select="contact_info/holder_contact"/>
               </xsl:call-template>
-              <span class="mouseHover normalWeight">I confirm that the above information is valid
-              </span>
-            </strong>
+            </div>
+          </section>
+          <section class="panel  panel-default">
+            <header class="panel-heading clearfix">
+              <h3 class="panel-title">Authorized Agent or Authorized Third Party Name and Address</h3>
+            </header>
+            <div class="panel-body">
+              <xsl:if test="contact_info/agent_not_applicable = 'true'">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <strong>
+                      <xsl:call-template name="hp-checkbox">
+                        <xsl:with-param name="value" select="contact_info/agent_not_applicable"/>
+                      </xsl:call-template>
+                      <span class="mouseHover normalWeight">Not applicable
+                      </span>
+                    </strong>
+                  </div>
+                </div>
+              </xsl:if>
+              <xsl:if test="contact_info/agent_not_applicable = 'false'">
+                <xsl:call-template name="nameAddress">
+                  <xsl:with-param name="value" select="contact_info/agent_name_address"/>
+                </xsl:call-template>
+              </xsl:if>
+            </div>
+          </section>
+          <xsl:if test="contact_info/agent_not_applicable = 'false'">
+            <section class="panel  panel-default">
+              <header class="panel-heading clearfix">
+                <h3 class="panel-title">Authorized Agent or Authorized Third Party Contact</h3>
+              </header>
+              <div class="panel-body">
+                <xsl:call-template name="contact">
+                  <xsl:with-param name="value" select="contact_info/agent_contact"/>
+                </xsl:call-template>
+              </div>
+            </section>
+          </xsl:if>
+          <div class="row">
+            <div class="col-xs-12">
+              <strong>
+                <xsl:call-template name="hp-checkbox">
+                  <xsl:with-param name="value" select="contact_info/contact_info_confirm"/>
+                </xsl:call-template>
+                <span class="mouseHover normalWeight">I confirm that the above information is valid
+                </span>
+              </strong>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </xsl:if>
+    
     <xsl:if test="fee_details != ''">
       <section class="panel panel-primary mrgn-tp-lg">
         <header class="panel-heading clearfix">
