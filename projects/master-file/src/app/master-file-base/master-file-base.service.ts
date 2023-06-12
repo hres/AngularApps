@@ -152,11 +152,11 @@ export class MasterFileBaseService {
     formRecord.controls['notApplicable'].setValue(GlobalsService.toBoolean(mfDataModel.contact_info.agent_not_applicable));
 
     // Resets certifcation section and contact info confirmation
-    formRecord.controls['contactInfoConfirm'].setValue(false);
-    formRecord.controls['certifyAccurateComplete'].setValue(false);
+    formRecord.controls['contactInfoConfirm'].setValue(undefined);
+    formRecord.controls['certifyAccurateComplete'].setValue(undefined);
     formRecord.controls['fullName'].setValue('');
     formRecord.controls['submitDate'].setValue('');
-    formRecord.controls['consentPrivacy'].setValue(false);
+    formRecord.controls['consentPrivacy'].setValue(undefined);
   }
 
   public static getEmptyContactInfo() : ContactInfo {
