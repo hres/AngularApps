@@ -31,6 +31,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   private _contactErrors = [];
   private _agentAddressErrors = [];
   private _agentContactErrors = [];
+  private _contactConfirmError = [];
   private _baseErrors = [];
   public masterFileForm: FormGroup; // todo: do we need it? could remove?
   public errorList = [];
@@ -136,7 +137,9 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
         this.errorList = this.errorList.concat(
           this._agentAddressErrors.concat(this._agentContactErrors)
         );
+        this.errorList = this.errorList.concat(this._contactConfirmError);
     }
+
     if (this.showContactFees[1] === true) {
       this.errorList = this.errorList.concat(this._transFeeErrors);
     }
@@ -173,6 +176,11 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
   processAgentContactErrors(errorList) {
     this._agentContactErrors = errorList;
+    this.processErrors();
+  }
+
+  processContactConfirmError(errorList) {
+    this._contactConfirmError = errorList;
     this.processErrors();
   }
 

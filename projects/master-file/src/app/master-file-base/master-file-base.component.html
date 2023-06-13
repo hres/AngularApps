@@ -122,7 +122,8 @@
                                     [showError]="showErrors" parentId="mfDetails"
                                     [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
                                     controlId="contactInfoConfirmId" label="contactInfoConfirm"
-                                    parentLabel="MasterFile Information"></control-messages>
+                                    parentLabel="MasterFile Information"
+                                    (errorList)="processContactConfirmError($event)"></control-messages>
                     <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId"
                     (change)="onChanged($event, 'contactInfoConfirm')"
                       [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
