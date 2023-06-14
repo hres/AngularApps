@@ -150,10 +150,13 @@ export class MasterFileBaseService {
   public static mapDataModelToFormModel(mfDataModel, formRecord: FormGroup) {
     // console.log(mfDataModel.contact_info.agent_not_applicable, typeof mfDataModel.contact_info.agent_not_applicable);
     formRecord.controls['notApplicable'].setValue(GlobalsService.toBoolean(mfDataModel.contact_info.agent_not_applicable));
-    formRecord.controls['contactInfoConfirm'].setValue(mfDataModel.contact_info_confirm);
-    // formRecord.controls['certifyAccurateComplete'].setValue(mfDataModel.certify_accurate_complete);
-    // formRecord.controls['fullName'].setValue(mfDataModel.full_name);
-    // formRecord.controls['submitDate'].setValue(mfDataModel.submit_date);
+
+    // Resets certifcation section and contact info confirmation
+    formRecord.controls['contactInfoConfirm'].setValue(undefined);
+    formRecord.controls['certifyAccurateComplete'].setValue(undefined);
+    formRecord.controls['fullName'].setValue('');
+    formRecord.controls['submitDate'].setValue('');
+    formRecord.controls['consentPrivacy'].setValue(undefined);
   }
 
   public static getEmptyContactInfo() : ContactInfo {
@@ -195,7 +198,7 @@ export class MasterFileBaseService {
         postal_code: ''
       },
       agent_contact: this.getEmptyContactModel(),
-      contact_info_confirm: ''
+      contact_info_confirm: undefined
     }
     return conInfo;
   }

@@ -335,7 +335,7 @@ div .module-attention {
     height: 37px !important;
     padding: 6px 12px !important;
     position: relative;
-    display: block;
+    /* display: block;*/
     zoom: 1;
     vertical-align: middle;
     min-width: 100% !important;

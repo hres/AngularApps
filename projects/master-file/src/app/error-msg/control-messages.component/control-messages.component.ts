@@ -40,6 +40,10 @@ export class ControlMessagesComponent implements OnChanges {
    * Index of the error. Used to expand the expander for the error summaryt
    */
   @Input() index: Number;
+  /***
+   * Required length of the error
+   */
+  @Input() requiredLength: string;
   /**
    * Current error type for the control
    * @type {string}
