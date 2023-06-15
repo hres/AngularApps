@@ -65,15 +65,13 @@
                             [control]="addressFormLocalModel.controls['country'] | formControl"
                             controlId="{{addrType}}Country" label="addressDetails.country" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <div class="margin-top-small" id="{{addrType}}CountryDiv">
-			      <ng-select id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required custom"                      
+			      <ng-select class="margin-top-small" id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required custom"                      
                        (typed)="typed()"
                        (blur)="typed()"
                        (add)="typed()"
                        (selected)="processCountry()">
                   <ng-option *ngFor="let ctry of countries" [value]="ctry.id" class="select-choice">{{lang=='en' ? ctry.en : ctry.fr}}</ng-option>
-            </ng-select>
-          </div>
+            </ng-select>          
         </label>
       </div>
     </div>
