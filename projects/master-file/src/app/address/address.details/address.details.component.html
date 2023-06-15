@@ -4,7 +4,7 @@
       <div class="form-group col-xs-12" >
         <label for="{{addrType}}CompanyName" class="required full-width">
           <span class="field-name" i18n>{{'company.name.full'|translate}}</span>
-          <strong class="required" i18n aria-required="true">{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['companyName'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['companyName'] | formControl"
