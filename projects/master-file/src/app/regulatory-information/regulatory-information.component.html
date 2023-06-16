@@ -30,7 +30,7 @@
                     [control]="regulartoryFormModel.controls['masterFileName'] | formControl"
                     controlId="masterFileName" label="masterfile.name" parentId="regulatoryInfo"
                     parentLabel="MasterFile Information"></control-messages>
-                <input id="masterFileName" name="masterFileName" class="form-control full-width" (blur)="onblurMFName()"
+                <input id="masterFileName" name="masterFileName" class="form-control full-width" (blur)="onblur()" 
                     [formControl]="regulartoryFormModel.controls['masterFileName'] | formControl" maxlength="256"/>
             </label>
         </div>

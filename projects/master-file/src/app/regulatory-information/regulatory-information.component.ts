@@ -175,10 +175,10 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     this._saveData();
   }
 
-  onblurMFName() {
-    this.regulartoryFormModel.controls['masterFileName'].setValue(this.regulartoryFormModel.get('masterFileName').value.toUpperCase());
-    this._saveData();
-  }
+  // onblurMFName() {
+  //   this.regulartoryFormModel.controls['masterFileName'].setValue(this.regulartoryFormModel.get('masterFileName').value.toUpperCase());
+  //   this._saveData();
+  // }
 
   onMfTypeSelected(e: any): void {
     const mfTypeControl = this.regulartoryFormModel.get('masterFileType');
