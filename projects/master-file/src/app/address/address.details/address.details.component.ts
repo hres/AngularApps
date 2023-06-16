@@ -41,7 +41,6 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   public provinces: Array<any> = [];
   public provStateList: Array<any> = [];
   public showProvText = true;
-  public showPostalRequired = false;
   public provinceLabel = 'addressDetails.province';
   public postalPattern: RegExp = null;
   public postalLabel = 'postal.canada';
@@ -174,8 +173,6 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     if (this.showFieldErrors) {
       this.cdr.detectChanges(); // doing our own change detection
     }
-
-    this.showPostalRequired = true;
   }
 
 

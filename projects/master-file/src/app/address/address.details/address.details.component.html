@@ -106,9 +106,9 @@
         </label>
       </div>
       <div class="form-group col-sm-6 col-xs-12">
-        <label for="{{addrType}}Postal" [ngClass]="{'required':showPostalRequired}" aria-required="true">
+        <label for="{{addrType}}Postal" class="required" aria-required="true">
           <span class="field-name" i18n>{{'addressDetails.postalCode' |translate}}</span>
-          <strong *ngIf="showPostalRequired" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['postal'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['postal'] | formControl"
