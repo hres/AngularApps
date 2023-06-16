@@ -282,6 +282,11 @@ export class GlobalsService {
   public static toBoolean = (value: string | number | boolean): boolean => 
   [true, 'true', 'True', 'TRUE', '1', 1].includes(value);
 
+  public static findDataMappingByFormControlName(dataMappings : DataMapping[], formControlName : string): DataMapping{
+    const filtered = dataMappings.filter(item => item.formControlName === formControlName);
+    return filtered == null ? null : filtered[0];
+  }
+
 }
 
 // a mapping of form control to output data model

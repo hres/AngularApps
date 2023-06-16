@@ -41,8 +41,8 @@ export class ErrorSummaryComponent implements AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['errorList']) {
       this.processErrors(changes['errorList'].currentValue);
-      // console.log("........process errors in error summary ");
-      // console.log(changes['errorList'].currentValue)
+      //console.log("........process errors in error summary ");
+      //console.log(changes['errorList'].currentValue)
     }
     if (changes['compId']) {
       this.componentId = changes['compId'].currentValue;
@@ -108,7 +108,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
         }
       }
     }
-    // console.log(this.errors);
+    //console.log(this.errors);
   }
 
   /**

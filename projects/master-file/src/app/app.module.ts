@@ -9,10 +9,11 @@ import { ContainerModule } from './container/container.module';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonFeatureModule} from '../app/common/common-feature.module';
 import {DataLoaderModule} from '../app/data-loader/data-loader.module';
 import {MasterFileDataLoaderService} from '../app/data-loader/master-file-data-loader.service';
+import { NoCacheHeadersInterceptor } from '../cache.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +38,7 @@ import {MasterFileDataLoaderService} from '../app/data-loader/master-file-data-l
     GlobalsService,
     MasterFileDataLoaderService,
     Title,
+    { provide: HTTP_INTERCEPTORS, useClass: NoCacheHeadersInterceptor, multi: true }
   ],
   exports: [NumbersOnlyModule, TranslateModule, ContainerModule],
   bootstrap: [AppComponent],
