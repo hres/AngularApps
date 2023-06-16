@@ -9,8 +9,8 @@
           <control-messages *ngIf="contactFormLocalModel.controls['firstName'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls['firstName'] | formControl"
-                            controlId="{{contType}}FirstName" label="first.name" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            controlId="{{contType}}FirstName" label="first.name" parentId="{{contType}}Info"
+                            parentLabel="{{contType}} Info"></control-messages>
           <input name="firstName" id="{{contType}}FirstName" class="form-control full-width" maxlength="60" 
             [formControl]="contactFormLocalModel.controls['firstName'] | formControl" (blur)="onblur()"/>
         </label>
@@ -22,8 +22,8 @@
           <control-messages *ngIf="contactFormLocalModel.controls['lastName'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls['lastName'] | formControl"
-                            controlId="{{contType}}LastName" label="last.name" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            controlId="{{contType}}LastName" label="last.name" parentId="{{contType}}Info"
+                            parentLabel="{{contType}} Info"></control-messages>
           <input name="lastName" id="{{contType}}LastName" class="form-control full-width" maxlength="60" 
             [formControl]="contactFormLocalModel.controls['lastName'] | formControl" (blur)="onblur()"/>
         </label>
@@ -37,8 +37,8 @@
           <control-messages *ngIf="contactFormLocalModel.controls['language'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls['language'] | formControl"
-                            controlId="{{contType}}Language" label="lang.correspond" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            controlId="{{contType}}Language" label="lang.correspond" parentId="{{contType}}Info"
+                            parentLabel="{{contType}} Info"></control-messages>
           <select id="{{contType}}Language" required class="form-control" [formControl]="contactFormLocalModel.controls['language'] | formControl" 
             (change)="onLanguageSelected($any($event.target).value)">
             <option label=" " value=""></option>
@@ -53,8 +53,8 @@
           <control-messages *ngIf="contactFormLocalModel.controls['jobTitle'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls['jobTitle'] | formControl"
-                            controlId="{{contType}}JobTitle" label="job.title" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            controlId="{{contType}}JobTitle" label="job.title" parentId="{{contType}}Info"
+                            parentLabel="{{contType}} Info"></control-messages>
           <input name="jobTitle" id="{{contType}}JobTitle" class="form-control full-width" maxlength="60" 
           [formControl]="contactFormLocalModel.controls['jobTitle'] | formControl" (blur)="onblur()"/>
         </label>
@@ -68,8 +68,8 @@
           <control-messages *ngIf="contactFormLocalModel.controls['phoneNumber'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls['phoneNumber'] | formControl"
-                            controlId="{{contType}}PhoneNumber" label="phone.number" parentId="contactDetails"
-                            parentLabel="REP Contact"
+                            controlId="{{contType}}PhoneNumber" label="phone.number" parentId="{{contType}}Info"
+                            parentLabel="{{contType}} Info"
                             requiredLength="10"></control-messages>
           <input name="phoneNumber" id="{{contType}}PhoneNumber" class="form-control full-width" only-digits
             [formControl]="contactFormLocalModel.controls['phoneNumber'] | formControl" maxlength="25" (blur)="onblur()"/>
@@ -90,7 +90,7 @@
           <span class="field-name small" i18n>{{'fax.number.nofaxnum' |translate }}</span>
           <control-messages *ngIf="contactFormLocalModel.controls['faxNumber'].invalid" [showError]="showFieldErrors"
             [control]="contactFormLocalModel.controls['faxNumber'] | formControl" controlId="{{contType}}FaxNumber" label="fax.number"
-            parentId="contactDetails" parentLabel="REP Contact" requiredLength="10"></control-messages>
+            parentId="{{contType}}Info" parentLabel="{{contType}} Info" requiredLength="10"></control-messages>
           <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control" only-digits maxlength="25"
                  [formControl]="contactFormLocalModel.controls['faxNumber'] | formControl" (blur)="onblur()"/>
         </label>
@@ -104,8 +104,8 @@
           <control-messages *ngIf="contactFormLocalModel.controls['email'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactFormLocalModel.controls['email'] | formControl"
-                            controlId="{{contType}}Email" label="contact.email" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            controlId="{{contType}}Email" label="contact.email" parentId="{{contType}}Info"
+                            parentLabel="{{contType}} Info"></control-messages>
           <input name="email" id="{{contType}}Email" class="form-control full-width" maxlength="80" 
             [formControl]="contactFormLocalModel.controls['email'] | formControl" (blur)="onblur()"/>
         </label>
