@@ -32,6 +32,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   private _agentAddressErrors = [];
   private _agentContactErrors = [];
   private _baseErrors = [];
+  private _contactConfirmError = [];
+  private __certficationErrors = [];
   public masterFileForm: FormGroup; // todo: do we need it? could remove?
   public errorList = [];
   public showErrors: boolean;
@@ -109,16 +111,23 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _updateErrorList(errorObjs) {
-    let temp = [];
+    let certifTempErrors = [];
+    let contactConfirmTempError = [];
     if (errorObjs) {
       errorObjs.forEach(
         error => {
-          temp.push(error);
+          // console.log(error);   
+          if (error.label === 'contactInfoConfirm') {
+            contactConfirmTempError.push(error);
+          } else {
+            certifTempErrors.push(error);
+          }
         }
       );
     }
-    this._baseErrors = temp;
-
+    
+    this._contactConfirmError = contactConfirmTempError;
+    this.__certficationErrors = certifTempErrors;
   }
 
 
@@ -136,12 +145,14 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
         this.errorList = this.errorList.concat(
           this._agentAddressErrors.concat(this._agentContactErrors)
         );
+      this.errorList = this.errorList.concat(this._contactConfirmError);
     }
+
     if (this.showContactFees[1] === true) {
       this.errorList = this.errorList.concat(this._transFeeErrors);
     }
 
-    this.errorList = this.errorList.concat(this._baseErrors);
+    this.errorList = this.errorList.concat(this.__certficationErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
   }
