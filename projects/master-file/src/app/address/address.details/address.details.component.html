@@ -62,7 +62,7 @@
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="addressFormLocalModel.controls['country'] | formControl"
+                            [control]="addressFormLocalModel.controls['country'] | formControl"></control-messages>
             <ng-select class="margin-top-small" id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required custom"                      
                        (typed)="typed()"
                        (blur)="typed()"
