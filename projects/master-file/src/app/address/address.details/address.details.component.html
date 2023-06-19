@@ -62,7 +62,9 @@
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="addressFormLocalModel.controls['country'] | formControl"></control-messages>          
+                            [control]="addressFormLocalModel.controls['country'] | formControl"
+                            controlId="{{addrType}}Country" label="addressDetails.country" parentId="{{addrType}}Info"
+                            parentLabel="{{addrType}} Info"></control-messages>          
             <input type="text" name="country" list="suggestions" class="form-control full-width required" id="{{addrType}}Country"
                   [formControl]="addressFormLocalModel.controls['country'] | formControl"                    
                   (typed)="typed()"
