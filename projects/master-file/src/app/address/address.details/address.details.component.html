@@ -57,19 +57,22 @@
         </label>
       </div>
       <div class="form-group col-sm-5 col-xs-12" >
-        <label class="required full-width">
+        <label class="required full-width" for="{{addrType}}Country">
           <span class="field-name" i18n>{{'addressDetails.country'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="addressFormLocalModel.controls['country'] | formControl"></control-messages>
-            <ng-select class="margin-top-small" id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required custom"                      
-                       (typed)="typed()"
-                       (blur)="typed()"
-                       (add)="typed()"
-                       (selected)="processCountry()">				
-                  <ng-option *ngFor="let ctry of countries" [value]="ctry.id" class="select-choice">{{lang=='en' ? ctry.en : ctry.fr}}</ng-option>
-            </ng-select>          
+                            [control]="addressFormLocalModel.controls['country'] | formControl"></control-messages>          
+            <input type="text" name="country" list="suggestions" class="form-control full-width required" id="{{addrType}}Country"
+                  [formControl]="addressFormLocalModel.controls['country'] | formControl"                    
+                  (typed)="typed()"
+                  (blur)="typed()"
+                  (add)="typed()"
+                  (selected)="processCountry()"/>
+            <datalist id="suggestions">
+                <option *ngFor="let ctry of countries" value="{{ctry.id}}"
+                  label="{{lang=='en' ? ctry.en : ctry.fr}}" ></option>
+            </datalist>
         </label>
       </div>
     </div>
