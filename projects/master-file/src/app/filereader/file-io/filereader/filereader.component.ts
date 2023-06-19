@@ -6,7 +6,7 @@ import {FileConversionService} from '../file-conversion.service';
 import {FileIoGlobalsService} from '../file-io-globals.service';
 
 @Component({
-  selector: 'filereader',
+  selector: 'file-reader',
   templateUrl: './filereader.component.html',
   styleUrls: ['./filereader.component.css'],
   encapsulation: ViewEncapsulation.None

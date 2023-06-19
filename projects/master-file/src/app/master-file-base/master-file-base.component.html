@@ -17,7 +17,7 @@
           </h2>
         </header>
         <div class="panel-body">
-          <filereader (complete)="processFile($event)" [rootTag]="rootTagText"></filereader>
+          <file-reader (complete)="processFile($event)" [rootTag]="rootTagText"></file-reader>
         </div>
       </section>
     </div>
@@ -202,9 +202,7 @@
             </div>
 
             <div class="row col-xs-12 form-group alert alert-info" role="alert">
-              <span>
-                <p aria-live="polite">{{'agent.warning'|translate}}</p>
-              </span>
+              <p aria-live="polite">{{'agent.warning'|translate}}</p>
             </div>
             <div class="row col-xs-12 full-width">
               <div class="checkbox required">
@@ -227,12 +225,12 @@
       </div>
       <div class="row btn-group-sm">
         <div class="form-group col-md-4">
-          <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" i18n>
+          <button type="button" class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" i18n>
             {{'save.working.copy'|translate}}
           </button>
         </div>
         <div class="form-group col-md-4">
-          <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()" i18n>
+          <button type="button" class="btn btn-primary btn-lg active" [disabled]="!masterFileForm.valid" (click)="saveXmlFile()" i18n>
             {{'generate.final'|translate}}
           </button>
         </div>
