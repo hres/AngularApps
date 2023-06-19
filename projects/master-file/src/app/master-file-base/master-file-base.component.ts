@@ -101,8 +101,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     document.location.href = '#def-top';
-    document.location.href = '#main';
-    
+
     this.msgList.changes.subscribe(errorObjs => {
       let temp = [];
       this._updateErrorList(errorObjs);
