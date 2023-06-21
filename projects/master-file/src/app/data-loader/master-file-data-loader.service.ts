@@ -6,7 +6,6 @@ import {GlobalsService} from '../globals/globals.service';
 @Injectable()
 export class MasterFileDataLoaderService {
 
-  private _rawCountryList = [];
   private _langCountries = [];
   private _langProvinces = [];
   private _langStates = [];
@@ -28,8 +27,8 @@ export class MasterFileDataLoaderService {
 
   async getCountries(lang) {
     if (!this._langCountries || this._langCountries.length === 0) {
-      this._rawCountryList = await this.getCountryJSON();
-      this._convertCountryList(lang);
+      const rawCountryList = await this.getCountryJSON();
+      this._langCountries = this._convertListText(rawCountryList, lang);
     }
     return (this._langCountries);
 
@@ -68,22 +67,22 @@ export class MasterFileDataLoaderService {
    * @param lang
    * @private
    */
-  private _convertCountryList(lang) {
-    if (lang === GlobalsService.FRENCH) {
-      this._rawCountryList.forEach(item => {
-        item.text = item.fr;
-        this._langCountries.push(item);
+  // private _convertCountryList(lang) {
+  //  if (lang === GlobalsService.FRENCH) {
+  //    this._rawCountryList.forEach(item => {
+  //      item.text = item.fr;
+  //      this._langCountries.push(item);
         //  console.log(item);
-      });
-    } else {
-      this._rawCountryList.forEach(item => {
-        item.text = item.en;
+  //    });
+  //  } else {
+  //    this._rawCountryList.forEach(item => {
+  //      item.text = item.en;
         // console.log("adding country"+item.text);
-        this._langCountries.push(item);
+  //      this._langCountries.push(item);
         // console.log(item);
-      });
-    }
-  }
+  //    });
+  //  }
+  // }
 
   /***
    * Converts the list iteems of id, label_en, and label_Fr
@@ -99,6 +98,7 @@ export class MasterFileDataLoaderService {
         result.push(item);
         //  console.log(item);
       });
+      result.sort((a, b) => a.fr.localeCompare(b.fr));
     } else {
       rawList.forEach(item => {
         item.text = item.en;
@@ -106,6 +106,7 @@ export class MasterFileDataLoaderService {
         result.push(item);
         // console.log(item);
       });
+      result.sort((a, b) => a.en.localeCompare(b.en));
     }
     return result;
   }

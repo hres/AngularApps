@@ -63,18 +63,19 @@
           <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['country'] | formControl"
-                            controlId="{{addrType}}Country" label="addressDetails.country" parentId="{{addrType}}Info"
-                            parentLabel="{{addrType}} Info"></control-messages>          
-            <input type="text" name="country" list="suggestions" class="form-control full-width required" id="{{addrType}}Country"
-                  [formControl]="addressFormLocalModel.controls['country'] | formControl"                    
-                  (typed)="typed()"
-                  (blur)="typed()"
-                  (add)="typed()"
-                  (selected)="processCountry()"/>
-            <datalist id="suggestions">
-                <option *ngFor="let ctry of countries" value="{{ctry.id}}"
-                  label="{{lang=='en' ? ctry.en : ctry.fr}}" ></option>
-            </datalist>
+                            controlId="{{addrType}}Country" label="addressDetails.country" parentId="addressDetails"
+                            parentLabel="REP Address"></control-messages>
+          <div class="margin-top-small" id="{{addrType}}CountryDiv">
+              <select id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required form-control"                      
+                       (typed)="typed()"
+                       (blur)="typed()"
+                       (add)="typed()"
+                       (selected)="processCountry()">
+              
+                <option *ngFor="let ctry of countries" label="{{lang=='en' ? ctry.en : ctry.fr}}" value="{{ctry.id}}">{{lang=='en' ? ctry.en : ctry.fr}}</option>
+              <!--[if lte IE 9]></select><![endif]-->
+              </select>
+          </div>
         </label>
       </div>
     </div>
