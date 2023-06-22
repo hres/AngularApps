@@ -82,20 +82,26 @@ export class AddressDetailsService {
       addressModel.country = null;
     }
 
-    if (formRecord.controls['provList'].value) {
-      const recordIndex = ListService.getRecord(provStatList, formRecord.controls['provList'].value, 'id');
-      if (recordIndex > -1) {
-        addressModel.province_lov = {
-          '__text': provStatList[recordIndex].text,
-          '_id': provStatList[recordIndex].id,
-          '_label_en': provStatList[recordIndex].en,
-          '_label_fr': provStatList[recordIndex].fr
-        };
+    const country_id = addressModel.country._id;
+    if (AddressDetailsService.isCanada(country_id) || AddressDetailsService.isUsa(country_id)) {
+      addressModel.province_text = '';
+      if (formRecord.controls['provList'].value) {
+        const recordIndex = ListService.getRecord(provStatList, formRecord.controls['provList'].value, 'id');
+        if (recordIndex > -1) {
+          addressModel.province_lov = {
+            '__text': provStatList[recordIndex].text,
+            '_id': provStatList[recordIndex].id,
+            '_label_en': provStatList[recordIndex].en,
+            '_label_fr': provStatList[recordIndex].fr
+          };
+        } else {
+          addressModel.province_lov = null;
+        }
       }
     } else {
-        addressModel.province_lov = null;
+      addressModel.province_lov = null;
+      addressModel.province_text = formRecord.controls['provText'].value
     }
-    addressModel.province_text = formRecord.controls['provText'].value;
     addressModel.postal_code = formRecord.controls['postal'].value;
   }
 
