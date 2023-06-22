@@ -185,12 +185,19 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     const ctryRecord = AddressDetailsService.findRecordByTerm(this.countries, this.addressFormLocalModel.controls['country'].value, this.lang);
     if (ctryRecord === null) {
       // this.addressFormLocalModel.controls['country'].setValue[''];
-      this.addressFormLocalModel.controls['country'].reset();
+      this.addressFormLocalModel.controls['country'].reset();      
+      this.addressFormLocalModel.controls['provList'].reset();      
+      this.addressFormLocalModel.controls['provText'].reset();
     } else {
       this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
-      AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
-        this.addressModel, this.countryList, this.provStateList, this.lang);
+      if (ctryRecord.id != this.addressModel.country._id) {      
+        this.addressFormLocalModel.controls['provList'].reset();      
+        this.addressFormLocalModel.controls['provText'].reset();
+      }
     }
+
+    AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
+      this.addressModel, this.countryList, this.provStateList, this.lang);
   }
 
 
