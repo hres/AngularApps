@@ -56,26 +56,20 @@
                  [formControl]="addressFormLocalModel.controls['city'] | formControl" maxlength="60"/>
         </label>
       </div>
-      <div class="form-group col-sm-5 col-xs-12" >
+      <div class="form-group col-sm-5 col-xs-12">
         <label class="required full-width" for="{{addrType}}Country">
           <span class="field-name" i18n>{{'addressDetails.country'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
-                            [showError]="showFieldErrors"
-                            [control]="addressFormLocalModel.controls['country'] | formControl"
-                            controlId="{{addrType}}Country" label="addressDetails.country" parentId="addressDetails"
-                            parentLabel="REP Address"></control-messages>
-          <div class="margin-top-small" id="{{addrType}}CountryDiv">
-              <select id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required form-control"                      
-                       (typed)="typed()"
-                       (blur)="typed()"
-                       (add)="typed()"
-                       (selected)="processCountry()">
-              
-                <option *ngFor="let ctry of countries" label="{{lang=='en' ? ctry.en : ctry.fr}}" value="{{ctry.id}}">{{lang=='en' ? ctry.en : ctry.fr}}</option>
-              <!--[if lte IE 9]></select><![endif]-->
-              </select>
-          </div>
+          <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid" [showError]="showFieldErrors"
+            [control]="addressFormLocalModel.controls['country'] | formControl"
+            controlId="{{addrType}}Country" label="addressDetails.country" parentId="{{addrType}}Info"
+            parentLabel="{{addrType}} Info"></control-messages>
+          <input type="text" name="country" list="suggestions" class="form-control full-width required"
+            id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" (typed)="typed()"
+            (blur)="processCountry()" (add)="typed()" (selected)="processCountry()" />
+            <datalist id="suggestions">
+              <option *ngFor="let ctry of countries" value="{{lang=='en' ? ctry.en : ctry.fr}}" label=""></option>
+            </datalist>
         </label>
       </div>
     </div>

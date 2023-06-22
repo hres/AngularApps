@@ -57,13 +57,13 @@ export class AddressDetailsService {
   }
 
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, addressModel, countryList, provStatList) {
+  public static mapFormModelToDataModel(formRecord: FormGroup, addressModel, countryList, provStatList, lang) {
     addressModel.company_name = formRecord.controls['companyName'].value;
     // addressModel.business_number = formRecord.controls.businessNum.value;
     addressModel.street_address = formRecord.controls['address'].value;
     addressModel.city = formRecord.controls['city'].value;
     if (formRecord.controls['country'].value && formRecord.controls['country'].value.length > 0) {
-      const country_record = AddressDetailsService.findRecordByTerm(countryList, formRecord.controls['country'].value, 'id');
+      const country_record = AddressDetailsService.findRecordByTerm(countryList, formRecord.controls['country'].value, lang);
       if (country_record && country_record.id) {
         addressModel.country = {
           '__text': country_record.text,
@@ -99,7 +99,7 @@ export class AddressDetailsService {
     addressModel.postal_code = formRecord.controls['postal'].value;
   }
 
-  public static mapDataModelToFormModel(addressModel, formRecord: FormGroup, countryList, provStatList) {
+  public static mapDataModelToFormModel(addressModel, formRecord: FormGroup, countryList, provStatList, lang) {
     formRecord.controls['companyName'].setValue(addressModel.company_name);
     // formRecord.controls.businessNum.setValue(addressModel.business_number);
     formRecord.controls['address'].setValue(addressModel.street_address);
@@ -112,7 +112,7 @@ export class AddressDetailsService {
       if (recordIndex > -1) {
         labelText = countryList[recordIndex].text;
       }
-      formRecord.controls['country'].setValue(addressModel.country._id);
+      formRecord.controls['country'].setValue(lang === 'en' ? addressModel.country._label_en : addressModel.country._label_fr);
 
       if (AddressDetailsService.isCanada(addressModel.country._id) ||
           AddressDetailsService.isUsa(addressModel.country._id)) {
