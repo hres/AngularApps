@@ -1,3 +1,4 @@
+<div>
 <div [formGroup]="regulartoryFormModel">
     <div class="row">
         <div class="form-group col-xs-12 minWidth300">
@@ -21,7 +22,7 @@
         </div>
     </div>
     <div class="row">
-        <div class=".form-inline form-group col-xs-6 minWidth300">
+        <div class=".form-inline form-group col-sm-6 minWidth300">
             <label for="masterFileName" class="required full-width">
                 <span class="field-name">{{ 'masterfile.name'|translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -34,7 +35,7 @@
                     [formControl]="regulartoryFormModel.controls['masterFileName'] | formControl" maxlength="256"/>
             </label>
         </div>
-        <div class=".form-inline form-group col-xs-6 minWidth300">
+        <div class=".form-inline form-group col-sm-6 minWidth300">
             <label for="masterFileNumber" class="full-width">
                 <span class="field-name">{{ 'masterfile.number'|translate }} </span>
                 <control-messages *ngIf="regulartoryFormModel.controls['masterFileNumber'].invalid"
@@ -149,3 +150,4 @@
                 [formControl]="regulartoryFormModel.controls['requester'] | formControl">
         </div>
     </div>
+</div>
