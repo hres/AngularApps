@@ -51,6 +51,7 @@
         <li *ngIf="controlError.type==='leastOneRecordError'">
           <a href="#{{controlError.tableId}}" target="_self" (click)="processEvents(controlError)">{{'error.msg.contact.one.record'|translate}}</a>
         </li>
+        <li *ngIf="controlError.type!=='ErrorSummaryComponent'&& controlError.type!='leastOneRecordError'">
         <ng-container *ngIf="controlError.error !== 'minlength'">
           <a *ngIf="controlError.controlId.indexOf('holder') === 0" [href]="'#' + controlError.controlId" target="_self" (click)="processEvents(controlError)">
             {{ 'label.holder' | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}
@@ -74,6 +75,7 @@
             {{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}{{ controlError.minLength }}{{ 'minlength.number' | translate }}
           </a>
         </ng-container>
+      </li>
       </div>
     </ul>
   </section>
