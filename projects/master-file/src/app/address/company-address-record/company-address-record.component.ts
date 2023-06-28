@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges, ViewChild,
-  ViewChildren
+  ViewChildren, ViewEncapsulation
 } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AddressDetailsComponent} from '../address.details/address.details.component';
@@ -9,13 +9,12 @@ import {CompanyAddressRecordService} from './company-address-record.service';
 import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
 import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
 
-
 @Component({
   selector: 'company-address-record',
   templateUrl: './company-address-record.component.html',
   styleUrls: ['./company-address-record.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
-
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class CompanyAddressRecordComponent implements OnInit, AfterViewInit {
 

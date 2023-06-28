@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {GlobalsService} from '../../globals/globals.service';
 import {ExpanderComponent} from '../../common/expander/expander.component';
 import {ErrorSummaryObject} from './error-summary-object';
@@ -7,7 +7,8 @@ import {ValidationService} from '../../validation.service';
 @Component({
   selector: 'error-summary',
   templateUrl: './error-summary.component.html',
-  styleUrls: ['./error-summary.component.css']
+  styleUrls: ['./error-summary.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ErrorSummaryComponent implements AfterViewInit {
   @Input() headingPreamble: string;
