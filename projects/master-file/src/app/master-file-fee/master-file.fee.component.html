@@ -90,7 +90,7 @@
       </fieldset>
     </div>
     <div class="row">
-      <div class="form-group col-xs-6 minWidth300" >
+      <div class="form-group col-sm-6 minWidth300" >
         <label for="accountNumber" class="full-width">
           <span class="field-name" i18n>{{'account.num'|translate}}</span>
           <sup id="tr8-rf">
@@ -105,7 +105,7 @@
           <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" only-digits
                  [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
-      </div><div class="form-group col-xs-6 minWidth300">
+      </div><div class="form-group col-sm-6 minWidth300">
         <label for="businessNumber" class="full-width">
           <span class="field-name" i18n>{{'business.num'|translate}}</span>
           <control-messages *ngIf="mfFeeFormLocalModel.controls['businessNumber'].invalid"
