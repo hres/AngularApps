@@ -1,7 +1,5 @@
-<div *ngIf="makeErrorVisible()">
-  <strong class="error">
+  <strong class="error" *ngIf="makeErrorVisible()">
     <span class="label label-danger">
       {{errorMessage |translate}}
     </span>
   </strong>
-</div>

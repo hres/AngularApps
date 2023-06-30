@@ -16,14 +16,14 @@
             <a class="fn-lnk" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.loadFileIndx}}</a>
           </sup>
         </header>
-        <div class="panel-body">
+        <div class="panel-body"> 
           <file-reader (complete)="processFile($event)" [rootTag]="rootTagText"></file-reader>
         </div>
       </section>
     </div>
     <div id="topErrorSummaryId">
       <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-        headingPreamble="error.found.title"></error-summary>
+        headingPreamble="error.found.title" compId="errorSummary"></error-summary>
     </div>
     <div>
       <section class="panel panel-primary mrgn-tp-lg">

@@ -65,8 +65,7 @@
                             [control]="addressFormLocalModel.controls['country'] | formControl"
                             controlId="{{addrType}}Country" label="addressDetails.country" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
-          <div class="margin-top-small" id="{{addrType}}CountryDiv">
-              <select id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required form-control"                      
+              <select class="margin-top-small" id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required form-control"                      
                        (typed)="typed()"
                        (blur)="typed()"
                        (add)="typed()"
@@ -75,7 +74,6 @@
                 <option *ngFor="let ctry of countries" label="{{lang=='en' ? ctry.en : ctry.fr}}" value="{{ctry.id}}">{{lang=='en' ? ctry.en : ctry.fr}}</option>
               <!--[if lte IE 9]></select><![endif]-->
               </select>
-          </div>
         </label>
       </div>
     </div>
@@ -108,7 +106,7 @@
         </label>
       </div>
       <div class="form-group col-sm-6 col-xs-12">
-        <label for="{{addrType}}Postal" class="required" aria-required="true">
+        <label for="{{addrType}}Postal" class="required">
           <span class="field-name" i18n>{{'addressDetails.postalCode' |translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['postal'].invalid"

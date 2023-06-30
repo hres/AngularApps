@@ -54,7 +54,7 @@
     </div>
     <div class="row" *ngIf="showNumOfAccessLetter">
       <div class="form-group col-xs-12 minWidth300" >
-        <label for="numOfAccessLetter" class="required full-width" aria-required="true">
+        <label for="numOfAccessLetter" class="required full-width">
           <span class="field-name" i18n>{{'number.of.letters'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="mfFeeFormLocalModel.controls['numOfAccessLetter'].invalid"
@@ -63,7 +63,7 @@
                             controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
           <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3" (blur)="onblur()"
-                 [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" only-digits/>
+                 [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" data-only-digits/>
         </label>
       </div>
     </div>
@@ -102,7 +102,7 @@
                             [control]="mfFeeFormLocalModel.controls['accountNumber'] | formControl"
                             controlId="accountNumber" label="account.num" parentId="mfFees"
                             parentLabel="Master File Fees"  requiredLength="5"></control-messages>
-          <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" only-digits
+          <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" data-only-digits
                  [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
       </div><div class="form-group col-sm-6 minWidth300">
@@ -113,7 +113,7 @@
                             [control]="mfFeeFormLocalModel.controls['businessNumber'] | formControl"
                             controlId="businessNumber" label="business.num" parentId="mfFees"
                             parentLabel="Master File Fees" requiredLength="9"></control-messages>
-          <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" only-digits
+          <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" data-only-digits
             [formControl]="mfFeeFormLocalModel.controls['businessNumber'] | formControl" maxlength="9" />
         </label>
       </div>
