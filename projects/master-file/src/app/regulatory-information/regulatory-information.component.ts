@@ -10,7 +10,7 @@ import {
   Output,
   QueryList,
   SimpleChanges,
-  ViewChildren,
+  ViewChildren, ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ICodeDefinition, ICode, IParentChildren } from '../shared/data';
@@ -24,6 +24,7 @@ import { Ectd } from '../models/transaction';
   selector: 'app-regulatory-information',
   templateUrl: './regulatory-information.component.html',
   styles: [],
+  encapsulation: ViewEncapsulation.None,
 })
 export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   public regulartoryFormModel: FormGroup; 

@@ -46,7 +46,7 @@
           (change)="areAccessLettersChanged($event)"
           [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl"  required />
         <label for="areAccessLettersId">&nbsp;{{'yes'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="radio" id="areAccessLettersId_1" name="areAccessLettersId_1" value="N" (blur)="onblur()"
+        <input type="radio" id="areAccessLettersId_1" name="areAccessLetters" value="N" (blur)="onblur()"
           (change)="areAccessLettersChanged($event)"
           [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" required />
         <label for="areAccessLettersId_1">&nbsp;{{'no'|translate}}</label>
@@ -54,7 +54,7 @@
     </div>
     <div class="row" *ngIf="showNumOfAccessLetter">
       <div class="form-group col-xs-12 minWidth300" >
-        <label for="numOfAccessLetter" class="required full-width" aria-required="true">
+        <label for="numOfAccessLetter" class="required full-width">
           <span class="field-name" i18n>{{'number.of.letters'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="mfFeeFormLocalModel.controls['numOfAccessLetter'].invalid"
@@ -63,7 +63,7 @@
                             controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
           <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3" (blur)="onblur()"
-                 [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" only-digits/>
+                 [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" data-only-digits/>
         </label>
       </div>
     </div>
@@ -83,7 +83,7 @@
             [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
         </label>
         <label class="whoResponsibleFees" for="whoResponsibleId_1">&nbsp;{{'mf.agent'|translate}}
-          <input type="radio" id="whoResponsibleId_1" name="whoResponsible_1" value="AuthorizedMasterFileAgent" (blur)="onblur()"
+          <input type="radio" id="whoResponsibleId_1" name="whoResponsible" value="AuthorizedMasterFileAgent" (blur)="onblur()"
               (change)="whoResponsibleChanged($event)"
               [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
         </label>
@@ -102,7 +102,7 @@
                             [control]="mfFeeFormLocalModel.controls['accountNumber'] | formControl"
                             controlId="accountNumber" label="account.num" parentId="mfFees"
                             parentLabel="Master File Fees"  requiredLength="5"></control-messages>
-          <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" only-digits
+          <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" data-only-digits
                  [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
       </div><div class="form-group col-sm-6 minWidth300">
@@ -113,7 +113,7 @@
                             [control]="mfFeeFormLocalModel.controls['businessNumber'] | formControl"
                             controlId="businessNumber" label="business.num" parentId="mfFees"
                             parentLabel="Master File Fees" requiredLength="9"></control-messages>
-          <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" only-digits
+          <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" data-only-digits
             [formControl]="mfFeeFormLocalModel.controls['businessNumber'] | formControl" maxlength="9" />
         </label>
       </div>
