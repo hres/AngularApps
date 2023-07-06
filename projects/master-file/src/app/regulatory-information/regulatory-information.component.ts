@@ -13,7 +13,7 @@ import {
   ViewChildren, ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { ICodeDefinition, ICode, IParentChildren } from '../shared/data';
+import { ICodeDefinition, ICodeAria, ICode, IParentChildren } from '../shared/data';
 import { ControlMessagesComponent } from '../error-msg/control-messages.component/control-messages.component';
 import { GlobalsService } from '../globals/globals.service';
 import { FormGroup } from '@angular/forms';
@@ -37,7 +37,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   @Output() trDescUpdated = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  mfTypeOptions: ICodeDefinition[];
+  mfTypeOptions: ICodeAria[];
   mfTypeDescArray: IParentChildren[] = [];
   mfUseOptions: ICode[];
   txDescOptions: ICode[];

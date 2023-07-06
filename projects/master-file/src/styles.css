@@ -17,6 +17,10 @@ label.whoResponsibleFees {
     display: block;
     margin-bottom: 5px;
 }
+
+.masterFileType input[type="radio"] {
+    margin-right: 10px; 
+  }
   
 
 /* Specifically nesting inputs so need to add this*/

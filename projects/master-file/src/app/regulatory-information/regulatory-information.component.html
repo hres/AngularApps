@@ -50,23 +50,28 @@
     </div>
     <div class="row">
         <div class="form-group col-xs-12">
-            <label for="masterFileType" class="required">
-                <strong>{{'masterfile.type'|translate}}</strong>
+        <fieldset class="chkbxrdio-grp">
+            <legend class="required">
+                {{'masterfile.type'|translate}}
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="regulartoryFormModel.controls['masterFileType'].invalid"
                     [showError]="showFieldErrors"
                     [control]="regulartoryFormModel.controls['masterFileType'] | formControl"
                     controlId="masterFileType" label="masterfile.type" parentId="regulatoryInfo"
                     parentLabel="MasterFile Information"></control-messages>
-                <select id="masterFileType" name="masterFileType" class="form-control"
-                    (change)="onMfTypeSelected($any($event.target).value)"
-                    [formControl]="regulartoryFormModel.controls['masterFileType'] | formControl">
-                    <option label=" " value=""></option>
-                    <option *ngFor="let mfType of mfTypeOptions" [ngValue]="mfType"> {{mfType | textTransform: lang }}
-                    </option>
-                </select>
-            </label>
-        </div>
+            </legend>  
+            <div class="masterFileType" *ngFor="let mfType of mfTypeOptions">  
+                <input type="radio" id="{{mfType}}" name="masterFileType" [value]="mfType"
+                    (blur)="onblur()"
+                    (change)="onMfTypeSelected($event)"
+                    [formControl]="regulartoryFormModel.controls['masterFileType'] | formControl" required/>      
+                <label aria-hidden="true" for="{{mfType}}">{{mfType | textTransform: lang }}
+                </label>
+                <label class="visually-hidden" *ngIf="lang==='en'">{{mfType.ariaEn}}</label>
+                <label class="visually-hidden" *ngIf="lang==='fr'">{{mfType.ariaFr}}</label>
+            </div>
+        </fieldset>
+    </div>
     </div>
     <div class="row" *ngIf="selectedMfTypeDefinition">
         <div class="form-group col-xs-12">
