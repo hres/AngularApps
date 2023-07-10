@@ -61,14 +61,12 @@
                     parentLabel="MasterFile Information"></control-messages>
             </legend>  
             <div class="masterFileType" *ngFor="let mfType of mfTypeOptions">  
-                <input type="radio" id="{{mfType}}" name="masterFileType" [value]="mfType"
+                <input attr.aria-label="{{mfType.ariaEn}}" type="radio" id="{{mfType}}" name="masterFileType" [value]="mfType"
                     (blur)="onblur()"
                     (change)="onMfTypeSelected($event)"
                     [formControl]="regulartoryFormModel.controls['masterFileType'] | formControl" required/>      
                 <label aria-hidden="true" for="{{mfType}}">{{mfType | textTransform: lang }}
                 </label>
-                <label class="visually-hidden" *ngIf="lang==='en'">{{mfType.ariaEn}}</label>
-                <label class="visually-hidden" *ngIf="lang==='fr'">{{mfType.ariaFr}}</label>
             </div>
         </fieldset>
     </div>
