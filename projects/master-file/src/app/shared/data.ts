@@ -12,6 +12,11 @@ export interface ICodeDefinition extends ICode {
   defFr: string;
 }
 
+export interface ICodeAria extends ICodeDefinition {
+  ariaEn: string;
+  ariaFr: string;
+}
+
 export interface IParentChildren {
   parentId: string;
   children: ICodeDefinition[];

@@ -17,7 +17,7 @@ import {
 } from 'rxjs';
 import { GlobalsService, DataMapping } from '../globals/globals.service';
 import { Ectd, TransactionEnrol } from '../models/transaction';
-import { ICode, ICodeDefinition, IParentChildren, SortOn } from '../shared/data';
+import { ICode, ICodeDefinition, ICodeAria, IParentChildren, SortOn } from '../shared/data';
 import { DataService } from '../shared/data.service';
 import { ValidationService } from '../validation.service';
 
@@ -27,16 +27,16 @@ export class RegulatoryInformationService {
 
   constructor(private _fb: FormBuilder, private _dataService: DataService) {}
 
-  mfTypeOptions$: Observable<ICodeDefinition[]>;
+  mfTypeOptions$: Observable<ICodeAria[]>;
   mfUseOptions$: Observable<ICode[]>;
   txDescs$: Observable<ICodeDefinition[]>;
   mfTypeTxDescOptions$: Observable<IParentChildren[]>;
 
   showDateAndRequesterTxDescs: string[] = ['12', '13', '14'];
 
-  getMasterFileTypes(): Observable<ICodeDefinition[]> {
+  getMasterFileTypes(): Observable<ICodeAria[]> {
     this.mfTypeOptions$ = this._dataService
-      .getData<ICodeDefinition>('mfTypes.json')
+      .getData<ICodeAria>('mfTypes.json')
       .pipe(
         //tap((_) => console.log('getMasterFileTypeOptions is executed')),
         shareReplay(1)
