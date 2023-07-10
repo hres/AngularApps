@@ -61,7 +61,7 @@
                     parentLabel="MasterFile Information"></control-messages>
             </legend>  
             <div class="masterFileType" *ngFor="let mfType of mfTypeOptions">  
-                <input attr.aria-label="{{mfType.ariaEn}}" type="radio" id="{{mfType}}" name="masterFileType" [value]="mfType"
+                <input attr.aria-label="{{mfType.ariaEn}}" type="radio" id="{{mfType.id}}" name="masterFileType" [value]="mfType"
                     (blur)="onblur()"
                     (change)="onMfTypeSelected($event)"
                     [formControl]="regulartoryFormModel.controls['masterFileType'] | formControl" required/>      
