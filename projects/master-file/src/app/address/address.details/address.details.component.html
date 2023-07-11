@@ -63,7 +63,7 @@
           <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['country'] | formControl"
-                            controlId="{{addrType}}Country" label="addressDetails.country" parentId="addressDetails"
+                            controlId="{{addrType}}Country" label="addressDetails.country" parentId="{{addrType}}Info"
                             parentLabel="REP Address"></control-messages>
               <select class="margin-top-small" id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required form-control"                      
                        (typed)="typed()"
