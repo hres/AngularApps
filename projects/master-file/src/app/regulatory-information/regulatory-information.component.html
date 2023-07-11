@@ -60,7 +60,8 @@
                     controlId="masterFileType" label="masterfile.type" parentId="regulatoryInfo"
                     parentLabel="MasterFile Information"></control-messages>
             </legend>  
-            <div id="masterFileType" *ngFor="let mfType of mfTypeOptions; let i = index">  
+            <div  id="masterFileType">
+            <div *ngFor="let mfType of mfTypeOptions; let i = index">  
                 <input attr.aria-label="{{mfType | ariaTransform: lang}}" type="radio" id="masterFileType{{i}}" name="masterFileType" [value]="mfType"
                     (blur)="onblur()"
                     (change)="onMfTypeSelected($event)"
@@ -68,6 +69,7 @@
                 <label aria-hidden="true" for="masterFileType{{i}}">{{mfType | textTransform: lang }}
                 </label>
             </div>
+        </div>
         </fieldset>
     </div>
     </div>
