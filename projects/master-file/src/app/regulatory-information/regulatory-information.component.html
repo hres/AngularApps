@@ -1,3 +1,4 @@
+<div>
 <div [formGroup]="regulartoryFormModel">
     <div class="row">
         <div class="form-group col-xs-12 minWidth300">
@@ -21,7 +22,7 @@
         </div>
     </div>
     <div class="row">
-        <div class=".form-inline form-group col-xs-6 minWidth300">
+        <div class=".form-inline form-group col-sm-6 minWidth300">
             <label for="masterFileName" class="required full-width">
                 <span class="field-name">{{ 'masterfile.name'|translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -34,7 +35,7 @@
                     [formControl]="regulartoryFormModel.controls['masterFileName'] | formControl" maxlength="256"/>
             </label>
         </div>
-        <div class=".form-inline form-group col-xs-6 minWidth300">
+        <div class=".form-inline form-group col-sm-6 minWidth300">
             <label for="masterFileNumber" class="full-width">
                 <span class="field-name">{{ 'masterfile.number'|translate }} </span>
                 <control-messages *ngIf="regulartoryFormModel.controls['masterFileNumber'].invalid"
@@ -49,23 +50,28 @@
     </div>
     <div class="row">
         <div class="form-group col-xs-12">
-            <label for="masterFileType" class="required">
-                <strong>{{'masterfile.type'|translate}}</strong>
+        <fieldset class="chkbxrdio-grp">
+            <legend class="required">
+                {{'masterfile.type'|translate}}
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="regulartoryFormModel.controls['masterFileType'].invalid"
                     [showError]="showFieldErrors"
                     [control]="regulartoryFormModel.controls['masterFileType'] | formControl"
                     controlId="masterFileType" label="masterfile.type" parentId="regulatoryInfo"
                     parentLabel="MasterFile Information"></control-messages>
-                <select id="masterFileType" name="masterFileType" class="form-control"
-                    (change)="onMfTypeSelected($any($event.target).value)"
-                    [formControl]="regulartoryFormModel.controls['masterFileType'] | formControl">
-                    <option label=" " value=""></option>
-                    <option *ngFor="let mfType of mfTypeOptions" [ngValue]="mfType"> {{mfType | textTransform: lang }}
-                    </option>
-                </select>
-            </label>
+            </legend>  
+            <div  id="masterFileType">
+            <div *ngFor="let mfType of mfTypeOptions; let i = index">  
+                <input attr.aria-label="{{mfType | ariaTransform: lang}}" type="radio" id="masterFileType{{i}}" name="masterFileType" [value]="mfType"
+                    (blur)="onblur()"
+                    (change)="onMfTypeSelected($event)"
+                    [formControl]="regulartoryFormModel.controls['masterFileType'] | formControl" required/>      
+                <label aria-hidden="true" for="masterFileType{{i}}">{{mfType | textTransform: lang }}
+                </label>
+            </div>
         </div>
+        </fieldset>
+    </div>
     </div>
     <div class="row" *ngIf="selectedMfTypeDefinition">
         <div class="form-group col-xs-12">
@@ -94,7 +100,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-xs-6 minWidth300">
+        <div class="form-group col-sm-8 col-xs-10">
             <label for="descriptionType" class="required full-width">
                 <span class="field-name">{{ 'transaction.description' |translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -149,3 +155,4 @@
                 [formControl]="regulartoryFormModel.controls['requester'] | formControl">
         </div>
     </div>
+</div>

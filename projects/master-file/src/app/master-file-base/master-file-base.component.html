@@ -9,21 +9,21 @@
     </div>
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
+        <header class="panel-heading clearfix group-beside">
           <h2 class="panel-title">{{'load.file'|translate}}
-            <sup id="tr1-rf">
-              <a class="fn-lnk" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.loadFileIndx}}</a>
-            </sup>
           </h2>
+          <sup id="tr1-rf">
+            <a class="fn-lnk" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.loadFileIndx}}</a>
+          </sup>
         </header>
-        <div class="panel-body">
+        <div class="panel-body"> 
           <file-reader (complete)="processFile($event)" [rootTag]="rootTagText"></file-reader>
         </div>
       </section>
     </div>
     <div id="topErrorSummaryId">
       <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-        headingPreamble="error.found.title"></error-summary>
+        headingPreamble="error.found.title" compId="errorSummary"></error-summary>
     </div>
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
@@ -44,13 +44,13 @@
             </header>
             <div class="panel-body">
               <section class="panel  panel-default">
-                <header class="panel-heading clearfix">
+                <header class="panel-heading clearfix group-beside">
                   <h3 class="panel-title">{{'heading.holder.address'|translate}}
-                    <sup id="tr3-rf">
-                      <a class="fn-lnk" href="#tr3"><span
-                          class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.holderAddrIndx}}</a>
-                    </sup>
                   </h3>
+                  <sup id="tr3-rf">
+                    <a class="fn-lnk" href="#tr3"><span
+                        class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.holderAddrIndx}}</a>
+                  </sup>
                 </header>
                 <div class="panel-body">
                   <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang" [provinceList]="provinceList"
@@ -72,13 +72,13 @@
               </section>
                 
               <section class="panel  panel-default">
-                <header class="panel-heading clearfix">
+                <header class="panel-heading clearfix group-beside">
                   <h3 class="panel-title">{{'heading.agent.address'|translate}}
-                    <sup id="tr4-rf">
-                      <a class="fn-lnk" href="#tr4"><span
-                          class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.agentAddrIndx}}</a>
-                    </sup>
                   </h3>
+                  <sup id="tr4-rf">
+                    <a class="fn-lnk" href="#tr4"><span
+                        class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.agentAddrIndx}}</a>
+                  </sup>
                 </header>
                 <div class="panel-body">
                  <!-- extract this to a separate component and remove notApplicable field from the base component -->
@@ -116,13 +116,7 @@
               </section>
               <div class="col-xs-12 full-width">
                 <div class="checkbox required">
-                  <label for="contactInfoConfirmId">
-
-                  <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
-                                    [showError]="showErrors" parentId="mfContactInfoConfirm"
-                                    [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
-                                    controlId="contactInfoConfirmId" label="contactInfoConfirm"
-                                    parentLabel="MasterFile Contact Info Confirmation"></control-messages>
+                  <label for="contactInfoConfirmId">                 
                     <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId"
                     (change)="onChanged($event, 'contactInfoConfirm')"
                       [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
@@ -133,6 +127,11 @@
                       <a class="fn-lnk" href="#tr5"><span
                           class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.confmValidIndx}}</a>
                     </sup>
+                    <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
+                                    [showError]="showErrors" parentId="mfContactInfoConfirm"
+                                    [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
+                                    controlId="contactInfoConfirmId" label="contactInfoConfirm"
+                                    parentLabel="MasterFile Contact Info Confirmation"></control-messages>
                   </label>
                 </div>
               </div>
@@ -160,21 +159,21 @@
             <div class="row col-xs-12 full-width">
               <div class="checkbox required">
                 <label for="certifyAccurateCompleteId">
-                  <control-messages *ngIf="masterFileForm.controls['certifyAccurateComplete'].invalid" [showError]="showErrors"
-                    parentId="mfCertif" [control]="masterFileForm.controls['certifyAccurateComplete'] | formControl"
-                    controlId="certifyAccurateCompleteId" label="certifyAccurateComplete"
-                    parentLabel="MasterFile Certification"></control-messages>
                   <input name="certifyAccurateCompleteName" type="checkbox" id="certifyAccurateCompleteId" (blur)="processErrors()"
                     (change)="onChanged($event, 'certifyAccurateComplete')"
                     [formControl]="masterFileForm.controls['certifyAccurateComplete'] | formControl" />
                   <span><b>{{'certify.info'|translate}}</b></span>
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                  <control-messages *ngIf="masterFileForm.controls['certifyAccurateComplete'].invalid" [showError]="showErrors"
+                    parentId="mfCertif" [control]="masterFileForm.controls['certifyAccurateComplete'] | formControl"
+                    controlId="certifyAccurateCompleteId" label="certifyAccurateComplete"
+                    parentLabel="MasterFile Certification"></control-messages>
                 </label>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-xs-6">
+              <div class="col-sm-6">
                 <div class="required">
                   <label for="fullNameId" class="required">
                     <span><strong>{{'full.name'|translate}}</strong></span>
@@ -188,7 +187,7 @@
                   </label>
                 </div>
               </div>
-              <div class="col-xs-6">
+              <div class="col-sm-6">
                 <label for="submitDateId" class="required">
                   <span><b>{{'submit.date'|translate}}</b></span>
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -201,21 +200,21 @@
               </div>
             </div>
 
-            <div class="row col-xs-12 form-group alert alert-info" role="alert">
-              <p aria-live="polite">{{'agent.warning'|translate}}</p>
+            <div class="row col-xs-12 form-group alert alert-info">
+              <p aria-live="polite"><span class="visually-hidden">{{'alert.info' | translate}}</span>{{'agent.warning'|translate}}</p>
             </div>
             <div class="row col-xs-12 full-width">
               <div class="checkbox required">
                 <label for="consentPrivacyId">            
-                  <control-messages *ngIf="masterFileForm.controls['consentPrivacy'].invalid" [showError]="showErrors"
-                    parentId="mfCertif" [control]="masterFileForm.controls['consentPrivacy'] | formControl"
-                    controlId="consentPrivacyId" label="consentPrivacy"
-                    parentLabel="MasterFile Certification"></control-messages>
                   <input name="consentPrivacyName" type="checkbox" id="consentPrivacyId" (blur)="processErrors()"
                     (change)="onChanged($event, 'consentPrivacy')"
                     [formControl]="masterFileForm.controls['consentPrivacy'] | formControl" />
                   <span><b>{{'consent.privacy'|translate}}</b></span>
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                  <control-messages *ngIf="masterFileForm.controls['consentPrivacy'].invalid" [showError]="showErrors"
+                    parentId="mfCertif" [control]="masterFileForm.controls['consentPrivacy'] | formControl"
+                    controlId="consentPrivacyId" label="consentPrivacy"
+                    parentLabel="MasterFile Certification"></control-messages>
                 </label>
               </div>
             </div>

@@ -71,14 +71,14 @@
                             controlId="{{contType}}PhoneNumber" label="phone.number" parentId="{{contType}}Info"
                             parentLabel="{{contType}} Info"
                             requiredLength="10"></control-messages>
-          <input name="phoneNumber" id="{{contType}}PhoneNumber" class="form-control full-width" only-digits
+          <input name="phoneNumber" id="{{contType}}PhoneNumber" class="form-control full-width" data-only-digits
             [formControl]="contactFormLocalModel.controls['phoneNumber'] | formControl" maxlength="25" (blur)="onblur()"/>
         </label>
       </div>
       <div class="form-group col-sm-3">
         <label for="{{contType}}PhoneExtension">
           <span class="field-name" i18n>{{'phone.extension' |translate}}</span>
-          <input name="phoneExtension" id="{{contType}}PhoneExtension" class="form-control" maxlength="10" only-digits
+          <input name="phoneExtension" id="{{contType}}PhoneExtension" class="form-control" maxlength="10" data-only-digits
           [formControl]="contactFormLocalModel.controls['phoneExtension'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
@@ -91,7 +91,7 @@
           <control-messages *ngIf="contactFormLocalModel.controls['faxNumber'].invalid" [showError]="showFieldErrors"
             [control]="contactFormLocalModel.controls['faxNumber'] | formControl" controlId="{{contType}}FaxNumber" label="fax.number"
             parentId="{{contType}}Info" parentLabel="{{contType}} Info" requiredLength="10"></control-messages>
-          <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control" only-digits maxlength="25"
+          <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control" data-only-digits maxlength="25"
                  [formControl]="contactFormLocalModel.controls['faxNumber'] | formControl" (blur)="onblur()"/>
         </label>
       </div>

@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { InstructionService } from './instruction.service';
 
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
   styles: [],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ContainerComponent implements OnInit {
   @Input() isInternal;

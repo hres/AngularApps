@@ -17,8 +17,8 @@
         </label>
       </div>
     </div> -->
-    <div class="col-xs-12 form-group alert alert-info" role="alert">
-        <p aria-live="polite">{{'fee.warning1'|translate}}</p>
+    <div class="col-xs-12 form-group alert alert-info">
+        <p aria-live="polite"><span class="visually-hidden">{{'alert.info' | translate}}</span>{{'fee.warning1'|translate}}</p>
         <p aria-live="polite">{{'fee.warning2'|translate}}
           <a href="{{'fee.warning.link.url'|translate}}">{{'fee.warning.link.title'|translate}}</a>
           {{'fee.warning3'|translate}}
@@ -49,12 +49,12 @@
         <input type="radio" id="areAccessLettersId_1" name="areAccessLetters" value="N" (blur)="onblur()"
           (change)="areAccessLettersChanged($event)"
           [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" required />
-        <label for="areAccessLettersId">&nbsp;{{'no'|translate}}</label>
+        <label for="areAccessLettersId_1">&nbsp;{{'no'|translate}}</label>
       </fieldset>
     </div>
     <div class="row" *ngIf="showNumOfAccessLetter">
       <div class="form-group col-xs-12 minWidth300" >
-        <label for="numOfAccessLetter" class="required full-width" aria-required="true">
+        <label for="numOfAccessLetter" class="required full-width">
           <span class="field-name" i18n>{{'number.of.letters'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="mfFeeFormLocalModel.controls['numOfAccessLetter'].invalid"
@@ -63,7 +63,7 @@
                             controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"
                             parentLabel="Master File Fees"></control-messages>
           <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3" (blur)="onblur()"
-                 [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" only-digits/>
+                 [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" data-only-digits/>
         </label>
       </div>
     </div>
@@ -90,7 +90,7 @@
       </fieldset>
     </div>
     <div class="row">
-      <div class="form-group col-xs-6 minWidth300" >
+      <div class="form-group col-sm-6 minWidth300" >
         <label for="accountNumber" class="full-width">
           <span class="field-name" i18n>{{'account.num'|translate}}</span>
           <sup id="tr8-rf">
@@ -102,10 +102,10 @@
                             [control]="mfFeeFormLocalModel.controls['accountNumber'] | formControl"
                             controlId="accountNumber" label="account.num" parentId="mfFees"
                             parentLabel="Master File Fees"  requiredLength="5"></control-messages>
-          <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" only-digits
+          <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" data-only-digits
                  [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
-      </div><div class="form-group col-xs-6 minWidth300">
+      </div><div class="form-group col-sm-6 minWidth300">
         <label for="businessNumber" class="full-width">
           <span class="field-name" i18n>{{'business.num'|translate}}</span>
           <control-messages *ngIf="mfFeeFormLocalModel.controls['businessNumber'].invalid"
@@ -113,7 +113,7 @@
                             [control]="mfFeeFormLocalModel.controls['businessNumber'] | formControl"
                             controlId="businessNumber" label="business.num" parentId="mfFees"
                             parentLabel="Master File Fees" requiredLength="9"></control-messages>
-          <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" only-digits
+          <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" data-only-digits
             [formControl]="mfFeeFormLocalModel.controls['businessNumber'] | formControl" maxlength="9" />
         </label>
       </div>

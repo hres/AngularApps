@@ -4,19 +4,22 @@ import { FormControlPipe } from './form/form-control.pipe';
 import { JsonKeysPipe } from './json/json-keys.pipe';
 import { FormGroupPipe } from './form/form-group.pipe';
 import { TextTransformPipe } from './text/text-transform.pipe';
+import { AriaTransformPipe } from './text/aria-transform.pipe';
 
 @NgModule({
   declarations: [
     JsonKeysPipe,
     FormControlPipe,
     FormGroupPipe,
-    TextTransformPipe
+    TextTransformPipe,
+    AriaTransformPipe
   ],
   exports: [
     JsonKeysPipe,
     FormControlPipe,
     FormGroupPipe,
-    TextTransformPipe
+    TextTransformPipe,
+    AriaTransformPipe
   ],
 })
 export class NgPipesModule {}
