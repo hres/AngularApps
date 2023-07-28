@@ -42,8 +42,8 @@
       <span i18n *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
       <span i18n *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
     </h6>
-    <ul *ngFor="let parentError of errors | keys">
-      <ng-container *ngFor="let controlError of parentError.value.controls">
+    <ul>
+      <ng-container *ngFor = "let controlError of errorArray">
         <li *ngIf="controlError.type==='ErrorSummaryComponent'">
           <a href="#{{controlError.componentId}}" target="_self" (click)="processEvents(controlError)">{{controlError.label}}
           has errors</a>
