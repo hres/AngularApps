@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@an
 import {FormControl} from '@angular/forms';
 import {ValidationService} from '../../validation.service';
 import {NgbNav} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'control-messages',
@@ -46,6 +47,10 @@ export class ControlMessagesComponent implements OnChanges {
    */
   @Input() requiredLength: string;
   /**
+   * Number of error from error summary
+   */
+  public errorNumber: string;
+  /**
    * Current error type for the control
    * @type {string}
    */
@@ -71,7 +76,8 @@ export class ControlMessagesComponent implements OnChanges {
    * Validation service to translate the errors
    */
 
-  constructor(private validationService: ValidationService) {
+  constructor(private validationService: ValidationService,
+              private translateService: TranslateService) {
     this.tabSet = null;
     this.tabId = null;
     this._errorVisible = false;
@@ -97,7 +103,8 @@ export class ControlMessagesComponent implements OnChanges {
   get errorMessage() {
     for (let propertyName in this.control.errors) {
       this.currentError = propertyName;
-      return this.validationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
+      const errorMsg = `${this.errorNumber} ${this.translateService.instant(this.validationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]))}`;
+      return errorMsg;
     }
     this.currentError = '';
     return null;

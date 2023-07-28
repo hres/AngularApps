@@ -54,25 +54,25 @@
         <li *ngIf="controlError.type!=='ErrorSummaryComponent'&& controlError.type!='leastOneRecordError'">
           <ng-container *ngIf="controlError.error !== 'minlength'">
             <a *ngIf="controlError.controlId.indexOf('holder') === 0" [href]="'#' + controlError.controlId" target="_self" (click)="processEvents(controlError)">
-              {{ 'label.holder' | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}
+              {{controlError.errorNumber}}&nbsp;{{ 'label.holder' | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}
             </a>
             <a *ngIf="controlError.controlId.indexOf('agent') === 0" [href]="'#' + controlError.controlId" target="_self" (click)="processEvents(controlError)">
-              {{ 'label.agent' | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}
+              {{controlError.errorNumber}}&nbsp;{{ 'label.agent' | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}
             </a>
             <a *ngIf="!(controlError.controlId.indexOf('holder') === 0) && !(controlError.controlId.indexOf('agent') === 0)" [href]="'#' + controlError.controlId" target="_self" (click)="processEvents(controlError)">
-              {{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}
+              {{controlError.errorNumber}}&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}
             </a>
           </ng-container>
           
           <ng-container *ngIf="controlError.error === 'minlength'">
             <a *ngIf="controlError.controlId.indexOf('holder') === 0" [href]="'#' + controlError.controlId" target="_self" (click)="processEvents(controlError)" i18n>
-              {{ 'label.holder' | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}{{ controlError.minLength }}{{ 'minlength.number' | translate }}
+              {{controlError.errorNumber}}&nbsp;{{ 'label.holder' | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}{{ controlError.minLength }}{{ 'minlength.number' | translate }}
             </a>
             <a *ngIf="controlError.controlId.indexOf('agent') === 0" [href]="'#' + controlError.controlId" target="_self" (click)="processEvents(controlError)" i18n>
-              {{ 'label.agent' | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}{{ controlError.minLength }}{{ 'minlength.number' | translate }}
+              {{controlError.errorNumber}}&nbsp;{{ 'label.agent' | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}{{ controlError.minLength }}{{ 'minlength.number' | translate }}
             </a>
             <a *ngIf="!(controlError.controlId.indexOf('holder') === 0) && !(controlError.controlId.indexOf('agent') === 0)" [href]="'#' + controlError.controlId" target="_self" (click)="processEvents(controlError)" i18n>
-              {{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}{{ controlError.minLength }}{{ 'minlength.number' | translate }}
+              {{controlError.errorNumber}}&nbsp;{{ controlError.compRef.label | translate }}&nbsp;&#8208;&nbsp;{{ controlError.compRef.currentError | translate }}{{ controlError.minLength }}{{ 'minlength.number' | translate }}
             </a>
           </ng-container>
         </li>

@@ -3,6 +3,8 @@ import {GlobalsService} from '../../globals/globals.service';
 import {ExpanderComponent} from '../../common/expander/expander.component';
 import {ErrorSummaryObject} from './error-summary-object';
 import {ValidationService} from '../../validation.service';
+import {TranslateService} from '@ngx-translate/core';
+
 
 @Component({
   selector: 'error-summary',
@@ -27,8 +29,10 @@ export class ErrorSummaryComponent implements AfterViewInit {
   public hdingLevel = 'h1';
   public index: number;
   public expander: ExpanderComponent ;
+  public errorCount: number;
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef,
+              private translateService : TranslateService) {
     this.type = GlobalsService.errorSummClassName;
     this.index = -1;
     this.expander = null;
@@ -61,6 +65,8 @@ export class ErrorSummaryComponent implements AfterViewInit {
    * @param errorList
    */
   public processErrors(errorList): void {
+    this.resetErrorCount();
+
     this.errors = {};
     if (!errorList) {
       return;
@@ -80,6 +86,9 @@ export class ErrorSummaryComponent implements AfterViewInit {
       controlError.expander = err.expander; // error summary only uses
       controlError.compRef = err;
       controlError.minLength = err.requiredLength;
+
+      err.errorNumber = `${this.translateService.instant('error')} ${this.errorCount}${':'}`;
+      controlError.errorNumber = err.errorNumber;
 
       if (err.controlId === 'hasMaterial') {
         err.type = GlobalsService.errorSummleastOneRcd;
@@ -109,13 +118,20 @@ export class ErrorSummaryComponent implements AfterViewInit {
           this.errors[err.parentId] = parentError;
         }
       }
+      this.errorCount++;
     }
+    this.resetErrorCount();
     //console.log(this.errors);
 
     this.errorArray = GlobalsService.flattenArrays(GlobalsService.extractArraySubkeys(this.errors));
     //console.log(this.errorArray);
     //console.log(this.errorArray);
   }
+
+  private resetErrorCount(){
+    this.errorCount = 1;
+  }
+
 
   /**
    * Selects thje tab from an ngbTabset
@@ -152,7 +168,8 @@ export class ErrorSummaryComponent implements AfterViewInit {
       tableId: '',
       expander: null,
       compRef: null,
-      minLength: ''
+      minLength: '',
+      errorNumber: ''
 
     };
     return (controlError);
