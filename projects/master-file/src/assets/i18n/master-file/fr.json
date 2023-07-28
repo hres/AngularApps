@@ -53,7 +53,7 @@
   "error.msg.email": "Ce format n'est pas valide",
   "error.msg.fax": "Ce format n'est pas valide",
   "discard.changes": "fr_Discard Changes",
-  "commmon.required.bracket": " (requis)",
+  "commmon.required.bracket": " (obligatoire)",
   "common.saveRevert": "fr_Please save or revert the record",
   "error.found.title": "Le formulaire de demande de fiches maîtresses",
   "error.found.because": " n’a pas pu être sauvegardé car ",
