@@ -21,6 +21,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
   public type: string;
 
   public errors = {};
+  public errorArray = []; // For error summary.
   public componentId = '';
   public tableId = '';
   public hdingLevel = 'h1';
@@ -110,6 +111,10 @@ export class ErrorSummaryComponent implements AfterViewInit {
       }
     }
     //console.log(this.errors);
+
+    this.errorArray = GlobalsService.flattenArrays(GlobalsService.extractArraySubkeys(this.errors));
+    //console.log(this.errorArray);
+    //console.log(this.errorArray);
   }
 
   /**
