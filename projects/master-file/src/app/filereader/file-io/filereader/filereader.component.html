@@ -1,19 +1,16 @@
-
-  <div class="row">
-    <div class="form-group col-xs-3">
-      <label for="fileLoad">
-        <span class="field-name">{{ 'select.file'|translate }}</span>
-      </label>
-    </div>
-    <div class="form-group col-xs-9">
-      <input type="file" id="fileLoad" name="fileLoad" accept=".xml, .hcsc" (change)="changeListener($event)" />
-    </div>
+<div class="row">
+  <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <label for="fileLoad">
+      <span class="field-name">{{ 'select.file'|translate }}</span>
+    </label>
+    <input type="file" id="fileLoad" name="fileLoad" accept=".xml, .hcsc" (change)="changeListener($event)" />
   </div>
-  <div [ngClass]="status == 'msg.success.load' ? 'alert alert-success' : 'alert alert-danger'" *ngIf="showFileLoadStatus">
-    <span>{{status | translate}}</span>
+</div>
+<div [ngClass]="status == 'msg.success.load' ? 'alert alert-success' : 'alert alert-danger'" *ngIf="showFileLoadStatus">
+  <span>{{status | translate}}</span>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <p [innerHTML]="'select.file.line'|translate"></p>
   </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <p [innerHTML]="'select.file.line'|translate"></p>
-    </div>
-  </div>
+</div>
