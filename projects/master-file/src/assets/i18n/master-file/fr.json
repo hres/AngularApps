@@ -144,5 +144,6 @@
   "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité.",
   "consentPrivacy": "Consentement de confidentialité",
   "alert.info": "Informations d'alerte",
-  "error": "Erreur"
+  "error": "Erreur",
+  "agent.not.applicable":"Authorized Agent or Authorized Third Party Name and Address not applicable"
 }
