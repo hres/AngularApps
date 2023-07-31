@@ -15,4 +15,5 @@ export interface ErrorSummaryObject {
   expander: ExpanderComponent;
   compRef;
   minLength: string;
+  errorNumber: string;
 }

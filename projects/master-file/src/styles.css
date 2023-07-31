@@ -11,6 +11,10 @@ strong.error {
     /* TODO what is being overridden in wet white-space: normal;*/
 }
 
+sup {
+    font-weight: 700 !important;
+}
+
 label.whoResponsibleFees {
     position:relative;
     padding-left:2.5ch;

@@ -287,6 +287,27 @@ export class GlobalsService {
     return filtered == null ? null : filtered[0];
   }
 
+  public static extractArraySubkeys<T>(dictionary: { [key: string]: { [subkey: string]: T } }): any[] {
+    const arraySubkeys: any[] = [];
+  
+    for (const key in dictionary) {
+      const subkeys = dictionary[key];
+      for (const subkey in subkeys) {
+        if (Array.isArray(subkeys[subkey])) {
+          arraySubkeys.push(subkeys[subkey]);
+        }
+      }
+    }
+  
+    return arraySubkeys;
+  }
+  
+
+  public static flattenArrays<T>(arrays: T[]): T[] {
+    return [].concat(...arrays);
+  }
+  
+
 }
 
 // a mapping of form control to output data model
