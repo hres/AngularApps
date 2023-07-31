@@ -87,8 +87,10 @@ export class ErrorSummaryComponent implements AfterViewInit {
       controlError.compRef = err;
       controlError.minLength = err.requiredLength;
 
-      err.errorNumber = `${this.translateService.instant('error')} ${this.errorCount}${':'}`;
+      err.errorNumber = `${this.translateService.instant('error')}${this.errorCount}${':'}`;
       controlError.errorNumber = err.errorNumber;
+
+      err.errorSummaryFlag = this.hiddenSummary;
 
       if (err.controlId === 'hasMaterial') {
         err.type = GlobalsService.errorSummleastOneRcd;

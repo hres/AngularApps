@@ -51,6 +51,10 @@ export class ControlMessagesComponent implements OnChanges {
    */
   public errorNumber: string;
   /**
+   * Flag to indicate if error summary
+   */
+  public errorSummaryFlag: boolean;
+  /**
    * Current error type for the control
    * @type {string}
    */
@@ -103,10 +107,16 @@ export class ControlMessagesComponent implements OnChanges {
   get errorMessage() {
     for (let propertyName in this.control.errors) {
       this.currentError = propertyName;
-      const errorMsg = `${this.errorNumber} ${this.translateService.instant(this.validationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]))}`;
+      let errorMsg = `${this.translateService.instant(this.validationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]))}`;
+
+      if (this.errorSummaryFlag) {
+        errorMsg = `${this.errorNumber} ${this.translateService.instant(this.validationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]))}`;
+
+      }
       return errorMsg;
     }
     this.currentError = '';
+    this.errorSummaryFlag = false;
     return null;
   }
 
