@@ -11,11 +11,13 @@ strong.error {
     /* TODO what is being overridden in wet white-space: normal;*/
 }
 
-label.whoResponsibleFees {
-    position:relative;
-    padding-left:2.5ch;
-    display: block;
-    margin-bottom: 5px;
+.radio input[type=radio]{
+    position: absolute;
+    margin-left: 0px;
+}
+
+.radio label{
+    font-weight: 700;
 }
 
 #masterFileType input[type="radio"] {
@@ -322,6 +324,7 @@ div .module-attention {
 .radioButtonTitle {
     font-size: 15px;
     font-weight: 700;
+    background-color: blue;
 }
 
 .cd-data-pi {
