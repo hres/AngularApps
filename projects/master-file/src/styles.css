@@ -10,6 +10,9 @@ strong.error {
     font-size: 125%;
     /* TODO what is being overridden in wet white-space: normal;*/
 }
+sup {
+    font-weight: 700 !important;
+}
 
 .radio input[type=radio]{
     position: absolute;
@@ -21,9 +24,9 @@ strong.error {
 }
 
 #masterFileType input[type="radio"] {
-    margin-right: 10px; 
+    margin-right: 10px;
   }
-  
+
 
 /* Specifically nesting inputs so need to add this*/
 label>input {
@@ -324,7 +327,6 @@ div .module-attention {
 .radioButtonTitle {
     font-size: 15px;
     font-weight: 700;
-    background-color: blue;
 }
 
 .cd-data-pi {
@@ -363,12 +365,12 @@ ng-select-container .ng-select-choice>.ng-select-chosen {
     display:flex;
 }
 
-.visually-hidden { 
+.visually-hidden {
     border: 0;
     padding: 0;
     margin: 0;
     position: absolute !important;
-    height: 1px; 
+    height: 1px;
     width: 1px;
     overflow: hidden;
     clip: rect(1px 1px 1px 1px); /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */

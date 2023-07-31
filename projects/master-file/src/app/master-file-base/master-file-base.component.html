@@ -91,9 +91,9 @@
                                     [control]="masterFileForm.controls['notApplicable'] | formControl"
                                     controlId="notApplicableId" label="notApplicable"
                                     parentLabel="MasterFile Information"></control-messages>
-                          <input name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
+                          <input attr.aria-label= "{{'agent.not.applicable' | translate}}" name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
                             id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl" />
-                          <span><b>{{'not.applicable'|translate}}</b></span>
+                          <span aria-hidden="true"><b>{{'not.applicable'|translate}}</b></span>
                         </label>
                       </div>
                     </div>
