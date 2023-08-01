@@ -8,5 +8,5 @@ import {baseEnv as base} from './env';
 export const environment = {
   ...base,    // merge with base environment configs
   production: false,
-  lang: 'en',
+  lang: 'fr',
 };
