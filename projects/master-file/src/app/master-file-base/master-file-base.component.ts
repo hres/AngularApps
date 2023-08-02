@@ -262,6 +262,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
       this._transFeeErrors = [];
     }
+    this.processErrors();
   }
 
 
