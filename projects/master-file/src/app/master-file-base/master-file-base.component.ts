@@ -153,9 +153,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
 
     this.errorList = this.errorList.concat(this.__certficationErrors);
 
-    console.log('master file base');
-    console.log(this.errorList);
-
     this.cdr.detectChanges(); // doing our own change detection
   }
 
