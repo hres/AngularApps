@@ -215,9 +215,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       // when the action is triggered from the UI    
       // reset requestDate and requester fields values
       GlobalsService.resetControlValue(this.regulartoryFormModel.controls['requestDate'], this.regulartoryFormModel.controls['requester']);
-      this._saveData();
-
       this.trDescUpdated.emit(this.showContactFees);
+      this._saveData();
     }
   }
 
