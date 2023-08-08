@@ -38,7 +38,7 @@
                             controlId="{{addrType}}Address" label="addressDetails.street" parentId="{{addrType}}Info"
                             parentLabel="{{addrType}} Info"></control-messages>
           <input name="address" id="{{addrType}}Address" class="form-control full-width" (blur)="onblur()"
-            [formControl]="addressFormLocalModel.controls['address'] | formControl" maxlength="80"/>
+            [formControl]="addressFormLocalModel.controls['address'] | formControl" maxlength="250"/>
         </label>
       </div>
     </div>
