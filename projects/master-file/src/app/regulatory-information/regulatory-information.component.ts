@@ -52,7 +52,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
 
   showDateAndRequesterTxDescs: string[] = ['12', '13']; // Transaction Description values are defined in txDescriptions.json
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '13'];
-  noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
+  noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '13', '19'];
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder) {
     this.showFieldErrors = false;
