@@ -32,7 +32,7 @@ export class RegulatoryInformationService {
   txDescs$: Observable<ICodeDefinition[]>;
   mfTypeTxDescOptions$: Observable<IParentChildren[]>;
 
-  showDateAndRequesterTxDescs: string[] = ['12', '13', '14'];
+  showDateAndRequesterTxDescs: string[] = ['12', '13'];
 
   getMasterFileTypes(): Observable<ICodeAria[]> {
     this.mfTypeOptions$ = this._dataService

@@ -59,9 +59,9 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public holder: string = 'holder';
   public agent: string = 'agent';
 
-  showDateAndRequesterTxDescs: string[] = ['12', '13', '14'];
-  showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
-  noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
+  showDateAndRequesterTxDescs: string[] = ['12', '13'];
+  showDateAndRequesterOnlyTxDescs: string[] = ['12', '13'];
+  noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '13', '19'];
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
