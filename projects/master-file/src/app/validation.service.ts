@@ -20,6 +20,8 @@ export class ValidationService {
       'error.msg.phone': 'error.msg.phone',
       'error.msg.fax': 'error.msg.fax',
       'error.msg.email': 'error.msg.email',
+      'error.msg.account':'error.msg.account',
+      'error.msg.business':'error.msg.business',
       'minlength': `${this.translateService.instant('minlength')}${validatorValue.requiredLength}${this.translateService.instant('minlength.number')}`,
       'error.msg.postal': 'error.msg.postal',
       'error.msg.zip': 'error.msg.zip',
@@ -114,6 +116,28 @@ export class ValidationService {
       return null;
     } else {
       return {'error.msg.fax': true};
+    }
+  }
+
+  static accountNumberValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]*$/)) {
+      return null;
+    } else {
+      return {'error.msg.account': true};
+    }
+  }
+
+  static businessNumberValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]*$/)) {
+      return null;
+    } else {
+      return {'error.msg.business': true};
     }
   }
 
