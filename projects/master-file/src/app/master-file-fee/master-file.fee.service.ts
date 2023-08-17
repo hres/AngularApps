@@ -1,5 +1,6 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ValidationService } from '../validation.service';
 
 @Injectable()
 export class MasterFileFeeService {
@@ -18,8 +19,8 @@ export class MasterFileFeeService {
       areAccessLetters: [null, Validators.required],
       numOfAccessLetter: [null, [Validators.required]],
       whoResponsible: [null, [Validators.required]],
-      accountNumber: ['', [Validators.minLength(5)]],
-      businessNumber: ['', [Validators.minLength(9)]]
+      accountNumber: ['', [Validators.minLength(5), ValidationService.accountNumberValidator]],
+      businessNumber: ['', [Validators.minLength(9), ValidationService.businessNumberValidator]],
     });
   }
 

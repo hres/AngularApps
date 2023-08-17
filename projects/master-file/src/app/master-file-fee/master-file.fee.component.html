@@ -105,7 +105,8 @@
                             [showError]="showFieldErrors"
                             [control]="mfFeeFormLocalModel.controls['accountNumber'] | formControl"
                             controlId="accountNumber" label="account.num" parentId="mfFees"
-                            parentLabel="Master File Fees"  requiredLength="5"></control-messages>
+                            parentLabel="Master File Fees"  
+                            requiredLength="5"></control-messages>
           <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" data-only-digits
                  [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
@@ -116,7 +117,8 @@
                             [showError]="showFieldErrors"
                             [control]="mfFeeFormLocalModel.controls['businessNumber'] | formControl"
                             controlId="businessNumber" label="business.num" parentId="mfFees"
-                            parentLabel="Master File Fees" requiredLength="9"></control-messages>
+                            parentLabel="Master File Fees" 
+                            requiredLength="9"></control-messages>
           <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" data-only-digits
             [formControl]="mfFeeFormLocalModel.controls['businessNumber'] | formControl" maxlength="9" />
         </label>
