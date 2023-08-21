@@ -127,6 +127,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     
     this._contactConfirmError = contactConfirmTempError;
     this.__certficationErrors = certifTempErrors;
+    this.processErrors();
   }
 
 
