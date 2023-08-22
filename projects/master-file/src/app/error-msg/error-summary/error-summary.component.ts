@@ -125,7 +125,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
     this.resetErrorCount();
     //console.log(this.errors);
 
-    this.errorArray = GlobalsService.flattenArrays(GlobalsService.extractArraySubkeys(this.errors));
+    this.errorArray = GlobalsService.flattenArrays(GlobalsService.extractArraySubkeys(this.errors)); // This is to make it as one list
     //console.log(this.errorArray);
     //console.log(this.errorArray);
   }
