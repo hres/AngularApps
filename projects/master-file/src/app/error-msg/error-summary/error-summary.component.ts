@@ -92,10 +92,10 @@ export class ErrorSummaryComponent implements AfterViewInit {
 
       err.errorSummaryFlag = this.hiddenSummary;
 
-      if (err.controlId === 'hasMaterial') {
-        err.type = GlobalsService.errorSummleastOneRcd;
-        err.tableId = 'materialListTable';
-      }
+      // if (err.controlId === 'hasMaterial') {
+      //   err.type = GlobalsService.errorSummleastOneRcd;
+      //   err.tableId = 'materialListTable';
+      // }
       // Case 1: an error summary Component
       if (err.hasOwnProperty('type') &&
         (err.type === GlobalsService.errorSummClassName || err.type === GlobalsService.errorSummleastOneRcd)) {
