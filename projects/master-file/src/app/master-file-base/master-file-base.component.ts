@@ -105,6 +105,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.msgList.changes.subscribe(errorObjs => {
       let temp = [];
       this._updateErrorList(errorObjs);
+      this.processErrors();
     });
     this.msgList.notifyOnChanges();
   }
@@ -127,7 +128,6 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     
     this._contactConfirmError = contactConfirmTempError;
     this.__certficationErrors = certifTempErrors;
-    this.processErrors();
   }
 
 
