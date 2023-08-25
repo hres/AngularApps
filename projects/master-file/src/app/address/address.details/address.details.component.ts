@@ -182,17 +182,12 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
 
     if (this.countrySelected && this.countrySelected !== this.addressFormLocalModel.controls['country'].value) {
-      this.resetProvState();
+      this._resetProvState();
     }
 
     this.countrySelected = this.addressFormLocalModel.controls['country'].value;
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
       this.addressModel, this.countryList, this.provStateList);
-  }
-
-  private resetProvState() {
-    this.addressFormLocalModel.controls['provList'].reset()
-    this.addressFormLocalModel.controls['provText'].reset();
   }
 
 
@@ -274,6 +269,11 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     } else {
       this.postalPattern = null;
     }
+  }
+
+  private _resetProvState() {
+    this.addressFormLocalModel.controls['provList'].reset()
+    this.addressFormLocalModel.controls['provText'].reset();
   }
 }
 
