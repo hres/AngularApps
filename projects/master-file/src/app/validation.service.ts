@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import * as moment from 'moment';
 
 @Injectable()
 export class ValidationService {
@@ -25,6 +26,7 @@ export class ValidationService {
       'minlength': `${this.translateService.instant('minlength')}${validatorValue.requiredLength}${this.translateService.instant('minlength.number')}`,
       'error.msg.postal': 'error.msg.postal',
       'error.msg.zip': 'error.msg.zip',
+      'error.msg.date':'error.msg.date',
       'error.mgs.company.id': 'error.mgs.company.id',
       'error.mgs.contact.id': 'error.mgs.contact.id',
       'error.mgs.primary.company.id': 'error.mgs.primary.company.id',
@@ -296,6 +298,18 @@ export class ValidationService {
       return null;
     } else {
       return { 'error.mgs.incorrectFormat': true }; 
+    }
+  }
+
+  static dateValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+
+    if (moment(control.value, 'YYYY-MM-DD', true).isValid()) {
+      return null;
+    } else {
+      return { 'error.msg.date': true };
     }
   }
 }
