@@ -363,4 +363,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.masterFileForm.controls[controlName].reset();
     }
   }
+
+  checkDateValidity(event: any): void {
+    GlobalsService.checkInputValidity(event, this.masterFileForm.get('submitDate'), 'invalidDate');
+  }  
 }

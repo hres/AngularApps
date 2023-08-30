@@ -196,7 +196,7 @@
                     parentId="mfCertif" [control]="masterFileForm.controls['submitDate'] | formControl" controlId="submitDateId"
                     label="submitDate" parentLabel="MasterFile Certification"></control-messages>
                   <input name="submitDate" class="form-control" id="submitDateId" type="date" (blur)="processErrors()"
-                    [formControl]="masterFileForm.controls['submitDate'] | formControl" />
+                    [formControl]="masterFileForm.controls['submitDate'] | formControl" (input)="checkDateValidity($event)" /> 
                 </label>
               </div>
             </div>
