@@ -136,6 +136,7 @@
                     label="request.date" parentId="regulatoryInfo"
                     parentLabel="MasterFile Information"></control-messages>
                 <input id="requestDate" name="requestDate" type="date" class="form-control full-width" (blur)="onblur()"
+                    (input)="checkDateValidity($event)"
                     [formControl]="regulartoryFormModel.controls['requestDate'] | formControl"  />
             </label>
         </div>
