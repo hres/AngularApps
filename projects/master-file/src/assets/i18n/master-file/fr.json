@@ -54,7 +54,7 @@
   "error.msg.fax": "Ce format n'est pas valide",
   "error.msg.account": "Ce format n'est pas valide",
   "error.msg.business": "Ce format n'est pas valide",
-  "error.msg.date" : "Cette date n'est pas valide",
+  "error.msg.invalidDate": "Cette date n'est pas valide",
   "discard.changes": "fr_Discard Changes",
   "commmon.required.bracket": " (obligatoire)",
   "common.saveRevert": "fr_Please save or revert the record",

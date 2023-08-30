@@ -236,4 +236,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     this.txDescOptions = GlobalsService.filterParentChildrenArray(this.mfTypeDescArray, selectedMfTypeId);
   }
 
+  checkDateValidity(event: any): void {
+    GlobalsService.checkInputValidity(event, this.regulartoryFormModel.get('requestDate'), 'invalidDate');
+  }  
+
 }
