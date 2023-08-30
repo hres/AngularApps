@@ -105,6 +105,7 @@ export class ControlMessagesComponent implements OnChanges {
    * @returns {any}
    */
   get errorMessage() {
+    // console.log("controlName: "+GlobalsService.getControlName(this.control))
     for (let propertyName in this.control.errors) {
       this.currentError = propertyName;
       let errorMsg = `${this.translateService.instant(this.validationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]))}`;
