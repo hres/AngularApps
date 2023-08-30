@@ -332,6 +332,34 @@ export class GlobalsService {
     return controlName;
   }
 
+  public static displayFormControlInfo(control: AbstractControl) {
+    if (control) {
+      console.log('Form Control Name:', this.getControlName(control));
+      console.log('\tCurrent Value:', control.value);
+      console.log('\tValid:', control.valid);
+      console.log('\tInvalid:', control.invalid);
+      console.log('\tDirty:', control.dirty);
+      console.log('\tTouched:', control.touched);
+      console.log('\tErrors:', control.errors);
+      // ... other properties you might want to log
+    }
+  }
+
+  public static checkInputValidity(event: any, control: AbstractControl, errorMsgKey: string): void {
+    if (event.target.validity.badInput) {
+      if (errorMsgKey=='invalidDate') {
+        control.setErrors({ 'error.msg.invalidDate': true });
+      }
+      // ...
+    } else {
+      // clear up previous errors
+      control.setErrors(null);
+       // Recalculates the value and validation status of the control, eg trigger "Validators.required" validation
+      control.updateValueAndValidity();
+    }
+    // GlobalsService.displayFormControlInfo(control);
+  }  
+
 }
 
 // a mapping of form control to output data model

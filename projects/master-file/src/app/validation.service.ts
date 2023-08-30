@@ -37,6 +37,7 @@ export class ValidationService {
       'error.mgs.din': 'error.mgs.din',
       'error.mgs.npn': 'error.mgs.npn',
       'error.mgs.incorrectFormat': 'error.mgs.incorrectFormat',
+      'error.msg.invalidDate': 'error.msg.invalidDate',
     };
 
     return config[validatorName];
