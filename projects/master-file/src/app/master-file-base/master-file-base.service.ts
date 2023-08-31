@@ -9,7 +9,6 @@ import {
   IContact,
 } from '../models/transaction';
 import { GlobalsService } from '../globals/globals.service';
-import { ValidationService } from '../validation.service';
 
 @Injectable()
 export class MasterFileBaseService {
@@ -32,7 +31,7 @@ export class MasterFileBaseService {
       contactInfoConfirm: [null, Validators.required],
       certifyAccurateComplete: [null, Validators.required],
       fullName: [null, Validators.required],
-      submitDate: [null, [Validators.required, ValidationService.dateValidator]],
+      submitDate: [null, Validators.required],
       consentPrivacy: [null, Validators.required]
     });
   }

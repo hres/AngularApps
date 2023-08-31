@@ -108,7 +108,7 @@ export class RegulatoryInformationService {
      masterFileType: [null, Validators.required],
      masterFileUse: [null, Validators.required],
      descriptionType: [null, Validators.required],
-     requestDate: [null, [Validators.required, ValidationService.dateValidator]],
+     requestDate: [null, Validators.required],
      requester: [null, Validators.required],
    });
   }

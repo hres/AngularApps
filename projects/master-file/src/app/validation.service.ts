@@ -1,6 +1,5 @@
 import { Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import * as moment from 'moment';
 
 @Injectable()
 export class ValidationService {
@@ -302,15 +301,4 @@ export class ValidationService {
     }
   }
 
-  static dateValidator(control) {
-    if (!control.value) {
-      return null;
-    }
-
-    if (moment(control.value, 'YYYY-MM-DD', true).isValid()) {
-      return null;
-    } else {
-      return { 'error.msg.date': true };
-    }
-  }
 }
