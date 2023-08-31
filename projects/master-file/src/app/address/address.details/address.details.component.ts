@@ -48,6 +48,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   public showFieldErrors = false;
 
   private detailsService: AddressDetailsService;
+  private countrySelected = null;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
@@ -179,6 +180,12 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     // console.log(event);
     // this.addressFormLocalModel.controls['country'].setValue([event]);
     this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
+
+    if (this.countrySelected && this.countrySelected !== this.addressFormLocalModel.controls['country'].value) {
+      this._resetProvState();
+    }
+
+    this.countrySelected = this.addressFormLocalModel.controls['country'].value;
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
       this.addressModel, this.countryList, this.provStateList);
   }
@@ -262,6 +269,11 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     } else {
       this.postalPattern = null;
     }
+  }
+
+  private _resetProvState() {
+    this.addressFormLocalModel.controls['provList'].reset()
+    this.addressFormLocalModel.controls['provText'].reset();
   }
 }
 
