@@ -25,7 +25,6 @@ export class ValidationService {
       'minlength': `${this.translateService.instant('minlength')}${validatorValue.requiredLength}${this.translateService.instant('minlength.number')}`,
       'error.msg.postal': 'error.msg.postal',
       'error.msg.zip': 'error.msg.zip',
-      'error.msg.date':'error.msg.date',
       'error.mgs.company.id': 'error.mgs.company.id',
       'error.mgs.contact.id': 'error.mgs.contact.id',
       'error.mgs.primary.company.id': 'error.mgs.primary.company.id',
