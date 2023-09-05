@@ -131,7 +131,7 @@
                     <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
                                     [showError]="showErrors" parentId="mfContactInfoConfirm"
                                     [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
-                                    controlId="contactInfoConfirmId" label="contactInfoConfirm"
+                                    controlId="contactInfoConfirmId" label="info.confirmation"
                                     parentLabel="MasterFile Contact Info Confirmation"></control-messages>
                   </label>
                 </div>
@@ -167,7 +167,7 @@
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                   <control-messages *ngIf="masterFileForm.controls['certifyAccurateComplete'].invalid" [showError]="showErrors"
                     parentId="mfCertif" [control]="masterFileForm.controls['certifyAccurateComplete'] | formControl"
-                    controlId="certifyAccurateCompleteId" label="certifyAccurateComplete"
+                    controlId="certifyAccurateCompleteId" label="certify.info"
                     parentLabel="MasterFile Certification"></control-messages>
                 </label>
               </div>
@@ -214,7 +214,7 @@
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                   <control-messages *ngIf="masterFileForm.controls['consentPrivacy'].invalid" [showError]="showErrors"
                     parentId="mfCertif" [control]="masterFileForm.controls['consentPrivacy'] | formControl"
-                    controlId="consentPrivacyId" label="consentPrivacy"
+                    controlId="consentPrivacyId" label="consent.privacy"
                     parentLabel="MasterFile Certification"></control-messages>
                 </label>
               </div>
