@@ -22,7 +22,7 @@
   "transaction.description": "Transaction Description",
   "dossier.id": "Dossier Identifier ",
   "licence.number": "Licence Number",
-  "request.date": "Dated",
+  "request.date": "Date of Request",
   "requester.title": "Requester of solicited information",
   "panel.title.contactInfo": "Contact Information",
   "panel.title.fees": "Master File Fees",
