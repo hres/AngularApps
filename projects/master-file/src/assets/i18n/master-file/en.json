@@ -144,5 +144,6 @@
   "consentPrivacy": "Consent Privacy",
   "alert.info": "Alert information",
   "error":"Error ",
-  "agent.not.applicable":"Authorized Agent or Authorized Third Party Name and Address not applicable"
+  "agent.not.applicable":"Authorized Agent or Authorized Third Party Name and Address not applicable",
+  "postal.not.applicable":"(Use “not applicable” if not available)"
 }
