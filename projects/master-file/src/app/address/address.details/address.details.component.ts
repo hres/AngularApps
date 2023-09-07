@@ -142,6 +142,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
       if (!this.addressFormLocalModel)
         this.addressFormLocalModel = AddressDetailsService.getReactiveModel(this._fb);
       if (dataModel.country) {
+        this.countrySelected = dataModel.country.__text;
         this._setCountryState(dataModel.country._id, this.addressFormLocalModel);
       }
       AddressDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressFormLocalModel),
@@ -181,10 +182,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     // console.log(event);
     // this.addressFormLocalModel.controls['country'].setValue([event]);
     this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
-
-    if (this.countrySelected && this.countrySelected !== this.addressFormLocalModel.controls['country'].value) {
-      this._resetProvState();
-    }
+    this._resetProvState();
 
     this.countrySelected = this.addressFormLocalModel.controls['country'].value;
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
@@ -274,8 +272,10 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   private _resetProvState() {
-    this.addressFormLocalModel.controls['provList'].reset()
-    this.addressFormLocalModel.controls['provText'].reset();
+    if (this.countrySelected && this.countrySelected !== this.addressFormLocalModel.controls['country'].value) {
+      this.addressFormLocalModel.controls['provList'].reset()
+      this.addressFormLocalModel.controls['provText'].reset();
+    }
   }
 }
 
