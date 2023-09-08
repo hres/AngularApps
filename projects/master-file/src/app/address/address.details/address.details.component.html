@@ -118,7 +118,7 @@
           <input *ngIf="showProvText" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
                  maxlength="20" />
           <input *ngIf="!showProvText && postalCode" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
-                 maxlength="7" />
+                 maxlength="6" />
           <input *ngIf="!showProvText && zipCode" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
                  maxlength="5" data-only-digits/>
         </label>
