@@ -44,6 +44,8 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   public provinceLabel = 'addressDetails.province';
   public postalPattern: RegExp = null;
   public postalLabel = 'addressDetails.postalZipCode';
+  public postalCode = false;
+  public zipCode = false;
   
 
   public showFieldErrors = false;
@@ -260,14 +262,20 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
       this.postalLabel = 'addressDetails.postalCode';
       this.provinceLabel = 'addressDetails.province';
       this.postalPattern = /^(?!.*[DFIOQU])[A-VXYa-vxy][0-9][A-Za-z] ?[0-9][A-Za-z][0-9]$/;
+      this.postalCode = true;
+      this.zipCode = false;
     } else if (AddressDetailsService.isUsa(countryValue)) {
       this.postalPattern = /^[0-9]{5}(?:-[0-9]{4})?$/;
       this.postalLabel = 'addressDetails.zipCode';
       //  console.log("This is the postal label"+this.postalLabel);
       this.provinceLabel = 'addressDetails.state';
+      this.postalCode = false;
+      this.zipCode = true;
     } else {
       this.postalPattern = null;
       this.postalLabel = 'addressDetails.postalZipCode';
+      this.postalCode = false;
+      this.zipCode = false;
     }
   }
 
