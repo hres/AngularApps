@@ -3,16 +3,24 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
     "start demo": "ng run demo:serve --port 3000 -o",
     "start master-file": "ng serve --project=masterFile --port 3001 -o",
     "prod-masterFile-build": "npm run prod-masterFile-build-en & npm run prod-masterFile-build-fr",
     "prod-masterFile-build-en": "ng run masterFile:build:production-en & npm run updateBuild --language=en",
     "prod-masterFile-build-fr": "ng run masterFile:build:production-fr & npm run updateBuild --language=fr",
-    "updateBuild": "node ./projects/master-file/update.build.js"
+    "updateBuild": "node ./projects/master-file/update.build.js",
+    "start md-co": "npm-run-all clean --parallel lib:watch mdCO:start-waiton",
+    "build md-co": "run-s lib:build mdCO:build",
+    "test": "run-p lib:test mdCO:test",
+    "lib:build": "ng build @hpfb/sdk",
+    "lib:watch": "ng build @hpfb/sdk --watch --configuration development",
+    "lib:test": "ng test @hpfb/sdk",
+    "mdCO:start-waiton": "wait-on dist/hpfb/sdk/package.json && npm run mdCO:start",
+    "mdCO:start": "ng serve --project=md-co --port 3002 -o",
+    "mdCO:build": "ng build mdCO",
+    "mdCO:watch": "ng build mdCO --watch --configuration development",
+    "clean": "rimraf dist"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +56,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "ng-packagr": "^15.0.0",
     "typescript": "~4.8.2"
   }
 }

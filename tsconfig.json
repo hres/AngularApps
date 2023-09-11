@@ -9,6 +9,14 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
+    "paths": {
+      "@hpfb/sdk/*": [
+        "projects/hpfb/sdk/*"
+      ],
+      "@hpfb/sdk": [
+        "dist/hpfb/sdk"
+      ]
+    },
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
