@@ -1,0 +1,27 @@
+<div class="container-fluid">
+    <form name="MasterFileForm"  novalidate> 
+        <!-- [formGroup]="masterFileForm" -->
+      <div class="row mrgn-tp-md">
+        <div class="col-md-12">
+          <div class="text-right">
+            <span id="securityInfo" class="fa fa-shield fa-sm"><strong>&nbsp;{{'PROTECTED_B'|translate}}</strong></span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix group-beside">
+            <h2 class="panel-title">{{'load.file'|translate}}
+            </h2>
+            <sup id="tr1-rf">
+              <a class="fn-lnk" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>todo</a><!-- {{helpTextSequences.loadFileIndx}} -->
+            </sup>
+          </header>
+          <div class="panel-body"> 
+            <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText"></lib-file-reader>
+          </div>
+        </section>
+      </div>
+
+    </form>
+  </div>

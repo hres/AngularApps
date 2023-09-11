@@ -1,0 +1,1 @@
+export const MY_CONSTANT: string = 'This is a constant value';
