@@ -1,14 +1,19 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {MasterFileBaseService} from './master-file-base.service';
 // import {FileConversionService} from '../filereader/file-io/file-conversion.service';
 // import {ConvertResults} from '../filereader/file-io/convert-results';
 // import {GlobalsService} from '../globals/globals.service';
 // import {MasterFileDataLoaderService} from '../data-loader/master-file-data-loader.service';
-import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
 import { ConvertResults } from '@hpfb/sdk/ui/file-io/convert-results';
+import { CompanyDataLoaderService } from './company-data-loader.service';
+import { DataLoaderService } from '@hpfb/sdk/data-loader';
+import { ICode } from '@hpfb/sdk/data-loader/data';
+import { DATA_PATH } from '../app.constants';
+import { CompanyBaseService } from './company-base.service';
+import { Address, GeneralInformation } from '../models/Enrollment';
 // import { LifecycleRecord, Transaction } from '../models/transaction';
 // import { VersionService } from '../shared/version.service';
 // import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
@@ -19,77 +24,84 @@ import { ConvertResults } from '@hpfb/sdk/ui/file-io/convert-results';
   styleUrls: ['./form-base.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class FormBaseComponent implements OnInit, AfterViewInit { 
+export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
   @Input() isInternal;
   @Input() lang;
   @Input() helpTextSequences;
   // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  private _regulatoryInfoErrors = [];
-  private _transFeeErrors = [];
+  private _genInfoErrors = [];
   private _addressErrors = [];
   private _contactErrors = [];
-  private _agentAddressErrors = [];
-  private _agentContactErrors = [];
-  private _baseErrors = [];
-  private _contactConfirmError = [];
-  private __certficationErrors = [];
-  public masterFileForm: FormGroup; // todo: do we need it? could remove?
+  private _adminChangesErrors = [];
+  // private _primContactErrors = [];
+  public companyForm: FormGroup;
   public errorList = [];
+  public rootTagText = 'DEVICE_COMPANY_ENROL';
+  public isInternalSite = true;
+  public loadFileIndicator = 0;
+  public countryList: ICode[];
+  public provinceList = [];
+  public stateList = [];
+  public adminChanges = [];
+  public showAdminChanges: boolean;
   public showErrors: boolean;
-  public showContactFees: boolean[];
+  public title = '';
   public headingLevel = 'h2';
-  
-  public rootTagText = 'TRANSACTION_ENROL';
-  private appVersion: string;
-  private xslName: string;
+  public addressModel : Address;
+  public genInfoModel : GeneralInformation; 
+  // public contactModel = [];
+  // public adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
+  // public primContactModel = CompanyBaseService.getEmptyPrimarycontactModel();
+  public helpIndex = [] ; // todo CompanyBaseService.getHelpTextIndex();
+  // public foo = '';
+  // public fileServices: FileConversionService;
+  public saveXmlLabel = 'save.draft';
+  public mailToLabel = 'mailto.label';
+  public xslName = 'REP_MDS_CO_3_0.xsl';
+  public showMailToHelpText: boolean;
+  public mailToLink = '';
+  public activeContacts = [];
+  public hasContact = false;
 
-  // public transactionEnrollModel = MasterFileBaseService.getEmptyTransactionEnrol();
-  // public ectdModel = this.transactionEnrollModel.ectd;
-  // public holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-  // public agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-  // public holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
-  // public agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
-  // public countryList = [];
-  // public provinceList = [];
-  // public stateList = [];
-
-  // public transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
-  // public notApplicable: boolean = false;
-  // public holder: string = 'holder';
-  // public agent: string = 'agent';
-
-  // showDateAndRequesterTxDescs: string[] = ['12', '14'];
-  // showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
-  // noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
-
-  /* public customSettings: TinyMce.Settings | any;*/
   constructor(
-    private _fb: FormBuilder,
+    
     private cdr: ChangeDetectorRef,
-    // private dataLoader: MasterFileDataLoaderService,
-    private http: HttpClient,
-    private translate: TranslateService,
-    // private _versionService: VersionService, 
-    // private fileServices: FileConversionService
+    private dataLoader: CompanyDataLoaderService,
+    private _companyService: CompanyBaseService
   ) {
-    // dataLoader = new MasterFileDataLoaderService(this.http);
-
+    // dataLoader = new CompanyDataLoaderService(this.http);
     // this.countryList = [];
-    // this.provinceList = [];
-    // this.stateList = [];
-    // this.showErrors = false;
-    // this.showContactFees = [true, true];
-    // this.appVersion = this._versionService.getApplicationVersion();
-    // let xsltVersion = this.appVersion.split('.',2).join(".");
-    // this.xslName = GlobalsService.MASTER_FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
+    this.showAdminChanges = false;
+    this.showErrors = false;
+    this.showMailToHelpText = false;
+    // this.fileServices = new FileConversionService();
+
+    this.genInfoModel = _companyService.getEmptyGenInfoModel();
+    this.addressModel = _companyService.getEmptyAddressDetailsModel();
+
+    dataLoader.getCountryList().subscribe((data) => {
+      console.log(data);
+      this.countryList = data;
+    });
   }
 
   async ngOnInit() {
-    // if (!this.masterFileForm) {
-    //   this.masterFileForm = MasterFileBaseService.getReactiveModel(this._fb);
-    // }
+    if (!this.companyForm) {
+      this.companyForm = this._companyService.buildForm();
+    }
+
+
+    // .subscribe(
+    //   (response) => {
+    //     this.countries = response;
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching countries:', error);
+    //   }
+    // );
+
     // this.countryList = await this.dataLoader.getCountries(
     //   this.translate.currentLang
     // );
@@ -99,77 +111,55 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // this.stateList = await this.dataLoader.getStates(
     //   this.translate.currentLang
     // );
+    // console.log('isInternal in ngOnInit: ' + this.isInternal);
+    // if (this.isInternal === GlobalsService.NO) {
+    //   this.isInternalSite = false;
+    //   // console.log('isInternalSite in ngOnInit: ' + this.isInternalSite);
+    // } else {
+    //   this.saveXmlLabel = 'approve.final';
+    // }
   }
+
   ngAfterViewInit(): void {
     document.location.href = '#def-top';
-
-    // this.msgList.changes.subscribe(errorObjs => {
-    //   let temp = [];
-    //   this._updateErrorList(errorObjs);
-    //   this.processErrors();
-    // });
-    // this.msgList.notifyOnChanges();
+    document.location.href = '#main';
   }
 
-  private _updateErrorList(errorObjs) {
-    let certifTempErrors = [];
-    let contactConfirmTempError = [];
-    if (errorObjs) {
-      errorObjs.forEach(
-        error => {
-          // console.log(error);   
-          if (error.label === 'contactInfoConfirm') {
-            contactConfirmTempError.push(error);
-          } else {
-            certifTempErrors.push(error);
-          }
-        }
-      );
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['contactModel']) {
+      this._updateContactList(changes['primContactModel'].currentValue);
     }
-    
-    this._contactConfirmError = contactConfirmTempError;
-    this.__certficationErrors = certifTempErrors;
   }
 
+  private _updateContactList(contacts) {
+    this.activeContacts = contacts.filter(
+      (contact) =>
+        contact[status] === 'NEW' ||
+        contact[status] === 'REVISE' ||
+        contact[status] === 'ACTIVE'
+    );
+    this.hasContact = this.activeContacts && this.activeContacts.length > 0;
+  }
 
   processErrors() {
-    // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
+    // console.log('@@@@@@@@@@@@ Processing errors in Company base compo
     this.errorList = [];
-
-    // this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
-
-    // if (this.showContactFees[0] === true) {
-    //   this.errorList = this.errorList.concat(
-    //     this._addressErrors.concat(this._contactErrors)
-    //   );
-    //   if(!this.notApplicable)
-    //     this.errorList = this.errorList.concat(
-    //       this._agentAddressErrors.concat(this._agentContactErrors)
-    //     );
-    //   this.errorList = this.errorList.concat(this._contactConfirmError);
-    // }
-
-    // if (this.showContactFees[1] === true) {
-    //   this.errorList = this.errorList.concat(this._transFeeErrors);
-    // }
-
-    // this.errorList = this.errorList.concat(this.__certficationErrors);
-
+    // concat the error arrays
+    this.errorList = this._genInfoErrors.concat(
+      this._addressErrors.concat(
+        this._contactErrors.concat(this._adminChangesErrors)
+      )
+    );
     this.cdr.detectChanges(); // doing our own change detection
-  }
-
-  processRegulatoryInfoErrors(errorList) {
-    this._regulatoryInfoErrors = errorList;
-    this.processErrors();
-  }
-
-  processTransFeeErrors(errorList) {
-    this._transFeeErrors = errorList;
-    this.processErrors();
   }
 
   processAddressErrors(errorList) {
     this._addressErrors = errorList;
+    this.processErrors();
+  }
+
+  processGenInfoErrors(errorList) {
+    this._genInfoErrors = errorList;
     this.processErrors();
   }
 
@@ -178,195 +168,278 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processAgentAddressErrors(errorList) {
-    this._agentAddressErrors = errorList;
+  // processPrimContactErrors(errorList) {
+  //   this._primContactErrors = errorList;
+  //   this.processErrors();
+  // }
+
+  processAdminChangesErrors(errorList) {
+    this._adminChangesErrors = this.showAdminChanges ? errorList : [];
     this.processErrors();
   }
 
-  processAgentContactErrors(errorList) {
-    this._agentContactErrors = errorList;
-    this.processErrors();
+  processAdminChangesUpdate(adminChanges) {
+    // this.adminChanges = adminChanges;
+    // if (adminChanges && adminChanges.length > 0) {
+    // this.showAdminChanges = adminChanges[0];
+    // } else {
+    // this.showAdminChanges = false;
+    // }
+    // if (!this.showAdminChanges) {
+    // // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
+    // this.adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
+    // this.processAdminChangesErrors([]);
+    // }
   }
 
   public hideErrorSummary() {
     return this.showErrors && this.errorList && this.errorList.length > 0;
+    // if (!this.errorList) {
+    //   return false;
+    // }
+    // return this.errorList.length === 0;
+  }
+
+  public isExternalAndFinal() {
+    // return (!this.isInternalSite && this.genInfoModel.status === GlobalsService.FINAL);
+  }
+
+  // disable the mailto link for internal, or when it is external Final or when there are errors for the external
+  public disableMailtoLink() {
+    // return (this.isInternalSite || this.genInfoModel.status === GlobalsService.FINAL ||
+    // (this.errorList && this.errorList.length > 0) || !this.companyContacts.contactListForm.pristine);
   }
 
   public saveXmlFile() {
-    this.showErrors = true;
-    this.processErrors();
-    this._saveXML();  
+    this.showErrors = false;
+    if (this.errorList && this.errorList.length > 0) {
+      this.showErrors = true;
+      document.location.href = '#topErrorSummary';
+    } else {
+      // if (this.companyContacts.contactListForm.pristine) {
+      //   // .isPristine
+      //   this._updatedAutoFields();
+      //   if (this.isInternalSite) {
+      //     this.genInfoModel.status = CompanyBaseService.setFinalStatus();
+      //   }
+      //   const result = {
+      //     DEVICE_COMPANY_ENROL: {
+      //       general_information: this.genInfoModel,
+      //       address: this.addressModel,
+      //       contacts: {},
+      //       primary_contact: this.primContactModel,
+      //       administrative_changes: this.adminChangesModel,
+      //     },
+      //   };
+      //   if (this.contactModel && this.contactModel.length > 0) {
+      //     const cm = this._removeHcStatus(this.contactModel);
+      //     result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
+      //   }
+      //   const fileName = this._buildfileName();
+      //   this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
+      // } else {
+      //   if (this.lang === GlobalsService.ENGLISH) {
+      //     alert(
+      //       'Please save the unsaved input data before generating XML file.'
+      //     );
+      //   } else {
+      //     alert(
+      //       "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML."
+      //     );
+      //   }
+      // }
+    }
   }
 
   public saveWorkingCopyFile() {
-    const result = this._prepareForSaving(false);
-    const fileName = this._generateFileName();
+    // this._updatedSavedDate();
+    // let result = {
+    //   DEVICE_COMPANY_ENROL: {
+    //     general_information: this.genInfoModel,
+    //     address: this.addressModel,
+    //     contacts: {},
+    //     primary_contact: this.primContactModel,
+    //     administrative_changes: this.adminChangesModel,
+    //   },
+    // };
+    // if (this.contactModel && this.contactModel.length > 0) {
+    //   const cm = !this.isInternalSite
+    //     ? this._removeHcStatus(this.contactModel)
+    //     : this.contactModel;
+    //   result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
+    // }
+    // // result.DEVICE_COMPANY_ENROL.contacts =
+    // //   (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
+    // // const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
+    // const fileName = this._buildfileName();
     // this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
   public processFile(fileData: ConvertResults) {
-    console.log('processing file.....');
-    console.log(fileData);
-    // this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
-    // this.ectdModel = this.transactionEnrollModel.ectd;
-    
-    // if (this.ectdModel.lifecycle_record.sequence_description_value) {
-    //   this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
-    //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
-    //   this.showContactFees[1] = !this.noFeeTxDescs.includes(
-    //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
-    // }
-    // if (this.showContactFees[0] === true) {
-    //   this.holderAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_name_address;
-    //   this.holderContactModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_contact;
-    //   this.agentAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_name_address;
-    //   this.agentContactModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_contact;
-    // }
-    // if (this.showContactFees[1] === true) {
-    //   this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
+    this.loadFileIndicator++;
+    // console.log('processing file.....');
+    // console.log(fileData);
+    // this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;
+    // // set amend reasons and admin changes section to null if status is Final
+    // if (this.genInfoModel.status === GlobalsService.FINAL) {
+    //   this.genInfoModel.amend_reasons = {
+    //     manufacturer_name_change: '',
+    //     manufacturer_address_change: '',
+    //     facility_change: '',
+    //     contact_change: '',
+    //     other_change: '',
+    //     other_details: '',
+    //   };
+    // this.genInfoModel.are_licenses_transfered = '';
     // }
 
-    // MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
-    this.agentInfoOnChange();
+    // this._updateAdminChanges();
+    // if (fileData.data.DEVICE_COMPANY_ENROL.administrative_changes) {
+    //   this.adminChangesModel =
+    //     fileData.data.DEVICE_COMPANY_ENROL.administrative_changes;
+    // }
+
+    // this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
+    // this.primContactModel = fileData.data.DEVICE_COMPANY_ENROL.primary_contact;
+    // const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts.contact;
+    // if (cont) {
+    //   this.contactModel = cont instanceof Array ? cont : [cont];
+    //   this.contactModelUpdated(this.contactModel);
+    // } else {
+    //   this.contactModel = [];
+    // }
+    // if (this.isInternalSite) {
+    //   // once load data files on internal site, lower components should update error list and push them up
+    //   this.showErrors = true;
+    // }
   }
 
-  private _updateSavedDate() {
+  // private _updatedAutoFields() {
+  //   this._updatedSavedDate();
+  //   if (this.isInternalSite) {
+  //     this.genInfoModel.status = CompanyBaseService.setFinalStatus();
+  //     this.genInfoModel.enrol_version =
+  //       (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() +
+  //       '.0';
+  //   } else {
+  //     const version: Array<any> = this.genInfoModel.enrol_version.split('.');
+  //     version[1] = (Number(version[1]) + 1).toString();
+  //     this.genInfoModel.enrol_version = version[0] + '.' + version[1];
+  //   }
+  // }
+
+  private _updatedSavedDate() {
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    // this.transactionEnrollModel.date_saved = pipe.transform(
-    //   today,
-    //   'yyyy-MM-dd-hhmm'
-    // );
+    // this.genInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd');
   }
 
-  private _updateSoftwareVersion() {
-    // this.transactionEnrollModel.software_version = this.appVersion;
+  private _removeHcStatus(contacts) {
+    const cts = contacts.map(function (item) {
+      delete item.hc_status;
+      return item;
+    });
+    return cts;
   }
 
-  public preload() {
-    // console.log("Calling preload")
+  public updateChild() {
+    // console.log("Calling updateChild")
   }
 
-  public setShowContactFeesFlag(flag) {
-    this.showContactFees = flag;
-
-    // if (this.showContactFees[0] === false) {
-    //   this.holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-    //   this.holderContactModel = MasterFileBaseService.getEmptyContactModel();
-    //   this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-    //   this.agentContactModel = MasterFileBaseService.getEmptyContactModel();
-    //   this._addressErrors = [];
-    //   this._agentAddressErrors = [];
-    //   this._contactErrors = [];
-    //   this._agentContactErrors = [];
+  private _buildfileName() {
+    // const version: Array<any> = this.genInfoModel.enrol_version.split('.');
+    const today = new Date();
+    const pipe = new DatePipe('en-US');
+    const date_generated = pipe.transform(today, 'yyyyMMddHHmm');
+    // if (this.isInternalSite) {
+    //   return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
+    // } else if (this.genInfoModel.status === GlobalsService.AMEND) {
+    //   return 'draft-com-' + this.genInfoModel.company_id + '-' + date_generated;
+    // } else {
+    //   return 'draft-com-' + date_generated;
     // }
-    // if (this.showContactFees[1] === false) {
-    //   this.transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
-    //   this._transFeeErrors = [];
-    // }
-    this.processErrors();
   }
 
-
+  /*
+   * update adminChanges to show the text info in the adminChanges component
+   */
+  private _updateAdminChanges() {
+    // this.adminChanges[1] =
+    //   this.genInfoModel.amend_reasons.manufacturer_name_change ===
+    //   GlobalsService.YES;
+    // this.adminChanges[2] =
+    //   this.genInfoModel.amend_reasons.manufacturer_address_change ===
+    //   GlobalsService.YES;
+    // this.adminChanges[3] =
+    //   this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES;
+    // this.adminChanges[0] =
+    //   this.genInfoModel.are_licenses_transfered === GlobalsService.YES ||
+    //   this.adminChanges[1] ||
+    //   this.adminChanges[2] ||
+    //   this.adminChanges[3];
+  }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     $event.returnValue = true;
   }
 
-  _saveXML() {
-    if (this.errorList && this.errorList.length < 1) {
-      const result = this._prepareForSaving(true);
-      const fileName = this._generateFileName();
-      
-      console.log('save ...');
-      // this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
-      return;
-    }
-    document.location.href = '#topErrorSummaryId';
-  }
-
-  private _prepareForSaving(finalFile: boolean): any {    //  TODO: to return proper data type
-    if (finalFile) {
-      // this.masterFileModel.enrol_version = this.masterFileModel.enrol_version; // todo do we need the enrol_version field?
-    }
-
-    this._updateSavedDate();
-    this._updateSoftwareVersion();
-    
-    // if (this.ectdModel.lifecycle_record.sequence_description_value) {
-    //   this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
-    //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
-    //   this.showContactFees[1] = !this.noFeeTxDescs.includes(
-    //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
-    // }
-    // if (this.showContactFees[0] === true) {
-    //   this.transactionEnrollModel.contact_info = MasterFileBaseService.getEmptyContactInfo();
-    //   this.transactionEnrollModel.contact_info.holder_name_address = this.holderAddressModel;
-    //   this.transactionEnrollModel.contact_info.holder_contact = this.holderContactModel;
-    //   this.transactionEnrollModel.contact_info.agent_name_address = this.agentAddressModel;
-    //   this.transactionEnrollModel.contact_info.agent_contact = this.agentContactModel;
-    //   this.transactionEnrollModel.contact_info.contact_info_confirm =
-    //     this.masterFileForm.controls['contactInfoConfirm'].value;
-    //   this.transactionEnrollModel.contact_info.agent_not_applicable = this.notApplicable;
+  public mailto() {
+    this.showMailToHelpText = true;
+    // const emailSubject =
+    //   'Draft CO XML - ' +
+    //   this.addressModel.company_name +
+    //   ' ' +
+    //   (this.genInfoModel.company_id === null
+    //     ? ''
+    //     : this.genInfoModel.company_id);
+    // let emailAddress;
+    // let body =
+    //   'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
+    // if (
+    //   this.genInfoModel.are_licenses_transfered === GlobalsService.YES ||
+    //   this.genInfoModel.amend_reasons.manufacturer_name_change ===
+    //     GlobalsService.YES ||
+    //   this.genInfoModel.amend_reasons.manufacturer_address_change ===
+    //     GlobalsService.YES ||
+    //   this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES
+    // ) {
+    //   emailAddress = 'qs.mdb@hc-sc.gc.ca';
     // } else {
-    //   this.transactionEnrollModel.contact_info = null;
+    //   emailAddress = 'devicelicensing-homologationinstruments@hc-sc.gc.ca';
     // }
-    // if (this.showContactFees[1] === true) {
-    //   this.transactionEnrollModel.fee_details = this.transFeeModel;
-    // } else {
-    //   this.transactionEnrollModel.fee_details = null;
-    // }
+    // todo: add more body text
 
-    // this.transactionEnrollModel.certify_accurate_complete =
-    //   this.masterFileForm.controls['certifyAccurateComplete'].value;
-    // this.transactionEnrollModel.full_name =
-    //   this.masterFileForm.controls['fullName'].value;
-    // this.transactionEnrollModel.submit_date =
-    //   this.masterFileForm.controls['submitDate'].value;
-    // this.transactionEnrollModel.consent_privacy = 
-    //   this.masterFileForm.controls['consentPrivacy'].value;
-
-
-    // const result: Transaction = {
-      // TRANSACTION_ENROL: this.transactionEnrollModel,
-    // };
-
-    // console.log('_prepareForSaving ~ result', JSON.stringify(result));
-
-    // return result;
-    return null;
+    // this.mailToLink =
+    //   'mailto:' + emailAddress + '?subject=' + emailSubject + '&body=' + body;
   }
 
-  private _generateFileName(): string {
-    let fileName = "todo";
-      // GlobalsService.MASTER_FILE_OUTPUT_PREFIX + "-" + 
-      // this.transactionEnrollModel.ectd.dossier_id +
-      // '-' +
-      // this.transactionEnrollModel.date_saved;
-    return fileName;
+  /*
+   * update adminChanges to show the text info in the adminChanges component
+   */
+  public mailtoQS() {
+    // return (
+    //   this.genInfoModel.are_licenses_transfered === GlobalsService.YES ||
+    //   this.genInfoModel.amend_reasons.manufacturer_name_change ===
+    //     GlobalsService.YES ||
+    //   this.genInfoModel.amend_reasons.manufacturer_address_change ===
+    //     GlobalsService.YES ||
+    //   this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES
+    // );
   }
 
-  public agentInfoOnChange() {
-    // this.notApplicable = this.masterFileForm.controls['notApplicable'].value;
-    // // console.log ("this.notApplicable=",this.notApplicable, typeof this.notApplicable);
-
-    // if (this.notApplicable) {
-    //   this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-    //   this.agentContactModel = MasterFileBaseService.getEmptyContactModel();
-    //   this._agentAddressErrors = null;
-    //   this._agentContactErrors = null;
-    // }
-
-    this.processErrors();
-  }
-  
-  public onChanged(e, controlName) {
-    if (e?.target?.checked === false) {
-      this.masterFileForm.controls[controlName].reset();
+  contactModelUpdated(contacts) {
+    const cntList = contacts.filter(
+      (contact) =>
+        contact.status._id === 'NEW' ||
+        contact.status._id === 'REVISE' ||
+        contact.status._id === 'ACTIVE'
+    );
+    this.activeContacts = [];
+    if (cntList) {
+      cntList.forEach((contact: any) => {
+        this.activeContacts.push(contact.full_name);
+      });
     }
+    this.hasContact = this.activeContacts && this.activeContacts.length > 0;
   }
-
-  checkDateValidity(event: any): void {
-    // GlobalsService.checkInputValidity(event, this.masterFileForm.get('submitDate'), 'invalidDate');
-  }  
 }

@@ -1,5 +1,5 @@
 export const ROOT_TAG: string = 'DEVICE_COMPANY_ENROL';
-// export const FRENCH: string = 'fr';
-// export const YES: string = 'yes';
-// export const NO: string = 'no';
-// export const FINAL: string = 'FINAL';
+export const DATA_PATH: string = './assets/data/';
+export const NEW:string='NEW';
+export const AMEND:string='AMEND';
+export const FINAL:string='FINAL';

@@ -1,6 +1,5 @@
 <div class="container-fluid">
-    <form name="MasterFileForm"  novalidate> 
-        <!-- [formGroup]="masterFileForm" -->
+  <form name="companyForm" [formGroup]="companyForm" novalidate>
       <div class="row mrgn-tp-md">
         <div class="col-md-12">
           <div class="text-right">
@@ -22,6 +21,157 @@
           </div>
         </section>
       </div>
+
+      <!-- <div id="topErrorSummary">
+        <error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+                     headingPreamble="errorSummary.company"></error-summary>
+      </div> -->
+
+      <div>
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <h2 class="panel-title">{{'heading.company'|translate}}
+              <sup id="co2-rf">
+                <!-- <a class="fn-lnk" href="#co2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.compREPInx}}</a> -->
+              </sup>
+            </h2>
+          </header>
+          <div class="panel-body">
+
+            <!-- <com-gen-info [showErrors]="showErrors" [isInternal]="isInternalSite"
+                               [lang]="lang"
+                              [genInfoModel]="genInfoModel"
+                              [helpTextSequences]="helpIndex"
+                              (showAdminChanges)="processAdminChangesUpdate($event)"
+                              (errorList)="processGenInfoErrors($event)">
+            </com-gen-info> -->
+            <!-- todo [detailsChanged]="updateChild" -->
+
+            <div>
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.addressInfo'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                  <!-- <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
+                                    [provinceList]="provinceList"
+                                   [addressModel]="addressModel" [stateList]="stateList"
+                                   [helpTextSequences]="helpIndex"
+                                   (errorList)="processAddressErrors($event)"></address-details> -->
+                   <!-- todo [detailsChanged]="updateChild" --> 
+                </div>
+              </section>
+            </div>
+
+            <div>
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <div class="btn-group pull-right">
+                   <!-- <button title="{{::'ADDRESS_INSTRUCT'|translate}}"
+                            class="btn-xs rep-help-button-primary"
+                            id="address-instructions-toggle" ng-click="main.addInstruct(3)"><span
+                      class="fa fa-question-circle fa-2x"></span><span class="wb-inv">"{{::'ADDRESS_INSTRUCT'|translate}}"</span>
+                    </button>-->
+                  </div>
+                  <h3 class="panel-title">{{'heading.contactInfo'|translate}}
+                    <!--<sup id="co3-rf">-->
+                      <!--<a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>-->
+                    <!--</sup>-->
+                  </h3>
+                </header>
+                <div class="panel-body">
+                  <!-- <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
+                                 [loadFileIndicator]="loadFileIndicator" [lang]="lang"
+                                 [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status"
+                                 [showErrors]="showErrors" [contactModel]="contactModel"
+                                 (contactsUpdated)="contactModelUpdated($event)"></contact-list> -->
+                </div>
+              </section>
+              </div>
+            </div>
+        </section>
+      </div>
+
+      <div>
+        <section class="panel  panel-default">
+          <header class="panel-heading clearfix">
+            <h3 class="panel-title">{{'contact.designation'|translate}}
+              <!--<sup id="co5-rf">-->
+                <!--<a class="fn-lnk" href="#co5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.primaryConInx}}</a>-->
+              <!--</sup>-->
+            </h3>
+          </header>
+          <div class="panel-body">
+            <!-- <primary-contact [lang]="lang"
+                             [detailsChanged]="updateChild"
+                             [primContactModel]="primContactModel"
+                             [activeContactList]="activeContacts"
+                             [helpTextSequences]="helpIndex"></primary-contact> -->
+          </div>
+        </section>
+      </div>
+
+      <div *ngIf="showAdminChanges">
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <div class="btn-group pull-right">
+            </div>
+            <h2 class="panel-title">{{'admin.changes'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <div class="row">
+              <!-- <comp-admin-changes [showErrors]="showErrors" [showAdminChanges]="adminChanges" [lang]="lang"
+                                  [detailsChanged]="updateChild" [isInternal]="isInternalSite"
+                                  [adminChangesModel]="adminChangesModel"
+                                  [helpTextSequences]="helpIndex"
+                                  (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes> -->
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+    <div class="row btn-group-sm">
+      <div class="form-group col-md-4">
+        <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" >
+          {{'save.working.copy'|translate}}
+        </button>
+      </div>
+      <div class="form-group col-md-4">
+        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()"
+                [disabled]="isExternalAndFinal()" >
+          {{saveXmlLabel|translate}}
+        </button>
+      </div>
+      <div class="form-group col-md-4" *ngIf="!isInternalSite">
+        <a class="btn btn-primary btn-lg active" [href] = "mailToLink" (click)="mailto()"
+           [class.disabled]="disableMailtoLink()" >
+          {{'mailto.label'|translate}}
+        </a>
+      </div>
+    </div>
+    <!-- <div class="row" *ngIf="showMailToHelpText">
+      <div class="col-xs-12 form-group well">
+        <p>{{'mailto.label'|translate}}</p>
+
+        <p>{{'mailto.01'|translate}}</p>
+        <p>{{'mailto.02'|translate}}</p>
+        <p>{{'mailto.03'|translate}}</p>
+        <br>
+        <b><p *ngIf="!mailtoQS()">
+          {{'mailto.04'|translate}}
+        </p>
+          <p *ngIf="mailtoQS()">
+            {{'mailto.04a'|translate}}
+          </p>
+          <p>{{'mailto.05'|translate}}</p>
+          <p>{{'mailto.06'|translate}}</p>
+          <p>{{'mailto.07'|translate}}</p>
+        </b>
+      </div>
+    </div> -->
+    <!--pre> myForm valid{{myForm.valid}}</pre>
+    <pre> myForm{{myForm.value |json}}</pre-->
 
     </form>
   </div>

@@ -51,7 +51,7 @@ export interface Contact {
 export interface GeneralInformation {
   status:                  string;
   enrol_version:           string;
-  last_saved_date:         Date;
+  last_saved_date:         string;
   company_id:              string;
   amend_reasons:           AmendReasons;
   are_licenses_transfered: string;
