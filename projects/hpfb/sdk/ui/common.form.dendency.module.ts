@@ -7,4 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
   declarations: [],
   exports: [FormsModule, ReactiveFormsModule, TranslateModule],
 })
-export class SharedModule {}
+export class CommonFormDendencyModule {}
+
+// this class contains all required libraries to build reactive forms with language translations

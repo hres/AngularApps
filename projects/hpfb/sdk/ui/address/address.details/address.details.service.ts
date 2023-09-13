@@ -1,6 +1,6 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { CANADA, USA } from '../../commom.constants';
+import { CANADA, USA } from '../../common.constants';
 import { ValidationService, UtilsService } from '../../public-api';
 // import {TheraClassService} from '../../therapeutic/therapeutic-classification/thera-class.service';
 // import {GlobalsService} from '../../globals/globals.service';

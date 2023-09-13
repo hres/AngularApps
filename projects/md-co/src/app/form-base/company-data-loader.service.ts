@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { FRENCH } from '@hpfb/sdk/ui/commom.constants';
+import { FRENCH } from '@hpfb/sdk/ui/common.constants';
 import { DATA_PATH } from '../app.constants';
 import { DataLoaderService } from '@hpfb/sdk/data-loader';
 import { ICode } from '@hpfb/sdk/data-loader/data';

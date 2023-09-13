@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CANADA, NO, USA, YES } from '../commom.constants';
+import { CANADA, NO, USA, YES } from '../common.constants';
 
 @Injectable()
 export class UtilsService {

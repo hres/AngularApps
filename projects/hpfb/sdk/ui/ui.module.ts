@@ -8,10 +8,11 @@ import { AddressDetailsComponent } from './address/address.details/address.detai
 import { AddressDetailsService } from './address/address.details/address.details.service';
 import { UtilsService } from './utils/utils.service';
 import { FormControlPipe } from './pipes/form-control.pipe';
+import { CommonFormDendencyModule } from './common.form.dendency.module';
 
 @NgModule({
   declarations: [LayoutComponent, AddressDetailsComponent, ExpanderComponent, GreeterComponent, FormControlPipe],
-  imports: [CommonModule, FileIoModule],
+  imports: [CommonModule, CommonFormDendencyModule, FileIoModule],
   providers: [AddressDetailsService, UtilsService],
   exports: [LayoutComponent, AddressDetailsComponent, ExpanderComponent, GreeterComponent, FileIoModule, FormControlPipe],
 })
