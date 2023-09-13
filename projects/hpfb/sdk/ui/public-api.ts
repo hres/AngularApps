@@ -1,3 +1,4 @@
+// export * from './address/address.details/address.details.component';
 export * from './expander/expander.component';
 export * from './file-io/greeter/greeter.component';
 export * from './layout/layout.component';
@@ -8,5 +9,8 @@ export * from './commom.constants';
 export * from './utils/utils.service';
 export * from './validation/validation.service';
 export * from './pipes/form-control.pipe';
+
+export * from './address/address.details/address.details.component';
+
 export * from './ui.module';
 

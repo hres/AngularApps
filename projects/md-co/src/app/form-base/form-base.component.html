@@ -38,13 +38,13 @@
           </header>
           <div class="panel-body">
 
-            <!-- <com-gen-info [showErrors]="showErrors" [isInternal]="isInternalSite"
+            <com-gen-info [showErrors]="showErrors" [isInternal]="isInternalSite"
                                [lang]="lang"
                               [genInfoModel]="genInfoModel"
                               [helpTextSequences]="helpIndex"
                               (showAdminChanges)="processAdminChangesUpdate($event)"
                               (errorList)="processGenInfoErrors($event)">
-            </com-gen-info> -->
+            </com-gen-info>
             <!-- todo [detailsChanged]="updateChild" -->
 
             <div>
@@ -53,11 +53,11 @@
                   <h3 class="panel-title">{{'heading.addressInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-                  <!-- <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
+                  <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
                                     [provinceList]="provinceList"
                                    [addressModel]="addressModel" [stateList]="stateList"
                                    [helpTextSequences]="helpIndex"
-                                   (errorList)="processAddressErrors($event)"></address-details> -->
+                                   (errorList)="processAddressErrors($event)"></address-details>
                    <!-- todo [detailsChanged]="updateChild" --> 
                 </div>
               </section>

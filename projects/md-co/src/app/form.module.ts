@@ -8,9 +8,10 @@ import { SharedModule } from './shared/shared.module';
 import { CompanyDataLoaderService } from './form-base/company-data-loader.service';
 import { CompanyBaseService } from './form-base/company-base.service';
 import { CompanyInfoService } from './company-info/company.info.service';
+import { CompanyInfoComponent } from './company-info/company.info.component';
 
 @NgModule({
-  declarations: [FormBaseComponent],
+  declarations: [FormBaseComponent, CompanyInfoComponent],
   imports: [
     CommonModule,
     TranslateModule,
