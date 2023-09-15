@@ -1,6 +1,6 @@
 <div class="container-fluid" [formGroup]="contactRecordModel" *ngIf="contactRecordModel">
   <h4>{{'heading.contactDetails'| translate}}&nbsp;{{sequenceNum}}</h4>
-  <!-- <error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
+  <!-- <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.contactRecord"
                  [headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactRec"></error-summary> -->
   <contact-details [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang"

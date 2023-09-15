@@ -11,9 +11,8 @@ import {ContactListService} from './contact-list.service';
 import {ListOperations} from '../../list-operations';
 import {TranslateService} from '@ngx-translate/core';
 import { CompanyContactRecordService } from '../company-contact-record/company-contact-record.service';
-import { errorSummClassName } from '@hpfb/sdk/ui';
+import { errorSummClassName, ExpanderComponent } from '@hpfb/sdk/ui';
 
-//  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
   selector: 'contact-list',
   templateUrl: './contact.list.component.html',
