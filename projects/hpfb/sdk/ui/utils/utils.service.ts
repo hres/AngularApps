@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CANADA, NO, USA, YES } from '../common.constants';
+import { CANADA, FRENCH, NO, USA, YES } from '../common.constants';
 
 @Injectable()
 export class UtilsService {
@@ -49,6 +49,10 @@ export class UtilsService {
       updatedValue = value;
     }
     return (updatedValue === USA);
+  }
+
+  static isFrench(lang: string): boolean {
+    return lang === FRENCH;
   }
 
 }

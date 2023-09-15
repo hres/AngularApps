@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {MasterFileBaseService} from './master-file-base.service';
 // import {FileConversionService} from '../filereader/file-io/file-conversion.service';
 // import {ConvertResults} from '../filereader/file-io/convert-results';
-// import {GlobalsService} from '../globals/globals.service';
 // import {MasterFileDataLoaderService} from '../data-loader/master-file-data-loader.service';
 import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
@@ -14,6 +13,7 @@ import { ICode } from '@hpfb/sdk/data-loader/data';
 import { DATA_PATH } from '../app.constants';
 import { CompanyBaseService } from './company-base.service';
 import { Address, GeneralInformation } from '../models/Enrollment';
+import { NO } from '@hpfb/sdk/ui';
 // import { LifecycleRecord, Transaction } from '../models/transaction';
 // import { VersionService } from '../shared/version.service';
 // import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
@@ -51,7 +51,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public headingLevel = 'h2';
   public addressModel : Address;
   public genInfoModel : GeneralInformation; 
-  // public contactModel = [];
+  public contactModel = [];
   // public adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
   // public primContactModel = CompanyBaseService.getEmptyPrimarycontactModel();
   public helpIndex = [] ; // todo CompanyBaseService.getHelpTextIndex();
@@ -111,13 +111,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // this.stateList = await this.dataLoader.getStates(
     //   this.translate.currentLang
     // );
-    // console.log('isInternal in ngOnInit: ' + this.isInternal);
-    // if (this.isInternal === GlobalsService.NO) {
-    //   this.isInternalSite = false;
-    //   // console.log('isInternalSite in ngOnInit: ' + this.isInternalSite);
-    // } else {
-    //   this.saveXmlLabel = 'approve.final';
-    // }
+    console.log('isInternal in ngOnInit: ' + this.isInternal);
+    if (this.isInternal === NO) {
+      this.isInternalSite = false;
+      // console.log('isInternalSite in ngOnInit: ' + this.isInternalSite);
+    } else {
+      this.saveXmlLabel = 'approve.final';
+    }
   }
 
   ngAfterViewInit(): void {
