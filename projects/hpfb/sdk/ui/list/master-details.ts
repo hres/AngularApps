@@ -1,5 +1,7 @@
 import { FormGroup } from '@angular/forms';
 
+// todo rename the class to ??
+
 export interface IMasterDetails {
   deleteModelRecord(id: number);
   getModelRecordList();

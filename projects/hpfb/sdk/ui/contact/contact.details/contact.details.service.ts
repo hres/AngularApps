@@ -1,9 +1,9 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import {ListService} from '../../list-service';
-import { ENGLISH } from '@hpfb/sdk/ui';
-
+import { UtilsService} from '../../utils/utils.service';
+import { ValidationService } from '../../validation/validation.service';
+import { ListService } from '../../list/list-service';
+import { ENGLISH } from '../../common.constants';
 
 @Injectable()
 export class ContactDetailsService {
@@ -105,7 +105,7 @@ export class ContactDetailsService {
     contactModel.contact_id = formRecord.controls['contactId'].value;
     if (formRecord.controls['status'].value) {
       const statList = this._convertListText(this.statusListInternal, this.lang);
-      const recordIndex = ListService.getRecord(statList, formRecord.controls['status'].value, 'id');
+      const recordIndex = ListService.getRecord(statList, formRecord.controls['status'].value, 'id');     //todo ListService is abstract, is it right to call its method like this?
       if (recordIndex > -1) {
         contactModel.status = {
           '__text': statList[recordIndex].text,

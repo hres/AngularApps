@@ -3,15 +3,16 @@ import {
   AfterViewInit, DoCheck, ViewEncapsulation
 } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-
+import {TranslateService} from '@ngx-translate/core';
 // import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
 // import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
 // import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {ContactListService} from './contact-list.service';
-import {ListOperations} from '../../list-operations';
-import {TranslateService} from '@ngx-translate/core';
+import { ListOperations } from '../../list/list-operations';
+
 import { CompanyContactRecordService } from '../company-contact-record/company-contact-record.service';
-import { errorSummClassName, ExpanderComponent } from '@hpfb/sdk/ui';
+import { errorSummClassName } from '../../common.constants';
+import {ExpanderComponent} from '../../expander/expander.component';
 
 @Component({
   selector: 'contact-list',

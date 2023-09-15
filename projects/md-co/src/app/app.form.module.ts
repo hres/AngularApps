@@ -7,7 +7,6 @@ import { CompanyDataLoaderService } from './form-base/company-data-loader.servic
 import { CompanyBaseService } from './form-base/company-base.service';
 import { CompanyInfoService } from './company-info/company.info.service';
 import { CompanyInfoComponent } from './company-info/company.info.component';
-import { ContactModule } from './contact/contact.module';
 
 @NgModule({
   declarations: [FormBaseComponent, CompanyInfoComponent],
@@ -15,8 +14,7 @@ import { ContactModule } from './contact/contact.module';
     CommonModule,
     InformationModule,
     UiModule,
-    CommonFormDendencyModule,
-    ContactModule
+    CommonFormDendencyModule
   ],
   providers:[CompanyDataLoaderService, CompanyBaseService, CompanyInfoService],
   exports: [FormBaseComponent, InformationModule],
