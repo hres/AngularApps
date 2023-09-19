@@ -2,31 +2,4 @@
 <p class="pagetag">
     <strong [innerHTML]="'top.fromHC' | translate"></strong>
 </p>
-
-<lib-layout>
-    <div header><section class="module-attention">
-        <details>
-            <summary class="background-medium">{{ "top.privacy.statement" | translate }}</summary>
-            <app-privacy-statement [lang]="language"></app-privacy-statement>
-        </details>
-    
-    </section>
-    
-    <div class="module-attention">
-        <details>
-            <summary class="background-medium">{{ "top.security.declaimer" | translate }}</summary>
-            <app-security-disclaimer [lang]="language"></app-security-disclaimer>
-        </details>
-    </div>
-    
-    <section class="module-attention">
-        <details>
-            <summary class="background-medium">{{ "top.instruction" | translate }}</summary>
-    
-    
-            <!-- <app-instruction [helpTextSequences]="helpIndex" [lang]="language"></app-instruction> -->
-    
-        </details>
-    </section></div>
-    <div body><app-form-base [helpTextSequences]="helpIndex" [lang]="language"></app-form-base></div>
-</lib-layout>
+<router-outlet></router-outlet>

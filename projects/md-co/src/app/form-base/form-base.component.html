@@ -22,10 +22,10 @@
         </section>
       </div>
 
-      <!-- <div id="topErrorSummary">
+      <div id="topErrorSummary">
         <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-                     headingPreamble="errorSummary.company"></error-summary>
-      </div> -->
+                     headingPreamble="errorSummary.company"></lib-error-summary>
+      </div>
 
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
@@ -39,13 +39,13 @@
           <div class="panel-body">
 
             <com-gen-info [showErrors]="showErrors" [isInternal]="isInternalSite"
-                               [lang]="lang"
+                              [lang]="lang"
                               [genInfoModel]="genInfoModel"
                               [helpTextSequences]="helpIndex"
                               (showAdminChanges)="processAdminChangesUpdate($event)"
                               (errorList)="processGenInfoErrors($event)">
             </com-gen-info>
-            <!-- todo [detailsChanged]="updateChild" -->
+            <!-- ling todo [detailsChanged]="updateChild" -->
 
             <div>
               <section class="panel  panel-default">
@@ -53,16 +53,16 @@
                   <h3 class="panel-title">{{'heading.addressInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-                  <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
-                                    [provinceList]="provinceList"
+                  <lib-address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
+                                   [provinceList]="provinceList"
                                    [addressModel]="addressModel" [stateList]="stateList"
                                    [helpTextSequences]="helpIndex"
-                                   (errorList)="processAddressErrors($event)"></address-details>
+                                   (errorList)="processAddressErrors($event)"></lib-address-details>
                    <!-- todo [detailsChanged]="updateChild" --> 
                 </div>
               </section>
             </div>
-
+            <button (click)='gotoError()'>goto error page </button>
             <div>
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix">
@@ -79,7 +79,7 @@
                     <!--</sup>-->
                   </h3>
                 </header>
-                <div class="panel-body">
+                <div class="panel-body"> 
                   <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
                                  [loadFileIndicator]="loadFileIndicator" [lang]="lang"
                                  [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status"
@@ -170,8 +170,8 @@
         </b>
       </div>
     </div> -->
-    <!--pre> myForm valid{{myForm.valid}}</pre>
-    <pre> myForm{{myForm.value |json}}</pre-->
+    <pre> companyForm valid {{companyForm.valid}}</pre>
+    <pre> companyForm {{companyForm.value |json}}</pre>
 
     </form>
   </div>

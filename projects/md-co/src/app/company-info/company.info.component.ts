@@ -2,11 +2,12 @@ import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
-import {FormGroup, FormBuilder} from '@angular/forms';
-// import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
+import {FormGroup} from '@angular/forms';
 import {CompanyInfoService} from './company.info.service';
-import { UtilsService, YES } from '@hpfb/sdk/ui';
-
+import { ControlMessagesComponent, FINAL, UtilsService, YES } from '@hpfb/sdk/ui';
+import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
+import { AMEND } from '../app.constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'com-gen-info',
@@ -14,9 +15,6 @@ import { UtilsService, YES } from '@hpfb/sdk/ui';
   encapsulation: ViewEncapsulation.None
 })
 
-/**
- *  Company Info Component is used for Company Form
- */
 export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   public generalInfoFormLocalModel: FormGroup;
@@ -24,12 +22,13 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() genInfoModel;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
+  @Input() lang: string;
  // @Input() inComplete: boolean;
   @Input() isInternal: boolean;
   @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
   @Output() showAdminChanges = new EventEmitter(true);
-  // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public isAmend = false;
   public showFieldErrors: boolean;
@@ -37,9 +36,9 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   public yesNoList: Array<any> = [];
   public reasonFlags: Array<boolean> = [];
 
-  constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _utilsService: UtilsService) {
+  constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _utilsService: UtilsService,private _formDataLoader: CompanyDataLoaderService,
+    private router: Router) {
     this.showFieldErrors = false;
-    this.yesNoList = _utilsService.getYesNoList();
     this.reasonFlags = [false, false, false, false]; // 0: show admin section; 1,2,3: amend reasons.
   }
 
@@ -47,14 +46,29 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     if (!this.generalInfoFormLocalModel) {
       this.generalInfoFormLocalModel = this._companyInfoService.getReactiveModel();
     }
+    // init the form's data
+    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, this.generalInfoFormLocalModel); 
+
     this.detailsChanged = 0;
-    console.log('this.isInternal: ' + this.isInternal);
+    console.log('company.info=>this.isInternal: ' + this.isInternal);
+
+    
+    this._formDataLoader.getKeywordList().subscribe((keywords) => {
+      try {
+        console.log('company.info=>' + keywords);
+        this.yesNoList = keywords.find(x => (x.name === 'yesno')).data;
+        console.log('company.info=>' + JSON.stringify(this.yesNoList));
+      } catch (e) {
+        console.error(e);
+        this.router.navigate(['/error']);
+      }
+    });
   }
 
   ngAfterViewInit() {
-    // this.msgList.changes.subscribe(errorObjs => {
-    //   let temp = [];
-    //   this._updateErrorList(errorObjs);
+    this.msgList.changes.subscribe(errorObjs => {
+      let temp = [];
+      this._updateErrorList(errorObjs);
 
       /* errorObjs.forEach(
          error => {
@@ -62,8 +76,8 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
          }
        );
        this.errorList.emit(temp);*/
-    // });
-    // this.msgList.notifyOnChanges();
+    });
+    this.msgList.notifyOnChanges();
 
   }
 
@@ -81,48 +95,50 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    const isFirstChange = this._utilsService.isFirstChange(changes);
 
-    // since we can't detect changes on objects, using a separate flag
-    // if (changes['detailsChanged']) { // used as a change indicator for the model
-    //   // console.log("the details cbange");
-    //   if (this.generalInfoFormRecord) {
-    //     this.setToLocalModel();
+    // Ignore first trigger of ngOnChanges
+    if (!isFirstChange) {
+          // since we can't detect changes on objects, using a separate flag
+      if (changes['detailsChanged']) { // used as a change indicator for the model
+        // console.log("the details cbange");
+        if (this.generalInfoFormRecord) {
+          this.setToLocalModel();
 
-    //   } else {
-    //     this.generalInfoFormLocalModel = CompanyInfoService.getReactiveModel(this._fb);
-    //     this.generalInfoFormLocalModel.markAsPristine();
-    //   }
-    //   if (this.generalInfoFormLocalModel ) {
-    //     CompanyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
-    //       this.genInfoModel);
-    //   }
-    // }
-    // if (changes['showErrors']) {
+        } else {
+          this.generalInfoFormLocalModel = this._companyInfoService.getReactiveModel();
+          this.generalInfoFormLocalModel.markAsPristine();
+        }
+        if (this.generalInfoFormLocalModel ) {
+          this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
+            this.genInfoModel);
+        }
+      }
+      if (changes['showErrors']) {
 
-    //   this.showFieldErrors = changes['showErrors'].currentValue;
-    //   let temp = [];
-    //   if (this.msgList) {
-    //     this.msgList.forEach(item => {
-    //       temp.push(item);
-    //       // console.log(item);
-    //     });
-    //   }
-    //   this.errorList.emit(temp);
-    // }
-    // if (changes['isInternal']) {
-    //   if (!changes['isInternal'].currentValue) {
-    //     this.setAsComplete = (this.genInfoModel.status === GlobalsService.FINAL && !changes['isInternal'].currentValue);
-    //   } // && this.isInternal;
-    // }
-    // if (changes['genInfoModel']) {
-    //   const dataModel = changes['genInfoModel'].currentValue;
-    //   CompanyInfoService.mapDataModelToFormModel(dataModel,
-    //     (<FormGroup>this.generalInfoFormLocalModel));
-    //   this.setAsComplete = (dataModel.status === GlobalsService.FINAL && !this.isInternal);
-    //   this.isAmend = (dataModel.status === GlobalsService.AMEND);
-    //   this.amendReasonOnblur();
-    // }
-
+        this.showFieldErrors = changes['showErrors'].currentValue;
+        let temp = [];
+        if (this.msgList) {
+          this.msgList.forEach(item => {
+            temp.push(item);
+            // console.log(item);
+          });
+        }
+        this.errorList.emit(temp);
+      }
+      if (changes['isInternal']) {
+        if (!changes['isInternal'].currentValue) {
+          this.setAsComplete = (this.genInfoModel.status === FINAL && !changes['isInternal'].currentValue);
+        } // && this.isInternal;
+      }
+      if (changes['genInfoModel']) {
+        const dataModel = changes['genInfoModel'].currentValue;
+        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel);
+        this.setAsComplete = (dataModel.status === FINAL && !this.isInternal);
+        this.isAmend = (dataModel.status === AMEND);
+        this.amendReasonOnblur();
+      }
+    }
   }
 
   /**

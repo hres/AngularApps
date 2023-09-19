@@ -13,11 +13,14 @@ import { AddressDetailsService } from './address/address.details/address.details
 import { UtilsService } from './utils/utils.service';
 import { FormControlPipe } from './pipes/form-control.pipe';
 import { JsonKeysPipe } from './pipes/json-keys.pipe';
+import { AriaTransformPipe } from './pipes/aria-transform.pipe';
+import { TextTransformPipe } from './pipes/text-transform.pipe';
 import { CompanyContactRecordComponent } from './contact/company-contact-record/company-contact-record.component';
 import { ContactDetailsComponent } from './contact/contact.details/contact.details.component';
 import { ContactListComponent } from './contact/contact.list/contact.list.component';
 import { VersionService } from './version/version.service';
 import { NoCacheHeadersInterceptor } from './interceptor/cache.interceptor';
+import { FileConversionService } from './file-io/file-conversion.service';
 
 
 @NgModule({
@@ -33,13 +36,15 @@ import { NoCacheHeadersInterceptor } from './interceptor/cache.interceptor';
     GreeterComponent,
     FormControlPipe,
     JsonKeysPipe,
+    AriaTransformPipe,
+    TextTransformPipe
   ],
   imports: [
     CommonModule,
     CommonFormDendencyModule,
     FileIoModule
   ],
-  providers: [AddressDetailsService, UtilsService, VersionService, NoCacheHeadersInterceptor],
+  providers: [AddressDetailsService, FileConversionService, UtilsService, VersionService, NoCacheHeadersInterceptor],
   exports: [
     LayoutComponent,
     ExpanderComponent,
@@ -53,6 +58,8 @@ import { NoCacheHeadersInterceptor } from './interceptor/cache.interceptor';
     FileIoModule,
     FormControlPipe,
     JsonKeysPipe,
+    AriaTransformPipe,
+    TextTransformPipe
   ],
 })
 export class UiModule {}

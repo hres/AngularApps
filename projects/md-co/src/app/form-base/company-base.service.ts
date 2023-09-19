@@ -1,6 +1,6 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Address, GeneralInformation } from '../models/Enrollment';
+import { Address, Enrollment, GeneralInformation } from '../models/Enrollment';
 // import {GlobalsService} from '../globals/globals.service';
 // import {ValidationService} from '../validation.service';
 // import {ListService} from '../list-service';
@@ -24,11 +24,27 @@ export class CompanyBaseService {
     });
   }
 
+
+  public getEmptyEnrol(): Enrollment {
+    const enrollment: Enrollment = {
+      DEVICE_COMPANY_ENROL: {
+        general_information: this.getEmptyGenInfoModel(),
+        address: this.getEmptyAddressDetailsModel(),
+        contacts: [],
+        primary_contact: this.getEmptyPrimarycontactModel(),
+        administrative_changes: this.getEmptyAdminChangesModel()
+      }
+    };
+    
+    return enrollment;
+  }
+
+
   /**
    * Gets an empty Address Details Model
    *
    */
-  getEmptyAddressDetailsModel() : Address{
+  private getEmptyAddressDetailsModel() : Address{
 
     return (
       {
@@ -57,7 +73,7 @@ export class CompanyBaseService {
    * Gets an empty general info model
    *
    */
-  getEmptyGenInfoModel() : GeneralInformation{
+  private getEmptyGenInfoModel() : GeneralInformation{
     return (
       {
         status: '',
@@ -81,7 +97,7 @@ export class CompanyBaseService {
    * Gets an empty Admin Changes Model
    *
    */
-  getEmptyAdminChangesModel() {
+  private getEmptyAdminChangesModel() {
 
     return (
       {
@@ -98,7 +114,7 @@ export class CompanyBaseService {
    * Gets an empty Admin Changes Model
    *
    */
-  getEmptyPrimarycontactModel() {
+  private getEmptyPrimarycontactModel() {
 
     return (
       {

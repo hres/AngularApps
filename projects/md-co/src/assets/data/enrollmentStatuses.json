@@ -1,0 +1,17 @@
+[
+  {
+    "id":"NEW",
+    "en":"New",
+    "fr":"Nouveau"
+  },
+  {
+    "id":"AMEND",
+    "en":"Amend",
+    "fr":"Modifier"
+  },
+  {
+    "id":"FINAL",
+    "en":"Final",
+    "fr":"Final"
+  }
+]

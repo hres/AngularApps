@@ -15,20 +15,13 @@ export class AddressDetailsService {
   public provinces: Array<any> = [];
 
 
-  constructor(private _utilsService: UtilsService) {
+  constructor(private _fb: FormBuilder, private _utilsService: UtilsService) {
     this.countryList = [];
   }
 
-  /**
-   * Gets the reactive forms Model for address details
-   * @param {FormBuilder} fb
-   * @returns {any}
-   */
-  getReactiveModel(fb: FormBuilder) {
-    if (!fb) {return null; }
-    return fb.group({
+  getReactiveModel() {
+    return this._fb.group({
       companyName: [null, Validators.required],
-      // businessNum: '',
       address: [null, Validators.required],
       provText: '',
       provList: '',
@@ -37,27 +30,6 @@ export class AddressDetailsService {
       postal: ['', []]
     });
   }
-
-  /**
-   * Gets an empty
-   *
-   */
-  getEmptyModel() {
-
-    return (
-      {
-        company_name: '',
-        // business_number: '',
-        address: '',
-        city: '',
-        country: '',
-        prov_lov: '',
-        prov_text: '',
-        postal: ''
-      }
-    );
-  }
-
 
   mapFormModelToDataModel(formRecord: FormGroup, addressModel, countryList, provStatList) {
     addressModel.company_name = formRecord.controls['companyName'].value;

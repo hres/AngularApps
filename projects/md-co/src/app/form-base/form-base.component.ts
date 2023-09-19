@@ -1,22 +1,15 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-// import {MasterFileBaseService} from './master-file-base.service';
-// import {FileConversionService} from '../filereader/file-io/file-conversion.service';
-// import {ConvertResults} from '../filereader/file-io/convert-results';
-// import {MasterFileDataLoaderService} from '../data-loader/master-file-data-loader.service';
 import {TranslateService} from '@ngx-translate/core';
-import {DatePipe} from '@angular/common';
 import { ConvertResults } from '@hpfb/sdk/ui/file-io/convert-results';
+import { ICode } from '@hpfb/sdk/ui/data-loader/data';
+import { AMEND, ContactStatus, FINAL, ROOT_TAG } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
-import { DataLoaderService } from '@hpfb/sdk/data-loader';
-import { ICode } from '@hpfb/sdk/data-loader/data';
-import { DATA_PATH } from '../app.constants';
 import { CompanyBaseService } from './company-base.service';
-import { Address, GeneralInformation } from '../models/Enrollment';
-import { NO } from '@hpfb/sdk/ui';
-// import { LifecycleRecord, Transaction } from '../models/transaction';
-// import { VersionService } from '../shared/version.service';
-// import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
+import { Address, GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment} from '../models/Enrollment';
+import { ContactListComponent, ControlMessagesComponent, FileConversionService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
+import { NavigationEnd, Router } from '@angular/router';
+import { GlobalService } from '../global/global.service';
 
 @Component({
   selector: 'app-form-base',
@@ -29,8 +22,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @Input() isInternal;
   @Input() lang;
   @Input() helpTextSequences;
-  // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-
+  @ViewChild(ContactListComponent, {static: true}) companyContacts: ContactListComponent;
+  
   private _genInfoErrors = [];
   private _addressErrors = [];
   private _contactErrors = [];
@@ -38,7 +31,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _primContactErrors = [];
   public companyForm: FormGroup;
   public errorList = [];
-  public rootTagText = 'DEVICE_COMPANY_ENROL';
+  public rootTagText = ROOT_TAG; 
   public isInternalSite = true;
   public loadFileIndicator = 0;
   public countryList: ICode[];
@@ -49,14 +42,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public showErrors: boolean;
   public title = '';
   public headingLevel = 'h2';
+
+  public enrollModel : Enrollment;
+
   public addressModel : Address;
   public genInfoModel : GeneralInformation; 
-  public contactModel = [];
-  // public adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
-  // public primContactModel = CompanyBaseService.getEmptyPrimarycontactModel();
+  public contactModel : Contact[];
+  public adminChangesModel :AdministrativeChanges;
+  public primContactModel : PrimaryContact; 
   public helpIndex = [] ; // todo CompanyBaseService.getHelpTextIndex();
-  // public foo = '';
-  // public fileServices: FileConversionService;
+
   public saveXmlLabel = 'save.draft';
   public mailToLabel = 'mailto.label';
   public xslName = 'REP_MDS_CO_3_0.xsl';
@@ -66,31 +61,42 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public hasContact = false;
 
   constructor(
-    
     private cdr: ChangeDetectorRef,
-    private dataLoader: CompanyDataLoaderService,
-    private _companyService: CompanyBaseService
+    private _formDataLoader: CompanyDataLoaderService,
+    private _companyService: CompanyBaseService,
+    private _fileService: FileConversionService, private _utilService: UtilsService, private router: Router, private _globalService: GlobalService
   ) {
-    // dataLoader = new CompanyDataLoaderService(this.http);
+    // _formDataLoader = new CompanyDataLoaderService(this.http);
     // this.countryList = [];
     this.showAdminChanges = false;
     this.showErrors = false;
     this.showMailToHelpText = false;
-    // this.fileServices = new FileConversionService();
-
-    this.genInfoModel = _companyService.getEmptyGenInfoModel();
-    this.addressModel = _companyService.getEmptyAddressDetailsModel();
-
-    dataLoader.getCountryList().subscribe((data) => {
-      console.log(data);
-      this.countryList = data;
-    });
   }
 
-  async ngOnInit() {
+  ngOnInit() {  
+    if (!this._globalService.getEnrollment()) {
+      console.log("formbase=> enrollement doesn't exist");
+      this.enrollModel = this._companyService.getEmptyEnrol();
+      this._globalService.setEnrollment(this.enrollModel);
+    } else {
+      console.log("formbase=> get enrollement from globalservice");
+      this.enrollModel = this._globalService.getEnrollment();
+    }
+
+    this.genInfoModel = this.enrollModel.DEVICE_COMPANY_ENROL.general_information;  
+    this.addressModel = this.enrollModel.DEVICE_COMPANY_ENROL.address; 
+    this.contactModel = null;
+    this.adminChangesModel = this.enrollModel.DEVICE_COMPANY_ENROL.administrative_changes; 
+    this.primContactModel = this.enrollModel.DEVICE_COMPANY_ENROL.primary_contact; 
+
     if (!this.companyForm) {
       this.companyForm = this._companyService.buildForm();
     }
+
+    this._formDataLoader.getKeywordList().subscribe((data) => {
+      console.log('form.base=>' + data);
+      // this.countryList = data;
+    });
 
 
     // .subscribe(
@@ -102,13 +108,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   }
     // );
 
-    // this.countryList = await this.dataLoader.getCountries(
+    // this.countryList = await this._formDataLoader.getCountries(
     //   this.translate.currentLang
     // );
-    // this.provinceList = await this.dataLoader.getProvinces(
+    // this.provinceList = await this._formDataLoader.getProvinces(
     //   this.translate.currentLang
     // );
-    // this.stateList = await this.dataLoader.getStates(
+    // this.stateList = await this._formDataLoader.getStates(
     //   this.translate.currentLang
     // );
     console.log('isInternal in ngOnInit: ' + this.isInternal);
@@ -179,17 +185,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processAdminChangesUpdate(adminChanges) {
-    // this.adminChanges = adminChanges;
-    // if (adminChanges && adminChanges.length > 0) {
-    // this.showAdminChanges = adminChanges[0];
-    // } else {
-    // this.showAdminChanges = false;
-    // }
-    // if (!this.showAdminChanges) {
-    // // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
-    // this.adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
-    // this.processAdminChangesErrors([]);
-    // }
+    this.adminChanges = adminChanges;
+    if (adminChanges && adminChanges.length > 0) {
+      this.showAdminChanges = adminChanges[0];
+    } else {
+      this.showAdminChanges = false;
+    }
+    if (!this.showAdminChanges) {
+      // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
+      this.adminChangesModel = null; //CompanyBaseService.getEmptyAdminChangesModel();
+      this.processAdminChangesErrors([]);
+    }
   }
 
   public hideErrorSummary() {
@@ -201,13 +207,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public isExternalAndFinal() {
-    // return (!this.isInternalSite && this.genInfoModel.status === GlobalsService.FINAL);
+    return (!this.isInternalSite && this.genInfoModel.status === FINAL);
   }
 
   // disable the mailto link for internal, or when it is external Final or when there are errors for the external
   public disableMailtoLink() {
-    // return (this.isInternalSite || this.genInfoModel.status === GlobalsService.FINAL ||
-    // (this.errorList && this.errorList.length > 0) || !this.companyContacts.contactListForm.pristine);
+    return (this.isInternalSite || this.genInfoModel.status === FINAL ||
+      (this.errorList && this.errorList.length > 0) || !this.companyContacts.contactListForm.pristine);
   }
 
   public saveXmlFile() {
@@ -216,63 +222,63 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.showErrors = true;
       document.location.href = '#topErrorSummary';
     } else {
-      // if (this.companyContacts.contactListForm.pristine) {
-      //   // .isPristine
-      //   this._updatedAutoFields();
-      //   if (this.isInternalSite) {
-      //     this.genInfoModel.status = CompanyBaseService.setFinalStatus();
-      //   }
-      //   const result = {
-      //     DEVICE_COMPANY_ENROL: {
-      //       general_information: this.genInfoModel,
-      //       address: this.addressModel,
-      //       contacts: {},
-      //       primary_contact: this.primContactModel,
-      //       administrative_changes: this.adminChangesModel,
-      //     },
-      //   };
-      //   if (this.contactModel && this.contactModel.length > 0) {
-      //     const cm = this._removeHcStatus(this.contactModel);
-      //     result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
-      //   }
-      //   const fileName = this._buildfileName();
-      //   this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
-      // } else {
-      //   if (this.lang === GlobalsService.ENGLISH) {
-      //     alert(
-      //       'Please save the unsaved input data before generating XML file.'
-      //     );
-      //   } else {
-      //     alert(
-      //       "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML."
-      //     );
-      //   }
-      // }
+      if (this.companyContacts.contactListForm.pristine) {
+        // .isPristine
+        this._updatedAutoFields();
+        if (this.isInternalSite) {
+          this.genInfoModel.status = this._companyService.setFinalStatus();
+        }
+        const result = {
+          DEVICE_COMPANY_ENROL: {
+            general_information: this.genInfoModel,
+            address: this.addressModel,
+            contacts: {},
+            primary_contact: this.primContactModel,
+            administrative_changes: this.adminChangesModel,
+          },
+        };
+        if (this.contactModel && this.contactModel.length > 0) {
+          const cm = this._removeHcStatus(this.contactModel);
+          result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
+        }
+        const fileName = this._buildfileName();
+        this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
+      } else {
+        if (this._utilService.isFrench(this.lang)) {
+          alert(
+            "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML."
+          );
+        } else {
+          alert(
+            'Please save the unsaved input data before generating XML file.'
+          );
+        }
+      }
     }
   }
 
   public saveWorkingCopyFile() {
-    // this._updatedSavedDate();
-    // let result = {
-    //   DEVICE_COMPANY_ENROL: {
-    //     general_information: this.genInfoModel,
-    //     address: this.addressModel,
-    //     contacts: {},
-    //     primary_contact: this.primContactModel,
-    //     administrative_changes: this.adminChangesModel,
-    //   },
-    // };
-    // if (this.contactModel && this.contactModel.length > 0) {
+    this._updatedSavedDate();
+    let result : Enrollment= {
+      DEVICE_COMPANY_ENROL: {
+        general_information: this.genInfoModel,
+        address: this.addressModel,
+        contacts: this.contactModel, //{},
+        primary_contact: this.primContactModel,
+        administrative_changes: this.adminChangesModel,
+      },
+    };
+    // if (this.contactModel && this.contactModel.length > 0) {       //todo what is the logic here?
     //   const cm = !this.isInternalSite
     //     ? this._removeHcStatus(this.contactModel)
     //     : this.contactModel;
     //   result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
     // }
-    // // result.DEVICE_COMPANY_ENROL.contacts =
-    // //   (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
-    // // const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
-    // const fileName = this._buildfileName();
-    // this.fileServices.saveJsonToFile(result, fileName, null);
+    // result.DEVICE_COMPANY_ENROL.contacts =
+    //   (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
+    // const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
+    const fileName = this._buildfileName();
+    this._fileService.saveJsonToFile(result, fileName, null);
   }
 
   public processFile(fileData: ConvertResults) {
@@ -314,24 +320,22 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // }
   }
 
-  // private _updatedAutoFields() {
-  //   this._updatedSavedDate();
-  //   if (this.isInternalSite) {
-  //     this.genInfoModel.status = CompanyBaseService.setFinalStatus();
-  //     this.genInfoModel.enrol_version =
-  //       (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() +
-  //       '.0';
-  //   } else {
-  //     const version: Array<any> = this.genInfoModel.enrol_version.split('.');
-  //     version[1] = (Number(version[1]) + 1).toString();
-  //     this.genInfoModel.enrol_version = version[0] + '.' + version[1];
-  //   }
-  // }
+  private _updatedAutoFields() {
+    this._updatedSavedDate();
+    if (this.isInternalSite) {
+      this.genInfoModel.status = this._companyService.setFinalStatus();
+      this.genInfoModel.enrol_version =
+        (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() +
+        '.0';
+    } else {
+      const version: Array<any> = this.genInfoModel.enrol_version.split('.');
+      version[1] = (Number(version[1]) + 1).toString();
+      this.genInfoModel.enrol_version = version[0] + '.' + version[1];
+    }
+  }
 
   private _updatedSavedDate() {
-    const today = new Date();
-    const pipe = new DatePipe('en-US');
-    // this.genInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd');
+    this.genInfoModel.last_saved_date = this._utilService.getFormattedDate('yyyy-MM-dd')
   }
 
   private _removeHcStatus(contacts) {
@@ -348,35 +352,25 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _buildfileName() {
     // const version: Array<any> = this.genInfoModel.enrol_version.split('.');
-    const today = new Date();
-    const pipe = new DatePipe('en-US');
-    const date_generated = pipe.transform(today, 'yyyyMMddHHmm');
-    // if (this.isInternalSite) {
-    //   return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
-    // } else if (this.genInfoModel.status === GlobalsService.AMEND) {
-    //   return 'draft-com-' + this.genInfoModel.company_id + '-' + date_generated;
-    // } else {
-    //   return 'draft-com-' + date_generated;
-    // }
+    const date_generated = this._utilService.getFormattedDate('yyyyMMddHHmm');
+    if (this.isInternalSite) {
+      return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
+    } else if (this.genInfoModel.status === AMEND) {
+      return 'draft-com-' + this.genInfoModel.company_id + '-' + date_generated;
+    } else {
+      return 'draft-com-' + date_generated;
+    }
   }
 
   /*
    * update adminChanges to show the text info in the adminChanges component
    */
   private _updateAdminChanges() {
-    // this.adminChanges[1] =
-    //   this.genInfoModel.amend_reasons.manufacturer_name_change ===
-    //   GlobalsService.YES;
-    // this.adminChanges[2] =
-    //   this.genInfoModel.amend_reasons.manufacturer_address_change ===
-    //   GlobalsService.YES;
-    // this.adminChanges[3] =
-    //   this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES;
-    // this.adminChanges[0] =
-    //   this.genInfoModel.are_licenses_transfered === GlobalsService.YES ||
-    //   this.adminChanges[1] ||
-    //   this.adminChanges[2] ||
-    //   this.adminChanges[3];
+    this.adminChanges[1] = this.genInfoModel.amend_reasons.manufacturer_name_change === YES;
+    this.adminChanges[2] = this.genInfoModel.amend_reasons.manufacturer_address_change === YES;
+    this.adminChanges[3] = this.genInfoModel.amend_reasons.facility_change === YES;
+    this.adminChanges[0] = this.genInfoModel.are_licenses_transfered  === YES ||
+        this.adminChanges[1] || this.adminChanges[2] || this.adminChanges[3];
   }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
@@ -428,18 +422,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   contactModelUpdated(contacts) {
-    const cntList = contacts.filter(
-      (contact) =>
-        contact.status._id === 'NEW' ||
-        contact.status._id === 'REVISE' ||
-        contact.status._id === 'ACTIVE'
-    );
+    const cntList = contacts.filter(contact =>
+      (contact.status._id === ContactStatus.NEW || contact.status._id === ContactStatus.REVISE || contact.status._id === ContactStatus.ACTIVE));
     this.activeContacts = [];
     if (cntList) {
       cntList.forEach((contact: any) => {
         this.activeContacts.push(contact.full_name);
       });
     }
-    this.hasContact = this.activeContacts && this.activeContacts.length > 0;
+    this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
   }
+
+  gotoError(): void {
+    this.router.navigate(['/error']);
+  }	 
 }
