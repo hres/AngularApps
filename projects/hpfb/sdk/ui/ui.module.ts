@@ -16,6 +16,8 @@ import { JsonKeysPipe } from './pipes/json-keys.pipe';
 import { CompanyContactRecordComponent } from './contact/company-contact-record/company-contact-record.component';
 import { ContactDetailsComponent } from './contact/contact.details/contact.details.component';
 import { ContactListComponent } from './contact/contact.list/contact.list.component';
+import { VersionService } from './version/version.service';
+import { NoCacheHeadersInterceptor } from './interceptor/cache.interceptor';
 
 
 @NgModule({
@@ -37,7 +39,7 @@ import { ContactListComponent } from './contact/contact.list/contact.list.compon
     CommonFormDendencyModule,
     FileIoModule
   ],
-  providers: [AddressDetailsService, UtilsService],
+  providers: [AddressDetailsService, UtilsService, VersionService, NoCacheHeadersInterceptor],
   exports: [
     LayoutComponent,
     ExpanderComponent,

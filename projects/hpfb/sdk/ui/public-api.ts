@@ -28,3 +28,7 @@ export * from './pipes/json-keys.pipe';
 export * from './common.form.dendency.module';
 export * from './ui.module';
 
+export * from './interceptor/cache.interceptor'
+
+export * from './version/version.service'
+

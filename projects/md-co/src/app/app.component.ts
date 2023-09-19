@@ -10,7 +10,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { Title } from '@angular/platform-browser';
 // import { GlobalsService } from './globals/globals.service';
-// import { VersionService } from './shared/version.service';
+import { VersionService } from '@hpfb/sdk/ui/';
+
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,7 @@ export class AppComponent {
   
   constructor(
     private translate: TranslateService,
-    // private _versionService: VersionService,
+    private _versionService: VersionService,
     public titleService: Title
   ) {
 
@@ -39,8 +40,8 @@ export class AppComponent {
     this.translate.get('form.title').subscribe((res) => {
       this.setTitle(res);
     });
-
-    this.appVersion = "0.0.0"; // this._versionService.getApplicationVersion();
+    //this.appVersion = '0.0.0';
+    this.appVersion = this._versionService.getApplicationVersion(environment);
   }
 
   public setTitle(newTitle: string) {

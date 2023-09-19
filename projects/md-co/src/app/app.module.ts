@@ -7,7 +7,9 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { AppFormModule } from './app.form.module';
 import { UiModule } from '@hpfb/sdk/ui';
-// import { NoCacheHeadersInterceptor } from '../cache.interceptor';
+import { NoCacheHeadersInterceptor } from '@hpfb/sdk/ui';
+import { VersionService } from '@hpfb/sdk/ui/';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +30,8 @@ import { UiModule } from '@hpfb/sdk/ui';
   ],
   providers: [
     Title,
-    // { provide: HTTP_INTERCEPTORS, useClass: NoCacheHeadersInterceptor, multi: true }
+    VersionService,
+    { provide: HTTP_INTERCEPTORS, useClass: NoCacheHeadersInterceptor, multi: true },
   ],
   exports: [AppFormModule],
   bootstrap: [AppComponent],
