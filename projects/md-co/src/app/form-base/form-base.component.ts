@@ -8,12 +8,12 @@ import {TranslateService} from '@ngx-translate/core';
 import {DatePipe} from '@angular/common';
 import { ConvertResults } from '@hpfb/sdk/ui/file-io/convert-results';
 import { CompanyDataLoaderService } from './company-data-loader.service';
-import { DataLoaderService } from '@hpfb/sdk/data-loader';
-import { ICode } from '@hpfb/sdk/data-loader/data';
-import { DATA_PATH } from '../app.constants';
+import { ICode } from '@hpfb/sdk/ui/data-loader/data';
+import { ROOT_TAG } from '../app.constants';
 import { CompanyBaseService } from './company-base.service';
 import { Address, GeneralInformation } from '../models/Enrollment';
 import { NO } from '@hpfb/sdk/ui';
+
 // import { LifecycleRecord, Transaction } from '../models/transaction';
 // import { VersionService } from '../shared/version.service';
 // import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
@@ -30,7 +30,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @Input() lang;
   @Input() helpTextSequences;
   // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-
+  
   private _genInfoErrors = [];
   private _addressErrors = [];
   private _contactErrors = [];
@@ -38,7 +38,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _primContactErrors = [];
   public companyForm: FormGroup;
   public errorList = [];
-  public rootTagText = 'DEVICE_COMPANY_ENROL';
+  public rootTagText = ROOT_TAG; 
   public isInternalSite = true;
   public loadFileIndicator = 0;
   public countryList: ICode[];
@@ -68,10 +68,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   constructor(
     
     private cdr: ChangeDetectorRef,
-    private dataLoader: CompanyDataLoaderService,
+    private _formDataLoader: CompanyDataLoaderService,
     private _companyService: CompanyBaseService
   ) {
-    // dataLoader = new CompanyDataLoaderService(this.http);
+    // _formDataLoader = new CompanyDataLoaderService(this.http);
     // this.countryList = [];
     this.showAdminChanges = false;
     this.showErrors = false;
@@ -81,16 +81,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.genInfoModel = _companyService.getEmptyGenInfoModel();
     this.addressModel = _companyService.getEmptyAddressDetailsModel();
 
-    dataLoader.getCountryList().subscribe((data) => {
-      console.log(data);
-      this.countryList = data;
-    });
+
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     if (!this.companyForm) {
       this.companyForm = this._companyService.buildForm();
     }
+
+    this._formDataLoader.getKeywordList().subscribe((data) => {
+      console.log('form.base=>' + data);
+      // this.countryList = data;
+    });
 
 
     // .subscribe(
@@ -102,13 +104,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   }
     // );
 
-    // this.countryList = await this.dataLoader.getCountries(
+    // this.countryList = await this._formDataLoader.getCountries(
     //   this.translate.currentLang
     // );
-    // this.provinceList = await this.dataLoader.getProvinces(
+    // this.provinceList = await this._formDataLoader.getProvinces(
     //   this.translate.currentLang
     // );
-    // this.stateList = await this.dataLoader.getStates(
+    // this.stateList = await this._formDataLoader.getStates(
     //   this.translate.currentLang
     // );
     console.log('isInternal in ngOnInit: ' + this.isInternal);

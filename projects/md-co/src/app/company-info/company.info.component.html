@@ -37,11 +37,11 @@
       </div>
     </div>
     <div class="row">
-      <!-- <div class="form-group col-xs-2" >
+      <div class="form-group col-xs-2" >
         <button class="btn btn-primary" (click)="setAmendState()" 
                 [disabled]="!setAsComplete" id="amendSubDisabled">
           {{'amend.enrol'|translate}}</button>
-      </div> -->
+      </div>
     </div>
     <div class="row" *ngIf="isAmend">
 
@@ -150,7 +150,8 @@
           <select id="areLicensesTransfered" required class="form-control full-width" (blur)="amendReasonOnblur()"
                   (selected)="amendReasonOnblur()" [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl">
             <option label=" " value=""></option>
-            <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+            <!-- <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option> -->
+            <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
           </select>
         </label>
       </div>

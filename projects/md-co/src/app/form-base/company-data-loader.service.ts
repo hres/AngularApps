@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import { FRENCH } from '@hpfb/sdk/ui/common.constants';
+import {Observable, map, shareReplay, tap} from 'rxjs';
 import { DATA_PATH } from '../app.constants';
-import { DataLoaderService } from '@hpfb/sdk/data-loader';
-import { ICode } from '@hpfb/sdk/data-loader/data';
+import { DataLoaderService } from '@hpfb/sdk/ui';
+import { ICode, IKeyword } from '@hpfb/sdk/ui/data-loader/data';
 
 @Injectable()
 export class CompanyDataLoaderService {
@@ -16,6 +14,10 @@ export class CompanyDataLoaderService {
   private countryJsonPath = DATA_PATH + 'countries.json';
   private provinceJsonPath = DATA_PATH + 'provinces.json';
   private stateJsonPath = DATA_PATH + 'states.json';
+  private keywordsJsonPath = DATA_PATH + 'keywords.json';
+
+  cachedKeywords$:Observable<any>;
+
 
   mfTypeOptions$: Observable<ICode[]>;
 
@@ -129,5 +131,17 @@ export class CompanyDataLoaderService {
 //     }
 //     return result;
 //   }
+
+  getKeywordList(): Observable<IKeyword[]> {
+    if (!this.cachedKeywords$) {
+      this.cachedKeywords$ = this._dataService
+        .getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedKeywords$;
+  }
 
 }

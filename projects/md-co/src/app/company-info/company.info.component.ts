@@ -6,6 +6,7 @@ import {FormGroup, FormBuilder} from '@angular/forms';
 // import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
 import {CompanyInfoService} from './company.info.service';
 import { UtilsService, YES } from '@hpfb/sdk/ui';
+import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() genInfoModel;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
+  @Input() lang: string;
  // @Input() inComplete: boolean;
   @Input() isInternal: boolean;
   @Input() helpTextSequences;
@@ -37,9 +39,8 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   public yesNoList: Array<any> = [];
   public reasonFlags: Array<boolean> = [];
 
-  constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _utilsService: UtilsService) {
+  constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _utilsService: UtilsService,private _formDataLoader: CompanyDataLoaderService,) {
     this.showFieldErrors = false;
-    this.yesNoList = _utilsService.getYesNoList();
     this.reasonFlags = [false, false, false, false]; // 0: show admin section; 1,2,3: amend reasons.
   }
 
@@ -49,6 +50,18 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     }
     this.detailsChanged = 0;
     console.log('this.isInternal: ' + this.isInternal);
+
+    
+    this._formDataLoader.getKeywordList().subscribe((keywords) => {
+      console.log('company.info=>' + keywords);
+      this.yesNoList = keywords.find(x => (x.name === 'yesno')).data;
+      console.log('company.info=>' + JSON.stringify(this.yesNoList));
+    });
+
+    // this.yesNoList = this._formDataLoader.getYesNoList();
+
+
+
   }
 
   ngAfterViewInit() {
