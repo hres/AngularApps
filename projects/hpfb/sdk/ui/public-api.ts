@@ -16,7 +16,8 @@ export * from './contact/contact.list/contact.list.component';
 export * from './contact/contact.list/contact-list.service';
 
 export * from './file-io/greeter/greeter.component';
-export * from './file-io/convert-results'
+export * from './file-io/convert-results';
+export * from './file-io/file-conversion.service';
 export * from './file-io/filereader/filereader.component';
 export * from './file-io/file-io.module';
 

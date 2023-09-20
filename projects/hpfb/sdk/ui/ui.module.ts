@@ -18,6 +18,7 @@ import { TextTransformPipe } from './pipes/text-transform.pipe';
 import { CompanyContactRecordComponent } from './contact/company-contact-record/company-contact-record.component';
 import { ContactDetailsComponent } from './contact/contact.details/contact.details.component';
 import { ContactListComponent } from './contact/contact.list/contact.list.component';
+import { FileConversionService } from './file-io/file-conversion.service';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { ContactListComponent } from './contact/contact.list/contact.list.compon
     CommonFormDendencyModule,
     FileIoModule
   ],
-  providers: [AddressDetailsService, UtilsService],
+  providers: [AddressDetailsService, FileConversionService, UtilsService],
   exports: [
     LayoutComponent,
     ExpanderComponent,
