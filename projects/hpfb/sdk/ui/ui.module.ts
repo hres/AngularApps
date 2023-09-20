@@ -13,6 +13,8 @@ import { AddressDetailsService } from './address/address.details/address.details
 import { UtilsService } from './utils/utils.service';
 import { FormControlPipe } from './pipes/form-control.pipe';
 import { JsonKeysPipe } from './pipes/json-keys.pipe';
+import { AriaTransformPipe } from './pipes/aria-transform.pipe';
+import { TextTransformPipe } from './pipes/text-transform.pipe';
 import { CompanyContactRecordComponent } from './contact/company-contact-record/company-contact-record.component';
 import { ContactDetailsComponent } from './contact/contact.details/contact.details.component';
 import { ContactListComponent } from './contact/contact.list/contact.list.component';
@@ -31,6 +33,8 @@ import { ContactListComponent } from './contact/contact.list/contact.list.compon
     GreeterComponent,
     FormControlPipe,
     JsonKeysPipe,
+    AriaTransformPipe,
+    TextTransformPipe
   ],
   imports: [
     CommonModule,
@@ -51,6 +55,8 @@ import { ContactListComponent } from './contact/contact.list/contact.list.compon
     FileIoModule,
     FormControlPipe,
     JsonKeysPipe,
+    AriaTransformPipe,
+    TextTransformPipe
   ],
 })
 export class UiModule {}

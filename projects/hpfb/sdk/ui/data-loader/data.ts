@@ -26,3 +26,8 @@ export enum SortOn {
   ID,
   PRIORITY
 }
+
+export interface IKeyword {
+  name: string;
+  data: ICode[];
+}

@@ -1,7 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, mergeMap, of, throwError, toArray } from 'rxjs';
-// import { GlobalsService } from '../globals/globals.service';
+import { Observable, map, tap, throwError} from 'rxjs';
 import { SortOn } from './data'; 
 
 @Injectable({
@@ -14,7 +13,7 @@ export class DataLoaderService {
   //   return this.http.get<any>(GlobalsService.DATA_PATH + filename);
   // }
   public getData<T>(endpoint: string): Observable<T[]> {
-    return this.http.get<any>(endpoint);
+    return this.http.get<any>(endpoint).pipe(tap(()=>console.log(endpoint + ' is called')));
   }
 
   public getSortedData<T>(filename: string, compareField: SortOn): Observable<T[]> {
