@@ -8,6 +8,7 @@ import {CompanyInfoService} from './company.info.service';
 import { FINAL, UtilsService, YES } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
 import { AMEND } from '../app.constants';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -40,7 +41,8 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   public yesNoList: Array<any> = [];
   public reasonFlags: Array<boolean> = [];
 
-  constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _utilsService: UtilsService,private _formDataLoader: CompanyDataLoaderService,) {
+  constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _utilsService: UtilsService,private _formDataLoader: CompanyDataLoaderService,
+    private router: Router) {
     this.showFieldErrors = false;
     this.reasonFlags = [false, false, false, false]; // 0: show admin section; 1,2,3: amend reasons.
   }
@@ -49,14 +51,22 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     if (!this.generalInfoFormLocalModel) {
       this.generalInfoFormLocalModel = this._companyInfoService.getReactiveModel();
     }
+    // init the form's data
+    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, this.generalInfoFormLocalModel);
+
     this.detailsChanged = 0;
     console.log('company.info=>this.isInternal: ' + this.isInternal);
 
     
     this._formDataLoader.getKeywordList().subscribe((keywords) => {
-      console.log('company.info=>' + keywords);
-      this.yesNoList = keywords.find(x => (x.name === 'yesno')).data;
-      console.log('company.info=>' + JSON.stringify(this.yesNoList));
+      try {
+        console.log('company.info=>' + keywords);
+        this.yesNoList = keywords.find(x => (x.name === 'yesno')).data;
+        console.log('company.info=>' + JSON.stringify(this.yesNoList));
+      } catch (e) {
+        console.error(e);
+        this.router.navigate(['/error']);
+      }
     });
   }
 
@@ -90,48 +100,50 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    const isFirstChange = this._utilsService.isFirstChange(changes);
 
-    // since we can't detect changes on objects, using a separate flag
-    if (changes['detailsChanged']) { // used as a change indicator for the model
-      // console.log("the details cbange");
-      if (this.generalInfoFormRecord) {
-        this.setToLocalModel();
+    // Ignore first trigger of ngOnChanges
+    if (!isFirstChange) {
+          // since we can't detect changes on objects, using a separate flag
+      if (changes['detailsChanged']) { // used as a change indicator for the model
+        // console.log("the details cbange");
+        if (this.generalInfoFormRecord) {
+          this.setToLocalModel();
 
-      } else {
-        this.generalInfoFormLocalModel = this._companyInfoService.getReactiveModel();
-        this.generalInfoFormLocalModel.markAsPristine();
+        } else {
+          this.generalInfoFormLocalModel = this._companyInfoService.getReactiveModel();
+          this.generalInfoFormLocalModel.markAsPristine();
+        }
+        if (this.generalInfoFormLocalModel ) {
+          this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
+            this.genInfoModel);
+        }
       }
-      if (this.generalInfoFormLocalModel ) {
-        this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
-          this.genInfoModel);
+      // if (changes['showErrors']) {
+
+      //   this.showFieldErrors = changes['showErrors'].currentValue;
+      //   let temp = [];
+      //   if (this.msgList) {
+      //     this.msgList.forEach(item => {
+      //       temp.push(item);
+      //       // console.log(item);
+      //     });
+      //   }
+      //   this.errorList.emit(temp);
+      // }
+      if (changes['isInternal']) {
+        if (!changes['isInternal'].currentValue) {
+          this.setAsComplete = (this.genInfoModel.status === FINAL && !changes['isInternal'].currentValue);
+        } // && this.isInternal;
+      }
+      if (changes['genInfoModel']) {
+        const dataModel = changes['genInfoModel'].currentValue;
+        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel);
+        this.setAsComplete = (dataModel.status === FINAL && !this.isInternal);
+        this.isAmend = (dataModel.status === AMEND);
+        this.amendReasonOnblur();
       }
     }
-    // if (changes['showErrors']) {
-
-    //   this.showFieldErrors = changes['showErrors'].currentValue;
-    //   let temp = [];
-    //   if (this.msgList) {
-    //     this.msgList.forEach(item => {
-    //       temp.push(item);
-    //       // console.log(item);
-    //     });
-    //   }
-    //   this.errorList.emit(temp);
-    // }
-    if (changes['isInternal']) {
-      if (!changes['isInternal'].currentValue) {
-        this.setAsComplete = (this.genInfoModel.status === FINAL && !changes['isInternal'].currentValue);
-      } // && this.isInternal;
-    }
-    if (changes['genInfoModel']) {
-      const dataModel = changes['genInfoModel'].currentValue;
-      this._companyInfoService.mapDataModelToFormModel(dataModel,
-        (<FormGroup>this.generalInfoFormLocalModel));
-      this.setAsComplete = (dataModel.status === FINAL && !this.isInternal);
-      this.isAmend = (dataModel.status === AMEND);
-      this.amendReasonOnblur();
-    }
-
   }
 
   /**

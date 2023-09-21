@@ -10,7 +10,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { Title } from '@angular/platform-browser';
 import { ENGLISH } from '@hpfb/sdk/ui';
-// import { VersionService } from './shared/version.service';
+import { GlobalService } from './global/global.service';
+// import { VersionService } from './shared/version.service'; 
 
 @Component({
   selector: 'app-root',
@@ -28,13 +29,15 @@ export class AppComponent {
   constructor(
     private translate: TranslateService,
     // private _versionService: VersionService,
-    public titleService: Title
+    public titleService: Title, private _globalService: GlobalService
   ) {
 
     translate.setDefaultLang(this.language);
 
     this.language = environment.lang;
     translate.use(this.language);
+    this._globalService.setCurrLanguage(this.language);
+    this._globalService.setHelpIndex([]);
 
     this.translate.get('form.title').subscribe((res) => {
       this.setTitle(res);
@@ -46,4 +49,5 @@ export class AppComponent {
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
+
 }
