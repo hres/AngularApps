@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, SimpleChanges } from '@angular/core';
 import { CANADA, FRENCH, NO, USA, YES } from '../common.constants';
 import { DatePipe } from '@angular/common';
 
@@ -61,4 +61,14 @@ export class UtilsService {
     const pipe = new DatePipe('en-US');
     return pipe.transform(today, format);
   }
+
+  /*
+  check if the component is first time loaded
+  Object.values to retrieve all changes as an array
+  Array.some to check whether any of the changes has isFirstChange set
+  Beware: If no @Input is set at all, isFirstChange will be false because Array.some stops at the first true value.
+  */
+  isFirstChange(changes: SimpleChanges): boolean{
+    return Object.values(changes).some(c => c.isFirstChange());
+   }
 }
