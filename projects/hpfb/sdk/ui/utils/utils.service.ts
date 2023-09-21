@@ -56,6 +56,10 @@ export class UtilsService {
     return lang === FRENCH;
   }
 
+  isFrench(lang: string): boolean {
+    return lang === FRENCH;
+  }
+
   getFormattedDate(format: string): string {
     const today = new Date();
     const pipe = new DatePipe('en-US');
