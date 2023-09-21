@@ -9,7 +9,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { Title } from '@angular/platform-browser';
-// import { GlobalsService } from './globals/globals.service';
+import { ENGLISH } from '@hpfb/sdk/ui';
 // import { VersionService } from './shared/version.service';
 
 @Component({
@@ -20,8 +20,8 @@ import { Title } from '@angular/platform-browser';
 })
 
 export class AppComponent {
-  @Input() isInternal: boolean;
-  public language :string = "en"; //GlobalsService.ENGLISH;
+  // @Input() isInternal: boolean;  //todo
+  public language :string = ENGLISH;
   appVersion: string;
   helpIndex: any;
   

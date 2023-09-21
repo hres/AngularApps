@@ -29,17 +29,17 @@
     <!--</div>-->
     <div class="row">
       <div class="form-group col-xs-12" >
-        <!-- <label for="address" class="required full-width" aria-required="true">
+        <label for="address" class="required full-width" aria-required="true">
           <span class="field-name" >{{'addressDetails.street'|translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="addressFormLocalModel.controls['address.invalid"
+          <!-- <control-messages *ngIf="addressFormLocalModel.controls['address.invalid"
                             [showError]="showFieldErrors"
-                            [control]="addressFormLocalModel.controls['address"
+                            [control]="addressFormLocalModel.controls['address']
                             controlId="address" label="addressDetails.street" parentId="addressDetails"
-                            parentLabel="REP Address"></control-messages>
+                            parentLabel="REP Address"></control-messages> -->
           <input name="address" id="address" class="form-control full-width" (blur)="onblur()"
-            [formControl]="addressFormLocalModel.controls['address" maxlength="120"/>
-        </label> -->
+            [formControl]="addressFormLocalModel.controls['address'] | formControl" maxlength="120"/>
+        </label>
       </div>
     </div>
     <div class="row">

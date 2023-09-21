@@ -147,10 +147,11 @@
                             controlId="areLicensesTransfered" label="ownership.transferred"
                             parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages> -->
-          <select id="areLicensesTransfered" required class="form-control full-width" (blur)="amendReasonOnblur()"
+          <select id="areLicensesTransfered" required class="form-control full-width" (change)="onblur()"
+            (blur)="amendReasonOnblur()"
                   (selected)="amendReasonOnblur()" [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl">
+                  <!-- ling todo select doesn't trigger the blur/selected event, leave it for now, correct when understanding the logic -->
             <option label=" " value=""></option>
-            <!-- <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option> -->
             <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
           </select>
         </label>

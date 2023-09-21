@@ -5,8 +5,9 @@ import {
 import {FormGroup, FormBuilder} from '@angular/forms';
 // import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
 import {CompanyInfoService} from './company.info.service';
-import { UtilsService, YES } from '@hpfb/sdk/ui';
+import { FINAL, UtilsService, YES } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
+import { AMEND } from '../app.constants';
 
 
 @Component({
@@ -49,7 +50,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       this.generalInfoFormLocalModel = this._companyInfoService.getReactiveModel();
     }
     this.detailsChanged = 0;
-    console.log('this.isInternal: ' + this.isInternal);
+    console.log('company.info=>this.isInternal: ' + this.isInternal);
 
     
     this._formDataLoader.getKeywordList().subscribe((keywords) => {
@@ -57,11 +58,6 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       this.yesNoList = keywords.find(x => (x.name === 'yesno')).data;
       console.log('company.info=>' + JSON.stringify(this.yesNoList));
     });
-
-    // this.yesNoList = this._formDataLoader.getYesNoList();
-
-
-
   }
 
   ngAfterViewInit() {
@@ -96,20 +92,20 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
 
     // since we can't detect changes on objects, using a separate flag
-    // if (changes['detailsChanged']) { // used as a change indicator for the model
-    //   // console.log("the details cbange");
-    //   if (this.generalInfoFormRecord) {
-    //     this.setToLocalModel();
+    if (changes['detailsChanged']) { // used as a change indicator for the model
+      // console.log("the details cbange");
+      if (this.generalInfoFormRecord) {
+        this.setToLocalModel();
 
-    //   } else {
-    //     this.generalInfoFormLocalModel = CompanyInfoService.getReactiveModel(this._fb);
-    //     this.generalInfoFormLocalModel.markAsPristine();
-    //   }
-    //   if (this.generalInfoFormLocalModel ) {
-    //     CompanyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
-    //       this.genInfoModel);
-    //   }
-    // }
+      } else {
+        this.generalInfoFormLocalModel = this._companyInfoService.getReactiveModel();
+        this.generalInfoFormLocalModel.markAsPristine();
+      }
+      if (this.generalInfoFormLocalModel ) {
+        this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
+          this.genInfoModel);
+      }
+    }
     // if (changes['showErrors']) {
 
     //   this.showFieldErrors = changes['showErrors'].currentValue;
@@ -122,19 +118,19 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     //   }
     //   this.errorList.emit(temp);
     // }
-    // if (changes['isInternal']) {
-    //   if (!changes['isInternal'].currentValue) {
-    //     this.setAsComplete = (this.genInfoModel.status === GlobalsService.FINAL && !changes['isInternal'].currentValue);
-    //   } // && this.isInternal;
-    // }
-    // if (changes['genInfoModel']) {
-    //   const dataModel = changes['genInfoModel'].currentValue;
-    //   CompanyInfoService.mapDataModelToFormModel(dataModel,
-    //     (<FormGroup>this.generalInfoFormLocalModel));
-    //   this.setAsComplete = (dataModel.status === GlobalsService.FINAL && !this.isInternal);
-    //   this.isAmend = (dataModel.status === GlobalsService.AMEND);
-    //   this.amendReasonOnblur();
-    // }
+    if (changes['isInternal']) {
+      if (!changes['isInternal'].currentValue) {
+        this.setAsComplete = (this.genInfoModel.status === FINAL && !changes['isInternal'].currentValue);
+      } // && this.isInternal;
+    }
+    if (changes['genInfoModel']) {
+      const dataModel = changes['genInfoModel'].currentValue;
+      this._companyInfoService.mapDataModelToFormModel(dataModel,
+        (<FormGroup>this.generalInfoFormLocalModel));
+      this.setAsComplete = (dataModel.status === FINAL && !this.isInternal);
+      this.isAmend = (dataModel.status === AMEND);
+      this.amendReasonOnblur();
+    }
 
   }
 

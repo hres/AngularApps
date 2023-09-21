@@ -1,12 +1,12 @@
 // todo cleanup unused fields
-export interface Welcome5 {
+export interface Enrollment {
   DEVICE_COMPANY_ENROL: DeviceCompanyEnrol;
 }
 
 export interface DeviceCompanyEnrol {
   general_information:    GeneralInformation;
   address:                Address;
-  contacts:               Contacts;
+  contacts:               Contact[];
   primary_contact:        PrimaryContact;
   administrative_changes: AdministrativeChanges;
 }
@@ -29,9 +29,9 @@ export interface AdministrativeChanges {
   new_contact_name:     string;
 }
 
-export interface Contacts {
-  contact: Contact;
-}
+// export interface Contacts {
+//   contact: Contact;
+// }
 
 export interface Contact {
   id:              string;

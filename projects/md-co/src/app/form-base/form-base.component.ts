@@ -1,20 +1,15 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-// import {MasterFileBaseService} from './master-file-base.service';
-// import {FileConversionService} from '../filereader/file-io/file-conversion.service';
-// import {ConvertResults} from '../filereader/file-io/convert-results';
-// import {MasterFileDataLoaderService} from '../data-loader/master-file-data-loader.service';
 import {TranslateService} from '@ngx-translate/core';
-import {DatePipe} from '@angular/common';
 import { ConvertResults } from '@hpfb/sdk/ui/file-io/convert-results';
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { ICode } from '@hpfb/sdk/ui/data-loader/data';
-import { ROOT_TAG } from '../app.constants';
+import { AMEND, ContactStatus, FINAL, ROOT_TAG } from '../app.constants';
 import { CompanyBaseService } from './company-base.service';
-import { Address, GeneralInformation } from '../models/Enrollment';
-import { NO } from '@hpfb/sdk/ui';
+import { Address, GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment} from '../models/Enrollment';
+import { FileConversionService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
 
-// import { LifecycleRecord, Transaction } from '../models/transaction';
+
 // import { VersionService } from '../shared/version.service';
 // import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
 
@@ -49,14 +44,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public showErrors: boolean;
   public title = '';
   public headingLevel = 'h2';
+
   public addressModel : Address;
   public genInfoModel : GeneralInformation; 
-  public contactModel = [];
-  // public adminChangesModel = CompanyBaseService.getEmptyAdminChangesModel();
-  // public primContactModel = CompanyBaseService.getEmptyPrimarycontactModel();
+  public contactModel : Contact[];
+  public adminChangesModel :AdministrativeChanges;
+  public primContactModel : PrimaryContact; 
   public helpIndex = [] ; // todo CompanyBaseService.getHelpTextIndex();
-  // public foo = '';
-  // public fileServices: FileConversionService;
+
   public saveXmlLabel = 'save.draft';
   public mailToLabel = 'mailto.label';
   public xslName = 'REP_MDS_CO_3_0.xsl';
@@ -66,10 +61,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public hasContact = false;
 
   constructor(
-    
     private cdr: ChangeDetectorRef,
     private _formDataLoader: CompanyDataLoaderService,
-    private _companyService: CompanyBaseService
+    private _companyService: CompanyBaseService,
+    private _fileService: FileConversionService, private _utilService: UtilsService
   ) {
     // _formDataLoader = new CompanyDataLoaderService(this.http);
     // this.countryList = [];
@@ -80,7 +75,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     this.genInfoModel = _companyService.getEmptyGenInfoModel();
     this.addressModel = _companyService.getEmptyAddressDetailsModel();
-
+    this.contactModel = null;
+    this.adminChangesModel = _companyService.getEmptyAdminChangesModel();
+    this.primContactModel = _companyService.getEmptyPrimarycontactModel();
 
   }
 
@@ -203,7 +200,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public isExternalAndFinal() {
-    // return (!this.isInternalSite && this.genInfoModel.status === GlobalsService.FINAL);
+    return (!this.isInternalSite && this.genInfoModel.status === FINAL);
   }
 
   // disable the mailto link for internal, or when it is external Final or when there are errors for the external
@@ -254,27 +251,27 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveWorkingCopyFile() {
-    // this._updatedSavedDate();
-    // let result = {
-    //   DEVICE_COMPANY_ENROL: {
-    //     general_information: this.genInfoModel,
-    //     address: this.addressModel,
-    //     contacts: {},
-    //     primary_contact: this.primContactModel,
-    //     administrative_changes: this.adminChangesModel,
-    //   },
-    // };
-    // if (this.contactModel && this.contactModel.length > 0) {
+    this._updatedSavedDate();
+    let result : Enrollment= {
+      DEVICE_COMPANY_ENROL: {
+        general_information: this.genInfoModel,
+        address: this.addressModel,
+        contacts: this.contactModel, //{},
+        primary_contact: this.primContactModel,
+        administrative_changes: this.adminChangesModel,
+      },
+    };
+    // if (this.contactModel && this.contactModel.length > 0) {       //todo what is the logic here?
     //   const cm = !this.isInternalSite
     //     ? this._removeHcStatus(this.contactModel)
     //     : this.contactModel;
     //   result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
     // }
-    // // result.DEVICE_COMPANY_ENROL.contacts =
-    // //   (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
-    // // const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
-    // const fileName = this._buildfileName();
-    // this.fileServices.saveJsonToFile(result, fileName, null);
+    // result.DEVICE_COMPANY_ENROL.contacts =
+    //   (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
+    // const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
+    const fileName = this._buildfileName();
+    this._fileService.saveJsonToFile(result, fileName, null);
   }
 
   public processFile(fileData: ConvertResults) {
@@ -316,24 +313,22 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // }
   }
 
-  // private _updatedAutoFields() {
-  //   this._updatedSavedDate();
-  //   if (this.isInternalSite) {
-  //     this.genInfoModel.status = CompanyBaseService.setFinalStatus();
-  //     this.genInfoModel.enrol_version =
-  //       (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() +
-  //       '.0';
-  //   } else {
-  //     const version: Array<any> = this.genInfoModel.enrol_version.split('.');
-  //     version[1] = (Number(version[1]) + 1).toString();
-  //     this.genInfoModel.enrol_version = version[0] + '.' + version[1];
-  //   }
-  // }
+  private _updatedAutoFields() {
+    this._updatedSavedDate();
+    if (this.isInternalSite) {
+      this.genInfoModel.status = this._companyService.setFinalStatus();
+      this.genInfoModel.enrol_version =
+        (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() +
+        '.0';
+    } else {
+      const version: Array<any> = this.genInfoModel.enrol_version.split('.');
+      version[1] = (Number(version[1]) + 1).toString();
+      this.genInfoModel.enrol_version = version[0] + '.' + version[1];
+    }
+  }
 
   private _updatedSavedDate() {
-    const today = new Date();
-    const pipe = new DatePipe('en-US');
-    // this.genInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd');
+    this.genInfoModel.last_saved_date = this._utilService.getFormattedDate('yyyy-MM-dd')
   }
 
   private _removeHcStatus(contacts) {
@@ -350,35 +345,25 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _buildfileName() {
     // const version: Array<any> = this.genInfoModel.enrol_version.split('.');
-    const today = new Date();
-    const pipe = new DatePipe('en-US');
-    const date_generated = pipe.transform(today, 'yyyyMMddHHmm');
-    // if (this.isInternalSite) {
-    //   return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
-    // } else if (this.genInfoModel.status === GlobalsService.AMEND) {
-    //   return 'draft-com-' + this.genInfoModel.company_id + '-' + date_generated;
-    // } else {
-    //   return 'draft-com-' + date_generated;
-    // }
+    const date_generated = this._utilService.getFormattedDate('yyyyMMddHHmm');
+    if (this.isInternalSite) {
+      return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
+    } else if (this.genInfoModel.status === AMEND) {
+      return 'draft-com-' + this.genInfoModel.company_id + '-' + date_generated;
+    } else {
+      return 'draft-com-' + date_generated;
+    }
   }
 
   /*
    * update adminChanges to show the text info in the adminChanges component
    */
   private _updateAdminChanges() {
-    // this.adminChanges[1] =
-    //   this.genInfoModel.amend_reasons.manufacturer_name_change ===
-    //   GlobalsService.YES;
-    // this.adminChanges[2] =
-    //   this.genInfoModel.amend_reasons.manufacturer_address_change ===
-    //   GlobalsService.YES;
-    // this.adminChanges[3] =
-    //   this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES;
-    // this.adminChanges[0] =
-    //   this.genInfoModel.are_licenses_transfered === GlobalsService.YES ||
-    //   this.adminChanges[1] ||
-    //   this.adminChanges[2] ||
-    //   this.adminChanges[3];
+    this.adminChanges[1] = this.genInfoModel.amend_reasons.manufacturer_name_change === YES;
+    this.adminChanges[2] = this.genInfoModel.amend_reasons.manufacturer_address_change === YES;
+    this.adminChanges[3] = this.genInfoModel.amend_reasons.facility_change === YES;
+    this.adminChanges[0] = this.genInfoModel.are_licenses_transfered  === YES ||
+        this.adminChanges[1] || this.adminChanges[2] || this.adminChanges[3];
   }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
@@ -430,18 +415,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   contactModelUpdated(contacts) {
-    const cntList = contacts.filter(
-      (contact) =>
-        contact.status._id === 'NEW' ||
-        contact.status._id === 'REVISE' ||
-        contact.status._id === 'ACTIVE'
-    );
+    const cntList = contacts.filter(contact =>
+      (contact.status._id === ContactStatus.NEW || contact.status._id === ContactStatus.REVISE || contact.status._id === ContactStatus.ACTIVE));
     this.activeContacts = [];
     if (cntList) {
       cntList.forEach((contact: any) => {
         this.activeContacts.push(contact.full_name);
       });
     }
-    this.hasContact = this.activeContacts && this.activeContacts.length > 0;
+    this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
   }
 }
