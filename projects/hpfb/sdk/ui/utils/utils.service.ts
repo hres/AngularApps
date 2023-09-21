@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CANADA, FRENCH, NO, USA, YES } from '../common.constants';
+import { DatePipe } from '@angular/common';
 
 @Injectable()
 export class UtilsService {
@@ -11,14 +12,14 @@ export class UtilsService {
     return [YES, NO];
   }
 
-  isCanadaOrUSA(value) : boolean{
+  isCanadaOrUSA(value): boolean {
     let countryValue: string;
     if (value) {
       countryValue = value.id;
     } else {
       return false;
     }
-    return (this.isCanada(countryValue) || this.isUsa(countryValue));
+    return this.isCanada(countryValue) || this.isUsa(countryValue);
   }
 
   /**
@@ -26,14 +27,14 @@ export class UtilsService {
    * @param value the value to check can be the json object with an id index.
    * @returns {boolean}
    */
-  isCanada(value)  : boolean{
+  isCanada(value): boolean {
     let updatedValue = '';
     if (value && value.id) {
       updatedValue = value.id;
     } else {
       updatedValue = value;
     }
-    return (updatedValue === CANADA);
+    return updatedValue === CANADA;
   }
 
   /**
@@ -41,18 +42,23 @@ export class UtilsService {
    * @param value - the value to check can be the json object with an id index.
    * @returns {boolean}
    */
-  isUsa(value)  : boolean{
+  isUsa(value): boolean {
     let updatedValue = '';
     if (value && value.id) {
       updatedValue = value.id;
     } else {
       updatedValue = value;
     }
-    return (updatedValue === USA);
+    return updatedValue === USA;
   }
 
   static isFrench(lang: string): boolean {
     return lang === FRENCH;
   }
 
+  getFormattedDate(format: string): string {
+    const today = new Date();
+    const pipe = new DatePipe('en-US');
+    return pipe.transform(today, format);
+  }
 }
