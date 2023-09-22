@@ -38,3 +38,7 @@ export * from './interceptor/cache.interceptor'
 
 export * from './version/version.service'
 
+export * from './information/privacy-statement/privacy-statement.component'
+
+export * from './information/security-disclaimer/security-disclaimer.component'
+

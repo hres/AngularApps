@@ -21,6 +21,8 @@ import { ContactListComponent } from './contact/contact.list/contact.list.compon
 import { VersionService } from './version/version.service';
 import { NoCacheHeadersInterceptor } from './interceptor/cache.interceptor';
 import { FileConversionService } from './file-io/file-conversion.service';
+import { PrivacyStatementComponent } from './information/privacy-statement/privacy-statement.component';
+import { SecurityDisclaimerComponent } from './information/security-disclaimer/security-disclaimer.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { FileConversionService } from './file-io/file-conversion.service';
     ContactDetailsComponent,
     ContactListComponent,
     GreeterComponent,
+    PrivacyStatementComponent,
+    SecurityDisclaimerComponent,
     FormControlPipe,
     JsonKeysPipe,
     AriaTransformPipe,
@@ -55,6 +59,8 @@ import { FileConversionService } from './file-io/file-conversion.service';
     ContactDetailsComponent,
     ContactListComponent,
     GreeterComponent,
+    PrivacyStatementComponent,
+    SecurityDisclaimerComponent,
     FileIoModule,
     FormControlPipe,
     JsonKeysPipe,

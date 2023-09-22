@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-security-disclaimer',
+  selector: 'lib-security-disclaimer',
   templateUrl: './security-disclaimer.component.html',
   styles: [],
 })

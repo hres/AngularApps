@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-privacy-statement',
+  selector: 'lib-privacy-statement',
   templateUrl: './privacy-statement.component.html',
   styles: [],
 })
