@@ -287,6 +287,79 @@ export class GlobalsService {
     return filtered == null ? null : filtered[0];
   }
 
+  public static extractArraySubkeys<T>(dictionary: { [key: string]: { [subkey: string]: T } }): any[] {
+    const arraySubkeys: any[] = [];
+  
+    for (const key in dictionary) {
+      const subkeys = dictionary[key];
+      for (const subkey in subkeys) {
+        if (Array.isArray(subkeys[subkey])) {
+          arraySubkeys.push(subkeys[subkey]);
+        }
+      }
+    }
+  
+    return arraySubkeys;
+  }
+  
+
+  public static flattenArrays<T>(arrays: T[]): T[] {
+    return [].concat(...arrays);
+  }
+  
+  public static getControlName (control: AbstractControl) {
+    var controlName = null;
+    var parent = control["_parent"];
+
+    // only such parent, which is FormGroup, has a dictionary 
+    // with control-names as a key and a form-control as a value
+    if (parent instanceof FormGroup)
+    {
+        // now we will iterate those keys (i.e. names of controls)
+        Object.keys(parent.controls).forEach((name) =>
+        {
+            // and compare the passed control and 
+            // a child control of a parent - with provided name (we iterate them all)
+            if (control === parent.controls[name])
+            {
+                // both are same: control passed to Validator
+                //  and this child - are the same references
+                controlName = name;
+            }
+        });
+    }
+    // we either found a name or simply return null
+    return controlName;
+  }
+
+  public static displayFormControlInfo(control: AbstractControl) {
+    if (control) {
+      console.log('Form Control Name:', this.getControlName(control));
+      console.log('\tCurrent Value:', control.value);
+      console.log('\tValid:', control.valid);
+      console.log('\tInvalid:', control.invalid);
+      console.log('\tDirty:', control.dirty);
+      console.log('\tTouched:', control.touched);
+      console.log('\tErrors:', control.errors);
+      // ... other properties you might want to log
+    }
+  }
+
+  public static checkInputValidity(event: any, control: AbstractControl, errorMsgKey: string): void {
+    if (event.target.validity.badInput) {
+      if (errorMsgKey=='invalidDate') {
+        control.setErrors({ 'error.msg.invalidDate': true });
+      }
+      // ...
+    } else {
+      // clear up previous errors
+      control.setErrors(null);
+       // Recalculates the value and validation status of the control, eg trigger "Validators.required" validation
+      control.updateValueAndValidity();
+    }
+    // GlobalsService.displayFormControlInfo(control);
+  }  
+
 }
 
 // a mapping of form control to output data model
@@ -308,3 +381,4 @@ export class DataMapping {
     this.outputDataType = outputDataType;
   }
 }
+

@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { ICodeDefinition, ICodeAria, ICode, IParentChildren } from '../shared/data';
 import { ControlMessagesComponent } from '../error-msg/control-messages.component/control-messages.component';
 import { GlobalsService } from '../globals/globals.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
 import { Ectd } from '../models/transaction';
 
@@ -50,18 +50,20 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   mfTypeTxDescSub!: Subscription;
   mfUseSub!: Subscription;
 
-  showDateAndRequesterTxDescs: string[] = ['12', '13', '14']; // Transaction Description values are defined in txDescriptions.json
+  showDateAndRequesterTxDescs: string[] = ['12', '14']; // Transaction Description values are defined in txDescriptions.json
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
-  constructor(private _regulatoryInfoService: RegulatoryInformationService) {
+  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder) {
     this.showFieldErrors = false;
-    this.regulartoryFormModel = _regulatoryInfoService.getRegularInfoForm();
   }
 
   ngOnInit(): void {
     // this line can be used to debug the loaded Transaction Descriptions' values and orders
     // console.log('==>',  this._regulatoryInfoService.getTxDescriptions().subscribe(r => console.log(r)));
+    if (!this.regulartoryFormModel) {
+      this.regulartoryFormModel = RegulatoryInformationService.getRegularInfoForm(this._fb);
+    }
 
     this.mfTypeSub = this._regulatoryInfoService
       .getMasterFileTypes()
@@ -213,9 +215,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       // when the action is triggered from the UI    
       // reset requestDate and requester fields values
       GlobalsService.resetControlValue(this.regulartoryFormModel.controls['requestDate'], this.regulartoryFormModel.controls['requester']);
-      this._saveData();
-
       this.trDescUpdated.emit(this.showContactFees);
+      this._saveData();
     }
   }
 
@@ -234,5 +235,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     // console.log("RegulatoryInformationComponent ~ _getTransactionDescriptions ~ selectedMfTypeId:", selectedMfTypeId);
     this.txDescOptions = GlobalsService.filterParentChildrenArray(this.mfTypeDescArray, selectedMfTypeId);
   }
+
+  checkDateValidity(event: any): void {
+    GlobalsService.checkInputValidity(event, this.regulartoryFormModel.get('requestDate'), 'invalidDate');
+  }  
 
 }

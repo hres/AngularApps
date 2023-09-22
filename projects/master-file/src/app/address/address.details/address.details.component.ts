@@ -43,11 +43,15 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   public showProvText = true;
   public provinceLabel = 'addressDetails.province';
   public postalPattern: RegExp = null;
-  public postalLabel = 'postal.canada';
+  public postalLabel = 'addressDetails.postalZipCode';
+  public postalCode = false;
+  public zipCode = false;
+  
 
   public showFieldErrors = false;
 
   private detailsService: AddressDetailsService;
+  private countrySelected = null;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
@@ -139,12 +143,12 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
       const dataModel = changes['addressModel'].currentValue;
       if (!this.addressFormLocalModel)
         this.addressFormLocalModel = AddressDetailsService.getReactiveModel(this._fb);
+      if (dataModel.country) {
+        this.countrySelected = dataModel.country.__text;
+        this._setCountryState(dataModel.country._id, this.addressFormLocalModel);
+      }
       AddressDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressFormLocalModel),
         this.countryList, this.provinceList.concat(this.stateList));
-      if (this.addressFormLocalModel.controls['country'] &&
-          this.addressFormLocalModel.controls['country'].value) {
-        this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
-      }
     }
   }
 
@@ -180,6 +184,9 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     // console.log(event);
     // this.addressFormLocalModel.controls['country'].setValue([event]);
     this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
+    this._resetProvState();
+
+    this.countrySelected = this.addressFormLocalModel.controls['country'].value;
     AddressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
       this.addressModel, this.countryList, this.provStateList);
   }
@@ -252,16 +259,30 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     // this.postalPattern=
     if (AddressDetailsService.isCanada(countryValue)) {
 
-      this.postalLabel = 'postal.canada';
+      this.postalLabel = 'addressDetails.postalCode';
       this.provinceLabel = 'addressDetails.province';
       this.postalPattern = /^(?!.*[DFIOQU])[A-VXYa-vxy][0-9][A-Za-z] ?[0-9][A-Za-z][0-9]$/;
+      this.postalCode = true;
+      this.zipCode = false;
     } else if (AddressDetailsService.isUsa(countryValue)) {
       this.postalPattern = /^[0-9]{5}(?:-[0-9]{4})?$/;
-      this.postalLabel = 'postal.usa';
+      this.postalLabel = 'addressDetails.zipCode';
       //  console.log("This is the postal label"+this.postalLabel);
       this.provinceLabel = 'addressDetails.state';
+      this.postalCode = false;
+      this.zipCode = true;
     } else {
       this.postalPattern = null;
+      this.postalLabel = 'addressDetails.postalZipCode';
+      this.postalCode = false;
+      this.zipCode = false;
+    }
+  }
+
+  private _resetProvState() {
+    if (this.countrySelected && this.countrySelected !== this.addressFormLocalModel.controls['country'].value) {
+      this.addressFormLocalModel.controls['provList'].reset()
+      this.addressFormLocalModel.controls['provText'].reset();
     }
   }
 }

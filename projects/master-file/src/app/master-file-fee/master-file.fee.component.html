@@ -77,16 +77,20 @@
             [control]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" controlId="whoResponsibleId"
             label="who.responsible" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
         </legend>
-        <label class="whoResponsibleFees" for="whoResponsibleId">&nbsp;{{'mf.holder'|translate}}
-          <input type="radio" id="whoResponsibleId" name="whoResponsible" value="MasterFileHolder" (blur)="onblur()"
-            (change)="whoResponsibleChanged($event)"
-            [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
-        </label>
-        <label class="whoResponsibleFees" for="whoResponsibleId_1">&nbsp;{{'mf.agent'|translate}}
-          <input type="radio" id="whoResponsibleId_1" name="whoResponsible" value="AuthorizedMasterFileAgent" (blur)="onblur()"
+        <div class="radio">
+          <label for="whoResponsibleId">
+            <input type="radio" id="whoResponsibleId" name="whoResponsible" value="MasterFileHolder" (blur)="onblur()"
               (change)="whoResponsibleChanged($event)"
-              [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />
-        </label>
+              [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />{{'mf.holder'|translate}}
+          </label>
+        </div>
+        <div class="radio">
+          <label for="whoResponsibleId_1">
+            <input type="radio" id="whoResponsibleId_1" name="whoResponsible" value="AuthorizedMasterFileAgent" (blur)="onblur()"
+                (change)="whoResponsibleChanged($event)"
+                [formControl]="mfFeeFormLocalModel.controls['whoResponsible'] | formControl" required />{{'mf.agent'|translate}}
+          </label>
+      </div>
       </fieldset>
     </div>
     <div class="row">
@@ -101,7 +105,8 @@
                             [showError]="showFieldErrors"
                             [control]="mfFeeFormLocalModel.controls['accountNumber'] | formControl"
                             controlId="accountNumber" label="account.num" parentId="mfFees"
-                            parentLabel="Master File Fees"  requiredLength="5"></control-messages>
+                            parentLabel="Master File Fees"  
+                            requiredLength="5"></control-messages>
           <input id="accountNumber" class="form-control" name="accountNumber" (blur)="onblur()" data-only-digits
                  [formControl]="mfFeeFormLocalModel.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
@@ -112,7 +117,8 @@
                             [showError]="showFieldErrors"
                             [control]="mfFeeFormLocalModel.controls['businessNumber'] | formControl"
                             controlId="businessNumber" label="business.num" parentId="mfFees"
-                            parentLabel="Master File Fees" requiredLength="9"></control-messages>
+                            parentLabel="Master File Fees" 
+                            requiredLength="9"></control-messages>
           <input id="businessNumber" class="form-control" name="businessNumber" (blur)="onblur()" data-only-digits
             [formControl]="mfFeeFormLocalModel.controls['businessNumber'] | formControl" maxlength="9" />
         </label>

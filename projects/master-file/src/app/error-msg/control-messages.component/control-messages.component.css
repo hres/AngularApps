@@ -11,3 +11,6 @@
   /* TODO what is being overridden in wet white-space: normal;*/
 }
 
+.label-danger {
+  white-space: normal !important;
+}

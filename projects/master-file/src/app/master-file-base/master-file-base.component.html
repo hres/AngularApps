@@ -91,9 +91,9 @@
                                     [control]="masterFileForm.controls['notApplicable'] | formControl"
                                     controlId="notApplicableId" label="notApplicable"
                                     parentLabel="MasterFile Information"></control-messages>
-                          <input name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
+                          <input attr.aria-label= "{{'agent.not.applicable' | translate}}" name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
                             id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl" />
-                          <span><b>{{'not.applicable'|translate}}</b></span>
+                          <span aria-hidden="true"><b>{{'not.applicable'|translate}}</b></span>
                         </label>
                       </div>
                     </div>
@@ -118,6 +118,7 @@
                 <div class="checkbox required">
                   <label for="contactInfoConfirmId">                 
                     <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId"
+                    (blur)="processErrors()"
                     (change)="onChanged($event, 'contactInfoConfirm')"
                       [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
 
@@ -130,7 +131,7 @@
                     <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
                                     [showError]="showErrors" parentId="mfContactInfoConfirm"
                                     [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
-                                    controlId="contactInfoConfirmId" label="contactInfoConfirm"
+                                    controlId="contactInfoConfirmId" label="info.confirmation"
                                     parentLabel="MasterFile Contact Info Confirmation"></control-messages>
                   </label>
                 </div>
@@ -156,8 +157,8 @@
             <h2 class="panel-title">{{'panel.title.certification'|translate}}</h2>
           </header>
           <div class="panel-body">
-            <div class="row col-xs-12 full-width">
-              <div class="checkbox required">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkbox required">
                 <label for="certifyAccurateCompleteId">
                   <input name="certifyAccurateCompleteName" type="checkbox" id="certifyAccurateCompleteId" (blur)="processErrors()"
                     (change)="onChanged($event, 'certifyAccurateComplete')"
@@ -166,7 +167,7 @@
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                   <control-messages *ngIf="masterFileForm.controls['certifyAccurateComplete'].invalid" [showError]="showErrors"
                     parentId="mfCertif" [control]="masterFileForm.controls['certifyAccurateComplete'] | formControl"
-                    controlId="certifyAccurateCompleteId" label="certifyAccurateComplete"
+                    controlId="certifyAccurateCompleteId" label="certify.info"
                     parentLabel="MasterFile Certification"></control-messages>
                 </label>
               </div>
@@ -195,7 +196,7 @@
                     parentId="mfCertif" [control]="masterFileForm.controls['submitDate'] | formControl" controlId="submitDateId"
                     label="submitDate" parentLabel="MasterFile Certification"></control-messages>
                   <input name="submitDate" class="form-control" id="submitDateId" type="date" (blur)="processErrors()"
-                    [formControl]="masterFileForm.controls['submitDate'] | formControl" />
+                    [formControl]="masterFileForm.controls['submitDate'] | formControl" (input)="checkDateValidity($event)" /> 
                 </label>
               </div>
             </div>
@@ -213,7 +214,7 @@
                   <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                   <control-messages *ngIf="masterFileForm.controls['consentPrivacy'].invalid" [showError]="showErrors"
                     parentId="mfCertif" [control]="masterFileForm.controls['consentPrivacy'] | formControl"
-                    controlId="consentPrivacyId" label="consentPrivacy"
+                    controlId="consentPrivacyId" label="consent.privacy"
                     parentLabel="MasterFile Certification"></control-messages>
                 </label>
               </div>

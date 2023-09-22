@@ -25,14 +25,14 @@ import { ValidationService } from '../validation.service';
 export class RegulatoryInformationService {
   private static lang = GlobalsService.ENGLISH; // todo remove it
 
-  constructor(private _fb: FormBuilder, private _dataService: DataService) {}
+  constructor(private _dataService: DataService) {}
 
   mfTypeOptions$: Observable<ICodeAria[]>;
   mfUseOptions$: Observable<ICode[]>;
   txDescs$: Observable<ICodeDefinition[]>;
   mfTypeTxDescOptions$: Observable<IParentChildren[]>;
 
-  showDateAndRequesterTxDescs: string[] = ['12', '13', '14'];
+  showDateAndRequesterTxDescs: string[] = ['12', '14'];
 
   getMasterFileTypes(): Observable<ICodeAria[]> {
     this.mfTypeOptions$ = this._dataService
@@ -94,23 +94,23 @@ export class RegulatoryInformationService {
     return this.mfUseOptions$;
   }
 
-  public getRegularInfoForm() {
-    // if (!_fb) {
-    //   return null;
-    // }
-    return this._fb.group({
-      dossierId: [
-        '',
-        [Validators.required, ValidationService.dossierIdValidator],
-      ],
-      masterFileName: ['', Validators.required],
-      masterFileNumber: [ '', ValidationService.masterfileNumberValidator],
-      masterFileType: ['', Validators.required],
-      masterFileUse: ['', Validators.required],
-      descriptionType: ['', Validators.required],
-      requestDate: ['', Validators.required],
-      requester: ['', Validators.required],
-    });
+  public static getRegularInfoForm(fb:FormBuilder) {
+    if (!fb) {
+      return null;
+   }
+   return fb.group({
+     dossierId: [
+       null,
+       [Validators.required, ValidationService.dossierIdValidator],
+     ],
+     masterFileName: [null, Validators.required],
+     masterFileNumber: [null, ValidationService.masterfileNumberValidator],
+     masterFileType: [null, Validators.required],
+     masterFileUse: [null, Validators.required],
+     descriptionType: [null, Validators.required],
+     requestDate: [null, Validators.required],
+     requester: [null, Validators.required],
+   });
   }
 
   regInfoDataMappings: DataMapping[] = [

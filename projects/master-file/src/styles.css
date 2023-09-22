@@ -10,18 +10,23 @@ strong.error {
     font-size: 125%;
     /* TODO what is being overridden in wet white-space: normal;*/
 }
+sup {
+    font-weight: 700 !important;
+}
 
-label.whoResponsibleFees {
-    position:relative;
-    padding-left:2.5ch;
-    display: block;
-    margin-bottom: 5px;
+.radio input[type=radio]{
+    position: absolute;
+    margin-left: 0px;
+}
+
+.radio label{
+    font-weight: 700;
 }
 
 #masterFileType input[type="radio"] {
-    margin-right: 10px; 
+    margin-right: 10px;
   }
-  
+
 
 /* Specifically nesting inputs so need to add this*/
 label>input {
@@ -360,12 +365,12 @@ ng-select-container .ng-select-choice>.ng-select-chosen {
     display:flex;
 }
 
-.visually-hidden { 
+.visually-hidden {
     border: 0;
     padding: 0;
     margin: 0;
     position: absolute !important;
-    height: 1px; 
+    height: 1px;
     width: 1px;
     overflow: hidden;
     clip: rect(1px 1px 1px 1px); /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */

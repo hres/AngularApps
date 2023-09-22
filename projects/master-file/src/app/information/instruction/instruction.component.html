@@ -6,7 +6,7 @@
             <ul>
                 <!-- <li>{{'hlp_load1'|translate}}</li> -->
                 <li>{{'hlp_load2'|translate}}</li>
-                <li>{{'hlp_load3'|translate}}</li>
+                <li [innerHTML]="'hlp_load3'|translate"></li> 
             </ul>
             <p class="fn-rtn"><a href="#tr1-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
                     {{helpTextSequences.loadFileIndx}}

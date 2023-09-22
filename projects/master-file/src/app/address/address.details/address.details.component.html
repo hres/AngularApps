@@ -38,7 +38,7 @@
                             controlId="{{addrType}}Address" label="addressDetails.street" parentId="{{addrType}}Info"
                             parentLabel="{{addrType}} Info"></control-messages>
           <input name="address" id="{{addrType}}Address" class="form-control full-width" (blur)="onblur()"
-            [formControl]="addressFormLocalModel.controls['address'] | formControl" maxlength="80"/>
+            [formControl]="addressFormLocalModel.controls['address'] | formControl" maxlength="250"/>
         </label>
       </div>
     </div>
@@ -107,15 +107,20 @@
       </div>
       <div class="form-group col-sm-6 col-xs-12">
         <label for="{{addrType}}Postal" class="required">
-          <span class="field-name" i18n>{{'addressDetails.postalCode' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name" i18n>{{ postalLabel |translate}}</span>
+          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong><br/>
+          <span *ngIf="showProvText" class="field-name small" i18n>{{'postal.not.applicable' |translate }}</span>
           <control-messages *ngIf="addressFormLocalModel.controls['postal'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['postal'] | formControl"
-                            controlId="{{addrType}}Postal" label="addressDetails.postalCode" parentId="{{addrType}}Info"
+                            controlId="{{addrType}}Postal" label="{{postalLabel}}" parentId="{{addrType}}Info"
                             parentLabel="{{addrType}} Info"></control-messages>
-          <input name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
-                 maxlength="10" />
+          <input *ngIf="showProvText" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
+                 maxlength="20" />
+          <input *ngIf="!showProvText && postalCode" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
+                 maxlength="6" />
+          <input *ngIf="!showProvText && zipCode" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
+                 maxlength="5" data-only-digits/>
         </label>
     </div>
     <!-- <pre>{{addressFormLocalModel.value |json}}</pre>-->

@@ -59,7 +59,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public holder: string = 'holder';
   public agent: string = 'agent';
 
-  showDateAndRequesterTxDescs: string[] = ['12', '13', '14'];
+  showDateAndRequesterTxDescs: string[] = ['12', '14'];
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
@@ -105,6 +105,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.msgList.changes.subscribe(errorObjs => {
       let temp = [];
       this._updateErrorList(errorObjs);
+      this.processErrors();
     });
     this.msgList.notifyOnChanges();
   }
@@ -262,6 +263,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
       this._transFeeErrors = [];
     }
+    this.processErrors();
   }
 
 
@@ -361,4 +363,8 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
       this.masterFileForm.controls[controlName].reset();
     }
   }
+
+  checkDateValidity(event: any): void {
+    GlobalsService.checkInputValidity(event, this.masterFileForm.get('submitDate'), 'invalidDate');
+  }  
 }
