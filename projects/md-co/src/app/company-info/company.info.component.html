@@ -26,11 +26,11 @@
         <label for="companyId" [ngClass]="{'required':isInternal}" aria-required="true">
           <span class="field-name" >{{'company.id' |translate}}</span>
           <strong class="required" *ngIf="isInternal" >{{'commmon.required.bracket'|translate}}</strong>
-          <!-- <control-messages *ngIf="(!disableAmend() && generalInfoFormLocalModel.controls.companyId.invalid)"
+          <control-messages *ngIf="(!disableAmend() && generalInfoFormLocalModel.controls['companyId'].invalid)"
                             [showError]="showFieldErrors"
-                            [control]="generalInfoFormLocalModel.controls.companyId"
+                            [control]="generalInfoFormLocalModel.controls['companyId'] | formControl"
                             controlId="companyId" label="company.id" parentId="generalInfo"
-                            parentLabel="Regulatory Company Enrolment"></control-messages> -->
+                            parentLabel="Regulatory Company Enrolment"></control-messages>
           <input name="companyId" id="companyId" class="form-control" [formControl]="generalInfoFormLocalModel.controls['companyId'] | formControl"
                  [readonly]="disableAmend()" maxlength="6" (blur)="onblur()" />
         </label>
@@ -122,12 +122,12 @@
           <div *ngIf="isOther()" class="col-xs-12 form-group">
             <label for="otherDetails" class="full-width">{{'other.details'|translate}}
               <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-              <!-- <control-messages *ngIf="generalInfoFormLocalModel.controls.otherDetails.invalid"
+              <control-messages *ngIf="generalInfoFormLocalModel.controls['otherDetails'].invalid"
                                 [showError]="showFieldErrors"
-                                [control]="generalInfoFormLocalModel.controls.otherDetails"
+                                [control]="generalInfoFormLocalModel.controls['otherDetails'] | formControl"
                                 controlId="otherDetails" label="other.details"
                                 parentId="generalInfo"
-                                parentLabel="Regulatory Company Enrolment"></control-messages> -->
+                                parentLabel="Regulatory Company Enrolment"></control-messages>
             <textarea type="text" class="form-control full-width" id="otherDetails" (blur)="amendReasonOnblur()"
                       [formControl]="generalInfoFormLocalModel.controls['otherDetails'] | formControl" maxlength="500"></textarea>
             </label>
@@ -141,12 +141,12 @@
         <label for="areLicensesTransfered" class="required full-width">
           <span class="field-name" >{{'ownership.transferred' |translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-          <!-- <control-messages *ngIf="generalInfoFormLocalModel.controls.areLicensesTransfered.invalid"
+          <control-messages *ngIf="generalInfoFormLocalModel.controls['areLicensesTransfered'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="generalInfoFormLocalModel.controls.areLicensesTransfered"
+                            [control]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl"
                             controlId="areLicensesTransfered" label="ownership.transferred"
                             parentId="generalInfo"
-                            parentLabel="Regulatory Company Enrolment"></control-messages> -->
+                            parentLabel="Regulatory Company Enrolment"></control-messages>
           <select id="areLicensesTransfered" required class="form-control full-width" (change)="onblur()"
             (blur)="amendReasonOnblur()"
                   (selected)="amendReasonOnblur()" [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl">
@@ -163,7 +163,7 @@
           <!--<span>{{'amend.msg'|translate}}</span>-->
         <!--</div>-->
       <!--</div>-->
-    <!--pre>{{generalInfoFormLocalModel.value |json}}</pre>
-      <pre>companyId.invalid={{generalInfoFormLocalModel.controls.companyId.invalid}}</pre-->
+    <pre>{{generalInfoFormLocalModel.value |json}}</pre>
+      <!-- <pre>companyId.invalid={{generalInfoFormLocalModel.controls.companyId.invalid}}</pre> -->
   </div>
 </div>

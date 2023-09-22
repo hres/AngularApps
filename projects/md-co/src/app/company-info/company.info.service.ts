@@ -2,6 +2,7 @@ import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AMEND, FINAL, NEW } from '../app.constants';
 import { NO, ValidationService, YES } from '@hpfb/sdk/ui';
+import { GeneralInformation } from '../models/Enrollment';
 // import {GlobalsService} from '../globals/globals.service';
 // import {ValidationService} from '../validation.service';
 // import {ListService} from '../list-service';
@@ -85,7 +86,7 @@ export class CompanyInfoService {
     generalInfoModel.are_licenses_transfered = formRecord.controls['areLicensesTransfered'].value;
   }
 
-  mapDataModelToFormModel(generalInfoModel, formRecord: FormGroup) {
+  mapDataModelToFormModel(generalInfoModel : GeneralInformation, formRecord: FormGroup) {
     formRecord.controls['formStatus'].setValue(generalInfoModel.status);
     // formRecord.controls['enrolVersion'].setValue(generalInfoModel.enrol_version);
     formRecord.controls['lastSavedDate'].setValue(generalInfoModel.last_saved_date);

@@ -2,17 +2,14 @@ import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, Qu
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import { ConvertResults } from '@hpfb/sdk/ui/file-io/convert-results';
-import { CompanyDataLoaderService } from './company-data-loader.service';
 import { ICode } from '@hpfb/sdk/ui/data-loader/data';
 import { AMEND, ContactStatus, FINAL, ROOT_TAG } from '../app.constants';
+import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { Address, GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment} from '../models/Enrollment';
-import { ContactListComponent, FileConversionService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
+import { ContactListComponent, ControlMessagesComponent, FileConversionService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
 import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
-
-// import { VersionService } from '../shared/version.service';
-// import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
 
 @Component({
   selector: 'app-form-base',
@@ -26,7 +23,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @Input() lang;
   @Input() helpTextSequences;
   @ViewChild(ContactListComponent, {static: true}) companyContacts: ContactListComponent;
-  // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   
   private _genInfoErrors = [];
   private _addressErrors = [];
@@ -436,4 +432,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
     this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
   }
+
+  gotoError(): void {
+    this.router.navigate(['/error']);
+  }	 
 }

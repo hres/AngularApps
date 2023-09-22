@@ -2,14 +2,12 @@ import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
-import {FormGroup, FormBuilder} from '@angular/forms';
-// import {ControlMessagesComponent} from '../error-msg/control-messages.component/control-messages.component';
+import {FormGroup} from '@angular/forms';
 import {CompanyInfoService} from './company.info.service';
-import { FINAL, UtilsService, YES } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, FINAL, UtilsService, YES } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
 import { AMEND } from '../app.constants';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'com-gen-info',
@@ -17,9 +15,6 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 
-/**
- *  Company Info Component is used for Company Form
- */
 export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   public generalInfoFormLocalModel: FormGroup;
@@ -33,7 +28,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
   @Output() showAdminChanges = new EventEmitter(true);
-  // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public isAmend = false;
   public showFieldErrors: boolean;
@@ -52,7 +47,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       this.generalInfoFormLocalModel = this._companyInfoService.getReactiveModel();
     }
     // init the form's data
-    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, this.generalInfoFormLocalModel);
+    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, this.generalInfoFormLocalModel); 
 
     this.detailsChanged = 0;
     console.log('company.info=>this.isInternal: ' + this.isInternal);
@@ -71,9 +66,9 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // this.msgList.changes.subscribe(errorObjs => {
-    //   let temp = [];
-    //   this._updateErrorList(errorObjs);
+    this.msgList.changes.subscribe(errorObjs => {
+      let temp = [];
+      this._updateErrorList(errorObjs);
 
       /* errorObjs.forEach(
          error => {
@@ -81,8 +76,8 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
          }
        );
        this.errorList.emit(temp);*/
-    // });
-    // this.msgList.notifyOnChanges();
+    });
+    this.msgList.notifyOnChanges();
 
   }
 
@@ -119,18 +114,18 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
             this.genInfoModel);
         }
       }
-      // if (changes['showErrors']) {
+      if (changes['showErrors']) {
 
-      //   this.showFieldErrors = changes['showErrors'].currentValue;
-      //   let temp = [];
-      //   if (this.msgList) {
-      //     this.msgList.forEach(item => {
-      //       temp.push(item);
-      //       // console.log(item);
-      //     });
-      //   }
-      //   this.errorList.emit(temp);
-      // }
+        this.showFieldErrors = changes['showErrors'].currentValue;
+        let temp = [];
+        if (this.msgList) {
+          this.msgList.forEach(item => {
+            temp.push(item);
+            // console.log(item);
+          });
+        }
+        this.errorList.emit(temp);
+      }
       if (changes['isInternal']) {
         if (!changes['isInternal'].currentValue) {
           this.setAsComplete = (this.genInfoModel.status === FINAL && !changes['isInternal'].currentValue);
