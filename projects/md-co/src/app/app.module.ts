@@ -11,7 +11,7 @@ import { ErrorComponent } from './error/error.component';
 import { ContainerComponent } from './container/container.component';
 import { NoCacheHeadersInterceptor } from '@hpfb/sdk/ui';
 import { VersionService } from '@hpfb/sdk/ui/';
-
+import { InstructionService } from '@hpfb/sdk/ui';
 
 @NgModule({
   declarations: [AppComponent, ContainerComponent, ErrorComponent],
@@ -38,6 +38,7 @@ import { VersionService } from '@hpfb/sdk/ui/';
     Title,
     VersionService,
     { provide: HTTP_INTERCEPTORS, useClass: NoCacheHeadersInterceptor, multi: true },
+    InstructionService
   ],
   exports: [AppFormModule],
   bootstrap: [AppComponent],

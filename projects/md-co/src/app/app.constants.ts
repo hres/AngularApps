@@ -16,3 +16,10 @@ export enum ContactStatus {
 //     AMEND = 'fr_AMEND',
 //     FINAL = 'fr_FINAL'
 //   }
+
+export const helpInstructionHeadings = ['loadFileIndx',
+                                        'compREPInx',
+                                        'conStatInx',
+                                        'routIdInx',
+                                        'desRenewalInx',
+                                        'desFinanceInx']

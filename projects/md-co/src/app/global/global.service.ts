@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Enrollment } from '../models/Enrollment';
+import { InstructionService } from '@hpfb/sdk/ui';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalService {
 
-  constructor() { }
+  constructor( private instructionService : InstructionService) { }
 
-  private helpIndex: any;
+  private helpIndex: { [key: string]: number }; 
   private currLanguage: string;
   private enrollment : Enrollment;
 
-  setHelpIndex(helpIndex: any) {
-    this.helpIndex = helpIndex;
+  setHelpIndex(helpIndex: string[]) {
+    this.helpIndex = this.instructionService.getHelpTextIndex(helpIndex);
   }
 
   getHelpIndex() {

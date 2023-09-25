@@ -9,7 +9,7 @@ import { GlobalService } from '../global/global.service';
 export class ContainerComponent implements OnInit {
 
   language: string;
-  helpIndex: []; //ling todo
+  helpIndex: { [key: string]: number };
 
   constructor(private router: Router, private _globalService: GlobalService) {}
 

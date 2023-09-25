@@ -12,6 +12,7 @@ import { Title } from '@angular/platform-browser';
 import { ENGLISH } from '@hpfb/sdk/ui';
 import { GlobalService } from './global/global.service';
 import { VersionService } from '@hpfb/sdk/ui/'; 
+import { helpInstructionHeadings } from './app.constants';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class AppComponent {
     this.language = environment.lang;
     translate.use(this.language);
     this._globalService.setCurrLanguage(this.language);
-    this._globalService.setHelpIndex([]);
+    this._globalService.setHelpIndex(helpInstructionHeadings);
 
     this.translate.get('form.title').subscribe((res) => {
       this.setTitle(res);

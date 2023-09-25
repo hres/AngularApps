@@ -42,3 +42,4 @@ export * from './information/privacy-statement/privacy-statement.component'
 
 export * from './information/security-disclaimer/security-disclaimer.component'
 
+export * from './information/instruction/instruction.service'

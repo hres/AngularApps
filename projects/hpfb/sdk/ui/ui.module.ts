@@ -23,7 +23,7 @@ import { NoCacheHeadersInterceptor } from './interceptor/cache.interceptor';
 import { FileConversionService } from './file-io/file-conversion.service';
 import { PrivacyStatementComponent } from './information/privacy-statement/privacy-statement.component';
 import { SecurityDisclaimerComponent } from './information/security-disclaimer/security-disclaimer.component';
-
+import { InstructionService } from './information/instruction/instruction.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,7 @@ import { SecurityDisclaimerComponent } from './information/security-disclaimer/s
     CommonFormDendencyModule,
     FileIoModule
   ],
-  providers: [AddressDetailsService, FileConversionService, UtilsService, VersionService, NoCacheHeadersInterceptor],
+  providers: [AddressDetailsService, FileConversionService, UtilsService, VersionService, NoCacheHeadersInterceptor, InstructionService],
   exports: [
     LayoutComponent,
     ExpanderComponent,
