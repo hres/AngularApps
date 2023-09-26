@@ -40,12 +40,12 @@ export class AppComponent {
     translate.use(this.language);
     this._globalService.setCurrLanguage(this.language);
     this._globalService.setHelpIndex(helpInstructionHeadings);
+    this._globalService.setAppVersion(this._versionService.getApplicationVersion(environment));
 
     this.translate.get('form.title').subscribe((res) => {
       this.setTitle(res);
     });
-    //this.appVersion = '0.0.0';
-    this.appVersion = this._versionService.getApplicationVersion(environment);
+    this.appVersion = this._globalService.getAppVersion();
   }
 
   public setTitle(newTitle: string) {

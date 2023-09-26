@@ -1,10 +1,8 @@
 import {Component, OnInit, EventEmitter, Output, Input, SimpleChanges, ViewEncapsulation} from '@angular/core';
-
+import { DRAFT_FILE_TYPE, FILE_TYPE_ERROR, FINAL_FILE_TYPE, FORM_TYPE_ERROR, IMPORT_SUCCESS } from '../file-io-constants';
 import {TranslateService} from '@ngx-translate/core';
-// import {ConvertResults} from '../convert-results';
-import {FileConversionService} from '../file-conversion.service';
-import {FileIoGlobalsService} from '../file-io-globals.service';
 import { ConvertResults } from '../convert-results';
+import {FileConversionService} from '../file-conversion.service';
 
 @Component({
   selector: 'lib-file-reader',
@@ -17,7 +15,7 @@ export class FilereaderComponent implements OnInit {
   @Output() complete = new EventEmitter();
   @Input() rootTag : string = '';
 
-  public status = FileIoGlobalsService.importSuccess;
+  public status = IMPORT_SUCCESS;
   public showFileLoadStatus = false;
   private rootId = '';
   
@@ -60,7 +58,7 @@ export class FilereaderComponent implements OnInit {
       if (convertResult.messages && convertResult.messages.length > 0) {
         self.status = convertResult.messages[0];
       } else {
-        self.status = FileIoGlobalsService.importSuccess;
+        self.status = IMPORT_SUCCESS;
       }
       self.showFileLoadStatus = true;
      
@@ -84,11 +82,11 @@ export class FilereaderComponent implements OnInit {
     let fileType = splitFile[splitFile.length - 1];
     let conversion:FileConversionService =new FileConversionService();
 
-    if ((fileType.toLowerCase()) === FileIoGlobalsService.draftFileType || fileType.toLowerCase() === FileIoGlobalsService.finalFileType) {
-      if ((fileType.toLowerCase()) === FileIoGlobalsService.draftFileType) {
-        // conversion.convertToJSONObjects(result, convertResult);
+    if ((fileType.toLowerCase()) === DRAFT_FILE_TYPE || fileType.toLowerCase() === FINAL_FILE_TYPE) {
+      if ((fileType.toLowerCase()) === DRAFT_FILE_TYPE) {
+        conversion.convertToJSONObjects(result, convertResult);
       } else {
-        // conversion.convertXMLToJSONObjects(result, convertResult);
+        conversion.convertXMLToJSONObjects(result, convertResult);
       }
       // console.log(convertResult.data);
       if (convertResult.messages.length === 0) {
@@ -97,7 +95,7 @@ export class FilereaderComponent implements OnInit {
     } else {
       convertResult.data = null;
       convertResult.messages=[]; //clear msessages
-      convertResult.messages.push(FileIoGlobalsService.fileTypeError);
+      convertResult.messages.push(FILE_TYPE_ERROR);
     }
   }
   private static checkRootTagMatch(convertResult:ConvertResults, rootName:string) {
@@ -106,7 +104,7 @@ export class FilereaderComponent implements OnInit {
     if (!convertResult.data[rootName]) {
       convertResult.data = null;
       convertResult.messages = [];
-      convertResult.messages.push(FileIoGlobalsService.formTypeError);
+      convertResult.messages.push(FORM_TYPE_ERROR);
     }
   }
 

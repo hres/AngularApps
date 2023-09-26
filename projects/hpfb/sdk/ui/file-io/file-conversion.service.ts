@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 // import * as xml2js from 'xml2js';
 import {ConvertResults} from './convert-results';
-import {FileIoGlobalsService} from './file-io-globals.service';
 import * as FileSaver from 'file-saver';
+import { DRAFT_FILE_TYPE, FINAL_FILE_TYPE, IMPORT_SUCCESS, PARSE_FAILE } from './file-io-constants';
 
 declare var X2JS: any;
 
@@ -18,14 +18,14 @@ export class FileConversionService {
    * @param data -the json string to convert
    * @param convertResult -the json object to store the data in
    */
-  convertToJSONObjects(data, convertResult: ConvertResults) {
+  convertToJSONObjects(jsonData, convertResult: ConvertResults) {
     convertResult.messages = [];
     try {
-      convertResult.data = JSON.parse(data);
-      convertResult.messages.push(FileIoGlobalsService.importSuccess);
+      convertResult.data = JSON.parse(jsonData);
+      convertResult.messages.push(IMPORT_SUCCESS);
     } catch (e) {
       convertResult.data = null;
-      convertResult.messages.push(FileIoGlobalsService.parseFail);
+      convertResult.messages.push(PARSE_FAILE);
     }
   }
 
@@ -46,7 +46,7 @@ export class FileConversionService {
     // converts XML as a string to a json
     convertResult.data = jsonConverter.xml_str2json(data);
     if (convertResult.data == null) {
-      convertResult.messages.push(FileIoGlobalsService.parseFail);
+      convertResult.messages.push(PARSE_FAILE);
     }
     return (null);
 
@@ -101,11 +101,11 @@ export class FileConversionService {
     if (!jsonObj) return;
     let makeStrSave = JSON.stringify(jsonObj);
     let blob = new Blob([makeStrSave], {type: 'text/plain;charset=utf-8'});
-    if (!fileName) {
-      fileName = 'REPDraft.' + FileIoGlobalsService.draftFileType;
-    } else {
-      fileName += '.' + FileIoGlobalsService.draftFileType;
-    }
+    // if (!fileName) {
+    //   fileName = 'REPDraft.' + DRAFT_FILE_TYPE;
+    // } else {
+      fileName += '.' + DRAFT_FILE_TYPE;
+    // }
     FileSaver.saveAs(blob, fileName);
   }
 
@@ -122,17 +122,17 @@ export class FileConversionService {
 
     if (addXsl) {
       // if (!xslName) {
-      //   xmlResult = '<?xml version="1.0" encoding="UTF-8"?>' + '<?xml-stylesheet  type="text/xsl" href=' + FileIoGlobalsService.defaultXSLName + '?>' + xmlResult;
+      //   xmlResult = '<?xml version="1.0" encoding="UTF-8"?>' + '<?xml-stylesheet  type="text/xsl" href=' + defaultXSLName + '?>' + xmlResult;
       // } else {
         xmlResult = '<?xml version="1.0" encoding="UTF-8"?>' + '<?xml-stylesheet  type="text/xsl" href="' + xslName + '"?>' + xmlResult;
       // }
     }
     let blob = new Blob([xmlResult], {type: 'text/plain;charset=utf-8'});
-    if (!fileName) {
-      fileName = 'REPFinal.' + FileIoGlobalsService.finalFileType;
-    } else {
-      fileName += '.' + FileIoGlobalsService.finalFileType;
-    }
+    // if (!fileName) {
+    //   fileName = 'REPFinal.' + FINAL_FILE_TYPE;
+    // } else {
+      fileName += '.' + FINAL_FILE_TYPE;
+    // }
     FileSaver.saveAs(blob, fileName);
   }
 }

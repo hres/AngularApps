@@ -1,9 +1,9 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import { ConvertResults } from '@hpfb/sdk/ui/file-io/convert-results';
 import { ICode } from '@hpfb/sdk/ui/data-loader/data';
-import { AMEND, ContactStatus, FINAL, ROOT_TAG } from '../app.constants';
+import { AMEND, ContactStatus, FINAL, XSLT_PREFIX, ROOT_TAG } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { Address, GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment} from '../models/Enrollment';
@@ -31,7 +31,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _primContactErrors = [];
   public companyForm: FormGroup;
   public errorList = [];
+  
   public rootTagText = ROOT_TAG; 
+  private xslName: string;
+
   public isInternalSite = true;
   public loadFileIndicator = 0;
   public countryList: ICode[];
@@ -54,7 +57,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public saveXmlLabel = 'save.draft';
   public mailToLabel = 'mailto.label';
-  public xslName = 'REP_MDS_CO_3_0.xsl';
   public showMailToHelpText: boolean;
   public mailToLink = '';
   public activeContacts = [];
@@ -71,6 +73,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showAdminChanges = false;
     this.showErrors = false;
     this.showMailToHelpText = false;
+
+    this.xslName = XSLT_PREFIX.toUpperCase() + this._utilService.getApplicationMajortVersion(this._globalService.getAppVersion()) + '.xsl';
   }
 
   ngOnInit() {  
@@ -268,7 +272,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         administrative_changes: this.adminChangesModel,
       },
     };
-    // if (this.contactModel && this.contactModel.length > 0) {       //todo what is the logic here?
+    // if (this.contactModel && this.contactModel.length > 0) {       //ling todo what is the logic here?
     //   const cm = !this.isInternalSite
     //     ? this._removeHcStatus(this.contactModel)
     //     : this.contactModel;
@@ -283,41 +287,41 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public processFile(fileData: ConvertResults) {
     this.loadFileIndicator++;
-    // console.log('processing file.....');
-    // console.log(fileData);
-    // this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;
-    // // set amend reasons and admin changes section to null if status is Final
-    // if (this.genInfoModel.status === GlobalsService.FINAL) {
-    //   this.genInfoModel.amend_reasons = {
-    //     manufacturer_name_change: '',
-    //     manufacturer_address_change: '',
-    //     facility_change: '',
-    //     contact_change: '',
-    //     other_change: '',
-    //     other_details: '',
-    //   };
-    // this.genInfoModel.are_licenses_transfered = '';
-    // }
+    console.log('processing file.....');
+    console.log(fileData);
+    this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;
+    // set amend reasons and admin changes section to null if status is Final
+    if (this.genInfoModel.status === FINAL) {
+      this.genInfoModel.amend_reasons = {
+        manufacturer_name_change: '',
+        manufacturer_address_change: '',
+        facility_change: '',
+        contact_change: '',
+        other_change: '',
+        other_details: '',
+      };
+    this.genInfoModel.are_licenses_transfered = '';
+    }
 
-    // this._updateAdminChanges();
-    // if (fileData.data.DEVICE_COMPANY_ENROL.administrative_changes) {
-    //   this.adminChangesModel =
-    //     fileData.data.DEVICE_COMPANY_ENROL.administrative_changes;
-    // }
+    this._updateAdminChanges();
+    if (fileData.data.DEVICE_COMPANY_ENROL.administrative_changes) {
+      this.adminChangesModel =
+        fileData.data.DEVICE_COMPANY_ENROL.administrative_changes;
+    }
 
-    // this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
-    // this.primContactModel = fileData.data.DEVICE_COMPANY_ENROL.primary_contact;
-    // const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts.contact;
-    // if (cont) {
-    //   this.contactModel = cont instanceof Array ? cont : [cont];
-    //   this.contactModelUpdated(this.contactModel);
-    // } else {
-    //   this.contactModel = [];
-    // }
-    // if (this.isInternalSite) {
-    //   // once load data files on internal site, lower components should update error list and push them up
-    //   this.showErrors = true;
-    // }
+    this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
+    this.primContactModel = fileData.data.DEVICE_COMPANY_ENROL.primary_contact;
+    const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts['contact'];
+    if (cont) {
+      this.contactModel = cont instanceof Array ? cont : [cont];
+      this.contactModelUpdated(this.contactModel);
+    } else {
+      this.contactModel = [];
+    }
+    if (this.isInternalSite) {
+      // once load data files on internal site, lower components should update error list and push them up
+      this.showErrors = true;
+    }
   }
 
   private _updatedAutoFields() {
@@ -436,4 +440,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   gotoError(): void {
     this.router.navigate(['/error']);
   }	 
+
+
 }

@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FilereaderComponent} from './filereader/filereader.component';
-import {FileIoGlobalsService} from './file-io-globals.service';
 import {FileConversionService} from './file-conversion.service';
 import {TranslateModule} from '@ngx-translate/core';
 
@@ -17,8 +16,7 @@ import {TranslateModule} from '@ngx-translate/core';
     FilereaderComponent
   ],
   providers: [
-    FileConversionService,
-    FileIoGlobalsService
+    FileConversionService
   ]
 })
 export class FileIoModule {

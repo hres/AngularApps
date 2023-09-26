@@ -74,5 +74,15 @@ export class UtilsService {
   */
   isFirstChange(changes: SimpleChanges): boolean{
     return Object.values(changes).some(c => c.isFirstChange());
-   }
+  }
+
+
+  /**
+   * @param appVersion format is 1.0.0
+   * @returns string, major version of the application
+   */
+  getApplicationMajortVersion(appVersion : string) : string{
+    const majorVersion = appVersion.split('.',2).join(".");
+    return majorVersion
+  }
 }

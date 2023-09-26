@@ -9,9 +9,18 @@ export class GlobalService {
 
   constructor( private instructionService : InstructionService) { }
 
+  private appVersion: string;
   private helpIndex: { [key: string]: number }; 
   private currLanguage: string;
   private enrollment : Enrollment;
+
+  setAppVersion(appVersion: string) {
+    this.appVersion = appVersion;
+  }
+
+  getAppVersion(){
+    return this.appVersion;
+  }
 
   setHelpIndex(helpIndex: string[]) {
     this.helpIndex = this.instructionService.getHelpTextIndex(helpIndex);

@@ -3,6 +3,7 @@ export const DATA_PATH: string = './assets/data/';
 export const NEW:string='NEW';
 export const AMEND:string='AMEND';
 export const FINAL:string='FINAL';
+export const XSLT_PREFIX = 'REP_MDS_CO_';
 
 export enum ContactStatus {
     NEW,
