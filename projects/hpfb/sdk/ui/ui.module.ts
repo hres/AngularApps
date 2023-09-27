@@ -24,6 +24,9 @@ import { FileConversionService } from './file-io/file-conversion.service';
 import { PrivacyStatementComponent } from './information/privacy-statement/privacy-statement.component';
 import { SecurityDisclaimerComponent } from './information/security-disclaimer/security-disclaimer.component';
 import { InstructionService } from './information/instruction/instruction.service';
+import { LoggerService } from './logger/logger.service';
+import { ConverterService } from './converter/converter.service';
+import { EntityBaseService } from './model/entity-base.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,8 @@ import { InstructionService } from './information/instruction/instruction.servic
     CommonFormDendencyModule,
     FileIoModule
   ],
-  providers: [AddressDetailsService, FileConversionService, UtilsService, VersionService, NoCacheHeadersInterceptor, InstructionService],
+  providers: [AddressDetailsService, FileConversionService, UtilsService, VersionService, NoCacheHeadersInterceptor, InstructionService, 
+    LoggerService, ConverterService, EntityBaseService],
   exports: [
     LayoutComponent,
     ExpanderComponent,

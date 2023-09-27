@@ -1,7 +1,7 @@
 export const errorSummClassName: string = 'ErrorSummaryComponent'; //todo use uppercase for constants
 export const errorSummleastOneRcd: string = 'leastOneRecordError';
-export const CANADA: string = 'CAN';
-export const USA: string = 'USA';
+export const CANADA: string = 'CA';
+export const USA: string = 'US';
 export const ENGLISH: string = 'en';
 export const FRENCH: string = 'fr';
 export const YES: string = 'yes';

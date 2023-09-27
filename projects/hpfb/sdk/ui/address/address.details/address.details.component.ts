@@ -6,6 +6,8 @@ import {FormGroup, FormBuilder} from '@angular/forms';
 import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 import {AddressDetailsService} from './address.details.service';
 import { UtilsService } from '../../utils/utils.service';
+import { LoggerService } from '../../logger/logger.service';
+import { INameAddress } from '../../model/entity-base';
 
 @Component({
   selector: 'lib-address-details',
@@ -23,10 +25,14 @@ export class AddressDetailsComponent implements OnInit {
   @Input() countryList: Array<any>;
   @Input() provinceList: Array<any>;
   @Input() stateList: Array<any>;
-  @Input() addressModel;
-  @Input() lang;
+  @Input() addressModel: INameAddress;
+  @Input() lang: string;
   @Input() helpTextSequences;
+  @Input() addrType: string;    // optional, used to set unique html id if there are different types of address, eg. companyAddress, contactAddress etc
+  @Input() appName: string;    // optional, the subform could have different fields or behaviour for different applications
+
   @Output() errorList = new EventEmitter(true);
+
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // For the searchable select box, only accepts/saves id and text.
@@ -34,42 +40,35 @@ export class AddressDetailsComponent implements OnInit {
   public countries: Array<any> = [];
   public provinces: Array<any> = [];
   public provStateList: Array<any> = [];
-  public showProvText = true;
-  public provinceLabel = 'addressDetails.province';
+  public showProvText: boolean = true;
+  public provinceLabel: string = 'addressDetails.province';
   public postalPattern: RegExp = null;
-  public postalLabel = 'postal.canada';
+  public postalLabel: string = 'postal.canada';
 
   public showFieldErrors = false;
 
-  constructor(private cdr: ChangeDetectorRef, private _addressDetailsService: AddressDetailsService, private _utilsService: UtilsService) {
+  constructor(private cdr: ChangeDetectorRef, private _addressDetailsService: AddressDetailsService, private _utilsService: UtilsService, private _loggerService: LoggerService) {
     this.showFieldErrors = false;
     this.showErrors = false;
   }
 
   ngOnInit() {
+
     if (!this.addressFormLocalModel) {
       this.addressFormLocalModel = this._addressDetailsService.getReactiveModel();
     }
     // init the subform's data
-    this._addressDetailsService.mapDataModelToFormModel(this.addressFormRecord, this.addressFormLocalModel, this.countryList, this.provinceList.concat(this.stateList));
-    this._setCountryState(this.addressFormLocalModel.controls['country'].value,this.addressFormLocalModel);
+    this._loggerService.log('address.detail', 'onInit', 'calling mapDataModelToFormModel ?? is this called/needed?? ling todo');
+    this._addressDetailsService.mapDataModelToFormModel(this.addressModel, this.addressFormLocalModel);
+    this._setCountryState(this.addressFormLocalModel);
     this.detailsChanged = 0;
   }
 
   ngAfterViewInit() {
     this.msgList.changes.subscribe(errorObjs => {
-      let temp = [];
       this._updateErrorList(errorObjs);
-
-      /* errorObjs.forEach(
-         error => {
-           temp.push(error);
-         }
-       );
-       this.errorList.emit(temp);*/
     });
     this.msgList.notifyOnChanges();
-
   }
 
   private _updateErrorList(errorObjs) {
@@ -88,8 +87,8 @@ export class AddressDetailsComponent implements OnInit {
   ngDoCheck() {
     /*  this.isValid();
       this._syncCurrentExpandedRow();*/
-    // this.processCountry()
-    this._setCountryState(event,this.addressFormLocalModel);
+    // this.onCountryChange()
+    // this._setCountryState(event,this.addressFormLocalModel);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -99,14 +98,14 @@ export class AddressDetailsComponent implements OnInit {
     if (!isFirstChange) {
       // since we can't detect changes on objects, using a separate flag
       if (changes['detailsChanged']) { // used as a change indicator for the model
-        // console.log("the details cbange");
+        // this._loggerService.log('address.detail', "the details cbange");
         if (this.addressFormRecord) {
-          this._setCountryState(this.addressFormRecord.controls['country'].value, this.addressFormRecord);
+          this._setCountryState(this.addressFormRecord);
           // this.setToLocalModel();
 
         } else {
           this.addressFormLocalModel = this._addressDetailsService.getReactiveModel();
-          this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
+          this._setCountryState(this.addressFormLocalModel);
           this.addressFormLocalModel.markAsPristine();
         }
       }
@@ -117,7 +116,7 @@ export class AddressDetailsComponent implements OnInit {
         if (this.msgList) {
           this.msgList.forEach(item => {
             temp.push(item);
-            // console.log(item);
+            // this._loggerService.log('address.detail', item);
           });
         }
         this.errorList.emit(temp);
@@ -126,56 +125,49 @@ export class AddressDetailsComponent implements OnInit {
         this.countries = changes['countryList'].currentValue;
       }
       if (changes['addressFormLocalModel']) {
-        console.log('**********the ADDRESS details changed');
+        this._loggerService.log('address.detail', '**********the ADDRESS details changed');
         this.addressFormRecord = this.addressFormLocalModel;
       }
       if (changes['addressModel']) {
         const dataModel = changes['addressModel'].currentValue;
-        this._addressDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressFormLocalModel),
-          this.countryList, this.provinceList.concat(this.stateList));
+        this._addressDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressFormLocalModel));
         if (this.addressFormLocalModel.controls['country'] &&
             this.addressFormLocalModel.controls['country'].value) {
-          this._setCountryState(this.addressFormLocalModel.controls['country'].value, this.addressFormLocalModel);
+          this._setCountryState(this.addressFormLocalModel);
         }
       }
     }
   }
 
   
-  _setCountryState(countryValue, formModel) {
-    // console.log("calling set country");
-    // console.log(countryValue);
-    let countryJson = null;
-  //   if (isArray(countryValue)) {     //todo ling: this line generates an error in the console, need to check and resolve
-  //     countryJson = countryValue[0];
-  //   } else {
-      countryJson = countryValue;
-  //   }
-    let provList = this._addressDetailsService.setProvinceState(
-      formModel, countryJson, this.provinceList, this.stateList);
-    // console.log(provList);
-    // this._showProvText(event);
-    if (provList.length) {
-      this.provStateList = provList;
+  _setCountryState(formModel: FormGroup) {
+    const countryControl = this.addressFormLocalModel.get('country');
+    const countryValue: string = countryControl?.value;
+
+    this._loggerService.log('address.detail', '_setCountryState', countryValue);
+
+    let tempProvStateList = this._addressDetailsService.setProvinceState(
+      formModel, countryValue, this.provinceList, this.stateList);
+    // this._loggerService.log('address.detail', tempProvStateList);
+
+    if ( tempProvStateList !== null) {
+      this.provStateList = tempProvStateList;
       this.showProvText = false;
     } else {
       this.showProvText = true;
     }
-    // this._setPostalPattern(countryValue);
+    this._setPostalPattern(countryValue);
     // update errors manually?
     if (this.showFieldErrors) {
   //     this.cdr.detectChanges(); // doing our own change detection
     }
   }
 
-  processCountry(event) {
-    // console.log(event);
-    this.addressFormLocalModel.controls['country'].setValue([event]);
-    this._setCountryState(event, this.addressFormLocalModel);
-    this._addressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
-      this.addressModel, this.countryList, this.provStateList);
+  onCountryChange(event) {
+    // this._loggerService.log('address.detail', "onCountryChange");
+    this._setCountryState(this.addressFormLocalModel);
+    this._saveData();
   }
-
 
   /**
    * Uses the updated reactive forms model locally
@@ -196,24 +188,32 @@ export class AddressDetailsComponent implements OnInit {
   }
 
   removed(rec) {
-    console.log(rec);
+    this._loggerService.log('address.detail', rec);
     // this.addressFormLocalModel.controls['country.setValue(null)
   }
 
   typed(rec) {
+    this._loggerService.log('address.detail', 'country is typed');
     let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
-    // console.log('country is typed');
     if (content && this.existsInList(content)) {
       this.addressFormLocalModel.controls['country'].setValue([content]);
-      this._addressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
-        this.addressModel, this.countryList, this.provStateList);
+      this._saveData();
     }
   }
 
+  tempCountryOnblur(rec) {
+    this._loggerService.log('address.detail', 'country is tempCountryOnblur');
+    this.typed(rec)
+  }
+
   onblur() {
-    // console.log('input is typed');
+    // this._loggerService.log('address.detail', 'input is typed');
+    this._saveData();
+  }
+
+  private _saveData() {
     this._addressDetailsService.mapFormModelToDataModel((<FormGroup>this.addressFormLocalModel),
-      this.addressModel, this.countryList, this.provStateList);
+      this.addressModel, this.countryList, this.provStateList, this.lang);
   }
 
   existsInList(rec) {
@@ -226,20 +226,20 @@ export class AddressDetailsComponent implements OnInit {
   }
 
   /* _showProvText(value):boolean{
-     console.log(value)
+     this._loggerService.log('address.detail', value)
      this._addressDetailsService.setProvinceState(this.addressFormLocalModel, value);
      if(Address_addressDetailsService.isCanadaOrUSA(value)){
-       console.log("hide province text")
+       this._loggerService.log('address.detail', "hide province text")
        this.showProvText=false;
        return false
      }
-     console.log("show province text")
+     this._loggerService.log('address.detail', "show province text")
      this.showProvText=true;
      return true;
    }*/
 
   private _setPostalPattern(countryValue) {
-    //  console.log("starting the postal Pattern");
+    //  this._loggerService.log('address.detail', "starting the postal Pattern");
     // this.postalPattern=
     if (this._utilsService.isCanada(countryValue)) {
 
@@ -249,7 +249,7 @@ export class AddressDetailsComponent implements OnInit {
     } else if (this._utilsService.isUsa(countryValue)) {
       this.postalPattern = /^[0-9]{5}(?:-[0-9]{4})?$/;
       this.postalLabel = 'postal.usa';
-      //  console.log("This is the postal label"+this.postalLabel);
+      //  this._loggerService.log('address.detail', "This is the postal label"+this.postalLabel);
       this.provinceLabel = 'addressDetails.state';
     } else {
       this.postalPattern = null;

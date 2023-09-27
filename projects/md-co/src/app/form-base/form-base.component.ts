@@ -6,8 +6,8 @@ import { ICode } from '@hpfb/sdk/ui/data-loader/data';
 import { AMEND, ContactStatus, FINAL, XSLT_PREFIX, ROOT_TAG } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
-import { Address, GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment} from '../models/Enrollment';
-import { ContactListComponent, ControlMessagesComponent, FileConversionService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
+import { GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment} from '../models/Enrollment';
+import { ContactListComponent, ControlMessagesComponent, FileConversionService, INameAddress, LoggerService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
 import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
 
@@ -38,8 +38,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public isInternalSite = true;
   public loadFileIndicator = 0;
   public countryList: ICode[];
-  public provinceList = [];
-  public stateList = [];
+  public provinceList: ICode[];
+  public stateList: ICode[];
   public adminChanges = [];
   public showAdminChanges: boolean;
   public showErrors: boolean;
@@ -48,7 +48,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public enrollModel : Enrollment;
 
-  public addressModel : Address;
+  public addressModel : INameAddress;
   public genInfoModel : GeneralInformation; 
   public contactModel : Contact[];
   public adminChangesModel :AdministrativeChanges;
@@ -66,7 +66,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private _formDataLoader: CompanyDataLoaderService,
     private _companyService: CompanyBaseService,
-    private _fileService: FileConversionService, private _utilService: UtilsService, private router: Router, private _globalService: GlobalService
+    private _fileService: FileConversionService, private _utilService: UtilsService, private router: Router, private _globalService: GlobalService,
+    private _loggerService: LoggerService
   ) {
     // _formDataLoader = new CompanyDataLoaderService(this.http);
     // this.countryList = [];
@@ -74,59 +75,79 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showErrors = false;
     this.showMailToHelpText = false;
 
-    this.xslName = XSLT_PREFIX.toUpperCase() + this._utilService.getApplicationMajortVersion(this._globalService.getAppVersion()) + '.xsl';
+    this.xslName = XSLT_PREFIX.toUpperCase() + this._utilService.getApplicationMajorVersion(this._globalService.getAppVersion()) + '.xsl';
   }
 
   ngOnInit() {  
-    if (!this._globalService.getEnrollment()) {
-      console.log("formbase=> enrollement doesn't exist");
-      this.enrollModel = this._companyService.getEmptyEnrol();
-      this._globalService.setEnrollment(this.enrollModel);
-    } else {
-      console.log("formbase=> get enrollement from globalservice");
-      this.enrollModel = this._globalService.getEnrollment();
-    }
+    try {
+      if (!this._globalService.getEnrollment()) {
+        this._loggerService.log("form.base", "onInit", "enrollement doesn't exist");
+        this.enrollModel = this._companyService.getEmptyEnrol();
+        this._globalService.setEnrollment(this.enrollModel);
+      } else {
+        this._loggerService.log("form.base", "onInit", "get enrollement from globalservice");
+        this.enrollModel = this._globalService.getEnrollment();
+      }
 
-    this.genInfoModel = this.enrollModel.DEVICE_COMPANY_ENROL.general_information;  
-    this.addressModel = this.enrollModel.DEVICE_COMPANY_ENROL.address; 
-    this.contactModel = null;
-    this.adminChangesModel = this.enrollModel.DEVICE_COMPANY_ENROL.administrative_changes; 
-    this.primContactModel = this.enrollModel.DEVICE_COMPANY_ENROL.primary_contact; 
+      this.genInfoModel = this.enrollModel.DEVICE_COMPANY_ENROL.general_information;  
+      this.addressModel = this.enrollModel.DEVICE_COMPANY_ENROL.address; 
+      this.contactModel = null;
+      this.adminChangesModel = this.enrollModel.DEVICE_COMPANY_ENROL.administrative_changes; 
+      this.primContactModel = this.enrollModel.DEVICE_COMPANY_ENROL.primary_contact; 
 
-    if (!this.companyForm) {
-      this.companyForm = this._companyService.buildForm();
-    }
+      if (!this.companyForm) {
+        this.companyForm = this._companyService.buildForm();
+      }
 
-    this._formDataLoader.getKeywordList().subscribe((data) => {
-      console.log('form.base=>' + data);
-      // this.countryList = data;
-    });
+      // to cache the data
+      this._formDataLoader.getKeywordList().subscribe((data) => {
+        // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
+      });
+
+      this._formDataLoader.getCountryList().subscribe((data) => {
+        // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
+        this.countryList = data;
+      });
+
+      this._formDataLoader.getProvinceList().subscribe((data) => {
+        // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
+        this.provinceList = data;
+      });
+
+      this._formDataLoader.getStateList().subscribe((data) => {
+        // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
+        this.stateList = data;
+      });
 
 
-    // .subscribe(
-    //   (response) => {
-    //     this.countries = response;
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching countries:', error);
-    //   }
-    // );
+      // .subscribe(
+      //   (response) => {
+      //     this.countries = response;
+      //   },
+      //   (error) => {
+      //     console.error('Error fetching countries:', error);
+      //   }
+      // );
 
-    // this.countryList = await this._formDataLoader.getCountries(
-    //   this.translate.currentLang
-    // );
-    // this.provinceList = await this._formDataLoader.getProvinces(
-    //   this.translate.currentLang
-    // );
-    // this.stateList = await this._formDataLoader.getStates(
-    //   this.translate.currentLang
-    // );
-    console.log('isInternal in ngOnInit: ' + this.isInternal);
-    if (this.isInternal === NO) {
-      this.isInternalSite = false;
-      // console.log('isInternalSite in ngOnInit: ' + this.isInternalSite);
-    } else {
-      this.saveXmlLabel = 'approve.final';
+      // this.countryList = await this._formDataLoader.getCountries(
+      //   this.translate.currentLang
+      // );
+      // this.provinceList = await this._formDataLoader.getProvinces(
+      //   this.translate.currentLang
+      // );
+      // this.stateList = await this._formDataLoader.getStates(
+      //   this.translate.currentLang
+      // );
+      this._loggerService.log("form.base", "onInit", "isInternal: " + this.isInternal);
+      if (this.isInternal === NO) {
+        this.isInternalSite = false;
+        // this._loggerService.log('isInternalSite in ngOnInit: ' + this.isInternalSite);
+      } else {
+        this.saveXmlLabel = 'approve.final';
+      }
+    } catch (e) {
+      this._loggerService.error("formbase", e);
+      this.gotoErrorPage()
     }
   }
 
@@ -152,7 +173,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processErrors() {
-    // console.log('@@@@@@@@@@@@ Processing errors in Company base compo
+    // this._loggerService.log('@@@@@@@@@@@@ Processing errors in Company base compo
     this.errorList = [];
     // concat the error arrays
     this.errorList = this._genInfoErrors.concat(
@@ -287,8 +308,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public processFile(fileData: ConvertResults) {
     this.loadFileIndicator++;
-    console.log('processing file.....');
-    console.log(fileData);
+    // this._loggerService.log('form.base', 'processingFile', JSON.stringify(fileData, null, 2));
+
     this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;
     // set amend reasons and admin changes section to null if status is Final
     if (this.genInfoModel.status === FINAL) {
@@ -351,7 +372,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public updateChild() {
-    // console.log("Calling updateChild")
+    // this._loggerService.log("Calling updateChild")
   }
 
   private _buildfileName() {
@@ -437,7 +458,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
   }
 
-  gotoError(): void {
+  gotoErrorPage(): void {
     this.router.navigate(['/error']);
   }	 
 

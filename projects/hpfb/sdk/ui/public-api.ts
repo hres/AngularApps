@@ -8,6 +8,11 @@ export * from './error-msg/error-summary/error-summary.component';
 export * from './data-loader/data-loader.service';
 export * from './data-loader/data';
 
+export * from './model/entity-base';
+export * from './model/entity-base.service';
+
+export * from './converter/converter.service';
+
 export * from './address/address.details/address.details.component';
 
 export * from './contact/contact.details/contact.details.component';
@@ -39,7 +44,7 @@ export * from './interceptor/cache.interceptor'
 export * from './version/version.service'
 
 export * from './information/privacy-statement/privacy-statement.component'
-
 export * from './information/security-disclaimer/security-disclaimer.component'
-
 export * from './information/instruction/instruction.service'
+
+export * from './logger/logger.service'

@@ -1,3 +1,5 @@
+import { INameAddress, IIdText, IIdTextLabel } from "@hpfb/sdk/ui";
+
 // todo cleanup unused fields
 export interface Enrollment {
   DEVICE_COMPANY_ENROL: DeviceCompanyEnrol;
@@ -5,20 +7,10 @@ export interface Enrollment {
 
 export interface DeviceCompanyEnrol {
   general_information:    GeneralInformation;
-  address:                Address;
+  address:                INameAddress;
   contacts:               Contact[];
   primary_contact:        PrimaryContact;
   administrative_changes: AdministrativeChanges;
-}
-
-export interface Address {
-  company_name: string;
-  address:      string;
-  city:         string;
-  country:      IIdTextLabel;
-  prov_lov:     IIdTextLabel;
-  prov_text:    string;
-  postal:       string;
 }
 
 export interface AdministrativeChanges {
@@ -72,39 +64,3 @@ export interface PrimaryContact {
 }
 
 
-export interface INameAddress {
-  company_name: string;
-  street_address: string;
-  city: string;
-  province_lov: IIdText;
-  province_text: string;
-  country: IIdTextLabel;
-  postal_code: string;
-}
-
-export interface IContact {
-  given_name: string;
-  surname: string;
-  job_title: string;
-  language_correspondance: IIdTextLabel;
-  phone_num: string;
-  phone_ext: string;
-  fax_num: string;
-  email: string;
-}
-
-export interface IText {
-  __text: string;
-}
-
-export interface IIdText {
-  _id: string;
-  __text?: string;
-}
-
-export interface IIdTextLabel {
-  _id: string;
-  __text?: string;
-  _label_en: string;
-  _label_fr: string;
-}

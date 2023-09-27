@@ -1,14 +1,12 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Address, Enrollment, GeneralInformation } from '../models/Enrollment';
-// import {GlobalsService} from '../globals/globals.service';
-// import {ValidationService} from '../validation.service';
-// import {ListService} from '../list-service';
+import { Enrollment, GeneralInformation } from '../models/Enrollment';
+import { INameAddress, EntityBaseService } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class CompanyBaseService {
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder, private _entityBaseService: EntityBaseService) {}
 
   /**
    * Gets the reactive forms Model for generalInfo details
@@ -44,27 +42,17 @@ export class CompanyBaseService {
    * Gets an empty Address Details Model
    *
    */
-  private getEmptyAddressDetailsModel() : Address{
+  private getEmptyAddressDetailsModel() : INameAddress{
 
     return (
       {
         company_name: '',     
-        address: '',
+        street_address: '',
         city: '',
-        country: {
-          '__text': '',
-          '_id': '',
-          '_label_en': '',
-          '_label_fr': ''
-        },
-        prov_lov: {
-          '__text': '',
-          '_id': '',
-          '_label_en': '',
-          '_label_fr': ''
-        },
-        prov_text: '',
-        postal: ''
+        country: this._entityBaseService.getEmptyIdTextLabel(),
+        province_lov: this._entityBaseService.getEmptyIdTextLabel(),
+        province_text: '',
+        postal_code: ''
       }
     );
   }
@@ -133,29 +121,4 @@ export class CompanyBaseService {
     return 'FINAL';
   }
 
-  /**
-   * Sets the Help Text Index
-   *
-   */
-  getHelpTextIndex() {
-
-    const helpTextInx = {
-      loadFileInx: 0,
-      compREPInx: 0,
-      // busNumInx: 0,
-      conStatInx: 0,
-      routIdInx: 0,
-      desRenewalInx: 0,
-      desFinanceInx: 0,
-      // repRoutIdInx: 0,
-      // conNameInx: 0,
-      licenseNumsInx: 0
-    };
-    const keys = Object.keys(helpTextInx);
-    for (let i = 0; i < keys.length; i++) {
-      helpTextInx[keys[i]] = i + 1;
-    }
-
-    return helpTextInx;
-  }
 }

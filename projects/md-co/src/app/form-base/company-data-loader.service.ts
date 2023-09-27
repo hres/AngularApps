@@ -16,20 +16,58 @@ export class CompanyDataLoaderService {
   private stateJsonPath = DATA_PATH + 'states.json';
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
 
-  cachedKeywords$:Observable<any>;
-
-
-  mfTypeOptions$: Observable<ICode[]>;
+  cachedKeywords$:Observable<IKeyword[]>;
+  cachedCountries$:Observable<ICode[]>;
+  cachedProvinces$:Observable<ICode[]>;
+  cachedStates$:Observable<ICode[]>;
 
   constructor(private _dataService: DataLoaderService) {}
     /* this.getJSON().subscribe(data => {
        console.log(data);
        this._rawCountryList=data;
      });*/
-
+  getKeywordList(): Observable<IKeyword[]> {
+    if (!this.cachedKeywords$) {
+      this.cachedKeywords$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedKeywords$;
+  }
 
   getCountryList(): Observable<ICode[]> {
-    return this._dataService.getData<ICode>(this.countryJsonPath);
+    if (!this.cachedCountries$) {
+      this.cachedCountries$ = this._dataService.getData<ICode>(this.countryJsonPath)
+        .pipe(
+          tap(()=>console.log('getCountryList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedCountries$;
+  }
+
+  getProvinceList(): Observable<ICode[]> {
+    if (!this.cachedProvinces$) {
+      this.cachedProvinces$ = this._dataService.getData<ICode>(this.provinceJsonPath)
+        .pipe(
+          tap(()=>console.log('getProvinceList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedProvinces$;
+  }
+
+  getStateList(): Observable<ICode[]> {
+    if (!this.cachedStates$) {
+      this.cachedStates$ = this._dataService.getData<ICode>(this.stateJsonPath)
+        .pipe(
+          tap(()=>console.log('getStateList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedStates$;
   }
 
   // async getCountryJSON(): Promise<any> {
@@ -131,17 +169,4 @@ export class CompanyDataLoaderService {
 //     }
 //     return result;
 //   }
-
-  getKeywordList(): Observable<IKeyword[]> {
-    if (!this.cachedKeywords$) {
-      this.cachedKeywords$ = this._dataService
-        .getData<IKeyword>(this.keywordsJsonPath)
-        .pipe(
-          tap(()=>console.log('getKeywordList() is called')),
-          shareReplay(1)
-        );
-    } 
-    return this.cachedKeywords$;
-  }
-
 }
