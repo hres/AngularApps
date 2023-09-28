@@ -62,6 +62,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public activeContacts = [];
   public hasContact = false;
 
+  public showAmendNote: boolean = false;
+
   constructor(
     private cdr: ChangeDetectorRef,
     private _formDataLoader: CompanyDataLoaderService,
@@ -343,6 +345,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       // once load data files on internal site, lower components should update error list and push them up
       this.showErrors = true;
     }
+
+    this.showAmendNote = (fileData.data.DEVICE_COMPANY_ENROL.general_information.status === FINAL);
   }
 
   private _updatedAutoFields() {

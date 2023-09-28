@@ -9,6 +9,9 @@
 <div [ngClass]="status == 'msg.success.load' ? 'alert alert-success' : 'alert alert-danger'" *ngIf="showFileLoadStatus">
   <span>{{status | translate}}</span>
 </div>
+<div>
+  <ng-content select="[extraNote]"></ng-content>
+</div>
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <p [innerHTML]="'select.file.line'|translate"></p>

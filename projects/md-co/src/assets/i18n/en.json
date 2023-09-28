@@ -7,6 +7,8 @@
   "top.instruction": "Instructions",
 
     "load.file": "Load a Company Enrolment File",
+    "select.file": "Select a file to load",
+    "select.file.line": "Always upload XML file into a blank template. Refresh this page to reset template to blank.",
     "company.enrolment": "Regulatory Company Enrolment",
     "company.id": "Company Identifier",
     "addressDetails.street": "Street Address",

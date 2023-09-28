@@ -7,6 +7,8 @@
   "top.instruction": "Instructions",
 
   "load.file": "fr_Load a Company Enrolment File",
+  "select.file": "Sélectionnez un fichier à télécharger",
+  "select.file.line": "Veuillez en tout temps téléchargez le fichier dans le modèle vierge. Actualisez cette page afin de réinitialiser le modèle.",
   "company.enrolment": "fr_Regulatory Company Enrolment",
   "company.id": "fr_Company Identifier",
   "addressDetails.street": "fr_Street Address",
