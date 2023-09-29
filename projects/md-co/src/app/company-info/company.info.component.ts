@@ -2,12 +2,13 @@ import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {CompanyInfoService} from './company.info.service';
-import { ControlMessagesComponent, FINAL, UtilsService, YES } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, FINAL, UtilsService, LoggerService, YES, ICode, ConverterService, CheckboxOption } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
 import { AMEND } from '../app.constants';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'com-gen-info',
@@ -26,18 +27,22 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
  // @Input() inComplete: boolean;
   @Input() isInternal: boolean;
   @Input() helpTextSequences;
+
   @Output() errorList = new EventEmitter(true);
   @Output() showAdminChanges = new EventEmitter(true);
+
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  public isAmend = false;
+  public isAmend: boolean = false;
   public showFieldErrors: boolean;
-  public setAsComplete = false;
-  public yesNoList: Array<any> = [];
-  public reasonFlags: Array<boolean> = [];
+  public setAsComplete: boolean = false;  //ling todo remove???
+  public disableAmendButton: boolean = true;
+  public yesNoList: ICode[] = [];
+  public amendReasonList: CheckboxOption[] = [];
+  private reasonFlags: Array<boolean> = [];
 
-  constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _utilsService: UtilsService,private _formDataLoader: CompanyDataLoaderService,
-    private router: Router) {
+  constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _formDataLoader: CompanyDataLoaderService,
+    private router: Router, private _utilsService: UtilsService, private _converterService: ConverterService, private _loggerService: LoggerService) {
     this.showFieldErrors = false;
     this.reasonFlags = [false, false, false, false]; // 0: show admin section; 1,2,3: amend reasons.
   }
@@ -46,39 +51,52 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     if (!this.generalInfoFormLocalModel) {
       this.generalInfoFormLocalModel = this._companyInfoService.getReactiveModel();
     }
-    // init the form's data
-    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, this.generalInfoFormLocalModel); 
 
     this.detailsChanged = 0;
-    console.log('company.info=>this.isInternal: ' + this.isInternal);
+    this._loggerService.log('company.info', 'onInit', 'this.isInternal: ' + this.isInternal);
 
     
     this._formDataLoader.getKeywordList().subscribe((keywords) => {
       try {
-        console.log('company.info=>' + keywords);
+        // this._loggerService.log('company.info', 'onInit', keywords);
         this.yesNoList = keywords.find(x => (x.name === 'yesno')).data;
-        console.log('company.info=>' + JSON.stringify(this.yesNoList));
+        // this._loggerService.log('company.info', '' + JSON.stringify(this.yesNoList));
       } catch (e) {
         console.error(e);
         this.router.navigate(['/error']);
       }
     });
+
+    this._formDataLoader.getAmendReasonList().pipe(
+      map(originalData => originalData.map(item => this._converterService.convertCodeToCheckboxOption(item, this.lang)))
+    ).subscribe((data) => {
+      // this._loggerService.log("company.info", "onInit", JSON.stringify(data));
+      this.amendReasonList = data;
+      this.amendReasonList.forEach(() => this.amendReasonArray.push(new FormControl(false)));
+    });
+  }
+
+  get amendReasonArray() {
+    return this.generalInfoFormLocalModel.controls['amendReasons'] as FormArray;
+  }
+
+  // temp for ui display/debugging
+  get selectedAmendReasons(): string[] {
+    return this.amendReasonList
+      .filter((item, idx) => this.amendReasonArray.controls.some((control, controlIdx) => idx === controlIdx && control.value))
+      .map(item => item.value);
+  }
+
+  onAmendReasonChange() {
+    console.log('xxx', this.selectedAmendReasons);
+    this._saveData();
   }
 
   ngAfterViewInit() {
     this.msgList.changes.subscribe(errorObjs => {
-      let temp = [];
       this._updateErrorList(errorObjs);
-
-      /* errorObjs.forEach(
-         error => {
-           temp.push(error);
-         }
-       );
-       this.errorList.emit(temp);*/
     });
     this.msgList.notifyOnChanges();
-
   }
 
   private _updateErrorList(errorObjs) {
@@ -91,7 +109,6 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       );
     }
     this.errorList.emit(temp);
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -100,7 +117,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     // Ignore first trigger of ngOnChanges
     if (!isFirstChange) {
           // since we can't detect changes on objects, using a separate flag
-      if (changes['detailsChanged']) { // used as a change indicator for the model
+      if (changes['detailsChanged']) { // used as a change indiitemor for the model
         // console.log("the details cbange");
         if (this.generalInfoFormRecord) {
           this.setToLocalModel();
@@ -110,8 +127,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
           this.generalInfoFormLocalModel.markAsPristine();
         }
         if (this.generalInfoFormLocalModel ) {
-          this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
-            this.genInfoModel);
+          this._saveData();
         }
       }
       if (changes['showErrors']) {
@@ -128,19 +144,25 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       }
       if (changes['isInternal']) {
         if (!changes['isInternal'].currentValue) {
-          this.setAsComplete = (this.genInfoModel.status === FINAL && !changes['isInternal'].currentValue);
+          this._loggerService.log('company.info', 'onInit', 'changes[\'isInternal\'] called', changes['isInternal'].currentValue); // ling todo when is this called??
+          this.setAsComplete = (this.genInfoModel.status === FINAL && !changes['isInternal'].currentValue); // ling todo remove??
+          this.disableAmendButton = this.setDisableAmendButtonFlag(this.genInfoModel.status, !changes['isInternal'].currentValue);
         } // && this.isInternal;
       }
       if (changes['genInfoModel']) {
         const dataModel = changes['genInfoModel'].currentValue;
         this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel);
-        this.setAsComplete = (dataModel.status === FINAL && !this.isInternal);
+        this.setAsComplete = (dataModel.status === FINAL && !this.isInternal); // ling todo remove??
+        this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status, this.isInternal);
         this.isAmend = (dataModel.status === AMEND);
         this.amendReasonOnblur();
       }
     }
   }
 
+  private setDisableAmendButtonFlag(formStatus: string, isInternal: boolean) : boolean{
+    return  formStatus !== FINAL || isInternal;
+  }
   /**
    * Uses the updated reactive forms model locally
    */
@@ -164,44 +186,46 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   //   return this.generalInfoFormLocalModel.controls['formStatus'].value === GlobalsService.AMEND;
   // }
 
-  disableAmend () {
-    return !this.isInternal;
-  }
+  // disableAmend () {
+  //   return !this.isInternal;
+  // }
 
   public setAmendState () {
     this.isAmend = true;
-    this.genInfoModel.status = this._companyInfoService.setAmendStatus();
+    this.genInfoModel.status = AMEND;
     this.genInfoModel.are_licenses_transfered = '';
-    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel,
-      (<FormGroup>this.generalInfoFormLocalModel));
+    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel));
   }
 
   onblur() {
-    // console.log('input is typed');
-    this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel),
-      this.genInfoModel);
+    // this._loggerService.log('input is typed');
+    this._saveData();
+  }
+
+  private _saveData(): void{
+    this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel), this.genInfoModel, this.amendReasonList);
   }
 
   nameChangeOnblur() {
-    // console.log('input is onblur');
+    this._loggerService.log('company.info', 'nameChangeOnblur is called');
     this.reasonFlags[1] = this.generalInfoFormLocalModel.controls['nameChange'].value;
     this.amendReasonOnblur();
   }
 
   addressChangeOnblur() {
-    // console.log('input is onblur');
+    this._loggerService.log('company.info', 'addressChangeOnblur is called');
     this.reasonFlags[2] = this.generalInfoFormLocalModel.controls['addressChange'].value;
     this.amendReasonOnblur();
   }
 
   facilityChangeOnblur() {
-    // console.log('input is onblur');
+    this._loggerService.log('company.info', 'facilityChangeOnblur is called');
     this.reasonFlags[3] = this.generalInfoFormLocalModel.controls['facilityChange'].value;
     this.amendReasonOnblur();
   }
 
   amendReasonOnblur() {
-    // console.log('input is onblur');
+    this._loggerService.log('company.info', 'amendReasonOnblur is called');
     this._hasReasonChecked();
     this.reasonFlags[0] = (this.generalInfoFormLocalModel.controls['areLicensesTransfered'].value === YES) ||
       this.reasonFlags[1] || this.reasonFlags[2] || this.reasonFlags[3];
@@ -223,5 +247,6 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       this.generalInfoFormLocalModel.controls['amendReason'].setValue('reasonFilled');
     }
   }
+
 }
 
