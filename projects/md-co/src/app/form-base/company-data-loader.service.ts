@@ -15,11 +15,13 @@ export class CompanyDataLoaderService {
   private provinceJsonPath = DATA_PATH + 'provinces.json';
   private stateJsonPath = DATA_PATH + 'states.json';
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
+  private amendReasonsJsonPath = DATA_PATH + 'amendReasons.json';
 
   cachedKeywords$:Observable<IKeyword[]>;
   cachedCountries$:Observable<ICode[]>;
   cachedProvinces$:Observable<ICode[]>;
   cachedStates$:Observable<ICode[]>;
+  cachedAmendReasons$:Observable<ICode[]>;
 
   constructor(private _dataService: DataLoaderService) {}
     /* this.getJSON().subscribe(data => {
@@ -30,7 +32,7 @@ export class CompanyDataLoaderService {
     if (!this.cachedKeywords$) {
       this.cachedKeywords$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
         .pipe(
-          tap(()=>console.log('getKeywordList() is called')),
+          // tap(()=>console.log('getKeywordList() is called')),
           shareReplay(1)
         );
     } 
@@ -41,7 +43,7 @@ export class CompanyDataLoaderService {
     if (!this.cachedCountries$) {
       this.cachedCountries$ = this._dataService.getData<ICode>(this.countryJsonPath)
         .pipe(
-          tap(()=>console.log('getCountryList() is called')),
+          // tap(()=>console.log('getCountryList() is called')),
           shareReplay(1)
         );
     } 
@@ -52,7 +54,7 @@ export class CompanyDataLoaderService {
     if (!this.cachedProvinces$) {
       this.cachedProvinces$ = this._dataService.getData<ICode>(this.provinceJsonPath)
         .pipe(
-          tap(()=>console.log('getProvinceList() is called')),
+          // tap(()=>console.log('getProvinceList() is called')),
           shareReplay(1)
         );
     } 
@@ -63,11 +65,22 @@ export class CompanyDataLoaderService {
     if (!this.cachedStates$) {
       this.cachedStates$ = this._dataService.getData<ICode>(this.stateJsonPath)
         .pipe(
-          tap(()=>console.log('getStateList() is called')),
+          // tap(()=>console.log('getStateList() is called')),
           shareReplay(1)
         );
     } 
     return this.cachedStates$;
+  }
+
+  getAmendReasonList(): Observable<ICode[]> {
+    if (!this.cachedAmendReasons$) {
+      this.cachedAmendReasons$ = this._dataService.getData<ICode>(this.amendReasonsJsonPath)
+        .pipe(
+          // tap(()=>console.log('getStateList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedAmendReasons$;
   }
 
   // async getCountryJSON(): Promise<any> {
