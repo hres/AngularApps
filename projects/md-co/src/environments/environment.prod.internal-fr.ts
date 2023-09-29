@@ -3,6 +3,6 @@ import {baseEnv as base} from './env';
 export const environment = {
   ...base,
   production: true,
-  internal: false,
+  internal: true,
   lang: 'fr',
 };

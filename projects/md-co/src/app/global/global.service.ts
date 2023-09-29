@@ -10,6 +10,7 @@ export class GlobalService {
   constructor( private instructionService : InstructionService) { }
 
   private appVersion: string;
+  private isInternal: boolean;
   private helpIndex: { [key: string]: number }; 
   private currLanguage: string;
   private enrollment : Enrollment;
@@ -21,6 +22,14 @@ export class GlobalService {
   getAppVersion(){
     return this.appVersion;
   }
+
+  public get $isInternal(): boolean {
+		return this.isInternal;
+	}
+
+	public set $isInternal(value: boolean) {
+		this.isInternal = value;
+	}
 
   setHelpIndex(helpIndex: string[]) {
     this.helpIndex = this.instructionService.getHelpTextIndex(helpIndex);
