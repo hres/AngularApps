@@ -10,6 +10,7 @@ export * from './data-loader/data';
 
 export * from './model/entity-base';
 export * from './model/entity-base.service';
+export * from './model/form-model';
 
 export * from './converter/converter.service';
 

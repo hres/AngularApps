@@ -1,3 +1,5 @@
+// output data model
+
 export interface IText {
   __text: string;
 }
