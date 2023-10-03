@@ -23,10 +23,9 @@ import { helpInstructionHeadings } from './app.constants';
 })
 
 export class AppComponent {
-  // @Input() isInternal: boolean;  //todo
-  public language :string = ENGLISH;
-  appVersion: string;
-  helpIndex: any;
+  isInternal: boolean = false;
+  language :string = ENGLISH;
+  appVersion: string = '0.0.0';
   
   constructor(
     private translate: TranslateService,
@@ -37,15 +36,17 @@ export class AppComponent {
     translate.setDefaultLang(this.language);
 
     this.language = environment.lang;
-    translate.use(this.language);
+    translate.use(this.language)
     this._globalService.setCurrLanguage(this.language);
     this._globalService.setHelpIndex(helpInstructionHeadings);
     this._globalService.setAppVersion(this._versionService.getApplicationVersion(environment));
+    this._globalService.$isInternal = environment.internal;
 
     this.translate.get('form.title').subscribe((res) => {
       this.setTitle(res);
     });
     this.appVersion = this._globalService.getAppVersion();
+    this.isInternal = this._globalService.$isInternal;    
   }
 
   public setTitle(newTitle: string) {
