@@ -6,6 +6,7 @@ import {FormGroup, FormBuilder} from '@angular/forms';
 import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 import {ContactDetailsService} from './contact.details.service';
 import {isArray} from 'util';
+import { ICode } from '../../data-loader/data';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
+  @Input() languageList: ICode[];
   @Input() lang;
   @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
@@ -32,8 +34,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
   public statuses: Array<any> = [];
-  // public salutations: Array<any> = [];
-  public languages: Array<any>;
   public showFieldErrors: boolean = false;
   private detailsService: ContactDetailsService;
 
@@ -43,8 +43,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this.detailsService = new ContactDetailsService();
     this.statuses = ContactDetailsService.statusListExternal;
     // this.statuses = this.isInternal ? this.detailsService.statusListInternal : this.detailsService.statusListExternal;
-    // this.salutations = ContactDetailsService.salutationList;
-    this.languages = ContactDetailsService.languageList;
   }
 
   ngOnInit() {

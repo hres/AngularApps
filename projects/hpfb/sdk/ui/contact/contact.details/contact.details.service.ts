@@ -22,17 +22,6 @@ export class ContactDetailsService {
   ];
   public static statusListInternal: Array<any> = ContactDetailsService.statusListExternal;
 
-  // public static salutationList: Array<any> = [
-  //   {id: 'DR', label_en: 'Dr.', label_fr: 'fr_Dr.'},
-  //   {id: 'MR', label_en: 'Mr.', label_fr: 'fr_Mr.'},
-  //   {id: 'MRS', label_en: 'Mrs.', label_fr: 'fr_Mrs.'},
-  //   {id: 'MS', label_en: 'Ms.', label_fr: 'fr_Ms.'}
-  // ];
-  public static languageList: Array<any> = [
-    {'id': 'EN', 'label_en': 'English', 'label_fr': 'Anglais'},
-    {'id': 'FR', 'label_en': 'French', 'label_fr': 'Français'}
-  ];
-
   constructor() {
   }
 
@@ -136,16 +125,17 @@ export class ContactDetailsService {
     // contactModel.initials = formRecord.controls.initials.value;
     // contactModel.last_name = formRecord.controls.lastName.value;
     if (formRecord.controls['language'].value) {
-      const langList = this._convertListText(this.languageList, this.lang);
-      const recordIndex3 = ListService.getRecord(langList, formRecord.controls['language'].value, 'id');
-      if (recordIndex3 > -1) {
-        contactModel.language = {
-          '__text': langList[recordIndex3].text,
-          '_id': langList[recordIndex3].id,
-          '_label_en': langList[recordIndex3].label_en,
-          '_label_fr': langList[recordIndex3].label_fr
-        };
-      }
+      // ling todo
+      const langList = "";  //this._convertListText(this.languageList, this.lang);
+      // const recordIndex3 = ListService.getRecord(langList, formRecord.controls['language'].value, 'id');
+      // if (recordIndex3 > -1) {
+      //   contactModel.language = {
+      //     '__text': langList[recordIndex3].text,
+      //     '_id': langList[recordIndex3].id,
+      //     '_label_en': langList[recordIndex3].label_en,
+      //     '_label_fr': langList[recordIndex3].label_fr
+      //   };
+      // }
     } else {
       contactModel.language = null;
     }
@@ -182,10 +172,11 @@ export class ContactDetailsService {
     // formRecord.controls.initials.setValue(contactModel.initials);
     // formRecord.controls.lastName.setValue(contactModel.last_name);
     if (contactModel.language) {
-      const recordIndex3 = ListService.getRecord(this.languageList, contactModel.language._id, 'id');
-      if (recordIndex3 > -1) {
-        formRecord.controls['language'].setValue(this.languageList[recordIndex3].id);
-      }
+      // ling todo
+      // const recordIndex3 = ListService.getRecord(this.languageList, contactModel.language._id, 'id');
+      // if (recordIndex3 > -1) {
+      //   formRecord.controls['language'].setValue(this.languageList[recordIndex3].id);
+      // }
     } else {
       formRecord.controls['language'].setValue(null);
     }

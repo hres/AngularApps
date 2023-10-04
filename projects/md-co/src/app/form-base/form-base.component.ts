@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, Qu
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import { ConvertResults } from '@hpfb/sdk/ui/file-io/convert-results';
-import { ICode } from '@hpfb/sdk/ui/data-loader/data';
+import { ICode, IKeyword } from '@hpfb/sdk/ui/data-loader/data';
 import { AMEND, ContactStatus, FINAL, XSLT_PREFIX, ROOT_TAG } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
@@ -37,6 +37,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public isInternalSite = true;
   public loadFileIndicator = 0;
+  public keywordList: IKeyword[] = [];
+  public languageList: ICode[] = [];
   public countryList: ICode[];
   public provinceList: ICode[];
   public stateList: ICode[];
@@ -104,6 +106,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       // to cache the data
       this._formDataLoader.getKeywordList().subscribe((data) => {
         // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
+                this.keywordList = data;
+        this.languageList = data.find(x => (x.name === 'languages')).data;
+        this._loggerService.log("form.base", "onInit", JSON.stringify(this.languageList));
       });
 
       this._formDataLoader.getCountryList().subscribe((data) => {

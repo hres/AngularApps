@@ -29,7 +29,7 @@
                      headingPreamble="errorSummary.company"></lib-error-summary>
       </div>
 
-      <div>
+      <div><pre>isInternal: {{isInternal}}</pre>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <h2 class="panel-title">{{'heading.company'|translate}}
@@ -86,6 +86,7 @@
                                  [loadFileIndicator]="loadFileIndicator" [lang]="lang"
                                  [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status"
                                  [showErrors]="showErrors" [contactModel]="contactModel"
+                                 [languageList]="languageList"
                                  (contactsUpdated)="contactModelUpdated($event)"></contact-list>
                 </div>
               </section>

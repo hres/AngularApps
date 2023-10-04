@@ -9,6 +9,7 @@ import {ContactDetailsService} from '../contact.details/contact.details.service'
 import {CompanyContactRecordService} from './company-contact-record.service';
 import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
 import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
+import { ICode } from '../../data-loader/data';
 
 @Component({
   selector: 'company-contact-record',
@@ -25,6 +26,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() detailsChanged: number;
   @Input() countries: Array<any>;
   @Input() isInternal: boolean;
+  @Input() languageList: ICode[];
   @Input() newRecord: boolean;
   @Input() showErrors: boolean;
   @Input() hasRecords: boolean;

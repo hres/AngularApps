@@ -11,6 +11,7 @@ import {ContactListService} from './contact-list.service';
 import { ListBaseComponent } from '../../list/list-base.component';
 import {TranslateService} from '@ngx-translate/core';
 import { errorSummClassName } from '../../common.constants';
+import { ICode } from '../../data-loader/data';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -26,6 +27,7 @@ export class ContactListComponent extends ListBaseComponent implements OnInit, O
   @Input() public showErrors: boolean;
   @Input() public loadFileIndicator;
   @Input() public isInternal: boolean;
+  @Input() languageList: ICode[];
   @Input() public xmlStatus;
   @Input() lang;
   @Input() helpTextSequences;
