@@ -1,18 +1,20 @@
 import {FormArray, FormGroup} from '@angular/forms';
-// import {ExpanderComponent} from './common/expander/expander.component';
-// import {ErrorSummaryComponent} from './error-msg/error-summary/error-summary.component';
-import {ViewChild} from '@angular/core';
+import { ExpanderComponent } from '../expander/expander.component';
+import { ErrorSummaryComponent } from '../error-msg/error-summary/error-summary.component';
+import {Component, ViewChild} from '@angular/core';
 import {IMasterDetails} from './master-details';
 
-
+@Component({
+  template: ''
+})
 export abstract class ListOperations {
 
   public prevRow: number;
   protected showErrorSummary: boolean;
   public newRecordIndicator: boolean;
 
-  // @ViewChild(ExpanderComponent, {static: true}) expander: ExpanderComponent;
-  // private errorSummary: ErrorSummaryComponent;
+  @ViewChild(ExpanderComponent, {static: true}) expander: ExpanderComponent;
+  private errorSummary: ErrorSummaryComponent;
 
   /**
    * Used to create address ids
@@ -31,9 +33,9 @@ export abstract class ListOperations {
    * Sets an ErrorSummary object (optional)
    * @param {ErrorSummaryComponent} errorSummaryInstance
    */
-  // public setErrorSummary(errorSummaryInstance: ErrorSummaryComponent) {
-  //   this.errorSummary = errorSummaryInstance; // TODO dont think this does anything
-  // }
+  public setErrorSummary(errorSummaryInstance: ErrorSummaryComponent) {
+    this.errorSummary = errorSummaryInstance; // TODO dont think this does anything
+  }
 
   /**
    * Sets a reference to an expander instance
@@ -48,31 +50,31 @@ export abstract class ListOperations {
    * @param {FormArray} reactiveFormList -list of UI records
    * @returns {FormGroup} the record that matchs the currently open row
    */
-  // public syncCurrentExpandedRow(reactiveFormList: FormArray): FormGroup {
+  public syncCurrentExpandedRow(reactiveFormList: FormArray): FormGroup {
 
-  //   if (!this.expander) {
-  //     console.warn('ListOperations-syncCurrentExpandedRow: There is no expander');
-  //     return;
-  //   }
-  //   const rowNum = this.expander.getExpandedRow();
-  //   // used to sync the expander with the details
-  //   if (rowNum > -1 && this.prevRow !== rowNum) {
-  //     this.prevRow = rowNum;
-  //     // console.log('Prev control does not equal current row');
-  //     return <FormGroup> reactiveFormList.controls[rowNum];
-  //   } else {
-  //     // do nothing?
-  //     return null;
-  //   }
-  // }
+    if (!this.expander) {
+      console.warn('ListOperations-syncCurrentExpandedRow: There is no expander');
+      return null;
+    }
+    const rowNum = this.expander.getExpandedRow();
+    // used to sync the expander with the details
+    if (rowNum > -1 && this.prevRow !== rowNum) {
+      this.prevRow = rowNum;
+      // console.log('Prev control does not equal current row');
+      return <FormGroup> reactiveFormList.controls[rowNum];
+    } else {
+      // do nothing?
+      return null;
+    }
+  }
 
   /**
    * Colllapses all the expander rows. Just a wrapper to the expander
    */
   private collapseExpanderRows() {
-    // if (this.expander) {
-    //   this.expander.collapseTableRows();
-    // }
+    if (this.expander) {
+      this.expander.collapseTableRows();
+    }
 
   }
 
@@ -148,8 +150,7 @@ export abstract class ListOperations {
   }
 
   public getExpandedRow(): number {
-    //  return this.expander.getExpandedRow();
-    return 0;
+     return this.expander.getExpandedRow();
 
   }
 }
