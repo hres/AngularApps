@@ -5,11 +5,11 @@
         <label for="contactId" [ngClass]="{'required':isInternal}" class="full-width">
           <span class="field-name" >{{'contact.id'|translate}}</span>
           <strong *ngIf="isInternal" class="required" >{{'commmon.required.bracket'|translate}}</strong>
-          <!-- <control-messages *ngIf="isInternal && contactFormLocalModel.controls['contactId'].invalid"
+          <control-messages *ngIf="isInternal && contactFormLocalModel.controls['contactId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls['contactId']"
+                            [control]="contactFormLocalModel.controls['contactId'] | formControl"
                             controlId="contactId" label="contact.id" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages> -->
+                            parentLabel="REP Contact"></control-messages>
           <input name="contactId" id="contactId" class="form-control"
                  [readonly]="!isInternal" [formControl]="contactFormLocalModel.controls['contactId'] | formControl" maxlength="5"/>
         </label>
@@ -100,11 +100,11 @@
         <label for="jobTitle" class="required full-width" aria-required="true">
           <span class="field-name">{{'job.title'|translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-          <!-- <control-messages *ngIf="contactFormLocalModel.controls['jobTitle'].invalid"
+          <control-messages *ngIf="contactFormLocalModel.controls['jobTitle'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls['jobTitle']"
+                            [control]="contactFormLocalModel.controls['jobTitle'] | formControl"
                             controlId="jobTitle" label="job.title" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages> -->
+                            parentLabel="REP Contact"></control-messages>
           <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="45" [formControl]="contactFormLocalModel.controls['jobTitle'] | formControl"/>
         </label>
       </div>
@@ -114,11 +114,11 @@
         <label for="phoneNumber" class="required full-width" aria-required="true">
           <span class="field-name" >{{'phone.number'|translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-          <!-- <control-messages *ngIf="contactFormLocalModel.controls['phoneNumber'].invalid"
+          <control-messages *ngIf="contactFormLocalModel.controls['phoneNumber'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls['phoneNumber']"
+                            [control]="contactFormLocalModel.controls['phoneNumber'] | formControl"
                             controlId="phoneNumber" label="phone.number" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages> -->
+                            parentLabel="REP Contact"></control-messages>
           <input name="phoneNumber" id="phoneNumber" class="form-control only-digits full-width" [formControl]="contactFormLocalModel.controls['phoneNumber'] | formControl" maxlength="16"/>
         </label>
       </div>
@@ -131,11 +131,11 @@
       <div class="form-group col-sm-4 ">
         <label class="full-width" for="faxNumber">
           <span class="field-name" >{{'fax.number' |translate}}</span>
-          <!-- <control-messages *ngIf="contactFormLocalModel.controls['faxNumber'].invalid"
+          <control-messages *ngIf="contactFormLocalModel.controls['faxNumber'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls['faxNumber']"
+                            [control]="contactFormLocalModel.controls['faxNumber'] | formControl"
                             controlId="faxNumber" label="fax.number" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages> -->
+                            parentLabel="REP Contact"></control-messages>
           <input name="faxNumber" id="faxNumber" class="form-control full-width" only-digits maxlength="16"
                  [formControl]="contactFormLocalModel.controls['faxNumber'] | formControl"/>
         </label>
@@ -146,11 +146,11 @@
         <label for="email" class="required full-width" aria-required="true">
           <span class="field-name" >{{'contact.email'|translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-          <!-- <control-messages *ngIf="contactFormLocalModel.controls['email'].invalid"
+          <control-messages *ngIf="contactFormLocalModel.controls['email'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls['email']"
+                            [control]="contactFormLocalModel.controls['email'] | formControl"
                             controlId="email" label="contact.email" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages> -->
+                            parentLabel="REP Contact"></control-messages>
           <input name="email" id="email" class="form-control full-width" maxlength="50" [formControl]="contactFormLocalModel.controls['email'] | formControl"/>
         </label>
       </div>

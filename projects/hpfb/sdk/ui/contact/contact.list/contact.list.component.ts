@@ -3,17 +3,16 @@ import {
   AfterViewInit, DoCheck, ViewEncapsulation
 } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
-// import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
-// import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
-// import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
+
+import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
+import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
+import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {ContactListService} from './contact-list.service';
 import { ListOperations } from '../../list/list-operations';
-
-import { CompanyContactRecordService } from '../company-contact-record/company-contact-record.service';
+import {TranslateService} from '@ngx-translate/core';
 import { errorSummClassName } from '../../common.constants';
-import {ExpanderComponent} from '../../expander/expander.component';
 
+//  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
   selector: 'contact-list',
   templateUrl: './contact.list.component.html',
@@ -33,8 +32,8 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   @Output() public errors = new EventEmitter();
   @Output() public contactsUpdated = new EventEmitter();
 
-  // @ViewChild(CompanyContactRecordComponent, {static: true}) companyContactChild: CompanyContactRecordComponent;
-  // @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
+  @ViewChild(CompanyContactRecordComponent, {static: true}) companyContactChild: CompanyContactRecordComponent;
+  @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
   private errorSummaryChild = null;
   // private prevRow = -1;
@@ -93,10 +92,10 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
 
   ngAfterViewInit() {
     // this.setExpander(this.expander);
-    // this.processSummaries(this.errorSummaryChildList);
-    // this.errorSummaryChildList.changes.subscribe(list => {
-    //   this.processSummaries(list);
-    // });
+    this.processSummaries(this.errorSummaryChildList);
+    this.errorSummaryChildList.changes.subscribe(list => {
+      this.processSummaries(list);
+    });
 
     //   this.cd.detectChanges();
   }
@@ -105,20 +104,20 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * Updates the error list to include the error summaries. Messages upwards
    * @param {QueryList<ErrorSummaryComponent>} list
    */
-  // private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
-  //   if (list.length > 1) {
-  //     console.warn('Contact List found >1 Error Summary ' + list.length);
-  //   }
-  //   // console.log('ContactList process Summaries');
-  //   this.errorSummaryChild = list.first;
-  //   // TODO what is this for need to untangle
-  //   this.setErrorSummary(this.errorSummaryChild);
-  //   if (this.errorSummaryChild) {
-  //     this.errorSummaryChild.index = this.getExpandedRow();
-  //   }
-  //   // console.log(this.errorSummaryChild);
-  //   this._emitErrors();
-  // }
+  private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
+    if (list.length > 1) {
+      console.warn('Contact List found >1 Error Summary ' + list.length);
+    }
+    // console.log('ContactList process Summaries');
+    this.errorSummaryChild = list.first;
+    // TODO what is this for need to untangle
+    this.setErrorSummary(this.errorSummaryChild);
+    if (this.errorSummaryChild) {
+      this.errorSummaryChild.index = this.getExpandedRow();
+    }
+    // console.log(this.errorSummaryChild);
+    this._emitErrors();
+  }
 
 
   ngDoCheck() {
@@ -131,18 +130,18 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
    * @private syncs the contact details record with the reactive model. Uses view child functionality
    */
   private _syncCurrentExpandedRow(): void {
-    // if (this.companyContactChild) {
-    //   const contactFormList = this.getFormContactList();
-    //   const result = this.syncCurrentExpandedRow(contactFormList);
-    //   // Onlu update the results if there is a change. Otherwise the record will not be dirty
+    if (this.companyContactChild) {
+      const contactFormList = this.getFormContactList();
+      const result = this.syncCurrentExpandedRow(contactFormList);
+      // Onlu update the results if there is a change. Otherwise the record will not be dirty
 
-    //   if (result) {
-    //     this.companyContactChild.contactFormRecord = result;
-    //     this.updateContactDetails++;
-    //   }
-    // } else {
-    //   console.warn('There is no company contact child');
-    // }
+      if (result) {
+        this.companyContactChild.contactFormRecord = result;
+        this.updateContactDetails++;
+      }
+    } else {
+      console.warn('There is no company contact child');
+    }
   }
 
   /**
@@ -178,13 +177,13 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     if (override) {
       return true;
     }
-    // if (this.newRecordIndicator) {
-    //   this.validRec = false;
-    //   return false;
-    // } else if (this.companyContactChild && this.companyContactChild.contactFormRecord) {
-    //   this.validRec = this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty;
-    //   return true; //(this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty);
-    // }
+    if (this.newRecordIndicator) {
+      this.validRec = false;
+      return false;
+    } else if (this.companyContactChild && this.companyContactChild.contactFormRecord) {
+      this.validRec = this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty;
+      return true; //(this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty);
+    }
     this.validRec = this.contactListForm.valid;
     return (this.contactListForm.valid);
   }
@@ -215,11 +214,11 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
     // console.log(contactFormList);
     // 2. Get a blank Form Model for the new record
-    // let formContact = CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
+    let formContact = CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
     // 3. set record id
-    // this.service.setRecordId(formContact, this.service.getNextIndex());
+    this.service.setRecordId(formContact, this.service.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
-    // this.addRecord(formContact, contactFormList);
+    this.addRecord(formContact, contactFormList);
     // console.log(contactFormList);
     // 5. Set the new form to the new contact form reference.
     this.newContactForm = <FormGroup> contactFormList.controls[contactFormList.length - 1];
@@ -231,7 +230,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
   public addContact(): void {
 
     // add contact to the list
-    console.log('adding an contact');
+    // console.log('adding an contact');
     // 1. Get the list of reactive form Records
     let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
     // console.log(contactFormList);
@@ -241,7 +240,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     this.service.setRecordId(formContact, this.service.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formContact, contactFormList);
-    console.log(contactFormList);
+    // console.log(contactFormList);
     // 5. Set the new form to the new contact form reference.
     this.newContactForm = <FormGroup> contactFormList.controls[contactFormList.length - 1];
     if (this.isInternal) {
@@ -291,7 +290,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     for (const err of this.errorList) {
       err.index = this.getExpandedRow();
       if (err.type === errorSummClassName) {
-        // err.expander = this.expander; // associate the expander
+        err.expander = this.expander; // associate the expander
       }
     }
     this._emitErrors(); // needed or will generate a valuechanged error
@@ -314,11 +313,11 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
       emitErrors.push(this.errorSummaryChild);
     }
     if (!this.isInternal && this._noNonRemoveRecords(this.dataModel)) { // && this.errorList.length === 0
-      // const oerr = new ErrorSummaryComponent(null);
-      // oerr.index = 0;
-      // oerr.tableId = 'contactListTable';
-      // oerr.type = 'leastOneRecordError';
-      // emitErrors.push(oerr);
+      const oerr = new ErrorSummaryComponent(null);
+      oerr.index = 0;
+      oerr.tableId = 'contactListTable';
+      oerr.type = 'leastOneRecordError';
+      emitErrors.push(oerr);
     }
     this.errors.emit(emitErrors);
   }
@@ -337,7 +336,7 @@ export class ContactListComponent extends ListOperations implements OnInit, OnCh
     }
     let rec = this._getFormContact(recordId);
     if (rec) {
-      // CompanyContactRecordService.mapDataModelFormModel(modelRecord, rec);
+      CompanyContactRecordService.mapDataModelFormModel(modelRecord, rec);
     } else {
       // should never happen, there should always be a UI record
       console.warn('ContactList:rec is null');

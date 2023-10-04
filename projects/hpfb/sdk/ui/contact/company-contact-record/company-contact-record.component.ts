@@ -5,12 +5,10 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ContactDetailsComponent} from '../contact.details/contact.details.component';
-import { ContactDetailsService } from '../contact.details/contact.details.service';
+import {ContactDetailsService} from '../contact.details/contact.details.service';
 import {CompanyContactRecordService} from './company-contact-record.service';
-
-// import {ErrorSummaryComponent} from '././error-msg/error-summary/error-summary.component';
-// import {ControlMessagesComponent} from '././error-msg/control-messages.component/control-messages.component';
-
+import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
+import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 
 @Component({
   selector: 'company-contact-record',
@@ -41,8 +39,8 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
 
   @ViewChild(ContactDetailsComponent, {static: true}) contactDetailsChild;
-  // @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
-  // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
+  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public updateChild: number = 0;
   public sequenceNum: number = 0;
@@ -51,7 +49,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   private parentErrorList: Array<any> = [];
   public isNew: boolean;
   public showErrSummary: boolean;
-  // public errorSummaryChild: ErrorSummaryComponent = null;
+  public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
   constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef) {
@@ -68,39 +66,39 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
 
-    // this.msgList.changes.subscribe(errorObjs => {
-    //   // update is handled directly in the function
-    //   this.updateErrorList(null, true);
-    //   this._emitErrors();
-    // });
-    // /** this is processsing the errorSummary that is a child in  Contact record **/
-    // this.errorSummaryChildList.changes.subscribe(list => {
-    //   this.processSummaries(list);
-    // });
+    this.msgList.changes.subscribe(errorObjs => {
+      // update is handled directly in the function
+      this.updateErrorList(null, true);
+      this._emitErrors();
+    });
+    /** this is processsing the errorSummary that is a child in  Contact record **/
+    this.errorSummaryChildList.changes.subscribe(list => {
+      this.processSummaries(list);
+    });
 
   }
-  // private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
-  //   if (list.length > 1) {
-  //     console.warn('Contact List found >1 Error Summary ' + list.length);
-  //   }
-  //   this.errorSummaryChild = list.first;
-  //   // if (!this.isInternal && this.errorSummaryChild && !this.hasRecords) {
-  //   //   // update summary for at least one record error
-  //   //   this.errorSummaryChild.tableId = 'contactListTable';
-  //   //   this.errorSummaryChild.type = 'leastOneRecordError';
-  //   // }
-  //   // set table id to point to
-  //   this._emitErrors();
-  // }
+  private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
+    if (list.length > 1) {
+      console.warn('Contact List found >1 Error Summary ' + list.length);
+    }
+    this.errorSummaryChild = list.first;
+    // if (!this.isInternal && this.errorSummaryChild && !this.hasRecords) {
+    //   // update summary for at least one record error
+    //   this.errorSummaryChild.tableId = 'contactListTable';
+    //   this.errorSummaryChild.type = 'leastOneRecordError';
+    // }
+    // set table id to point to
+    this._emitErrors();
+  }
   /***
    * Emits errors to higher level error summaries. Used for linking summaries
    * @private
    */
   private _emitErrors(): void {
     let emitErrors = [];
-    // if (this.errorSummaryChild) {
-    //   emitErrors.push(this.errorSummaryChild);
-    // }
+    if (this.errorSummaryChild) {
+      emitErrors.push(this.errorSummaryChild);
+    }
     this.errors.emit(emitErrors);
   }
 
@@ -108,9 +106,8 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   private _initContact() {
     if (this.isNew) {
       return CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
-    } else {
-      return null;    // todo what should be returned here
     }
+    return null;
   }
 
   ngOnChanges (changes: SimpleChanges) {
@@ -159,14 +156,14 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     }
     this.parentErrorList = [];
     // do this so don't miss it on a race condition
-    // if (this.msgList) {
-    //   this.msgList.forEach(
-    //     error => {
-    //       this.parentErrorList.push(error);
-    //     }
-    //   );
-    //   // this.cdr.detectChanges(); // doing our own change detection
-    // }
+    if (this.msgList) {
+      this.msgList.forEach(
+        error => {
+          this.parentErrorList.push(error);
+        }
+      );
+      // this.cdr.detectChanges(); // doing our own change detection
+    }
 
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
@@ -187,7 +184,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    * Deletes the contact reocord with the selected id from both the model and the form
    */
   public deleteContactRecord(): void {
-    // this.errorSummaryChild = null;
+    this.errorSummaryChild = null;
     this.deleteRecord.emit(this.contactRecordModel.value.id);
     this._emitErrors();
   }

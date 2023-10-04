@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ContactDetailsService } from '../contact.details/contact.details.service';
+import {ContactDetailsService} from '../contact.details/contact.details.service';
 
 @Injectable()
 export class CompanyContactRecordService {

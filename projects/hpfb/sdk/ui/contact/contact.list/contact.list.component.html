@@ -1,7 +1,7 @@
 <div [formGroup]="contactListForm">
   <!--<lib-error-summary *ngIf="showErrorsSummary()" [hiddenSummary]="showErrorsSummary()"-->
                  <!--[errorList]="errorList" headingPreamble="heading.contactInfo"-->
-                 <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></error-summary>-->
+                 <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></lib-error-summary>-->
   <div formArrayName="contacts" id="contactListTable">
     <lib-expander [group]="dataModel" [disableExpand]="!isInternal && newRecordIndicator"
                         [isValid]="validRec" [addRecord]="addRecordMsg"

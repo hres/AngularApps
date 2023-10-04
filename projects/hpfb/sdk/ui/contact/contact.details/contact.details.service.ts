@@ -33,7 +33,6 @@ export class ContactDetailsService {
     {'id': 'FR', 'label_en': 'French', 'label_fr': 'Français'}
   ];
 
-  // constructor(private _utilsService: UtilsService) {
   constructor() {
   }
 
@@ -221,7 +220,6 @@ export class ContactDetailsService {
    */
   private static _convertListText(rawList, lang) {
     const result = [];
-    // if (this._utilsService.isFrench(lang)) {     //todo check why it doesn't work
     if (UtilsService.isFrench(lang)) {
       rawList.forEach(item => {
         item.text = item.label_fr;

@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-// import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
+import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import { IMasterDetails } from '../../list/master-details';
-// import {ContactDetailsService} from '../contact.details/contact.details.service';
-import {ListService} from '../../list/list-service';
 
+import {ContactDetailsService} from '../contact.details/contact.details.service';
+import { ListService } from '../../list/list-service';
 
 @Injectable()
 export class ContactListService extends ListService implements IMasterDetails {
@@ -49,7 +49,7 @@ export class ContactListService extends ListService implements IMasterDetails {
 
   getContactModel() {
 
-    // return CompanyContactRecordService.getEmptyModel();
+    return CompanyContactRecordService.getEmptyModel();
   }
 
   // getContactFormRecord(fb: FormBuilder, isInternal) {
@@ -59,39 +59,39 @@ export class ContactListService extends ListService implements IMasterDetails {
 
 
   public contactFormToData(record: FormGroup, contactModel) {
-    // CompanyContactRecordService.mapFormModelToDataModel(record, contactModel);
+    CompanyContactRecordService.mapFormModelToDataModel(record, contactModel);
     return (record);
 
   }
 
   public createFormDataList(modelDataList, fb: FormBuilder, theList, isInternal) {
     for (let i = 0; i < modelDataList.length; i++) {
-      // const formRecord = CompanyContactRecordService.getReactiveModel(fb, isInternal);
-      // this.contactDataToForm(modelDataList[i], formRecord);
-      // theList.push(formRecord);
+      const formRecord = CompanyContactRecordService.getReactiveModel(fb, isInternal);
+      this.contactDataToForm(modelDataList[i], formRecord);
+      theList.push(formRecord);
     }
   }
 
   public contactDataToForm(contactModel, record: FormGroup) {
-    // CompanyContactRecordService.mapDataModelFormModel(contactModel, record);
+    CompanyContactRecordService.mapDataModelFormModel(contactModel, record);
     return (record);
   }
 
   public saveRecord(record: FormGroup) {
-    // if (record.controls.isNew.value) {
-    //   // this.setRecordId(record, this.getNextIndex());
-    //   record.controls.isNew.setValue(false);
-    //   let contactModel = this.getContactModel();
-    //   this.contactFormToData(record, contactModel);
-    //   this.contactList.push(contactModel);
-    //   return contactModel.id;
-    // } else {
-    //   let modelRecord = this.getModelRecord(record.controls.id.value);
-    //   if (!modelRecord) {
-    //     modelRecord = this.getContactModel();
-    //   }
-    //   const updatedModel = this.contactFormToData(record, modelRecord);
-    // }
+    if (record.controls['isNew'].value) {
+      // this.setRecordId(record, this.getNextIndex());
+      record.controls['isNew'].setValue(false);
+      let contactModel = this.getContactModel();
+      this.contactFormToData(record, contactModel);
+      this.contactList.push(contactModel);
+      return contactModel.id;
+    } else {
+      let modelRecord = this.getModelRecord(record.controls['id'].value);
+      if (!modelRecord) {
+        modelRecord = this.getContactModel();
+      }
+      const updatedModel = this.contactFormToData(record, modelRecord);
+    }
   }
 
   public getModelRecord(id: number) {
@@ -120,11 +120,11 @@ export class ContactListService extends ListService implements IMasterDetails {
   }
 
   public getRecordId(record: FormGroup) {
-    // return ContactDetailsService.getRecordId(record);
+    return ContactDetailsService.getRecordId(record);
   }
 
   public setRecordId(record: FormGroup, value: number): void {
-    // ContactDetailsService.setRecordId(record, value);
+    ContactDetailsService.setRecordId(record, value);
   }
 
 

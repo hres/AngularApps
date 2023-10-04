@@ -3,7 +3,7 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
-// import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
+import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 import {ContactDetailsService} from './contact.details.service';
 import {isArray} from 'util';
 
@@ -27,7 +27,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() lang;
   @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
-  // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
@@ -56,18 +56,18 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngAfterViewInit() {
-    // this.msgList.changes.subscribe(errorObjs => {
-    //   // let temp = [];
-    //   this._updateErrorList(errorObjs);
+    this.msgList.changes.subscribe(errorObjs => {
+      // let temp = [];
+      this._updateErrorList(errorObjs);
 
-    //   /* errorObjs.forEach(
-    //      error => {
-    //        temp.push(error);
-    //      }
-    //    );
-    //    this.errorList.emit(temp);*/
-    // });
-    // this.msgList.notifyOnChanges();
+      /* errorObjs.forEach(
+         error => {
+           temp.push(error);
+         }
+       );
+       this.errorList.emit(temp);*/
+    });
+    this.msgList.notifyOnChanges();
 
   }
 
@@ -106,12 +106,12 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
       this.showFieldErrors = changes['showErrors'].currentValue;
       let temp = [];
-      // if (this.msgList) {
-      //   this.msgList.forEach(item => {
-      //     temp.push(item);
-      //     // console.log(item);
-      //   });
-      // }
+      if (this.msgList) {
+        this.msgList.forEach(item => {
+          temp.push(item);
+          // console.log(item);
+        });
+      }
       this.errorList.emit(temp);
     }
 
