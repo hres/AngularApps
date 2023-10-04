@@ -2,7 +2,7 @@ import { FormGroup } from '@angular/forms';
 
 // todo rename the class to ??
 
-export interface IMasterDetails {
+export interface IListable {
   deleteModelRecord(id: number);
   getModelRecordList();
   getModelRecord(id);

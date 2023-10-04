@@ -2,12 +2,12 @@ import {FormArray, FormGroup} from '@angular/forms';
 import { ExpanderComponent } from '../expander/expander.component';
 import { ErrorSummaryComponent } from '../error-msg/error-summary/error-summary.component';
 import {Component, ViewChild} from '@angular/core';
-import {IMasterDetails} from './master-details';
+import {IListable} from './listable';
 
 @Component({
   template: ''
 })
-export abstract class ListOperations {
+export abstract class ListBaseComponent {
 
   public prevRow: number;
   protected showErrorSummary: boolean;
@@ -53,7 +53,7 @@ export abstract class ListOperations {
   public syncCurrentExpandedRow(reactiveFormList: FormArray): FormGroup {
 
     if (!this.expander) {
-      console.warn('ListOperations-syncCurrentExpandedRow: There is no expander');
+      console.warn('ListBaseComponent-syncCurrentExpandedRow: There is no expander');
       return null;
     }
     const rowNum = this.expander.getExpandedRow();
@@ -84,7 +84,7 @@ export abstract class ListOperations {
    * @param service
    * @returns {number}
    */
-  public saveRecord(record: FormGroup, service: IMasterDetails): number {
+  public saveRecord(record: FormGroup, service: IListable): number {
     //  Case 1 no record, just show error summary, shoud never happen
     if (!record) {
       this.showErrorSummary = true;
@@ -116,7 +116,7 @@ export abstract class ListOperations {
    * @param {FormArray} recordList
    * @param service
    */
-  public deleteRecord(id: number, recordList: FormArray, service: IMasterDetails) {
+  public deleteRecord(id: number, recordList: FormArray, service: IListable) {
     const serviceResult = service.deleteModelRecord(id);
     for (let i = 0; i < recordList.controls.length; i++) {
       const temp = <FormGroup> recordList.controls[i];
