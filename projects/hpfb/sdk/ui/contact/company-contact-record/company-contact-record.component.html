@@ -3,7 +3,7 @@
   <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.contactRecord"
                  [headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactRec"></lib-error-summary> 
-  <contact-details [showErrors]="showErrors" [isInternal]="isInternal" [languageList]="languageList" [lang]="lang"
+  <contact-details [showErrors]="showErrors" [isInternal]="isInternal" [languageList]="languageList"  [contactStatusList]="contactStatusList" [lang]="lang"
                    [detailsChanged]="updateChild" [group]="contactDetailsFormGroup"
                    [helpTextSequences]="helpTextSequences"
                    (errorList)="updateErrorList($event)"></contact-details>

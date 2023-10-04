@@ -28,6 +28,7 @@ export class ContactListComponent extends ListBaseComponent implements OnInit, O
   @Input() public loadFileIndicator;
   @Input() public isInternal: boolean;
   @Input() languageList: ICode[];
+  @Input() contactStatusList: ICode[];
   @Input() public xmlStatus;
   @Input() lang;
   @Input() helpTextSequences;

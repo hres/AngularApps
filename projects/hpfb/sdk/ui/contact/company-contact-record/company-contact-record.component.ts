@@ -27,6 +27,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() countries: Array<any>;
   @Input() isInternal: boolean;
   @Input() languageList: ICode[];
+  @Input() contactStatusList: ICode[];
   @Input() newRecord: boolean;
   @Input() showErrors: boolean;
   @Input() hasRecords: boolean;
@@ -195,9 +196,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public setStatusToRevise(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[1].id) {
-      conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[1].id);
-    }
+    // ling todo
+    // if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[1].id) {
+    //   conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[1].id);
+    // }
     this.saveContactRecord();
   }
   /***
@@ -205,9 +207,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public setStatusToRemove(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[2].id) {
-      conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[2].id);
-    }
+    // ling todo
+    // if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[2].id) {
+    //   conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[2].id);
+    // }
     this.saveContactRecord();
   }
   /***
@@ -215,9 +218,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public activeContactRecord(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[3].id) {
-      conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[3].id);
-    }
+    // ling todo
+    // if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[3].id) {
+    //   conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[3].id);
+    // }
     this.saveContactRecord();
   }
 

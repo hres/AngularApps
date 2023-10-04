@@ -39,6 +39,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public loadFileIndicator = 0;
   public keywordList: IKeyword[] = [];
   public languageList: ICode[] = [];
+  public contactStatusList: ICode[] = [];
   public countryList: ICode[];
   public provinceList: ICode[];
   public stateList: ICode[];
@@ -106,9 +107,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       // to cache the data
       this._formDataLoader.getKeywordList().subscribe((data) => {
         // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
-                this.keywordList = data;
+        this.keywordList = data;
         this.languageList = data.find(x => (x.name === 'languages')).data;
         this._loggerService.log("form.base", "onInit", JSON.stringify(this.languageList));
+      });
+
+      this._formDataLoader.getContactStatuseList().subscribe((data) => {
+        this.contactStatusList = data;
       });
 
       this._formDataLoader.getCountryList().subscribe((data) => {

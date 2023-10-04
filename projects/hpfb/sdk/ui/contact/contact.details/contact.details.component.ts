@@ -26,6 +26,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
   @Input() languageList: ICode[];
+  @Input() contactStatusList: ICode[];
   @Input() lang;
   @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
@@ -33,7 +34,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
-  public statuses: Array<any> = [];
+
   public showFieldErrors: boolean = false;
   private detailsService: ContactDetailsService;
 
@@ -41,8 +42,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
     this.showFieldErrors = false;
     this.showErrors = false;
     this.detailsService = new ContactDetailsService();
-    this.statuses = ContactDetailsService.statusListExternal;
-    // this.statuses = this.isInternal ? this.detailsService.statusListInternal : this.detailsService.statusListExternal;
+
   }
 
   ngOnInit() {
@@ -83,11 +83,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['isInternal'] && changes['isInternal'].currentValue) {
-      // console.log('this.isInterannnnnl in ContactListComponent: ' + this.isInternal);
-      this.statuses = ContactDetailsService.statusListInternal;
-    }
-
     // since we can't detect changes on objects, using a separate flag
     if (changes['detailsChanged']) { // used as a change indicator for the model
       // console.log("the details cbange");

@@ -16,12 +16,14 @@ export class CompanyDataLoaderService {
   private stateJsonPath = DATA_PATH + 'states.json';
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private amendReasonsJsonPath = DATA_PATH + 'amendReasons.json';
+  private contactStatusesJsonPath = DATA_PATH + 'contactStatuses.json';
 
   cachedKeywords$:Observable<IKeyword[]>;
   cachedCountries$:Observable<ICode[]>;
   cachedProvinces$:Observable<ICode[]>;
   cachedStates$:Observable<ICode[]>;
   cachedAmendReasons$:Observable<ICode[]>;
+  cachedContactStatuses$:Observable<ICode[]>;
 
   constructor(private _dataService: DataLoaderService) {}
     /* this.getJSON().subscribe(data => {
@@ -82,6 +84,17 @@ export class CompanyDataLoaderService {
     } 
     return this.cachedAmendReasons$;
   }
+
+  getContactStatuseList(): Observable<ICode[]> {
+    if (!this.cachedContactStatuses$) {
+      this.cachedContactStatuses$ = this._dataService.getData<ICode>(this.contactStatusesJsonPath)
+        .pipe(
+          // tap(()=>console.log('getStateList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedContactStatuses$;
+  }  
 
   // async getCountryJSON(): Promise<any> {
     // const response = await this.http.get(this.countryJsonPath).toPromise();

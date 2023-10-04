@@ -10,18 +10,6 @@ export class ContactDetailsService {
 
   private static lang = ENGLISH;    //todo get lang 
 
-  // todo: move statice data to data loader serivce
-  public static statusListExternal: Array<any> = [
-    {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
-    {id: 'REVISE', label_en: 'Revise', label_fr: 'fr_Revise'},
-    {id: 'REMOVE', label_en: 'Remove', label_fr: 'fr_Remove'},
-    {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
-  ];
-  public static statusListAdd: Array<any> = [
-    {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
-  ];
-  public static statusListInternal: Array<any> = ContactDetailsService.statusListExternal;
-
   constructor() {
   }
 
@@ -92,17 +80,18 @@ export class ContactDetailsService {
   public static mapFormModelToDataModel(formRecord: FormGroup, contactModel) {
     contactModel.contact_id = formRecord.controls['contactId'].value;
     if (formRecord.controls['status'].value) {
-      const statList = this._convertListText(this.statusListInternal, this.lang);
-      const recordIndex = ListService.getRecord(statList, formRecord.controls['status'].value, 'id');     //todo ListService is abstract, is it right to call its method like this?
-      if (recordIndex > -1) {
-        contactModel.status = {
-          '__text': statList[recordIndex].text,
-          '_id': statList[recordIndex].id,
-          '_label_en': statList[recordIndex].label_en,
-          '_label_fr': statList[recordIndex].label_fr
-        };
-        contactModel.status_text = statList[recordIndex].text;
-      }
+      // ling todo
+      // const statList = this._convertListText(this.statusListInternal, this.lang);
+      // const recordIndex = ListService.getRecord(statList, formRecord.controls['status'].value, 'id');     //todo ListService is abstract, is it right to call its method like this?
+      // if (recordIndex > -1) {
+      //   contactModel.status = {
+      //     '__text': statList[recordIndex].text,
+      //     '_id': statList[recordIndex].id,
+      //     '_label_en': statList[recordIndex].label_en,
+      //     '_label_fr': statList[recordIndex].label_fr
+      //   };
+        // contactModel.status_text = statList[recordIndex].text;
+      // }
     } else {
       contactModel.status = null;
     }
@@ -150,14 +139,14 @@ export class ContactDetailsService {
 
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
     formRecord.controls['contactId'].setValue(contactModel.contact_id);
-    if (contactModel.status) {
-      const recordIndex = ListService.getRecord(this.statusListInternal, contactModel.status._id, 'id');
-      if (recordIndex > -1) {
-        formRecord.controls['status'].setValue(this.statusListInternal[recordIndex].id);
-      }
-    } else {
-      formRecord.controls['status'].setValue(null);
-    }
+    // if (contactModel.status) {
+    //   const recordIndex = ListService.getRecord(this.statusListInternal, contactModel.status._id, 'id');
+    //   if (recordIndex > -1) {
+    //     formRecord.controls['status'].setValue(this.statusListInternal[recordIndex].id);
+    //   }
+    // } else {
+    //   formRecord.controls['status'].setValue(null);
+    // }
     // formRecord.controls.hcStatus.setValue(contactModel.hc_status);
     // if (contactModel.salutation) {
     //   const recordIndex2 = ListService.getRecord(this.salutationList, contactModel.salutation._id, 'id');

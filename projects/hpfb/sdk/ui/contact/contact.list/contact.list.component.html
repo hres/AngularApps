@@ -10,7 +10,7 @@
                         [deleteRecord]="deleteRecordMsg"
                         [xmlStatus]="xmlStatus">
       <company-contact-record
-        [detailsChanged]="updateContactDetails" [isInternal]="isInternal" [languageList]="languageList"
+        [detailsChanged]="updateContactDetails" [isInternal]="isInternal" [languageList]="languageList" [contactStatusList]="contactStatusList"
         [showErrors]="showErrors" [lang]="lang"
         [newRecord]="newRecordIndicator"
         [hasRecords]="dataModel.length > 0"
@@ -23,7 +23,7 @@
     </lib-expander>
     <div *ngIf="newRecordIndicator">
       <company-contact-record
-        [detailsChanged]="updateContactDetails" [isInternal]="isInternal" [languageList]="languageList" [lang]="lang"
+        [detailsChanged]="updateContactDetails" [isInternal]="isInternal" [languageList]="languageList"  [contactStatusList]="contactStatusList" [lang]="lang"
         [group]="newContactForm"
         [helpTextSequences]="helpTextSequences"
         [newRecord]="newRecordIndicator"
