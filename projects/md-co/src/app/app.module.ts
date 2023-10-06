@@ -6,6 +6,7 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { AppFormModule } from './app.form.module';
+import { AppRoutingModule } from './app-routing.module';
 import { UiModule } from '@hpfb/sdk/ui';
 import { ErrorComponent } from './error/error.component';
 import { ContainerComponent } from './container/container.component';
@@ -21,11 +22,7 @@ import { InstructionService } from '@hpfb/sdk/ui';
     // NumbersOnlyModule,
     UiModule,
     AppFormModule,
-    RouterModule.forRoot([
-      { path: '', component: ContainerComponent },
-      { path: 'error', component: ErrorComponent },
-      { path: '**', redirectTo: '/error' } // Redirect to error page for any other unknown route, ling todo: needed?
-    ]),
+    AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
