@@ -13,7 +13,7 @@ export class DataLoaderService {
   //   return this.http.get<any>(GlobalsService.DATA_PATH + filename);
   // }
   public getData<T>(endpoint: string): Observable<T[]> {
-    return this.http.get<any>(endpoint).pipe(tap(()=>console.log(endpoint + ' is called')));
+    return this.http.get<any>(endpoint).pipe();
   }
 
   public getSortedData<T>(filename: string, compareField: SortOn): Observable<T[]> {

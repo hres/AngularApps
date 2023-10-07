@@ -169,4 +169,18 @@ export class UtilsService {
     // displayFormControlInfo(control);
   }  
 
+  printComponentChanges(changes: SimpleChanges): any[] {
+    let changesArray = [];
+
+    for (const prop in changes) {
+      if (changes.hasOwnProperty(prop)) {
+        const change = changes[prop];
+        const currentValue = JSON.stringify(change.currentValue);
+        changesArray.push({ propertyName: prop, currentValue });
+      }
+    }
+
+    return changesArray;
+  }
+
 }

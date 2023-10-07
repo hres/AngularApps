@@ -38,4 +38,12 @@ export class ConverterService {
     }
   }
 
+  findAndConverCodeToIdTextLabel(codeList: ICode[], controlVal: string, lang: string): IIdTextLabel {
+    // filter a CodeList by a form control value
+    const codeVal = this._utilService.findCodeById(codeList, controlVal);
+    // if found, convert the Code value to an IIdTextLabel object and return it, otherwise return null
+    return codeVal? this.convertCodeToIdTextLabel(codeVal, lang) : null;
+  }
+
+
 }
