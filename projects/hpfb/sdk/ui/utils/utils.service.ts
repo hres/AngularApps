@@ -4,6 +4,7 @@ import { CANADA, USA, FRENCH, NO, YES } from '../common.constants';
 import { DatePipe } from '@angular/common';
 import { ICode } from '../data-loader/data';
 import { IIdTextLabel } from '../model/entity-base';
+import { LoggerService } from '../logger/logger.service';
 
 @Injectable()
 export class UtilsService {
@@ -106,6 +107,14 @@ export class UtilsService {
    */
   getIdFromIdTextLabel(idTextLabelObj: IIdTextLabel): string {
     return !this.isEmpty(idTextLabelObj) ? idTextLabelObj._id : undefined; 
+  }
+
+  getIdsFromIdTextLabels(idTextLabelObjs: IIdTextLabel[]): string[] {
+    let ids: string[] = [];
+    for (const temp of idTextLabelObjs) {
+      ids.push(this.getIdFromIdTextLabel(temp));
+    }
+    return ids;
   }
 
   isEmpty(value: any): boolean {

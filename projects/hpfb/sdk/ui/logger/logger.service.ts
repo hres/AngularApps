@@ -7,11 +7,11 @@ export class LoggerService {
     console.log(className + '-> ' + methodName + '->', messages.join(', '));
   }
 
-  error(className: string, message: any) {
-    console.error(className + '-> ', message);
+  error(className: string, methodName: string, ...messages: any[]) {
+    console.error(className + '-> ' + methodName + '->', messages.join(', '));
   }
 
-  warn(className: string, message: any) {
-    console.warn(className + '-> ', message);
+  warn(className: string, methodName: string, ...messages: any[]) {
+    console.warn(className + '-> ' + methodName + '->', messages.join(', '));
   }
 }
