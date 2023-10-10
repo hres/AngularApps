@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div class="row form-group" ><!-- *ngIf="isAmend" -->
+    <div *ngIf="isAmend" class="row form-group">
       <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chkbxrdio-grp">
         <legend class="required"><span>{{'amend.reason' | translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
