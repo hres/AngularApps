@@ -37,99 +37,34 @@
       </div>
     </div>
 
-    <!-- <div class="row" >
-      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        11111
-    <label formArrayName="orders" *ngFor="let order of amendReasonArray.controls; let i = index">
-      <input type="checkbox" [formControlName]="i"> 
-      {{amendReasonList[i].label}} 
-    </label>
-    </div>
-    </div> -->
-
-    <div class="row" ><!-- *ngIf="isAmend" -->
-      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        22222
-    <label formArrayName="amendReasons" *ngFor="let order of amendReasonArray.controls; let i = index">
-      <input type="checkbox" [formControl]="order | formControl" (change)="onAmendReasonChange()"> 
-      {{amendReasonList[i].label}} 
-    </label>
-    </div>
-    </div>
-    <!-- <pre>{{ selectedAmendReasons | json }}</pre> -->
-
-    <div class="row" ><!-- *ngIf="isAmend" -->
-      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <fieldset id="amendReasons" class="chkbxrdio-grp">
-          <legend class="required">
-            <span>{{'amend.reason' | translate}}</span>
-            <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-            this is a hidden field <input name="amendReason" id="amendReason" type="text" class="form-control"
-                  [formControl]="generalInfoFormLocalModel.controls['amendReason'] | formControl"/>
-          </legend>
-
-              <div class="checkbox">
-                <label for="nameChange">
-                  <input name="nameChange" type="checkbox" (click)="nameChangeOnblur()"
-                        [formControl]="generalInfoFormLocalModel.controls['nameChange'] | formControl"
-                        id="nameChange"/>
-                  <span>{{'manuname.change'|translate}}</span>
-                </label>
-              </div>
-
-              <div class="checkbox">
-                <label for="addressChange">
-                  <input name="addressChange" type="checkbox" (click)="addressChangeOnblur()"
-                        [formControl]="generalInfoFormLocalModel.controls['addressChange'] | formControl" 
-                        id="addressChange"/>
-                  <span>{{'manuaddr.change'|translate}}</span>
-                </label>
-              </div>
-
-              <div class="checkbox">
-                <label for="facilityChange">
-                  <input name="facilityChange" type="checkbox" (click)="facilityChangeOnblur()"
-                        [formControl]="generalInfoFormLocalModel.controls['facilityChange'] | formControl"
-                        id="facilityChange"/>
-                  <span>{{'facility.change'|translate}}</span>
-                </label>
-              </div>
-
-              <div class="checkbox">
-                <label for="contactChange">
-                  <input name="contactChange" type="checkbox"
-                        [formControl]="generalInfoFormLocalModel.controls['contactChange'] | formControl"
-                        id="contactChange"/>
-                  <span>{{'contact.change'|translate}}</span>
-                </label>
-              </div>
-
-              <div class="checkbox">
-                <label for="otherChange">
-                  <input name="otherChange" type="checkbox" (click)="amendReasonOnblur()"
-                        [formControl]="generalInfoFormLocalModel.controls['otherChange'] | formControl"
-                        id="otherChange"/>
-                  <span>{{'other'|translate}}</span>
-                </label>
-              </div>
-          
-          <div class="row">
-            <div *ngIf="isOther()" class="col-xs-12 form-group">
-              <label for="otherDetails" class="required full-width">{{'other.details'|translate}}
-                <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="generalInfoFormLocalModel.controls['otherDetails'].invalid"
-                                  [showError]="showFieldErrors"
-                                  [control]="generalInfoFormLocalModel.controls['otherDetails'] | formControl"
-                                  controlId="otherDetails" label="other.details"
-                                  parentId="generalInfo"
-                                  parentLabel="Regulatory Company Enrolment"></control-messages>
-              <textarea type="text" class="form-control full-width" id="otherDetails" (blur)="amendReasonOnblur()"
-                        [formControl]="generalInfoFormLocalModel.controls['otherDetails'] | formControl" maxlength="500"></textarea>
-              </label>
-            </div>
+    <div class="row form-group" ><!-- *ngIf="isAmend" -->
+      <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chkbxrdio-grp">
+        <legend class="required"><span>{{'amend.reason' | translate}}</span>
+          <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
+        </legend>
+        <ng-container formArrayName="amendReasons" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
+          <div class="checkbox">
+            <label for={{amendReasonOptionList[i].value}}>
+              <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnblur()"/> {{amendReasonOptionList[i].label}} 
+            </label>
           </div>
-        </fieldset>
-      </div>
+        </ng-container>
+        <ng-container *ngIf="isOtherSelected()"> 
+          <div class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="otherDetails" class="required full-width">{{'other.details'|translate}}
+              <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
+              <control-messages *ngIf="generalInfoFormLocalModel.controls['otherDetails'].invalid"
+                                [showError]="showFieldErrors"
+                                [control]="generalInfoFormLocalModel.controls['otherDetails'] | formControl"
+                                controlId="otherDetails" label="other.details"
+                                parentId="generalInfo"
+                                parentLabel="Regulatory Company Enrolment"></control-messages>
+              <textarea type="text" class="form-control full-width" id="otherDetails" (blur)="amendReasonOnblur()"
+                      [formControl]="generalInfoFormLocalModel.controls['otherDetails'] | formControl" maxlength="500"></textarea>
+            </label>
+          </div>
+        </ng-container>            
+      </fieldset>        
     </div>
 
     <div class="row">

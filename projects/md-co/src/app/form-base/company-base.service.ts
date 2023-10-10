@@ -68,14 +68,8 @@ export class CompanyBaseService {
         enrol_version: '0.0',
         last_saved_date: '',
         company_id: '',
-        amend_reasons: {
-          manufacturer_name_change: '',
-          manufacturer_address_change: '',
-          facility_change: '',
-          contact_change: '',
-          other_change: '',
-          other_details: ''
-        },
+        amend_reasons: undefined,
+        amend_reason_other_details: '',
         are_licenses_transfered: ''
       }
     );

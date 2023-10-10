@@ -6,7 +6,7 @@ import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {CompanyInfoService} from './company.info.service';
 import { ControlMessagesComponent, FINAL, UtilsService, LoggerService, YES, ICode, ConverterService, CheckboxOption } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
-import { AMEND } from '../app.constants';
+import { AMEND, AMEND_OTHER_REASON_CODE } from '../app.constants';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -24,7 +24,6 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() lang: string;
- // @Input() inComplete: boolean;
   @Input() isInternal: boolean;
   @Input() helpTextSequences;
 
@@ -38,8 +37,9 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   public setAsComplete: boolean = false;  //ling todo remove???
   public disableAmendButton: boolean = true;
   public yesNoList: ICode[] = [];
-  public amendReasonList: CheckboxOption[] = [];
-  private reasonFlags: Array<boolean> = [];
+  private amendReasonCodeList: ICode[] = [];
+  public amendReasonOptionList: CheckboxOption[] = [];
+  private reasonFlags: Array<boolean> = [];     //ling todo review the use for AdminChange section
 
   constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _formDataLoader: CompanyDataLoaderService,
     private router: Router, private _utilsService: UtilsService, private _converterService: ConverterService, private _loggerService: LoggerService) {
@@ -67,29 +67,17 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       }
     });
 
-    this._formDataLoader.getAmendReasonList().pipe(
-      map(originalData => originalData.map(item => this._converterService.convertCodeToCheckboxOption(item, this.lang)))
-    ).subscribe((data) => {
+    this._formDataLoader.getAmendReasonList().subscribe((data) => {
       // this._loggerService.log("company.info", "onInit", JSON.stringify(data));
-      this.amendReasonList = data;
-      this.amendReasonList.forEach(() => this.amendReasonArray.push(new FormControl(false)));
+      this.amendReasonCodeList = data;
+      this.amendReasonOptionList = this.amendReasonCodeList.map((item) => {
+        return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+      });
+      this.amendReasonOptionList.forEach(() => this.amendReasonChkFormArray.push(new FormControl(false)));
+
     });
-  }
 
-  get amendReasonArray() {
-    return this.generalInfoFormLocalModel.controls['amendReasons'] as FormArray;
-  }
-
-  // temp for ui display/debugging
-  get selectedAmendReasons(): string[] {
-    return this.amendReasonList
-      .filter((item, idx) => this.amendReasonArray.controls.some((control, controlIdx) => idx === controlIdx && control.value))
-      .map(item => item.value);
-  }
-
-  onAmendReasonChange() {
-    console.log('xxx', this.selectedAmendReasons);
-    this._saveData();
+    
   }
 
   ngAfterViewInit() {
@@ -151,7 +139,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       }
       if (changes['genInfoModel']) {
         const dataModel = changes['genInfoModel'].currentValue;
-        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel);
+        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList);
         this.setAsComplete = (dataModel.status === FINAL && !this.isInternal); // ling todo remove??
         this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status, this.isInternal);
         this.isAmend = (dataModel.status === AMEND);
@@ -174,27 +162,11 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  removed(rec) {
-    console.log(rec);
-  }
-
-  // showAmendMsg() {
-  //
-  //   if (!this.generalInfoFormLocalModel) {
-  //     return false;
-  //   }
-  //   return this.generalInfoFormLocalModel.controls['formStatus'].value === GlobalsService.AMEND;
-  // }
-
-  // disableAmend () {
-  //   return !this.isInternal;
-  // }
-
   public setAmendState () {
     this.isAmend = true;
     this.genInfoModel.status = AMEND;
     this.genInfoModel.are_licenses_transfered = '';
-    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel));
+    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList);
   }
 
   onblur() {
@@ -203,49 +175,41 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private _saveData(): void{
-    this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel), this.genInfoModel, this.amendReasonList);
+    this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel), this.genInfoModel, this.selectedAmendReasonCodes, 
+      this.amendReasonCodeList, this.lang);
   }
-
-  nameChangeOnblur() {
-    this._loggerService.log('company.info', 'nameChangeOnblur is called');
-    this.reasonFlags[1] = this.generalInfoFormLocalModel.controls['nameChange'].value;
-    this.amendReasonOnblur();
-  }
-
-  addressChangeOnblur() {
-    this._loggerService.log('company.info', 'addressChangeOnblur is called');
-    this.reasonFlags[2] = this.generalInfoFormLocalModel.controls['addressChange'].value;
-    this.amendReasonOnblur();
-  }
-
-  facilityChangeOnblur() {
-    this._loggerService.log('company.info', 'facilityChangeOnblur is called');
-    this.reasonFlags[3] = this.generalInfoFormLocalModel.controls['facilityChange'].value;
-    this.amendReasonOnblur();
-  }
-
+  
   amendReasonOnblur() {
-    this._loggerService.log('company.info', 'amendReasonOnblur is called');
-    this._hasReasonChecked();
-    this.reasonFlags[0] = (this.generalInfoFormLocalModel.controls['areLicensesTransfered'].value === YES) ||
-      this.reasonFlags[1] || this.reasonFlags[2] || this.reasonFlags[3];
-    this.onblur();
-    this.showAdminChanges.emit(this.reasonFlags);
+    // console.log('input is onblur');
+    // this._hasReasonChecked();
+    // this.reasonFlags[0] = (this.generalInfoFormLocalModel.controls['areLicensesTransfered'].value === YES) ||
+    //   this.reasonFlags[1] || this.reasonFlags[2] || this.reasonFlags[3];
+    this._saveData();
+    this.showAdminChanges.emit(this.reasonFlags);     // ling todo check what values AdminChanges section needs
   }
 
-  isOther() {
-    return this.generalInfoFormLocalModel.controls['otherChange'].value;
+  isOtherSelected() {
+    return this.selectedAmendReasonCodes.indexOf(AMEND_OTHER_REASON_CODE) !== -1? true : false;
   }
 
-  private _hasReasonChecked() {
-    this.generalInfoFormLocalModel.controls['amendReason'].setValue(null);
-    if (this.generalInfoFormLocalModel.controls['nameChange'].value ||
-      this.generalInfoFormLocalModel.controls['addressChange'].value ||
-      this.generalInfoFormLocalModel.controls['facilityChange'].value ||
-      this.generalInfoFormLocalModel.controls['contactChange'].value ||
-      this.generalInfoFormLocalModel.controls['otherChange'].value) {
-      this.generalInfoFormLocalModel.controls['amendReason'].setValue('reasonFilled');
-    }
+  // private _hasReasonChecked() {
+  //   this.generalInfoFormLocalModel.controls.amendReason.setValue(null);
+  //   if (this.generalInfoFormLocalModel.controls.nameChange.value ||
+  //     this.generalInfoFormLocalModel.controls.addressChange.value ||
+  //     this.generalInfoFormLocalModel.controls.facilityChange.value ||
+  //     this.generalInfoFormLocalModel.controls.contactChange.value ||
+  //     this.generalInfoFormLocalModel.controls.otherChange.value) {
+  //     this.generalInfoFormLocalModel.controls.amendReason.setValue('reasonFilled');
+  //   }
+  // }
+
+  get amendReasonChkFormArray() {
+    return this._companyInfoService.getAmendReasonCheckboxFormArray(this.generalInfoFormLocalModel);
+  }
+
+  // shortcut to get selectedAmendReasonCodes
+  get selectedAmendReasonCodes(): string[] {
+    return this._companyInfoService.getSelectedAmendReasonCodes(this.amendReasonOptionList, this.amendReasonChkFormArray);
   }
 
 }

@@ -45,18 +45,19 @@ export interface GeneralInformation {
   enrol_version:           string;
   last_saved_date:         string;
   company_id:              string;
-  amend_reasons:           AmendReasons;
+  amend_reasons:           IIdTextLabel[];
+  amend_reason_other_details:  string;
   are_licenses_transfered: string;
 }
 
-export interface AmendReasons {
-  manufacturer_name_change:    string;
-  manufacturer_address_change: string;
-  facility_change:             string;
-  contact_change:              string;
-  other_change:                string;
-  other_details:               string;
-}
+// export interface AmendReasons {
+//   manufacturer_name_change:    string;
+//   manufacturer_address_change: string;
+//   facility_change:             string;
+//   contact_change:              string;
+//   other_change:                string;
+//   other_details:               string;
+// }
 
 export interface PrimaryContact {
   renewal_contact_name: string;

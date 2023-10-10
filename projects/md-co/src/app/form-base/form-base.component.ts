@@ -325,14 +325,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;
     // set amend reasons and admin changes section to null if status is Final
     if (this.genInfoModel.status === FINAL) {
-      this.genInfoModel.amend_reasons = {
-        manufacturer_name_change: '',
-        manufacturer_address_change: '',
-        facility_change: '',
-        contact_change: '',
-        other_change: '',
-        other_details: '',
-      };
+      // ling todo
+      // this.genInfoModel.amend_reasons = {
+      //   manufacturer_name_change: '',
+      //   manufacturer_address_change: '',
+      //   facility_change: '',
+      //   contact_change: '',
+      //   other_change: '',
+      //   other_details: '',
+      // };
     this.genInfoModel.are_licenses_transfered = '';
     }
 
@@ -405,11 +406,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
    * update adminChanges to show the text info in the adminChanges component
    */
   private _updateAdminChanges() {
-    this.adminChanges[1] = this.genInfoModel.amend_reasons.manufacturer_name_change === YES;
-    this.adminChanges[2] = this.genInfoModel.amend_reasons.manufacturer_address_change === YES;
-    this.adminChanges[3] = this.genInfoModel.amend_reasons.facility_change === YES;
-    this.adminChanges[0] = this.genInfoModel.are_licenses_transfered  === YES ||
-        this.adminChanges[1] || this.adminChanges[2] || this.adminChanges[3];
+    // ling todo
+    // this.adminChanges[1] = this.genInfoModel.amend_reasons.manufacturer_name_change === YES;
+    // this.adminChanges[2] = this.genInfoModel.amend_reasons.manufacturer_address_change === YES;
+    // this.adminChanges[3] = this.genInfoModel.amend_reasons.facility_change === YES;
+    // this.adminChanges[0] = this.genInfoModel.are_licenses_transfered  === YES ||
+    //     this.adminChanges[1] || this.adminChanges[2] || this.adminChanges[3];
   }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
