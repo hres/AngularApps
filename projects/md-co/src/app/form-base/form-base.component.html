@@ -40,7 +40,7 @@
           </header>
           <div class="panel-body">
 
-            <com-gen-info [showErrors]="showErrors" [isInternal]="isInternalSite"
+            <com-gen-info [showErrors]="showErrors" [isInternal]="isInternal"
                               [lang]="lang"
                               [genInfoModel]="genInfoModel"
                               [helpTextSequences]="helpIndex"
@@ -82,7 +82,7 @@
                   </h3>
                 </header>
                 <div class="panel-body"> 
-                  <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternalSite"
+                  <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternal"
                                  [loadFileIndicator]="loadFileIndicator" [lang]="lang"
                                  [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status"
                                  [showErrors]="showErrors" [contactModel]="contactModel"
@@ -124,7 +124,7 @@
           <div class="panel-body">
             <div class="row">
               <!-- <comp-admin-changes [showErrors]="showErrors" [showAdminChanges]="adminChanges" [lang]="lang"
-                                  [detailsChanged]="updateChild" [isInternal]="isInternalSite"
+                                  [detailsChanged]="updateChild" [isInternal]="isInternal"
                                   [adminChangesModel]="adminChangesModel"
                                   [helpTextSequences]="helpIndex"
                                   (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes> -->
@@ -146,7 +146,7 @@
           {{saveXmlLabel|translate}}
         </button>
       </div>
-      <div class="form-group col-md-4" *ngIf="!isInternalSite">
+      <div class="form-group col-md-4" *ngIf="!isInternal">
         <a class="btn btn-primary btn-lg active" [href] = "mailToLink" (click)="mailto()"
            [class.disabled]="disableMailtoLink()" >
           {{'mailto.label'|translate}}

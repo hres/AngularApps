@@ -35,7 +35,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public rootTagText = ROOT_TAG; 
   private xslName: string;
 
-  public isInternalSite = true;
   public loadFileIndicator = 0;
   public keywordList: IKeyword[] = [];
   public languageList: ICode[] = [];
@@ -151,10 +150,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       //   this.translate.currentLang
       // );
       this._loggerService.log("form.base", "onInit", "isInternal: " + this.isInternal);
-      if (this.isInternal === NO) {
-        this.isInternalSite = false;
-        // this._loggerService.log('isInternalSite in ngOnInit: ' + this.isInternalSite);
-      } else {
+      if (this.isInternal) {
         this.saveXmlLabel = 'approve.final';
       }
     } catch (e) {
@@ -244,12 +240,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public isExternalAndFinal() {
-    return (!this.isInternalSite && this.genInfoModel.status === FINAL);
+    return (!this.isInternal && this.genInfoModel.status === FINAL);
   }
 
   // disable the mailto link for internal, or when it is external Final or when there are errors for the external
   public disableMailtoLink() {
-    return (this.isInternalSite || this.genInfoModel.status === FINAL ||
+    return (this.isInternal || this.genInfoModel.status === FINAL ||
       (this.errorList && this.errorList.length > 0) || !this.companyContacts.contactListForm.pristine);
   }
 
@@ -262,7 +258,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       if (this.companyContacts.contactListForm.pristine) {
         // .isPristine
         this._updatedAutoFields();
-        if (this.isInternalSite) {
+        if (this.isInternal) {
           this.genInfoModel.status = this._companyService.setFinalStatus();
         }
         const result = {
@@ -352,7 +348,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     } else {
       this.contactModel = [];
     }
-    if (this.isInternalSite) {
+    if (this.isInternal) {
       // once load data files on internal site, lower components should update error list and push them up
       this.showErrors = true;
     }
@@ -362,7 +358,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _updatedAutoFields() {
     this._updatedSavedDate();
-    if (this.isInternalSite) {
+    if (this.isInternal) {
       this.genInfoModel.status = this._companyService.setFinalStatus();
       this.genInfoModel.enrol_version =
         (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() +
@@ -393,7 +389,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _buildfileName() {
     // const version: Array<any> = this.genInfoModel.enrol_version.split('.');
     const date_generated = this._utilService.getFormattedDate('yyyyMMddHHmm');
-    if (this.isInternalSite) {
+    if (this.isInternal) {
       return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
     } else if (this.genInfoModel.status === AMEND) {
       return 'draft-com-' + this.genInfoModel.company_id + '-' + date_generated;
