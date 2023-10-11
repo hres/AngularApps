@@ -47,10 +47,12 @@ export class CompanyInfoService {
       formRecord.controls['companyId'].setValue(generalInfoModel.company_id.slice(1));
     }
 
-    const loadedAmendReasonCodes: string[] | undefined = this._utilsService.getIdsFromIdTextLabels(generalInfoModel.amend_reasons);
-    if (loadedAmendReasonCodes.length > 0) {
-      const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
-      this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
+    if (generalInfoModel.amend_reasons) {
+      const loadedAmendReasonCodes: string[] | undefined = this._utilsService.getIdsFromIdTextLabels(generalInfoModel.amend_reasons);
+      if (loadedAmendReasonCodes.length > 0) {
+        const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
+        this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
+      }
     }
 
     formRecord.controls['otherDetails'].setValue(generalInfoModel.amend_reason_other_details);

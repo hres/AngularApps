@@ -6,10 +6,11 @@ import { ICode, IKeyword } from '@hpfb/sdk/ui/data-loader/data';
 import { AMEND, ContactStatus, FINAL, XSLT_PREFIX, ROOT_TAG } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
-import { GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment} from '../models/Enrollment';
-import { ContactListComponent, ControlMessagesComponent, FileConversionService, INameAddress, LoggerService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
+import { GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
+import { ControlMessagesComponent, FileConversionService, INameAddress, LoggerService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
 import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
+import { ContactListComponent } from '../contact/contact.list/contact.list.component';
 
 @Component({
   selector: 'app-form-base',
@@ -73,8 +74,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _fileService: FileConversionService, private _utilService: UtilsService, private router: Router, private _globalService: GlobalService,
     private _loggerService: LoggerService
   ) {
-    // _formDataLoader = new CompanyDataLoaderService(this.http);
-    // this.countryList = [];
+
+    this._loggerService.log("form.base", "constructor", "");
+
     this.showAdminChanges = false;
     this.showErrors = false;
     this.showMailToHelpText = false;
@@ -82,22 +84,19 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.xslName = XSLT_PREFIX.toUpperCase() + this._utilService.getApplicationMajorVersion(this._globalService.getAppVersion()) + '.xsl';
   }
 
-  ngOnInit() {  
+  ngOnInit() {
     try {
       if (!this._globalService.getEnrollment()) {
-        this._loggerService.log("form.base", "onInit", "enrollement doesn't exist");
+        this._loggerService.log("form.base", "onInit", "enrollement doesn't exist, create a new one");
         this.enrollModel = this._companyService.getEmptyEnrol();
         this._globalService.setEnrollment(this.enrollModel);
       } else {
-        this._loggerService.log("form.base", "onInit", "get enrollement from globalservice");
         this.enrollModel = this._globalService.getEnrollment();
+        this._loggerService.log("form.base", "onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
       }
 
-      this.genInfoModel = this.enrollModel.DEVICE_COMPANY_ENROL.general_information;  
-      this.addressModel = this.enrollModel.DEVICE_COMPANY_ENROL.address; 
-      this.contactModel = null;
-      this.adminChangesModel = this.enrollModel.DEVICE_COMPANY_ENROL.administrative_changes; 
-      this.primContactModel = this.enrollModel.DEVICE_COMPANY_ENROL.primary_contact; 
+      const companyEnroll: DeviceCompanyEnrol = this.enrollModel[this.rootTagText];
+      this.init(companyEnroll);
 
       if (!this.companyForm) {
         this.companyForm = this._companyService.buildForm();
@@ -108,7 +107,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
         this.keywordList = data;
         this.languageList = data.find(x => (x.name === 'languages')).data;
-        this._loggerService.log("form.base", "onInit", JSON.stringify(this.languageList));
+        // this._loggerService.log("form.base", "onInit", JSON.stringify(this.languageList));
       });
 
       this._formDataLoader.getContactStatuseList().subscribe((data) => {
@@ -121,35 +120,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       });
 
       this._formDataLoader.getProvinceList().subscribe((data) => {
-        // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
         this.provinceList = data;
       });
 
       this._formDataLoader.getStateList().subscribe((data) => {
-        // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
         this.stateList = data;
       });
 
-
-      // .subscribe(
-      //   (response) => {
-      //     this.countries = response;
-      //   },
-      //   (error) => {
-      //     console.error('Error fetching countries:', error);
-      //   }
-      // );
-
-      // this.countryList = await this._formDataLoader.getCountries(
-      //   this.translate.currentLang
-      // );
-      // this.provinceList = await this._formDataLoader.getProvinces(
-      //   this.translate.currentLang
-      // );
-      // this.stateList = await this._formDataLoader.getStates(
-      //   this.translate.currentLang
-      // );
-      this._loggerService.log("form.base", "onInit", "isInternal: " + this.isInternal);
       if (this.isInternal) {
         this.saveXmlLabel = 'approve.final';
       }
@@ -165,7 +142,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this._loggerService.log("form.base", "ngOnChanges", this._utilService.checkComponentChanges(changes));
     if (changes['contactModel']) {
+      this._loggerService.log("form.base", "ngOnChanges", "contactModel");
       this._updateContactList(changes['primContactModel'].currentValue);
     }
   }
@@ -261,7 +240,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         if (this.isInternal) {
           this.genInfoModel.status = this._companyService.setFinalStatus();
         }
-        const result = {
+        const result = {      // todo use the enrollement obj saved in GlobalService??, consolidate this with saveWorkingCopyFile()
           DEVICE_COMPANY_ENROL: {
             general_information: this.genInfoModel,
             address: this.addressModel,
@@ -291,22 +270,24 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveWorkingCopyFile() {
-    this._updatedSavedDate();
-    let result : Enrollment= {
-      DEVICE_COMPANY_ENROL: {
-        general_information: this.genInfoModel,
-        address: this.addressModel,
-        contacts: this.contactModel, //{},
-        primary_contact: this.primContactModel,
-        administrative_changes: this.adminChangesModel,
-      },
-    };
-    // if (this.contactModel && this.contactModel.length > 0) {       //ling todo what is the logic here?
-    //   const cm = !this.isInternalSite
-    //     ? this._removeHcStatus(this.contactModel)
-    //     : this.contactModel;
-    //   result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
-    // }
+    this._updatedSavedDate();     // todo use the enrollement obj saved in GlobalService??
+    let result = {'DEVICE_COMPANY_ENROL': {
+      'general_information': this.genInfoModel,
+      'address': this.addressModel,
+      'contacts': {},
+      'primary_contact': this.primContactModel,
+      'administrative_changes': this.adminChangesModel
+    }};
+    if (this.contactModel && (this.contactModel).length > 0) {
+      const cm = !this.isInternal ? this._removeHcStatus(this.contactModel) : this.contactModel;
+      result.DEVICE_COMPANY_ENROL.contacts = {contact: cm};
+    }
+    if (this.contactModel && this.contactModel.length > 0) {
+      const cm = !this.isInternal
+        ? this._removeHcStatus(this.contactModel)
+        : this.contactModel;
+      result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
+    }
     // result.DEVICE_COMPANY_ENROL.contacts =
     //   (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
     // const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
@@ -316,44 +297,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public processFile(fileData: ConvertResults) {
     this.loadFileIndicator++;
-    // this._loggerService.log('form.base', 'processingFile', JSON.stringify(fileData, null, 2));
+    const enrollment : Enrollment = fileData.data;
+    this._globalService.setEnrollment(enrollment);
+    this._loggerService.log('form.base', 'processingFile', JSON.stringify(enrollment, null, 2));
 
-    this.genInfoModel = fileData.data.DEVICE_COMPANY_ENROL.general_information;
-    // set amend reasons and admin changes section to null if status is Final
-    if (this.genInfoModel.status === FINAL) {
-      // ling todo
-      // this.genInfoModel.amend_reasons = {
-      //   manufacturer_name_change: '',
-      //   manufacturer_address_change: '',
-      //   facility_change: '',
-      //   contact_change: '',
-      //   other_change: '',
-      //   other_details: '',
-      // };
-    this.genInfoModel.are_licenses_transfered = '';
-    }
-
-    this._updateAdminChanges();
-    if (fileData.data.DEVICE_COMPANY_ENROL.administrative_changes) {
-      this.adminChangesModel =
-        fileData.data.DEVICE_COMPANY_ENROL.administrative_changes;
-    }
-
-    this.addressModel = fileData.data.DEVICE_COMPANY_ENROL.address;
-    this.primContactModel = fileData.data.DEVICE_COMPANY_ENROL.primary_contact;
-    const cont = fileData.data.DEVICE_COMPANY_ENROL.contacts['contact'];
-    if (cont) {
-      this.contactModel = cont instanceof Array ? cont : [cont];
-      this.contactModelUpdated(this.contactModel);
-    } else {
-      this.contactModel = [];
-    }
-    if (this.isInternal) {
-      // once load data files on internal site, lower components should update error list and push them up
-      this.showErrors = true;
-    }
-
-    this.showAmendNote = (fileData.data.DEVICE_COMPANY_ENROL.general_information.status === FINAL);
+    const companyEnroll: DeviceCompanyEnrol = enrollment[this.rootTagText];
+    this.init(companyEnroll);
   }
 
   private _updatedAutoFields() {
@@ -472,7 +421,48 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   gotoErrorPage(): void {
     this.router.navigate(['/error']);
-  }	 
+  }
 
+
+  private init(companyEnroll: DeviceCompanyEnrol){
+    this.genInfoModel = companyEnroll.general_information;
+    // set amend reasons and admin changes section to null if status is Final
+    if (this.genInfoModel.status === FINAL) {   // ling todo review this
+      // this.genInfoModel.amend_reasons = {
+      //   manufacturer_name_change: '',
+      //   manufacturer_address_change: '',
+      //   facility_change: '',
+      //   contact_change: '',
+      //   other_change: '',
+      //   other_details: '',
+      // };
+      this.genInfoModel.amend_reasons = [];
+      this.genInfoModel.amend_reason_other_details = '';
+      // this.genInfoModel.are_licenses_transfered = '';
+    }
+
+    this._updateAdminChanges();
+    if (companyEnroll.administrative_changes) {
+      this.adminChangesModel = companyEnroll.administrative_changes;
+    }
+
+    this.addressModel = companyEnroll.address;
+    this.primContactModel = companyEnroll.primary_contact;
+
+    const cont = companyEnroll.contacts['contact'];
+    if (cont) {
+      this.contactModel = cont instanceof Array ? cont : [cont];
+      this.contactModelUpdated(this.contactModel);
+    } else {
+      this.contactModel = [];
+    }
+
+    if (this.isInternal) {
+      // once load data files on internal site, lower components should update error list and push them up
+      this.showErrors = true;
+    }
+
+    this.showAmendNote = ( this.genInfoModel.status === FINAL);
+  }
 
 }
