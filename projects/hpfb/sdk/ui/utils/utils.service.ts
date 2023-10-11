@@ -178,7 +178,7 @@ export class UtilsService {
     // displayFormControlInfo(control);
   }  
 
-  printComponentChanges(changes: SimpleChanges): any[] {
+  checkComponentChanges(changes: SimpleChanges): any[] {
     let changesArray = [];
 
     for (const prop in changes) {
@@ -192,4 +192,13 @@ export class UtilsService {
     return changesArray;
   }
 
+  checkFormInvalidFields(FormGroup: FormGroup) {
+    let invalidFields = [];
+    Object.keys(FormGroup.controls).forEach(key => {
+      const control = FormGroup.get(key);
+      if (control.invalid) {
+        invalidFields.push(`Field '${key}' is invalid`);
+      }
+    });
+  }
 }
