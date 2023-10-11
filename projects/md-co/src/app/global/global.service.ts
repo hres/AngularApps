@@ -3,33 +3,49 @@ import { Enrollment } from '../models/Enrollment';
 import { InstructionService } from '@hpfb/sdk/ui';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GlobalService {
+  constructor(private instructionService: InstructionService) {}
 
-  constructor( private instructionService : InstructionService) { }
-
+  private devEnv: boolean;
   private appVersion: string;
   private isInternal: boolean;
-  private helpIndex: { [key: string]: number }; 
+  private helpIndex: { [key: string]: number };
   private currLanguage: string;
-  private enrollment : Enrollment;
+  private enrollment: Enrollment;
+
+  /**
+   * Getter $devEnv
+   * @return {boolean}
+   */
+  public get $devEnv(): boolean {
+    return this.devEnv;
+  }
+
+  /**
+   * Setter $devEnv
+   * @param {boolean} value
+   */
+  public set $devEnv(value: boolean) {
+    this.devEnv = value;
+  }
 
   setAppVersion(appVersion: string) {
     this.appVersion = appVersion;
   }
 
-  getAppVersion(){
+  getAppVersion() {
     return this.appVersion;
   }
 
   public get $isInternal(): boolean {
-		return this.isInternal;
-	}
+    return this.isInternal;
+  }
 
-	public set $isInternal(value: boolean) {
-		this.isInternal = value;
-	}
+  public set $isInternal(value: boolean) {
+    this.isInternal = value;
+  }
 
   setHelpIndex(helpIndex: string[]) {
     this.helpIndex = this.instructionService.getHelpTextIndex(helpIndex);
@@ -43,7 +59,7 @@ export class GlobalService {
     this.currLanguage = language;
   }
 
-  getCurrLanguage(){
+  getCurrLanguage() {
     return this.currLanguage;
   }
 
@@ -51,8 +67,7 @@ export class GlobalService {
     this.enrollment = enrollment;
   }
 
-  getEnrollment(){
+  getEnrollment() {
     return this.enrollment;
   }
-
 }

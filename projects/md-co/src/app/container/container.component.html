@@ -23,5 +23,8 @@
         </section>
     </div>
 
-    <div body><app-form-base [isInternal]="isInternal" [helpTextSequences]="helpIndex" [lang]="language"></app-form-base></div>
+    <div body>
+        <pre *ngIf="devEnv">isInternal: {{isInternal}}</pre>
+        <app-form-base [isInternal]="isInternal" [helpTextSequences]="helpIndex" [lang]="language"></app-form-base>
+    </div>
 </lib-layout>
