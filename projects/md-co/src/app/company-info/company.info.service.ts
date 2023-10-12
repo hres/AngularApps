@@ -48,10 +48,15 @@ export class CompanyInfoService {
     }
 
     if (generalInfoModel.amend_reasons) {
-      const loadedAmendReasonCodes: string[] | undefined = this._utilsService.getIdsFromIdTextLabels(generalInfoModel.amend_reasons);
-      if (loadedAmendReasonCodes.length > 0) {
-        const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
-        this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
+      const amendReasons = generalInfoModel.amend_reasons;
+      if (Array.isArray(amendReasons) && this._utilsService.isArrayOfIIdTextLabel(amendReasons)) {
+        const loadedAmendReasonCodes: string[] | undefined = this._utilsService.getIdsFromIdTextLabels(generalInfoModel.amend_reasons);
+        if (loadedAmendReasonCodes.length > 0) {
+          const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
+          this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
+        }
+      } else {
+        console.error('amendReasons is not an array of IIdTextLabel');
       }
     }
 

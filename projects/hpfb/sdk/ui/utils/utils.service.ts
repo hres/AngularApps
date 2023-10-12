@@ -117,6 +117,10 @@ export class UtilsService {
     return ids;
   }
 
+  isArrayOfIIdTextLabel(arr: any[]): arr is IIdTextLabel[] {
+    return arr.every(item => item instanceof IIdTextLabel);
+  }
+  
   isEmpty(value: any): boolean {
     return value === null || value === undefined;
   }
