@@ -7,10 +7,10 @@ import { AMEND, ContactStatus, FINAL, XSLT_PREFIX, ROOT_TAG } from '../app.const
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
-import { ControlMessagesComponent, FileConversionService, INameAddress, LoggerService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
+import { ContactListComponent, ControlMessagesComponent, FileConversionService, INameAddress, LoggerService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
 import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
-import { ContactListComponent } from '../contact/contact.list/contact.list.component';
+
 
 @Component({
   selector: 'app-form-base',
