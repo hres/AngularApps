@@ -52,6 +52,9 @@
         <ng-container *ngIf="isAmend"> 
           <div class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="rationale" class="required full-width">{{'rationale'|translate}}
+              <sup id="co3-rf">
+                <a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['rationaleInx']}}</a>
+              </sup>
               <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
               <control-messages *ngIf="generalInfoFormLocalModel.controls['rationale'].invalid"
                                 [showError]="showFieldErrors"

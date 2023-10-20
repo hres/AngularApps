@@ -56,7 +56,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public contactModel : Contact[];
   public adminChangesModel :AdministrativeChanges;
   public primContactModel : PrimaryContact; 
-  public helpIndex = [] ; // todo CompanyBaseService.getHelpTextIndex();
+  public helpIndex: { [key: string]: number }; // todo CompanyBaseService.getHelpTextIndex();
 
   public saveXmlLabel = 'save.draft';
   public mailToLabel = 'mailto.label';
@@ -130,6 +130,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       if (this.isInternal) {
         this.saveXmlLabel = 'approve.final';
       }
+
+      this.helpIndex = this._globalService.getHelpIndex();
     } catch (e) {
       this._loggerService.error("formbase", e);
       this.gotoErrorPage()
