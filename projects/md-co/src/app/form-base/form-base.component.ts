@@ -434,10 +434,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       //   facility_change: '',
       //   contact_change: '',
       //   other_change: '',
-      //   other_details: '',
+      //   rationale: '',
       // };
       this.genInfoModel.amend_reasons = [];
-      this.genInfoModel.amend_reason_other_details = '';
+      this.genInfoModel.rationale = '';
       // this.genInfoModel.are_licenses_transfered = '';
     }
 

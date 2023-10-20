@@ -21,7 +21,7 @@ export class CompanyInfoService {
       lastSavedDate: '',
       companyId: ['', [Validators.required, ValidationService.companyIdValidator]],
       amendReasons: new FormArray([]),
-      otherDetails: ['', [Validators.required]],
+      rationale: ['', [Validators.required]],
       areLicensesTransfered: ['', [Validators.required]]
     });
   }
@@ -36,7 +36,7 @@ export class CompanyInfoService {
     const selectedAmendReasons: IIdTextLabel[] = this._converterService.findAndConverCodesToIdTextLabels(amendReasonCodeList, slctdAmendReasonCodes, lang); 
     generalInfoModel.amend_reasons = selectedAmendReasons;
 
-    generalInfoModel.amend_reason_other_details = formRecord.controls['otherDetails'].value;
+    generalInfoModel.rationale = formRecord.controls['rationale'].value;
     generalInfoModel.are_licenses_transfered = formRecord.controls['areLicensesTransfered'].value;
   }
 
@@ -60,7 +60,7 @@ export class CompanyInfoService {
       }
     }
 
-    formRecord.controls['otherDetails'].setValue(generalInfoModel.amend_reason_other_details);
+    formRecord.controls['rationale'].setValue(generalInfoModel.rationale);
     formRecord.controls['areLicensesTransfered'].setValue(generalInfoModel.are_licenses_transfered);
   }
 

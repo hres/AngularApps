@@ -22,6 +22,7 @@ export enum ContactStatus {
 
 export const helpInstructionHeadings = ['loadFileIndx',
                                         'compREPInx',
+                                        'rationaleInx',
                                         'conStatInx',
                                         'routIdInx',
                                         'desRenewalInx',
