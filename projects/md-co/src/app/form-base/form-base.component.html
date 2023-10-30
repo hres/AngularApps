@@ -106,10 +106,10 @@
           </header>
           <div class="panel-body">
             <primary-contact [lang]="lang"
-                             [detailsChanged]="updateChild"
                              [primContactModel]="primContactModel"
                              [activeContactList]="activeContacts"
                              [helpTextSequences]="helpIndex"></primary-contact>
+            <!-- ling todo [detailsChanged]="updateChild" -->
           </div>
         </section>
       </div>
@@ -124,10 +124,11 @@
           <div class="panel-body">
             <div class="row">
               <comp-admin-changes [showErrors]="showErrors" [showAdminChanges]="adminChanges" [lang]="lang"
-                                  [detailsChanged]="updateChild" [isInternal]="isInternal"
+                                  [isInternal]="isInternal"
                                   [adminChangesModel]="adminChangesModel"
                                   [helpTextSequences]="helpIndex"
                                   (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>
+              <!-- ling todo [detailsChanged]="updateChild" -->
             </div>
           </div>
         </section>
