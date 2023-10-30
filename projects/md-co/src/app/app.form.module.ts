@@ -7,16 +7,20 @@ import { CompanyDataLoaderService } from './form-base/company-data-loader.servic
 import { CompanyBaseService } from './form-base/company-base.service';
 import { CompanyInfoService } from './company-info/company.info.service';
 import { CompanyInfoComponent } from './company-info/company.info.component';
+import { PrimaryContactComponent } from './primary-contact/primary.contact.component';
+import { PrimaryContactService } from './primary-contact/primary.contact.service';
+import { CompanyAdminChangesComponent } from './comp-admin-changes/company-admin.changes.componet';
+import { CompanyAdminChangesService } from './comp-admin-changes/company-admin.changes.service';
 
 @NgModule({
-  declarations: [FormBaseComponent, CompanyInfoComponent],
+  declarations: [FormBaseComponent, CompanyInfoComponent, PrimaryContactComponent, CompanyAdminChangesComponent],
   imports: [
     CommonModule,
     InformationModule,
     UiModule,
     CommonFormDendencyModule
   ],
-  providers:[CompanyDataLoaderService, CompanyBaseService, CompanyInfoService],
+  providers:[CompanyDataLoaderService, CompanyBaseService, CompanyInfoService, PrimaryContactComponent, PrimaryContactService, CompanyAdminChangesComponent, CompanyAdminChangesService],
   exports: [FormBaseComponent, InformationModule],
 })
 export class AppFormModule { } 

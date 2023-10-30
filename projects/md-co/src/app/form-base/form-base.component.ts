@@ -199,6 +199,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processAdminChangesUpdate(adminChanges) {
+    console.log(adminChanges);
     this.adminChanges = adminChanges;
     if (adminChanges && adminChanges.length > 0) {
       this.showAdminChanges = adminChanges[0];
@@ -210,6 +211,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.adminChangesModel = null; //CompanyBaseService.getEmptyAdminChangesModel();
       this.processAdminChangesErrors([]);
     }
+    console.log('show admin changes');
+    console.log(this.showAdminChanges);
   }
 
   public hideErrorSummary() {
