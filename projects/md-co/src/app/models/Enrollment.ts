@@ -46,7 +46,7 @@ export interface GeneralInformation {
   last_saved_date:         string;
   company_id:              string;
   amend_reasons:           IIdTextLabel[];
-  amend_reason_other_details:  string;
+  rationale:  string;
   are_licenses_transfered: string;
 }
 
@@ -56,7 +56,7 @@ export interface GeneralInformation {
 //   facility_change:             string;
 //   contact_change:              string;
 //   other_change:                string;
-//   other_details:               string;
+//   rationale:               string;
 // }
 
 export interface PrimaryContact {

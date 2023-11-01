@@ -105,11 +105,11 @@
             </h3>
           </header>
           <div class="panel-body">
-            <!-- <primary-contact [lang]="lang"
-                             [detailsChanged]="updateChild"
+            <primary-contact [lang]="lang"
                              [primContactModel]="primContactModel"
                              [activeContactList]="activeContacts"
-                             [helpTextSequences]="helpIndex"></primary-contact> -->
+                             [helpTextSequences]="helpIndex"></primary-contact>
+            <!-- ling todo [detailsChanged]="updateChild" -->
           </div>
         </section>
       </div>
@@ -123,11 +123,12 @@
           </header>
           <div class="panel-body">
             <div class="row">
-              <!-- <comp-admin-changes [showErrors]="showErrors" [showAdminChanges]="adminChanges" [lang]="lang"
-                                  [detailsChanged]="updateChild" [isInternal]="isInternal"
+              <comp-admin-changes [showErrors]="showErrors" [showAdminChanges]="adminChanges" [lang]="lang"
+                                  [isInternal]="isInternal"
                                   [adminChangesModel]="adminChangesModel"
                                   [helpTextSequences]="helpIndex"
-                                  (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes> -->
+                                  (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>
+              <!-- ling todo [detailsChanged]="updateChild" -->
             </div>
           </div>
         </section>
@@ -173,6 +174,7 @@
         </b>
       </div>
     </div> -->
+    <pre> show admin changes {{showAdminChanges}}</pre>
     <pre> companyForm valid {{companyForm.valid}}</pre>
     <pre> companyForm {{companyForm.value |json}}</pre>
 

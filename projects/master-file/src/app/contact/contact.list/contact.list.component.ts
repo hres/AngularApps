@@ -49,11 +49,13 @@ export class ContactListComponent extends ListBaseComponent implements OnInit, O
   public columnDefinitions = [
     {
       label: 'Contact Identifier',
+      label_fr: 'Identifiant du contact',
       binding: 'contact_id',
       width: '10'
     },
     {
       label: 'Full Name (First and Last)',
+      label_fr:'Nom complet (Prénom et nom de famille)',
       binding: 'full_name',
       width: '40'
     },
@@ -64,11 +66,13 @@ export class ContactListComponent extends ListBaseComponent implements OnInit, O
     // },
     {
       label: 'Job Title',
+      label_fr: 'Titre de poste',
       binding: 'job_title',
       width: '20'
     },
     {
-      label: 'Status',
+      label: 'Contact Status',
+      label_fr: 'Statut du contact',
       binding: 'status_text',
       width: '15'
     }

@@ -167,6 +167,8 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     this.genInfoModel.status = AMEND;
     this.genInfoModel.are_licenses_transfered = '';
     this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList);
+    console.log(this.helpTextSequences);
+    console.log(this.helpTextSequences['rationaleInx']);
   }
 
   onblur() {

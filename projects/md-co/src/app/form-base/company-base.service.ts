@@ -69,7 +69,7 @@ export class CompanyBaseService {
         last_saved_date: '',
         company_id: '',
         amend_reasons: undefined,
-        amend_reason_other_details: '',
+        rationale: '',
         are_licenses_transfered: ''
       }
     );
