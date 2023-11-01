@@ -43,6 +43,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public countryList: ICode[];
   public provinceList: ICode[];
   public stateList: ICode[];
+  public enrollmentStatusList: ICode[]
   public adminChanges = [];
   public showAdminChanges: boolean;
   public showErrors: boolean;
@@ -110,9 +111,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // this._loggerService.log("form.base", "onInit", JSON.stringify(this.languageList));
       });
 
-      this._formDataLoader.getContactStatuseList().subscribe((data) => {
+      this._formDataLoader.getContactStatusesList().subscribe((data) => {
         this.contactStatusList = data;
       });
+
+      console.log('contactStatusList');
+      console.log(this.contactStatusList);
 
       this._formDataLoader.getCountryList().subscribe((data) => {
         // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
@@ -125,6 +129,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
       this._formDataLoader.getStateList().subscribe((data) => {
         this.stateList = data;
+      });
+
+      this._formDataLoader.getEnrollmentStatusesList().subscribe((data) => {
+        this.enrollmentStatusList = data;
       });
 
       if (this.isInternal) {
