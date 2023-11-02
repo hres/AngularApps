@@ -10,11 +10,11 @@
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix group-beside">
-            <h2 class="panel-title">{{'load.file'|translate}}
+            <h2 class="panel-title">{{'load.file'|translate}}   
+              <sup id="co1-rf">
+                <a class="fn-lnk" href="#co1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['loadFileIndx']}}</a>
+              </sup>
             </h2>
-            <sup id="co1-rf">
-              <a class="fn-lnk" href="#co1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['loadFileIndx']}}</a>
-            </sup>
           </header>
           <div class="panel-body"> 
             <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText">
