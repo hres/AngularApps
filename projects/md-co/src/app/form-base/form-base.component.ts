@@ -43,6 +43,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public countryList: ICode[];
   public provinceList: ICode[];
   public stateList: ICode[];
+  public enrollmentStatusList: ICode[]
   public adminChanges = [];
   public showAdminChanges: boolean;
   public showErrors: boolean;
@@ -56,7 +57,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public contactModel : Contact[];
   public adminChangesModel :AdministrativeChanges;
   public primContactModel : PrimaryContact; 
-  public helpIndex = [] ; // todo CompanyBaseService.getHelpTextIndex();
+  public helpIndex: { [key: string]: number }; // todo CompanyBaseService.getHelpTextIndex();
 
   public saveXmlLabel = 'save.draft';
   public mailToLabel = 'mailto.label';
@@ -110,9 +111,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // this._loggerService.log("form.base", "onInit", JSON.stringify(this.languageList));
       });
 
-      this._formDataLoader.getContactStatuseList().subscribe((data) => {
+      this._formDataLoader.getContactStatusesList().subscribe((data) => {
         this.contactStatusList = data;
       });
+
+      console.log('contactStatusList');
+      console.log(this.contactStatusList);
 
       this._formDataLoader.getCountryList().subscribe((data) => {
         // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
@@ -127,9 +131,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this.stateList = data;
       });
 
+      this._formDataLoader.getEnrollmentStatusesList().subscribe((data) => {
+        this.enrollmentStatusList = data;
+      });
+
       if (this.isInternal) {
         this.saveXmlLabel = 'approve.final';
       }
+
+      this.helpIndex = this._globalService.getHelpIndex();
     } catch (e) {
       this._loggerService.error("formbase", e);
       this.gotoErrorPage()
@@ -197,6 +207,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processAdminChangesUpdate(adminChanges) {
+    console.log(adminChanges);
     this.adminChanges = adminChanges;
     if (adminChanges && adminChanges.length > 0) {
       this.showAdminChanges = adminChanges[0];
@@ -208,6 +219,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.adminChangesModel = null; //CompanyBaseService.getEmptyAdminChangesModel();
       this.processAdminChangesErrors([]);
     }
+    console.log('show admin changes');
+    console.log(this.showAdminChanges);
   }
 
   public hideErrorSummary() {
@@ -434,10 +447,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       //   facility_change: '',
       //   contact_change: '',
       //   other_change: '',
-      //   other_details: '',
+      //   rationale: '',
       // };
       this.genInfoModel.amend_reasons = [];
-      this.genInfoModel.amend_reason_other_details = '';
+      this.genInfoModel.rationale = '';
       // this.genInfoModel.are_licenses_transfered = '';
     }
 

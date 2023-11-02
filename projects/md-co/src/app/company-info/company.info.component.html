@@ -49,18 +49,21 @@
             </label>
           </div>
         </ng-container>
-        <ng-container *ngIf="isOtherSelected()"> 
+        <ng-container *ngIf="isAmend"> 
           <div class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label for="otherDetails" class="required full-width">{{'other.details'|translate}}
+            <label for="rationale" class="required full-width">{{'rationale'|translate}}
+              <sup id="co3-rf">
+                <a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['rationaleInx']}}</a>
+              </sup>
               <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-              <control-messages *ngIf="generalInfoFormLocalModel.controls['otherDetails'].invalid"
+              <control-messages *ngIf="generalInfoFormLocalModel.controls['rationale'].invalid"
                                 [showError]="showFieldErrors"
-                                [control]="generalInfoFormLocalModel.controls['otherDetails'] | formControl"
-                                controlId="otherDetails" label="other.details"
+                                [control]="generalInfoFormLocalModel.controls['rationale'] | formControl"
+                                controlId="rationale" label="rationale"
                                 parentId="generalInfo"
                                 parentLabel="Regulatory Company Enrolment"></control-messages>
-              <textarea type="text" class="form-control full-width" id="otherDetails" (blur)="amendReasonOnblur()"
-                      [formControl]="generalInfoFormLocalModel.controls['otherDetails'] | formControl" maxlength="500"></textarea>
+              <textarea type="text" class="form-control full-width" id="rationale" (blur)="amendReasonOnblur()"
+                      [formControl]="generalInfoFormLocalModel.controls['rationale'] | formControl" maxlength="500"></textarea>
             </label>
           </div>
         </ng-container>            

@@ -3,7 +3,7 @@
       <thead>
       <tr>
         <th aria-label="Expanded State" scope="col" style="color:transparent">Expand/Collapse</th>
-        <th scope="col" *ngFor="let heading of columnDefinitions">{{heading.label}}</th>
+        <th scope="col" *ngFor="let heading of columnDefinitions">{{heading.propertyLabel|translate}}</th>
       </tr>
       </thead>
       <tbody>

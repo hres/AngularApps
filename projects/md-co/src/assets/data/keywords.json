@@ -10,7 +10,7 @@
             {
                 "id": "fr",
                 "en": "French",
-                "fr": "Françaises"
+                "fr": "Français"
             }
         ]
     },
@@ -20,7 +20,7 @@
             {
                 "id": "yes",
                 "en": "Yes",
-                "fr": "Qui"
+                "fr": "Oui"
             },
             {
                 "id": "no",
