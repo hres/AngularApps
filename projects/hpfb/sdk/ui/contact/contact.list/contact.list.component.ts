@@ -52,25 +52,21 @@ export class ContactListComponent extends ListBaseComponent implements OnInit, O
   public columnDefinitions = [
     {
       propertyLabel: 'contact.id',
-	    label: 'Contact Identifier',
       binding: 'contact_id',
       width: '10'
     },
     {
 	    propertyLabel: 'full.name',
-      label: 'Full Name (First and Last)',
       binding: 'full_name',
       width: '40'
     },
     {
       propertyLabel: 'job.title',
-      label: 'Job Title',
       binding: 'job_title',
       width: '20'
     },
     {
       propertyLabel: 'status',
-      label: 'Status',
       binding: 'status_text',
       width: '15'
     }
