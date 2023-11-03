@@ -16,6 +16,7 @@ export class FilereaderComponent implements OnInit {
   @Input() rootTag : string = '';
 
   public status = IMPORT_SUCCESS;
+  public importSuccess = false;
   public showFileLoadStatus = false;
   private rootId = '';
   
@@ -59,6 +60,7 @@ export class FilereaderComponent implements OnInit {
         self.status = convertResult.messages[0];
       } else {
         self.status = IMPORT_SUCCESS;
+        self.importSuccess = true;
       }
       self.showFileLoadStatus = true;
      
