@@ -29,4 +29,5 @@ export const helpInstructionHeadings = ['loadFileIndx',
                                         'conStatInx',
                                         'routIdInx',
                                         'desRenewalInx',
-                                        'desFinanceInx']
+                                        'desFinanceInx',
+                                        'licenseNumsInx'] 
