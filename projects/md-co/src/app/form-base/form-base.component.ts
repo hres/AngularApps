@@ -7,7 +7,7 @@ import { AMEND, ContactStatus, FINAL, XSLT_PREFIX, ROOT_TAG } from '../app.const
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
-import { ContactListComponent, ControlMessagesComponent, FileConversionService, INameAddress, LoggerService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
+import { ContactListComponent, ControlMessagesComponent, FileConversionService, IIdTextLabel, INameAddress, LoggerService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
 import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
 
@@ -449,8 +449,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       //   other_change: '',
       //   rationale: '',
       // };
-      this.genInfoModel.amend_reasons = [];
-      this.genInfoModel.rationale = '';
+      this.genInfoModel.amend_reasons = null;
       // this.genInfoModel.are_licenses_transfered = '';
     }
 

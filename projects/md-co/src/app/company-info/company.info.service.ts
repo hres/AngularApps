@@ -2,7 +2,7 @@ import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { NEW } from '../app.constants';
 import { CheckboxOption, ConverterService, ICode, IIdTextLabel, NO, UtilsService, ValidationService, YES } from '@hpfb/sdk/ui';
-import { GeneralInformation } from '../models/Enrollment';
+import { AmendReasons, GeneralInformation } from '../models/Enrollment';
 
 @Injectable()
 export class CompanyInfoService {
@@ -33,10 +33,11 @@ export class CompanyInfoService {
       generalInfoModel.company_id = 'K' + formRecord.controls['companyId'].value;
     }
 
-    const selectedAmendReasons: IIdTextLabel[] = this._converterService.findAndConverCodesToIdTextLabels(amendReasonCodeList, slctdAmendReasonCodes, lang); 
-    generalInfoModel.amend_reasons = selectedAmendReasons;
-
-    generalInfoModel.rationale = formRecord.controls['rationale'].value;
+    const reasons: AmendReasons = {
+      amend_reason: this._converterService.findAndConverCodesToIdTextLabels(amendReasonCodeList, slctdAmendReasonCodes, lang),
+      rationale: formRecord.controls['rationale'].value,
+    }
+    generalInfoModel.amend_reasons = reasons;
     generalInfoModel.are_licenses_transfered = formRecord.controls['areLicensesTransfered'].value;
   }
 
@@ -50,7 +51,7 @@ export class CompanyInfoService {
     if (generalInfoModel.amend_reasons) {
       const amendReasons = generalInfoModel.amend_reasons;
       if (Array.isArray(amendReasons) && this._utilsService.isArrayOfIIdTextLabel(amendReasons)) {
-        const loadedAmendReasonCodes: string[] | undefined = this._utilsService.getIdsFromIdTextLabels(generalInfoModel.amend_reasons);
+        const loadedAmendReasonCodes: string[] | undefined = this._utilsService.getIdsFromIdTextLabels(generalInfoModel.amend_reasons.amend_reason);
         if (loadedAmendReasonCodes.length > 0) {
           const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
           this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
@@ -60,7 +61,7 @@ export class CompanyInfoService {
       }
     }
 
-    formRecord.controls['rationale'].setValue(generalInfoModel.rationale);
+    formRecord.controls['rationale'].setValue(generalInfoModel.amend_reasons.rationale);
     formRecord.controls['areLicensesTransfered'].setValue(generalInfoModel.are_licenses_transfered);
   }
 

@@ -68,8 +68,7 @@ export class CompanyBaseService {
         enrol_version: '0.0',
         last_saved_date: '',
         company_id: '',
-        amend_reasons: undefined,
-        rationale: '',
+        amend_reasons: null,
         are_licenses_transfered: ''
       }
     );
