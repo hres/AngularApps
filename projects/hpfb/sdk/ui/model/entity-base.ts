@@ -9,7 +9,7 @@ export interface IIdText {
   __text?: string;
 }
 
-export class IIdTextLabel {
+export interface IIdTextLabel {
   _id: string;
   __text?: string;
   _label_en: string;
