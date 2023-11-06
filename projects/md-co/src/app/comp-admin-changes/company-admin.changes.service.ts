@@ -86,6 +86,7 @@ export class CompanyAdminChangesService {
     formRecord.controls['licenceNumbers'].setValue(adminChangesModel.all_licence_numbers);
     formRecord.controls['isReguChange'].setValue(adminChangesModel.is_regulatory_change);
     if (adminChangesModel.new_company_id) {
+      // Ling to Diana: todo , use COMPANY_ID_PREFIX const, is it case sensitive??
       const cid = (adminChangesModel.new_company_id.indexOf('k') === 0) ?
         adminChangesModel.new_company_id.slice(1) : adminChangesModel.new_company_id;
       formRecord.controls['newCompanyId'].setValue(cid);

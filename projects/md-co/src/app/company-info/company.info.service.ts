@@ -1,6 +1,6 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { NEW } from '../app.constants';
+import { COMPANY_ID_PREFIX, NEW } from '../app.constants';
 import { CheckboxOption, ConverterService, ICode, IIdTextLabel, NO, UtilsService, ValidationService, YES } from '@hpfb/sdk/ui';
 import { AmendReasons, GeneralInformation } from '../models/Enrollment';
 
@@ -30,7 +30,7 @@ export class CompanyInfoService {
     generalInfoModel.status = formRecord.controls['formStatus'].value;
     generalInfoModel.last_saved_date = formRecord.controls['lastSavedDate'].value;
     if (formRecord.controls['companyId'].value) {
-      generalInfoModel.company_id = 'K' + formRecord.controls['companyId'].value;
+      generalInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.controls['companyId'].value;
     }
 
     const reasons: AmendReasons = {

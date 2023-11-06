@@ -21,6 +21,8 @@ export const ContactStatus = {
   ACTIVE
 } 
 
+export const COMPANY_ID_PREFIX = 'K';
+
 // export enum EnrollmentStatus {
 //     NEW = 'fr_NEW',
 //     AMEND = 'fr_AMEND',
