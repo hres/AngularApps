@@ -248,7 +248,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/md-co",
-            "index": "projects/hpfb/sdk/src/index.html",
+            "index": "projects/hpfb/sdk/src/index-en.html",
             "main": "projects/md-co/src/main.ts",
             "polyfills": [
               "zone.js"
@@ -264,20 +264,41 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
-              "budgets": [
+            "production-en": {
+              "outputPath": "dist/md-co/en",
+              "index": "projects/hpfb/sdk/src/index-en.html",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "replace": "projects/md-co/src/environments/environment.ts",
+                  "with": "projects/md-co/src/environments/environment.prod-en.ts"
                 }
-              ],
-              "outputHashing": "all"
+              ]
+            },
+            "production-fr": {
+              "outputPath": "dist/md-co/fr",
+              "index": "projects/hpfb/sdk/src/index-fr.html",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/md-co/src/environments/environment.ts",
+                  "with": "projects/md-co/src/environments/environment.prod-fr.ts"
+                }
+              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -287,8 +308,7 @@
               "sourceMap": true,
               "namedChunks": true
             }
-          },
-          "defaultConfiguration": "production"
+          }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -306,6 +326,117 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "md-co:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/md-co/tsconfig.spec.json",
+            "assets": [
+              "projects/md-co/src/favicon.ico",
+              "projects/md-co/src/assets"
+            ],
+            "styles": [
+              "projects/md-co/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "md-co-internal": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/md-co",
+      "sourceRoot": "projects/md-co/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/md-co-internal",
+            "index": "projects/hpfb/sdk/src/index.html", 
+            "main": "projects/md-co/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/md-co/tsconfig.app.json",
+            "assets": [
+              "projects/md-co/src/favicon.ico",
+              "projects/md-co/src/assets"
+            ],
+            "styles": [
+              "projects/md-co/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production-en": {
+              "outputPath": "dist/md-co-internal/en",
+              "index": "projects/hpfb/sdk/src/index-en.html",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/md-co/src/environments/environment.ts",
+                  "with": "projects/md-co/src/environments/environment.prod.internal-en.ts"
+                }
+              ]
+            },
+            "production-fr": {
+              "outputPath": "dist/md-co-internal/fr",
+              "index": "projects/hpfb/sdk/src/index-fr.html",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/md-co/src/environments/environment.ts",
+                  "with": "projects/md-co/src/environments/environment.prod.internal-fr.ts"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "md-co-internal:build:production"
+            },
+            "development": {
+              "browserTarget": "md-co-internal:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "md-co-internal:build"
           }
         },
         "test": {
