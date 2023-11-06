@@ -2,7 +2,7 @@ import { Injectable, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { CANADA, USA, FRENCH, NO, YES } from '../common.constants';
 import { DatePipe } from '@angular/common';
-import { ICode } from '../data-loader/data';
+import { ICode, ICodeDefinition } from '../data-loader/data';
 import { IIdTextLabel } from '../model/entity-base';
 import { LoggerService } from '../logger/logger.service';
 
@@ -101,6 +101,16 @@ export class UtilsService {
   }
 
   /**
+   * find a codeDefinition by its id in a codeDefinition array
+   * @param codeDefinitionArray 
+   * @param id 
+   * @returns either a code or undefined
+   */
+    findCodeDefinitionById(codeDefinitionArray: ICodeDefinition[], id: string): ICodeDefinition | undefined {
+      return this.isEmpty(id)? undefined : codeDefinitionArray.find(obj => obj.id === id);
+    }
+
+  /**
    * get the id value from an IdTextLabel object
    * @param idTextLabelObj 
    * @returns either id or undefined
@@ -109,17 +119,44 @@ export class UtilsService {
     return !this.isEmpty(idTextLabelObj) ? idTextLabelObj._id : undefined; 
   }
 
-  getIdsFromIdTextLabels(idTextLabelObjs: IIdTextLabel[]): string[] {
+  getIdsFromIdTextLabels(idTextLabelObjs: any): string[] {
     let ids: string[] = [];
-    for (const temp of idTextLabelObjs) {
-      ids.push(this.getIdFromIdTextLabel(temp));
+
+    if (Array.isArray(idTextLabelObjs) && this.isArrayOfIIdTextLabel(idTextLabelObjs)) {
+      for (const temp of idTextLabelObjs) {
+        ids.push(this.getIdFromIdTextLabel(temp));
+      }
+    } else if (!Array.isArray(idTextLabelObjs) && this.isIIdTextLabel(idTextLabelObjs)){
+      ids.push(this.getIdFromIdTextLabel(idTextLabelObjs));
     }
+
     return ids;
   }
 
   isArrayOfIIdTextLabel(arr: any[]): arr is IIdTextLabel[] {
-    return arr.every(item => item instanceof IIdTextLabel);
+    return arr.every(item => this.isIIdTextLabel(item));
   }
+
+  isIIdTextLabel(obj: any): obj is IIdTextLabel {
+    return (
+      typeof obj._id === 'string' &&
+      (typeof obj.__text === 'undefined' || typeof obj.__text === 'string') &&
+      typeof obj._label_en === 'string' &&
+      typeof obj._label_fr === 'string'
+    );
+  }
+
+  getCodeDefinitionByLang(codeDefinition: ICodeDefinition, lang:string): string{
+    if (codeDefinition) {
+      if (this.isFrench(lang)) {
+        return codeDefinition.defFr;
+      } else {
+        return codeDefinition.defEn;
+      }
+    } else {
+      return null;
+    }
+  }  
   
   isEmpty(value: any): boolean {
     return value === null || value === undefined;
@@ -127,6 +164,17 @@ export class UtilsService {
 
   flattenArrays<T>(arrays: T[]): T[] {
     return [].concat(...arrays);
+  }
+
+  // returns true if any item in array1 is in array2
+  isArray1ElementInArray2(array1: any[], array2: any[]): boolean{
+    for (const item1 of array1) {
+      const found = array2.find(x => x === item1);
+      if (found) {
+        return true;
+      } 
+    }
+    return false;
   }
   
   getControlName (control: AbstractControl) {
