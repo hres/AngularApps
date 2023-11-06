@@ -34,6 +34,7 @@ export const helpInstructionHeadings = ['loadFileIndx',
                                         'rationaleInx',
                                         'conStatInx',
                                         'routIdInx',
+                                        'addRecordInx',
                                         'desRenewalInx',
                                         'desFinanceInx',
                                         'licenseNumsInx'] 
