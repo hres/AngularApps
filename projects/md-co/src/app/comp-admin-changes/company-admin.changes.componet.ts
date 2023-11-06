@@ -3,10 +3,11 @@ import {
     AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
   } from '@angular/core';
   import {FormGroup, FormBuilder} from '@angular/forms';
-  import {ControlMessagesComponent, YES} from '@hpfb/sdk/ui';
+  import {ControlMessagesComponent, ICode, ICodeDefinition, LoggerService, UtilsService, YES} from '@hpfb/sdk/ui';
   import {CompanyAdminChangesService} from './company-admin.changes.service';
   import {HttpClient} from '@angular/common/http';
   import {TranslateService} from '@ngx-translate/core';
+import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
 
   
   @Component({
@@ -15,9 +16,6 @@ import {
     encapsulation: ViewEncapsulation.None
   })
   
-  /**
-   * Sample component is used for nothing
-   */
   export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterViewInit {
   
     public adminChangesFormLocalModel: FormGroup;
@@ -25,7 +23,7 @@ import {
     @Input() detailsChanged: any; // TODO: Change type
     @Input() showErrors: boolean;
     @Input() isInternal: boolean;
-    @Input() showAdminChanges;
+    @Input() slctAmendReasons;
     @Input() adminChangesModel;
     @Input() lang;
     @Input() helpTextSequences;
@@ -33,28 +31,31 @@ import {
     // @Output() licenceErrorList = new EventEmitter(true);
     @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   
-    // For the searchable select box, only accepts/saves id and text.
-    // Will need to convert
-    public showAmendInfo: Array<boolean> = [false, false, false, false];
-    public yesNoList: Array<any> = [];
+    public yesNoList: ICode[] = [];
     public showFieldErrors = false;
     public licenceModel = [];  // todo: clean up licence model code to remove it
     private adminChangesService: CompanyAdminChangesService;
+    amendReasonDefs: string[] = [];
   
-    constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
-                private http: HttpClient, private translate: TranslateService,
-                private cdr: ChangeDetectorRef) {
+    constructor(private _fb: FormBuilder, private _utilService: UtilsService, private _loggerService: LoggerService, private _formDataLoader: CompanyDataLoaderService) {
       this.showFieldErrors = false;
       this.showErrors = false;
       this.adminChangesService = new CompanyAdminChangesService();
-      this.yesNoList = this.adminChangesService.getYesNoList();
     }
   
-    async ngOnInit() {
+    ngOnInit() {
       if (!this.adminChangesFormLocalModel) {
         this.adminChangesFormLocalModel = this.adminChangesService.getReactiveModel(this._fb);
       }
       this.detailsChanged = 0;
+
+      this._formDataLoader.getKeywordList().subscribe((keywords) => {
+        try {
+          this.yesNoList = keywords.find(x => (x.name === 'yesno')).data;
+        } catch (e) {
+          console.error(e);
+        }
+      });
     }
   
     ngAfterViewInit() {
@@ -103,8 +104,25 @@ import {
         }
         this.adminChangesErrorList.emit(temp);
       }
-      if (changes['showAdminChanges']) {
-        this.showAmendInfo = changes['showAdminChanges'].currentValue;
+      if (changes['slctAmendReasons']) {
+        const amendReasonCodes: string[]= changes['slctAmendReasons'].currentValue;
+
+        // lookup selected amend reasons' definitions
+        this._formDataLoader.getAmendReasonList().subscribe((data) => {
+          const amendReasonCodeList: ICodeDefinition[] = data;
+
+          for (const code of amendReasonCodes) {
+            const codeDefinition = this._utilService.findCodeDefinitionById(amendReasonCodeList, code);
+            if (codeDefinition) {
+              const defByLang = this._utilService.getCodeDefinitionByLang(codeDefinition, this.lang);
+              if (defByLang) {
+                this.amendReasonDefs.push(defByLang);
+              }
+            } else {
+              this._loggerService.error("company.admin.change", "ngOnChange", "couldn't find code definition for ", code);
+            }
+          }
+        });
       }
       if (changes['adminChangesFormLocalModel']) {
         this.adminChangesFormRecord = this.adminChangesFormLocalModel;

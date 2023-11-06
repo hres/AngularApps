@@ -1,24 +1,11 @@
 <div>
     <div [formGroup]="adminChangesFormLocalModel">
-      <div *ngIf="showAmendInfo[1]" class="row row-center">
-        <div class="col-xs-12 form-group alert alert-info" role="alert">
-             <span>
-              <p aria-live="polite">{{'manufacturer.name.listed'|translate}}</p>
-             </span>
-        </div>
-      </div>
-      <div *ngIf="showAmendInfo[2]" class="row row-center">
-        <div class="col-xs-12 form-group alert alert-info" role="alert">
-             <span>
-              <p aria-live="polite">{{'manufacturer.address.listed'|translate}}</p>
-             </span>
-        </div>
-      </div>
-      <div *ngIf="showAmendInfo[3]" class="row row-center">
-        <div class="col-xs-12 form-group alert alert-info" role="alert">
-             <span>
-              <p aria-live="polite">{{'include.attestation'|translate}}</p>
-             </span>
+      
+      <div class="row" *ngFor="let def of amendReasonDefs"> 
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="alert alert-info" role="alert">
+                <p aria-live="polite">{{def}}</p>
+            </div>
         </div>
       </div>
   
@@ -34,8 +21,8 @@
             <div class="row">
               <div class="form-group col-xs-12" >
                 <label for="licenceNumbers" class="required full-width" aria-required="true">
-                  <span class="field-name" i18n>{{'all.licence.num'|translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'all.licence.num'|translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <sup id="co8-rf">
                     <a class="fn-lnk" href="#co8"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.licenseNumsInx}}</a>
                   </sup>
@@ -56,8 +43,8 @@
       <div class="row row-center">
         <div class="form-group col-xs-12" >
           <label for="isReguChange" class="required full-width">
-            <span class="field-name" i18n>{{'is.change' |translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'is.change' |translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="adminChangesFormLocalModel.controls['isReguChange'].invalid"
                               [showError]="showFieldErrors"
                               [control]="adminChangesFormLocalModel.controls['isReguChange'] | formControl"
@@ -65,7 +52,7 @@
                               parentLabel="Admin Changes"></control-messages>
             <select id="isReguChange" required class="form-control" (blur)="onblur()" [formControl]="adminChangesFormLocalModel.controls['isReguChange'] | formControl">
               <option label=" " value=""></option>
-              <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+               <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
             </select>
           </label>
         </div>
@@ -74,8 +61,8 @@
       <div class="row row-center" *ngIf="isReguChange()">
         <div class="form-group col-xs-6" >
           <label for="newCompanyId" class="required full-width" aria-required="true">
-            <span class="field-name" i18n>{{'new.company.id'|translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'new.company.id'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="adminChangesFormLocalModel.controls['newCompanyId'].invalid"
                               [showError]="showFieldErrors"
                               [control]="adminChangesFormLocalModel.controls['newCompanyId'] | formControl"
@@ -87,7 +74,7 @@
         </div>
         <div class="form-group col-xs-6" >
           <label for="newContactId" class="full-width">
-            <span class="field-name" i18n>{{'new.contact.id'|translate}}</span>
+            <span class="field-name">{{'new.contact.id'|translate}}</span>
             <input name="newContactId" id="newContactId" class="form-control full-width"  (blur)="onblur()"
                    [formControl]="adminChangesFormLocalModel.controls['newContactId'] | formControl" maxlength="5"/>
           </label>
@@ -96,8 +83,8 @@
       <div class="row row-center" *ngIf="isReguChange()">
         <div class="form-group col-xs-6" >
           <label for="newContactName" class="required full-width" aria-required="true">
-            <span class="field-name" i18n>{{'new.contact.name'|translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'new.contact.name'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="adminChangesFormLocalModel.controls['newContactName'].invalid"
                               [showError]="showFieldErrors"
                               [control]="adminChangesFormLocalModel.controls['newContactName'] | formControl"

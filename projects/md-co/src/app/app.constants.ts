@@ -8,7 +8,11 @@ export const ACTIVE:string='ACTIVE';
 export const REMOVE:string='REMOVE';
 export const XSLT_PREFIX = 'REP_MDS_CO_';
 
-export const AMEND_OTHER_REASON_CODE = 'OTHER';   // this needs to match the OTHER code value in amendReasons.json
+// these need to match the code values in the amendReasons.json file
+export const AMEND_REASON_NAME_CHANGE = 'NAME_CHANGE'; 
+export const AMEND_REASON_ADDR_CHANGE = 'ADDR_CHANGE'; 
+export const AMEND_REASON_FACILITY_CHANGE = 'FACILITY_CHANGE'; 
+export const AMEND_REASON_OTHER = 'OTHER'; 
 
 export const ContactStatus = {
   NEW,

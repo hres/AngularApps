@@ -45,11 +45,11 @@
         <ng-container formArrayName="amendReasons" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
           <div class="checkbox">
             <label for={{amendReasonOptionList[i].value}}>
-              <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnblur()"/> {{amendReasonOptionList[i].label}} 
+              <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnChange()"/> {{amendReasonOptionList[i].label}} 
             </label>
           </div>
         </ng-container>
-        <ng-container *ngIf="isAmend"> 
+        <ng-container *ngIf="isOtherSelected"> 
           <div class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="rationale" class="required full-width">{{'rationale'|translate}}
               <sup id="co3-rf">
@@ -62,7 +62,7 @@
                                 controlId="rationale" label="rationale"
                                 parentId="generalInfo"
                                 parentLabel="Regulatory Company Enrolment"></control-messages>
-              <textarea type="text" class="form-control full-width" id="rationale" (blur)="amendReasonOnblur()"
+              <textarea type="text" class="form-control full-width" id="rationale" (blur)="onblur()"
                       [formControl]="generalInfoFormLocalModel.controls['rationale'] | formControl" maxlength="500"></textarea>
             </label>
           </div>
@@ -82,8 +82,8 @@
                             parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
           <select id="areLicensesTransfered" required class="form-control full-width" (change)="onblur()"
-            (blur)="amendReasonOnblur()"
-                  (selected)="amendReasonOnblur()" [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl">
+            (blur)="amendReasonOnChange()"
+                  (selected)="amendReasonOnChange()" [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl">
                   <!-- ling todo select doesn't trigger the blur/selected event, leave it for now, correct when understanding the logic -->
             <option label=" " value=""></option>
             <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>

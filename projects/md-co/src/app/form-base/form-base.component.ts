@@ -44,7 +44,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public provinceList: ICode[];
   public stateList: ICode[];
   public enrollmentStatusList: ICode[]
-  public adminChanges = [];
+  public selectedAmendReasonCodes: string[] = [];
   public showAdminChanges: boolean;
   public showErrors: boolean;
   public title = '';
@@ -206,21 +206,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processAdminChangesUpdate(adminChanges) {
-    console.log(adminChanges);
-    this.adminChanges = adminChanges;
-    if (adminChanges && adminChanges.length > 0) {
-      this.showAdminChanges = adminChanges[0];
+  processAdminChangesUpdate(showAdminChangesFlag: boolean) {
+    console.log("showAdminChangesFlag", showAdminChangesFlag);
+    this.showAdminChanges = showAdminChangesFlag;
+
+    if (showAdminChangesFlag) {
+      this.selectedAmendReasonCodes = this._utilService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason) 
     } else {
-      this.showAdminChanges = false;
-    }
-    if (!this.showAdminChanges) {
       // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
       this.adminChangesModel = null; //CompanyBaseService.getEmptyAdminChangesModel();
       this.processAdminChangesErrors([]);
     }
-    console.log('show admin changes');
-    console.log(this.showAdminChanges);
   }
 
   public hideErrorSummary() {

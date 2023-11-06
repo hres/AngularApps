@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable, map, shareReplay, tap} from 'rxjs';
 import { DATA_PATH } from '../app.constants';
 import { DataLoaderService } from '@hpfb/sdk/ui';
-import { ICode, IKeyword } from '@hpfb/sdk/ui/data-loader/data';
+import { ICode, ICodeDefinition, IKeyword } from '@hpfb/sdk/ui/data-loader/data';
 
 @Injectable()
 export class CompanyDataLoaderService {
@@ -23,7 +23,7 @@ export class CompanyDataLoaderService {
   cachedCountries$:Observable<ICode[]>;
   cachedProvinces$:Observable<ICode[]>;
   cachedStates$:Observable<ICode[]>;
-  cachedAmendReasons$:Observable<ICode[]>;
+  cachedAmendReasons$:Observable<ICodeDefinition[]>;
   cachedContactStatuses$:Observable<ICode[]>;
   cachedEnrollmentStatuses$:Observable<ICode[]>;
 
@@ -76,9 +76,9 @@ export class CompanyDataLoaderService {
     return this.cachedStates$;
   }
 
-  getAmendReasonList(): Observable<ICode[]> {
+  getAmendReasonList(): Observable<ICodeDefinition[]> {
     if (!this.cachedAmendReasons$) {
-      this.cachedAmendReasons$ = this._dataService.getData<ICode>(this.amendReasonsJsonPath)
+      this.cachedAmendReasons$ = this._dataService.getData<ICodeDefinition>(this.amendReasonsJsonPath)
         .pipe(
           // tap(()=>console.log('getStateList() is called')),
           shareReplay(1)

@@ -4,9 +4,9 @@ import {
 } from '@angular/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {CompanyInfoService} from './company.info.service';
-import { ControlMessagesComponent, FINAL, UtilsService, LoggerService, YES, ICode, ConverterService, CheckboxOption } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, FINAL, UtilsService, LoggerService, YES, ICode, ConverterService, CheckboxOption, ICodeDefinition } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
-import { AMEND, AMEND_OTHER_REASON_CODE } from '../app.constants';
+import { AMEND, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE, AMEND_REASON_NAME_CHANGE, AMEND_REASON_OTHER } from '../app.constants';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -33,18 +33,20 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public isAmend: boolean = false;
+  public isOtherSelected: boolean = false;
   public showFieldErrors: boolean;
   public setAsComplete: boolean = false;  //ling todo remove???
   public disableAmendButton: boolean = true;
   public yesNoList: ICode[] = [];
-  private amendReasonCodeList: ICode[] = [];
+  private amendReasonCodeList: ICodeDefinition[] = [];
   public amendReasonOptionList: CheckboxOption[] = [];
-  private reasonFlags: Array<boolean> = [];     //ling todo review the use for AdminChange section
+
+  private amendReasonCodesToShowAdminChanges:string[] = new Array(AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE) ;
+
 
   constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _formDataLoader: CompanyDataLoaderService,
     private router: Router, private _utilsService: UtilsService, private _converterService: ConverterService, private _loggerService: LoggerService) {
     this.showFieldErrors = false;
-    this.reasonFlags = [false, false, false, false]; // 0: show admin section; 1,2,3: amend reasons.
   }
 
   ngOnInit() {
@@ -143,7 +145,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
         this.setAsComplete = (dataModel.status === FINAL && !this.isInternal); // ling todo remove??
         this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status, this.isInternal);
         this.isAmend = (dataModel.status === AMEND);
-        this.amendReasonOnblur();
+        this._checkAmendReasons();
       }
     }
   }
@@ -181,17 +183,21 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       this.amendReasonCodeList, this.lang);
   }
   
-  amendReasonOnblur() {
-    // console.log('input is onblur');
-    // this._hasReasonChecked();
-    // this.reasonFlags[0] = (this.generalInfoFormLocalModel.controls['areLicensesTransfered'].value === YES) ||
-    //   this.reasonFlags[1] || this.reasonFlags[2] || this.reasonFlags[3];
+  amendReasonOnChange() {
+    console.log('amendReasonOnChange is called');
+    this._checkAmendReasons();
     this._saveData();
-    this.showAdminChanges.emit(this.reasonFlags);     // ling todo check what values AdminChanges section needs
   }
 
-  isOtherSelected() {
-    return this.selectedAmendReasonCodes.indexOf(AMEND_OTHER_REASON_CODE) !== -1? true : false;
+  private _checkAmendReasons(){
+    this.isOtherSelected = this._isOther();
+    const showAdminChangesFlag = this.generalInfoFormLocalModel.controls['areLicensesTransfered'].value === YES || 
+      this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges)
+    this.showAdminChanges.emit(showAdminChangesFlag);  
+  }
+
+  private _isOther() {
+    return this.selectedAmendReasonCodes.indexOf(AMEND_REASON_OTHER) !== -1? true : false;
   }
 
   // private _hasReasonChecked() {

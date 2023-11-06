@@ -149,9 +149,6 @@
   "rationale": "Justification",
   "ownership.transferred": "Il y a-t-il des licences de propriété en processus d'acheminement?",
   "admin.changes": "Modifications administratives de l'entreprise",
-  "manufacturer.name.listed": "Le nom du fabricant révisé doit être indiqué dans le champ «nom de l'entreprise» dans la section des informations d'adresse ci-dessus",
-  "manufacturer.address.listed": "L'adresse révisée du fabricant doit être répertoriée dans les champs de la section des informations d'adresse ci-dessus.",
-  "include.attestation": "Veuillez inclure une attestation signée pour le changement de nom / d'adresse de l'usine de fabrication",
   "impacted.licence": "Licence(s) concernée(s)",
   "all.licence.num": "Tous les numéros de licence concernée(s)",
 
