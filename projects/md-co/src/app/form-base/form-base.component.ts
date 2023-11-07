@@ -405,7 +405,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   contactModelUpdated(contacts) {
     const cntList = contacts.filter(contact =>
-      (contact.status._id === ContactStatus.NEW || contact.status._id === ContactStatus.REVISE || contact.status._id === ContactStatus.ACTIVE));
+      (contact.status === ContactStatus.NEW || contact.status === ContactStatus.REVISE || contact.status === ContactStatus.ACTIVE));
     this.activeContacts = [];
     if (cntList) {
       cntList.forEach((contact: any) => {

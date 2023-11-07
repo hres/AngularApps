@@ -54,9 +54,9 @@ export class CompanyInfoService {
         const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
         this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
       }  
+      formRecord.controls['rationale'].setValue(generalInfoModel.amend_reasons.rationale); // Moved this here because rationale 
     }
 
-    formRecord.controls['rationale'].setValue(generalInfoModel.amend_reasons.rationale);
     formRecord.controls['areLicensesTransfered'].setValue(generalInfoModel.are_licenses_transfered);
   }
 
