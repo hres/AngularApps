@@ -1,9 +1,13 @@
 <div class="row">
-  <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div *ngIf="!importSuccess" class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <label for="fileLoad">
       <span class="field-name">{{ 'select.file'|translate }}</span>
     </label>
-    <input *ngIf="!importSuccess" type="file" id="fileLoad" name="fileLoad" accept=".xml, .hcsc" (change)="changeListener($event)" />
+    <input type="file" id="fileLoad" name="fileLoad" accept=".xml, .hcsc" (change)="changeListener($event)" />
+  </div>
+  <div *ngIf="importSuccess" class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <button (click)="refreshPage()">{{ 'refresh.file.input'|translate }}</button>
+    <Strong> {{importedFileName}}</Strong>
   </div>
 </div>
 <div [ngClass]="status == 'msg.success.load' ? 'alert alert-success' : 'alert alert-danger'" *ngIf="showFileLoadStatus">
