@@ -32,6 +32,8 @@ export * from './common.constants';
 export * from './utils/utils.service';
 export * from './validation/validation.service';
 
+export * from './check-sum/check-sum.service'
+
 export * from './pipes/form-control.pipe';
 export * from './pipes/json-keys.pipe';
 export * from './pipes/aria-transform.pipe';

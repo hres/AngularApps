@@ -1,0 +1,1 @@
+export const CHECK_SUM = "check_sum";

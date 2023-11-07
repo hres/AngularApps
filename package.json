@@ -45,6 +45,7 @@
     "@ng-select/ng-select": "^10.0.3",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "crypto-js": "^4.2.0",
     "file-saver": "^2.0.5",
     "http-server": "^14.1.1",
     "ng2-select": "^2.0.0",
