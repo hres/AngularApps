@@ -9,5 +9,5 @@ export const environment = {
   ...base,    // merge with base environment configs
   production: false,
   internal: false,
-  lang: 'fr',
+  lang: 'en',
 };

@@ -39,16 +39,13 @@
             </h2>
           </header>
           <div class="panel-body">
-
             <com-gen-info [showErrors]="showErrors" [isInternal]="isInternal"
                               [lang]="lang"
                               [genInfoModel]="genInfoModel"
                               [helpTextSequences]="helpIndex"
-                              (showAdminChanges)="processAdminChangesUpdate($event)"
+                              (showAdminChanges)="processGenInfoUpdates($event)"
                               (errorList)="processGenInfoErrors($event)">
             </com-gen-info>
-            <!-- ling todo [detailsChanged]="updateChild" -->
-
             <div>
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix">
@@ -60,26 +57,14 @@
                                    [addressModel]="addressModel" [stateList]="stateList"
                                    [helpTextSequences]="helpIndex"
                                    (errorList)="processAddressErrors($event)"></lib-address-details>
-                   <!-- todo [detailsChanged]="updateChild" --> 
                 </div>
               </section>
             </div>
-            <button (click)='gotoErrorPage()'>TEST goto error page </button>
+            
             <div>
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix">
-                  <div class="btn-group pull-right">
-                   <!-- <button title="{{::'ADDRESS_INSTRUCT'|translate}}"
-                            class="btn-xs rep-help-button-primary"
-                            id="address-instructions-toggle" ng-click="main.addInstruct(3)"><span
-                      class="fa fa-question-circle fa-2x"></span><span class="wb-inv">"{{::'ADDRESS_INSTRUCT'|translate}}"</span>
-                    </button>-->
-                  </div>
-                  <h3 class="panel-title">{{'heading.contactInfo'|translate}}
-                    <!--<sup id="co3-rf">-->
-                      <!--<a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>3</a>-->
-                    <!--</sup>-->
-                  </h3>
+                  <h3 class="panel-title">{{'heading.contactInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body"> 
                   <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternal"
@@ -98,18 +83,13 @@
       <div>
         <section class="panel  panel-default">
           <header class="panel-heading clearfix">
-            <h3 class="panel-title">{{'contact.designation'|translate}}
-              <!--<sup id="co5-rf">-->
-                <!--<a class="fn-lnk" href="#co5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex.primaryConInx}}</a>-->
-              <!--</sup>-->
-            </h3>
+            <h3 class="panel-title">{{'contact.designation'|translate}}</h3>
           </header>
           <div class="panel-body">
             <primary-contact [lang]="lang"
                              [primContactModel]="primContactModel"
                              [activeContactList]="activeContacts"
                              [helpTextSequences]="helpIndex"></primary-contact>
-            <!-- ling todo [detailsChanged]="updateChild" -->
           </div>
         </section>
       </div>
@@ -128,13 +108,12 @@
                                   [adminChangesModel]="adminChangesModel"
                                   [helpTextSequences]="helpIndex"
                                   (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>
-              <!-- ling todo [detailsChanged]="updateChild" -->
             </div>
           </div>
         </section>
       </div>
 
-
+      <pre>disableMailto {{disableMailto}} | showMailToHelpText {{showMailToHelpText}}  </pre>
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">
         <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" >
@@ -149,32 +128,17 @@
       </div>
       <div class="form-group col-md-4" *ngIf="!isInternal">
         <a class="btn btn-primary btn-lg active" [href] = "mailToLink" (click)="mailto()"
-           [class.disabled]="disableMailtoLink()" >
+           [class.disabled]="disableMailto" >
           {{'mailto.label'|translate}}
         </a>
       </div>
     </div>
-    <!-- <div class="row" *ngIf="showMailToHelpText">
-      <div class="col-xs-12 form-group well">
-        <p>{{'mailto.label'|translate}}</p>
-
-        <p>{{'mailto.01'|translate}}</p>
-        <p>{{'mailto.02'|translate}}</p>
-        <p>{{'mailto.03'|translate}}</p>
-        <br>
-        <b><p *ngIf="!mailtoQS()">
-          {{'mailto.04'|translate}}
-        </p>
-          <p *ngIf="mailtoQS()">
-            {{'mailto.04a'|translate}}
-          </p>
-          <p>{{'mailto.05'|translate}}</p>
-          <p>{{'mailto.06'|translate}}</p>
-          <p>{{'mailto.07'|translate}}</p>
-        </b>
-      </div>
-    </div> -->
-    <pre> show admin changes {{showAdminChanges}}</pre>
+    
+    <div class="row" *ngIf="showMailToHelpText">
+      <app-mailto-help [email]="submitToEmail" [lang]="lang" ></app-mailto-help>
+    </div>
+    
+    <!-- <pre> show admin changes {{showAdminChanges}}</pre> -->
     <pre> companyForm valid {{companyForm.valid}}</pre>
     <pre> companyForm {{companyForm.value |json}}</pre>
 

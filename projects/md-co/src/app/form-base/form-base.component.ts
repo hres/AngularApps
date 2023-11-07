@@ -60,13 +60,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public helpIndex: { [key: string]: number }; // todo CompanyBaseService.getHelpTextIndex();
 
   public saveXmlLabel = 'save.draft';
-  public mailToLabel = 'mailto.label';
-  public showMailToHelpText: boolean;
-  public mailToLink = '';
+
   public activeContacts = [];
   public hasContact = false;
 
   public showAmendNote: boolean = false;
+
+  public mailToLabel = 'mailto.label';
+  public disableMailto: boolean = false;
+  public showMailToHelpText: boolean;
+  public mailToLink = '';
+  private mailtoQS: boolean;
+  public submitToEmail: string = '';
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -140,6 +145,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
 
       this.helpIndex = this._globalService.getHelpIndex();
+
     } catch (e) {
       this._loggerService.error("formbase", e);
       this.gotoErrorPage()
@@ -170,7 +176,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processErrors() {
-    // this._loggerService.log('@@@@@@@@@@@@ Processing errors in Company base compo
     this.errorList = [];
     // concat the error arrays
     this.errorList = this._genInfoErrors.concat(
@@ -179,6 +184,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       )
     );
     this.cdr.detectChanges(); // doing our own change detection
+    // this._loggerService.log('form.base', 'processErrors', 'this.errorList.length', this.errorList.length);
+    // for (const e of this.errorList) {
+    //   console.log(e)
+    // }
+
+    this.disableMailto = this.errorList.length > 0;
+    this.showMailToHelpText = false;
   }
 
   processAddressErrors(errorList) {
@@ -206,13 +218,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processAdminChangesUpdate(showAdminChangesFlag: boolean) {
-    console.log("showAdminChangesFlag", showAdminChangesFlag);
-    this.showAdminChanges = showAdminChangesFlag;
+  // triggered when amend reasons and/or licenses being transferred in company info are updated
+  processGenInfoUpdates(toggleFlag: boolean) {
+    console.log("toggleFlag", toggleFlag);
+    this.showAdminChanges = toggleFlag;
+    this.mailtoQS = toggleFlag;
 
-    if (showAdminChangesFlag) {
+    if (toggleFlag) {
       this.selectedAmendReasonCodes = this._utilService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason) 
     } else {
+      this.selectedAmendReasonCodes = [];
       // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
       this.adminChangesModel = null; //CompanyBaseService.getEmptyAdminChangesModel();
       this.processAdminChangesErrors([]);
@@ -229,12 +244,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public isExternalAndFinal() {
     return (!this.isInternal && this.genInfoModel.status === FINAL);
-  }
-
-  // disable the mailto link for internal, or when it is external Final or when there are errors for the external
-  public disableMailtoLink() {
-    return (this.isInternal || this.genInfoModel.status === FINAL ||
-      (this.errorList && this.errorList.length > 0) || !this.companyContacts.contactListForm.pristine);
   }
 
   public saveXmlFile() {
@@ -374,46 +383,24 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public mailto() {
     this.showMailToHelpText = true;
-    // const emailSubject =
-    //   'Draft CO XML - ' +
-    //   this.addressModel.company_name +
-    //   ' ' +
-    //   (this.genInfoModel.company_id === null
-    //     ? ''
-    //     : this.genInfoModel.company_id);
+    const emailSubject =
+      'Draft CO XML - ' +
+      this.addressModel.company_name +
+      ' ' +
+      (this.genInfoModel.company_id === null
+        ? ''
+        : this.genInfoModel.company_id);
     // let emailAddress;
-    // let body =
-    //   'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
-    // if (
-    //   this.genInfoModel.are_licenses_transfered === GlobalsService.YES ||
-    //   this.genInfoModel.amend_reasons.manufacturer_name_change ===
-    //     GlobalsService.YES ||
-    //   this.genInfoModel.amend_reasons.manufacturer_address_change ===
-    //     GlobalsService.YES ||
-    //   this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES
-    // ) {
-    //   emailAddress = 'qs.mdb@hc-sc.gc.ca';
-    // } else {
-    //   emailAddress = 'devicelicensing-homologationinstruments@hc-sc.gc.ca';
-    // }
-    // todo: add more body text
+    let body =
+      'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
+    if (this.mailtoQS) {
+      this.submitToEmail = 'qs.mdb@hc-sc.gc.ca';
+    } else {
+      this.submitToEmail = 'devicelicensing-homologationinstruments@hc-sc.gc.ca';
+    }
 
-    // this.mailToLink =
-    //   'mailto:' + emailAddress + '?subject=' + emailSubject + '&body=' + body;
-  }
-
-  /*
-   * update adminChanges to show the text info in the adminChanges component
-   */
-  public mailtoQS() {
-    // return (
-    //   this.genInfoModel.are_licenses_transfered === GlobalsService.YES ||
-    //   this.genInfoModel.amend_reasons.manufacturer_name_change ===
-    //     GlobalsService.YES ||
-    //   this.genInfoModel.amend_reasons.manufacturer_address_change ===
-    //     GlobalsService.YES ||
-    //   this.genInfoModel.amend_reasons.facility_change === GlobalsService.YES
-    // );
+    this.mailToLink =
+      'mailto:' + this.submitToEmail + '?subject=' + emailSubject + '&body=' + body;
   }
 
   contactModelUpdated(contacts) {

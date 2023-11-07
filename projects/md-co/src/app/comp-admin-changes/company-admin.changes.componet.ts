@@ -110,7 +110,8 @@ import { CompanyDataLoaderService } from '../form-base/company-data-loader.servi
         // lookup selected amend reasons' definitions
         this._formDataLoader.getAmendReasonList().subscribe((data) => {
           const amendReasonCodeList: ICodeDefinition[] = data;
-
+          this.amendReasonDefs = [];
+          
           for (const code of amendReasonCodes) {
             const codeDefinition = this._utilService.findCodeDefinitionById(amendReasonCodeList, code);
             if (codeDefinition) {
