@@ -11,7 +11,7 @@ import { PrimaryContactComponent } from './primary-contact/primary.contact.compo
 import { PrimaryContactService } from './primary-contact/primary.contact.service';
 import { CompanyAdminChangesComponent } from './comp-admin-changes/company-admin.changes.componet';
 import { CompanyAdminChangesService } from './comp-admin-changes/company-admin.changes.service';
-import { MailtoHelpComponent } from './mailto-help/mailto.help';
+import { MailtoHelpComponent } from './mailto-help/mailto.help.component';
 
 @NgModule({
   declarations: [FormBaseComponent, CompanyInfoComponent, PrimaryContactComponent, CompanyAdminChangesComponent, MailtoHelpComponent],
