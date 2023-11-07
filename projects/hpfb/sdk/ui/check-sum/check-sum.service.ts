@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import  * as CryptoJS from 'crypto-js';
 import {FileConversionService} from '../file-io/file-conversion.service';
 import { ConvertResults } from '../public-api';
-import { CHECK_SUM } from './check-sum-constants';
+import { CHECK_SUM_CONST } from './check-sum-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class CheckSumService {
 
           if(convertResultData[key].hasOwnProperty(seckey)){
 
-            if(seckey === CHECK_SUM){
+            if(seckey === CHECK_SUM_CONST){
               let hashFromFile = convertResultData[key][seckey];
               convertResultData[key][seckey] = "";
               let hash = CryptoJS.MD5(JSON.stringify(convertResultData));

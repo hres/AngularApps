@@ -28,6 +28,7 @@ export * from './file-io/filereader/filereader.component';
 export * from './file-io/file-io.module';
 
 export * from './common.constants';
+export * from './check-sum/check-sum-constants';
 
 export * from './utils/utils.service';
 export * from './validation/validation.service';

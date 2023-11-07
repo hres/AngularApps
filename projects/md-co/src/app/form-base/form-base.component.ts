@@ -7,10 +7,9 @@ import { AMEND, ContactStatus, FINAL, XSLT_PREFIX, ROOT_TAG } from '../app.const
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
-import { ContactListComponent, ControlMessagesComponent, FileConversionService, IIdTextLabel, INameAddress, CheckSumService, LoggerService, NO, UtilsService, YES } from '@hpfb/sdk/ui';
+import { ContactListComponent, ControlMessagesComponent, FileConversionService, IIdTextLabel, INameAddress, CheckSumService, LoggerService, NO, UtilsService, YES, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
-import { CHECK_SUM } from '@hpfb/sdk/ui/check-sum/check-sum-constants';
 
 
 @Component({
@@ -254,7 +253,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         const result = {      // todo use the enrollement obj saved in GlobalService??, consolidate this with saveWorkingCopyFile()
           DEVICE_COMPANY_ENROL: {
             general_information: this.genInfoModel,
-            CHECK_SUM: "",
+            [CHECK_SUM_CONST]: "",
             address: this.addressModel,
             contacts: {},
             primary_contact: this.primContactModel,
@@ -266,7 +265,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
         }
 
-        result.DEVICE_COMPANY_ENROL.CHECK_SUM = this._checkSumService.createHash(result);
+        result.DEVICE_COMPANY_ENROL[CHECK_SUM_CONST] = this._checkSumService.createHash(result);
 
         const fileName = this._buildfileName();
         this._fileService.saveXmlToFile(result, fileName, true, this.xslName);

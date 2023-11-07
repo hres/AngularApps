@@ -4,7 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import { ConvertResults } from '../convert-results';
 import {FileConversionService} from '../file-conversion.service';
 import {CheckSumService} from '../../check-sum/check-sum.service';
-import { CHECK_SUM } from '../../check-sum/check-sum-constants';
+import { CHECK_SUM_CONST } from '../../check-sum/check-sum-constants';
 
 @Component({
   selector: 'lib-file-reader',
@@ -118,7 +118,7 @@ export class FilereaderComponent implements OnInit {
   private static checkSumCheck(convertResult:ConvertResults, rootName:string) {  
     const checkSum: CheckSumService = new CheckSumService();
 
-    if ((convertResult.data[rootName][CHECK_SUM] === null)) return;
+    if ((convertResult.data[rootName][CHECK_SUM_CONST] === null)) return;
 
     if(!checkSum.checkHash(convertResult.data)){
       convertResult.data = null;

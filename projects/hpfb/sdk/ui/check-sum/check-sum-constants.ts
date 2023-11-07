@@ -1,1 +1,1 @@
-export const CHECK_SUM = "check_sum";
+export const CHECK_SUM_CONST = "check_sum";
