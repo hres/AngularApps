@@ -52,6 +52,6 @@ export * from './logger/logger.service'
 
 export * from './routing/routing.service'
 
-export * from './list/list-base.component';
-export * from './list/list-service';
-export * from './list/listable';
+export * from './record-list/record.list.base.component';
+export * from './record-list/record.list.base.service';
+export * from './record-list/record.list.service.interface';

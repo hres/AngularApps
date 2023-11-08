@@ -8,7 +8,7 @@ import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary
 import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
 import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {ContactListService} from './contact-list.service';
-import { ListBaseComponent } from '../../list/list-base.component';
+import { RecordListBaseComponent } from '../../record-list/record.list.base.component';
 import {TranslateService} from '@ngx-translate/core';
 import { errorSummClassName } from '../../common.constants';
 import { ICode } from '../../data-loader/data';
@@ -21,7 +21,7 @@ import { ICode } from '../../data-loader/data';
   encapsulation: ViewEncapsulation.None
 
 })
-export class ContactListComponent extends ListBaseComponent implements OnInit, OnChanges, AfterViewInit, DoCheck {
+export class ContactListComponent extends RecordListBaseComponent implements OnInit, OnChanges, AfterViewInit, DoCheck {
   @Input() public contactModel = [];
   @Input() public saveContact;
   @Input() public showErrors: boolean;

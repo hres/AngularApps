@@ -2,7 +2,7 @@ import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { UtilsService} from '../../utils/utils.service';
 import { ValidationService } from '../../validation/validation.service';
-import { ListService } from '../../list/list-service';
+import { RecordListBaseService } from '../../record-list/record.list.base.service';
 import { ENGLISH } from '../../common.constants';
 
 @Injectable()
@@ -82,7 +82,7 @@ export class ContactDetailsService {
     if (formRecord.controls['status'].value) {
       // ling todo
       // const statList = this._convertListText(this.statusListInternal, this.lang);
-      // const recordIndex = ListService.getRecord(statList, formRecord.controls['status'].value, 'id');     //todo ListService is abstract, is it right to call its method like this?
+      // const recordIndex = RecordListBaseService.getRecord(statList, formRecord.controls['status'].value, 'id');     //todo RecordListBaseService is abstract, is it right to call its method like this?
       // if (recordIndex > -1) {
       //   contactModel.status = {
       //     '__text': statList[recordIndex].text,
@@ -98,7 +98,7 @@ export class ContactDetailsService {
     // contactModel.hc_status = formRecord.controls.hcStatus.value;
     // if (formRecord.controls.salutation.value) {
     //   const salutList = this._convertListText(this.salutationList, this.lang);
-    //   const recordIndex2 = ListService.getRecord(salutList, formRecord.controls.salutation.value, 'id');
+    //   const recordIndex2 = RecordListBaseService.getRecord(salutList, formRecord.controls.salutation.value, 'id');
     //   if (recordIndex2 > -1) {
     //     contactModel.salutation = {
     //       '__text': salutList[recordIndex2].text,
@@ -116,7 +116,7 @@ export class ContactDetailsService {
     if (formRecord.controls['language'].value) {
       // ling todo
       const langList = "";  //this._convertListText(this.languageList, this.lang);
-      // const recordIndex3 = ListService.getRecord(langList, formRecord.controls['language'].value, 'id');
+      // const recordIndex3 = RecordListBaseService.getRecord(langList, formRecord.controls['language'].value, 'id');
       // if (recordIndex3 > -1) {
       //   contactModel.language = {
       //     '__text': langList[recordIndex3].text,
@@ -140,7 +140,7 @@ export class ContactDetailsService {
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
     formRecord.controls['contactId'].setValue(contactModel.contact_id);
     // if (contactModel.status) {
-    //   const recordIndex = ListService.getRecord(this.statusListInternal, contactModel.status._id, 'id');
+    //   const recordIndex = RecordListBaseService.getRecord(this.statusListInternal, contactModel.status._id, 'id');
     //   if (recordIndex > -1) {
     //     formRecord.controls['status'].setValue(this.statusListInternal[recordIndex].id);
     //   }
@@ -149,7 +149,7 @@ export class ContactDetailsService {
     // }
     // formRecord.controls.hcStatus.setValue(contactModel.hc_status);
     // if (contactModel.salutation) {
-    //   const recordIndex2 = ListService.getRecord(this.salutationList, contactModel.salutation._id, 'id');
+    //   const recordIndex2 = RecordListBaseService.getRecord(this.salutationList, contactModel.salutation._id, 'id');
     //   if (recordIndex2 > -1) {
     //     formRecord.controls.salutation.setValue(this.salutationList[recordIndex2].id);
     //   }
@@ -162,7 +162,7 @@ export class ContactDetailsService {
     // formRecord.controls.lastName.setValue(contactModel.last_name);
     if (contactModel.language) {
       // ling todo
-      // const recordIndex3 = ListService.getRecord(this.languageList, contactModel.language._id, 'id');
+      // const recordIndex3 = RecordListBaseService.getRecord(this.languageList, contactModel.language._id, 'id');
       // if (recordIndex3 > -1) {
       //   formRecord.controls['language'].setValue(this.languageList[recordIndex3].id);
       // }

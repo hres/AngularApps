@@ -1,4 +1,4 @@
-export abstract class ListService {
+export abstract class RecordListBaseService {
 
   /**
    * Used to create address ids

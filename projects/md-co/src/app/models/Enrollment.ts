@@ -26,7 +26,7 @@ export interface AdministrativeChanges {
 // }
 
 export interface Contact {
-  id:              string;
+  id:              number;
   contact_id:      string;
   status:          IIdTextLabel;
   status_text:     string;

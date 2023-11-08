@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
-import { IListable } from '../../list/listable';
+import { RecordListServiceInterface } from '../../record-list/record.list.service.interface';
 
 import {ContactDetailsService} from '../contact.details/contact.details.service';
-import { ListService } from '../../list/list-service';
+import { RecordListBaseService } from '../../record-list/record.list.base.service';
 
 @Injectable()
-export class ContactListService extends ListService implements IListable {
+export class ContactListService extends RecordListBaseService implements RecordListServiceInterface {
 
   /***
    *  The data list of contact records
