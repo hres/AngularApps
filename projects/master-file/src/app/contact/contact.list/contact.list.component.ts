@@ -8,7 +8,7 @@ import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary
 import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
 import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {ContactListService} from './contact-list.service';
-import {ListBaseComponent} from '../../list-operations';
+import {ListOperations} from '../../list-operations';
 import {TranslateService} from '@ngx-translate/core';
 import {GlobalsService} from '../../globals/globals.service';
 
@@ -20,7 +20,7 @@ import {GlobalsService} from '../../globals/globals.service';
   encapsulation: ViewEncapsulation.None
 
 })
-export class ContactListComponent extends ListBaseComponent implements OnInit, OnChanges, AfterViewInit, DoCheck {
+export class ContactListComponent extends ListOperations implements OnInit, OnChanges, AfterViewInit, DoCheck {
   @Input() public contactModel = [];
   @Input() public saveContact;
   @Input() public showErrors: boolean;
@@ -49,13 +49,11 @@ export class ContactListComponent extends ListBaseComponent implements OnInit, O
   public columnDefinitions = [
     {
       label: 'Contact Identifier',
-      label_fr: 'Identifiant du contact',
       binding: 'contact_id',
       width: '10'
     },
     {
       label: 'Full Name (First and Last)',
-      label_fr:'Nom complet (Prénom et nom de famille)',
       binding: 'full_name',
       width: '40'
     },
@@ -66,13 +64,11 @@ export class ContactListComponent extends ListBaseComponent implements OnInit, O
     // },
     {
       label: 'Job Title',
-      label_fr: 'Titre de poste',
       binding: 'job_title',
       width: '20'
     },
     {
-      label: 'Contact Status',
-      label_fr: 'Statut du contact',
+      label: 'Status',
       binding: 'status_text',
       width: '15'
     }
