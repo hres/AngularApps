@@ -80,7 +80,7 @@ export class CompanyDataLoaderService {
     if (!this.cachedAmendReasons$) {
       this.cachedAmendReasons$ = this._dataService.getData<ICodeDefinition>(this.amendReasonsJsonPath)
         .pipe(
-          // tap(()=>console.log('getStateList() is called')),
+          // tap(()=>console.log('getAmendReasonList() is called')),
           shareReplay(1)
         );
     } 
@@ -91,7 +91,7 @@ export class CompanyDataLoaderService {
     if (!this.cachedContactStatuses$) {
       this.cachedContactStatuses$ = this._dataService.getData<ICode>(this.contactStatusesJsonPath)
         .pipe(
-          // tap(()=>console.log('getStateList() is called')),
+          // tap(()=>console.log('getContactStatusesList() is called')),
           shareReplay(1)
         );
     } 
@@ -102,7 +102,7 @@ export class CompanyDataLoaderService {
     if (!this.cachedEnrollmentStatuses$) {
       this.cachedEnrollmentStatuses$ = this._dataService.getData<ICode>(this.enrollmentStatusesJsonPath)
         .pipe(
-          // tap(()=>console.log('getStateList() is called')),
+          // tap(()=>console.log('getEnrollmentStatusesList() is called')),
           shareReplay(1)
         );
     } 
