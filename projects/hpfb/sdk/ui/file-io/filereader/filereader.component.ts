@@ -19,6 +19,7 @@ export class FilereaderComponent implements OnInit {
 
   public status = IMPORT_SUCCESS;
   public importSuccess = false;
+  public importedFileName = "";
   public showFileLoadStatus = false;
   private rootId = '';
   
@@ -62,7 +63,11 @@ export class FilereaderComponent implements OnInit {
         self.status = convertResult.messages[0];
       } else {
         self.status = IMPORT_SUCCESS;
+      }
+
+      if(self.status === IMPORT_SUCCESS){
         self.importSuccess = true;
+        self.importedFileName = file.name;
       }
       self.showFileLoadStatus = true;
      
@@ -113,6 +118,9 @@ export class FilereaderComponent implements OnInit {
       convertResult.messages = [];
       convertResult.messages.push(FORM_TYPE_ERROR);
     }
+  }
+  public refreshPage(){
+    location.reload();
   }
 
   private static checkSumCheck(convertResult:ConvertResults, rootName:string) {  
