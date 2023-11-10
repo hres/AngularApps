@@ -1,8 +1,10 @@
 import {Component, OnInit, EventEmitter, Output, Input, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import { DRAFT_FILE_TYPE, FILE_TYPE_ERROR, FINAL_FILE_TYPE, FORM_TYPE_ERROR, IMPORT_SUCCESS } from '../file-io-constants';
+import { DRAFT_FILE_TYPE, FILE_TYPE_ERROR, FINAL_FILE_TYPE, FORM_TYPE_ERROR, IMPORT_SUCCESS, CHECK_SUM_ERROR} from '../file-io-constants';
 import {TranslateService} from '@ngx-translate/core';
 import { ConvertResults } from '../convert-results';
 import {FileConversionService} from '../file-conversion.service';
+import {CheckSumService} from '../../check-sum/check-sum.service';
+import { CHECK_SUM_CONST } from '../../check-sum/check-sum-constants';
 
 @Component({
   selector: 'lib-file-reader',
@@ -93,7 +95,10 @@ export class FilereaderComponent implements OnInit {
       // console.log(convertResult.data);
       if (convertResult.messages.length === 0) {
         FilereaderComponent.checkRootTagMatch(convertResult, rootId);
-      }     
+      }
+      if(fileType.toLowerCase() === FINAL_FILE_TYPE){
+        this.checkSumCheck(convertResult, rootId);
+      }
     } else {
       convertResult.data = null;
       convertResult.messages=[]; //clear msessages
@@ -107,6 +112,18 @@ export class FilereaderComponent implements OnInit {
       convertResult.data = null;
       convertResult.messages = [];
       convertResult.messages.push(FORM_TYPE_ERROR);
+    }
+  }
+
+  private static checkSumCheck(convertResult:ConvertResults, rootName:string) {  
+    const checkSum: CheckSumService = new CheckSumService();
+
+    if ((convertResult.data[rootName][CHECK_SUM_CONST] === null)) return;
+
+    if(!checkSum.checkHash(convertResult.data)){
+      convertResult.data = null;
+      convertResult.messages = [];
+      convertResult.messages.push(CHECK_SUM_ERROR);
     }
   }
 
