@@ -102,13 +102,11 @@
             <h2 class="panel-title">{{'admin.changes'|translate}}</h2>
           </header>
           <div class="panel-body">
-            <div class="row">
-              <comp-admin-changes [showErrors]="showErrors" [slctAmendReasons]="selectedAmendReasonCodes" [lang]="lang" 
+            <comp-admin-changes [showErrors]="showErrors" [slctAmendReasons]="selectedAmendReasonCodes" [lang]="lang" 
                                   [isInternal]="isInternal"
                                   [adminChangesModel]="adminChangesModel"
                                   [helpTextSequences]="helpIndex"
-                                  (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>
-            </div>
+                                  (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>          
           </div>
         </section>
       </div>
