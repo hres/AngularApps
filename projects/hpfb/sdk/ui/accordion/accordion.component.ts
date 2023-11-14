@@ -12,6 +12,9 @@ import { FINAL } from '../common.constants';
  * Sample component is used for nothing
  */
 export class AccordionComponent implements OnChanges {
+
+  @Input() accordionHeadingMsgKey: string;
+  
   /**
    * Disable expand
    */
