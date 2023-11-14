@@ -3,6 +3,8 @@ import { ExpanderComponent } from '../expander/expander.component';
 import { ErrorSummaryComponent } from '../error-msg/error-summary/error-summary.component';
 import {Component, ViewChild} from '@angular/core';
 import {RecordListServiceInterface} from './record.list.service.interface';
+import { AccordionComponent } from '../accordion/accordion.component';
+
 
 @Component({
   template: ''
@@ -13,7 +15,8 @@ export abstract class RecordListBaseComponent {
   protected showErrorSummary: boolean;
   public newRecordIndicator: boolean;
 
-  @ViewChild(ExpanderComponent, {static: true}) expander: ExpanderComponent;
+  // @ViewChild(ExpanderComponent, {static: true}) expander: ExpanderComponent;
+  @ViewChild(AccordionComponent, {static: true}) expander: ExpanderComponent;
   private errorSummary: ErrorSummaryComponent;
 
   /**

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { FINAL } from '@hpfb/sdk/ui';
+import { FINAL } from '../common.constants';
+
 
 @Component({
   selector: 'app-accordion',

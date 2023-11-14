@@ -15,11 +15,9 @@ import { MailtoHelpComponent } from './mailto-help/mailto.help.component';
 import { CompanyContactRecordComponent } from './contact/company-contact-record/company-contact-record.component';
 import { ContactDetailsComponent } from './contact/contact.details/contact.details.component';
 import { ContactListComponent } from './contact/contact.list/contact.list.component';
-import { AccordionComponent } from './accordion/accordion.component';
 
 @NgModule({
   declarations: [FormBaseComponent, CompanyInfoComponent, PrimaryContactComponent, CompanyAdminChangesComponent, MailtoHelpComponent, 
-    AccordionComponent,
     CompanyContactRecordComponent,
     ContactDetailsComponent,
     ContactListComponent,

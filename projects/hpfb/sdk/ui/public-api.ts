@@ -1,6 +1,7 @@
 export * from './layout/layout.component';
 
 export * from './expander/expander.component';
+export * from './accordion/accordion.component';
 
 export * from './error-msg/control-messages/control-messages.component';
 export * from './error-msg/error-summary/error-summary.component';

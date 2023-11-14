@@ -27,11 +27,14 @@ import { InstructionService } from './information/instruction/instruction.servic
 import { LoggerService } from './logger/logger.service';
 import { ConverterService } from './converter/converter.service';
 import { EntityBaseService } from './model/entity-base.service';
+import { AccordionComponent } from './accordion/accordion.component';
+
 
 @NgModule({
   declarations: [
     LayoutComponent,
     ExpanderComponent,
+    AccordionComponent,
     ControlMessagesComponent,
     ErrorSummaryComponent,
     AddressDetailsComponent,
@@ -56,6 +59,7 @@ import { EntityBaseService } from './model/entity-base.service';
   exports: [
     LayoutComponent,
     ExpanderComponent,
+    AccordionComponent,
     ControlMessagesComponent,
     ErrorSummaryComponent,
     AddressDetailsComponent,
