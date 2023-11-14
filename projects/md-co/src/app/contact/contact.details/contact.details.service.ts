@@ -1,9 +1,7 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { UtilsService} from '../../utils/utils.service';
-import { ValidationService } from '../../validation/validation.service';
-import { RecordListBaseService } from '../../record-list/record.list.base.service';
-import { ENGLISH } from '../../common.constants';
+import { ENGLISH, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+
 
 @Injectable()
 export class ContactDetailsService {

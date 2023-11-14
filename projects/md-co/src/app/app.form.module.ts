@@ -12,9 +12,16 @@ import { PrimaryContactService } from './primary-contact/primary.contact.service
 import { CompanyAdminChangesComponent } from './comp-admin-changes/company-admin.changes.componet';
 import { CompanyAdminChangesService } from './comp-admin-changes/company-admin.changes.service';
 import { MailtoHelpComponent } from './mailto-help/mailto.help.component';
+import { CompanyContactRecordComponent } from './contact/company-contact-record/company-contact-record.component';
+import { ContactDetailsComponent } from './contact/contact.details/contact.details.component';
+import { ContactListComponent } from './contact/contact.list/contact.list.component';
 
 @NgModule({
-  declarations: [FormBaseComponent, CompanyInfoComponent, PrimaryContactComponent, CompanyAdminChangesComponent, MailtoHelpComponent],
+  declarations: [FormBaseComponent, CompanyInfoComponent, PrimaryContactComponent, CompanyAdminChangesComponent, MailtoHelpComponent, 
+    CompanyContactRecordComponent,
+    ContactDetailsComponent,
+    ContactListComponent,
+  ],
   imports: [
     CommonModule,
     InformationModule,

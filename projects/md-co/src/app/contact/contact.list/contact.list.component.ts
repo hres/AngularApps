@@ -4,14 +4,13 @@ import {
 } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
-import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
+
 import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
 import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {ContactListService} from './contact-list.service';
-import { RecordListBaseComponent } from '../../record-list/record.list.base.component';
+
 import {TranslateService} from '@ngx-translate/core';
-import { errorSummClassName } from '../../common.constants';
-import { ICode } from '../../data-loader/data';
+import { ErrorSummaryComponent, ICode, errorSummClassName, RecordListBaseComponent } from '@hpfb/sdk/ui';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({

@@ -15,9 +15,9 @@ import { FormControlPipe } from './pipes/form-control.pipe';
 import { JsonKeysPipe } from './pipes/json-keys.pipe';
 import { AriaTransformPipe } from './pipes/aria-transform.pipe';
 import { TextTransformPipe } from './pipes/text-transform.pipe';
-import { CompanyContactRecordComponent } from './contact/company-contact-record/company-contact-record.component';
-import { ContactDetailsComponent } from './contact/contact.details/contact.details.component';
-import { ContactListComponent } from './contact/contact.list/contact.list.component';
+// import { CompanyContactRecordComponent } from './contact/company-contact-record/company-contact-record.component';
+// import { ContactDetailsComponent } from './contact/contact.details/contact.details.component';
+// import { ContactListComponent } from './contact/contact.list/contact.list.component';
 import { VersionService } from './version/version.service';
 import { NoCacheHeadersInterceptor } from './interceptor/cache.interceptor';
 import { FileConversionService } from './file-io/file-conversion.service';
@@ -35,9 +35,9 @@ import { EntityBaseService } from './model/entity-base.service';
     ControlMessagesComponent,
     ErrorSummaryComponent,
     AddressDetailsComponent,
-    CompanyContactRecordComponent,
-    ContactDetailsComponent,
-    ContactListComponent,
+    // CompanyContactRecordComponent,
+    // ContactDetailsComponent,
+    // ContactListComponent,
     GreeterComponent,
     PrivacyStatementComponent,
     SecurityDisclaimerComponent,
@@ -59,9 +59,9 @@ import { EntityBaseService } from './model/entity-base.service';
     ControlMessagesComponent,
     ErrorSummaryComponent,
     AddressDetailsComponent,
-    CompanyContactRecordComponent,
-    ContactDetailsComponent,
-    ContactListComponent,
+    // CompanyContactRecordComponent,
+    // ContactDetailsComponent,
+    // ContactListComponent,
     GreeterComponent,
     PrivacyStatementComponent,
     SecurityDisclaimerComponent,

@@ -16,10 +16,10 @@ export * from './converter/converter.service';
 
 export * from './address/address.details/address.details.component';
 
-export * from './contact/contact.details/contact.details.component';
-export * from './contact/company-contact-record/company-contact-record.component';
-export * from './contact/contact.list/contact.list.component';
-export * from './contact/contact.list/contact-list.service';
+// export * from './contact/contact.details/contact.details.component';
+// export * from './contact/company-contact-record/company-contact-record.component';
+// export * from './contact/contact.list/contact.list.component';
+// export * from './contact/contact.list/contact-list.service';
 
 export * from './file-io/greeter/greeter.component';
 export * from './file-io/convert-results';
