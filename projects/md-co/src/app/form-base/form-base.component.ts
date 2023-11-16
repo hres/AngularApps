@@ -1,17 +1,12 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
-import { ConvertResults } from '@hpfb/sdk/ui/file-io/convert-results';
-import { ICode, IKeyword } from '@hpfb/sdk/ui/data-loader/data';
 import { AMEND, ContactStatus, FINAL, XSLT_PREFIX, ROOT_TAG } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { GeneralInformation, Contact, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
-import { ControlMessagesComponent, FileConversionService, IIdTextLabel, INameAddress, CheckSumService, LoggerService, NO, UtilsService, YES, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
+import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent } from '@hpfb/sdk/ui';
 import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
-import { ContactListComponent } from '../contact/contact.list/contact.list.component';
-
 
 @Component({
   selector: 'app-form-base',

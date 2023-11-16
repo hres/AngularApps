@@ -7,7 +7,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ContactDetailsComponent} from '../contact.details/contact.details.component';
 import {ContactDetailsService} from '../contact.details/contact.details.service';
 import {CompanyContactRecordService} from './company-contact-record.service';
-import { ErrorSummaryComponent, ControlMessagesComponent } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
+import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
 
 @Component({
   selector: 'company-contact-record',

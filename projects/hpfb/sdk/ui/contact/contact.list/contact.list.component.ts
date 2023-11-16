@@ -3,15 +3,14 @@ import {
   AfterViewInit, DoCheck, ViewEncapsulation
 } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-
-
 import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
 import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {ContactListService} from './contact-list.service';
-import {ListOperations} from '../../list-operations';
+import { RecordListBaseComponent } from '../../record-list/record.list.base.component';
 import {TranslateService} from '@ngx-translate/core';
-
-import { ErrorSummaryComponent, ICode, errorSummClassName } from '@hpfb/sdk/ui';
+import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
+import { errorSummClassName } from '../../common.constants';
+import { ICode } from '../../data-loader/data';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -21,7 +20,7 @@ import { ErrorSummaryComponent, ICode, errorSummClassName } from '@hpfb/sdk/ui';
   encapsulation: ViewEncapsulation.None
 
 })
-export class ContactListComponent extends ListOperations implements OnInit, OnChanges, AfterViewInit, DoCheck {
+export class ContactListComponent extends RecordListBaseComponent implements OnInit, OnChanges, AfterViewInit, DoCheck {
   @Input() public contactModel = [];
   @Input() public saveContact;
   @Input() public showErrors: boolean;

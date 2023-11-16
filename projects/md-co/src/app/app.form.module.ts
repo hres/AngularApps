@@ -5,10 +5,10 @@ import {
   FileIoModule,
   ExpanderModule,
   AddressModule,
+  ContactModule
 } from '@hpfb/sdk/ui';
 import { CommonModule } from '@angular/common';
 import { FormBaseComponent } from './form-base/form-base.component';
-import { ContactModule } from './contact/contact.module';
 import { CompanyInfoComponent } from './company-info/company.info.component';
 import { PrimaryContactComponent } from './primary-contact/primary.contact.component';
 import { PrimaryContactService } from './primary-contact/primary.contact.service';

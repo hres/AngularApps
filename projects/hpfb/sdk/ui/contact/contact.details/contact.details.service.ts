@@ -1,9 +1,9 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-// import {TheraClassService} from '../../therapeutic/therapeutic-classification/thera-class.service';
+import {RecordListBaseService} from '../../record-list/record.list.base.service'
+import { ENGLISH, FRENCH } from '../../common.constants';
+import { ValidationService } from '../../validation/validation.service';
 
-import {ListService} from '../../list-service';
-import { ENGLISH, FRENCH, ValidationService } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class ContactDetailsService {
@@ -104,7 +104,7 @@ export class ContactDetailsService {
     contactModel.contact_id = formRecord.controls['contactId'].value;
     if (formRecord.controls['status'].value) {
       const statList = this._convertListText(this.statusListInternal, this.lang);
-      const recordIndex = ListService.getRecord(statList, formRecord.controls['status'].value, 'id');
+      const recordIndex = RecordListBaseService.getRecord(statList, formRecord.controls['status'].value, 'id');
       if (recordIndex > -1) {
         contactModel.status = {
           '__text': statList[recordIndex].text,
@@ -137,7 +137,7 @@ export class ContactDetailsService {
     // contactModel.last_name = formRecord.controls.lastName.value;
     if (formRecord.controls['language'].value) {
       const langList = this._convertListText(this.languageList, this.lang);
-      const recordIndex3 = ListService.getRecord(langList, formRecord.controls['language'].value, 'id');
+      const recordIndex3 = RecordListBaseService.getRecord(langList, formRecord.controls['language'].value, 'id');
       if (recordIndex3 > -1) {
         contactModel.language = {
           '__text': langList[recordIndex3].text,
@@ -161,7 +161,7 @@ export class ContactDetailsService {
   public static mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
     formRecord.controls['contactId'].setValue(contactModel.contact_id);
     if (contactModel.status) {
-      const recordIndex = ListService.getRecord(this.statusListInternal, contactModel.status._id, 'id');
+      const recordIndex = RecordListBaseService.getRecord(this.statusListInternal, contactModel.status._id, 'id');
       if (recordIndex > -1) {
         formRecord.controls['status'].setValue(this.statusListInternal[recordIndex].id);
       }
@@ -182,7 +182,7 @@ export class ContactDetailsService {
     // formRecord.controls.initials.setValue(contactModel.initials);
     // formRecord.controls.lastName.setValue(contactModel.last_name);
     if (contactModel.language) {
-      const recordIndex3 = ListService.getRecord(this.languageList, contactModel.language._id, 'id');
+      const recordIndex3 = RecordListBaseService.getRecord(this.languageList, contactModel.language._id, 'id');
       if (recordIndex3 > -1) {
         formRecord.controls['language'].setValue(this.languageList[recordIndex3].id);
       }

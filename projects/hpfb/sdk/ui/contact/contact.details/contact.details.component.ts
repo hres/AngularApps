@@ -3,10 +3,9 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
-import { ControlMessagesComponent } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 import {ContactDetailsService} from './contact.details.service';
 import {isArray} from 'util';
-
 
 @Component({
   selector: 'contact-details',
