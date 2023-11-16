@@ -7,7 +7,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {ContactListComponent} from './contact.list/contact.list.component';
 import {ContactListService} from './contact.list/contact-list.service';
 import {TranslateModule} from '@ngx-translate/core';
-import { ErrorModule, PipesModule, ExpanderModule, UiModule } from '@hpfb/sdk/ui'; 
+import { ErrorModule, PipesModule, ExpanderModule, CommonUiFeatureModule } from '@hpfb/sdk/ui'; 
 
 @NgModule({
   imports: [
