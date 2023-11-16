@@ -7,10 +7,9 @@ import { FINAL } from '../common.constants';
   encapsulation: ViewEncapsulation.None
 })
 
-/**
- * Sample component is used for nothing
- */
 export class ExpanderComponent implements OnChanges {
+
+  @Input() accordionHeadingMsgKey: string;
   /**
    * Disable expand
    */
@@ -106,7 +105,7 @@ export class ExpanderComponent implements OnChanges {
     if (changes['isValid']) {
       this._expanderValid = changes['isValid'].currentValue;
     }
-    if (changes['addRecord']) {
+    if (changes['addRecord'] && !changes['addRecord'].firstChange) {
       this.collapseTableRows();
       this.updateDataRows(this.itemsList);
       if (this._expandAdd) {

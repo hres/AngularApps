@@ -1,11 +1,15 @@
 import {FormArray, FormGroup} from '@angular/forms';
-import { ExpanderComponent } from '../expander/expander.component';
-import { ErrorSummaryComponent } from '../error-msg/error-summary/error-summary.component';
-import { Directive, ViewChild} from '@angular/core';
-import {RecordListServiceInterface} from './record.list.service.interface';
 
+import {Component, Directive, ViewChild} from '@angular/core';
+import {IMasterDetails} from './master-details';
+
+import { ErrorSummaryComponent, ExpanderComponent } from '@hpfb/sdk/ui';
+
+// @Component({
+//   template: ''
+// })
 @Directive()
-export abstract class RecordListBaseComponent {
+export abstract class ListOperations {
 
   public prevRow: number;
   protected showErrorSummary: boolean;
@@ -51,13 +55,15 @@ export abstract class RecordListBaseComponent {
   public syncCurrentExpandedRow(reactiveFormList: FormArray): FormGroup {
 
     if (!this.expander) {
-      console.warn('RecordListBaseComponent-syncCurrentExpandedRow: There is no expander');
-      return null;
+      console.warn('ListOperations-syncCurrentExpandedRow: There is no expander');
+      return null;;
     }
     const rowNum = this.expander.getExpandedRow();
+    console.log("aaaaaaa", "rowNum",  rowNum)
     // used to sync the expander with the details
     if (rowNum > -1 && this.prevRow !== rowNum) {
       this.prevRow = rowNum;
+      console.log("bbbbb", "syncCurrentExpandedRow", "preRow", this.prevRow)
       // console.log('Prev control does not equal current row');
       return <FormGroup> reactiveFormList.controls[rowNum];
     } else {
@@ -82,7 +88,7 @@ export abstract class RecordListBaseComponent {
    * @param service
    * @returns {number}
    */
-  public saveRecord(record: FormGroup, service: RecordListServiceInterface): number {
+  public saveRecord(record: FormGroup, service: IMasterDetails): number {
     //  Case 1 no record, just show error summary, shoud never happen
     if (!record) {
       this.showErrorSummary = true;
@@ -114,7 +120,7 @@ export abstract class RecordListBaseComponent {
    * @param {FormArray} recordList
    * @param service
    */
-  public deleteRecord(id: number, recordList: FormArray, service: RecordListServiceInterface) {
+  public deleteRecord(id: number, recordList: FormArray, service: IMasterDetails) {
     const serviceResult = service.deleteModelRecord(id);
     for (let i = 0; i < recordList.controls.length; i++) {
       const temp = <FormGroup> recordList.controls[i];

@@ -1,9 +1,9 @@
 <div class="container-fluid" [formGroup]="contactRecordModel" *ngIf="contactRecordModel">
-  <h4 *ngIf="newRecord">{{'heading.contactDetails'| translate}}&nbsp;{{sequenceNum}}</h4> 
+  <h4>{{'heading.contactDetails'| translate}}&nbsp;{{sequenceNum}}</h4>
   <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.contactRecord"
-                 [headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactRec"></lib-error-summary> 
-  <contact-details [showErrors]="showErrors" [isInternal]="isInternal" [languageList]="languageList"  [contactStatusList]="contactStatusList" [lang]="lang"
+                 [headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactRec"></lib-error-summary>
+  <contact-details [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang"
                    [detailsChanged]="updateChild" [group]="contactDetailsFormGroup"
                    [helpTextSequences]="helpTextSequences"
                    (errorList)="updateErrorList($event)"></contact-details>
@@ -29,5 +29,5 @@
     <!--</div>-->
   <!--</div>-->
 <hr class="brdr-bttm">
-  <pre>{{contactRecordModel.value |json}}</pre>
+  <!--pre>{{contactRecordModel.value |json}}</pre-->
 </div>

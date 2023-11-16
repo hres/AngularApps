@@ -8,9 +8,10 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
 import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {ContactListService} from './contact-list.service';
-
+import {ListOperations} from '../../list-operations';
 import {TranslateService} from '@ngx-translate/core';
-import { ErrorSummaryComponent, ICode, errorSummClassName, RecordListBaseComponent } from '@hpfb/sdk/ui';
+
+import { ErrorSummaryComponent, ICode, errorSummClassName } from '@hpfb/sdk/ui';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -20,7 +21,7 @@ import { ErrorSummaryComponent, ICode, errorSummClassName, RecordListBaseCompone
   encapsulation: ViewEncapsulation.None
 
 })
-export class ContactListComponent extends RecordListBaseComponent implements OnInit, OnChanges, AfterViewInit, DoCheck {
+export class ContactListComponent extends ListOperations implements OnInit, OnChanges, AfterViewInit, DoCheck {
   @Input() public contactModel = [];
   @Input() public saveContact;
   @Input() public showErrors: boolean;
@@ -50,22 +51,27 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   public validRec = true;
   public columnDefinitions = [
     {
-      propertyLabel: 'contact.id',
+      label: 'Contact Identifier',
       binding: 'contact_id',
       width: '10'
     },
     {
-	    propertyLabel: 'full.name',
+      label: 'Full Name (First and Last)',
       binding: 'full_name',
       width: '40'
     },
+    // {
+    //   label: 'Last Name',
+    //   binding: 'last_name',
+    //   width: '20'
+    // },
     {
-      propertyLabel: 'job.title',
+      label: 'Job Title',
       binding: 'job_title',
       width: '20'
     },
     {
-      propertyLabel: 'status',
+      label: 'Status',
       binding: 'status_text',
       width: '15'
     }
@@ -174,7 +180,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (override) {
       return true;
     }
-    if (this.newRecordIndicator) {
+    if (this.newRecordIndicator) { 
       this.validRec = false;
       return false;
     } else if (this.companyContactChild && this.companyContactChild.contactFormRecord) {
@@ -182,6 +188,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       return true; //(this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty);
     }
     this.validRec = this.contactListForm.valid;
+    console.log("isValid", "this.validRec", this.validRec)
     return (this.contactListForm.valid);
   }
 
