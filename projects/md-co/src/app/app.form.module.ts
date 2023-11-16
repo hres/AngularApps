@@ -20,6 +20,7 @@ import { CompanyInfoService } from './company-info/company.info.service';
 import { CompanyDataLoaderService } from './form-base/company-data-loader.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InformationModule } from './information/information.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     TranslateModule,
     ErrorModule,
     PipesModule,
+    InformationModule,
     FileIoModule,
     ExpanderModule,
     ReactiveFormsModule,
@@ -49,6 +51,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     CompanyAdminChangesComponent,
     CompanyAdminChangesService,
   ],
-  exports: [FormBaseComponent],
+  exports: [FormBaseComponent, InformationModule],
 })
 export class AppFormModule {}

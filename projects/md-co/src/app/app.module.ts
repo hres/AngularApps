@@ -19,7 +19,6 @@ import { InformationModule } from './information/information.module';
     CommonModule,
     CommonUiFeatureModule,
     LayoutModule,
-    InformationModule,
     AppFormModule,
     TranslateModule.forRoot({
       loader: {
