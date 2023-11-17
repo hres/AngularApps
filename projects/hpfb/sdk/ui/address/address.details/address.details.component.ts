@@ -144,7 +144,7 @@ export class AddressDetailsComponent implements OnInit {
     const countryControl = this.addressFormLocalModel.get('country');
     const countryValue: string = countryControl?.value;
 
-    this._loggerService.log('address.detail', '_setCountryState', countryValue);
+    // this._loggerService.log('address.detail', '_setCountryState', countryValue);
 
     let tempProvStateList = this._addressDetailsService.setProvinceState(
       formModel, countryValue, this.provinceList, this.stateList);
