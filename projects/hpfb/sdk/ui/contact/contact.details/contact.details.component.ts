@@ -34,14 +34,12 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   // public salutations: Array<any> = [];
   public languages: Array<any>;
   public showFieldErrors: boolean = false;
-  private detailsService: ContactDetailsService;
 
-  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
+  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private _detailsService: ContactDetailsService) {
     this.showFieldErrors = false;
     this.showErrors = false;
-    this.detailsService = new ContactDetailsService();
     this.statuses = ContactDetailsService.statusListExternal;
-    // this.statuses = this.isInternal ? this.detailsService.statusListInternal : this.detailsService.statusListExternal;
+    // this.statuses = this.isInternal ? this._detailsService.statusListInternal : this._detailsService.statusListExternal;
     // this.salutations = ContactDetailsService.salutationList;
     this.languages = ContactDetailsService.languageList;
   }

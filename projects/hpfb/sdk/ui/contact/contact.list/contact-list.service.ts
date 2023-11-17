@@ -4,6 +4,8 @@ import {CompanyContactRecordService} from '../company-contact-record/company-con
 import {ContactDetailsService} from '../contact.details/contact.details.service';
 import { RecordListServiceInterface } from '../../record-list/record.list.service.interface';
 import { RecordListBaseService } from '../../record-list/record.list.base.service';
+import { ICode } from '../../data-loader/data';
+import { Contact } from '../../model/entity-base';
 
 @Injectable()
 export class ContactListService extends RecordListBaseService implements RecordListServiceInterface {
@@ -14,7 +16,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
    */
   private contactList = [];
 
-  constructor() {
+  constructor(private _recordService: CompanyContactRecordService) {
     super();
     this.contactList = [];
     this.initIndex(this.contactList);
@@ -48,40 +50,40 @@ export class ContactListService extends RecordListBaseService implements RecordL
 
   getContactModel() {
 
-    return CompanyContactRecordService.getEmptyModel();
+    return this._recordService.getEmptyModel();
   }
 
   // getContactFormRecord(fb: FormBuilder, isInternal) {
   //
-  //   return CompanyContactRecordService.getReactiveModel(fb, isInternal);
+  //   return this._recordService.getReactiveModel(fb, isInternal);
   // }
 
 
-  public contactFormToData(record: FormGroup, contactModel) {
-    CompanyContactRecordService.mapFormModelToDataModel(record, contactModel);
+  public contactFormToData(record: FormGroup, contactModel: Contact, lang: string, languageList: ICode[], contactSatusList: ICode[]) {
+    this._recordService.mapFormModelToDataModel(record, contactModel, lang, languageList, contactSatusList );
     return (record);
 
   }
 
   public createFormDataList(modelDataList, fb: FormBuilder, theList, isInternal) {
     for (let i = 0; i < modelDataList.length; i++) {
-      const formRecord = CompanyContactRecordService.getReactiveModel(fb, isInternal);
+      const formRecord = this._recordService.getReactiveModel(fb, isInternal);
       this.contactDataToForm(modelDataList[i], formRecord);
       theList.push(formRecord);
     }
   }
 
   public contactDataToForm(contactModel, record: FormGroup) {
-    CompanyContactRecordService.mapDataModelFormModel(contactModel, record);
+    this._recordService.mapDataModelFormModel(contactModel, record);
     return (record);
   }
 
-  public saveRecord(record: FormGroup) {
+  public saveRecord(record: FormGroup, lang:string, languageList: ICode[], contactSatusList: ICode[]) {
     if (record.controls['isNew'].value) {
       // this.setRecordId(record, this.getNextIndex());
       record.controls['isNew'].setValue(false);
       let contactModel = this.getContactModel();
-      this.contactFormToData(record, contactModel);
+      this.contactFormToData(record, contactModel, lang, languageList, contactSatusList);
       this.contactList.push(contactModel);
       return contactModel.id;
     } else {
@@ -89,7 +91,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
       if (!modelRecord) {
         modelRecord = this.getContactModel();
       }
-      const updatedModel = this.contactFormToData(record, modelRecord);
+      const updatedModel = this.contactFormToData(record, modelRecord, lang, languageList, contactSatusList);
     }
   }
 

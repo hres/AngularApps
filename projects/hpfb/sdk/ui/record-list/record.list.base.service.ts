@@ -11,14 +11,14 @@ export abstract class RecordListBaseService {
 
   }
 
-  static getRecord(recordList: Array<any>, value, prop) {
-    for (let i = 0; i < recordList.length; i++) {
-      if (recordList[i][prop] === value) {
-        return i;
-      }
-    }
-    return -1;
-  }
+  // static getRecord(recordList: Array<any>, value, prop) {
+  //   for (let i = 0; i < recordList.length; i++) {
+  //     if (recordList[i][prop] === value) {
+  //       return i;
+  //     }
+  //   }
+  //   return -1;
+  // }
 
   /**
    * Parses the current data and finds the largest ID

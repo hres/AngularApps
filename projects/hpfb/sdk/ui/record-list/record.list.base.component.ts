@@ -82,14 +82,14 @@ export abstract class RecordListBaseComponent {
    * @param service
    * @returns {number}
    */
-  public saveRecord(record: FormGroup, service: RecordListServiceInterface): number {
+  public saveRecord(record: FormGroup, service: RecordListServiceInterface, lang:string, ...args: any[]): number {
     //  Case 1 no record, just show error summary, shoud never happen
     if (!record) {
       this.showErrorSummary = true;
       return -1;
     }
     // console.log(record);
-    let recordId = service.saveRecord(record);
+    let recordId = service.saveRecord(record, lang, ...args);
     this.showErrorSummary = false;
     this.newRecordIndicator = false; // in case this was a new record
     // this.collapseExpanderRows();

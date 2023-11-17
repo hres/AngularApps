@@ -10,6 +10,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ErrorModule } from '../error-msg/error-ui.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { ExpanderModule } from '../expander/expander.module';
+import { CompanyContactRecordService } from './company-contact-record/company-contact-record.service';
+import { ContactDetailsService } from './contact.details/contact.details.service';
 
 @NgModule({
   imports: [
@@ -20,7 +22,7 @@ import { ExpanderModule } from '../expander/expander.module';
     TranslateModule,
     ErrorModule,
     PipesModule,
-    ExpanderModule
+    ExpanderModule,
   ],
   declarations: [
     CompanyContactRecordComponent,
@@ -32,6 +34,10 @@ import { ExpanderModule } from '../expander/expander.module';
     ContactDetailsComponent,
     ContactListComponent,
   ],
-  providers: [ContactListService],
+  providers: [
+    ContactListService,
+    CompanyContactRecordService,
+    ContactDetailsService,
+  ],
 })
 export class ContactModule {}
