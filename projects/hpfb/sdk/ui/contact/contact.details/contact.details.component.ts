@@ -18,6 +18,8 @@ import {isArray} from 'util';
  */
 export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
+  @Input() contactRow: FormGroup;
+
   public contactFormLocalModel: FormGroup;
   @Input('group') public contactRecord: FormGroup;
   @Input() detailsChanged: number;

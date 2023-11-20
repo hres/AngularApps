@@ -9,6 +9,8 @@ import {ContactDetailsService} from '../contact.details/contact.details.service'
 import { CompanyContactRecordService} from './company-contact-record.service';
 import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
+import { ICode } from '../../data-loader/data';
+import { UtilsService } from '../../utils/utils.service';
 
 @Component({
   selector: 'company-contact-record',
@@ -19,6 +21,10 @@ import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summa
 
 })
 export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
+
+  @Input() cRRow: FormGroup;
+  @Input() languageList: ICode[];
+  @Input() contactStatusList: ICode[];
 
   public contactRecordModel: FormGroup;
   @Input('group') public contactFormRecord: FormGroup;
@@ -52,16 +58,17 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
-  constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef, private _recordService: CompanyContactRecordService) {
+  constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef, private _utilsService: UtilsService, private _recordService: CompanyContactRecordService) {
     this.showErrors = false;
     this.showErrSummary = false;
     this.hasRecords = true;
   }
 
   ngOnInit() {
-    if (!this.contactRecordModel) {
-      this.contactRecordModel = this._initContact();
-    }
+    // if (!this.contactRecordModel) {
+    //   this.contactRecordModel = this._initContact();
+    // }
+    this.contactRecordModel = this.cRRow;
     this.detailsChanged = 0;
   }
   ngAfterViewInit() {
@@ -113,6 +120,11 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
   ngOnChanges (changes: SimpleChanges) {
 
+    const isFirstChange = this._utilsService.isFirstChange(changes);
+
+    // Ignore first trigger of ngOnChanges
+    if (!isFirstChange) {
+
     if (changes['detailsChanged']) { // used as a change indicator for the model
       if (this.contactFormRecord) {
         this.setToLocalModel();
@@ -134,6 +146,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       }
       this.cdr.detectChanges(); // doing our own change detection
     // }
+    }
   }
 
   /***

@@ -2,6 +2,7 @@ export * from './layout/layout.component';
 export * from './layout/layout.module';
 
 export * from './expander/expander.component';
+export * from './expander/accordion/accordion.component';
 export * from './expander/expander.module';
 
 export * from './error-msg/control-messages/control-messages.component';

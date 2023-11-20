@@ -19,6 +19,7 @@ export class CompanyContactRecordService {
         seqNumber: -1,
         detailsDirty: [false, Validators.required],
         isNew: true,
+        expandFlag: false,
         contactDetails: ContactDetailsService.getReactiveModel(fb, isInternal)
       }
     );
