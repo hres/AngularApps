@@ -1,12 +1,10 @@
 import {FormArray, FormGroup} from '@angular/forms';
 import { ExpanderComponent } from '../expander/expander.component';
 import { ErrorSummaryComponent } from '../error-msg/error-summary/error-summary.component';
-import {Component, ViewChild} from '@angular/core';
+import { Directive, ViewChild} from '@angular/core';
 import {RecordListServiceInterface} from './record.list.service.interface';
 
-@Component({
-  template: ''
-})
+@Directive()
 export abstract class RecordListBaseComponent {
 
   public prevRow: number;
@@ -84,14 +82,14 @@ export abstract class RecordListBaseComponent {
    * @param service
    * @returns {number}
    */
-  public saveRecord(record: FormGroup, service: RecordListServiceInterface): number {
+  public saveRecord(record: FormGroup, service: RecordListServiceInterface, lang:string, ...args: any[]): number {
     //  Case 1 no record, just show error summary, shoud never happen
     if (!record) {
       this.showErrorSummary = true;
       return -1;
     }
     // console.log(record);
-    let recordId = service.saveRecord(record);
+    let recordId = service.saveRecord(record, lang, ...args);
     this.showErrorSummary = false;
     this.newRecordIndicator = false; // in case this was a new record
     // this.collapseExpanderRows();

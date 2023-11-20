@@ -1,12 +1,10 @@
 import { FormGroup } from '@angular/forms';
 
-// todo rename the class to ??
-
 export interface RecordListServiceInterface {
   deleteModelRecord(id: number);
   getModelRecordList();
   getModelRecord(id);
-  saveRecord(record: FormGroup);
+  saveRecord(record: FormGroup, lang: string, ...args: any[]);
   initIndex(recordList);
   getNextIndex();
   resetIndex();

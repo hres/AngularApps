@@ -3,13 +3,12 @@ import {
   AfterViewInit, DoCheck, ViewEncapsulation
 } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-
-import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
 import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
 import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {ContactListService} from './contact-list.service';
 import { RecordListBaseComponent } from '../../record-list/record.list.base.component';
 import {TranslateService} from '@ngx-translate/core';
+import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
 import { errorSummClassName } from '../../common.constants';
 import { ICode } from '../../data-loader/data';
 
@@ -49,33 +48,10 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   public errorList = [];
   public dataModel = [];
   public validRec = true;
-  public columnDefinitions = [
-    {
-      propertyLabel: 'contact.id',
-      binding: 'contact_id',
-      width: '10'
-    },
-    {
-	    propertyLabel: 'full.name',
-      binding: 'full_name',
-      width: '40'
-    },
-    {
-      propertyLabel: 'job.title',
-      binding: 'job_title',
-      width: '20'
-    },
-    {
-      propertyLabel: 'status',
-      binding: 'status_text',
-      width: '15'
-    }
-  ];
-
-  constructor(private _fb: FormBuilder, private translate: TranslateService) {
+  
+  constructor(private _fb: FormBuilder, private translate: TranslateService, private _listService: ContactListService, private _recordService: CompanyContactRecordService) {
     super();
-    this.service = new ContactListService();
-    this.dataModel = this.service.getModelRecordList();
+    this.dataModel = this._listService.getModelRecordList();
     this.translate.get('error.msg.required').subscribe(res => {
       // console.log(res);
     });
@@ -155,11 +131,11 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       this.saveContactRecord(changes['saveContact'].currentValue);
     }
     if (changes['contactModel']) {
-      this.service.setModelRecordList(changes['contactModel'].currentValue);
-      this.service.initIndex(changes['contactModel'].currentValue);
-      this.dataModel = this.service.getModelRecordList();
+      this._listService.setModelRecordList(changes['contactModel'].currentValue);
+      this._listService.initIndex(changes['contactModel'].currentValue);
+      this.dataModel = this._listService.getModelRecordList();
       // this.contactListForm.controls['contacts'] = this._fb.array([]);
-      this.service.createFormDataList(this.dataModel, this._fb, this.contactListForm.controls['contacts'], this.isInternal);
+      this._listService.createFormDataList(this.dataModel, this._fb, this.contactListForm.controls['contacts'], this.isInternal);
       this.validRec = true;
     }
 
@@ -175,7 +151,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (override) {
       return true;
     }
-    if (this.newRecordIndicator) {
+    if (this.newRecordIndicator) { 
       this.validRec = false;
       return false;
     } else if (this.companyContactChild && this.companyContactChild.contactFormRecord) {
@@ -183,6 +159,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       return true; //(this.contactListForm.valid && !this.companyContactChild.contactFormRecord.dirty);
     }
     this.validRec = this.contactListForm.valid;
+    console.log("isValid", "this.validRec", this.validRec)
     return (this.contactListForm.valid);
   }
 
@@ -212,9 +189,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
     // console.log(contactFormList);
     // 2. Get a blank Form Model for the new record
-    let formContact = CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
+    let formContact = this._recordService.getReactiveModel(this._fb, this.isInternal);
     // 3. set record id
-    this.service.setRecordId(formContact, this.service.getNextIndex());
+    this._listService.setRecordId(formContact, this._listService.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formContact, contactFormList);
     // console.log(contactFormList);
@@ -233,9 +210,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
     // console.log(contactFormList);
     // 2. Get a blank Form Model for the new record
-    let formContact = CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
+    let formContact = this._recordService.getReactiveModel(this._fb, this.isInternal);
     // 3. set record id
-    this.service.setRecordId(formContact, this.service.getNextIndex());
+    this._listService.setRecordId(formContact, this._listService.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formContact, contactFormList);
     // console.log(contactFormList);
@@ -254,8 +231,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * @param record
    */
   public saveContactRecord(record: FormGroup) {
-    this.saveRecord(record, this.service);
-    this.dataModel = this.service.getModelRecordList();
+    this.saveRecord(record, this._listService, this.lang, this.languageList, this.contactStatusList);
+    this.dataModel = this._listService.getModelRecordList();
     this.addRecordMsg++;
     this.showErrors = true;
     if (!this.isInternal) {
@@ -327,14 +304,14 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   public revertContact(record): void {
     let recordId = record.controls.id.value;
 
-    let modelRecord = this.service.getModelRecord(recordId);
+    let modelRecord = this._listService.getModelRecord(recordId);
     if (!modelRecord) {
-      modelRecord = this.service.getContactModel();
+      modelRecord = this._listService.getContactModel();
       modelRecord.id = recordId;
     }
     let rec = this._getFormContact(recordId);
     if (rec) {
-      CompanyContactRecordService.mapDataModelFormModel(modelRecord, rec);
+      this._recordService.mapDataModelFormModel(modelRecord, rec);
     } else {
       // should never happen, there should always be a UI record
       console.warn('ContactList:rec is null');
@@ -352,7 +329,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    */
   private _deleteContactInternal(id): void {
     const contactList = this.getFormContactList();
-    this.deleteRecord(id, contactList, this.service);
+    this.deleteRecord(id, contactList, this._listService);
     this.validRec = true;
     this.deleteRecordMsg++;
   }

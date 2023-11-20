@@ -1,11 +1,13 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges,ViewEncapsulation} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { ValidationService } from '../../validation/validation.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'control-messages',
   templateUrl: './control-messages.component.html',
-  styleUrls: ['./control-messages.component.css']
+  styleUrls: ['./control-messages.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class ControlMessagesComponent implements OnChanges {

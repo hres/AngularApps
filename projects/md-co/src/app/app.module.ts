@@ -1,28 +1,25 @@
 import {BrowserModule, Title} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
-import { AppFormModule } from './app.form.module';
-import { AppRoutingModule } from './app-routing.module';
-import { UiModule } from '@hpfb/sdk/ui';
-import { ErrorComponent } from './error/error.component';
 import { ContainerComponent } from './container/container.component';
-import { NoCacheHeadersInterceptor } from '@hpfb/sdk/ui';
-import { VersionService } from '@hpfb/sdk/ui/';
-import { InstructionService } from '@hpfb/sdk/ui';
+import { VersionService, NoCacheHeadersInterceptor, LayoutModule, InstructionService } from '@hpfb/sdk/ui/';
+import { CommonModule } from '@angular/common';
+import { CommonUiFeatureModule } from '@hpfb/sdk/ui';
+import { AppFormModule } from './app.form.module';
+import { InformationModule } from './information/information.module';
 
 @NgModule({
-  declarations: [AppComponent, ContainerComponent, ErrorComponent],
+  declarations: [AppComponent, ContainerComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
-    // NumbersOnlyModule,
-    UiModule,
+    CommonModule,
+    CommonUiFeatureModule,
+    LayoutModule,
     AppFormModule,
-    AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -35,9 +32,12 @@ import { InstructionService } from '@hpfb/sdk/ui';
     Title,
     VersionService,
     { provide: HTTP_INTERCEPTORS, useClass: NoCacheHeadersInterceptor, multi: true },
-    InstructionService
+    InstructionService,
+    NoCacheHeadersInterceptor, 
   ],
-  exports: [AppFormModule],
+  exports: [
+    CommonUiFeatureModule, AppFormModule
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

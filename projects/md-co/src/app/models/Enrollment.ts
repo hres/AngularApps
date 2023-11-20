@@ -1,4 +1,4 @@
-import { INameAddress, IIdText, IIdTextLabel } from "@hpfb/sdk/ui";
+import { INameAddress, IIdText, IIdTextLabel, Contact } from "@hpfb/sdk/ui";
 
 // todo cleanup unused fields
 export interface Enrollment {
@@ -24,21 +24,6 @@ export interface AdministrativeChanges {
 // export interface Contacts {
 //   contact: Contact;
 // }
-
-export interface Contact {
-  id:              number;
-  contact_id:      string;
-  status:          IIdTextLabel;
-  status_text:     string;
-  full_name:       string;
-  language:        IIdTextLabel;
-  job_title:       string;
-  fax_number:      string;
-  phone_number:    string;
-  phone_extension: string;
-  email:           string;
-  RoutingID:       string;
-}
 
 export interface GeneralInformation {
   status:                  string;

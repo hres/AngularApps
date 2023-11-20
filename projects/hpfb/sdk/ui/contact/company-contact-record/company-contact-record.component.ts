@@ -6,10 +6,9 @@ import {
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ContactDetailsComponent} from '../contact.details/contact.details.component';
 import {ContactDetailsService} from '../contact.details/contact.details.service';
-import {CompanyContactRecordService} from './company-contact-record.service';
-import {ErrorSummaryComponent} from '../../error-msg/error-summary/error-summary.component';
+import { CompanyContactRecordService} from './company-contact-record.service';
 import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
-import { ICode } from '../../data-loader/data';
+import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
 
 @Component({
   selector: 'company-contact-record',
@@ -26,8 +25,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() detailsChanged: number;
   @Input() countries: Array<any>;
   @Input() isInternal: boolean;
-  @Input() languageList: ICode[];
-  @Input() contactStatusList: ICode[];
   @Input() newRecord: boolean;
   @Input() showErrors: boolean;
   @Input() hasRecords: boolean;
@@ -55,7 +52,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
-  constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef) {
+  constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef, private _recordService: CompanyContactRecordService) {
     this.showErrors = false;
     this.showErrSummary = false;
     this.hasRecords = true;
@@ -108,9 +105,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
   private _initContact() {
     if (this.isNew) {
-      return CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
+      return this._recordService.getReactiveModel(this._fb, this.isInternal);
+    } else {
+      return null;  // this line is newly added
     }
-    return null;
   }
 
   ngOnChanges (changes: SimpleChanges) {
@@ -196,10 +194,9 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public setStatusToRevise(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    // ling todo
-    // if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[1].id) {
-    //   conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[1].id);
-    // }
+    if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[1].id) {
+      conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[1].id);
+    }
     this.saveContactRecord();
   }
   /***
@@ -207,10 +204,9 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public setStatusToRemove(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    // ling todo
-    // if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[2].id) {
-    //   conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[2].id);
-    // }
+    if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[2].id) {
+      conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[2].id);
+    }
     this.saveContactRecord();
   }
   /***
@@ -218,10 +214,9 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public activeContactRecord(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    // ling todo
-    // if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[3].id) {
-    //   conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[3].id);
-    // }
+    if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[3].id) {
+      conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[3].id);
+    }
     this.saveContactRecord();
   }
 

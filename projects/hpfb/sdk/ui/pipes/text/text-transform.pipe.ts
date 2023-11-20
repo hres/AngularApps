@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { UtilsService } from '../utils/utils.service';
-import { ICode } from '../data-loader/data';
+import { UtilsService } from '../../utils/utils.service';
+import { ICode } from '../../data-loader/data';
 
 // take an ICode value and return either en or fr value based on lang
 

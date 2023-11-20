@@ -102,7 +102,7 @@ export class FilereaderComponent implements OnInit {
         FilereaderComponent.checkRootTagMatch(convertResult, rootId);
       }
       if(fileType.toLowerCase() === FINAL_FILE_TYPE){
-        this.checkSumCheck(convertResult, rootId);
+        // this.checkSumCheck(convertResult, rootId);
       }
     } else {
       convertResult.data = null;

@@ -2,6 +2,7 @@ import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges} from 
 import { ExpanderComponent } from '../../expander/expander.component';
 import {ErrorSummaryObject} from './error-summary-object';
 import { errorSummClassName, errorSummleastOneRcd } from '../../common.constants';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-error-summary',
