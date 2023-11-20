@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { AMEND, ContactStatus, FINAL, XSLT_PREFIX, ROOT_TAG } from '../app.constants';
+import { FormGroup } from '@angular/forms';
+import { EnrollmentStatus, XSLT_PREFIX, ROOT_TAG } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { GeneralInformation, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
-import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact } from '@hpfb/sdk/ui';
+import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus } from '@hpfb/sdk/ui';
 import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
 
@@ -68,6 +68,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public mailToLink = '';
   private mailtoQS: boolean;
   public submitToEmail: string = '';
+
+  private activeContactStatuses: string[] = [ContactStatus.New, ContactStatus.Revise , ContactStatus.Active];
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -240,7 +242,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public isExternalAndFinal() {
-    return (!this.isInternal && this.genInfoModel.status === FINAL);
+    return (!this.isInternal && this.isFinal);
   }
 
   public saveXmlFile() {
@@ -359,7 +361,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const date_generated = this._utilService.getFormattedDate('yyyyMMddHHmm');
     if (this.isInternal) {
       return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
-    } else if (this.genInfoModel.status === AMEND) {
+    } else if (this.genInfoModel.status === EnrollmentStatus.Amend) {
       return 'draft-com-' + this.genInfoModel.company_id + '-' + date_generated;
     } else {
       return 'draft-com-' + date_generated;
@@ -405,8 +407,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   contactModelUpdated(contacts) {
-    const cntList = contacts.filter(contact =>
-      (contact.status === ContactStatus.NEW || contact.status === ContactStatus.REVISE || contact.status === ContactStatus.ACTIVE));
+    const cntList = contacts.filter(contact => this.activeContactStatuses.includes(contact.status._id));
     this.activeContacts = [];
     if (cntList) {
       cntList.forEach((contact: any) => {
@@ -424,7 +425,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private init(companyEnroll: DeviceCompanyEnrol){
     this.genInfoModel = companyEnroll.general_information;
     // set amend reasons and admin changes section to null if status is Final
-    if (this.genInfoModel.status === FINAL) {   // ling todo review this
+    if (this.isFinal) {   // ling todo review this
       // this.genInfoModel.amend_reasons = {
       //   manufacturer_name_change: '',
       //   manufacturer_address_change: '',
@@ -458,7 +459,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.showErrors = true;
     }
 
-    this.showAmendNote = ( this.genInfoModel.status === FINAL);
+    this.showAmendNote = this.isFinal;
   }
 
+  private get isFinal(): boolean{
+    return this.genInfoModel.status === EnrollmentStatus.Final;
+  }
 }

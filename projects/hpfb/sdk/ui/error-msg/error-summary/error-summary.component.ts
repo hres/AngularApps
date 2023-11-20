@@ -1,7 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges} from '@angular/core';
 import { ExpanderComponent } from '../../expander/expander.component';
 import {ErrorSummaryObject} from './error-summary-object';
-import { errorSummClassName, errorSummleastOneRcd } from '../../common.constants';
+import { ERR_SUMMARY_COMP_NAME, errorSummleastOneRcd } from '../../common.constants';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
@@ -27,7 +27,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
   public expander: ExpanderComponent ;
 
   constructor(private cdr: ChangeDetectorRef) {
-    this.type = errorSummClassName;
+    this.type = ERR_SUMMARY_COMP_NAME;
     this.index = -1;
     this.expander = null;
   }
@@ -83,7 +83,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
       }
       // Case 1: an error summary Component
       if (err.hasOwnProperty('type') &&
-        (err.type === errorSummClassName || err.type === errorSummleastOneRcd)) {
+        (err.type === ERR_SUMMARY_COMP_NAME || err.type === errorSummleastOneRcd)) {
         if (err.tableId) { // replace componentId with table ID
           controlError.tableId = err.tableId;
         }

@@ -6,7 +6,7 @@ import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {CompanyInfoService} from './company.info.service';
 import { ControlMessagesComponent, FINAL, UtilsService, LoggerService, YES, ICode, ConverterService, CheckboxOption, ICodeDefinition } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
-import { AMEND, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE, AMEND_REASON_NAME_CHANGE, AMEND_REASON_OTHER } from '../app.constants';
+import { EnrollmentStatus, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE, AMEND_REASON_NAME_CHANGE, AMEND_REASON_OTHER } from '../app.constants';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -144,7 +144,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
         this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList);
         this.setAsComplete = (dataModel.status === FINAL && !this.isInternal); // ling todo remove??
         this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status, this.isInternal);
-        this.isAmend = (dataModel.status === AMEND);
+        this.isAmend = (dataModel.status === EnrollmentStatus.Amend);
         this._checkAmendReasons();
       }
     }
@@ -166,7 +166,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   public setAmendState () {
     this.isAmend = true;
-    this.genInfoModel.status = AMEND;
+    this.genInfoModel.status = EnrollmentStatus.Amend;
     this.genInfoModel.are_licenses_transfered = '';
     this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList);
     console.log(this.helpTextSequences);

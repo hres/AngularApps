@@ -1,7 +1,7 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { COMPANY_ID_PREFIX, NEW } from '../app.constants';
-import { CheckboxOption, ConverterService, ICode, IIdTextLabel, NO, UtilsService, ValidationService, YES } from '@hpfb/sdk/ui';
+import { COMPANY_ID_PREFIX, EnrollmentStatus } from '../app.constants';
+import { CheckboxOption, ConverterService, ICode, UtilsService, ValidationService, YES } from '@hpfb/sdk/ui';
 import { AmendReasons, GeneralInformation } from '../models/Enrollment';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class CompanyInfoService {
   getReactiveModel(): FormGroup{
     return this._fb.group({
       firstname: [''],
-      formStatus: NEW,
+      formStatus: EnrollmentStatus.New,
       lastSavedDate: '',
       companyId: ['', [Validators.required, ValidationService.companyIdValidator]],
       amendReasons: new FormArray([]),

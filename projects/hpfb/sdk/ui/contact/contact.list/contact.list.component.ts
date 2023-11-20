@@ -9,7 +9,7 @@ import {ContactListService} from './contact-list.service';
 import { RecordListBaseComponent } from '../../record-list/record.list.base.component';
 import {TranslateService} from '@ngx-translate/core';
 import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
-import { FINAL, errorSummClassName } from '../../common.constants';
+import { FINAL, ERR_SUMMARY_COMP_NAME } from '../../common.constants';
 import { ICode } from '../../data-loader/data';
 import { UtilsService } from '../../utils/utils.service';
 import { Contact } from '../../model/entity-base';
@@ -306,7 +306,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     // this.errorList = (errs && errs.length > 0) ? this.errorList.concat(errs) : [];
     for (const err of this.errorList) {
       err.index = this.getExpandedRow();
-      if (err.type === errorSummClassName) {
+      if (err.type === ERR_SUMMARY_COMP_NAME) {
         err.expander = this.expander; // associate the expander
       }
     }
