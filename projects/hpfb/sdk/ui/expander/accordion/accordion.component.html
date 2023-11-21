@@ -2,8 +2,8 @@
 
   <h4 id="expand-row-{{i}}" class="clickableRow" role="button" [ngClass]="{'selected': recordRow.get('expandFlag').value}"
     (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
-    <span [ngClass]="{'fa-caret-right':!recordRow.get('expandFlag').value, 'fa-caret-down': recordRow.get('expandFlag').value }"></span>
-    {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('id').value}}
+    <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
+    {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
   </h4>
 
   <ng-container *ngTemplateOutlet="tmplRef; context: {$implicit: recordRow, i: i}"></ng-container>

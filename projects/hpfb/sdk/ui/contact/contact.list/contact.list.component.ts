@@ -169,11 +169,20 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       this._listService.createFormDataList(contactModelData, this._fb, this.contactListForm.controls['contacts'], this.isInternal);
     }
 
+    this.updateContactListSeqNumber();
+
     if (this.xmlStatus!==FINAL) {
       // if xmlStatus is FINAL, collapse all records by default, otherwise expand the first record
       const firstFormRecord = (this.contactListForm.controls['contacts'] as FormArray).at(0) as FormGroup;
       firstFormRecord.controls['expandFlag'].setValue(true);
     }
+  }
+
+  private updateContactListSeqNumber(){
+    this.contactList.controls.forEach( (element: FormGroup) => {
+      // console.log(element);
+      element.controls['seqNumber'].setValue(Number(element.controls['id'].value) + 1)
+    });  
   }
 
   // public isValid(override: boolean = false): boolean {
