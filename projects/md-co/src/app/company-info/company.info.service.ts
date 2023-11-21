@@ -17,7 +17,7 @@ export class CompanyInfoService {
   getReactiveModel(): FormGroup{
     return this._fb.group({
       firstname: [''],
-      formStatus: NEW,
+      formStatus: [''],
       lastSavedDate: '',
       companyId: ['', [Validators.required, ValidationService.companyIdValidator]],
       amendReasons: new FormArray([]),
@@ -41,8 +41,9 @@ export class CompanyInfoService {
     generalInfoModel.are_licenses_transfered = formRecord.controls['areLicensesTransfered'].value;
   }
 
-  mapDataModelToFormModel(generalInfoModel : GeneralInformation, formRecord: FormGroup, amendReasonOptionList: CheckboxOption[]) {
-    formRecord.controls['formStatus'].setValue(generalInfoModel.status);
+  mapDataModelToFormModel(generalInfoModel : GeneralInformation, formRecord: FormGroup, amendReasonOptionList: CheckboxOption[], lang:string, enrollmentStatusList) {
+    const formStatus = this._utilsService.translateWord(enrollmentStatusList, lang, formRecord.controls['formStatus'].value);
+    formRecord.controls['formStatus'].setValue(formStatus)
     formRecord.controls['lastSavedDate'].setValue(generalInfoModel.last_saved_date);
     if (generalInfoModel.company_id) {
       formRecord.controls['companyId'].setValue(generalInfoModel.company_id.slice(1));

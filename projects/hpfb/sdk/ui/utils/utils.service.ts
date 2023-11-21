@@ -253,4 +253,12 @@ export class UtilsService {
       }
     });
   }
+
+  translateWord(bilingualList:any[], lang:string, value:string) {
+    const word = bilingualList.find((item) => item.en === value || item.fr === value);
+    if (word) {
+        return lang === 'en' ? word.en : word.fr;
+    }
+    return null; // Return null if the word is not found
+  }
 }

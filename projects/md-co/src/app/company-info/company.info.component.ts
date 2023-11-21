@@ -26,6 +26,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() lang: string;
   @Input() isInternal: boolean;
   @Input() helpTextSequences;
+  @Input() enrollmentStatusesList;
 
   @Output() errorList = new EventEmitter(true);
   @Output() showAdminChanges = new EventEmitter(true);
@@ -102,6 +103,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.setDefaultEnrollmentStatus(); // TODO: Not sure where to place this
     const isFirstChange = this._utilsService.isFirstChange(changes);
 
     // Ignore first trigger of ngOnChanges
@@ -141,13 +143,19 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       }
       if (changes['genInfoModel']) {
         const dataModel = changes['genInfoModel'].currentValue;
-        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList);
+        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList, this.lang, this.enrollmentStatusesList);
         this.setAsComplete = (dataModel.status === FINAL && !this.isInternal); // ling todo remove??
         this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status, this.isInternal);
         this.isAmend = (dataModel.status === AMEND);
         this._checkAmendReasons();
       }
     }
+  }
+
+  private setDefaultEnrollmentStatus() {
+    console.log(this.enrollmentStatusesList);
+    this.lang === 'en' ? this.generalInfoFormLocalModel.controls['formStatus'].setValue(this.enrollmentStatusesList[0].en) : this.generalInfoFormLocalModel.controls['formStatus'].setValue(this.enrollmentStatusesList[0].fr);
+    console.log(this.generalInfoFormLocalModel.controls['formStatus'].value);
   }
 
   private setDisableAmendButtonFlag(formStatus: string, isInternal: boolean) : boolean{
@@ -166,9 +174,9 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   public setAmendState () {
     this.isAmend = true;
-    this.genInfoModel.status = AMEND;
+    this.genInfoModel.status = this.lang === 'en' ? this.enrollmentStatusesList[1].en : this.enrollmentStatusesList[1].fr; // Set to amend status
     this.genInfoModel.are_licenses_transfered = '';
-    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList);
+    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList, this.lang, this.enrollmentStatusesList);
     console.log(this.helpTextSequences);
     console.log(this.helpTextSequences['rationaleInx']);
   }

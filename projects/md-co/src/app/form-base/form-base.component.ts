@@ -257,7 +257,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // .isPristine
         this._updatedAutoFields();
         if (this.isInternal) {
-          this.genInfoModel.status = this._companyService.setFinalStatus();
+          this.genInfoModel.status = this.lang === 'en' ? this.enrollmentStatusList[2].en : this.enrollmentStatusList[2].fr; // Set to final status
         }
         const result = {      // todo use the enrollement obj saved in GlobalService??, consolidate this with saveWorkingCopyFile()
           DEVICE_COMPANY_ENROL: {
@@ -331,7 +331,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _updatedAutoFields() {
     this._updatedSavedDate();
     if (this.isInternal) {
-      this.genInfoModel.status = this._companyService.setFinalStatus();
+      this.genInfoModel.status = this.lang === 'en' ? this.enrollmentStatusList[2].en : this.enrollmentStatusList[2].fr; // Set to final status
       this.genInfoModel.enrol_version =
         (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() +
         '.0';

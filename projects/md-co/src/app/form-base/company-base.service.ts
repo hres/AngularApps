@@ -109,9 +109,11 @@ export class CompanyBaseService {
    * Sets the Final Status
    *
    */
-  setFinalStatus() {
+  setFinalStatus(lang: string, enrollmentStatusesList) {
+    let final = '';
+    final = lang === 'en'?  enrollmentStatusesList[2].en : enrollmentStatusesList[2].fr;
 
-    return 'FINAL';
+    return final;
   }
 
 }
