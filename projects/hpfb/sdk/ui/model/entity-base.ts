@@ -26,13 +26,30 @@ export interface INameAddress {
   postal_code: string;
 }
 
-export interface IContact {
-  given_name: string;
-  surname: string;
-  job_title: string;
-  language_correspondance: IIdTextLabel;
-  phone_num: string;
-  phone_ext: string;
-  fax_num: string;
-  email: string;
+// master file Contact
+// export interface IContact {
+//   given_name: string;
+//   surname: string;
+//   job_title: string;
+//   language_correspondance: IIdTextLabel;
+//   phone_num: string;
+//   phone_ext: string;
+//   fax_num: string;
+//   email: string;
+// }
+
+// MD CO contact
+export interface Contact {
+  id:              number;
+  contact_id:      string;
+  status:          IIdTextLabel;
+  status_text:     string;
+  full_name:       string;
+  language:        IIdTextLabel;
+  job_title:       string;
+  fax_number:      string;
+  phone_number:    string;
+  phone_extension: string;
+  email:           string;
+  RoutingID:       string;
 }

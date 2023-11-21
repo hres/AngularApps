@@ -1,7 +1,7 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { COMPANY_ID_PREFIX, NEW } from '../app.constants';
-import { CheckboxOption, ConverterService, ICode, IIdTextLabel, NO, UtilsService, ValidationService, YES } from '@hpfb/sdk/ui';
+import { COMPANY_ID_PREFIX, EnrollmentStatus } from '../app.constants';
+import { CheckboxOption, ConverterService, ICode, UtilsService, ValidationService, YES } from '@hpfb/sdk/ui';
 import { AmendReasons, GeneralInformation } from '../models/Enrollment';
 
 @Injectable()
@@ -42,7 +42,7 @@ export class CompanyInfoService {
   }
 
   mapDataModelToFormModel(generalInfoModel : GeneralInformation, formRecord: FormGroup, amendReasonOptionList: CheckboxOption[], lang:string, enrollmentStatusList) {
-    const formStatus = this._utilsService.translateWord(enrollmentStatusList, lang, formRecord.controls['formStatus'].value);
+    const formStatus = this._utilsService.translateWord(enrollmentStatusList, lang, generalInfoModel.status);
     formRecord.controls['formStatus'].setValue(formStatus)
     formRecord.controls['lastSavedDate'].setValue(generalInfoModel.last_saved_date);
     if (generalInfoModel.company_id) {

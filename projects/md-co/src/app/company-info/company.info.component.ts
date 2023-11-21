@@ -6,7 +6,7 @@ import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {CompanyInfoService} from './company.info.service';
 import { ControlMessagesComponent, FINAL, UtilsService, LoggerService, YES, ICode, ConverterService, CheckboxOption, ICodeDefinition } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
-import { AMEND, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE, AMEND_REASON_NAME_CHANGE, AMEND_REASON_OTHER } from '../app.constants';
+import { EnrollmentStatus, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE, AMEND_REASON_NAME_CHANGE, AMEND_REASON_OTHER } from '../app.constants';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -104,6 +104,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges) {
     this.setDefaultEnrollmentStatus(); // TODO: Not sure where to place this
+
     const isFirstChange = this._utilsService.isFirstChange(changes);
 
     // Ignore first trigger of ngOnChanges
@@ -146,13 +147,14 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
         this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList, this.lang, this.enrollmentStatusesList);
         this.setAsComplete = (dataModel.status === FINAL && !this.isInternal); // ling todo remove??
         this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status, this.isInternal);
-        this.isAmend = (dataModel.status === AMEND);
+        this.isAmend = (dataModel.status === EnrollmentStatus.Amend);
         this._checkAmendReasons();
       }
     }
   }
 
   private setDefaultEnrollmentStatus() {
+    // Only called once when page is loaded
     console.log(this.enrollmentStatusesList);
     this.lang === 'en' ? this.generalInfoFormLocalModel.controls['formStatus'].setValue(this.enrollmentStatusesList[0].en) : this.generalInfoFormLocalModel.controls['formStatus'].setValue(this.enrollmentStatusesList[0].fr);
     console.log(this.generalInfoFormLocalModel.controls['formStatus'].value);

@@ -1,14 +1,16 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ContactDetailsService} from '../contact.details/contact.details.service';
+import { ICode } from '../../data-loader/data';
+import { Contact } from '../../model/entity-base';
 
 @Injectable()
 export class CompanyContactRecordService {
 
-  constructor() {
+  constructor(private _detailsService: ContactDetailsService) {
   }
 
-  public static getReactiveModel(fb: FormBuilder, isInternal): FormGroup {
+  public getReactiveModel(fb: FormBuilder, isInternal): FormGroup {
     if (!fb) {
       return null;
     }
@@ -17,13 +19,14 @@ export class CompanyContactRecordService {
         seqNumber: -1,
         detailsDirty: [false, Validators.required],
         isNew: true,
+        expandFlag: false,
         contactDetails: ContactDetailsService.getReactiveModel(fb, isInternal)
       }
     );
   }
 
   /** returns a data model for this **/
-  public static getEmptyModel() {
+  public getEmptyModel() {
 
     const contactModel = ContactDetailsService.getEmptyModel();
     const companyModel = {
@@ -32,24 +35,24 @@ export class CompanyContactRecordService {
     return this.extend(companyModel, contactModel);
   }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, contactRecordModel) {
+  public mapFormModelToDataModel(formRecord: FormGroup, contactRecordModel: Contact, lang: string, languageList: ICode[], contactSatusList: ICode[]) {
     // console.log(contactRecordModel);
     // console.log(formRecord);
     contactRecordModel.id = formRecord.controls['id'].value;
     // contactRecordModel.company = formRecord.controls.companyName.value;
-    ContactDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['contactDetails']), contactRecordModel);
+    this._detailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['contactDetails']), contactRecordModel, lang, languageList, contactSatusList);
 
   }
 
 
-  public static mapDataModelFormModel(contactRecordModel, formRecord: FormGroup) {
+  public mapDataModelFormModel(contactRecordModel, formRecord: FormGroup) {
     formRecord.controls['id'].setValue(Number(contactRecordModel.id));
     formRecord.controls['isNew'].setValue(false);
     // formRecord.controls.companyName.setValue(contactRecordModel.company);
-    ContactDetailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls['contactDetails']);
+    this._detailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls['contactDetails']);
   }
 
-  public static extend(dest, src) {
+  public extend(dest, src) {
     for (var key in src) {
       dest[key] = src[key];
     }

@@ -53,11 +53,11 @@
         <label for="fullName" class="required full-width" aria-required="true">
           <span class="field-name" >{{'full.name'|translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-          <!-- <control-messages *ngIf="contactFormLocalModel.controls['fullName'].invalid"
+          <control-messages *ngIf="contactFormLocalModel.controls['fullName'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls['fullName']"
+                            [control]="contactFormLocalModel.controls['fullName'] | formControl"
                             controlId="fullName" label="full.name" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages> -->
+                            parentLabel="REP Contact"></control-messages>
           <input name="fullName" id="fullName" class="form-control full-width" maxlength="45" [formControl]="contactFormLocalModel.controls['fullName'] | formControl"/>
         </label>
       </div>
@@ -85,14 +85,14 @@
         <label for="language" class="required">
           <span class="field-name">{{'lang.correspond' |translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
-          <!-- <control-messages *ngIf="contactFormLocalModel.controls['language'].invalid"
+          <control-messages *ngIf="contactFormLocalModel.controls['language'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="contactFormLocalModel.controls['language']"
+                            [control]="contactFormLocalModel.controls['language'] | formControl"
                             controlId="language" label="lang.correspond" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages> -->
+                            parentLabel="REP Contact"></control-messages>
           <select id="language" required class="form-control" [formControl]="contactFormLocalModel.controls['language'] | formControl">
             <option label=" " value=""></option>
-            <option *ngFor="let option of languageList" [ngValue]="option.id"> {{option | textTransform: lang  }}</option>
+            <option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option>
           </select>
         </label>
       </div>
