@@ -103,7 +103,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.setDefaultEnrollmentStatus(); // TODO: Not sure where to place this
+    //this.setDefaultEnrollmentStatus(); // TODO: Not sure where to place this
 
     const isFirstChange = this._utilsService.isFirstChange(changes);
 
@@ -144,7 +144,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       }
       if (changes['genInfoModel']) {
         const dataModel = changes['genInfoModel'].currentValue;
-        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList, this.lang, this.enrollmentStatusesList);
+        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList);
         this.setAsComplete = (dataModel.status === FINAL && !this.isInternal); // ling todo remove??
         this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status, this.isInternal);
         this.isAmend = (dataModel.status === EnrollmentStatus.Amend);
@@ -176,9 +176,9 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   public setAmendState () {
     this.isAmend = true;
-    this.genInfoModel.status = this.lang === 'en' ? this.enrollmentStatusesList[1].en : this.enrollmentStatusesList[1].fr; // Set to amend status
+    this.genInfoModel.status = EnrollmentStatus.Amend;
     this.genInfoModel.are_licenses_transfered = '';
-    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList, this.lang, this.enrollmentStatusesList);
+    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList);
     console.log(this.helpTextSequences);
     console.log(this.helpTextSequences['rationaleInx']);
   }

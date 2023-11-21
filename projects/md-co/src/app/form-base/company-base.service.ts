@@ -2,6 +2,7 @@ import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Enrollment, GeneralInformation } from '../models/Enrollment';
 import { INameAddress, EntityBaseService } from '@hpfb/sdk/ui';
+import { EnrollmentStatus } from '../app.constants';
 
 @Injectable()
 export class CompanyBaseService {
@@ -109,11 +110,8 @@ export class CompanyBaseService {
    * Sets the Final Status
    *
    */
-  setFinalStatus(lang: string, enrollmentStatusesList) {
-    let final = '';
-    final = lang === 'en'?  enrollmentStatusesList[2].en : enrollmentStatusesList[2].fr;
-
-    return final;
+  setFinalStatus() {
+    return EnrollmentStatus.Final;
   }
 
 }
