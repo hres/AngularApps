@@ -2,12 +2,20 @@
 
   <ng-container *ngFor="let recordRow of rowsFormArray.controls; let i=index;">
     <div class="panel panel-default mydetails" [attr.open]="recordRow.get('expandFlag').value? '' : null">
-      
+
       <header class="panel-heading">
-        <h5 class="panel-title" role="button" (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
-          <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
-          {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
-        </h5>
+
+        <ng-container *ngIf="rowsFormArray.controls.length == 1">
+          <h5 class="panel-title">
+            {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
+          </h5>
+        </ng-container>
+        <ng-container *ngIf="rowsFormArray.controls.length > 1">
+          <h5 class="panel-title" role="button" (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
+            <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
+            {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
+          </h5>
+        </ng-container>
       </header>
 
       <div class="panel-body">
