@@ -1,10 +1,24 @@
-<ng-container *ngFor="let recordRow of rowsFormArray.controls; let i=index;">
 
-  <h4 id="expand-row-{{i}}" class="clickableRow" role="button" [ngClass]="{'selected': recordRow.get('expandFlag').value}"
-    (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
-    <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
-    {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
-  </h4>
 
-  <ng-container *ngTemplateOutlet="tmplRef; context: {$implicit: recordRow, i: i}"></ng-container>
-</ng-container>
+  <ng-container *ngFor="let recordRow of rowsFormArray.controls; let i=index;">
+    <div class="panel panel-default mydetails" [attr.open]="recordRow.get('expandFlag').value? '' : null">
+      
+      <header class="panel-heading">
+        <h5 class="panel-title" role="button" (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
+          <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
+          {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
+        </h5>
+      </header>
+
+      <div class="panel-body">
+        <ng-container *ngTemplateOutlet="tmplRef; context: {$implicit: recordRow, i: i}"></ng-container>
+      </div>
+
+    </div>
+  </ng-container>
+
+
+
+
+
+
