@@ -92,7 +92,7 @@
                             parentLabel="REP Contact"></control-messages>
           <select id="language" required class="form-control" [formControl]="contactFormLocalModel.controls['language'] | formControl">
             <option label=" " value=""></option>
-            <option *ngFor="let lang of languages" [ngValue]="lang.id"> {{lang.label_en}}</option>
+            <option *ngFor="let langOpt of languageList" [ngValue]="langOpt.id"> {{langOpt | textTransform: lang }}</option>
           </select>
         </label>
       </div>

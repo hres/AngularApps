@@ -1,3 +1,5 @@
+import { FormArray, FormGroup } from "@angular/forms";
+
 export abstract class RecordListBaseService {
 
   /**
@@ -68,5 +70,10 @@ export abstract class RecordListBaseService {
     this._indexValue = value;
   }
 
-
+  public updateFormListSeqNumber(formList: FormArray){
+    formList.controls.forEach( (element: FormGroup) => {
+      // console.log(element);
+      element.controls['seqNumber'].setValue(Number(element.controls['id'].value) + 1)
+    });  
+  }
 }

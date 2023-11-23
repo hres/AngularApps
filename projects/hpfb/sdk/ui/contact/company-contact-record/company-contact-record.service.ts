@@ -20,19 +20,9 @@ export class CompanyContactRecordService {
         detailsDirty: [false, Validators.required],
         isNew: true,
         expandFlag: false,
-        contactDetails: ContactDetailsService.getReactiveModel(fb, isInternal)
+        contactDetails: this._detailsService.getReactiveModel(fb, isInternal)
       }
     );
-  }
-
-  /** returns a data model for this **/
-  public getEmptyModel() {
-
-    const contactModel = ContactDetailsService.getEmptyModel();
-    const companyModel = {
-      id: '',
-    };
-    return this.extend(companyModel, contactModel);
   }
 
   public mapFormModelToDataModel(formRecord: FormGroup, contactRecordModel: Contact, lang: string, languageList: ICode[], contactSatusList: ICode[]) {
@@ -50,13 +40,6 @@ export class CompanyContactRecordService {
     formRecord.controls['isNew'].setValue(false);
     // formRecord.controls.companyName.setValue(contactRecordModel.company);
     this._detailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls['contactDetails']);
-  }
-
-  public extend(dest, src) {
-    for (var key in src) {
-      dest[key] = src[key];
-    }
-    return dest;
   }
 
 }

@@ -1,7 +1,5 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {RecordListBaseService} from '../../record-list/record.list.base.service'
-import { ENGLISH, FRENCH } from '../../common.constants';
 import { ValidationService } from '../../validation/validation.service';
 import { UtilsService } from '../../utils/utils.service';
 import { ConverterService } from '../../converter/converter.service';
@@ -11,47 +9,14 @@ import { Contact } from '../../model/entity-base';
 @Injectable()
 export class ContactDetailsService {
 
-  private static lang = ENGLISH;
-
-  // todo: move statice data to data loader serivce
-  public static statusListExternal: Array<any> = [
-    {id: 'NEW', label_en: 'New', label_fr: 'fr_New'},
-    {id: 'REVISE', label_en: 'Revise', label_fr: 'fr_Revise'},
-    {id: 'REMOVE', label_en: 'Remove', label_fr: 'fr_Remove'},
-    {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
-  ];
-  public static statusListAdd: Array<any> = [
-    {id: 'ACTIVE', label_en: 'Active', label_fr: 'fr_Active'}
-  ];
-  public static statusListInternal: Array<any> = ContactDetailsService.statusListExternal;
-
-  // public static salutationList: Array<any> = [
-  //   {id: 'DR', label_en: 'Dr.', label_fr: 'fr_Dr.'},
-  //   {id: 'MR', label_en: 'Mr.', label_fr: 'fr_Mr.'},
-  //   {id: 'MRS', label_en: 'Mrs.', label_fr: 'fr_Mrs.'},
-  //   {id: 'MS', label_en: 'Ms.', label_fr: 'fr_Ms.'}
-  // ];
-  public static languageList: Array<any> = [
-    {'id': 'EN', 'label_en': 'English', 'label_fr': 'Anglais'},
-    {'id': 'FR', 'label_en': 'French', 'label_fr': 'Français'}
-  ];
-
   constructor(private _utilsService: UtilsService, private _converterService: ConverterService) {}
-
-  /**
-   * Sets language variable
-   *
-   */
-  public static setLang(lang) {
-    ContactDetailsService.lang = lang;
-  }
 
   /**
    * Gets the reactive forms Model for contact details
    * @param {FormBuilder} fb
    * @returns {any}
    */
-  public static getReactiveModel(fb: FormBuilder, isInternal) {
+  public getReactiveModel(fb: FormBuilder, isInternal) {
     if (!fb) {return null; }
     const contactIdValidators = isInternal ? [Validators.required, ValidationService.dossierContactIdValidator] : [];
     // const recordProcessedValidator = isInternal ? [Validators.required] : [];
@@ -74,35 +39,7 @@ export class ContactDetailsService {
     });
   }
 
-  /**
-   * Gets an empty
-   *
-   */
-  public static getEmptyModel() {
-
-    return (
-      {
-        contact_id: '',
-        status: 'NEW',
-        status_text: '',
-        // hc_status: '',
-        // salutation: '',
-        full_name: '',
-        // initials: '',
-        // last_name: '',
-        language: '',
-        job_title: '',
-        fax_number: '',
-        phone_number: '',
-        phone_extension: '',
-        email: '',
-        RoutingID: ''
-      }
-    );
-  }
-
-
-  public mapFormModelToDataModel(formRecord: FormGroup, contactModel: Contact, lang: string, languageList: ICode[], contactSatusList: ICode[]) {
+   public mapFormModelToDataModel(formRecord: FormGroup, contactModel: Contact, lang: string, languageList: ICode[], contactSatusList: ICode[]) {
     contactModel.contact_id = formRecord.controls['contactId'].value;
     if (formRecord.controls['status'].value) {
       contactModel.status = this._converterService.findAndConverCodeToIdTextLabel(contactSatusList, formRecord.controls['status'].value, lang);
@@ -128,11 +65,8 @@ export class ContactDetailsService {
   public mapDataModelToFormModel(contactModel: Contact, formRecord: FormGroup) {
     formRecord.controls['contactId'].setValue(contactModel.contact_id);
     if (contactModel.status) {
-      // todo ling
-      // const recordIndex = RecordListBaseService.getRecord(this.statusListInternal, contactModel.status._id, 'id');
-      // if (recordIndex > -1) {
-      //   formRecord.controls['status'].setValue(this.statusListInternal[recordIndex].id);
-      // }
+      const contactStatusId: string | undefined = this._utilsService.getIdFromIdTextLabel(contactModel.status);
+      formRecord.controls['status'].setValue(contactStatusId? contactStatusId : null);
     } else {
       formRecord.controls['status'].setValue(null);
     }
@@ -147,8 +81,7 @@ export class ContactDetailsService {
     // }
 
     formRecord.controls['fullName'].setValue(contactModel.full_name);
-    // formRecord.controls.initials.setValue(contactModel.initials);
-    // formRecord.controls.lastName.setValue(contactModel.last_name);
+
     if (contactModel.language) {
       const langId: string | undefined = this._utilsService.getIdFromIdTextLabel(contactModel.language);
       formRecord.controls['language'].setValue(langId? langId : null);
@@ -177,30 +110,5 @@ export class ContactDetailsService {
     }
     record.controls['id'].setValue(value);
   }
-
-  // /***
-  //  * Converts the list iteems of id, label_en, and label_Fr
-  //  * @param rawList
-  //  * @param lang
-  //  * @private
-  //  */
-  // private static _convertListText(rawList, lang) {
-  //   const result = [];
-  //   if (lang === FRENCH) {
-  //     rawList.forEach(item => {
-  //       item.text = item.label_fr;
-  //       result.push(item);
-  //       //  console.log(item);
-  //     });
-  //   } else {
-  //     rawList.forEach(item => {
-  //       item.text = item.label_en;
-  //       // console.log("adding country"+item.text);
-  //       result.push(item);
-  //       // console.log(item);
-  //     });
-  //   }
-  //   return result;
-  // }
 
 }

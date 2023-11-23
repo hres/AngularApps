@@ -5,7 +5,7 @@ import {
 import {FormGroup, FormBuilder} from '@angular/forms';
 import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 import {ContactDetailsService} from './contact.details.service';
-import {isArray} from 'util';
+import { ICode } from '../../data-loader/data';
 
 @Component({
   selector: 'contact-details',
@@ -25,33 +25,25 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
+  @Input() languageList: ICode[];
+  @Input() contactStatusList: ICode[];
   @Input() lang;
   @Input() helpTextSequences;
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  // For the searchable select box, only accepts/saves id and text.
-  // Will need to convert
-  public statuses: Array<any> = [];
-  // public salutations: Array<any> = [];
-  public languages: Array<any>;
   public showFieldErrors: boolean = false;
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private _detailsService: ContactDetailsService) {
     this.showFieldErrors = false;
     this.showErrors = false;
-    this.statuses = ContactDetailsService.statusListExternal;
-    // this.statuses = this.isInternal ? this._detailsService.statusListInternal : this._detailsService.statusListExternal;
-    // this.salutations = ContactDetailsService.salutationList;
-    this.languages = ContactDetailsService.languageList;
   }
 
   ngOnInit() {
     if (!this.contactFormLocalModel) {
-      this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb, this.isInternal);
+      this.contactFormLocalModel = this._detailsService.getReactiveModel(this._fb, this.isInternal);
     }
     this.detailsChanged = 0;
-    ContactDetailsService.setLang(this.lang);
   }
 
   ngAfterViewInit() {
@@ -84,11 +76,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['isInternal'] && changes['isInternal'].currentValue) {
-      // console.log('this.isInterannnnnl in ContactListComponent: ' + this.isInternal);
-      this.statuses = ContactDetailsService.statusListInternal;
-    }
-
     // since we can't detect changes on objects, using a separate flag
     if (changes['detailsChanged']) { // used as a change indicator for the model
       // console.log("the details cbange");
@@ -96,7 +83,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
         this.setToLocalModel();
 
       } else {
-        this.contactFormLocalModel = ContactDetailsService.getReactiveModel(this._fb, this.isInternal);
+        this.contactFormLocalModel = this._detailsService.getReactiveModel(this._fb, this.isInternal);
         this.contactFormLocalModel.markAsPristine();
       }
     }

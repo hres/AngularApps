@@ -11,6 +11,7 @@ import { ControlMessagesComponent } from '../../error-msg/control-messages/contr
 import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
 import { ICode } from '../../data-loader/data';
 import { UtilsService } from '../../utils/utils.service';
+import { ContactStatus } from '../../common.constants';
 
 @Component({
   selector: 'company-contact-record',
@@ -207,9 +208,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public setStatusToRevise(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[1].id) {
-      conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[1].id);
-    }
+    conRecord.controls['status'].setValue(ContactStatus.Revise);
     this.saveContactRecord();
   }
   /***
@@ -217,9 +216,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public setStatusToRemove(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[2].id) {
-      conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[2].id);
-    }
+    conRecord.controls['status'].setValue(ContactStatus.Remove);
     this.saveContactRecord();
   }
   /***
@@ -227,9 +224,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    */
   public activeContactRecord(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    if (conRecord.controls['status'].value != ContactDetailsService.statusListExternal[3].id) {
-      conRecord.controls['status'].setValue(ContactDetailsService.statusListExternal[3].id);
-    }
+    conRecord.controls['status'].setValue(ContactStatus.Active);
     this.saveContactRecord();
   }
 

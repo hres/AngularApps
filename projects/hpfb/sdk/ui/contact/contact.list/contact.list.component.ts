@@ -13,7 +13,7 @@ import { FINAL, ERR_SUMMARY_COMP_NAME, ContactStatus } from '../../common.consta
 import { ICode } from '../../data-loader/data';
 import { UtilsService } from '../../utils/utils.service';
 import { Contact } from '../../model/entity-base';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -172,12 +172,13 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   private initFormWithData(contactModelData: Contact[]){
     this._listService.setModelRecordList(contactModelData);
     this._listService.initIndex(contactModelData);
-    // this.dataModel = this._listService.getModelRecordList();
 
     if (!this.isInternal && (!this.contactModel || this.contactModel.length === 0)) {
       this.addContact();
     } else {
       this._listService.createFormDataList(contactModelData, this._fb, this.contactListForm.controls['contacts'], this.isInternal);
+      this._listService.updateFormListSeqNumber(this.contactList); 
+      
       if (this.xmlStatus!==FINAL) {
         // if xmlStatus is FINAL, collapse all records by default, otherwise expand the first record
         const firstFormRecord = (this.contactListForm.controls['contacts'] as FormArray).at(0) as FormGroup;
@@ -262,6 +263,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     this._listService.setRecordId(formContact, this._listService.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formContact, this.contactList);
+
+    this._listService.updateFormListSeqNumber(this.contactList); 
+
     // console.log(contactFormList);
     // 5. Set the new form to the new contact form reference.
     // this.newContactForm = <FormGroup> this.contactList.controls[this.contactList.length - 1];

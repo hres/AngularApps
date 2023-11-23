@@ -106,16 +106,6 @@ export abstract class RecordListBaseComponent {
     formList.push(formRecord);
     // console.log(formList);
     this.newRecordIndicator = true; // TODO why does superclass variable not update
-
-    
-    this.updateFormListSeqNumber(formList);
-  }
-
-  private updateFormListSeqNumber(formList: FormArray){
-    formList.controls.forEach( (element: FormGroup) => {
-      // console.log(element);
-      element.controls['seqNumber'].setValue(Number(element.controls['id'].value) + 1)
-    });  
   }
 
   /**
@@ -136,9 +126,9 @@ export abstract class RecordListBaseComponent {
         break;
       }
     }
-    this.collapseExpanderRows();
+    // this.collapseExpanderRows();
     this.newRecordIndicator = false;
-    this.prevRow = -1;
+    // this.prevRow = -1;
   }
 
   /**
