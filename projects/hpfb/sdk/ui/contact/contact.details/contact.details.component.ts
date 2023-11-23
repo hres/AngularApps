@@ -138,10 +138,5 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
       this.contactFormLocalModel.controls['recordProcessed'].setValue('');
     }
   }
-
-  onblur() {
-    // console.log(' BLRRE$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-
-  }
 }
 

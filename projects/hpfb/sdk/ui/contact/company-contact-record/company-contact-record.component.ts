@@ -55,7 +55,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   private parentErrorList: Array<any> = [];
   public isNew: boolean;
   public showErrSummary: boolean;
-  public errorSummaryChild: ErrorSummaryComponent = null;
+  private errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
   constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef, private _utilsService: UtilsService, private _recordService: CompanyContactRecordService) {
@@ -181,7 +181,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
-    // console.log(this.errorList);
+    // console.log("====>updateErrorList", this.errorList)
 
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -234,7 +234,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   public saveContactRecord(): void {
-    // console.log(this.errorList);
+    // console.log("====>saveContactRecord ", this.errorList);  
     if (this.contactRecordModel.valid) {
       this.saveRecord.emit((this.contactRecordModel));
       // this.showErrSummary = false;

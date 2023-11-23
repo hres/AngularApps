@@ -16,7 +16,19 @@ export class AccordionComponent {
   @ContentChild('tmpl') tmplRef: TemplateRef<any>;
 
   toggleExpand(index:number,  expanded: boolean) {
-    this.rowClicked.emit({ index: index, state: expanded }) 
+    // if the row record has INVALID state, don't allow the click event
+    let hasInvalidControl:boolean = false;
+
+    for (let control of this.rowsFormArray.controls) {
+      if (control.invalid) {
+        hasInvalidControl = true;
+        break;
+      }
+    }
+
+    if (!hasInvalidControl) {
+      this.rowClicked.emit({ index: index, state: expanded }) 
+    }
   }
 
   constructor() {}

@@ -4,18 +4,9 @@
     <div class="panel panel-default mydetails" [attr.open]="recordRow.get('expandFlag').value? '' : null">
 
       <header class="panel-heading">
-
-        <ng-container *ngIf="rowsFormArray.controls.length == 1">
-          <h5 class="panel-title">
+          <h5 class="panel-title" *ngIf="recordRow.get('isNew').value; else expandablePanelHeading">
             {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
           </h5>
-        </ng-container>
-        <ng-container *ngIf="rowsFormArray.controls.length > 1">
-          <h5 class="panel-title" role="button" (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
-            <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
-            {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
-          </h5>
-        </ng-container>
       </header>
 
       <div class="panel-body">
@@ -23,6 +14,14 @@
       </div>
 
     </div>
+
+    <ng-template #expandablePanelHeading>
+      <h5 class="panel-title" role="button" (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
+        <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
+        {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
+      </h5>
+    </ng-template>
+
   </ng-container>
 
 

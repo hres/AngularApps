@@ -6,6 +6,7 @@ import { RecordListServiceInterface } from '../../record-list/record.list.servic
 import { RecordListBaseService } from '../../record-list/record.list.base.service';
 import { ICode } from '../../data-loader/data';
 import { Contact } from '../../model/entity-base';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class ContactListService extends RecordListBaseService implements RecordListServiceInterface {
@@ -15,6 +16,14 @@ export class ContactListService extends RecordListBaseService implements RecordL
    * @type {{id: number; contact: string; city: string; country: {id: string; text: string}}[]}
    */
   private contactList = [];
+
+  // to facilitate to subscribe to contactModel's changes
+  private contactModelSubject: Subject<any> = new Subject<any>();
+  contactModelChanges$: Observable<any> = this.contactModelSubject.asObservable();
+
+  notifyContactModelChanges(changes: any) {
+    this.contactModelSubject.next(changes);
+  }
 
   constructor(private _recordService: CompanyContactRecordService) {
     super();
@@ -35,21 +44,19 @@ export class ContactListService extends RecordListBaseService implements RecordL
    * @param value
    */
   public setModelRecordList(value) {
-
     this.contactList = value;
   }
 
-  /**
-   * Adds
-   * @param record
-   */
-  addContact(record) {
-    // TODO error checking
-    this.contactList.push(record);
-  }
+  // /**
+  //  * Adds
+  //  * @param record
+  //  */
+  // addContact(record) {
+  //   // TODO error checking
+  //   this.contactList.push(record);
+  // }
 
-  getContactModel() {
-
+  getEmptyContactModel() {
     return this._recordService.getEmptyModel();
   }
 
@@ -65,10 +72,8 @@ export class ContactListService extends RecordListBaseService implements RecordL
   // }
 
 
-  public contactFormToData(record: FormGroup, contactModel: Contact, lang: string, languageList: ICode[], contactSatusList: ICode[]) {
+  private contactFormToData(record: FormGroup, contactModel: Contact, lang: string, languageList: ICode[], contactSatusList: ICode[]) {
     this._recordService.mapFormModelToDataModel(record, contactModel, lang, languageList, contactSatusList );
-    return (record);
-
   }
 
   public createFormDataList(modelDataList, fb: FormBuilder, theList, isInternal) {
@@ -84,21 +89,29 @@ export class ContactListService extends RecordListBaseService implements RecordL
     return (record);
   }
 
-  public saveRecord(record: FormGroup, lang:string, languageList: ICode[], contactSatusList: ICode[]) {
-    if (record.controls['isNew'].value) {
-      // this.setRecordId(record, this.getNextIndex());
-      record.controls['isNew'].setValue(false);
-      let contactModel = this.getContactModel();
-      this.contactFormToData(record, contactModel, lang, languageList, contactSatusList);
-      this.contactList.push(contactModel);
-      return contactModel.id;
+  public saveRecord(formRecord: FormGroup, lang:string, languageList: ICode[], contactSatusList: ICode[]) {
+    let modelList = this.getModelRecordList();
+    let id:number;
+
+    if (formRecord.controls['isNew'].value) {
+      // this.setRecordId(formRecord, this.getNextIndex());
+      formRecord.controls['isNew'].setValue(false);
+      let contactModel = this.getEmptyContactModel();
+      this.contactFormToData(formRecord, contactModel, lang, languageList, contactSatusList);
+      modelList.push(contactModel);
+      id= contactModel.id;
+
     } else {
-      let modelRecord = this.getModelRecord(record.controls['id'].value);
+      let modelRecord = this.getModelRecord(formRecord.controls['id'].value);
       if (!modelRecord) {
-        modelRecord = this.getContactModel();
+        modelRecord = this.getEmptyContactModel();
       }
-      const updatedModel = this.contactFormToData(record, modelRecord, lang, languageList, contactSatusList);
+      this.contactFormToData(formRecord, modelRecord, lang, languageList, contactSatusList);
+      id = modelRecord.id;
     }
+
+    this.notifyContactModelChanges({ ...modelList });
+    return id;
   }
 
   public getModelRecord(id: number) {
@@ -114,12 +127,16 @@ export class ContactListService extends RecordListBaseService implements RecordL
 
   deleteModelRecord(id): boolean {
     let modelList = this.getModelRecordList();
+
     for (let i = 0; i < modelList.length; i++) {
       if (Number(modelList[i].id) === id) {
-        this.contactList.splice(i, 1);
+        modelList.splice(i, 1);
         if (id === this.getCurrentIndex()) {
           this.setIndex(id - 1);
         }
+
+        this.notifyContactModelChanges({ ...modelList });
+
         return true;
       }
     }

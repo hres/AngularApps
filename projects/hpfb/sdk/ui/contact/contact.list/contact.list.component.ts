@@ -9,10 +9,11 @@ import {ContactListService} from './contact-list.service';
 import { RecordListBaseComponent } from '../../record-list/record.list.base.component';
 import {TranslateService} from '@ngx-translate/core';
 import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
-import { FINAL, ERR_SUMMARY_COMP_NAME } from '../../common.constants';
+import { FINAL, ERR_SUMMARY_COMP_NAME, ContactStatus } from '../../common.constants';
 import { ICode } from '../../data-loader/data';
 import { UtilsService } from '../../utils/utils.service';
 import { Contact } from '../../model/entity-base';
+import { Subject, Subscription } from 'rxjs';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -43,13 +44,15 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   // private prevRow = -1;
   public updateContactDetails = 0;
   public contactListForm: FormGroup;
-  public newContactForm: FormGroup;
+  // public newContactForm: FormGroup;
   public service: ContactListService;
   public addRecordMsg = 0;
   public deleteRecordMsg = 0;
   public errorList = [];
   // public dataModel = [];
   public validRec = true;
+
+  private contactModelChangesSubscription: Subscription;
   
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService, 
     private _listService: ContactListService, private _recordService: CompanyContactRecordService) {
@@ -66,6 +69,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   }
 
   ngAfterViewInit() {
+    // ContactListComponent doesn't have ErrorSummaryComponent in the template, so the subscribe won't be triggered.
+    /*
     // this.setExpander(this.expander);
     this.processSummaries(this.errorSummaryChildList);
     this.errorSummaryChildList.changes.subscribe(list => {
@@ -73,6 +78,13 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     });
 
     //   this.cd.detectChanges();
+    */
+
+    // when contactModel changes, check if "at least one company record" rule is met and then execute emitting
+    this.contactModelChangesSubscription = this._listService.contactModelChanges$.subscribe(changes => {
+      // console.log('--------------------', changes);
+      this._emitErrors();
+    });
   }
 
   /**
@@ -86,10 +98,10 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     // console.log('ContactList process Summaries');
     this.errorSummaryChild = list.first;
     // TODO what is this for need to untangle
-    this.setErrorSummary(this.errorSummaryChild);
-    if (this.errorSummaryChild) {
-      this.errorSummaryChild.index = this.getExpandedRow();
-    }
+    // this.setErrorSummary(this.errorSummaryChild);
+    // if (this.errorSummaryChild) {
+    //   this.errorSummaryChild.index = this.getExpandedRow();
+    // }
     // console.log(this.errorSummaryChild);
     this._emitErrors();
   }
@@ -163,26 +175,15 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     // this.dataModel = this._listService.getModelRecordList();
 
     if (!this.isInternal && (!this.contactModel || this.contactModel.length === 0)) {
-      this.addContactInit();
-      this.showErrors = false;
+      this.addContact();
     } else {
       this._listService.createFormDataList(contactModelData, this._fb, this.contactListForm.controls['contacts'], this.isInternal);
+      if (this.xmlStatus!==FINAL) {
+        // if xmlStatus is FINAL, collapse all records by default, otherwise expand the first record
+        const firstFormRecord = (this.contactListForm.controls['contacts'] as FormArray).at(0) as FormGroup;
+        firstFormRecord.controls['expandFlag'].setValue(true);
+      }
     }
-
-    this.updateContactListSeqNumber();
-
-    if (this.xmlStatus!==FINAL) {
-      // if xmlStatus is FINAL, collapse all records by default, otherwise expand the first record
-      const firstFormRecord = (this.contactListForm.controls['contacts'] as FormArray).at(0) as FormGroup;
-      firstFormRecord.controls['expandFlag'].setValue(true);
-    }
-  }
-
-  private updateContactListSeqNumber(){
-    this.contactList.controls.forEach( (element: FormGroup) => {
-      // console.log(element);
-      element.controls['seqNumber'].setValue(Number(element.controls['id'].value) + 1)
-    });  
   }
 
   // public isValid(override: boolean = false): boolean {
@@ -223,25 +224,25 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   /**
    * Adds an contact UI record to the contact List
    */
+  /*
   public addContactInit(): void {
 
     // add contact to the list
     // console.log('adding an contact');
     // 1. Get the list of reactive form Records
-    // let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
+    let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
     // console.log(contactFormList);
     // 2. Get a blank Form Model for the new record
-    let formContact = this._recordService.getReactiveModel(this._fb, this.isInternal);
-    // formContact.controls['expandFlag'].setValue(true);
+    let formContact = CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
     // 3. set record id
-    this._listService.setRecordId(formContact, this._listService.getNextIndex());
+    this.service.setRecordId(formContact, this.service.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
-    this.addRecord(formContact, this.contactList);
+    this.addRecord(formContact, contactFormList);
     // console.log(contactFormList);
     // 5. Set the new form to the new contact form reference.
-    this.newContactForm = <FormGroup> this.contactList.controls[this.contactList.length - 1];
+    this.newContactForm = <FormGroup> contactFormList.controls[contactFormList.length - 1];
   }
-
+  */
   /**
    * Adds an contact UI record to the contact List
    */
@@ -253,14 +254,17 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     // let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
     // console.log(contactFormList);
     // 2. Get a blank Form Model for the new record
-    let formContact = this._recordService.getReactiveModel(this._fb, this.isInternal);
+    const formContact = this._recordService.getReactiveModel(this._fb, this.isInternal);
+    // set this new formRecord's expandFlag to be true
+    formContact.controls['expandFlag'].setValue(true);
+
     // 3. set record id
     this._listService.setRecordId(formContact, this._listService.getNextIndex());
     // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formContact, this.contactList);
     // console.log(contactFormList);
     // 5. Set the new form to the new contact form reference.
-    this.newContactForm = <FormGroup> this.contactList.controls[this.contactList.length - 1];
+    // this.newContactForm = <FormGroup> this.contactList.controls[this.contactList.length - 1];
     if (this.isInternal) {
       document.location.href = '#contactId';
     } else {
@@ -313,12 +317,12 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   updateErrorList(errs) {
     this.errorList = errs;
     // this.errorList = (errs && errs.length > 0) ? this.errorList.concat(errs) : [];
-    for (const err of this.errorList) {
-      err.index = this.getExpandedRow();
-      if (err.type === ERR_SUMMARY_COMP_NAME) {
-        err.expander = this.expander; // associate the expander
-      }
-    }
+    // for (const err of this.errorList) {
+    //   err.index = this.getExpandedRow();
+    //   if (err.type === ERR_SUMMARY_COMP_NAME) {
+    //     err.expander = this.expander; // associate the expander
+    //   }
+    // }
     this._emitErrors(); // needed or will generate a valuechanged error
   }
 
@@ -357,7 +361,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
 
     let modelRecord = this._listService.getModelRecord(recordId);
     if (!modelRecord) {
-      modelRecord = this._listService.getContactModel();
+      modelRecord = this._listService.getEmptyContactModel();
       modelRecord.id = recordId;
     }
     let rec = this.getRecord(recordId, this.contactList);
@@ -417,7 +421,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   private _noNonRemoveRecords(dataList): boolean {
     if (dataList && dataList.length > 0) {
       for (const index in dataList) {
-        if (dataList[index].status._id !== 'REMOVE') {return false; }     //todo use the constant
+        if (dataList[index].status._id !== ContactStatus.Remove) {return false; }     //todo use the constant
       }
       // dataList.forEach(record => {
       //   if (record.status._id !== 'Remove') {return false; }
@@ -438,5 +442,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     // this.contactList.controls.forEach( e => console.log(e.value))
   }
 
+  ngOnDestroy() {
+    // Unsubscribe to avoid memory leaks
+    this.contactModelChangesSubscription.unsubscribe();
+  }
 }
 

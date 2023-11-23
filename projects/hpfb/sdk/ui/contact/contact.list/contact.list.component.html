@@ -1,7 +1,7 @@
-<div [formGroup]="contactListForm">
-  <!--<error-summary *ngIf="showErrorsSummary()" [hiddenSummary]="showErrorsSummary()"-->
+<div [formGroup]="contactListForm"  id="contactListTable">
+  <!--<lib-error-summary *ngIf="showErrorsSummary()" [hiddenSummary]="showErrorsSummary()"-->
   <!--[errorList]="errorList" headingPreamble="heading.contactInfo"-->
-  <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></error-summary>-->
+  <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></lib-error-summary>-->  
   
   <lib-accordion [rowsFormArray]="contactList" [accordionHeadingMsgKey]="'heading.contactDetails'" (rowClicked)="handleRowClick($event)">
 
@@ -25,6 +25,6 @@
       </button>
     </div>
   </div>
-  <!--pre>Form Data {{contactListForm.value |json}}</pre>
-  <pre>Data Model for Contact List {{dataModel|json}}</pre-->
+  <!-- <pre>Form Data {{contactListForm.value |json}}</pre>
+  <pre>Data Model for Contact List {{contactModel|json}}</pre> -->
 </div>

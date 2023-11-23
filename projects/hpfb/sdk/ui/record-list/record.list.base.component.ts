@@ -12,7 +12,7 @@ export abstract class RecordListBaseComponent {
   public newRecordIndicator: boolean;
 
   @ViewChild(ExpanderComponent, {static: true}) expander: ExpanderComponent;
-  private errorSummary: ErrorSummaryComponent;
+  // private errorSummary: ErrorSummaryComponent;
 
   /**
    * Used to create address ids
@@ -31,9 +31,9 @@ export abstract class RecordListBaseComponent {
    * Sets an ErrorSummary object (optional)
    * @param {ErrorSummaryComponent} errorSummaryInstance
    */
-  public setErrorSummary(errorSummaryInstance: ErrorSummaryComponent) {
-    this.errorSummary = errorSummaryInstance; // TODO dont think this does anything
-  }
+  // public setErrorSummary(errorSummaryInstance: ErrorSummaryComponent) {
+  //   this.errorSummary = errorSummaryInstance; // TODO dont think this does anything
+  // }
 
   /**
    * Sets a reference to an expander instance
@@ -102,10 +102,20 @@ export abstract class RecordListBaseComponent {
    * @param {FormArray} formList
    */
   public addRecord(formRecord: FormGroup, formList: FormArray) {
-    this.collapseExpanderRows(); // if you don't do this view will not look right
+    // this.collapseExpanderRows(); // if you don't do this view will not look right
     formList.push(formRecord);
     // console.log(formList);
     this.newRecordIndicator = true; // TODO why does superclass variable not update
+
+    
+    this.updateFormListSeqNumber(formList);
+  }
+
+  private updateFormListSeqNumber(formList: FormArray){
+    formList.controls.forEach( (element: FormGroup) => {
+      // console.log(element);
+      element.controls['seqNumber'].setValue(Number(element.controls['id'].value) + 1)
+    });  
   }
 
   /**
