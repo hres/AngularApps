@@ -325,6 +325,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const companyEnroll: DeviceCompanyEnrol = enrollment[this.rootTagText];
     this.init(companyEnroll);
+
+    if (this.isInternal) {
+      // once load data files on internal site, lower components should update error list and push them up
+      this.showErrors = true;
+    }
   }
 
   private _updatedAutoFields() {
@@ -453,11 +458,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.contactModelUpdated(this.contactModel);
     } else {
       this.contactModel = [];
-    }
-
-    if (this.isInternal) {
-      // once load data files on internal site, lower components should update error list and push them up
-      this.showErrors = true;
     }
 
     this.showAmendNote = this.isFinal;
