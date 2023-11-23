@@ -7,6 +7,7 @@ import { RecordListBaseService } from '../../record-list/record.list.base.servic
 import { ICode } from '../../data-loader/data';
 import { Contact } from '../../model/entity-base';
 import { Observable, Subject } from 'rxjs';
+import { EntityBaseService } from '../../model/entity-base.service';
 
 @Injectable()
 export class ContactListService extends RecordListBaseService implements RecordListServiceInterface {
@@ -25,7 +26,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
     this.contactModelSubject.next(changes);
   }
 
-  constructor(private _recordService: CompanyContactRecordService) {
+  constructor(private _recordService: CompanyContactRecordService, private _entityBaseService: EntityBaseService) {
     super();
     this.contactList = [];
     this.initIndex(this.contactList);
@@ -57,7 +58,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
   // }
 
   getEmptyContactModel() {
-    return this._recordService.getEmptyModel();
+    return this._entityBaseService.getEmptyContactModel();
   }
 
   public getReactiveModel(fb: FormBuilder): FormGroup {
@@ -150,6 +151,5 @@ export class ContactListService extends RecordListBaseService implements RecordL
   public setRecordId(record: FormGroup, value: number): void {
     ContactDetailsService.setRecordId(record, value);
   }
-
 
 }
