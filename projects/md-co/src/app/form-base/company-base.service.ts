@@ -28,7 +28,7 @@ export class CompanyBaseService {
     const enrollment: Enrollment = {
       DEVICE_COMPANY_ENROL: {
         general_information: this.getEmptyGenInfoModel(),
-        address: this.getEmptyAddressDetailsModel(),
+        address: this._entityBaseService.getEmptyAddressDetailsModel(),
         contacts: [],
         primary_contact: this.getEmptyPrimarycontactModel(),
         administrative_changes: this.getEmptyAdminChangesModel()
@@ -38,25 +38,6 @@ export class CompanyBaseService {
     return enrollment;
   }
 
-
-  /**
-   * Gets an empty Address Details Model
-   *
-   */
-  private getEmptyAddressDetailsModel() : INameAddress{
-
-    return (
-      {
-        company_name: '',     
-        street_address: '',
-        city: '',
-        country: this._entityBaseService.getEmptyIdTextLabel(),
-        province_lov: this._entityBaseService.getEmptyIdTextLabel(),
-        province_text: '',
-        postal_code: ''
-      }
-    );
-  }
 
   /**
    * Gets an empty general info model
