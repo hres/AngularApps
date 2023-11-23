@@ -26,6 +26,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() lang: string;
   @Input() isInternal: boolean;
   @Input() helpTextSequences;
+  @Input() enrollmentStatusesList;
 
   @Output() errorList = new EventEmitter(true);
   @Output() showAdminChanges = new EventEmitter(true);
@@ -102,6 +103,8 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    //this.setDefaultEnrollmentStatus(); // TODO: Not sure where to place this
+
     const isFirstChange = this._utilsService.isFirstChange(changes);
 
     // Ignore first trigger of ngOnChanges
@@ -148,6 +151,13 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
         this._checkAmendReasons();
       }
     }
+  }
+
+  private setDefaultEnrollmentStatus() {
+    // Only called once when page is loaded
+    console.log(this.enrollmentStatusesList);
+    this.lang === 'en' ? this.generalInfoFormLocalModel.controls['formStatus'].setValue(this.enrollmentStatusesList[0].en) : this.generalInfoFormLocalModel.controls['formStatus'].setValue(this.enrollmentStatusesList[0].fr);
+    console.log(this.generalInfoFormLocalModel.controls['formStatus'].value);
   }
 
   private setDisableAmendButtonFlag(formStatus: string, isInternal: boolean) : boolean{

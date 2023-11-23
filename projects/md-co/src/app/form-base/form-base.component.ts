@@ -255,7 +255,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // .isPristine
         this._updatedAutoFields();
         if (this.isInternal) {
-          this.genInfoModel.status = this._companyService.setFinalStatus();
+          this.genInfoModel.status = this._companyService.setFinalStatus(); // Set to final status
         }
         const result = {      // todo use the enrollement obj saved in GlobalService??, consolidate this with saveWorkingCopyFile()
           DEVICE_COMPANY_ENROL: {
@@ -319,6 +319,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public processFile(fileData: ConvertResults) {
     this.loadFileIndicator++;
     const enrollment : Enrollment = fileData.data;
+    console.log(enrollment);
     this._globalService.setEnrollment(enrollment);
     // this._loggerService.log('form.base', 'processingFile', JSON.stringify(enrollment, null, 2));
 

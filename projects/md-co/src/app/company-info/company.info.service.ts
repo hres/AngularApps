@@ -17,7 +17,7 @@ export class CompanyInfoService {
   getReactiveModel(): FormGroup{
     return this._fb.group({
       firstname: [''],
-      formStatus: EnrollmentStatus.New,
+      formStatus: [EnrollmentStatus.New],
       lastSavedDate: '',
       companyId: ['', [Validators.required, ValidationService.companyIdValidator]],
       amendReasons: new FormArray([]),
@@ -42,6 +42,7 @@ export class CompanyInfoService {
   }
 
   mapDataModelToFormModel(generalInfoModel : GeneralInformation, formRecord: FormGroup, amendReasonOptionList: CheckboxOption[]) {
+    //const formStatus = this._utilsService.translateWord(enrollmentStatusList, lang, generalInfoModel.status);
     formRecord.controls['formStatus'].setValue(generalInfoModel.status);
     formRecord.controls['lastSavedDate'].setValue(generalInfoModel.last_saved_date);
     if (generalInfoModel.company_id) {
