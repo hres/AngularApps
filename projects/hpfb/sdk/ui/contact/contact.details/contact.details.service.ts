@@ -44,7 +44,6 @@ export class ContactDetailsService {
     contactModel.contact_id = formRecord.controls['contactId'].value;
     if (formRecord.controls['status'].value) {
       contactModel.status = this._converterService.findAndConverCodeToIdTextLabel(contactSatusList, formRecord.controls['status'].value, lang);
-      contactModel.status_text = contactModel.status._id;
     } else {
       contactModel.status = null;
     }

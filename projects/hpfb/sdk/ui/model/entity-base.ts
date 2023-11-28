@@ -43,7 +43,6 @@ export interface Contact {
   id:              number;
   contact_id:      string;
   status:          IIdTextLabel;
-  status_text:     string;
   full_name:       string;
   language:        IIdTextLabel;
   job_title:       string;

@@ -36,7 +36,6 @@ export class EntityBaseService {
       id: null,
       contact_id: '',
       status: this.getEmptyIdTextLabel(),
-      status_text: '',
       full_name: '',
       language: this.getEmptyIdTextLabel(),
       job_title: '',
