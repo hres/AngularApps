@@ -1,5 +1,5 @@
 import { Component, ContentChild, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { FormArray} from '@angular/forms';
+import { FormArray, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'lib-accordion',
@@ -16,19 +16,7 @@ export class AccordionComponent {
   @ContentChild('tmpl') tmplRef: TemplateRef<any>;
 
   toggleExpand(index:number,  expanded: boolean) {
-    // if the row record has INVALID state, don't allow the click event
-    let hasInvalidControl:boolean = false;
-
-    for (let control of this.rowsFormArray.controls) {
-      if (control.invalid) {
-        hasInvalidControl = true;
-        break;
-      }
-    }
-
-    if (!hasInvalidControl) {
-      this.rowClicked.emit({ index: index, state: expanded }) 
-    }
+    this.rowClicked.emit({ index: index, state: expanded }) 
   }
 
   constructor() {}

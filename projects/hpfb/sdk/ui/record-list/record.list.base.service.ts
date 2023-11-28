@@ -70,10 +70,30 @@ export abstract class RecordListBaseService {
     this._indexValue = value;
   }
 
-  public updateFormListSeqNumber(formList: FormArray){
-    formList.controls.forEach( (element: FormGroup) => {
+  public updateFormRecordListSeqNumber(formRecordList: FormArray){
+    formRecordList.controls.forEach( (element: FormGroup) => {
       // console.log(element);
       element.controls['seqNumber'].setValue(Number(element.controls['id'].value) + 1)
     });  
   }
+
+  /**
+   * if formRecordIdToExpand is passed in, expand that record and collapse other records;
+   * otherwise, collapse all records
+   * 
+   * @param formRecordList 
+   * @param formRecordIdToExpand optional
+   */
+  public collapseFormRecordList(formRecordList: FormArray, formRecordIdToExpand?: number){
+    formRecordList.controls.forEach( (element: FormGroup) => {
+      // console.log(element);
+      if ( (formRecordIdToExpand !== undefined) && (Number(element.controls['id'].value) === formRecordIdToExpand) ) {
+        element.controls['expandFlag'].setValue(true);
+      } else {
+        element.controls['expandFlag'].setValue(false);
+      }
+    });  
+  }
+
 }
+

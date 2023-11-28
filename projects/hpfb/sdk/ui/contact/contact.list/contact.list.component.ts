@@ -45,7 +45,6 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   public updateContactDetails = 0;
   public contactListForm: FormGroup;
   // public newContactForm: FormGroup;
-  public service: ContactListService;
   public addRecordMsg = 0;
   public deleteRecordMsg = 0;
   public errorList = [];
@@ -176,12 +175,12 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (!this.isInternal && (!this.contactModel || this.contactModel.length === 0)) {
       this.addContact();
     } else {
-      this._listService.createFormDataList(contactModelData, this._fb, this.contactListForm.controls['contacts'], this.isInternal);
-      this._listService.updateFormListSeqNumber(this.contactList); 
+      this._listService.createFormRecordList(contactModelData, this._fb, this.contactList, this.isInternal);
+      this._listService.updateFormRecordListSeqNumber(this.contactList); 
       
-      if (this.xmlStatus!==FINAL) {
+      if (this.xmlStatus && this.xmlStatus!==FINAL) {
         // if xmlStatus is FINAL, collapse all records by default, otherwise expand the first record
-        const firstFormRecord = (this.contactListForm.controls['contacts'] as FormArray).at(0) as FormGroup;
+        const firstFormRecord = this.contactList.at(0) as FormGroup;
         firstFormRecord.controls['expandFlag'].setValue(true);
       }
     }
@@ -256,15 +255,15 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     // console.log(contactFormList);
     // 2. Get a blank Form Model for the new record
     const formContact = this._recordService.getReactiveModel(this._fb, this.isInternal);
-    // set this new formRecord's expandFlag to be true
-    formContact.controls['expandFlag'].setValue(true);
-
     // 3. set record id
-    this._listService.setRecordId(formContact, this._listService.getNextIndex());
+    const nextId = this._listService.getNextIndex();
+    this._listService.setRecordId(formContact, nextId);
     // 4. Add the form record using the super class. New form is addded at the end
     this.addRecord(formContact, this.contactList);
 
-    this._listService.updateFormListSeqNumber(this.contactList); 
+    this._listService.updateFormRecordListSeqNumber(this.contactList); 
+
+    this._listService.collapseFormRecordList(this.contactList, nextId);
 
     // console.log(contactFormList);
     // 5. Set the new form to the new contact form reference.
@@ -286,8 +285,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     
     const recordId = record.controls['id'].value;
     // collapse this formRecord
-    this.contactList.controls.forEach( (element: FormGroup, recordId: number) => {
-      if (element.controls['id'].value===recordId) {
+    this.contactList.controls.forEach( (element: FormGroup) => {
+      if (element.controls['id'].value === recordId) {
         element.controls['expandFlag'].setValue(false); 
       }
     });  
@@ -364,10 +363,10 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     let recordId = record.controls.id.value;
 
     let modelRecord = this._listService.getModelRecord(recordId);
-    if (!modelRecord) {
+    if (!modelRecord) { 
       modelRecord = this._listService.getEmptyContactModel();
       modelRecord.id = recordId;
-    }
+    } 
     let rec = this.getRecord(recordId, this.contactList);
     if (rec) {
       this._recordService.mapDataModelFormModel(modelRecord, rec);
@@ -441,7 +440,14 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     // toggle the clicked formRecord's expand state
     this.contactList.controls.forEach( (element: FormGroup, index: number) => {
       // console.log(element);
-      element.controls['expandFlag'].setValue(clickedIndex===index? !clickedRecordState : false)
+      // if (clickedIndex===index && clickedRecordState) {
+        if (element.invalid) {
+          // if the row is expanded and has invalid state, don't allow to collapse
+          element.controls['expandFlag'].setValue(true)
+        // }
+      } else {
+        element.controls['expandFlag'].setValue(clickedIndex===index? !clickedRecordState : false)
+      } 
     });  
     // this.contactList.controls.forEach( e => console.log(e.value))
   }

@@ -8,6 +8,7 @@ import { ICode } from '../../data-loader/data';
 import { Contact } from '../../model/entity-base';
 import { Observable, Subject } from 'rxjs';
 import { EntityBaseService } from '../../model/entity-base.service';
+import { ContactStatus } from '../../common.constants';
 
 @Injectable()
 export class ContactListService extends RecordListBaseService implements RecordListServiceInterface {
@@ -57,8 +58,11 @@ export class ContactListService extends RecordListBaseService implements RecordL
   //   this.contactList.push(record);
   // }
 
-  getEmptyContactModel() {
-    return this._entityBaseService.getEmptyContactModel();
+  getEmptyContactModel(): Contact {
+    let contact: Contact = this._entityBaseService.getEmptyContactModel();
+    // this value is used when reverting an unsaved contact formRecord
+    contact.status._id = ContactStatus.New;
+    return contact;
   }
 
   public getReactiveModel(fb: FormBuilder): FormGroup {
@@ -77,11 +81,11 @@ export class ContactListService extends RecordListBaseService implements RecordL
     this._recordService.mapFormModelToDataModel(record, contactModel, lang, languageList, contactSatusList );
   }
 
-  public createFormDataList(modelDataList, fb: FormBuilder, theList, isInternal) {
+  public createFormRecordList(modelDataList, fb: FormBuilder, formRecordList, isInternal) {
     for (let i = 0; i < modelDataList.length; i++) {
       const formRecord = this._recordService.getReactiveModel(fb, isInternal);
       this.contactDataToForm(modelDataList[i], formRecord);
-      theList.push(formRecord);
+      formRecordList.push(formRecord);
     }
   }
 
@@ -93,25 +97,26 @@ export class ContactListService extends RecordListBaseService implements RecordL
   public saveRecord(formRecord: FormGroup, lang:string, languageList: ICode[], contactSatusList: ICode[]) {
     let modelList = this.getModelRecordList();
     let id:number;
+    let contactModel: Contact = null;
 
     if (formRecord.controls['isNew'].value) {
       // this.setRecordId(formRecord, this.getNextIndex());
       formRecord.controls['isNew'].setValue(false);
-      let contactModel = this.getEmptyContactModel();
-      this.contactFormToData(formRecord, contactModel, lang, languageList, contactSatusList);
+      contactModel = this.getEmptyContactModel();
       modelList.push(contactModel);
-      id= contactModel.id;
-
+      this.contactFormToData(formRecord, contactModel, lang, languageList, contactSatusList);
     } else {
-      let modelRecord = this.getModelRecord(formRecord.controls['id'].value);
-      if (!modelRecord) {
-        modelRecord = this.getEmptyContactModel();
+      contactModel = this.getModelRecord(formRecord.controls['id'].value);
+      if (!contactModel) {
+        contactModel = this.getEmptyContactModel();
+        modelList.push(contactModel);
       }
-      this.contactFormToData(formRecord, modelRecord, lang, languageList, contactSatusList);
-      id = modelRecord.id;
+      this.contactFormToData(formRecord, contactModel, lang, languageList, contactSatusList);
     }
 
     this.notifyContactModelChanges({ ...modelList });
+
+    id = contactModel.id;
     return id;
   }
 

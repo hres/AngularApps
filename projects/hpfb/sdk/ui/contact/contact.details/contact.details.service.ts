@@ -5,6 +5,7 @@ import { UtilsService } from '../../utils/utils.service';
 import { ConverterService } from '../../converter/converter.service';
 import { ICode } from '../../data-loader/data';
 import { Contact } from '../../model/entity-base';
+import { ContactStatus } from '../../common.constants';
 
 @Injectable()
 export class ContactDetailsService {
@@ -22,7 +23,7 @@ export class ContactDetailsService {
     // const recordProcessedValidator = isInternal ? [Validators.required] : [];
     return fb.group({
       contactId: [null, contactIdValidators],
-      status: 'NEW',
+      status: ContactStatus.New,
       // hcStatus: [null, Validators.required],
       // salutation: [null, Validators.required],
       fullName: [null, Validators.required],
