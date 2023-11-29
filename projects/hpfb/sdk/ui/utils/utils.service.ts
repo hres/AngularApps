@@ -8,21 +8,8 @@ import { LoggerService } from '../logger/logger.service';
 
 @Injectable()
 export class UtilsService {
-  /**
-   * Gets an yesno array
-   *
-   */
-  getYesNoList(): string[] {
-    return [YES, NO];
-  }
 
   isCanadaOrUSA(countryValue): boolean {
-    // let countryValue: string;
-    // if (value) {
-    //   countryValue = value.id;
-    // } else {
-    //   return false;
-    // }
     return this.isCanada(countryValue) || this.isUsa(countryValue);
   }
 
@@ -32,12 +19,6 @@ export class UtilsService {
    * @returns {boolean}
    */
   isCanada(countryValue): boolean {
-    // let updatedValue = '';
-    // if (value && value.id) {
-    //   updatedValue = value.id;
-    // } else {
-    //   updatedValue = value;
-    // }
     return countryValue === CANADA;
   }
 
@@ -47,12 +28,6 @@ export class UtilsService {
    * @returns {boolean}
    */
   isUsa(countryValue): boolean {
-    // let updatedValue = '';
-    // if (value && value.id) {
-    //   updatedValue = value.id;
-    // } else {
-    //   updatedValue = value;
-    // }
     return countryValue === USA;
   }
 
@@ -131,6 +106,10 @@ export class UtilsService {
     }
 
     return ids;
+  }
+
+  getLabelFromIdTextLabelByLang(idTextLabelObj: IIdTextLabel, lang: string): string {
+    return !this.isEmpty(idTextLabelObj) ? (this.isFrench(lang) ? idTextLabelObj._label_fr : idTextLabelObj._label_en) : undefined; 
   }
 
   isArrayOfIIdTextLabel(arr: any[]): arr is IIdTextLabel[] {
@@ -237,7 +216,8 @@ export class UtilsService {
       if (changes.hasOwnProperty(prop)) {
         const change = changes[prop];
         const currentValue = JSON.stringify(change.currentValue);
-        changesArray.push({ propertyName: prop, currentValue });
+        const isFirstChange = change.isFirstChange();
+        changesArray.push({ propertyName: prop, isFirstChange, currentValue });
       }
     }
 
@@ -254,6 +234,9 @@ export class UtilsService {
     });
   }
 
+    /**
+   * @deprecated Use findAndTranslateCode instead.
+   */
   translateWord(bilingualList:any[], lang:string, value:string) {
     const word = bilingualList.find((item) => item.en === value || item.fr === value);
     if (word) {
@@ -261,4 +244,18 @@ export class UtilsService {
     }
     return null; // Return null if the word is not found
   }
+
+  findAndTranslateCode(codeArray:ICode[], lang:string, codeId:string) {
+    const bilingualCode = this.findCodeById(codeArray, codeId);
+    if (bilingualCode) {
+      return this.translateCode(bilingualCode, lang);
+    }
+    return null; // Return null if the word is not found
+  }
+
+  translateCode(code:ICode, lang:string): string {
+    console.log("translateCode", "code", code, "lang", lang)
+    return this.isFrench(lang) ? code.fr : code.en;
+  }
+
 }
