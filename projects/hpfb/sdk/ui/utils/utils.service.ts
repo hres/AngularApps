@@ -254,7 +254,7 @@ export class UtilsService {
   }
 
   translateCode(code:ICode, lang:string): string {
-    console.log("translateCode", "code", code, "lang", lang)
+    // console.log("translateCode", "code", code, "lang", lang)
     return this.isFrench(lang) ? code.fr : code.en;
   }
 
