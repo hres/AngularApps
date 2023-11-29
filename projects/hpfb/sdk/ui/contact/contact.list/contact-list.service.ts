@@ -9,6 +9,7 @@ import { Contact } from '../../model/entity-base';
 import { Observable, Subject } from 'rxjs';
 import { EntityBaseService } from '../../model/entity-base.service';
 import { ContactStatus } from '../../common.constants';
+import { UtilsService } from '../../public-api';
 
 @Injectable()
 export class ContactListService extends RecordListBaseService implements RecordListServiceInterface {
@@ -27,7 +28,8 @@ export class ContactListService extends RecordListBaseService implements RecordL
     this.contactModelSubject.next(changes);
   }
 
-  constructor(private _recordService: CompanyContactRecordService, private _entityBaseService: EntityBaseService) {
+  constructor(private _recordService: CompanyContactRecordService, private _entityBaseService: EntityBaseService, private _utilsService: UtilsService,
+    private _detailsService: ContactDetailsService) {
     super();
     this.contactList = [];
     this.initIndex(this.contactList);
@@ -71,10 +73,12 @@ export class ContactListService extends RecordListBaseService implements RecordL
     });
   }
 
-  // getContactFormRecord(fb: FormBuilder, isInternal) {
-  //
-  //   return this._recordService.getReactiveModel(fb, isInternal);
-  // }
+  createContactFormRecord(fb: FormBuilder, isInternal: boolean) {
+    const formRecord = this._recordService.getReactiveModel(fb, isInternal);
+    const nextId = this.getNextIndex();
+    formRecord.controls['id'].setValue(nextId);
+    return formRecord;
+  }
 
 
   private contactFormToData(record: FormGroup, contactModel: Contact, lang: string, languageList: ICode[], contactSatusList: ICode[]) {
@@ -149,12 +153,14 @@ export class ContactListService extends RecordListBaseService implements RecordL
     return false;
   }
 
-  public getRecordId(record: FormGroup) {
-    return ContactDetailsService.getRecordId(record);
-  }
-
-  public setRecordId(record: FormGroup, value: number): void {
-    ContactDetailsService.setRecordId(record, value);
+  updateUIDisplayValues(formRecordList: FormArray, contactStatusList: ICode[], lang: string){
+    // update Contact Record seqNumber
+    this.updateFormRecordListSeqNumber(formRecordList); 
+    // update Contact Detail statusText
+    formRecordList.controls.forEach( (element: FormGroup) => {
+      const contactDetailFormRecord = element.controls['contactDetails'] as FormGroup;
+      this._detailsService.setContactStatus(contactDetailFormRecord, contactDetailFormRecord.controls['status'].value, contactStatusList, lang, false)
+    });
   }
 
 }

@@ -64,7 +64,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   }
 
   ngOnInit() {
-    this.initFormWithData(this.contactModel);
+    // console.log("onInit")
   }
 
   ngAfterViewInit() {
@@ -135,56 +135,49 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * @param {SimpleChanges} changes
    */
   ngOnChanges(changes: SimpleChanges) {
-    const isFirstChange = this._utilsService.isFirstChange(changes);
+    // console.log(this._utilsService.checkComponentChanges(changes));
 
-    // Ignore first trigger of ngOnChanges
-    if (!isFirstChange) {
-
-      if (changes['loadFileIndicator']) {
-        console.log("changes['loadFileIndicator'].currentValue", changes['loadFileIndicator'].currentValue);
-        this.contactListForm = this._listService.getReactiveModel(this._fb);     // reset contactListForm to an empty formArray
-        this.newRecordIndicator = false;
-        // this._deleteContactInternal(0);
-      }
-      if (changes['saveContact']) {
-        this.saveContactRecord(changes['saveContact'].currentValue);
-      }
-      if (changes['contactModel']) {
-        // this._listService.setModelRecordList(changes['contactModel'].currentValue);
-        // this._listService.initIndex(changes['contactModel'].currentValue);
-        // this.dataModel = this._listService.getModelRecordList();
-        // // this.contactListForm.controls['contacts'] = this._fb.array([]);
-        // this._listService.createFormDataList(this.dataModel, this._fb, this.contactListForm.controls['contacts'], this.isInternal);
-        this.initFormWithData(changes['contactModel'].currentValue);
-        // this.validRec = true;
-      }
-
-      // if (changes['isInternal']) {
-      //   if (!this.isInternal && (!this.contactModel || this.contactModel.length === 0)) {
-      //     this.addContactInit();
-      //     this.showErrors = false;
-      //   }
-      // }
+    if (changes['loadFileIndicator']) {
+      this.contactListForm = this._listService.getReactiveModel(this._fb);     // reset contactListForm to an empty formArray
+      this.newRecordIndicator = false;
+      // this._deleteContactInternal(0);
     }
-  }
-
-  private initFormWithData(contactModelData: Contact[]){
-    this._listService.setModelRecordList(contactModelData);
-    this._listService.initIndex(contactModelData);
-
-    if (!this.isInternal && (!this.contactModel || this.contactModel.length === 0)) {
-      this.addContact();
-    } else {
-      this._listService.createFormRecordList(contactModelData, this._fb, this.contactList, this.isInternal);
-      this._listService.updateFormRecordListSeqNumber(this.contactList); 
+    if (changes['saveContact']) {
+      this.saveContactRecord(changes['saveContact'].currentValue);
+    }
+    if (changes['contactModel'] && !changes['contactModel'].firstChange) {
+      // when the enrollment form is first loaded, contactModel is loaded before contactStatusList because contactStatusList is loaded from an API call
+      // wait until contactStatusList is avaialble then to init the contact list form;
+      // when importing a file,  initing the contact list form with loaded contacts is triggered here
+      this.initWithData();
+    }
+    if (changes['contactStatusList']) {
+      this.initWithData();
+    }
       
-      if (this.xmlStatus && this.xmlStatus!==FINAL) {
-        // if xmlStatus is FINAL, collapse all records by default, otherwise expand the first record
-        const firstFormRecord = this.contactList.at(0) as FormGroup;
-        firstFormRecord.controls['expandFlag'].setValue(true);
-      }
-    }
   }
+
+  private initWithData(){
+    if (this.contactStatusList.length > 0 && this.contactModel) {
+
+      this._listService.setModelRecordList(this.contactModel);
+      this._listService.initIndex(this.contactModel);
+
+      if (!this.isInternal && (!this.contactModel || this.contactModel.length === 0)) {
+        this._createFormContact();
+
+      } else {
+        this._listService.createFormRecordList(this.contactModel, this._fb, this.contactList, this.isInternal); 
+        // if xmlStatus is FINAL, collapse all records by default, otherwise expand the first record
+        if (this.xmlStatus && this.xmlStatus!==FINAL) {
+          const firstFormRecord = this.contactList.at(0) as FormGroup;
+          firstFormRecord.controls['expandFlag'].setValue(true);
+        }
+      }
+
+      this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
+    }
+}
 
   // public isValid(override: boolean = false): boolean {
   //   if (override) {
@@ -224,46 +217,11 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   /**
    * Adds an contact UI record to the contact List
    */
-  /*
-  public addContactInit(): void {
-
-    // add contact to the list
-    // console.log('adding an contact');
-    // 1. Get the list of reactive form Records
-    let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
-    // console.log(contactFormList);
-    // 2. Get a blank Form Model for the new record
-    let formContact = CompanyContactRecordService.getReactiveModel(this._fb, this.isInternal);
-    // 3. set record id
-    this.service.setRecordId(formContact, this.service.getNextIndex());
-    // 4. Add the form record using the super class. New form is addded at the end
-    this.addRecord(formContact, contactFormList);
-    // console.log(contactFormList);
-    // 5. Set the new form to the new contact form reference.
-    this.newContactForm = <FormGroup> contactFormList.controls[contactFormList.length - 1];
-  }
-  */
-  /**
-   * Adds an contact UI record to the contact List
-   */
   public addContact(): void {
 
-    // add contact to the list
-    // console.log('adding an contact');
-    // 1. Get the list of reactive form Records
-    // let contactFormList = <FormArray>this.contactListForm.controls['contacts'];
-    // console.log(contactFormList);
-    // 2. Get a blank Form Model for the new record
-    const formContact = this._recordService.getReactiveModel(this._fb, this.isInternal);
-    // 3. set record id
-    const nextId = this._listService.getNextIndex();
-    this._listService.setRecordId(formContact, nextId);
-    // 4. Add the form record using the super class. New form is addded at the end
-    this.addRecord(formContact, this.contactList);
+    this._createFormContact();
 
-    this._listService.updateFormRecordListSeqNumber(this.contactList); 
-
-    this._listService.collapseFormRecordList(this.contactList, nextId);
+    this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
 
     // console.log(contactFormList);
     // 5. Set the new form to the new contact form reference.
@@ -274,6 +232,12 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       document.location.href = '#status';
     }
     this.showErrors = false;
+  }
+
+  private _createFormContact(){
+    const formContact = this._listService.createContactFormRecord(this._fb, this.isInternal);
+    this.addRecord(formContact, this.contactList);
+    this._listService.collapseFormRecordList(this.contactList, formContact.controls['id'].value);
   }
 
   /**

@@ -24,6 +24,7 @@ export class ContactDetailsService {
     return fb.group({
       contactId: [null, contactIdValidators],
       status: ContactStatus.New,
+      statusText: '', // for UI display purpose only
       // hcStatus: [null, Validators.required],
       // salutation: [null, Validators.required],
       fullName: [null, Validators.required],
@@ -100,15 +101,12 @@ export class ContactDetailsService {
     // }
   }
 
-  public static getRecordId(record: FormGroup) {
-    return (record.controls['id'].value);
-  }
+  setContactStatus(contactDetailFormRecord: FormGroup, statusId:string, contactStatusList: ICode[], lang: string, setStatusAlso: boolean){
 
-  public static setRecordId(record: FormGroup, value: number): void {
-    if (!record) {
-      return;
+    if (setStatusAlso) {
+      contactDetailFormRecord.controls['status'].setValue(statusId);  
     }
-    record.controls['id'].setValue(value);
+    contactDetailFormRecord.controls['statusText'].setValue(this._utilsService.findAndTranslateCode(contactStatusList, lang, statusId));
   }
 
 }

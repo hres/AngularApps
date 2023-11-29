@@ -10,6 +10,6 @@ export interface RecordListServiceInterface {
   resetIndex();
   getCurrentIndex();
   setIndex(value: number);
-  getRecordId(record: FormGroup);
-  setRecordId(record: FormGroup, value: number);
+  // getRecordId(record: FormGroup);
+  // setRecordId(record: FormGroup, value: number);
 }

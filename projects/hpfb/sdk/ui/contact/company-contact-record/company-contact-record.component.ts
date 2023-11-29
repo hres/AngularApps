@@ -30,7 +30,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public contactRecordModel: FormGroup;
   @Input('group') public contactFormRecord: FormGroup;
   @Input() detailsChanged: number;
-  @Input() countries: Array<any>;
   @Input() isInternal: boolean;
   @Input() newRecord: boolean;
   @Input() showErrors: boolean;
@@ -59,7 +58,8 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   private errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
-  constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef, private _utilsService: UtilsService, private _recordService: CompanyContactRecordService) {
+  constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef, private _utilsService: UtilsService, 
+    private _recordService: CompanyContactRecordService, private _detailsService: ContactDetailsService) {
     this.showErrors = false;
     this.showErrSummary = false;
     this.hasRecords = true;
@@ -203,28 +203,22 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.deleteRecord.emit(this.contactRecordModel.value.id);
     this._emitErrors();
   }
-  /***
-   * Deletes the contact reocord with the selected id from both the model and the form
-   */
+ 
   public setStatusToRevise(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    conRecord.controls['status'].setValue(ContactStatus.Revise);
+    this._detailsService.setContactStatus(conRecord, ContactStatus.Revise, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
   }
-  /***
-   * Deletes the contact reocord with the selected id from both the model and the form
-   */
+
   public setStatusToRemove(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    conRecord.controls['status'].setValue(ContactStatus.Remove);
+    this._detailsService.setContactStatus(conRecord, ContactStatus.Remove, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
   }
-  /***
-   * Deletes the contact reocord with the selected id from both the model and the form
-   */
+
   public activeContactRecord(): void {
     const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    conRecord.controls['status'].setValue(ContactStatus.Active);
+    this._detailsService.setContactStatus(conRecord, ContactStatus.Active, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
   }
 

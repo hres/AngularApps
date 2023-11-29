@@ -27,8 +27,8 @@
                             <!--[control]="contactFormLocalModel.controls['status']"-->
                             <!--controlId="status" label="status" parentId="contactDetails"-->
                             <!--parentLabel="REP Contact"></control-messages>-->
-          <input name="contactId" id="status" class="form-control"
-                 [readonly]="true" [formControl]="contactFormLocalModel.controls['status'] | formControl"/>
+          <input name="statusText" id="statusText" class="form-control"
+                 [readonly]="true" [formControl]="contactFormLocalModel.controls['statusText'] | formControl"/>
           <!--<select id="status" required class="form-control" [formControl]="contactFormLocalModel.controls['status']">-->
             <!--<option label=" " value=""></option>-->
             <!--<option *ngFor="let stat of statuses" [ngValue]="stat.id"> {{stat.label_en}}</option>-->

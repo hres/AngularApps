@@ -16,7 +16,7 @@ export class CompanyContactRecordService {
     }
     return fb.group({
         id: -1,
-        seqNumber: -1,
+        seqNumber: -1,  // for UI display purpose only
         detailsDirty: [false, Validators.required],
         isNew: true,
         expandFlag: false,
