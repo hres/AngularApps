@@ -52,6 +52,7 @@
   "error.msg.postal": "Format non valide - Doit être X#X#X#",
   "error.mgs.zip": "Entrée non valide: doit contenir 5 chiffres",
   "error.mgs.company.id": "Entrée non valide: doit contenir 6 chiffres",
+  "error.msg.contactDetails": "fr_Company Representative Details has errors",
 
   "error.mgs.licence.number": "fr_Please specify a valid licence number.",
   "error.mgs.contact.id": "fr_Please specify a valid contact Identifier.",
@@ -182,7 +183,7 @@
   "save.draft": "Enregistrer le brouillon XML",
   "approve.final": "Enregistrer la version finale XML",
 
-  "msg.success.load": "fr_The file was loaded successfully",
+  "msg.success.load": "Le fichier a êtê chargê avec succès",
   "msg.err.parseFail": "fr_The parsing is failed.",
   "msg.err.jsonparse": "fr_There was an error parsing the working file.",
   "msg.err.xmlparse": "fr_There was an error parsing the draft XML file.",
