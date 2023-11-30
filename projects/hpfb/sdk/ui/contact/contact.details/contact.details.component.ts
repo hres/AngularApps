@@ -18,10 +18,8 @@ import { ICode } from '../../data-loader/data';
  */
 export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
-  @Input() contactRow: FormGroup;
-
-  public contactFormLocalModel: FormGroup;
-  @Input('group') public contactRecord: FormGroup;
+  public contactDetailFormLocal: FormGroup;
+  @Input('group') public contactDetailFormFromParent: FormGroup;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
@@ -40,23 +38,15 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngOnInit() {
-    if (!this.contactFormLocalModel) {
-      this.contactFormLocalModel = this._detailsService.getReactiveModel(this._fb, this.isInternal);
+    if (!this.contactDetailFormLocal) {
+      this.contactDetailFormLocal = this._detailsService.getReactiveModel(this._fb, this.isInternal);
     }
     this.detailsChanged = 0;
   }
 
   ngAfterViewInit() {
     this.msgList.changes.subscribe(errorObjs => {
-      // let temp = [];
       this._updateErrorList(errorObjs);
-
-      /* errorObjs.forEach(
-         error => {
-           temp.push(error);
-         }
-       );
-       this.errorList.emit(temp);*/
     });
     this.msgList.notifyOnChanges();
 
@@ -77,16 +67,16 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   ngOnChanges(changes: SimpleChanges) {
     // since we can't detect changes on objects, using a separate flag
-    if (changes['detailsChanged']) { // used as a change indicator for the model
-      // console.log("the details cbange");
-      if (this.contactRecord) {
-        this.setToLocalModel();
+    // if (changes['detailsChanged']) { // used as a change indicator for the model
+    //   // console.log("the details cbange");
+    //   if (this.contactDetailFormFromParent) {
+    //     this.setToLocalModel();
 
-      } else {
-        this.contactFormLocalModel = this._detailsService.getReactiveModel(this._fb, this.isInternal);
-        this.contactFormLocalModel.markAsPristine();
-      }
-    }
+    //   } else {
+    //     this.contactDetailFormLocal = this._detailsService.getReactiveModel(this._fb, this.isInternal);
+    //     this.contactDetailFormLocal.markAsPristine();
+    //   }
+    // }
 
     if (changes['showErrors']) {
 
@@ -108,22 +98,11 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
    */
 
   setToLocalModel() {
-    this.contactFormLocalModel = this.contactRecord;
-    if (!this.contactFormLocalModel.pristine) {
-      this.contactFormLocalModel.markAsPristine();
+    this.contactDetailFormLocal = this.contactDetailFormFromParent;
+    if (!this.contactDetailFormLocal.pristine) {
+      this.contactDetailFormLocal.markAsPristine();
     }
   }
 
-  removed(rec) {
-    console.log(rec);
-    // this.contactFormLocalModel.controls.country.setValue(null)
-  }
-
-  recordPrcsOnblur() {
-    // console.log('');
-    if (!this.contactFormLocalModel.controls['recordProcessed'].value) {
-      this.contactFormLocalModel.controls['recordProcessed'].setValue('');
-    }
-  }
 }
 
