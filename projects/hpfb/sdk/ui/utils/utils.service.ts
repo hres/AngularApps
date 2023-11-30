@@ -155,6 +155,15 @@ export class UtilsService {
     }
     return false;
   }
+
+  // Function to copy values from source to destination
+  copyFormGroupValues(source: FormGroup, destination: FormGroup): void {
+    Object.keys(source.controls).forEach(controlName => {
+      if (destination.controls[controlName]) {
+        destination.controls[controlName].setValue(source.controls[controlName].value);
+      }
+    });
+  }
   
   getControlName (control: AbstractControl) {
     var controlName = null;
