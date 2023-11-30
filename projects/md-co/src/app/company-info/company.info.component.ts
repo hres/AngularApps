@@ -56,7 +56,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     this.detailsChanged = 0;
-    this._loggerService.log('company.info', 'onInit', 'this.isInternal: ' + this.isInternal);
+    // this._loggerService.log('company.info', 'onInit', 'this.isInternal: ' + this.isInternal);
 
     
     this._formDataLoader.getKeywordList().subscribe((keywords) => {
@@ -137,7 +137,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       }
       if (changes['isInternal']) {
         if (!changes['isInternal'].currentValue) {
-          this._loggerService.log('company.info', 'onInit', 'changes[\'isInternal\'] called', changes['isInternal'].currentValue); // ling todo when is this called??
+          // this._loggerService.log('company.info', 'onInit', 'changes[\'isInternal\'] called', changes['isInternal'].currentValue); // ling todo when is this called??
           this.setAsComplete = (this.genInfoModel.status === FINAL && !changes['isInternal'].currentValue); // ling todo remove??
           this.disableAmendButton = this.setDisableAmendButtonFlag(this.genInfoModel.status._id, !changes['isInternal'].currentValue);
         } // && this.isInternal;
@@ -175,8 +175,6 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     this.genInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusesList, EnrollmentStatus.Amend, this.lang);
     this.genInfoModel.are_licenses_transfered = '';
     this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList, this.enrollmentStatusesList, this.lang);
-    console.log(this.helpTextSequences);
-    console.log(this.helpTextSequences['rationaleInx']);
   }
 
   onblur() {
@@ -190,7 +188,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
   
   amendReasonOnChange() {
-    console.log('amendReasonOnChange is called');
+    // console.log('amendReasonOnChange is called');
     this._checkAmendReasons();
     this._saveData();
   }

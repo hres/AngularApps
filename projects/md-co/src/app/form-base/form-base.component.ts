@@ -75,13 +75,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private _formDataLoader: CompanyDataLoaderService,
     private _companyService: CompanyBaseService,
-    private _fileService: FileConversionService, private _utilService: UtilsService, private router: Router, private _globalService: GlobalService,
+    private _fileService: FileConversionService, private _utilService: UtilsService, private _globalService: GlobalService,
     private _loggerService: LoggerService,
     private _checkSumService: CheckSumService,
     private _converterService: ConverterService
   ) {
 
-    this._loggerService.log("form.base", "constructor", "");
+    // this._loggerService.log("form.base", "constructor", "");
 
     this.showAdminChanges = false;
     this.showErrors = false;
@@ -93,12 +93,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     try {
       if (!this._globalService.getEnrollment()) {
-        this._loggerService.log("form.base", "onInit", "enrollement doesn't exist, create a new one");
+        // this._loggerService.log("form.base", "onInit", "enrollement doesn't exist, create a new one");
         this.enrollModel = this._companyService.getEmptyEnrol();
         this._globalService.setEnrollment(this.enrollModel);
       } else {
         this.enrollModel = this._globalService.getEnrollment();
-        this._loggerService.log("form.base", "onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
+        // this._loggerService.log("form.base", "onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
       }
 
       const companyEnroll: DeviceCompanyEnrol = this.enrollModel[this.rootTagText];
@@ -119,9 +119,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this._formDataLoader.getContactStatusesList().subscribe((data) => {
         this.contactStatusList = data;
       });
-
-      console.log('contactStatusList');
-      console.log(this.contactStatusList);
 
       this._formDataLoader.getCountryList().subscribe((data) => {
         // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
@@ -148,7 +145,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     } catch (e) {
       this._loggerService.error("formbase", e);
-      this.gotoErrorPage()
     }
   }
 
@@ -158,9 +154,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this._loggerService.log("form.base", "ngOnChanges", this._utilService.checkComponentChanges(changes));
+    // this._loggerService.log("form.base", "ngOnChanges", this._utilService.checkComponentChanges(changes));
+
     if (changes['contactModel']) {
-      this._loggerService.log("form.base", "ngOnChanges", "contactModel");
       this._updateContactList(changes['primContactModel'].currentValue);
     }
   }
@@ -220,7 +216,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   // triggered when amend reasons and/or licenses being transferred in company info are updated
   processGenInfoUpdates(toggleFlag: boolean) {
-    console.log("toggleFlag", toggleFlag);
+    // console.log("processGenInfoUpdates toggleFlag", toggleFlag);
     this.showAdminChanges = toggleFlag;
     this.mailtoQS = toggleFlag;
 
@@ -320,9 +316,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public processFile(fileData: ConvertResults) {
     this.loadFileIndicator++;
     const enrollment : Enrollment = fileData.data;
-    console.log(enrollment);
-    this._globalService.setEnrollment(enrollment);
     // this._loggerService.log('form.base', 'processingFile', JSON.stringify(enrollment, null, 2));
+    this._globalService.setEnrollment(enrollment);
 
     const companyEnroll: DeviceCompanyEnrol = enrollment[this.rootTagText];
     this.init(companyEnroll);
@@ -423,11 +418,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
     this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
   }
-
-  gotoErrorPage(): void {
-    this.router.navigate(['/error']);
-  }
-
 
   private init(companyEnroll: DeviceCompanyEnrol){
     this.genInfoModel = companyEnroll.general_information;
