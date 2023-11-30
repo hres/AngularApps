@@ -16,7 +16,7 @@ export class CompanyBaseService {
    */
   buildForm() : FormGroup {
     return this._fb.group({
-      status: '',
+      status: EnrollmentStatus.New,
       // enrolVersion: 0.0,
       lastSavedDate: '',
       companyId: ['', [Validators.required, Validators.min(5)]]
@@ -46,7 +46,7 @@ export class CompanyBaseService {
   private getEmptyGenInfoModel() : GeneralInformation{
     return (
       {
-        status: '',
+        status: this._entityBaseService.getEmptyIdTextLabel(),
         enrol_version: '0.0',
         last_saved_date: '',
         company_id: '',

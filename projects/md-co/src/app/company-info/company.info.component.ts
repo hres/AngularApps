@@ -34,7 +34,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public isAmend: boolean = false;
-  public isOtherSelected: boolean = false;
+
   public showFieldErrors: boolean;
   public setAsComplete: boolean = false;  //ling todo remove???
   public disableAmendButton: boolean = true;
@@ -139,25 +139,21 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
         if (!changes['isInternal'].currentValue) {
           // this._loggerService.log('company.info', 'onInit', 'changes[\'isInternal\'] called', changes['isInternal'].currentValue); // ling todo when is this called??
           this.setAsComplete = (this.genInfoModel.status === FINAL && !changes['isInternal'].currentValue); // ling todo remove??
-          this.disableAmendButton = this.setDisableAmendButtonFlag(this.genInfoModel.status, !changes['isInternal'].currentValue);
+          this.disableAmendButton = this.setDisableAmendButtonFlag(this.genInfoModel.status._id, !changes['isInternal'].currentValue);
         } // && this.isInternal;
       }
       if (changes['genInfoModel']) {
         const dataModel = changes['genInfoModel'].currentValue;
-        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList);
+        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList, this.enrollmentStatusesList, this.lang);
         this.setAsComplete = (dataModel.status === FINAL && !this.isInternal); // ling todo remove??
-        this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status, this.isInternal);
+        this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status._id, this.isInternal);
         this.isAmend = (dataModel.status === EnrollmentStatus.Amend);
-        this._checkAmendReasons();
+        this._checkAdministritiveChangesRendering();
+      }
+      if(changes['enrollmentStatusesList']) {
+        this._companyInfoService.setEnrolmentStatus((<FormGroup>this.generalInfoFormLocalModel), this.generalInfoFormLocalModel.controls['formStatus'].value, this.enrollmentStatusesList, this.lang, false);
       }
     }
-  }
-
-  private setDefaultEnrollmentStatus() {
-    // Only called once when page is loaded
-    // console.log(this.enrollmentStatusesList);
-    this.lang === 'en' ? this.generalInfoFormLocalModel.controls['formStatus'].setValue(this.enrollmentStatusesList[0].en) : this.generalInfoFormLocalModel.controls['formStatus'].setValue(this.enrollmentStatusesList[0].fr);
-    // console.log(this.generalInfoFormLocalModel.controls['formStatus'].value);
   }
 
   private setDisableAmendButtonFlag(formStatus: string, isInternal: boolean) : boolean{
@@ -176,9 +172,9 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   public setAmendState () {
     this.isAmend = true;
-    this.genInfoModel.status = EnrollmentStatus.Amend;
+    this.genInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusesList, EnrollmentStatus.Amend, this.lang);
     this.genInfoModel.are_licenses_transfered = '';
-    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList);
+    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList, this.enrollmentStatusesList, this.lang);
   }
 
   onblur() {
@@ -188,25 +184,24 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   private _saveData(): void{
     this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel), this.genInfoModel, this.selectedAmendReasonCodes, 
-      this.amendReasonCodeList, this.lang);
+      this.amendReasonCodeList, this.lang, this.enrollmentStatusesList);
   }
   
-  amendReasonOnChange() {
-    // console.log('amendReasonOnChange is called');
-    this._checkAmendReasons();
+  checkAdministriveChangesRenderingAndSaveData() {
+    // console.log('checkAdministriveChangesRenderingAndSaveData is called');
+    this._checkAdministritiveChangesRendering();
     this._saveData();
   }
 
-  private _checkAmendReasons(){
-    this.isOtherSelected = this._isOther();
+  private _checkAdministritiveChangesRendering(){
     const showAdminChangesFlag = this.generalInfoFormLocalModel.controls['areLicensesTransfered'].value === YES || 
       this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges)
     this.showAdminChanges.emit(showAdminChangesFlag);  
   }
 
-  private _isOther() {
-    return this.selectedAmendReasonCodes.indexOf(AMEND_REASON_OTHER) !== -1? true : false;
-  }
+  // private _isOther() {
+  //   return this.selectedAmendReasonCodes.indexOf(AMEND_REASON_OTHER) !== -1? true : false;
+  // }
 
   // private _hasReasonChecked() {
   //   this.generalInfoFormLocalModel.controls.amendReason.setValue(null);

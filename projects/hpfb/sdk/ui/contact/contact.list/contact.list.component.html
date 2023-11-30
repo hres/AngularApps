@@ -9,7 +9,7 @@
       <!-- ==={{recordRow.get('id').value}}=== -->
       <!-- === index = {{idx}} ,  === -->
       <company-contact-record *ngIf="recordRow.get('expandFlag').value" 
-        [cRRow]="recordRow" [detailsChanged]="updateContactDetails" [isInternal]="isInternal"
+        [cRRow]="recordRow" [isInternal]="isInternal"
         [languageList]="languageList" [contactStatusList]="contactStatusList" [showErrors]="showErrors" [lang]="lang"
         [helpTextSequences]="helpTextSequences" (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)" (revertRecord)="revertContact($event)"

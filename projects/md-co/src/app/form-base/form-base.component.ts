@@ -4,7 +4,7 @@ import { EnrollmentStatus, XSLT_PREFIX, ROOT_TAG } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { GeneralInformation, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
-import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus } from '@hpfb/sdk/ui';
+import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus, ConverterService } from '@hpfb/sdk/ui';
 import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
 
@@ -75,9 +75,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private _formDataLoader: CompanyDataLoaderService,
     private _companyService: CompanyBaseService,
-    private _fileService: FileConversionService, private _utilService: UtilsService, private router: Router, private _globalService: GlobalService,
+    private _fileService: FileConversionService, private _utilService: UtilsService, private _globalService: GlobalService,
     private _loggerService: LoggerService,
-    private _checkSumService: CheckSumService
+    private _checkSumService: CheckSumService,
+    private _converterService: ConverterService
   ) {
 
     // this._loggerService.log("form.base", "constructor", "");
@@ -144,7 +145,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     } catch (e) {
       this._loggerService.error("formbase", e);
-      this.gotoErrorPage()
     }
   }
 
@@ -252,7 +252,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // .isPristine
         this._updatedAutoFields();
         if (this.isInternal) {
-          this.genInfoModel.status = this._companyService.setFinalStatus(); // Set to final status
+          this.genInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusList, EnrollmentStatus.Final, this.lang); // Set to final status
         }
         const result = {      // todo use the enrollement obj saved in GlobalService??, consolidate this with saveWorkingCopyFile()
           DEVICE_COMPANY_ENROL: {
@@ -331,7 +331,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _updatedAutoFields() {
     this._updatedSavedDate();
     if (this.isInternal) {
-      this.genInfoModel.status = this._companyService.setFinalStatus();
+      this.genInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusList, EnrollmentStatus.Final, this.lang);
       this.genInfoModel.enrol_version =
         (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() +
         '.0';
@@ -363,7 +363,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const date_generated = this._utilService.getFormattedDate('yyyyMMddHHmm');
     if (this.isInternal) {
       return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
-    } else if (this.genInfoModel.status === EnrollmentStatus.Amend) {
+    } else if (this.genInfoModel.status._id === EnrollmentStatus.Amend) {
       return 'draft-com-' + this.genInfoModel.company_id + '-' + date_generated;
     } else {
       return 'draft-com-' + date_generated;
@@ -419,11 +419,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
   }
 
-  gotoErrorPage(): void {
-    this.router.navigate(['/error']);
-  }
-
-
   private init(companyEnroll: DeviceCompanyEnrol){
     this.genInfoModel = companyEnroll.general_information;
     // set amend reasons and admin changes section to null if status is Final
@@ -460,6 +455,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private get isFinal(): boolean{
-    return this.genInfoModel.status === EnrollmentStatus.Final;
+    return this.genInfoModel.status._id === EnrollmentStatus.Final;
   }
 }

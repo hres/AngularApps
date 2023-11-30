@@ -6,7 +6,6 @@ import {
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ContactDetailsComponent} from '../contact.details/contact.details.component';
 import {ContactDetailsService} from '../contact.details/contact.details.service';
-import { CompanyContactRecordService} from './company-contact-record.service';
 import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
 import { ICode } from '../../data-loader/data';
@@ -29,20 +28,14 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
   public contactRecordModel: FormGroup;
   @Input('group') public contactFormRecord: FormGroup;
-  @Input() detailsChanged: number;
   @Input() isInternal: boolean;
-  @Input() newRecord: boolean;
   @Input() showErrors: boolean;
-  @Input() hasRecords: boolean;
-  @Input() isListVilad: boolean;
   @Input() lang;
   @Input() helpTextSequences;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
   @Output() errors = new EventEmitter();
-  @Output() createRecord; // TODO don't know if needed
-
 
   @ViewChild(ContactDetailsComponent, {static: true}) contactDetailsChild;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
@@ -58,22 +51,17 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   private errorSummaryChild: ErrorSummaryComponent = null;
   public headingLevel = 'h4';
 
-  constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef, private _utilsService: UtilsService, 
-    private _recordService: CompanyContactRecordService, private _detailsService: ContactDetailsService) {
+  constructor( private cdr: ChangeDetectorRef, private _utilsService: UtilsService, 
+    private _detailsService: ContactDetailsService) {
     this.showErrors = false;
     this.showErrSummary = false;
-    this.hasRecords = true;
   }
 
   ngOnInit() {
-    // if (!this.contactRecordModel) {
-    //   this.contactRecordModel = this._initContact();
-    // }
     this.contactRecordModel = this.cRRow;
-    this.detailsChanged = 0;
   }
-  ngAfterViewInit() {
 
+  ngAfterViewInit(){
     this.msgList.changes.subscribe(errorObjs => {
       // update is handled directly in the function
       this.updateErrorList(null, true);
@@ -85,17 +73,13 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     });
 
   }
+
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
     if (list.length > 1) {
       console.warn('Contact List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
-    // if (!this.isInternal && this.errorSummaryChild && !this.hasRecords) {
-    //   // update summary for at least one record error
-    //   this.errorSummaryChild.tableId = 'contactListTable';
-    //   this.errorSummaryChild.type = 'leastOneRecordError';
-    // }
-    // set table id to point to
+
     this._emitErrors();
   }
   /***
@@ -110,53 +94,16 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.errors.emit(emitErrors);
   }
 
-
-  private _initContact() {
-    if (this.isNew) {
-      return this._recordService.getReactiveModel(this._fb, this.isInternal);
-    } else {
-      return null;  // this line is newly added
-    }
-  }
-
   ngOnChanges (changes: SimpleChanges) {
+    // console.log(this._utilsService.checkComponentChanges(changes));
 
-    const isFirstChange = this._utilsService.isFirstChange(changes);
-
-    // Ignore first trigger of ngOnChanges
-    if (!isFirstChange) {
-
-    if (changes['detailsChanged']) { // used as a change indicator for the model
-      if (this.contactFormRecord) {
-        this.setToLocalModel();
-      } else {
-        this.contactRecordModel = this._initContact();
-        if (this.contactRecordModel) {
-          this.contactRecordModel.markAsPristine();
-        }
-      }
-      this.updateChild++;
+    if (changes['showErrors']) {
+      // console.log("contact.record", "onchange", "showErrors", changes['showErrors'].currentValue)
+      this.showErrSummary = changes['showErrors'].currentValue;
+      this._emitErrors();
     }
-    if (changes['newRecord']) {
-      this.isNew = changes['newRecord'].currentValue;
-    }
-    // if (this.isInternal) {
-      if (changes['showErrors']) {
-        this.showErrSummary = changes['showErrors'].currentValue;
-        this._emitErrors();
-      }
-      this.cdr.detectChanges(); // doing our own change detection
-    // }
-    }
-  }
+    this.cdr.detectChanges(); // doing our own change detection
 
-  /***
-   *Sets the contact record to the internal model
-   */
-  setToLocalModel() {
-    this.contactRecordModel = this.contactFormRecord;
-    this.sequenceNum = Number(this.contactRecordModel.controls['id'].value) + 1;
-    this.contactRecordModel.markAsPristine();
   }
 
   /**
@@ -205,20 +152,17 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
  
   public setStatusToRevise(): void {
-    const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    this._detailsService.setContactStatus(conRecord, ContactStatus.Revise, this.contactStatusList, this.lang, true);
+    this._detailsService.setContactStatus(this.contactDetailsForm, ContactStatus.Revise, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
   }
 
   public setStatusToRemove(): void {
-    const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    this._detailsService.setContactStatus(conRecord, ContactStatus.Remove, this.contactStatusList, this.lang, true);
+    this._detailsService.setContactStatus(this.contactDetailsForm, ContactStatus.Remove, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
   }
 
   public activeContactRecord(): void {
-    const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    this._detailsService.setContactStatus(conRecord, ContactStatus.Active, this.contactStatusList, this.lang, true);
+    this._detailsService.setContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
   }
 
@@ -226,8 +170,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     // console.log("====>saveContactRecord ", this.errorList);  
     if (this.contactRecordModel.valid) {
       this.saveRecord.emit((this.contactRecordModel));
-      // this.showErrSummary = false;
-      // this.showErrors = false;
       this.contactRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved
@@ -255,33 +197,38 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    * show revise and remove contact button
    */
   public isExternalNotNewContact(): boolean {
-    const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    return (!this.isInternal && conRecord.controls['status'].value != 'NEW');
+    return (!this.isInternal && !this.isContactStatus(ContactStatus.New));
   }
 
   /**
    * internal site show active contact button
    */
   public isInternalActiveContact(): boolean {
-    const conRecord = <FormGroup>this.contactRecordModel.controls['contactDetails'];
-    return (this.isInternal && conRecord.controls['status'].value != 'REMOVE');
+    return (this.isInternal && !this.isContactStatus(ContactStatus.Remove));
   }
 
   /**
    * External site show delete contact button
    */
   public isExternalNewContact(): boolean {
-    return (!this.isInternal && (<FormGroup>this.contactRecordModel.controls['contactDetails']).controls['status'].value == 'NEW');
+    return (!this.isInternal && this.isContactStatus(ContactStatus.New));
   }
 
   /**
    * Internal site show delete contact button
    */
   public isInternalDeleteContact(): boolean {
-    return (this.isInternal && (<FormGroup>this.contactRecordModel.controls['contactDetails']).controls['status'].value == 'REMOVE');
+    return (this.isInternal && this.isContactStatus(ContactStatus.Remove));
   }
 
-  get contactDetailsFormGroup() {
+  get contactDetailsForm() {
     return this.contactRecordModel.get('contactDetails') as FormGroup;
   }
+
+  private isContactStatus(status: ContactStatus) {
+    const contStatusValue = this.contactDetailsForm.controls['status'].value;
+    return contStatusValue===status;
+  }
+  
+
 }

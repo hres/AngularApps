@@ -3,9 +3,9 @@
   <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="heading.contactDetails"
                  [headingLevel]="headingLevel" label="error.msg.contactDetails" compId="contactRec"></lib-error-summary>
-  <contact-details [contactRow]="cRRow" [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang" 
+  <contact-details [contactRow]="cRRow" [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang"
                    [languageList]="languageList" [contactStatusList]="contactStatusList"
-                   [detailsChanged]="updateChild" [group]="contactDetailsFormGroup"
+                   [group]="contactDetailsForm"
                    [helpTextSequences]="helpTextSequences"
                    (errorList)="updateErrorList($event)"></contact-details>
 

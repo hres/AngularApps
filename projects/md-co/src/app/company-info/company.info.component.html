@@ -1,21 +1,21 @@
 <div>
   <div [formGroup]="generalInfoFormLocalModel">
     <div class="row">
-      <div class="form-group col-xs-4 minWidth200" >
+      <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12 minWidth200" >
         <label for="formStatus">
           <span class="field-name">{{'appl.status' |translate}}</span>
-          <input name="formStatus" id="formStatus" class="form-control full-width" [readonly]="true"
-                 [formControl]="generalInfoFormLocalModel.controls['formStatus'] | formControl" (blur)="onblur()" />
+          <input name="formStatusText" id="formStatusText" class="form-control full-width" [readonly]="true"
+                 [formControl]="generalInfoFormLocalModel.controls['formStatusText'] | formControl" (blur)="onblur()" />
         </label>
       </div>
-      <div class="form-group col-xs-4 minWidth200" >
+      <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12  minWidth200" >
         <label for="lastSavedDate">
           <span class="field-name">{{'date.saved' |translate}}</span>
-          <input name="lastSavedDate" id="lastSavedDate" class="form-control full-width" [readonly]="!isInternal"
-                 [formControl]="generalInfoFormLocalModel.controls['lastSavedDate'] | formControl" (blur)="onblur()" />
+          <input name="lastSavedDate" id="lastSavedDate" class="form-control full-width" [readonly]="true"
+                 [formControl]="generalInfoFormLocalModel.controls['lastSavedDate'] | formControl" />
         </label>
       </div>
-      <div class="form-group col-xs-4 minWidth200">
+      <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12  minWidth200">
         <label for="companyId" [ngClass]="{'required':isInternal}" aria-required="true">
           <span class="field-name" >{{'company.id' |translate}}</span>
           <strong class="required" *ngIf="isInternal" >{{'commmon.required.bracket'|translate}}</strong>
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-2" >
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
         <button class="btn btn-primary" (click)="setAmendState()"  
                 [disabled]="disableAmendButton" id="amendSubDisabled">
           {{'amend.enrol'|translate}}</button>
@@ -45,7 +45,7 @@
         <ng-container formArrayName="amendReasons" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
           <div class="checkbox">
             <label for={{amendReasonOptionList[i].value}}>
-              <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnChange()"/> {{amendReasonOptionList[i].label}} 
+              <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="checkAdministriveChangesRenderingAndSaveData()"/> {{amendReasonOptionList[i].label}} 
             </label>
           </div>
         </ng-container>
@@ -71,7 +71,7 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-xs-6 rep-margin-top-12" >
+      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
         <label for="areLicensesTransfered" class="required full-width">
           <span class="field-name" >{{'ownership.transferred' |translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
@@ -81,10 +81,8 @@
                             controlId="areLicensesTransfered" label="ownership.transferred"
                             parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
-          <select id="areLicensesTransfered" required class="form-control full-width" (change)="onblur()"
-            (blur)="amendReasonOnChange()"
-                  (selected)="amendReasonOnChange()" [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl">
-                  <!-- ling todo select doesn't trigger the blur/selected event, leave it for now, correct when understanding the logic -->
+          <select id="areLicensesTransfered" required class="form-control full-width" (change)="checkAdministriveChangesRenderingAndSaveData()"
+            [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
           </select>

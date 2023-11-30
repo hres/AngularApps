@@ -26,7 +26,7 @@ export interface AdministrativeChanges {
 // }
 
 export interface GeneralInformation {
-  status:                  string;
+  status:                  IIdTextLabel;
   enrol_version:           string;
   last_saved_date:         string;
   company_id:              string;
