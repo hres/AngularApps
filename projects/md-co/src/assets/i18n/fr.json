@@ -184,8 +184,8 @@
   "approve.final": "Enregistrer la version finale XML",
 
   "msg.success.load": "Le fichier a êtê chargê avec succès",
-  "msg.err.parseFail": "fr_The parsing is failed.",
-  "msg.err.jsonparse": "fr_There was an error parsing the working file.",
+  "msg.err.parseFail": "Erreur: il y a eu une erreur en analysant le fichier de travail.",
+  "msg.err.jsonparse": "Il y a eu une erreur en analysant le fichier de travail.",
   "msg.err.xmlparse": "fr_There was an error parsing the draft XML file.",
   "msg.err.file.load": "fr_There was a problem loading the file.",
   "msg.err.file.type": "fr_An invalid file type was selected.",
