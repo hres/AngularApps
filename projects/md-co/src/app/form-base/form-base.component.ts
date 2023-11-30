@@ -5,7 +5,6 @@ import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { GeneralInformation, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
 import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus } from '@hpfb/sdk/ui';
-import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
 
 @Component({
@@ -75,7 +74,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private _formDataLoader: CompanyDataLoaderService,
     private _companyService: CompanyBaseService,
-    private _fileService: FileConversionService, private _utilService: UtilsService, private router: Router, private _globalService: GlobalService,
+    private _fileService: FileConversionService, private _utilService: UtilsService, private _globalService: GlobalService,
     private _loggerService: LoggerService,
     private _checkSumService: CheckSumService
   ) {
@@ -144,7 +143,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     } catch (e) {
       this._loggerService.error("formbase", e);
-      this.gotoErrorPage()
     }
   }
 
@@ -418,11 +416,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
     this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
   }
-
-  gotoErrorPage(): void {
-    this.router.navigate(['/error']);
-  }
-
 
   private init(companyEnroll: DeviceCompanyEnrol){
     this.genInfoModel = companyEnroll.general_information;
