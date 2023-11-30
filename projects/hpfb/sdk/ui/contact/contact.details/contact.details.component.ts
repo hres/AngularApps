@@ -6,6 +6,7 @@ import {FormGroup, FormBuilder} from '@angular/forms';
 import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 import {ContactDetailsService} from './contact.details.service';
 import { ICode } from '../../data-loader/data';
+import { UtilsService } from '../../utils/utils.service';
 
 @Component({
   selector: 'contact-details',
@@ -18,8 +19,7 @@ import { ICode } from '../../data-loader/data';
  */
 export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
-  public contactDetailFormLocal: FormGroup;
-  @Input('group') public contactDetailFormFromParent: FormGroup;
+  @Input('group') public contactDetailForm: FormGroup;    // contact detail form will use the reactive model passed in from the contact record component
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
@@ -32,16 +32,12 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   public showFieldErrors: boolean = false;
 
-  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private _detailsService: ContactDetailsService) {
+  constructor(private cdr: ChangeDetectorRef, private _utilsService: UtilsService) {
     this.showFieldErrors = false;
     this.showErrors = false;
   }
 
   ngOnInit() {
-    if (!this.contactDetailFormLocal) {
-      this.contactDetailFormLocal = this._detailsService.getReactiveModel(this._fb, this.isInternal);
-    }
-    this.detailsChanged = 0;
   }
 
   ngAfterViewInit() {
@@ -62,24 +58,11 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
       );
     }
     this.errorList.emit(temp);
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // since we can't detect changes on objects, using a separate flag
-    // if (changes['detailsChanged']) { // used as a change indicator for the model
-    //   // console.log("the details cbange");
-    //   if (this.contactDetailFormFromParent) {
-    //     this.setToLocalModel();
-
-    //   } else {
-    //     this.contactDetailFormLocal = this._detailsService.getReactiveModel(this._fb, this.isInternal);
-    //     this.contactDetailFormLocal.markAsPristine();
-    //   }
-    // }
 
     if (changes['showErrors']) {
-
       this.showFieldErrors = changes['showErrors'].currentValue;
       let temp = [];
       if (this.msgList) {
@@ -89,18 +72,6 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
         });
       }
       this.errorList.emit(temp);
-    }
-
-  }
-
-  /**
-   * Uses the updated reactive forms model locally
-   */
-
-  setToLocalModel() {
-    this.contactDetailFormLocal = this.contactDetailFormFromParent;
-    if (!this.contactDetailFormLocal.pristine) {
-      this.contactDetailFormLocal.markAsPristine();
     }
   }
 
