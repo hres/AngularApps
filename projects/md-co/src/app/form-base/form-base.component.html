@@ -70,7 +70,7 @@
                 <div class="panel-body"> 
                   <contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternal"
                                  [loadFileIndicator]="loadFileIndicator" [lang]="lang"
-                                 [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status"
+                                 [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status._id"
                                  [showErrors]="showErrors" [contactModel]="contactModel"
                                  [languageList]="languageList" [contactStatusList]="contactStatusList"
                                  (contactsUpdated)="contactModelUpdated($event)"></contact-list>
