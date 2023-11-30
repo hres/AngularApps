@@ -18,6 +18,7 @@ export class CompanyInfoService {
     return this._fb.group({
       firstname: [''],
       formStatus: [EnrollmentStatus.New],
+      formStatusText: '', // UI display
       lastSavedDate: '',
       companyId: ['', [Validators.required, ValidationService.companyIdValidator]],
       amendReasons: new FormArray([]),
@@ -26,8 +27,12 @@ export class CompanyInfoService {
     });
   }
 
-  mapFormModelToDataModel(formRecord: FormGroup, generalInfoModel: GeneralInformation, slctdAmendReasonCodes: string[], amendReasonCodeList: ICode[], lang: string) {
-    generalInfoModel.status = formRecord.controls['formStatus'].value;
+  mapFormModelToDataModel(formRecord: FormGroup, generalInfoModel: GeneralInformation, slctdAmendReasonCodes: string[], amendReasonCodeList: ICode[], lang: string, enrollmentStatusesList: ICode[]) {
+    if (formRecord.controls['formStatus'].value) {
+      generalInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(enrollmentStatusesList, formRecord.controls['formStatus'].value, lang);
+    } else {
+      generalInfoModel.status = null;
+    }
     generalInfoModel.last_saved_date = formRecord.controls['lastSavedDate'].value;
     if (formRecord.controls['companyId'].value) {
       generalInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.controls['companyId'].value;
@@ -41,9 +46,9 @@ export class CompanyInfoService {
     generalInfoModel.are_licenses_transfered = formRecord.controls['areLicensesTransfered'].value;
   }
 
-  mapDataModelToFormModel(generalInfoModel : GeneralInformation, formRecord: FormGroup, amendReasonOptionList: CheckboxOption[]) {
+  mapDataModelToFormModel(generalInfoModel : GeneralInformation, formRecord: FormGroup, amendReasonOptionList: CheckboxOption[], enrollmentStatusesList: ICode[], lang) {
     //const formStatus = this._utilsService.translateWord(enrollmentStatusList, lang, generalInfoModel.status);
-    formRecord.controls['formStatus'].setValue(generalInfoModel.status);
+    this.setEnrolmentStatus(formRecord, generalInfoModel.status._id, enrollmentStatusesList, lang, true); 
     formRecord.controls['lastSavedDate'].setValue(generalInfoModel.last_saved_date);
     if (generalInfoModel.company_id) {
       formRecord.controls['companyId'].setValue(generalInfoModel.company_id.slice(1));
@@ -80,4 +85,10 @@ export class CompanyInfoService {
 
     }
 
+  setEnrolmentStatus(formRecord: FormGroup, statusId: string, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {
+    if (setStatusAlso) {
+      formRecord.controls['formStatus'].setValue(statusId);  
+    }
+    formRecord.controls['formStatusText'].setValue(this._utilsService.findAndTranslateCode(enrollmentStatusList, lang, statusId));
+  }
 }
