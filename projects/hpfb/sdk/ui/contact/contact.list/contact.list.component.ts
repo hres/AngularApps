@@ -123,7 +123,6 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (changes['loadFileIndicator']) {
       this.contactListForm = this._listService.getReactiveModel(this._fb);     // reset contactListForm to an empty formArray
       this.newRecordIndicator = false;
-      // this._deleteContactInternal(0);
     }
     if (changes['saveContact']) {
       this.saveContactRecord(changes['saveContact'].currentValue);
@@ -302,8 +301,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * check if its record exists
    */
   public disableAddButton(): boolean {
-    return (!(this.contactListForm.valid  || !this.contactListForm.errors) ||
-      this.contactListForm.dirty || this.newRecordIndicator);
+    // console.log("form is invalid: ", !this.contactListForm.valid,  "form has errors: ", this.errorList.length>0, 
+    //   "form is dirty: ", this.contactListForm.dirty);
+    return ( !this.contactListForm.valid  || this.errorList.length > 0 ||  this.contactListForm.dirty );
   }
 
   /**
