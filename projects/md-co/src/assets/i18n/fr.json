@@ -127,7 +127,7 @@
   "error.found.plural": " erreurs ont été trouvées.",
   "error.found.singular": " erreur a été trouvée.",
 
-  "business.num": "fr_Business Number",
+  "business.num": "Numéro d’entreprise de l'Agence du revenu du Canada (le cas échéant)",
 
   "routing.id": "Identificateur d'acheminement",
 
@@ -154,7 +154,7 @@
   "impacted.licence": "Licence(s) concernée(s)",
   "all.licence.num": "Tous les numéros de licence concernée(s)",
 
-  "all.dossier.id": "fr_All dossier Identifier",
+  "all.dossier.id": "Numéro de dossier",
   "add.licence": "fr_Add licence",
 
   "save.licence": "Save licence",
@@ -187,11 +187,11 @@
   "msg.err.parseFail": "Erreur: il y a eu une erreur en analysant le fichier de travail.",
   "msg.err.jsonparse": "Il y a eu une erreur en analysant le fichier de travail.",
   "msg.err.xmlparse": "fr_There was an error parsing the draft XML file.",
-  "msg.err.file.load": "fr_There was a problem loading the file.",
-  "msg.err.file.type": "fr_An invalid file type was selected.",
-  "msg.err.form.type": "fr_The wrong form type was selected for this form.",
+  "msg.err.file.load": "Il y a eu un problème lors du chargement du fichier.",
+  "msg.err.file.type": "Erreur: Un type de fichier invalide a été sélectionné.",
+  "msg.err.form.type": "Erreur: le type de formulaire incorrect a été sélectionné pour ce formulaire.",
   "msg.err.checksum": "Erreur: il y a eu une erreur en analysant le fichier.",
-  "section.show.option": "fr_[ This section may not be visible. ] ",
+  "section.show.option": "[ Cette section peut ne pas être visible. ]",
 
   "minNumber5": "(5 chiffres)",
   "minNumber6": "(6 chiffres)",
@@ -206,7 +206,7 @@
 
   "instruction.help": "Instructions pour compléter les sections du formulaire",
 
-  "return.instruction": "fr_Return to instruction",
+  "return.instruction": "Revenir à la référence de l'instruction",
 
    "mailto.label": "Soumettre à Santé Canada",
   "help.load.file.01": "Il n’est pas nécessaire de charger un fichier de compagnie s’il s’agit de la première inscription de la compagnie.",
