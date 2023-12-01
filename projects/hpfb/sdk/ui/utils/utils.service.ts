@@ -224,7 +224,8 @@ export class UtilsService {
     for (const prop in changes) {
       if (changes.hasOwnProperty(prop)) {
         const change = changes[prop];
-        const currentValue = JSON.stringify(change.currentValue);
+        const isFormGroup = change.currentValue instanceof FormGroup;
+        const currentValue = isFormGroup? change.currentValue.value : JSON.stringify(change.currentValue);
         const isFirstChange = change.isFirstChange();
         changesArray.push({ propertyName: prop, isFirstChange, currentValue });
       }

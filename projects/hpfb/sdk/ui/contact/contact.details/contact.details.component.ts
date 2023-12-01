@@ -61,7 +61,8 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
+    // console.log(this._utilsService.checkComponentChanges(changes));
+    
     if (changes['showErrors']) {
       this.showFieldErrors = changes['showErrors'].currentValue;
       let temp = [];

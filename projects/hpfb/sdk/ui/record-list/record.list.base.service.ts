@@ -1,9 +1,10 @@
 import { FormArray, FormGroup } from "@angular/forms";
+import { UtilsService } from "../utils/utils.service";
 
 export abstract class RecordListBaseService {
 
   /**
-   * Used to create address ids
+   * Used to create record ids
    * @type {number}
    * @private
    */
@@ -12,15 +13,6 @@ export abstract class RecordListBaseService {
   constructor() {
 
   }
-
-  // static getRecord(recordList: Array<any>, value, prop) {
-  //   for (let i = 0; i < recordList.length; i++) {
-  //     if (recordList[i][prop] === value) {
-  //       return i;
-  //     }
-  //   }
-  //   return -1;
-  // }
 
   /**
    * Parses the current data and finds the largest ID
@@ -37,7 +29,7 @@ export abstract class RecordListBaseService {
   }
 
   /**
-   * Gets the next index id for the details record
+   * Gets the next record id 
    * @returns {number}
    */
   getNextIndex() {
@@ -78,16 +70,16 @@ export abstract class RecordListBaseService {
   }
 
   /**
-   * if formRecordIdToExpand is passed in, expand that record and collapse other records;
+   * if formRecordIdToExpand is passed in or not empty, expand that record and collapse all other records;
    * otherwise, collapse all records
    * 
    * @param formRecordList 
    * @param formRecordIdToExpand optional
    */
-  public collapseFormRecordList(formRecordList: FormArray, formRecordIdToExpand?: number){
+  public collapseFormRecordList(utilsService: UtilsService, formRecordList: FormArray, formRecordIdToExpand?: number){
     formRecordList.controls.forEach( (element: FormGroup) => {
       // console.log(element);
-      if ( (formRecordIdToExpand !== undefined) && (Number(element.controls['id'].value) === formRecordIdToExpand) ) {
+      if ( !utilsService.isEmpty(formRecordIdToExpand) && (Number(element.controls['id'].value) === formRecordIdToExpand) ) {
         element.controls['expandFlag'].setValue(true);
       } else {
         element.controls['expandFlag'].setValue(false);
