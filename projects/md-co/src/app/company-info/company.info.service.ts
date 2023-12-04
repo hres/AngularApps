@@ -21,7 +21,7 @@ export class CompanyInfoService {
       formStatusText: '', // UI display
       lastSavedDate: '',
       companyId: ['', [Validators.required, ValidationService.companyIdValidator]],
-      amendReasons: new FormArray([]),
+      amendReasons: this._fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
       rationale: ['', [Validators.required]],
       areLicensesTransfered: ['', [Validators.required]]
     });

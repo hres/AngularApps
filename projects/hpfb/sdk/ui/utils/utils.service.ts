@@ -117,7 +117,7 @@ export class UtilsService {
   }
 
   isIIdTextLabel(obj: any): obj is IIdTextLabel {
-    return (
+    return obj === null ?  false : (
       typeof obj._id === 'string' &&
       (typeof obj.__text === 'undefined' || typeof obj.__text === 'string') &&
       typeof obj._label_en === 'string' &&
