@@ -34,7 +34,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public isAmend: boolean = false;
-  public isOtherSelected: boolean = false;
+
   public showFieldErrors: boolean;
   public setAsComplete: boolean = false;  //ling todo remove???
   public disableAmendButton: boolean = true;
@@ -148,7 +148,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
         this.setAsComplete = (dataModel.status === FINAL && !this.isInternal); // ling todo remove??
         this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status._id, this.isInternal);
         this.isAmend = (dataModel.status === EnrollmentStatus.Amend);
-        this._checkAmendReasons();
+        this._checkAdministritiveChangesRendering();
       }
       if(changes['enrollmentStatusesList']) {
         this._companyInfoService.setEnrolmentStatus((<FormGroup>this.generalInfoFormLocalModel), this.generalInfoFormLocalModel.controls['formStatus'].value, this.enrollmentStatusesList, this.lang, false);
@@ -187,22 +187,21 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       this.amendReasonCodeList, this.lang, this.enrollmentStatusesList);
   }
   
-  amendReasonOnChange() {
-    // console.log('amendReasonOnChange is called');
-    this._checkAmendReasons();
+  checkAdministriveChangesRenderingAndSaveData() {
+    // console.log('checkAdministriveChangesRenderingAndSaveData is called');
+    this._checkAdministritiveChangesRendering();
     this._saveData();
   }
 
-  private _checkAmendReasons(){
-    this.isOtherSelected = this._isOther();
+  private _checkAdministritiveChangesRendering(){
     const showAdminChangesFlag = this.generalInfoFormLocalModel.controls['areLicensesTransfered'].value === YES || 
       this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges)
     this.showAdminChanges.emit(showAdminChangesFlag);  
   }
 
-  private _isOther() {
-    return this.selectedAmendReasonCodes.indexOf(AMEND_REASON_OTHER) !== -1? true : false;
-  }
+  // private _isOther() {
+  //   return this.selectedAmendReasonCodes.indexOf(AMEND_REASON_OTHER) !== -1? true : false;
+  // }
 
   // private _hasReasonChecked() {
   //   this.generalInfoFormLocalModel.controls.amendReason.setValue(null);

@@ -22,8 +22,9 @@ export class ContactListService extends RecordListBaseService implements RecordL
 
   // to facilitate to subscribe to contactModel's changes
   private contactModelSubject: Subject<any> = new Subject<any>();
-  contactModelChanges$: Observable<any> = this.contactModelSubject.asObservable();
+  contactModelChanges$: Observable<any> = this.contactModelSubject.asObservable(); 
 
+  // whenever contactList changes, notify subscribers
   notifyContactModelChanges(changes: any) {
     this.contactModelSubject.next(changes);
   }
@@ -49,6 +50,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
    */
   public setModelRecordList(value) {
     this.contactList = value;
+    this.notifyContactModelChanges({...this.contactList});
   }
 
   // /**

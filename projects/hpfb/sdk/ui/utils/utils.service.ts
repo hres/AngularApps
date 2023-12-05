@@ -117,7 +117,7 @@ export class UtilsService {
   }
 
   isIIdTextLabel(obj: any): obj is IIdTextLabel {
-    return (
+    return obj === null ?  false : (
       typeof obj._id === 'string' &&
       (typeof obj.__text === 'undefined' || typeof obj.__text === 'string') &&
       typeof obj._label_en === 'string' &&
@@ -154,6 +154,15 @@ export class UtilsService {
       } 
     }
     return false;
+  }
+
+  // Function to copy values from source to destination
+  copyFormGroupValues(source: FormGroup, destination: FormGroup): void {
+    Object.keys(source.controls).forEach(controlName => {
+      if (destination.controls[controlName]) {
+        destination.controls[controlName].setValue(source.controls[controlName].value);
+      }
+    });
   }
   
   getControlName (control: AbstractControl) {
@@ -215,7 +224,8 @@ export class UtilsService {
     for (const prop in changes) {
       if (changes.hasOwnProperty(prop)) {
         const change = changes[prop];
-        const currentValue = JSON.stringify(change.currentValue);
+        const isFormGroup = change.currentValue instanceof FormGroup;
+        const currentValue = isFormGroup? change.currentValue.value : JSON.stringify(change.currentValue);
         const isFirstChange = change.isFirstChange();
         changesArray.push({ propertyName: prop, isFirstChange, currentValue });
       }

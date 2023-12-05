@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AbstractControl, FormArray } from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
@@ -255,5 +256,17 @@ export class ValidationService {
     } else {
       return {'error.mgs.company.id': true};
     }
+  }
+
+  static atLeastOneCheckboxSelected(formArray: FormArray) {
+    // return (): { [key: string]: boolean } | null => {
+      const controls = formArray.controls;
+  
+      // Check if at least one checkbox is selected
+      const isAtLeastOneSelected = controls.some((control: AbstractControl) => control.value === true);
+  
+      // Return validation error if none are selected
+      return isAtLeastOneSelected ? null : { 'required': true };
+    // };
   }
 }

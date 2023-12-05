@@ -9,7 +9,7 @@
       <!-- ==={{recordRow.get('id').value}}=== -->
       <!-- === index = {{idx}} ,  === -->
       <company-contact-record *ngIf="recordRow.get('expandFlag').value" 
-        [cRRow]="recordRow" [detailsChanged]="updateContactDetails" [isInternal]="isInternal"
+        [cRRow]="recordRow" [isInternal]="isInternal"
         [languageList]="languageList" [contactStatusList]="contactStatusList" [showErrors]="showErrors" [lang]="lang"
         [helpTextSequences]="helpTextSequences" (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)" (revertRecord)="revertContact($event)"
@@ -20,7 +20,7 @@
 
   <div class="row mrgn-tp-md mrgn-bttm-lg">
     <div class="btn-group-sm col-md-12 text-left">
-      <button class="btn btn-primary" (click)="addContact()" id="addContactBtn" [disabled]="!validRec || isDirty()">
+      <button class="btn btn-primary" (click)="addContact()" id="addContactBtn" [disabled]="disableAddButton()">
         {{'add.repres'|translate}}
       </button>
     </div>

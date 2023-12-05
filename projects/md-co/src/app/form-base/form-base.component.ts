@@ -221,7 +221,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.mailtoQS = toggleFlag;
 
     if (toggleFlag) {
-      this.selectedAmendReasonCodes = this._utilService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason) 
+      this.selectedAmendReasonCodes = this._utilService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons) 
     } else {
       this.selectedAmendReasonCodes = [];
       // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
