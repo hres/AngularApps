@@ -44,6 +44,8 @@ export class AddressDetailsComponent implements OnInit {
   public provinceLabel: string = 'addressDetails.province';
   public postalPattern: RegExp = null;
   public postalLabel: string = 'postal.canada';
+  public postalCode = false;
+  public zipCode = false;
 
   public showFieldErrors = false;
 
@@ -246,13 +248,20 @@ export class AddressDetailsComponent implements OnInit {
       this.postalLabel = 'postal.canada';
       this.provinceLabel = 'addressDetails.province';
       this.postalPattern = /^(?!.*[DFIOQU])[A-VXYa-vxy][0-9][A-Za-z] ?[0-9][A-Za-z][0-9]$/;
+      this.postalCode = true;
+      this.zipCode = false;
     } else if (this._utilsService.isUsa(countryValue)) {
       this.postalPattern = /^[0-9]{5}(?:-[0-9]{4})?$/;
       this.postalLabel = 'postal.usa';
       //  this._loggerService.log('address.detail', "This is the postal label"+this.postalLabel);
       this.provinceLabel = 'addressDetails.state';
+      this.postalCode = false;
+      this.zipCode = true;
     } else {
       this.postalPattern = null;
+      this.postalLabel = 'addressDetails.postalCodeZip';
+      this.postalCode = false;
+      this.zipCode = false;
     }
   }
 

@@ -45,6 +45,7 @@
     }
   
     ngOnInit() {
+      console.log('ng on init');
       if (!this.primContactFormLocalModel) {
         this.primContactFormLocalModel = PrimaryContactService.getReactiveModel(this._fb);
       }
@@ -79,7 +80,9 @@
     }
   
     ngOnChanges(changes: SimpleChanges) {
-  
+      const isFirstChange = this._utilsService.isFirstChange(changes);
+
+      if (!isFirstChange) {
       // since we can't detect changes on objects, using a separate flag
       if (changes['detailsChanged']) { // used as a change indicator for the model
         // console.log("the details cbange");
@@ -121,6 +124,7 @@
         }
         this.onblur();
       }
+    }
     }
   
     /**

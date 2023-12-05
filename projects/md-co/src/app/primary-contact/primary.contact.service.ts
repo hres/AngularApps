@@ -54,8 +54,11 @@ export class PrimaryContactService {
   }
 
   public static mapDataModelToFormModel(primContactModel, formRecord: FormGroup) {
-    if (primContactModel) {
-      formRecord.controls['renewalContactName'].setValue(primContactModel.renewal_contact_name);
+    if (primContactModel.renewal_contact_name) {
+      formRecord.controls['renewalContactName'].setValue(primContactModel.renewal_contact_name);    
+    }
+
+    if (primContactModel.finance_contact_name) {
       formRecord.controls['financeContactName'].setValue(primContactModel.finance_contact_name);
     }
   }
