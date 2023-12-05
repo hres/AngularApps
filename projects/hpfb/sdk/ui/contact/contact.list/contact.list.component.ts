@@ -94,31 +94,12 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   //   this._emitErrors();
   // }
 
-  // /**
-  //  *
-  //  * @private syncs the contact details record with the reactive model. Uses view child functionality
-  //  */
-  // private _syncCurrentExpandedRow(): void {
-  //   if (this.companyContactChild) {
-  //     const contactFormList = this.getFormContactList();
-  //     const result = this.syncCurrentExpandedRow(contactFormList);
-  //     // Onlu update the results if there is a change. Otherwise the record will not be dirty
-
-  //     if (result) {
-  //       this.companyContactChild.contactFormRecord = result;
-  //       this.updateContactDetails++;
-  //     }
-  //   } else {
-  //     console.warn('There is no company contact child');
-  //   }
-  // }
-
   /**
    * Processes change events from inputs
    * @param {SimpleChanges} changes
    */
   ngOnChanges(changes: SimpleChanges) {
-    console.log(this._utilsService.checkComponentChanges(changes));
+    // console.log(this._utilsService.checkComponentChanges(changes));
 
     if (changes['loadFileIndicator']) {
       this.contactListForm = this._listService.getReactiveModel(this._fb);     // reset contactListForm to an empty formArray
