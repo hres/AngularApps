@@ -245,6 +245,5 @@
   "mailto.07": "Pièce jointe : Ébauche du fichier CO XML.",
   "contact.designation": "Désignation de la personne-ressource de l’entreprise (fabricant uniquement)",
   "des.renewal": "Personne-ressource désignée pour le renouvellement (fabricant uniquement)",
-  "des.finance": "Contact financier désigné (fabricant uniquement)",
-  "comp.admin.info":"Veuillez inclure la page de couverture de chaque licence concernée, un certificat valide du Programme d’audit unique des matériels médicaux [PAUMM] qui reflète le changement de nom ou d’adresse du fabricant, un formulaire F202 rempli et un formulaire d’attestation signé, le cas échéant."
+  "des.finance": "Contact financier désigné (fabricant uniquement)"
 }  

@@ -202,8 +202,5 @@
     "mailto.07": "Attachment: The draft CO XML.",
     "contact.designation": "Company contact designation (for manufacturer only)",
     "des.renewal": "Designated renewal contact (for manufacturer only)",
-    "des.finance": "Designated finance contact (for manufacturer only)",
-    "comp.admin.info":"Please include the cover page of each impacted licence, a valid Medical Device Single Audit Program [MDSAP] Certificate that reflects the change in the manufacturer’s name or address, a completed F202 form, and a signed attestation form as applicable."
-
-  
+    "des.finance": "Designated finance contact (for manufacturer only)"  
 }
