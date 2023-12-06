@@ -17,7 +17,6 @@ export class CompanyBaseService {
   buildForm() : FormGroup {
     return this._fb.group({
       status: EnrollmentStatus.New,
-      // enrolVersion: 0.0,
       lastSavedDate: '',
       companyId: ['', [Validators.required, Validators.min(5)]]
     });
@@ -85,14 +84,6 @@ export class CompanyBaseService {
         finance_contact_name: ''
       }
     );
-  }
-
-  /**
-   * Sets the Final Status
-   *
-   */
-  setFinalStatus() {
-    return EnrollmentStatus.Final;
   }
 
 }
