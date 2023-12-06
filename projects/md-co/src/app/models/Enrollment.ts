@@ -6,8 +6,8 @@ export interface Enrollment {
 
 export interface DeviceCompanyEnrol {
   template_version:       string;
-  general_information:    GeneralInformation;
   check_sum?:             string;
+  general_information:    GeneralInformation;
   address:                INameAddress;
   contacts:               Contacts;
   primary_contact:        PrimaryContact;

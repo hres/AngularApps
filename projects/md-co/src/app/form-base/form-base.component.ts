@@ -258,7 +258,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._fileService.saveJsonToFile(result, fileName, null);
   }
 
-  private _prepareForSaving(finalFile: boolean): Enrollment {
+  private _prepareForSaving(xmlFile: boolean): Enrollment {
    
     let output: Enrollment = { 
       DEVICE_COMPANY_ENROL: {
@@ -270,29 +270,23 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         administrative_changes: this.adminChangesModel,
       },
     };
-    // if (this.contactModel && this.contactModel.length > 0) {
-    //   const cts = this.contactModel.map(function (item) {
-    //     return {item};
-    //   }); 
-
-    //   output.DEVICE_COMPANY_ENROL.contacts =  this.contactModel;
-    // }
-    console.log("_prepareForSaving, data in 'session' ", JSON.stringify(output, null, 2));
+    // console.log("_prepareForSaving, data in 'session' ", JSON.stringify(output, null, 2));
 
     // update the last_saved_date
     output.DEVICE_COMPANY_ENROL.general_information.last_saved_date = this._utilService.getFormattedDate('yyyy-MM-dd')
 
-    if (finalFile) {
+    if (xmlFile) {
       this._updateEnrollmentVersion(output.DEVICE_COMPANY_ENROL.general_information);
 
       if (this.isInternal) {
         // update enrollment status for internal final saving
         output.DEVICE_COMPANY_ENROL.general_information.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusList, EnrollmentStatus.Final, this.lang); // Set to final status
       }
-      // do checksum for final xml at last step
-      output.DEVICE_COMPANY_ENROL.general_information[CHECK_SUM_CONST] = this._checkSumService.createHash(output);
+      // add and calculate check_sum if it is xml
+      output.DEVICE_COMPANY_ENROL.check_sum = "";   // this is needed for generating the checksum value
+      output.DEVICE_COMPANY_ENROL.check_sum = this._checkSumService.createHash(output);
     }
-    console.log("_prepareForSaving, data after updates ", JSON.stringify(output, null, 2));
+    // console.log("_prepareForSaving, data after updates ", JSON.stringify(output, null, 2));
 
     return output;
   }
