@@ -97,12 +97,14 @@ export class UtilsService {
   getIdsFromIdTextLabels(idTextLabelObjs: any): string[] {
     let ids: string[] = [];
 
-    if (Array.isArray(idTextLabelObjs) && this.isArrayOfIIdTextLabel(idTextLabelObjs)) {
-      for (const temp of idTextLabelObjs) {
-        ids.push(this.getIdFromIdTextLabel(temp));
+    if ( !this.isEmpty(idTextLabelObjs) ) {
+      if (Array.isArray(idTextLabelObjs) && this.isArrayOfIIdTextLabel(idTextLabelObjs)) {
+        for (const temp of idTextLabelObjs) {
+          ids.push(this.getIdFromIdTextLabel(temp));
+        }
+      } else if (!Array.isArray(idTextLabelObjs) && this.isIIdTextLabel(idTextLabelObjs)){
+        ids.push(this.getIdFromIdTextLabel(idTextLabelObjs));
       }
-    } else if (!Array.isArray(idTextLabelObjs) && this.isIIdTextLabel(idTextLabelObjs)){
-      ids.push(this.getIdFromIdTextLabel(idTextLabelObjs));
     }
 
     return ids;
