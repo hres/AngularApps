@@ -1,11 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { EnrollmentStatus, XSLT_PREFIX, ROOT_TAG } from '../app.constants';
+import { EnrollmentStatus, XSLT_PREFIX, ROOT_TAG, AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { GeneralInformation, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
-import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus, ConverterService } from '@hpfb/sdk/ui';
-import { NavigationEnd, Router } from '@angular/router';
+import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus, ConverterService, YES } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 
 @Component({
@@ -58,18 +57,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public saveXmlLabel = 'save.draft';
 
   public activeContacts = [];
-  public hasContact = false;
-
+  
   public showAmendNote: boolean = false;
 
   public mailToLabel = 'mailto.label';
   public disableMailto: boolean = false;
-  public showMailToHelpText: boolean;
+  public showMailToHelpText: boolean = false;;
   public mailToLink = '';
   private mailtoQS: boolean;
   public submitToEmail: string = '';
 
   private activeContactStatuses: string[] = [ContactStatus.New, ContactStatus.Revise , ContactStatus.Active];
+  private amendReasonCodesToShowAdminChanges:string[] = new Array(AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE) ;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -81,11 +80,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _converterService: ConverterService
   ) {
 
-    // this._loggerService.log("form.base", "constructor", "");
-
     this.showAdminChanges = false;
     this.showErrors = false;
-    this.showMailToHelpText = false;
 
     this.xslName = XSLT_PREFIX.toUpperCase() + this._utilService.getApplicationMajorVersion(this._globalService.getAppVersion()) + '.xsl';
   }
@@ -144,7 +140,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.helpIndex = this._globalService.getHelpIndex();
 
     } catch (e) {
-      this._loggerService.error("formbase", e);
+      console.error(e);
     }
   }
 
@@ -154,21 +150,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // this._loggerService.log("form.base", "ngOnChanges", this._utilService.checkComponentChanges(changes));
-
-    if (changes['contactModel']) {
-      this._updateContactList(changes['primContactModel'].currentValue);
-    }
-  }
-
-  private _updateContactList(contacts) {
-    this.activeContacts = contacts.filter(
-      (contact) =>
-        contact[status] === 'NEW' ||
-        contact[status] === 'REVISE' ||
-        contact[status] === 'ACTIVE'
-    );
-    this.hasContact = this.activeContacts && this.activeContacts.length > 0;
   }
 
   processErrors() {
@@ -180,7 +161,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       )
     );
     this.cdr.detectChanges(); // doing our own change detection
-    // this._loggerService.log('form.base', 'processErrors', 'this.errorList.length', this.errorList.length);
+    // console.log('form.base', 'processErrors', 'this.errorList.length', this.errorList.length);
     // for (const e of this.errorList) {
     //   console.log(e)
     // }
@@ -214,14 +195,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  // triggered when amend reasons and/or licenses being transferred in company info are updated
-  processGenInfoUpdates(toggleFlag: boolean) {
-    // console.log("processGenInfoUpdates toggleFlag", toggleFlag);
-    this.showAdminChanges = toggleFlag;
-    this.mailtoQS = toggleFlag;
+  // called from company.info.component when "amend reasons" and/or "are licenses being transferred" are updated
+  processGenInfoUpdates(changed: boolean) {  
+    // the newly changed values are already saved in the genInfoModel in the company.info.component
+    // so we can just get the needed values directly from genInfoModel
+    this._setShowAdminChangesFlag();    
 
-    if (toggleFlag) {
-      this.selectedAmendReasonCodes = this._utilService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons) 
+    // mailtoQS has the same business rule as showAdminChanges
+    this.mailtoQS = this.showAdminChanges;
+
+    if (this.showAdminChanges) {
+      this.selectedAmendReasonCodes = this._utilService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason) 
     } else {
       this.selectedAmendReasonCodes = [];
       // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
@@ -239,7 +223,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public isExternalAndFinal() {
-    return (!this.isInternal && this.isFinal);
+    return (!this.isInternal && this._isFinal());
   }
 
   public saveXmlFile() {
@@ -249,12 +233,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       document.location.href = '#topErrorSummary';
     } else {
       if (this.companyContacts.contactListForm.pristine) {
-        // .isPristine
-        this._updatedAutoFields();
+        this._updateSavedDate();
+        this._updateEnrollmentVersion();
         if (this.isInternal) {
           this.genInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusList, EnrollmentStatus.Final, this.lang); // Set to final status
         }
-        const result = {      // todo use the enrollement obj saved in GlobalService??, consolidate this with saveWorkingCopyFile()
+        const result = { 
           DEVICE_COMPANY_ENROL: {
             general_information: this.genInfoModel,
             [CHECK_SUM_CONST]: "",
@@ -288,7 +272,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveWorkingCopyFile() {
-    this._updatedSavedDate();     // todo use the enrollement obj saved in GlobalService??
+    
+    this._updateSavedDate(); 
+
     let result = {'DEVICE_COMPANY_ENROL': {
       'general_information': this.genInfoModel,
       'address': this.addressModel,
@@ -306,9 +292,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         : this.contactModel;
       result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
     }
-    // result.DEVICE_COMPANY_ENROL.contacts =
-    //   (this.contactModel && (this.contactModel).length > 0) ? {contact: this.contactModel} : {};
-    // const version: Array<any> = this.genInfoModel.enrol_version.toString().split('.');
+
     const fileName = this._buildfileName();
     this._fileService.saveJsonToFile(result, fileName, null);
   }
@@ -328,10 +312,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private _updatedAutoFields() {
-    this._updatedSavedDate();
+  private _updateEnrollmentVersion() {
     if (this.isInternal) {
-      this.genInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusList, EnrollmentStatus.Final, this.lang);
       this.genInfoModel.enrol_version =
         (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() +
         '.0';
@@ -342,7 +324,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private _updatedSavedDate() {
+  private _updateSavedDate() {
     this.genInfoModel.last_saved_date = this._utilService.getFormattedDate('yyyy-MM-dd')
   }
 
@@ -354,12 +336,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return cts;
   }
 
-  public updateChild() {
-    // this._loggerService.log("Calling updateChild")
-  }
-
   private _buildfileName() {
-    // const version: Array<any> = this.genInfoModel.enrol_version.split('.');
     const date_generated = this._utilService.getFormattedDate('yyyyMMddHHmm');
     if (this.isInternal) {
       return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
@@ -370,17 +347,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /*
-   * update adminChanges to show the text info in the adminChanges component
-   */
-  private _updateAdminChanges() {
-    // ling todo
-    // this.adminChanges[1] = this.genInfoModel.amend_reasons.manufacturer_name_change === YES;
-    // this.adminChanges[2] = this.genInfoModel.amend_reasons.manufacturer_address_change === YES;
-    // this.adminChanges[3] = this.genInfoModel.amend_reasons.facility_change === YES;
-    // this.adminChanges[0] = this.genInfoModel.are_licenses_transfered  === YES ||
-    //     this.adminChanges[1] || this.adminChanges[2] || this.adminChanges[3];
-  }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     $event.returnValue = true;
@@ -395,7 +361,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       (this.genInfoModel.company_id === null
         ? ''
         : this.genInfoModel.company_id);
-    // let emailAddress;
+
     let body =
       'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
     if (this.mailtoQS) {
@@ -408,21 +374,21 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       'mailto:' + this.submitToEmail + '?subject=' + emailSubject + '&body=' + body;
   }
 
-  contactModelUpdated(contacts) {
-    const cntList = contacts.filter(contact => this.activeContactStatuses.includes(contact.status._id));
+  // update active contact list for Primary Contact component
+  updateActiveContactList(contacts: Contact[]) {
+    const activeCntList = contacts.filter(contact => this.activeContactStatuses.includes(contact.status._id));
     this.activeContacts = [];
-    if (cntList) {
-      cntList.forEach((contact: any) => {
+    if (activeCntList) {
+      activeCntList.forEach((contact: any) => {
         this.activeContacts.push(contact.full_name);
       });
     }
-    this.hasContact = (this.activeContacts && this.activeContacts.length > 0);
   }
 
   private init(companyEnroll: DeviceCompanyEnrol){
     this.genInfoModel = companyEnroll.general_information;
     // set amend reasons and admin changes section to null if status is Final
-    if (this.isFinal) {   // ling todo review this
+    if (this._isFinal()) {   // ling todo review this
       // this.genInfoModel.amend_reasons = {
       //   manufacturer_name_change: '',
       //   manufacturer_address_change: '',
@@ -435,7 +401,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       // this.genInfoModel.are_licenses_transfered = '';
     }
 
-    this._updateAdminChanges();
     if (companyEnroll.administrative_changes) {
       this.adminChangesModel = companyEnroll.administrative_changes;
     }
@@ -446,15 +411,27 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const cont = companyEnroll.contacts['contact'];
     if (cont) {
       this.contactModel = cont instanceof Array ? cont : [cont];
-      this.contactModelUpdated(this.contactModel);
+      this.updateActiveContactList(this.contactModel);
     } else {
       this.contactModel = [];
     }
 
-    this.showAmendNote = this.isFinal;
+    this.showAmendNote = this._isFinal();
+
+    this._setShowAdminChangesFlag();    
   }
 
-  private get isFinal(): boolean{
+  private _isFinal(): boolean{
     return this.genInfoModel.status._id === EnrollmentStatus.Final;
+  }
+
+  private _setShowAdminChangesFlag(): void{
+
+    this.selectedAmendReasonCodes = this._utilService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons?.amend_reason);
+    const areLicensesBeingTransfered =  this.genInfoModel.are_licenses_transfered;
+
+    this.showAdminChanges = this._utilService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges) || areLicensesBeingTransfered === YES;
+    
+    console.log("_setShowAdminChangesFlag()", "this.selectedAmendReasonCodes", this.selectedAmendReasonCodes, "areLicensesBeingTransfered", areLicensesBeingTransfered, "this.showAdminChanges", this.showAdminChanges);
   }
 }

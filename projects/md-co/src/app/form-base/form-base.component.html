@@ -44,7 +44,7 @@
                               [genInfoModel]="genInfoModel"
                               [helpTextSequences]="helpIndex"
                               [enrollmentStatusesList]="enrollmentStatusList"
-                              (showAdminChanges)="processGenInfoUpdates($event)"
+                              (updatedGenInfo)="processGenInfoUpdates($event)"
                               (errorList)="processGenInfoErrors($event)">
             </com-gen-info>
             <div>
@@ -73,7 +73,7 @@
                                  [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status._id"
                                  [showErrors]="showErrors" [contactModel]="contactModel"
                                  [languageList]="languageList" [contactStatusList]="contactStatusList"
-                                 (contactsUpdated)="contactModelUpdated($event)"></contact-list>
+                                 (contactsUpdated)="updateActiveContactList($event)"></contact-list>
                 </div>
               </section>
               </div>
@@ -112,7 +112,7 @@
         </section>
       </div>
 
-      <pre>disableMailto {{disableMailto}} | showMailToHelpText {{showMailToHelpText}}  </pre>
+      <!-- <pre>disableMailto {{disableMailto}} | showMailToHelpText {{showMailToHelpText}}  </pre> -->
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">
         <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" >
@@ -138,8 +138,8 @@
     </div>
     
     <!-- <pre> show admin changes {{showAdminChanges}}</pre> -->
-    <pre> companyForm valid {{companyForm.valid}}</pre>
-    <pre> companyForm {{companyForm.value |json}}</pre>
+    <!-- <pre> companyForm valid {{companyForm.valid}}</pre> -->
+    <!-- <pre> companyForm {{companyForm.value |json}}</pre> -->
 
     </form>
   </div>

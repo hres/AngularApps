@@ -2,13 +2,11 @@ import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup} from '@angular/forms';
 import {CompanyInfoService} from './company.info.service';
-import { ControlMessagesComponent, FINAL, UtilsService, LoggerService, YES, ICode, ConverterService, CheckboxOption, ICodeDefinition } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, FINAL, UtilsService, LoggerService, YES, ICode, ConverterService, CheckboxOption, ICodeDefinition, IIdTextLabel } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
-import { EnrollmentStatus, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE, AMEND_REASON_NAME_CHANGE, AMEND_REASON_OTHER } from '../app.constants';
-import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { EnrollmentStatus} from '../app.constants';
 
 @Component({
   selector: 'com-gen-info',
@@ -29,24 +27,22 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() enrollmentStatusesList;
 
   @Output() errorList = new EventEmitter(true);
-  @Output() showAdminChanges = new EventEmitter(true);
+  @Output() updatedGenInfo = new EventEmitter(true);
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public isAmend: boolean = false;
 
   public showFieldErrors: boolean;
-  public setAsComplete: boolean = false;  //ling todo remove???
-  public disableAmendButton: boolean = true;
+
+  // public disableAmendButton: boolean = true;
+  public showAmendButton: boolean = false;
   public yesNoList: ICode[] = [];
   private amendReasonCodeList: ICodeDefinition[] = [];
   public amendReasonOptionList: CheckboxOption[] = [];
 
-  private amendReasonCodesToShowAdminChanges:string[] = new Array(AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE) ;
-
-
   constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _formDataLoader: CompanyDataLoaderService,
-    private router: Router, private _utilsService: UtilsService, private _converterService: ConverterService, private _loggerService: LoggerService) {
+    private _utilsService: UtilsService, private _converterService: ConverterService, private _loggerService: LoggerService) {
     this.showFieldErrors = false;
   }
 
@@ -66,7 +62,6 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
         // this._loggerService.log('company.info', '' + JSON.stringify(this.yesNoList));
       } catch (e) {
         console.error(e);
-        this.router.navigate(['/error']);
       }
     });
 
@@ -135,20 +130,11 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
         }
         this.errorList.emit(temp);
       }
-      if (changes['isInternal']) {
-        if (!changes['isInternal'].currentValue) {
-          // this._loggerService.log('company.info', 'onInit', 'changes[\'isInternal\'] called', changes['isInternal'].currentValue); // ling todo when is this called??
-          this.setAsComplete = (this.genInfoModel.status === FINAL && !changes['isInternal'].currentValue); // ling todo remove??
-          this.disableAmendButton = this.setDisableAmendButtonFlag(this.genInfoModel.status._id, !changes['isInternal'].currentValue);
-        } // && this.isInternal;
-      }
       if (changes['genInfoModel']) {
         const dataModel = changes['genInfoModel'].currentValue;
         this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList, this.enrollmentStatusesList, this.lang);
-        this.setAsComplete = (dataModel.status === FINAL && !this.isInternal); // ling todo remove??
-        this.disableAmendButton = this.setDisableAmendButtonFlag(dataModel.status._id, this.isInternal);
-        this.isAmend = (dataModel.status === EnrollmentStatus.Amend);
-        this._checkAdministritiveChangesRendering();
+        this.setDisableAmendButtonFlag(dataModel.status._id, this.isInternal);
+        this.isAmend = (dataModel.status._id === EnrollmentStatus.Amend);
       }
       if(changes['enrollmentStatusesList']) {
         this._companyInfoService.setEnrolmentStatus((<FormGroup>this.generalInfoFormLocalModel), this.generalInfoFormLocalModel.controls['formStatus'].value, this.enrollmentStatusesList, this.lang, false);
@@ -156,8 +142,9 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  private setDisableAmendButtonFlag(formStatus: string, isInternal: boolean) : boolean{
-    return  formStatus !== FINAL || isInternal;
+  private setDisableAmendButtonFlag(enrolStatusId: string, isInternal: boolean) : void{
+    // this.disableAmendButton = (formStatus !== EnrollmentStatus.Final || isInternal);
+    this.showAmendButton = (enrolStatusId === EnrollmentStatus.Final && !isInternal);
   }
   /**
    * Uses the updated reactive forms model locally
@@ -187,32 +174,18 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       this.amendReasonCodeList, this.lang, this.enrollmentStatusesList);
   }
   
-  checkAdministriveChangesRenderingAndSaveData() {
-    // console.log('checkAdministriveChangesRenderingAndSaveData is called');
-    this._checkAdministritiveChangesRendering();
+  amendReasonOnChange(){
+    this._saveDataAndEmitGenInfoChangeFlag();
+  }
+
+  areLicensesBeingTransferedOnChange(){
+    this._saveDataAndEmitGenInfoChangeFlag();
+  }
+
+  private _saveDataAndEmitGenInfoChangeFlag() {
     this._saveData();
+    this.updatedGenInfo.emit(true);
   }
-
-  private _checkAdministritiveChangesRendering(){
-    const showAdminChangesFlag = this.generalInfoFormLocalModel.controls['areLicensesTransfered'].value === YES || 
-      this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges)
-    this.showAdminChanges.emit(showAdminChangesFlag);  
-  }
-
-  // private _isOther() {
-  //   return this.selectedAmendReasonCodes.indexOf(AMEND_REASON_OTHER) !== -1? true : false;
-  // }
-
-  // private _hasReasonChecked() {
-  //   this.generalInfoFormLocalModel.controls.amendReason.setValue(null);
-  //   if (this.generalInfoFormLocalModel.controls.nameChange.value ||
-  //     this.generalInfoFormLocalModel.controls.addressChange.value ||
-  //     this.generalInfoFormLocalModel.controls.facilityChange.value ||
-  //     this.generalInfoFormLocalModel.controls.contactChange.value ||
-  //     this.generalInfoFormLocalModel.controls.otherChange.value) {
-  //     this.generalInfoFormLocalModel.controls.amendReason.setValue('reasonFilled');
-  //   }
-  // }
 
   get amendReasonChkFormArray() {
     return this._companyInfoService.getAmendReasonCheckboxFormArray(this.generalInfoFormLocalModel);

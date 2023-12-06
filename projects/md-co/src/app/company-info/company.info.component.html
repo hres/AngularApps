@@ -29,10 +29,10 @@
         </label>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="showAmendButton">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-        <button class="btn btn-primary" (click)="setAmendState()"  
-                [disabled]="disableAmendButton" id="amendSubDisabled">
+        <button class="btn btn-primary" (click)="setAmendState()">
+          <!-- [disabled]="disableAmendButton"> -->
           {{'amend.enrol'|translate}}</button>
       </div>
     </div>
@@ -52,7 +52,7 @@
           <ng-container formArrayName="amendReasons" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
             <div class="checkbox">
               <label for={{amendReasonOptionList[i].value}}>
-                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="checkAdministriveChangesRenderingAndSaveData()"/> {{amendReasonOptionList[i].label}} 
+                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnChange()"/> {{amendReasonOptionList[i].label}} 
               </label>
             </div>
           </ng-container>
@@ -89,7 +89,7 @@
                             controlId="areLicensesTransfered" label="ownership.transferred"
                             parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
-          <select id="areLicensesTransfered" required class="form-control full-width" (change)="checkAdministriveChangesRenderingAndSaveData()"
+          <select id="areLicensesTransfered" required class="form-control full-width" (change)="areLicensesBeingTransferedOnChange()"
             [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
