@@ -57,7 +57,7 @@
                               [control]="adminChangesFormLocalModel.controls['isReguChange'] | formControl"
                               controlId="isReguChange" label="is.change" parentId="adminChangesDetails"
                               parentLabel="Admin Changes"></control-messages>
-            <select id="isReguChange" required class="form-control" (blur)="onblur()" [formControl]="adminChangesFormLocalModel.controls['isReguChange'] | formControl">
+            <select id="isReguChange" required class="form-control" (change)="onblur()" [formControl]="adminChangesFormLocalModel.controls['isReguChange'] | formControl">
               <option label=" " value=""></option>
                <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
             </select>

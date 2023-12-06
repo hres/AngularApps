@@ -1,6 +1,6 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { YES, NO, ValidationService } from '@hpfb/sdk/ui'
+import { ValidationService } from '@hpfb/sdk/ui'
 
 @Injectable()
 export class CompanyAdminChangesService {
@@ -22,34 +22,6 @@ export class CompanyAdminChangesService {
       newContactId: ['', []],
       newContactName: [null, Validators.required]
     });
-  }
-
-  /**
-   * Gets an empty data model
-   *
-   */
-  public getEmptyModel() {
-
-    return (
-      {
-        all_licence_numbers: '',
-        is_regulatory_change: '',
-        new_company_id: '',
-        new_contact_id: '',
-        new_contact_name: ''
-      }
-    );
-  }
-
-  /**
-   * Gets an yesno array
-   *
-   */
-  public getYesNoList() {
-    return [
-      YES,
-      NO
-    ];
   }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, adminChangesModel, licenceModel) {
