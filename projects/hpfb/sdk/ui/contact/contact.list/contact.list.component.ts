@@ -126,7 +126,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       this._listService.setModelRecordList(this.contactModel);
       this._listService.initIndex(this.contactModel);
 
-      if (!this.isInternal && (!this.contactModel || this.contactModel.length === 0)) {
+      if ( !this.contactModel || this.contactModel.length === 0 ) {
         this._createFormContact();
 
       } else {
