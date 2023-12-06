@@ -17,11 +17,6 @@ export class MailtoHelpComponent implements OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const isFirstChange = this._utilsService.isFirstChange(changes);
-
-    // Ignore first trigger of ngOnChanges
-    if (!isFirstChange) {
-      this.paramValue = this.email;
-    }
+    this.paramValue = this.email;
   }
 }
