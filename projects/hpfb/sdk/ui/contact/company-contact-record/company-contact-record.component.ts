@@ -152,17 +152,17 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
  
   public setStatusToRevise(): void {
-    this._detailsService.setContactStatus(this.contactDetailsForm, ContactStatus.Revise, this.contactStatusList, this.lang, true);
+    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Revise, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
   }
 
   public setStatusToRemove(): void {
-    this._detailsService.setContactStatus(this.contactDetailsForm, ContactStatus.Remove, this.contactStatusList, this.lang, true);
+    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Remove, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
   }
 
   public activeContactRecord(): void {
-    this._detailsService.setContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
+    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
   }
 

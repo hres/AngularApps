@@ -101,7 +101,7 @@ export class ContactDetailsService {
     // }
   }
 
-  setContactStatus(contactDetailFormRecord: FormGroup, statusId:string, contactStatusList: ICode[], lang: string, setStatusAlso: boolean){
+  setFormContactStatus(contactDetailFormRecord: FormGroup, statusId:string, contactStatusList: ICode[], lang: string, setStatusAlso: boolean){
 
     if (setStatusAlso) {
       contactDetailFormRecord.controls['status'].setValue(statusId);  

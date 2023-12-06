@@ -161,7 +161,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
     // update Contact Detail statusText
     formRecordList.controls.forEach( (element: FormGroup) => {
       const contactDetailFormRecord = element.controls['contactDetails'] as FormGroup;
-      this._detailsService.setContactStatus(contactDetailFormRecord, contactDetailFormRecord.controls['status'].value, contactStatusList, lang, false)
+      this._detailsService.setFormContactStatus(contactDetailFormRecord, contactDetailFormRecord.controls['status'].value, contactStatusList, lang, false)
     });
   }
 
