@@ -1,6 +1,6 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Enrollment, GeneralInformation } from '../models/Enrollment';
+import { AdministrativeChanges, Enrollment, GeneralInformation, PrimaryContact } from '../models/Enrollment';
 import { INameAddress, EntityBaseService } from '@hpfb/sdk/ui';
 import { EnrollmentStatus } from '../app.constants';
 
@@ -26,11 +26,12 @@ export class CompanyBaseService {
   public getEmptyEnrol(): Enrollment {
     const enrollment: Enrollment = {
       DEVICE_COMPANY_ENROL: {
+        template_version: '',
         general_information: this.getEmptyGenInfoModel(),
         address: this._entityBaseService.getEmptyAddressDetailsModel(),
-        contacts: [],
+        contacts: {contact: []},
         primary_contact: this.getEmptyPrimarycontactModel(),
-        administrative_changes: this.getEmptyAdminChangesModel()
+        administrative_changes: this.getEmptyAdminChangesModel(),
       }
     };
     
@@ -59,7 +60,7 @@ export class CompanyBaseService {
    * Gets an empty Admin Changes Model
    *
    */
-  private getEmptyAdminChangesModel() {
+  public getEmptyAdminChangesModel(): AdministrativeChanges {
 
     return (
       {
@@ -76,7 +77,7 @@ export class CompanyBaseService {
    * Gets an empty Admin Changes Model
    *
    */
-  private getEmptyPrimarycontactModel() {
+  private getEmptyPrimarycontactModel(): PrimaryContact {
 
     return (
       {

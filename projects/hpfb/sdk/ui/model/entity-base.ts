@@ -52,3 +52,7 @@ export interface Contact {
   email:           string;
   RoutingID:       string;
 }
+
+export interface Contacts {
+  contact: Contact[];
+}

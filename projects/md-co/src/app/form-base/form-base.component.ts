@@ -94,11 +94,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this._globalService.setEnrollment(this.enrollModel);
       } else {
         this.enrollModel = this._globalService.getEnrollment();
-        // this._loggerService.log("form.base", "onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
+        // console.log("onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
       }
 
       const companyEnroll: DeviceCompanyEnrol = this.enrollModel[this.rootTagText];
-      this.init(companyEnroll);
+      this._init(companyEnroll);
 
       if (!this.companyForm) {
         this.companyForm = this._companyService.buildForm();
@@ -206,10 +206,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     if (this.showAdminChanges) {
       this.selectedAmendReasonCodes = this._utilService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason) 
+      // re-initiate the object in case showAdminChanges is flipped back and forth
+      this.adminChangesModel = this._companyService.getEmptyAdminChangesModel();
     } else {
       this.selectedAmendReasonCodes = [];
       // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
-      this.adminChangesModel = null; //CompanyBaseService.getEmptyAdminChangesModel();
+      this.adminChangesModel = null; 
       this.processAdminChangesErrors([]);
     }
   }
@@ -233,28 +235,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       document.location.href = '#topErrorSummary';
     } else {
       if (this.companyContacts.contactListForm.pristine) {
-        this._updateSavedDate();
-        this._updateEnrollmentVersion();
-        if (this.isInternal) {
-          this.genInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusList, EnrollmentStatus.Final, this.lang); // Set to final status
-        }
-        const result = { 
-          DEVICE_COMPANY_ENROL: {
-            general_information: this.genInfoModel,
-            [CHECK_SUM_CONST]: "",
-            address: this.addressModel,
-            contacts: {},
-            primary_contact: this.primContactModel,
-            administrative_changes: this.adminChangesModel,
-          },
-        };
-        if (this.contactModel && this.contactModel.length > 0) {
-          const cm = this._removeHcStatus(this.contactModel);
-          result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
-        }
-
-        result.DEVICE_COMPANY_ENROL[CHECK_SUM_CONST] = this._checkSumService.createHash(result);
-
+        const result = this._prepareForSaving(true);
         const fileName = this._buildfileName();
         this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
       } else {
@@ -272,29 +253,48 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveWorkingCopyFile() {
-    
-    this._updateSavedDate(); 
-
-    let result = {'DEVICE_COMPANY_ENROL': {
-      'general_information': this.genInfoModel,
-      'address': this.addressModel,
-      'contacts': {},
-      'primary_contact': this.primContactModel,
-      'administrative_changes': this.adminChangesModel
-    }};
-    if (this.contactModel && (this.contactModel).length > 0) {
-      const cm = !this.isInternal ? this._removeHcStatus(this.contactModel) : this.contactModel;
-      result.DEVICE_COMPANY_ENROL.contacts = {contact: cm};
-    }
-    if (this.contactModel && this.contactModel.length > 0) {
-      const cm = !this.isInternal
-        ? this._removeHcStatus(this.contactModel)
-        : this.contactModel;
-      result.DEVICE_COMPANY_ENROL.contacts = { contact: cm };
-    }
-
+    const result = this._prepareForSaving(false);
     const fileName = this._buildfileName();
     this._fileService.saveJsonToFile(result, fileName, null);
+  }
+
+  private _prepareForSaving(finalFile: boolean): Enrollment {
+   
+    let output: Enrollment = { 
+      DEVICE_COMPANY_ENROL: {
+        template_version: this._globalService.getAppVersion(),
+        general_information: this.genInfoModel,
+        address: this.addressModel,
+        contacts: {contact: this.contactModel},
+        primary_contact: this.primContactModel,
+        administrative_changes: this.adminChangesModel,
+      },
+    };
+    // if (this.contactModel && this.contactModel.length > 0) {
+    //   const cts = this.contactModel.map(function (item) {
+    //     return {item};
+    //   }); 
+
+    //   output.DEVICE_COMPANY_ENROL.contacts =  this.contactModel;
+    // }
+    console.log("_prepareForSaving, data in 'session' ", JSON.stringify(output, null, 2));
+
+    // update the last_saved_date
+    output.DEVICE_COMPANY_ENROL.general_information.last_saved_date = this._utilService.getFormattedDate('yyyy-MM-dd')
+
+    if (finalFile) {
+      this._updateEnrollmentVersion(output.DEVICE_COMPANY_ENROL.general_information);
+
+      if (this.isInternal) {
+        // update enrollment status for internal final saving
+        output.DEVICE_COMPANY_ENROL.general_information.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusList, EnrollmentStatus.Final, this.lang); // Set to final status
+      }
+      // do checksum for final xml at last step
+      output.DEVICE_COMPANY_ENROL.general_information[CHECK_SUM_CONST] = this._checkSumService.createHash(output);
+    }
+    console.log("_prepareForSaving, data after updates ", JSON.stringify(output, null, 2));
+
+    return output;
   }
 
   public processFile(fileData: ConvertResults) {
@@ -304,7 +304,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._globalService.setEnrollment(enrollment);
 
     const companyEnroll: DeviceCompanyEnrol = enrollment[this.rootTagText];
-    this.init(companyEnroll);
+    this._init(companyEnroll);
 
     if (this.isInternal) {
       // once load data files on internal site, lower components should update error list and push them up
@@ -312,29 +312,25 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private _updateEnrollmentVersion() {
+  private _updateEnrollmentVersion(genInfo: GeneralInformation) {
+    let enrolVersion: string = "";
     if (this.isInternal) {
-      this.genInfoModel.enrol_version =
-        (Math.floor(Number(this.genInfoModel.enrol_version)) + 1).toString() +
-        '.0';
+      enrolVersion = (Math.floor(Number(genInfo.enrol_version)) + 1).toString() + '.0';
     } else {
-      const version: Array<any> = this.genInfoModel.enrol_version.split('.');
+      const version: Array<any> = genInfo.enrol_version.split('.');
       version[1] = (Number(version[1]) + 1).toString();
-      this.genInfoModel.enrol_version = version[0] + '.' + version[1];
+      enrolVersion = version[0] + '.' + version[1];
     }
+    genInfo.enrol_version = enrolVersion;
   }
 
-  private _updateSavedDate() {
-    this.genInfoModel.last_saved_date = this._utilService.getFormattedDate('yyyy-MM-dd')
-  }
-
-  private _removeHcStatus(contacts) {
-    const cts = contacts.map(function (item) {
-      delete item.hc_status;
-      return item;
-    });
-    return cts;
-  }
+  // private _removeHcStatus(contacts) {
+  //   const cts = contacts.map(function (item) {
+  //     delete item.hc_status;
+  //     return item;
+  //   });
+  //   return cts;
+  // }
 
   private _buildfileName() {
     const date_generated = this._utilService.getFormattedDate('yyyyMMddHHmm');
@@ -385,39 +381,27 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private init(companyEnroll: DeviceCompanyEnrol){
+  private _init(companyEnroll: DeviceCompanyEnrol){
     this.genInfoModel = companyEnroll.general_information;
     // set amend reasons and admin changes section to null if status is Final
     if (this._isFinal()) {   // ling todo review this
-      // this.genInfoModel.amend_reasons = {
-      //   manufacturer_name_change: '',
-      //   manufacturer_address_change: '',
-      //   facility_change: '',
-      //   contact_change: '',
-      //   other_change: '',
-      //   rationale: '',
-      // };
       this.genInfoModel.amend_reasons = null;
       // this.genInfoModel.are_licenses_transfered = '';
     }
-
     if (companyEnroll.administrative_changes) {
       this.adminChangesModel = companyEnroll.administrative_changes;
     }
-
     this.addressModel = companyEnroll.address;
     this.primContactModel = companyEnroll.primary_contact;
-
-    const cont = companyEnroll.contacts['contact'];
-    if (cont) {
-      this.contactModel = cont instanceof Array ? cont : [cont];
+    const tContacts = companyEnroll.contacts['contact'];
+    // if only one contact, convert it to an array
+    this.contactModel = Array.isArray(tContacts) ? tContacts : [tContacts];
+    if ( !this._utilService.isEmpty(this.contactModel) ) {
       this.updateActiveContactList(this.contactModel);
-    } else {
+    }else {
       this.contactModel = [];
     }
-
     this.showAmendNote = this._isFinal();
-
     this._setShowAdminChangesFlag();    
   }
 
@@ -432,6 +416,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     this.showAdminChanges = this._utilService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges) || areLicensesBeingTransfered === YES;
     
-    console.log("_setShowAdminChangesFlag()", "this.selectedAmendReasonCodes", this.selectedAmendReasonCodes, "areLicensesBeingTransfered", areLicensesBeingTransfered, "this.showAdminChanges", this.showAdminChanges);
+    // console.log("_setShowAdminChangesFlag()", "this.selectedAmendReasonCodes", this.selectedAmendReasonCodes, "areLicensesBeingTransfered", areLicensesBeingTransfered, "this.showAdminChanges", this.showAdminChanges);
   }
 }

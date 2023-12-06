@@ -1,14 +1,15 @@
-import { INameAddress, IIdText, IIdTextLabel, Contact } from "@hpfb/sdk/ui";
+import { INameAddress, IIdTextLabel, Contact, Contacts } from "@hpfb/sdk/ui";
 
-// todo cleanup unused fields
 export interface Enrollment {
   DEVICE_COMPANY_ENROL: DeviceCompanyEnrol;
 }
 
 export interface DeviceCompanyEnrol {
+  template_version:       string;
   general_information:    GeneralInformation;
+  check_sum?:             string;
   address:                INameAddress;
-  contacts:               Contact[];
+  contacts:               Contacts;
   primary_contact:        PrimaryContact;
   administrative_changes: AdministrativeChanges;
 }
@@ -20,10 +21,6 @@ export interface AdministrativeChanges {
   new_contact_id:       string;
   new_contact_name:     string;
 }
-
-// export interface Contacts {
-//   contact: Contact;
-// }
 
 export interface GeneralInformation {
   status:                  IIdTextLabel;
