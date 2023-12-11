@@ -98,8 +98,6 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    //this.setDefaultEnrollmentStatus(); // TODO: Not sure where to place this
-
     const isFirstChange = this._utilsService.isFirstChange(changes);
 
     // Ignore first trigger of ngOnChanges

@@ -2,7 +2,7 @@
   <div [formGroup]="generalInfoFormLocalModel">
     <div class="row">
       <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12 minWidth200" >
-        <label for="formStatus">
+        <label for="formStatusText">
           <span class="field-name">{{'appl.status' |translate}}</span>
           <input name="formStatusText" id="formStatusText" class="form-control full-width" [readonly]="true"
                  [formControl]="generalInfoFormLocalModel.controls['formStatusText'] | formControl" (blur)="onblur()" />
@@ -16,7 +16,7 @@
         </label>
       </div>
       <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12  minWidth200">
-        <label for="companyId" [ngClass]="{'required':isInternal}" aria-required="true">
+        <label for="companyId" [ngClass]="{'required':isInternal}">
           <span class="field-name" >{{'company.id' |translate}}</span>
           <strong class="required" *ngIf="isInternal" >{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="(isInternal && generalInfoFormLocalModel.controls['companyId'].invalid)"

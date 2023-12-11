@@ -1,19 +1,17 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { UtilsService } from '@hpfb/sdk/ui';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-mailto-help',
-  templateUrl: './mailto.help.component.html',
-  styles: [],
+  templateUrl: 'mailto.help.component.html',
   encapsulation: ViewEncapsulation.None,
 })
 export class MailtoHelpComponent implements OnChanges{
-  @Input() email;
-  @Input() lang;
+  @Input() email : string;
+  @Input() lang : string;
   
-  paramValue: string = '';
+  public paramValue: string = '';
 
-  constructor(private _utilsService: UtilsService) {
+  constructor() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
