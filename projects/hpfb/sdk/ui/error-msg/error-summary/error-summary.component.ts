@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges, inject} from '@angular/core';
 import { ExpanderComponent } from '../../expander/expander.component';
 import {ErrorSummaryObject} from './error-summary-object';
 import { ERR_SUMMARY_COMP_NAME, errorSummleastOneRcd } from '../../common.constants';
@@ -25,6 +25,10 @@ export class ErrorSummaryComponent implements AfterViewInit {
   public hdingLevel = 'h1';
   public index: number;
   public expander: ExpanderComponent ;
+  public errorCount: number;
+
+
+  private translateService = inject(TranslateService);
 
   constructor(private cdr: ChangeDetectorRef) {
     this.type = ERR_SUMMARY_COMP_NAME;
@@ -77,6 +81,12 @@ export class ErrorSummaryComponent implements AfterViewInit {
       controlError.componentId = err.componentId; // error summary only uses this
       controlError.expander = err.expander; // error summary only uses
       controlError.compRef = err;
+
+      err.errorNumber = `${this.translateService.instant('error')}${this.errorCount}${':'}`;
+      controlError.errorNumber = err.errorNumber;
+
+      err.errorSummaryFlag = this.hiddenSummary;
+
       if (err.controlId === 'hasMaterial') {
         err.type = errorSummleastOneRcd;
         err.tableId = 'materialListTable';
@@ -105,7 +115,9 @@ export class ErrorSummaryComponent implements AfterViewInit {
           this.errors[err.parentId] = parentError;
         }
       }
+      this.errorCount++;
     }
+    this.resetErrorCount();
     // console.log(this.errors);
   }
 
@@ -143,9 +155,15 @@ export class ErrorSummaryComponent implements AfterViewInit {
       componentId: '',
       tableId: '',
       expander: null,
-      compRef: null
+      compRef: null,
+      errorNumber: ''
     };
     return (controlError);
   }
+
+  private resetErrorCount(){
+    this.errorCount = 1;
+  }
+
 
 }

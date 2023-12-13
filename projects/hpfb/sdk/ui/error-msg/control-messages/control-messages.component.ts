@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges,ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges,ViewEncapsulation, inject} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { ValidationService } from '../../validation/validation.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -41,6 +41,14 @@ export class ControlMessagesComponent implements OnChanges {
    * Index of the error. Used to expand the expander for the error summaryt
    */
   @Input() index: Number;
+   /**
+   * Number of error from error summary
+   */
+   public errorNumber: string;
+   /**
+    * Flag to indicate if error summary
+    */
+   public errorSummaryFlag: boolean;
   /**
    * Current error type for the control
    * @type {string}
@@ -63,7 +71,7 @@ export class ControlMessagesComponent implements OnChanges {
    */
   private _errorVisible: boolean;
 
-  constructor() {
+  constructor(private translateService : TranslateService) {
     // this.tabSet = null;
     this.tabId = null;
     this._errorVisible = false;
@@ -89,9 +97,16 @@ export class ControlMessagesComponent implements OnChanges {
   get errorMessage() {
     for (let propertyName in this.control.errors) {
       this.currentError = propertyName;
-      return ValidationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
+      let errorMsg = `${this.translateService.instant(ValidationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]))}`;
+
+      if (this.errorSummaryFlag) {
+        errorMsg = `${this.errorNumber} ${this.translateService.instant(ValidationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]))}`;
+
+      }
+      return errorMsg; 
     }
     this.currentError = '';
+    this.errorSummaryFlag = false;
     return null;
   }
 
