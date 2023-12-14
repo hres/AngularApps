@@ -2,14 +2,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "paths": {
-      "@hpfb/sdk/*": [
-        "dist/hpfb/sdk/*"
-      ],
-      "@hpfb/sdk": [
-        "dist/hpfb/sdk"
-      ]
-    },
     "outDir": "../../out-tsc/app",
     "types": []
   },

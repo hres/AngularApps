@@ -5,7 +5,9 @@ import {
   FileIoModule,
   ExpanderModule,
   AddressModule,
-  ContactModule
+  ContactModule,
+  LayoutModule,
+  CommonUiFeatureModule
 } from '@hpfb/sdk/ui';
 import { CommonModule } from '@angular/common';
 import { FormBaseComponent } from './form-base/form-base.component';
@@ -20,10 +22,12 @@ import { CompanyInfoService } from './company-info/company.info.service';
 import { CompanyDataLoaderService } from './form-base/company-data-loader.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ContainerComponent } from './container/container.component';
 import { InformationModule } from './information/information.module';
 
 @NgModule({
   declarations: [
+    ContainerComponent,
     FormBaseComponent,
     CompanyInfoComponent,
     PrimaryContactComponent,
@@ -33,6 +37,8 @@ import { InformationModule } from './information/information.module';
   imports: [
     CommonModule,
     TranslateModule,
+    CommonUiFeatureModule,
+    LayoutModule,
     ErrorModule,
     PipesModule,
     InformationModule,
@@ -51,6 +57,7 @@ import { InformationModule } from './information/information.module';
     CompanyAdminChangesComponent,
     CompanyAdminChangesService,
   ],
-  exports: [FormBaseComponent, InformationModule],
+  exports: [CommonUiFeatureModule, ContainerComponent, FormBaseComponent
+  ],
 })
 export class AppFormModule {}

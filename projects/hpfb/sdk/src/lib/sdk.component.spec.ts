@@ -8,10 +8,10 @@ describe('SdkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SdkComponent ]
+      imports: [SdkComponent]
     })
     .compileComponents();
-
+    
     fixture = TestBed.createComponent(SdkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

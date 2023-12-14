@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { GlobalService } from '../global/global.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class ContainerComponent implements OnInit {
   helpIndex: { [key: string]: number };
   devEnv: boolean = false;
 
-  constructor(private router: Router, private _globalService: GlobalService) {}
+  constructor(private _globalService: GlobalService) {}
 
   ngOnInit(): void {
     this.language = this._globalService.getCurrLanguage();
@@ -21,5 +20,5 @@ export class ContainerComponent implements OnInit {
     this.helpIndex = this._globalService.getHelpIndex();
     this.devEnv = this._globalService.$devEnv;
   }
-
+  
 }

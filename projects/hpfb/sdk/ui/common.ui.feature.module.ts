@@ -7,14 +7,14 @@ import { VersionService } from './version/version.service';
 import { LoggerService } from './logger/logger.service';
 import { ConverterService } from './converter/converter.service';
 import { EntityBaseService } from './model/entity-base.service';
-import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
   ],
   imports: [
     CommonModule,
-    BrowserModule,
+    // BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,

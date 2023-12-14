@@ -3,9 +3,8 @@ import { ICode } from '../data-loader/data';
 import { IIdTextLabel } from '../model/entity-base';
 import { UtilsService } from '../utils/utils.service';
 import { CheckboxOption } from '../model/form-model';
-import { LoggerService } from '../public-api';
+import { LoggerService } from '../logger/logger.service';
 import { FormArray } from '@angular/forms';
-
 
 @Injectable()
 /**

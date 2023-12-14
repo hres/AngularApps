@@ -1,11 +1,6 @@
-import {
-  Component,
-  Input,
-  AfterViewInit,
-  ElementRef,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { Title } from '@angular/platform-browser';
@@ -13,13 +8,14 @@ import { ENGLISH } from '@hpfb/sdk/ui';
 import { GlobalService } from './global/global.service';
 import { VersionService } from '@hpfb/sdk/ui/'; 
 import { helpInstructionHeadings } from './app.constants';
-
+import { AppFormModule } from './app.form.module';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, TranslateModule, AppFormModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  encapsulation: ViewEncapsulation.None,
+  styleUrl: './app.component.css'
 })
 
 export class AppComponent {
