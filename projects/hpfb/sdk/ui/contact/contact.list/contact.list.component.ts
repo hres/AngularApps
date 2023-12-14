@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
-  selector: 'contact-list',
+  selector: 'lib-contact-list',
   templateUrl: './contact.list.component.html',
   styleUrls: ['./contact.list.component.css'],
   encapsulation: ViewEncapsulation.None
