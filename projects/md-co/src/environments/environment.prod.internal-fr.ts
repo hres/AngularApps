@@ -3,7 +3,7 @@ import {baseEnv as base} from './env';
 export const environment = {
   ...base,
   production: true,
-  serverBaseUrl: 'https://prod-server.com',
+  serverBaseUrl: 'https://lam-dev.hres.ca/rep-dev/',
   internal: true,
   lang: 'fr',
 };
