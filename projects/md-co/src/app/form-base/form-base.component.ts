@@ -146,7 +146,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     document.location.href = '#def-top';
-    document.location.href = '#main';
   }
 
   ngOnChanges(changes: SimpleChanges) {

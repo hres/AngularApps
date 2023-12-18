@@ -27,7 +27,7 @@
             <!--</licence-list>-->
             <div class="row">
               <div class="form-group col-xs-12" >
-                <label for="licenceNumbers" class="required full-width" aria-required="true">
+                <label for="licenceNumbers" class="required full-width">
                   <span class="field-name">{{'all.licence.num'|translate}}</span>
                   <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <sup id="co8-rf">
@@ -38,7 +38,7 @@
                                     [control]="adminChangesFormLocalModel.controls['licenceNumbers'] | formControl"
                                     controlId="licenceNumbers" label="all.licence.num" parentId="adminChangesDetails"
                                     parentLabel="Admin Changes"></control-messages>
-                  <textarea rows="6" type="text" id="licenceNumbers" class="form-control rep-margin-top" (blur)="licNumOnblur()"
+                  <textarea rows="6" id="licenceNumbers" class="form-control rep-margin-top" (blur)="licNumOnblur()"
                          [formControl]="adminChangesFormLocalModel.controls['licenceNumbers'] | formControl" maxlength="4000">
                   </textarea>
                 </label>
@@ -67,7 +67,7 @@
   
       <div class="row row-center" *ngIf="isReguChange()">
         <div class="form-group col-xs-6" >
-          <label for="newCompanyId" class="required full-width" aria-required="true">
+          <label for="newCompanyId" class="required full-width">
             <span class="field-name">{{'new.company.id'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="adminChangesFormLocalModel.controls['newCompanyId'].invalid"
@@ -89,7 +89,7 @@
       </div>
       <div class="row row-center" *ngIf="isReguChange()">
         <div class="form-group col-xs-6" >
-          <label for="newContactName" class="required full-width" aria-required="true">
+          <label for="newContactName" class="required full-width">
             <span class="field-name">{{'new.contact.name'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="adminChangesFormLocalModel.controls['newContactName'].invalid"
