@@ -14,4 +14,5 @@ export interface ErrorSummaryObject {
   tableId: string;
   expander: ExpanderComponent;
   compRef;
+  errorNumber:string;
 }

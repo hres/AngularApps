@@ -1,7 +1,10 @@
 <div *ngIf="makeErrorVisible()">
   <strong class="error">
-    <span class="label label-danger">
+    <span *ngIf="!hasNumberInMsg" class="label label-danger">
       {{errorMessage |translate}}
+    </span>
+    <span *ngIf="hasNumberInMsg" class="label label-danger">
+      {{errorMessage |translate: { number : errorParamValue } }}
     </span>
   </strong>
 </div>

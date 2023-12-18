@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray } from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class ValidationService {
@@ -20,7 +19,7 @@ export class ValidationService {
       'error.msg.phone': 'error.msg.phone',
       'error.msg.fax': 'error.msg.fax',
       'error.msg.email': 'error.msg.email',
-      'minlength': `Minimum length ${validatorValue.requiredLength}`,
+      'minlength': 'minlength',
       'error.msg.postal': 'error.msg.postal',
       'error.mgs.zip': 'error.mgs.zip',
       'error.mgs.company.id': 'error.mgs.company.id',

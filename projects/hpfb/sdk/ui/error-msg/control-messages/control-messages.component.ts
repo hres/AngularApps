@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges,ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges,ViewEncapsulation, inject} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { ValidationService } from '../../validation/validation.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -41,6 +41,13 @@ export class ControlMessagesComponent implements OnChanges {
    * Index of the error. Used to expand the expander for the error summaryt
    */
   @Input() index: Number;
+
+
+  @Input() requiredLength: string;
+   /**
+   * Number of error from error summary
+   */
+   public errorNumber: string;
   /**
    * Current error type for the control
    * @type {string}
@@ -57,12 +64,15 @@ export class ControlMessagesComponent implements OnChanges {
    */
   public tabId: string;
 
+  public hasNumberInMsg: boolean = false;
+  public errorParamValue: string = '';
+
   /**
    * controls visiblity
    * @type boolean
    */
   private _errorVisible: boolean;
-
+  
   constructor() {
     // this.tabSet = null;
     this.tabId = null;
@@ -89,7 +99,14 @@ export class ControlMessagesComponent implements OnChanges {
   get errorMessage() {
     for (let propertyName in this.control.errors) {
       this.currentError = propertyName;
-      return ValidationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
+      if (propertyName == "minlength") {
+        this.hasNumberInMsg = true;
+        this.errorParamValue = this.control.errors[propertyName].requiredLength;
+      } else {
+        this.hasNumberInMsg = false;
+      }
+      return ValidationService.getValidatorErrorMessage(propertyName);
+      
     }
     this.currentError = '';
     return null;
