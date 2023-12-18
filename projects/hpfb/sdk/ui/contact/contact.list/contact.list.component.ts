@@ -284,9 +284,6 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   public disableAddButton(): boolean {
     // console.log("form is invalid: ", !this.contactListForm.valid,  "form has errors: ", this.errorList.length>0, 
     //   "form is dirty: ", this.contactListForm.dirty);
-    console.log(this.errorList.length);
-    console.log(this.contactListForm.dirty);
-    console.log(this.contactListForm.valid);
     return ( !this.contactListForm.valid  || this.errorList.length > 0 ||  this.contactListForm.dirty );
   }
 

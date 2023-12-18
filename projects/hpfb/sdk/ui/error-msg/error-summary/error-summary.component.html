@@ -45,13 +45,16 @@
     <ul *ngFor="let parentError of errors | keys">
       <div *ngFor="let controlError of parentError.value.controls">
         <li *ngIf="controlError.type==='ErrorSummaryComponent'">
-          <a href="#{{controlError.componentId}}" target="_self" (click)="processEvents(controlError)">{{controlError.errorNumber}}&nbsp;{{controlError.label|translate}}</a>
+          <a href="#{{controlError.componentId}}" target="_self" (click)="processEvents(controlError)">{{'error' | translate: {number:controlError.errorNumber} }}&nbsp;{{controlError.label|translate}}</a>
         </li>
         <li *ngIf="controlError.type==='leastOneRecordError'">
-          <a href="#{{controlError.tableId}}" target="_self" (click)="processEvents(controlError)">{{controlError.errorNumber}}&nbsp;{{'error.msg.contact.one.record'|translate}}</a>
+          <a href="#{{controlError.tableId}}" target="_self" (click)="processEvents(controlError)">{{'error' | translate: {number:controlError.errorNumber} }}&nbsp;{{'error.msg.contact.one.record'|translate}}</a>
         </li>
-        <li *ngIf="controlError.type!=='ErrorSummaryComponent'&& controlError.type!='leastOneRecordError'">
-          <a href="#{{controlError.controlId}}" target="_self" (click)="processEvents(controlError)">{{controlError.errorNumber}}&nbsp;{{controlError.compRef.label|translate}}&nbsp;&#8208;&nbsp;{{controlError.compRef.currentError|translate}}</a>
+        <li *ngIf="controlError.type!=='ErrorSummaryComponent'&& controlError.type!='leastOneRecordError' && controlError.error != 'minlength'">
+          <a href="#{{controlError.controlId}}" target="_self" (click)="processEvents(controlError)">{{'error' | translate: {number:controlError.errorNumber} }}&nbsp;{{controlError.compRef.label|translate}}&nbsp;&#8208;&nbsp;{{controlError.compRef.currentError|translate}}</a>
+        </li>
+        <li *ngIf="controlError.type!=='ErrorSummaryComponent' && controlError.type!='leastOneRecordError' && controlError.error == 'minlength'">
+          <a href="#{{controlError.controlId}}" target="_self" (click)="processEvents(controlError)">{{'error' | translate: {number:controlError.errorNumber} }}&nbsp;{{controlError.compRef.label|translate}}&nbsp;&#8208;&nbsp;{{controlError.compRef.currentError|translate: { number : controlError.compRef.requiredLength } }}</a>
         </li>
       </div>
     </ul>

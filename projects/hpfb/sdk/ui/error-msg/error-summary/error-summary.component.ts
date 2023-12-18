@@ -2,7 +2,6 @@ import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges, injec
 import { ExpanderComponent } from '../../expander/expander.component';
 import {ErrorSummaryObject} from './error-summary-object';
 import { ERR_SUMMARY_COMP_NAME, errorSummleastOneRcd } from '../../common.constants';
-import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-error-summary',
@@ -27,8 +26,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
   public expander: ExpanderComponent ;
   public errorCount: number;
 
-
-  private translateService = inject(TranslateService);
+  public errorNumberValue : string = '';
 
   constructor(private cdr: ChangeDetectorRef) {
     this.type = ERR_SUMMARY_COMP_NAME;
@@ -82,10 +80,8 @@ export class ErrorSummaryComponent implements AfterViewInit {
       controlError.expander = err.expander; // error summary only uses
       controlError.compRef = err;
 
-      err.errorNumber = `${this.translateService.instant('error')}${this.errorCount}${':'}`;
+      err.errorNumber = this.errorCount;
       controlError.errorNumber = err.errorNumber;
-
-      err.errorSummaryFlag = this.hiddenSummary;
 
       if (err.controlId === 'hasMaterial') {
         err.type = errorSummleastOneRcd;
@@ -118,7 +114,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
       this.errorCount++;
     }
     this.resetErrorCount();
-    // console.log(this.errors);
+    //console.log(this.errors);
   }
 
   /**

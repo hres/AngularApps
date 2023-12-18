@@ -45,7 +45,7 @@
   "set.active.status": "Activer le contact",
   "remove.contact": "Supprimer le contact",
   "required": "Ce champ est obligatoire.",
-  "minlength": "Minimum de 10 numéros",
+  "minlength": "Minimum de {{ number }} numéros",
   "error.msg.phone": "Veuillez spécifier un numéro de téléphone valide",
   "error.msg.fax": "Veuillez spécifier un numéro de télécopieur valide",
   "error.msg.email": "Format non valide - Doit être xxxx@xxxx.xxx",
@@ -247,5 +247,5 @@
   "des.renewal": "Personne-ressource désignée pour le renouvellement (fabricant uniquement)",
   "des.finance": "Contact financier désigné (fabricant uniquement)",
   "comp.admin.info":"Veuillez inclure la page de couverture de chaque licence concernée, un certificat valide du Programme d’audit unique des matériels médicaux [PAUMM] qui reflète le changement de nom ou d’adresse du fabricant, un formulaire F202 rempli et un formulaire d’attestation signé, le cas échéant.",
-  "error":"Erreur "
+  "error":"Erreur {{ number }}:"
 }  

@@ -9,7 +9,8 @@
                             [showError]="showFieldErrors"
                             [control]="contactDetailForm.controls['contactId'] | formControl"
                             controlId="contactId" label="contact.id" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            parentLabel="REP Contact"
+                            requiredLength="5"></control-messages>
           <input name="contactId" id="contactId" class="form-control"
                  [readonly]="!isInternal" [formControl]="contactDetailForm.controls['contactId'] | formControl" maxlength="5"/>
         </label>
@@ -79,7 +80,8 @@
                             [showError]="showFieldErrors"
                             [control]="contactDetailForm.controls['phoneNumber'] | formControl"
                             controlId="phoneNumber" label="phone.number" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            parentLabel="REP Contact"
+                            requiredLength="16"></control-messages>
           <input name="phoneNumber" id="phoneNumber" class="form-control only-digits full-width" [formControl]="contactDetailForm.controls['phoneNumber'] | formControl" maxlength="16"/>
         </label>
       </div>
@@ -96,7 +98,8 @@
                             [showError]="showFieldErrors"
                             [control]="contactDetailForm.controls['faxNumber'] | formControl"
                             controlId="faxNumber" label="fax.number" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            parentLabel="REP Contact"
+                            requiredLength="16"></control-messages>
           <input name="faxNumber" id="faxNumber" class="form-control full-width only-digits" maxlength="16"
                  [formControl]="contactDetailForm.controls['faxNumber'] | formControl"/>
         </label>

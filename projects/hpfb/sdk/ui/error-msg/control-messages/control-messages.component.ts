@@ -41,14 +41,13 @@ export class ControlMessagesComponent implements OnChanges {
    * Index of the error. Used to expand the expander for the error summaryt
    */
   @Input() index: Number;
+
+
+  @Input() requiredLength: string;
    /**
    * Number of error from error summary
    */
    public errorNumber: string;
-   /**
-    * Flag to indicate if error summary
-    */
-   public errorSummaryFlag: boolean;
   /**
    * Current error type for the control
    * @type {string}
@@ -65,13 +64,16 @@ export class ControlMessagesComponent implements OnChanges {
    */
   public tabId: string;
 
+  public hasNumberInMsg: boolean = false;
+  public errorParamValue: string = '';
+
   /**
    * controls visiblity
    * @type boolean
    */
   private _errorVisible: boolean;
-
-  constructor(private translateService : TranslateService) {
+  
+  constructor() {
     // this.tabSet = null;
     this.tabId = null;
     this._errorVisible = false;
@@ -97,16 +99,16 @@ export class ControlMessagesComponent implements OnChanges {
   get errorMessage() {
     for (let propertyName in this.control.errors) {
       this.currentError = propertyName;
-      let errorMsg = `${this.translateService.instant(ValidationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]))}`;
-
-      if (this.errorSummaryFlag) {
-        errorMsg = `${this.errorNumber} ${this.translateService.instant(ValidationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]))}`;
-
+      if (propertyName == "minlength") {
+        this.hasNumberInMsg = true;
+        this.errorParamValue = this.control.errors[propertyName].requiredLength;
+      } else {
+        this.hasNumberInMsg = false;
       }
-      return errorMsg; 
+      return ValidationService.getValidatorErrorMessage(propertyName);
+      
     }
     this.currentError = '';
-    this.errorSummaryFlag = false;
     return null;
   }
 
