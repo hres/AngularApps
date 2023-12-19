@@ -22,7 +22,7 @@
     "lib:package": "cd dist/hpfb/sdk && npm pack",
     "lib:buildAndPack": "run-s lib:build lib:package",
     "mdCO:start-waiton": "wait-on dist/hpfb/sdk/package.json && npm run mdCO:start",
-    "mdCO:start": "ng serve --project=md-co --port 8002 -o",
+    "mdCO:start": "ng serve --project=md-co --port 5002 -o",
     "clean": "rimraf dist"
   },
   "private": true,

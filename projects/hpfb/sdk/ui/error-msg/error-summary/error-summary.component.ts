@@ -1,12 +1,12 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges, inject} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges, ViewEncapsulation, inject} from '@angular/core';
 import { ExpanderComponent } from '../../expander/expander.component';
-import {ErrorSummaryObject} from './error-summary-object';
-import { ERR_SUMMARY_COMP_NAME, errorSummleastOneRcd } from '../../common.constants';
+import {ErrorSummaryObject, ERR_TYPE_COMPONENT, ERR_TYPE_LEAST_ONE_REC} from './error-summary-object';
 
 @Component({
   selector: 'lib-error-summary',
   templateUrl: './error-summary.component.html',
-  styleUrls: ['./error-summary.component.css']
+  styleUrls: ['./error-summary.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ErrorSummaryComponent implements AfterViewInit {
   @Input() headingPreamble: string;
@@ -29,7 +29,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
   public errorNumberValue : string = '';
 
   constructor(private cdr: ChangeDetectorRef) {
-    this.type = ERR_SUMMARY_COMP_NAME;
+    this.type = ERR_TYPE_COMPONENT;
     this.index = -1;
     this.expander = null;
   }
@@ -84,12 +84,12 @@ export class ErrorSummaryComponent implements AfterViewInit {
       controlError.errorNumber = err.errorNumber;
 
       if (err.controlId === 'hasMaterial') {
-        err.type = errorSummleastOneRcd;
+        err.type = ERR_TYPE_LEAST_ONE_REC;
         err.tableId = 'materialListTable';
       }
       // Case 1: an error summary Component
       if (err.hasOwnProperty('type') &&
-        (err.type === ERR_SUMMARY_COMP_NAME || err.type === errorSummleastOneRcd)) {
+        (err.type === ERR_TYPE_COMPONENT || err.type === ERR_TYPE_LEAST_ONE_REC)) {
         if (err.tableId) { // replace componentId with table ID
           controlError.tableId = err.tableId;
         }

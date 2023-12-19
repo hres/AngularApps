@@ -16,3 +16,6 @@ export interface ErrorSummaryObject {
   compRef;
   errorNumber:string;
 }
+
+export const ERR_TYPE_COMPONENT: string = 'component_error'; 
+export const ERR_TYPE_LEAST_ONE_REC: string = 'least_one_rec_error';

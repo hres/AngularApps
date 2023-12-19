@@ -9,11 +9,12 @@ import {ContactListService} from './contact-list.service';
 import { RecordListBaseComponent } from '../../record-list/record.list.base.component';
 import {TranslateService} from '@ngx-translate/core';
 import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
-import { FINAL, ERR_SUMMARY_COMP_NAME, ContactStatus } from '../../common.constants';
+import { FINAL, ContactStatus } from '../../common.constants';
 import { ICode } from '../../data-loader/data';
 import { UtilsService } from '../../utils/utils.service';
 import { Contact } from '../../model/entity-base';
 import { Subscription } from 'rxjs';
+import { ERR_TYPE_LEAST_ONE_REC } from '../../error-msg/error-summary/error-summary-object';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -209,7 +210,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     // this.errorList = (errs && errs.length > 0) ? this.errorList.concat(errs) : [];
     // for (const err of this.errorList) {
     //   err.index = this.getExpandedRow();
-    //   if (err.type === ERR_SUMMARY_COMP_NAME) {
+    //   if (err.type === ERR_TYPE_COMPONENT) {
     //     err.expander = this.expander; // associate the expander
     //   }
     // }
@@ -236,7 +237,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       const oerr = new ErrorSummaryComponent(null);
       oerr.index = 0;
       oerr.tableId = 'contactListTable';
-      oerr.type = 'leastOneRecordError';
+      oerr.type = ERR_TYPE_LEAST_ONE_REC;
+      oerr.label = 'error.msg.contact.one.record';
       emitErrors.push(oerr);
     }
     this.errors.emit(emitErrors);

@@ -1,5 +1,3 @@
-export const ERR_SUMMARY_COMP_NAME: string = 'ErrorSummaryComponent'; //todo use uppercase for constants
-export const errorSummleastOneRcd: string = 'leastOneRecordError';
 export const CANADA: string = 'CA';
 export const USA: string = 'US';
 export const ENGLISH: string = 'en';
