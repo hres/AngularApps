@@ -411,22 +411,6 @@ span.normalWeight {
 	<!-- Company Enrolment -->
 	<xsl:template name="DEVICE_COMPANY_ENROL">
 		<h1>Modèle de compagnie: Processus d'inscription réglementaire (PIR) (Version: 4.0.0)</h1>
-		<div class="well well-sm" >
-			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
-				<tr>
-					<td style="text-align: center;font-weight:bold;">Statut de l'inscription</td>
-					<td style="text-align: center;font-weight:bold;">Version de l'inscription</td>
-					<td style="text-align: center;font-weight:bold;">Date de création</td>
-					<td style="text-align: center;font-weight:bold;">Identifiant de la compagnie</td>
-				</tr>
-				<tr>
-					<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/status" /></span> </td>
-					<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/enrol_version" /></span> </td>
-					<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/last_saved_date" /></span> </td>
-					<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="substring(/descendant-or-self::general_information/company_id,2,7)" /></span> </td>
-				</tr>
-			</table>
-		</div>
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -434,54 +418,43 @@ span.normalWeight {
 				</div>
 				
 				<div class="panel-body">
+					<div class="well well-sm" >
+						<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
+							<tr>
+								<td style="text-align: center;font-weight:bold;">Statut de l'inscription</td>
+								<td style="text-align: center;font-weight:bold;">Version de l'inscription</td>
+								<td style="text-align: center;font-weight:bold;">Date de création</td>
+								<td style="text-align: center;font-weight:bold;">Identifiant de la compagnie</td>
+							</tr>
+							<tr>
+								<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/status" /></span> </td>
+								<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/enrol_version" /></span> </td>
+								<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/last_saved_date" /></span> </td>
+								<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="substring(/descendant-or-self::general_information/company_id,2,7)" /></span> </td>
+							</tr>
+						</table>
+					</div>
 					<xsl:if test="/descendant-or-self::general_information/status = 'AMEND'">
-					<section class="panel panel-default" >
-						<div class="panel-heading">
-							<h2 class="panel-title">Motif de la modification</h2>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-							<div class="col-xs-5">
-								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::general_information/amend_reasons/manufacturer_name_change"/></xsl:call-template>
-								<span class="mouseHover">Modification du nom du fabricant seulement</span>
-							</div>
-							<div class="col-xs-5">
-								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::general_information/amend_reasons/manufacturer_address_change"/></xsl:call-template>
-								<span class="mouseHover">Modification du nom et de l’adresse du fabricant</span>
-							</div>
-							<div class="col-xs-5">
-								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::general_information/amend_reasons/facility_change"/></xsl:call-template>
-								<span class="mouseHover">Modification du nom ou de l’adresse des installations de fabrication</span>
-							</div>
-							<div class="col-xs-5">
-								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::general_information/amend_reasons/contact_change"/></xsl:call-template>
-								<span class="mouseHover">Modifications apportées à la section des informations sur les représentants de l'entreprise</span>
-							</div>
-                                <div class="col-xs-5">
-                                    <xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::general_information/amend_reasons/other_change"/></xsl:call-template>
-                                    <span class="mouseHover">Autre</span>
-                                </div>
-							</div>
-							<xsl:if test="/descendant-or-self::general_information/amend_reasons/other_change = 'yes'">
-								<div class="col-xs-5">&#160;</div>
-								<div class="col-xs-5">
-									<strong>Justification:&#160;</strong>
-									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/amend_reasons/other_details"/></span>
-								</div>
-							</xsl:if>
-						</div>
-					</section>
-					</xsl:if>
-					<section class="panel panel-default" >
-						<div class="panel-body">
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Il y a-t-il des licences de propriété en processus d'acheminement? &#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::general_information/are_licenses_transfered"/></xsl:call-template></span>
+								<strong>Motif de la modification:&#160;</strong>
+								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/amend_reasons/amend_reason/@label_en"/></span>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<strong>Justification:&#160;</strong>
+								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/amend_reasons/rationale"/></span>
+							</div>
 						</div>
-					</section>
+					</xsl:if>
+					<div class="row">
+						<div class="col-xs-12">
+							<strong> Il y a-t-il des licences de propriété en processus d'acheminement? &#160;</strong>
+							<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::general_information/are_licenses_transfered"/></xsl:call-template></span>
+						</div>
+						<br /><br />
+					</div>
 					<section class="panel panel-default" >
 							<div class="panel-heading">
 								<h2 class="panel-title">Information d'adresse</h2>
@@ -540,7 +513,7 @@ span.normalWeight {
 												Code postal 
 											</xsl:when>
 											<xsl:otherwise>
-												"Code Postal/ZIP
+												Code Postal/ZIP
 											</xsl:otherwise>
 										</xsl:choose>:&#160;
 										</strong>
@@ -582,25 +555,6 @@ span.normalWeight {
 							<h2 class="panel-title">Modifications administratives de l'entreprise</h2>
 						</div>
 						<div class="panel-body">
-							<xsl:if test="/descendant-or-self::general_information/amend_reasons/manufacturer_name_change = 'yes' or /descendant-or-self::general_information/amend_reasons/manufacturer_address_change = 'yes' or /descendant-or-self::general_information/amend_reasons/facility_change = 'yes'">
-							<div class="row">
-								<div class="col-xs-12">
-									<div class="alert alert-info">
-										<ul>
-										<xsl:if test="/descendant-or-self::general_information/amend_reasons/manufacturer_name_change = 'yes'">
-										<li>Le nom du fabricant révisé doit être indiqué dans le champ «nom de l'entreprise» dans la section des informations d'adresse ci-dessus</li>
-										<br/></xsl:if>
-										<xsl:if test="/descendant-or-self::general_information/amend_reasons/manufacturer_address_change = 'yes'">
-										<li>L'adresse révisée du fabricant doit être répertoriée dans les champs de la section des informations d'adresse ci-dessus.</li>
-                                        <br/></xsl:if>
-										<xsl:if test="/descendant-or-self::general_information/amend_reasons/facility_change = 'yes'">
-										<li>Veuillez inclure une attestation signée pour le changement de nom / d'adresse de l'usine de fabrication</li>
-										</xsl:if>
-										</ul>
-									</div>
-								</div>
-							</div>
-							</xsl:if>
 							<div class="row">
 								<div class="col-xs-12">
 									<strong>Tous les numéros de licence concernée(s):&#160;</strong>
@@ -645,7 +599,7 @@ span.normalWeight {
 	<xsl:template match="contacts/contact">
 		<section class="panel panel-default" >
 			<div class="panel-heading">
-				<h2 class="panel-title">Détails du représentant de la compagnie&#160;<xsl:value-of select="id + 1"/></h2>
+				<h2 class="panel-title">Détails du représentant de la compagnie #&#160;<xsl:value-of select="id + 1"/></h2>
 			</div>
 			<div class="panel-body">
 				<div class="row">
@@ -679,8 +633,8 @@ span.normalWeight {
 					<strong>Numéro de téléphone (incluant le code régional):&#160;</strong>
 					<span class="mouseHover"><xsl:value-of select="phone_number"/></span>&#160;&#160;
 					</div>
-					<div class="col-xs-3">
-					<strong>Extension de téléphone :&#160;</strong>
+					<div class="col-xs-4">
+					<strong>Extension de téléphone:&#160;</strong>
 					<span class="mouseHover"><xsl:if test="phone_extension = ''">&#160;&#160;&#160;&#160;</xsl:if>
 					<xsl:value-of select="phone_extension"/></span>
 					</div>
@@ -715,19 +669,6 @@ span.normalWeight {
 			Unknown
 		</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template>
-	<xsl:template name="hp-checkbox">
-		<xsl:param name="value" select="/.."/>
-		<span class="c-checkbox">
-		<xsl:choose>
-			<xsl:when test="$value = 'yes'">
-				X
-			</xsl:when>
-			<xsl:otherwise>
-				&#160;&#160;
-			</xsl:otherwise>
-		</xsl:choose>
-		</span>
 	</xsl:template>
 	<xsl:template name="break">
 	  <xsl:param name="text" select="string(.)"/>
