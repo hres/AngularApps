@@ -25,7 +25,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
   public hdingLevel = 'h1';
   public index: number;
   public expander: ExpanderComponent ;
-  public errorCount: number;
+  public errorCount: number = 0;
 
   public errorNumberValue : string = '';
 
@@ -80,7 +80,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
       controlError.componentId = err.componentId; // error summary only uses this
       controlError.expander = err.expander; // error summary only uses
       controlError.compRef = err;
-
+      this.errorCount++;
       err.errorNumber = this.errorCount;
       controlError.errorNumber = err.errorNumber;
 
@@ -112,7 +112,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
           this.errors[err.parentId] = parentError;
         }
       }
-      this.errorCount++;
+
     }
     this.resetErrorCount();
     //console.log(this.errors);
@@ -136,7 +136,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
   }
 
   private resetErrorCount(){
-    this.errorCount = 1;
+    this.errorCount = 0;
   }
 
   getValidatorErrorMessageKey(error: string){
