@@ -31,12 +31,20 @@ export class GlobalService {
     this.devEnv = value;
   }
 
-  setAppVersion(appVersion: string) {
-    this.appVersion = appVersion;
+  /**
+   * Getter $appVersion
+   * @return {string}
+   */
+  public get $appVersion(): string {
+    return this.appVersion;
   }
 
-  getAppVersion() {
-    return this.appVersion;
+  /**
+   * Setter $appVersion
+   * @param {string} value
+   */
+  public set $appVersion(value: string) {
+    this.appVersion = value;
   }
 
   public get $isInternal(): boolean {

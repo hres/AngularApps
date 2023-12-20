@@ -4,7 +4,7 @@ import { EnrollmentStatus, XSLT_PREFIX, ROOT_TAG, AMEND_REASON_NAME_CHANGE, AMEN
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
 import { GeneralInformation, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
-import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus, ConverterService, YES } from '@hpfb/sdk/ui';
+import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus, ConverterService, YES, VersionService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 
 @Component({
@@ -75,6 +75,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _formDataLoader: CompanyDataLoaderService,
     private _companyService: CompanyBaseService,
     private _fileService: FileConversionService, private _utilService: UtilsService, private _globalService: GlobalService,
+    private _versionService: VersionService,
     private _loggerService: LoggerService,
     private _checkSumService: CheckSumService,
     private _converterService: ConverterService
@@ -83,7 +84,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showAdminChanges = false;
     this.showErrors = false;
 
-    this.xslName = XSLT_PREFIX.toUpperCase() + this._utilService.getApplicationMajorVersion(this._globalService.getAppVersion()) + '.xsl';
+    this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + '.xsl';
   }
 
   ngOnInit() {
@@ -261,7 +262,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
    
     let output: Enrollment = { 
       DEVICE_COMPANY_ENROL: {
-        template_version: this._globalService.getAppVersion(),
+        template_version: this._globalService.$appVersion,
         general_information: this.genInfoModel,
         address: this.addressModel,
         contacts: {contact: this.contactModel},

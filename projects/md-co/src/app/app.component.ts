@@ -35,14 +35,14 @@ export class AppComponent {
     translate.use(this.language)
     this._globalService.setCurrLanguage(this.language);
     this._globalService.setHelpIndex(helpInstructionHeadings);
-    this._globalService.setAppVersion(this._versionService.getApplicationVersion(environment));
+    this._globalService.$appVersion = this._versionService.getApplicationVersion(environment);
     this._globalService.$isInternal = environment.internal;
     this._globalService.$devEnv = !environment.production;
 
     this.translate.get('form.title').subscribe((res) => {
       this.setTitle(res);
     });
-    this.appVersion = this._globalService.getAppVersion();
+    this.appVersion = this._globalService.$appVersion;
     this.isInternal = this._globalService.$isInternal;    
   }
 

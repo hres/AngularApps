@@ -56,16 +56,6 @@ export class UtilsService {
   }
 
   /**
-   * get the major version number in the application version
-   * @param appVersion format is 1.0.0
-   * @returns string, major version of the application
-   */
-  getApplicationMajorVersion(appVersion : string) : string{
-    const majorVersion = appVersion.split('.',2).join(".");
-    return majorVersion
-  }
-
-  /**
    * find a code by its id in a code array
    * @param codeArray 
    * @param id 
