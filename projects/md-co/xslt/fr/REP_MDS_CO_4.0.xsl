@@ -438,7 +438,7 @@ span.normalWeight {
 						<div class="row">
 							<div class="col-xs-12">
 								<strong>Motif de la modification:&#160;</strong>
-								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/amend_reasons/amend_reason/@label_en"/></span>
+								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/amend_reasons/amend_reason/@label_fr"/></span>
 							</div>
 						</div>
 						<div class="row">
