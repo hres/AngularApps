@@ -11,7 +11,7 @@ export class ValidationService {
   }
 
 
-  static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
+  static getValidatorErrorMessage(validatorName: string) {
     // TODO sucky need to make the keys the same as the translation for the error summary
     const config = {
       'required': 'required',
@@ -19,7 +19,7 @@ export class ValidationService {
       'error.msg.phone': 'error.msg.phone',
       'error.msg.fax': 'error.msg.fax',
       'error.msg.email': 'error.msg.email',
-      'minlength': 'minlength',
+      'minlength': 'error.msg.minlength',
       'error.msg.postal': 'error.msg.postal',
       'error.mgs.zip': 'error.mgs.zip',
       'error.mgs.company.id': 'error.mgs.company.id',

@@ -40,7 +40,7 @@
     "set.active.status": "Active Contact",
     "remove.contact": "Remove Contact",
     "required": "This field is required",
-    "minlength": "Minimum length {{ number }} numbers",
+    "error.msg.minlength": "Minimum length {{ requiredLength }} numbers",
     "error.msg.phone": "Please specify a valid phone number",
     "error.msg.fax": "Please specify a valid fax number",
     "error.msg.email": "Invalid format - Must be xxxx@xxxx.xxx",

@@ -5,6 +5,7 @@ import {ControlMessagesComponent} from './control-messages/control-messages.comp
 import {TranslateModule} from '@ngx-translate/core';
 import { PipesModule } from '../pipes/pipes.module';
 import { CommonFormDendencyModule } from '../common.form.dendency.module';
+import { ErrMessageService } from './err.message.service';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { CommonFormDendencyModule } from '../common.form.dendency.module';
   exports:[
     ErrorSummaryComponent,
     ControlMessagesComponent
-  ]
+  ],
+  providers:[ErrMessageService]
 })
 export class ErrorModule { } 

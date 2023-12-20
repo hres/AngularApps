@@ -1,6 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges, ViewEncapsulation, inject} from '@angular/core';
 import { ExpanderComponent } from '../../expander/expander.component';
-import {ErrorSummaryObject, ERR_TYPE_COMPONENT, ERR_TYPE_LEAST_ONE_REC} from './error-summary-object';
+import {ErrorSummaryObject, ERR_TYPE_COMPONENT, ERR_TYPE_LEAST_ONE_REC, getEmptyErrorSummaryObj} from './error-summary-object';
+import { ErrMessageService } from '../err.message.service';
 
 @Component({
   selector: 'lib-error-summary',
@@ -28,7 +29,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
 
   public errorNumberValue : string = '';
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private _errMessageService: ErrMessageService) {
     this.type = ERR_TYPE_COMPONENT;
     this.index = -1;
     this.expander = null;
@@ -68,7 +69,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
     // console.log(errorList);
     for (let err of errorList) {
       if (!err) { continue; }
-      let controlError = this.getEmptyError();
+      let controlError: ErrorSummaryObject = getEmptyErrorSummaryObj();
       controlError.index = 1;
       controlError.label = err.label;
       controlError.controlId = err.controlId;
@@ -83,10 +84,10 @@ export class ErrorSummaryComponent implements AfterViewInit {
       err.errorNumber = this.errorCount;
       controlError.errorNumber = err.errorNumber;
 
-      if (err.controlId === 'hasMaterial') {
-        err.type = ERR_TYPE_LEAST_ONE_REC;
-        err.tableId = 'materialListTable';
-      }
+      // if (err.controlId === 'hasMaterial') {
+      //   err.type = ERR_TYPE_LEAST_ONE_REC;
+      //   err.tableId = 'materialListTable';
+      // }
       // Case 1: an error summary Component
       if (err.hasOwnProperty('type') &&
         (err.type === ERR_TYPE_COMPONENT || err.type === ERR_TYPE_LEAST_ONE_REC)) {
@@ -134,32 +135,12 @@ export class ErrorSummaryComponent implements AfterViewInit {
     }
   }
 
-  /**
-   * Creates a flat json object for the error summary component UI
-   * @returns {object}
-   */
-  public getEmptyError(): ErrorSummaryObject {
-    let controlError = {
-
-      index: -1,
-      label: '',
-      controlId: '',
-      error: '',
-      type: '',
-      tabSet: null,
-      tabId: -1,
-      componentId: '',
-      tableId: '',
-      expander: null,
-      compRef: null,
-      errorNumber: ''
-    };
-    return (controlError);
-  }
-
   private resetErrorCount(){
     this.errorCount = 1;
   }
 
-
+  getValidatorErrorMessageKey(error: string){
+    return this._errMessageService.getValidatorErrorMessageKey(error);
+  }
+  
 }

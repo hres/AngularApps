@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, SimpleChanges,ViewEncapsulation, inject} fr
 import {FormControl} from '@angular/forms';
 import { ValidationService } from '../../validation/validation.service';
 import {TranslateService} from '@ngx-translate/core';
+import { ErrMessageService } from '../err.message.service';
 
 @Component({
   selector: 'control-messages',
@@ -42,8 +43,6 @@ export class ControlMessagesComponent implements OnChanges {
    */
   @Input() index: Number;
 
-
-  @Input() requiredLength: string;
    /**
    * Number of error from error summary
    */
@@ -64,16 +63,14 @@ export class ControlMessagesComponent implements OnChanges {
    */
   public tabId: string;
 
-  public hasNumberInMsg: boolean = false;
-  public errorParamValue: string = '';
-
+  public errorParams: { [key: string]: string }= {};
   /**
    * controls visiblity
    * @type boolean
    */
   private _errorVisible: boolean;
   
-  constructor() {
+  constructor(private _errMessageService: ErrMessageService) {
     // this.tabSet = null;
     this.tabId = null;
     this._errorVisible = false;
@@ -92,21 +89,18 @@ export class ControlMessagesComponent implements OnChanges {
   }
 
   /**
-   * Gets the Error message text for a given type.
+   * Gets the Error message key and its parameter values for a given error type.
    *
    * @returns {any}
    */
   get errorMessage() {
     for (let propertyName in this.control.errors) {
-      this.currentError = propertyName;
-      if (propertyName == "minlength") {
-        this.hasNumberInMsg = true;
-        this.errorParamValue = this.control.errors[propertyName].requiredLength;
-      } else {
-        this.hasNumberInMsg = false;
-      }
-      return ValidationService.getValidatorErrorMessage(propertyName);
-      
+      this.currentError = propertyName;      
+      // values to replace placeholders in the error message if they exist. eg "Minimum length {{ requiredLength }} numbers"
+      this.errorParams = this.control.errors[propertyName];   
+      // console.log(propertyName, Object.keys(this.errorParams).length, JSON.stringify(this.errorParams))
+
+      return this._errMessageService.getValidatorErrorMessageKey(propertyName);
     }
     this.currentError = '';
     return null;

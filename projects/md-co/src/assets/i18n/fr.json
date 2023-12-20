@@ -45,7 +45,7 @@
   "set.active.status": "Activer le contact",
   "remove.contact": "Supprimer le contact",
   "required": "Ce champ est obligatoire.",
-  "minlength": "Minimum de {{ number }} numéros",
+  "error.msg.minlength": "Minimum de {{ requiredLength }} numéros",
   "error.msg.phone": "Veuillez spécifier un numéro de téléphone valide",
   "error.msg.fax": "Veuillez spécifier un numéro de télécopieur valide",
   "error.msg.email": "Format non valide - Doit être xxxx@xxxx.xxx",

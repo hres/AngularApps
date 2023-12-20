@@ -246,17 +246,6 @@ export class UtilsService {
     });
   }
 
-    /**
-   * @deprecated Use findAndTranslateCode instead.
-   */
-  translateWord(bilingualList:any[], lang:string, value:string) {
-    const word = bilingualList.find((item) => item.en === value || item.fr === value);
-    if (word) {
-        return lang === 'en' ? word.en : word.fr;
-    }
-    return null; // Return null if the word is not found
-  }
-
   findAndTranslateCode(codeArray:ICode[], lang:string, codeId:string) {
     const bilingualCode = this.findCodeById(codeArray, codeId);
     if (bilingualCode) {

@@ -14,7 +14,7 @@ import { ICode } from '../../data-loader/data';
 import { UtilsService } from '../../utils/utils.service';
 import { Contact } from '../../model/entity-base';
 import { Subscription } from 'rxjs';
-import { ERR_TYPE_LEAST_ONE_REC } from '../../error-msg/error-summary/error-summary-object';
+import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } from '../../error-msg/error-summary/error-summary-object';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -234,7 +234,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       emitErrors.push(this.errorSummaryChild);
     }
     if (!this.isInternal && this._noNonRemoveRecords(this.contactModel)) {
-      const oerr = new ErrorSummaryComponent(null);
+      const oerr: ErrorSummaryObject = getEmptyErrorSummaryObj();
       oerr.index = 0;
       oerr.tableId = 'contactListTable';
       oerr.type = ERR_TYPE_LEAST_ONE_REC;
