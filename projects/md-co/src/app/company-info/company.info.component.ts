@@ -158,6 +158,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   public setAmendState () {
     this.isAmend = true;
     this.genInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusesList, EnrollmentStatus.Amend, this.lang);
+    this.genInfoModel.rationale = '';
     this.genInfoModel.are_licenses_transfered = '';
     this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList, this.enrollmentStatusesList, this.lang);
   }

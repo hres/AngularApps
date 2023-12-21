@@ -51,6 +51,7 @@ export class CompanyBaseService {
         last_saved_date: '',
         company_id: '',
         amend_reasons: null,
+        rationale: '',
         are_licenses_transfered: ''
       }
     );

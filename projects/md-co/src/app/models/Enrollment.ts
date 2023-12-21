@@ -28,12 +28,12 @@ export interface GeneralInformation {
   last_saved_date:         string;
   company_id:              string;
   amend_reasons:           AmendReasons;
+  rationale:               string;
   are_licenses_transfered: string;
 }
 
 export interface AmendReasons {
   amend_reason:            IIdTextLabel[];
-  rationale:               string;
 }
 
 export interface PrimaryContact {
