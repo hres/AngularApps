@@ -39,10 +39,10 @@ export class CompanyInfoService {
     }
 
     const reasons: AmendReasons = {
-      amend_reason: this._converterService.findAndConverCodesToIdTextLabels(amendReasonCodeList, slctdAmendReasonCodes, lang),
-      rationale: formRecord.controls['rationale'].value,
+      amend_reason: this._converterService.findAndConverCodesToIdTextLabels(amendReasonCodeList, slctdAmendReasonCodes, lang)
     }
     generalInfoModel.amend_reasons = reasons;
+    generalInfoModel.rationale = formRecord.controls['rationale'].value,
     generalInfoModel.are_licenses_transfered = formRecord.controls['areLicensesTransfered'].value;
   }
 
@@ -60,9 +60,8 @@ export class CompanyInfoService {
         const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
         this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
       }  
-      formRecord.controls['rationale'].setValue(generalInfoModel.amend_reasons.rationale); // Moved this here because rationale 
     }
-
+    formRecord.controls['rationale'].setValue(generalInfoModel.rationale); // Moved this here because rationale 
     formRecord.controls['areLicensesTransfered'].setValue(generalInfoModel.are_licenses_transfered);
   }
 
