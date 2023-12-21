@@ -80,7 +80,8 @@
                             [control]="contactDetailForm.controls['phoneNumber'] | formControl"
                             controlId="phoneNumber" label="phone.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="phoneNumber" id="phoneNumber" class="form-control only-digits full-width" [formControl]="contactDetailForm.controls['phoneNumber'] | formControl" maxlength="16"/>
+          <input name="phoneNumber" id="phoneNumber" class="form-control only-digits full-width" maxlength="25"
+                [formControl]="contactDetailForm.controls['phoneNumber'] | formControl" />
         </label>
       </div>
       <div class="form-group col-sm-3">
@@ -97,7 +98,7 @@
                             [control]="contactDetailForm.controls['faxNumber'] | formControl"
                             controlId="faxNumber" label="fax.number" parentId="contactDetails"
                             parentLabel="REP Contact"></control-messages>
-          <input name="faxNumber" id="faxNumber" class="form-control full-width only-digits" maxlength="16"
+          <input name="faxNumber" id="faxNumber" class="form-control full-width only-digits" maxlength="25"
                  [formControl]="contactDetailForm.controls['faxNumber'] | formControl"/>
         </label>
       </div>
