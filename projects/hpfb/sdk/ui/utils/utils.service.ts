@@ -182,16 +182,25 @@ export class UtilsService {
     return controlName;
   }
 
-  displayFormControlInfo(control: AbstractControl) {
-    if (control) {
-      console.log('Form Control Name:', this.getControlName(control));
-      console.log('\tCurrent Value:', control.value);
-      console.log('\tValid:', control.valid);
-      console.log('\tInvalid:', control.invalid);
-      console.log('\tDirty:', control.dirty);
-      console.log('\tTouched:', control.touched);
-      console.log('\tErrors:', control.errors);
+  logFormControlState(form: AbstractControl, indent: string = '\t'): void {
+    if (form) {
+      console.log(`${indent}Pristine: ${form.pristine}`);
+      console.log(`${indent}Dirty: ${form.dirty}`);
+      console.log(`${indent}Touched: ${form.touched}`);
+      console.log(`${indent}Untouched: ${form.untouched}`);
+      console.log(`${indent}Valid: ${form.valid}`);
+      console.log(`${indent}invalid: ${form.invalid}`);
       // ... other properties you might want to log
+
+      if (form instanceof FormGroup) {
+        Object.keys(form.controls).forEach((controlName) => {
+          const control = form.get(controlName);
+          if (control) {
+            console.log(`\t\t Control: ${controlName}`);
+            this.logFormControlState(control,'\t\t');
+          }
+        });
+      }
     }
   }
 
@@ -207,7 +216,7 @@ export class UtilsService {
        // Recalculates the value and validation status of the control, eg trigger "Validators.required" validation
       control.updateValueAndValidity();
     }
-    // displayFormControlInfo(control);
+    // logFormControlState(control);
   }  
 
   checkComponentChanges(changes: SimpleChanges): any[] {

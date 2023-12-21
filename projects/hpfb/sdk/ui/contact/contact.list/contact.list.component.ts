@@ -176,23 +176,28 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * @param record
    */
   public saveContactRecord(record: FormGroup) {
-    this.saveRecord(record, this._listService, this.lang, this.languageList, this.contactStatusList);
+    const recordId = this.saveRecord(record, this._listService, this.lang, this.languageList, this.contactStatusList);
+    // console.log(`recordId ${recordId} was saved`)
 
-    let recordId: number | null = null;
-    this.contactList.controls.forEach( (element: FormGroup) => {
-      // console.log(this._utilsService.displayFormControlInfo(element));
+    // collapse this record
+    for (let index = 0; index < this.contactList.controls.length; index++) {
+      const element: FormGroup = this.contactList.controls[index] as FormGroup;
+      // console.log(element);
+      if (element.controls['id'].value===recordId) {
+        element.controls['expandFlag'].setValue(false);
+        break;
+      } 
+    }  
+
+    // expand next invalid record
+    for (let index = 0; index < this.contactList.controls.length; index++) {
+      const element: FormGroup = this.contactList.controls[index] as FormGroup;
+      // console.log(element);
       if (element.invalid) {
-        recordId = element.controls['id'].value;
-      }
-      // Exit the loop if recordId is not null
-      if (recordId !== null) {
-        return;
-      }
-    });  
-    // console.log(recordId);
-
-    // collapse all records except the first one with invalid state if there is one
-    this._listService.collapseFormRecordList(this._utilsService, this.contactList, recordId);
+        element.controls['expandFlag'].setValue(true);
+        break;
+      } 
+    }  
 
     this.showErrors = true;
     if (!this.isInternal) {
@@ -316,19 +321,27 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   handleRowClick(event: any) {  
     const clickedIndex = event.index;
     const clickedRecordState = event.state;
-    // toggle the clicked formRecord's expand state
-    this.contactList.controls.forEach( (element: FormGroup, index: number) => {
-      // console.log(element);
-      // if (clickedIndex===index && clickedRecordState) {
-        if (element.invalid) {
-          // if the row is expanded and has invalid state, don't allow to collapse
-          element.controls['expandFlag'].setValue(true)
-        // }
+
+    // console.log(this._utilsService.logFormControlState(this.contactListForm))
+
+    if (this.contactListForm.pristine) {
+      this.contactList.controls.forEach( (element: FormGroup, index: number) => {
+        if (clickedIndex===index) {
+          element.controls['expandFlag'].setValue(!clickedRecordState)
+        }
+      })
+    } else {
+      if (this._utilsService.isFrench(this.lang)) {
+        alert(
+          "Veuillez sauvegarder les données d'entrée non enregistrées."
+        );
       } else {
-        element.controls['expandFlag'].setValue(clickedIndex===index? !clickedRecordState : false)
-      } 
-    });  
-    // this.contactList.controls.forEach( e => console.log(e.value))
+        alert(
+          'Please save the unsaved input data.'
+        );
+      }
+    }
+
   }
 
   ngOnDestroy() {
