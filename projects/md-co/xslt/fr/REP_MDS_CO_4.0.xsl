@@ -427,14 +427,14 @@ span.normalWeight {
 								<td style="text-align: center;font-weight:bold;">Identifiant de la compagnie</td>
 							</tr>
 							<tr>
-								<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/status" /></span> </td>
+								<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/status/@label_fr" /></span> </td>
 								<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/enrol_version" /></span> </td>
 								<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/last_saved_date" /></span> </td>
 								<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="substring(/descendant-or-self::general_information/company_id,2,7)" /></span> </td>
 							</tr>
 						</table>
 					</div>
-					<xsl:if test="/descendant-or-self::general_information/status = 'AMEND'">
+					<xsl:if test="/descendant-or-self::general_information/status/@id = 'AMEND'">
 						<div class="row">
 							<div class="col-xs-12">
 								<strong>Motif de la modification:&#160;</strong>
@@ -444,7 +444,7 @@ span.normalWeight {
 						<div class="row">
 							<div class="col-xs-12">
 								<strong>Justification:&#160;</strong>
-								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/amend_reasons/rationale"/></span>
+								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/rationale"/></span>
 							</div>
 						</div>
 					</xsl:if>
