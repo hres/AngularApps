@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GlobalService } from '../global/global.service';
 
 @Component({
   selector: 'app-container',
-  templateUrl: './container.component.html'
+  templateUrl: './container.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 export class ContainerComponent implements OnInit {
 

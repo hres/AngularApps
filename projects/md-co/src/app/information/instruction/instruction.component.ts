@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-instruction',
   templateUrl: './instruction.component.html',
-  styles: [],
+  encapsulation: ViewEncapsulation.None
 })
 export class InstructionComponent {
   @Input() helpTextSequences;

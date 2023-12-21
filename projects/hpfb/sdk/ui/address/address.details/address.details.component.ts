@@ -60,7 +60,6 @@ export class AddressDetailsComponent implements OnInit {
       this.addressFormLocalModel = this._addressDetailsService.getReactiveModel();
     }
     // init the subform's data
-    this._loggerService.log('address.detail', 'onInit', 'calling mapDataModelToFormModel ?? is this called/needed?? ling todo');
     this._addressDetailsService.mapDataModelToFormModel(this.addressModel, this.addressFormLocalModel);
     this._setCountryState(this.addressFormLocalModel);
     this.detailsChanged = 0;

@@ -45,7 +45,7 @@
     }
   
     ngOnInit() {
-      console.log('ng on init');
+      // console.log('ng on init');
       if (!this.primContactFormLocalModel) {
         this.primContactFormLocalModel = PrimaryContactService.getReactiveModel(this._fb);
       }

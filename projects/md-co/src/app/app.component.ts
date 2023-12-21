@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,7 +15,8 @@ import { AppFormModule } from './app.form.module';
   standalone: true,
   imports: [CommonModule, TranslateModule, AppFormModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class AppComponent {

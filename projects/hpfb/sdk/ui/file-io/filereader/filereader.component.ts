@@ -27,7 +27,7 @@ export class FilereaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.rootTag);
+    // console.log(this.rootTag);
   }
 
 
