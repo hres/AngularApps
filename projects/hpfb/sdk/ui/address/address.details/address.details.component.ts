@@ -194,7 +194,7 @@ export class AddressDetailsComponent implements OnInit {
   }
 
   typed(rec) {
-    this._loggerService.log('address.detail', 'country is typed');
+    // this._loggerService.log('address.detail', 'country is typed');
     let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
     if (content && this.existsInList(content)) {
       this.addressFormLocalModel.controls['country'].setValue([content]);
@@ -203,7 +203,7 @@ export class AddressDetailsComponent implements OnInit {
   }
 
   tempCountryOnblur(rec) {
-    this._loggerService.log('address.detail', 'country is tempCountryOnblur');
+    // this._loggerService.log('address.detail', 'country is tempCountryOnblur');
     this.typed(rec)
   }
 
