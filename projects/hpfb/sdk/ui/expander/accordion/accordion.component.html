@@ -18,7 +18,11 @@
     <ng-template #expandablePanelHeading>
       <h5 class="panel-title" role="button" (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
         <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
-        {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
+        @if (recordRow.get('accordionHeadingSupp').value) {
+          {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}} - {{recordRow.get('accordionHeadingSupp').value}}
+        }@else {
+          {{accordionHeadingMsgKey | translate}}&nbsp; {{recordRow.get('seqNumber').value}}
+        }
       </h5>
     </ng-template>
 

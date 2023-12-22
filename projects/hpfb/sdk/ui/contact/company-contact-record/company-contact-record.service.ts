@@ -17,6 +17,7 @@ export class CompanyContactRecordService {
     return fb.group({
         id: -1,
         seqNumber: -1,  // for UI display purpose only
+        accordionHeadingSupp: '', // for UI display only, contacted to the accordion's heading
         detailsDirty: [false, Validators.required],
         isNew: true,
         expandFlag: false,
@@ -35,7 +36,7 @@ export class CompanyContactRecordService {
   }
 
 
-  public mapDataModelFormModel(contactRecordModel, formRecord: FormGroup) {
+  public mapDataModelFormModel(contactRecordModel: Contact, formRecord: FormGroup) {
     formRecord.controls['id'].setValue(Number(contactRecordModel.id));
     formRecord.controls['isNew'].setValue(false);
     // formRecord.controls.companyName.setValue(contactRecordModel.company);

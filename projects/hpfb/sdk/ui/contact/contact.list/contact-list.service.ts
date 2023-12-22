@@ -87,7 +87,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
     this._recordService.mapFormModelToDataModel(record, contactModel, lang, languageList, contactSatusList );
   }
 
-  public createFormRecordList(modelDataList, fb: FormBuilder, formRecordList, isInternal) {
+  public createFormRecordList(modelDataList: Contact[], fb: FormBuilder, formRecordList, isInternal) {
     for (let i = 0; i < modelDataList.length; i++) {
       const formRecord = this._recordService.getReactiveModel(fb, isInternal);
       this.contactDataToForm(modelDataList[i], formRecord);
@@ -95,7 +95,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
     }
   }
 
-  private contactDataToForm(contactModel, record: FormGroup) {
+  private contactDataToForm(contactModel: Contact, record: FormGroup) {
     this._recordService.mapDataModelFormModel(contactModel, record);
     return (record);
   }
@@ -158,9 +158,14 @@ export class ContactListService extends RecordListBaseService implements RecordL
   updateUIDisplayValues(formRecordList: FormArray, contactStatusList: ICode[], lang: string){
     // update Contact Record seqNumber
     this.updateFormRecordListSeqNumber(formRecordList); 
-    // update Contact Detail statusText
+    
     formRecordList.controls.forEach( (element: FormGroup) => {
       const contactDetailFormRecord = element.controls['contactDetails'] as FormGroup;
+
+      // update accordionHeadingSupp with contact's fullName value, this will be displayed on the accordion's heading
+      element.controls['accordionHeadingSupp'].setValue(contactDetailFormRecord.controls['fullName'].value);
+
+      // update Contact Detail statusText
       this._detailsService.setFormContactStatus(contactDetailFormRecord, contactDetailFormRecord.controls['status'].value, contactStatusList, lang, false)
     });
   }

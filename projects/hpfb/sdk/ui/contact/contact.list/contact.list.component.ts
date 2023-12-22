@@ -185,7 +185,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       // console.log(element);
       if (element.controls['id'].value===recordId) {
         element.controls['expandFlag'].setValue(false);
-        break;
+
+        const contactDetail = <FormGroup>element.controls['contactDetails'];
+        element.controls['accordionHeadingSupp'].setValue(contactDetail.controls['fullName'].value);
       } 
     }  
 
