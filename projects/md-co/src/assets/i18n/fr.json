@@ -24,18 +24,11 @@
   "addressDetails.provState": "Province ou État",
   "addressDetails.cityTown": "Ville",
   "fileio.msg.success": "Le fichier a été chargé avec succès",
-
-  "fileio.msg.parseFail": "fr_Parsing of the file has failed",
-
   "fileio.msg.fileTypeError": "Le type de formulaire incorrect a été sélectionné pour ce formulaire.",
-
-  "fileio.msg.dataTypeError": "fr_Error: the wrong form data was selected for this form.",
-
   "fileio.msg.noFileChoosen": "Aucun fichier choisi",
   "amend.note": "Le bouton « Modifier l'inscription » doit être sélectionné lors de la modification du fichier XML final de  la compagnie.",
   "refresh.page": "Veuillez en tout temps téléchargez le fichier dans le modèle vierge. Actualisez cette page afin de réinitialiser le modèle. ",
   "save.record": "Ajouter l'enregistrement",
-
   "refresh.file.input": "Actualisez cette page",
   "delete.record": "Effacer l'enregistrement",
   "save.contact": "Enregistrer le contact",
@@ -52,26 +45,18 @@
   "error.msg.postal": "Format non valide - Doit être X#X#X#",
   "error.mgs.zip": "Entrée non valide: doit contenir 5 chiffres",
   "error.mgs.company.id": "Entrée non valide: doit contenir 6 chiffres",
-  "error.msg.contactDetails": "fr_Company Representative Details has errors",
+  "error.msg.contactDetails": "Détails du représentant de la compagnie ont des erreurs",
 
   "error.mgs.licence.number": "fr_Please specify a valid licence number.",
-  "error.mgs.contact.id": "Entrée non valide: doit contenir 5 chiffres",
 
+  "error.mgs.contact.id": "Entrée non valide: doit contenir 5 chiffres",
   "error.msg.contact.one.record": "Au moins un représentant de l’entreprise ayant un statut nouveau, actif ou révisé doit être inscrit.",
   "postal.canada": "Code Postal",
   "postal.usa": "Code ZIP",
   "heading.company": "Inscription d'une compagnie réglementaire",
   "heading.addressInfo": "Information d'adresse",
-
-  "heading.addressDetails": "fr_Address Details",
-  "heading.addressRecord": "fr_Address Record",
-  "add.address": "fr_Add Address",
-
   "company.name.full": "Nom de la compagnie",
   "heading.contactInfo": "Information sur les représentants de la compagnie",
-
-  "heading.contactRecord": "fr_Company Representative Record",
-
   "heading.contactDetails": "Détails du représentant de la compagnie",
   "contact.id": "Identifiant du contact",
   "full.name": "Nom complet (Prénom et nom de famille)",
@@ -82,47 +67,28 @@
 
   "lang.correspond": "Langue de correspondance",
   "job.title": "Titre de poste",
-
-  "salutation": "fr_Salutation",
-
+  //"salutation": "fr_Salutation",
   "salut.mr": "M.",
   "salut.ms": "Mlle",
   "salut.dr": "Dr.",
   "salut.mrs": "Mme",
   "status": "Statut du contact",
-
-  "hcStatus": "fr_HC Contact Status",
-  "role.primary": "fr_Primary",
-  "role.secondary": "fr_Alternate",
-
+  //"hcStatus": "fr_HC Contact Status",
   "contact.email": "Courriel",
   "fax.number": "Numéro de télécopieur",
   "phone.ext": "Extension de téléphone ",
-
-  "roles": "fr_Roles",
-
   "phone.number": "Numéro de téléphone (incluant le code régional)",
   "phone.extension": "Extension de téléphone",
 
   "amend": "fr_Amend",
-  "rep.contact": "fr_REP Contact",
-  "one.role": "fr_Role",
   "contact.details": "fr_Company Representative Details",
-  "add.contact": "fr_Add REP Contact",
-  "contact.role.legend": "fr_Select one or more roles for this company representative",
-  "contact.role.instruct": "fr_Company Representative Role Instructions",
 
   "add.repres": "Ajouter l'enregistrement",
   "delete.repres": "Discard record",
   "save.repres": "Enregistrer le contact",
   "discard.changes": "Éliminer les modifications",
   "commmon.required.bracket": " (obligatoire)",
-
-  "save.address": "fr_Save Address",
-  "revert.address": "fr_Revert Address",
-  "delete.address": "fr_Delete Address",
-  "common.saveRevert": "fr_Please save or revert the record",
-
+  //"common.saveRevert": "fr_Please save or revert the record",
   "errorSummary.company": "Modèle de compagnie",
   "error.found.plural": " erreurs ont été trouvées.",
   "error.found.singular": " erreur a été trouvée.",
