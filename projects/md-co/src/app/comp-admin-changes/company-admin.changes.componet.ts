@@ -37,7 +37,7 @@ import { CompanyDataLoaderService } from '../form-base/company-data-loader.servi
     private adminChangesService: CompanyAdminChangesService;
     amendReasonDefs: string[] = [];
   
-    constructor(private _fb: FormBuilder, private _utilService: UtilsService, private _loggerService: LoggerService, private _formDataLoader: CompanyDataLoaderService) {
+    constructor(private _fb: FormBuilder, private _utilsService: UtilsService, private _loggerService: LoggerService, private _formDataLoader: CompanyDataLoaderService) {
       this.showFieldErrors = false;
       this.showErrors = false;
       this.adminChangesService = new CompanyAdminChangesService();
@@ -113,9 +113,9 @@ import { CompanyDataLoaderService } from '../form-base/company-data-loader.servi
           this.amendReasonDefs = [];
           
           for (const code of amendReasonCodes) {
-            const codeDefinition = this._utilService.findCodeDefinitionById(amendReasonCodeList, code);
+            const codeDefinition = this._utilsService.findCodeDefinitionById(amendReasonCodeList, code);
             if (codeDefinition) {
-              const defByLang = this._utilService.getCodeDefinitionByLang(codeDefinition, this.lang);
+              const defByLang = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
               if (defByLang) {
                 this.amendReasonDefs.push(defByLang);
               }

@@ -74,7 +74,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private _formDataLoader: CompanyDataLoaderService,
     private _companyService: CompanyBaseService,
-    private _fileService: FileConversionService, private _utilService: UtilsService, private _globalService: GlobalService,
+    private _fileService: FileConversionService, private _utilsService: UtilsService, private _globalService: GlobalService,
     private _versionService: VersionService,
     private _loggerService: LoggerService,
     private _checkSumService: CheckSumService,
@@ -205,7 +205,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.mailtoQS = this.showAdminChanges;
 
     if (this.showAdminChanges) {
-      this.selectedAmendReasonCodes = this._utilService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason) 
+      this.selectedAmendReasonCodes = this._utilsService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason) 
       // re-initiate the object in case showAdminChanges is flipped back and forth
       this.adminChangesModel = this._companyService.getEmptyAdminChangesModel();
     } else {
@@ -239,7 +239,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         const fileName = this._buildfileName();
         this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
       } else {
-        if (this._utilService.isFrench(this.lang)) {
+        if (this._utilsService.isFrench(this.lang)) {
           alert(
             "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML."
           );
@@ -273,7 +273,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log("_prepareForSaving, data in 'session' ", JSON.stringify(output, null, 2));
 
     // update the last_saved_date
-    output.DEVICE_COMPANY_ENROL.general_information.last_saved_date = this._utilService.getFormattedDate('yyyy-MM-dd')
+    output.DEVICE_COMPANY_ENROL.general_information.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd')
 
     if (xmlFile) {
       this._updateEnrollmentVersion(output.DEVICE_COMPANY_ENROL.general_information);
@@ -327,7 +327,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // }
 
   private _buildfileName() {
-    const date_generated = this._utilService.getFormattedDate('yyyyMMddHHmm');
+    const date_generated = this._utilsService.getFormattedDate('yyyyMMddHHmm');
     if (this.isInternal) {
       return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
     } else if (this.genInfoModel.status._id === EnrollmentStatus.Amend) {
@@ -390,7 +390,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const tContacts = companyEnroll.contacts['contact'];
     // if only one contact, convert it to an array
     this.contactModel = Array.isArray(tContacts) ? tContacts : [tContacts];
-    if ( !this._utilService.isEmpty(this.contactModel) ) {
+    if ( !this._utilsService.isEmpty(this.contactModel) ) {
       this.updateActiveContactList(this.contactModel);
     }else {
       this.contactModel = [];
@@ -405,10 +405,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _setShowAdminChangesFlag(): void{
 
-    this.selectedAmendReasonCodes = this._utilService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons?.amend_reason);
+    this.selectedAmendReasonCodes = this._utilsService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons?.amend_reason);
     const areLicensesBeingTransfered =  this.genInfoModel.are_licenses_transfered;
 
-    this.showAdminChanges = this._utilService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges) || areLicensesBeingTransfered === YES;
+    this.showAdminChanges = this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges) || areLicensesBeingTransfered === YES;
     
     // console.log("_setShowAdminChangesFlag()", "this.selectedAmendReasonCodes", this.selectedAmendReasonCodes, "areLicensesBeingTransfered", areLicensesBeingTransfered, "this.showAdminChanges", this.showAdminChanges);
   }

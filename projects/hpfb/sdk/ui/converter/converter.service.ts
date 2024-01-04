@@ -12,14 +12,14 @@ import { FormArray } from '@angular/forms';
  */
 export class ConverterService {
 
-  constructor(private _utilService: UtilsService, private _loggerService: LoggerService){}
+  constructor(private _utilsService: UtilsService, private _loggerService: LoggerService){}
 
   convertCodeToIdTextLabel(codeObj: ICode, lang: string): IIdTextLabel {
     if (codeObj === undefined || codeObj === null) {
       return null;
     } else {
       const idTextLabelObj = {} as IIdTextLabel;
-      idTextLabelObj.__text = this._utilService.isFrench(lang) ? codeObj.fr : codeObj.en;
+      idTextLabelObj.__text = this._utilsService.isFrench(lang) ? codeObj.fr : codeObj.en;
       idTextLabelObj._id = codeObj.id;
       idTextLabelObj._label_en = codeObj.en;
       idTextLabelObj._label_fr = codeObj.fr;
@@ -33,7 +33,7 @@ export class ConverterService {
     } else {
       const checkboxOption = {} as CheckboxOption;
       checkboxOption.value = codeObj.id;
-      checkboxOption.label = this._utilService.isFrench(lang) ? codeObj.fr : codeObj.en;
+      checkboxOption.label = this._utilsService.isFrench(lang) ? codeObj.fr : codeObj.en;
       checkboxOption.checked = false;
       return checkboxOption;
     }
@@ -42,7 +42,7 @@ export class ConverterService {
   // find a ICode in a ICodeList and convert it to an IdTextLabel object
   findAndConverCodeToIdTextLabel(codeList: ICode[], controlVal: string, lang: string): IIdTextLabel {
     // filter a CodeList by a form control value
-    const codeVal = this._utilService.findCodeById(codeList, controlVal);
+    const codeVal = this._utilsService.findCodeById(codeList, controlVal);
     // if found, convert the Code value to an IIdTextLabel object and return it, otherwise return null
     return codeVal? this.convertCodeToIdTextLabel(codeVal, lang) : null;
   }
