@@ -11,6 +11,7 @@ import { ErrMessageService } from '../err.message.service';
 })
 export class ErrorSummaryComponent implements AfterViewInit {
   @Input() headingPreamble: string;
+  @Input() headingPreambleParams: any;
   @Input() errorList;
   @Input() hiddenSummary;
   @Input() compId = 'error-summary-';

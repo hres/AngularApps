@@ -23,7 +23,7 @@ export class ControlMessagesComponent implements OnChanges {
    */
   @Input() showError: boolean;
   /**
-   * Label that is associated to the control. Used for the error summary
+   * Label message key that is associated to the control. Used for the error summary
    */
   @Input() label: string;
   /**
@@ -35,9 +35,13 @@ export class ControlMessagesComponent implements OnChanges {
    */
   @Input() parentId: string;
   /**
-   * The label of the parent of hte control . Used for the error summary component. Currently not used?
+   * The label message key of the parent of hte control . Used for the error summary component. Currently not used?
    */
   @Input() parentLabel: string;
+  /**
+   * The already translated label of the parent of hte control . Used for the error summary component. 
+   */
+  @Input() translatedParentLabel: string;
   /***
    * Index of the error. Used to expand the expander for the error summaryt
    */

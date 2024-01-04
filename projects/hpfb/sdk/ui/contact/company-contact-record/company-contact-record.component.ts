@@ -11,6 +11,7 @@ import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summa
 import { ICode } from '../../data-loader/data';
 import { UtilsService } from '../../utils/utils.service';
 import { ContactStatus } from '../../common.constants';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'company-contact-record',
@@ -49,15 +50,21 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public isNew: boolean;
   public showErrSummary: boolean;
   private errorSummaryChild: ErrorSummaryComponent = null;
+  
   public headingLevel = 'h4';
+  headingPreamble: string = "heading.contactDetails";
+  headingPreambleParams: any;
+  translatedParentLabel: string;
 
   constructor( private cdr: ChangeDetectorRef, private _utilsService: UtilsService, 
-    private _detailsService: ContactDetailsService) {
+    private _detailsService: ContactDetailsService, private _translateService: TranslateService) {
     this.showErrors = false;
     this.showErrSummary = false;
   }
 
   ngOnInit() {
+    this.headingPreambleParams = this.cRRow.get('seqNumber').value;
+    this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
     this.contactRecordModel = this.cRRow;
   }
 

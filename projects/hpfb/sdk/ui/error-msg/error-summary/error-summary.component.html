@@ -1,47 +1,32 @@
 <div id="{{componentId}}" *ngIf="hiddenSummary">
   <section class="alert alert-danger" tabindex="-1" [ngSwitch]="hdingLevel">
     <h1 *ngSwitchCase="'h1'">
-      <!--<span>For</span>--><span> {{headingPreamble |translate}}</span>
-      <span>{{'error.found.because'|translate}}</span>
-      <span>{{errorList.length}}</span>
-      <span *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
-      <span *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
+      <ng-container *ngTemplateOutlet="sharedHeadingContent"></ng-container>
     </h1>
     <h2 *ngSwitchCase="'h2'">
-      <!--<span>For</span>--><span> {{headingPreamble |translate}}</span>
-      <span>{{'error.found.because'|translate}}</span>
-      <span>{{errorList.length}}</span>
-      <span *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
-      <span *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
+      <ng-container *ngTemplateOutlet="sharedHeadingContent"></ng-container>
     </h2>
     <h3 *ngSwitchCase="'h3'">
-      <!--<span>For</span>--><span> {{headingPreamble |translate}}</span>
-      <span>{{'error.found.because'|translate}}</span>
-      <span>{{errorList.length}}</span>
-      <span *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
-      <span *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
+      <ng-container *ngTemplateOutlet="sharedHeadingContent"></ng-container>
     </h3>
     <h4 *ngSwitchCase="'h4'">
-      <!--<span>For</span>--><span> {{headingPreamble |translate}}</span>
-      <span>{{'error.found.because'|translate}}</span>
-      <span>{{errorList.length}}</span>
-      <span *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
-      <span *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
+      <ng-container *ngTemplateOutlet="sharedHeadingContent"></ng-container>
     </h4>
     <h5 *ngSwitchCase="'h5'">
-      <!--<span>For </span>--><span> {{headingPreamble |translate}}</span>
-      <span>{{'error.found.because'|translate}}</span>
-      <span>{{errorList.length}}</span>
-      <span *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
-      <span *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
+      <ng-container *ngTemplateOutlet="sharedHeadingContent"></ng-container>
     </h5>
     <h6 *ngSwitchCase="'h6'">
-      <!--<span>For </span>--><span> {{headingPreamble |translate}}</span>
+      <ng-container *ngTemplateOutlet="sharedHeadingContent"></ng-container>
+    </h6>
+
+    <ng-template #sharedHeadingContent>
+      <!--<span>For</span>--><span> {{headingPreamble |translate: {seqnumber: headingPreambleParams} }}</span>
       <span>{{'error.found.because'|translate}}</span>
       <span>{{errorList.length}}</span>
       <span *ngIf="errorList?.length>1">{{'error.found.plural'|translate}}</span>
       <span *ngIf="errorList?.length<2">{{'error.found.singular'|translate}}</span>
-    </h6>
+    </ng-template>
+
     <ul *ngFor="let parentError of errors | keys">
       <div *ngFor="let controlError of parentError.value.controls">
         <li *ngIf="controlError.type==='component_error'">
@@ -52,7 +37,15 @@
         </li>
         <li *ngIf="controlError.type!=='component_error' && controlError.type!='least_one_rec_error'">
           <a href="#{{controlError.controlId}}" target="_self" (click)="processEvents(controlError)">
-            {{'error' | translate: {number:controlError.errorNumber} }}&nbsp;{{controlError.compRef.label|translate}}&nbsp;&#8208;&nbsp;{{ getValidatorErrorMessageKey(controlError.compRef.currentError) | translate: controlError.compRef.errorParams}}
+            {{'error' | translate: {number:controlError.errorNumber} }}
+            @if(this.headingLevel==='h4'){
+              @if(controlError.compRef.translatedParentLabel) {
+                {{controlError.compRef.translatedParentLabel}}&nbsp;&#8208;&nbsp;
+              } @else {
+                {{controlError.compRef.parentLabel | translate}}&nbsp;&#8208;&nbsp;
+              }
+            } 
+            {{controlError.compRef.label | translate}}&nbsp;&#8208;&nbsp;{{ getValidatorErrorMessageKey(controlError.compRef.currentError) | translate: controlError.compRef.errorParams}}
           </a>
         </li>
       </div>

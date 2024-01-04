@@ -1,13 +1,13 @@
 <div class="container-fluid" [formGroup]="contactRecordModel" *ngIf="contactRecordModel">
-
+ 
   <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
-                 [errorList]="errorList" headingPreamble="heading.contactDetails"
-                 [headingLevel]="headingLevel" label="error.msg.contactDetails" compId="contactRec"></lib-error-summary>
+                 [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
+                 [headingLevel]="headingLevel" label="error.msg.contactDetails" compId="contactRec"></lib-error-summary> 
                  
   <contact-details [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang"
                    [languageList]="languageList" [contactStatusList]="contactStatusList"
                    [group]="contactDetailsForm"
-                   [helpTextSequences]="helpTextSequences"
+                   [helpTextSequences]="helpTextSequences" [translatedParentLabel]="translatedParentLabel"
                    (errorList)="updateErrorList($event)"></contact-details>
 
   <div class="row">

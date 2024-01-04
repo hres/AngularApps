@@ -27,6 +27,8 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() contactStatusList: ICode[];
   @Input() lang;
   @Input() helpTextSequences;
+  @Input() translatedParentLabel: string;
+
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 

@@ -9,7 +9,7 @@
                             [showError]="showFieldErrors"
                             [control]="contactDetailForm.controls['contactId'] | formControl"
                             controlId="contactId" label="contact.id" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="contactId" id="contactId" class="form-control"
                  [readonly]="!isInternal" [formControl]="contactDetailForm.controls['contactId'] | formControl" maxlength="5"/>
         </label>
@@ -36,7 +36,7 @@
                             [showError]="showFieldErrors"
                             [control]="contactDetailForm.controls['fullName'] | formControl"
                             controlId="fullName" label="full.name" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="fullName" id="fullName" class="form-control full-width" maxlength="45" [formControl]="contactDetailForm.controls['fullName'] | formControl"/>
         </label>
       </div>
@@ -50,7 +50,7 @@
                             [showError]="showFieldErrors"
                             [control]="contactDetailForm.controls['language'] | formControl"
                             controlId="language" label="lang.correspond" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <select id="language" required class="form-control" [formControl]="contactDetailForm.controls['language'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let langOpt of languageList" [ngValue]="langOpt.id"> {{langOpt | textTransform: lang }}</option>
@@ -65,7 +65,7 @@
                             [showError]="showFieldErrors"
                             [control]="contactDetailForm.controls['jobTitle'] | formControl"
                             controlId="jobTitle" label="job.title" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="45" [formControl]="contactDetailForm.controls['jobTitle'] | formControl"/>
         </label>
       </div>
@@ -79,7 +79,7 @@
                             [showError]="showFieldErrors"
                             [control]="contactDetailForm.controls['phoneNumber'] | formControl"
                             controlId="phoneNumber" label="phone.number" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="phoneNumber" id="phoneNumber" class="form-control only-digits full-width" maxlength="25"
                 [formControl]="contactDetailForm.controls['phoneNumber'] | formControl" />
         </label>
@@ -97,7 +97,7 @@
                             [showError]="showFieldErrors"
                             [control]="contactDetailForm.controls['faxNumber'] | formControl"
                             controlId="faxNumber" label="fax.number" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="faxNumber" id="faxNumber" class="form-control full-width only-digits" maxlength="25"
                  [formControl]="contactDetailForm.controls['faxNumber'] | formControl"/>
         </label>
@@ -112,7 +112,7 @@
                             [showError]="showFieldErrors"
                             [control]="contactDetailForm.controls['email'] | formControl"
                             controlId="email" label="contact.email" parentId="contactDetails"
-                            parentLabel="REP Contact"></control-messages>
+                            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="email" id="email" class="form-control full-width" maxlength="50" [formControl]="contactDetailForm.controls['email'] | formControl"/>
         </label>
       </div>
