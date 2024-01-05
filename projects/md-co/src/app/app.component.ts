@@ -8,12 +8,12 @@ import { ENGLISH } from '@hpfb/sdk/ui';
 import { GlobalService } from './global/global.service';
 import { VersionService } from '@hpfb/sdk/ui/'; 
 import { helpInstructionHeadings } from './app.constants';
-import { AppFormModule } from './app.form.module';
+import { ContainerComponent } from './container/container.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, TranslateModule, AppFormModule],
+  imports: [CommonModule, TranslateModule, ContainerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   encapsulation: ViewEncapsulation.None
@@ -22,7 +22,7 @@ import { AppFormModule } from './app.form.module';
 export class AppComponent {
   isInternal: boolean = false;
   language :string = ENGLISH;
-  appVersion: string = '0.0.0';
+  appVersion: string = '0.0.0'; 
   
   constructor(
     private translate: TranslateService,
