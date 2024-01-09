@@ -477,28 +477,28 @@ span.normalWeight {
 									<strong>Ville:&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/city"/></span>&#160;&#160;&#160;&#160;
 									<xsl:choose>
-										<xsl:when test="/descendant-or-self::address/country/@id = 'CAN'">
+										<xsl:when test="/descendant-or-self::address/country/@id = 'CA'">
 											<strong>Province:&#160;</strong>
 											<span class="mouseHover">
-											<xsl:value-of select="/descendant-or-self::address/prov_lov"/>
+											<xsl:value-of select="/descendant-or-self::address/province_lov/@label_fr"/>
 											</span>
 										</xsl:when>
-										<xsl:when test="/descendant-or-self::address/country/@id = 'USA'">
+										<xsl:when test="/descendant-or-self::address/country/@id = 'US'">
 											<strong>État:&#160;</strong>
 											<span class="mouseHover">
-											<xsl:value-of select="/descendant-or-self::address/prov_lov"/>
+											<xsl:value-of select="/descendant-or-self::address/province_lov/@label_fr"/>
 											</span>
 										</xsl:when>
 										<xsl:otherwise>
 											<strong>Province ou État:&#160;</strong>
 											<span class="mouseHover">
-											<xsl:value-of select="/descendant-or-self::address/prov_text"/>
+											<xsl:value-of select="/descendant-or-self::address/province_text"/>
 											</span>
 										</xsl:otherwise>
 									</xsl:choose>
 									&#160;&#160;&#160;&#160;
 									<strong>Pays:&#160;</strong>
-									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/country"/>
+									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/country/@label_fr"/>
 									</span>
 									</div>
 								</div>
@@ -506,10 +506,10 @@ span.normalWeight {
 									<div class="col-xs-12">
 										<strong>
 										<xsl:choose>
-											<xsl:when test="/descendant-or-self::address/country/@id = 'USA'">
+											<xsl:when test="/descendant-or-self::address/country/@id = 'US'">
 												Code ZIP 
 											</xsl:when>
-											<xsl:when test="/descendant-or-self::address/country/@id = 'CAN'">
+											<xsl:when test="/descendant-or-self::address/country/@id = 'CA'">
 												Code postal 
 											</xsl:when>
 											<xsl:otherwise>
@@ -609,7 +609,7 @@ span.normalWeight {
 					</div>
 					<div class="col-xs-6">
 					<strong>Statut du contact:&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="status_text"/></span>
+					<span class="mouseHover"><xsl:value-of select="status_text/@label_fr"/></span>
 					</div>
 				</div>
 				<div class="row">
@@ -621,7 +621,7 @@ span.normalWeight {
 				<div class="row">
 					<div class="col-xs-6">
 					<strong>Langue de correspondance:&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="language"/></span>&#160;&#160;
+					<span class="mouseHover"><xsl:value-of select="language/@label_fr"/></span>&#160;&#160;
 					</div>
 					<div class="col-xs-6">
 					<strong>Titre de poste:&#160;</strong>
