@@ -1,0 +1,11 @@
+{
+  "form.title": "fr_Transaction Template: Regulatory Enrolment Process (REP)",
+  "version": "Version ",
+  "top.fromHC": "De <a href='https://www.canada.ca/fr/sante-canada.html'>Santé Canada</a>",
+  "top.privacy.statement": "Énoncé de confidentialité",
+  "top.security.declaimer": "Avis de non-responsabilité concernant la sécurité",
+  "top.instruction": "Instructions",
+  "load.file": "fr_Load a Transaction Enrolment File",
+  "select.file": "Sélectionnez un fichier à charger",
+  "select.file.line": "Veuillez en tout temps téléchargez le fichier dans le modèle vierge. Actualisez cette page afin de réinitialiser le modèle."
+}  
