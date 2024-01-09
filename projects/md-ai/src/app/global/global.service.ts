@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InstructionService } from '@hpfb/sdk/ui';
+import {Enrollment} from '../models/Enrollment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class GlobalService {
   private appVersion: string;
   private helpIndex: { [key: string]: number };
   private currLanguage: string;
-  // private enrollment: Enrollment;
+  private enrollment: Enrollment;
 
   /**
    * Getter $devEnv
@@ -61,11 +62,11 @@ export class GlobalService {
     return this.currLanguage;
   }
 
-  // setEnrollment(enrollment: Enrollment) {
-  //   this.enrollment = enrollment;
-  // }
+  setEnrollment(enrollment: Enrollment) {
+    this.enrollment = enrollment;
+  }
 
-  // getEnrollment() {
-  //   return this.enrollment;
-  // }
+   getEnrollment() {
+     return this.enrollment;
+   }
 }
