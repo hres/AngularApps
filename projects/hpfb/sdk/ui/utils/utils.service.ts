@@ -258,4 +258,13 @@ export class UtilsService {
     return this.isFrench(lang) ? code.fr : code.en;
   }
 
+  createIIdTextLabelObj(id: string, label_en: string, label_fr: string, text?: string) : IIdTextLabel {
+    return {
+      _id: id,
+      __text: text,
+      _label_en: label_en,
+      _label_fr: label_fr
+    }
+  }
+
 }
