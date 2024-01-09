@@ -1,5 +1,4 @@
 export * from './layout/layout.component';
-export * from './layout/layout.module';
 
 export * from './expander/expander.component';
 export * from './expander/accordion/accordion.component';
@@ -55,7 +54,6 @@ export * from './version/version.service'
 export * from './information/privacy-statement/privacy-statement.component'
 export * from './information/security-disclaimer/security-disclaimer.component'
 export * from './information/instruction/instruction.service'
-export * from './information/shared.information.module';
 
 export * from './logger/logger.service'
 

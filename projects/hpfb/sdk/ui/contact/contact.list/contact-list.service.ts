@@ -161,10 +161,6 @@ export class ContactListService extends RecordListBaseService implements RecordL
     
     formRecordList.controls.forEach( (element: FormGroup) => {
       const contactDetailFormRecord = element.controls['contactDetails'] as FormGroup;
-
-      // update accordionHeadingSupp with contact's fullName value, this will be displayed on the accordion's heading
-      element.controls['accordionHeadingSupp'].setValue(contactDetailFormRecord.controls['fullName'].value);
-
       // update Contact Detail statusText
       this._detailsService.setFormContactStatus(contactDetailFormRecord, contactDetailFormRecord.controls['status'].value, contactStatusList, lang, false)
     });

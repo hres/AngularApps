@@ -3,7 +3,8 @@
   <!--[errorList]="errorList" headingPreamble="heading.contactInfo"-->
   <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></lib-error-summary>-->  
   
-  <lib-accordion [rowsFormArray]="contactList" [accordionHeadingMsgKey]="'heading.contactDetails'" (rowClicked)="handleRowClick($event)">
+  <lib-accordion [rowsFormArray]="contactList" [accordionHeadingMsgKey]="'heading.contactDetails'" [accordionHeadingSupp]="['contactDetails', 'fullName']" 
+    (rowClicked)="handleRowClick($event)">
 
     <ng-template #tmpl let-recordRow let-idx="i">
       <!-- ==={{recordRow.get('id').value}}=== -->

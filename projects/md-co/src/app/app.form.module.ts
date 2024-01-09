@@ -2,15 +2,12 @@ import { NgModule } from '@angular/core';
 import {
   ErrorModule,
   PipesModule,
-  FileIoModule,
   ExpanderModule,
   AddressModule,
   ContactModule,
-  LayoutModule,
   CommonUiFeatureModule
 } from '@hpfb/sdk/ui';
 import { CommonModule } from '@angular/common';
-import { FormBaseComponent } from './form-base/form-base.component';
 import { CompanyInfoComponent } from './company-info/company.info.component';
 import { PrimaryContactComponent } from './primary-contact/primary.contact.component';
 import { PrimaryContactService } from './primary-contact/primary.contact.service';
@@ -22,13 +19,9 @@ import { CompanyInfoService } from './company-info/company.info.service';
 import { CompanyDataLoaderService } from './form-base/company-data-loader.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ContainerComponent } from './container/container.component';
-import { InformationModule } from './information/information.module';
 
 @NgModule({
   declarations: [
-    ContainerComponent,
-    FormBaseComponent,
     CompanyInfoComponent,
     PrimaryContactComponent,
     CompanyAdminChangesComponent,
@@ -38,16 +31,11 @@ import { InformationModule } from './information/information.module';
     CommonModule,
     TranslateModule,
     CommonUiFeatureModule,
-    LayoutModule,
     ErrorModule,
     PipesModule,
-    InformationModule,
-    FileIoModule,
     ExpanderModule,
     ReactiveFormsModule,
     TranslateModule,
-    AddressModule,
-    ContactModule,
   ],
   providers: [
     CompanyDataLoaderService,
@@ -57,7 +45,10 @@ import { InformationModule } from './information/information.module';
     CompanyAdminChangesComponent,
     CompanyAdminChangesService,
   ],
-  exports: [CommonUiFeatureModule, ContainerComponent, FormBaseComponent
-  ],
+  exports: [CommonUiFeatureModule, 
+    CompanyInfoComponent,
+    PrimaryContactComponent,
+    CompanyAdminChangesComponent,
+    MailtoHelpComponent],
 })
 export class AppFormModule {}

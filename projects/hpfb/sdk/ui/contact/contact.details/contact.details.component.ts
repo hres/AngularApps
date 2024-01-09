@@ -20,6 +20,7 @@ import { UtilsService } from '../../utils/utils.service';
 export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input('group') public contactDetailForm: FormGroup;    // contact detail form will use the reactive model passed in from the contact record component
+  @Input() recordId: string; 
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
