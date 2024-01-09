@@ -179,6 +179,94 @@
           }
         }
       }
+    },
+    "md-rt": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/md-rt",
+      "sourceRoot": "projects/md-rt/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/md-rt",
+            "index": "projects/hpfb/sdk/src/index.html",
+            "browser": "projects/md-rt/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/md-rt/tsconfig.app.json",
+            "assets": [
+              "projects/md-rt/src/favicon.ico",
+              "projects/md-rt/src/assets"
+            ],
+            "styles": [
+              "projects/md-rt/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "md-rt:build:production"
+            },
+            "development": {
+              "buildTarget": "md-rt:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "md-rt:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/md-rt/tsconfig.spec.json",
+            "assets": [
+              "projects/md-rt/src/favicon.ico",
+              "projects/md-rt/src/assets"
+            ],
+            "styles": [
+              "projects/md-rt/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   }
 }
