@@ -179,6 +179,94 @@
           }
         }
       }
+    },
+    "md-ai": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/md-ai",
+      "sourceRoot": "projects/md-ai/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/md-ai",
+            "index": "projects/md-ai/src/index.html",
+            "browser": "projects/md-ai/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/md-ai/tsconfig.app.json",
+            "assets": [
+              "projects/md-ai/src/favicon.ico",
+              "projects/md-ai/src/assets"
+            ],
+            "styles": [
+              "projects/md-ai/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "md-ai:build:production"
+            },
+            "development": {
+              "buildTarget": "md-ai:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "md-ai:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/md-ai/tsconfig.spec.json",
+            "assets": [
+              "projects/md-ai/src/favicon.ico",
+              "projects/md-ai/src/assets"
+            ],
+            "styles": [
+              "projects/md-ai/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   }
 }
