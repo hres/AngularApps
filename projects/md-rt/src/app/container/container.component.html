@@ -23,6 +23,8 @@
     </div>
 
     <div body>
-        <app-form-base [helpTextSequences]="helpIndex" [lang]="language"></app-form-base>
+        @defer (when loadFormBaseComponent) {
+            <app-form-base [helpTextSequences]="helpIndex" [lang]="language"></app-form-base>
+        }
     </div>
 </lib-layout> 

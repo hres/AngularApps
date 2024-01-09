@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InstructionService } from '@hpfb/sdk/ui';
+import { ICode, InstructionService } from '@hpfb/sdk/ui';
 import { Enrollment } from '../models/Enrollment';
 
 @Injectable({
@@ -13,6 +13,10 @@ export class GlobalService {
   private helpIndex: { [key: string]: number };
   private currLanguage: string;
   private enrollment: Enrollment;
+
+  // data loaded from json files
+  private deviceClasseList: ICode[];
+  private RegulatoryActivityTypesList: ICode[];
 
   /**
    * Getter $devEnv
@@ -69,4 +73,21 @@ export class GlobalService {
   getEnrollment() {
     return this.enrollment;
   }
+
+	public get $deviceClasseList(): ICode[] {
+		return this.deviceClasseList;
+	}
+
+	public set $deviceClasseList(value: ICode[]) {
+		this.deviceClasseList = value;
+	}
+
+	public get $RegulatoryActivityTypesList(): ICode[] {
+		return this.RegulatoryActivityTypesList;
+	}
+
+	public set $RegulatoryActivityTypesList(value: ICode[]) {
+		this.RegulatoryActivityTypesList = value;
+	}
+
 }
