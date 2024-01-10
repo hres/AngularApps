@@ -1,48 +1,51 @@
 import { IIdTextLabel } from "@hpfb/sdk/ui";
 
 export interface Enrollment {
-    DEVICE_APPLICATION_ENROL: DeviceApplicationEnrol;
+    DEVICE_APPLICATION_INFO: DeviceApplicationEnrol;
 }
 
 export interface DeviceApplicationEnrol {
     application_info: ApplicationInfo;
     devices: Devices;
+    priority_review: PriorityReview;
 }
 
 export interface ApplicationInfo {
-    software_version:         string;
-    enrol_version:            string;
-    last_saved_date:          string;
-    company_id:               string;
-    dossier_id:               string;
-    mdsap_number:             string;
-    mdsap_org:                IIdTextLabel;
-    licence_application_type: IIdTextLabel;
-    regulatory_activity_lead: IIdTextLabel;
-    regulatory_activity_type: IIdTextLabel;
-    device_class:             IIdTextLabel;
-    is_ivdd:                  string;
-    is_home_use:              string;
-    is_care_point_use:        string;
-    is_emit_radiation:        string;
-    has_drug:                 string;
-    has_din_npn:              IIdTextLabel;
-    din:                      string;
-    npn:                      string;
-    drug_name:                string;
-    active_ingredients:       string;
-    manufacturer:             string;
-    compliance:               IIdTextLabel;
-    other_pharmacopeia:       string;
-    provision_mdr_it:         string;
-    provision_mdr_sa:         string;
-    application_number:       string;
-    sap_request_number:       string;
-    declaration_conformity :  string;
-    has_recombinant:          string;
-    is_animal_human_sourced : string;
-    biological_materials:     BiologicalMaterials;
-    is_listed_idd_table:      string;
+    software_version:               string;
+    enrol_version:                  string;
+    last_saved_date:                string;
+    company_id:                     string;
+    dossier_id:                     string;
+    mdsap_number:                   string;
+    mdsap_org:                      IIdTextLabel;
+    licence_application_type:       IIdTextLabel;
+    regulatory_activity_lead:       IIdTextLabel;
+    regulatory_activity_type:       IIdTextLabel;
+    device_class:                   IIdTextLabel;
+    is_ivdd:                        string;
+    is_home_use:                    string;
+    is_care_point_use:              string;
+    is_emit_radiation:              string;
+    has_drug:                       string;
+    has_din_npn:                    IIdTextLabel;
+    din:                            string;
+    npn:                            string;
+    drug_name:                      string;
+    active_ingredients:             string;
+    manufacturer:                   string;
+    compliance:                     IIdTextLabel;
+    other_pharmacopeia:             string;
+    provision_mdr_it:               string;
+    provision_mdr_sa:               string;
+    application_number:             string;
+    sap_request_number:             string;
+    interim_order_authorization:    string;
+    authorization_id:               string;
+    declaration_conformity :        string;
+    has_recombinant:                string;
+    is_animal_human_sourced :       string;
+    biological_materials:           BiologicalMaterials;
+    is_listed_idd_table:            string;
 }
 
 export interface BiologicalMaterials {
@@ -66,10 +69,15 @@ export interface Devices {
 }
 
 export interface Device {
-    device_name: '',
-    device_Authorized: '',
-    licence_number: '',
-    device_application_submitted: '',
-    device_application_number: '',
-    device_explain: ''
+    device_name:                    string;
+    device_authorized:              string;
+    licence_number:                 string;
+    device_application_submitted:   string;
+    device_application_number:      string;
+    device_explain:                 string;
+}
+
+export interface PriorityReview {
+    priority_review:                    string;
+    is_diagnosis_treatment_serious:     string;
 }
