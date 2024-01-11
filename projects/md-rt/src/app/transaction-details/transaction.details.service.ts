@@ -22,9 +22,9 @@ export class TransactionDetailsService {
     if (!fb) {return null; }
     return fb.group({
       dossierId: ['', [Validators.required, ValidationService.dossierIdValidator]],
-      manuCompanyId: ['', [Validators.required, ValidationService.companyIdValidator]],
+      manuCompanyId: ['', [Validators.required, ValidationService.numeric6Validator]],
       manuContactId: ['', [Validators.required, ValidationService.dossierContactIdValidator]],
-      reguCompanyId: ['', [Validators.required, ValidationService.regulatoryCompanyIdValidator]],
+      reguCompanyId: ['', [Validators.required, ValidationService.numeric6Validator]],
       reguContactId: ['', [Validators.required, ValidationService.regulatoryContactIdValidator]],
       activityLead: ['', Validators.required],
       activityType: ['', Validators.required],
@@ -501,11 +501,11 @@ export class TransactionDetailsService {
   //   };
 
   //   if (formRecord.controls.manuCompanyId.value) {
-  //     transactionInfoModel.company_id = 'K' + formRecord.controls.manuCompanyId.value;
+       transactionInfoModel.company_id = 'K' + formRecord.controls['manuCompanyId'].value;
   //   }
   //   transactionInfoModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
   //   if (formRecord.controls.reguCompanyId.value) {
-  //     transactionInfoModel.regulatory_company_id = 'K' + formRecord.controls.reguCompanyId.value;
+       transactionInfoModel.regulatory_company_id = 'K' + formRecord.controls['reguCompanyId'].value;
   //   }
   //   transactionInfoModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
   //  // transactionInfoModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
@@ -621,11 +621,11 @@ export class TransactionDetailsService {
 //     // formRecord.controls.routingId.setValue(transactionInfoModel.routing_id);
 //     formRecord.controls['dossierId'].setValue(transactionInfoModel.dossier_id);
 //     if (transactionInfoModel.company_id) {
-//       formRecord.controls.manuCompanyId.setValue(transactionInfoModel.company_id.slice(1));
+      formRecord.controls['manuCompanyId'].setValue(transactionInfoModel.company_id.slice(1));
 //     }
 //     formRecord.controls.manuContactId.setValue(transactionInfoModel.manufacturing_contact_id);
 //     if (transactionInfoModel.regulatory_company_id) {
-//       formRecord.controls.reguCompanyId.setValue(transactionInfoModel.regulatory_company_id.slice(1));
+      formRecord.controls['reguCompanyId'].setValue(transactionInfoModel.regulatory_company_id.slice(1));
 //     }
 //     formRecord.controls.reguContactId.setValue(transactionInfoModel.regulatory_contact_id);
 
