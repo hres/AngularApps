@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { TransactionBaseService } from './transaction-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
-import { ApplicationInfo, Enrollment, Requester, TransFees } from '../models/Enrollment';
+import { ApplicationInfo, DeviceTransactionEnrol, Enrollment, Requester, TransFees } from '../models/Enrollment';
 
 @Component({
   selector: 'app-form-base',
@@ -40,8 +40,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public headingLevel = 'h2';
 
   public enrollModel : Enrollment;
-  public applicationInfoModel : ApplicationInfo;; 
-  public transactionModel: Enrollment;
+  public transactionInfoModel : ApplicationInfo;; 
+
   public requesterModel: Requester[];
   public transFeeModel: TransFees;
   // public transFeeModel = TransactionBaseService.getEmptyTransactionFeeModel();
@@ -65,12 +65,30 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log(this._globalService.$deviceClasseList)
     // if (!this.transactionForm) {
     //   this.transactionForm = this._baseService.getReactiveModel();
     // }
     // this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
-    this.helpIndex = this._globalService.getHelpIndex();
+
+
+    try {
+      if (!this._globalService.getEnrollment()) {
+        // this._loggerService.log("form.base", "onInit", "enrollement doesn't exist, create a new one");
+        this.enrollModel = this._baseService.getEmptyEnrol();
+        this._globalService.setEnrollment(this.enrollModel);
+      } else {
+        this.enrollModel = this._globalService.getEnrollment();
+        // console.log("onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
+      }
+
+      const transactionEnroll: DeviceTransactionEnrol = this.enrollModel[this.rootTagText];
+      this._init(transactionEnroll);
+
+      this.helpIndex = this._globalService.getHelpIndex();
+
+    } catch (e) {
+      console.error(e);
+    }      
   }
 
   ngAfterViewInit(): void {
@@ -128,46 +146,58 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveWorkingCopyFile() {
-    // this._updatedSavedDate();
-    // const result = {'DEVICE_TRANSACTION_ENROL': {
-    //   'application_info': this.transactionModel,
-    //   'requester_of_solicited_information': {
-    //     'requester': this._deleteText(this.requesterModel)
-    //   },
-    //   'transFees': this.transFeeModel
-    // }};
-    // const fileName = 'rt-' + this.transactionModel.dossier_id + '-' + this.transactionModel.last_saved_date;
-    // this.fileServices.saveJsonToFile(result, fileName, null);
+    const result = this._prepareForSaving(false);
+    const fileName = this._buildfileName();
+    this._fileService.saveJsonToFile(result, fileName, null);
+  }
+
+  private _prepareForSaving(xmlFile: boolean): Enrollment {
+    const output: Enrollment = {
+       'DEVICE_TRANSACTION_ENROL': {
+         'software_version': this._globalService.$appVersion,
+         'application_info': this.transactionInfoModel,
+         'requester_of_solicited_information': {
+            'requester': null, //this._deleteText(this.requesterModel)
+          },
+          'transFees': this.transFeeModel
+        }
+    };
+
+    // update the last_saved_date
+    output.DEVICE_TRANSACTION_ENROL.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd')
+
+    return output;
+  }
+
+  private _buildfileName() {
+    const date_generated = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    return 'rt-' + this.transactionInfoModel.dossier_id + '-' + date_generated;
+
   }
 
   public processFile(fileData: ConvertResults) {
+    const enrollment : Enrollment = fileData.data;
      console.log('processing file.....');
-     console.log(fileData);
-    // this.transactionModel = fileData.data.DEVICE_TRANSACTION_ENROL.application_info;
-    // const req = fileData.data.DEVICE_TRANSACTION_ENROL.requester_of_solicited_information.requester;
-    // if (req) {
-    //   this.requesterModel = (req instanceof Array) ? req : [req];
-    //   this._insertTextfield();
-    // }
-    // this.transFeeModel = fileData.data.DEVICE_TRANSACTION_ENROL.transFees;
+     const transactionEnroll: DeviceTransactionEnrol = enrollment[this.rootTagText];
+     this._init(transactionEnroll);
   }
 
   isSolicited() {
     // return (this.isSolicitedFlag || this.transactionModel.is_solicited_info === GlobalsService.YES);
   }
 
-  private _updatedSavedDate() {
-    const today = new Date();
-    // const pipe = new DatePipe('en-US');
-    // this.transactionModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd-hhmm');
-  }
+  // private _updatedSavedDate() {
+  //   const today = new Date();
+  //   // const pipe = new DatePipe('en-US');
+  //   // this.transactionModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd-hhmm');
+  // }
 
-  private _updatedAutoFields() {
-    this._updatedSavedDate();
-    // const version: Array<any> = this.transactionModel.enrol_version.split('.');
-    // version[0] = (Number(version[0]) + 1).toString();
-    // this.transactionModel.enrol_version = this.transactionModel.enrol_version; //version[0] + '.' + version[1];
-  }
+  // private _updatedAutoFields() {
+  //   this._updatedSavedDate();
+  //   // const version: Array<any> = this.transactionModel.enrol_version.split('.');
+  //   // version[0] = (Number(version[0]) + 1).toString();
+  //   // this.transactionModel.enrol_version = this.transactionModel.enrol_version; //version[0] + '.' + version[1];
+  // }
 
   private _deleteText(dataModel) {
     const dataCopy = JSON.parse(JSON.stringify(dataModel));
@@ -213,5 +243,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   return ;
     // }
     document.location.href = '#topErrorSummaryId';
+  }
+
+  private _init(transactionEnroll: DeviceTransactionEnrol){
+    this.transactionInfoModel = transactionEnroll.application_info;  
+
+    // const req = fileData.data.DEVICE_TRANSACTION_ENROL.requester_of_solicited_information.requester;
+    // if (req) {
+    //   this.requesterModel = (req instanceof Array) ? req : [req];
+    //   this._insertTextfield();
+    // }
+    // this.transFeeModel = fileData.data.DEVICE_TRANSACTION_ENROL.transFees;
   }
 }

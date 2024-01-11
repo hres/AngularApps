@@ -10,9 +10,12 @@ import {
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TransactionDetailsComponent } from './transaction-details/transaction.details.component';
+import { TransactionDetailsService } from './transaction-details/transaction.details.service';
 
 @NgModule({
   declarations: [
+    TransactionDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -25,8 +28,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     TranslateModule,
   ],
   providers: [
+    TransactionDetailsService
   ],
   exports: [CommonUiFeatureModule, 
+    TransactionDetailsComponent
   ],
 })
 export class AppFormModule {}

@@ -1,6 +1,6 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { EntityBaseService, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { EntityBaseService, IIdTextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { ApplicationInfo, Enrollment, TransFees } from '../models/Enrollment';
 // import {GlobalsService} from '../globals/globals.service';
 // import {ValidationService} from '../validation.service';
@@ -68,10 +68,11 @@ export class TransactionBaseService {
         enrol_version: '0.0',
         last_saved_date: '',
         dossier_id: '',
-        dossier_type: null, //this._entityBaseService.createMedicalDeviceDossierType(),
+        dossier_type: this._getMedicalDeviceDossierType(),
         company_id: '',
         manufacturing_contact_id: '',
         regulatory_company_id: '',
+        regulatory_contact_id: '',
         regulatory_activity_lead: this._entityBaseService.getEmptyIdTextLabel(),
         regulatory_activity_type: this._entityBaseService.getEmptyIdTextLabel(),
         description_type: this._entityBaseService.getEmptyIdTextLabel(),
@@ -108,6 +109,8 @@ export class TransactionBaseService {
     );
   }
 
-
+  private _getMedicalDeviceDossierType(): IIdTextLabel { 
+    return this._utilsService.createIIdTextLabelObj('D23', 'Medical Device', 'fr_Medical Device');
+  }
 
 }
