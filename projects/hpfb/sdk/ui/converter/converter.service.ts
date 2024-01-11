@@ -3,7 +3,6 @@ import { ICode } from '../data-loader/data';
 import { IIdTextLabel } from '../model/entity-base';
 import { UtilsService } from '../utils/utils.service';
 import { CheckboxOption } from '../model/form-model';
-import { LoggerService } from '../logger/logger.service';
 import { FormArray } from '@angular/forms';
 
 @Injectable()
@@ -12,7 +11,7 @@ import { FormArray } from '@angular/forms';
  */
 export class ConverterService {
 
-  constructor(private _utilsService: UtilsService, private _loggerService: LoggerService){}
+  constructor(private _utilsService: UtilsService){}
 
   convertCodeToIdTextLabel(codeObj: ICode, lang: string): IIdTextLabel {
     if (codeObj === undefined || codeObj === null) {
@@ -56,7 +55,7 @@ export class ConverterService {
       if (temp) {
         idTextLabels.push(temp);
       } else {
-        this._loggerService.error("ConverterService", "findAndConverCodesToIdTextLabels", `couldn't find '${controlVal}' in codeList`);
+        console.error("ConverterService", "findAndConverCodesToIdTextLabels", `couldn't find '${controlVal}' in codeList`);
         return null;
       }
     } 
