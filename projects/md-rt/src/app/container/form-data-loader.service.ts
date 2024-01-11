@@ -10,10 +10,12 @@ export class FormDataLoaderService {
   private deviceClassesJsonPath = DATA_PATH + 'deviceClasses.json';
   private regulatoryActivityTypesJsonPath = DATA_PATH + 'regulatoryActivityTypes.json';
   private transDescsJsonPath = DATA_PATH + 'transactionDescriptions.json';
+  private raTypeTxDescJsonPath = DATA_PATH + 'raTypeTxDescription.json';
 
   cachedDeviceClasses$:Observable<ICode[]>;
   cachedRegulatoryActivityTypes$:Observable<ICode[]>;
   cachedTransDescs$:Observable<ICode[]>;
+  cachedRaTypeTxDesc$: Observable<any[]>;
 
   constructor(private _dataService: DataLoaderService) {}
 
@@ -48,5 +50,16 @@ export class FormDataLoaderService {
         );
     } 
     return this.cachedTransDescs$;
+  }
+
+  getActivityTypeAndTransactionDescription(): Observable<any[]> {
+    if (!this.cachedRaTypeTxDesc$) {
+      this.cachedRaTypeTxDesc$ = this._dataService.getData<ICode>(this.raTypeTxDescJsonPath)
+        .pipe(
+          // tap(()=>console.log('getTransactionDescriptionList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedRaTypeTxDesc$;
   }
 }

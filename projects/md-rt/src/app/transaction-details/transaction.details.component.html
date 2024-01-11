@@ -73,45 +73,33 @@
                  [formControl]="transDetailsFormLocalModel.controls.reguContactId" maxlength="5" />
         </label>
       </div>
-    </div>
+    </div> -->
     <div class="row">
-      <div class="form-group col-xs-6 minWidth300" >
-        <label for="activityLead" class="required full-width">
-          <span class="field-name" >{{ 'activity.lead' |translate }}</span>
-          <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.activityLead.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.activityLead"
-                            controlId="activityLead" label="activity.lead"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
-          <select id="activityLead" name="activityLead" required class="form-control full-width" (blur)="activityLeadOnblur()" (click)="activityLeadOnblur()"
-                  (selected)="activityLeadOnblur()" [formControl]="transDetailsFormLocalModel.controls.activityLead">
-            <option label=" " value=""></option>
-            <option *ngFor="let lead of actLeadList" [ngValue]="lead.id"> {{ lead.text|translate }}</option>
-          </select>
-        </label>
-      </div>
       <div class="form-group col-xs-6 minWidth300" >
         <label for="activityType" class="required full-width">
           <span class="field-name" >{{ 'activity.type' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.activityType.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls['activityType'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.activityType"
+                            [control]="transDetailsFormLocalModel.controls['activityType'] | formControl"
                             controlId="activityType" label="activity.type"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
-          <select id="activityType" name="activityType" required class="form-control full-width" (blur)="activityTypeOnblur()"
-                  (click)="activityTypeOnblur()"
-                  (selected)="activityTypeOnblur()" [formControl]="transDetailsFormLocalModel.controls.activityType">
+                            parentId="transDetails"></control-messages>
+          <select id="activityType" name="activityType" required class="form-control full-width" (change)="activityTypeOnChange()"
+           [formControl]="transDetailsFormLocalModel.controls['activityType'] | formControl">
             <option label=" " value=""></option>
-            <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{ type.text|translate }}</option>
+            <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{ type | textTransform: lang }}</option>
           </select>
+
+          <!-- <select id="areLicensesTransfered" required class="form-control full-width" (change)="areLicensesBeingTransferedOnChange()"
+            [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl">
+            <option label=" " value=""></option>
+            <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
+          </select> -->
+
         </label>
       </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="form-group col-xs-6 minWidth300" >
         <label for="descriptionType" class="required full-width">
           <span class="field-name" >{{ 'trans.description' |translate }}</span>

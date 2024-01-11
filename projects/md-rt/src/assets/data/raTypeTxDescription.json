@@ -1,0 +1,26 @@
+[
+    {
+        "afId": "B02-20160301-033",
+        "txDescIds": [
+            "INITIAL",
+            "PER",
+            "UD",
+            "WR"
+        ]
+    },
+    {
+        "afId": "B02-20160301-039",
+        "txDescIds": [
+            "ACD",
+            "INITIAL",
+            "LIA",
+            "MM",
+            "PRCI",
+            "RAIL",
+            "PER",
+            "RS",
+            "UD",
+            "WR"
+        ]
+    }
+]

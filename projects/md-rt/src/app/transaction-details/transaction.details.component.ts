@@ -5,6 +5,7 @@ import {
 import {FormGroup, FormBuilder} from '@angular/forms';
 import { ControlMessagesComponent } from '@hpfb/sdk/ui';
 import {TransactionDetailsService} from './transaction.details.service';
+import { GlobalService } from '../global/global.service';
 
 @Component({
   selector: 'transaction-details',
@@ -29,7 +30,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
-  public actLeadList;
   public actTypeList;
   public transDescList;
   public yesNoList: Array<any> = [];
@@ -47,15 +47,15 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   // public showProposeIndication: boolean;
   public showPeriod: boolean;
 
-  constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService,
+  constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
               private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     this.showErrors = false;
     this.showDate = false;
     this.showBriefDesc = false;
-    this.actLeadList = [];
-    this.actTypeList = [];
-    this.transDescList = [];
+
+    this.actTypeList = this._globalService.$activityTypeList;
+    this.transDescList = this._globalService.$activityTypeTxDescription;
     this.reasonArray = [false, false, false, false, false, false, false, false, false, false, false];
     this.reasonResults = [false, false, false, false, false, false, false, false, false, false, false];
     // this.yesNoList = this.detailsService.getYesNoList();
@@ -66,6 +66,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       this.transDetailsFormLocalModel = this._detailsService.getReactiveModel(this._fb);
     }
     this.showPeriod = false;
+    console.log("==>", JSON.stringify(this.transDescList))
   }
 
   async ngOnInit() {
@@ -198,21 +199,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       this.transactionInfoModel);
   }
 
-  activityLeadOnblur() {
-    // if (this.transDetailsFormLocalModel.controls.activityLead.value) {
-    //   if (this.transDetailsFormLocalModel.controls.activityLead.value === this.actLeadList[0].id) {
-    //     this.actTypeList = TransactionDetailsService.getActivityTypeMDBList(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityLead.value === this.actLeadList[1].id) {
-    //     this.actTypeList = TransactionDetailsService.getActivityTypePVList(this.lang);
-    //   }
-    // } else {
-    //   this.actTypeList = [];
-    //   this.transDescList = [];
-    // }
-    this._cleanActivityType();
-  }
-
-  activityTypeOnblur() {
+  activityTypeOnChange() {
+    const activityTypeControl = this.transDetailsFormLocalModel.get('activityType');
+    console.log(activityTypeControl.value)
     // if (this.transDetailsFormLocalModel.controls.activityType.value) {
     //   if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[1].id) {
     //     this.transDescList = TransactionDetailsService.getLicenceDescriptions(this.lang);

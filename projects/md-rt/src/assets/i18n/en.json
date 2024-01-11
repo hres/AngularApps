@@ -16,7 +16,6 @@
   "manufacturing.contact.id": "Manufacturer Contact Identifier",
   "regulatory.company.id": "Regulatory Company Identifier",
   "regulatory.contact.id": "Regulatory Contact Identifier",
-	"activity.lead": "Activity Lead",
   "activity.type": "Regulatory Activity Type",
   "trans.description": "Transaction Description",
   "device.class": "Device Class",

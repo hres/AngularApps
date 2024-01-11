@@ -26,7 +26,6 @@ export class TransactionDetailsService {
       manuContactId: ['', [Validators.required, ValidationService.dossierContactIdValidator]],
       reguCompanyId: ['', [Validators.required, ValidationService.regulatoryCompanyIdValidator]],
       reguContactId: ['', [Validators.required, ValidationService.regulatoryContactIdValidator]],
-      activityLead: ['', Validators.required],
       activityType: ['', Validators.required],
       descriptionType: ['', Validators.required],
       deviceClass: ['', Validators.required],

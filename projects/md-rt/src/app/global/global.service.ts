@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ICode, InstructionService } from '@hpfb/sdk/ui';
+import { ICode, IParentChildren, InstructionService } from '@hpfb/sdk/ui';
 import { Enrollment } from '../models/Enrollment';
 
 @Injectable({
@@ -16,7 +16,8 @@ export class GlobalService {
 
   // data loaded from json files
   private deviceClasseList: ICode[];
-  private RegulatoryActivityTypesList: ICode[];
+  private activityTypeList: ICode[];
+  private activityTypeTxDescription: IParentChildren[];
 
   /**
    * Getter $devEnv
@@ -82,12 +83,19 @@ export class GlobalService {
 		this.deviceClasseList = value;
 	}
 
-	public get $RegulatoryActivityTypesList(): ICode[] {
-		return this.RegulatoryActivityTypesList;
+	public get $activityTypeList(): ICode[] {
+		return this.activityTypeList;
 	}
 
-	public set $RegulatoryActivityTypesList(value: ICode[]) {
-		this.RegulatoryActivityTypesList = value;
+	public set $activityTypeList(value: ICode[]) {
+		this.activityTypeList = value;
 	}
 
+	public get $activityTypeTxDescription(): IParentChildren[] {
+		return this.activityTypeTxDescription;
+	}
+
+	public set $activityTypeTxDescription(value: IParentChildren[]) {
+		this.activityTypeTxDescription = value;
+	}
 }

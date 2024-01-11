@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InstructionComponent } from '../instruction/instruction.component';
 import { FormBaseComponent } from '../form-base/form-base.component';
 import { FormDataLoaderService } from './form-data-loader.service';
-import { Observable, catchError, forkJoin, map, of } from 'rxjs';
+import { Observable, catchError, combineLatest, forkJoin, map, of, switchMap } from 'rxjs';
 import { AppFormModule } from '../app.form.module';
 
 @Component({
@@ -37,13 +37,73 @@ export class ContainerComponent implements OnInit {
     this.helpIndex = this._globalService.getHelpIndex();
     this.devEnv = this._globalService.$devEnv;
 
-    // Use forkJoin to wait for all API calls to complete
-    forkJoin(this.dataSources).subscribe((data) => {
-        console.log(data);
-        this._globalService.$deviceClasseList = data[0];
-        this._globalService.$RegulatoryActivityTypesList = data[1];
+    // load data from apis
+    combineLatest([
+      // merge these two apis' returned data
+      this._formDataLoader.getActivityTypeAndTransactionDescription(),
+      this._formDataLoader.getTransactionDescriptionList(),
+    ])
+      .pipe(
+        // use map will create nested observable
+        // use switchMap in this manner to ensure that the result from the inner observable (created by forkJoin) is directly passed to the outer observable, avoiding unnecessary nesting
+        switchMap(([acTypeTxDesc, txDesc]) => {
+          const combinedData = this.combineData(acTypeTxDesc, txDesc);
+
+          return forkJoin(this.dataSources).pipe(
+            map(([deviceClasses, activityTypes]) => {
+              // Return the combinedData from the first two API calls and the data from the other API calls
+              return {
+                deviceClasses,
+                activityTypes,
+                combinedData,
+              };
+            })
+          );
+        })
+      )
+      .subscribe((result) => {
+        // console.log(result);
+        this._globalService.$deviceClasseList = result['deviceClasses'];
+        this._globalService.$activityTypeList = result['activityTypes'];
+        this._globalService.$activityTypeTxDescription = result['combinedData'];
 
         this.loadFormBaseComponent = true;
       });
   }
+
+  /*
+  arr1:  [{"afId": "B02-20160301-033","txDescIds": ["INITIAL","UD"]}, ...]
+  arr2: [{"id": "INITIAL","en": "Initial","fr": "Initiale"}, ...]
+
+  returns:[
+	{
+		"parentId": "B02-20160301-033",
+		"children": [
+			{
+				"id": "INITIAL",
+				"en": "Initial",
+				"fr": "Initiale"
+			},
+			{
+				"id": "UD",
+				"en": "Unsolicited Information",
+				"fr": "Renseignements non sollicités"
+			}
+		]
+	}, ...]
+ 
+  */
+  combineData(arr1: any[], arr2: any[]): any[] {
+    // console.log(arr1, arr2);
+
+    const combinedData = arr1.map((item) => ({
+      parentId: item.afId,
+      children: arr2.filter((x) => {
+        return item.txDescIds.includes(x.id);
+      }),
+    }));
+
+    return combinedData;
+  }
+
 }
