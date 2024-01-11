@@ -5,13 +5,15 @@ export interface Enrollment {
 }
 
 export interface DeviceApplicationEnrol {
-    application_info: ApplicationInfo;
-    devices: Devices;
-    priority_review: PriorityReview;
+    software_version:               string;     // template_version??
+    check_sum?:                     string;
+    application_info:               ApplicationInfo;
+    devices:                        Devices;
+    biological_materials:           BiologicalMaterials;
+    priority_review:                PriorityReview;
 }
 
 export interface ApplicationInfo {
-    software_version:               string;
     enrol_version:                  string;
     last_saved_date:                string;
     company_id:                     string;
@@ -44,7 +46,6 @@ export interface ApplicationInfo {
     declaration_conformity :        string;
     has_recombinant:                string;
     is_animal_human_sourced :       string;
-    biological_materials:           BiologicalMaterials;
     is_listed_idd_table:            string;
 }
 
