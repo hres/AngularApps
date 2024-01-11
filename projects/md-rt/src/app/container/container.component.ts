@@ -6,11 +6,12 @@ import { InstructionComponent } from '../instruction/instruction.component';
 import { FormBaseComponent } from '../form-base/form-base.component';
 import { FormDataLoaderService } from './form-data-loader.service';
 import { Observable, catchError, forkJoin, map, of } from 'rxjs';
+import { AppFormModule } from '../app.form.module';
 
 @Component({
   selector: 'app-container',
   standalone: true,
-  imports: [TranslateModule, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent, InstructionComponent, FormBaseComponent],
+  imports: [TranslateModule, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent, InstructionComponent, FormBaseComponent, AppFormModule],
   providers: [FormDataLoaderService],
   templateUrl: './container.component.html',
   encapsulation: ViewEncapsulation.None,

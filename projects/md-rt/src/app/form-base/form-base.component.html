@@ -37,11 +37,11 @@
               </h2>
             </header>
             <div class="panel-body">
-              <!-- [detailsChanged]="updateChild" 
-              <transaction-details [showErrors]="showErrors" [lang]="lang" [userList]="userList"
-                                [transactionModel]="transactionModel"
+              <!-- [detailsChanged]="updateChild" [userList]="userList"-->
+              <transaction-details [showErrors]="showErrors" [lang]="lang" 
+                                [transactionInfoModel]="transactionInfoModel"
                                 (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpIndex"
-                                (detailErrorList)="processDetailErrors($event)"></transaction-details>-->
+                                (detailErrorList)="processDetailErrors($event)"></transaction-details>
   
             </div>
             <section class="panel  panel-default" *ngIf="isSolicited()">
