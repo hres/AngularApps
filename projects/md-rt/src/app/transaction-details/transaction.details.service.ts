@@ -44,7 +44,7 @@ export class TransactionDetailsService {
       safetyChange: [false, []],
       purposeChange: [false, []],
       addChange: [false, []],
-      licenceNum: ['', [Validators.required, ValidationService.licenceNumValidator]],
+      licenceNum: ['', [Validators.required, ValidationService.numeric6Validator]],
       orgManufactureId: ['', [Validators.required, ValidationService.numberValidator]],
       orgManufactureLic: ['', [Validators.required, ValidationService.numberValidator]],
       appNum: ['', [Validators.required, ValidationService.appNumValidator]],
@@ -577,7 +577,7 @@ export class TransactionDetailsService {
   //   transactionInfoModel.amend_reasons.safety_change = formRecord.controls.safetyChange.value ? GlobalsService.YES : GlobalsService.NO;
   //   transactionInfoModel.amend_reasons.purpose_change = formRecord.controls.purposeChange.value ? GlobalsService.YES : GlobalsService.NO;
   //   transactionInfoModel.amend_reasons.add_delete_change = formRecord.controls.addChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.licence_number = formRecord.controls.licenceNum.value;
+    transactionInfoModel.licence_number = formRecord.controls['licenceNum'].value;
   //   if (formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i9')].id &&
   //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i2')].id &&
   //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i3')].id &&
@@ -708,7 +708,7 @@ export class TransactionDetailsService {
 //     if (clsc || licc || decc || proc || quac || desc || matc || labc || safc || purc || addc) {
 //       formRecord.controls.amendReason.setValue('reasonFilled');
 //     }
-//     formRecord.controls.licenceNum.setValue(transactionInfoModel.licence_number);
+    formRecord.controls['licenceNum'].setValue(transactionInfoModel.licence_number);
 //     if (transactionInfoModel.description_type._id &&
 //       (transactionInfoModel.description_type._id === descriptions[2].id ||
 //         transactionInfoModel.description_type._id === descriptions[3].id ||

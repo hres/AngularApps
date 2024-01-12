@@ -21,7 +21,7 @@
   "trans.description": "fr_Transaction Description",
   "device.class": "fr_Device Class",
   "amend.reason": "fr_Reason for filing this Amendment",
-  "licence.number": "fr_Licence Number",
+  "licence.number": "Numéro de licence (6 chiffres)  ",
   "application.number": "fr_Application Number",
   "meeting.id": "fr_Meeting Identifier",
   "device.name": "fr_Name of Device, as it appears on the label",

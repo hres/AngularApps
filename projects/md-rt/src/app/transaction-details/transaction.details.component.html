@@ -496,25 +496,26 @@
         </label>
       </div>
     </div>
+  -->
     <div class="row">
       <div class="col-xs-6">
       <label for="licenceNum" class="form-group required full-width">
         <span class="field-name" >{{ 'licence.number' |translate }}</span>
         <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-        <sup id="tr4-rf">
-          <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr4}}</a>
+        <sup id="tr7-rf">
+          <a class="fn-lnk" href="#tr7"><span class="wb-inv">{{ 'instruction'|translate }}</span>7</a>
         </sup>
-        <control-messages *ngIf="transDetailsFormLocalModel.controls.licenceNum.invalid"
+        <control-messages *ngIf="transDetailsFormLocalModel.controls['licenceNum'].invalid"
                           [showError]="showFieldErrors"
-                          [control]="transDetailsFormLocalModel.controls.licenceNum"
+                          [control]="transDetailsFormLocalModel.controls['licenceNum']| formControl"
                           controlId="licenceNum" label="licence.number"
-                          parentId="transDetails"
-                          parentLabel="Transaction Information"></control-messages>
+                          parentId="transDetails"></control-messages>
         <input id="licenceNum" name="licenceNum" class="form-control" (blur)="licenceNumOnblur()"
-               [formControl]="transDetailsFormLocalModel.controls.licenceNum" maxlength="6" />
+               [formControl]="transDetailsFormLocalModel.controls['licenceNum']| formControl" maxlength="6" />
       </label>
       </div>
     </div>
+    <!--
     <div class="row" *ngIf="showOrgManufactureId()">
       <div class="col-xs-6">
         <label for="orgManufactureId" class="required">
