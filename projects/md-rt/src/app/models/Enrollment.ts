@@ -13,7 +13,6 @@ export interface DeviceTransactionEnrol {
 }
 
 export interface ApplicationInfo {
-  enrol_version:            string;
   last_saved_date:          string;
   dossier_id:               string;
   dossier_type:             IIdTextLabel;
