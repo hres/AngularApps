@@ -1,7 +1,7 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { EntityBaseService, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, PriorityReview } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, Device, BiologicalMaterial } from '../models/Enrollment';
 // import {GlobalsService} from '../globals/globals.service';
 // import {ValidationService} from '../validation.service';
 // import {ListService} from '../list-service';
@@ -68,7 +68,6 @@ export class ApplicationInfoBaseService {
         application_info: this.getEmptyApplicationInfoModel(),
         devices: undefined, // TODO DIANA - Is this undefined? Search for list of objects
         biological_materials: undefined, // TODO DIANA - Is this undefined? Search for list of objects
-        priority_review: this.getEmptyPriorityReview()
       }
     };
 
@@ -110,21 +109,12 @@ export class ApplicationInfoBaseService {
         declaration_conformity:  '',
         has_recombinant: '',
         is_animal_human_sourced: '',
-        is_listed_idd_table: ''
-      }
-    )
-  }
-
-  public getEmptyPriorityReview() : PriorityReview {
-    return (
-      {
+        is_listed_idd_table: '',
         priority_review: '',
         is_diagnosis_treatment_serious: ''
       }
     )
   }
-
-
 
  
 }

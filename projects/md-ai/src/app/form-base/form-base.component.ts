@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, PriorityReview } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, Device, BiologicalMaterial } from '../models/Enrollment';
 
 @Component({
   selector: 'app-form-base',

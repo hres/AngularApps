@@ -9,9 +9,7 @@ export interface DeviceApplicationEnrol {
     check_sum?:                     string;
     application_info:               ApplicationInfo;
     devices:                        Devices;
-    biological_materials:           BiologicalMaterials;
-    priority_review:                PriorityReview;
-}
+    biological_materials:           BiologicalMaterials;}
 
 export interface ApplicationInfo {
     enrol_version:                  string;
@@ -47,6 +45,8 @@ export interface ApplicationInfo {
     has_recombinant:                string;
     is_animal_human_sourced :       string;
     is_listed_idd_table:            string;
+    priority_review:                    string;
+    is_diagnosis_treatment_serious:     string;
 }
 
 export interface BiologicalMaterials {
@@ -76,9 +76,4 @@ export interface Device {
     device_application_submitted:   string;
     device_application_number:      string;
     device_explain:                 string;
-}
-
-export interface PriorityReview {
-    priority_review:                    string;
-    is_diagnosis_treatment_serious:     string;
 }
