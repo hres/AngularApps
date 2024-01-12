@@ -15,34 +15,35 @@
         </label>
       </div>
     </div>
-    <!-- <div class="row">
+    <div class="row">
       <div class=".form-inline col-xs-6 minWidth300">
         <label for="manuCompanyId" class="required full-width" aria-required="true">
           <span class="field-name" >{{ 'manufacturing.company.id'|translate }} {{ 'minNumber6'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.manuCompanyId.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls['manuCompanyId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.manuCompanyId"
+                            [control]="transDetailsFormLocalModel.controls['manuCompanyId'] | formControl"
                             controlId="manuCompanyId" label="manufacturing.company.id" parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
+                            ></control-messages>
           <input id="manuCompanyId" name="manuCompanyId" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="transDetailsFormLocalModel.controls.manuCompanyId" maxlength="6" />
+                 [formControl]="transDetailsFormLocalModel.controls['manuCompanyId'] | formControl" maxlength="6" />
         </label>
       </div>
       <div class=".form-inline col-xs-6 minWidth300" >
         <label for="reguCompanyId" class="required full-width" aria-required="true">
           <span class="field-name" >{{ 'regulatory.company.id'|translate }} {{ 'minNumber6'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.reguCompanyId.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls['reguCompanyId'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.reguCompanyId"
+                            [control]="transDetailsFormLocalModel.controls['reguCompanyId'] | formControl"
                             controlId="reguCompanyId" label="regulatory.company.id" parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
+                            ></control-messages>
           <input id="reguCompanyId" name="reguCompanyId" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="transDetailsFormLocalModel.controls.reguCompanyId" maxlength="6" />
+                 [formControl]="transDetailsFormLocalModel.controls['reguCompanyId'] | formControl" maxlength="6" />
         </label>
       </div>
     </div>
+    <!-- 
     <div class="row">
       <div class=".form-inline col-xs-6 minWidth300" >
         <label for="manuContactId" class="required full-width" aria-required="true">
