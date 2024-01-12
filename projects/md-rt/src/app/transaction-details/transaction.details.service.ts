@@ -44,7 +44,7 @@ export class TransactionDetailsService {
       safetyChange: [false, []],
       purposeChange: [false, []],
       addChange: [false, []],
-      licenceNum: ['', [Validators.required, ValidationService.numeric6Validator]],
+      licenceNum: ['', [Validators.required, ValidationService.licenceNumValidator]],
       orgManufactureId: ['', [Validators.required, ValidationService.numberValidator]],
       orgManufactureLic: ['', [Validators.required, ValidationService.numberValidator]],
       appNum: ['', [Validators.required, ValidationService.appNumValidator]],

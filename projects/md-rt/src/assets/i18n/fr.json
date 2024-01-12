@@ -91,7 +91,7 @@
   "error.mgs.6.numeric": "Doit contenir 6 chiffres",
   "error.mgs.contact.id": "fr_Please specify a valid manufacturer contact Identifier.",
   "error.mgs.regu.contact.id": "fr_Please specify a valid regulatory manufacturer contact Identifier.",
-  "error.mgs.licence.number": "fr_Please specify a valid licence number.",
+  "error.mgs.licence.number": "Doit contenir 6 chiffres - Ajouter un 0 au début de la séquence si la licence contient moins de 6 chiffres",
   "error.mgs.application.number": "fr_Please specify a valid application number.",
   "heading.transaction": "fr_Regulatory Transaction Information",
   "heading.requesters": "fr_Transaction Requester Information",

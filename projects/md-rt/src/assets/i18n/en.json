@@ -91,7 +91,7 @@
   "error.mgs.6.numeric": "Must be 6 numeric value",
   "error.mgs.contact.id": "Please specify a valid manufacturer contact Identifier.",
   "error.mgs.regu.contact.id": "Please specify a valid regulatory manufacturer contact Identifier.",
-  "error.mgs.licence.number": "Please specify a valid licence number.",
+  "error.mgs.licence.number": "Must be 6 numeric value - Add leading 0 if less than 6 digits",
   "error.mgs.application.number": "Please specify a valid application number.",
   "heading.transaction": "Regulatory Transaction Information",
   "heading.requesters": "Transaction Requester Information",
