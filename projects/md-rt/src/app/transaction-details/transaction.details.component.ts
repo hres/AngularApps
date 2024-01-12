@@ -597,7 +597,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //   this.transDetailsFormLocalModel.controls.appNum.setValue(null);
     //   this.transDetailsFormLocalModel.controls.appNum.markAsUntouched();
     // }
-    return false;
+    // return false;
+    return true;
   }
 
   isMmUd() {
@@ -611,7 +612,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //   this.transDetailsFormLocalModel.controls.appNumOpt.setValue(null);
     //   this.transDetailsFormLocalModel.controls.appNumOpt.markAsUntouched();
     // }
-    return false;
+    // return false;
+    return true;
   }
 
   isHasDdtMandatory() {
@@ -633,11 +635,13 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //   this.transDetailsFormLocalModel.controls.licenceName.setValue(null);
     //   this.transDetailsFormLocalModel.controls.licenceName.markAsUntouched();
     // }
-    return false;
+    // return false;
+    return true;
   }
 
   isDeviceNameChanged() {
     // return (this.transDetailsFormLocalModel.controls.deviceChange.value);
+    return true;
   }
 
   isMm() {
@@ -647,7 +651,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //   this.transDetailsFormLocalModel.controls.meetingId.setValue(null);
     //   this.transDetailsFormLocalModel.controls.meetingId.markAsUntouched();
     // }
-    return false;
+    // return false;
+    return true;
   }
 
   getReasonArrayVelue(index) {
@@ -664,6 +669,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //   return true;
     // }
     // return false;
+    return true;
   }
   showOrgManufactureLic() {
     return this.showOrgManufactureId();
