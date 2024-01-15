@@ -65,7 +65,6 @@ export class TransactionBaseService {
   public getEmptyApplicationInfoModel() : ApplicationInfo{
     return (
       {
-        enrol_version: '0.0',
         last_saved_date: '',
         dossier_id: '',
         dossier_type: this._getMedicalDeviceDossierType(),
@@ -73,7 +72,7 @@ export class TransactionBaseService {
         manufacturing_contact_id: '',
         regulatory_company_id: '',
         regulatory_contact_id: '',
-        regulatory_activity_lead: this._entityBaseService.getEmptyIdTextLabel(),
+        regulatory_activity_lead: this._getMedicalDeviceDirectorateActivityLead(),
         regulatory_activity_type: this._entityBaseService.getEmptyIdTextLabel(),
         description_type: this._entityBaseService.getEmptyIdTextLabel(),
         device_class: '',
@@ -110,7 +109,11 @@ export class TransactionBaseService {
   }
 
   private _getMedicalDeviceDossierType(): IIdTextLabel { 
-    return this._utilsService.createIIdTextLabelObj('D23', 'Medical Device', 'fr_Medical Device');
+    return this._utilsService.createIIdTextLabelObj('D23', 'Medical Device', 'Instruments Médicaux');
+  }
+
+  private _getMedicalDeviceDirectorateActivityLead(): IIdTextLabel { 
+    return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Device Directorate', 'Direction des instruments médicaux');
   }
 
 }
