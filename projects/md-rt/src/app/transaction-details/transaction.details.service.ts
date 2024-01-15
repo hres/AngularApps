@@ -39,11 +39,11 @@ export class TransactionDetailsService {
       purposeChange: [false, []],
       addChange: [false, []],
       licenceNum: ['', [Validators.required, ValidationService.licenceNumValidator]],
-      orgManufactureId: ['', [Validators.required, ValidationService.numberValidator]],
-      orgManufactureLic: ['', [Validators.required, ValidationService.numberValidator]],
-      appNum: ['', [Validators.required, ValidationService.appNumValidator]],
-      appNumOpt: ['', [ValidationService.appNumValidator]],
-      meetingId: '',
+      orgManufactureId: ['', [Validators.required, ValidationService.numeric6Validator]],
+      orgManufactureLic: ['', [Validators.required, ValidationService.licenceNumValidator]],
+      appNum: ['', [Validators.required, ValidationService.numeric6Validator]],
+      appNumOpt: ['', [ValidationService.numeric6Validator]],
+      meetingId: ['', [ValidationService.numeric6Validator]],
       deviceName: ['', Validators.required],
       licenceName: ['', Validators.required],
       requestVersion: ['', Validators.required],
@@ -571,7 +571,7 @@ export class TransactionDetailsService {
   //   transactionInfoModel.amend_reasons.safety_change = formRecord.controls.safetyChange.value ? GlobalsService.YES : GlobalsService.NO;
   //   transactionInfoModel.amend_reasons.purpose_change = formRecord.controls.purposeChange.value ? GlobalsService.YES : GlobalsService.NO;
   //   transactionInfoModel.amend_reasons.add_delete_change = formRecord.controls.addChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.licence_number = formRecord.controls.licenceNum.value;
+    transactionInfoModel.licence_number = formRecord.controls['licenceNum'].value;
   //   if (formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i9')].id &&
   //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i2')].id &&
   //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i3')].id &&
@@ -579,20 +579,20 @@ export class TransactionDetailsService {
   //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i7')].id &&
   //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i10')].id &&
   //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i12')].id) {
-  //     transactionInfoModel.application_number = formRecord.controls.appNum.value;
+      transactionInfoModel.application_number = formRecord.controls['appNum'].value;
   //   } else if (formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i2')].id  ||
   //           formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i3')].id  ||
   //           formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i6')].id  ||
   //           formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i7')].id  ||
   //           formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i10')].id  ||
   //           formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i12')].id ) {
-  //     transactionInfoModel.application_number = formRecord.controls.appNumOpt.value;
+      transactionInfoModel.application_number = formRecord.controls['appNumOpt'].value;
   //   }
-  //   transactionInfoModel.meeting_id = formRecord.controls.meetingId.value;
-  //   transactionInfoModel.device_name = formRecord.controls.deviceName.value;
-  //   transactionInfoModel.proposed_licence_name = formRecord.controls.licenceName.value;
+    transactionInfoModel.meeting_id = formRecord.controls['meetingId'].value;
+    transactionInfoModel.device_name = formRecord.controls['deviceName'].value;
+    transactionInfoModel.proposed_licence_name = formRecord.controls['licenceName'].value;
   //   transactionInfoModel.request_version = formRecord.controls.requestVersion.value;
-  //   transactionInfoModel.request_date = formRecord.controls.requestDate.value;
+    transactionInfoModel.request_date = formRecord.controls['requestDate'].value;
   //   transactionInfoModel.request_to = formRecord.controls.requestTo.value;
   //   transactionInfoModel.brief_description = formRecord.controls.briefDesc.value;
   //   transactionInfoModel.transaction_description = TransactionDetailsService._setConcatDetails(transactionInfoModel);
@@ -607,8 +607,8 @@ export class TransactionDetailsService {
   //   transactionInfoModel.is_solicited_info = formRecord.controls.isSolicitedInfo.value;
   //   transactionInfoModel.rationale = formRecord.controls.rationale.value;
   //   transactionInfoModel.proposed_indication = formRecord.controls.proposedIndication.value;
-  //   transactionInfoModel.org_manufacture_id = formRecord.controls.orgManufactureId.value;
-  //   transactionInfoModel.org_manufacture_lic = formRecord.controls.orgManufactureLic.value;
+    transactionInfoModel.org_manufacture_id = formRecord.controls['orgManufactureId'].value;
+    transactionInfoModel.org_manufacture_lic = formRecord.controls['orgManufactureLic'].value;
   }
 
   public mapDataModelToFormModel(transactionInfoModel, formRecord: FormGroup, lang) {
@@ -702,7 +702,7 @@ export class TransactionDetailsService {
 //     if (clsc || licc || decc || proc || quac || desc || matc || labc || safc || purc || addc) {
 //       formRecord.controls.amendReason.setValue('reasonFilled');
 //     }
-//     formRecord.controls.licenceNum.setValue(transactionInfoModel.licence_number);
+    formRecord.controls['licenceNum'].setValue(transactionInfoModel.licence_number);
 //     if (transactionInfoModel.description_type._id &&
 //       (transactionInfoModel.description_type._id === descriptions[2].id ||
 //         transactionInfoModel.description_type._id === descriptions[3].id ||
@@ -710,15 +710,15 @@ export class TransactionDetailsService {
 //         transactionInfoModel.description_type._id === descriptions[7].id ||
 //         transactionInfoModel.description_type._id === descriptions[10].id ||
 //         transactionInfoModel.description_type._id === descriptions[12].id)) {
-//       formRecord.controls.appNumOpt.setValue(transactionInfoModel.application_number);
+      formRecord.controls['appNumOpt'].setValue(transactionInfoModel.application_number);
 //     } else {
-//       formRecord.controls.appNum.setValue(transactionInfoModel.application_number);
+      formRecord.controls['appNum'].setValue(transactionInfoModel.application_number);
 //     }
-//     formRecord.controls.meetingId.setValue(transactionInfoModel.meeting_id);
-//     formRecord.controls.deviceName.setValue(transactionInfoModel.device_name);
-//     formRecord.controls.licenceName.setValue(transactionInfoModel.proposed_licence_name);
+    formRecord.controls['meetingId'].setValue(transactionInfoModel.meeting_id);
+    formRecord.controls['deviceName'].setValue(transactionInfoModel.device_name);
+    formRecord.controls['licenceName'].setValue(transactionInfoModel.proposed_licence_name);
 //     formRecord.controls.requestVersion.setValue(transactionInfoModel.request_version);
-//     formRecord.controls.requestDate.setValue(transactionInfoModel.request_date);
+    formRecord.controls['requestDate'].setValue(transactionInfoModel.request_date);
 //     formRecord.controls.requestTo.setValue(transactionInfoModel.request_to);
 //     formRecord.controls.briefDesc.setValue(transactionInfoModel.brief_description);
 //     formRecord.controls.transDescription.setValue(transactionInfoModel.transaction_description);
@@ -735,8 +735,8 @@ export class TransactionDetailsService {
 //     formRecord.controls.isSolicitedInfo.setValue(transactionInfoModel.is_solicited_info);
 //     formRecord.controls.rationale.setValue(transactionInfoModel.rationale);
 //     formRecord.controls.proposedIndication.setValue(transactionInfoModel.proposed_indication);
-//     formRecord.controls.orgManufactureId.setValue(transactionInfoModel.org_manufacture_id);
-//     formRecord.controls.orgManufactureLic.setValue(transactionInfoModel.org_manufacture_lic);
+    formRecord.controls['orgManufactureId'].setValue(transactionInfoModel.org_manufacture_id);
+    formRecord.controls['orgManufactureLic'].setValue(transactionInfoModel.org_manufacture_lic);
   }
 
   /***
