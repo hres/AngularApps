@@ -117,7 +117,7 @@
   "save.draft": "Enregistrer le brouillon XML",
   "approve.final": "Enregistrer la version finale XML",
 
-  "msg.success.load": "Le fichier a êtê chargê avec succès",
+  "msg.success.load": "Le fichier a été chargé avec succès",
   "msg.err.parseFail": "Erreur: il y a eu une erreur en analysant le fichier de travail.",
   "msg.err.jsonparse": "Il y a eu une erreur en analysant le fichier de travail.",
   "msg.err.xmlparse": "fr_There was an error parsing the draft XML file.",
