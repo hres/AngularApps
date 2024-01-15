@@ -51,7 +51,7 @@
           <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['country'] | formControl"
-                            controlId="country" label="addressDetails.country" parentId="addressDetails"
+                            controlId="{{addrType}}Country" label="addressDetails.country" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <!-- <div class="margin-top-small">
             <ng-select id="country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required"
