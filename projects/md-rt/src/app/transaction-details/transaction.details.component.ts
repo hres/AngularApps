@@ -2,8 +2,8 @@ import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
-import {FormGroup, FormBuilder} from '@angular/forms';
-import { ControlMessagesComponent, ICode, UtilsService } from '@hpfb/sdk/ui';
+import {FormGroup, FormBuilder, FormArray, FormControl} from '@angular/forms';
+import { CheckboxOption, ControlMessagesComponent, ConverterService, ICode, UtilsService } from '@hpfb/sdk/ui';
 import {TransactionDetailsService} from './transaction.details.service';
 import { GlobalService } from '../global/global.service';
 import { ActivityType, TransactionDesc } from '../app.constants';
@@ -49,11 +49,12 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public showPeriod: boolean;
   public showDeviceClass: boolean = false;
   public showAmendReasons: boolean = false;
+  public amendReasonOptionList: CheckboxOption[] = [];
 
   private activityTypesRequiresAmendReason: string[] = [ActivityType.LicenceAmendment, ActivityType.MinorChange , ActivityType.PrivateLabelAmendment];
 
   constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
-    private _utilsService: UtilsService, private cdr: ChangeDetectorRef) {
+    private _utilsService: UtilsService, private _converterService: ConverterService, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     this.showErrors = false;
     this.showDate = false;
@@ -298,9 +299,14 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       console.log("##1",reasons[0])
       const reasonIds = reasons[0].values;
       console.log("##2",reasonIds)
-      const xx = this._utilsService.filterCodesByIds(amendReasonList, reasonIds);
-      console.log("##3", xx)
+      const amendReasonCodeList = this._utilsService.filterCodesByIds(amendReasonList, reasonIds);
+      console.log("##3", amendReasonCodeList)
 
+      this.amendReasonOptionList = amendReasonCodeList.map((item) => {
+        return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+      });
+      this.amendReasonOptionList.forEach(() => this.amendReasonChkFormArray.push(new FormControl(false)));
+      console.log("##4", this.amendReasonOptionList)
     } else {
       console.log("couldn't find a match")
     }
@@ -405,50 +411,16 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     // this.transDetailsFormLocalModel.controls.requestTo.markAsUntouched();
   }
 
-  reasonOnblur(int) {
-    let itemValue = false;
-    // switch (int) {
-    //   case 0:
-    //     itemValue = this.transDetailsFormLocalModel.controls.classChange.value;
-    //     break;
-    //   case 1:
-    //     itemValue = this.transDetailsFormLocalModel.controls.licenceChange.value;
-    //     break;
-    //   case 2:
-    //     itemValue = this.transDetailsFormLocalModel.controls.deviceChange.value;
-    //     break;
-    //   case 3:
-    //     itemValue = this.transDetailsFormLocalModel.controls.processChange.value;
-    //     break;
-    //   case 4:
-    //     itemValue = this.transDetailsFormLocalModel.controls.qualityChange.value;
-    //     break;
-    //   case 5:
-    //     itemValue = this.transDetailsFormLocalModel.controls.designChange.value;
-    //     break;
-    //   case 6:
-    //     itemValue = this.transDetailsFormLocalModel.controls.materialsChange.value;
-    //     break;
-    //   case 7:
-    //     itemValue = this.transDetailsFormLocalModel.controls.labellingChange.value;
-    //     break;
-    //   case 8:
-    //     itemValue = this.transDetailsFormLocalModel.controls.safetyChange.value;
-    //     break;
-    //   case 9:
-    //     itemValue = this.transDetailsFormLocalModel.controls.purposeChange.value;
-    //     break;
-    //   case 10:
-    //     itemValue = this.transDetailsFormLocalModel.controls.addChange.value;
-    //     break;
+  amendReasonOnChange() {
+    // let itemValue = false;
+
+    // if (itemValue) {
+    //   // this.transDetailsFormLocalModel.controls.amendReason.setValue('reasonFilled');
+    //   this.reasonResults[int] = true;
+    // } else {
+    //   this.reasonResults[int] = false;
+    //   this._resetReasonFlag();
     // }
-    if (itemValue) {
-      // this.transDetailsFormLocalModel.controls.amendReason.setValue('reasonFilled');
-      this.reasonResults[int] = true;
-    } else {
-      this.reasonResults[int] = false;
-      this._resetReasonFlag();
-    }
     // this.showRationalRequired = (
     //   (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value) &&
     //   (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value && (
@@ -686,6 +658,15 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
   showOrgManufactureLic() {
     return this.showOrgManufactureId();
+  }
+
+  get amendReasonChkFormArray() {
+    return this.transDetailsFormLocalModel.controls['amendReasons'] as FormArray
+  }
+
+  // shortcut to get selectedAmendReasonCodes
+  get selectedAmendReasonCodes(): string[] {
+    return this._detailsService.getSelectedAmendReasonCodes(this.amendReasonOptionList, this.amendReasonChkFormArray);
   }
 }
 

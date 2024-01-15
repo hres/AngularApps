@@ -111,8 +111,8 @@
         </label>
       </div>
     </div>
-    <div class="row">
-      <div class="form-group col-xs-6 minWidth300" *ngIf="showDeviceClass">
+    <div class="row" *ngIf="showDeviceClass">
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <label for="deviceClass" class="required full-width">
           <span class="field-name" >{{ 'device.class' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
@@ -134,177 +134,28 @@
       </div>
     </div>
 
-    <div class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showAmendReasons">
-      <fieldset class="chkbxrdio-grp" id="amendReason">
-        <legend class="required"><span class="field-name">{{'amend.reason' | translate}}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="amendReasonChkFormArray.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="amendReasonChkFormArray | formControl"
-                            controlId="amendReason" label="amend.reason"
-                            parentId="generalInfo"
-                            parentLabel="Regulatory Company Enrolment"></control-messages>          
-        </legend>
-        <ng-container formArrayName="amendReasons" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
-          <div class="checkbox">
-            <label for={{amendReasonOptionList[i].value}}>
-              <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnChange()"/> {{amendReasonOptionList[i].label}} 
-            </label>
-          </div>
-        </ng-container>
-      </fieldset>
-    </div>  
-
-
-
     <div class="row" *ngIf="showAmendReasons">
-        <fieldset id="amendReasons" class="form-group col-xs-12">
-          <legend class="legend-rep">
-            <span class="required">{{ 'amend.reason' | translate }}</span>
-            <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-            <control-messages *ngIf="transDetailsFormLocalModel.controls['amendReason'].invalid"
-                  [showError]="showFieldErrors"
-                  [control]="transDetailsFormLocalModel.controls['amendReason'] | formControl"
-                  controlId="amendReason" label="amend.reason"
-                  parentId="amendReasons"
-                  parentLabel="Transaction Information"></control-messages>
-            <input id="amendReason" name="amendReason" type="hidden" class="form-control full-width"
-                   [formControl]="transDetailsFormLocalModel.controls['amendReason'] | formControl"/>
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <fieldset class="chkbxrdio-grp" id="amendReasons">
+          <legend class="required"><span class="field-name">{{'amend.reason' | translate}}</span>
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              <control-messages *ngIf="amendReasonChkFormArray.invalid"
+                              [showError]="showFieldErrors"
+                              [control]="amendReasonChkFormArray | formControl"
+                              controlId="amendReasons" label="amend.reason"
+                              parentId="amendReasons"></control-messages>          
           </legend>
-          <!-- <div class="row" *ngIf="reasonArray[0]">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="classChange">
-                  <input type="checkbox" (blur)="reasonOnblur(0)"
-                         [formControl]="transDetailsFormLocalModel.controls.classChange"
-                         id="classChange"/>
-                  <span>{{ 'classification.change'|translate }}</span>
-                </label>
-              </div>
+          <ng-container formArrayName="amendReasons" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
+            <div class="checkbox">
+              <label for={{amendReasonOptionList[i].value}}>
+                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnChange()"/> {{amendReasonOptionList[i].label}} 
+              </label>
             </div>
-          </div>
-          <div class="row" *ngIf="reasonArray[1]">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="licenceChange">
-                  <input type="checkbox" name="licenceChange" (blur)="reasonOnblur(1)"
-                         [formControl]="transDetailsFormLocalModel.controls.licenceChange"
-                         id="licenceChange"/>
-                  <span>{{ 'licence.change'|translate }}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="row" *ngIf="getReasonArrayVelue(2)">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="deviceChange">
-                  <input type="checkbox" name="deviceChange" (blur)="reasonOnblur(2)"
-                         [formControl]="transDetailsFormLocalModel.controls.deviceChange"
-                         id="deviceChange"/>
-                  <span>{{ 'device.change'|translate }}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="row" *ngIf="getReasonArrayVelue(3)">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="processChange">
-                  <input type="checkbox" name="processChange" (blur)="reasonOnblur(3)"
-                         [formControl]="transDetailsFormLocalModel.controls.processChange"
-                         id="processChange"/>
-                  <span>{{ 'process.change'|translate }}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="row" *ngIf="getReasonArrayVelue(4)">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="qualityChange">
-                  <input type="checkbox" name="qualityChange" (blur)="reasonOnblur(4)"
-                         [formControl]="transDetailsFormLocalModel.controls.qualityChange"
-                         id="qualityChange"/>
-                  <span>{{ 'quality.change'|translate }}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="row" *ngIf="getReasonArrayVelue(5)">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="designChange">
-                  <input type="checkbox" name="designChange" (blur)="reasonOnblur(5)"
-                         [formControl]="transDetailsFormLocalModel.controls.designChange"
-                         id="designChange"/>
-                  <span>{{ 'design.change'|translate }}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="row" *ngIf="getReasonArrayVelue(6)">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="materialsChange">
-                  <input type="checkbox" name="materialsChange" (blur)="reasonOnblur(6)"
-                         [formControl]="transDetailsFormLocalModel.controls.materialsChange"
-                         id="materialsChange"/>
-                  <span>{{ 'materials.change'|translate }}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="row" *ngIf="getReasonArrayVelue(7)">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="labellingChange">
-                  <input type="checkbox" name="labellingChange" (blur)="reasonOnblur(7)"
-                         [formControl]="transDetailsFormLocalModel.controls.labellingChange"
-                         id="labellingChange"/>
-                  <span>{{ 'labelling.change'|translate }}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="row" *ngIf="getReasonArrayVelue(8)">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="safetyChange">
-                  <input type="checkbox" name="safetyChange" (blur)="reasonOnblur(8)"
-                         [formControl]="transDetailsFormLocalModel.controls.safetyChange"
-                         id="safetyChange"/>
-                  <span>{{ 'safety.change'|translate }}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="row" *ngIf="getReasonArrayVelue(9)">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="purposeChange">
-                  <input type="checkbox" (blur)="reasonOnblur(9)"
-                         [formControl]="transDetailsFormLocalModel.controls.purposeChange"
-                         id="purposeChange" name="purposeChange"/>
-                  <span>{{ 'purpose.change'|translate }}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="row" *ngIf="getReasonArrayVelue(10)">
-            <div class="col-sm-12">
-              <div class="checkbox">
-                <label for="addChange">
-                  <input type="checkbox" (blur)="reasonOnblur(10)"
-                         [formControl]="transDetailsFormLocalModel.controls.addChange"
-                         id="addChange" name="addChange"/>
-                  <span>{{ 'add.delete.change'|translate }}</span>
-                </label>
-              </div>
-            </div>
-          </div> -->
+          </ng-container>  
         </fieldset>
       </div>
+    </div>  
+
     <!-- <div class="row" *ngIf="showRationaleRequired()">
       <div class="col-xs-12 form-group">
         <label class="required full-width" for="rationale" >{{ 'rationale' | translate }}

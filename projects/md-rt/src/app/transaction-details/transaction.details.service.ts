@@ -1,17 +1,12 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { IIdTextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { CheckboxOption, ConverterService, IIdTextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { ApplicationInfo } from '../models/Enrollment';
-// import {GlobalsService} from '../globals/globals.service';
-// import {ValidationService} from '../validation.service';
-// import {ListService} from '../list-service';
 
 @Injectable()
 export class TransactionDetailsService {
-  // private licenceAppTypeList: Array<any> = TransactionDetailsService.getRawLicenceAppTypeList();
-  // private lang = GlobalsService.ENGLISH;
 
-  constructor(private _utilsService: UtilsService) {}
+  constructor(private _utilsService: UtilsService, private _converterService: ConverterService, ) {}
 
   /**
    * Gets the reactive forms Model for address details
@@ -29,7 +24,7 @@ export class TransactionDetailsService {
       activityType: ['', Validators.required],
       descriptionType: ['', Validators.required],
       deviceClass: ['', Validators.required],
-      amendReason: ['', Validators.required],
+      amendReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
       classChange: [false, []],
       rationale: ['', Validators.required],
       proposedIndication: ['', Validators.required],
@@ -813,5 +808,10 @@ export class TransactionDetailsService {
   //   const result = m_names[date.getUTCMonth()] + '. ' + date.getUTCDate() + ', ' + date.getFullYear();
   //   return result;
   // }
+
+  getSelectedAmendReasonCodes (amendReasonOptionList: CheckboxOption[], amendReasonCheckboxFormArray: FormArray) : string[]{
+    return this._converterService.getCheckedCheckboxValues(amendReasonOptionList, amendReasonCheckboxFormArray)
+  }
+
 
 }
