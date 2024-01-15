@@ -1,0 +1,11 @@
+{
+    "form.title": "fr_Application Information Template: Regulatory Enrolment Process (REP)",
+    "version": "fr_Version ",
+    "top.fromHC": "fr_From <a href='https://www.canada.ca/en/health-canada.html'>Health Canada</a>",
+    "top.privacy.statement": "fr_Privacy Notice Statement",
+    "top.security.declaimer": "fr_Security Disclaimer",
+    "top.instruction": "fr_Instructions",
+    "load.file": "fr_Load a Transaction Enrolment File",
+    "select.file": "fr_Select a file to load",
+    "select.file.line": "fr_Always upload XML file into a blank template. Refresh this page to reset template to blank."
+  }
