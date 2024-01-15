@@ -18,6 +18,8 @@ export class GlobalService {
   private deviceClasseList: ICode[];
   private activityTypeList: ICode[];
   private activityTypeTxDescription: IParentChildren[];
+  private amendReasonList: ICode[];
+  private amendReasonRelationship: any[];
 
   /**
    * Getter $devEnv
@@ -98,4 +100,20 @@ export class GlobalService {
 	public set $activityTypeTxDescription(value: IParentChildren[]) {
 		this.activityTypeTxDescription = value;
 	}
+
+  public get $amendReasonList(): ICode[] {
+    return this.amendReasonList;
+  }
+  
+  public set $amendReasonList(value: ICode[]) {
+    this.amendReasonList = value;
+  }
+
+  public get $amendReasonRelationship(): any[] {
+    return this.amendReasonRelationship;
+  }
+  
+  public set $amendReasonRelationship(value: any[]) {
+    this.amendReasonRelationship = value;
+  }
 }

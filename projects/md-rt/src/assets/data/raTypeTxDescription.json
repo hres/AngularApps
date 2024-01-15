@@ -22,5 +22,51 @@
             "UD",
             "WR"
         ]
+    },
+    {
+        "afId": "B02-20160301-040",
+        "txDescIds": [
+            "ACD",
+            "INITIAL",
+            "LIA",
+            "MM",
+            "PRCI",
+            "RAIL",
+            "PER",
+            "RS",
+            "UD",
+            "WR"
+        ]
+    },
+    {
+        "afId": "B02-20160301-073",
+        "txDescIds": [
+            "INITIAL",
+            "RS",
+            "UD",
+            "WR"
+        ]
+    },
+    {
+        "afId": "B02-20160301-074",
+        "txDescIds": [
+            "INITIAL",
+            "RS",
+            "UD",
+            "WR"
+        ]
+    },
+    {
+        "afId": "B02-20160301-081",
+        "txDescIds": [
+            "IRSR",
+            "LIOH",
+            "OHCD",
+            "PSI",
+            "RS25L",
+            "RS36L",
+            "RS39L",
+            "UD"
+        ]
     }
 ]

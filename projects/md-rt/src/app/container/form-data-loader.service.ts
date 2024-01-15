@@ -11,11 +11,15 @@ export class FormDataLoaderService {
   private regulatoryActivityTypesJsonPath = DATA_PATH + 'regulatoryActivityTypes.json';
   private transDescsJsonPath = DATA_PATH + 'transactionDescriptions.json';
   private raTypeTxDescJsonPath = DATA_PATH + 'raTypeTxDescription.json';
-
+  private amendReasonsJsonPath = DATA_PATH + 'amendReasons.json';
+  private amendReasonRelationshipJsonPath = DATA_PATH + 'raTypeDeviceClassAmendReason.json';
+  
   cachedDeviceClasses$:Observable<ICode[]>;
   cachedRegulatoryActivityTypes$:Observable<ICode[]>;
   cachedTransDescs$:Observable<ICode[]>;
   cachedRaTypeTxDesc$: Observable<any[]>;
+  cachedAmendReasons$:Observable<ICode[]>;
+  cachedAmendReasonRelationship$:Observable<ICode[]>;
 
   constructor(private _dataService: DataLoaderService) {}
 
@@ -45,7 +49,6 @@ export class FormDataLoaderService {
     if (!this.cachedTransDescs$) {
       this.cachedTransDescs$ = this._dataService.getData<ICode>(this.transDescsJsonPath)
         .pipe(
-          // tap(()=>console.log('getTransactionDescriptionList() is called')),
           shareReplay(1)
         );
     } 
@@ -56,10 +59,31 @@ export class FormDataLoaderService {
     if (!this.cachedRaTypeTxDesc$) {
       this.cachedRaTypeTxDesc$ = this._dataService.getData<ICode>(this.raTypeTxDescJsonPath)
         .pipe(
-          // tap(()=>console.log('getTransactionDescriptionList() is called')),
           shareReplay(1)
         );
     } 
     return this.cachedRaTypeTxDesc$;
   }
+
+  getAmendReasonList(): Observable<ICode[]> {
+    if (!this.cachedAmendReasons$) {
+      this.cachedAmendReasons$ = this._dataService.getData<ICode>(this.amendReasonsJsonPath)
+        .pipe(
+          shareReplay(1)
+        );
+    } 
+    return this.cachedAmendReasons$;
+  }
+
+  getAmendReasonRelationship(): Observable<ICode[]> {
+    if (!this.cachedAmendReasonRelationship$) {
+      this.cachedAmendReasonRelationship$ = this._dataService.getData<ICode>(this.amendReasonRelationshipJsonPath)
+        .pipe(
+          shareReplay(1)
+        );
+    } 
+    return this.cachedAmendReasonRelationship$;
+  }
+
+   
 }

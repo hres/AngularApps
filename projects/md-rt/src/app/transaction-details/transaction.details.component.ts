@@ -3,9 +3,10 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
-import { ControlMessagesComponent } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, ICode, UtilsService } from '@hpfb/sdk/ui';
 import {TransactionDetailsService} from './transaction.details.service';
 import { GlobalService } from '../global/global.service';
+import { ActivityType, TransactionDesc } from '../app.constants';
 
 @Component({
   selector: 'transaction-details',
@@ -33,7 +34,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public actTypeList;
   public transDescList;
   public yesNoList: Array<any> = [];
-  public devClassList: Array<any> = [];
+  public deviceClassList: ICode[] = [];
   public reasonArray: Array<boolean> = [];
   public reasonResults: Array<boolean> = [];
   public showFieldErrors = false;
@@ -46,16 +47,20 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   // public showRationalRequired: boolean;
   // public showProposeIndication: boolean;
   public showPeriod: boolean;
+  public showDeviceClass: boolean = false;
+  public showAmendReasons: boolean = false;
+
+  private activityTypesRequiresAmendReason: string[] = [ActivityType.LicenceAmendment, ActivityType.MinorChange , ActivityType.PrivateLabelAmendment];
 
   constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
-              private cdr: ChangeDetectorRef) {
+    private _utilsService: UtilsService, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     this.showErrors = false;
     this.showDate = false;
     this.showBriefDesc = false;
 
     this.actTypeList = this._globalService.$activityTypeList;
-    this.transDescList = this._globalService.$activityTypeTxDescription;
+    this.transDescList = [];
     this.reasonArray = [false, false, false, false, false, false, false, false, false, false, false];
     this.reasonResults = [false, false, false, false, false, false, false, false, false, false, false];
     // this.yesNoList = this.detailsService.getYesNoList();
@@ -66,13 +71,12 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
       this.transDetailsFormLocalModel = this._detailsService.getReactiveModel(this._fb);
     }
     this.showPeriod = false;
-    console.log("==>", JSON.stringify(this.transDescList))
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     // this.detailsChanged = 0;
   //   this.actLeadList = TransactionDetailsService.getActivityLeadList(this.lang);
-  //   this.devClassList = TransactionDetailsService.getDeviceClassList();
+    this.deviceClassList = this._globalService.$deviceClasseList;
   }
 
   ngAfterViewInit() {
@@ -194,58 +198,64 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   // }
 
   onblur() {
-    // console.log('input is typed');
-    this._detailsService.mapFormModelToDataModel((<FormGroup>this.transDetailsFormLocalModel),
-      this.transactionInfoModel);
+    this._saveData();
+  }
+
+  private _saveData(): void{
+    // save data to output model
+    this._detailsService.mapFormModelToDataModel((<FormGroup>this.transDetailsFormLocalModel),  this.transactionInfoModel);
   }
 
   activityTypeOnChange() {
-    const activityTypeControl = this.transDetailsFormLocalModel.get('activityType');
-    console.log(activityTypeControl.value)
-    // if (this.transDetailsFormLocalModel.controls.activityType.value) {
-    //   if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[1].id) {
-    //     this.transDescList = TransactionDetailsService.getLicenceDescriptions(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[0].id) { // 'B02-20160301-033'
-    //     this.transDescList = TransactionDetailsService.getFaxbackDescriptions(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[2].id) { // 'B02-20160301-040'
-    //     this.transDescList = TransactionDetailsService.getLicenceDescriptions(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[3].id) { // 'B02-20160301-081'
-    //     this.transDescList = TransactionDetailsService.getS36394041Descriptions(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[4].id) { // 'B02-20160621-01'
-    //     this.transDescList = TransactionDetailsService.getPAPVDescriptions(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[5].id) { // 'B02-20160621-01'
-    //     this.transDescList = TransactionDetailsService.getPSURPVDescriptions(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[6].id) { // 'B02-20160621-01'
-    //     this.transDescList = TransactionDetailsService.getRCPVDescriptions(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[7].id) { // 'B02-20160621-01'
-    //     this.transDescList = TransactionDetailsService.getPSAPVDescriptions(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[8].id) { // 'B02-20160621-01'
-    //     this.transDescList = TransactionDetailsService.getREGPVDescriptions(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[9].id) { // 'B02-20160301-073'
-    //     this.transDescList = TransactionDetailsService.getPRVLDDescriptions(this.lang);
-    //   } else if (this.transDetailsFormLocalModel.controls.activityType.value === this.rawActTypes[10].id) { // 'B02-20160301-074'
-    //     this.transDescList = TransactionDetailsService.getPRVLDADescriptions(this.lang);
-    //   }
-    // } else {
-    //   this.transDescList = [];
-    // }
-    this._cleanActivityDescription();
-    this.onblur();
+    const selectedActivityType = this.transDetailsFormLocalModel.get('activityType')?.value;
+    console.log("selectedActivityType", selectedActivityType);
+    // dynamically load the transaction description dropdowns according to the selected activity type value
+    const activityTypeTxDescArray = this._globalService.$activityTypeTxDescription;
+    this.transDescList = this._utilsService.filterParentChildrenArray(activityTypeTxDescArray, selectedActivityType);
+    this._checkAmendReasonRenderability();
+    this._cleanActivityDescription();   
+    this._saveData();
   }
 
-  descrDeviceOnblur() {
-    // const descValue = this.transDetailsFormLocalModel.controls.descriptionType.value;
-    this._updateReasonArray();
-    // this._setDescFieldFlags(descValue);
-    this._resetReasonValues();
-    this.onblur();
+  transactionDescriptionOnChange(){
+    console.log("selectedTxDescription", this.transDetailsFormLocalModel.get('descriptionType')?.value)
+    this.showDeviceClass = this._isInitial()
+    this._checkAmendReasonRenderability();
+    this._saveData();
   }
+
+  deviceClassOnChange() {
+    console.log("selectedDeviceClassId", this.transDetailsFormLocalModel.get('deviceClass')?.value);
+    // this._setDescFieldFlags(descValue);
+    this._checkAmendReasonRenderability();
+    this._resetReasonValues();
+    this._saveData();
+  }
+  
+  private _checkAmendReasonRenderability(){
+    const selectedActivityType = this.transDetailsFormLocalModel.get('activityType')?.value;
+
+    if (this.activityTypesRequiresAmendReason.includes(selectedActivityType) && this._isInitial() && this.transDetailsFormLocalModel.controls['deviceClass'].value){
+      this.showAmendReasons = true;
+    } else {
+      this.showAmendReasons = false;
+    }
+
+    if (this.showAmendReasons) {
+      this._updateReasonArray();
+    }
+
+  }
+
   private _cleanActivityType() {
     // this.transDetailsFormLocalModel.controls.activityType.setValue(null);
     // this.transDetailsFormLocalModel.controls.activityType.markAsUntouched();
     this._cleanActivityDescription();
   }
-  private _cleanActivityDescription() {
+
+  private _cleanActivityDescription() {   //rename it??
+    // reset activityTypeControl value to null and mark it as pristine
+    this._utilsService.resetControlValue(this.transDetailsFormLocalModel.get('descriptionType'));
     // this.transDetailsFormLocalModel.controls.descriptionType.setValue(null);
     // this.transDetailsFormLocalModel.controls.descriptionType.markAsUntouched();
     // this._setDescFieldFlags(this.transDetailsFormLocalModel.controls.descriptionType.value);
@@ -261,7 +271,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
   isSolicitedOnblur() {
     // this.isSolicitedFlag.emit(this.transDetailsFormLocalModel.controls.isSolicitedInfo.value === GlobalsService.YES);
-    this.onblur();
+    this._saveData();
   }
   onOrgManufactureLicblur() {
     // if (this.transDetailsFormLocalModel.controls.orgManufactureLic.value
@@ -270,11 +280,32 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //     ('000000' + this.transDetailsFormLocalModel.controls.orgManufactureLic.value )
     //       .slice(this.transDetailsFormLocalModel.controls.orgManufactureLic.value.toString().length) );
     // }
-    this.onblur();
+    this._saveData();
   }
   // reasonArray is the flags to display the reason chexk box list
-  private _updateReasonArray() {
-    // const descValue = this.transDetailsFormLocalModel.controls.descriptionType.value;
+  private _updateReasonArray() {    
+    const activityTypeValue = this.transDetailsFormLocalModel.controls['activityType'].value;
+    const deviceClassValue = this.transDetailsFormLocalModel.controls['deviceClass'].value;
+
+    const amendReasonList = this._globalService.$amendReasonList;
+    const relationship = this._globalService.$amendReasonRelationship;
+
+    console.log("**", activityTypeValue, deviceClassValue, amendReasonList, relationship);
+
+    const group = relationship.find((item) => item.activityTypeId === activityTypeValue);
+    if (group) {
+      const reasons =  group.amendReasons.filter((member) => member.deviceClassId === deviceClassValue);
+      console.log("##1",reasons[0])
+      const reasonIds = reasons[0].values;
+      console.log("##2",reasonIds)
+      const xx = this._utilsService.filterCodesByIds(amendReasonList, reasonIds);
+      console.log("##3", xx)
+
+    } else {
+      console.log("couldn't find a match")
+    }
+
+
     // if (this.transDetailsFormLocalModel.controls.activityType.value !== this.rawActTypes[1].id
     //   && this.transDetailsFormLocalModel.controls.activityType.value !== this.rawActTypes[9].id
     //   && descValue === this.rawDescTypes[this.rawDescMap.indexOf('i5')].id &&
@@ -429,10 +460,10 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //   ) ? true : false;
     // this.showProposeIndication =  (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
     //   this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value &&
-    //   this.devClassList[0].id === this.transDetailsFormLocalModel.controls.deviceClass.value &&
+    //   this.deviceClassList[0].id === this.transDetailsFormLocalModel.controls.deviceClass.value &&
     //   this.transDetailsFormLocalModel.controls.purposeChange.value
     //   ) ? true : false;
-    this.onblur();
+    this._saveData();
   }
   showRationaleRequired() {
     // if ((this.rawDescTypes[this.rawDescMap.indexOf('i5')].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
@@ -453,7 +484,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   showProposeIndication() {
     // if (this.rawDescTypes[this.rawDescMap.indexOf('i5')].id === this.transDetailsFormLocalModel.controls.descriptionType.value &&
     //   this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls.activityType.value &&
-    //   this.devClassList[0].id === this.transDetailsFormLocalModel.controls.deviceClass.value &&
+    //   this.deviceClassList[0].id === this.transDetailsFormLocalModel.controls.deviceClass.value &&
     //   this.transDetailsFormLocalModel.controls.purposeChange.value) {
     //   return true;
     // } else {
@@ -468,7 +499,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //   const lnum = '000000' + this.transDetailsFormLocalModel.controls.licenceNum.value;
     //   this.transDetailsFormLocalModel.controls.licenceNum.setValue(lnum.substring(lnum.length - 6));
     // }
-    this.onblur();
+    this._saveData();
   }
 
   private _resetReasonFlag() {
@@ -496,9 +527,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     // this.reasonResults[10] = this.transDetailsFormLocalModel.controls.addChange.value;
   }
 
-  isInitial() {
-    // return (this.transDetailsFormLocalModel.controls.descriptionType.value === this.rawDescTypes[this.rawDescMap.indexOf('i5')].id);
-    return true;
+  private _isInitial() {
+    return (this.transDetailsFormLocalModel.get('descriptionType')?.value === TransactionDesc.Initial);
   }
 
   isLicence() {
@@ -508,17 +538,17 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isClassSet() {
-    // return (this.transDetailsFormLocalModel.controls.deviceClass.value);
-    return true;
+    return (this.transDetailsFormLocalModel.controls['deviceClass'].value);
   }
 
   isNotInitial() {
-    // return (this.transDetailsFormLocalModel.controls.descriptionType.value && !this.isInitial());
+    // return (this.transDetailsFormLocalModel.controls.descriptionType.value && !this._isInitial());
     return true;
   }
 
   isDescInitial() {
-    if (this.isInitial()) {
+    console.log("##", this._isInitial())
+    if (this._isInitial()) {
       return true;
     } else {
       // this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
@@ -530,7 +560,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   // isInitialNotLicence() {
-  //   if (this.isInitial() && this.transDetailsFormLocalModel.controls.activityType.value && !this.isLicence()) {
+  //   if (this._isInitial() && this.transDetailsFormLocalModel.controls.activityType.value && !this.isLicence()) {
   //       return true;
   //   } else {
   //     this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
@@ -542,7 +572,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   // }
 
   isInitialNotLicenceDCSet() {
-    if (this.isInitial() && !this.isLicence() && this.isClassSet()) {
+    if (this._isInitial() && !this.isLicence() && this.isClassSet()) {
       return true;
     } else {
       // this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
@@ -552,7 +582,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isInitialAndLicence() {
-    if (this.isInitial() && this.isLicence()) {
+    if (this._isInitial() && this.isLicence()) {
       return true;
     } else {
       // this.transDetailsFormLocalModel.controls.deviceName.setValue(null);
