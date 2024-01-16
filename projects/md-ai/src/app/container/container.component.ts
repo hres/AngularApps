@@ -6,11 +6,12 @@ import { InstructionComponent } from '../instruction/instruction.component';
 import { FormBaseComponent } from '../form-base/form-base.component';
 import { FormDataLoaderService } from './form-data-loader.service';
 import { Observable, catchError, forkJoin, map, of } from 'rxjs';
+import { AppFormModule } from '../app.form.module';
 
 @Component({
   selector: 'app-container',
   standalone: true,
-  imports: [TranslateModule, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent, InstructionComponent, FormBaseComponent],
+  imports: [TranslateModule, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent, InstructionComponent, FormBaseComponent, AppFormModule],
   templateUrl: './container.component.html',
   encapsulation: ViewEncapsulation.None,
   providers: [FormDataLoaderService],
@@ -30,7 +31,7 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getDeviceClassesList(),
     this._formDataLoader.getDeviceSpeciesList(),
     this._formDataLoader.getDeviceTissueList(),
-    this._formDataLoader.getDinOrNpnList(),
+    this._formDataLoader.getRawDrugType(),
     this._formDataLoader.getLicenceAppTypeList(),
     this._formDataLoader.getMdAuditProgramList(),
     this._formDataLoader.getProvisionMdrList(),
@@ -53,7 +54,7 @@ export class ContainerComponent implements OnInit {
       this._globalService.$deviceClassesList = data[2];
       this._globalService.$deviceSpeciesList = data[3];
       this._globalService.$deviceTissueList = data[4];
-      this._globalService.$dinOrNpnList = data[5];
+      this._globalService.$rawDrugTypeList = data[5];
       this._globalService.$licenceAppTypeList = data[6];
       this._globalService.$mdAuditProgramList = data[7];
       this._globalService.$provisionMDRList = data[8];
