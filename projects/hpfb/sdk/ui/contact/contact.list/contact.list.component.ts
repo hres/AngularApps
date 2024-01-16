@@ -281,6 +281,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    */
   public deleteContact(id): void {
     this.deleteRecord(id, this.contactList, this._listService);
+    this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
     document.location.href = '#addContactBtn';
     this.contactsUpdated.emit(this.contactModel);
   }
