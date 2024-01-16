@@ -26,7 +26,7 @@ export class ValidationService {
       'error.mgs.contact.id': 'error.mgs.contact.id',
       'error.mgs.primary.company.id': 'error.mgs.primary.company.id',
       'error.mgs.primary.contact.id': 'error.mgs.primary.contact.id',
-      'error.mgs.regu.company.id': 'error.mgs.regu.company.id',
+      'error.mgs.6.numeric': 'error.mgs.6.numeric',
       'error.mgs.regu.contact.id': 'error.mgs.regu.contact.id',
       'error.mgs.dossier.id': 'error.mgs.dossier.id',
       'error.mgs.licence.number': 'error.mgs.licence.number',
@@ -137,14 +137,14 @@ export class ValidationService {
     }
   }
 
-  static regulatoryCompanyIdValidator(control) {
+  static numeric6Validator(control) {
     if (!control.value) {
       return null;
     }
     if (control.value.match(/^[0-9]{6}$/)) {
       return null;
     } else {
-      return {'error.mgs.company.id': true};
+      return {'error.mgs.6.numeric': true};
     }
   }
 
