@@ -25,7 +25,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   @Input() lang;
   @Input() helpIndex; 
   @Output() detailErrorList = new EventEmitter(true);
-  @Output() isSolicitedFlag = new EventEmitter(true);
+  
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // For the searchable select box, only accepts/saves id and text.
@@ -39,10 +39,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public showFieldErrors = false;
   public showDate: boolean;
   public showBriefDesc: boolean;
-  public rawActTypes;
-  public rawDescTypes;
 
-  private rawDescMap;
   // public showRationalRequired: boolean;
   // public showProposeIndication: boolean;
   public showPeriod: boolean;
@@ -62,9 +59,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.transDescList = [];
 
     // this.yesNoList = this.detailsService.getYesNoList();
-    // this.rawActTypes = TransactionDetailsService.getRawActivityTypeList();
-    // this.rawDescTypes = TransactionDetailsService.getRawTransDescList();
-    this.rawDescMap = this._detailsService.getDescMap();
+
     if (!this.transDetailsFormLocalModel) {
       this.transDetailsFormLocalModel = this._detailsService.getReactiveModel(this._fb);
     }
@@ -73,7 +68,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   ngOnInit() {
     // this.detailsChanged = 0;
-  //   this.actLeadList = TransactionDetailsService.getActivityLeadList(this.lang);
     this.deviceClassList = this._globalService.$deviceClasseList;
   }
 
@@ -204,10 +198,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     // this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
   }
 
-  isSolicitedOnblur() {
-    // this.isSolicitedFlag.emit(this.transDetailsFormLocalModel.controls.isSolicitedInfo.value === GlobalsService.YES);
-    this._saveData();
-  }
   onOrgManufactureLicblur() {
     // if (this.transDetailsFormLocalModel.controls['orgManufactureLic'].value
     //     && this.transDetailsFormLocalModel.controls['orgManufactureLic'].value.toString().length < 6) {
@@ -255,7 +245,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   private _setDescFieldFlags(descValue) {
-    const selectedTxDescription = this.txDescriptionFormControl?.value;
+    const selectedTxDescription = this.txDescriptionFormControl.value;
 
     this.showBriefDesc = (selectedTxDescription === TransactionDesc.UD) ? true : false;
 
@@ -417,20 +407,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     return false;
   }
 
-  isNotUnsolicited() {
-    // if (this.transDetailsFormLocalModel.controls['descriptionType'].value !== this.rawDescTypes[this.rawDescMap.indexOf('i25')].id) {
-    //   return true;
-    // } else {
-    //   this.transDetailsFormLocalModel.controls.isSolicitedInfo.setValue(null);
-    //   this.transDetailsFormLocalModel.controls.isSolicitedInfo.markAsUntouched();
-    //   this.isSolicitedFlag.emit(false);
-    // }
-    return false;
-  }
-
   showMandatoryAppNum() {
     const txDescRequireMandatoryAppNum = [TransactionDesc.ACD, TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.RS, TransactionDesc.WR];
-    const selectedTxDescription = this.txDescriptionFormControl?.value;
+    const selectedTxDescription = this.txDescriptionFormControl.value;
     if (txDescRequireMandatoryAppNum.includes(selectedTxDescription)) {
       return true;
     } else {
@@ -441,7 +420,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   showOptionalAppNum() {
     const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.MM, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.RS39L];
-    const selectedTxDescription = this.txDescriptionFormControl?.value;
+    const selectedTxDescription = this.txDescriptionFormControl.value;
     if (txDescRequireOptionalAppNum.includes(selectedTxDescription)) {
       return true;
     } else {
@@ -486,8 +465,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   // -Response to screening deficiency letter
   // -Unsolicited Information
   showOrgManufactureId() {
-    if ( [ActivityType.PrivateLabel,ActivityType.PrivateLabelAmendment].includes(this.activityTypeFormControl?.value) &&
-    [TransactionDesc.INITIAL, TransactionDesc.RS, TransactionDesc.UD].includes(this.txDescriptionFormControl?.value) ){
+    if ( [ActivityType.PrivateLabel,ActivityType.PrivateLabelAmendment].includes(this.activityTypeFormControl.value) &&
+    [TransactionDesc.INITIAL, TransactionDesc.RS, TransactionDesc.UD].includes(this.txDescriptionFormControl.value) ){
       return true;
     }
     return false;

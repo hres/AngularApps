@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { TransactionBaseService } from './transaction-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
-import { ApplicationInfo, DeviceTransactionEnrol, Enrollment, Requester, TransFees } from '../models/Enrollment';
+import { ApplicationInfo, DeviceTransactionEnrol, Enrollment, TransFees } from '../models/Enrollment';
 
 @Component({
   selector: 'app-form-base',
@@ -23,7 +23,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
   @Input() lang;
   @Input() helpTextSequences;
-  // @ViewChild(RequesterListComponent, {static: false}) requesterListChild: RequesterListComponent;
 
   private _transactionDetailErrors = [];
   private _requesterErrors = [];
@@ -35,14 +34,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   
   public userList = [];
   public showErrors: boolean;
-  public isSolicitedFlag: boolean;
+  
   public title = '';
   public headingLevel = 'h2';
 
   public enrollModel : Enrollment;
   public transactionInfoModel : ApplicationInfo;; 
 
-  public requesterModel: Requester[];
   public transFeeModel: TransFees;
   // public transFeeModel = TransactionBaseService.getEmptyTransactionFeeModel();
   public fileServices: FileConversionService;
@@ -57,9 +55,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _checkSumService: CheckSumService,
     private _converterService: ConverterService
   ) {
-    this.userList = [];
-    this.showErrors = false;
-    this.isSolicitedFlag = false;
+
+    this.showErrors = false;    
     this.fileServices = new FileConversionService();
     this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + '.xsl';
   }
@@ -119,13 +116,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processIsSolicitedFlag(isSolicited) {
-    if (!isSolicited) {
-      this.requesterModel = [];
-    }
-    this.isSolicitedFlag = isSolicited;
-  }
-
   public hideErrorSummary() {
     return (this.showErrors && this.errorList && this.errorList.length > 0);
   }
@@ -154,11 +144,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _prepareForSaving(xmlFile: boolean): Enrollment {
     const output: Enrollment = {
        'DEVICE_TRANSACTION_ENROL': {
-         'software_version': this._globalService.$appVersion,
+         'template_version': this._globalService.$appVersion,
          'application_info': this.transactionInfoModel,
-         'requester_of_solicited_information': {
-            'requester': null, //this._deleteText(this.requesterModel)
-          },
           'transFees': this.transFeeModel
         }
     };
@@ -180,10 +167,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
      console.log('processing file.....');
      const transactionEnroll: DeviceTransactionEnrol = enrollment[this.rootTagText];
      this._init(transactionEnroll);
-  }
-
-  isSolicited() {
-    // return (this.isSolicitedFlag || this.transactionModel.is_solicited_info === GlobalsService.YES);
   }
 
   // private _updatedSavedDate() {
@@ -247,12 +230,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _init(transactionEnroll: DeviceTransactionEnrol){
     this.transactionInfoModel = transactionEnroll.application_info;  
-
-    // const req = fileData.data.DEVICE_TRANSACTION_ENROL.requester_of_solicited_information.requester;
-    // if (req) {
-    //   this.requesterModel = (req instanceof Array) ? req : [req];
-    //   this._insertTextfield();
-    // }
     // this.transFeeModel = fileData.data.DEVICE_TRANSACTION_ENROL.transFees;
   }
 }

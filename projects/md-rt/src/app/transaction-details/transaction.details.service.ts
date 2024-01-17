@@ -43,430 +43,8 @@ export class TransactionDetailsService {
       transDescription: [null, []],
       hasDdt: [false, []],
       hasDdtMan: ['', Validators.required],
-      hasAppInfo: [false, []],
-      isSolicitedInfo: ['', []]
+      hasAppInfo: [false, []]
     });
-  }
-
-  /**
-   * Gets an empty data model
-   *
-   */
-  // public getEmptyModel() {
-
-  //   return (
-  //     {
-  //       dossier_id: '',
-  //       dossier_type: 'Medical Device',
-  //       company_id: '',
-  //       manufacturing_contact_id: '',
-  //       regulatory_company_id: '',
-  //       regulatory_contact_id: '',
-  //       regulatory_activity_lead: '',
-  //       regulatory_activity_type: '',
-  //       description_type: '',
-  //       device_class: '',
-  //       amend_reasons: {
-  //         classification_change: '',
-  //         licence_change: '',
-  //         device_change: '',
-  //         process_change: '',
-  //         quality_change: '',
-  //         design_change: '',
-  //         materials_change: '',
-  //         labelling_change: '',
-  //         safety_change: '',
-  //         purpose_change: '',
-  //         add_delete_change: ''
-  //       },
-  //       licence_number: '',
-  //       application_number: '',
-  //       meeting_id: '',
-  //       device_name: '',
-  //       rationale: '',
-  //       proposed_indication: '',
-  //       proposed_licence_name: '',
-  //       request_version: '',
-  //       request_date: '',
-  //       request_to: '',
-  //       brief_description: '',
-  //       transaction_description: '',
-  //       has_ddt: '',
-  //       has_app_info: '',
-  //       is_solicited_info: ''
-  //     }
-  //   );
-  // }
-
-  /**
-   * Gets an data array
-   *
-   */
- // public getActivityLeads() {
- //   return ['Medical Device Bureau'];
- // }
-
- // public getRawActivityTypes() {
- //   return ['Minor Change', 'Licence', 'Licence Amendment', 'S.36/39/40/41', 'MD-PV' ];
-//  }
-
-  /**
-   * Gets an yesno array
-   *
-   */
-  // public getYesNoList() {
-  //   return [
-  //     GlobalsService.YES,
-  //     GlobalsService.NO
-  //   ];
-  // }
-
-  // /**
-  //  * Gets an data array
-  //  *
-  //  */
-  // public getDeviceClassList() {
-  //   return [
-  //     {
-  //       id: 'DC2',
-  //       en: 'Class II',
-  //       fr: 'fr_Class II'
-  //     },
-  //     {
-  //       id: 'DC3',
-  //       en: 'Class III',
-  //       fr: 'fr_Class III'
-  //     },
-  //     {
-  //       id: 'DC4',
-  //       en: 'Class IV',
-  //       fr: 'fr_Class IV'
-  //     }
-  //   ];
-  // }
-
-  /**
-   * Gets an data array
-   *
-   */
-  // public getLicenceDescriptions(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i1')], descArray[this.getDescMap().indexOf('i5')],
-  //     descArray[this.getDescMap().indexOf('i7')], descArray[this.getDescMap().indexOf('i9')],
-  //     descArray[this.getDescMap().indexOf('i12')], descArray[this.getDescMap().indexOf('i14')],
-  //     descArray[this.getDescMap().indexOf('i15')], descArray[this.getDescMap().indexOf('i20')],
-  //     descArray[this.getDescMap().indexOf('i25')], descArray[this.getDescMap().indexOf('i26')]];
-  // }
-
-  /**
-   * Gets an data array
-   *
-   */
-  // public getFaxbackDescriptions(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i5')], descArray[this.getDescMap().indexOf('i15')],
-  //     descArray[this.getDescMap().indexOf('i25')], descArray[this.getDescMap().indexOf('i26')]];
-  // }
-
-  // public getS36394041Descriptions(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i6')], descArray[this.getDescMap().indexOf('i8')], descArray[this.getDescMap().indexOf('i10')],
-  //     descArray[this.getDescMap().indexOf('i11')], descArray[this.getDescMap().indexOf('i17')], descArray[this.getDescMap().indexOf('i18')],
-  //     descArray[this.getDescMap().indexOf('i19')], descArray[this.getDescMap().indexOf('i25')]];
-  // }
-
-  // public getPAPVDescriptions(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i9')], descArray[this.getDescMap().indexOf('i14')], descArray[this.getDescMap().indexOf('i15')],
-  //     descArray[this.getDescMap().indexOf('i16')], descArray[this.getDescMap().indexOf('i22')], descArray[this.getDescMap().indexOf('i25')]];
-  // }
-  // public getPSURPVDescriptions(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i3')]];
-  // }
-  // public getRCPVDescriptions(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i2')], descArray[this.getDescMap().indexOf('i21')]];
-  // }
-  // public getPSAPVDescriptions(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i0')], descArray[this.getDescMap().indexOf('i11')]];
-  // }
-  // public getREGPVDescriptions(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i4')], descArray[this.getDescMap().indexOf('i9')], descArray[this.getDescMap().indexOf('i13')],
-  //     descArray[this.getDescMap().indexOf('i23')], descArray[this.getDescMap().indexOf('i24')]];
-  // }
-  // public getPRVLDDescriptions(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i5')], descArray[this.getDescMap().indexOf('i20')], descArray[this.getDescMap().indexOf('i25')], descArray[this.getDescMap().indexOf('i26')]];
-  // }
-  // public getPRVLDADescriptions(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i5')], descArray[this.getDescMap().indexOf('i20')], descArray[this.getDescMap().indexOf('i25')], descArray[this.getDescMap().indexOf('i26')]];
-  // }
-
-  /**
-   * Gets an data array
-   *
-   */
-  // public getDossierType() {
-  //   return [
-  //     {
-  //       id: 'D23',
-  //       en: 'Medical Device',
-  //       fr: 'Medical Device'
-  //     }
-  //   ];
-  // }
-
-  /**
-   {
-       // id: 'B14-20160301-10 ',
-       // en: 'Post-market Vigilance',
-       // fr: 'Post-market Vigilance'
-     }
-   */
-
-  // private getRawActivityLeadList() {
-  //   return  [
-  //     {
-  //       id: 'B14-20160301-08',
-  //       en: 'Medical Devices Directorate',
-  //       fr: 'Medical Devices Directorate'
-  //     },
-  //     {
-  //       id: 'B14-20160301-10',
-  //       en: 'Post-market Vigilance',
-  //       fr: 'Post-market Vigilance'
-  //     }];
-  // }
-
-  // public getActivityLeadList(lang) {
-  //   return TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityLeadList(), lang);
-  // }
-
-  // public getRawActivityTypeList() {
-  //   return [
-  //     { // 0
-  //       id: 'B02-20160301-033',
-  //       en: 'Minor Change',
-  //       fr: 'Minor Change'
-  //     },
-  //     { // 1
-  //       id: 'B02-20160301-039',
-  //       en: 'Licence',
-  //       fr: 'Licence'
-  //     },
-  //     { // 2
-  //       id: 'B02-20160301-040',
-  //       en: 'Licence Amendment',
-  //       fr: 'Licence Amendment'
-  //     },
-  //     { // 3
-  //       id: 'B02-20160301-081',
-  //       en: 'S.25/36/39/40/41',
-  //       fr: 'S.25/36/39/40/41'
-  //     },
-  //     { // 4
-  //       id: 'B02-20190627-02',
-  //       en: 'PA-PV',
-  //       fr: 'PA-PV'
-  //     },
-  //     { // 5
-  //       id: 'B02-20160301-079',
-  //       en: 'PSUR-PV',
-  //       fr: 'PSUR-PV'
-  //     },
-  //     { // 6
-  //       id: 'B02-20190627-04',
-  //       en: 'RC-PV',
-  //       fr: 'RC-PV'
-  //     },
-  //     { // 7
-  //       id: 'B02-20190627-03',
-  //       en: 'PSA-PV',
-  //       fr: 'PSA-PV'
-  //     },
-  //     { // 8
-  //       id: 'B02-20190627-05',
-  //       en: 'REG-PV',
-  //       fr: 'REG-PV'
-  //     },
-  //     { // 9
-  //       id: 'B02-20160301-073',
-  //       en: 'Private Label',
-  //       fr: 'Private Label'
-  //     },
-  //     { // 10
-  //       id: 'B02-20160301-074',
-  //       en: 'Private Label Amendment',
-  //       fr: 'Private Label Amendment'
-  //     }
-  //   ];
-  // }
-
-  // public getActivityTypeList(lang) {
-  //   return TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-  // }
-
-  // public getActivityTypeMDBList(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i0')], descArray[this.getDescMap().indexOf('i1')], descArray[this.getDescMap().indexOf('i2')],
-  //     descArray[this.getDescMap().indexOf('i9')], descArray[this.getDescMap().indexOf('i10')], descArray[this.getDescMap().indexOf('i3')]];
-  // }
-
-  // public getActivityTypePVList(lang) {
-  //   const descArray = TransactionDetailsService._convertListText(TransactionDetailsService.getRawActivityTypeList(), lang);
-  //   return [descArray[this.getDescMap().indexOf('i4')], descArray[this.getDescMap().indexOf('i5')], descArray[this.getDescMap().indexOf('i6')],
-  //     descArray[this.getDescMap().indexOf('i7')], descArray[this.getDescMap().indexOf('i8')]];
-  // }
-
-  // public getTransDescList(lang) {
-  //   return TransactionDetailsService._convertListText(TransactionDetailsService.getRawTransDescList(), lang);
-  // }
-
-  // public getRawTransDescList() {
-  //   return [
-  //     {
-  //       id: 'ACRI', //22
-  //       en: 'Advertising complaint request for information',
-  //       fr: 'Advertising complaint request for information'
-  //     },
-  //     {
-  //       id: 'ACD', //0
-  //       en: 'Appeal Comprehensive Document',
-  //       fr: 'Appeal Comprehensive Document'
-  //     },
-  //     {
-  //       id: 'DLVN', //20
-  //       en: 'Dissemination list version number',
-  //       fr: 'Dissemination list version number'
-  //     },
-  //     {
-  //       id: 'FPO', //23
-  //       en: 'For Period of ',
-  //       fr: 'For Period of '
-  //     },
-  //     {
-  //       id: 'FSAN', //16
-  //       en: 'Foreign Safety Action Notification',
-  //       fr: 'Foreign Safety Action Notification'
-  //     },
-  //     {
-  //       id: 'INITIAL',  //9
-  //       en: 'Initial',
-  //       fr: 'Initial'
-  //     },
-  //     {
-  //       id: 'IRSR', //24
-  //       en: 'Issue Related Safety Request ',
-  //       fr: 'Issue Related Safety Request '
-  //     },
-  //     {
-  //       id: 'LIA', //1
-  //       en: 'Letter of Intent to Appeal',
-  //       fr: 'Letter of Intent to Appeal'
-  //     },
-  //     {
-  //       id: 'LIOH', //2
-  //       en: 'Letter of Intent to Invoke Opportunity to be Heard',
-  //       fr: 'Letter of Intent to Invoke Opportunity to be Heard'
-  //     },
-  //     {
-  //       id: 'MM', //10
-  //       en: 'Minutes of Meeting',
-  //       fr: 'Minutes of Meeting'
-  //     },
-  //     {
-  //       id: 'OHCD', //3
-  //       en: 'Opportunity to be Heard Comprehensive Document',
-  //       fr: 'Opportunity to be Heard Comprehensive Document'
-  //     },
-  //     {
-  //       id: 'PSI', //25
-  //       en: 'Patient Safety Information (Medication error)',
-  //       fr: 'Patient Safety Information (Medication error)'
-  //     },
-  //     {
-  //       id: 'PRCI', //14
-  //       en: 'Public Release of Clinical Information',
-  //       fr: 'Public Release of Clinical Information'
-  //     },
-  //     {
-  //       id: 'RO', //18
-  //       en: 'Reassessment Order',
-  //       fr: 'Reassessment Order'
-  //     },
-  //     {
-  //       id: 'RAIL', //4
-  //       en: 'Response to Additional Information Letter',
-  //       fr: 'Response to Additional Information Letter'
-  //     },
-  //     {
-  //       id: 'RER', //11
-  //       en: 'Response to E-mail Request',
-  //       fr: 'Response to E-mail Request'
-  //     },
-  //     {
-  //       id: 'RMHPDR', //13
-  //       en: 'Response to MHPD Request',
-  //       fr: 'Response to MHPD Request'
-  //     },
-  //     {
-  //       id: 'RS25L', //21
-  //       en: 'Response to S.25 Letter',
-  //       fr: 'Response to S.25 Letter'
-  //     },
-  //     {
-  //       id: 'RS36L', //6
-  //       en: 'Response to S.36 Letter',
-  //       fr: 'Response to S.36 Letter'
-  //     },
-  //     {
-  //       id: 'RS39L', //7
-  //       en: 'Response to S.39 Letter',
-  //       fr: 'Response to S.39 Letter'
-  //     },
-  //     {
-  //       id: 'RS', //5
-  //       en: 'Response to Screening Deficiency Letter',
-  //       fr: 'Response to Screening Deficiency Letter'
-  //     },
-  //     {
-  //       id: 'RCD', //19
-  //       en: 'Risk communication document',
-  //       fr: 'Risk communication document'
-  //     },
-  //     {
-  //       id: 'SMR', //26
-  //       en: 'Submission Meeting Request',
-  //       fr: 'Submission Meeting Request'
-  //     },
-  //     {
-  //       id: 'TCC', //15
-  //       en: 'Terms and Conditions Commitment',
-  //       fr: 'Terms and Conditions Commitment'
-  //     },
-  //     {
-  //       id: 'TSO', //17
-  //       en: 'Test and Studies Order',
-  //       fr: 'Test and Studies Order'
-  //     },
-  //     {
-  //       id: 'UD', //12
-  //       en: 'Unsolicited Information',
-  //       fr: 'Unsolicited Information'
-  //     },
-  //     {
-  //       id: 'WR', //8
-  //       en: 'Withdrawal Request',
-  //       fr: 'Withdrawal Request'
-  //     }
-  //   ];
-  // }
-  public getDescMap() {
-    return ['i0', 'i1', 'i2', 'i3', 'i4', 'i5', 'i6', 'i7', 'i8', 'i9', 'i10', 'i11', 'i12', 'i13', 'i14', 'i15', 'i16', 'i17', 'i18', 'i19', 'i20', 'i21', 'i22', 'i23', 'i24', 'i25', 'i26'];
   }
 
   public mapFormModelToDataModel(formRecord: FormGroup, transactionInfoModel: ApplicationInfo, slctdAmendReasonCodes: string[], lang: string ) {
@@ -528,10 +106,10 @@ export class TransactionDetailsService {
     transactionInfoModel.meeting_id = formRecord.controls['meetingId'].value;
     transactionInfoModel.device_name = formRecord.controls['deviceName'].value;
     transactionInfoModel.proposed_licence_name = formRecord.controls['licenceName'].value;
-  //   transactionInfoModel.request_version = formRecord.controls.requestVersion.value;
+
     transactionInfoModel.request_date = formRecord.controls['requestDate'].value;
   //   transactionInfoModel.request_to = formRecord.controls.requestTo.value;
-  //   transactionInfoModel.brief_description = formRecord.controls.briefDesc.value;
+    transactionInfoModel.brief_description = formRecord.controls['briefDesc'].value;
   //   transactionInfoModel.transaction_description = TransactionDetailsService._setConcatDetails(transactionInfoModel);
   //   // if (formRecord.controls.deviceChange.value ||
   //   //     (formRecord.controls.activityType.value === activityTypeList[1].id &&
@@ -541,8 +119,7 @@ export class TransactionDetailsService {
   //   //   transactionInfoModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
   //   // }
   //   transactionInfoModel.has_app_info = formRecord.controls.hasAppInfo.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.is_solicited_info = formRecord.controls.isSolicitedInfo.value;
-  
+    
     transactionInfoModel.org_manufacture_id = formRecord.controls['orgManufactureId'].value;
     transactionInfoModel.org_manufacture_lic = formRecord.controls['orgManufactureLic'].value;
   }
@@ -653,10 +230,10 @@ export class TransactionDetailsService {
     formRecord.controls['meetingId'].setValue(transactionInfoModel.meeting_id);
     formRecord.controls['deviceName'].setValue(transactionInfoModel.device_name);
     formRecord.controls['licenceName'].setValue(transactionInfoModel.proposed_licence_name);
-//     formRecord.controls.requestVersion.setValue(transactionInfoModel.request_version);
+
     formRecord.controls['requestDate'].setValue(transactionInfoModel.request_date);
 //     formRecord.controls.requestTo.setValue(transactionInfoModel.request_to);
-//     formRecord.controls.briefDesc.setValue(transactionInfoModel.brief_description);
+//     formRecord.controls['briefDesc'].setValue(transactionInfoModel.brief_description);
 //     formRecord.controls.transDescription.setValue(transactionInfoModel.transaction_description);
 //     // const hasddt = transactionInfoModel.has_ddt === GlobalsService.YES ? true : false;
 //     // if (formRecord.controls.deviceChange.value ||
@@ -668,37 +245,12 @@ export class TransactionDetailsService {
 //     // }
 //     const hasapp = transactionInfoModel.has_app_info === GlobalsService.YES ? true : false;
 //     formRecord.controls.hasAppInfo.setValue(hasapp);
-//     formRecord.controls.isSolicitedInfo.setValue(transactionInfoModel.is_solicited_info);
+
 //     formRecord.controls.rationale.setValue(transactionInfoModel.rationale);
 //     formRecord.controls.proposedIndication.setValue(transactionInfoModel.proposed_indication);
     formRecord.controls['orgManufactureId'].setValue(transactionInfoModel.org_manufacture_id);
     formRecord.controls['orgManufactureLic'].setValue(transactionInfoModel.org_manufacture_lic);
   }
-
-  /***
-   * Converts the list iteems of id, label_en, and label_Fr
-   * @param rawList
-   * @param lang
-   * @private
-   */
-  // private _convertListText(rawList, lang) {
-  //   const result = [];
-  //   if (lang === GlobalsService.FRENCH) {
-  //     rawList.forEach(item => {
-  //       item.text = item.fr;
-  //       result.push(item);
-  //       //  console.log(item);
-  //     });
-  //   } else {
-  //     rawList.forEach(item => {
-  //       item.text = item.en;
-  //       // console.log("adding country"+item.text);
-  //       result.push(item);
-  //       // console.log(item);
-  //     });
-  //   }
-  //   return result;
-  // }
 
   private _setConcatDetails(transactionInfoModel) {
     // const rDate = '';

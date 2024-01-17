@@ -12,49 +12,11 @@ export class TransactionBaseService {
   constructor(private _fb: FormBuilder, private _entityBaseService: EntityBaseService, private _utilsService: UtilsService) {
   }
 
-  // public getReactiveModel() {
-  //   return this._fb.group({
-  //     // softwareVersion: GlobalsService.SOFTWARE_VERSION,
-  //     enrolVersion: '0.0',
-  //     lastSavedDate: '',
-  //     dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
-  //     dossierType: ['Medical device', []],
-  //     manuCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
-  //     manuContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]],
-  //     reguCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
-  //     reguContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]],
-  //     activityLead: [null, Validators.required],
-  //     activityType: [null, Validators.required],
-  //     descriptionType: [null, Validators.required],
-  //     deviceClass: [null, Validators.required],
-  //     amendReason: [null, Validators.required],
-  //     classChange: [false, []],
-  //     licenceChange: [false, []],
-  //     processChange: [false, []],
-  //     qualityChange: [false, []],
-  //     designChange: [false, []],
-  //     materialsChange: [false, []],
-  //     labellingChange: [false, []],
-  //     safetyChange: [false, []],
-  //     purposeChange: [false, []],
-  //     addChange: [false, []],
-  //     licenceNum: [null, [Validators.required, ValidationService.licenceNumValidator]],
-  //     appNum: [null, [Validators.required, ValidationService.appNumValidator]],
-  //     deviceName: [null, Validators.required],
-  //     requestDate: [null, Validators.required],
-  //     transDescription: [null, []],
-  //     hasDdt: [false, []],
-  //     hasAppInfo: [false, []],
-  //     isSolicitedInfo: [null, Validators.required]
-  //   });
-  // }
-
   public getEmptyEnrol(): Enrollment {
     const enrollment: Enrollment = {
       DEVICE_TRANSACTION_ENROL: {
-        software_version: '',
+        template_version: '',
         application_info: this.getEmptyApplicationInfoModel(),
-        requester_of_solicited_information: undefined,
         transFees: this.getEmptyTransactionFeeModel(),
       }
     };
@@ -84,12 +46,10 @@ export class TransactionBaseService {
         transaction_description: '',
         has_ddt: '',
         has_app_info: '',
-        is_solicited_info: '',
         org_manufacture_id: '',
         org_manufacture_lic: '',
         meeting_id: '',
         proposed_licence_name: '',
-        request_version: '',
         request_to: '',
         brief_description: '',
         rationale: '',
