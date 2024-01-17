@@ -75,7 +75,7 @@ export class TransactionBaseService {
         regulatory_activity_lead: this._getMedicalDeviceDirectorateActivityLead(),
         regulatory_activity_type: this._entityBaseService.getEmptyIdTextLabel(),
         description_type: this._entityBaseService.getEmptyIdTextLabel(),
-        device_class: '',
+        device_class: this._entityBaseService.getEmptyIdTextLabel(),
         amend_reasons: null,
         licence_number: '',
         application_number: '',
