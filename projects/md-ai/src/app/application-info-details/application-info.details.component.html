@@ -3,8 +3,8 @@
       <div class="row">
         <div class="form-group col-xs-6 minWidth300" >
           <label for="companyId" class="required" aria-required="true">
-            <span class="field-name" i18n>{{'company.id'|translate}} {{'minNumber6'|translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'company.id'|translate}} {{'minNumber6'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="appInfoFormLocalModel.controls['companyId'].invalid"
                               [showError]="showFieldErrors"
                               [control]="appInfoFormLocalModel.controls['companyId'] | formControl"
@@ -17,8 +17,8 @@
         </div>
         <div class="form-group col-xs-6 minWidth300" >
           <label for="dossierId" class="required" aria-required="true">
-            <span class="field-name" i18n>{{'dossier.id'|translate}}  {{'minAlphanum7'|translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'dossier.id'|translate}}  {{'minAlphanum7'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="appInfoFormLocalModel.controls['dossierId'].invalid"
                               [showError]="showFieldErrors"
                               [control]="appInfoFormLocalModel.controls['dossierId'] | formControl"
@@ -33,8 +33,8 @@
       <div class="row">
         <div class="form-group col-xs-12 minWidth300" >
           <label for="mdsapNum" class="required">
-            <span class="field-name" i18n>{{'mdsap.number'|translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'mdsap.number'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <sup id="ap3-rf">
               <a class="fn-lnk" href="#ap3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.mdsapNumIndx}}</a>
             </sup>
@@ -51,8 +51,8 @@
       <div class="row">
         <div class="form-group col-xs-12 minWidth300" >
           <label for="licenceAppType" class="required">
-            <span class="field-name" i18n>{{'licence.app.type' |translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'licence.app.type' |translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <sup id="ap4-rf">
               <a class="fn-lnk" href="#ap4"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.licAppTypeIndx}}</a>
             </sup>
@@ -74,8 +74,8 @@
       <div class="row">
         <div class="form-group col-xs-12 minWidth300" >
           <label for="mdsapOrg" class="required">
-            <span class="field-name" i18n>{{'mdsap.org'|translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'mdsap.org'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <sup id="ap5-rf">
               <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.mdsapOrgIndx}}</a>
             </sup>
@@ -95,28 +95,9 @@
   
       <div class="row">
         <div class="form-group col-xs-6 minWidth300">
-          <!--
-          <label for="activityLead" class="required full-width">
-            <span class="field-name" i18n>{{'activity.lead' |translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="appInfoFormLocalModel.controls['activityLead'].invalid"
-                              [showError]="showFieldErrors"
-                              [control]="appInfoFormLocalModel.controls['activityLead'] | formControl"
-                              controlId="activityLead" label="activity.lead"
-                              parentId="appInfoDetails"
-                              parentLabel="Application Information"></control-messages>
-            <select id="activityLead" name="activityLead" required class="form-control " (blur)="activityLeadOnblur()"
-            (change)="activityLeadOnblur()" [formControl]="appInfoFormLocalModel.controls['activityLead'] | formControl">
-              <option label=" " value=""></option>
-              <option *ngFor="let lead of actLeadList" [ngValue]="lead.id"> {{lead.text|translate}}</option>
-            </select>
-          </label>
-        -->
-        </div>
-        <div class="form-group col-xs-6 minWidth300">
           <label for="activityType" class="required  ">
-            <span class="field-name" i18n>{{'activity.type' |translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'activity.type' |translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="appInfoFormLocalModel.controls['activityType'].invalid"
                               [showError]="showFieldErrors"
                               [control]="appInfoFormLocalModel.controls['activityType'] | formControl"
@@ -131,33 +112,29 @@
             </select>
           </label>
         </div>
+        <div class="form-group col-xs-6 minWidth300">
+          <label for="deviceClass" class="required ">
+            <span class="field-name">{{'device.class' |translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <sup id="ap6-rf">
+              <a class="fn-lnk" href="#ap6"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.devClsIndx}}</a>
+            </sup>
+            <control-messages *ngIf="appInfoFormLocalModel.controls['deviceClass'].invalid"
+                              [showError]="showFieldErrors"
+                              [control]="appInfoFormLocalModel.controls['deviceClass'] | formControl"
+                              controlId="deviceClass" label="device.class"
+                              parentId="appInfoDetails"
+                              parentLabel="Application Information"></control-messages>
+            <select id="deviceClass" name="deviceClass" required
+                    class="form-control full-width" (blur)="deviceClassOnblur()"
+                    (change)="deviceClassOnblur()"
+                    [formControl]="appInfoFormLocalModel.controls['deviceClass'] | formControl">
+              <option label=" " value=""></option>
+              <option *ngFor="let class of devClassList" [ngValue]="class.id"> {{ class | textTransform : lang}}</option>
+            </select>
+          </label>
+        </div>
       </div>
-  
-      <div class="row">
-      <div class="form-group col-xs-6 minWidth300">
-        <label for="deviceClass" class="required ">
-          <span class="field-name" i18n>{{'device.class' |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <sup id="ap6-rf">
-            <a class="fn-lnk" href="#ap6"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.devClsIndx}}</a>
-          </sup>
-          <control-messages *ngIf="appInfoFormLocalModel.controls['deviceClass'].invalid"
-                            [showError]="showFieldErrors"
-                            [control]="appInfoFormLocalModel.controls['deviceClass'] | formControl"
-                            controlId="deviceClass" label="device.class"
-                            parentId="appInfoDetails"
-                            parentLabel="Application Information"></control-messages>
-          <select id="deviceClass" name="deviceClass" required
-                  class="form-control full-width" (blur)="deviceClassOnblur()"
-                  (change)="deviceClassOnblur()"
-                  [formControl]="appInfoFormLocalModel.controls['deviceClass'] | formControl">
-            <option label=" " value=""></option>
-            <option *ngFor="let class of devClassList" [ngValue]="class.id"> {{ class | textTransform : lang}}</option>
-          </select>
-        </label>
-      </div>
-      </div>
-  
       <div>
         <section class="panel  panel-default">
           <header class="panel-heading clearfix">
@@ -167,8 +144,8 @@
             <div class="row">
               <div class="form-group col-xs-12" >
                 <label for="isIvdd" class="required full-width">
-                  <span class="field-name" i18n>{{'is.ivdd' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'is.ivdd' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['isIvdd'].invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls['isIvdd'] | formControl"
@@ -185,8 +162,8 @@
             <div class="row" *ngIf="isIVDD()">
               <div class="form-group col-xs-12">
                 <label for="isHomeUse" class="required full-width">
-                  <span class="field-name" i18n>{{'is.home.use' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'is.home.use' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['isHomeUse'].invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls['isHomeUse'] | formControl"
@@ -201,8 +178,8 @@
               </div>
               <div class="form-group col-xs-12" >
                 <label for="isCarePoint" class="required full-width">
-                  <span class="field-name" i18n>{{'is.point.care' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'is.point.care' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['isCarePoint'].invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls['isCarePoint'] | formControl"
@@ -219,8 +196,8 @@
             <div class="row">
               <div class="form-group col-xs-12" >
                 <label for="isEmitRadiation" class="required full-width">
-                  <span class="field-name" i18n>{{'contain.radiation' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'contain.radiation' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['isEmitRadiation'].invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls['isEmitRadiation'] | formControl"
@@ -238,8 +215,8 @@
             <div class="row" *ngIf="isNOIVDD()">
               <div class="form-group col-xs-12" >
                 <label for="hasDrug" class="required full-width">
-                  <span class="field-name" i18n>{{'contain.drug' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'contain.drug' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['hasDrug'].invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls['hasDrug'] | formControl"
@@ -254,7 +231,7 @@
               </div>
               <div *ngIf="hasDrug()" class="form-group col-xs-12" >
                 <label for="hasDinNpn" class="full-width">
-                  <span class="field-name" i18n>{{'have.din.npn' |translate}}</span>
+                  <span class="field-name">{{'have.din.npn' |translate}}</span>
                   <select id="hasDinNpn" name="hasDinNpn" class="form-control"
                           (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['hasDinNpn'] | formControl">
                     <option label=" " value=""></option>
@@ -264,8 +241,8 @@
               </div>
               <div  *ngIf="hasDin()" class="form-group col-xs-6" >
                 <label for="din" class="required full-width" aria-required="true">
-                  <span class="field-name" i18n>{{'din'|translate}} {{'minNumber8' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'din'|translate}} {{'minNumber8' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['din'].invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls['din'] | formControl"
@@ -278,8 +255,8 @@
               </div>
               <div  *ngIf="hasNpn()" class="form-group col-xs-6" >
                 <label for="npn" class="required full-width" aria-required="true">
-                  <span class="field-name" i18n>{{'npn'|translate}} {{'minNumber8' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'npn'|translate}} {{'minNumber8' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['npn'].invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls['npn'] | formControl"
@@ -303,7 +280,7 @@
                 <div class="form-group col-xs-12">
                   <label for="drugName" class="required full-width">
                     <span class="field-name">{{'drug.name'|translate}}</span>
-                    <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                    <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                     <control-messages *ngIf="appInfoFormLocalModel.controls['drugName'].invalid"
                                       [showError]="showFieldErrors"
                                       [control]="appInfoFormLocalModel.controls['drugName'] | formControl"
@@ -319,7 +296,7 @@
                 <div class="form-group col-xs-12">
                   <label for="activeIngredients" class="required full-width">
                     <span class="field-name">{{'active.ingredient'|translate}}</span>
-                    <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                    <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                     <control-messages *ngIf="appInfoFormLocalModel.controls['activeIngredients'].invalid"
                                       [showError]="showFieldErrors"
                                       [control]="appInfoFormLocalModel.controls['activeIngredients'] | formControl"
@@ -335,8 +312,8 @@
               <div class="row">
                 <div class="form-group col-xs-12" >
                   <label for="manufacturer" class="required full-width">
-                    <span class="field-name" i18n>{{'manufacturer'|translate}}</span>
-                    <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                    <span class="field-name">{{'manufacturer'|translate}}</span>
+                    <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                     <control-messages *ngIf="appInfoFormLocalModel.controls['manufacturer'].invalid"
                                       [showError]="showFieldErrors"
                                       [control]="appInfoFormLocalModel.controls['manufacturer'] | formControl"
@@ -352,7 +329,7 @@
                 <fieldset id="hasCompliances" class="form-group col-xs-12">
                   <legend class="legend-rep required">
                     <span class="field-name">{{'compliance' | translate}}</span>
-                    <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                    <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                     <control-messages *ngIf="appInfoFormLocalModel.controls['hasCompliance'].invalid"
                                       [showError]="showFieldErrors"
                                       [control]="appInfoFormLocalModel.controls['hasCompliance'] | formControl"
@@ -396,8 +373,8 @@
                   <div *ngIf="isOtherPharmacopeia()" class="row">
                     <div class="form-group col-xs-12" >
                       <label for="otherPharmacopeia" class="required full-width">
-                        <span class="field-name" i18n>{{'other.pharmacopeia'|translate}}</span>
-                        <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                        <span class="field-name">{{'other.pharmacopeia'|translate}}</span>
+                        <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                         <control-messages *ngIf="appInfoFormLocalModel.controls['otherPharmacopeia'].invalid"
                                           [showError]="showFieldErrors"
                                           [control]="appInfoFormLocalModel.controls['otherPharmacopeia'] | formControl"
@@ -440,7 +417,7 @@
                   </div>
                   <div  class="form-group col-xs-7" *ngIf="isIt()">
                     <label for="applicationNum" class=" full-width">
-                      <span class="field-name" i18n>{{'application.number'|translate}}</span>
+                      <span class="field-name">{{'application.number'|translate}}</span>
                       <control-messages *ngIf="appInfoFormLocalModel.controls['applicationNum'].invalid"
                                         [showError]="showFieldErrors"
                                         [control]="appInfoFormLocalModel.controls['applicationNum'] | formControl"
@@ -463,7 +440,7 @@
                   </div>
                   <div class="form-group col-xs-7" *ngIf="isSa()">
                     <label for="sapReqNum" class=" full-width">
-                      <span class="field-name" i18n>{{'sap.req.number'|translate}}</span>
+                      <span class="field-name">{{'sap.req.number'|translate}}</span>
                       <input id="sapReqNum" name="sapReqNum" class="form-control full-width"  (blur)="onblur()"
                              [formControl]="appInfoFormLocalModel.controls['sapReqNum'] | formControl" maxlength="30"/>
                     </label>
@@ -497,8 +474,8 @@
             <div *ngIf="isMandatory()" class="row">
               <div class="form-group col-xs-12">
                 <label  for="declarationConformity" class="required full-width">
-                  <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'conformity.declaration' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <sup id="ap8-rf">
                     <a class="fn-lnk" href="#ap8"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.cfmDecIndx}}</a>
                   </sup>
@@ -528,7 +505,7 @@
             <div  *ngIf="isOptional()" class="row">
               <div class="form-group col-xs-12">
                 <label for="declarationConformity" class="full-width">
-                  <span class="field-name" i18n>{{'conformity.declaration' |translate}}</span>
+                  <span class="field-name">{{'conformity.declaration' |translate}}</span>
                   <sup id="ap8-rf">
                     <a class="fn-lnk" href="#ap8"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.cfmDecIndx}}</a>
                   </sup>
@@ -562,8 +539,8 @@
             <div class="row">
               <div class="form-group col-xs-12" >
                 <label for="hasRecombinant" class="required full-width">
-                  <span class="field-name" i18n>{{'consist.recombinant' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'consist.recombinant' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['hasRecombinant'].invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls['hasRecombinant'] | formControl"
@@ -582,8 +559,8 @@
             <div class="row">
             <div class="form-group col-xs-12" >
                 <label for="isAnimalHumanSourced" class="required full-width">
-                  <span class="field-name" i18n>{{'contain.material' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'contain.material' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['isAnimalHumanSourced'].invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls['isAnimalHumanSourced'] | formControl"
@@ -601,8 +578,8 @@
             <div *ngIf="isAnimalHumanSourced()" class="row">
               <div class="form-group col-xs-12" >
                 <label for="isListedIddTable" class="required full-width">
-                  <span class="field-name" i18n>{{'is.same.material' |translate}}</span>
-                  <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                  <span class="field-name">{{'is.same.material' |translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['isListedIddTable'].invalid"
                                     [showError]="showFieldErrors"
                                     [control]="appInfoFormLocalModel.controls['isListedIddTable'] | formControl"

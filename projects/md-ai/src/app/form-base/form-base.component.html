@@ -37,17 +37,18 @@
                 </h2>
               </header>
               <div class="panel-body">
-                <!-- [detailsChanged]="updateChild" -->
-                
+                <!-- [detailsChanged]="updateChild"
+                          -->
                 <app-info-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
                                   [appInfoModel]="appInfoModel"
-                                  [deviceModel]="deviceModel" [materialModel]="materialModel"
-                                  [helpTextSequences]="helpIndex"
+                                  [deviceModel]="deviceModel" 
+                                  [materialModel]="materialModel"                                  [helpTextSequences]="helpIndex"
                                   (detailErrorList)="processDetailErrors($event)"
                                   (deviceErrorList)="processDeviceErrors($event)"
                                   (declarationConformity)="disableSaveXmlButton($event)"
                                   (materialErrorList)="processMaterialtErrors($event)">
                 </app-info-details>
+
               </div>
             </section>
           </div>

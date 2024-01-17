@@ -9,6 +9,7 @@ import { AppFormModule } from '../app.form.module';
 import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { ApplicationInfo, Enrollment, Device, BiologicalMaterial } from '../models/Enrollment';
+import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
 
 @Component({
   selector: 'app-form-base',
@@ -29,7 +30,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _deviceErrors = [];
   private _materialErrors = [];
   // TODO DIANA - List of errors for priority review??
-  // public transactionForm: FormGroup;  // todo: do we need it? could remove?
+  public transactionForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
   public rootTagText = ROOT_TAG; 
   private xslName: string;

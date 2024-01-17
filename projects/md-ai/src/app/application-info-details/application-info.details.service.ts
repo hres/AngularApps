@@ -325,36 +325,36 @@ export class ApplicationInfoDetailsService {
       appInfoModel.has_din_npn = null;
     }
     // appInfoModel.has_din_npn = formRecord.controls.hasDinNpn.value;
-    appInfoModel.din = formRecord.controls['din'].value;
-    appInfoModel.npn = formRecord.controls['npn'].value;
-    appInfoModel.drug_name = formRecord.controls['drugName'].value;
-    appInfoModel.active_ingredients = formRecord.controls['activeIngredients'].value;
-    appInfoModel.manufacturer = formRecord.controls['manufacturer'].value;
-    appInfoModel.compliance_usp = formRecord.controls['complianceUsp'].value ? YES : NO;
-    appInfoModel.compliance_gmp = formRecord.controls['complianceGmp'].value ? YES : NO;
-    appInfoModel.compliance_other = formRecord.controls['complianceOther'].value ? YES : NO;
-    appInfoModel.other_pharmacopeia = formRecord.controls['otherPharmacopeia'].value;
-    appInfoModel.provision_mdr_it = formRecord.controls['provisionMdrIT'].value ? YES : NO;
-    appInfoModel.provision_mdr_sa = formRecord.controls['provisionMdrSA'].value ? YES : NO;
-    appInfoModel.application_number = formRecord.controls['applicationNum'].value;
-    appInfoModel.sap_request_number = formRecord.controls['sapReqNum'].value;
-    appInfoModel.declaration_conformity = formRecord.controls['declarationConformity'].value;
-    appInfoModel.has_recombinant = formRecord.controls['hasRecombinant'].value;
-    appInfoModel.is_animal_human_sourced = formRecord.controls['isAnimalHumanSourced'].value;
-    appInfoModel.is_listed_idd_table = formRecord.controls['isListedIddTable'].value;
+    // appInfoModel.din = formRecord.controls['din'].value;
+    // appInfoModel.npn = formRecord.controls['npn'].value;
+    // appInfoModel.drug_name = formRecord.controls['drugName'].value;
+    // appInfoModel.active_ingredients = formRecord.controls['activeIngredients'].value;
+    // appInfoModel.manufacturer = formRecord.controls['manufacturer'].value;
+    // appInfoModel.compliance_usp = formRecord.controls['complianceUsp'].value ? YES : NO;
+    // appInfoModel.compliance_gmp = formRecord.controls['complianceGmp'].value ? YES : NO;
+    // appInfoModel.compliance_other = formRecord.controls['complianceOther'].value ? YES : NO;
+    // appInfoModel.other_pharmacopeia = formRecord.controls['otherPharmacopeia'].value;
+    // appInfoModel.provision_mdr_it = formRecord.controls['provisionMdrIT'].value ? YES : NO;
+    // appInfoModel.provision_mdr_sa = formRecord.controls['provisionMdrSA'].value ? YES : NO;
+    // appInfoModel.application_number = formRecord.controls['applicationNum'].value;
+    // appInfoModel.sap_request_number = formRecord.controls['sapReqNum'].value;
+    // appInfoModel.declaration_conformity = formRecord.controls['declarationConformity'].value;
+    // appInfoModel.has_recombinant = formRecord.controls['hasRecombinant'].value;
+    // appInfoModel.is_animal_human_sourced = formRecord.controls['isAnimalHumanSourced'].value;
+    // appInfoModel.is_listed_idd_table = formRecord.controls['isListedIddTable'].value;
   }
 
   public static mapDataModelToFormModel(appInfoModel, formRecord: FormGroup) {
-    if ( appInfoModel.company_id.length > 0 ) {
-      const comIDs = appInfoModel.company_id.slice(1);
-      // console.log("company_id" + comIDs[1]);
-      formRecord.controls['companyId'].setValue(comIDs);
-    }
+    // if ( appInfoModel.company_id.length > 0 ) {
+    //   const comIDs = appInfoModel.company_id.slice(1);
+    //   console.log("company_id" + comIDs[1]);
+    //   formRecord.controls['companyId'].setValue(comIDs);
+    // }
 
 
    // formRecord.controls.companyId.setValue(appInfoModel.company_id);
-    formRecord.controls['dossierId'].setValue(appInfoModel.dossier_id);
-    formRecord.controls['mdsapNum'].setValue(appInfoModel.mdsap_number);
+    // formRecord.controls['dossierId'].setValue(appInfoModel.dossier_id);
+    // formRecord.controls['mdsapNum'].setValue(appInfoModel.mdsap_number);
 
     if (appInfoModel.mdsap_org) {
       // const mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(ApplicationInfoDetailsService.lang);
@@ -416,11 +416,11 @@ export class ApplicationInfoDetailsService {
     // } else {
     //   formRecord.controls['deviceClass'].setValue(null);
     }
-    formRecord.controls['isIvdd'].setValue(appInfoModel.is_ivdd);
-    formRecord.controls['isHomeUse'].setValue(appInfoModel.is_home_use);
-    formRecord.controls['isCarePoint'].setValue(appInfoModel.is_care_point_use);
-    formRecord.controls['isEmitRadiation'].setValue(appInfoModel.is_emit_radiation);
-    formRecord.controls['hasDrug'].setValue(appInfoModel.has_drug);
+    // formRecord.controls['isIvdd'].setValue(appInfoModel.is_ivdd);
+    // formRecord.controls['isHomeUse'].setValue(appInfoModel.is_home_use);
+    // formRecord.controls['isCarePoint'].setValue(appInfoModel.is_care_point_use);
+    // formRecord.controls['isEmitRadiation'].setValue(appInfoModel.is_emit_radiation);
+    // formRecord.controls['hasDrug'].setValue(appInfoModel.has_drug);
 
     if (appInfoModel.has_din_npn) {
     //   const recordIndex3 = ListService.getRecord(this.drugTypeList, appInfoModel.has_din_npn._id, 'id');
@@ -433,28 +433,28 @@ export class ApplicationInfoDetailsService {
     //   formRecord.controls['hasDinNpn'].setValue(null);
     }
     // formRecord.controls.hasDinNpn.setValue(appInfoModel.has_din_npn);
-    formRecord.controls['din'].setValue(appInfoModel.din);
-    formRecord.controls['npn'].setValue(appInfoModel.npn);
-    formRecord.controls['drugName'].setValue(appInfoModel.drug_name);
-    formRecord.controls['activeIngredients'].setValue(appInfoModel.active_ingredients);
-    formRecord.controls['manufacturer'].setValue(appInfoModel.manufacturer);
-    const cusp = appInfoModel.compliance_usp === YES ? true : false;
-    formRecord.controls['complianceUsp'].setValue(cusp);
-    const cgmp = appInfoModel.compliance_gmp === YES ? true : false;
-    formRecord.controls['complianceGmp'].setValue(cgmp);
-    const cother = appInfoModel.compliance_other === YES ? true : false;
-    formRecord.controls['complianceOther'].setValue(cother);
-    formRecord.controls['otherPharmacopeia'].setValue(appInfoModel.other_pharmacopeia);
-    const mdtit = appInfoModel.provision_mdr_it === YES ? true : false;
-    formRecord.controls['provisionMdrIT'].setValue(mdtit);
-    const mdrsa = appInfoModel.provision_mdr_sa === YES ? true : false;
-    formRecord.controls['provisionMdrSA'].setValue(mdrsa);
-    formRecord.controls['applicationNum'].setValue(appInfoModel.application_number);
-    formRecord.controls['sapReqNum'].setValue(appInfoModel.sap_request_number);
-    formRecord.controls['declarationConformity'].setValue(appInfoModel.declaration_conformity);
-    formRecord.controls['hasRecombinant'].setValue(appInfoModel.has_recombinant);
-    formRecord.controls['isAnimalHumanSourced'].setValue(appInfoModel.is_animal_human_sourced);
-    formRecord.controls['isListedIddTable'].setValue(appInfoModel.is_listed_idd_table);
+    // formRecord.controls['din'].setValue(appInfoModel.din);
+    // formRecord.controls['npn'].setValue(appInfoModel.npn);
+    // formRecord.controls['drugName'].setValue(appInfoModel.drug_name);
+    // formRecord.controls['activeIngredients'].setValue(appInfoModel.active_ingredients);
+    // formRecord.controls['manufacturer'].setValue(appInfoModel.manufacturer);
+    // const cusp = appInfoModel.compliance_usp === YES ? true : false;
+    // formRecord.controls['complianceUsp'].setValue(cusp);
+    // const cgmp = appInfoModel.compliance_gmp === YES ? true : false;
+    // formRecord.controls['complianceGmp'].setValue(cgmp);
+    // const cother = appInfoModel.compliance_other === YES ? true : false;
+    // formRecord.controls['complianceOther'].setValue(cother);
+    // formRecord.controls['otherPharmacopeia'].setValue(appInfoModel.other_pharmacopeia);
+    // const mdtit = appInfoModel.provision_mdr_it === YES ? true : false;
+    // formRecord.controls['provisionMdrIT'].setValue(mdtit);
+    // const mdrsa = appInfoModel.provision_mdr_sa === YES ? true : false;
+    // formRecord.controls['provisionMdrSA'].setValue(mdrsa);
+    // formRecord.controls['applicationNum'].setValue(appInfoModel.application_number);
+    // formRecord.controls['sapReqNum'].setValue(appInfoModel.sap_request_number);
+    // formRecord.controls['declarationConformity'].setValue(appInfoModel.declaration_conformity);
+    // formRecord.controls['hasRecombinant'].setValue(appInfoModel.has_recombinant);
+    // formRecord.controls['isAnimalHumanSourced'].setValue(appInfoModel.is_animal_human_sourced);
+    // formRecord.controls['isListedIddTable'].setValue(appInfoModel.is_listed_idd_table);
   }
 
   /**

@@ -23,8 +23,8 @@ import { GlobalService } from '../global/global.service';
 export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
   public appInfoFormLocalModel: FormGroup;
-  @Input('group') public appInfoFormRecord: FormGroup;
-  @Input() detailsChanged: number;
+  //@Input('group') public appInfoFormRecord: FormGroup;
+  //@Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() countryList;
   @Input() appInfoModel;
@@ -52,17 +52,15 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   public licenceAppTypeList;
 
   public showFieldErrors = false;
-  private detailsService: ApplicationInfoDetailsService;
 
   constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
               private http: HttpClient, private translate: TranslateService,
               private cdr: ChangeDetectorRef,
-              private _appInfoDetailsService : ApplicationInfoDetailsService,
+              private _detailsService : ApplicationInfoDetailsService,
               private _globalService : GlobalService) {
     // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
-    this.licenceAppTypeList = this._globalService.$licenceAppTypeList;
     this.mdsapOrgList = [];
     this.actTypeList = [];
     this.devClassList = [];
@@ -70,13 +68,14 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // this.detailsService = new ApplicationInfoDetailsService();
     // this.deviceClassList = this.detailsService.getDeviceClassList();
     // this.yesNoList = this.detailsService.getYesNoList();
+    if (!this.appInfoFormLocalModel) {
+      this.appInfoFormLocalModel = this._detailsService.getReactiveModel(this._fb);
+    }
   }
 
   async ngOnInit() {
-    if (!this.appInfoFormLocalModel) {
-      this.appInfoFormLocalModel = this.detailsService.getReactiveModel(this._fb);
-    }
-    this.detailsChanged = 0;
+    this.licenceAppTypeList = this._globalService.$licenceAppTypeList;
+    // this.detailsChanged = 0;
     // ApplicationInfoDetailsService.setLang(this.lang);
     // this.mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(this.lang);
     // this.devClassList = ApplicationInfoDetailsService.getDeviceClassList(this.lang);
@@ -112,13 +111,13 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // since we can't detect changes on objects, using a separate flag
     if (changes['detailsChanged']) { // used as a change indicator for the model
       // console.log("the details cbange");
-      if (this.appInfoFormRecord) {
-        this.setToLocalModel();
+      // if (this.appInfoFormRecord) {
+      //   this.setToLocalModel();
 
-      } else {
-        this.appInfoFormLocalModel = this.detailsService.getReactiveModel(this._fb);
-        this.appInfoFormLocalModel.markAsPristine();
-      }
+      // } else {
+      //   this.appInfoFormLocalModel = this.detailsService.getReactiveModel(this._fb);
+      //   this.appInfoFormLocalModel.markAsPristine();
+      // }
     }
     if (changes['showErrors']) {
 
@@ -137,12 +136,12 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     }
     if (changes['appInfoFormLocalModel']) {
       console.log('**********the app info details changed');
-      this.appInfoFormRecord = this.appInfoFormLocalModel;
+      //this.appInfoFormRecord = this.appInfoFormLocalModel;
     }
     if (changes['appInfoModel']) {
       const dataModel = changes['appInfoModel'].currentValue;
       if (!this.appInfoFormLocalModel) {
-        this.appInfoFormLocalModel = this.detailsService.getReactiveModel(this._fb);
+        this.appInfoFormLocalModel = this._detailsService.getReactiveModel(this._fb);
         this.appInfoFormLocalModel.markAsPristine();
       }
       // emit declarationConformity value
@@ -161,10 +160,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
    */
 
   setToLocalModel() {
-    this.appInfoFormLocalModel = this.appInfoFormRecord;
-    if (!this.appInfoFormLocalModel.pristine) {
-      this.appInfoFormLocalModel.markAsPristine();
-    }
+    // this.appInfoFormLocalModel = this.appInfoFormRecord;
+    // if (!this.appInfoFormLocalModel.pristine) {
+    //   this.appInfoFormLocalModel.markAsPristine();
+    // }
   }
 
   onblur() {
