@@ -37,7 +37,6 @@ export class TransactionDetailsService {
       meetingId: ['', [ValidationService.numeric6Validator]],
       deviceName: ['', Validators.required],
       licenceName: ['', Validators.required],
-      requestVersion: ['', Validators.required],
       requestDate: ['', Validators.required],
       requestTo: ['', Validators.required],
       briefDesc: ['', Validators.required],

@@ -103,7 +103,6 @@
             [formControl]="transDetailsFormLocalModel.controls['descriptionType'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let desc of transDescList" [ngValue]="desc.id"> {{ desc | textTransform: lang }}</option>
-
           </select>
         </label>
       </div>
@@ -113,8 +112,8 @@
         <label for="deviceClass" class="required full-width">
           <span class="field-name" >{{ 'device.class' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <sup id="tr2a-rf">
-            <a class="fn-lnk" href="#tr2a"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr2a}}</a>
+          <sup id="tr4-rf">
+            <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>4</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls['deviceClass'].invalid"
                             [showError]="showFieldErrors"
@@ -182,22 +181,7 @@
       </div>
     </div>
 
-    <div class="row"><!--*ngIf="showDate"> -->
-      <!--
-      <div class="form-group col-xs-6" *ngIf="showVersion">
-        <label for="requestDate" class="required full-width">
-          <span class="field-name" >{{ 'request.version' |translate }}</span>
-          <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.requestVersion.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.requestVersion"
-                            controlId="requestVersion" label="request.version"
-                            parentId="transDetails"</control-messages>
-          <input id="requestVersion" name="requestVersion" type="text" class="form-control full-width" (blur)="onblur()" maxlength="10"
-                 [formControl]="transDetailsFormLocalModel.controls.requestVersion" />
-        </label>
-      </div>
-      -->
+    <div class="row" *ngIf="showDate">
       <div class="form-group col-xs-6">
         <label for="requestDate" class="required full-width">
           <span class="field-name" >{{ 'request.date' |translate }}</span>
@@ -243,7 +227,7 @@
     </div>
   -->
     <div class="row">
-      <div class="form-group col-xs-6" *ngIf="isNotInitialMmUd()">
+      <div class="form-group col-xs-6" *ngIf="showMandatoryAppNum()">
         <label for="appNum" class="required full-width">
           <span class="field-name" >{{ 'application.number' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
@@ -259,7 +243,7 @@
                  [formControl]="transDetailsFormLocalModel.controls['appNum'] | formControl" maxlength="6" />
         </label>
       </div>
-      <div class="form-group col-xs-6" *ngIf="isMmUd()">
+      <div class="form-group col-xs-6" *ngIf="showOptionalAppNum()">
         <label for="appNumOpt" class="full-width">
           <span class="field-name" >{{ 'application.number' |translate }}</span>
           <sup id="tr5-rf">
@@ -274,7 +258,7 @@
                  [formControl]="transDetailsFormLocalModel.controls['appNumOpt'] | formControl" maxlength="6" />
         </label>
       </div>
-      <div class="form-group col-xs-6" *ngIf="isMm()">
+      <div class="form-group col-xs-6" *ngIf="showMeetingId()">
         <label for="meetingId" class="full-width">
           <span class="field-name" >{{ 'meeting.id' |translate }}</span>
           <input id="meetingId" name="meetingId" class="form-control full-width" (blur)="onblur()"
@@ -322,7 +306,6 @@
            </span>
       </div>
     </div>
-    <!--
     <div class="row" *ngIf="showBriefDesc">
       <div class="form-group col-xs-12">
         <div class="form-group">
@@ -330,17 +313,16 @@
         <label for="briefDesc" class="required full-width">
           <span class="field-name" >{{ 'brief.descr' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.briefDesc.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls['briefDesc'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.briefDesc"
+                            [control]="transDetailsFormLocalModel.controls['briefDesc'] | formControl"
                             controlId="briefDesc" label="brief.descr"
                             parentId="transDetails"></control-messages>
           <textarea type="text" class="form-control full-width" id="briefDesc" name="briefDesc" (blur)="onblur()"
-                    required [formControl]="transDetailsFormLocalModel.controls.briefDesc"></textarea>
+                    required [formControl]="transDetailsFormLocalModel.controls['briefDesc'] | formControl"></textarea>
         </label>
       </div>
     </div>
-  -->
     <div class="row">
       <div class="col-xs-6">
       <label for="licenceNum" class="form-group required full-width">

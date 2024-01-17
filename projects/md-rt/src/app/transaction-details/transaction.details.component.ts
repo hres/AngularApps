@@ -21,7 +21,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   // @Input('group') public transDetailsFormRecord: FormGroup;
   // @Input() detailsChanged: number;
   @Input() showErrors: boolean;
-  // @Input() userList;
   @Input() transactionInfoModel;
   @Input() lang;
   @Input() helpIndex; 
@@ -42,7 +41,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public showBriefDesc: boolean;
   public rawActTypes;
   public rawDescTypes;
-  private showVersion: boolean;
+
   private rawDescMap;
   // public showRationalRequired: boolean;
   // public showProposeIndication: boolean;
@@ -256,28 +255,17 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   private _setDescFieldFlags(descValue) {
-    // this.showBriefDesc = (descValue === this.rawDescTypes[this.rawDescMap.indexOf('i25')].id) ? true : false;
-    // this.showDate =  (descValue === this.rawDescTypes[this.rawDescMap.indexOf('i0')].id ||  descValue === this.rawDescTypes[this.rawDescMap.indexOf('i2')].id
-    //   || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i3')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i4')].id
-    //   || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i6')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i9')].id
-    //   || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i11')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i14')].id
-    //   || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i15')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i16')].id
-    //   || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i17')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i18')].id
-    //   || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i19')].id || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i20')].id
-    //   || descValue === this.rawDescTypes[this.rawDescMap.indexOf('i21')].id) ? true : false;
-    // this.showVersion = (descValue === this.rawDescTypes[2].id || descValue === this.rawDescTypes[21].id) ? true : false;
-    // this.showRationalRequired = (
-    //   (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls['descriptionType'].value) &&
-    //   (this.rawActTypes[0].id === this.transDetailsFormLocalModel.controls['activityType'].value
-    //     || (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls['activityType'].value && (
-    //         this.transDetailsFormLocalModel.controls.classChange.value ||
-    //         this.transDetailsFormLocalModel.controls.licenceChange.value ||
-    //         this.transDetailsFormLocalModel.controls.deviceChange.value ||
-    //         this.transDetailsFormLocalModel.controls.addChange.value
-    //       ))
-    //     )) ? true : false;
+    const selectedTxDescription = this.txDescriptionFormControl?.value;
+
+    this.showBriefDesc = (selectedTxDescription === TransactionDesc.UD) ? true : false;
+
+    const txDescRequireDate = [TransactionDesc.IRSR, TransactionDesc.MM, TransactionDesc.PSI, TransactionDesc.RAIL, TransactionDesc.RER, 
+      TransactionDesc.RS25L, TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.RS];
+    this.showDate = txDescRequireDate.includes(selectedTxDescription) ? true : false;
+    
     // this.showPeriod = descValue === this.rawDescTypes[this.rawDescMap.indexOf('i3')].id ? true : false;
   }
+
   private _resetOtherValues() {
     this.transDetailsFormLocalModel.controls['licenceNum'].setValue(null);
     this.transDetailsFormLocalModel.controls['licenceNum'].markAsUntouched();
@@ -440,37 +428,26 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     return false;
   }
 
-  isNotInitialMmUd() {
-    // if (this.isNotInitial() && (
-    //   this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i1')].id ||
-    //       this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i7')].id ||
-    //   this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i14')].id ||
-    //   this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i15')].id ||
-    //   this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i20')].id ||
-    //   this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i26')].id
-    //   )) {
-    //   return true;
-    // } else {
-    //   this.transDetailsFormLocalModel.controls['appNum'].setValue(null);
-    //   this.transDetailsFormLocalModel.controls['appNum'].markAsUntouched();
-    // }
-    // return false;
-    return true;
+  showMandatoryAppNum() {
+    const txDescRequireMandatoryAppNum = [TransactionDesc.ACD, TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.RS, TransactionDesc.WR];
+    const selectedTxDescription = this.txDescriptionFormControl?.value;
+    if (txDescRequireMandatoryAppNum.includes(selectedTxDescription)) {
+      return true;
+    } else {
+      this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['appNum']);
+    }
+    return false;
   }
 
-  isMmUd() {
-    // if (this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i8')].id ||
-    //   this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i9')].id ||
-    //   this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i10')].id ||
-    //   this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i18')].id ||
-    //   this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i19')].id ) {
-    //   return true;
-    // } else {
-    //   this.transDetailsFormLocalModel.controls['appNum']Opt.setValue(null);
-    //   this.transDetailsFormLocalModel.controls['appNum']Opt.markAsUntouched();
-    // }
-    // return false;
-    return true;
+  showOptionalAppNum() {
+    const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.MM, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.RS39L];
+    const selectedTxDescription = this.txDescriptionFormControl?.value;
+    if (txDescRequireOptionalAppNum.includes(selectedTxDescription)) {
+      return true;
+    } else {
+      this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['appNumOpt']);
+    }
+    return false;
   }
 
   isHasDdtMandatory() {
@@ -486,30 +463,21 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isLicenceNameChanged() {
-    // if (this.transDetailsFormLocalModel.controls.licenceChange.value) {
-    //   return true;
-    // } else {
-    //   this.transDetailsFormLocalModel.controls.licenceName.setValue(null);
-    //   this.transDetailsFormLocalModel.controls.licenceName.markAsUntouched();
-    // }
-    // return false;
-    return true;
+    return this.selectedAmendReasonCodes.includes(AmendReason.licence_change) ? true : false;
   }
 
   isDeviceNameChanged() {
-    // return (this.transDetailsFormLocalModel.controls.deviceChange.value);
-    return true;
+    return this.selectedAmendReasonCodes.includes(AmendReason.device_change) ? true : false;
   }
 
-  isMm() {
-    // if (this.transDetailsFormLocalModel.controls['descriptionType'].value === this.rawDescTypes[this.rawDescMap.indexOf('i9')].id) {
-    //   return true;
-    // } else {
-    //   this.transDetailsFormLocalModel.controls.meetingId.setValue(null);
-    //   this.transDetailsFormLocalModel.controls.meetingId.markAsUntouched();
-    // }
-    // return false;
-    return true;
+  showMeetingId() {
+    const selectedTxDescription = this.txDescriptionFormControl.value;
+    if (selectedTxDescription === TransactionDesc.MM) {
+      return true;
+    } else {
+      this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['meetingId']);
+    }
+    return false;
   }
 
   // show Original Manufacturer's Company Identifier
@@ -536,7 +504,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   get txDescriptionFormControl() {
     return this.transDetailsFormLocalModel.get('descriptionType') as FormControl
   }
-
 
   get deviceClassFormControl() {
     return this.transDetailsFormLocalModel.get('deviceClass') as FormControl
