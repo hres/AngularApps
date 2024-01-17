@@ -43,13 +43,13 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
   public mdsapOrgList;
-  // public actLeadList;
   public actTypeList;
   public devClassList;
   public drugTypeList = [];
   public deviceClassList: Array<any> = [];
   public yesNoList: Array<any> = [];
-  public licenceAppTypeList: Array<any> = [];
+
+  public licenceAppTypeList;
 
   public showFieldErrors = false;
   private detailsService: ApplicationInfoDetailsService;
@@ -57,12 +57,13 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
               private http: HttpClient, private translate: TranslateService,
               private cdr: ChangeDetectorRef,
-              private _appInfoDetailsService : ApplicationInfoDetailsService) {
+              private _appInfoDetailsService : ApplicationInfoDetailsService,
+              private _globalService : GlobalService) {
     // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
+    this.licenceAppTypeList = this._globalService.$licenceAppTypeList;
     this.mdsapOrgList = [];
-    // this.actLeadList = [];
     this.actTypeList = [];
     this.devClassList = [];
     this.drugTypeList = [];
@@ -78,7 +79,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this.detailsChanged = 0;
     // ApplicationInfoDetailsService.setLang(this.lang);
     // this.mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(this.lang);
-    // // this.actLeadList = ApplicationInfoDetailsService.getActivityLeadList(this.lang);
     // this.devClassList = ApplicationInfoDetailsService.getDeviceClassList(this.lang);
     // this.drugTypeList = ApplicationInfoDetailsService.getDrugTypes(this.lang);
     // this.licenceAppTypeList = ApplicationInfoDetailsService.getLicenceAppTypeList(this.lang); // todo: test which lang is working

@@ -33,19 +33,21 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public errorList = [];
   public rootTagText = ROOT_TAG; 
   private xslName: string;
-  
+
+  public countryList = [];
+
   public userList = [];
   public showErrors: boolean;
   public isSolicitedFlag: boolean;
   public title = '';
   public headingLevel = 'h2';
+  
 
   public enrollModel : Enrollment;
   public appInfoModel : ApplicationInfo; 
   public transactionModel: Enrollment;
   public deviceModel: Device[];
   public materialModel: BiologicalMaterial[];
-  // public priorityReviewModel: PriorityReview; DIANA TODO: NEEDED??
 
   public fileServices: FileConversionService;
   public helpIndex: { [key: string]: number };
@@ -114,10 +116,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // disableSaveXmlButton(declarationConformity) {
+  disableSaveXmlButton(declarationConformity) {
   //   console.log('declarationConformity' + declarationConformity);
   //   this.disableSaveXml = !(declarationConformity === YES);
-  // }
+  }
 
   public saveXmlFile() {
     // this._updatedAutoFields();
@@ -200,10 +202,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _updatedAutoFields() {
-    this._updatedSavedDate();
-    const version: Array<any> = this.appInfoModel.enrol_version.split('.');
-    version[0] = (Number(version[0]) + 1).toString();
-    this.appInfoModel.enrol_version = version[0] + '.' + version[1];
+    // this._updatedSavedDate();
+    // const version: Array<any> = this.appInfoModel.enrol_version.split('.');
+    // version[0] = (Number(version[0]) + 1).toString();
+    // this.appInfoModel.enrol_version = version[0] + '.' + version[1];
   }
 
   public preload() {

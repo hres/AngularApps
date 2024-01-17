@@ -65,7 +65,7 @@
             <select id="licenceAppType" name="licenceAppType" required class="form-control "
                     (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['licenceAppType'] | formControl">
               <option label=" " value=""></option>
-              <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat.text}}</option>
+              <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat | textTransform : lang}}</option>
             </select>
           </label>
         </div>
@@ -87,7 +87,7 @@
             <select id="mdsapOrg" name="mdsapOrg" required class="form-control " (blur)="onblur()"
                     [formControl]="appInfoFormLocalModel.controls['mdsapOrg'] | formControl">
               <option label=" " value=""></option>
-              <option *ngFor="let mdsapOrg of mdsapOrgList" [ngValue]="mdsapOrg.id"> {{mdsapOrg.text}}</option>
+              <option *ngFor="let mdsapOrg of mdsapOrgList" [ngValue]="mdsapOrg.id"> {{ mdsapOrg | textTransform : lang}}</option>
             </select>
           </label>
         </div>
@@ -95,6 +95,7 @@
   
       <div class="row">
         <div class="form-group col-xs-6 minWidth300">
+          <!--
           <label for="activityLead" class="required full-width">
             <span class="field-name" i18n>{{'activity.lead' |translate}}</span>
             <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -107,9 +108,10 @@
             <select id="activityLead" name="activityLead" required class="form-control " (blur)="activityLeadOnblur()"
             (change)="activityLeadOnblur()" [formControl]="appInfoFormLocalModel.controls['activityLead'] | formControl">
               <option label=" " value=""></option>
-              <!-- <option *ngFor="let lead of actLeadList" [ngValue]="lead.id"> {{lead.text|translate}}</option> -->
+              <option *ngFor="let lead of actLeadList" [ngValue]="lead.id"> {{lead.text|translate}}</option>
             </select>
           </label>
+        -->
         </div>
         <div class="form-group col-xs-6 minWidth300">
           <label for="activityType" class="required  ">
@@ -125,7 +127,7 @@
                     (change)="onblur()" required class="form-control full-width"
                     [formControl]="appInfoFormLocalModel.controls['activityType'] | formControl">
               <option label=" " value=""></option>
-              <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{type.text|translate}}</option>
+              <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{type | textTransform : lang}}</option>
             </select>
           </label>
         </div>
@@ -150,7 +152,7 @@
                   (change)="deviceClassOnblur()"
                   [formControl]="appInfoFormLocalModel.controls['deviceClass'] | formControl">
             <option label=" " value=""></option>
-            <option *ngFor="let class of devClassList" [ngValue]="class.id"> {{class.text}}</option>
+            <option *ngFor="let class of devClassList" [ngValue]="class.id"> {{ class | textTransform : lang}}</option>
           </select>
         </label>
       </div>
@@ -175,7 +177,7 @@
                  <select id="isIvdd" name="isIvdd" required class="form-control"
                          (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['isIvdd'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>
@@ -193,7 +195,7 @@
                   <select id="isHomeUse" name="isHomeUse" required class="form-control"
                           (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['isHomeUse'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>
@@ -209,7 +211,7 @@
                   <select id="isCarePoint" name="isCarePoint" required class="form-control"
                           (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['isCarePoint'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>
@@ -228,7 +230,7 @@
                   <select id="isEmitRadiation" name="isEmitRadiation" required class="form-control"
                           (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['isEmitRadiation'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>
@@ -246,7 +248,7 @@
                   <select id="hasDrug" name="hasDrug" required class="form-control"
                           (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['hasDrug'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>
@@ -256,7 +258,7 @@
                   <select id="hasDinNpn" name="hasDinNpn" class="form-control"
                           (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['hasDinNpn'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let drugType of drugTypeList" [ngValue]="drugType.id"> {{drugType.text}}</option>
+                    <option *ngFor="let drugType of drugTypeList" [ngValue]="drugType.id"> {{drugType | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>
@@ -509,7 +511,7 @@
                   <select id="declarationConformity" name="declarationConformity" required class="form-control"
                           (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['declarationConformity'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>
@@ -539,7 +541,7 @@
                   <select id="declarationConformity" name="declarationConformity" class="form-control"
                           (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['declarationConformity'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>
@@ -571,7 +573,7 @@
                   <select id="hasRecombinant" name="hasRecombinant" required class="form-control"
                           (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['hasRecombinant'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>
@@ -591,7 +593,7 @@
                           (blur)="isAnimalHumanSourcedOnblur()" (change)="isAnimalHumanSourcedOnblur()"
                           [formControl]="appInfoFormLocalModel.controls['isAnimalHumanSourced'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>
@@ -609,7 +611,7 @@
                   <select id="isListedIddTable" name="isListedIddTable" required class="form-control"
                           (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['isListedIddTable'] | formControl">
                     <option label=" " value=""></option>
-                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | translate}}</option>
+                    <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
                 </label>
               </div>

@@ -29,7 +29,6 @@ export class ApplicationInfoDetailsService {
       mdsapNum: [null, Validators.required],
       mdsapOrg: [null, Validators.required],
       licenceAppType: [null, Validators.required],
-      activityLead: [null, Validators.required],
       activityType: [null, Validators.required],
       deviceClass: [null, Validators.required],
       isIvdd: [null, Validators.required],
@@ -75,7 +74,6 @@ export class ApplicationInfoDetailsService {
   //       mdsap_number: '',
   //       mdsap_org: '',
   //       licence_application_type: '',
-  //       regulatory_activity_lead: '',
   //       regulatory_activity_type: '',
   //       device_class: '',
   //       is_ivdd: '',
@@ -212,7 +210,6 @@ export class ApplicationInfoDetailsService {
   // }
 
   public static mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
-    // const activityLeadList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
     // const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
     // const deviceClassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
 
@@ -266,7 +263,7 @@ export class ApplicationInfoDetailsService {
       appInfoModel.licence_application_type = null;
     }
 
-    if (formRecord.controls['activityLead'].value) {
+    // if (formRecord.controls['activityLead'].value) {
       // const recordIndex1 = ListService.getRecord(activityLeadList, formRecord.controls.activityLead.value, 'id');
       // if (recordIndex1 > -1) {
       //   appInfoModel.regulatory_activity_lead = {
@@ -276,9 +273,9 @@ export class ApplicationInfoDetailsService {
       //     '_label_fr': activityLeadList[recordIndex1].fr
       //   };
       // }
-    } else {
-      appInfoModel.regulatory_activity_lead = null;
-    }
+    // } else {
+    // appInfoModel.regulatory_activity_lead = null;
+    // }
 
     if (formRecord.controls['activityType'].value) {
       // const recordIndex2 = ListService.getRecord(activityTypeList, formRecord.controls.activityType.value, 'id');
@@ -384,7 +381,7 @@ export class ApplicationInfoDetailsService {
     //   formRecord.controls['licenceAppType'].setValue(null);
     }
 
-    if (appInfoModel.regulatory_activity_lead) {
+    // if (appInfoModel.regulatory_activity_lead) {
     //   const activityLeadList = ApplicationInfoDetailsService.getActivityLeadList(ApplicationInfoDetailsService.lang);
     //   const recordIndex2 = ListService.getRecord(activityLeadList, appInfoModel.regulatory_activity_lead._id, 'id');
     //   if (recordIndex2 > -1) {
@@ -394,7 +391,7 @@ export class ApplicationInfoDetailsService {
     //   }
     // } else {
     //   formRecord.controls['activityLead'].setValue(null);
-    }
+    // }
 
     if (appInfoModel.regulatory_activity_type) {
     //   const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);

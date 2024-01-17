@@ -30,7 +30,6 @@ export class ApplicationInfoBaseService {
       // mdsapNum: [null, Validators.required],
       // mdsapOrg: [null, Validators.required],
       // licenceAppType: [null, Validators.required],
-      // activityLead: [null, Validators.required],
       // activityType: [null, Validators.required],
       // deviceClass: [null, Validators.required],
       // isIvdd: [null, Validators.required],
@@ -77,14 +76,12 @@ export class ApplicationInfoBaseService {
   public getEmptyApplicationInfoModel(): ApplicationInfo {
     return (
       {
-        enrol_version: '0.0',          
         last_saved_date: '',
         company_id: '',
         dossier_id: '',
         mdsap_number: '',
         mdsap_org: this._entityBaseService.getEmptyIdTextLabel(),
         licence_application_type: this._entityBaseService.getEmptyIdTextLabel(),
-        regulatory_activity_lead: this._entityBaseService.getEmptyIdTextLabel(),
         regulatory_activity_type: this._entityBaseService.getEmptyIdTextLabel(),
         device_class: this._entityBaseService.getEmptyIdTextLabel(),
         is_ivdd: '',
