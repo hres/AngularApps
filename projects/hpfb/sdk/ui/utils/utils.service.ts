@@ -1,5 +1,5 @@
 import { Injectable, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { CANADA, USA, FRENCH, NO, YES } from '../common.constants';
 import { DatePipe } from '@angular/common';
 import { ICode, ICodeDefinition, IParentChildren } from '../data-loader/data';
@@ -145,12 +145,21 @@ export class UtilsService {
     return param.join(' ');
   }
 
-  // reset form control's value
-  resetControlValue(...controls: AbstractControl<any, any>[]): void{
-    controls.forEach(c=> {
-      c.setValue(null);
-      c.markAsUntouched();
-    })
+  // reset form controls' values
+  resetControlsValues(...controls: AbstractControl<any, any>[]): void {
+    controls.forEach(c => {
+      if (c instanceof FormArray) {
+        // console.log("....FormArray")
+        // If it's a FormArray, clear all existing form controls within it
+        c.clear();
+        c.markAsUntouched();
+      } else if (c instanceof AbstractControl && 'setValue' in c) {
+        // console.log("....FormControl")
+        // If it's a FormControl, reset its value
+        c.setValue(null);
+        c.markAsUntouched();
+      }
+    });
   }
 
   getCodeDefinitionByLang(codeDefinition: ICodeDefinition, lang:string): string{

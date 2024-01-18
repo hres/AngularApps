@@ -23,7 +23,7 @@ export interface ApplicationInfo {
   regulatory_activity_lead: IIdTextLabel;
   regulatory_activity_type: IIdTextLabel;
   description_type:         IIdTextLabel;
-  device_class:             string;
+  device_class:             IIdTextLabel;
   amend_reasons:            AmendReasons;
   licence_number:           string;
   application_number:       string;
