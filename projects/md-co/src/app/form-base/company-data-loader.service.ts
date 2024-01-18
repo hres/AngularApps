@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, map, shareReplay, tap} from 'rxjs';
 import { DATA_PATH } from '../app.constants';
-import { DataLoaderService } from '@hpfb/sdk/ui';
+import { DataLoaderService, UtilsService } from '@hpfb/sdk/ui';
 import { ICode, ICodeDefinition, IKeyword } from '@hpfb/sdk/ui/data-loader/data';
 
 @Injectable()
@@ -27,7 +27,7 @@ export class CompanyDataLoaderService {
   cachedContactStatuses$:Observable<ICode[]>;
   cachedEnrollmentStatuses$:Observable<ICode[]>;
 
-  constructor(private _dataService: DataLoaderService) {}
+  constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
     /* this.getJSON().subscribe(data => {
        console.log(data);
        this._rawCountryList=data;
@@ -43,10 +43,11 @@ export class CompanyDataLoaderService {
     return this.cachedKeywords$;
   }
 
-  getCountryList(): Observable<ICode[]> {
+  getCountryList(lang: string): Observable<ICode[]> {
     if (!this.cachedCountries$) {
       this.cachedCountries$ = this._dataService.getData<ICode>(this.countryJsonPath)
         .pipe(
+          map(data => this._utilsService.sortCodeList(data, lang)),
           // tap(()=>console.log('getCountryList() is called')),
           shareReplay(1)
         );
@@ -54,10 +55,11 @@ export class CompanyDataLoaderService {
     return this.cachedCountries$;
   }
 
-  getProvinceList(): Observable<ICode[]> {
+  getProvinceList(lang: string): Observable<ICode[]> {
     if (!this.cachedProvinces$) {
       this.cachedProvinces$ = this._dataService.getData<ICode>(this.provinceJsonPath)
         .pipe(
+          map(data => this._utilsService.sortCodeList(data, lang)),
           // tap(()=>console.log('getProvinceList() is called')),
           shareReplay(1)
         );
@@ -65,10 +67,11 @@ export class CompanyDataLoaderService {
     return this.cachedProvinces$;
   }
 
-  getStateList(): Observable<ICode[]> {
+  getStateList(lang: string): Observable<ICode[]> {
     if (!this.cachedStates$) {
       this.cachedStates$ = this._dataService.getData<ICode>(this.stateJsonPath)
         .pipe(
+          map(data => this._utilsService.sortCodeList(data, lang)),
           // tap(()=>console.log('getStateList() is called')),
           shareReplay(1)
         );
