@@ -38,6 +38,8 @@ export * from './validation/validation.service';
 
 export * from './check-sum/check-sum.service'
 
+export * from './directives/number.only.directive';
+
 export * from './pipes/form/form-control.pipe';
 export * from './pipes/json/json-keys.pipe';
 export * from './pipes/text/aria-transform.pipe';

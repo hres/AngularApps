@@ -5,7 +5,8 @@ import {
   ExpanderModule,
   AddressModule,
   ContactModule,
-  CommonUiFeatureModule
+  CommonUiFeatureModule,
+  NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
 import { CommonModule } from '@angular/common';
 import { CompanyInfoComponent } from './company-info/company.info.component';
@@ -26,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PrimaryContactComponent,
     CompanyAdminChangesComponent,
     MailtoHelpComponent,
+    NumbersOnlyDirective
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     CompanyInfoComponent,
     PrimaryContactComponent,
     CompanyAdminChangesComponent,
-    MailtoHelpComponent],
+    MailtoHelpComponent, NumbersOnlyDirective],
 })
 export class AppFormModule {}

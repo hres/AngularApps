@@ -25,7 +25,7 @@
                             controlId="companyId" label="company.id" parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
           <input name="companyId" id="companyId" class="form-control" [formControl]="generalInfoFormLocalModel.controls['companyId'] | formControl"
-                 [readonly]="!isInternal" maxlength="6" (blur)="onblur()" />
+                 [readonly]="!isInternal" maxlength="6" data-only-digits (blur)="onblur()" />
         </label>
       </div>
     </div>
