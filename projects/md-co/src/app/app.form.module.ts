@@ -26,8 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CompanyInfoComponent,
     PrimaryContactComponent,
     CompanyAdminChangesComponent,
-    MailtoHelpComponent,
-    NumbersOnlyDirective
+    MailtoHelpComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +37,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ExpanderModule,
     ReactiveFormsModule,
     TranslateModule,
+    NumbersOnlyDirective
   ],
   providers: [
     CompanyDataLoaderService,
@@ -51,6 +51,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     CompanyInfoComponent,
     PrimaryContactComponent,
     CompanyAdminChangesComponent,
-    MailtoHelpComponent, NumbersOnlyDirective],
+    MailtoHelpComponent],
 })
 export class AppFormModule {}

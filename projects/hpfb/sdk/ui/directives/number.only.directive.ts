@@ -2,6 +2,7 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
+  standalone:true,
   selector: '[data-only-digits]'
 })
 export class NumbersOnlyDirective {

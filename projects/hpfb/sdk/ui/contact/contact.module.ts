@@ -24,18 +24,17 @@ import { NumbersOnlyDirective } from '../directives/number.only.directive';
     ErrorModule,
     PipesModule,
     ExpanderModule,
+    NumbersOnlyDirective
   ],
   declarations: [
     CompanyContactRecordComponent,
     ContactDetailsComponent,
     ContactListComponent,
-    NumbersOnlyDirective
   ],
   exports: [
     CompanyContactRecordComponent,
     ContactDetailsComponent,
-    ContactListComponent,
-    NumbersOnlyDirective
+    ContactListComponent
   ],
   providers: [
     ContactListService,
