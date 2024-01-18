@@ -63,9 +63,11 @@ export abstract class RecordListBaseService {
   }
 
   public updateFormRecordListSeqNumber(formRecordList: FormArray){
+    let seq = 0;
     formRecordList.controls.forEach( (element: FormGroup) => {
       // console.log(element);
-      element.controls['seqNumber'].setValue(Number(element.controls['id'].value) + 1)
+      element.controls['seqNumber'].setValue(seq + 1);
+      seq ++;
     });  
   }
 

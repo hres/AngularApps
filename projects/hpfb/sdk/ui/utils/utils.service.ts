@@ -316,5 +316,8 @@ export class UtilsService {
     }
   }
 
-
+  //sort a list of ICode objects either by en or fr value based on the language
+  sortCodeList(codeArray:ICode[], lang:string): ICode[]{
+    return codeArray.sort((a, b) => this.isFrench(lang) ? a.fr.localeCompare(b.fr) : a.en.localeCompare(b.en));
+  }
 }

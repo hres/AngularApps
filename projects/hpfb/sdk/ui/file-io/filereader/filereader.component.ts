@@ -101,7 +101,7 @@ export class FilereaderComponent implements OnInit {
       if (convertResult.messages.length === 0) {
         FilereaderComponent.checkRootTagMatch(convertResult, rootId);
       }
-      if(fileType.toLowerCase() === FINAL_FILE_TYPE){
+      if(fileType.toLowerCase() === FINAL_FILE_TYPE && convertResult.messages.length === 0){
         this.checkSumCheck(convertResult, rootId);
       }
     } else {
@@ -126,7 +126,7 @@ export class FilereaderComponent implements OnInit {
   private static checkSumCheck(convertResult:ConvertResults, rootName:string) {  
     const checkSum: CheckSumService = new CheckSumService();
 
-    if ((convertResult.data[rootName][CHECK_SUM_CONST] === null)) return;
+    if (!convertResult.data[rootName][CHECK_SUM_CONST]) {return;}
 
     if(!checkSum.checkHash(convertResult.data)){
       convertResult.data = null;
