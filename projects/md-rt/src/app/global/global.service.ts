@@ -21,6 +21,7 @@ export class GlobalService {
   private amendReasonList: ICode[];
   private amendReasonRelationship: any[];
   private transactionDescriptionList: ICode[];
+  private yesnoList: ICode[];
 
   /**
    * Getter $devEnv
@@ -125,4 +126,13 @@ export class GlobalService {
   public set $transactionDescriptionList(value: ICode[]) {
     this.transactionDescriptionList = value;
   }
+
+	public get $yesnoList(): ICode[] {
+		return this.yesnoList;
+	}
+
+	public set $yesnoList(value: ICode[]) {
+		this.yesnoList = value;
+	}
+
 }

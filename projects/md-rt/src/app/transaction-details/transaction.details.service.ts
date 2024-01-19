@@ -41,7 +41,6 @@ export class TransactionDetailsService {
       requestTo: ['', Validators.required],
       briefDesc: ['', Validators.required],
       transDescription: [null, []],
-      hasDdt: [false, []],
       hasDdtMan: ['', Validators.required],
       hasAppInfo: [false, []]
     });
@@ -61,8 +60,8 @@ export class TransactionDetailsService {
     if (formRecord.controls['reguCompanyId'].value) {
        transactionInfoModel.regulatory_company_id = COMPANY_ID_PREFIX + formRecord.controls['reguCompanyId'].value;
     }
-      //   transactionInfoModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
-  //   transactionInfoModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
+    transactionInfoModel.manufacturing_contact_id = formRecord.controls['manuContactId'].value;
+    transactionInfoModel.regulatory_contact_id = formRecord.controls['reguContactId'].value;
 
     if (formRecord.controls['activityType'].value) {
       transactionInfoModel.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(activityTypeList, formRecord.controls['activityType'].value, lang);
@@ -114,12 +113,12 @@ export class TransactionDetailsService {
   //   // if (formRecord.controls.deviceChange.value ||
   //   //     (formRecord.controls.activityType.value === activityTypeList[1].id &&
   //   //           formRecord.controls['descriptionType'].value === descArray[9].id)) {
-  //     transactionInfoModel.has_ddt = formRecord.controls.hasDdtMan.value;
+  //     transactionInfoModel.has_ddt = formRecord.controls['hasDdtMan'].value;
   //   // } else {
-  //   //   transactionInfoModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
+  //   //   transactionInfoModel.has_ddt = formRecord.controls['hasDdt'].value ? GlobalsService.YES : GlobalsService.NO;
   //   // }
-  //   transactionInfoModel.has_app_info = formRecord.controls.hasAppInfo.value ? GlobalsService.YES : GlobalsService.NO;
-    
+
+    transactionInfoModel.has_app_info = formRecord.controls['hasAppInfo'].value   
     transactionInfoModel.org_manufacture_id = formRecord.controls['orgManufactureId'].value;
     transactionInfoModel.org_manufacture_lic = formRecord.controls['orgManufactureLic'].value;
   }
@@ -130,11 +129,11 @@ export class TransactionDetailsService {
 //     if (transactionInfoModel.company_id) {
       formRecord.controls['manuCompanyId'].setValue(transactionInfoModel.company_id.slice(1));
 //     }
-//     formRecord.controls.manuContactId.setValue(transactionInfoModel.manufacturing_contact_id);
+//     formRecord.controls['manuContactId'].setValue(transactionInfoModel.manufacturing_contact_id);
 //     if (transactionInfoModel.regulatory_company_id) {
       formRecord.controls['reguCompanyId'].setValue(transactionInfoModel.regulatory_company_id.slice(1));
 //     }
-//     formRecord.controls.reguContactId.setValue(transactionInfoModel.regulatory_contact_id);
+//     formRecord.controls['reguContactId'].setValue(transactionInfoModel.regulatory_contact_id);
 
 //     /**
 //      formRecord.controls.activityLead.setValue(transactionInfoModel.activity_lead);
@@ -239,12 +238,12 @@ export class TransactionDetailsService {
 //     // if (formRecord.controls.deviceChange.value ||
 //     //   (transactionInfoModel.regulatory_activity_type._id === activityTypes[1].id &&
 //     //         transactionInfoModel.description_type._id === descriptions[9].id)) {
-//       formRecord.controls.hasDdtMan.setValue(transactionInfoModel.has_ddt);
+//       formRecord.controls['hasDdtMan'].setValue(transactionInfoModel.has_ddt);
 //     // } else {
-//     //   formRecord.controls.hasDdt.setValue(hasddt);
+//     //   formRecord.controls['hasDdt'].setValue(hasddt);
 //     // }
 //     const hasapp = transactionInfoModel.has_app_info === GlobalsService.YES ? true : false;
-//     formRecord.controls.hasAppInfo.setValue(hasapp);
+//     formRecord.controls['hasAppInfo'].setValue(hasapp);
 
 //     formRecord.controls.rationale.setValue(transactionInfoModel.rationale);
 //     formRecord.controls.proposedIndication.setValue(transactionInfoModel.proposed_indication);

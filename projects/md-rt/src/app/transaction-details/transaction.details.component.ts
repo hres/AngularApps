@@ -30,9 +30,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
-  public actTypeList;
-  public transDescList;
-  public yesNoList: Array<any> = [];
+  public actTypeList: ICode[] = [];
+  public transDescList: ICode[] = [];
+  public yesNoList: ICode[] = [];
   public deviceClassList: ICode[] = [];
 
   public reasonResults: Array<boolean> = [];
@@ -46,19 +46,12 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   public amendReasonOptionList: CheckboxOption[] = [];
 
-  private activityTypesRequiresAmendReason: string[] = [ActivityType.LicenceAmendment, ActivityType.MinorChange , ActivityType.PrivateLabelAmendment];
-
   constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
     private _utilsService: UtilsService, private _converterService: ConverterService, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     this.showErrors = false;
     this.showDate = false;
     this.showBriefDesc = false;
-
-    this.actTypeList = this._globalService.$activityTypeList;
-    this.transDescList = [];
-
-    // this.yesNoList = this.detailsService.getYesNoList();
 
     if (!this.transDetailsFormLocalModel) {
       this.transDetailsFormLocalModel = this._detailsService.getReactiveModel(this._fb);
@@ -68,7 +61,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   ngOnInit() {
     // this.detailsChanged = 0;
+    this.actTypeList = this._globalService.$activityTypeList;
     this.deviceClassList = this._globalService.$deviceClasseList;
+    this.yesNoList = this._globalService.$yesnoList;
   }
 
   ngAfterViewInit() {
@@ -386,10 +381,12 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   // Amendment Reason, show if Regulatory Activity Type is "licence amendment" or "minor change" or  "private label amendment"and Transaction Description is "initial"
   // and Device Class is not empty
   showAmendReason() {
+    const activityTypesRequiresAmendReason: string[] = [ActivityType.LicenceAmendment, ActivityType.MinorChange , ActivityType.PrivateLabelAmendment];
+
     const selectedActivityType = this.transDetailsFormLocalModel.get('activityType').value;
     const selectedDeviceClass = this.deviceClassFormControl?.value;
 
-    if (this.activityTypesRequiresAmendReason.includes(selectedActivityType) && this._isTransactionDescriptionInitial() && selectedDeviceClass) {
+    if (activityTypesRequiresAmendReason.includes(selectedActivityType) && this._isTransactionDescriptionInitial() && selectedDeviceClass) {
       return true;
     } else {
       this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['amendReason']);
@@ -426,18 +423,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     } else {
       this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['appNumOpt']);
     }
-    return false;
-  }
-
-  isHasDdtMandatory() {
-    // if (this.isInitialAndLicence() || this.transDetailsFormLocalModel.controls.deviceChange.value) {
-    //   this.transDetailsFormLocalModel.controls.hasDdt.setValue(null);
-    //   this.transDetailsFormLocalModel.controls.hasDdt.markAsUntouched();
-    //   return true;
-    // } else {
-    //   this.transDetailsFormLocalModel.controls.hasDdtMan.setValue(null);
-    //   this.transDetailsFormLocalModel.controls.hasDdtMan.markAsUntouched();
-    // }
     return false;
   }
 
