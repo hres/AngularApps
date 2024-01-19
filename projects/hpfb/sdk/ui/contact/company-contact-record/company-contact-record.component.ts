@@ -215,11 +215,18 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * External site show delete contact button
+   * External site show save contact button
    */
   public isExternalNewContact(): boolean {
     return (!this.isInternal && this.isContactStatus(ContactStatus.New));
   }
+
+    /**
+   * Internal/External site show discard record button
+   */
+    public isNewContact(): boolean {
+      return (this.isContactStatus(ContactStatus.New));
+    }
 
   /**
    * Internal site show delete contact button

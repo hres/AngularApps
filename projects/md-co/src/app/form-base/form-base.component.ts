@@ -122,16 +122,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this.contactStatusList = data;
       });
 
-      this._formDataLoader.getCountryList().subscribe((data) => {
+      this._formDataLoader.getCountryList(this.lang).subscribe((data) => {
         // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
         this.countryList = data;
       });
 
-      this._formDataLoader.getProvinceList().subscribe((data) => {
+      this._formDataLoader.getProvinceList(this.lang).subscribe((data) => {
         this.provinceList = data;
       });
 
-      this._formDataLoader.getStateList().subscribe((data) => {
+      this._formDataLoader.getStateList(this.lang).subscribe((data) => {
         this.stateList = data;
       });
 
@@ -349,24 +349,46 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public mailto() {
     this.showMailToHelpText = true;
-    const emailSubject =
-      'Draft CO XML - ' +
-      this.addressModel.company_name +
-      ' ' +
-      (this.genInfoModel.company_id === null
-        ? ''
-        : this.genInfoModel.company_id);
 
-    let body =
-      'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
+    let emailSubject = '';
+    let body = '';
+
     if (this.mailtoQS) {
       this.submitToEmail = 'qs.mdb@hc-sc.gc.ca';
     } else {
       this.submitToEmail = 'devicelicensing-homologationinstruments@hc-sc.gc.ca';
     }
 
+    if (this.lang == 'en') {
+      emailSubject =
+        'Draft CO XML - ' +
+        ((this.addressModel.company_name === null || this.addressModel.company_name === '')
+          ? '[company name]'
+          : this.addressModel.company_name) +
+        ' ' +
+        ((this.genInfoModel.company_id === null || this.genInfoModel.company_id === '')
+          ? '[company ID, if available]'
+          : this.genInfoModel.company_id);
+      body =
+        'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
+    } 
+    if (this.lang == 'fr') {
+      emailSubject =
+        ' Ébauche du fichier CO XML -  ' +
+        ((this.addressModel.company_name === null || this.addressModel.company_name === '')
+          ? '[insérer le nom de votre entreprise]'
+          : this.addressModel.company_name) +
+        ' ' +
+        ((this.genInfoModel.company_id === null || this.genInfoModel.company_id === '')
+          ? '[insérer votre code d’entreprise, le cas échéant]'
+          : this.genInfoModel.company_id);
+      body =
+        "NOTE: Le fichier XML de l'entreprise n'est pas automatiquement joint. VEUILLEZ JOINDRE LE BROUILLON XML DE L'ENTREPRISE AVANT DE LE SOUMETTRE.";
+    }
+
     this.mailToLink =
-      'mailto:' + this.submitToEmail + '?subject=' + emailSubject + '&body=' + body;
+        'mailto:' + this.submitToEmail + '?subject=' + emailSubject + '&body=' + body;
+
   }
 
   // update active contact list for Primary Contact component

@@ -5,14 +5,14 @@ export interface Enrollment {
 }
 
 export interface DeviceTransactionEnrol {
+  software_version:         string;     // template_version??
+  check_sum?:               string;
   application_info:                   ApplicationInfo;
-  requester_of_solicited_information: RequesterOfSolicitedInformation;
+  requester_of_solicited_information: {requester: []},
   transFees:                          TransFees;
 }
 
 export interface ApplicationInfo {
-  software_version:         string;
-  enrol_version:            string;
   last_saved_date:          string;
   dossier_id:               string;
   dossier_type:             IIdTextLabel;
@@ -23,7 +23,7 @@ export interface ApplicationInfo {
   regulatory_activity_lead: IIdTextLabel;
   regulatory_activity_type: IIdTextLabel;
   description_type:         IIdTextLabel;
-  device_class:             string;
+  device_class:             IIdTextLabel;
   amend_reasons:            AmendReasons;
   licence_number:           string;
   application_number:       string;
@@ -45,26 +45,12 @@ export interface ApplicationInfo {
 }
 
 export interface AmendReasons {
-  classification_change: string;
-  licence_change:        string;
-  process_change:        string;
-  quality_change:        string;
-  design_change:         string;
-  materials_change:      string;
-  labelling_change:      string;
-  safety_change:         string;
-  purpose_change:        string;
-  add_delete_change:     string;
-  device_change:         string;
-}
-
-export interface RequesterOfSolicitedInformation {
-  requester:            Requester[];
+  amend_reason:            IIdTextLabel[];
 }
 
 export interface Requester {
   id:                   string;
-  requester:            IIdTextLabel;
+  requester:            string;
 }
 
 export interface TransFees {

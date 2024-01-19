@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InstructionService } from '@hpfb/sdk/ui';
+import { ICode, IParentChildren, InstructionService } from '@hpfb/sdk/ui';
 import { Enrollment } from '../models/Enrollment';
 
 @Injectable({
@@ -13,6 +13,14 @@ export class GlobalService {
   private helpIndex: { [key: string]: number };
   private currLanguage: string;
   private enrollment: Enrollment;
+
+  // data loaded from json files
+  private deviceClasseList: ICode[];
+  private activityTypeList: ICode[];
+  private activityTypeTxDescription: IParentChildren[];
+  private amendReasonList: ICode[];
+  private amendReasonRelationship: any[];
+  private transactionDescriptionList: ICode[];
 
   /**
    * Getter $devEnv
@@ -68,5 +76,53 @@ export class GlobalService {
 
   getEnrollment() {
     return this.enrollment;
+  }
+
+	public get $deviceClasseList(): ICode[] {
+		return this.deviceClasseList;
+	}
+
+	public set $deviceClasseList(value: ICode[]) {
+		this.deviceClasseList = value;
+	}
+
+	public get $activityTypeList(): ICode[] {
+		return this.activityTypeList;
+	}
+
+	public set $activityTypeList(value: ICode[]) {
+		this.activityTypeList = value;
+	}
+
+	public get $activityTypeTxDescription(): IParentChildren[] {
+		return this.activityTypeTxDescription;
+	}
+
+	public set $activityTypeTxDescription(value: IParentChildren[]) {
+		this.activityTypeTxDescription = value;
+	}
+
+  public get $amendReasonList(): ICode[] {
+    return this.amendReasonList;
+  }
+  
+  public set $amendReasonList(value: ICode[]) {
+    this.amendReasonList = value;
+  }
+
+  public get $amendReasonRelationship(): any[] {
+    return this.amendReasonRelationship;
+  }
+  
+  public set $amendReasonRelationship(value: any[]) {
+    this.amendReasonRelationship = value;
+  }
+
+  public get $transactionDescriptionList(): ICode[] {
+    return this.transactionDescriptionList;
+  }
+
+  public set $transactionDescriptionList(value: ICode[]) {
+    this.transactionDescriptionList = value;
   }
 }

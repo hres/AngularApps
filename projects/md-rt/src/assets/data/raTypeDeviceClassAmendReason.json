@@ -1,0 +1,111 @@
+[
+    {
+        "activityTypeId": "B02-20160301-074",
+        "amendReasons": [
+            {
+                "deviceClassId": "DC2",
+                "values": [
+                    "classification_change",
+                    "licence_change",
+                    "device_change",
+                    "purpose_change",
+                    "add_delete_change"
+                ]
+            },
+            {
+                "deviceClassId": "DC3",
+                "values": [
+                    "classification_change",
+                    "licence_change",
+                    "device_change",
+                    "purpose_change",
+                    "add_delete_change"
+                ]
+            },
+            {
+                "deviceClassId": "DC4",
+                "values": [
+                    "classification_change",
+                    "licence_change",
+                    "device_change",
+                    "purpose_change",
+                    "add_delete_change"
+                ]
+            }
+        ]
+    },
+    {
+        "activityTypeId": "B02-20160301-040",
+        "amendReasons": [
+            {
+                "deviceClassId": "DC2",
+                "values": [
+                    "classification_change",
+                    "licence_change",
+                    "device_change",
+                    "purpose_change",
+                    "add_delete_change"
+                ]
+            },
+            {
+                "deviceClassId": "DC3",
+                "values": [
+                    "classification_change",
+                    "licence_change",
+                    "device_change",
+                    "process_change",
+                    "quality_change",
+                    "design_change",
+                    "materials_change",
+                    "labelling_change",
+                    "safety_change",
+                    "add_delete_change"
+                ]
+            },
+            {
+                "deviceClassId": "DC4",
+                "values": [
+                    "classification_change",
+                    "licence_change",
+                    "device_change",
+                    "process_change",
+                    "quality_change",
+                    "design_change",
+                    "materials_change",
+                    "labelling_change",
+                    "safety_change",
+                    "add_delete_change"
+                ]
+            }
+        ]
+    },
+    {
+        "activityTypeId": "B02-20160301-033",
+        "amendReasons": [
+            {
+                "deviceClassId": "DC2",
+                "values": [
+                    "licence_change",
+                    "device_change",
+                    "add_delete_change"
+                ]
+            },
+            {
+                "deviceClassId": "DC3",
+                "values": [
+                    "licence_change",
+                    "device_change",
+                    "add_delete_change"
+                ]
+            },
+            {
+                "deviceClassId": "DC4",
+                "values": [
+                    "licence_change",
+                    "device_change",
+                    "add_delete_change"
+                ]
+            }
+        ]
+    }
+]

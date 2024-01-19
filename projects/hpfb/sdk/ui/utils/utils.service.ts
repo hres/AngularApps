@@ -1,8 +1,8 @@
 import { Injectable, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { CANADA, USA, FRENCH, NO, YES } from '../common.constants';
 import { DatePipe } from '@angular/common';
-import { ICode, ICodeDefinition } from '../data-loader/data';
+import { ICode, ICodeDefinition, IParentChildren } from '../data-loader/data';
 import { IIdTextLabel } from '../model/entity-base';
 import { LoggerService } from '../logger/logger.service';
 
@@ -65,6 +65,15 @@ export class UtilsService {
     return this.isEmpty(id)? undefined : codeArray.find(obj => obj.id === id);
   }
 
+  /*
+  * takes an array of ids, 
+  * uses the filter method to iterate through the codeArray and includes only those objects whose id is present in the idsToFilter array
+  * the filtered array is then returned
+  */
+  filterCodesByIds(codeArray: ICode[], idsToFilter: string[]): ICode[] {
+    return codeArray.filter((code) => idsToFilter.includes(code.id));
+  }
+
   /**
    * find a codeDefinition by its id in a codeDefinition array
    * @param codeDefinitionArray 
@@ -117,6 +126,42 @@ export class UtilsService {
     );
   }
 
+  // filter an IParentChildren array by parentId and return its children
+  filterParentChildrenArray(arr: IParentChildren[], pId: string) : ICodeDefinition[]{
+    const filteredArray = arr.filter(
+      (x) => x.parentId === pId
+    );
+    //    console.log(
+    //      'filterParentChildrenArray ~ filteredArray',
+    //      filteredArray
+    // );
+
+    return filteredArray[0]['children'];
+  }    
+
+  // return a concatated string, delimited by a space
+  concat(...param: string[]): string{
+    // console.log(param.join(' ')) // [1,2]
+    return param.join(' ');
+  }
+
+  // reset form controls' values
+  resetControlsValues(...controls: AbstractControl<any, any>[]): void {
+    controls.forEach(c => {
+      if (c instanceof FormArray) {
+        // console.log("....FormArray")
+        // If it's a FormArray, clear all existing form controls within it
+        c.clear();
+        c.markAsUntouched();
+      } else if (c instanceof AbstractControl && 'setValue' in c) {
+        // console.log("....FormControl")
+        // If it's a FormControl, reset its value
+        c.setValue(null);
+        c.markAsUntouched();
+      }
+    });
+  }
+
   getCodeDefinitionByLang(codeDefinition: ICodeDefinition, lang:string): string{
     if (codeDefinition) {
       if (this.isFrench(lang)) {
@@ -128,6 +173,10 @@ export class UtilsService {
       return null;
     }
   }  
+
+  // return true if the value is in the array of valid values
+  toBoolean = (value: string | number | boolean): boolean => 
+  [true, 'true', 'True', 'TRUE', '1', 1].includes(value);  
   
   isEmpty(value: any): boolean {
     return value === null || value === undefined;
@@ -258,4 +307,17 @@ export class UtilsService {
     return this.isFrench(lang) ? code.fr : code.en;
   }
 
+  createIIdTextLabelObj(id: string, label_en: string, label_fr: string, text?: string) : IIdTextLabel {
+    return {
+      _id: id,
+      __text: text,
+      _label_en: label_en,
+      _label_fr: label_fr
+    }
+  }
+
+  //sort a list of ICode objects either by en or fr value based on the language
+  sortCodeList(codeArray:ICode[], lang:string): ICode[]{
+    return codeArray.sort((a, b) => this.isFrench(lang) ? a.fr.localeCompare(b.fr) : a.en.localeCompare(b.en));
+  }
 }

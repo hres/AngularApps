@@ -51,7 +51,7 @@
           <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['country'] | formControl"
-                            controlId="country" label="addressDetails.country" parentId="addressDetails"
+                            controlId="{{addrType}}Country" label="addressDetails.country" parentId="addressDetails"
                             parentLabel="REP Address"></control-messages>
           <!-- <div class="margin-top-small">
             <ng-select id="country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required"
@@ -113,7 +113,7 @@
           <input *ngIf="!showProvText && postalCode" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
                  maxlength="6" />
           <input *ngIf="!showProvText && zipCode" name="postal" id="{{addrType}}Postal" class="form-control only-digits" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
-                 maxlength="5"/>
+                 maxlength="5" data-only-digits/>
           
         </label>
       </div>
