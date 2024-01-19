@@ -5,6 +5,7 @@ import { IIdTextLabel, UtilsService, ValidationService, YES, NO } from '@hpfb/sd
 // import {ValidationService} from '../validation.service';
 // import {ListService} from '../list-service';
 import { ApplicationInfo } from '../models/Enrollment';
+import { COMPANY_ID_PREFIX } from '../app.constants';
 
 @Injectable()
 export class ApplicationInfoDetailsService {
@@ -51,8 +52,10 @@ export class ApplicationInfoDetailsService {
       otherPharmacopeia: [null, Validators.required],
       provisionMdrIT: [false, []],
       provisionMdrSA: [false, []],
+      provisionMdrIOA: [false, []],
       applicationNum: ['', [ValidationService.appNumValidator]],
       sapReqNum: ['', []],
+      authNum: ['',[]],
       declarationConformity : [null, Validators.required],
       hasRecombinant: [null, Validators.required],
       isAnimalHumanSourced : [null, Validators.required],
@@ -209,13 +212,13 @@ export class ApplicationInfoDetailsService {
   //   return this._convertListText(rawList, lang);
   // }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
+  public mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
     // const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
     // const deviceClassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
 
     appInfoModel.company_id = formRecord.controls[''].value;
     if (formRecord.controls['companyId'].value) {
-      appInfoModel.company_id = 'K' + formRecord.controls['companyId'].value;
+      appInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.controls['companyId'].value;
     }
     appInfoModel.dossier_id = formRecord.controls['dossierId'].value;
     appInfoModel.device_class = formRecord.controls['deviceClass'].value;

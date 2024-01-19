@@ -10,6 +10,7 @@ import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {ApplicationInfoDetailsService} from './application-info.details.service';
 import { GlobalService } from '../global/global.service';
+import { DeviceClass } from '../app.constants';
 
 @Component({
   selector: 'app-info-details',
@@ -42,14 +43,15 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
-  public mdsapOrgList;
-  public actTypeList;
-  public devClassList;
-  public drugTypeList = [];
   public deviceClassList: Array<any> = [];
   public yesNoList: Array<any> = [];
 
   public licenceAppTypeList;
+  public mdsapOrgList;
+  public actTypeList;
+  public devClassList;
+  public drugTypeList;
+
 
   public showFieldErrors = false;
 
@@ -61,10 +63,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
-    this.mdsapOrgList = [];
-    this.actTypeList = [];
-    this.devClassList = [];
-    this.drugTypeList = [];
     // this.detailsService = new ApplicationInfoDetailsService();
     // this.deviceClassList = this.detailsService.getDeviceClassList();
     // this.yesNoList = this.detailsService.getYesNoList();
@@ -75,6 +73,11 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   async ngOnInit() {
     this.licenceAppTypeList = this._globalService.$licenceAppTypeList;
+    this.mdsapOrgList = this._globalService.$mdAuditProgramList;
+    this.actTypeList = this._globalService.$regActivityTypeList;
+    this.devClassList = this._globalService.$deviceClassesList;
+    this.drugTypeList = this._globalService.$rawDrugTypeList;
+
     // this.detailsChanged = 0;
     // ApplicationInfoDetailsService.setLang(this.lang);
     // this.mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(this.lang);
@@ -89,7 +92,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       this._updateErrorList(errorObjs);
     });
     this.msgList.notifyOnChanges();
-    document.location.href = '#main';
   }
 
   private _updateErrorList(errorObjs) {
@@ -166,13 +168,14 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // }
   }
 
+
   onblur() {
-    // console.log('input is typed');
-    ApplicationInfoDetailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel),
-      this.appInfoModel);
-    //  if (this.appInfoFormLocalModel.controls.declarationConformity) {
-    //    this.declarationConformity.emit(this.appInfoFormLocalModel.controls.declarationConformity.value);
-    //  }
+    this._saveData();
+  }
+
+  private _saveData(): void{
+    // save data to output model
+    this._detailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel), this.appInfoModel);
   }
 
   complianceOnblur() {
@@ -197,16 +200,16 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
   deviceClassOnblur() {
-    // if (!this.appInfoFormLocalModel.controls.deviceClass.value ||
-    //   !this.isDeviceIV()) {
-    //   this.appInfoFormLocalModel.controls.hasRecombinant.setValue(null);
-    //   this.appInfoFormLocalModel.controls.hasRecombinant.markAsUntouched();
-    //   this.appInfoFormLocalModel.controls.isAnimalHumanSourced.setValue(null);
-    //   this.appInfoFormLocalModel.controls.isAnimalHumanSourced.markAsUntouched();
-    //   this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
-    //   this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
-    //   this.materialModel = [];
-    // }
+    if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
+      !this.isDeviceIV()) {
+      this.appInfoFormLocalModel.controls['hasRecombinant'].setValue(null);
+      this.appInfoFormLocalModel.controls['hasRecombinant'].markAsUntouched();
+      this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].setValue(null);
+      this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].markAsUntouched();
+      this.appInfoFormLocalModel.controls['isListedIddTable'].setValue(null);
+      this.appInfoFormLocalModel.controls['isListedIddTable'].markAsUntouched();
+      this.materialModel = [];
+    }
     this.onblur();
   }
 
@@ -370,23 +373,33 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
   isIt() {
-    //   if (this.appInfoFormLocalModel.controls.provisionMdrIT.value) {
-    //   return true;
-    // } else {
-    //   this.appInfoFormLocalModel.controls.applicationNum.setValue('');
-    //   this.appInfoFormLocalModel.controls.applicationNum.markAsUntouched();
-    // }
-    // return false;
+      if (this.appInfoFormLocalModel.controls['provisionMdrIT'].value) {
+      return true;
+    } else {
+      this.appInfoFormLocalModel.controls['applicationNum'].setValue('');
+      this.appInfoFormLocalModel.controls['applicationNum'].markAsUntouched();
+    }
+    return false;
   }
 
   isSa() {
-    // if (this.appInfoFormLocalModel.controls.provisionMdrSA.value) {
-    //   return true;
-    // } else {
-    //   this.appInfoFormLocalModel.controls.sapReqNum.setValue('');
-    //   this.appInfoFormLocalModel.controls.sapReqNum.markAsUntouched();
-    // }
-    // return false;
+    if (this.appInfoFormLocalModel.controls['provisionMdrSA'].value) {
+      return true;
+    } else {
+      this.appInfoFormLocalModel.controls['sapReqNum'].setValue('');
+      this.appInfoFormLocalModel.controls['sapReqNum'].markAsUntouched();
+    }
+    return false;
+  }
+
+  isIoa() {
+    if (this.appInfoFormLocalModel.controls['provisionMdrIOA'].value) {
+      return true;
+    } else {
+      this.appInfoFormLocalModel.controls['authNum'].setValue('');
+      this.appInfoFormLocalModel.controls['authNum'].markAsUntouched();
+    }
+    return false;
   }
 
   isNoDeclaration() {
@@ -479,10 +492,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
   isDeviceIV() {
-    // if (this.appInfoFormLocalModel.controls.deviceClass.value === this.devClassList[2].id) {
-    //   return true;
-    // }
-    // return false;
+    if (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIV) {
+      return true;
+    }
+    return false;
   }
 
 }
