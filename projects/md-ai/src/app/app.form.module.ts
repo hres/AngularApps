@@ -10,9 +10,12 @@ import {
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ApplicationInfoDetailsComponent } from './application-info-details/application-info.details.component';
+import { ApplicationInfoDetailsService } from './application-info-details/application-info.details.service';
 
 @NgModule({
   declarations: [
+    ApplicationInfoDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -25,8 +28,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     TranslateModule,
   ],
   providers: [
+    ApplicationInfoDetailsService
   ],
   exports: [CommonUiFeatureModule, 
+    ApplicationInfoDetailsComponent
   ],
 })
 export class AppFormModule {}
