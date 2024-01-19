@@ -19,7 +19,7 @@ export class GlobalService {
   private deviceClassesList : ICode[];
   private deviceSpeciesList : ICode[];
   private deviceTissueList : ICode[];
-  private dinOrNpnList : ICode[];
+  private rawDrugTypeList : ICode[];
   private licenceAppTypeList : ICode[];
   private mdAuditProgramList : ICode[];
   private provisionMDRList : ICode[];
@@ -122,12 +122,12 @@ export class GlobalService {
     this.deviceTissueList = value;
   }
 
-  public get $dinOrNpnList(): ICode[] {
-		return this.dinOrNpnList;
+  public get $rawDrugTypeList(): ICode[] {
+		return this.rawDrugTypeList;
 	}
 
-  public set $dinOrNpnList(value: ICode[]) {
-    this.dinOrNpnList = value;
+  public set $rawDrugTypeList(value: ICode[]) {
+    this.rawDrugTypeList = value;
   }
 
   public get $licenceAppTypeList(): ICode[] {

@@ -12,7 +12,7 @@ export class FormDataLoaderService {
   private deviceClassesJsonPath = DATA_PATH + 'deviceClasses.json';
   private deviceSpeciesJsonPath = DATA_PATH + 'deviceSpecies.json';
   private deviceTissueJsonPath = DATA_PATH + 'deviceTissue.json';
-  private dinOrNpnJsonPath = DATA_PATH + 'dinOrNpn.json';
+  private rawDrugTypeJsonPath = DATA_PATH + 'rawDrugType.json';
   private licenceAppTypeJsonPath = DATA_PATH + 'licenceAppType.json';
   private mdAuditProgramJsonPath = DATA_PATH + 'mdAuditProgram.json';
   private provisionMDRJsonPath = DATA_PATH + 'provisionMDR.json';
@@ -24,7 +24,7 @@ export class FormDataLoaderService {
   cachedDeviceClasses$:Observable<ICode[]>;
   cachedDeviceSpecies$:Observable<ICode[]>;
   cachedDeviceTissues$:Observable<ICode[]>;
-  cachedDinOrNpn$:Observable<ICode[]>;
+  cachedRawDrugType$:Observable<ICode[]>;
   cachedLicenceAppType$:Observable<ICode[]>;
   cachedMdAuditProgram$:Observable<ICode[]>;
   cachedProvisionMDR$:Observable<ICode[]>;
@@ -88,15 +88,15 @@ export class FormDataLoaderService {
       return this.cachedDeviceTissues$;
   }
 
-  getDinOrNpnList(): Observable<ICode[]> {
-    if (!this.cachedDinOrNpn$) {
-        this.cachedDinOrNpn$ = this._dataService.getData<ICode>(this.dinOrNpnJsonPath)
+  getRawDrugType(): Observable<ICode[]> {
+    if (!this.cachedRawDrugType$) {
+        this.cachedRawDrugType$ = this._dataService.getData<ICode>(this.rawDrugTypeJsonPath)
           .pipe(
             // tap(()=>console.log('getDeviceClassesList() is called')),
             shareReplay(1)
           );
       } 
-      return this.cachedDinOrNpn$;
+      return this.cachedRawDrugType$;
   }
 
   getLicenceAppTypeList(): Observable<ICode[]> {
