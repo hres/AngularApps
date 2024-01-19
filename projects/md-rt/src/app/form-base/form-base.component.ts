@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { XSLT_PREFIX, ROOT_TAG } from '../app.constants';
 import {  ICode, ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, YES, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -25,22 +25,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @Input() helpTextSequences;
 
   private _transactionDetailErrors = [];
-  private _requesterErrors = [];
   private _transFeeErrors = [];
-  // public transactionForm: FormGroup;  // todo: do we need it? could remove?
+  public transactionForm: FormGroup;
+  public showErrors: boolean;
   public errorList = [];
   public rootTagText = ROOT_TAG; 
   private xslName: string;
-  
-  public userList = [];
-  public showErrors: boolean;
   
   public title = '';
   public headingLevel = 'h2';
 
   public enrollModel : Enrollment;
   public transactionInfoModel : ApplicationInfo;; 
-
   public transFeeModel: TransFees;
   // public transFeeModel = TransactionBaseService.getEmptyTransactionFeeModel();
   public fileServices: FileConversionService;
@@ -48,7 +44,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
-    private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef, private fb: FormBuilder,
     private _baseService: TransactionBaseService,
     private _fileService: FileConversionService, private _utilsService: UtilsService, private _globalService: GlobalService,
     private _versionService: VersionService,
@@ -62,11 +58,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // if (!this.transactionForm) {
-    //   this.transactionForm = this._baseService.getReactiveModel();
-    // }
-    // this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
-
+    // this means it's associated with a reactive form, and Angular automatically prevents the default form submission behavior
+    this.transactionForm = this.fb.group({}); 
 
     try {
       if (!this._globalService.getEnrollment()) {
@@ -95,19 +88,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
     this.errorList = [];
-    // concat the two array
-    this.errorList = this._transactionDetailErrors.concat(this._requesterErrors.concat(this._transFeeErrors));
-    // .concat(this._theraErrors);
+    // concat the error arrays
+    this.errorList = this._transactionDetailErrors.concat(this._transFeeErrors);
+
     // this.cdr.detectChanges(); // doing our own change detection
   }
 
   processDetailErrors(errorList) {
     this._transactionDetailErrors = errorList;
-    this.processErrors();
-  }
-
-  processRequesterErrors(errorList) {
-    this._requesterErrors = errorList;
     this.processErrors();
   }
 
@@ -121,18 +109,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveXmlFile() {
-    // if (!this.requesterListChild || this.requesterListChild && this.requesterListChild.requesterListForm.pristine && this.requesterListChild.requesterListForm.valid ) {
-    //   this._updatedAutoFields();
-    //   this.showErrors = true;
-    //   this._saveXML();
-    // } else {
-    //   if (this.lang === GlobalsService.ENGLISH) {
-    //     alert('Please save the unsaved input data before generating XML file.');
-    //   } else {
-    //     alert('Veuillez sauvegarder les données d\'entrée non enregistrées avant de générer le fichier XML.');
-    //   }
-
-    // }
+    this.showErrors = false;
+    if (this.errorList && this.errorList.length > 0) {
+      this.showErrors = true;
+      document.location.href = '#topErrorSummary';
+    } else {
+      const result = this._prepareForSaving(true);
+      const fileName = this._buildfileName();
+      this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
+    }
   }
 
   public saveWorkingCopyFile() {
@@ -146,7 +131,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
        'DEVICE_TRANSACTION_ENROL': {
          'template_version': this._globalService.$appVersion,
          'application_info': this.transactionInfoModel,
-          'transFees': this.transFeeModel
+         'transFees': this.transFeeModel
         }
     };
 
@@ -157,8 +142,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _buildfileName() {
-    const date_generated = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
-    return 'rt-' + this.transactionInfoModel.dossier_id + '-' + date_generated;
+    return 'rt-' + this.transactionInfoModel.dossier_id + '-' + + this.transactionInfoModel.last_saved_date;
 
   }
 
@@ -169,34 +153,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
      this._init(transactionEnroll);
   }
 
-  // private _updatedSavedDate() {
-  //   const today = new Date();
-  //   // const pipe = new DatePipe('en-US');
-  //   // this.transactionModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd-hhmm');
-  // }
-
-  // private _updatedAutoFields() {
-  //   this._updatedSavedDate();
-  //   // const version: Array<any> = this.transactionModel.enrol_version.split('.');
-  //   // version[0] = (Number(version[0]) + 1).toString();
-  //   // this.transactionModel.enrol_version = this.transactionModel.enrol_version; //version[0] + '.' + version[1];
-  // }
-
-  private _deleteText(dataModel) {
-    const dataCopy = JSON.parse(JSON.stringify(dataModel));
-    dataCopy.forEach (item => {
-      delete item.requester_text;
-    });
-    return dataCopy;
-  }
-
-  private _insertTextfield() {
-    // this.requesterModel.forEach (item => {
-    //   item.requester_text = this.lang === GlobalsService.ENGLISH ? item.requester._label_en : item.requester._label_fr;
-    //   item.id = Number(item.id);
-    // });
-  }
-
   public preload() {
     // console.log("Calling preload")
   }
@@ -204,28 +160,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public updateChild() {
     // console.log("Calling updateChild")
   }
+
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
       $event.returnValue = true;
-  }
-
-  _saveXML() {
-    // if ( this.errorList && this.errorList.length < 1 ) {
-    //   const result = {
-    //     'DEVICE_TRANSACTION_ENROL': {
-    //       'application_info': this.transactionModel,
-    //       'requester_of_solicited_information': {
-    //         'requester': this._deleteText(this.requesterModel)
-    //       },
-    //       'transFees': this.transFeeModel
-    //     }
-    //   };
-    //   const fileName = 'rt-' + this.transactionModel.dossier_id + '-' + this.transactionModel.last_saved_date;
-    //   console.log('save ...');
-    //   this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
-    //   return ;
-    // }
-    document.location.href = '#topErrorSummaryId';
   }
 
   private _init(transactionEnroll: DeviceTransactionEnrol){

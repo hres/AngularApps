@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <form name="transactionForm" novalidate>
+    <form name="transactionForm" [formGroup]="transactionForm" novalidate>
       <div class="row mrgn-tp-md">
         <div class="col-md-12">
           <div class="text-right">
@@ -23,7 +23,7 @@
             </div>
           </section>
         </div>
-        <div id="topErrorSummaryId">
+        <div id="topErrorSummary">
           <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
                          headingPreamble="errorSummary.transaction"></lib-error-summary>
         </div>
