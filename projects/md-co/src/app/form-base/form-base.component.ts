@@ -122,16 +122,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this.contactStatusList = data;
       });
 
-      this._formDataLoader.getCountryList().subscribe((data) => {
+      this._formDataLoader.getCountryList(this.lang).subscribe((data) => {
         // this._loggerService.log("form.base", "onInit", JSON.stringify(data));
         this.countryList = data;
       });
 
-      this._formDataLoader.getProvinceList().subscribe((data) => {
+      this._formDataLoader.getProvinceList(this.lang).subscribe((data) => {
         this.provinceList = data;
       });
 
-      this._formDataLoader.getStateList().subscribe((data) => {
+      this._formDataLoader.getStateList(this.lang).subscribe((data) => {
         this.stateList = data;
       });
 

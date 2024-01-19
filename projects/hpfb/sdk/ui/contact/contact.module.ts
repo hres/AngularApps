@@ -12,6 +12,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ExpanderModule } from '../expander/expander.module';
 import { CompanyContactRecordService } from './company-contact-record/company-contact-record.service';
 import { ContactDetailsService } from './contact.details/contact.details.service';
+import { NumbersOnlyDirective } from '../directives/number.only.directive';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { ContactDetailsService } from './contact.details/contact.details.service
     ErrorModule,
     PipesModule,
     ExpanderModule,
+    NumbersOnlyDirective
   ],
   declarations: [
     CompanyContactRecordComponent,
@@ -32,7 +34,7 @@ import { ContactDetailsService } from './contact.details/contact.details.service
   exports: [
     CompanyContactRecordComponent,
     ContactDetailsComponent,
-    ContactListComponent,
+    ContactListComponent
   ],
   providers: [
     ContactListService,

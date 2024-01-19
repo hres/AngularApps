@@ -76,14 +76,14 @@
                               controlId="newCompanyId" label="new.company.id" parentId="adminChangesDetails"
                               parentLabel="Admin Changes"></control-messages>
             <input name="newCompanyId" id="newCompanyId" class="form-control full-width" (blur)="onblur()"
-                   [formControl]="adminChangesFormLocalModel.controls['newCompanyId'] | formControl" maxlength="6"/>
+                   [formControl]="adminChangesFormLocalModel.controls['newCompanyId'] | formControl" maxlength="6" data-only-digits/>
           </label>
         </div>
         <div class="form-group col-xs-6" >
           <label for="newContactId" class="full-width">
             <span class="field-name">{{'new.contact.id'|translate}}</span>
             <input name="newContactId" id="newContactId" class="form-control full-width"  (blur)="onblur()"
-                   [formControl]="adminChangesFormLocalModel.controls['newContactId'] | formControl" maxlength="5"/>
+                   [formControl]="adminChangesFormLocalModel.controls['newContactId'] | formControl" maxlength="5" data-only-digits/>
           </label>
         </div>
       </div>

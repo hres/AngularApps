@@ -11,7 +11,7 @@
                             controlId="contactId{{recordId}}" label="contact.id" parentId="contactDetails"
                             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="contactId" id="contactId{{recordId}}" class="form-control" 
-                 [readonly]="!isInternal" [formControl]="contactDetailForm.controls['contactId'] | formControl" maxlength="5"/>
+                 [readonly]="!isInternal" [formControl]="contactDetailForm.controls['contactId'] | formControl" maxlength="5" data-only-digits/>
         </label>
       </div>
       <div class="form-group col-sm-6" >
@@ -80,14 +80,14 @@
                             [control]="contactDetailForm.controls['phoneNumber'] | formControl"
                             controlId="phoneNumber{{recordId}}" label="phone.number" parentId="contactDetails"
                             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
-          <input name="phoneNumber" id="phoneNumber{{recordId}}" class="form-control only-digits full-width" maxlength="25"
+          <input name="phoneNumber" id="phoneNumber{{recordId}}" class="form-control only-digits full-width" maxlength="25" data-only-digits
                 [formControl]="contactDetailForm.controls['phoneNumber'] | formControl" />
         </label>
       </div>
       <div class="form-group col-sm-3">
         <label for="phoneExtension{{recordId}}">
           <span class="field-name" >{{'phone.extension' |translate}}</span>
-          <input name="phoneExtension" id="phoneExtension{{recordId}}" class="form-control" maxlength="10" [formControl]="contactDetailForm.controls['phoneExtension'] | formControl"/>
+          <input name="phoneExtension" id="phoneExtension{{recordId}}" class="form-control" maxlength="10" data-only-digits [formControl]="contactDetailForm.controls['phoneExtension'] | formControl" />
         </label>
       </div>
       <div class="form-group col-sm-4 ">
@@ -98,7 +98,7 @@
                             [control]="contactDetailForm.controls['faxNumber'] | formControl"
                             controlId="faxNumber{{recordId}}" label="fax.number" parentId="contactDetails"
                             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
-          <input name="faxNumber" id="faxNumber{{recordId}}" class="form-control full-width only-digits" maxlength="25"
+          <input name="faxNumber" id="faxNumber{{recordId}}" class="form-control full-width only-digits" maxlength="25" data-only-digits
                  [formControl]="contactDetailForm.controls['faxNumber'] | formControl"/>
         </label>
       </div>

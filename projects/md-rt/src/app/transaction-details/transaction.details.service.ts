@@ -1,12 +1,14 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { CheckboxOption, ConverterService, IIdTextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { ApplicationInfo } from '../models/Enrollment';
+import { CheckboxOption, ConverterService, ICode, IIdTextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { AmendReasons, ApplicationInfo } from '../models/Enrollment';
+import { COMPANY_ID_PREFIX } from '../app.constants';
+import { GlobalService } from '../global/global.service';
 
 @Injectable()
 export class TransactionDetailsService {
 
-  constructor(private _utilsService: UtilsService, private _converterService: ConverterService, ) {}
+  constructor(private _utilsService: UtilsService, private _converterService: ConverterService, private _globalService: GlobalService, ) {}
 
   /**
    * Gets the reactive forms Model for address details
@@ -25,19 +27,8 @@ export class TransactionDetailsService {
       descriptionType: ['', Validators.required],
       deviceClass: ['', Validators.required],
       amendReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
-      classChange: [false, []],
       rationale: ['', Validators.required],
       proposedIndication: ['', Validators.required],
-      licenceChange: [false, []],
-      deviceChange: [false, []],
-      processChange: [false, []],
-      qualityChange: [false, []],
-      designChange: [false, []],
-      materialsChange: [false, []],
-      labellingChange: [false, []],
-      safetyChange: [false, []],
-      purposeChange: [false, []],
-      addChange: [false, []],
       licenceNum: ['', [Validators.required, ValidationService.licenceNumValidator]],
       orgManufactureId: ['', [Validators.required, ValidationService.numeric6Validator]],
       orgManufactureLic: ['', [Validators.required, ValidationService.licenceNumValidator]],
@@ -479,113 +470,60 @@ export class TransactionDetailsService {
     return ['i0', 'i1', 'i2', 'i3', 'i4', 'i5', 'i6', 'i7', 'i8', 'i9', 'i10', 'i11', 'i12', 'i13', 'i14', 'i15', 'i16', 'i17', 'i18', 'i19', 'i20', 'i21', 'i22', 'i23', 'i24', 'i25', 'i26'];
   }
 
-  public mapFormModelToDataModel(formRecord: FormGroup, transactionInfoModel: ApplicationInfo ) {
-  //   const activityLeadList = TransactionDetailsService.getActivityLeadList(TransactionDetailsService.lang);
-  //   const activityTypeList = TransactionDetailsService.getActivityTypeList(TransactionDetailsService.lang);
-  //   const descArray = TransactionDetailsService.getTransDescList(TransactionDetailsService.lang);
-  //   const dcArray = TransactionDetailsService._convertListText(
-  //           TransactionDetailsService.getDeviceClassList(), TransactionDetailsService.lang);
-  //   // transactionInfoModel.routing_id = formRecord.controls.routingId.value;
+  public mapFormModelToDataModel(formRecord: FormGroup, transactionInfoModel: ApplicationInfo, slctdAmendReasonCodes: string[], lang: string ) {
+    const activityTypeList = this._globalService.$activityTypeList;
+    const txDescList = this._globalService.$transactionDescriptionList;
+    const deviceClassList = this._globalService.$deviceClasseList;
+    const amendReasonList = this._globalService.$amendReasonList;
+
     transactionInfoModel.dossier_id = formRecord.controls['dossierId'].value;
-  //   transactionInfoModel.dossier_type = {
-  //     '__text': 'Medical Device',
-  //     '_id': 'D23',
-  //     '_label_en': 'Medical Device',
-  //     '_label_fr': 'Medical Device'
-  //   };
 
-  //   if (formRecord.controls.manuCompanyId.value) {
-       transactionInfoModel.company_id = 'K' + formRecord.controls['manuCompanyId'].value;
-  //   }
-  //   transactionInfoModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
-  //   if (formRecord.controls.reguCompanyId.value) {
-       transactionInfoModel.regulatory_company_id = 'K' + formRecord.controls['reguCompanyId'].value;
-  //   }
+    if (formRecord.controls['manuCompanyId'].value) {
+       transactionInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.controls['manuCompanyId'].value;
+    }
+    if (formRecord.controls['reguCompanyId'].value) {
+       transactionInfoModel.regulatory_company_id = COMPANY_ID_PREFIX + formRecord.controls['reguCompanyId'].value;
+    }
+      //   transactionInfoModel.manufacturing_contact_id = formRecord.controls.manuContactId.value;
   //   transactionInfoModel.regulatory_contact_id = formRecord.controls.reguContactId.value;
-  //  // transactionInfoModel.regulatory_activity_lead = formRecord.controls.activityLead.value;
 
-  //   if (formRecord.controls.activityLead.value) {
-  //     const recordIndex1 = ListService.getRecord(activityLeadList, formRecord.controls.activityLead.value, 'id');
-  //     if (recordIndex1 > -1) {
-  //       transactionInfoModel.regulatory_activity_lead = {
-  //         '__text': activityLeadList[recordIndex1].text,
-  //         '_id': activityLeadList[recordIndex1].id,
-  //         '_label_en': activityLeadList[recordIndex1].en,
-  //         '_label_fr': activityLeadList[recordIndex1].fr
-  //       };
-  //     }
-  //   } else {
-  //     transactionInfoModel.regulatory_activity_lead = null;
-  //   }
+    if (formRecord.controls['activityType'].value) {
+      transactionInfoModel.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(activityTypeList, formRecord.controls['activityType'].value, lang);
+    } else {
+      transactionInfoModel.regulatory_activity_type = null;
+    }
 
-  //   // transactionInfoModel.activity_type = formRecord.controls.activityType.value;
-  //   if (formRecord.controls.activityType.value) {
-  //     const recordIndex2 = ListService.getRecord(activityTypeList, formRecord.controls.activityType.value, 'id');
-  //     if (recordIndex2 > -1) {
-  //       transactionInfoModel.regulatory_activity_type = {
-  //         '__text': activityTypeList[recordIndex2].text,
-  //         '_id' : activityTypeList[recordIndex2].id,
-  //         '_label_en': activityTypeList[recordIndex2].en,
-  //         '_label_fr': activityTypeList[recordIndex2].fr
-  //       };
-  //     }
-  //   } else {
-  //     transactionInfoModel.regulatory_activity_type = null;
-  //   }
+    transactionInfoModel.description_type = formRecord.controls['descriptionType'].value? 
+      this._converterService.findAndConverCodeToIdTextLabel(txDescList, formRecord.controls['descriptionType'].value, lang) : null;
 
-  //   if (formRecord.controls.descriptionType.value) {
-  //     const recordIndex3 = ListService.getRecord(descArray, formRecord.controls.descriptionType.value, 'id');
-  //     if (recordIndex3 > -1) {
-  //       transactionInfoModel.description_type = {
-  //         '__text': descArray[recordIndex3].text,
-  //         '_id': descArray[recordIndex3].id,
-  //         '_label_en': descArray[recordIndex3].en,
-  //         '_label_fr': descArray[recordIndex3].fr
-  //       };
-  //     }
-  //   } else {
-  //     transactionInfoModel.description_type = null;
-  //   }
-  //   // transactionInfoModel.device_class = formRecord.controls.deviceClass.value;
-  //   if (formRecord.controls.deviceClass.value) {
-  //     const recordIndex4 = ListService.getRecord(dcArray, formRecord.controls.deviceClass.value, 'id');
-  //     if (recordIndex4 > -1) {
-  //       transactionInfoModel.device_class = {
-  //         '__text': dcArray[recordIndex4].text,
-  //         '_id': dcArray[recordIndex4].id,
-  //         '_label_en': dcArray[recordIndex4].en,
-  //         '_label_fr': dcArray[recordIndex4].fr
-  //       };
-  //     }
-  //   } else {
-  //     transactionInfoModel.device_class = null;
-  //   }
-  //   transactionInfoModel.amend_reasons.classification_change = formRecord.controls.classChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.amend_reasons.licence_change = formRecord.controls.licenceChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.amend_reasons.device_change = formRecord.controls.deviceChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.amend_reasons.process_change = formRecord.controls.processChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.amend_reasons.quality_change = formRecord.controls.qualityChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.amend_reasons.design_change = formRecord.controls.designChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.amend_reasons.materials_change = formRecord.controls.materialsChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.amend_reasons.labelling_change = formRecord.controls.labellingChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.amend_reasons.safety_change = formRecord.controls.safetyChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.amend_reasons.purpose_change = formRecord.controls.purposeChange.value ? GlobalsService.YES : GlobalsService.NO;
-  //   transactionInfoModel.amend_reasons.add_delete_change = formRecord.controls.addChange.value ? GlobalsService.YES : GlobalsService.NO;
+
+    transactionInfoModel.device_class = formRecord.controls['deviceClass']?.value? 
+      this._converterService.findAndConverCodeToIdTextLabel(deviceClassList, formRecord.controls['deviceClass'].value, lang) : null;
+
+    const reasons: AmendReasons = {
+      amend_reason: this._converterService.findAndConverCodesToIdTextLabels(amendReasonList, slctdAmendReasonCodes, lang)
+    }
+    transactionInfoModel.amend_reasons = reasons;
+
+    transactionInfoModel.rationale = formRecord.controls['rationale']?.value? formRecord.controls['rationale'].value : null;
+    transactionInfoModel.proposed_indication = formRecord.controls['proposedIndication']?.value ? formRecord.controls['proposedIndication'].value : null;
+    
+
     transactionInfoModel.licence_number = formRecord.controls['licenceNum'].value;
-  //   if (formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i9')].id &&
-  //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i2')].id &&
-  //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i3')].id &&
-  //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i6')].id &&
-  //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i7')].id &&
-  //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i10')].id &&
-  //     formRecord.controls.descriptionType.value !== descArray[this.getDescMap().indexOf('i12')].id) {
+  //   if (formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i9')].id &&
+  //     formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i2')].id &&
+  //     formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i3')].id &&
+  //     formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i6')].id &&
+  //     formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i7')].id &&
+  //     formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i10')].id &&
+  //     formRecord.controls['descriptionType'].value !== descArray[this.getDescMap().indexOf('i12')].id) {
       transactionInfoModel.application_number = formRecord.controls['appNum'].value;
-  //   } else if (formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i2')].id  ||
-  //           formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i3')].id  ||
-  //           formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i6')].id  ||
-  //           formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i7')].id  ||
-  //           formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i10')].id  ||
-  //           formRecord.controls.descriptionType.value === descArray[this.getDescMap().indexOf('i12')].id ) {
+  //   } else if (formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i2')].id  ||
+  //           formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i3')].id  ||
+  //           formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i6')].id  ||
+  //           formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i7')].id  ||
+  //           formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i10')].id  ||
+  //           formRecord.controls['descriptionType'].value === descArray[this.getDescMap().indexOf('i12')].id ) {
       transactionInfoModel.application_number = formRecord.controls['appNumOpt'].value;
   //   }
     transactionInfoModel.meeting_id = formRecord.controls['meetingId'].value;
@@ -598,15 +536,14 @@ export class TransactionDetailsService {
   //   transactionInfoModel.transaction_description = TransactionDetailsService._setConcatDetails(transactionInfoModel);
   //   // if (formRecord.controls.deviceChange.value ||
   //   //     (formRecord.controls.activityType.value === activityTypeList[1].id &&
-  //   //           formRecord.controls.descriptionType.value === descArray[9].id)) {
+  //   //           formRecord.controls['descriptionType'].value === descArray[9].id)) {
   //     transactionInfoModel.has_ddt = formRecord.controls.hasDdtMan.value;
   //   // } else {
   //   //   transactionInfoModel.has_ddt = formRecord.controls.hasDdt.value ? GlobalsService.YES : GlobalsService.NO;
   //   // }
   //   transactionInfoModel.has_app_info = formRecord.controls.hasAppInfo.value ? GlobalsService.YES : GlobalsService.NO;
   //   transactionInfoModel.is_solicited_info = formRecord.controls.isSolicitedInfo.value;
-  //   transactionInfoModel.rationale = formRecord.controls.rationale.value;
-  //   transactionInfoModel.proposed_indication = formRecord.controls.proposedIndication.value;
+  
     transactionInfoModel.org_manufacture_id = formRecord.controls['orgManufactureId'].value;
     transactionInfoModel.org_manufacture_lic = formRecord.controls['orgManufactureLic'].value;
   }
@@ -657,12 +594,12 @@ export class TransactionDetailsService {
 //     if (transactionInfoModel.description_type) {
 //       const recordIndex = ListService.getRecord(descriptions, transactionInfoModel.description_type._id, 'id');
 //       if (recordIndex > -1) {
-//         formRecord.controls.descriptionType.setValue(descriptions[recordIndex].id);
+//         formRecord.controls['descriptionType'].setValue(descriptions[recordIndex].id);
 //       } else {
-//         formRecord.controls.descriptionType.setValue(null);
+//         formRecord.controls['descriptionType'].setValue(null);
 //       }
 //     } else {
-//       formRecord.controls.descriptionType.setValue(null);
+//       formRecord.controls['descriptionType'].setValue(null);
 //     }
 
 //     // formRecord.controls.deviceClass.setValue(transactionInfoModel.device_class);

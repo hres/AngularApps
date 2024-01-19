@@ -7,6 +7,7 @@ import { ErrorModule } from '../error-msg/error-ui.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { PipesModule } from '../public-api';
 import { AddressDetailsService } from './address.details/address.details.service';
+import { NumbersOnlyDirective } from '../directives/number.only.directive';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { AddressDetailsService } from './address.details/address.details.service
     ErrorModule,
     PipesModule,
     TranslateModule,
+    NumbersOnlyDirective
   ],
   declarations: [AddressDetailsComponent],
   exports: [AddressDetailsComponent],

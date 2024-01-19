@@ -52,8 +52,7 @@
           <control-messages *ngIf="transDetailsFormLocalModel.controls.manuContactId.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.manuContactId"
-                            controlId="manuContactId" label="manufacturing.contact.id" parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
+                            controlId="manuContactId" label="manufacturing.contact.id" parentId="transDetails"></control-messages>
           <input id="manuContactId" name="manuContactId" class="form-control full-width" (blur)="onblur()"
                  [formControl]="transDetailsFormLocalModel.controls.manuContactId" maxlength="5" />
         </label>
@@ -68,8 +67,7 @@
           <control-messages *ngIf="transDetailsFormLocalModel.controls.reguContactId.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.reguContactId"
-                            controlId="reguContactId" label="regulatory.contact.id" parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
+                            controlId="reguContactId" label="regulatory.contact.id" parentId="transDetails"></control-messages>
           <input id="reguContactId" name="reguContactId" class="form-control full-width" (blur)="onblur()"
                  [formControl]="transDetailsFormLocalModel.controls.reguContactId" maxlength="5" />
         </label>
@@ -100,9 +98,8 @@
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls['descriptionType'] | formControl"
                             controlId="descriptionType" label="trans.description"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
-          <select id="descriptionType" name="descriptionType" required class="form-control full-width" (change)="transactionDescriptionOnChange()"
+                            parentId="transDetails"></control-messages>
+          <select id="descriptionType" name="descriptionType" required class="form-control full-width" (change)="descrDeviceOnblur()"
             [formControl]="transDetailsFormLocalModel.controls['descriptionType'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let desc of transDescList" [ngValue]="desc.id"> {{ desc | textTransform: lang }}</option>
@@ -111,7 +108,7 @@
         </label>
       </div>
     </div>
-    <div class="row" *ngIf="showDeviceClass">
+    <div class="row" *ngIf="showDeviceClass()">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <label for="deviceClass" class="required full-width">
           <span class="field-name" >{{ 'device.class' |translate }}</span>
@@ -123,9 +120,8 @@
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls['deviceClass'] | formControl"
                             controlId="deviceClass" label="device.class"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
-          <select id="deviceClass" name="deviceClass" required class="form-control full-width" (change)="deviceClassOnChange()"
+                            parentId="transDetails"></control-messages>
+          <select id="deviceClass" name="deviceClass" required class="form-control full-width" (change)="descrDeviceOnblur()"
             [formControl]="transDetailsFormLocalModel.controls['deviceClass'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let class of deviceClassList" [ngValue]="class.id"> {{ class | textTransform: lang }}</option>
@@ -134,7 +130,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="showAmendReasons">
+    <div class="row" *ngIf="showAmendReason()">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" id="amendReasons">
           <legend class="required"><span class="field-name">{{'amend.reason' | translate}}</span>
@@ -143,48 +139,49 @@
                               [showError]="showFieldErrors"
                               [control]="amendReasonChkFormArray | formControl"
                               controlId="amendReasons" label="amend.reason"
-                              parentId="amendReasons"></control-messages>          
+                              parentId="transDetails"></control-messages>
           </legend>
           <ng-container formArrayName="amendReasons" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
             <div class="checkbox">
               <label for={{amendReasonOptionList[i].value}}>
-                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnChange()"/> {{amendReasonOptionList[i].label}} 
+                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnChange()"/> {{amendReasonOptionList[i].label}}
               </label>
             </div>
-          </ng-container>  
+          </ng-container>
         </fieldset>
       </div>
-    </div>  
+    </div>
 
-    <!-- <div class="row" *ngIf="showRationaleRequired()">
+    <div class="row" *ngIf="showRationaleRequired()">
       <div class="col-xs-12 form-group">
         <label class="required full-width" for="rationale" >{{ 'rationale' | translate }}
         <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.rationale.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls['rationale'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.rationale"
+                            [control]="transDetailsFormLocalModel.controls['rationale'] | formControl"
                             controlId="rationale" label="rationale"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
-          <textarea  row="3" id="rationale" name="rationale" class="form-control full-width"  maxlength="500" [formControl]="transDetailsFormLocalModel.controls.rationale" (blur)="onblur()" required ></textarea>
+                            parentId="transDetails"></control-messages>
+          <textarea  row="3" id="rationale" name="rationale" class="form-control full-width"  maxlength="500" [formControl]="transDetailsFormLocalModel.controls['rationale'] | formControl"
+            (blur)="onblur()" required ></textarea>
         </label>
       </div>
     </div>
+
     <div class="row" *ngIf="showProposeIndication()">
       <div class="col-xs-12 form-group">
         <label class="required full-width" for="proposedIndication" >{{ 'proposed.indication' | translate }}
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.proposedIndication.invalid"
+          <control-messages *ngIf="transDetailsFormLocalModel.controls['proposedIndication'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.proposedIndication"
+                            [control]="transDetailsFormLocalModel.controls['proposedIndication'] | formControl"
                             controlId="proposedIndication" label="proposed.indication"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
-          <textarea  row="3" id="proposedIndication" name="proposedIndication" class="form-control full-width"  [formControl]="transDetailsFormLocalModel.controls.proposedIndication" (blur)="onblur()" required ></textarea>
+                            parentId="transDetails"></control-messages>
+          <textarea  row="3" id="proposedIndication" name="proposedIndication" class="form-control full-width"  [formControl]="transDetailsFormLocalModel.controls['proposedIndication'] | formControl"
+          (blur)="onblur()" required ></textarea>
         </label>
       </div>
     </div>
-  -->
+
     <div class="row"><!--*ngIf="showDate"> -->
       <!--
       <div class="form-group col-xs-6" *ngIf="showVersion">
@@ -195,8 +192,7 @@
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.requestVersion"
                             controlId="requestVersion" label="request.version"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
+                            parentId="transDetails"</control-messages>
           <input id="requestVersion" name="requestVersion" type="text" class="form-control full-width" (blur)="onblur()" maxlength="10"
                  [formControl]="transDetailsFormLocalModel.controls.requestVersion" />
         </label>
@@ -225,9 +221,7 @@
           <control-messages *ngIf="transDetailsFormLocalModel.controls.requestDate.invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.requestDate"
-                            controlId="requestDate" label="request.date"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
+                            controlId="requestDate"></control-messages>
           <input id="requestFrom" name="requestDate" type="date" class="form-control full-width" (blur)="onblur()"
                  [formControl]="transDetailsFormLocalModel.controls.requestDate" min="1970-01-01" max="2099-12-31"/>
         </label>
@@ -240,8 +234,7 @@
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.requestDate"
                             controlId="requestDate" label="request.date"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
+                            parentId="transDetails"></control-messages>
           <input id="requestTo" name="requestTo" type="date" class="form-control full-width" (blur)="onblur()"
                  [formControl]="transDetailsFormLocalModel.controls.requestTo" min="1970-01-01" max="2099-12-31"/>
         </label>
@@ -341,8 +334,7 @@
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls.briefDesc"
                             controlId="briefDesc" label="brief.descr"
-                            parentId="transDetails"
-                            parentLabel="Transaction Information"></control-messages>
+                            parentId="transDetails"></control-messages>
           <textarea type="text" class="form-control full-width" id="briefDesc" name="briefDesc" (blur)="onblur()"
                     required [formControl]="transDetailsFormLocalModel.controls.briefDesc"></textarea>
         </label>
@@ -423,8 +415,7 @@
                               [showError]="showFieldErrors"
                               [control]="transDetailsFormLocalModel.controls.hasDdtMan"
                               controlId="hasDdtMan" label="has.ddt"
-                              parentId="transDetails"
-                              parentLabel="Transaction Information"></control-messages> -->
+                              parentId="transDetails"></control-messages> -->
 <!--            <input type="checkbox" (blur)="onblur()"-->
 <!--                   [formControl]="transDetailsFormLocalModel.controls.hasDdtMan"-->
 <!--                   id="hasDdtMan" name="hasDdtMan"/>-->
@@ -457,7 +448,7 @@
                             <!--[control]="transDetailsFormLocalModel.controls.isSolicitedInfo"-->
                             <!--controlId="isSolicitedInfo" label="is.solicited"-->
                             <!--parentId="transDetails"-->
-                            <!--parentLabel="Transaction Information"></control-messages>-->
+                            <!--></control-messages>-->
           <!--<select id="isSolicitedInfo" name="isSolicitedInfo" class="form-control" (blur)="isSolicitedOnblur()" (click)="isSolicitedOnblur()" (selected)="isSolicitedOnblur()" [formControl]="transDetailsFormLocalModel.controls.isSolicitedInfo">
             <option label=" " value=""></option>
             <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{ opt | translate }}</option>
