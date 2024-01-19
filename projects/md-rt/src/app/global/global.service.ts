@@ -20,6 +20,7 @@ export class GlobalService {
   private activityTypeTxDescription: IParentChildren[];
   private amendReasonList: ICode[];
   private amendReasonRelationship: any[];
+  private transactionDescriptionList: ICode[];
 
   /**
    * Getter $devEnv
@@ -115,5 +116,13 @@ export class GlobalService {
   
   public set $amendReasonRelationship(value: any[]) {
     this.amendReasonRelationship = value;
+  }
+
+  public get $transactionDescriptionList(): ICode[] {
+    return this.transactionDescriptionList;
+  }
+
+  public set $transactionDescriptionList(value: ICode[]) {
+    this.transactionDescriptionList = value;
   }
 }

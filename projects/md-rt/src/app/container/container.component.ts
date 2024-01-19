@@ -29,7 +29,8 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getDeviceClassesList(),
     this._formDataLoader.getRegulatoryActivityTypesList(),
     this._formDataLoader.getAmendReasonList(),
-    this._formDataLoader.getAmendReasonRelationship()
+    this._formDataLoader.getAmendReasonRelationship(),
+    this._formDataLoader.getTransactionDescriptionList(),
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -52,13 +53,14 @@ export class ContainerComponent implements OnInit {
           const combinedData = this.combineData(acTypeTxDesc, txDesc);
 
           return forkJoin(this.dataSources).pipe(
-            map(([deviceClasses, activityTypes, amendReasons, amendReasonRelationship]) => {
+            map(([deviceClasses, activityTypes, amendReasons, amendReasonRelationship, txDesciption]) => {
               // Return the combinedData from the first two API calls and the data from the other API calls
               return {
                 deviceClasses,
                 activityTypes,
                 amendReasons,
                 amendReasonRelationship,
+                txDesciption,
                 combinedData,
               };
             })
@@ -71,6 +73,7 @@ export class ContainerComponent implements OnInit {
         this._globalService.$activityTypeList = result['activityTypes'];
         this._globalService.$amendReasonList = result['amendReasons'];
         this._globalService.$amendReasonRelationship = result['amendReasonRelationship'];
+        this._globalService.$transactionDescriptionList = result['txDesciption'];
         this._globalService.$activityTypeTxDescription = result['combinedData'];
 
         this.loadFormBaseComponent = true;
