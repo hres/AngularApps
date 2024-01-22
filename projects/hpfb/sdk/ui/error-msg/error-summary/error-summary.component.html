@@ -1,4 +1,4 @@
-<div id="{{componentId}}" *ngIf="hiddenSummary">
+<div id="{{compId}}" *ngIf="hiddenSummary">
   <section class="alert alert-danger" tabindex="-1" [ngSwitch]="hdingLevel">
     <h1 *ngSwitchCase="'h1'">
       <ng-container *ngTemplateOutlet="sharedHeadingContent"></ng-container>
@@ -28,7 +28,7 @@
     </ng-template>
 
     <ul *ngFor="let parentError of errors | keys">
-      <div *ngFor="let controlError of parentError.value.controls">
+      <ng-container *ngFor="let controlError of parentError.value.controls">
         <li *ngIf="controlError.type==='component_error'">
           <a href="#{{controlError.componentId}}" target="_self" (click)="processEvents(controlError)">{{'error' | translate: {number:controlError.errorNumber} }}&nbsp;{{controlError.label|translate}}</a>
         </li>
@@ -48,7 +48,7 @@
             {{controlError.compRef.label | translate}}&nbsp;&#8208;&nbsp;{{ getValidatorErrorMessageKey(controlError.compRef.currentError) | translate: controlError.compRef.errorParams}}
           </a>
         </li>
-      </div>
+      </ng-container>
     </ul>
   </section>
   <!-- <pre>{{errors|json}}</pre>-->

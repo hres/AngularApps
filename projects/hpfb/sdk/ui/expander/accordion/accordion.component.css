@@ -1,3 +1,3 @@
-.mydetails:not([open]) > div {
+.mydetails:not([data-open]) > div {
   display: none;
 }
