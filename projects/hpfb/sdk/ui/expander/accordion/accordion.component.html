@@ -1,36 +1,35 @@
-
-
-  <ng-container *ngFor="let recordRow of rowsFormArray.controls; let i=index;">
+<ng-container *ngFor="let recordRow of rowsFormArray.controls; let i=index;">
+  <span *ngIf="recordRow.get('isNew').value; else expandablePanelHeading">
     <div class="panel panel-default mydetails" [attr.open]="recordRow.get('expandFlag').value? '' : null">
-
-      <header class="panel-heading">
-          <h4 class="panel-title" *ngIf="recordRow.get('isNew').value; else expandablePanelHeading">
+      <details class="mydetails" open>
+        <summary class="panel-heading">
+          <h4 class="panel-title">
             {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }}
           </h4>
-      </header>
-
-      <div class="panel-body">
-        <ng-container *ngTemplateOutlet="tmplRef; context: {$implicit: recordRow, i: i}"></ng-container>
-      </div>
-
+        </summary>
+        <div class="panel-body">
+          <ng-container *ngTemplateOutlet="tmplRef; context: {$implicit: recordRow, i: i}"></ng-container>
+        </div>
+      </details>
     </div>
-
-    <ng-template #expandablePanelHeading>
-      <h4 class="panel-title" role="button" (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
-        <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
-
-        @if (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) {
-          {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }}  - {{recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value}}
-        }@else {
-          {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }} 
-        }
-      </h4>
-    </ng-template>
-
-  </ng-container>
+  </span>
 
 
-
-
-
-
+  <ng-template #expandablePanelHeading>
+    <div class="panel panel-default mydetails" [attr.open]="recordRow.get('expandFlag').value? '' : null">
+      <details class="mydetails">
+        <summary class="panel-heading" role="button" (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
+          <h4 class="panel-title">
+            @if (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) {
+            {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }} -
+            {{recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value}}
+            }@else {
+            {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }}
+            }
+          </h4>
+        </summary>
+        <div class="panel-body">
+          <ng-container *ngTemplateOutlet="tmplRef; context: {$implicit: recordRow, i: i}"></ng-container>
+        </div>
+      </details>
+      <div>
