@@ -279,7 +279,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/md-ai",
-            "index": "projects/md-ai/src/index.html",
+            "index": "projects/hpfb/sdk/src/index.html",
             "browser": "projects/md-ai/src/main.ts",
             "polyfills": [
               "zone.js"

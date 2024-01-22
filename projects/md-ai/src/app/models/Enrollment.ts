@@ -12,14 +12,12 @@ export interface DeviceApplicationEnrol {
     biological_materials:           BiologicalMaterials;}
 
 export interface ApplicationInfo {
-    enrol_version:                  string;
     last_saved_date:                string;
     company_id:                     string;
     dossier_id:                     string;
     mdsap_number:                   string;
     mdsap_org:                      IIdTextLabel;
     licence_application_type:       IIdTextLabel;
-    regulatory_activity_lead:       IIdTextLabel;
     regulatory_activity_type:       IIdTextLabel;
     device_class:                   IIdTextLabel;
     is_ivdd:                        string;
