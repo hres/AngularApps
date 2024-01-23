@@ -1,4 +1,4 @@
-<div *ngIf="makeErrorVisible()">
+<ng-container *ngIf="makeErrorVisible()">
   <strong class="error">
     <span class="label label-danger">
       @if(errorNumber) {
@@ -7,4 +7,4 @@
       {{errorMessage | translate: errorParams }}
     </span>
   </strong>
-</div>
+</ng-container>

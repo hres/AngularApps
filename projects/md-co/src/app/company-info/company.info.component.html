@@ -71,7 +71,7 @@
                             controlId="rationale" label="rationale"
                             parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
-          <textarea type="text" class="form-control full-width" id="rationale" (blur)="onblur()"
+          <textarea class="form-control full-width" id="rationale" (blur)="onblur()"
                   [formControl]="generalInfoFormLocalModel.controls['rationale'] | formControl" maxlength="500"></textarea>
         </label>
       </div>    

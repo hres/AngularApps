@@ -1,10 +1,12 @@
 <ng-container *ngFor="let record of dataItems; index as i;">
-  <h4 id="tr-expand-row-{{i}}" class="clickableRow" role="button" [ngClass]="{'selected':isExpanded(i)}"
-    [attr.aria-expanded]="getExpandedState(i)" i18n-title="@@expander.rowTitle" [title]="getRowTitle(i)"
-    (click)="selectTableRow(i)">
-    <span class="fa fa-lg fa-fw" [ngClass]="{'fa-caret-right':isCollapsed(i), 'fa-caret-down':isExpanded(i) }"></span>
-    {{accordionHeadingMsgKey | translate}}&nbsp; {{ +record['id']+1 }}
-  </h4>
+  <div role="button" >
+    <h4 id="tr-expand-row-{{i}}" class="clickableRow" [ngClass]="{'selected':isExpanded(i)}"
+      [attr.aria-expanded]="getExpandedState(i)" i18n-title="@@expander.rowTitle" [title]="getRowTitle(i)"
+      (click)="selectTableRow(i)">
+      <span class="fa fa-lg fa-fw" [ngClass]="{'fa-caret-right':isCollapsed(i), 'fa-caret-down':isExpanded(i) }"></span>
+      {{accordionHeadingMsgKey | translate}}&nbsp; {{ +record['id']+1 }}
+    </h4>
+  </div>
 
   <div class="table-override" *ngIf="isExpanded(i)">
     <ng-content></ng-content>

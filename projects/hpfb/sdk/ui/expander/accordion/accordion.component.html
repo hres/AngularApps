@@ -1,7 +1,7 @@
 
 
   <ng-container *ngFor="let recordRow of rowsFormArray.controls; let i=index;">
-    <div class="panel panel-default mydetails" [attr.open]="recordRow.get('expandFlag').value? '' : null">
+    <div class="panel panel-default mydetails" [attr.data-open]="recordRow.get('expandFlag').value? '' : null">
 
       <header class="panel-heading">
           <h4 class="panel-title" *ngIf="recordRow.get('isNew').value; else expandablePanelHeading">
@@ -16,15 +16,17 @@
     </div>
 
     <ng-template #expandablePanelHeading>
-      <h4 class="panel-title" role="button" (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
-        <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
+      <div role="button">
+        <h4 class="panel-title" (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
+          <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
 
-        @if (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) {
-          {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }}  - {{recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value}}
-        }@else {
-          {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }} 
-        }
-      </h4>
+          @if (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) {
+            {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }}  - {{recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value}}
+          }@else {
+            {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }} 
+          }
+        </h4>
+      </div>
     </ng-template>
 
   </ng-container>
