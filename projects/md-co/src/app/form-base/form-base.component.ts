@@ -422,7 +422,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }else {
       this.contactModel = [];
     }
-    this.showAmendNote = this._isFinal();
+    this.showAmendNote = this._isFinal() && !this.isInternal;
     this._setShowAdminChangesFlag();    
   }
 
