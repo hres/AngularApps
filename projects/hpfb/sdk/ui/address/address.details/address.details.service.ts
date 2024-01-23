@@ -79,7 +79,7 @@ export class AddressDetailsService {
     } else {
       record.controls['provList'].setValidators([]);
       record.controls['provList'].setValue('');
-      record.controls['postal'].setValidators([]);
+      record.controls['postal'].setValidators([Validators.required]);
       record.controls['provList'].updateValueAndValidity();
       record.controls['postal'].updateValueAndValidity();
     }
