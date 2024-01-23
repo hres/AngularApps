@@ -171,7 +171,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   console.log(e)
     // }
 
-    this.disableMailto = this.errorList.length > 0;
+    this.disableMailto = this.errorList.length > 0 || this._isFinal()|| this.isInternal;
     this.showMailToHelpText = false;
   }
 
