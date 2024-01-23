@@ -332,7 +332,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // }
 
   private _buildfileName() {
-    const date_generated = this._utilsService.getFormattedDate('yyyyMMddHHmm');
+    const date_generated = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     if (this.isInternal) {
       return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
     } else if (this.genInfoModel.status._id === EnrollmentStatus.Amend) {
