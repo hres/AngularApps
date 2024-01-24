@@ -13,15 +13,13 @@ export enum DeviceClass {
   ClassIV = 'DC4',
 }
 
-// DIANA TODO - Change strings according to app's instructions
+// Change strings according to app's instructions
 export const helpInstructionHeadings = [
   'loadFileIndx',
-  'compREPInx',
-  'rationaleInx',
-  'conStatInx',
-  'routIdInx',
-  'addRecordInx',
-  'desRenewalInx',
-  'desFinanceInx',
-  'licenseNumsInx',
+  'appInfoREPIndx',
+  'mdsapNumIndx',
+  'licAppTypeIndx',
+  'mdsapOrgIndx',
+  'devClsIndx',
+  'cfmDecIndx',
 ];
