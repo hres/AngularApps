@@ -24,6 +24,7 @@ export class GlobalService {
   private mdAuditProgramList : ICode[];
   private provisionMDRList : ICode[];
   private regActivityTypeList : ICode[];
+  private yesNoList : ICode[];
 
 
   /**
@@ -160,5 +161,13 @@ export class GlobalService {
 
   public set $regActivityTypeList(value: ICode[]) {
     this.regActivityTypeList = value;
+  }
+
+  public get $yesNoList(): ICode[] {
+		return this.yesNoList;
+	}
+
+  public set $yesNoList(value: ICode[]) {
+    this.yesNoList = value;
   }
 }

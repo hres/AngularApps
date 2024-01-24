@@ -6,7 +6,7 @@
     "top.security.declaimer": "Avis de non-responsabilité concernant la sécurité",
     "top.instruction": "Instructions",
     "select.file": "Sélectionnez un fichier à charger",
-    "select.file.line": "Veuillez en tout temps téléchargez le fichier dans le modèle vierge. Actualisez cette page afin de réinitialiser le modèle.",
+    "select.file.line": "Les nouveaux utilisateurs du formulaire ne peuvent pas sélectionner et télécharger un fichier. Ceci étant dit, ils doivent créer un fichier XML en remplissant les champs obligatoires ci-dessous et en cliquant sur le bouton «Générer le XML» au bas du formulaire.<br />Pour les utilisations ultérieures de ce formulaire, vous pouvez soit télécharger un fichier en cliquant sur le bouton «Choisir un fichier» et en sélectionnant le fichier en format «.hcsc» ou «.xml», soit remplir les champs obligatoires ci-dessous afin de générer un fichier «.xml».<br />Si vous remplissez partiellement le formulaire et souhaiter procéder ultérieurement, cliquez sur le bouton «Enregistrer la copie de travail» au bas du formulaire. Une copie sera enregistrée sur le poste de travail en format «.hcsc». Si vous utilisez un fichier«.xml» précédemment soumis, veuillez mettre à jour les champs appropriés et vérifier que les détails sont exacts pour la transaction actuelle avant de déposer le formulaire.<br />Remarque : les copies de travail (fichiers portant l'extension .hcsc) ne doivent jamais être envoyées à Santé Canada.",
     "load.file": "Charger un fichier XML d'informations sur l'application",
     "error":"Erreur {{number}}:",
     "application-info.enrolment": "fr_Regulatory Application Information Enrolment",

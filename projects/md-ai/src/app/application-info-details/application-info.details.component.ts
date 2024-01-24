@@ -44,13 +44,13 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
   public deviceClassList: Array<any> = [];
-  public yesNoList: Array<any> = [];
 
-  public licenceAppTypeList;
-  public mdsapOrgList;
-  public actTypeList;
-  public devClassList;
-  public drugTypeList;
+  public licenceAppTypeList: ICode[] = [];
+  public mdsapOrgList: ICode[] = [];
+  public actTypeList: ICode[] = [];
+  public devClassList: ICode[] = [];
+  public drugTypeList: ICode[] = [];
+  public yesNoList: ICode[] = [];
 
 
   public showFieldErrors = false;
@@ -77,6 +77,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this.actTypeList = this._globalService.$regActivityTypeList;
     this.devClassList = this._globalService.$deviceClassesList;
     this.drugTypeList = this._globalService.$rawDrugTypeList;
+    this.yesNoList = this._globalService.$yesNoList;
 
     // this.detailsChanged = 0;
     // ApplicationInfoDetailsService.setLang(this.lang);
