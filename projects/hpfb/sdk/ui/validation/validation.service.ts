@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray } from '@angular/forms';
+import { ContactStatus } from '../common.constants';
 
 @Injectable()
 export class ValidationService {
@@ -32,7 +33,8 @@ export class ValidationService {
       'error.mgs.licence.number': 'error.mgs.licence.number',
       'error.mgs.application.number': 'error.mgs.application.number',
       'error.mgs.din': 'error.mgs.din',
-      'error.mgs.npn': 'error.mgs.npn'
+      'error.mgs.npn': 'error.mgs.npn',
+      'error.msg.remove.contact' : 'error.msg.remove.contact',
     };
 
     return config[validatorName];
@@ -47,6 +49,17 @@ export class ValidationService {
       return null;
     } else {
       return {'error.msg.email': true};
+    }
+  }
+
+  static contactStatusValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.toUpperCase()!=ContactStatus.Remove) {
+      return null;
+    } else {
+      return {'error.msg.remove.contact': true};
     }
   }
 

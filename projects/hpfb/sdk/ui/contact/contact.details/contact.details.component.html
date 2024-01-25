@@ -21,6 +21,11 @@
                 <a class="fn-lnk" href="#co4"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.conStatInx}}</a>
               </sup>
           </span>
+          <control-messages *ngIf="isInternal && contactDetailForm.controls['statusText'].invalid"
+                            [showError]="showFieldErrors"
+                            [control]="contactDetailForm.controls['statusText'] | formControl"
+                            controlId="statusText{{recordId}}" label="status" parentId="contactDetails"
+                            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="statusText" id="statusText{{recordId}}" class="form-control"
                  [readonly]="true" [formControl]="contactDetailForm.controls['statusText'] | formControl"/>
         </label>
