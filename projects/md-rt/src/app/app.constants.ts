@@ -7,6 +7,7 @@ export const COMPANY_ID_PREFIX = 'K';
 
 // the values need to match the code values in activity types json data file
 export enum ActivityType {
+  Licence = 'B02-20160301-039',
   PrivateLabel = 'B02-20160301-073',
   PrivateLabelAmendment = 'B02-20160301-074',
   MinorChange = 'B02-20160301-033',

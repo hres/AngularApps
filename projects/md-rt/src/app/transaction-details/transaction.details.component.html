@@ -197,36 +197,7 @@
         </label>
       </div>
     </div>
-    <!--
-    <div class="row" *ngIf="showPeriod">
-      <div class="form-group col-xs-6">
-        <label for="requestFrom" class="required full-width">
-          <span class="field-name" >{{ 'request.from' |translate }}</span>
-          <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.requestDate.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.requestDate"
-                            controlId="requestDate"></control-messages>
-          <input id="requestFrom" name="requestDate" type="date" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="transDetailsFormLocalModel.controls.requestDate" min="1970-01-01" max="2099-12-31"/>
-        </label>
-      </div>
-      <div class="form-group col-xs-6">
-        <label for="requestTo" class="required full-width">
-          <span class="field-name" >{{ 'request.to' |translate }}</span>
-          <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls.requestDate.invalid"
-                            [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls.requestDate"
-                            controlId="requestDate" label="request.date"
-                            parentId="transDetails"></control-messages>
-          <input id="requestTo" name="requestTo" type="date" class="form-control full-width" (blur)="onblur()"
-                 [formControl]="transDetailsFormLocalModel.controls.requestTo" min="1970-01-01" max="2099-12-31"/>
-        </label>
-      </div>
 
-    </div>
-  -->
     <div class="row">
       <div class="form-group col-xs-6" *ngIf="showMandatoryAppNum()">
         <label for="appNum" class="required full-width">
@@ -338,19 +309,19 @@
                           controlId="licenceNum" label="licence.number"
                           parentId="transDetails"></control-messages>
         <input id="licenceNum" name="licenceNum" class="form-control" (blur)="licenceNumOnblur()"
-               [formControl]="transDetailsFormLocalModel.controls['licenceNum']| formControl" maxlength="6" />
+               [formControl]="transDetailsFormLocalModel.controls['licenceNum']| formControl" maxlength="6" data-only-digits/>
       </label>
       </div>
     </div>
     <div class="row" *ngIf="showOrgManufactureId()">
       <div class="col-xs-6">
         <label for="orgManufactureId" class="required">
-          <span class="field-name" placement="left"  data-original-title="Tooltip on left">{{ 'orgManufactureId' |translate }} {{ 'minNumber6'|translate }}</span>
+          <span class="field-name" placement="left"  data-original-title="Tooltip on left">{{ 'original.manufacturing.company.id' |translate }} {{ 'minNumber6'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsFormLocalModel.controls['orgManufactureId'].invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls['orgManufactureId'] | formControl"
-                            controlId="orgManufactureId" label="orgManufactureId"
+                            controlId="orgManufactureId" label="original.manufacturing.company.id"
                             parentId="transDetails"></control-messages>
           <input id="orgManufactureId" name="orgManufactureId" class="form-control" (blur)="onblur()" only-digits
                  [formControl]="transDetailsFormLocalModel.controls['orgManufactureId'] | formControl" minlength="6" maxlength="6" />
@@ -358,15 +329,15 @@
       </div>
       <div class="col-xs-6">
         <label for="orgManufactureLicId" class="required">
-          <span class="field-name" >{{ 'orgManufactureLic' |translate }} {{ 'minNumber6'|translate }}</span>
+          <span class="field-name" >{{ 'original.manufacturer.licence.number' |translate }} {{ 'minNumber6'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsFormLocalModel.controls['orgManufactureLic'].invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls['orgManufactureLic'] | formControl"
-                            controlId="orgManufactureLicId" label="orgManufactureLic"
+                            controlId="orgManufactureLicId" label="original.manufacturer.licence.number"
                             parentId="transDetails"></control-messages>
           <input id="orgManufactureLicId" name="orgManufactureLicId" class="form-control" (blur)="onOrgManufactureLicblur()"
-                 [formControl]="transDetailsFormLocalModel.controls['orgManufactureLic'] | formControl" maxlength="6" only-digits />
+                 [formControl]="transDetailsFormLocalModel.controls['orgManufactureLic'] | formControl" maxlength="6" only-digits data-only-digits/>
         </label>
       </div>
     </div>

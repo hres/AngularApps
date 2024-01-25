@@ -35,7 +35,6 @@ export interface ApplicationInfo {
   org_manufacture_lic:      string;
   meeting_id:               string;
   proposed_licence_name:    string;
-  request_to:               string;
   brief_description:        string;
   rationale:                string;
   proposed_indication:      string;

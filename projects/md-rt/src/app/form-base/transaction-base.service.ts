@@ -1,15 +1,11 @@
-import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { EntityBaseService, IIdTextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { Injectable } from '@angular/core';
+import { EntityBaseService, IIdTextLabel, UtilsService } from '@hpfb/sdk/ui';
 import { ApplicationInfo, Enrollment, TransFees } from '../models/Enrollment';
-// import {GlobalsService} from '../globals/globals.service';
-// import {ValidationService} from '../validation.service';
-// import {ListService} from '../list-service';
 
 @Injectable()
 export class TransactionBaseService {
 
-  constructor(private _fb: FormBuilder, private _entityBaseService: EntityBaseService, private _utilsService: UtilsService) {
+  constructor(private _entityBaseService: EntityBaseService, private _utilsService: UtilsService) {
   }
 
   public getEmptyEnrol(): Enrollment {
@@ -50,7 +46,6 @@ export class TransactionBaseService {
         org_manufacture_lic: '',
         meeting_id: '',
         proposed_licence_name: '',
-        request_to: '',
         brief_description: '',
         rationale: '',
         proposed_indication: '',

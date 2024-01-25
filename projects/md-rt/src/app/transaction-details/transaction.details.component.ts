@@ -3,7 +3,7 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder, FormArray, FormControl, AbstractControl} from '@angular/forms';
-import { CheckboxOption, ControlMessagesComponent, ConverterService, ICode, UtilsService } from '@hpfb/sdk/ui';
+import { CheckboxOption, ControlMessagesComponent, ConverterService, ICode, IParentChildren, UtilsService } from '@hpfb/sdk/ui';
 import {TransactionDetailsService} from './transaction.details.service';
 import { GlobalService } from '../global/global.service';
 import { ActivityType, AmendReason, DeviceClass, TransactionDesc } from '../app.constants';
@@ -28,26 +28,26 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  // For the searchable select box, only accepts/saves id and text.
-  // Will need to convert
   public actTypeList: ICode[] = [];
   public transDescList: ICode[] = [];
   public yesNoList: ICode[] = [];
   public deviceClassList: ICode[] = [];
+  
+  activityTypeTxDescArray: IParentChildren[];
+  amendReasonList: ICode[] = [];
+  relationship: any[] = [];
 
-  public reasonResults: Array<boolean> = [];
   public showFieldErrors = false;
   public showDate: boolean;
   public showBriefDesc: boolean;
 
   // public showRationalRequired: boolean;
   // public showProposeIndication: boolean;
-  public showPeriod: boolean;
 
   public amendReasonOptionList: CheckboxOption[] = [];
 
   constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
-    private _utilsService: UtilsService, private _converterService: ConverterService, private cdr: ChangeDetectorRef) {
+    private _utilsService: UtilsService, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     this.showErrors = false;
     this.showDate = false;
@@ -56,7 +56,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     if (!this.transDetailsFormLocalModel) {
       this.transDetailsFormLocalModel = this._detailsService.getReactiveModel(this._fb);
     }
-    this.showPeriod = false;
   }
 
   ngOnInit() {
@@ -64,6 +63,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.actTypeList = this._globalService.$activityTypeList;
     this.deviceClassList = this._globalService.$deviceClasseList;
     this.yesNoList = this._globalService.$yesnoList;
+    this.amendReasonList = this._globalService.$amendReasonList;
+    this.relationship = this._globalService.$amendReasonRelationship;
+    this.activityTypeTxDescArray = this._globalService.$activityTypeTxDescription;
   }
 
   ngAfterViewInit() {
@@ -125,7 +127,14 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
         this.transDetailsFormLocalModel = this._detailsService.getReactiveModel(this._fb);
         this.transDetailsFormLocalModel.markAsPristine();
       }
-      this._detailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.transDetailsFormLocalModel), this.lang);
+      this._detailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.transDetailsFormLocalModel), this.amendReasonList, 
+        this.relationship, this.amendReasonOptionList, this.lang);
+
+      const activityTypeId: string = this.activityTypeFormControl.value;
+      if (activityTypeId) {
+        // dynamically load the transaction description dropdowns according to the selected activity type value
+        this.transDescList = this._getTransactionDescriptions(this.activityTypeTxDescArray, activityTypeId);
+      }
     }
 
   }
@@ -155,9 +164,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     // console.log("selectedActivityType", selectedActivityType);
     if (selectedActivityType) {
       // dynamically load the transaction description dropdowns according to the selected activity type value
-      const activityTypeTxDescArray = this._globalService.$activityTypeTxDescription;
-      this.transDescList = this._utilsService.filterParentChildrenArray(activityTypeTxDescArray, selectedActivityType);
-      //this._utilsService.resetControlsValues(this.txDescriptionFormControl, )
+      this.transDescList = this._getTransactionDescriptions(this.activityTypeTxDescArray, selectedActivityType);
     } else {
       this.transDescList = [];
     }
@@ -182,27 +189,14 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['descriptionType'], 
         this.transDetailsFormLocalModel.controls['deviceClass'], 
         this.transDetailsFormLocalModel.controls['amendReason'])
-    // this.transDetailsFormLocalModel.controls.descriptionType.setValue(null);
-    // this.transDetailsFormLocalModel.controls.descriptionType.markAsUntouched();
-    // this._setDescFieldFlags(this.transDetailsFormLocalModel.controls.descriptionType.value);
-    // this._cleanDeviceClass();
     this._resetOtherValues();
-  }
-  private _cleanDeviceClass() {
-    // this.transDetailsFormLocalModel.controls.deviceClass.setValue(null);
-    // this.transDetailsFormLocalModel.controls.deviceClass.markAsUntouched();
   }
 
   onOrgManufactureLicblur() {
-    // if (this.transDetailsFormLocalModel.controls['orgManufactureLic'].value
-    //     && this.transDetailsFormLocalModel.controls['orgManufactureLic'].value.toString().length < 6) {
-    //   this.transDetailsFormLocalModel.controls['orgManufactureLic'].setValue(
-    //     ('000000' + this.transDetailsFormLocalModel.controls['orgManufactureLic'].value )
-    //       .slice(this.transDetailsFormLocalModel.controls['orgManufactureLic'].value.toString().length) );
-    // }
+    this._formatLicenceNumber(this.transDetailsFormLocalModel.controls['orgManufactureLic'] as FormControl);
     this._saveData();
   }
-  
+
   private _updateAmendReasonArray() {
     // Reset the form array first
     this._utilsService.resetControlsValues(this.amendReasonChkFormArray);
@@ -211,44 +205,17 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     const deviceClassValue = this.transDetailsFormLocalModel.controls['deviceClass']?.value;
 
     if (activityTypeValue && deviceClassValue) {
-      const amendReasonList = this._globalService.$amendReasonList;
-      const relationship = this._globalService.$amendReasonRelationship;
-
-      console.log("**", activityTypeValue, deviceClassValue, amendReasonList, relationship);
-
-      const group = relationship.find((item) => item.activityTypeId === activityTypeValue);
-      if (group) {
-        const reasons =  group.amendReasons.filter((member) => member.deviceClassId === deviceClassValue);
-        console.log("##1",reasons[0])
-        const reasonIds = reasons[0].values;
-        console.log("##2",reasonIds)
-        const amendReasonCodeList = this._utilsService.filterCodesByIds(amendReasonList, reasonIds);
-        console.log("##3", amendReasonCodeList)
-
-        this.amendReasonOptionList = amendReasonCodeList.map((item) => {
-          return this._converterService.convertCodeToCheckboxOption(item, this.lang);
-        });
-        // reassign the form array's value
-        this.amendReasonOptionList.forEach(() => this.amendReasonChkFormArray.push(new FormControl(false)));
-        console.log("##4", this.amendReasonOptionList)
-      } else {
-        console.error("couldn't find amendReasons for activityType", activityTypeValue, "and deviceClass", deviceClassValue);
-      }
+      this._detailsService.loadAmendReasonOptions(activityTypeValue, deviceClassValue, this.amendReasonList, this.relationship, 
+        this.amendReasonOptionList, this.lang, this.amendReasonChkFormArray);
     } else {
       this.amendReasonOptionList = [];
     }
   }
 
   private _setDescFieldFlags(descValue) {
-    const selectedTxDescription = this.txDescriptionFormControl.value;
-
-    this.showBriefDesc = (selectedTxDescription === TransactionDesc.UD) ? true : false;
-
-    const txDescRequireDate = [TransactionDesc.IRSR, TransactionDesc.MM, TransactionDesc.PSI, TransactionDesc.RAIL, TransactionDesc.RER, 
-      TransactionDesc.RS25L, TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.RS];
-    this.showDate = txDescRequireDate.includes(selectedTxDescription) ? true : false;
-    
-    // this.showPeriod = descValue === this.rawDescTypes[this.rawDescMap.indexOf('i3')].id ? true : false;
+    const selectedTxDescription: TransactionDesc = this.txDescriptionFormControl.value;
+    this.showBriefDesc = this._detailsService.isBriefDescRequired(selectedTxDescription);
+    this.showDate = this._detailsService.isRequestDateRequired(selectedTxDescription); 
   }
 
   private _resetOtherValues() {
@@ -270,8 +237,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.transDetailsFormLocalModel.controls['rationale'].markAsUntouched();
     this.transDetailsFormLocalModel.controls['proposedIndication'].setValue(null);
     this.transDetailsFormLocalModel.controls['proposedIndication'].markAsUntouched();
-    this.transDetailsFormLocalModel.controls['requestTo'].setValue(null);
-    this.transDetailsFormLocalModel.controls['requestTo'].markAsUntouched();
   }
 
   amendReasonOnChange() {
@@ -333,28 +298,10 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   licenceNumOnblur() {
-    // if (this.transDetailsFormLocalModel.controls['licenceNum'].value && !isNaN(this.transDetailsFormLocalModel.controls['licenceNum'].value)) {
-    //   const lnum = '000000' + this.transDetailsFormLocalModel.controls['licenceNum'].value;
-    //   this.transDetailsFormLocalModel.controls['licenceNum'].setValue(lnum.substring(lnum.length - 6));
-    // }
+    this._formatLicenceNumber(this.transDetailsFormLocalModel.controls['licenceNum'] as FormControl);
     this._saveData();
   }
 
-  private _isTransactionDescriptionInitial() {
-    return this.txDescriptionFormControl.value === TransactionDesc.INITIAL
-  }
-
-  isLicence() {
-    // return (this.transDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[1].id
-    //   || this.transDetailsFormLocalModel.controls['activityType'].value === this.rawActTypes[9].id);
-    return true;
-  }
-
-  isNotInitial() {
-    // return (this.transDetailsFormLocalModel.controls['descriptionType'].value && !this._isTransactionDescriptionInitial());
-    return true;
-  }
-  
   // Device Class, show if Transaction Description is "initial"
   showDeviceClass() {
     if (this._isTransactionDescriptionInitial()) {
@@ -365,18 +312,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     }
     return false;
   }
-
-  // isInitialNotLicence() {
-  //   if (this._isTransactionDescriptionInitial() && this.transDetailsFormLocalModel.controls['activityType'].value && !this.isLicence()) {
-  //       return true;
-  //   } else {
-  //     this.transDetailsFormLocalModel.controls['deviceClass'].setValue(null);
-  //     this.transDetailsFormLocalModel.controls['deviceClass'].markAsUntouched();
-  //     this.transDetailsFormLocalModel.controls.amendReason.setValue(null);
-  //     this.transDetailsFormLocalModel.controls.amendReason.markAsUntouched();
-  //   }
-  //   return false;
-  // }
 
   // Amendment Reason, show if Regulatory Activity Type is "licence amendment" or "minor change" or  "private label amendment"and Transaction Description is "initial"
   // and Device Class is not empty
@@ -395,19 +330,17 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   isInitialAndLicence() {
-    if (this._isTransactionDescriptionInitial() && this.isLicence()) {
+    if (this._isTransactionDescriptionInitial() && this._isActivityTypeLicence()) {
       return true;
     } else {
-      // this.transDetailsFormLocalModel.controls['deviceName'].setValue(null);
-      // this.transDetailsFormLocalModel.controls['deviceName'].markAsUntouched();
+      this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['deviceClass'])
     }
     return false;
   }
 
   showMandatoryAppNum() {
-    const txDescRequireMandatoryAppNum = [TransactionDesc.ACD, TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.RS, TransactionDesc.WR];
     const selectedTxDescription = this.txDescriptionFormControl.value;
-    if (txDescRequireMandatoryAppNum.includes(selectedTxDescription)) {
+    if (this._detailsService.isMandatoryAppNumRequired(selectedTxDescription)) {
       return true;
     } else {
       this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['appNum']);
@@ -416,9 +349,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   showOptionalAppNum() {
-    const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.MM, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.RS39L];
     const selectedTxDescription = this.txDescriptionFormControl.value;
-    if (txDescRequireOptionalAppNum.includes(selectedTxDescription)) {
+    if (this._detailsService.isOptionalAppNumRequired(selectedTxDescription)) {
       return true;
     } else {
       this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['appNumOpt']);
@@ -461,6 +393,24 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     return this.showOrgManufactureId();
   }
 
+  private _formatLicenceNumber(control: FormControl){
+    if (control.value && control.value.toString().length < 6) {
+      control.setValue(this._utilsService.formatAsSixDigitNumber(control.value));
+    }
+  }
+
+  private _isActivityTypeLicence(){
+    return this.activityTypeFormControl.value === ActivityType.Licence
+  }
+
+  private _isTransactionDescriptionInitial() {
+    return this.txDescriptionFormControl.value === TransactionDesc.INITIAL
+  }
+
+  private _getTransactionDescriptions(activityTypeTxDescArray: IParentChildren[], activityTypeValue: string): ICode[]{
+    return this._utilsService.filterParentChildrenArray(activityTypeTxDescArray, activityTypeValue);
+  }
+
   get activityTypeFormControl() {
     return this.transDetailsFormLocalModel.get('activityType') as FormControl
   }
@@ -474,7 +424,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   get amendReasonChkFormArray() {
-    return this.transDetailsFormLocalModel.controls['amendReasons'] as FormArray
+    return this._detailsService.getAmendReasonCheckboxFormArray(this.transDetailsFormLocalModel);
   }
 
   // shortcut to get selectedAmendReasonCodes

@@ -114,15 +114,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.showErrors = true;
       document.location.href = '#topErrorSummary';
     } else {
-      const result = this._prepareForSaving(true);
-      const fileName = this._buildfileName();
+      const result: Enrollment = this._prepareForSaving(true);
+      const fileName: string = this._buildfileName(result);
       this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
     }
   }
 
   public saveWorkingCopyFile() {
-    const result = this._prepareForSaving(false);
-    const fileName = this._buildfileName();
+    const result: Enrollment = this._prepareForSaving(false);
+    const fileName: string = this._buildfileName(result);
     this._fileService.saveJsonToFile(result, fileName, null);
   }
 
@@ -141,8 +141,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return output;
   }
 
-  private _buildfileName() {
-    return 'rt-' + this.transactionInfoModel.dossier_id + '-' + + this.transactionInfoModel.last_saved_date;
+  private _buildfileName(output: Enrollment): string {
+    return 'rt-' + output.DEVICE_TRANSACTION_ENROL.application_info.dossier_id + '-' + output.DEVICE_TRANSACTION_ENROL.application_info.last_saved_date;
 
   }
 

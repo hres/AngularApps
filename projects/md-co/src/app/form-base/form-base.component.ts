@@ -171,7 +171,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   console.log(e)
     // }
 
-    this.disableMailto = this.errorList.length > 0;
+    this.disableMailto = this.errorList.length > 0 || this._isFinal()|| this.isInternal;
     this.showMailToHelpText = false;
   }
 
@@ -332,7 +332,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // }
 
   private _buildfileName() {
-    const date_generated = this._utilsService.getFormattedDate('yyyyMMddHHmm');
+    const date_generated = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     if (this.isInternal) {
       return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
     } else if (this.genInfoModel.status._id === EnrollmentStatus.Amend) {
@@ -422,7 +422,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }else {
       this.contactModel = [];
     }
-    this.showAmendNote = this._isFinal();
+    this.showAmendNote = this._isFinal() && !this.isInternal;
     this._setShowAdminChangesFlag();    
   }
 
