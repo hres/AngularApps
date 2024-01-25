@@ -7,7 +7,8 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, TranslateModule],
   templateUrl: './instruction.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./instruction.component.css']
 })
 export class InstructionComponent {
   @Input() helpTextSequences;
