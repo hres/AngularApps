@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ICode, IParentChildren, InstructionService } from '@hpfb/sdk/ui';
+import { ICode, ICodeAria, IParentChildren, InstructionService } from '@hpfb/sdk/ui';
 import { Enrollment } from '../models/Enrollment';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class GlobalService {
   private enrollment: Enrollment;
 
   // data loaded from json files
-  private deviceClasseList: ICode[];
+  private deviceClasseList: ICodeAria[];
   private activityTypeList: ICode[];
   private activityTypeTxDescription: IParentChildren[];
   private amendReasonList: ICode[];
@@ -79,11 +79,11 @@ export class GlobalService {
     return this.enrollment;
   }
 
-	public get $deviceClasseList(): ICode[] {
+	public get $deviceClasseList(): ICodeAria[] {
 		return this.deviceClasseList;
 	}
 
-	public set $deviceClasseList(value: ICode[]) {
+	public set $deviceClasseList(value: ICodeAria[]) {
 		this.deviceClasseList = value;
 	}
 

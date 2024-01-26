@@ -110,24 +110,27 @@
     </div>
     <div class="row" *ngIf="showDeviceClass()">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <label for="deviceClass" class="required full-width">
-          <span class="field-name" >{{ 'device.class' |translate }}</span>
-          <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <sup id="tr4-rf">
-            <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>4</a>
-          </sup>
-          <control-messages *ngIf="transDetailsFormLocalModel.controls['deviceClass'].invalid"
-                            [showError]="showFieldErrors"
-                            [control]="transDetailsFormLocalModel.controls['deviceClass'] | formControl"
-                            controlId="deviceClass" label="device.class"
-                            parentId="transDetails"></control-messages>
-          <select id="deviceClass" name="deviceClass" required class="form-control full-width" (change)="descrDeviceOnblur()"
-            [formControl]="transDetailsFormLocalModel.controls['deviceClass'] | formControl">
-            <option label=" " value=""></option>
-            <option *ngFor="let class of deviceClassList" [ngValue]="class.id"> {{ class | textTransform: lang }}</option>
-          </select>
-        </label>
-      </div>
+        <fieldset class="chkbxrdio-grp" >
+            <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
+                <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+                <sup id="tr4-rf">
+                  <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>4</a>
+                </sup>
+                <control-messages *ngIf="transDetailsFormLocalModel.controls['deviceClass'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="transDetailsFormLocalModel.controls['deviceClass'] | formControl"
+                    controlId="deviceClass" label="device.class" parentId="transDetails"></control-messages>
+            </legend>
+              <div class="radio" *ngFor="let class of deviceClassList; let i = index">
+                <label aria-hidden="true" for="deviceClass{{i}}">
+                  <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
+                    (change)="descrDeviceOnblur()"
+                    [formControl]="transDetailsFormLocalModel.controls['deviceClass'] | formControl" required/>
+                    {{class | textTransform: lang }}
+                </label>
+              </div>
+        </fieldset>
+      </div>  
     </div>
 
     <div class="row" *ngIf="showAmendReason()">
@@ -237,7 +240,7 @@
                  [formControl]="transDetailsFormLocalModel.controls['meetingId'] | formControl" maxlength="6" />
         </label>
       </div>
-      <div class="form-group col-xs-6" *ngIf="isInitialAndLicence()">
+      <div class="form-group col-xs-6" *ngIf="showDeviceName()">
         <label for="deviceName" class="required full-width">
           <span class="field-name" >{{ 'device.name' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>

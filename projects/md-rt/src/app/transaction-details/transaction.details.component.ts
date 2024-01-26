@@ -3,7 +3,7 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder, FormArray, FormControl, AbstractControl} from '@angular/forms';
-import { CheckboxOption, ControlMessagesComponent, ConverterService, ICode, IParentChildren, UtilsService } from '@hpfb/sdk/ui';
+import { CheckboxOption, ControlMessagesComponent, ConverterService, ICode, ICodeAria, IParentChildren, UtilsService } from '@hpfb/sdk/ui';
 import {TransactionDetailsService} from './transaction.details.service';
 import { GlobalService } from '../global/global.service';
 import { ActivityType, AmendReason, DeviceClass, TransactionDesc } from '../app.constants';
@@ -31,7 +31,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public actTypeList: ICode[] = [];
   public transDescList: ICode[] = [];
   public yesNoList: ICode[] = [];
-  public deviceClassList: ICode[] = [];
+  public deviceClassList: ICodeAria[] = [];
   
   activityTypeTxDescArray: IParentChildren[];
   amendReasonList: ICode[] = [];
@@ -173,7 +173,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   descrDeviceOnblur(){
-    const descValue = this.transDetailsFormLocalModel.controls['descriptionType'].value;
+    const descValue = this.txDescriptionFormControl.value;
     // console.log("selectedTxDescription", this.txDescriptionFormControl.value)
     this._updateAmendReasonArray();
     this._setDescFieldFlags(descValue);
@@ -186,8 +186,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this._cleanActivityDescription();
   }
   private _cleanActivityDescription() {
-    this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['descriptionType'], 
-        this.transDetailsFormLocalModel.controls['deviceClass'], 
+    this._utilsService.resetControlsValues(this.txDescriptionFormControl, 
+        this.deviceClassFormControl, 
         this.transDetailsFormLocalModel.controls['amendReason'])
     this._resetOtherValues();
   }
@@ -201,8 +201,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     // Reset the form array first
     this._utilsService.resetControlsValues(this.amendReasonChkFormArray);
 
-    const activityTypeValue = this.transDetailsFormLocalModel.controls['activityType'].value;
-    const deviceClassValue = this.transDetailsFormLocalModel.controls['deviceClass']?.value;
+    const activityTypeValue = this.activityTypeFormControl.value;
+    const deviceClassValue = this.deviceClassFormControl?.value;
 
     if (activityTypeValue && deviceClassValue) {
       this._detailsService.loadAmendReasonOptions(activityTypeValue, deviceClassValue, this.amendReasonList, this.relationship, 
@@ -250,29 +250,29 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     //   this._resetReasonFlag();
     // }
     // this.showRationalRequired = (
-    //   (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls['descriptionType'].value) &&
-    //   (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls['activityType'].value && (
+    //   (this.rawDescTypes[9].id === this.txDescriptionFormControl.value) &&
+    //   (this.rawActTypes[2].id === this.activityTypeFormControl.value && (
     //       this.transDetailsFormLocalModel.controls.classChange.value ||
     //       this.transDetailsFormLocalModel.controls.licenceChange.value ||
     //       this.transDetailsFormLocalModel.controls.deviceChange.value ||
     //       this.transDetailsFormLocalModel.controls.addChange.value
     //     ))
     //   ) ? true : false;
-    // this.showProposeIndication =  (this.rawDescTypes[9].id === this.transDetailsFormLocalModel.controls['descriptionType'].value &&
-    //   this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls['activityType'].value &&
-    //   this.deviceClassList[0].id === this.transDetailsFormLocalModel.controls['deviceClass'].value &&
+    // this.showProposeIndication =  (this.rawDescTypes[9].id === this.txDescriptionFormControl.value &&
+    //   this.rawActTypes[2].id === this.activityTypeFormControl.value &&
+    //   this.deviceClassList[0].id === this.deviceClassFormControl.value &&
     //   this.transDetailsFormLocalModel.controls.purposeChange.value
     //   ) ? true : false;
     this._saveData();
   }
 
   showRationaleRequired() {
-    if (this.transDetailsFormLocalModel.controls['activityType'].value === ActivityType.MinorChange && this._isTransactionDescriptionInitial()) {
+    if (this.activityTypeFormControl.value === ActivityType.MinorChange && this._isTransactionDescriptionInitial()) {
       // TODO line 21/22 in matrix
 
-    // if ((this.rawDescTypes[this.rawDescMap.indexOf('i5')].id === this.transDetailsFormLocalModel.controls['descriptionType'].value &&
-    //   this.transDetailsFormLocalModel.controls['deviceClass'].value ) && (this.rawActTypes[0].id === this.transDetailsFormLocalModel.controls['activityType'].value ||
-    //   (this.rawActTypes[2].id === this.transDetailsFormLocalModel.controls['activityType'].value && (
+    // if ((this.rawDescTypes[this.rawDescMap.indexOf('i5')].id === this.txDescriptionFormControl.value &&
+    //   this.deviceClassFormControl.value ) && (this.rawActTypes[0].id === this.activityTypeFormControl.value ||
+    //   (this.rawActTypes[2].id === this.activityTypeFormControl.value && (
     //     this.transDetailsFormLocalModel.controls.classChange.value ||
     //     this.transDetailsFormLocalModel.controls.licenceChange.value ||
     //     this.transDetailsFormLocalModel.controls.deviceChange.value ||
@@ -286,9 +286,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   showProposeIndication() {
-    if (this.transDetailsFormLocalModel.controls['activityType'].value === ActivityType.LicenceAmendment &&
+    if (this.activityTypeFormControl.value === ActivityType.LicenceAmendment &&
       this._isTransactionDescriptionInitial() &&
-      this.transDetailsFormLocalModel.controls['deviceClass']?.value === DeviceClass.ClassII &&
+      this.deviceClassFormControl?.value === DeviceClass.ClassII &&
       this.selectedAmendReasonCodes.includes(AmendReason.purpose_change) ) {
       return true;
     } else {
@@ -307,7 +307,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     if (this._isTransactionDescriptionInitial()) {
       return true;
     } else {
-      this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['deviceClass'], 
+      this._utilsService.resetControlsValues(this.deviceClassFormControl, 
         this.transDetailsFormLocalModel.controls['amendReason'])
     }
     return false;
@@ -318,7 +318,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   showAmendReason() {
     const activityTypesRequiresAmendReason: string[] = [ActivityType.LicenceAmendment, ActivityType.MinorChange , ActivityType.PrivateLabelAmendment];
 
-    const selectedActivityType = this.transDetailsFormLocalModel.get('activityType').value;
+    const selectedActivityType = this.activityTypeFormControl.value;
     const selectedDeviceClass = this.deviceClassFormControl?.value;
 
     if (activityTypesRequiresAmendReason.includes(selectedActivityType) && this._isTransactionDescriptionInitial() && selectedDeviceClass) {
@@ -329,12 +329,14 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     return false;
   }
 
-  isInitialAndLicence() {
-    if (this._isTransactionDescriptionInitial() && this._isActivityTypeLicence()) {
+  // show DeviceName if Regulatory Activity  Type is "licence"  or "private label" and Transaction Description is "initial"
+  showDeviceName() {
+    const activityTypeRequireDeviceName = [ActivityType.Licence, ActivityType.PrivateLabel];
+    const selectedActivityType = this.activityTypeFormControl.value;
+
+    if (activityTypeRequireDeviceName.includes(selectedActivityType) && this._isTransactionDescriptionInitial()) {
       return true;
-    } else {
-      this._utilsService.resetControlsValues(this.transDetailsFormLocalModel.controls['deviceClass'])
-    }
+    } 
     return false;
   }
 
@@ -399,9 +401,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     }
   }
 
-  private _isActivityTypeLicence(){
-    return this.activityTypeFormControl.value === ActivityType.Licence
-  }
+  // private _isActivityTypeLicence(){
+  //   return this.activityTypeFormControl.value === ActivityType.Licence
+  // }
 
   private _isTransactionDescriptionInitial() {
     return this.txDescriptionFormControl.value === TransactionDesc.INITIAL
