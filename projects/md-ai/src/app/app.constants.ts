@@ -13,6 +13,16 @@ export enum DeviceClass {
   ClassIV = 'DC4',
 }
 
+export enum ActivityType {
+  MinorChange = 'B02-20160301-033',
+  Licence = 'B02-20160301-039',
+  LicenceAmendment = 'B02-20160301-040',
+  PrivateLabel = 'B02-20160301-073',
+  PrivateLabelAmendment = 'B02-20160301-074',
+  S25 = 'B02-20160301-081'
+} 
+
+
 // Change strings according to app's instructions
 export const helpInstructionHeadings = [
   'loadFileIndx',
@@ -22,4 +32,5 @@ export const helpInstructionHeadings = [
   'mdsapOrgIndx',
   'devClsIndx',
   'cfmDecIndx',
+  'priRevIndx'
 ];

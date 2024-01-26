@@ -18,6 +18,7 @@ export class FormDataLoaderService {
   private provisionMDRJsonPath = DATA_PATH + 'provisionMDR.json';
   private regActivityTypeJsonPath = DATA_PATH + 'regActivityType.json';
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
+  private diagnosisReasonJsonPath = DATA_PATH + 'priorityRev.json';
 
 
   cachedCompliance$:Observable<ICode[]>;
@@ -31,6 +32,7 @@ export class FormDataLoaderService {
   cachedProvisionMDR$:Observable<ICode[]>;
   cachedRegActivityType$:Observable<ICode[]>;
   cachedKeywords$:Observable<ICode[]>;
+  cachedDiagnosisReason$:Observable<ICode[]>;
 
 
   constructor(private _dataService: DataLoaderService) {}
@@ -157,6 +159,17 @@ export class FormDataLoaderService {
           );
       } 
       return this.cachedRegActivityType$;
+  }
+
+  getDiagnosisReasonList(): Observable<ICode[]> {
+    if (!this.cachedDiagnosisReason$) {
+        this.cachedDiagnosisReason$ = this._dataService.getData<ICode>(this.diagnosisReasonJsonPath)
+          .pipe(
+            // tap(()=>console.log('getDeviceClassesList() is called')),
+            shareReplay(1)
+          );
+      } 
+      return this.cachedDiagnosisReason$;
   }
 
 }

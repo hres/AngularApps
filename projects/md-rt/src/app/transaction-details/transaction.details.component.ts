@@ -244,6 +244,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
         this.amendReasonOptionList = amendReasonCodeList.map((item) => {
           return this._converterService.convertCodeToCheckboxOption(item, this.lang);
         });
+        console.log("##3.5", this.amendReasonOptionList);
         // reassign the form array's value
         this.amendReasonOptionList.forEach(() => this.amendReasonChkFormArray.push(new FormControl(false)));
         console.log("##4", this.amendReasonOptionList)

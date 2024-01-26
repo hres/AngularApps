@@ -25,6 +25,7 @@ export class GlobalService {
   private provisionMDRList : ICode[];
   private regActivityTypeList : ICode[];
   private yesNoList : ICode[];
+  private diagnosisReasonList : ICode[]
 
 
   /**
@@ -169,5 +170,13 @@ export class GlobalService {
 
   public set $yesNoList(value: ICode[]) {
     this.yesNoList = value;
+  }
+
+  public get $diagnosisReasonList(): ICode[] {
+		return this.diagnosisReasonList;
+	}
+
+  public set $diagnosisReasonList(value: ICode[]) {
+    this.diagnosisReasonList = value;
   }
 }

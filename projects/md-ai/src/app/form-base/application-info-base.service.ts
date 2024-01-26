@@ -108,7 +108,7 @@ export class ApplicationInfoBaseService {
         is_animal_human_sourced: '',
         is_listed_idd_table: '',
         priority_review: '',
-        is_diagnosis_treatment_serious: ''
+        is_diagnosis_treatment_serious: this._entityBaseService.getEmptyIdTextLabel()
       }
     )
   }

@@ -44,7 +44,7 @@ export interface ApplicationInfo {
     is_animal_human_sourced :       string;
     is_listed_idd_table:            string;
     priority_review:                    string;
-    is_diagnosis_treatment_serious:     string;
+    is_diagnosis_treatment_serious:     IIdTextLabel;
 }
 
 export interface BiologicalMaterials {
