@@ -1,3 +1,4 @@
 .mydetails:not([data-open]) > div {
   display: none;
+  border: none;
 }
