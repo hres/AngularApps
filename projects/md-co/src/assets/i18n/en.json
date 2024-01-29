@@ -53,6 +53,7 @@
     "error.mgs.contact.id": "Invalid entry - 5 numeric value only",
     "error.msg.contact.one.record": "At least one company representative with new, active, revise status must be listed",
     "error.msg.contactDetails": "Company Representative Details has errors",
+    "error.msg.remove.contact": "Company Representative must be removed.",
     "postal.canada": "Postal Code",
     "postal.usa": "Zip Code",
     "heading.company": "Regulatory Company Enrolment",
