@@ -53,7 +53,7 @@
   "error.mgs.zip": "Entrée non valide: doit contenir 5 chiffres",
   "error.mgs.company.id": "Entrée non valide: doit contenir 6 chiffres",
   "error.msg.contactDetails": "fr_Company Representative Details has errors",
-
+  "error.msg.remove.contact": "Représentant de la compagnie doivent être supprimés.",
   "error.mgs.licence.number": "fr_Please specify a valid licence number.",
   "error.mgs.contact.id": "Entrée non valide: doit contenir 5 chiffres",
 
