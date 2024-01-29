@@ -20,9 +20,9 @@ export class TransactionDetailsService {
     return fb.group({
       dossierId: ['', [Validators.required, ValidationService.dossierIdValidator]],
       manuCompanyId: ['', [Validators.required, ValidationService.numeric6Validator]],
-      manuContactId: ['', [Validators.required, ValidationService.dossierContactIdValidator]],
+      manuContactId: ['', [Validators.required, ValidationService.numeric5Validator]],
       reguCompanyId: ['', [Validators.required, ValidationService.numeric6Validator]],
-      reguContactId: ['', [Validators.required, ValidationService.regulatoryContactIdValidator]],
+      reguContactId: ['', [Validators.required, ValidationService.numeric5Validator]],
       activityType: ['', Validators.required],
       descriptionType: ['', Validators.required],
       deviceClass: ['', Validators.required],
