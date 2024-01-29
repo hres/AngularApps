@@ -21,10 +21,11 @@ export class ContactDetailsService {
     if (!fb) {return null; }
     const contactIdValidators = isInternal ? [Validators.required, ValidationService.dossierContactIdValidator] : [];
     // const recordProcessedValidator = isInternal ? [Validators.required] : [];
+    const statusValidator = isInternal ? [ValidationService.contactStatusValidator] : [];
     return fb.group({
       contactId: [null, contactIdValidators],
       status: ContactStatus.New,
-      statusText: '', // for UI display purpose only
+      statusText: ['',statusValidator], // for UI display purpose only
       // hcStatus: [null, Validators.required],
       // salutation: [null, Validators.required],
       fullName: [null, Validators.required],

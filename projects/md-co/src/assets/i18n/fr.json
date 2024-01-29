@@ -53,7 +53,7 @@
   "error.mgs.zip": "Entrée non valide: doit contenir 5 chiffres",
   "error.mgs.company.id": "Entrée non valide: doit contenir 6 chiffres",
   "error.msg.contactDetails": "Il y a des erreurs dans les détails du représentant de la compagnie",
-
+  "error.msg.remove.contact": "Représentant de la compagnie doivent être supprimés.",
   "error.mgs.licence.number": "fr_Please specify a valid licence number.",
   "error.mgs.contact.id": "Entrée non valide: doit contenir 5 chiffres",
 
@@ -78,7 +78,7 @@
   "job.title": "Titre de poste",
   "status": "Statut du contact",
   "contact.email": "Courriel",
-  "fax.number": "Numéro de télécopieur",
+  "fax.number": "Numéro de télécopieur (incluant le code régional)",
   "phone.ext": "Extension de téléphone ",
   "phone.number": "Numéro de téléphone (incluant le code régional)",
   "phone.extension": "Extension de téléphone",

@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Observable, map, shareReplay, tap} from 'rxjs';
 import { DATA_PATH } from '../app.constants';
-import { DataLoaderService } from '@hpfb/sdk/ui';
 import { ICode, ICodeDefinition, IKeyword } from '@hpfb/sdk/ui/data-loader/data';
+import { DataLoaderService } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class FormDataLoaderService {
 
+  private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private deviceClassesJsonPath = DATA_PATH + 'deviceClasses.json';
   private regulatoryActivityTypesJsonPath = DATA_PATH + 'regulatoryActivityTypes.json';
   private transDescsJsonPath = DATA_PATH + 'transactionDescriptions.json';
@@ -14,6 +15,7 @@ export class FormDataLoaderService {
   private amendReasonsJsonPath = DATA_PATH + 'amendReasons.json';
   private amendReasonRelationshipJsonPath = DATA_PATH + 'raTypeDeviceClassAmendReason.json';
   
+  cachedKeywords$:Observable<ICode[]>;
   cachedDeviceClasses$:Observable<ICode[]>;
   cachedRegulatoryActivityTypes$:Observable<ICode[]>;
   cachedTransDescs$:Observable<ICode[]>;
@@ -22,6 +24,20 @@ export class FormDataLoaderService {
   cachedAmendReasonRelationship$:Observable<ICode[]>;
 
   constructor(private _dataService: DataLoaderService) {}
+
+  getYesNoList(): Observable<ICode[]> {
+    if (!this.cachedKeywords$) {
+      this.cachedKeywords$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          map(keywords => {
+            return keywords.find(keyword => keyword.name === 'yesno')?.data || [];
+          }),
+          // tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedKeywords$;
+  }
 
   getDeviceClassesList(): Observable<ICode[]> {
     if (!this.cachedDeviceClasses$) {
