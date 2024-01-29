@@ -65,8 +65,8 @@ export class ApplicationInfoBaseService {
       DEVICE_APPLICATION_INFO: {
         software_version: '',
         application_info: this.getEmptyApplicationInfoModel(),
-        devices: undefined, // TODO DIANA - Is this undefined? Search for list of objects
-        biological_materials: undefined, // TODO DIANA - Is this undefined? Search for list of objects
+        devices: null, // TODO DIANA - Is this undefined? Search for list of objects
+        biological_materials: null, // TODO DIANA - Is this undefined? Search for list of objects
       }
     };
 
@@ -83,6 +83,7 @@ export class ApplicationInfoBaseService {
         mdsap_org: this._entityBaseService.getEmptyIdTextLabel(),
         licence_application_type: this._entityBaseService.getEmptyIdTextLabel(),
         regulatory_activity_type: this._entityBaseService.getEmptyIdTextLabel(),
+        regulatory_activity_lead: this._getRegulatoryActivityLead(),
         device_class: this._entityBaseService.getEmptyIdTextLabel(),
         is_ivdd: '',
         is_home_use: '',
@@ -108,9 +109,13 @@ export class ApplicationInfoBaseService {
         is_animal_human_sourced: '',
         is_listed_idd_table: '',
         priority_review: '',
-        is_diagnosis_treatment_serious: this._entityBaseService.getEmptyIdTextLabel()
+        is_diagnosis_treatment_serious: null
       }
     )
+  }
+
+  private _getRegulatoryActivityLead() {
+    return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Device Directorate', 'Direction des instruments médicaux');
   }
 
  

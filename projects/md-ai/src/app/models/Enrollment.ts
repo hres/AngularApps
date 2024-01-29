@@ -19,6 +19,7 @@ export interface ApplicationInfo {
     mdsap_org:                      IIdTextLabel;
     licence_application_type:       IIdTextLabel;
     regulatory_activity_type:       IIdTextLabel;
+    regulatory_activity_lead:       IIdTextLabel;
     device_class:                   IIdTextLabel;
     is_ivdd:                        string;
     is_home_use:                    string;
@@ -44,7 +45,11 @@ export interface ApplicationInfo {
     is_animal_human_sourced :       string;
     is_listed_idd_table:            string;
     priority_review:                    string;
-    is_diagnosis_treatment_serious:     IIdTextLabel;
+    is_diagnosis_treatment_serious:     DiagnosisReasons;
+}
+
+export interface DiagnosisReasons {
+    diagnosis_reason : IIdTextLabel
 }
 
 export interface BiologicalMaterials {

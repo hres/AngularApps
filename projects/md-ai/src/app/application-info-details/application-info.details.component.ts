@@ -3,7 +3,7 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder, FormArray, FormControl} from '@angular/forms';
-import { CheckboxOption, ControlMessagesComponent, YES, NO, ConverterService, ICode, UtilsService } from '@hpfb/sdk/ui';
+import { CheckboxOption, ControlMessagesComponent, YES, NO, ConverterService, ICode, UtilsService, ICodeAria } from '@hpfb/sdk/ui';
 import {HttpClient} from '@angular/common/http';
 // import {DeviceListComponent} from '../device/device.list/device.list.component';
 // import {MaterialListComponent} from '../bio-material/material.list/material.list.component';
@@ -43,12 +43,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert
-  public deviceClassList: Array<any> = [];
-
   public licenceAppTypeList: ICode[] = [];
   public mdsapOrgList: ICode[] = [];
   public actTypeList: ICode[] = [];
-  public devClassList: ICode[] = [];
+  public devClassList: ICodeAria[] = [];
   public drugTypeList: ICode[] = [];
   public yesNoList: ICode[] = [];
 
@@ -137,9 +135,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       }
       this.detailErrorList.emit(temp);
     }
-    if (changes['deviceClassList']) {
-      this.deviceClassList = changes['deviceClassList'].currentValue;
-    }
+    // if (changes['deviceClassList']) {
+    //   this.devClassList = changes['deviceClassList'].currentValue;
+    // }
     if (changes['appInfoFormLocalModel']) {
       console.log('**********the app info details changed');
       //this.appInfoFormRecord = this.appInfoFormLocalModel;

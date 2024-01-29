@@ -142,7 +142,7 @@
     "help.file.load_1": "When continuing with a working copy, the format of the file to load should be .hcsc.",
     "help.file.load_2": "When viewing a draft or final XML file, the format of the file to load should be .xml.",
     "help.app.info_1": "The Manufacturer Company Identifier must be obtained from the final company XML file, issued by Health Canada.",
-    "help.app.info_2": "The Dossier Identifier can be obtained from the final dossier XML file or other Health Canada issued document. (e.g. HC6-024-m178974).",
+    "help.app.info_2": "The Dossier Identifier can be obtained from the final dossier XML file or other Health Canada issued document. (e.g. m178974).",
     "help.mdsap.number": "For New and Amendment Private Label Licence Applications, please provide the MDSAP Certificate number for the medical device manufactured by the original manufacturer.",
     "help.refer.to": "Refer to the ",
     "help.lic.app.type_1": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-interpretation-sections-28-31-licence-application-type.html",
