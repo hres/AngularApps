@@ -6,20 +6,22 @@
         {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }}
       </h4>
       } @else {
-      <h4 class="panel-title" tabindex="0" role="button"
-        (keydown.enter)="toggleExpand(i, recordRow.get('expandFlag').value)"
-        (keydown.space)="$event.preventDefault(); toggleExpand(i, recordRow.get('expandFlag').value)"
-        (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
+      <div role="button">
+        <h4 class="panel-title" tabindex="0"
+          (keydown.enter)="toggleExpand(i, recordRow.get('expandFlag').value)"
+          (keydown.space)="$event.preventDefault(); toggleExpand(i, recordRow.get('expandFlag').value)"
+          (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
 
-        <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'"
-          aria-hidden="true"></i>
-        @if (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) {
-        {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }} -
-        {{recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value}}
-        }@else {
-        {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }}
-        }
-      </h4>
+          <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'"
+            aria-hidden="true"></i>
+          @if (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) {
+          {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }} -
+          {{recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value}}
+          }@else {
+          {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }}
+          }
+        </h4>
+      </div>
       }
     </header>
     @if(recordRow.get('expandFlag').value){
