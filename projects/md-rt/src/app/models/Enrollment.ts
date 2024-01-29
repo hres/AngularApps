@@ -5,11 +5,10 @@ export interface Enrollment {
 }
 
 export interface DeviceTransactionEnrol {
-  software_version:         string;     // template_version??
+  template_version:         string;    
   check_sum?:               string;
-  application_info:                   ApplicationInfo;
-  requester_of_solicited_information: {requester: []},
-  transFees:                          TransFees;
+  application_info:         ApplicationInfo;
+  transFees:                TransFees;
 }
 
 export interface ApplicationInfo {
@@ -32,13 +31,10 @@ export interface ApplicationInfo {
   transaction_description:  string;
   has_ddt:                  string;
   has_app_info:             string;
-  is_solicited_info:        string;
   org_manufacture_id:       string;
   org_manufacture_lic:      string;
   meeting_id:               string;
   proposed_licence_name:    string;
-  request_version:          string;
-  request_to:               string;
   brief_description:        string;
   rationale:                string;
   proposed_indication:      string;
@@ -46,11 +42,6 @@ export interface ApplicationInfo {
 
 export interface AmendReasons {
   amend_reason:            IIdTextLabel[];
-}
-
-export interface Requester {
-  id:                   string;
-  requester:            string;
 }
 
 export interface TransFees {
