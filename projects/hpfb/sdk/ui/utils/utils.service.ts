@@ -320,4 +320,19 @@ export class UtilsService {
   sortCodeList(codeArray:ICode[], lang:string): ICode[]{
     return codeArray.sort((a, b) => this.isFrench(lang) ? a.fr.localeCompare(b.fr) : a.en.localeCompare(b.en));
   }
+
+  // to get enum value from string
+  getEnumValueFromString<T>(enumType: T, value: string): T[keyof T] | undefined {
+    for (const key in enumType) {
+      if (enumType[key] === value) {
+        return enumType[key] as T[keyof T];
+      }
+    }
+    return undefined;
+  }
+
+  formatAsSixDigitNumber(value: string): string {
+    const leadingZeros = '000000';
+    return leadingZeros.substring(0, 6 - value.length) + value;
+  }
 }
