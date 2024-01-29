@@ -50,6 +50,7 @@ export enum AmendReason {
 export const helpInstructionHeadings = [
   'loadFileInx',
   'transactionInfoInx',
+  'dossierIdInx',
   'contactIdInx',
   'deviceClassInx',
   'applicationNumberInx',

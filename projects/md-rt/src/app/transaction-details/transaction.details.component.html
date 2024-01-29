@@ -5,6 +5,9 @@
         <label for="dossierId" class="required full-width">
           <span class="field-name" >{{ 'dossier.id'|translate }} {{ 'minAlphanum6.m'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
+          <sup id="tr3-rf">
+            <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex['dossierIdInx']}}</a>
+          </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls['dossierId'].invalid"
                             [showError]="showFieldErrors"
                             [control]="transDetailsFormLocalModel.controls['dossierId'] | formControl"
@@ -61,8 +64,8 @@
         <label for="reguContactId" class="required full-width" aria-required="true">
           <span class="field-name" >{{ 'regulatory.contact.id'|translate }} {{ 'minNumber5'|translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <sup id="tr3-rf">
-            <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex.tr3}}</a>
+          <sup id="tr4-rf">
+            <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex['contactIdInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls['reguContactId'].invalid"
                             [showError]="showFieldErrors"
@@ -113,8 +116,8 @@
         <fieldset class="chkbxrdio-grp" >
             <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-                <sup id="tr4-rf">
-                  <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>4</a>
+                <sup id="tr5-rf">
+                  <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex['deviceClassInx']}}</a>
                 </sup>
                 <control-messages *ngIf="transDetailsFormLocalModel.controls['deviceClass'].invalid"
                     [showError]="showFieldErrors"
@@ -206,8 +209,8 @@
         <label for="appNum" class="required full-width">
           <span class="field-name" >{{ 'application.number' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <sup id="tr5-rf">
-            <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{ 'instruction'|translate }}</span>5</a>
+          <sup id="tr6-rf">
+            <a class="fn-lnk" href="#tr6"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex['applicationNumberInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls['appNum'].invalid"
                             [showError]="showFieldErrors"
@@ -222,7 +225,7 @@
         <label for="appNumOpt" class="full-width">
           <span class="field-name" >{{ 'application.number' |translate }}</span>
           <sup id="tr5-rf">
-            <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{ 'instruction'|translate }}</span>5</a>
+            <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex['deviceClassInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls['appNumOpt'].invalid"
                             [showError]="showFieldErrors"
@@ -244,8 +247,8 @@
         <label for="deviceName" class="required full-width">
           <span class="field-name" >{{ 'device.name' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-          <sup id="tr6-rf">
-            <a class="fn-lnk" href="#tr6"><span class="wb-inv">{{ 'instruction'|translate }}</span>6</a>
+          <sup id="tr7-rf">
+            <a class="fn-lnk" href="#tr7"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex['deviceNameInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsFormLocalModel.controls['deviceName'].invalid"
                             [showError]="showFieldErrors"
@@ -303,8 +306,8 @@
       <label for="licenceNum" class="form-group required full-width">
         <span class="field-name" >{{ 'licence.number' |translate }}</span>
         <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
-        <sup id="tr7-rf">
-          <a class="fn-lnk" href="#tr7"><span class="wb-inv">{{ 'instruction'|translate }}</span>7</a>
+        <sup id="tr8-rf">
+          <a class="fn-lnk" href="#tr8"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex['licenseNumberlInx']}}</a>
         </sup>
         <control-messages *ngIf="transDetailsFormLocalModel.controls['licenceNum'].invalid"
                           [showError]="showFieldErrors"
@@ -350,8 +353,8 @@
           <label for="hasDdtMan" class="required">
             <strong>{{'has.ddt'|translate}}</strong>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <sup id="tr8-rf">
-              <a class="fn-lnk" href="#tr8"><span class="wb-inv">{{'instruction'|translate}}</span>8</a>
+            <sup id="tr9-rf">
+              <a class="fn-lnk" href="#tr9"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['deviceDetailInx']}}</a>
             </sup>
             <control-messages *ngIf="transDetailsFormLocalModel.controls['hasDdtMan'].invalid"
                               [showError]="showFieldErrors"
