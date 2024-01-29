@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <form name="transactionForm" novalidate>
+    <form name="transactionForm" [formGroup]="transactionForm" novalidate>
       <div class="row mrgn-tp-md">
         <div class="col-md-12">
           <div class="text-right">
@@ -23,7 +23,7 @@
             </div>
           </section>
         </div>
-        <div id="topErrorSummaryId">
+        <div id="topErrorSummary">
           <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
                          headingPreamble="errorSummary.transaction"></lib-error-summary>
         </div>
@@ -37,22 +37,14 @@
               </h2>
             </header>
             <div class="panel-body">
-              <!-- [detailsChanged]="updateChild" [userList]="userList"-->
+              <!-- [detailsChanged]="updateChild" -->
               <transaction-details [showErrors]="showErrors" [lang]="lang" 
                                 [transactionInfoModel]="transactionInfoModel"
-                                (isSolicitedFlag)="processIsSolicitedFlag($event)" [helpIndex]="helpIndex"
+                                [helpIndex]="helpIndex"
                                 (detailErrorList)="processDetailErrors($event)"></transaction-details>
   
             </div>
-            <section class="panel  panel-default" *ngIf="isSolicited()">
-              <header class="panel-heading clearfix">
-                <h3 class="panel-title">{{'heading.requesters'|translate}}</h3>
-              </header>
-              <div class="panel-body">
-                <!-- <requester-list  (errors)="processRequesterErrors($event)"  [userList]="userList" [showErrors]="showErrors"
-                                 [requesterModel]="requesterModel"></requester-list> -->
-              </div>
-            </section>
+
             <section class="panel panel-default">
               <header class="panel-heading clearfix">
                 <h3 class="panel-title">{{'fees'|translate}}</h3>

@@ -609,7 +609,7 @@ span.normalWeight {
 					</div>
 					<div class="col-xs-6">
 					<strong>Contact Status:&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="status_text/@label_en"/></span>
+					<span class="mouseHover"><xsl:value-of select="status/@label_en"/></span>
 					</div>
 				</div>
 				<div class="row">
@@ -689,4 +689,3 @@ span.normalWeight {
 	  </xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>
-
