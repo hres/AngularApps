@@ -1,91 +1,74 @@
 <div class="container-fluid">
-    <form name="transactionForm" [formGroup]="transactionForm" novalidate>
-      <div class="row mrgn-tp-md">
-        <div class="col-md-12">
-          <div class="text-right">
-            <span id="securityInfo" class="fa fa-shield fa-sm"><strong>&nbsp;{{'PROTECTED_B'|translate}}</strong></span>
-          </div>
-        </div>
-
-        <div>
-          <section class="panel panel-primary mrgn-tp-lg">
-            <header class="panel-heading clearfix">
-              <h2 class="panel-title">{{'load.file'|translate}}
-                <sup id="tr1-rf">
-                  <a class="fn-lnk" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileInx']}}</a>
-                </sup>
-              </h2>
-            </header>
-            <div class="panel-body">
-              <div class="row">
-                <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText"></lib-file-reader>
-              </div>
-            </div>
-          </section>
-        </div>
-        <div id="topErrorSummary">
-          <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-                         headingPreamble="errorSummary.transaction"></lib-error-summary>
-        </div>
-        <div>
-          <section class="panel panel-primary mrgn-tp-lg">
-            <header class="panel-heading clearfix">
-              <h2 class="panel-title">{{'heading.transaction'|translate}}
-                <sup id="tr2-rf">
-                  <a class="fn-lnk" href="#tr2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['transactionInfoInx']}}</a>
-                </sup>
-              </h2>
-            </header>
-            <div class="panel-body">
-              <!-- [detailsChanged]="updateChild" -->
-              <transaction-details [showErrors]="showErrors" [lang]="lang" 
-                                [transactionInfoModel]="transactionInfoModel"
-                                [helpIndex]="helpIndex"
-                                (detailErrorList)="processDetailErrors($event)"></transaction-details>
-  
-            </div>
-
-            <section class="panel panel-default">
-              <header class="panel-heading clearfix">
-                <h3 class="panel-title">{{'fees'|translate}}</h3>
-              </header>
-              <div class="panel-body">
-                <!-- <transaction-fee (feeErrorList)="processTransFeeErrors($event)"
-                                 [showErrors]="showErrors" [transFeeModel]="transFeeModel"></transaction-fee> -->
-              </div>
-            </section>
-  
-            <!--<div>-->
-            <!--<section class="panel  panel-default">-->
-            <!--<header class="panel-heading clearfix">-->
-            <!--<div class="btn-group pull-right">-->
-            <!--</div>-->
-            <!--<h3 class="panel-title">{{'fees'|translate}}</h3>-->
-            <!--</header>-->
-            <!--<div class="panel-body">-->
-            <!--<transaction-fees (feesErrorList)="processTransFeesErrors($event)"-->
-            <!--[transFeesModel]="transFeesModel"></transaction-fees>-->
-            <!--</div>-->
-            <!--</section>-->
-            <!--</div>-->
-          </section>
-        </div>
-  
-      </div>
-      <div class="row btn-group-sm">
-        <div class="form-group col-md-4">
-          <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
-            {{'save.working.copy'|translate}}
-          </button>
-        </div>
-        <div class="form-group col-md-4">
-          <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
-            {{'generate.final'|translate}}
-          </button>
+  <form name="transactionForm" [formGroup]="transactionForm" novalidate>
+    <div class="row mrgn-tp-md">
+      <div class="col-md-12">
+        <div class="text-right">
+          <span id="securityInfo" class="fa fa-shield fa-sm"><strong>&nbsp;{{'PROTECTED_B'|translate}}</strong></span>
         </div>
       </div>
-
-        <!--pre> myForm valid{{myForm.valid}}</pre>
-        <pre> myForm{{myForm.value |json}}</pre-->
-      </form>
     </div>
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'load.file'|translate}}
+            <sup id="tr1-rf">
+              <a class="fn-lnk" href="#tr1"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileInx']}}</a>
+            </sup>
+          </h2>
+        </header>
+        <div class="panel-body">
+          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText"></lib-file-reader>
+        </div>
+      </section>
+    </div>
+    <div id="topErrorSummary">
+      <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+        headingPreamble="errorSummary.transaction"></lib-error-summary>
+    </div>
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'heading.transaction'|translate}}
+            <sup id="tr2-rf">
+              <a class="fn-lnk" href="#tr2"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['transactionInfoInx']}}</a>
+            </sup>
+          </h2>
+        </header>
+        <div class="panel-body">
+          <transaction-details [showErrors]="showErrors" [lang]="lang" [transactionInfoModel]="transactionInfoModel"
+            [helpIndex]="helpIndex" (detailErrorList)="processDetailErrors($event)"></transaction-details>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'fees'|translate}}</h2>
+        </header>
+        <div class="panel-body">
+          <!-- <transaction-fee (feeErrorList)="processTransFeeErrors($event)"
+                                 [showErrors]="showErrors" [transFeeModel]="transFeeModel"></transaction-fee> -->
+        </div>
+      </section>
+    </div>
+
+    <div class="row btn-group-sm">
+      <div class="form-group col-md-4">
+        <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
+          {{'save.working.copy'|translate}}
+        </button>
+      </div>
+      <div class="form-group col-md-4">
+        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
+          {{'generate.final'|translate}}
+        </button>
+      </div>
+    </div>
+
+    <!--pre> myForm valid{{myForm.valid}}</pre>
+        <pre> myForm{{myForm.value |json}}</pre-->
+  </form>
+</div>
