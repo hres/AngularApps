@@ -1,5 +1,5 @@
 {
-  "form.title": "Transaction Template: Regulatory Enrolment Process (REP)",
+  "form.title": "Regulatory Transaction Template: Regulatory Enrolment Process (REP)",
   "version": "Version ",
   "top.fromHC": "From <a href='https://www.canada.ca/en/health-canada.html'>Health Canada</a>",
   "top.privacy.statement": "Privacy Notice Statement",
@@ -10,7 +10,7 @@
   "select.file.line": "Always upload XML file into a blank template. Refresh this page to reset template to blank.",
   "refresh.file.input": "Refresh this page",
   "error":"Error {{number}}:",
-  "transaction.enrolment": "Regulatory Transaction Enrolment",
+  "heading.transaction": "Regulatory Transaction Enrolment",
   "dossier.id": "Dossier Identifier",
   "dossier.type": "Dossier Type",
   "manufacturing.company.id": "Manufacturer Company Identifier",
@@ -44,7 +44,6 @@
   "error.mgs.contact.id": "Must be 5 numeric value",
   "error.mgs.licence.number": "Must be 6 numeric value - Add leading 0 if less than 6 digits",
   "error.mgs.application.number": "Please specify a valid application number.",
-  "heading.transaction": "Regulatory Transaction Information",
   "commmon.required.bracket": " (required)",
   "errorSummary.transaction": "Transaction Form",
   "error.found.because":" could not be saved because ",

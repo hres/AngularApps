@@ -1,5 +1,5 @@
 {
-  "form.title": "fr_Transaction Template: Regulatory Enrolment Process (REP)",
+  "form.title": "Modèle de transaction réglementaire: Processus d'inscription réglementaire (PIR)",
   "version": "Version ",
   "top.fromHC": "De <a href='https://www.canada.ca/fr/sante-canada.html'>Santé Canada</a>",
   "top.privacy.statement": "Énoncé de confidentialité",
@@ -10,7 +10,7 @@
   "select.file.line": "Veuillez en tout temps téléchargez le fichier dans le modèle vierge. Actualisez cette page afin de réinitialiser le modèle.",
   "refresh.file.input": "Actualisez cette page",
   "error":"Erreur {{number}}:",
-  "transaction.enrolment": "Inscription à la transaction réglementaire",
+  "heading.transaction": "Inscription à la transaction réglementaire",
   "dossier.id": "Numéro de dossier",
   "dossier.type": "Type de dossier",
   "manufacturing.company.id": "Numéro d’identification du fabricant",
@@ -44,7 +44,6 @@
   "error.mgs.contact.id": "Doit contenir 5 chiffres",
   "error.mgs.licence.number": "Doit contenir 6 chiffres - Ajouter un 0 au début de la séquence si la licence contient moins de 6 chiffres",
   "error.mgs.application.number": "fr_Please specify a valid application number.",
-  "heading.transaction": "fr_Regulatory Transaction Information",
   "commmon.required.bracket": " (obligatoire)",
   "errorSummary.transaction": "Formulaire de transaction",
   "error.found.because":" n’a pas pu être sauvegardé car ",
