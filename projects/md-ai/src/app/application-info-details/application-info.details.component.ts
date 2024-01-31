@@ -10,7 +10,7 @@ import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {ApplicationInfoDetailsService} from './application-info.details.service';
 import { GlobalService } from '../global/global.service';
-import { DeviceClass, ActivityType } from '../app.constants';
+import { DeviceClass, ActivityType, Compliance} from '../app.constants';
 
 @Component({
   selector: 'app-info-details',
@@ -51,6 +51,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   public yesNoList: ICode[] = [];
 
   public seriousDiagnosisReasonList: CheckboxOption[] = [];
+  public complianceList: CheckboxOption[] = [];
+
 
   public showFieldErrors = false;
 
@@ -296,7 +298,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     } else {
       this._resetValuesToNull(['hasDrug', 'hasDinNpn',]);
       this._resetValuesToEmpty(['din', 'npn', 'drugName', 'activeIngredients', 'manufacturer', 'otherPharmacopeia']);
-      this._resetValuesToFalse(['complianceUsp', 'complianceGmp', 'complianceOther'])
+      this._utilsService.resetControlsValues(this.appInfoFormLocalModel.controls['compliance']);
       // this.appInfoFormLocalModel.controls.hasDrug.setValue(null);
       // this.appInfoFormLocalModel.controls.hasDrug.markAsUntouched();
       // this.appInfoFormLocalModel.controls.hasDinNpn.setValue(null);
@@ -329,7 +331,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       return true;
     } else {
       this._resetValuesToNull(['hasDinNpn']);
-      this._resetValuesToFalse(['complianceUsp', 'complianceGmp', 'complianceOther']);
+      this._utilsService.resetControlsValues(this.appInfoFormLocalModel.controls['compliance']);
       this._resetValuesToEmpty(['din', 'npn', 'drugName', 'activeIngredients', 'manufacturer','otherPharmacopeia'])
       // this.appInfoFormLocalModel.controls.hasDinNpn.setValue(null);
       // this.appInfoFormLocalModel.controls.hasDinNpn.markAsUntouched();
@@ -405,7 +407,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
   isOtherPharmacopeia() {
-    if (this.appInfoFormLocalModel.controls['complianceOther'].value) {
+    if (this.selectedComplianceCodes.includes(Compliance.OTHER)) {
       return true;
     } else {
       this._resetValuesToEmpty(['otherPharmacopeia']);
@@ -444,13 +446,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       this._resetValuesToEmpty(['authNum']);
       // this.appInfoFormLocalModel.controls['authNum'].setValue('');
       // this.appInfoFormLocalModel.controls['authNum'].markAsUntouched();
-    }
-    return false;
-  }
-
-  isNoDeclaration() {
-    if (this.appInfoFormLocalModel.controls['declarationConformity'].value) {
-      return (this.appInfoFormLocalModel.controls['declarationConformity'].value.id === NO);
     }
     return false;
   }
@@ -532,6 +527,13 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
+  isNoDeclaration() {
+    if (this.appInfoFormLocalModel.controls['declarationConformity'].value) {
+      return (this.appInfoFormLocalModel.controls['declarationConformity'].value.id === NO);
+    }
+    return false;
+  }
+
   isOptional() {
     if (this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.LicenceAmendment
       && (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIII
@@ -564,7 +566,16 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
+  hasDrugOnChange() {
+    this._updateComplianceArray();
+    this.onblur();
+  }
+
   seriousDiagnosisOnChange() {
+    this.onblur();
+  }
+
+  complianceOnChange() {
     this.onblur();
   }
 
@@ -580,13 +591,33 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     console.log("#3", this.seriousDiagnosisReasonList);
   } 
 
+  private _updateComplianceArray() {
+    const complianceChkList = this._globalService.$complianceList;
+    console.log("#1", complianceChkList);
+    this.complianceList = complianceChkList.map((item) => {
+      return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+    });
+    console.log("#2", this.complianceList);
+
+    this.complianceList.forEach(() => this.complianceChkFormArray.push(new FormControl(false)));
+    console.log("#3", this.complianceList);
+  }
+
   get diagnosisReasonChkFormArray() {
     return this.appInfoFormLocalModel.controls['diagnosisReasons'] as FormArray
 
   }
 
-  get selectedAmendReasonCodes(): string[] {
+  get selectedDiagnosisCodes(): string[] {
     return this._detailsService.getSelectedDiagnosisCodes(this.seriousDiagnosisReasonList, this.diagnosisReasonChkFormArray);
+  }
+
+  get complianceChkFormArray() {
+    return this.appInfoFormLocalModel.controls['compliance'] as FormArray
+  }
+
+  get selectedComplianceCodes(): string[] {
+    return this._detailsService.getSelectedComplianceCodes(this.complianceList, this.complianceChkFormArray);
   }
 
 }
