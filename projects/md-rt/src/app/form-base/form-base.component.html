@@ -50,8 +50,8 @@
                 <h3 class="panel-title">{{'fees'|translate}}</h3>
               </header>
               <div class="panel-body">
-                <!-- <transaction-fee (feeErrorList)="processTransFeeErrors($event)"
-                                 [showErrors]="showErrors" [transFeeModel]="transFeeModel"></transaction-fee> -->
+                <transaction-fee (feeErrorList)="processTransFeeErrors($event)" [lang]="lang"
+                                 [showErrors]="showErrors" [transFeeModel]="transFeeModel"></transaction-fee>
               </div>
             </section>
   
