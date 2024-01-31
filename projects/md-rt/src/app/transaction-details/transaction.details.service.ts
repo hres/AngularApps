@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { CheckboxOption, ConverterService, ICode, IIdTextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { AmendReasons, ApplicationInfo } from '../models/Enrollment';
-import { COMPANY_ID_PREFIX, TransactionDesc } from '../app.constants';
+import { ActivityType, COMPANY_ID_PREFIX, TransactionDesc } from '../app.constants';
 import { GlobalService } from '../global/global.service';
 
 @Injectable()
@@ -28,7 +28,7 @@ export class TransactionDetailsService {
       deviceClass: ['', Validators.required],
       amendReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
       rationale: ['', Validators.required],
-      proposedIndication: ['', Validators.required],
+      proposedPurpose: ['', Validators.required],
       licenceNum: ['', [Validators.required, ValidationService.licenceNumValidator]],
       orgManufactureId: ['', [Validators.required, ValidationService.numeric6Validator]],
       orgManufactureLic: ['', [Validators.required, ValidationService.licenceNumValidator]],
@@ -85,7 +85,7 @@ export class TransactionDetailsService {
     transactionInfoModel.amend_reasons = reasons;
 
     transactionInfoModel.rationale = formRecord.controls['rationale']?.value? formRecord.controls['rationale'].value : null;
-    transactionInfoModel.proposed_indication = formRecord.controls['proposedIndication']?.value ? formRecord.controls['proposedIndication'].value : null;
+    transactionInfoModel.proposed_indication = formRecord.controls['proposedPurpose']?.value ? formRecord.controls['proposedPurpose'].value : null;
     
 
     transactionInfoModel.licence_number = formRecord.controls['licenceNum'].value;
@@ -163,17 +163,8 @@ export class TransactionDetailsService {
     }
 
     formRecord.controls['licenceNum'].setValue(transactionInfoModel.licence_number);
-//     if (transactionInfoModel.description_type._id &&
-//       (transactionInfoModel.description_type._id === descriptions[2].id ||
-//         transactionInfoModel.description_type._id === descriptions[3].id ||
-//         transactionInfoModel.description_type._id === descriptions[6].id ||
-//         transactionInfoModel.description_type._id === descriptions[7].id ||
-//         transactionInfoModel.description_type._id === descriptions[10].id ||
-//         transactionInfoModel.description_type._id === descriptions[12].id)) {
-      formRecord.controls['appNumOpt'].setValue(transactionInfoModel.application_number);
-//     } else {
-      formRecord.controls['appNum'].setValue(transactionInfoModel.application_number);
-//     }
+    formRecord.controls['appNumOpt'].setValue(transactionInfoModel.application_number);
+    formRecord.controls['appNum'].setValue(transactionInfoModel.application_number);
     formRecord.controls['meetingId'].setValue(transactionInfoModel.meeting_id);
     formRecord.controls['deviceName'].setValue(transactionInfoModel.device_name);
     formRecord.controls['licenceName'].setValue(transactionInfoModel.proposed_licence_name);
@@ -181,7 +172,7 @@ export class TransactionDetailsService {
     formRecord.controls['hasDdtMan'].setValue(transactionInfoModel.has_ddt);
     formRecord.controls['hasAppInfo'].setValue(transactionInfoModel.has_app_info);
     formRecord.controls['rationale'].setValue(transactionInfoModel.rationale);
-    formRecord.controls['proposedIndication'].setValue(transactionInfoModel.proposed_indication);
+    formRecord.controls['proposedPurpose'].setValue(transactionInfoModel.proposed_indication);
     formRecord.controls['orgManufactureId'].setValue(transactionInfoModel.org_manufacture_id);
     formRecord.controls['orgManufactureLic'].setValue(transactionInfoModel.org_manufacture_lic);
   }
@@ -235,24 +226,32 @@ export class TransactionDetailsService {
     }
   }
 
-  isRequestDateRequired(selectedTxDescription: TransactionDesc): boolean{
+  isRequestDateRequired(txDescription: TransactionDesc): boolean{
     const txDescRequireDate = [TransactionDesc.IRSR, TransactionDesc.MM, TransactionDesc.PSI, TransactionDesc.RAIL, TransactionDesc.RER, 
       TransactionDesc.RS25L, TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.RS];
 
-     return txDescRequireDate.includes(selectedTxDescription) ? true : false;
+     return txDescRequireDate.includes(txDescription) ? true : false;
   }
 
-  isBriefDescRequired(selectedTxDescription: TransactionDesc): boolean{
-    return selectedTxDescription === TransactionDesc.UD ? true : false;
+  isBriefDescRequired(txDescription: TransactionDesc): boolean{
+    return txDescription === TransactionDesc.UD ? true : false;
   }
 
-  isMandatoryAppNumRequired(selectedTxDescription: TransactionDesc): boolean{
+  isMandatoryAppNumRequired(txDescription: TransactionDesc): boolean{
     const txDescRequireMandatoryAppNum = [TransactionDesc.ACD, TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.RS, TransactionDesc.WR];
-    return txDescRequireMandatoryAppNum.includes(selectedTxDescription)
+    return txDescRequireMandatoryAppNum.includes(txDescription)
   }
 
-  isOptionalAppNumRequired(selectedTxDescription: TransactionDesc): boolean{
+  isOptionalAppNumRequired(txDescription: TransactionDesc): boolean{
     const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.MM, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.RS39L];
-    return txDescRequireOptionalAppNum.includes(selectedTxDescription)
+    return txDescRequireOptionalAppNum.includes(txDescription)
   }
+
+  isOrgManufactureInfoRequired(raType: ActivityType, txDescription: TransactionDesc): boolean{
+    const raTypeRequireManufactureInfo: string[] = [ActivityType.PrivateLabel, ActivityType.PrivateLabelAmendment];
+    const txDescRequireManufactureInfo = [TransactionDesc.INITIAL, TransactionDesc.RS, TransactionDesc.UD];
+
+    return raTypeRequireManufactureInfo.includes(raType) && txDescRequireManufactureInfo.includes(txDescription) ? true : false;
+  }
+
 }
