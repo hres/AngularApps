@@ -17,6 +17,8 @@ export class FormDataLoaderService {
   private mdAuditProgramJsonPath = DATA_PATH + 'mdAuditProgram.json';
   private provisionMDRJsonPath = DATA_PATH + 'provisionMDR.json';
   private regActivityTypeJsonPath = DATA_PATH + 'regActivityType.json';
+  private keywordsJsonPath = DATA_PATH + 'keywords.json';
+  private diagnosisReasonJsonPath = DATA_PATH + 'priorityRev.json';
 
 
   cachedCompliance$:Observable<ICode[]>;
@@ -29,9 +31,25 @@ export class FormDataLoaderService {
   cachedMdAuditProgram$:Observable<ICode[]>;
   cachedProvisionMDR$:Observable<ICode[]>;
   cachedRegActivityType$:Observable<ICode[]>;
+  cachedKeywords$:Observable<ICode[]>;
+  cachedDiagnosisReason$:Observable<ICode[]>;
 
 
   constructor(private _dataService: DataLoaderService) {}
+
+  getYesNoList(): Observable<ICode[]> {
+    if (!this.cachedKeywords$) {
+      this.cachedKeywords$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          map(keywords => {
+            return keywords.find(keyword => keyword.name === 'yesno')?.data || [];
+          }),
+          // tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedKeywords$;
+  }
 
   getComplianceList(): Observable<ICode[]> {
     if (!this.cachedCompliance$) {
@@ -141,6 +159,17 @@ export class FormDataLoaderService {
           );
       } 
       return this.cachedRegActivityType$;
+  }
+
+  getDiagnosisReasonList(): Observable<ICode[]> {
+    if (!this.cachedDiagnosisReason$) {
+        this.cachedDiagnosisReason$ = this._dataService.getData<ICode>(this.diagnosisReasonJsonPath)
+          .pipe(
+            // tap(()=>console.log('getDeviceClassesList() is called')),
+            shareReplay(1)
+          );
+      } 
+      return this.cachedDiagnosisReason$;
   }
 
 }

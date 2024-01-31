@@ -39,18 +39,16 @@
         <div class="panel-body">
           <transaction-details [showErrors]="showErrors" [lang]="lang" [transactionInfoModel]="transactionInfoModel"
             [helpIndex]="helpIndex" (detailErrorList)="processDetailErrors($event)"></transaction-details>
-        </div>
-      </section>
-    </div>
 
-    <div>
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'fees'|translate}}</h2>
-        </header>
-        <div class="panel-body">
-          <!-- <transaction-fee (feeErrorList)="processTransFeeErrors($event)"
-                                 [showErrors]="showErrors" [transFeeModel]="transFeeModel"></transaction-fee> -->
+          <section class="panel panel-default">
+            <header class="panel-heading clearfix">
+              <h3 class="panel-title">{{'fees'|translate}}</h3>
+            </header>
+            <div class="panel-body">
+              <transaction-fee (feeErrorList)="processTransFeeErrors($event)" [lang]="lang" [showErrors]="showErrors"
+                [transFeeModel]="transFeeModel"></transaction-fee>
+            </div>
+          </section>
         </div>
       </section>
     </div>

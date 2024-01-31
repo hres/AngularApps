@@ -1,10 +1,11 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { IIdTextLabel, UtilsService, ValidationService, YES, NO } from '@hpfb/sdk/ui';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { IIdTextLabel, UtilsService, ValidationService, YES, NO, CheckboxOption, ConverterService } from '@hpfb/sdk/ui';
 // import {GlobalsService} from '../globals/globals.service';
 // import {ValidationService} from '../validation.service';
 // import {ListService} from '../list-service';
 import { ApplicationInfo } from '../models/Enrollment';
+import { COMPANY_ID_PREFIX } from '../app.constants';
 
 @Injectable()
 export class ApplicationInfoDetailsService {
@@ -13,7 +14,7 @@ export class ApplicationInfoDetailsService {
   // private static drugTypeList: Array<any> = ApplicationInfoDetailsService.getRawDrugTypeList();
   // private static lang = GlobalsService.ENGLISH;
 
-  constructor(private _utilsService : UtilsService) {
+  constructor(private _utilsService : UtilsService, private _converterService : ConverterService) {
   }
 
   /**
@@ -51,14 +52,22 @@ export class ApplicationInfoDetailsService {
       otherPharmacopeia: [null, Validators.required],
       provisionMdrIT: [false, []],
       provisionMdrSA: [false, []],
+      provisionMdrIOA: [false, []],
       applicationNum: ['', [ValidationService.appNumValidator]],
       sapReqNum: ['', []],
+      authNum: ['',[]],
       declarationConformity : [null, Validators.required],
       hasRecombinant: [null, Validators.required],
       isAnimalHumanSourced : [null, Validators.required],
       hasMaterial: [null, Validators.required],
-      isListedIddTable: [null, Validators.required]
+      isListedIddTable: [null, Validators.required],
+      isPriorityReq: [null, []],
+      diagnosisReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected])
     });
+  }
+
+  getSelectedDiagnosisCodes(seriousDiagnosisReasonList: CheckboxOption[], diagnosisReasonChkFormArray: FormArray) : string[] {
+    return this._converterService.getCheckedCheckboxValues(seriousDiagnosisReasonList, diagnosisReasonChkFormArray);
   }
 
   /**
@@ -209,13 +218,13 @@ export class ApplicationInfoDetailsService {
   //   return this._convertListText(rawList, lang);
   // }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
+  public mapFormModelToDataModel(formRecord: FormGroup, appInfoModel) {
     // const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
     // const deviceClassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
 
     appInfoModel.company_id = formRecord.controls[''].value;
     if (formRecord.controls['companyId'].value) {
-      appInfoModel.company_id = 'K' + formRecord.controls['companyId'].value;
+      appInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.controls['companyId'].value;
     }
     appInfoModel.dossier_id = formRecord.controls['dossierId'].value;
     appInfoModel.device_class = formRecord.controls['deviceClass'].value;
@@ -356,10 +365,10 @@ export class ApplicationInfoDetailsService {
     // formRecord.controls['dossierId'].setValue(appInfoModel.dossier_id);
     // formRecord.controls['mdsapNum'].setValue(appInfoModel.mdsap_number);
 
-    if (appInfoModel.mdsap_org) {
+    if (appInfoModel['mdsap_org']) {
       // const mdsapOrgList = ApplicationInfoDetailsService.getMdsapOrgListList(ApplicationInfoDetailsService.lang);
       // const recordIndex2 = ListService.getRecord(mdsapOrgList, appInfoModel.mdsap_org._id, 'id');
-      if (appInfoModel.mdsap_org) {
+      if (appInfoModel['mdsap_org']) {
       //   if (recordIndex2 > -1) {
       //     formRecord.controls.mdsapOrg.setValue(mdsapOrgList[recordIndex2].id);
       //   } else {
@@ -370,7 +379,7 @@ export class ApplicationInfoDetailsService {
       // }
     }
 
-    if (appInfoModel.licence_application_type) {
+    if (appInfoModel['licence_application_type']) {
     //   const recordIndex2 = ListService.getRecord(this.licenceAppTypeList, appInfoModel.licence_application_type._id, 'id');
     //   if (recordIndex2 > -1) {
     //     formRecord.controls['licenceAppType'].setValue(this.licenceAppTypeList[recordIndex2].id);
@@ -393,7 +402,7 @@ export class ApplicationInfoDetailsService {
     //   formRecord.controls['activityLead'].setValue(null);
     // }
 
-    if (appInfoModel.regulatory_activity_type) {
+    if (appInfoModel['regulatory_activity_type']) {
     //   const activityTypeList = ApplicationInfoDetailsService.getActivityTypeList(ApplicationInfoDetailsService.lang);
     //   const recordIndex2 = ListService.getRecord(activityTypeList, appInfoModel.regulatory_activity_type._id, 'id');
     //   if (recordIndex2 > -1) {
@@ -405,7 +414,7 @@ export class ApplicationInfoDetailsService {
     //   formRecord.controls['activityType'].setValue(null);
     }
 
-    if (appInfoModel.device_class) {
+    if (appInfoModel['device_class']) {
     //   const deviceClassList = ApplicationInfoDetailsService.getDeviceClassList(ApplicationInfoDetailsService.lang);
     //   const recordIndex2 = ListService.getRecord(deviceClassList, appInfoModel.device_class._id, 'id');
     //   if (recordIndex2 > -1) {
@@ -422,7 +431,7 @@ export class ApplicationInfoDetailsService {
     // formRecord.controls['isEmitRadiation'].setValue(appInfoModel.is_emit_radiation);
     // formRecord.controls['hasDrug'].setValue(appInfoModel.has_drug);
 
-    if (appInfoModel.has_din_npn) {
+    if (appInfoModel['has_din_npn']) {
     //   const recordIndex3 = ListService.getRecord(this.drugTypeList, appInfoModel.has_din_npn._id, 'id');
     //   if (recordIndex3 > -1) {
     //     formRecord.controls['hasDinNpn'].setValue(this.drugTypeList[recordIndex3].id);
@@ -708,6 +717,8 @@ export class ApplicationInfoDetailsService {
   //   const descArray = ApplicationInfoDetailsService._convertListText(ApplicationInfoDetailsService.getRawActivityTypeList(), lang);
   //   return [descArray[6], descArray[7], descArray[8], descArray[9], descArray[10]];
   // }
+
+  
 
 }
 }

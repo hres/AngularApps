@@ -1,0 +1,53 @@
+<div>
+    <div [formGroup]="transFeeFormLocalModel">
+      <div class="row">
+        <div class="form-group col-xs-12" >
+          <label for="hasFees" class="required full-width">
+            <span class="field-name">{{'are.fees' |translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="transFeeFormLocalModel.controls['hasFees'].invalid"
+                              [showError]="showFieldErrors"
+                              [control]="transFeeFormLocalModel.controls['hasFees'] | formControl"
+                              controlId="hasFees" label="are.fees" parentId="transFees"></control-messages>
+            <select id="hasFees" required class="form-control" (blur)="onblur()" [formControl]="transFeeFormLocalModel.controls['hasFees'] | formControl">
+              <option label=" " value=""></option>
+              <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="row"  *ngIf="hasFeeYes()">
+        <div class="form-group col-xs-6 minWidth300" >
+          <label for="billCompanyId" class="required full-width" aria-required="true">
+            <span class="field-name">{{'billing.company.id'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="transFeeFormLocalModel.controls['billCompanyId'].invalid"
+                              [showError]="showFieldErrors"
+                              [control]="transFeeFormLocalModel.controls['billCompanyId'] | formControl"
+                              controlId="billCompanyId" label="billing.company.id" parentId="transFees"></control-messages>
+            <input id="billCompanyId" class="form-control" (blur)="onblur()" name="billCompanyId" autofocus
+                   [formControl]="transFeeFormLocalModel.controls['billCompanyId'] | formControl" maxlength="6"/>
+          </label>
+        </div>
+        <div class="form-group col-xs-6 minWidth300" >
+          <label for="billContactId" class="required full-width" aria-required="true">
+            <span class="field-name">{{'billing.contact.id'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="transFeeFormLocalModel.controls['billCompanyId'].invalid"
+                              [showError]="showFieldErrors"
+                              [control]="transFeeFormLocalModel.controls['billCompanyId'] | formControl"
+                              controlId="billContactId" label="billing.contact.id" parentId="transFees"></control-messages>
+            <input id="billContactId" class="form-control"  (blur)="onblur()" name="billContactId"
+                   [formControl]="transFeeFormLocalModel.controls['billCompanyId'] | formControl" maxlength="5"/>
+          </label>
+        </div>
+        <div class="col-xs-12 form-group alert alert-info" role="alert">
+             <span>
+              <p aria-live="polite">{{'completed.fee.required'|translate}}</p>
+             </span>
+        </div>
+      </div>
+  
+      <!-- <pre>{{transFeesFormLocalModel.value |json}}</pre>-->
+    </div>
+  </div>
