@@ -205,8 +205,28 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     const deviceClassValue = this.deviceClassFormControl?.value;
 
     if (activityTypeValue && deviceClassValue) {
-      this._detailsService.loadAmendReasonOptions(activityTypeValue, deviceClassValue, this.amendReasonList, this.relationship, 
-        this.amendReasonOptionList, this.lang, this.amendReasonChkFormArray);
+      const amendReasonList = this._globalService.$amendReasonList;
+      const relationship = this._globalService.$amendReasonRelationship;
+
+      console.log("**", activityTypeValue, deviceClassValue, amendReasonList, relationship);
+
+      const group = relationship.find((item) => item.activityTypeId === activityTypeValue);
+      if (group) {
+        const reasons =  group.amendReasons.filter((member) => member.deviceClassId === deviceClassValue);
+        console.log("##1",reasons[0])
+        const reasonIds = reasons[0].values;
+        console.log("##2",reasonIds)
+        const amendReasonCodeList = this._utilsService.filterCodesByIds(amendReasonList, reasonIds);
+        
+        this.amendReasonOptionList = amendReasonCodeList.map((item) => {
+          return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+        });
+        // reassign the form array's value
+        this.amendReasonOptionList.forEach(() => this.amendReasonChkFormArray.push(new FormControl(false)));
+        console.log("##4", this.amendReasonOptionList)
+      } else {
+        console.error("couldn't find amendReasons for activityType", activityTypeValue, "and deviceClass", deviceClassValue);
+      }
     } else {
       this.amendReasonOptionList = [];
     }

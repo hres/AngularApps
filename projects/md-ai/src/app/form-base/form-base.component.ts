@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { XSLT_PREFIX, ROOT_TAG } from '../app.constants';
+import { XSLT_PREFIX, ROOT_TAG, XSL_EXTENSION } from '../app.constants';
 import {  ICode, ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, YES, NO } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
@@ -68,7 +68,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showErrors = false;
     this.isSolicitedFlag = false;
     this.fileServices = new FileConversionService();
-    this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + '.xsl';
+    this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + XSL_EXTENSION;
   }
 
   ngOnInit() {
