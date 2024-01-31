@@ -168,6 +168,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _init(transactionEnroll: DeviceTransactionEnrol){
     this.transactionInfoModel = transactionEnroll.application_info;  
-    // this.transFeeModel = fileData.data.DEVICE_TRANSACTION_ENROL.transFees;
+    this.transFeeModel = transactionEnroll.transFees;
   }
 }
