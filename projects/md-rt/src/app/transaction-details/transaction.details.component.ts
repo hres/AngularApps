@@ -41,7 +41,7 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   public amendReasonOptionList: CheckboxOption[] = [];
 
   constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
-    private _utilsService: UtilsService, private cdr: ChangeDetectorRef) {
+    private _utilsService: UtilsService, private _converterService: ConverterService, private cdr: ChangeDetectorRef) {
     this.showFieldErrors = false;
     this.showErrors = false;
     this.showDate = false;
