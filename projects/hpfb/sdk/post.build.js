@@ -14,7 +14,7 @@ if (!pkg.scripts.postBuildSubEnvDependency || !pkg.scripts.postBuildSubUpdateDis
 // Run env.dependency.js and capture its output
 console.log('\n--- postBuildSubEnvDependency starts');
 const subtask1Output = execSync(`npm run postBuildSubEnvDependency -- --template=${template} --language=${language} `, { encoding: 'utf-8' });
-// console.log(subtask1Output);
+console.log(subtask1Output);
 console.log('--- postBuildSubEnvDependency ends');
 
 const lines = subtask1Output.trim().split('\n');

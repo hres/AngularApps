@@ -9,14 +9,20 @@ const languagex = process.env.npm_config_language;
 
 console.log(`\tTemplate: ${templatex} Language: ${languagex} were passed in as parameters`);
 
-const config = {
+const envConfig = {
   "md-co-external": '../../md-co/src/environments/environment.prod-',
   "md-co-internal": '../../md-co/src/environments/environment.prod.internal-',
+  "md-rt": '../../md-rt/src/environments/environment.prod-',
+};
+const baseEnvConfig = {
+  "md-co-external": '../../md-co/src/environments/env.ts',
+  "md-co-internal": '../../md-co/src/environments/env.ts',
+  "md-rt": '../../md-rt/src/environments/env.ts',
 }
 
-const baseenv_filepath = '../../md-co/src/environments/env.ts';
-const env_filepath = config[templatex] + languagex + '.ts';
-
+const baseenv_filepath = baseEnvConfig[templatex];
+const env_filepath = envConfig[templatex] + languagex + '.ts';
+console.log(`\tbaseenv_filepath: ${baseenv_filepath} env_filepath: ${env_filepath} `);
 try {
 
   const baseEnv = fs.readFileSync(resolve(__dirname, baseenv_filepath), 'utf-8');
