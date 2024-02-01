@@ -52,7 +52,7 @@
   "error.msg.postal": "Format non valide - Doit être X#X#X#",
   "error.mgs.zip": "Entrée non valide: doit contenir 5 chiffres",
   "error.mgs.company.id": "Entrée non valide: doit contenir 6 chiffres",
-  "error.msg.contactDetails": "Il y a des erreurs dans les détails du représentant de la compagnie",
+  "error.msg.contactDetails": "Il y a des erreurs dans les détails du représentant de la compagnie.",
   "error.msg.remove.contact": "Représentant de la compagnie doivent être supprimés.",
   "error.mgs.licence.number": "fr_Please specify a valid licence number.",
   "error.mgs.contact.id": "Entrée non valide: doit contenir 5 chiffres",
@@ -125,7 +125,7 @@
   "msg.err.file.type": "Erreur: Un type de fichier invalide a été sélectionné.",
   "msg.err.form.type": "Erreur: le type de formulaire incorrect a été sélectionné pour ce formulaire.",
   "msg.err.checksum": "Erreur: il y a eu une erreur en analysant le fichier.",
-  "section.show.option": "[ Cette section peut ne pas être visible. ]",
+  "section.show.option": "[ Cette section peut ne pas être visible. ] ",
 
   "minNumber5": "(5 chiffres)",
   "minNumber6": "(6 chiffres)",
