@@ -10,7 +10,6 @@
   "company.enrolment": "Inscription d'une compagnie réglementaire",
   "company.id": "Identifiant de la compagnie",
   "select.file": "Sélectionnez un fichier à charger",
-  "select.file.line": "Veuillez en tout temps téléchargez le fichier dans le modèle vierge. Actualisez cette page afin de réinitialiser le modèle.",
   "addressDetails.street": "Rue",
   "addressDetails.city": "Ville",
   "addressDetails.country": "Pays",
@@ -33,7 +32,6 @@
 
   "fileio.msg.noFileChoosen": "Aucun fichier choisi",
   "amend.note": "Le bouton « Modifier l'inscription » doit être sélectionné lors de la modification du fichier XML final de  la compagnie.",
-  "refresh.page": "Veuillez en tout temps téléchargez le fichier dans le modèle vierge. Actualisez cette page afin de réinitialiser le modèle. ",
   "save.record": "Ajouter l'enregistrement",
 
   "refresh.file.input": "Actualisez cette page",
@@ -152,7 +150,7 @@
   "help.routing.id.02": "Pour toute question sur l'identificateur d'acheminement, veuillez contacter le service de dépannage de la Food and Drug Administration au ",
   "help.add.record":"Si le bouton « Ajouter un enregistrement » n'est pas actif, cliquez sur le bouton « Modifier l'inscription » ou assurez-vous que tous les enregistrements de contact sont correctement enregistrés.",  
   "help.licence.num": "Répertoriez toutes les licences concernées, séparées par une ligne (peut copier et coller).",
-  "mailto.01": "L’ébauche du fichier CO XML doit être envoyée par courriel.",
+  "mailto.01": "L’ébauche du fichier CO XML doit être envoyé par courriel.",
   "mailto.02": "En cliquant sur ce bouton, vous générerez automatiquement un modèle de message électronique à l’aide de votre programme de messagerie par défaut. Avant de soumettre, veuillez joindre votre ébauche du fichier CO XML.",
   "mailto.03": "Si le message électronique n’a pas été généré automatiquement, vous pouvez en créer un et y inclure les éléments suivants :",
   "mailto.04": "À : {{email}}",
