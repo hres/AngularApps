@@ -113,6 +113,7 @@
     "error.found.because":" could not be saved because ",
     "error.found.plural": " errors were found",
     "error.found.singular": " error was found",
+    "error.msg.deviceDetails": "Device Details has errors",
     "appl.status": "Enrolment Status",
     "enrol.version": "Enrolment Version",
     "date.saved": "Date Last Saved",
