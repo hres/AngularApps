@@ -34,7 +34,6 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getRawDrugType(),
     this._formDataLoader.getLicenceAppTypeList(),
     this._formDataLoader.getMdAuditProgramList(),
-    this._formDataLoader.getProvisionMdrList(),
     this._formDataLoader.getRegActivityTypeList(),
     this._formDataLoader.getYesNoList(),
     this._formDataLoader.getDiagnosisReasonList()
@@ -59,10 +58,9 @@ export class ContainerComponent implements OnInit {
       this._globalService.$rawDrugTypeList = data[5];
       this._globalService.$licenceAppTypeList = data[6];
       this._globalService.$mdAuditProgramList = data[7];
-      this._globalService.$provisionMDRList = data[8];
-      this._globalService.$regActivityTypeList = data[9];
-      this._globalService.$yesNoList = data[10];
-      this._globalService.$diagnosisReasonList = data[11];
+      this._globalService.$regActivityTypeList = data[8];
+      this._globalService.$yesNoList = data[9];
+      this._globalService.$diagnosisReasonList = data[10];
 
       this.loadFormBaseComponent = true;
     });
