@@ -1,13 +1,6 @@
 <div>
     <div [formGroup]="adminChangesFormLocalModel">
       
-      <div class="row" *ngFor="let def of amendReasonDefs"> 
-        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="alert alert-info" role="alert">
-                <p aria-live="polite">{{def}}</p>
-            </div>
-        </div>
-      </div>
       <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="alert alert-info" role="alert">
@@ -15,6 +8,15 @@
           </div>
         </div>
       </div>
+      
+      <div class="row" *ngFor="let def of amendReasonDefs"> 
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="alert alert-info" role="alert">
+                <p aria-live="polite">{{def}}</p>
+            </div>
+        </div>
+      </div>
+      
       
       <div>
         <section class="panel  panel-default">
