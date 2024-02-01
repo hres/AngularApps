@@ -8,7 +8,6 @@
 
     "load.file": "Load a Company Enrolment File",
     "select.file": "Select a file to load",
-    "select.file.line": "Always upload XML file into a blank template. Refresh this page to reset template to blank.",
     "company.enrolment": "Regulatory Company Enrolment",
     "company.id": "Company Identifier",
     "addressDetails.street": "Street Address",
@@ -29,7 +28,6 @@
     "fileio.msg.dataTypeError": "Error: the wrong form data was selected for this form.",
     "fileio.msg.noFileChoosen": "No file chosen",
     "amend.note": "The “Amend Enrolment” button must be selected when amending a Final Company XML.",
-    "refresh.page": "Always upload XML file into a blank template. Refresh this page to reset template to blank.",
     "refresh.file.input": "Refresh this page",
     "save.record": "Save Record",
     "delete.record": "Delete Record",

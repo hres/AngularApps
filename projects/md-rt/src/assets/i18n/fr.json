@@ -7,7 +7,6 @@
   "top.instruction": "Instructions",
   "load.file": "Charger un fichier d'inscription de transaction réglementaire",
   "select.file": "Sélectionnez un fichier à charger",
-  "select.file.line": "Veuillez en tout temps téléchargez le fichier dans le modèle vierge. Actualisez cette page afin de réinitialiser le modèle.",
   "refresh.file.input": "Actualisez cette page",
   "error":"Erreur {{number}}:",
   "transaction.enrolment": "Inscription à la transaction réglementaire",

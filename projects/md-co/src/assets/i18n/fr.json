@@ -10,7 +10,6 @@
   "company.enrolment": "Inscription d'une compagnie réglementaire",
   "company.id": "Identifiant de la compagnie",
   "select.file": "Sélectionnez un fichier à charger",
-  "select.file.line": "Veuillez en tout temps téléchargez le fichier dans le modèle vierge. Actualisez cette page afin de réinitialiser le modèle.",
   "addressDetails.street": "Rue",
   "addressDetails.city": "Ville",
   "addressDetails.country": "Pays",
@@ -33,7 +32,6 @@
 
   "fileio.msg.noFileChoosen": "Aucun fichier choisi",
   "amend.note": "Le bouton « Modifier l'inscription » doit être sélectionné lors de la modification du fichier XML final de  la compagnie.",
-  "refresh.page": "Veuillez en tout temps téléchargez le fichier dans le modèle vierge. Actualisez cette page afin de réinitialiser le modèle. ",
   "save.record": "Ajouter l'enregistrement",
 
   "refresh.file.input": "Actualisez cette page",
