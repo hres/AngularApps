@@ -32,7 +32,19 @@ const config = {
             "indexFileOriginalName": "/index-fr.html",
             "indexFileNewName": "/index-internal.html",
         }
-      }
+      },
+      "md-rt": {
+        "outputPath": DIST_DIR + "/md-rt",
+        "breadcrumbsPath": "md",
+        "en": {
+            "indexFileOriginalName": "/index-en.html",
+            "indexFileNewName": "/md-regulatory-transaction.html",
+        },
+        "fr": {
+            "indexFileOriginalName": "/index-fr.html",
+            "indexFileNewName": "/im-transaction-reglementaire.html",
+        }
+      },
 
     }
 
