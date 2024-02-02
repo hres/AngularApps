@@ -51,14 +51,14 @@ export class ContactDetailsService {
     }
     contactModel.full_name = formRecord.controls['fullName'].value;
     if (formRecord.controls['language'].value) {
-      contactModel.language = this._converterService.findAndConverCodeToIdTextLabel(languageList, formRecord.controls['language'].value, lang);
+      contactModel.language_correspondence = this._converterService.findAndConverCodeToIdTextLabel(languageList, formRecord.controls['language'].value, lang);
     } else {
-      contactModel.language = null;
+      contactModel.language_correspondence = null;
     }
     contactModel.job_title = formRecord.controls['jobTitle'].value;
-    contactModel.fax_number = formRecord.controls['faxNumber'].value;
-    contactModel.phone_number = formRecord.controls['phoneNumber'].value;
-    contactModel.phone_extension = formRecord.controls['phoneExtension'].value;
+    contactModel.fax_num = formRecord.controls['faxNumber'].value;
+    contactModel.phone_num = formRecord.controls['phoneNumber'].value;
+    contactModel.phone_ext = formRecord.controls['phoneExtension'].value;
     contactModel.email = formRecord.controls['email'].value;
     contactModel.RoutingID = formRecord.controls['routingId'].value;
     // contactModel.hc_status = formRecord.controls.recordProcessed.value ? GlobalsService.YES : GlobalsService.NO;
@@ -84,16 +84,16 @@ export class ContactDetailsService {
 
     formRecord.controls['fullName'].setValue(contactModel.full_name);
 
-    if (contactModel.language) {
-      const langId: string | undefined = this._utilsService.getIdFromIdTextLabel(contactModel.language);
+    if (contactModel.language_correspondence) {
+      const langId: string | undefined = this._utilsService.getIdFromIdTextLabel(contactModel.language_correspondence);
       formRecord.controls['language'].setValue(langId? langId : null);
     } else {
       formRecord.controls['language'].setValue(null);
     }
     formRecord.controls['jobTitle'].setValue(contactModel.job_title);
-    formRecord.controls['faxNumber'].setValue(contactModel.fax_number);
-    formRecord.controls['phoneNumber'].setValue(contactModel.phone_number);
-    formRecord.controls['phoneExtension'].setValue(contactModel.phone_extension);
+    formRecord.controls['faxNumber'].setValue(contactModel.fax_num);
+    formRecord.controls['phoneNumber'].setValue(contactModel.phone_num);
+    formRecord.controls['phoneExtension'].setValue(contactModel.phone_ext);
     formRecord.controls['email'].setValue(contactModel.email);
     formRecord.controls['routingId'].setValue(contactModel.RoutingID);
     // if (contactModel.hc_status) {
