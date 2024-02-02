@@ -16,6 +16,7 @@ import { CHECK_SUM_CONST } from '../../check-sum/check-sum-constants';
 export class FilereaderComponent implements OnInit {
   @Output() complete = new EventEmitter();
   @Input() rootTag : string = '';
+  @Input() lang : string = '';
 
   public status = IMPORT_SUCCESS;
   public importSuccess = false;
