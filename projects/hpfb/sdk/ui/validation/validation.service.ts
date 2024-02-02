@@ -248,7 +248,7 @@ export class ValidationService {
     }
   }
 
-  static primaryContactIdValidator(control) {
+  static contactIdValidator(control) {
     if (!control.value) {
       return null;
     }
