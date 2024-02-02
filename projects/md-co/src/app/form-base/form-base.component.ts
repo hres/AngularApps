@@ -212,7 +212,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.showAdminChanges) {
       this.selectedAmendReasonCodes = this._utilsService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason) 
       // re-initiate the object in case showAdminChanges is flipped back and forth
-      this.adminChangesModel = this._companyService.getEmptyAdminChangesModel();
+      // this.adminChangesModel = this._companyService.getEmptyAdminChangesModel();
     } else {
       this.selectedAmendReasonCodes = [];
       // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
