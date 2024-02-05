@@ -52,6 +52,7 @@
     "error.msg.contact.one.record": "At least one company representative with new, active, revise status must be listed",
     "error.msg.contactDetails": "Company Representative Details has errors",
     "error.msg.remove.contact": "Company Representative must be removed.",
+    "error.msg.revise.contact": "Company Representative must be active.",
     "postal.canada": "Postal Code",
     "postal.usa": "Zip Code",
     "heading.company": "Regulatory Company Enrolment",

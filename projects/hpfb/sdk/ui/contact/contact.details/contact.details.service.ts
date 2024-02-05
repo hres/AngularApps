@@ -24,7 +24,7 @@ export class ContactDetailsService {
     const statusValidator = isInternal ? [ValidationService.contactStatusValidator] : [];
     return fb.group({
       contactId: [null, contactIdValidators],
-      status: ContactStatus.New,
+      status: [ContactStatus.New,statusValidator],
       statusText: ['',statusValidator], // for UI display purpose only
       // hcStatus: [null, Validators.required],
       // salutation: [null, Validators.required],
