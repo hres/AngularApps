@@ -368,8 +368,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           ? '[company name]'
           : this.addressModel.company_name) +
         ' ' +
-        ((this.genInfoModel.company_id === null || this.genInfoModel.company_id === '')
-          ? '[company ID, if available]'
+        ((this.genInfoModel.company_id !== '')
+          ? '[company ID]'
           : this.genInfoModel.company_id);
       body =
         'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
@@ -381,8 +381,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           ? '[insérer le nom de votre entreprise]'
           : this.addressModel.company_name) +
         ' ' +
-        ((this.genInfoModel.company_id === null || this.genInfoModel.company_id === '')
-          ? '[insérer votre code d’entreprise, le cas échéant]'
+        ((this.genInfoModel.company_id !== '')
+          ? '[insérer votre code d’entreprise]'
           : this.genInfoModel.company_id);
       body =
         "NOTE: Le fichier XML de l'entreprise n'est pas automatiquement joint. VEUILLEZ JOINDRE LE BROUILLON XML DE L'ENTREPRISE AVANT DE LE SOUMETTRE.";

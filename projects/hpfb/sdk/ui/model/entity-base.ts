@@ -40,17 +40,17 @@ export interface INameAddress {
 
 // MD CO contact
 export interface Contact {
-  id:              number;
-  contact_id:      string;
-  status:          IIdTextLabel;
-  full_name:       string;
-  language:        IIdTextLabel;
-  job_title:       string;
-  fax_number:      string;
-  phone_number:    string;
-  phone_extension: string;
-  email:           string;
-  RoutingID:       string;
+  id: number;
+  contact_id: string;
+  status: IIdTextLabel;
+  full_name: string;
+  language_correspondence: IIdTextLabel;
+  job_title: string;
+  fax_num: string;
+  phone_num: string;
+  phone_ext: string;
+  email: string;
+  RoutingID: string;
 }
 
 export interface Contacts {

@@ -22,14 +22,19 @@ export enum ActivityType {
   S25 = 'B02-20160301-081'
 } 
 
+export enum Compliance {
+  USP = 'compliance_usp',
+  GMP = 'compliance_gmp',
+  OTHER = 'compliance_other'
+}
 
 // Change strings according to app's instructions
 export const helpInstructionHeadings = [
   'loadFileIndx',
   'appInfoREPIndx',
   'mdsapNumIndx',
-  'licAppTypeIndx',
   'mdsapOrgIndx',
+  'licAppTypeIndx',
   'devClsIndx',
   'cfmDecIndx',
   'priRevIndx'
