@@ -52,6 +52,7 @@
   "error.mgs.company.id": "Entrée non valide: doit contenir 6 chiffres",
   "error.msg.contactDetails": "Il y a des erreurs dans les détails du représentant de la compagnie.",
   "error.msg.remove.contact": "Représentant de la compagnie doivent être supprimés.",
+  "error.msg.revise.contact": "Représentant de la compagnie doivent être actif.",
   "error.mgs.licence.number": "fr_Please specify a valid licence number.",
   "error.mgs.contact.id": "Entrée non valide: doit contenir 5 chiffres",
 
