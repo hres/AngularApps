@@ -44,6 +44,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   private errorSummaryChild = null;
   public contactListForm: FormGroup;
   public errorList = [];
+  localContactModel: Contact[] = [];
 
   private contactModelChangesSubscription: Subscription;
   
@@ -123,23 +124,42 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
 
   private initWithData(){
     if (this.contactStatusList.length > 0 && this.contactModel) {
+      this.localContactModel = [...this.contactModel];
 
-      this._listService.setModelRecordList(this.contactModel);
-      this._listService.initIndex(this.contactModel);
+      console.log(this.localContactModel===this.contactModel);
 
-      if ( !this.contactModel || this.contactModel.length === 0 ) {
+      this._listService.setModelRecordList(this.localContactModel);
+      this._listService.initIndex(this.localContactModel);
+
+      if ( !this.localContactModel || this.localContactModel.length === 0 ) {
         this._createFormContact();
-
+        this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
       } else {
-        this._listService.createFormRecordList(this.contactModel, this._fb, this.contactList, this.isInternal); 
-        // if xmlStatus is FINAL, collapse all records by default, otherwise expand the first record
-        if (this.xmlStatus && this.xmlStatus!==FINAL) {
+        this.contactList.clear();
+        this._listService.createFormRecordList(this.localContactModel, this._fb, this.contactList, this.isInternal); 
+        this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
+        if (this.isInternal) {
+          // this.contactList.controls.forEach( (element: FormGroup) => {
+          //   element.controls['expandFlag'].setValue(true);
+          // })
+
+          // expand next invalid record
+          for (let index = 0; index < this.contactList.controls.length; index++) {
+            const element: FormGroup = this.contactList.controls[index] as FormGroup;
+            console.log(element);
+            if (element.invalid) {
+              element.controls['expandFlag'].setValue(true);
+              break;
+            } 
+          }  
+   
+        } else {
           const firstFormRecord = this.contactList.at(0) as FormGroup;
           firstFormRecord.controls['expandFlag'].setValue(true);
         }
       }
 
-      this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
+      
     }
 }
 
@@ -203,7 +223,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (!this.isInternal) {
       document.location.href = '#addContactBtn';
     }
-    this.contactsUpdated.emit(this.contactModel);
+    this.contactsUpdated.emit(this.localContactModel);
   }
 
   /**
@@ -211,7 +231,13 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * @param errs - the list of errors to broadcast
    */
   updateErrorList(errs) {
-    this.errorList = errs;
+    if (errs) {
+      errs.forEach((e: any) => {
+        this.errorList.push(e);
+      });
+    }
+    // this.errorList = errs;
+    console.log(this.errorList)
     // this.errorList = (errs && errs.length > 0) ? this.errorList.concat(errs) : [];
     // for (const err of this.errorList) {
     //   err.index = this.getExpandedRow();
@@ -232,13 +258,14 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (this.errorList) { //  && !this.isInternal
       // emitErrors = this.errorList;
       this.errorList.forEach((error: any) => {
+        console.log("pushing errors")
         emitErrors.push(error);
       });
     }
     if (this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
     }
-    if (!this.isInternal && this._noNonRemoveRecords(this.contactModel)) {
+    if (!this.isInternal && this._noNonRemoveRecords(this.localContactModel)) {
       const oerr: ErrorSummaryObject = getEmptyErrorSummaryObj();
       oerr.index = 0;
       oerr.tableId = 'contactListTable';
@@ -283,7 +310,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     this.deleteRecord(id, this.contactList, this._listService);
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
     document.location.href = '#addContactBtn';
-    this.contactsUpdated.emit(this.contactModel);
+    this.contactsUpdated.emit(this.localContactModel);
   }
 
   /**
