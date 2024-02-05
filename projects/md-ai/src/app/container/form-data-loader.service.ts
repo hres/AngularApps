@@ -15,7 +15,6 @@ export class FormDataLoaderService {
   private rawDrugTypeJsonPath = DATA_PATH + 'rawDrugType.json';
   private licenceAppTypeJsonPath = DATA_PATH + 'licenceAppType.json';
   private mdAuditProgramJsonPath = DATA_PATH + 'mdAuditProgram.json';
-  private provisionMDRJsonPath = DATA_PATH + 'provisionMDR.json';
   private regActivityTypeJsonPath = DATA_PATH + 'regActivityType.json';
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private diagnosisReasonJsonPath = DATA_PATH + 'priorityRev.json';
@@ -29,7 +28,6 @@ export class FormDataLoaderService {
   cachedRawDrugType$:Observable<ICode[]>;
   cachedLicenceAppType$:Observable<ICode[]>;
   cachedMdAuditProgram$:Observable<ICode[]>;
-  cachedProvisionMDR$:Observable<ICode[]>;
   cachedRegActivityType$:Observable<ICode[]>;
   cachedKeywords$:Observable<ICode[]>;
   cachedDiagnosisReason$:Observable<ICode[]>;
@@ -137,17 +135,6 @@ export class FormDataLoaderService {
           );
       } 
       return this.cachedMdAuditProgram$;
-  }
-
-  getProvisionMdrList(): Observable<ICode[]> {
-    if (!this.cachedProvisionMDR$) {
-        this.cachedProvisionMDR$ = this._dataService.getData<ICode>(this.provisionMDRJsonPath)
-          .pipe(
-            // tap(()=>console.log('getDeviceClassesList() is called')),
-            shareReplay(1)
-          );
-      } 
-      return this.cachedProvisionMDR$;
   }
 
   getRegActivityTypeList(): Observable<ICode[]> {

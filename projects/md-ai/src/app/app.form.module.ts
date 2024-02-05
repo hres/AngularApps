@@ -5,7 +5,8 @@ import {
   ExpanderModule,
   AddressModule,
   ContactModule,
-  CommonUiFeatureModule
+  CommonUiFeatureModule,
+  NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -26,6 +27,7 @@ import { ApplicationInfoDetailsService } from './application-info-details/applic
     ExpanderModule,
     ReactiveFormsModule,
     TranslateModule,
+    NumbersOnlyDirective
   ],
   providers: [
     ApplicationInfoDetailsService
