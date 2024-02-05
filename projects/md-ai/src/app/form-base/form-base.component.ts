@@ -29,7 +29,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
   private _materialErrors = [];
-  // TODO DIANA - List of errors for priority review??
   public transactionForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
   public rootTagText = ROOT_TAG; 
