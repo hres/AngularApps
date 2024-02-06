@@ -22,7 +22,6 @@ export class GlobalService {
   private rawDrugTypeList : ICode[];
   private licenceAppTypeList : ICode[];
   private mdAuditProgramList : ICode[];
-  private provisionMDRList : ICode[];
   private regActivityTypeList : ICode[];
   private yesNoList : ICode[];
   private diagnosisReasonList : ICode[]
@@ -146,14 +145,6 @@ export class GlobalService {
 
   public set $mdAuditProgramList(value: ICode[]) {
     this.mdAuditProgramList = value;
-  }
-
-  public get $provisionMDRList(): ICode[] {
-		return this.provisionMDRList;
-	}
-
-  public set $provisionMDRList(value: ICode[]) {
-    this.provisionMDRList = value;
   }
 
   public get $regActivityTypeList(): ICode[] {

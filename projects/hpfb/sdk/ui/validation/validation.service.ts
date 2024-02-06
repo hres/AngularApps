@@ -35,6 +35,7 @@ export class ValidationService {
       'error.mgs.din': 'error.mgs.din',
       'error.mgs.npn': 'error.mgs.npn',
       'error.msg.remove.contact' : 'error.msg.remove.contact',
+      'error.msg.revise.contact' : 'error.msg.revise.contact',
     };
 
     return config[validatorName];
@@ -56,10 +57,12 @@ export class ValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.toUpperCase()!=ContactStatus.Remove) {
-      return null;
-    } else {
+    if (control.value.toUpperCase()==ContactStatus.Remove) {
       return {'error.msg.remove.contact': true};
+    } else if (control.value.toUpperCase()==ContactStatus.Revise) {
+      return {'error.msg.revise.contact': true};
+    } else {
+      return null;
     }
   }
 
@@ -259,7 +262,7 @@ export class ValidationService {
     }
   }
 
-  static primaryContactIdValidator(control) {
+  static contactIdValidator(control) {
     if (!control.value) {
       return null;
     }

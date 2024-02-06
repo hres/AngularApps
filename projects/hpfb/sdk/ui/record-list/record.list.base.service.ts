@@ -72,7 +72,7 @@ export abstract class RecordListBaseService {
   }
 
   /**
-   * if formRecordIdToExpand is passed in or not empty, expand that record and collapse all other records;
+   * if formRecordIdToExpand is passed in, expand that record and collapse all other records;
    * otherwise, collapse all records
    * 
    * @param formRecordList 

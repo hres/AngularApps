@@ -1,0 +1,22 @@
+<div class="container-fluid" [formGroup]="deviceRecordModel" *ngIf="deviceRecordModel">
+  <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
+                 [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
+                 [headingLevel]="headingLevel" label="error.msg.deviceDetails" compId="deviceRec"></lib-error-summary> 
+                 
+  <!--
+  <device-details [showErrors]="showErrors"
+                    [detailsChanged]="updateChild" [group]="deviceRecordModel.controls.deviceDetails"
+                    (errorList)="updateErrorList($event)"> 
+  </device-details> 
+  -->
+  <div class="row">
+    <div class="btn-group-sm col-xs-12 text-left">
+      <button id="saveDeviceRecord" class="btn btn-primary" style="margin: 3px" (click)="saveDeviceRecord()" i18n>{{'save.device'|translate}}</button>
+      <button id="deleteDeviceRecord" class="btn btn-danger" style="margin: 3px" (click)="deleteDeviceRecord()" i18n>{{'delete.device'|translate}}</button>
+      <button id="revertDeviceRecord" class="btn btn-default" style="margin: 3px" (click)="revertDeviceRecord()" i18n>{{'discard.changes'|translate}}</button>
+    </div>
+  </div>
+  
+    <!--pre>{{deviceRecordModel.value |json}}</pre-->
+</div>
+  

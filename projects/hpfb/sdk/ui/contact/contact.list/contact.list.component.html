@@ -9,7 +9,7 @@
     <ng-template #tmpl let-recordRow let-idx="i">
       <!-- ==={{recordRow.get('id').value}}=== -->
       <!-- === index = {{idx}} ,  === -->
-      <company-contact-record *ngIf="recordRow.get('expandFlag').value" 
+      <company-contact-record 
         [cRRow]="recordRow" [isInternal]="isInternal"
         [languageList]="languageList" [contactStatusList]="contactStatusList" [showErrors]="showErrors" [lang]="lang"
         [helpTextSequences]="helpTextSequences" (saveRecord)="saveContactRecord($event)"

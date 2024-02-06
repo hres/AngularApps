@@ -11,7 +11,7 @@
                               controlId="companyId" label="company.id" parentId="appInfoDetails">
             </control-messages>
             <input id="companyId" name="companyId" class="form-control" (blur)="onblur()"
-                   [formControl]="appInfoFormLocalModel.controls['companyId'] | formControl" maxlength="6" />
+                   [formControl]="appInfoFormLocalModel.controls['companyId'] | formControl" maxlength="6" data-only-digits/>
           </label>
         </div>
         <div class="form-group col-xs-6 minWidth300" >
@@ -47,11 +47,31 @@
       </div>
       <div class="row">
         <div class="form-group col-xs-12 minWidth300" >
+          <label for="mdsapOrg" class="required full-width">
+            <span class="field-name">{{'mdsap.org'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <sup id="ap4-rf">
+              <a class="fn-lnk" href="#ap4"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.mdsapOrgIndx}}</a>
+            </sup>
+            <control-messages *ngIf="appInfoFormLocalModel.controls['mdsapOrg'].invalid"
+                              [showError]="showFieldErrors"
+                              [control]="appInfoFormLocalModel.controls['mdsapOrg'] | formControl"
+                              controlId="mdsapOrg" label="mdsap.org" parentId="appInfoDetails"></control-messages>
+            <select id="mdsapOrg" name="mdsapOrg" required class="form-control " (change)="onblur()"
+                    [formControl]="appInfoFormLocalModel.controls['mdsapOrg'] | formControl">
+              <option label=" " value=""></option>
+              <option *ngFor="let mdsapOrg of mdsapOrgList" [ngValue]="mdsapOrg.id"> {{ mdsapOrg | textTransform : lang}}</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12 minWidth300" >
           <label for="licenceAppType" class="required full-width">
             <span class="field-name">{{'licence.app.type' |translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <sup id="ap4-rf">
-              <a class="fn-lnk" href="#ap4"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.licAppTypeIndx}}</a>
+            <sup id="ap5-rf">
+              <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.licAppTypeIndx}}</a>
             </sup>
             <control-messages *ngIf="appInfoFormLocalModel.controls['licenceAppType'].invalid"
                               [showError]="showFieldErrors"
@@ -66,28 +86,6 @@
           </label>
         </div>
       </div>
-  
-      <div class="row">
-        <div class="form-group col-xs-12 minWidth300" >
-          <label for="mdsapOrg" class="required full-width">
-            <span class="field-name">{{'mdsap.org'|translate}}</span>
-            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <sup id="ap5-rf">
-              <a class="fn-lnk" href="#ap5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.mdsapOrgIndx}}</a>
-            </sup>
-            <control-messages *ngIf="appInfoFormLocalModel.controls['mdsapOrg'].invalid"
-                              [showError]="showFieldErrors"
-                              [control]="appInfoFormLocalModel.controls['mdsapOrg'] | formControl"
-                              controlId="mdsapOrg" label="mdsap.org" parentId="appInfoDetails"></control-messages>
-            <select id="mdsapOrg" name="mdsapOrg" required class="form-control " (change)="onblur()"
-                    [formControl]="appInfoFormLocalModel.controls['mdsapOrg'] | formControl">
-              <option label=" " value=""></option>
-              <option *ngFor="let mdsapOrg of mdsapOrgList" [ngValue]="mdsapOrg.id"> {{ mdsapOrg | textTransform : lang}}</option>
-            </select>
-          </label>
-        </div>
-      </div>
-  
       <div class="row">
         <div class="form-group col-xs-6 minWidth300">
           <label for="activityType" class="required full-width">
@@ -214,7 +212,7 @@
                                     [control]="appInfoFormLocalModel.controls['hasDrug'] | formControl"
                                     controlId="hasDrug" label="contain.drug" parentId="appInfoDetails"></control-messages>
                   <select id="hasDrug" name="hasDrug" required class="form-control"
-                          (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['hasDrug'] | formControl">
+                          (change)="hasDrugOnChange()" [formControl]="appInfoFormLocalModel.controls['hasDrug'] | formControl">
                     <option label=" " value=""></option>
                     <option *ngFor="let opt of yesNoList" [ngValue]="opt"> {{opt | textTransform : lang}}</option>
                   </select>
@@ -240,7 +238,7 @@
                                     controlId="din" label="din" parentId="appInfoDetails">
                   </control-messages>
                   <input id="din" name="din"  class="form-control full-width"  (blur)="onblur()"
-                         [formControl]="appInfoFormLocalModel.controls['din'] | formControl" maxlength="8"/>
+                         [formControl]="appInfoFormLocalModel.controls['din'] | formControl" maxlength="8" data-only-digits/>
                 </label>
               </div>
               <div  *ngIf="hasNpn()" class="form-group col-xs-6" >
@@ -253,7 +251,7 @@
                                     controlId="npn" label="npn" parentId="appInfoDetails">
                   </control-messages>
                   <input id="npn" name="npn" class="form-control full-width"  (blur)="onblur()"
-                         [formControl]="appInfoFormLocalModel.controls['npn'] | formControl" maxlength="8"/>
+                         [formControl]="appInfoFormLocalModel.controls['npn'] | formControl" maxlength="8" data-only-digits/>
                 </label>
               </div>
             </div>
@@ -312,49 +310,24 @@
                 </div>
               </div>
               <div class="row">
-                <fieldset id="hasCompliances" class="form-group col-xs-12">
-                  <legend class="legend-rep required">
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <fieldset  class="chkbxrdio-grp" id="compliance">
+                  <legend class="required">
                     <span class="field-name">{{'compliance' | translate}}</span>
-                    <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-                    <control-messages *ngIf="appInfoFormLocalModel.controls['hasCompliance'].invalid"
+                    <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+                    <control-messages *ngIf="complianceChkFormArray.invalid"
                                       [showError]="showFieldErrors"
-                                      [control]="appInfoFormLocalModel.controls['hasCompliance'] | formControl"
+                                      [control]="complianceChkFormArray | formControl"
                                       controlId="hasCompliances" label="compliance"
-                                      parentId="hasCompliances"></control-messages>
-                    <input id="hasCompliance" name="hasCompliance" type="hidden" class="form-control full-width"
-                           [formControl]="appInfoFormLocalModel.controls['hasCompliance'] | formControl"/>
+                                      parentId="appInfoDetails"></control-messages>
                   </legend>
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <div class="checkbox">
-                        <label for="chk-compliance-usp">
-                          <input type="checkbox" (blur)="complianceOnblur()"
-                                 [formControl]="appInfoFormLocalModel.controls['complianceUsp'] | formControl" id="chk-compliance-usp" name="chk-compliance-usp"/>
-                          <span>{{'compliance.usp'|translate}}</span>
-                        </label>
-                      </div>
+                  <ng-container formArrayName="compliance" *ngFor="let comp of complianceChkFormArray.controls; let i = index">
+                    <div class="checkbox">
+                      <label for={{complianceList[i].value}}>
+                        <input type="checkbox" id={{complianceList[i].value}} [formControl]="comp | formControl" (change)="complianceOnChange()"/> {{complianceList[i].label}}
+                      </label>
                     </div>
-                    <div class="col-sm-4">
-                      <div class="checkbox">
-                        <label for="chk-compliance-gmp">
-                          <input type="checkbox" (blur)="complianceOnblur()"
-                                 [formControl]="appInfoFormLocalModel.controls['complianceGmp'] | formControl"
-                                 id="chk-compliance-gmp" name="chk-compliance-gmp"/>
-                          <span>{{'compliance.gmp'|translate}}</span>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="checkbox">
-                        <label for="chk-compliance-other">
-                          <input type="checkbox" (blur)="complianceOnblur()"
-                                 [formControl]="appInfoFormLocalModel.controls['complianceOther'] | formControl"
-                                 id="chk-compliance-other" name="chk-compliance-other"/>
-                          <span>{{'compliance.other'|translate}}</span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
+                  </ng-container>                 
                   <div *ngIf="isOtherPharmacopeia()" class="row">
                     <div class="form-group col-xs-12" >
                       <label for="otherPharmacopeia" class="required full-width">
@@ -372,6 +345,7 @@
                   </div>
                 </fieldset>
               </div>
+            </div>
             </div>
           </div>
         </section>
@@ -410,7 +384,7 @@
                                         controlId="applicationNum" label="application.number" parentId="appInfoDetails">
                       </control-messages>
                       <input id="applicationNum" name="applicationNum" class="form-control full-width"  (blur)="onblur()"
-                             [formControl]="appInfoFormLocalModel.controls['applicationNum'] | formControl" only-digits maxlength="6"/>
+                             [formControl]="appInfoFormLocalModel.controls['applicationNum'] | formControl" only-digits maxlength="6" data-only-digits/>
                     </label>
                   </div>
                 </div>
@@ -448,7 +422,7 @@
                     <label for="authNum" class=" full-width">
                       <span class="field-name">{{'auth.id'|translate}}</span>
                       <input id="authNum" name="authNum" class="form-control full-width"  (blur)="onblur()"
-                            [formControl]="appInfoFormLocalModel.controls['authNum'] | formControl" maxlength="30"/>
+                            [formControl]="appInfoFormLocalModel.controls['authNum'] | formControl" maxlength="6" data-only-digits/>
                     </label>
                   </div>
                 </div>
@@ -497,16 +471,7 @@
                   </select>
                 </label>
               </div>
-  
-              <div *ngIf="isNoDeclaration()" class="row">
-                <div class="col-xs-12 form-group alert alert-info" role="alert">
-                       <span>
-                        <p aria-live="polite">{{'declaration.instruct'|translate}}</p>
-                       </span>
-                </div>
-              </div>
             </div>
-  
             <div  *ngIf="isOptional()" class="row">
               <div class="form-group col-xs-12">
                 <label for="declarationConformity" class="full-width">
@@ -527,11 +492,17 @@
                 </label>
               </div>
             </div>
-  
+            <div *ngIf="isNoDeclaration()" class="row">
+              <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="alert alert-info" role="alert">
+                  <span>
+                    <p aria-live="polite">{{'declaration.instruct'|translate}}</p> 
+                  </span>
+                </div>
+              </div>
+            </div>  
           </div>
-  
         </section>
-  
       </div>
   
       <div *ngIf="isDeviceIV()">
@@ -646,7 +617,8 @@
               <div class="row">
                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <fieldset class="chkbxrdio-grp" id="diagnosisReasons">
-                    <legend class="required"><span class="field-name">{{'priority.rev.devices' | translate}}</span>
+                    <legend class="required">
+                        <span class="field-name">{{'priority.rev.devices' | translate}}</span>
                         <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                         <control-messages *ngIf="diagnosisReasonChkFormArray.invalid"
                                         [showError]="showFieldErrors"

@@ -45,10 +45,7 @@ export class ApplicationInfoDetailsService {
       drugName: [null, Validators.required],
       activeIngredients: [null, Validators.required],
       manufacturer: [null, Validators.required],
-      hasCompliance: [null, Validators.required],
-      complianceUsp: [false, []],
-      complianceGmp: [false, []],
-      complianceOther: [false, []],
+      compliance: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
       otherPharmacopeia: [null, Validators.required],
       provisionMdrIT: [false, []],
       provisionMdrSA: [false, []],
@@ -68,6 +65,10 @@ export class ApplicationInfoDetailsService {
 
   getSelectedDiagnosisCodes(seriousDiagnosisReasonList: CheckboxOption[], diagnosisReasonChkFormArray: FormArray) : string[] {
     return this._converterService.getCheckedCheckboxValues(seriousDiagnosisReasonList, diagnosisReasonChkFormArray);
+  }
+
+  getSelectedComplianceCodes(complianceList: CheckboxOption[], complianceChkFormArray: FormArray) {
+    return this._converterService.getCheckedCheckboxValues(complianceList, complianceChkFormArray);
   }
 
   /**

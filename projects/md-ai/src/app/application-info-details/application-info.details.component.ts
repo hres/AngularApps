@@ -10,7 +10,7 @@ import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {ApplicationInfoDetailsService} from './application-info.details.service';
 import { GlobalService } from '../global/global.service';
-import { DeviceClass, ActivityType } from '../app.constants';
+import { DeviceClass, ActivityType, Compliance} from '../app.constants';
 
 @Component({
   selector: 'app-info-details',
@@ -51,6 +51,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   public yesNoList: ICode[] = [];
 
   public seriousDiagnosisReasonList: CheckboxOption[] = [];
+  public complianceList: CheckboxOption[] = [];
+
 
   public showFieldErrors = false;
 
@@ -205,7 +207,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
       !this.isDeviceIV()) {
       const valuesToReset = ['hasRecombinant', 'isAnimalHumanSourced', 'isListedIddTable'];
-      this._resetValuesToNull(valuesToReset);
+      // this._resetValuesToNull(valuesToReset);
+      this._resetControlValues(valuesToReset)
       // this.appInfoFormLocalModel.controls['hasRecombinant'].setValue(null);
       // this.appInfoFormLocalModel.controls['hasRecombinant'].markAsUntouched();
       // this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].setValue(null);
@@ -248,30 +251,24 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this._hasMaterialRecord();
   }
 
-  private _resetValuesToNull(listOfValues : string[]) {
-    for (let i = 0; i < listOfValues.length; i++) {
-      this.appInfoFormLocalModel.controls[listOfValues[i]].setValue(null);
-      this.appInfoFormLocalModel.controls[listOfValues[i]].markAsUntouched();
-    }
-  }
+  // private _resetValuesToNull(listOfValues : string[]) {
+  //   for (let i = 0; i < listOfValues.length; i++) {
+  //     this.appInfoFormLocalModel.controls[listOfValues[i]].setValue(null);
+  //     this.appInfoFormLocalModel.controls[listOfValues[i]].markAsUntouched();
+  //   }
+  // }
 
-  private _resetValuesToEmpty(listOfValues : string[]) {
-    for (let i = 0; i < listOfValues.length; i++) {
-      this.appInfoFormLocalModel.controls[listOfValues[i]].setValue('');
-      this.appInfoFormLocalModel.controls[listOfValues[i]].markAsUntouched();
-    }
-  }
+  // private _resetValuesToEmpty(listOfValues : string[]) {
+  //   for (let i = 0; i < listOfValues.length; i++) {
+  //     this.appInfoFormLocalModel.controls[listOfValues[i]].setValue('');
+  //     this.appInfoFormLocalModel.controls[listOfValues[i]].markAsUntouched();
+  //   }
+  // }
 
-  private _resetValuesToFalse(listOfValues : string[]) {
+  private _resetControlValues(listOfValues : string[]) {
     for (let i = 0; i < listOfValues.length; i++) {
-      this.appInfoFormLocalModel.controls[listOfValues[i]].setValue(false);
-      this.appInfoFormLocalModel.controls[listOfValues[i]].markAsUntouched();
+      this._utilsService.resetControlsValues(this.appInfoFormLocalModel.controls[listOfValues[i]]);
     }
-  }
-
-  private _resetValueToNull(value : string) {
-    this.appInfoFormLocalModel.controls[value].setValue(false);
-    this.appInfoFormLocalModel.controls[value].markAsUntouched();
   }
 
   isIVDD() {
@@ -280,7 +277,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       return true;
     } else {
       const valuesToReset = ['isHomeUse', 'isCarePoint'];
-      this._resetValuesToNull(valuesToReset);
+      this._resetControlValues(valuesToReset)
+      // this._resetValuesToNull(valuesToReset);
+      // this._utilsService.resetControlsValues(this.appInfoFormLocalModel.controls['isHomeUse'], this.appInfoFormLocalModel.controls['isCarePoint'])
       // this.appInfoFormLocalModel.controls['isHomeUse'].setValue(null);
       // this.appInfoFormLocalModel.controls['isHomeUse'].markAsUntouched();
       // this.appInfoFormLocalModel.controls['isCarePoint'].setValue(null);
@@ -294,9 +293,11 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
           this.appInfoFormLocalModel.controls['isIvdd'].value.id === NO) {
       return true;
     } else {
-      this._resetValuesToNull(['hasDrug', 'hasDinNpn',]);
-      this._resetValuesToEmpty(['din', 'npn', 'drugName', 'activeIngredients', 'manufacturer', 'otherPharmacopeia']);
-      this._resetValuesToFalse(['complianceUsp', 'complianceGmp', 'complianceOther'])
+      const valuesToReset = ['hasDrug', 'hasDinNpn', 'din', 'npn', 'drugName', 'activeIngredients', 'manufacturer', 'otherPharmacopeia', 'compliance'];
+      this._resetControlValues(valuesToReset);
+      // this._resetValuesToNull(['hasDrug', 'hasDinNpn',]);
+      // this._resetValuesToEmpty(['din', 'npn', 'drugName', 'activeIngredients', 'manufacturer', 'otherPharmacopeia']);
+      // this._utilsService.resetControlsValues(this.appInfoFormLocalModel.controls['compliance'], );
       // this.appInfoFormLocalModel.controls.hasDrug.setValue(null);
       // this.appInfoFormLocalModel.controls.hasDrug.markAsUntouched();
       // this.appInfoFormLocalModel.controls.hasDinNpn.setValue(null);
@@ -328,9 +329,11 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
           this.appInfoFormLocalModel.controls['hasDrug'].value.id === YES) {
       return true;
     } else {
-      this._resetValuesToNull(['hasDinNpn']);
-      this._resetValuesToFalse(['complianceUsp', 'complianceGmp', 'complianceOther']);
-      this._resetValuesToEmpty(['din', 'npn', 'drugName', 'activeIngredients', 'manufacturer','otherPharmacopeia'])
+      const valuesToReset = ['hasDinNpn', 'compliance', 'din', 'npn', 'drugName', 'activeIngredients', 'manufacturer','otherPharmacopeia'];
+      this._resetControlValues(valuesToReset);
+      // this._resetValuesToNull(['hasDinNpn']);
+      // this._utilsService.resetControlsValues(this.appInfoFormLocalModel.controls['compliance']);
+      // this._resetValuesToEmpty(['din', 'npn', 'drugName', 'activeIngredients', 'manufacturer','otherPharmacopeia'])
       // this.appInfoFormLocalModel.controls.hasDinNpn.setValue(null);
       // this.appInfoFormLocalModel.controls.hasDinNpn.markAsUntouched();
       // this.appInfoFormLocalModel.controls.din.setValue('');
@@ -361,7 +364,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
           this.appInfoFormLocalModel.controls['hasDinNpn'].value === 'din') {
       return true;
     } else {
-      this._resetValuesToEmpty(['din']);
+      this._resetControlValues(['din']);
+      // this._resetValuesToEmpty(['din']);
       // this.appInfoFormLocalModel.controls.din.setValue('');
       // this.appInfoFormLocalModel.controls.din.markAsUntouched();
     }
@@ -373,7 +377,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this.appInfoFormLocalModel.controls['hasDinNpn'].value === 'npn') {
       return true;
     } else {
-      this._resetValuesToEmpty(['npn']);
+      this._resetControlValues(['npn'])
+      // this._resetValuesToEmpty(['npn']);
       // this.appInfoFormLocalModel.controls.npn.setValue('');
       // this.appInfoFormLocalModel.controls.npn.markAsUntouched();
     }
@@ -405,10 +410,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
   isOtherPharmacopeia() {
-    if (this.appInfoFormLocalModel.controls['complianceOther'].value) {
+    if (this.selectedComplianceCodes.includes(Compliance.OTHER)) {
       return true;
     } else {
-      this._resetValuesToEmpty(['otherPharmacopeia']);
+      this._resetControlValues(['otherPharmacopeia']);
       // this.appInfoFormLocalModel.controls.otherPharmacopeia.setValue('');
       // this.appInfoFormLocalModel.controls.otherPharmacopeia.markAsUntouched();
     }
@@ -419,7 +424,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       if (this.appInfoFormLocalModel.controls['provisionMdrIT'].value) {
       return true;
     } else {
-      this._resetValuesToEmpty(['applicationNum']);
+      this._resetControlValues(['applicationNum']);
       // this.appInfoFormLocalModel.controls['applicationNum'].setValue('');
       // this.appInfoFormLocalModel.controls['applicationNum'].markAsUntouched();
     }
@@ -430,7 +435,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     if (this.appInfoFormLocalModel.controls['provisionMdrSA'].value) {
       return true;
     } else {
-      this._resetValuesToEmpty(['sapReqNum']);
+      this._resetControlValues(['sapReqNum']);
       // this.appInfoFormLocalModel.controls['sapReqNum'].setValue('');
       // this.appInfoFormLocalModel.controls['sapReqNum'].markAsUntouched();
     }
@@ -441,16 +446,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     if (this.appInfoFormLocalModel.controls['provisionMdrIOA'].value) {
       return true;
     } else {
-      this._resetValuesToEmpty(['authNum']);
+      this._resetControlValues(['authNum']);
       // this.appInfoFormLocalModel.controls['authNum'].setValue('');
       // this.appInfoFormLocalModel.controls['authNum'].markAsUntouched();
-    }
-    return false;
-  }
-
-  isNoDeclaration() {
-    if (this.appInfoFormLocalModel.controls['declarationConformity'].value) {
-      return (this.appInfoFormLocalModel.controls['declarationConformity'].value.id === NO);
     }
     return false;
   }
@@ -476,7 +474,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         // this.bioMaterials. = ;
         return true;
     } else {
-      this._resetValuesToNull(['isListedIddTable']);
+      this._resetControlValues(['isListedIddTable']);
         // this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
         // this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
         // this.materialModel = [];
@@ -532,6 +530,13 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
+  isNoDeclaration() {
+    if (this.appInfoFormLocalModel.controls['declarationConformity'].value) {
+      return (this.appInfoFormLocalModel.controls['declarationConformity'].value.id === NO);
+    }
+    return false;
+  }
+
   isOptional() {
     if (this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.LicenceAmendment
       && (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIII
@@ -564,7 +569,16 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
+  hasDrugOnChange() {
+    this._updateComplianceArray();
+    this.onblur();
+  }
+
   seriousDiagnosisOnChange() {
+    this.onblur();
+  }
+
+  complianceOnChange() {
     this.onblur();
   }
 
@@ -580,13 +594,33 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     console.log("#3", this.seriousDiagnosisReasonList);
   } 
 
+  private _updateComplianceArray() {
+    const complianceChkList = this._globalService.$complianceList;
+    console.log("#1", complianceChkList);
+    this.complianceList = complianceChkList.map((item) => {
+      return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+    });
+    console.log("#2", this.complianceList);
+
+    this.complianceList.forEach(() => this.complianceChkFormArray.push(new FormControl(false)));
+    console.log("#3", this.complianceList);
+  }
+
   get diagnosisReasonChkFormArray() {
     return this.appInfoFormLocalModel.controls['diagnosisReasons'] as FormArray
 
   }
 
-  get selectedAmendReasonCodes(): string[] {
+  get selectedDiagnosisCodes(): string[] {
     return this._detailsService.getSelectedDiagnosisCodes(this.seriousDiagnosisReasonList, this.diagnosisReasonChkFormArray);
+  }
+
+  get complianceChkFormArray() {
+    return this.appInfoFormLocalModel.controls['compliance'] as FormArray
+  }
+
+  get selectedComplianceCodes(): string[] {
+    return this._detailsService.getSelectedComplianceCodes(this.complianceList, this.complianceChkFormArray);
   }
 
 }
