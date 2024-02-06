@@ -77,7 +77,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     // when contactModel changes, check if "at least one company record" rule is met and then execute emitting
     this.contactModelChangesSubscription = this._listService.contactModelChanges$.subscribe(changes => {
       // console.log('--------------------', changes);
-      this._emitErrors();
+      this._emitErrors(false);
     });
   }
 
@@ -92,7 +92,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     } else {
       this.errorSummaryChild = null;
     }
-    this._emitErrors();
+    this._emitErrors(true);
   }  
 
   // /**
@@ -209,6 +209,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       } 
     }  
 
+    // when it runs to here, it means no errors for the contact record, so we should also remove its ErrorSummary if there is any
+    this._errorNotificationService.removeErrorSummary(recordId.toString());
+
     this._expandNextInvalidRecord();
 
     this.showErrors = true;
@@ -234,7 +237,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * @param errs - the list of errors to broadcast
    */
   updateErrorList(errs) {
-    console.log("updateErrorList", errs)
+    // console.log("updateErrorList", errs)
     this.errorList = errs;
     // this.errorList = (errs && errs.length > 0) ? this.errorList.concat(errs) : [];
     // for (const err of this.errorList) {
@@ -243,14 +246,14 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     //     err.expander = this.expander; // associate the expander
     //   }
     // }
-    this._emitErrors(); // needed or will generate a valuechanged error
+    this._emitErrors(false); // needed or will generate a valuechanged error
   }
 
   /***
    * Emits errors to higher level error summaries. Used for linking summaries
    * @private
    */
-  private _emitErrors(): void {
+  private _emitErrors(checkErrorSummary: boolean): void {
     let emitErrors = [];
     // adding the child errors
     // if (this.errorList) { //  && !this.isInternal
@@ -259,7 +262,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     //     emitErrors.push(error);
     //   });
     // }
-    if (this.errorSummaryChild) {
+    if (checkErrorSummary && this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
     }
     if (!this.isInternal && this._noNonRemoveRecords(this.contactModel)) {

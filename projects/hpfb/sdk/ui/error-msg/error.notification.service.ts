@@ -11,9 +11,9 @@ export class ErrorNotificationService {
 
   updateErrorSummary(key: string, errorMessage: ErrorSummaryComponent) {
     const currentErrors = this.errorSummarySubject.value;
-    
-    // Check if the error key already exists
-    const existingErrorIndex = currentErrors.findIndex(error => error.key === key);
+    // Check if the error key already exists, 
+    // use == not === so comparison of the number 1 and the string "1" returns true 
+    const existingErrorIndex = currentErrors.findIndex(error => error.key == key);
     if (existingErrorIndex !== -1) {
       // If the error key exists, update the error errSummaryMessage
       currentErrors[existingErrorIndex].errSummaryMessage = errorMessage;
@@ -29,7 +29,8 @@ export class ErrorNotificationService {
   removeErrorSummary(key: string) {
     const currentErrors = this.errorSummarySubject.value;
     // Filter out the entry with the specified key
-    const updatedErrors = currentErrors.filter(error => error.key !== key);
+    // use == not === so comparison of the number 1 and the string "1" returns true 
+    const updatedErrors = currentErrors.filter(error => error.key != key);
     // Update the errorSummarySubject with the filtered array of errors
     this.errorSummarySubject.next(updatedErrors);
   }
