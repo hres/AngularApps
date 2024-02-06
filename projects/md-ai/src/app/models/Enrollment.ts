@@ -32,7 +32,7 @@ export interface ApplicationInfo {
     drug_name:                      string;
     active_ingredients:             string;
     manufacturer:                   string;
-    compliance:                     IIdTextLabel;
+    compliance:                     Compliances;
     other_pharmacopeia:             string;
     provision_mdr_it:               string;
     provision_mdr_sa:               string;
@@ -48,8 +48,12 @@ export interface ApplicationInfo {
     is_diagnosis_treatment_serious:     DiagnosisReasons;
 }
 
+export interface Compliances {
+    compliance : IIdTextLabel[];
+}
+
 export interface DiagnosisReasons {
-    diagnosis_reason : IIdTextLabel
+    diagnosis_reason : IIdTextLabel[];
 }
 
 export interface BiologicalMaterials {

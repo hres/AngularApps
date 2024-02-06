@@ -222,7 +222,7 @@
                 <label for="hasDinNpn" class="full-width">
                   <span class="field-name">{{'have.din.npn' |translate}}</span>
                   <select id="hasDinNpn" name="hasDinNpn" class="form-control"
-                          (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['hasDinNpn'] | formControl">
+                          (change)="dinNpnOnChange()" [formControl]="appInfoFormLocalModel.controls['hasDinNpn'] | formControl">
                     <option label=" " value=""></option>
                     <option *ngFor="let drugType of drugTypeList" [ngValue]="drugType.id"> {{drugType | textTransform : lang}}</option>
                   </select>

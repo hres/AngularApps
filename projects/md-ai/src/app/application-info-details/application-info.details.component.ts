@@ -155,8 +155,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       //   this.declarationConformity.emit(this.appInfoFormLocalModel.controls.declarationConformity.value);
       // }
       ApplicationInfoDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel));
-      this._updateLists();
-      this._hasReasonChecked();
+      //this._updateLists();
+      // this._hasReasonChecked();
       this._hasMaterialRecord();
     }
   }
@@ -182,10 +182,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this._detailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel), this.appInfoModel);
   }
 
-  complianceOnblur() {
-    this._hasReasonChecked();
-    this.onblur();
-  }
+  // complianceOnblur() {
+  //   this._hasReasonChecked();
+  //   this.onblur();
+  // }
 
   // hasRecombinantOnblur() {
   //   if (!this.appInfoFormLocalModel.controls.hasRecombinant.value ||
@@ -220,14 +220,15 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this.onblur();
   }
 
-  private _hasReasonChecked() {
+  // NOT NEEDED - removed has compliance  
+  // private _hasReasonChecked() { 
     // this.appInfoFormLocalModel.controls.hasCompliance.setValue(null);
     // if (this.appInfoFormLocalModel.controls.complianceUsp.value ||
     //   this.appInfoFormLocalModel.controls.complianceGmp.value ||
     //   this.appInfoFormLocalModel.controls.complianceOther.value) {
     //   this.appInfoFormLocalModel.controls.hasCompliance.setValue('filled');
     // }
-  }
+  // }
 
   private _hasMaterialRecord() {
     // this.appInfoFormLocalModel.controls.hasMaterial.setValue(null);
@@ -236,10 +237,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // }
   }
 
-  isMdsap() {
+  // isMdsap() {
     // const iscert = this.appInfoFormLocalModel.controls.hasMdsap.value;
     // return (iscert && iscert === GlobalsService.YES);
-  }
+  // }
 
   processDeviceErrors(errorList) {
     this.deviceErrorList.emit(errorList);
@@ -385,8 +386,18 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
+  dinNpnOnChange() {
+    if (this.appInfoFormLocalModel.controls['hasDinNpn'].value &&
+             this.appInfoFormLocalModel.controls['hasDinNpn'].value === 'nodinnpn') {
+      const valuesToReset = ['din', 'npn'];
+      this._resetControlValues(valuesToReset);
+    }
+    this.onblur();
+
+  }
+
   // Is this used??
-  isNoDinNpn() {
+  private _isNoDinNpn() {
     // if (this.appInfoFormLocalModel.controls.hasDinNpn.value &&
     //       this.appInfoFormLocalModel.controls.hasDinNpn.value === 'nodinnpn') {
     //   return true;
@@ -483,7 +494,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
   // Not needed - deleted activity lead
-  private _updateLists() {
+  // private _updateLists() {
     // if (this.actLeadList && this.actLeadList.length > 0) {
     //   if (this.appInfoFormLocalModel.controls.activityLead.value === this.actLeadList[0].id) {
     //     this.actTypeList = ApplicationInfoDetailsService.getActivityTypeMDBList(this.lang);
@@ -491,10 +502,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     //     this.actTypeList = ApplicationInfoDetailsService.getActivityTypePVList(this.lang);
     //   }
     // }
-  }
+  // }
 
   // Can remove since we removed licenced lead
-  activityLeadOnblur() {
+  // activityLeadOnblur() {
     // if (this.appInfoFormLocalModel.controls.activityLead.value) {
     //   if (this.appInfoFormLocalModel.controls.activityLead.value === this.actLeadList[0].id) {
     //     this.actTypeList = ApplicationInfoDetailsService.getActivityTypeMDBList(this.lang);
@@ -509,7 +520,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // this.appInfoFormLocalModel.controls.deviceClass.setValue(null);
     // this.appInfoFormLocalModel.controls.deviceClass.markAsUntouched();
     // this.onblur();
-  }
+  // }
 
   isLicenced() {
     if ((this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.Licence
@@ -584,26 +595,20 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   private _updateDiagnosisReasonArray() {
     const diagnosisReasonList = this._globalService.$diagnosisReasonList;
-    console.log("#1", diagnosisReasonList);
     this.seriousDiagnosisReasonList = diagnosisReasonList.map((item) => {
       return this._converterService.convertCodeToCheckboxOption(item, this.lang);
     });
-    console.log("#2", this.seriousDiagnosisReasonList);
 
     this.seriousDiagnosisReasonList.forEach(() => this.diagnosisReasonChkFormArray.push(new FormControl(false)));
-    console.log("#3", this.seriousDiagnosisReasonList);
   } 
 
   private _updateComplianceArray() {
     const complianceChkList = this._globalService.$complianceList;
-    console.log("#1", complianceChkList);
     this.complianceList = complianceChkList.map((item) => {
       return this._converterService.convertCodeToCheckboxOption(item, this.lang);
     });
-    console.log("#2", this.complianceList);
 
     this.complianceList.forEach(() => this.complianceChkFormArray.push(new FormControl(false)));
-    console.log("#3", this.complianceList);
   }
 
   get diagnosisReasonChkFormArray() {

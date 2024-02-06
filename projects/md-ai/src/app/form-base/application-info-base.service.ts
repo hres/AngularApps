@@ -96,7 +96,7 @@ export class ApplicationInfoBaseService {
         drug_name: '',
         active_ingredients: '',
         manufacturer: '',
-        compliance: this._entityBaseService.getEmptyIdTextLabel(),
+        compliance: null,
         other_pharmacopeia: '',
         provision_mdr_it:  '',
         provision_mdr_sa: '',

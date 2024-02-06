@@ -3,10 +3,9 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
-import {ControlMessagesComponent} from '../../error-msg/control-messages.component/control-messages.component';
+import { ControlMessagesComponent, YES, NO, UtilsService } from '@hpfb/sdk/ui';
 import {DeviceDetailsService} from './device.details.service';
 import {isArray} from 'util';
-import {GlobalsService} from '../../globals/globals.service';
 
 
 @Component({
@@ -21,7 +20,7 @@ import {GlobalsService} from '../../globals/globals.service';
 export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
   public deviceFormLocalModel: FormGroup;
-  @Input('group') public deviceRecord: FormGroup;
+  @Input('group') public deviceRecord: FormGroup; // device detail form will use the reactive model passed in from the device record component - TODO
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
@@ -34,11 +33,11 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
 
   public yesNoList: Array<any> = [];
 
-  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef) {
+  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private _utilsService : UtilsService) {
     this.showFieldErrors = false;
     this.showErrors = false;
     this.detailsService = new DeviceDetailsService();
-    this.yesNoList = this.detailsService.getYesNoList();
+    // this.yesNoList = this.detailsService.getYesNoList();
   }
 
   ngOnInit() {
@@ -125,45 +124,44 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
  //  //     this.deviceFormLocalModel.controls.licenceNum.setValue(lnum.substring(lnum.length - 6));
  ////  }
 
+  private _resetControlValues(listOfValues : string[]) {
+    for (let i = 0; i < listOfValues.length; i++) {
+      this._utilsService.resetControlsValues(this.deviceFormLocalModel.controls[listOfValues[i]]);
+    }
+  }
+
   isDeviceAuthorized() {
-    if (this.deviceFormLocalModel.controls.deviceAuthorized.value &&
-        this.deviceFormLocalModel.controls.deviceAuthorized.value === GlobalsService.YES) {
-        this.deviceFormLocalModel.controls.deviceApplicationSubmitted.setValue(null);
-        this.deviceFormLocalModel.controls.deviceApplicationSubmitted.markAsUntouched();
-        this.deviceFormLocalModel.controls.deviceApplicationNumber.setValue(null);
-        this.deviceFormLocalModel.controls.deviceApplicationNumber.markAsUntouched();
-        this.deviceFormLocalModel.controls.deviceExplain.setValue(null);
-        this.deviceFormLocalModel.controls.deviceExplain.markAsUntouched();
+    if (this.deviceFormLocalModel.controls['deviceAuthorized'].value &&
+        this.deviceFormLocalModel.controls['deviceAuthorized'].value === YES) {
+          const valuesToReset = ['deviceApplicationSubmitted', 'deviceApplicationNumber', 'deviceExplain'];
+          this._resetControlValues(valuesToReset)
       return true;
     }
     return false;
   }
 
   isDeviceNotAuthorized() {
-    if (this.deviceFormLocalModel.controls.deviceAuthorized.value &&
-      this.deviceFormLocalModel.controls.deviceAuthorized.value === GlobalsService.NO) {
-      this.deviceFormLocalModel.controls.licenceNum.setValue(null);
-      this.deviceFormLocalModel.controls.licenceNum.markAsUntouched();
+    if (this.deviceFormLocalModel.controls['deviceAuthorized'].value &&
+      this.deviceFormLocalModel.controls['deviceAuthorized'].value === NO) {
+      this._resetControlValues(['licenceNum']);
       return true;
     }
     return false;
   }
 
   isDeviceApplicationSubmitted() {
-    if (this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value &&
-      this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value === GlobalsService.YES) {
-      this.deviceFormLocalModel.controls.deviceExplain.setValue(null);
-      this.deviceFormLocalModel.controls.deviceExplain.markAsUntouched();
+    if (this.deviceFormLocalModel.controls['deviceApplicationSubmitted'].value &&
+      this.deviceFormLocalModel.controls['deviceApplicationSubmitted'].value === YES) {
+        this._resetControlValues(['deviceExplain'])
       return true;
     }
     return false;
   }
 
   isDeviceApplicationNotSubmitted() {
-    if (this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value &&
-      this.deviceFormLocalModel.controls.deviceApplicationSubmitted.value === GlobalsService.NO) {
-      this.deviceFormLocalModel.controls.deviceApplicationNumber.setValue(null);
-      this.deviceFormLocalModel.controls.deviceApplicationNumber.markAsUntouched();
+    if (this.deviceFormLocalModel.controls['deviceApplicationSubmitted'].value &&
+      this.deviceFormLocalModel.controls['deviceApplicationSubmitted'].value === NO) {
+        this._resetControlValues(['deviceApplicationNumber']);
       return true;
     }
     return false;
