@@ -234,6 +234,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveXmlFile() {
+    // console.log("saveXmlFile", "this.showErrors", this.showErrors, this.errorList.length)
     this.showErrors = false;
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
@@ -309,6 +310,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       // once load data files on internal site, lower components should update error list and push them up
       this.showErrors = true;
     }
+    // console.log("processFile", "internal?", this.isInternal, "this.showErrors", this.showErrors) 
   }
 
   private _updateEnrollmentVersion(genInfo: GeneralInformation) {
