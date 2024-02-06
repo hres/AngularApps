@@ -13,10 +13,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TransactionDetailsComponent } from './transaction-details/transaction.details.component';
 import { TransactionDetailsService } from './transaction-details/transaction.details.service';
+import { TransactionFeeComponent } from './transaction-fee/transaction.fee.component';
+import { TransactionFeeService } from './transaction-fee/transaction.fee.service';
 
 @NgModule({
   declarations: [
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    TransactionFeeComponent
   ],
   imports: [
     CommonModule,
@@ -30,10 +33,12 @@ import { TransactionDetailsService } from './transaction-details/transaction.det
     NumbersOnlyDirective
   ],
   providers: [
-    TransactionDetailsService
+    TransactionDetailsService,
+    TransactionFeeService
   ],
   exports: [CommonUiFeatureModule, 
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    TransactionFeeComponent
   ],
 })
 export class AppFormModule {}
