@@ -15,6 +15,7 @@ import { UtilsService } from '../../utils/utils.service';
 import { Contact } from '../../model/entity-base';
 import { Subscription } from 'rxjs';
 import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } from '../../error-msg/error-summary/error-summary-object';
+import { ErrorNotificationService } from '../../error-msg/error.notification.service';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -44,12 +45,11 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   private errorSummaryChild = null;
   public contactListForm: FormGroup;
   public errorList = [];
-  localContactModel: Contact[] = [];
 
   private contactModelChangesSubscription: Subscription;
   
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService, 
-    private _listService: ContactListService, private _recordService: CompanyContactRecordService) {
+    private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService) {
     super();
     this.contactListForm = this._listService.getReactiveModel(_fb);     // it's an empty formArray
   }
@@ -69,6 +69,10 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
 
     //   this.cd.detectChanges();
     */
+    // subscribe and process the updated contact records' error summaries
+    this._errorNotificationService.errorSummaryChanged$.subscribe((errors) => {
+      this._processErrorSummaries(errors);
+    });
 
     // when contactModel changes, check if "at least one company record" rule is met and then execute emitting
     this.contactModelChangesSubscription = this._listService.contactModelChanges$.subscribe(changes => {
@@ -76,6 +80,20 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       this._emitErrors();
     });
   }
+
+  private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
+    // console.log('...._processErrorSummaries:', errSummaryEntries);
+    // get the first entry where the errSummaryMessage property is not empty 
+    // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
+    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage);
+    // console.log('....', filteredErrSummaryEntry);
+    if (filteredErrSummaryEntry) {
+      this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
+    } else {
+      this.errorSummaryChild = null;
+    }
+    this._emitErrors();
+  }  
 
   // /**
   //  * Updates the error list to include the error summaries. Messages upwards
@@ -124,42 +142,24 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
 
   private initWithData(){
     if (this.contactStatusList.length > 0 && this.contactModel) {
-      this.localContactModel = [...this.contactModel];
 
-      console.log(this.localContactModel===this.contactModel);
+      this._listService.setModelRecordList(this.contactModel);
+      this._listService.initIndex(this.contactModel);
 
-      this._listService.setModelRecordList(this.localContactModel);
-      this._listService.initIndex(this.localContactModel);
-
-      if ( !this.localContactModel || this.localContactModel.length === 0 ) {
+      if ( !this.contactModel || this.contactModel.length === 0 ) {
         this._createFormContact();
-        this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
       } else {
-        this.contactList.clear();
-        this._listService.createFormRecordList(this.localContactModel, this._fb, this.contactList, this.isInternal); 
-        this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
+        this._listService.createFormRecordList(this.contactModel, this._fb, this.contactList, this.isInternal); 
         if (this.isInternal) {
-          // this.contactList.controls.forEach( (element: FormGroup) => {
-          //   element.controls['expandFlag'].setValue(true);
-          // })
-
-          // expand next invalid record
-          for (let index = 0; index < this.contactList.controls.length; index++) {
-            const element: FormGroup = this.contactList.controls[index] as FormGroup;
-            console.log(element);
-            if (element.invalid) {
-              element.controls['expandFlag'].setValue(true);
-              break;
-            } 
-          }  
-   
+          this._expandNextInvalidRecord();
         } else {
+          // expand the first record
           const firstFormRecord = this.contactList.at(0) as FormGroup;
           firstFormRecord.controls['expandFlag'].setValue(true);
         }
       }
 
-      
+      this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
     }
 }
 
@@ -209,35 +209,33 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       } 
     }  
 
-    // expand next invalid record
-    for (let index = 0; index < this.contactList.controls.length; index++) {
+    this._expandNextInvalidRecord();
+
+    this.showErrors = true;
+    if (!this.isInternal) {
+      document.location.href = '#addContactBtn';
+    }
+    this.contactsUpdated.emit(this.contactModel);
+  }
+
+  private _expandNextInvalidRecord(){
+     // expand next invalid record
+     for (let index = 0; index < this.contactList.controls.length; index++) {
       const element: FormGroup = this.contactList.controls[index] as FormGroup;
       // console.log(element);
       if (element.invalid) {
         element.controls['expandFlag'].setValue(true);
         break;
       } 
-    }  
-
-    this.showErrors = true;
-    if (!this.isInternal) {
-      document.location.href = '#addContactBtn';
-    }
-    this.contactsUpdated.emit(this.localContactModel);
+    }     
   }
-
   /**
    *  Updates the error list
    * @param errs - the list of errors to broadcast
    */
   updateErrorList(errs) {
-    if (errs) {
-      errs.forEach((e: any) => {
-        this.errorList.push(e);
-      });
-    }
-    // this.errorList = errs;
-    console.log(this.errorList)
+    console.log("updateErrorList", errs)
+    this.errorList = errs;
     // this.errorList = (errs && errs.length > 0) ? this.errorList.concat(errs) : [];
     // for (const err of this.errorList) {
     //   err.index = this.getExpandedRow();
@@ -255,17 +253,16 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   private _emitErrors(): void {
     let emitErrors = [];
     // adding the child errors
-    if (this.errorList) { //  && !this.isInternal
-      // emitErrors = this.errorList;
-      this.errorList.forEach((error: any) => {
-        console.log("pushing errors")
-        emitErrors.push(error);
-      });
-    }
+    // if (this.errorList) { //  && !this.isInternal
+    //   // emitErrors = this.errorList;
+    //   this.errorList.forEach((error: any) => {
+    //     emitErrors.push(error);
+    //   });
+    // }
     if (this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
     }
-    if (!this.isInternal && this._noNonRemoveRecords(this.localContactModel)) {
+    if (!this.isInternal && this._noNonRemoveRecords(this.contactModel)) {
       const oerr: ErrorSummaryObject = getEmptyErrorSummaryObj();
       oerr.index = 0;
       oerr.tableId = 'contactListTable';
@@ -308,9 +305,12 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    */
   public deleteContact(id): void {
     this.deleteRecord(id, this.contactList, this._listService);
+    // since the contact record is deleted, we should also remove its ErrorSummary if there is any
+    this._errorNotificationService.removeErrorSummary(id);
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
-    document.location.href = '#addContactBtn';
-    this.contactsUpdated.emit(this.localContactModel);
+    this._expandNextInvalidRecord();
+    document.location.href = '#contactListTable';
+    this.contactsUpdated.emit(this.contactModel);
   }
 
   /**
