@@ -78,7 +78,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm-4" >
+      <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12" >
         <label for="phoneNumber{{recordId}}" class="required full-width">
           <span class="field-name" >{{'phone.number'|translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
@@ -91,13 +91,13 @@
                 [formControl]="contactDetailForm.controls['phoneNumber'] | formControl" />
         </label>
       </div>
-      <div class="form-group col-sm-3">
+      <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="phoneExtension{{recordId}}">
           <span class="field-name" >{{'phone.extension' |translate}}</span>
           <input name="phoneExtension" id="phoneExtension{{recordId}}" class="form-control" maxlength="10" data-only-digits [formControl]="contactDetailForm.controls['phoneExtension'] | formControl" />
         </label>
       </div>
-      <div class="form-group col-sm-4 ">
+      <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
         <label class="full-width" for="faxNumber{{recordId}}">
           <span class="field-name" >{{'fax.number' |translate}}</span>
           <control-messages *ngIf="contactDetailForm.controls['faxNumber'].invalid"
@@ -111,7 +111,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm-6" >
+      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
         <label for="email{{recordId}}" class="required full-width">
           <span class="field-name" >{{'contact.email'|translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
@@ -123,7 +123,7 @@
           <input name="email" id="email{{recordId}}" class="form-control full-width" maxlength="50" [formControl]="contactDetailForm.controls['email'] | formControl"/>
         </label>
       </div>
-      <div class="form-group col-sm-6" >
+      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
         <label for="routingId{{recordId}}">
           <span class="field-name">{{'routing.id' |translate}}</span>
           <sup id="co4a-rf">

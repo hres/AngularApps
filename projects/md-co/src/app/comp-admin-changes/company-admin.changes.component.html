@@ -68,7 +68,7 @@
       </div>
   
       <div class="row row-center" *ngIf="isReguChange()">
-        <div class="form-group col-xs-6" >
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
           <label for="newCompanyId" class="required full-width">
             <span class="field-name">{{'new.company.id'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -81,7 +81,7 @@
                    [formControl]="adminChangesFormLocalModel.controls['newCompanyId'] | formControl" maxlength="6" data-only-digits/>
           </label>
         </div>
-        <div class="form-group col-xs-6" >
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
           <label for="newContactId" class="full-width">
             <span class="field-name">{{'new.contact.id'|translate}}</span>
             <input name="newContactId" id="newContactId" class="form-control full-width"  (blur)="onblur()"
@@ -90,7 +90,7 @@
         </div>
       </div>
       <div class="row row-center" *ngIf="isReguChange()">
-        <div class="form-group col-xs-6" >
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
           <label for="newContactName" class="required full-width">
             <span class="field-name">{{'new.contact.name'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
