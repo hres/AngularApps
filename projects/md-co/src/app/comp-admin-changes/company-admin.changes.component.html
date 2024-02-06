@@ -84,6 +84,11 @@
         <div class="form-group col-xs-6" >
           <label for="newContactId" class="full-width">
             <span class="field-name">{{'new.contact.id'|translate}}</span>
+            <control-messages *ngIf="adminChangesFormLocalModel.controls['newContactId'].invalid"
+                              [showError]="showFieldErrors"
+                              [control]="adminChangesFormLocalModel.controls['newContactId'] | formControl"
+                              controlId="newContactId" label="new.contact.id" parentId="adminChangesDetails"
+                              parentLabel="Admin Changes"></control-messages>
             <input name="newContactId" id="newContactId" class="form-control full-width"  (blur)="onblur()"
                    [formControl]="adminChangesFormLocalModel.controls['newContactId'] | formControl" maxlength="5" data-only-digits/>
           </label>
