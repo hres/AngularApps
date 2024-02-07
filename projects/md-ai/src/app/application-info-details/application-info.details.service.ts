@@ -381,7 +381,7 @@ export class ApplicationInfoDetailsService {
     appInfoModel.is_diagnosis_treatment_serious = reasons;
   }
 
-  public mapDataModelToFormModel(appInfoModel, formRecord: FormGroup, complianceOptionList : CheckboxOption[], complianceList: ICode[], diagnosisReasonList: ICode[], diagnosisOptionList: CheckboxOption[], lang) {
+  public mapDataModelToFormModel(appInfoModel, formRecord: FormGroup, complianceOptionList : CheckboxOption[], diagnosisOptionList: CheckboxOption[]) {
     let mdsapOrgId: string | undefined;
     let licenceAppTypeId: string | undefined;
     let regActivityTypeId: string | undefined;
@@ -505,8 +505,7 @@ export class ApplicationInfoDetailsService {
       const loadedComplianceReasonCodes: string[] = this._utilsService.getIdsFromIdTextLabels(appInfoModel.compliance.compliance);
       if (loadedComplianceReasonCodes.length > 0) {
         const complianceFormArray = this.getComplianceChkboxFormArray(formRecord);
-        this.loadComplianceOptions(activityTypeId, deviceClassId, diagnosisReasonList, relationship, diagnosisOptionList, lang, complianceFormArray);
-        this._converterService.checkCheckboxes(loadedComplianceReasonCodes, diagnosisOptionList, complianceFormArray);
+        this._converterService.checkCheckboxes(loadedComplianceReasonCodes, complianceOptionList, complianceFormArray);
       }  
     }
 
@@ -549,7 +548,6 @@ export class ApplicationInfoDetailsService {
       const loadedDiagnosisCodes: string[] = this._utilsService.getIdsFromIdTextLabels(appInfoModel.is_diagnosis_treatment_serious.diagnosis_reason);
       if (loadedDiagnosisCodes.length > 0) {
         const diagnosisFormArray = this.getDiagnosisChkboxFormArray(formRecord);
-        this.loadDiagnosisOptions(activityTypeId, deviceClassId, diagnosisReasonList, relationship, diagnosisOptionList, lang, diagnosisFormArray);
         this._converterService.checkCheckboxes(loadedDiagnosisCodes, diagnosisOptionList, diagnosisFormArray);
       }  
     }
@@ -561,62 +559,6 @@ export class ApplicationInfoDetailsService {
   getDiagnosisChkboxFormArray(formRecord: FormGroup) {
     return formRecord.controls['diagnosisReasons'] as FormArray;
   }  
-
-  loadComplianceOptions(activityTypeId: string, deviceClassId: string, amendReasonList: ICode[], relationship: any, amendReasonOptionList: CheckboxOption[], lang: string, amendReasonCheckboxFormArray: FormArray) : void{
-    console.log("##0",activityTypeId, deviceClassId, amendReasonList, relationship);
-    // const group = relationship.find((item) => item.activityTypeId === activityTypeId);
-    if (group) {
-      const reasons =  group.amendReasons.filter((member) => member.deviceClassId === deviceClassId);
-      console.log("##1",reasons[0])
-      const reasonIds = reasons[0].values;
-      console.log("##2",reasonIds)
-      const amendReasonCodeList = this._utilsService.filterCodesByIds(amendReasonList, reasonIds);
-      console.log("##3", amendReasonCodeList)
-
-      // Clear existing items for the amend reason checkbox options and form array
-      amendReasonOptionList.length = 0;
-      amendReasonCheckboxFormArray.clear();
-
-      // Populate the array with new items
-      amendReasonCodeList.forEach((item) => {
-        const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
-        amendReasonOptionList.push(checkboxOption);
-        amendReasonCheckboxFormArray.push(new FormControl(false));
-      });
-
-      console.log("##4", amendReasonOptionList)
-    } else {
-      console.error("couldn't find amendReasons for activityType", activityTypeId, "and deviceClass", deviceClassId);
-    }
-  }
-
-  loadDiagnosisOptions(activityTypeId: string, deviceClassId: string, amendReasonList: ICode[], relationship: any, amendReasonOptionList: CheckboxOption[], lang: string, amendReasonCheckboxFormArray: FormArray) : void{
-    console.log("##0",activityTypeId, deviceClassId, amendReasonList, relationship);
-    const group = relationship.find((item) => item.activityTypeId === activityTypeId);
-    if (group) {
-      const reasons =  group.amendReasons.filter((member) => member.deviceClassId === deviceClassId);
-      console.log("##1",reasons[0])
-      const reasonIds = reasons[0].values;
-      console.log("##2",reasonIds)
-      const amendReasonCodeList = this._utilsService.filterCodesByIds(amendReasonList, reasonIds);
-      console.log("##3", amendReasonCodeList)
-
-      // Clear existing items for the amend reason checkbox options and form array
-      amendReasonOptionList.length = 0;
-      amendReasonCheckboxFormArray.clear();
-
-      // Populate the array with new items
-      amendReasonCodeList.forEach((item) => {
-        const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
-        amendReasonOptionList.push(checkboxOption);
-        amendReasonCheckboxFormArray.push(new FormControl(false));
-      });
-
-      console.log("##4", amendReasonOptionList)
-    } else {
-      console.error("couldn't find amendReasons for activityType", activityTypeId, "and deviceClass", deviceClassId);
-    }
-  }
 
   /**
    * Find a record by its unique id,. If a dup, returns first instance
@@ -871,6 +813,4 @@ export class ApplicationInfoDetailsService {
   // }
 
   
-
 }
-

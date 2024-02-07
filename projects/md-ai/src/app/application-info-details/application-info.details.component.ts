@@ -154,7 +154,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       // if (this.appInfoFormLocalModel.controls.declarationConformity) {
       //   this.declarationConformity.emit(this.appInfoFormLocalModel.controls.declarationConformity.value);
       // }
-      ApplicationInfoDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel));
+      this._detailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.appInfoFormLocalModel), this.complianceList, this.seriousDiagnosisReasonList);
       //this._updateLists();
       // this._hasReasonChecked();
       this._hasMaterialRecord();
@@ -179,7 +179,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   private _saveData(): void{
     // save data to output model
-    this._detailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel), this.appInfoModel);
+    this._detailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel), this.appInfoModel, this.mdsapOrgList, this.licenceAppTypeList, this.actTypeList, this.devClassList, this.drugTypeList, this.complianceList, this.seriousDiagnosisReasonList, this.selectedComplianceCodes, this.selectedDiagnosisCodes, this.lang);
   }
 
   // complianceOnblur() {
