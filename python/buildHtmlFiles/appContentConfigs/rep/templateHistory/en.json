@@ -1,0 +1,50 @@
+{
+    "title": "Regulatory Enrolment Process (REP) Template Revision History",
+    "h1_header": "Regulatory Enrolment Process (REP) Template Revision History",
+    "paragraphs": [
+        "Health Canada has updated the Regulatory Enrolment Process (REP) templates to reflect process changes and improvements. Refer to the Guidance Document: Regulatory Enrolment Process (REP) – Drugs for Human and Veterinary Use and Disinfectants for more information on the templates.",
+        "In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use.",
+        "Should you have any questions regarding the content of this document, please contact <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"en\">ereview@hc-sc.gc.ca</a>."
+    ],
+    "releases": [
+        {
+            "header": "February 28, 2023 Release",
+            "details": [
+                {
+                    "template": "Regulatory Transaction (RT) Template",
+                    "changes": [
+                        "Updated email address in the Privacy Notice Statement",
+                        "Updated veterinary drugs email address in instructions",
+                        "Increased character limit allowed for Product Name"
+                    ]
+                },
+                {
+                    "template": "Product Information (PI) Template",
+                    "changes": [
+                        "Updated email address in the Privacy Notice Statement",
+                        "Updated veterinary drugs email address in instructions",
+                        "Increased character limit allowed for Product Name"
+                    ]
+                },
+                {
+                    "template": "Stylesheet Package",
+                    "changes": [
+                        "New RT and PI version 4.4 stylesheets to match changes to REP RT and PI templates"
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "January 4, 2023 Release",
+            "details": [
+                {
+                    "template": "Company (CO) Template",
+                    "changes": [
+                        "Added text regarding fax number",
+                        "Updated email address in the Privacy Notice Statement"
+                    ]
+                }
+            ]
+        }
+    ]
+}

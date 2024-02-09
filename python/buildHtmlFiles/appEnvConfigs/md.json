@@ -10,5 +10,9 @@
     "index_html_name": {
         "en": "mds_index.html",
         "fr": "mds_index-fr.html"
+    },
+    "template_history_html_name": {
+        "en": "version_history.html",
+        "fr": "historique_revisions.html"
     }
 }

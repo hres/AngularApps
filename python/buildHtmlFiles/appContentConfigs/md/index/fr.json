@@ -3,7 +3,7 @@
     "h1_header": "fr_Regulatory Enrolment Process (REP) for Medical Devices",
     "sections": [
         {
-            "h2_header": "fr_Outside the Regulatory Transaction Process",
+            "header": "fr_Outside the Regulatory Transaction Process",
             "groups": [
                 {
                     "header": "fr_<a href=\"./mds/company/en/index.html#main\">Company Template (Last updated: Dec 9, 2021)</a>",
@@ -15,7 +15,7 @@
             ]
         },
         {
-            "h2_header": "fr_Within the Regulatory Transaction Process",
+            "header": "fr_Within the Regulatory Transaction Process",
             "groups": [
                 {
                     "header": "fr_Regulatory Transaction Template (Last updated: Apr 23, 2020)",

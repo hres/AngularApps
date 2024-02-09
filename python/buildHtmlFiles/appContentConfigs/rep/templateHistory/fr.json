@@ -1,0 +1,50 @@
+{
+    "title": "Historique des révisions des modèles du processus d’inscription réglementaire (PIR)",
+    "h1_header": "Historique des révisions des modèles du processus d’inscription réglementaire (PIR)",
+    "paragraphs": [
+        "Santé Canada a mis à jour les modèles du processus d’inscription réglementaire (PIR) afin de refléter les modifications et les améliorations apportées. Reportez-vous à la Ligne directrice : Processus d’inscription réglementaire (PIR) : Médicaments à usage humain, à usage vétérinaire et désinfectants pour plus de renseignements sur les modèles.",
+        "Afin d’accéder à la version la plus récente du modèle, n’oubliez pas de supprimer fréquemment votre mémoire cache et d’« actualiser » les liens du modèle sur votre navigateur Web avant chaque utilisation.",
+        "Si vous avez des questions concernant le contenu de ce document, veuillez communiquer avec <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"en\">ereview@hc-sc.gc.ca</a>."
+    ],
+    "releases": [
+        {
+            "header": "Publication du 28 février 2023",
+            "details": [
+                {
+                    "template": "Modèle de transaction réglementaire (TR)",
+                    "changes": [
+                        "Mise à jour de l’adresse courriel dans l’Énoncé de confidentialité",
+                        "Mise à jour de l’adresse courriel des médicaments vétérinaires dans les instructions",
+                        "Augmentation du nombre de caractères autorisés pour le nom du produit"
+                    ]
+                },
+                {
+                    "template": "Modèle d’information sur le produit (IP)",
+                    "changes": [
+                        "Mise à jour de l’adresse courriel dans l’Énoncé de confidentialité",
+                        "Mise à jour de l’adresse courriel des médicaments vétérinaires dans les instructions.",
+                        "Augmentation du nombre de caractères autorisés pour le nom du produit"
+                    ]
+                },
+                {
+                    "template": "Ensemble de feuilles de style",
+                    "changes": [
+                        "Nouvelles feuilles de style TR et IP version 4.4 pour correspondre aux modifications apportées aux modèles TR et IP du PIR"
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "Publication du 4 janvier 2023",
+            "details": [
+                {
+                    "template": "Modèle de compagnie (CO)",
+                    "changes": [
+                        "Ajout d’un texte concernant le numéro de fax",
+                        "Mise à jour de l’adresse courriel dans l’énoncé de confidentialité"
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -4,15 +4,14 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>{{title}}</title>
+		<title>{{data.title}}</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta http-equiv="content-security-policy" content="script-src 'self' 'unsafe-inline' www.canada.ca; img-src 'self' www.canada.ca; font-src 'self' www.canada.ca maxcdn.bootstrapcdn.com fonts.gstatic.com; style-src 'self' www.canada.ca maxcdn.bootstrapcdn.com 'unsafe-inline'; default-src 'self' www.canada.ca; ">
 		<meta name="author" content="Health Canada" />
 		<meta property="dcterms.creator" content="Government of Canada, Health Canada">
-		<meta property="dcterms.issued" title="W3CDTF" content="<!-- build:dateIssued -->">
-		<meta property="dcterms.modified" title="W3CDTF" content="<!-- build:dateModified -->">
+		<meta property="dcterms.modified" title="W3CDTF" content="{{dateModified}}">
 		<meta property="dcterms.language" title="ISO639-2/T" content="eng">
 		<!-- build:metaData-en.html -->
 		<!-- Meta data-->
@@ -42,7 +41,7 @@
 			defTop.outerHTML = wet.builder.top({
 				"lngLinks": [{
 					"lang": "fr",
-					"href": "<!-- build:lngHref -->",
+					"href": "{{lngHref}}",
 					"text": "Français"
 				}],
 				"breadcrumbs": [{
@@ -60,22 +59,52 @@
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
 			<!--content starts here -->
-			<h1 property="name" id="wb-cont">{{h1_header}}</h1>
+			<h1 property="name" id="wb-cont">{{data.h1_header}}</h1>
+			{%- for paragraph in data.paragraphs %}
+			<p>{{paragraph}}</p>
+			{%- endfor %}
 
-			{%- for control in sections %}
-			  <h2>{{control.h2_header}}</h2>
-				{%- for group in control.groups %}
+			{%- for section in data.sections %}
+			  <h2>{{section.header}}</h2>
+				{%- for group in section.groups %}
 				<p>{{group.header}}</p>
 				<ul>
-				{%- for bullet in group.bullets %}
-				<li>
-				{{bullet}}
-				</li>
-				{%- endfor %}
+					{%- for bullet in group.bullets %}
+					<li>
+					{{bullet}}
+					</li>
+					{%- endfor %}
 				</ul>
 				{%- endfor %}
 			{%- endfor %}
 			
+			{%- for release in data.releases %}
+			<h3>{{release.header}}</h3>
+			
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">Template</th>
+							<th scope="col">Change</th>
+						</tr>
+					</thead>
+					<tbody>
+						{%- for detail in release.details %}
+						<tr>
+							<td class="col-md-3">{{detail.template}}</td>
+							<td class="col-md-9">
+								<ul>
+								{%- for change in detail.changes %}
+									<li>{{change}}</li>
+								{%- endfor %}
+								</ul>
+							</td>
+						</tr>
+						{%- endfor %}
+					</tbody>
+				</table>
+			
+			{%- endfor %}
 
 			<!--content ends here -->
 			<div id="def-preFooter">
