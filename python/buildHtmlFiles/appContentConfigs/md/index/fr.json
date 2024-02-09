@@ -1,28 +1,79 @@
 {
-    "title": "fr_REP forms",
-    "h1_header": "fr_Regulatory Enrolment Process (REP) for Medical Devices",
+    "title": "Processus d’inscription réglementaire (PIR) pour les instruments médicaux",
+    "h1_header": "Processus d’inscription réglementaire (PIR) pour les instruments médicaux",
     "sections": [
         {
-            "header": "fr_Outside the Regulatory Transaction Process",
+            "header": "Liens d’accès au modèle et au formulaire du PIR"
+        },
+        {
+            "header": "Processus de transaction réglementaire externe",
             "groups": [
                 {
-                    "header": "fr_<a href=\"./mds/company/en/index.html#main\">Company Template (Last updated: Dec 9, 2021)</a>",
+                    "header": "<a href=\"./mds/company/en/index.html#main\">Modèle de l’entreprise (29 mars 2024)</a>",
                     "bullets": [
-                        "Required to obtain a company ID and/or provide updated company information to Health Canada.",
-                        "Sent via the email."
+                        "Obligatoire afin d’obtenir un identifiant d'entreprise et/ou fournir des informations à jour sur l'entreprise à Santé Canada.",
+                        "Envoyé par courriel.<ul><li>Joignez l’ébauche de fichier CO XML avant l’envoi.</li></ul>",
+                        "Reportez-vous document d’orientation du PIR pour les instruments médicaux pour une description détaillée des exigences du modèle de l'entreprise."
+                    ]
+                },{
+                    "header": "<a href=\"./mds/company/en/index.html#main\">Formulaire de demande pour les ID de dossiers pour les instruments médicaux</a>",
+                    "bullets": [
+                        "Nécessaire pour obtenir un identifiant de dossier.",
+                        "Une fois rempli, le formulaire est envoyé automatiquement par courriel à Santé Canada."
                     ]
                 }
             ]
         },
         {
-            "header": "fr_Within the Regulatory Transaction Process",
+            "header": "Dans le cadre du processus de transaction réglementaire",
             "groups": [
                 {
-                    "header": "fr_Regulatory Transaction Template (Last updated: Apr 23, 2020)",
+                    "header": "Modèle de transaction réglementaire (à venir)",
                     "bullets": [
-                        "Sent via the CESG within the regulatory transaction (application).",
-                        "Application Information Template (Last updated: May 14, 2020)"
+                        "Envoyé par la PCDE dans le cadre de la transaction réglementaire (demande).",
+                        "Requis avec chaque transaction réglementaire déposée auprès de Santé Canada.",
+                        "Référez-vous au document d’orientation du PIR pour les instruments médicaux pour une description détaillée des exigences du modèle TR."
                     ]
+                },
+                {
+                    "header": "Application Information Template (Last updated: May 14, 2020)",
+                    "bullets": [
+                        "Envoyé par le PCDE dans le cadre de la transaction réglementaire (demande).    ",
+                        "Obligatoire uniquement pour un sous-ensemble de transactions. Reportez-vous à la section « 2.5.2 Modèle et processus d'information sur la demande » de l'ébauche du document d'orientation PIR pour les dispositifs médicaux décrivant en détail les exigences relatives au modèle d'information sur les demandes d’homologation."
+                    ]
+                },
+                {
+                    "header": "Device Details (December 1, 2023)",
+                    "bullets": [
+                        "Envoyé par le PCDE dans le cadre de la transaction réglementaire (demande). ",
+                        "Obligatoire pour toutes les nouvelles demandes d’homologation, ainsi que pour toute demande de modification susceptible d’avoir des répercussions sur le répertoire des fabricants.  ",
+                        "<a href=\"./mds-test/Device_Details.xlsx\" download=\"\">Télécharger détails de l’instrument xlsx fichier</a>"
+                    ]
+                },
+                {
+                    "header": "Application Attestation Form (January 15, 2024)",
+                    "bullets": [
+                        "Envoyé par la PCDE dans le cadre de la transaction réglementaire (demande)."    ,
+                        "Obligatoire pour la première transaction d’une nouvelle activité réglementaire. ",
+                        "<a href=\"./mds-test/Application_Attestation_Form.pdf\" download=\"\">Télécharger formulaire pdf d'attestation de demande</a>"
+                    ]
+                }
+            ]
+        },
+        {
+            "internal_only": true,
+            "header": "Internal User (i.e. HPFB) Links",
+            "groups": [
+                {
+                    "header": "<a href=\"./mds/internal/company/en/index_internal.html#main\">Company Enrolment -Internal (29 mars 2024) </a>"
+                }
+            ]
+        },
+        {
+            "header": "Liens de téléchargement des feuilles de style",
+            "groups": [
+                {
+                    "header": "<a href=\"./mds/stylesheet/medicaldevice_stylesheets_en.zip\">Télécharger le fichier zip des feuilles de style (29 mars 2024)</a>"
                 }
             ]
         }

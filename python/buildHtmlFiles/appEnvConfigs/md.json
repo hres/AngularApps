@@ -1,7 +1,10 @@
 {
     "environments": {
         "dev": "https://lam-dev.hres.ca/rep-dev/",
-        "prod": "https://lam-dev.hres.ca/REP-Form/"
+        "prod": {
+            "internal": "https://lam-dev.hres.ca/REP-Form/",
+            "external": "https://lam-dev.hres.ca/REP-Form/"
+        }
     },
     "index_html_name": {
         "en": "mds_index.html",
