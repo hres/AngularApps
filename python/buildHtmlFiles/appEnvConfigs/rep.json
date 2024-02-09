@@ -11,7 +11,7 @@
         "en": "index.html",
         "fr": "index-fr.html"
     },
-    "template_history_html_name": {
+    "version_history_html_name": {
         "en": "version_history.html",
         "fr": "historique_revisions.html"
     }

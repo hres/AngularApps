@@ -25,6 +25,15 @@
                     ]
                 }
             ]
+        },
+        {
+            "internal_only": true,
+            "header": "Internal User (i.e. HPFB) Links",
+            "groups": [
+                {
+                    "header": "<a href=\"./mds/internal/company/en/index_internal.html#main\">Company Enrolment -Internal (2021-11-28) </a>"
+                }
+            ]
         }
     ]
 }

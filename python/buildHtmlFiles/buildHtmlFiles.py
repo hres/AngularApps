@@ -9,27 +9,28 @@ def generate_files(option):
     if option == 1: 
         # build md index files
         app = "md"
-        subfolder = "index"
-        config_key = "index_html_name"
+        appContentConfigSubfolder = "index"
+        appEnvConfigKey = "index_html_name"
     elif option == 2: 
         # build md template history files
         app = "md"
-        subfolder = "templateHistory"
-        config_key = "template_history_html_name"
+        appContentConfigSubfolder = "versionHistory"
+        appEnvConfigKey = "version_history_html_name"
     elif option == 3: 
         # build rep index files
         app = "rep"
-        subfolder = "index"
-        config_key = "index_html_name"
+        appContentConfigSubfolder = "index"
+        appEnvConfigKey = "index_html_name"
     elif option == 4: 
         # build rep template history files
         app = "rep"
-        subfolder = "templateHistory"
-        config_key = "template_history_html_name"
+        appContentConfigSubfolder = "versionHistory"
+        appEnvConfigKey = "version_history_html_name"
     else:
         print ("....")
 
-    print (app, subfolder, config_key)
+    # print (app, appContentConfigSubfolder, appEnvConfigKey)
+    print(f'.. building for {app} {appContentConfigSubfolder}')
 
     curr_path = os.path.dirname(os.path.realpath(__file__));
 
@@ -45,18 +46,19 @@ def generate_files(option):
     with open(f"{server_file_path}", "r") as f1:
         f1_data = json.load(f1)
 
-        html_file_dict = f1_data[config_key]
+        html_file_dict = f1_data[appEnvConfigKey]
         # Extract environments
         environments = f1_data["environments"]
 
-        for lang, index_file_name in html_file_dict.items():
+        for lang, target_file_name in html_file_dict.items():
+            print(f'.... {lang}')
             # Construct the path to the JSON file relative to the script
-            index_data_file_path = os.path.join(curr_path, f'appContentConfigs/{app}/{subfolder}/{lang}.json')
-            print('index_data_file_path=', index_data_file_path)
+            index_data_file_path = os.path.join(curr_path, f'appContentConfigs/{app}/{appContentConfigSubfolder}/{lang}.json')
+            # print('index_data_file_path=', index_data_file_path)
 
             # get template file name
             jinja_html_template_name = 'html-' + lang + '.j2'
-            print('jinja_html_template_name=', jinja_html_template_name)
+            # print('jinja_html_template_name=', jinja_html_template_name)
 
             # Get today's date
             if lang=="fr":
@@ -65,28 +67,44 @@ def generate_files(option):
             else:
                 modification_date = datetime.datetime.now().strftime("%Y-%m-%d")
                 lngHref = html_file_dict["fr"]
-            print("lngHref", lngHref)
-
+            # print("lngHref", lngHref)
 
             # Read JSON file
             with open(index_data_file_path, 'r', encoding="utf-8") as f2:
                 f2_data = json.load(f2)
-                print('.......')
+                
                 # generate files for each environment
                 for environment in environments:
-                    print(environment)
-                    dist_dir = os.path.join(curr_path, f'dist/{app}/{subfolder}/{environment}')
-                    print('dist_dir=', dist_dir)
-                    # Create dist_dir (if it doesn't exist)
-                    os.makedirs(dist_dir, exist_ok=True)
+                    print(f'...... {environment}')
+                    if appContentConfigSubfolder=='index':
+                        if environment == 'dev':
+                           # Define a list with two values: "internal" and "external"
+                            sites = ["internal"]
+                        else:
+                            sites = ["internal", "external"]
 
-                    # Generate html file
-                    output_html_file_path = os.path.join(dist_dir, index_file_name)
-                    print('output_html_file_path=', output_html_file_path)
-                    buildUtils.generate_from_jinja_template(jinja_template_env, jinja_html_template_name, output_html_file_path, 
-                                                            data=f2_data, lngHref=lngHref, dateModified=modification_date, environment=environment)
-                    print(f"{output_html_file_path} is generated successfully.")
-                        
+                        for site in sites:
+                            print(f'........ {site}')
+                            dist_dir_prefix = os.path.join(curr_path, f'dist/{app}/{appContentConfigSubfolder}/{environment}/{site}')
+                            abc(dist_dir_prefix, target_file_name, site, environment, jinja_template_env, jinja_html_template_name, 
+                                                            data=f2_data, lngHref=lngHref, dateModified=modification_date)
+                    else :
+                        dist_dir_prefix = os.path.join(curr_path, f'dist/{app}/{appContentConfigSubfolder}/{environment}')
+                        abc(dist_dir_prefix, target_file_name, None, environment, jinja_template_env, jinja_html_template_name, 
+                                                            data=f2_data, lngHref=lngHref, dateModified=modification_date)
+
+
+def abc(dist_dir_prefix, target_file_name, site, environment, template_env, template_name, **kwargs):
+    dist_dir = os.path.join(dist_dir_prefix)
+    # print('dist_dir=', dist_dir)
+    # Create dist_dir (if it doesn't exist)
+    os.makedirs(dist_dir, exist_ok=True)
+
+     # Generate html file
+    output_html_file_path = os.path.join(dist_dir, target_file_name)
+    # print('output_html_file_path=', output_html_file_path)
+    buildUtils.generate_from_jinja_template(template_env, template_name, output_html_file_path, **kwargs)
+    print(f'.......... {output_html_file_path} is generated successfully.')                  
 
 if __name__ == '__main__':
     # Define the prompt options
@@ -111,14 +129,14 @@ if __name__ == '__main__':
         if 1 <= user_choice <= len(options):
             selected_option = options[user_choice - 1]
             print(f"\nYou selected option {user_choice}: {selected_option}")
-
+            print('\n')
             generate_files(user_choice)
-
+            print('\n')
         else:
             print("\nInvalid choice. Please enter a number within the range.\n")
 
     except Exception as e:
         # Catch and display any exceptions
-        print(f"An error occurred: {e}")
+        print(f"\nAn error occurred: {e}")
 
 
