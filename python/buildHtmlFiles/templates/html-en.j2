@@ -64,20 +64,38 @@
 			<p>{{paragraph}}</p>
 			{%- endfor %}
 
+			{# index page content #}
 			{%- for section in data.sections %}
-			  <h2>{{section.header}}</h2>
-				{%- for group in section.groups %}
-				<p>{{group.header}}</p>
-				<ul>
-					{%- for bullet in group.bullets %}
-					<li>
-					{{bullet}}
-					</li>
+				{% if site == "internal" %}
+					{# Display all sections when site is "internal" #}
+					<h2>{{section.header}}</h2>
+					{%- for group in section.groups %}
+					<p>{{group.header}}</p>
+					<ul>
+						{%- for bullet in group.bullets %}
+						<li>
+						{{bullet}}
+						</li>
+						{%- endfor %}
+					</ul>
 					{%- endfor %}
-				</ul>
-				{%- endfor %}
-			{%- endfor %}
-			
+				{% else %}
+					{# Display sections which don't have "internal_only" when site is not "internal" #}
+					{% if section.internal_only != true %}
+						<h2>{{ section.header }}</h2>
+						{% for group in section.groups %}
+							<h3>{{ group.header }}</h3>
+							<ul>
+							{% for bullet in group.bullets %}
+								<li>{{ bullet }}</li>
+							{% endfor %}
+							</ul>
+						{% endfor %}
+					{% endif %}
+				{% endif %}
+		 	 {%- endfor %}
+
+			{# template version history page content #}
 			{%- for release in data.releases %}
 			<h3>{{release.header}}</h3>
 			

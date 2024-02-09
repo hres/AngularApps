@@ -10,26 +10,25 @@ def generate_files(option):
         # build md index files
         app = "md"
         appContentConfigSubfolder = "index"
-        appEnvConfigKey = "index_html_name"
+        appEnvConfigHtmlKey = "index_html_name"
     elif option == 2: 
         # build md template history files
         app = "md"
         appContentConfigSubfolder = "versionHistory"
-        appEnvConfigKey = "version_history_html_name"
+        appEnvConfigHtmlKey = "version_history_html_name"
     elif option == 3: 
         # build rep index files
         app = "rep"
         appContentConfigSubfolder = "index"
-        appEnvConfigKey = "index_html_name"
+        appEnvConfigHtmlKey = "index_html_name"
     elif option == 4: 
         # build rep template history files
         app = "rep"
         appContentConfigSubfolder = "versionHistory"
-        appEnvConfigKey = "version_history_html_name"
+        appEnvConfigHtmlKey = "version_history_html_name"
     else:
-        print ("....")
+        print ("????")  # should never happen
 
-    # print (app, appContentConfigSubfolder, appEnvConfigKey)
     print(f'.. building for {app} {appContentConfigSubfolder}')
 
     curr_path = os.path.dirname(os.path.realpath(__file__));
@@ -46,9 +45,10 @@ def generate_files(option):
     with open(f"{server_file_path}", "r") as f1:
         f1_data = json.load(f1)
 
-        html_file_dict = f1_data[appEnvConfigKey]
+        html_file_dict = f1_data[appEnvConfigHtmlKey]
         # Extract environments
         environments = f1_data["environments"]
+        print(environments)
 
         for lang, target_file_name in html_file_dict.items():
             print(f'.... {lang}')
@@ -74,10 +74,10 @@ def generate_files(option):
                 f2_data = json.load(f2)
                 
                 # generate files for each environment
-                for environment in environments:
-                    print(f'...... {environment}')
+                for env, serverBaseUrl in environments.items():
+                    print(f'...... {env}')
                     if appContentConfigSubfolder=='index':
-                        if environment == 'dev':
+                        if env == 'dev':
                            # Define a list with two values: "internal" and "external"
                             sites = ["internal"]
                         else:
@@ -85,17 +85,16 @@ def generate_files(option):
 
                         for site in sites:
                             print(f'........ {site}')
-                            dist_dir_prefix = os.path.join(curr_path, f'dist/{app}/{appContentConfigSubfolder}/{environment}/{site}')
-                            abc(dist_dir_prefix, target_file_name, site, environment, jinja_template_env, jinja_html_template_name, 
-                                                            data=f2_data, lngHref=lngHref, dateModified=modification_date)
+                            dist_dir = os.path.join(curr_path, f'dist/{app}/{appContentConfigSubfolder}/{env}/{site}')
+                            abc(dist_dir, target_file_name, jinja_template_env, jinja_html_template_name, 
+                                                            environment=env, site=site, data=f2_data, lngHref=lngHref, dateModified=modification_date)
                     else :
-                        dist_dir_prefix = os.path.join(curr_path, f'dist/{app}/{appContentConfigSubfolder}/{environment}')
-                        abc(dist_dir_prefix, target_file_name, None, environment, jinja_template_env, jinja_html_template_name, 
-                                                            data=f2_data, lngHref=lngHref, dateModified=modification_date)
+                        dist_dir = os.path.join(curr_path, f'dist/{app}/{appContentConfigSubfolder}/{env}')
+                        abc(dist_dir, target_file_name, jinja_template_env, jinja_html_template_name, 
+                                                            environment=env, site=None, data=f2_data, lngHref=lngHref, dateModified=modification_date)
 
 
-def abc(dist_dir_prefix, target_file_name, site, environment, template_env, template_name, **kwargs):
-    dist_dir = os.path.join(dist_dir_prefix)
+def abc(dist_dir, target_file_name, template_env, template_name, **kwargs):
     # print('dist_dir=', dist_dir)
     # Create dist_dir (if it doesn't exist)
     os.makedirs(dist_dir, exist_ok=True)

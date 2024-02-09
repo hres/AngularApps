@@ -1,15 +1,11 @@
 {
-    "server_base_url": {
-        "internal": "https://lam-dev.hres.ca/rep-dev/",
-        "external": "https://lam-dev.hres.ca/REP-Form/"
+    "environments": {
+        "dev": "https://lam-dev.hres.ca/rep-dev/",
+        "prod": "https://lam-dev.hres.ca/REP-Form/"
     },
-    "environments": [
-        "dev",
-        "prod"
-    ],
     "index_html_name": {
-        "en": "index.html",
-        "fr": "index-fr.html"
+        "en": "mds_index.html",
+        "fr": "mds_index-fr.html"
     },
     "version_history_html_name": {
         "en": "version_history.html",
