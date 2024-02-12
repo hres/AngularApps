@@ -19,7 +19,7 @@ export class CompanyAdminChangesService {
       licenceNumbers: [null, Validators.required],
       isReguChange: [null, Validators.required],
       newCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
-      newContactId: ['', []],
+      newContactId: ['', [ValidationService.contactIdValidator]],
       newContactName: [null, Validators.required]
     });
   }

@@ -212,7 +212,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.showAdminChanges) {
       this.selectedAmendReasonCodes = this._utilsService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason) 
       // re-initiate the object in case showAdminChanges is flipped back and forth
-      this.adminChangesModel = this._companyService.getEmptyAdminChangesModel();
+      // this.adminChangesModel = this._companyService.getEmptyAdminChangesModel();
     } else {
       this.selectedAmendReasonCodes = [];
       // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
@@ -234,6 +234,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveXmlFile() {
+    // console.log("saveXmlFile", "this.showErrors", this.showErrors, this.errorList.length)
     this.showErrors = false;
     if (this.errorList && this.errorList.length > 0) {
       this.showErrors = true;
@@ -309,6 +310,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       // once load data files on internal site, lower components should update error list and push them up
       this.showErrors = true;
     }
+    // console.log("processFile", "internal?", this.isInternal, "this.showErrors", this.showErrors) 
   }
 
   private _updateEnrollmentVersion(genInfo: GeneralInformation) {
@@ -366,8 +368,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           ? '[company name]'
           : this.addressModel.company_name) +
         ' ' +
-        ((this.genInfoModel.company_id === null || this.genInfoModel.company_id === '')
-          ? '[company ID, if available]'
+        ((this.genInfoModel.company_id !== '')
+          ? '[company ID]'
           : this.genInfoModel.company_id);
       body =
         'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
@@ -379,8 +381,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           ? '[insérer le nom de votre entreprise]'
           : this.addressModel.company_name) +
         ' ' +
-        ((this.genInfoModel.company_id === null || this.genInfoModel.company_id === '')
-          ? '[insérer votre code d’entreprise, le cas échéant]'
+        ((this.genInfoModel.company_id !== '')
+          ? '[insérer votre code d’entreprise]'
           : this.genInfoModel.company_id);
       body =
         "NOTE: Le fichier XML de l'entreprise n'est pas automatiquement joint. VEUILLEZ JOINDRE LE BROUILLON XML DE L'ENTREPRISE AVANT DE LE SOUMETTRE.";

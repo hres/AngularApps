@@ -16,7 +16,7 @@ export class InstructionService {
     for (let i = 0; i < instructionHeadings.length; i++) {
       this.helpTextIndx[instructionHeadings[i]] = i + 1;
     }
-    console.log(this.helpTextIndx);
+    // console.log(this.helpTextIndx);
     return this.helpTextIndx;
     
 

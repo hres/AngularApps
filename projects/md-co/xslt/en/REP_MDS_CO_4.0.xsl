@@ -621,7 +621,7 @@ span.normalWeight {
 				<div class="row">
 					<div class="col-xs-6">
 					<strong>Language of Correspondance:&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="language/@label_en"/></span>&#160;&#160;
+					<span class="mouseHover"><xsl:value-of select="language_correspondence/@label_en"/></span>&#160;&#160;
 					</div>
 					<div class="col-xs-6">
 					<strong>Job Title:&#160;</strong>
@@ -631,16 +631,16 @@ span.normalWeight {
 				<div class="row">
 					<div class="col-xs-4">
 					<strong>Phone Number (indlucing area code):&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="phone_number"/></span>&#160;&#160;
+					<span class="mouseHover"><xsl:value-of select="phone_num"/></span>&#160;&#160;
 					</div>
 					<div class="col-xs-4">
 					<strong>Phone Extension:&#160;</strong>
-					<span class="mouseHover"><xsl:if test="phone_extension = ''">&#160;&#160;&#160;&#160;</xsl:if>
-					<xsl:value-of select="phone_extension"/></span>
+					<span class="mouseHover"><xsl:if test="phone_ext = ''">&#160;&#160;&#160;&#160;</xsl:if>
+					<xsl:value-of select="phone_ext"/></span>
 					</div>
 					<div class="col-xs-4">
 					<strong>Fax Number:&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="fax_number"/></span>
+					<span class="mouseHover"><xsl:value-of select="fax_num"/></span>
 					</div>
 				</div>
 				<div class="row">

@@ -12,6 +12,7 @@ import { ICode } from '../../data-loader/data';
 import { UtilsService } from '../../utils/utils.service';
 import { ContactStatus } from '../../common.constants';
 import {TranslateService} from '@ngx-translate/core';
+import { ErrorNotificationService } from '../../error-msg/error.notification.service';
 
 @Component({
   selector: 'company-contact-record',
@@ -57,7 +58,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   translatedParentLabel: string;
 
   constructor( private cdr: ChangeDetectorRef, private _utilsService: UtilsService, 
-    private _detailsService: ContactDetailsService, private _translateService: TranslateService) {
+    private _detailsService: ContactDetailsService, private _translateService: TranslateService, private _errorNotificationService: ErrorNotificationService) {
     this.showErrors = false;
     this.showErrSummary = false;
   }
@@ -86,8 +87,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       console.warn('Contact List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
-
-    this._emitErrors();
+    // notify subscriber(s) that contact records' error summaries are changed
+    this._errorNotificationService.updateErrorSummary(this.contactRecordModel.controls['id'].value, this.errorSummaryChild);
+ 
+    // this._emitErrors();
   }
   /***
    * Emits errors to higher level error summaries. Used for linking summaries
