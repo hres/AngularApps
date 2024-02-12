@@ -5,7 +5,7 @@ export interface Enrollment {
 }
 
 export interface DeviceApplicationEnrol {
-    software_version:               string;     // template_version??
+    template_version:               string;     // template_version??
     check_sum?:                     string;
     application_info:               ApplicationInfo;
     devices:                        Devices;

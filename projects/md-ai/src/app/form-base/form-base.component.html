@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <form name="aplicationForm" novalidate>
+    <form name="aplicationForm" [formGroup]="applicationForm" novalidate>
         <div class="row mrgn-tp-md">
           <div class="col-md-12">
             <div class="text-right">
@@ -9,15 +9,17 @@
         </div>
         <div>
           <section class="panel panel-primary mrgn-tp-lg">
-            <header class="panel-heading clearfix group-beside">
-              <h2 class="panel-title">{{'load.file'|translate}}   
+            <header class="panel-heading clearfix">
+              <h2 class="panel-title">{{'load.file'|translate}}
                 <sup id="ap1-rf">
                   <a class="fn-lnk" href="#ap1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['loadFileIndx']}}</a>
                 </sup>
               </h2>
             </header>
-            <div class="panel-body"> 
-              <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang"></lib-file-reader>
+            <div class="panel-body">
+              <div class="row">
+                <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang"></lib-file-reader>
+              </div>
             </div>
           </section>
         </div>
@@ -38,14 +40,15 @@
               </header>
               <div class="panel-body">
                 <!-- [detailsChanged]="updateChild"
+                  (declarationConformity)="disableSaveXmlButton($event)"
                           -->
-                <app-info-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
+                <app-info-details [showErrors]="showErrors" [lang]="lang"
                                   [appInfoModel]="appInfoModel"
                                   [deviceModel]="deviceModel" 
-                                  [materialModel]="materialModel"                                  [helpTextSequences]="helpIndex"
+                                  [materialModel]="materialModel"                                  
+                                  [helpTextSequences]="helpIndex"
                                   (detailErrorList)="processDetailErrors($event)"
-                                  (deviceErrorList)="processDeviceErrors($event)"
-                                  (declarationConformity)="disableSaveXmlButton($event)"
+                                  (deviceErrorList)="processDeviceErrors($event)"                                 
                                   (materialErrorList)="processMaterialtErrors($event)">
                 </app-info-details>
 

@@ -31,6 +31,7 @@
     "fileio.msg.fileTypeError": "Le type de formulaire incorrect a été sélectionné pour ce formulaire.",
     "fileio.msg.dataTypeError": "fr_Error: the wrong form data was selected for this form.",
     "fileio.msg.noFileChoosen": "Aucun fichier choisi",
+    "refresh.file.input": "Actualisez cette page",
     "add.device": "Ajouter l'enregistremement d'instrument",
     "save.device": "Sauvegarder l'enregistrement",
     "delete.device": "Supprimer l'enregistrement",
