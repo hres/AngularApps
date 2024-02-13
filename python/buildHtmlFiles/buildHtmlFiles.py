@@ -1,10 +1,14 @@
 import json
 import os
-import jinja2
 import datetime
-import shutil
 import buildScriptUtils as buildUtils;
+import fileUtils as fileUtils;
 
+# global variables
+dist_root_folder = 'dist'
+curr_path = os.path.dirname(os.path.realpath(__file__));
+jinja_template_dir = os.path.join(curr_path, 'templates')
+    
 def generate_files(option):
     if option == 1: 
         # build md index files
@@ -31,15 +35,6 @@ def generate_files(option):
 
     print(f'.. building for {app} {appContentConfigSubfolder}')
 
-    curr_path = os.path.dirname(os.path.realpath(__file__));
-
-    # get the full path to the jinja html template folder
-    jinja_html_template_dir = os.path.join(curr_path, 'templates')
-
-    # Load the jinja template config
-    jinja_template_loader = jinja2.FileSystemLoader(searchpath=jinja_html_template_dir)
-    jinja_template_env = jinja2.Environment(loader=jinja_template_loader)
-
     # Load server config 
     server_file_path = os.path.join(curr_path, f'appEnvConfigs/{app}.json')
     with open(f"{server_file_path}", "r") as f1:
@@ -48,63 +43,72 @@ def generate_files(option):
         html_file_dict = f1_data[appEnvConfigHtmlKey]
         # Extract environments
         environments = f1_data["environments"]
-        print(environments)
+        # print(environments, template_paths)
 
         for lang, target_file_name in html_file_dict.items():
             print(f'.... {lang}')
             # Construct the path to the JSON file relative to the script
-            index_data_file_path = os.path.join(curr_path, f'appContentConfigs/{app}/{appContentConfigSubfolder}/{lang}.json')
-            # print('index_data_file_path=', index_data_file_path)
+            html_content_file_path = os.path.join(curr_path, f'appContentConfigs/{app}/{appContentConfigSubfolder}/{lang}.json')
+            # print('html_content_file_path=', html_content_file_path)
 
-            # get template file name
+            # jinja template file name
             jinja_html_template_name = 'html-' + lang + '.j2'
             # print('jinja_html_template_name=', jinja_html_template_name)
 
             # Get today's date
             if lang=="fr":
                 modification_date = datetime.datetime.now().strftime("%d/%m/%Y")
-                lngHref = html_file_dict["en"]
+                lngHref = f'{html_file_dict["en"]}.html'
             else:
                 modification_date = datetime.datetime.now().strftime("%Y-%m-%d")
-                lngHref = html_file_dict["fr"]
+                lngHref = f'{html_file_dict["fr"]}.html'
             # print("lngHref", lngHref)
 
             # Read JSON file
-            with open(index_data_file_path, 'r', encoding="utf-8") as f2:
+            with open(html_content_file_path, 'r', encoding="utf-8") as f2:
                 f2_data = json.load(f2)
                 
-                # generate files for each environment
-                for env, serverBaseUrl in environments.items():
-                    print(f'...... {env}')
-                    if appContentConfigSubfolder=='index':
-                        if env == 'dev':
-                           # Define a list with two values: "internal" and "external"
-                            sites = ["internal"]
-                        else:
-                            sites = ["internal", "external"]
-
+                if appContentConfigSubfolder=='index':
+                    # generate files for each environment and each site
+                    sites = ["internal", "external"]
+                    for env, serverBaseUrl in environments.items():
+                        print(f'...... {env}')
                         for site in sites:
                             print(f'........ {site}')
-                            dist_dir = os.path.join(curr_path, f'dist/{app}/{appContentConfigSubfolder}/{env}/{site}')
-                            abc(dist_dir, target_file_name, jinja_template_env, jinja_html_template_name, 
-                                                            environment=env, site=site, data=f2_data, lngHref=lngHref, dateModified=modification_date)
-                    else :
-                        dist_dir = os.path.join(curr_path, f'dist/{app}/{appContentConfigSubfolder}/{env}')
-                        abc(dist_dir, target_file_name, jinja_template_env, jinja_html_template_name, 
-                                                            environment=env, site=None, data=f2_data, lngHref=lngHref, dateModified=modification_date)
-
-
-def abc(dist_dir, target_file_name, template_env, template_name, **kwargs):
-    # print('dist_dir=', dist_dir)
-    # Create dist_dir (if it doesn't exist)
-    os.makedirs(dist_dir, exist_ok=True)
-
-     # Generate html file
-    output_html_file_path = os.path.join(dist_dir, target_file_name)
-    # print('output_html_file_path=', output_html_file_path)
-    buildUtils.generate_from_jinja_template(template_env, template_name, output_html_file_path, **kwargs)
-    print(f'.......... {output_html_file_path} is generated successfully.')                  
-
+                            # get CO/RT/AI application path from the environment cofig file (appEnvConfigs\md.json)
+                            template_paths = f1_data["template_paths"][env]
+                            target_dir = f'{app}/{appContentConfigSubfolder}/{env}/{site}'
+                                
+                            temp_folder = os.path.join(curr_path, f'{dist_root_folder}/temp')
+                            temp_dir = os.path.join(temp_folder, target_dir) 
+                            temp_file_name = f'{target_file_name}.j2'                            
+                            # first generate a temp file using the html template, the temp file will have places holders for template application urls
+                            buildUtils.generate_from_jinja_template(jinja_template_dir, jinja_html_template_name, temp_dir, temp_file_name, 
+                                                            env=env, site=site, data=f2_data, lngHref=lngHref, dateModified=modification_date)
+                                
+                            # then use the temp file as the template to genereate final html file, 
+                            # replace places holders for template application urls (eg. {{ base_url }}{{ template_paths.rt.en }}) with values from the environment configs
+                            dist_dir = os.path.join(curr_path, f'{dist_root_folder}/{target_dir}')
+                            final_file_name = f'{target_file_name}.html'
+                            final_file_path = buildUtils.generate_from_jinja_template(temp_dir, temp_file_name, dist_dir, final_file_name, 
+                                                            base_url=serverBaseUrl,template_paths=template_paths)
+                            print(f'.......... {final_file_path} is generated successfully.')     
+                                
+                            
+                    # delete the temp folder
+                    if fileUtils.delete_folder(temp_folder):
+                        print(f"\n.... temp folder '{temp_folder}' and its contents were deleted successfully for {lang} files build process.\n")           
+                    
+                else :  
+                    # for version history pages, there is not difference between dev and prod, so we are going to only build files for prod
+                    env = 'prod'
+                    target_dir = f'{app}/{appContentConfigSubfolder}'
+                    dist_dir = os.path.join(curr_path, f'{dist_root_folder}/{target_dir}')
+                    final_file_path = buildUtils.generate_from_jinja_template(jinja_template_dir, jinja_html_template_name, dist_dir, target_file_name, 
+                                                       env=env, data=f2_data, lngHref=lngHref, dateModified=modification_date)
+                    print(f'...... {final_file_path} is generated successfully.')     
+                    
+                    
 if __name__ == '__main__':
     # Define the prompt options
     options = [

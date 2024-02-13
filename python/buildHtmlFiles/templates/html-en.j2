@@ -26,7 +26,7 @@
 		<!-- cssIncludes -->
 		<script>
 			document.write(wet.builder.refTop({
-				"cdnEnv": "{{environment}}"
+				"cdnEnv": "{{env}}"
 			}));
 		</script>
 	</head>
@@ -54,7 +54,7 @@
 					"title": "Health Canada",
 					"href": "https://www.canada.ca/en/health-canada.html"
 				}],
-				"cdnEnv": "{{environment}}"
+				"cdnEnv": "{{env}}"
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
@@ -134,7 +134,7 @@
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
 					"dateModified": "{{dateModified}}",
-					"cdnEnv": "{{environment}}"
+					"cdnEnv": "{{env}}"
 				});
 			</script>
 		</main>
@@ -146,13 +146,13 @@
 		<script>
 			var defFooter = document.getElementById("def-footer");
 			defFooter.outerHTML = wet.builder.footer({
-				"cdnEnv": "{{environment}}"
+				"cdnEnv": "{{env}}"
 			});
 		</script>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				"cdnEnv": "{{environment}}"
+				"cdnEnv": "{{env}}"
 			}));
 		</script>
 	</body>

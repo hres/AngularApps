@@ -1,27 +1,43 @@
-def generate_from_jinja_template(template_env, template_name, output_file_path, **kwargs):
-    """
-    Generate a file from a Jinja2 template.
+import os
+import shutil
+import jinja2
 
-    Args:
-        template_env (jinja2.Environment): Jinja2 environment.
-        template_name (str): Name of the template file.
-        output_file_path (str): Path to the output file.
-        **kwargs: Additional keyword arguments to pass to the template.
-    """
-    # Load the template
-    template = template_env.get_template(template_name)
+def generate_from_jinja_template(template_dir, template_file_name, output_dir, output_file_name, **kwargs):
+    try:
+        # Load the jinja template config
+        jinja_template_loader = jinja2.FileSystemLoader(searchpath=template_dir)
+        jinja_template_env = jinja2.Environment(loader=jinja_template_loader)
+
+        # Load the template
+        template = jinja_template_env.get_template(template_file_name)
+        
+        # create the output directory if it doesn't exist
+        os.makedirs(output_dir, exist_ok=True)
+        output_file_path = os.path.join(output_dir, output_file_name)
+        
+        # Render the template with the provided data
+        rendered_content = template.render(**kwargs)
+
+        # Write the rendered content to the output file
+        with open(output_file_path, 'w', encoding="utf-8") as output_file:
+            output_file.write(rendered_content)
+            
+        return output_file_path
     
-    # Render the template with the provided data
-    rendered_content = template.render(**kwargs)
+    except jinja2.TemplateNotFound as e:
+        # Raise the exception to the caller
+        raise TemplateNotFoundError(f"Template '{template_file_name}' not found. {e}")
+    
+    except Exception as e:
+        # Raise the exception to the caller
+        raise GenerationError(f"An unexpected error occurred. {e}")
 
-    # Write the rendered content to the output file
-    with open(output_file_path, 'w', encoding="utf-8") as output_file:
-        output_file.write(rendered_content)
+    
+# Define custom exceptions
+class TemplateNotFoundError(Exception):
+    pass
 
-def camel_case(input_string):
-    # Split the string by periods and capitalize each part
-    parts = input_string.split('.')
-    parts = [part.capitalize() for part in parts]
-    # Join the parts together
-    output_string = ''.join(parts)
-    return output_string
+
+class GenerationError(Exception):
+    pass    
+
