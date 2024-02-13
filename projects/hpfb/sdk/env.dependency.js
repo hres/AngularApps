@@ -13,11 +13,13 @@ const envConfig = {
   "md-co-external": '../../md-co/src/environments/environment.prod-',
   "md-co-internal": '../../md-co/src/environments/environment.prod.internal-',
   "md-rt": '../../md-rt/src/environments/environment.prod-',
+  "md-ai": '../../md-ai/src/environments/environment.prod-',
 };
 const baseEnvConfig = {
   "md-co-external": '../../md-co/src/environments/env.ts',
   "md-co-internal": '../../md-co/src/environments/env.ts',
   "md-rt": '../../md-rt/src/environments/env.ts',
+  "md-ai": '../../md-ai/src/environments/env.ts',
 }
 
 const baseenv_filepath = baseEnvConfig[templatex];

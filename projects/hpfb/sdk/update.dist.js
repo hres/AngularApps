@@ -45,6 +45,18 @@ const config = {
             "indexFileNewName": "/im-transaction-reglementaire.html",
         }
       },
+      "md-ai": {
+        "outputPath": DIST_DIR + "/md-ai",
+        "breadcrumbsPath": "md",
+        "en": {
+            "indexFileOriginalName": "/index-en.html",
+            "indexFileNewName": "/md-application-information.html",
+        },
+        "fr": {
+            "indexFileOriginalName": "/index-fr.html",
+            "indexFileNewName": "/im-information-demande-homologation.html",
+        }
+      },
 
     }
 

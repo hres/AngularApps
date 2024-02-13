@@ -55,7 +55,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     if (!this.deviceRecordModel) {
-      this.deviceRecordModel = this._initDevice();
+      // this.deviceRecordModel = this._initDevice();
     }
     this.detailsChanged = 0;
 
@@ -93,11 +93,11 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   }
 
 
-  private _initDevice() {
-    if (this.isNew) {
-      return DeviceRecordService.getReactiveModel(this._fb);
-    }
-  }
+  // private _initDevice() {
+  //   if (this.isNew) {
+  //     return DeviceRecordService.getReactiveModel(this._fb);
+  //   }
+  // }
 
   ngOnChanges (changes: SimpleChanges) {
 
@@ -105,7 +105,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
       if (this.deviceFormRecord) {
         this.setToLocalModel();
       } else {
-        this.deviceRecordModel = this._initDevice();
+        // this.deviceRecordModel = this._initDevice();
         if (this.deviceRecordModel) {
           this.deviceRecordModel.markAsPristine();
         }
