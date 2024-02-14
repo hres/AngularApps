@@ -1,5 +1,5 @@
 <ng-container *ngFor="let recordRow of rowsFormArray.controls; let i=index;">
-  <div class="panel panel-default" [attr.open]="recordRow.get('expandFlag').value? '' : null">
+  <div class="panel panel-default" [attr.data-open]="recordRow.get('expandFlag').value? '' : null">
     <header class="panel-heading">
       @if(recordRow.get('isNew').value){
       <h4 class="panel-title">
