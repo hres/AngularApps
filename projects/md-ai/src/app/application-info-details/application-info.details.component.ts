@@ -58,13 +58,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   public showFieldErrors = false;
 
   constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
-              private http: HttpClient, private translate: TranslateService,
-              private cdr: ChangeDetectorRef,
               private _detailsService : ApplicationInfoDetailsService,
               private _globalService : GlobalService,
               private _converterService : ConverterService,
-              private _utilsService: UtilsService,
-              private _formDataLoader: FormDataLoaderService) {
+              private _utilsService: UtilsService) {
     // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
