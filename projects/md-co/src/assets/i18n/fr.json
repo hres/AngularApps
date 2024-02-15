@@ -72,7 +72,7 @@
   "heading.contactRecord": "fr_Company Representative Record",
   "heading.contactDetails": "Représentant de la compagnie {{seqnumber}}",
   "contact.id": "Identifiant du contact",
-  "full.name": "Nom complet (Prénom et nom de famille)",
+  "full.name": "Nom complet (prénom et nom de famille)",
   "lang.correspond": "Langue de correspondance",
   "job.title": "Titre de poste",
   "status": "Statut du contact",
