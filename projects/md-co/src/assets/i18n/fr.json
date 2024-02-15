@@ -107,7 +107,7 @@
   "ownership.transferred": "Il y a-t-il des licences de propriété en processus d'acheminement?",
   "admin.changes": "Modifications administratives de l'entreprise",
   "impacted.licence": "Licence(s) concernée(s)",
-  "all.licence.num": "Tous les numéros de licence concernée(s)",
+  "all.licence.num": "Tous les numéros de licence concernée(s) (Placez un retour entre chaque numéro d'homologation)",
   "is.change": "Y a-t-il un changement de nom et/ou d'adresse du correspondant réglementaire",
   "new.company.id": "Nouvel identifiant de la compagnie",
   "new.contact.id": "Nouvel identifiant du contact",
