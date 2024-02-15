@@ -310,9 +310,17 @@
               "zone.js"
             ],
             "tsConfig": "projects/md-ai/tsconfig.app.json",
-            "assets": [
-              "projects/md-ai/src/favicon.ico",
-              "projects/md-ai/src/assets"
+            "assets":[
+              {
+                "glob": "**/*",
+                "input": "projects/md-ai/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/hpfb/sdk/src/assets",
+                "output": "/assets/temp"
+              }
             ],
             "styles": [
               "projects/md-ai/src/styles.css"
@@ -320,20 +328,37 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
-              "budgets": [
+            "production-en": {
+              "outputPath": "dist/md-ai/en",
+              "index": "projects/hpfb/sdk/src/index-en.html",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "fileReplacements": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "replace": "projects/md-ai/src/environments/environment.ts",
+                  "with": "projects/md-ai/src/environments/environment.prod-en.ts"
                 }
-              ],
-              "outputHashing": "all"
+              ]
+            },
+            "production-fr": {
+              "outputPath": "dist/md-ai/fr",
+              "index": "projects/hpfb/sdk/src/index-fr.html",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/md-ai/src/environments/environment.ts",
+                  "with": "projects/md-ai/src/environments/environment.prod-fr.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,

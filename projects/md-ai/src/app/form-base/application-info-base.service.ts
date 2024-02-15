@@ -63,7 +63,7 @@ export class ApplicationInfoBaseService {
   public getEmptyEnrol(): Enrollment {
     const enrollment: Enrollment = {
       DEVICE_APPLICATION_INFO: {
-        software_version: '',
+        template_version: '',
         application_info: this.getEmptyApplicationInfoModel(),
         devices: null, // TODO DIANA - Is this undefined? Search for list of objects
         biological_materials: null, // TODO DIANA - Is this undefined? Search for list of objects
@@ -96,7 +96,7 @@ export class ApplicationInfoBaseService {
         drug_name: '',
         active_ingredients: '',
         manufacturer: '',
-        compliance: this._entityBaseService.getEmptyIdTextLabel(),
+        compliance: null,
         other_pharmacopeia: '',
         provision_mdr_it:  '',
         provision_mdr_sa: '',

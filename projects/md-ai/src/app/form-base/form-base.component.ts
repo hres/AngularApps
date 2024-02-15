@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { XSLT_PREFIX, ROOT_TAG, XSL_EXTENSION } from '../app.constants';
 import {  ICode, ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, YES, NO } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
 
 @Component({
@@ -29,7 +29,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
   private _materialErrors = [];
-  public transactionForm: FormGroup;  // todo: do we need it? could remove?
+  public applicationForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
   public rootTagText = ROOT_TAG; 
   private xslName: string;
@@ -46,8 +46,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Enrollment;
   public appInfoModel : ApplicationInfo; 
   public transactionModel: Enrollment;
-  public deviceModel: Device[];
-  public materialModel: BiologicalMaterial[];
+  public deviceModel: Devices;
+  public materialModel: BiologicalMaterials;
 
   public fileServices: FileConversionService;
   public helpIndex: { [key: string]: number };
@@ -61,7 +61,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _fileService: FileConversionService, private _utilsService: UtilsService, private _globalService: GlobalService,
     private _versionService: VersionService,
     private _checkSumService: CheckSumService,
-    private _converterService: ConverterService
+    private _converterService: ConverterService,
+    private fb: FormBuilder
   ) {
     this.userList = [];
     this.showErrors = false;
@@ -71,12 +72,27 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log(this._globalService.$deviceClassesList)
-    // if (!this.transactionForm) {
-    //   this.transactionForm = this._baseService.getReactiveModel();
-    // }
-    // this.userList = await (this.dataLoader.getRequesters(this.translate.currentLang));
-    this.helpIndex = this._globalService.getHelpIndex();
+    // this means it's associated with a reactive form, and Angular automatically prevents the default form submission behavior
+    this.applicationForm = this.fb.group({}); 
+
+    try {
+      if (!this._globalService.getEnrollment()) {
+        // this._loggerService.log("form.base", "onInit", "enrollement doesn't exist, create a new one");
+        this.enrollModel = this._baseService.getEmptyEnrol();
+        this._globalService.setEnrollment(this.enrollModel);
+      } else {
+        this.enrollModel = this._globalService.getEnrollment();
+        // console.log("onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
+      }
+
+      const transactionEnroll: DeviceApplicationEnrol = this.enrollModel[this.rootTagText];
+      this._init(transactionEnroll);
+
+      this.helpIndex = this._globalService.getHelpIndex();
+
+    } catch (e) {
+      console.error(e);
+    }      
   }
 
   ngAfterViewInit(): void {
@@ -110,103 +126,52 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return (this.showErrors && this.errorList && this.errorList.length > 0);
   }
 
-  private _checkMaterialModel() {
-    if (this.appInfoModel.is_animal_human_sourced !== YES) {
-      this.materialModel = [];
-    }
-  }
-
-  disableSaveXmlButton(declarationConformity) {
-  //   console.log('declarationConformity' + declarationConformity);
-  //   this.disableSaveXml = !(declarationConformity === YES);
-  }
-
   public saveXmlFile() {
-    // this._updatedAutoFields();
-    // this.showErrors = false;
-    // if (this.errorList && this.errorList.length > 0) {
-    //   this.showErrors = true;
-    //   document.location.href = '#topErrorSummary';
-    // } else {
-    //   if (this._isInputsSaved()) {
-    //     this._checkMaterialModel();
-    //     const result = {
-    //       'DEVICE_APPLICATION_INFO': {
-    //         'application_info': this.appInfoModel,
-    //         'devices': {},
-    //         'materials': {}
-    //       }
-    //     };
-    //     if (this.deviceModel && (this.deviceModel).length > 0) {
-    //       result.DEVICE_APPLICATION_INFO.devices = {device: this.deviceModel};
-    //     }
-    //     if (this.materialModel && (this.materialModel).length > 0) {
-    //       result.DEVICE_APPLICATION_INFO.materials = {material: this.materialModel};
-    //     }
-    //     const fileName = 'ai-' + this.appInfoModel.dossier_id + '-' + this.appInfoModel.last_saved_date;
-    //     this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
-    //   } else {
-    //     if (this.lang === GlobalsService.ENGLISH) {
-    //       alert('Please save the unsaved input data before generating XML file.');
-    //     } else {
-    //       alert('Veuillez sauvegarder les données d\'entrée non enregistrées avant de générer le fichier XML.');
-    //     }
-    //   }
-    // }
-  }
-
-  private _isInputsSaved() {
-    // if (this.aiDetails.bioMaterials) {
-    //   return (this.aiDetails.aiDevices.deviceListForm.pristine &&
-    //     (this.aiDetails.bioMaterials.materialListForm ? this.aiDetails.bioMaterials.materialListForm.pristine : true) &&
-    //     (this.aiDetails.bioMaterials.newMaterialForm ? this.aiDetails.bioMaterials.newMaterialForm.pristine : true));
-    // } else {
-    //   return this.aiDetails.aiDevices.deviceListForm.pristine;
-    // }
+    this.showErrors = false;
+    if (this.errorList && this.errorList.length > 0) {
+      this.showErrors = true;
+      document.location.href = '#topErrorSummary';
+    } else {
+      const result: Enrollment = this._prepareForSaving(true);
+      const fileName: string = this._buildfileName(result);
+      this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
+    }
   }
 
   public saveWorkingCopyFile() {
-    this._updatedSavedDate();
-    this._checkMaterialModel();
-    const result = {'DEVICE_APPLICATION_INFO': {
-      'application_info': this.appInfoModel,
-      'devices': {
-        'device': this.deviceModel
-      },
-      'materials': {
-        'material': this.materialModel
-      }
-    }};
-    const fileName = 'ai-' + this.appInfoModel.dossier_id + '-' + this.appInfoModel.last_saved_date;
-    this.fileServices.saveJsonToFile(result, fileName, null);
+    const result: Enrollment = this._prepareForSaving(false);
+    const fileName: string = this._buildfileName(result);
+    this._fileService.saveJsonToFile(result, fileName, null);
   }
 
-  public processFile(fileData: ConvertResults) {
-     console.log('processing file.....');
-     console.log(fileData);
-    this.appInfoModel = fileData.data.DEVICE_APPLICATION_INFO.application_info;
-    const dev = fileData.data.DEVICE_APPLICATION_INFO.devices.device;
-    if (dev) {
-      this.deviceModel = (dev instanceof Array) ? dev : [dev];
-    }
-    const mat = fileData.data.DEVICE_APPLICATION_INFO.materials.material;
-    if (mat) {
-      this.materialModel = (mat instanceof Array) ? mat : [mat];
-    }
+  private _prepareForSaving(xmlFile: boolean): Enrollment {
+    const output: Enrollment = {
+       'DEVICE_APPLICATION_INFO': {
+         'template_version': this._globalService.$appVersion,
+         'application_info': this.appInfoModel,
+         'devices': this.deviceModel,
+         'biological_materials': this.materialModel
+        }
+    };
+
+    // update the last_saved_date
+    output.DEVICE_APPLICATION_INFO.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm')
+
+    return output;
   }
 
-  private _updatedSavedDate() {
-    // const today = new Date();
-    // const pipe = new DatePipe('en-US');
-    // this.appInfoModel.last_saved_date = pipe.transform(today, 'yyyy-MM-dd-hhmm');
+  private _buildfileName(output: Enrollment): string {
+    return 'ai-' + output.DEVICE_APPLICATION_INFO.application_info.dossier_id + '-' + output.DEVICE_APPLICATION_INFO.application_info.last_saved_date;
+
   }
 
-  private _updatedAutoFields() {
-    // this._updatedSavedDate();
-    // const version: Array<any> = this.appInfoModel.enrol_version.split('.');
-    // version[0] = (Number(version[0]) + 1).toString();
-    // this.appInfoModel.enrol_version = version[0] + '.' + version[1];
-  }
+ public processFile(fileData : ConvertResults) {
+  const enrollment : Enrollment = fileData.data;
+  console.log('processing file.....');
+  console.log(enrollment);
+  const applicationEnroll: DeviceApplicationEnrol = enrollment[this.rootTagText];
+  this._init(applicationEnroll);
+ }
 
   public preload() {
     // console.log("Calling preload")
@@ -218,6 +183,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     $event.returnValue = true;
+  }
+
+  private _init(applicationEnroll: DeviceApplicationEnrol) {
+    this.appInfoModel = applicationEnroll.application_info;
+    this.deviceModel = applicationEnroll.devices;
+    this.materialModel = applicationEnroll.biological_materials;
   }
 
 }
