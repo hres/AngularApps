@@ -367,7 +367,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       } else {
         this.submitToSubject = 'Systèmes de qualité';
       }
-      this.submitToEmail = 'qs.mdb@hc-sc.gc.ca';
+      this.submitToEmail = '(qs.mdb@hc-sc.gc.ca)';
     } else {
       console.log("mailtoQS, devHome", this.mailtoQS);
       if (this.lang == 'en') {
@@ -375,8 +375,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       } else {
         this.submitToSubject = 'Licence délivrée aux médecins';
       }
-      this.submitToEmail = 'devicelicensing-homologationinstruments@hc-sc.gc.ca';
+      this.submitToEmail = '(devicelicensing-homologationinstruments@hc-sc.gc.ca)';
     }
+
+    console.log('company id', this.genInfoModel.company_id);
+    console.log('boolean value', this.genInfoModel.company_id !== '');
 
     if (this.lang == 'en') {
       emailSubject =
@@ -385,8 +388,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           ? '[company name]'
           : this.addressModel.company_name) +
         ' ' +
-        ((this.genInfoModel.company_id !== '')
-          ? '[company ID]'
+        ((this.genInfoModel.company_id === '')
+          ? ''
           : this.genInfoModel.company_id);
       body =
         'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
@@ -398,15 +401,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           ? '[insérer le nom de votre entreprise]'
           : this.addressModel.company_name) +
         ' ' +
-        ((this.genInfoModel.company_id !== '')
-          ? '[insérer votre code d’entreprise]'
+        ((this.genInfoModel.company_id === '')
+          ? ''
           : this.genInfoModel.company_id);
       body =
         "NOTE: Le fichier XML de l'entreprise n'est pas automatiquement joint. VEUILLEZ JOINDRE LE BROUILLON XML DE L'ENTREPRISE AVANT DE LE SOUMETTRE.";
     }
 
+    const email = this._utilsService.removeFirstAndLastChars(this.submitToEmail);
+
     this.mailToLink =
-        'mailto:' + this.submitToEmail + '?subject=' + emailSubject + '&body=' + body;
+        'mailto:' + email + '?subject=' + emailSubject + '&body=' + body;
 
   }
 
