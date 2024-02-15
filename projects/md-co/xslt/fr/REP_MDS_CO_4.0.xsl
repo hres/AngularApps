@@ -410,7 +410,7 @@ span.normalWeight {
 	
 	<!-- Company Enrolment -->
 	<xsl:template name="DEVICE_COMPANY_ENROL">
-		<h1>Modèle de compagnie: Processus d'inscription réglementaire (PIR) (Version: 4.0.0)</h1>
+		<h1>Modèle de compagnie: Processus d'inscription réglementaire (PIR) pour les instruments médicaux (Version: 4.0.0)</h1>
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">

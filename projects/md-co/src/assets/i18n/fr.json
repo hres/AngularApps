@@ -1,5 +1,5 @@
 {
-  "form.title": "Modèle de compagnie: Processus d'inscription réglementaire (PIR)",
+  "form.title": "Modèle de compagnie: Processus d'inscription réglementaire (PIR) pour les instruments médicaux",
   "version": "Version ",
   "top.fromHC": "De <a href='https://www.canada.ca/fr/sante-canada.html'>Santé Canada</a>",
   "top.privacy.statement": "Énoncé de confidentialité",
@@ -108,7 +108,7 @@
   "admin.changes": "Modifications administratives de l'entreprise",
   "impacted.licence": "Licence(s) concernée(s)",
   "all.licence.num": "Tous les numéros de licence concernée(s)",
-  "is.change": "Y a-t-il un changement de nom et/ou d'adresse du correspondant réglementaire",
+  "is.change": "Y a-t-il un changement de nom et/ou d'adresse du correspondant réglementaire?",
   "new.company.id": "Nouvel identifiant de la compagnie",
   "new.contact.id": "Nouvel identifiant du contact",
   "new.contact.name": "Nom du nouveau contact",
