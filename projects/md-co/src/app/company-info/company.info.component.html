@@ -79,7 +79,7 @@
 
 
     <div class="row">
-      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
         <label for="areLicensesTransfered" class="required full-width">
           <span class="field-name" >{{'ownership.transferred' |translate}}</span>
           <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
@@ -89,7 +89,7 @@
                             controlId="areLicensesTransfered" label="ownership.transferred"
                             parentId="generalInfo"
                             parentLabel="Regulatory Company Enrolment"></control-messages>
-          <select id="areLicensesTransfered" required class="form-control full-width" (change)="areLicensesBeingTransferedOnChange()"
+          <select id="areLicensesTransfered" required class="form-control" (change)="areLicensesBeingTransferedOnChange()"
             [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
