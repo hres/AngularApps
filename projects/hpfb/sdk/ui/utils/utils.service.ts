@@ -340,10 +340,6 @@ export class UtilsService {
     if (value.length <= 2) {
       return '';
     }
-
-    console.log("util service", value);
-    console.log("cut off first and last", value.substring(1, value.length - 1));
-    
     return value.substring(1, value.length - 1);
   }
 }
