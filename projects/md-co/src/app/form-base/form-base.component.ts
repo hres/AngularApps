@@ -71,6 +71,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public mailToLink = '';
   private mailtoQS: boolean;
   public submitToEmail: string = '';
+  public submitToSubject: string = '';
 
   private activeContactStatuses: string[] = [ContactStatus.New, ContactStatus.Revise , ContactStatus.Active];
   private amendReasonCodesToShowAdminChanges:string[] = new Array(AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE) ;
@@ -197,6 +198,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processAdminChangesErrors(errorList) {
     this._adminChangesErrors = this.showAdminChanges ? errorList : [];
+    console.log('processing admin changes errors...');
+    
+    console.log("errorList", errorList);
+    console.log("_adminChangesErrors", this._adminChangesErrors)
     this.processErrors();
   }
 
@@ -356,8 +361,20 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     let body = '';
 
     if (this.mailtoQS) {
+      console.log("mailtoQS, qs", this.mailtoQS);
+      if (this.lang == 'en') {
+        this.submitToSubject = 'Quality Systems';
+      } else {
+        this.submitToSubject = 'Systèmes de qualité';
+      }
       this.submitToEmail = 'qs.mdb@hc-sc.gc.ca';
     } else {
+      console.log("mailtoQS, devHome", this.mailtoQS);
+      if (this.lang == 'en') {
+        this.submitToSubject = 'MD licensing';
+      } else {
+        this.submitToSubject = 'Licence délivrée aux médecins';
+      }
       this.submitToEmail = 'devicelicensing-homologationinstruments@hc-sc.gc.ca';
     }
 
@@ -436,6 +453,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     this.selectedAmendReasonCodes = this._utilsService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons?.amend_reason);
     const areLicensesBeingTransfered =  this.genInfoModel.are_licenses_transfered;
+    console.log("amend reason check", this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges));
 
     this.showAdminChanges = this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges) || areLicensesBeingTransfered === YES;
     

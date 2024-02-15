@@ -72,6 +72,7 @@ import { CompanyDataLoaderService } from '../form-base/company-data-loader.servi
       if (errorObjs) {
         errorObjs.forEach(
           error => {
+            console.log("error in update error list", error);
             temp.push(error);
           }
         );
@@ -99,7 +100,7 @@ import { CompanyDataLoaderService } from '../form-base/company-data-loader.servi
         if (this.msgList) {
           this.msgList.forEach(item => {
             temp.push(item);
-            // console.log(item);
+            console.log("show errrors", item);
           });
         }
         this.adminChangesErrorList.emit(temp);
@@ -183,6 +184,7 @@ import { CompanyDataLoaderService } from '../form-base/company-data-loader.servi
           this.adminChangesFormLocalModel.controls['licenceNumbers'].setValue(tempLicStrs);
         }
       }
+      console.log("impacted licence number length", this.adminChangesFormLocalModel.controls['licenceNumbers'].value.length);
       this.onblur();
     }
   
