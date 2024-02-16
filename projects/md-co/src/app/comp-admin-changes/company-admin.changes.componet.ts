@@ -8,6 +8,7 @@ import {
   import {HttpClient} from '@angular/common/http';
   import {TranslateService} from '@ngx-translate/core';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
+import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.constants';
 
   
   @Component({
@@ -163,48 +164,35 @@ import { CompanyDataLoaderService } from '../form-base/company-data-loader.servi
   
     licNumOnblur() {
       // console.log('license input is typed');
-      console.log('licNumOnBlur');
-      let numberOfLines = 0;
-      let lengthOfLicStr = 0;
       if (this.adminChangesFormLocalModel.controls['licenceNumbers'].value) {
-        console.log("lic number",this.adminChangesFormLocalModel.controls['licenceNumbers'].value);
         const licArray = this.adminChangesFormLocalModel.controls['licenceNumbers'].value
           .split('\n').join(',').split(', ').join(',')
           .split(' ').join(',').split(';').join(',')
           .split('; ').join(',').split(':').join(',')
           .split(',');
-        console.log("licArray", licArray);
         let templicNum = '';
         let tempLicStrs = '';
         
         if (licArray.length > 0) {
           // Loop through the array of numbers after splitting it from the splitters
           templicNum = '000000' + licArray[0].replace(/[^0-9]/g, ''); // Add 6 leading zeros
-          console.log("templicNum", templicNum)
-          tempLicStrs = templicNum.slice(templicNum.length - 6); // Delete the remaining zeros
-          console.log("tempLicStrs", tempLicStrs)
-          lengthOfLicStr = tempLicStrs.length;
+          tempLicStrs = templicNum.slice(templicNum.length - LIC_NUM_LENGTH); // Delete the remaining zeros
           for (let i = 1; i < licArray.length; i++) { // Start looping starting at the second
-            tempLicStrs += '\n'; // Add a new line - this counts as a character
-            numberOfLines += 1; // Increment this value
-            lengthOfLicStr += 1; // Incremement length of lic string
-            console.log("tempLicStrs after adding new line", tempLicStrs);
+            tempLicStrs += NEW_LINE; // Add a new line - this counts as a character
             templicNum = '000000' + licArray[i].replace(/[^0-9]/g, ''); // Add 6 leading zeros
-            console.log("templicNum after adding 00000 to licArray", templicNum);
-            tempLicStrs += templicNum.slice(templicNum.length - 6); // Delete the remaining zeroes 
-            console.log("tempLicStrs after concat with itself and templicNum", tempLicStrs);
-            lengthOfLicStr += templicNum.slice(templicNum.length - 6).length;
+            tempLicStrs += templicNum.slice(templicNum.length - LIC_NUM_LENGTH); // Delete the remaining zeroes 
           }
 
-          if (tempLicStrs.length > 4000) {
-
+          if (tempLicStrs.length > MAX_IMPACTED_LIC_NUM_LENGTH) {
+            tempLicStrs = tempLicStrs.substring(0, MAX_IMPACTED_LIC_NUM_LENGTH);
+            if (tempLicStrs.endsWith(NEW_LINE)) {
+              tempLicStrs = tempLicStrs.slice(0, -1);
+            }
           }
+
           this.adminChangesFormLocalModel.controls['licenceNumbers'].setValue(tempLicStrs);
         }
       }
-      console.log("impacted licence number length", this.adminChangesFormLocalModel.controls['licenceNumbers'].value.length);
-      console.log("number of /n", numberOfLines);
-      console.log("length of lic string", lengthOfLicStr);
       this.onblur();
     }
   
