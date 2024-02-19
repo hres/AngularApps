@@ -57,7 +57,7 @@ def generate_files(option):
 
             # Get today's date
             if lang=="fr":
-                modification_date = datetime.datetime.now().strftime("%d/%m/%Y")
+                modification_date = datetime.datetime.now().strftime("%Y-%m-%d")
                 lngHref = f'{html_file_dict["en"]}.html'
             else:
                 modification_date = datetime.datetime.now().strftime("%Y-%m-%d")
