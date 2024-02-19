@@ -85,6 +85,8 @@ export class ErrorSummaryComponent implements AfterViewInit {
       err.errorNumber = this.errorCount;
       controlError.errorNumber = err.errorNumber;
 
+      err.errorSummaryFlag = this.hiddenSummary;
+
       // if (err.controlId === 'hasMaterial') {
       //   err.type = ERR_TYPE_LEAST_ONE_REC;
       //   err.tableId = 'materialListTable';
