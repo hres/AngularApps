@@ -153,5 +153,10 @@
         "id":"31",
         "en":"Forestomach",
         "fr":"Préestomac"
+    },
+    {
+        "id":"32",
+        "en":"Other",
+        "fr":"Autre"
     }
 ]
