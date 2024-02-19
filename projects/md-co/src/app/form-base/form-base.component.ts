@@ -71,6 +71,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public mailToLink = '';
   private mailtoQS: boolean;
   public submitToEmail: string = '';
+  public submitToSubject: string = '';
 
   private activeContactStatuses: string[] = [ContactStatus.New, ContactStatus.Revise , ContactStatus.Active];
   private amendReasonCodesToShowAdminChanges:string[] = new Array(AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE) ;
@@ -356,9 +357,19 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     let body = '';
 
     if (this.mailtoQS) {
-      this.submitToEmail = 'qs.mdb@hc-sc.gc.ca';
+      if (this.lang == 'en') {
+        this.submitToSubject = 'Quality Systems';
+      } else {
+        this.submitToSubject = 'Systèmes de qualité';
+      }
+      this.submitToEmail = '(qs.mdb@hc-sc.gc.ca)';
     } else {
-      this.submitToEmail = 'devicelicensing-homologationinstruments@hc-sc.gc.ca';
+      if (this.lang == 'en') {
+        this.submitToSubject = 'MD licensing';
+      } else {
+        this.submitToSubject = 'Licence délivrée aux médecins';
+      }
+      this.submitToEmail = '(devicelicensing-homologationinstruments@hc-sc.gc.ca)';
     }
 
     if (this.lang == 'en') {
@@ -368,8 +379,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           ? '[company name]'
           : this.addressModel.company_name) +
         ' ' +
-        ((this.genInfoModel.company_id !== '')
-          ? '[company ID]'
+        ((this.genInfoModel.company_id === '')
+          ? ''
           : this.genInfoModel.company_id);
       body =
         'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
@@ -381,15 +392,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           ? '[insérer le nom de votre entreprise]'
           : this.addressModel.company_name) +
         ' ' +
-        ((this.genInfoModel.company_id !== '')
-          ? '[insérer votre code d’entreprise]'
+        ((this.genInfoModel.company_id === '')
+          ? ''
           : this.genInfoModel.company_id);
       body =
         "NOTE: Le fichier XML de l'entreprise n'est pas automatiquement joint. VEUILLEZ JOINDRE LE BROUILLON XML DE L'ENTREPRISE AVANT DE LE SOUMETTRE.";
     }
 
+    const email = this._utilsService.removeFirstAndLastChars(this.submitToEmail);
+
     this.mailToLink =
-        'mailto:' + this.submitToEmail + '?subject=' + emailSubject + '&body=' + body;
+        'mailto:' + email + '?subject=' + emailSubject + '&body=' + body;
 
   }
 

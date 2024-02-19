@@ -133,5 +133,10 @@
         "id":"10",
         "en":"Thrombin",
         "fr":"Thrombine"
+    },
+    {
+        "id":"30",
+        "en":"Other",
+        "fr":"Autre"
     }
 ]
