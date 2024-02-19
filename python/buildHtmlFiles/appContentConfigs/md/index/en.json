@@ -1,0 +1,82 @@
+{
+    "title": "Regulatory Enrolment Process (REP) for Medical Devices",
+    "h1_header": "Regulatory Enrolment Process (REP) for Medical Devices",
+    "sections": [
+        {
+            "header": "REP Template & Form Links"
+        },
+        {
+            "header": "Outside the Regulatory Transaction Process",
+            "groups": [
+                {
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company Template (Last updated: March 29, 2024)</a>",
+                    "bullets": [
+                        "Required to obtain a company ID and/or provide updated company information to Health Canada.",
+                        "Sent via the email.<ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
+                        "Refer to the REP guidance document for Medical Devices for detailed descriptions of the requirements for the company template."
+                    ]
+                },
+                {
+                    "header": "<a href=\"https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/applications-submissions/guidance-documents/filing-submissions-electronically/medical-device-dossier-template.html\">Dossier ID Request Form for Medical Devices</a>",
+                    "bullets": [
+                        "Required to obtain a Dossier ID.",
+                        "Upon completion, the form is auto-sent via email to Health Canada."
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "Within the Regulatory Transaction Process",
+            "groups": [
+                {
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory Transaction Template (Last updated: Apr 23, 2020)</a>",
+                    "bullets": [
+                        "Sent via the CESG within the regulatory transaction (application).",
+                        "Required with each regulatory transaction filed to Health Canada.",
+                        "Refer to the REP guidance document for Medical Devices for detailed descriptions of the requirements for the RT template."
+                    ]
+                },
+                {
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.ai.en }}\">Application Information Template (Last updated: May 14, 2020)</a>",
+                    "bullets": [
+                        "Sent via the CESG within the regulatory transaction (application).",
+                        "Required for only a subset of transactions. Refer to section “2.4.2 Application information (AI) Template and Process” of the REP Guidance Document for Medical Devices detailed description of the requirements for the AI template."
+                    ]
+                },
+                {
+                    "header": "Device Details (December 1, 2023)",
+                    "bullets": [
+                        "Sent via the CESG within the regulatory transaction (application).",
+                        "Required for all new licence applications, as well as any amendment applications that may impact a manufacturers catalogue listing.",
+                        "<a href=\"./mds-test/Device_Details.xlsx\" download=\"\">Download Device Details xlsx file.</a>"
+                    ]
+                },
+                {
+                    "header": "Application Attestation Form (January 15, 2024)",
+                    "bullets": [
+                        "Sent via the CESG within the regulatory transaction (application).",
+                        "Required for the initial transaction of a new regulatory activity",
+                        "<a href=\"./mds-test/Application_Attestation_Form.pdf\" download=\"\">Download Application Attestation pdf form.</a>"
+                    ]
+                }
+            ]
+        },
+        {
+            "internal_only": true,
+            "header": "Internal User (i.e. HPFB) Links",
+            "groups": [
+                {
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co_internal.en }}\">Company Enrolment -Internal (March 29, 2024) </a>"
+                }
+            ]
+        },
+        {
+            "header": "Stylesheet Download Links",
+            "groups": [
+                {
+                    "header": "<a href=\"./mds/stylesheet/medicaldevice_stylesheets_en.zip\">Download stylesheet zip files (March 29, 2024) </a>"
+                }
+            ]
+        }
+    ]
+}

@@ -9,7 +9,7 @@
     "========== comment line MD CO ==========": "",
     "start md-co": "npm-run-all clean --parallel lib:watch mdCO:start-waiton",
     "mdCO:start-waiton": "wait-on dist/hpfb/sdk/package.json && npm run mdCO:start",
-    "mdCO:start": "ng serve --project=md-co --port 5002 -o",
+    "mdCO:start": "ng serve --project=md-co --port 5003 -o",
     "prod-md-co:build": "npm-run-all clean lib:build prod-md-co",
     "prod-md-co": "npm run prod-md-co-external & npm run prod-md-co-internal",
     "prod-md-co-external": "npm run prod-md-co-external-en & npm run prod-md-co-external-fr",
