@@ -1,0 +1,52 @@
+{
+    "environments": {
+        "dev": "https://lam-dev.hres.ca/rep-dev/",
+        "prod": "https://lam-dev.hres.ca/REP-Form/"
+    },
+    "index_html_name": {
+        "en": "mds_index",
+        "fr": "mds_index-fr"
+    },
+    "version_history_html_name": {
+        "en": "version_history.html",
+        "fr": "historique_revisions.html"
+    },
+    "template_paths": {
+        "dev": {
+            "co": {
+                "en": "mds/prod_v40/company/en/md-company.html",
+                "fr": "mds/prod_v40/company/fr/im-entreprise.html"
+            },
+            "co_internal": {
+                "en": "mds/prod_v40/internal/en/index-internal.html ",
+                "fr": "mds/prod_v40/internal/fr/index-internal.html"
+            },
+            "rt": {
+                "en": "mds/transaction/en/index.html",
+                "fr": "mds/transaction/en/index.html"
+            },
+            "ai": {
+                "en": "mds/applicationInfo/en/index.html",
+                "fr": "mds/applicationInfo/en/index.html"
+            }
+        },
+        "prod": {
+            "co": {
+                "en": "mds/company/en/md-company.html",
+                "fr": "mds/company/fr/im-entreprise.html"
+            },
+            "co_internal": {
+                "en": "mds/internal/en/index-internal.html ",
+                "fr": "mds/internal/fr/index-internal.html"
+            },
+            "rt": {
+                "en": "mds/transaction/en/index.html",
+                "fr": "mds/transaction/en/index.html"
+            },
+            "ai": {
+                "en": "mds/applicationInfo/en/index.html",
+                "fr": "mds/applicationInfo/en/index.html"
+            }
+        }
+    }
+}

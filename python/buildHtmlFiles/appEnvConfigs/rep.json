@@ -1,0 +1,17 @@
+{
+    "environments": {
+        "dev": "https://lam-dev.hres.ca/rep-dev/",
+        "prod": {
+            "internal": "https://lam-dev.hres.ca/REP-Form/",
+            "external": "https://health-products.canada.ca/rep-pir/"
+        }
+    },
+    "index_html_name": {
+        "en": "mds_index.html",
+        "fr": "mds_index-fr.html"
+    },
+    "version_history_html_name": {
+        "en": "version_history.html",
+        "fr": "historique_revisions.html"
+    }
+}

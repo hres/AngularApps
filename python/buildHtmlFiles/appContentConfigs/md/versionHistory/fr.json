@@ -1,0 +1,41 @@
+{
+    "title": "fr_Template Revision History",
+    "h1_header": "fr_Template Revision History",
+    "paragraphs": [
+        "fr_line1",
+        "fr_line2",
+        "fr_line3"
+    ],
+    "releases": [
+        {
+            "header": "fr_February 28, 2023 Release",
+            "details": [
+                {
+                    "template": "fr_Regulatory Transaction (RT) Template",
+                    "changes": [
+                        "change1",
+                        "change2"
+                    ]
+                },
+                {
+                    "template": "fr_Stylesheet Package",
+                    "changes": [
+                        "change5"
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "fr_January 4, 2023 Release",
+            "details": [
+                {
+                    "template": "fr_Company (CO) Template",
+                    "changes": [
+                        "change3",
+                        "change4"
+                    ]
+                }
+            ]
+        }
+    ]
+}
