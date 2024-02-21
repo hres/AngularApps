@@ -49,7 +49,7 @@
     "heading.material.table": "Biological Material Attribute Table",
     "heading.material": "Biological Material",
     "heading.material.record": "Biological Material Record",
-    "device.name": "Name of Compatible Device",
+    "device.name": "Name of Compatible Device (Use “not applicable” if not available)",
     "device.authorized": "Has this device been authorized by Health Canada?",
     "licence.number": "Licence Number",
     "device.application.submitted": "Has an application been previously submitted for this device?",

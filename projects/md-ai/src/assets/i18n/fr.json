@@ -49,7 +49,7 @@
     "heading.material.table": "Tableau des attributs des matières biologiques",
     "heading.material": "Matériel biologique",
     "heading.material.record": "fr_Biological Material Record",
-    "device.name": "Nom de l'instrument compatible",
+    "device.name": "Nom de l'instrument compatible (Si pas disponible, utilisez « sans objet »)",
     "licence.number": "Numéro de licence",
     "device.authorized": "Cet instrument a-t-il été autorisé par Santé Canada?",
     "device.application.submitted": "Une demande a-t-elle déjà été soumise pour cet instrument?",
