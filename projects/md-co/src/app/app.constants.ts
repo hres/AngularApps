@@ -11,6 +11,11 @@ export const AMEND_REASON_OTHER = 'OTHER';
 
 export const COMPANY_ID_PREFIX = 'K';
 
+// Constants for impacted licence numbers
+export const NEW_LINE = '\n';
+export const MAX_IMPACTED_LIC_NUM_LENGTH = 3997;
+export const LIC_NUM_LENGTH = 6;
+
 // the values need to match the code values in enrollment status json data file
 export enum EnrollmentStatus {
   New = 'NEW',

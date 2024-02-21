@@ -8,6 +8,7 @@ import {
   import {HttpClient} from '@angular/common/http';
   import {TranslateService} from '@ngx-translate/core';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
+import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.constants';
 
   
   @Component({
@@ -99,7 +100,6 @@ import { CompanyDataLoaderService } from '../form-base/company-data-loader.servi
         if (this.msgList) {
           this.msgList.forEach(item => {
             temp.push(item);
-            // console.log(item);
           });
         }
         this.adminChangesErrorList.emit(temp);
@@ -172,14 +172,24 @@ import { CompanyDataLoaderService } from '../form-base/company-data-loader.servi
           .split(',');
         let templicNum = '';
         let tempLicStrs = '';
+        
         if (licArray.length > 0) {
-          templicNum = '000000' + licArray[0].replace(/[^0-9]/g, '');
-          tempLicStrs = templicNum.slice(templicNum.length - 6);
-          for (let i = 1; i < licArray.length; i++) {
-            tempLicStrs += '\n';
-            templicNum = '000000' + licArray[i].replace(/[^0-9]/g, '');
-            tempLicStrs += templicNum.slice(templicNum.length - 6);
+          // Loop through the array of numbers after splitting it from the splitters
+          templicNum = '000000' + licArray[0].replace(/[^0-9]/g, ''); // Add 6 leading zeros
+          tempLicStrs = templicNum.slice(templicNum.length - LIC_NUM_LENGTH); // Delete the remaining zeros
+          for (let i = 1; i < licArray.length; i++) { // Start looping starting at the second
+            tempLicStrs += NEW_LINE; // Add a new line - this counts as a character
+            templicNum = '000000' + licArray[i].replace(/[^0-9]/g, ''); // Add 6 leading zeros
+            tempLicStrs += templicNum.slice(templicNum.length - LIC_NUM_LENGTH); // Delete the remaining zeroes 
           }
+
+          if (tempLicStrs.length > MAX_IMPACTED_LIC_NUM_LENGTH) {
+            tempLicStrs = tempLicStrs.substring(0, MAX_IMPACTED_LIC_NUM_LENGTH);
+            if (tempLicStrs.endsWith(NEW_LINE)) {
+              tempLicStrs = tempLicStrs.slice(0, -1);
+            }
+          }
+
           this.adminChangesFormLocalModel.controls['licenceNumbers'].setValue(tempLicStrs);
         }
       }

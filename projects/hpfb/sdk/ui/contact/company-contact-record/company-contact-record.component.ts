@@ -172,13 +172,16 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   public activeContactRecord(): void {
-    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
-    this.saveContactRecord();
+    // this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
+    this.saveContactRecord(ContactStatus.Active)
   }
 
-  public saveContactRecord(): void {
+  public saveContactRecord(contactStatus?: ContactStatus): void {
     // console.log("====>saveContactRecord ", this.errorList);  
     if (this.contactRecordModel.valid) {
+      if (contactStatus) {
+        this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
+      }
       this.saveRecord.emit((this.contactRecordModel));
       this.contactRecordModel.markAsPristine();
     } else {

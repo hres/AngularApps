@@ -1,0 +1,41 @@
+{
+    "title": "Template Revision History",
+    "h1_header": "Template Revision History",
+    "paragraphs": [
+        "line1",
+        "line2",
+        "line3"
+    ],
+    "releases": [
+        {
+            "header": "February 28, 2023 Release",
+            "details": [
+                {
+                    "template": "Regulatory Transaction (RT) Template",
+                    "changes": [
+                        "change1",
+                        "change2"
+                    ]
+                },
+                {
+                    "template": "Stylesheet Package",
+                    "changes": [
+                        "change5"
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "January 4, 2023 Release",
+            "details": [
+                {
+                    "template": "Company (CO) Template",
+                    "changes": [
+                        "change3",
+                        "change4"
+                    ]
+                }
+            ]
+        }
+    ]
+}

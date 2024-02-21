@@ -35,7 +35,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   public showFieldErrors: boolean;
 
-  // public disableAmendButton: boolean = true;
+  public disableAmendButton: boolean = false;
   public showAmendButton: boolean = false;
   public yesNoList: ICode[] = [];
   private amendReasonCodeList: ICodeDefinition[] = [];
@@ -157,6 +157,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
   public setAmendState () {
     this.isAmend = true;
+    this.disableAmendButton = true;
     this.genInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusesList, EnrollmentStatus.Amend, this.lang);
     this.genInfoModel.rationale = '';
     this.genInfoModel.are_licenses_transfered = '';

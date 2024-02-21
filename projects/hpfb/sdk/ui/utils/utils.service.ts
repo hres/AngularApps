@@ -335,4 +335,11 @@ export class UtilsService {
     const leadingZeros = '000000';
     return leadingZeros.substring(0, 6 - value.length) + value;
   }
+
+  removeFirstAndLastChars(value: string): string {
+    if (value.length <= 2) {
+      return '';
+    }
+    return value.substring(1, value.length - 1);
+  }
 }
