@@ -22,7 +22,7 @@ export class ApplicationInfoDetailsService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      companyId: [null, [Validators.required, ValidationService.companyIdValidator]],
+      companyId: [null, [Validators.required, ValidationService.numeric6Validator]],
       dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
       mdsapNum: [null, Validators.required],
       mdsapOrg: [null, Validators.required],
@@ -37,8 +37,8 @@ export class ApplicationInfoDetailsService {
       hasDinNpn: [null, []],
      /** din: ['', []],
       npn: ['', []], **/
-      din: [null, [Validators.required, ValidationService.dinValidator]],
-      npn: [null, [Validators.required, ValidationService.npnValidator]],
+      din: [null, [Validators.required, ValidationService.numeric8Validator]],
+      npn: [null, [Validators.required, ValidationService.numeric8Validator]],
       drugName: [null, Validators.required],
       activeIngredients: [null, Validators.required],
       manufacturer: [null, Validators.required],
@@ -47,9 +47,9 @@ export class ApplicationInfoDetailsService {
       provisionMdrIT: [false, []],
       provisionMdrSA: [false, []],
       provisionMdrIOA: [false, []],
-      applicationNum: ['', [ValidationService.appNumValidator]],
+      applicationNum: ['', [ValidationService.numeric6Validator]],
       sapReqNum: ['', []],
-      authNum: ['',[]],
+      authNum: ['',[ValidationService.numeric6Validator]],
       declarationConformity : [null, Validators.required],
       hasRecombinant: [null, Validators.required],
       isAnimalHumanSourced : [null, Validators.required],

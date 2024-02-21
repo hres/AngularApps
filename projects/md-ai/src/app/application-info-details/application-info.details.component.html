@@ -106,7 +106,7 @@
         </div>
         </div>
       <div class="row">
-        <div class="form-group col-xs-6">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <fieldset class="chkbxrdio-grp" >
             <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
@@ -421,6 +421,10 @@
                   <div class="form-group col-xs-7" *ngIf="isIoa()">
                     <label for="authNum" class=" full-width">
                       <span class="field-name">{{'auth.id'|translate}}</span>
+                      <control-messages *ngIf="appInfoFormLocalModel.controls['authNum'].invalid"
+                      [showError]="showFieldErrors"
+                      [control]="appInfoFormLocalModel.controls['authNum'] | formControl"
+                      controlId="authNum" label="auth.id" parentId="appInfoDetails"> </control-messages>
                       <input id="authNum" name="authNum" class="form-control full-width"  (blur)="onblur()"
                             [formControl]="appInfoFormLocalModel.controls['authNum'] | formControl" maxlength="6" data-only-digits/>
                     </label>
