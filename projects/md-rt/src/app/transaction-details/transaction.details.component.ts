@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, effect, computed, signal
 } from '@angular/core';
 import {FormGroup, FormBuilder, FormArray, FormControl, AbstractControl} from '@angular/forms';
 import { CheckboxOption, ControlMessagesComponent, ConverterService, ICode, ICodeAria, IParentChildren, UtilsService } from '@hpfb/sdk/ui';
@@ -17,7 +17,7 @@ import { ActivityType, AmendReason, DeviceClass, TransactionDesc } from '../app.
 export class TransactionDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
   public transDetailsFormLocalModel: FormGroup;
-  @Input() showErrors: boolean;
+  
   @Input() transactionInfoModel;
   @Input() lang;
   @Input() helpIndex; 
@@ -42,8 +42,15 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
     private _utilsService: UtilsService, private _converterService: ConverterService, private cdr: ChangeDetectorRef) {
-    this.showFieldErrors = false;
-    this.showErrors = false;
+
+    effect(() => {
+      this.showFieldErrors = this._globalService.showErrors()
+      console.log('[effect]', this.showFieldErrors, this._globalService.showErrors())
+      if (this._globalService.showErrors()) {
+        this._updateErrorList(this.msgList);
+      }
+    });
+    
     this.showDate = false;
     this.showBriefDesc = false;
 
@@ -85,18 +92,6 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
 
   ngOnChanges(changes: SimpleChanges) {
-
-    if (changes['showErrors']) {
-      this.showFieldErrors = changes['showErrors'].currentValue;
-      const temp = [];
-      if (this.msgList) {
-        this.msgList.forEach(item => {
-          temp.push(item);
-          // console.log(item);
-        });
-      }
-      this.detailErrorList.emit(temp);
-    }
 
     if (changes['transactionInfoModel'] && !changes['transactionInfoModel'].firstChange) {
       // console.log('**********the transaction model changed');

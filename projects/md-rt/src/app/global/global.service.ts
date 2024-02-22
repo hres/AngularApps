@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ICode, ICodeAria, IParentChildren, InstructionService } from '@hpfb/sdk/ui';
 import { Enrollment } from '../models/Enrollment';
 
@@ -22,6 +22,13 @@ export class GlobalService {
   private amendReasonRelationship: any[];
   private transactionDescriptionList: ICode[];
   private yesnoList: ICode[];
+
+  // global signal for the showErrors flag
+  showErrors= signal<boolean>(false);
+
+  setShowErrors(flag: boolean): void{
+    this.showErrors.set(flag);
+  }
 
   /**
    * Getter $devEnv

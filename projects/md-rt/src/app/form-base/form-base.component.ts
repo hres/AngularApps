@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type, computed, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { XSLT_PREFIX, ROOT_TAG } from '../app.constants';
 import {  ICode, ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, YES, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService } from '@hpfb/sdk/ui';
@@ -27,7 +27,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _transactionDetailErrors = [];
   private _transFeeErrors = [];
   public transactionForm: FormGroup;
-  public showErrors: boolean;
   public errorList = [];
   public rootTagText = ROOT_TAG; 
   private xslName: string;
@@ -51,8 +50,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _checkSumService: CheckSumService,
     private _converterService: ConverterService
   ) {
-
-    this.showErrors = false;    
     this.fileServices = new FileConversionService();
     this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + '.xsl';
   }
@@ -105,13 +102,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public hideErrorSummary() {
-    return (this.showErrors && this.errorList && this.errorList.length > 0);
+    return (this._globalService.showErrors() && this.errorList && this.errorList.length > 0);
   }
 
   public saveXmlFile() {
-    this.showErrors = false;
-    if (this.errorList && this.errorList.length > 0) {
-      this.showErrors = true;
+    // set the showErrors flag
+    this._globalService.setShowErrors(this.errorList && this.errorList.length > 0 ? true : false)
+
+    if (this._globalService.showErrors()) {
       document.location.href = '#topErrorSummary';
     } else {
       const result: Enrollment = this._prepareForSaving(true);
@@ -169,5 +167,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _init(transactionEnroll: DeviceTransactionEnrol){
     this.transactionInfoModel = transactionEnroll.application_info;  
     this.transFeeModel = transactionEnroll.transFees;
+  }
+
+  highLight(): void {
+    this._globalService.showErrors.set(!this._globalService.showErrors());
+    console.log('Toggle highLight', this._globalService.showErrors());
   }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren, ViewEncapsulation} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren, ViewEncapsulation, effect} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ControlMessagesComponent, ICode } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -15,7 +15,7 @@ export class TransactionFeeComponent implements OnInit, OnChanges, AfterViewInit
   public transFeeFormLocalModel: FormGroup;
   // @Input('group') public transFeeFormRecord: FormGroup;
   // @Input() detailsChanged: number;
-  @Input() showErrors: boolean;
+
   @Input() transFeeModel;
   @Input() lang;
   @Output() feeErrorList = new EventEmitter(true);
@@ -28,8 +28,14 @@ export class TransactionFeeComponent implements OnInit, OnChanges, AfterViewInit
 
   constructor(private _fb: FormBuilder, private _feeService:TransactionFeeService, private _globalService: GlobalService,
               private cdr: ChangeDetectorRef) {
-    this.showFieldErrors = false;
-    this.showErrors = false;
+
+    effect(() => {
+      this.showFieldErrors = this._globalService.showErrors()
+      console.log('[effect]', this.showFieldErrors, this._globalService.showErrors())
+      if (this._globalService.showErrors()) {
+        this._updateErrorList(this.msgList);
+      }
+    });
 
     if (!this.transFeeFormLocalModel) {
       this.transFeeFormLocalModel = this._feeService.getReactiveModel(this._fb);
@@ -43,7 +49,6 @@ export class TransactionFeeComponent implements OnInit, OnChanges, AfterViewInit
 
   ngAfterViewInit() {
     this.msgList.changes.subscribe(errorObjs => {
-      let temp = [];
       this._updateErrorList(errorObjs);
     });
     this.msgList.notifyOnChanges();
@@ -77,18 +82,7 @@ export class TransactionFeeComponent implements OnInit, OnChanges, AfterViewInit
     //     this.transFeeFormLocalModel.markAsPristine();
     //   }
     // }
-    if (changes['showErrors']) {
 
-      this.showFieldErrors = changes['showErrors'].currentValue;
-      let temp = [];
-      if (this.msgList) {
-        this.msgList.forEach(item => {
-          temp.push(item);
-          // console.log(item);
-        });
-      }
-      this.feeErrorList.emit(temp);
-    }
     // if (changes['transFeeFormLocalModel']) {
     //   console.log('**********the Transaction fees changed');
     //   this.transFeeFormRecord = this.transFeeFormLocalModel;

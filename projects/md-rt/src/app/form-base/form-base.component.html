@@ -37,7 +37,7 @@
           </h2>
         </header>
         <div class="panel-body">
-          <transaction-details [showErrors]="showErrors" [lang]="lang" [transactionInfoModel]="transactionInfoModel"
+          <transaction-details [lang]="lang" [transactionInfoModel]="transactionInfoModel"
             [helpIndex]="helpIndex" (detailErrorList)="processDetailErrors($event)"></transaction-details>
 
           <section class="panel panel-default">
@@ -45,7 +45,7 @@
               <h3 class="panel-title">{{'fees'|translate}}</h3>
             </header>
             <div class="panel-body">
-              <transaction-fee (feeErrorList)="processTransFeeErrors($event)" [lang]="lang" [showErrors]="showErrors"
+              <transaction-fee (feeErrorList)="processTransFeeErrors($event)" [lang]="lang" 
                 [transFeeModel]="transFeeModel"></transaction-fee>
             </div>
           </section>
@@ -54,13 +54,15 @@
     </div>
 
     <div class="row btn-group-sm">
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-4"><button class="btn btn-default btn-lg active" (click)="highLight()">
+        Toggle
+      </button>
         <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
           {{'save.working.copy'|translate}}
         </button>
       </div>
       <div class="form-group col-md-4">
-        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
+        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()">    
           {{'generate.final'|translate}}
         </button>
       </div>
