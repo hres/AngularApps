@@ -159,6 +159,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.errorSummaryChild = null;
     this.deleteRecord.emit(this.contactRecordModel.value.id);
     this._emitErrors();
+    this.contactRecordModel.markAsPristine();
   }
  
   public setStatusToRevise(): void {
