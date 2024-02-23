@@ -31,7 +31,7 @@
   "has.ddt": "Device details table included?",
   "has.app.info": "Application information XML included in transaction?",
   "fees": "Fees",
-  "are.fees": "Are new fees or revised fees associated with this transactions?",
+  "are.fees": "Are new fees or revised fees associated with this transaction?",
   "billing.company.id": "Billing Company Identifier",
   "billing.contact.id": "Billing Contact Identifier",
   "completed.fee.required":"A completed fee form is still required, however, the applicable fees will be invoiced.",
