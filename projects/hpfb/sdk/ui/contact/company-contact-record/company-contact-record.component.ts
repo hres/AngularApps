@@ -159,6 +159,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.errorSummaryChild = null;
     this.deleteRecord.emit(this.contactRecordModel.value.id);
     this._emitErrors();
+    this.contactRecordModel.markAsPristine();
   }
  
   public setStatusToRevise(): void {
@@ -172,17 +173,18 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   public activeContactRecord(): void {
-    if (this.saveContactRecord())
-      this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
+    // this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
+    this.saveContactRecord(ContactStatus.Active)
   }
 
-  public saveContactRecord(): boolean {
+  public saveContactRecord(contactStatus?: ContactStatus): void {
     // console.log("====>saveContactRecord ", this.errorList);  
-    let validRecord: boolean = false;
     if (this.contactRecordModel.valid) {
+      if (contactStatus) {
+        this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
+      }
       this.saveRecord.emit((this.contactRecordModel));
       this.contactRecordModel.markAsPristine();
-      validRecord = true;
     } else {
       // id is used for an error to ensure the record gets saved
       let temp = this.contactRecordModel.value.id;
@@ -196,7 +198,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
         this.showErrors = true;
       }
     }
-    return validRecord;
   }
 
   /**

@@ -154,6 +154,17 @@ export class ValidationService {
     }
   }
 
+  static numeric5Validator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{5}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.5.numeric': true};
+    }
+  }
+
   static numeric6Validator(control) {
     if (!control.value) {
       return null;
