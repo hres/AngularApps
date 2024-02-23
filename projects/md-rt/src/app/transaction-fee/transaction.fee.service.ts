@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ValidationService } from '@hpfb/sdk/ui';
 import { TransFees } from '../models/Enrollment';
 
 @Injectable()
@@ -18,8 +17,8 @@ export class TransactionFeeService {
     if (!fb) {return null; }
     return fb.group({
       hasFees: [null, Validators.required],
-      billCompanyId: [null, [Validators.required, ValidationService.companyIdValidator]],
-      billContactId: [null, [Validators.required, ValidationService.dossierContactIdValidator]]
+      billCompanyId: [null, [Validators.required]],
+      billContactId: [null, [Validators.required]]
     });
   }
 

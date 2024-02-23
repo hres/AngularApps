@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren, ViewEncapsulation} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ControlMessagesComponent, ICode } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, ICode, YES } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { TransactionFeeService } from './transaction.fee.service';
 
@@ -123,14 +123,13 @@ export class TransactionFeeComponent implements OnInit, OnChanges, AfterViewInit
 
   hasFeeYes() {
     if (this.transFeeFormLocalModel.controls['hasFees'].value) {
-      if (this.transFeeFormLocalModel.controls['hasFees'].value === "GlobalsService.YES") {
+      if (this.transFeeFormLocalModel.controls['hasFees'].value === YES) {
         return true;
       } else {
         this.transFeeFormLocalModel.controls['billCompanyId'].setValue(null);
         this.transFeeFormLocalModel.controls['billCompanyId'].markAsUntouched();
         this.transFeeFormLocalModel.controls['billContactId'].setValue(null);
         this.transFeeFormLocalModel.controls['billContactId'].markAsUntouched();
-        // todo: add more fields under hasfees here ???
       }
     }
     return false;
