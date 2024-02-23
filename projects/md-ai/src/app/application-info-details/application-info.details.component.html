@@ -1,7 +1,7 @@
 <div>
     <div [formGroup]="appInfoFormLocalModel">
       <div class="row">
-        <div class="form-group col-xs-6 minWidth300" >
+        <div class="form-group col-sm-6 col-xs-12 " >
           <label for="companyId" class="required full-width" aria-required="true">
             <span class="field-name">{{'company.id'|translate}} {{'minNumber6'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -14,7 +14,7 @@
                    [formControl]="appInfoFormLocalModel.controls['companyId'] | formControl" maxlength="6" data-only-digits/>
           </label>
         </div>
-        <div class="form-group col-xs-6 minWidth300" >
+        <div class="form-group col-sm-5 col-xs-126 " >
           <label for="dossierId" class="required full-width" aria-required="true">
             <span class="field-name">{{'dossier.id'|translate}}  {{'minAlphanum7'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
