@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {DeviceRecordService} from '../device-record/device-record.service';
-import {IMasterDetails} from '../../master-details';
 
 import {DeviceDetailsService} from '../device.details/device.details.service';
-import {ListService} from '../../list-service';
+import { RecordListBaseService, RecordListServiceInterface } from '@hpfb/sdk/ui';
+import { Observable, Subject } from 'rxjs';
+import { Device } from '../../models/Enrollment';
+import { ApplicationInfoBaseService } from '../../form-base/application-info-base.service';
 
 @Injectable()
-export class DeviceListService extends ListService implements IMasterDetails {
+export class DeviceListService extends RecordListBaseService implements RecordListServiceInterface {
 
   /***
    *  The data list of device records
@@ -15,7 +17,16 @@ export class DeviceListService extends ListService implements IMasterDetails {
    */
   private deviceList = [];
 
-  constructor() {
+  // to facilitate to subscribe to deviceModel's changes
+  private deviceModelSubject: Subject<any> = new Subject<any>();
+  deviceModelChanges$: Observable<any> = this.deviceModelSubject.asObservable(); 
+
+  // whenever deviceList changes, notify subscribers
+  notifyDeviceModelChanges(changes: any) {
+    this.deviceModelSubject.next(changes);
+  }
+
+  constructor(private _baseService: ApplicationInfoBaseService, private _recordService: DeviceRecordService, private _detailsService: DeviceDetailsService) {
     super();
     this.deviceList = [];
     this.initIndex(this.deviceList);
@@ -34,61 +45,94 @@ export class DeviceListService extends ListService implements IMasterDetails {
    * @param value
    */
   public setModelRecordList(value) {
-
     this.deviceList = value;
+    this.notifyDeviceModelChanges({...this.deviceList});
   }
 
-  /**
-   * Adds
-   * @param record
-   */
-  addDevice(record) {
-    // TODO error checking
-    this.deviceList.push(record);
+  getEmptyDeviceModel(): Device {
+    let device: Device = this._baseService.getEmptyDeviceModel();
+    // this value is used when reverting an unsaved device formRecord
+    return device;
   }
 
-  getDeviceModel() {
-
-    return DeviceRecordService.getEmptyModel();
+  public getReactiveModel(fb: FormBuilder): FormGroup {
+    return fb.group({
+      devices: fb.array([])
+    });
   }
 
-  getDeviceFormRecord(fb: FormBuilder) {
+  // /**
+  //  * Adds
+  //  * @param record
+  //  */
+  // addDevice(record) {
+  //   // TODO error checking
+  //   this.deviceList.push(record);
+  // }
 
-    return DeviceRecordService.getReactiveModel(fb);
+  // getDeviceModel() {
+
+  //   return DeviceRecordService.getEmptyModel();
+  // }
+
+  // getDeviceFormRecord(fb: FormBuilder) {
+
+  //   return DeviceRecordService.getReactiveModel(fb);
+  // }
+
+  createDeviceFormRecord(fb: FormBuilder) {
+    const formRecord = this._recordService.getReactiveModel(fb);
+    const nextId = this.getNextIndex();
+    formRecord.controls['id'].setValue(nextId);
+    return formRecord;
   }
 
 
   public deviceFormToData(record: FormGroup, deviceModel) {
-    DeviceRecordService.mapFormModelToDataModel(record, deviceModel);
-    return (record);
-
+    this._recordService.mapFormModelToDataModel(record, deviceModel);
+    // return (record);
   }
 
   public createFormDataList(modelDataList, fb: FormBuilder, theList) {
     for (let i = 0; i < modelDataList.length; i++) {
-      const formRecord = DeviceRecordService.getReactiveModel(fb);
+      const formRecord = this._recordService.getReactiveModel(fb);
       this.deviceDataToForm(modelDataList[i], formRecord);
       theList.push(formRecord);
     }
   }
 
   public deviceDataToForm(deviceModel, record: FormGroup) {
-    DeviceRecordService.mapDataModelFormModel(deviceModel, record);
-    return (record);
+    this._recordService.mapDataModelFormModel(deviceModel, record);
+    // return (record);
   }
 
-  public saveRecord(record: FormGroup) {
-    if (record.controls.isNew.value) {
+  public saveRecord(formRecord: FormGroup) {
+    let modelList = this.getModelRecordList();
+    let id:number;
+    let deviceModel: Device = null;
+
+    if (formRecord.controls['isNew'].value) {
       // this.setRecordId(record, this.getNextIndex());
-      record.controls.isNew.setValue(false);
-      let deviceModel = this.getDeviceModel();
-      this.deviceFormToData(record, deviceModel);
-      this.deviceList.push(deviceModel);
-      return deviceModel.id;
+      formRecord.controls['isNew'].setValue(false);
+      deviceModel = this.getEmptyDeviceModel();
+      modelList.push(deviceModel);
+      this.deviceFormToData(formRecord, deviceModel);
+      // return deviceModel.id;
     } else {
-      let modelRecord = this.getModelRecord(record.controls.id.value);
-      let updatedModel = this.deviceFormToData(record, modelRecord);
+      deviceModel = this.getModelRecord(formRecord.controls['id'].value);
+      if (!deviceModel) {
+        deviceModel = this.getEmptyDeviceModel();
+        modelList.push(deviceModel);
+      }
+      this.deviceFormToData(formRecord, deviceModel);
+
+      // let modelRecord = this.getModelRecord(record.controls.id.value);
+      // let updatedModel = this.deviceFormToData(record, modelRecord);
     }
+
+    this.notifyDeviceModelChanges({ ...modelList });
+    id = deviceModel.id;
+    return id;
   }
 
   public getModelRecord(id: number) {
@@ -106,23 +150,29 @@ export class DeviceListService extends ListService implements IMasterDetails {
     let modelList = this.getModelRecordList();
     for (let i = 0; i < modelList.length; i++) {
       if (Number(modelList[i].id) === id) {
-        this.deviceList.splice(i, 1);
+        modelList.splice(i, 1);
         if (id === this.getCurrentIndex()) {
           this.setIndex(id - 1);
         }
+        this.notifyDeviceModelChanges({ ...modelList });
         return true;
       }
     }
     return false;
   }
 
-  public getRecordId(record: FormGroup) {
-    return DeviceDetailsService.getRecordId(record);
-  }
+  // public getRecordId(record: FormGroup) {
+  //   return DeviceDetailsService.getRecordId(record);
+  // }
 
-  public setRecordId(record: FormGroup, value: number): void {
-    DeviceDetailsService.setRecordId(record, value);
-  }
+  // public setRecordId(record: FormGroup, value: number): void {
+  //   DeviceDetailsService.setRecordId(record, value);
+  // }
 
+  updateUIDisplayValues(formRecordList: FormArray){
+    // update Contact Record seqNumber
+    this.updateFormRecordListSeqNumber(formRecordList); 
+    
+  }
 
 }

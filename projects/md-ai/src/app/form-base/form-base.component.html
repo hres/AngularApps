@@ -34,7 +34,7 @@
               <header class="panel-heading clearfix">
                 <h2 class="panel-title">{{'heading.app-info'|translate}}
                   <sup id="ap2-rf">
-                    <a class="fn-lnk" href="#ap2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['appInfoREPIndx']}}</a>
+                    <a class="fn-lnk" href="#ap2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['appInfoREPIndx']}}</a>
                   </sup>
                 </h2>
               </header>
@@ -47,6 +47,7 @@
                                   [deviceModel]="deviceModel" 
                                   [materialModel]="materialModel"                                  
                                   [helpTextSequences]="helpIndex"
+                                  [loadFileIndicator]="loadFileIndicator"
                                   (detailErrorList)="processDetailErrors($event)"
                                   (deviceErrorList)="processDeviceErrors($event)"                                 
                                   (materialErrorList)="processMaterialtErrors($event)">

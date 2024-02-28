@@ -5,10 +5,10 @@ import {DeviceDetailsService} from '../device.details/device.details.service';
 @Injectable()
 export class DeviceRecordService {
 
-  constructor() {
+  constructor(private _detailsService: DeviceDetailsService) {
   }
 
-  public static getReactiveModel(fb: FormBuilder): FormGroup {
+  public getReactiveModel(fb: FormBuilder): FormGroup {
     if (!fb) {
       return null;
     }
@@ -17,43 +17,45 @@ export class DeviceRecordService {
         seqNumber: -1,
         detailsDirty: [false, Validators.required],
         isNew: true,
-        deviceDetails: DeviceDetailsService.getReactiveModel(fb)
+        expandFlag: false,
+        noErrors: false,
+        deviceDetails: this._detailsService.getReactiveModel(fb)
       }
     );
   }
 
   /** returns a data model for this **/
-  public static getEmptyModel() {
+  // public getEmptyModel() {
 
-    const emptyModel = DeviceDetailsService.getEmptyModel();
-    const deviceModel = {
-      id: '',
-    };
-    return this.extend(deviceModel, emptyModel);
-  }
+  //   const emptyModel = this._detailsService.getEmptyModel();
+  //   const deviceModel = {
+  //     id: '',
+  //   };
+  //   return this.extend(deviceModel, emptyModel);
+  // }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, deviceRecordModel) {
-    console.log(deviceRecordModel);
-    console.log(formRecord);
-    deviceRecordModel.id = formRecord.controls.id.value;
+  public mapFormModelToDataModel(formRecord: FormGroup, deviceRecordModel) {
+  //  console.log (deviceRecordModel);
+  //   console.log(formRecord);
+    deviceRecordModel.id = formRecord.controls['id'].value;
     // deviceRecordModel.company = formRecord.controls.companyName.value;
-    DeviceDetailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls.deviceDetails), deviceRecordModel);
+    this._detailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['deviceDetails']), deviceRecordModel);
 
   }
 
 
-  public static mapDataModelFormModel(deviceRecordModel, formRecord: FormGroup) {
-    formRecord.controls.id.setValue(Number(deviceRecordModel.id));
-    formRecord.controls.isNew.setValue(false);
+  public mapDataModelFormModel(deviceRecordModel, formRecord: FormGroup) {
+    formRecord.controls['id'].setValue(Number(deviceRecordModel.id));
+    formRecord.controls['isNew'].setValue(false);
     // formRecord.controls.companyName.setValue(deviceRecordModel.company);
-    DeviceDetailsService.mapDataModelToFormModel(deviceRecordModel, <FormGroup>formRecord.controls.deviceDetails);
+    this._detailsService.mapDataModelToFormModel(deviceRecordModel, <FormGroup>formRecord.controls['deviceDetails']);
   }
 
-  public static extend(dest, src) {
-    for (var key in src) {
-      dest[key] = src[key];
-    }
-    return dest;
-  }
+  // public static extend(dest, src) {
+  //   for (var key in src) {
+  //     dest[key] = src[key];
+  //   }
+  //   return dest;
+  // }
 
 }

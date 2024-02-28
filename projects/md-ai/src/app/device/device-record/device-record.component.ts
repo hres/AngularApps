@@ -6,7 +6,10 @@ import {
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DeviceDetailsComponent} from '../device.details/device.details.component';
 import {DeviceRecordService} from './device-record.service';
-import { ErrorSummaryComponent, ControlMessagesComponent } from '@hpfb/sdk/ui';
+import { ErrorSummaryComponent, ControlMessagesComponent, UtilsService } from '@hpfb/sdk/ui';
+import { DeviceDetailsService } from '../device.details/device.details.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
 
 
 @Component({
@@ -19,11 +22,14 @@ import { ErrorSummaryComponent, ControlMessagesComponent } from '@hpfb/sdk/ui';
 })
 export class DeviceRecordComponent implements OnInit, AfterViewInit {
 
+  @Input() cRRow: FormGroup;
+
   public deviceRecordModel: FormGroup;
   @Input('group') public deviceFormRecord: FormGroup;
-  @Input() detailsChanged: number;
-  @Input() newRecord: boolean;
+  // @Input() detailsChanged: number;
+  // @Input() newRecord: boolean;
   @Input() showErrors: boolean;
+  @Input() lang;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
@@ -39,7 +45,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   public errorList = [];
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
-  public isNew: boolean;
+  // public isNew: boolean;
   public showErrSummary: boolean;
   public errorSummaryChild: ErrorSummaryComponent = null;
   
@@ -48,18 +54,31 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   headingPreambleParams: any;
   translatedParentLabel: string;
 
-  constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef) {
+  constructor(private _fb: FormBuilder,  private cdr: ChangeDetectorRef,
+    private _detailsService: DeviceDetailsService,
+    private _translateService: TranslateService,
+    private _errorNotificationService: ErrorNotificationService,
+    private _utilsService: UtilsService ) {
     this.showErrors = false;
     this.showErrSummary = false;
+    // this.deviceRecordModel = this.cRRow;
+    // console.log("device record component - constructor", this.deviceRecordModel);
   }
 
   ngOnInit() {
-    if (!this.deviceRecordModel) {
-      // this.deviceRecordModel = this._initDevice();
-    }
-    this.detailsChanged = 0;
+    // if (!this.deviceRecordModel) {
+    //   // this.deviceRecordModel = this._initDevice();
+    // }
+    // this.detailsChanged = 0;
+    
+    this.headingPreambleParams = this.cRRow.get('seqNumber').value;
+    this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+    // this.deviceRecordModel = this.cRRow;
+
+    // console.log("device record component - ngOnInit", this.deviceRecordModel);
 
   }
+  
   ngAfterViewInit() {
 
     this.msgList.changes.subscribe(errorObjs => {
@@ -78,7 +97,8 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
       console.warn('Device List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
-    this._emitErrors();
+    //this._emitErrors();
+    this._errorNotificationService.updateErrorSummary(this.deviceRecordModel.controls['id'].value, this.errorSummaryChild)
   }
   /***
    * Emits errors to higher level error summaries. Used for linking summaries
@@ -100,40 +120,51 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   // }
 
   ngOnChanges (changes: SimpleChanges) {
+    const isFirstChange = this._utilsService.isFirstChange(changes);
 
-    if (changes['detailsChanged']) { // used as a change indicator for the model
-      if (this.deviceFormRecord) {
-        this.setToLocalModel();
-      } else {
-        // this.deviceRecordModel = this._initDevice();
-        if (this.deviceRecordModel) {
-          this.deviceRecordModel.markAsPristine();
-        }
-      }
-      this.updateChild++;
+    if (isFirstChange) {
+      this.deviceRecordModel = this.cRRow;
     }
+   
+    // if (changes['detailsChanged']) { // used as a change indicator for the model
+    //   if (this.deviceFormRecord) {
+    //     this.setToLocalModel();
+    //   } else {
+    //     // this.deviceRecordModel = this._initDevice();
+    //     if (this.deviceRecordModel) {
+    //       this.deviceRecordModel.markAsPristine();
+    //     }
+    //   }
+    //   this.updateChild++;
+    // }
 
-    if (changes['newRecord']) {
-      this.isNew = changes['newRecord'].currentValue;
-    }
+    // if (changes['newRecord']) {
+    //   this.isNew = changes['newRecord'].currentValue;
+    // }
 
     if (changes['showErrors']) {
       this.showErrSummary = changes['showErrors'].currentValue;
-    }
-    if (this.showErrSummary) {
-      this.updateErrorList(null, true);
       this._emitErrors();
     }
+    this.cdr.detectChanges(); // doing our own change detection
+
+    // if (changes['showErrors']) {
+    //   this.showErrSummary = changes['showErrors'].currentValue;
+    // }
+    // if (this.showErrSummary) {
+    //   this.updateErrorList(null, true);
+    //   this._emitErrors();
+    // }
   }
 
   /***
    *Sets the device record to the internal model
    */
-  setToLocalModel() {
-    this.deviceRecordModel = this.deviceFormRecord;
-    // this.sequenceNum = Number(this.deviceRecordModel.controls.id.value) + 1;
-    this.deviceRecordModel.markAsPristine();
-  }
+  // setToLocalModel() {
+  //   this.deviceRecordModel = this.deviceFormRecord;
+  //   // this.sequenceNum = Number(this.deviceRecordModel.controls.id.value) + 1;
+  //   this.deviceRecordModel.markAsPristine();
+  // }
 
   /**
    * Updates the master error list. Combines the record level field errors with the child record field error
@@ -153,21 +184,23 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
           this.parentErrorList.push(error);
         }
       );
-      this.cdr.detectChanges(); // doing our own change detection
+      // this.cdr.detectChanges(); // doing our own change detection
     }
 
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
     // console.log(this.errorList);
+    this.cdr.detectChanges();
   }
 
   /**
    * Changes the local model back to the last saved version of the device
    */
   public revertDeviceRecord(): void {
+    console.log("revert device record - record component");
     this.revertRecord.emit(this.deviceRecordModel);
     this.deviceRecordModel.markAsPristine();
-    document.location.href = '#deviceName';
+    //document.location.href = '#deviceName';
   }
 
   /***
@@ -177,32 +210,53 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
     this.errorSummaryChild = null;
     this.deleteRecord.emit(this.deviceRecordModel.value.id);
     this._emitErrors();
-    document.location.href = '#addDevice';
+    this.deviceRecordModel.markAsPristine();
+    //document.location.href = '#addDevice';
   }
 
   public saveDeviceRecord(): void {
     // this.updateErrorList(null, true);
-    if (this.deviceRecordModel.valid || this.errorList.length === 0) {
+    if (!(this.errorList.length > 0)) {
+      this._setDeviceDetailsErrorsToNull(this.deviceDetailsForm);
+    }
+    if (this.deviceRecordModel.valid) {
       this.saveRecord.emit((this.deviceRecordModel));
-      this.showErrSummary = false;
-      this.showErrors = false;
+      // this.showErrSummary = false;
+      // this.showErrors = false;
       this.deviceRecordModel.markAsPristine();
-      document.location.href = '#addDevice';
+      //document.location.href = '#addDevice';
     } else {
       // id is used for an error to ensure the record gets saved
       let temp = this.deviceRecordModel.value.id;
-      // this.deviceRecordModel.controls.id.setValue(1);
+      this.deviceRecordModel.controls['id'].setValue(1);
       if (this.deviceRecordModel.valid) {
-        // this.deviceRecordModel.controls.id.setValue(temp);
+        this.deviceRecordModel.controls['id'].setValue(temp);
         this.saveRecord.emit((this.deviceRecordModel));
       } else {
-        // this.deviceRecordModel.controls.id.setValue(temp);
+        this.deviceRecordModel.controls['id'].setValue(temp);
         this.showErrSummary = true;
         this.showErrors = true;
 
-        document.location.href = '#deviceErrorSummary';
+        //document.location.href = '#deviceErrorSummary';
       }
     }
+  }
+
+  /**
+   * Using this method to set the errors of control values that were not touched to false.
+   * This is because there are certain controls/inputs that only appear to user when they
+   * select a specific value.
+   * 
+   * For ex: When selecting yes to if a device that has been authorized in Canada
+   * -> YES: Licence Number appears, not app number & previously submitted & explanation inputs
+   * -> App number, previously submitted and explanations become INVALID because they are required
+   * when a user selects NO (for authorized in Canada)
+   * @param formGroup 
+   */
+  private _setDeviceDetailsErrorsToNull(formGroup : FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      formGroup.get(key).setErrors(null);
+    });
   }
 
   /**
@@ -210,5 +264,9 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
    */
   public showErrorSummary(): boolean {
     return (this.showErrSummary && this.errorList.length > 0);
+  }
+
+  get deviceDetailsForm() {
+    return this.deviceRecordModel.get('deviceDetails') as FormGroup;
   }
 }

@@ -13,16 +13,16 @@ export class DeviceDetailsService {
    * @param {FormBuilder} fb
    * @returns {any}
    */
-  public static getReactiveModel(fb: FormBuilder) {
+  public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-      deviceName: '',
-      deviceAuthorized: '',
-      licenceNum: '',
-      deviceApplicationSubmitted: '',
+      deviceName: [null, Validators.required],
+      deviceAuthorized: [null, Validators.required],
+      licenceNum: [null, [Validators.required, ValidationService.numeric6Validator]],
+      deviceApplicationSubmitted: [null, Validators.required],
       //deviceApplicationNumber: [null, [Validators.required, ValidationService.appNumValidator ]],
-      deviceApplicationNumber: '',
-      deviceExplain: ''
+      deviceApplicationNumber: [null, [Validators.required, ValidationService.numeric6Validator]],
+      deviceExplain: [null, Validators.required]
     });
   }
 
@@ -30,7 +30,7 @@ export class DeviceDetailsService {
    * Gets an empty
    *
    */
-  public static getEmptyModel() {
+  public getEmptyModel() {
 
     return (
       {
@@ -44,44 +44,44 @@ export class DeviceDetailsService {
     );
   }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, deviceModel) {
-    // deviceModel.device_name = formRecord.controls.deviceName.value;
-    // deviceModel.device_Authorized = formRecord.controls.deviceAuthorized.value;
-    // deviceModel.licence_number = formRecord.controls.licenceNum.value;
-    // deviceModel.device_application_submitted = formRecord.controls.deviceApplicationSubmitted.value;
-    // deviceModel.device_application_number = formRecord.controls.deviceApplicationNumber.value;
-    // deviceModel.device_explain = formRecord.controls.deviceExplain.value;
+  public mapFormModelToDataModel(formRecord: FormGroup, deviceModel) {
+    deviceModel.device_name = formRecord.controls['deviceName'].value;
+    deviceModel.device_Authorized = formRecord.controls['deviceAuthorized'].value;
+    deviceModel.licence_number = formRecord.controls['licenceNum'].value;
+    deviceModel.device_application_submitted = formRecord.controls['deviceApplicationSubmitted'].value;
+    deviceModel.device_application_number = formRecord.controls['deviceApplicationNumber'].value;
+    deviceModel.device_explain = formRecord.controls['deviceExplain'].value;
   }
 
-  public static mapDataModelToFormModel(deviceModel, formRecord: FormGroup) {
-    // formRecord.controls.deviceName.setValue(deviceModel.device_name);
-    // formRecord.controls.deviceAuthorized.setValue(deviceModel.device_Authorized);
-    // formRecord.controls.licenceNum.setValue(deviceModel.licence_number);
-    // formRecord.controls.deviceApplicationSubmitted.setValue(deviceModel.device_application_submitted);
-    // formRecord.controls.deviceApplicationNumber.setValue(deviceModel.device_application_number);
-    // formRecord.controls.deviceExplain.setValue(deviceModel.device_explain);
+  public mapDataModelToFormModel(deviceModel, formRecord: FormGroup) {
+    formRecord.controls['deviceName'].setValue(deviceModel.device_name);
+    formRecord.controls['deviceAuthorized'].setValue(deviceModel.device_Authorized);
+    formRecord.controls['licenceNum'].setValue(deviceModel.licence_number);
+    formRecord.controls['deviceApplicationSubmitted'].setValue(deviceModel.device_application_submitted);
+    formRecord.controls['deviceApplicationNumber'].setValue(deviceModel.device_application_number);
+    formRecord.controls['deviceExplain'].setValue(deviceModel.device_explain);
   }
 
-  public static getRecordId(record: FormGroup) {
-    // return (record.controls.id.value);
-  }
+  // public static getRecordId(record: FormGroup) {
+  //   // return (record.controls.id.value);
+  // }
 
-  public static setRecordId(record: FormGroup, value: number): void {
-    if (!record) {
-      return;
-    }
-    // record.controls.id.setValue(value);
-  }
+  // public static setRecordId(record: FormGroup, value: number): void {
+  //   if (!record) {
+  //     return;
+  //   }
+  //   // record.controls.id.setValue(value);
+  // }
 
 
   /**
    * Gets an yesno array
    *
    */
-  public getYesNoList() {
+  // public getYesNoList() {
     // return [
     //   GlobalsService.YES,
     //   GlobalsService.NO
     // ];
-  }
+  // }
 }
