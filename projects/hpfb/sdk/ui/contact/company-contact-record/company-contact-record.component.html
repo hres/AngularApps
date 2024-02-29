@@ -12,14 +12,29 @@
 
   <div class="row">
     <div class="btn-group-sm col-xs-12 text-left">
-      <button *ngIf="isExternalNewContact()" class="btn btn-primary" (click)="saveContactRecord()" >{{'save.contact'|translate}}</button>&nbsp;
-      <button *ngIf="isInternalActiveContact()" class="btn btn-default" (click)="activeContactRecord()" >{{'set.active.status'|translate}}</button>&nbsp;
-      <button *ngIf="isExternalNotNewContact()" class="btn btn-default" (click)="setStatusToRevise()" [disabled]="showErrorSummary()" >{{'set.revise.status'|translate}}</button>
-      <button *ngIf="isInternalDeleteContact()" class="btn btn-danger" (click)="deleteContactRecord()" >{{'remove.contact'|translate}}</button>&nbsp;
-      <button *ngIf="isExternalNotNewContact()" class="btn btn-default" (click)="setStatusToRemove()" [disabled]="showErrorSummary()" >{{'set.remove.status'|translate}}</button>
-      <button *ngIf="isNewContact()" class="btn btn-danger" (click)="deleteContactRecord()" >{{'discard.record'|translate}}</button>&nbsp;
-      <span   *ngIf="!isInternal">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <button class="btn btn-default" (click)="revertContactRecord()" >{{'discard.changes'|translate}}</button>
+      <ul class="list-inline lst-spcd ">
+        <li *ngIf="isExternalNewContact()">
+          <button class="btn btn-primary" (click)="saveContactRecord()">{{'save.contact'|translate}}</button>
+        </li>
+        <li *ngIf="isInternalActiveContact()">
+          <button class="btn btn-default" (click)="activeContactRecord()">{{'set.active.status'|translate}}</button>
+        </li>
+        <li *ngIf="isExternalNotNewContact()">
+          <button class="btn btn-default" (click)="setStatusToRevise()" [disabled]="showErrorSummary()">{{'set.revise.status'|translate}}</button>
+        </li>
+        <li *ngIf="isInternalDeleteContact()">
+          <button class="btn btn-danger" (click)="deleteContactRecord()">{{'remove.contact'|translate}}</button>
+        </li>
+        <li *ngIf="isExternalNotNewContact()">
+          <button class="btn btn-danger" (click)="setStatusToRemove()" [disabled]="showErrorSummary()">{{'set.remove.status'|translate}}</button>
+        </li>
+        <li *ngIf="isNewContact()">
+          <button class="btn btn-danger" (click)="deleteContactRecord()">{{'discard.record'|translate}}</button>
+        </li>
+        <li>
+          <button class="btn btn-default" (click)="revertContactRecord()">{{'discard.changes'|translate}}</button>
+        </li>
+      </ul>
     </div>
   </div>
   <!--<div class="row" *ngIf="contactRecordModel.dirty">-->
