@@ -20,7 +20,7 @@
           <button class="btn btn-default" (click)="activeContactRecord()">{{'set.active.status'|translate}}</button>
         </li>
         <li *ngIf="isExternalNotNewContact()">
-          <button class="btn btn-default" (click)="setStatusToRevise()" [disabled]="showErrorSummary()">{{'set.revise.status'|translate}}</button>
+          <button class="btn btn-default" (click)="setStatusToRevise()" [disabled]="this.contactRecordModel.pristine || showErrorSummary()">{{'set.revise.status'|translate}}</button>
         </li>
         <li *ngIf="isInternalDeleteContact()">
           <button class="btn btn-danger" (click)="deleteContactRecord()">{{'remove.contact'|translate}}</button>
