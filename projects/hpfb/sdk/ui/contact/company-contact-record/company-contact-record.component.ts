@@ -179,7 +179,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
   public saveContactRecord(contactStatus?: ContactStatus): void {
     // console.log("====>saveContactRecord ", this.errorList);  
-    if (this.contactRecordModel.valid) {
+    if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
       if (contactStatus) {
         this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
       }
@@ -198,6 +198,18 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
         this.showErrors = true;
       }
     }
+  }
+
+  // when user clicks the "Acitve Contact" button, if the current Contact Status is "REVISE", 
+  // it will show the "error.msg.revise.contact" error 
+  // if that is the only error on the record, we will allow user to continue to "Active Contact"
+  private _recordInvalidExcemption(contactStatus?: ContactStatus){
+    let returnValue: boolean = false;
+    if (contactStatus) {
+      if (contactStatus===ContactStatus.Active && this.errorList.length===1 && this.errorList[0].currentError === "error.msg.revise.contact") 
+      returnValue =  true;
+    }
+    return returnValue;
   }
 
   /**

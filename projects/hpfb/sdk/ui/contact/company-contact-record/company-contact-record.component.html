@@ -14,25 +14,25 @@
     <div class="btn-group-sm col-xs-12 text-left">
       <ul class="list-inline lst-spcd ">
         <li *ngIf="isExternalNewContact()">
-          <button class="btn btn-primary" (click)="saveContactRecord()">{{'save.contact'|translate}}</button>
+          <button class="btn btn-primary" (click)="saveContactRecord()">1{{'save.contact'|translate}}</button>
         </li>
         <li *ngIf="isInternalActiveContact()">
-          <button class="btn btn-default" (click)="activeContactRecord()">{{'set.active.status'|translate}}</button>
+          <button class="btn btn-default" (click)="activeContactRecord()">2{{'set.active.status'|translate}}</button>
         </li>
         <li *ngIf="isExternalNotNewContact()">
-          <button class="btn btn-default" (click)="setStatusToRevise()" [disabled]="this.contactRecordModel.pristine || showErrorSummary()">{{'set.revise.status'|translate}}</button>
+          <button class="btn btn-default" (click)="setStatusToRevise()" [disabled]="this.contactRecordModel.pristine || showErrorSummary()">3{{'set.revise.status'|translate}}</button>
         </li>
         <li *ngIf="isInternalDeleteContact()">
-          <button class="btn btn-danger" (click)="deleteContactRecord()">{{'remove.contact'|translate}}</button>
+          <button class="btn btn-danger" (click)="deleteContactRecord()">4{{'remove.contact'|translate}}</button>
         </li>
         <li *ngIf="isExternalNotNewContact()">
-          <button class="btn btn-danger" (click)="setStatusToRemove()" [disabled]="showErrorSummary()">{{'set.remove.status'|translate}}</button>
+          <button class="btn btn-danger" (click)="setStatusToRemove()" [disabled]="showErrorSummary()">5{{'set.remove.status'|translate}}</button>
         </li>
         <li *ngIf="isNewContact()">
-          <button class="btn btn-danger" (click)="deleteContactRecord()">{{'discard.record'|translate}}</button>
+          <button class="btn btn-danger" (click)="deleteContactRecord()">6{{'discard.record'|translate}}</button>
         </li>
         <li>
-          <button class="btn btn-default" (click)="revertContactRecord()">{{'discard.changes'|translate}}</button>
+          <button class="btn btn-default" (click)="revertContactRecord()">7{{'discard.changes'|translate}}</button>
         </li>
       </ul>
     </div>
