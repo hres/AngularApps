@@ -254,6 +254,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     return (this.isInternal && this.isContactStatus(ContactStatus.Remove));
   }
 
+  public isContactSetToRemove(): boolean {
+    return (this.isContactStatus(ContactStatus.Remove));
+  }
+    
   get contactDetailsForm() {
     return this.contactRecordModel.get('contactDetails') as FormGroup;
   }
