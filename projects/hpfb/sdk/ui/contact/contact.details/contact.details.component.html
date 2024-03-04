@@ -44,7 +44,8 @@
                             [control]="contactDetailForm.controls['fullName'] | formControl"
                             controlId="fullName{{recordId}}" label="full.name" parentId="contactDetails"
                             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
-          <input name="fullName" id="fullName{{recordId}}" class="form-control full-width" maxlength="45" [formControl]="contactDetailForm.controls['fullName'] | formControl"/>
+          <input name="fullName" id="fullName{{recordId}}" class="form-control full-width" maxlength="45" 
+            [formControl]="contactDetailForm.controls['fullName'] | formControl" [readonly]="disableEdit"/>
         </label>
       </div>
     </div>
@@ -58,10 +59,13 @@
                             [control]="contactDetailForm.controls['language'] | formControl"
                             controlId="language{{recordId}}" label="lang.correspond" parentId="contactDetails"
                             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
-          <select id="language{{recordId}}" required class="form-control" [formControl]="contactDetailForm.controls['language'] | formControl">
+          <select *ngIf="!disableEdit" id="language{{recordId}}" required class="form-control" [formControl]="contactDetailForm.controls['language'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let langOpt of languageList" [ngValue]="langOpt.id"> {{langOpt | textTransform: lang }}</option>
           </select>
+
+          <input *ngIf="disableEdit" id="language{{recordId}}" class="form-control full-width" 
+            [formControl]="contactDetailForm.controls['language'] | formControl" [readonly]="disableEdit"/>
         </label>
       </div>
       <div class="form-group col-sm-4">
@@ -73,7 +77,8 @@
                             [control]="contactDetailForm.controls['jobTitle'] | formControl"
                             controlId="jobTitle{{recordId}}" label="job.title" parentId="contactDetails"
                             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
-          <input name="jobTitle" id="jobTitle{{recordId}}" class="form-control full-width" maxlength="45" [formControl]="contactDetailForm.controls['jobTitle'] | formControl"/>
+          <input name="jobTitle" id="jobTitle{{recordId}}" class="form-control full-width" maxlength="45" 
+            [formControl]="contactDetailForm.controls['jobTitle'] | formControl" [readonly]="disableEdit"/>
         </label>
       </div>
     </div>
@@ -88,13 +93,14 @@
                             controlId="phoneNumber{{recordId}}" label="phone.number" parentId="contactDetails"
                             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="phoneNumber" id="phoneNumber{{recordId}}" class="form-control only-digits full-width" maxlength="25" data-only-digits
-                [formControl]="contactDetailForm.controls['phoneNumber'] | formControl" />
+                [formControl]="contactDetailForm.controls['phoneNumber'] | formControl" [readonly]="disableEdit"/>
         </label>
       </div>
       <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="phoneExtension{{recordId}}">
           <span class="field-name" >{{'phone.extension' |translate}}</span>
-          <input name="phoneExtension" id="phoneExtension{{recordId}}" class="form-control" maxlength="10" data-only-digits [formControl]="contactDetailForm.controls['phoneExtension'] | formControl" />
+          <input name="phoneExtension" id="phoneExtension{{recordId}}" class="form-control" maxlength="10" data-only-digits 
+            [formControl]="contactDetailForm.controls['phoneExtension'] | formControl" [readonly]="disableEdit"/>
         </label>
       </div>
       <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
@@ -106,7 +112,7 @@
                             controlId="faxNumber{{recordId}}" label="fax.number" parentId="contactDetails"
                             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="faxNumber" id="faxNumber{{recordId}}" class="form-control full-width only-digits" maxlength="25" data-only-digits
-                 [formControl]="contactDetailForm.controls['faxNumber'] | formControl"/>
+                 [formControl]="contactDetailForm.controls['faxNumber'] | formControl" [readonly]="disableEdit"/>
         </label>
       </div>
     </div>
@@ -120,7 +126,8 @@
                             [control]="contactDetailForm.controls['email'] | formControl"
                             controlId="email{{recordId}}" label="contact.email" parentId="contactDetails"
                             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
-          <input name="email" id="email{{recordId}}" class="form-control full-width" maxlength="50" [formControl]="contactDetailForm.controls['email'] | formControl"/>
+          <input name="email" id="email{{recordId}}" class="form-control full-width" maxlength="50" 
+            [formControl]="contactDetailForm.controls['email'] | formControl" [readonly]="disableEdit"/>
         </label>
       </div>
       <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
@@ -130,7 +137,7 @@
             <a class="fn-lnk" href="#co4a"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.routIdInx}}</a>
           </sup>
           <input name="routingId" id="routingId{{recordId}}" class="form-control full-width"
-                 [formControl]="contactDetailForm.controls['routingId'] | formControl" maxlength="64"/>
+                 [formControl]="contactDetailForm.controls['routingId'] | formControl" maxlength="64" [readonly]="disableEdit"/>
         </label>
       </div>
     </div>
