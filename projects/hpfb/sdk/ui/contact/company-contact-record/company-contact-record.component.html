@@ -14,7 +14,7 @@
                     <div class="btn-group-sm col-xs-12 text-left">
                       <ul class="list-inline lst-spcd ">
 
-                        <ng-container *ngIf="!isInternal && !isContactSetToRemove()">">
+                        <ng-container *ngIf="!isInternal && !isContactSetToRemove()">
                           <li *ngIf="isExternalNewContact()">
                             <button class="btn btn-primary" (click)="saveContactRecord()">{{'save.contact'|translate}}</button>
                           </li>
