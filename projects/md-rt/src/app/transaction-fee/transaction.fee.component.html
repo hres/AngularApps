@@ -33,12 +33,12 @@
           <label for="billContactId" class="required full-width" aria-required="true">
             <span class="field-name">{{'billing.contact.id'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="transFeeFormLocalModel.controls['billCompanyId'].invalid"
+            <control-messages *ngIf="transFeeFormLocalModel.controls['billContactId'].invalid"
                               [showError]="showFieldErrors"
-                              [control]="transFeeFormLocalModel.controls['billCompanyId'] | formControl"
+                              [control]="transFeeFormLocalModel.controls['billContactId'] | formControl"
                               controlId="billContactId" label="billing.contact.id" parentId="transFees"></control-messages>
             <input id="billContactId" class="form-control"  (blur)="onblur()" name="billContactId"
-                   [formControl]="transFeeFormLocalModel.controls['billCompanyId'] | formControl" maxlength="5"/>
+                   [formControl]="transFeeFormLocalModel.controls['billContactId'] | formControl" maxlength="5"/>
           </label>
         </div>
         <div class="col-xs-12 form-group alert alert-info" role="alert">

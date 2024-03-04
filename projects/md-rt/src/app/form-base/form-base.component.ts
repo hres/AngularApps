@@ -136,7 +136,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     };
 
     // update the last_saved_date
-    output.DEVICE_TRANSACTION_ENROL.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm')
+    output.DEVICE_TRANSACTION_ENROL.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    if (xmlFile) {
+      // add and calculate check_sum if it is xml
+      output.DEVICE_TRANSACTION_ENROL.check_sum = "";   // this is needed for generating the checksum value
+      output.DEVICE_TRANSACTION_ENROL.check_sum = this._checkSumService.createHash(output);
+    }
 
     return output;
   }
