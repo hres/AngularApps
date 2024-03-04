@@ -25,7 +25,7 @@ import { Device } from '../../models/Enrollment';
 
 })
 export class DeviceListComponent extends RecordListBaseComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input() public deviceModel: Device[] = [];
+  @Input() public deviceModel: Device[] = []; // From output model - passed in from form-base -> app-info -> device-list
   @Input() public saveDevice;
   @Input() public showErrors: boolean;
   @Input() public loadFileIndicator;
@@ -48,20 +48,6 @@ export class DeviceListComponent extends RecordListBaseComponent implements OnIn
   public validRec = true;
 
   private deviceModelChangesSubscription: Subscription;
-  // public recModified = false;
-
-  // public columnDefinitions = [
-  //   {
-  //     label: 'Name of Compatible Device',
-  //     binding: 'device_name',
-  //     width: '65'
-  //   },
-  //   {
-  //     label: 'Licence Number',
-  //     binding: 'licence_number',
-  //     width: '35'
-  //   }
-  // ];
 
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService, private _listService: DeviceListService,
               private _errorNotificationService : ErrorNotificationService,
@@ -83,13 +69,6 @@ export class DeviceListComponent extends RecordListBaseComponent implements OnIn
   }
 
   ngAfterViewInit() {
-    // this.setExpander(this.expander);
-    // this.processSummaries(this.errorSummaryChildList);
-    // this.errorSummaryChildList.changes.subscribe(list => {
-    //   this.processSummaries(list);
-    // });
-
-    //   this.cd.detectChanges();
 
     // subscribe and process the updated contact records' error summaries
     this._errorNotificationService.errorSummaryChanged$.subscribe((errors) => {
@@ -120,31 +99,6 @@ export class DeviceListComponent extends RecordListBaseComponent implements OnIn
     }
     this._emitErrors(true);
   }
-
-
-  // ngDoCheck() {
-  //   this.isValid();
-  //   this._syncCurrentExpandedRow();
-  // }
-
-  // /**
-  //  *
-  //  * @private syncs the device details record with the reactive model. Uses view child functionality
-  //  */
-  // private _syncCurrentExpandedRow(): void {
-  //   if (this.deviceChild) {
-  //     const deviceFormList = this.getFormDeviceList();
-  //     const result = this.syncCurrentExpandedRow(deviceFormList);
-  //     // Onlu update the results if there is a change. Otherwise the record will not be dirty
-
-  //     if (result) {
-  //       this.deviceChild.deviceFormRecord = result;
-  //       this.updateDeviceDetails++;
-  //     }
-  //   } else {
-  //     console.warn('There is no device child');
-  //   }
-  // }
 
   /**
    * Processes change events from inputs
@@ -181,7 +135,7 @@ export class DeviceListComponent extends RecordListBaseComponent implements OnIn
         // console.log("creating form device...");
         // this._createFormDevice();
       } else {
-        this._listService.createFormDataList(this.deviceModel, this._fb, this.deviceList); 
+        this._listService.createFormRecordList(this.deviceModel, this._fb, this.deviceList); 
         const firstFormRecord = this.deviceList.at(0) as FormGroup;
         firstFormRecord.controls['expandFlag'].setValue(true);
       }
@@ -196,35 +150,9 @@ export class DeviceListComponent extends RecordListBaseComponent implements OnIn
     this._listService.collapseFormRecordList(this._utilsService, this.deviceList, formDevice.controls['id'].value);
   }
 
-  // public isValid(override: boolean = false): boolean {
-  //   if (override) {
-  //     return true;
-  //   }
-  //   if (this.newRecordIndicator) {
-  //     this.validRec = false;
-  //     return false;
-  //   } else if (this.deviceChild && this.deviceChild.deviceFormRecord) {
-  //     this.validRec = this.deviceListForm.valid && !this.deviceChild.deviceFormRecord.dirty;
-  //     return (this.deviceListForm.valid && !this.deviceChild.deviceFormRecord.dirty);
-  //   }
-  //   this.validRec = this.deviceListForm.valid;
-  //   return (this.deviceListForm.valid);
-  // }
-
   public getFormDeviceList(): FormArray {
     return <FormArray>(this.deviceListForm.controls['devices']);
   }
-
-  /**
-   * returns an device record with a given id
-   * @param {number} id - the identifier for that device record
-   * @returns {FormGroup} -the device record, null if theere is no match
-   * @private
-   */
-  // private _getFormDevice(id: number): FormGroup {
-  //   let deviceList = this.getFormDeviceList();
-  //   return this.getRecord(id, deviceList);
-  // }
 
   /**
    * Adds an device UI record to the device List
@@ -319,35 +247,24 @@ export class DeviceListComponent extends RecordListBaseComponent implements OnIn
     //   oerr.label = 'error.msg.device.one.record';
     //   emitErrors.push(oerr);
     // }
+    console.log("device list component - emit errors", emitErrors);
     this.errors.emit(emitErrors);
   }
-
-  private _isAtLeastOneRecord(dataList) : boolean {
-    if (dataList && dataList.length > 0) {
-      return true;
-    }
-    return false;
-  }
-
 
   /***
    * Loads the last saved version of the record data
    * @param record
    */
   public revertDevice(record): void {
-    console.log("revert device - list component");
     let recordId = record.controls.id.value;
 
     let modelRecord = this._listService.getModelRecord(recordId);
-    console.log("1: ", modelRecord);
     if (!modelRecord) { 
       modelRecord = this._listService.getEmptyDeviceModel();
       modelRecord.id = recordId;
-      console.log("2: ", modelRecord);
     } 
     let rec = this.getRecord(recordId, this.deviceList);
     if (rec) {
-      console.log("3: rec value", rec);
       this._recordService.mapDataModelFormModel(modelRecord, rec);
     } else {
       // should never happen, there should always be a UI record
@@ -384,8 +301,8 @@ export class DeviceListComponent extends RecordListBaseComponent implements OnIn
    * check if its record exists
    */
   public disableAddButton(): boolean {
-    console.log("form is invalid: ", !this.deviceListForm.valid,  "form has errors: ", this.errorList.length>0, 
-      "form is dirty: ", this.deviceListForm.dirty);
+    //console.log("form is invalid: ", !this.deviceListForm.valid,  "form has errors: ", this.errorList.length>0, 
+    //  "form is dirty: ", this.deviceListForm.dirty);
     return ( !this.deviceListForm.valid  || this.errorList.length > 0 ||  this.deviceListForm.dirty );
   }
 

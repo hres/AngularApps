@@ -61,25 +61,6 @@ export class DeviceListService extends RecordListBaseService implements RecordLi
     });
   }
 
-  // /**
-  //  * Adds
-  //  * @param record
-  //  */
-  // addDevice(record) {
-  //   // TODO error checking
-  //   this.deviceList.push(record);
-  // }
-
-  // getDeviceModel() {
-
-  //   return DeviceRecordService.getEmptyModel();
-  // }
-
-  // getDeviceFormRecord(fb: FormBuilder) {
-
-  //   return DeviceRecordService.getReactiveModel(fb);
-  // }
-
   createDeviceFormRecord(fb: FormBuilder) {
     const formRecord = this._recordService.getReactiveModel(fb);
     const nextId = this.getNextIndex();
@@ -90,10 +71,9 @@ export class DeviceListService extends RecordListBaseService implements RecordLi
 
   public deviceFormToData(record: FormGroup, deviceModel) {
     this._recordService.mapFormModelToDataModel(record, deviceModel);
-    // return (record);
   }
 
-  public createFormDataList(modelDataList, fb: FormBuilder, theList) {
+  public createFormRecordList(modelDataList, fb: FormBuilder, theList) {
     for (let i = 0; i < modelDataList.length; i++) {
       const formRecord = this._recordService.getReactiveModel(fb);
       this.deviceDataToForm(modelDataList[i], formRecord);
@@ -103,7 +83,6 @@ export class DeviceListService extends RecordListBaseService implements RecordLi
 
   public deviceDataToForm(deviceModel, record: FormGroup) {
     this._recordService.mapDataModelFormModel(deviceModel, record);
-    // return (record);
   }
 
   public saveRecord(formRecord: FormGroup) {
@@ -160,14 +139,6 @@ export class DeviceListService extends RecordListBaseService implements RecordLi
     }
     return false;
   }
-
-  // public getRecordId(record: FormGroup) {
-  //   return DeviceDetailsService.getRecordId(record);
-  // }
-
-  // public setRecordId(record: FormGroup, value: number): void {
-  //   DeviceDetailsService.setRecordId(record, value);
-  // }
 
   updateUIDisplayValues(formRecordList: FormArray){
     // update Contact Record seqNumber

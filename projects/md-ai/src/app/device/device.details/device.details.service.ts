@@ -61,27 +61,4 @@ export class DeviceDetailsService {
     formRecord.controls['deviceApplicationNumber'].setValue(deviceModel.device_application_number);
     formRecord.controls['deviceExplain'].setValue(deviceModel.device_explain);
   }
-
-  // public static getRecordId(record: FormGroup) {
-  //   // return (record.controls.id.value);
-  // }
-
-  // public static setRecordId(record: FormGroup, value: number): void {
-  //   if (!record) {
-  //     return;
-  //   }
-  //   // record.controls.id.setValue(value);
-  // }
-
-
-  /**
-   * Gets an yesno array
-   *
-   */
-  // public getYesNoList() {
-    // return [
-    //   GlobalsService.YES,
-    //   GlobalsService.NO
-    // ];
-  // }
 }

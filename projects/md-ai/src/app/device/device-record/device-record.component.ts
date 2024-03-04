@@ -50,7 +50,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   public errorSummaryChild: ErrorSummaryComponent = null;
   
   public headingLevel = 'h4';
-  headingPreamble: string = "heading.devices";
+  headingPreamble: string = "heading.interdependent.device";
   headingPreambleParams: any;
   translatedParentLabel: string;
 
@@ -112,13 +112,6 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
     this.errors.emit(emitErrors);
   }
 
-
-  // private _initDevice() {
-  //   if (this.isNew) {
-  //     return DeviceRecordService.getReactiveModel(this._fb);
-  //   }
-  // }
-
   ngOnChanges (changes: SimpleChanges) {
     const isFirstChange = this._utilsService.isFirstChange(changes);
 
@@ -157,15 +150,6 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
     // }
   }
 
-  /***
-   *Sets the device record to the internal model
-   */
-  // setToLocalModel() {
-  //   this.deviceRecordModel = this.deviceFormRecord;
-  //   // this.sequenceNum = Number(this.deviceRecordModel.controls.id.value) + 1;
-  //   this.deviceRecordModel.markAsPristine();
-  // }
-
   /**
    * Updates the master error list. Combines the record level field errors with the child record field error
    * @param errs
@@ -189,7 +173,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
 
     this.errorList = new Array();
     this.errorList = this.parentErrorList.concat(this.childErrorList);
-    // console.log(this.errorList);
+    console.log("update error list", this.errorList);
     this.cdr.detectChanges();
   }
 
@@ -216,7 +200,7 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
 
   public saveDeviceRecord(): void {
     // this.updateErrorList(null, true);
-    if (!(this.errorList.length > 0)) {
+    if (!(this.errorList.length > 0)) { // If there are no errors -> Set null inputs that are invalid to valid
       this._setDeviceDetailsErrorsToNull(this.deviceDetailsForm);
     }
     if (this.deviceRecordModel.valid) {

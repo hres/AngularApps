@@ -24,16 +24,6 @@ export class DeviceRecordService {
     );
   }
 
-  /** returns a data model for this **/
-  // public getEmptyModel() {
-
-  //   const emptyModel = this._detailsService.getEmptyModel();
-  //   const deviceModel = {
-  //     id: '',
-  //   };
-  //   return this.extend(deviceModel, emptyModel);
-  // }
-
   public mapFormModelToDataModel(formRecord: FormGroup, deviceRecordModel) {
   //  console.log (deviceRecordModel);
   //   console.log(formRecord);
@@ -50,12 +40,5 @@ export class DeviceRecordService {
     // formRecord.controls.companyName.setValue(deviceRecordModel.company);
     this._detailsService.mapDataModelToFormModel(deviceRecordModel, <FormGroup>formRecord.controls['deviceDetails']);
   }
-
-  // public static extend(dest, src) {
-  //   for (var key in src) {
-  //     dest[key] = src[key];
-  //   }
-  //   return dest;
-  // }
 
 }

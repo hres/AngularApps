@@ -112,7 +112,7 @@
     "error.found.because":" could not be saved because ",
     "error.found.plural": " errors were found",
     "error.found.singular": " error was found",
-    "error.msg.deviceRecord": "Interdependent Device Record has errors",
+    "error.msg.deviceDetails": "Interdependent Device Record has errors",
     "error.msg.bioMaterials": "Biological Material Record has errors",
     "appl.status": "Enrolment Status",
     "enrol.version": "Enrolment Version",

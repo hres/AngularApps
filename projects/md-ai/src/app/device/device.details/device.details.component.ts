@@ -50,11 +50,6 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   ngOnInit() {
-    if (!this.deviceRecord) {
-      this.deviceRecord = this._detailsService.getReactiveModel(this._fb);
-    }
-    // this.detailsChanged = 0;
-
   }
 
   ngAfterViewInit() {
@@ -92,37 +87,18 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
 
     // }
     if (changes['showErrors']) {
-      if ( document.getElementById('deviceName')) {
-        this.showFieldErrors = changes['showErrors'].currentValue;
-        let temp = [];
-        if (this.msgList) {
-          this.msgList.forEach(item => {
-            temp.push(item);
-            // console.log(item);
-          });
-        }
-        this.errorList.emit(temp);
+      this.showFieldErrors = changes['showErrors'].currentValue;
+      let temp = [];
+      if (this.msgList) {
+        this.msgList.forEach(item => {
+          temp.push(item);
+          // console.log(item);
+        });
       }
+      this.errorList.emit(temp);
     }
 
   }
-
-  /**
-   * Uses the updated reactive forms model locally
-   */
-
-  // setToLocalModel() {
-  //   this.deviceFormLocalModel = this.deviceRecord;
-  //   if (!this.deviceFormLocalModel.pristine) {
-  //     this.deviceFormLocalModel.markAsPristine();
-  //   }
-  // }
-
- // licenceNumOnblur() {
- //   // if (this.deviceFormLocalModel.controls.licenceNum.value && !isNaN(this.deviceFormLocalModel.controls.licenceNum.value)) {
- //  //     const lnum = '000000' + this.deviceFormLocalModel.controls.licenceNum.value;
- //  //     this.deviceFormLocalModel.controls.licenceNum.setValue(lnum.substring(lnum.length - 6));
- ////  }
 
   private _resetControlValues(listOfValues : string[]) {
     for (let i = 0; i < listOfValues.length; i++) {
