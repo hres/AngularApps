@@ -1,12 +1,10 @@
 <ng-container *ngIf="makeErrorVisible()">
-  <div>
-      <strong class="error">
-      <span class="label label-danger">
-        @if(errorSummaryFlag && errorNumber) {
-          {{'error' | translate: {number: errorNumber} }}&nbsp;
-        } 
-        {{errorMessage | translate: errorParams }}
-      </span>
-    </strong>
-  </div>
+    <strong class="error">
+    <span class="label label-danger">
+      @if(errorSummaryFlag && errorNumber) {
+        {{'error' | translate: {number: errorNumber} }}&nbsp;
+      } 
+      {{errorMessage | translate: errorParams }}
+    </span>
+  </strong>
 </ng-container>
