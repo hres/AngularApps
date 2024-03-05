@@ -520,7 +520,7 @@ span.normalWeight {
 												Code postal 
 											</xsl:when>
 											<xsl:otherwise>
-												Code Postal/ZIP
+												Code Postal/ZIP (Si pas disponible, utilisez « sans objet »)
 											</xsl:otherwise>
 										</xsl:choose>:&#160;
 										</strong>
