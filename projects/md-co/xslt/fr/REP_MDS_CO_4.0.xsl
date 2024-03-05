@@ -520,7 +520,7 @@ span.normalWeight {
 												Code postal 
 											</xsl:when>
 											<xsl:otherwise>
-												Code Postal/ZIP
+												Code Postal/ZIP (Si pas disponible, utilisez « sans objet »)
 											</xsl:otherwise>
 										</xsl:choose>:&#160;
 										</strong>
@@ -574,7 +574,7 @@ span.normalWeight {
 							</div>
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<strong>Y a-t-il un changement de nom et/ou d'adresse du correspondant réglementaire:&#160;</strong>
+								<strong>Y a-t-il un changement de nom et/ou d'adresse du correspondant réglementaire?&#160;</strong>
 								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::administrative_changes/is_regulatory_change"/></xsl:call-template></span>
 								</div>
 							</div>
