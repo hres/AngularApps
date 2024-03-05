@@ -77,6 +77,7 @@ export interface Devices {
 }
 
 export interface Device {
+    id:                             number;
     device_name:                    string;
     device_authorized:              string;
     licence_number:                 string;

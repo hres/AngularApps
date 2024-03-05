@@ -183,8 +183,10 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
             tempLicStrs += templicNum.slice(templicNum.length - LIC_NUM_LENGTH); // Delete the remaining zeroes 
           }
 
+          // If the input exceeds the maximum length, cut off the remaining digits (after max length)
           if (tempLicStrs.length > MAX_IMPACTED_LIC_NUM_LENGTH) {
             tempLicStrs = tempLicStrs.substring(0, MAX_IMPACTED_LIC_NUM_LENGTH);
+            // If the string ends with a new line "/n", delete it
             if (tempLicStrs.endsWith(NEW_LINE)) {
               tempLicStrs = tempLicStrs.slice(0, -1);
             }

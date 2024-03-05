@@ -28,6 +28,7 @@ export class ValidationService {
       'error.mgs.primary.company.id': 'error.mgs.primary.company.id',
       'error.mgs.primary.contact.id': 'error.mgs.primary.contact.id',
       'error.mgs.6.numeric': 'error.mgs.6.numeric',
+      'error.mgs.8.numeric':'error.mgs.8.numeric',
       'error.mgs.regu.contact.id': 'error.mgs.regu.contact.id',
       'error.mgs.dossier.id': 'error.mgs.dossier.id',
       'error.mgs.licence.number': 'error.mgs.licence.number',
@@ -174,6 +175,18 @@ export class ValidationService {
       return {'error.mgs.6.numeric': true};
     }
   }
+
+  static numeric8Validator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{8}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.8.numeric': true};
+    }
+  }
+
 
   static dossierIdValidator(control) {
     if (!control.value) {

@@ -1,7 +1,7 @@
 <div>
     <div [formGroup]="appInfoFormLocalModel">
       <div class="row">
-        <div class="form-group col-xs-6 minWidth300" >
+        <div class="form-group col-sm-6 col-xs-12 " >
           <label for="companyId" class="required full-width" aria-required="true">
             <span class="field-name">{{'company.id'|translate}} {{'minNumber6'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -14,7 +14,7 @@
                    [formControl]="appInfoFormLocalModel.controls['companyId'] | formControl" maxlength="6" data-only-digits/>
           </label>
         </div>
-        <div class="form-group col-xs-6 minWidth300" >
+        <div class="form-group col-sm-5 col-xs-126 " >
           <label for="dossierId" class="required full-width" aria-required="true">
             <span class="field-name">{{'dossier.id'|translate}}  {{'minAlphanum7'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -106,7 +106,7 @@
         </div>
         </div>
       <div class="row">
-        <div class="form-group col-xs-6">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <fieldset class="chkbxrdio-grp" >
             <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
@@ -116,7 +116,7 @@
                 <control-messages *ngIf="appInfoFormLocalModel.controls['deviceClass'].invalid"
                     [showError]="showFieldErrors"
                     [control]="appInfoFormLocalModel.controls['deviceClass'] | formControl"
-                    controlId="deviceClass" label="device.class" parentId="transDetails"></control-messages>
+                    controlId="deviceClass" label="device.class" parentId="appInfoDetails"></control-messages>
             </legend>
               <div class="radio" *ngFor="let class of devClassList; let i = index">
                 <label aria-hidden="true" for="deviceClass{{i}}">
@@ -421,6 +421,10 @@
                   <div class="form-group col-xs-7" *ngIf="isIoa()">
                     <label for="authNum" class=" full-width">
                       <span class="field-name">{{'auth.id'|translate}}</span>
+                      <control-messages *ngIf="appInfoFormLocalModel.controls['authNum'].invalid"
+                      [showError]="showFieldErrors"
+                      [control]="appInfoFormLocalModel.controls['authNum'] | formControl"
+                      controlId="authNum" label="auth.id" parentId="appInfoDetails"> </control-messages>
                       <input id="authNum" name="authNum" class="form-control full-width"  (blur)="onblur()"
                             [formControl]="appInfoFormLocalModel.controls['authNum'] | formControl" maxlength="6" data-only-digits/>
                     </label>
@@ -438,9 +442,10 @@
             <h3 class="panel-title">{{'heading.devices'|translate}}</h3>
           </header>
           <div class="panel-body">
-            <!-- <device-list  (errors)="processDeviceErrors($event)"
+            <device-list  (errors)="processDeviceErrors($event)"
+                          [loadFileIndicator]="loadFileIndicator"
                           [showErrors]="showFieldErrors"
-                          [deviceModel]="deviceModel"></device-list> -->
+                          [deviceModel]="deviceModel"> </device-list>
           </div>
         </section>
       </div>
