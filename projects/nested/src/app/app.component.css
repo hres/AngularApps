@@ -1,0 +1,9 @@
+p {
+    font-family: Lato;
+  }
+  
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }

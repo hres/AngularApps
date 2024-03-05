@@ -1,0 +1,20 @@
+<div>
+    <div [formGroup]="generalInfoForm">
+      <div class="row">
+        <div class="form-group col-xs-12" >
+          <label for="companyName" class="required full-width">
+            <span class="field-name" >{{'company.name.full'|translate}}</span>
+            <strong class="required" >{{'commmon.required.bracket'|translate}}</strong> 
+            <control-messages *ngIf="generalInfoForm.controls['companyName'].invalid"
+                              [showError]="showFieldErrors"
+                              [control]="generalInfoForm.controls['companyName'] | formControl"
+                              controlId="companyName" label="company.name.full" parentId="addressDetails"></control-messages>
+            <input name="companyName" id="companyName" class="form-control full-width" 
+                   [formControl]="generalInfoForm.controls['companyName'] | formControl" maxlength="80"/>
+          </label>
+        </div>
+      </div>
+      <pre>{{generalInfoForm.value |json}}</pre>
+    </div>
+  </div>
+  

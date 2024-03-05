@@ -1,0 +1,105 @@
+<!-- <div *ngFor="let contact of contactsFormArr.controls; let j=index"> -->
+
+    <!-- <div [formGroupName]="j"> -->
+        ===showErrors:{{showErrors}}, j: {{j}}
+    <div [formGroup]="cRRow">
+      <span>ID: {{cRRow.controls['id'].value}}, isNew: {{cRRow.controls['isNew'].value}} </span>
+
+      <div formGroupName="contactInfo">
+      <div class="row">
+        <div class="form-group col-sm-6" >
+          <label for="statusText{{j}}" class="full-width">
+            <span class="field-name">{{'status' |translate}}
+            </span>
+            <!-- <control-messages *ngIf="isInternal && cRRow.controls['status'].invalid"
+                              [showError]="showErrors"
+                              [control]="cRRow.controls['status'] | formControl"
+                              controlId="status{{j}}" label="status" parentId="contactDetails"
+                              translatedParentLabel="{{translatedParentLabel}}"></control-messages> -->
+            <input name="statusText" id="statusText{{j}}" class="form-control"
+                   [readonly]="true" formControlName="status"/>
+            <!-- <input type="hidden" name="status" id="status{{j}}" class="form-control"
+                   formControlName="status"/> -->
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-sm-12" >
+          <label for="fullName{{j}}" class="required full-width">
+            <span class="field-name" >{{'full.name'|translate}}</span>
+            <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="cRRow.get('contactInfo.fullName').invalid"
+                              [showError]="showErrors"
+                              [control]="cRRow.get('contactInfo.fullName') | formControl"
+                              controlId="fullName{{j}}" label="full.name" parentId="contactDetails"
+                              translatedParentLabel="{{translatedParentLabel}}"></control-messages>
+            <input name="fullName" id="fullName{{j}}" class="form-control full-width" maxlength="45" formControlName="fullName" />
+          </label>
+        </div>
+      </div>
+
+        <div class="row">
+          <div class="form-group col-sm-4">
+            <label for="jobTitle{{j}}" class="required full-width">
+              <span class="field-name">{{'job.title'|translate}}</span>
+              <strong class="required" >{{'commmon.required.bracket'|translate}}</strong>
+              <control-messages *ngIf="cRRow.get('contactInfo.jobTitle').invalid"
+                                [showError]="showErrors"
+                                [control]="cRRow.get('contactInfo.jobTitle') | formControl"
+                                controlId="jobTitle{{j}}" label="job.title" parentId="contactDetails"
+                                translatedParentLabel="{{translatedParentLabel}}"></control-messages>
+              <input name="jobTitle" id="jobTitle{{j}}" class="form-control full-width" maxlength="45" formControlName="jobTitle" />
+            </label>
+        </div>
+      </div>
+    </div>
+      
+      <div class="row">
+        <div class="btn-group-sm col-xs-12 text-left">
+          <ul class="list-inline lst-spcd ">
+
+            <ng-container *ngIf="!isInternal && !isContactSetToRemove()">
+              <li *ngIf="isNewContact()">
+                <button class="btn btn-primary" (click)="saveContactRecord(j)">{{'save.contact'|translate}}</button>
+              </li>
+              <li *ngIf="!isNewContact()"> <!--this.contactRecordModel.pristine || -->
+                <button class="btn btn-default" (click)="setStatusToRevise(j)" [disabled]=" showErrorSummary()">{{'set.revise.status'|translate}}</button>
+              </li>
+              <li *ngIf="!isNewContact()">
+                <button class="btn btn-danger" (click)="setStatusToRemove(j)" [disabled]="showErrorSummary()">{{'set.remove.status'|translate}}</button>
+              </li>
+              <li *ngIf="isNewContact()">
+                <button class="btn btn-danger" (click)="deleteContactRecord(j)">{{'discard.record'|translate}}</button>
+              </li>
+              <li>
+                <button class="btn btn-default" (click)="revertContactRecord(j, cRRow.controls['id'].value)">{{'discard.changes'|translate}}</button>
+              </li>                                              
+            </ng-container>
+
+            <ng-container *ngIf="isInternal">
+              <li *ngIf="!isContactSetToRemove()">
+                <button class="btn btn-default" (click)="activeContactRecord(j)">{{'set.active.status'|translate}}</button>
+              </li>
+              <li *ngIf="isContactSetToRemove()">
+                <button class="btn btn-danger" (click)="deleteContactRecord(j)">{{'remove.contact'|translate}}</button>
+              </li> 
+              <li *ngIf="isNewContact()">
+                <button class="btn btn-danger" (click)="deleteContactRecord(j)">{{'discard.record'|translate}}</button>
+              </li>
+              <li>
+                <button class="btn btn-default" (click)="revertContactRecord(j, cRRow.controls['id'].value)">{{'discard.changes'|translate}}</button>
+              </li>                                                   
+            </ng-container>
+
+          </ul>
+          <!-- <button class="btn btn-primary" (click)="saveContactRecord(j)" >{{'save.contact'|translate}}</button>&nbsp;
+          <button class="btn btn-default" (click)="activeContactRecord(j)" >{{'set.active.status'|translate}}</button>&nbsp;
+          <button class="btn btn-danger" (click)="deleteContactRecord(j)" >{{'remove.contact'|translate}}</button>&nbsp;
+          <button class="btn btn-default" (click)="revertContactRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button> -->
+        </div>
+      </div>
+
+    </div>
+
+  <!-- </div> -->

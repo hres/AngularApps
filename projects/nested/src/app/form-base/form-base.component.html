@@ -1,0 +1,78 @@
+  <!-- <button (click)="addNewCompany()">Add new Company</button><br><br> -->
+  <div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
+  <!-- <form [formGroup]="myForm"> -->
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">Section A</h2>
+        </header>
+        <div class="panel-body">
+          <div>
+            <button class="btn btn-default btn-lg active" (click)="processFile(null)" >
+              Load Mock Data
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'heading.company'|translate}}</h2>
+        </header>
+        <div class="panel-body">
+          <com-gen-info [genInfoModel]="genInfoModel">
+            </com-gen-info>
+
+            <!-- [showErrors]="showErrors" [isInternal]="isInternal"
+                              [lang]="lang"
+                              [genInfoModel]="genInfoModel"
+                              [helpTextSequences]="helpIndex"
+                              [enrollmentStatusesList]="enrollmentStatusList"
+                              (updatedGenInfo)="processGenInfoUpdates($event)"
+                              (errorList)="processGenInfoErrors($event)" -->
+            <div>
+            <section class="panel  panel-default">
+              <header class="panel-heading clearfix">
+                <h3 class="panel-title">{{'heading.contactInfo'|translate}}</h3>
+              </header>
+              <div class="panel-body">
+                <app-contact-list [contactListData]="contactModel" >
+                </app-contact-list>
+              </div>
+            </section>
+            </div>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <section class="panel  panel-default">
+        <header class="panel-heading clearfix">
+          <h3 class="panel-title">{{'contact.designation'|translate}}</h3>
+        </header>
+        <div class="panel-body">
+          <primary-contact></primary-contact>
+        </div>
+      </section>
+    </div>
+
+    <div class="row btn-group-sm">
+      <div class="form-group col-md-4">
+        <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" >
+          {{'save.working.copy'|translate}}
+        </button>
+      </div>
+      <div class="form-group col-md-4">
+        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
+          <!-- [disabled]="isExternalAndFinal()" {{saveXmlLabel|translate}} -->Save XML
+        </button>
+      </div>
+    </div>
+    
+  <!-- </form> -->
+  <!-- <pre>myForm <br/> {{myForm.value | json}}</pre> -->
+  <pre>Data {{enrollModel|json}}</pre>
+</div>
+  

@@ -3,7 +3,7 @@
     <header class="panel-heading">
       @if(recordRow.get('isNew').value){
       <h4 class="panel-title">
-        {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }}
+        {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }}
       </h4>
       } @else {
       <div role="button">
@@ -14,11 +14,11 @@
 
           <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'"
             aria-hidden="true"></i>
-          @if (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) {
-          {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }} -
-          {{recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value}}
+          @if (accordionHeadingSupp!=null && recordRow.get(accordionHeadingSupp[0])!=null) {
+            {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }} -
+            {{recordRow.get(accordionHeadingSupp[0])?.value}}
           }@else {
-          {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber').value} }}
+            {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }}
           }
         </h4>
       </div>

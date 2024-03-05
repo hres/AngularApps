@@ -1,0 +1,33 @@
+<form [formGroup]="contactListForm">
+  <div formArrayName="contacts">
+    <lib-accordion [rowsFormArray]="contactsFormArr" [accordionHeadingMsgKey]="'heading.contactDetails'" [accordionHeadingSupp]="['fullName']" 
+    (rowClicked)="handleRowClick($event)">
+  
+    <ng-template #tmpl let-recordRow let-idx="i">
+      <!-- ==={{recordRow.get('id').value}}===
+      === index = {{idx}} ,  === -->
+      <app-contact-item [cRRow]="recordRow" [j]="idx" (saveRecord)="saveContactRecord($event)"
+        (deleteRecord)="deleteContactRecord($event)" (revertRecord)="revertContact($event)">
+      </app-contact-item>
+      <!-- <company-contact-record 
+        [cRRow]="recordRow" [isInternal]="isInternal"
+        [languageList]="languageList" [contactStatusList]="contactStatusList" [showErrors]="showErrors" [lang]="lang"
+        [helpTextSequences]="helpTextSequences" (saveRecord)="saveContactRecord($event)"
+        (errors)="updateErrorList($event)" (revertRecord)="revertContact($event)"
+        (deleteRecord)="deleteContact($event)"></company-contact-record> -->
+    </ng-template>
+  
+  </lib-accordion>
+
+  <div class="row mrgn-tp-md mrgn-bttm-lg">
+    <div class="btn-group-sm col-md-12 text-left">
+      <button class="btn btn-primary" (click)="addContact()" id="addContactBtn" > <!--[disabled]="disableAddButton()"-->
+        {{'add.repres'|translate}}
+      </button>
+    </div>
+  </div>
+  
+  <!-- <button (click)="coaddNewContact(comp.get('projects'))">Add new Project</button> -->
+  <pre>{{contactListForm.value | json}}</pre>
+  </div>
+</form>
