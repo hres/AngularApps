@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Enrollment, DeviceCompanyEnrol } from '../models/Enrollment';
+import { Enrollment, DeviceCompanyEnrol, GeneralInformation, Contacts, DemoContact } from '../models/Enrollment';
 
 @Injectable()
 export class FormBaseService {
@@ -83,6 +83,34 @@ export class FormBaseService {
       }
       }
     }
+  }
+
+  map1(generalInfoFormValue) : GeneralInformation {
+    let generalInformation: GeneralInformation = {
+      are_licenses_transfered: generalInfoFormValue.areLicensesTransfered
+    }
+    return generalInformation;
+  }
+
+  map2(formValues) : DemoContact[] {
+    let contacts: DemoContact[] = [];
+
+    formValues.map((contact: any) => {
+      // console.log(contact);
+      contacts.push(this.xToY(contact))
+    })
+
+    return contacts;
+  }
+
+  xToY(x): DemoContact{
+    let y: DemoContact = {
+      id: x.id,
+      status: x.contactInfo.status,
+      full_name: x.contactInfo.fullName,
+      job_title: x.contactInfo.jobTitle
+    }
+    return y;
   }
 
   mapContactsFormArrayValuesToOutputData(formValues: any) {

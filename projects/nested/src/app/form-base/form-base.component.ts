@@ -16,16 +16,17 @@ import { CompanyInfoComponent } from '../company-info/company.info.component';
     templateUrl: './form-base.component.html',
     styleUrl: './form-base.component.css',
     imports: [CommonModule, ReactiveFormsModule, TranslateModule, ContactListComponent, PrimaryContactComponent, CompanyInfoComponent],
-    providers: [FormBaseService, UtilsService],
+    providers: [FormBaseService, UtilsService, FileConversionService],
     encapsulation: ViewEncapsulation.None    
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
  
+  @ViewChild(CompanyInfoComponent) companyInfoComponent: CompanyInfoComponent;
   @ViewChild(ContactListComponent) contactListComponent: ContactListComponent;
 
   myForm: FormGroup;
 
-  public enrollModel : Enrollment;
+  public enrollModel: Enrollment;
   genInfoModel: GeneralInformation;
   contactModel: DemoContact[]; 
 
@@ -34,15 +35,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public rootTagText = "TEST_ENROL";
   public loadFileIndicator: boolean = false;
 
-  public fileServices: FileConversionService;
-
-  public activeContacts: string[] = [];
-
+  // public activeContacts: string[] = [];
   // private activeContactStatuses: string[] = [ContactStatus.New, ContactStatus.Revise , ContactStatus.Active];
 
   formBaseService = inject(FormBaseService)
   
-  constructor(private cdr: ChangeDetectorRef, private fb: FormBuilder, private _globalService: GlobalService,) {
+  constructor(private cdr: ChangeDetectorRef, private fb: FormBuilder,  private _fileService: FileConversionService, private _globalService: GlobalService, private _utilsService: UtilsService) {
     // this.myForm = this.formBaseService.createMyFormGroup(this.fb);
   }
 
@@ -74,6 +72,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.contactModel = Array.isArray(tContacts) ? tContacts : [tContacts];
   }
 
+  private _buildfileName() {
+    const date_generated = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    // if (this.isInternal) {
+    //   return 'final-com-' + this.genInfoModel.company_id + '-' + date_generated;
+    // } else if (this.genInfoModel.status._id === EnrollmentStatus.Amend) {
+    //   return 'draft-com-' + this.genInfoModel.company_id + '-' + date_generated;
+    // } else {
+      return 'draft-com-' + date_generated;
+    // }
+  }
+
   public saveXmlFile() {
     console.log("saveXmlFile", this.errorList.length)
     // set the showErrors flag
@@ -87,17 +96,25 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveWorkingCopyFile() {
-    // const result = this._prepareForSaving(false);
-    // const fileName = this._buildfileName();
-    // this._fileService.saveJsonToFile(result, fileName, null);
+    const result = this._prepareForSaving(false);
+    const fileName = this._buildfileName();
+    this._fileService.saveJsonToFile(result, fileName, null);
   }  
 
   private _prepareForSaving(xmlFile: boolean): Enrollment {
-    
-    const contactsFormArrValue = this.contactListComponent.getContactsFormArrValues();
-    console.log(contactsFormArrValue);
 
-    return null;
+    const companyInfoFormGroupValue = this.companyInfoComponent.generalInfoForm.value;
+    const contactsFormArrValue = this.contactListComponent.getContactsFormArrValues();
+
+    let output: Enrollment = { 
+      TEST_ENROL: {
+        general_information: this.formBaseService.map1(companyInfoFormGroupValue),
+        contacts: {contact: this.formBaseService.map2(contactsFormArrValue)},
+      },
+    };
+    console.log(output);
+
+    return output;
   }
 
   public processFile(fileData: ConvertResults) {
