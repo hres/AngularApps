@@ -21,8 +21,8 @@ import { ApplicationInfo, DeviceTransactionEnrol, Enrollment, TransFees } from '
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
-  @Input() lang;
-  @Input() helpTextSequences;
+  lang: string;
+  helpIndex: { [key: string]: number }; 
 
   private _transactionDetailErrors = [];
   private _transFeeErrors = [];
@@ -30,19 +30,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public showErrors: boolean;
   public errorList = [];
   public rootTagText = ROOT_TAG; 
-  private xslName: string;
-  
-  public title = '';
+    
   public headingLevel = 'h2';
 
   public enrollModel : Enrollment;
   public transactionInfoModel : ApplicationInfo;; 
   public transFeeModel: TransFees;
-  // public transFeeModel = TransactionBaseService.getEmptyTransactionFeeModel();
   public fileServices: FileConversionService;
-  public helpIndex: { [key: string]: number };
 
-  /* public customSettings: TinyMce.Settings | any;*/
   constructor(
     private cdr: ChangeDetectorRef, private fb: FormBuilder,
     private _baseService: TransactionBaseService,
@@ -54,10 +49,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     this.showErrors = false;    
     this.fileServices = new FileConversionService();
-    this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + '.xsl';
   }
 
   ngOnInit() {
+    this.lang = this._globalService.getCurrLanguage();
+    this.helpIndex = this._globalService.getHelpIndex();
+    
     // this means it's associated with a reactive form, and Angular automatically prevents the default form submission behavior
     this.transactionForm = this.fb.group({}); 
 
@@ -116,7 +113,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     } else {
       const result: Enrollment = this._prepareForSaving(true);
       const fileName: string = this._buildfileName(result);
-      this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
+      const xslName: string = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + '.xsl';
+      this._fileService.saveXmlToFile(result, fileName, true, xslName);
     }
   }
 

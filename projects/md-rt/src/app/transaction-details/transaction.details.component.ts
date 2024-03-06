@@ -3,7 +3,7 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder, FormArray, FormControl, AbstractControl} from '@angular/forms';
-import { CheckboxOption, ControlMessagesComponent, ConverterService, ICode, ICodeAria, IParentChildren, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, CheckboxOption, ControlMessagesComponent, ConverterService, ICode, ICodeAria, IParentChildren, UtilsService } from '@hpfb/sdk/ui';
 import {TransactionDetailsService} from './transaction.details.service';
 import { GlobalService } from '../global/global.service';
 import { ActivityType, AmendReason, DeviceClass, TransactionDesc } from '../app.constants';
@@ -14,16 +14,15 @@ import { ActivityType, AmendReason, DeviceClass, TransactionDesc } from '../app.
   encapsulation: ViewEncapsulation.None
 })
 
-export class TransactionDetailsComponent implements OnInit, OnChanges, AfterViewInit {
+export class TransactionDetailsComponent extends BaseComponent implements OnInit, OnChanges  {
 
   public transDetailsFormLocalModel: FormGroup;
   @Input() showErrors: boolean;
   @Input() transactionInfoModel;
-  @Input() lang;
-  @Input() helpIndex; 
+  lang: string;
+  helpIndex: { [key: string]: number }; 
+
   @Output() detailErrorList = new EventEmitter(true);
-  
-  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public actTypeList: ICode[] = [];
   public transDescList: ICode[] = [];
@@ -42,6 +41,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
 
   constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
     private _utilsService: UtilsService, private _converterService: ConverterService, private cdr: ChangeDetectorRef) {
+    
+    super();
     this.showFieldErrors = false;
     this.showErrors = false;
     this.showDate = false;
@@ -53,6 +54,8 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
   }
 
   ngOnInit() {
+    this.lang = this._globalService.getCurrLanguage();
+    this.helpIndex = this._globalService.getHelpIndex();
     this.actTypeList = this._globalService.$activityTypeList;
     this.deviceClassList = this._globalService.$deviceClasseList;
     this.yesNoList = this._globalService.$yesnoList;
@@ -61,28 +64,9 @@ export class TransactionDetailsComponent implements OnInit, OnChanges, AfterView
     this.activityTypeTxDescArray = this._globalService.$activityTypeTxDescription;
   }
 
-  ngAfterViewInit() {
-    this.msgList.changes.subscribe(errorObjs => {
-      const temp = [];
-      this._updateErrorList(errorObjs);
-    });
-    this.msgList.notifyOnChanges();
-
+  protected override emitErrors(errors: any[]): void {
+    this.detailErrorList.emit(errors);
   }
-
-  private _updateErrorList(errorObjs) {
-    const temp = [];
-    if (errorObjs) {
-      errorObjs.forEach(
-        error => {
-          temp.push(error);
-        }
-      );
-    }
-    this.detailErrorList.emit(temp);
-
-  }
-
 
   ngOnChanges(changes: SimpleChanges) {
 

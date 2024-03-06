@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren, ViewEncapsulation} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ControlMessagesComponent, ICode, YES } from '@hpfb/sdk/ui';
+import { BaseComponent, ICode, YES } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { TransactionFeeService } from './transaction.fee.service';
 
@@ -10,24 +10,23 @@ import { TransactionFeeService } from './transaction.fee.service';
   encapsulation: ViewEncapsulation.None
 
 })
-export class TransactionFeeComponent implements OnInit, OnChanges, AfterViewInit{
+export class TransactionFeeComponent extends BaseComponent implements OnInit, OnChanges, AfterViewInit{
 
   public transFeeFormLocalModel: FormGroup;
-  // @Input('group') public transFeeFormRecord: FormGroup;
-  // @Input() detailsChanged: number;
+
   @Input() showErrors: boolean;
   @Input() transFeeModel;
-  @Input() lang;
-  @Output() feeErrorList = new EventEmitter(true);
-  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  lang: string;
 
-  // For the searchable select box, only accepts/saves id and text.
-  // Will need to convert
+  @Output() feeErrorList = new EventEmitter(true);
+
   public yesNoList: ICode[] = [];
   public showFieldErrors = false;
 
   constructor(private _fb: FormBuilder, private _feeService:TransactionFeeService, private _globalService: GlobalService,
               private cdr: ChangeDetectorRef) {
+
+    super();                
     this.showFieldErrors = false;
     this.showErrors = false;
 
@@ -36,33 +35,13 @@ export class TransactionFeeComponent implements OnInit, OnChanges, AfterViewInit
     }
   }
 
-  async ngOnInit() {
-    // this.detailsChanged = 0;
+  ngOnInit() {
     this.yesNoList = this._globalService.$yesnoList;
   }
 
-  ngAfterViewInit() {
-    this.msgList.changes.subscribe(errorObjs => {
-      let temp = [];
-      this._updateErrorList(errorObjs);
-    });
-    this.msgList.notifyOnChanges();
-
+  protected override emitErrors(errors: any[]): void {
+    this.feeErrorList.emit(errors);
   }
-
-  private _updateErrorList(errorObjs) {
-    let temp = [];
-    if (errorObjs) {
-      errorObjs.forEach(
-        error => {
-          temp.push(error);
-        }
-      );
-    }
-    this.feeErrorList.emit(temp);
-
-  }
-
 
   ngOnChanges(changes: SimpleChanges) {
 
