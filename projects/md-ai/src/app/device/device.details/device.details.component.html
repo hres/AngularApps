@@ -50,7 +50,7 @@
                               controlId="licenceNum{{recordId}}" label="licence.application.number" parentId="deviceDetails"
                               parentLabel="Interdependent Device">
             </control-messages>
-            <input id="licenceNum{{recordId}}" name="licenceNum" class="form-control" only-digits maxlength="6"
+            <input id="licenceNum{{recordId}}" name="licenceNum" class="form-control" data-only-digits maxlength="6"
                    [formControl]="deviceRecord.controls['licenceNum'] | formControl" minlength="6" required/>
           </label>
         </div>
@@ -85,7 +85,7 @@
                               parentLabel="Interdependent Device">
             </control-messages>
             <input id="deviceApplicationNumber{{recordId}}" name="deviceApplicationNumber" class="form-control" required
-                   only-digits maxlength="6" minlength="6" [formControl]="deviceRecord.controls['deviceApplicationNumber'] | formControl"/>
+                   data-only-digits maxlength="6" minlength="6" [formControl]="deviceRecord.controls['deviceApplicationNumber'] | formControl"/>
           </label>
         </div>
   
