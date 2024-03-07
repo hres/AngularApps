@@ -27,6 +27,7 @@ export class ValidationService {
       'error.mgs.contact.id': 'error.mgs.contact.id',
       'error.mgs.primary.company.id': 'error.mgs.primary.company.id',
       'error.mgs.primary.contact.id': 'error.mgs.primary.contact.id',
+      'error.mgs.5.numeric': 'error.mgs.5.numeric',
       'error.mgs.6.numeric': 'error.mgs.6.numeric',
       'error.mgs.regu.contact.id': 'error.mgs.regu.contact.id',
       'error.mgs.dossier.id': 'error.mgs.dossier.id',
