@@ -9,8 +9,8 @@ export class FormDataLoaderService {
 
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private deviceClassesJsonPath = DATA_PATH + 'deviceClasses.json';
-  private regulatoryActivityTypesJsonPath = DATA_PATH + 'regulatoryActivityTypes.json';
-  private transDescsJsonPath = DATA_PATH + 'transactionDescriptions.json';
+  private regulatoryActivityTypesJsonPath = DATA_PATH + 'raTypes.json';
+  private transDescsJsonPath = DATA_PATH + 'txDescriptions.json';
   private raTypeTxDescJsonPath = DATA_PATH + 'raTypeTxDescription.json';
   private amendReasonsJsonPath = DATA_PATH + 'amendReasons.json';
   private amendReasonRelationshipJsonPath = DATA_PATH + 'raTypeDeviceClassAmendReason.json';

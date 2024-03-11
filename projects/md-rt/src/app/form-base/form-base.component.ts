@@ -9,6 +9,8 @@ import { AppFormModule } from '../app.form.module';
 import { TransactionBaseService } from './transaction-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { ApplicationInfo, DeviceTransactionEnrol, Enrollment, TransFees } from '../models/Enrollment';
+import { TransactionDetailsComponent } from '../transaction-details/transaction.details.component';
+import { TransactionFeeComponent } from '../transaction-fee/transaction.fee.component';
 
 @Component({
   selector: 'app-form-base',
@@ -38,13 +40,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public transFeeModel: TransFees;
   public fileServices: FileConversionService;
 
+  @ViewChild(TransactionDetailsComponent) detailsComponent: TransactionDetailsComponent;
+  @ViewChild(TransactionFeeComponent) feeComponent: TransactionFeeComponent;
+
   constructor(
     private cdr: ChangeDetectorRef, private fb: FormBuilder,
     private _baseService: TransactionBaseService,
-    private _fileService: FileConversionService, private _utilsService: UtilsService, private _globalService: GlobalService,
+    private _fileService: FileConversionService, private _globalService: GlobalService,
     private _versionService: VersionService,
-    private _checkSumService: CheckSumService,
-    private _converterService: ConverterService
+    private _checkSumService: CheckSumService
   ) {
 
     this.showErrors = false;    
@@ -83,7 +87,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processErrors() {
-    // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
+    // console.log('@@@@@@@@@@@@ processErrors');
     this.errorList = [];
     // concat the error arrays
     this.errorList = this._transactionDetailErrors.concat(this._transFeeErrors);
@@ -125,16 +129,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _prepareForSaving(xmlFile: boolean): Enrollment {
-    const output: Enrollment = {
-       'DEVICE_TRANSACTION_ENROL': {
-         'template_version': this._globalService.$appVersion,
-         'application_info': this.transactionInfoModel,
-         'transFees': this.transFeeModel
-        }
-    };
+    const detailsFormGroupValue = this.detailsComponent.transDetailsForm.value;
+    const feeFormGroupValue = this.feeComponent.transFeeForm.value;
 
-    // update the last_saved_date
-    output.DEVICE_TRANSACTION_ENROL.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    const output: Enrollment = this._baseService.mapFormToOutput(detailsFormGroupValue, feeFormGroupValue);
+
     if (xmlFile) {
       // add and calculate check_sum if it is xml
       output.DEVICE_TRANSACTION_ENROL.check_sum = "";   // this is needed for generating the checksum value

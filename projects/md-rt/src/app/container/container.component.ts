@@ -85,7 +85,7 @@ export class ContainerComponent implements OnInit {
   }
 
   /*
-  arr1:  [{"afId": "B02-20160301-033","txDescIds": ["INITIAL","UD"]}, ...]
+  arr1:  [{"raTypeId": "B02-20160301-033","txDescIds": ["INITIAL","UD"]}, ...]
   arr2: [{"id": "INITIAL","en": "Initial","fr": "Initiale"}, ...]
 
   returns:[
@@ -110,7 +110,7 @@ export class ContainerComponent implements OnInit {
     // console.log(arr1, arr2);
 
     const combinedData = arr1.map((item) => ({
-      parentId: item.afId,
+      parentId: item.raTypeId,
       children: arr2.filter((x) => {
         return item.txDescIds.includes(x.id);
       }),

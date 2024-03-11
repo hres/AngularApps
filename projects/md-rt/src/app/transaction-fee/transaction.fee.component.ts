@@ -8,18 +8,17 @@ import { TransactionFeeService } from './transaction.fee.service';
   selector: 'transaction-fee',
   templateUrl: 'transaction.fee.component.html',
   encapsulation: ViewEncapsulation.None
-
 })
+
 export class TransactionFeeComponent extends BaseComponent implements OnInit, OnChanges, AfterViewInit{
 
-  public transFeeFormLocalModel: FormGroup;
+  public transFeeForm: FormGroup;
 
   @Input() showErrors: boolean;
   @Input() transFeeModel;
-  lang: string;
-
   @Output() feeErrorList = new EventEmitter(true);
 
+  lang: string;
   public yesNoList: ICode[] = [];
   public showFieldErrors = false;
 
@@ -30,8 +29,8 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
     this.showFieldErrors = false;
     this.showErrors = false;
 
-    if (!this.transFeeFormLocalModel) {
-      this.transFeeFormLocalModel = this._feeService.getReactiveModel(this._fb);
+    if (!this.transFeeForm) {
+      this.transFeeForm = this._feeService.getReactiveModel(this._fb);
     }
   }
 
@@ -44,20 +43,7 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
-    // since we can't detect changes on objects, using a separate flag
-    // if (changes['detailsChanged']) { // used as a change indicator for the model
-    //   // console.log("the details cbange");
-    //   if (this.transFeeFormRecord) {
-    //     this.setToLocalModel();
-
-    //   } else {
-    //     this.transFeeFormLocalModel = this._feeService.getReactiveModel(this._fb);
-    //     this.transFeeFormLocalModel.markAsPristine();
-    //   }
-    // }
     if (changes['showErrors']) {
-
       this.showFieldErrors = changes['showErrors'].currentValue;
       let temp = [];
       if (this.msgList) {
@@ -68,47 +54,26 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
       }
       this.feeErrorList.emit(temp);
     }
-    // if (changes['transFeeFormLocalModel']) {
-    //   console.log('**********the Transaction fees changed');
-    //   this.transFeeFormRecord = this.transFeeFormLocalModel;
-    // }
+
     if (changes['transFeeModel']) {
       const dataModel = changes['transFeeModel'].currentValue;
-      if (!this.transFeeFormLocalModel) {
-        this.transFeeFormLocalModel = this._feeService.getReactiveModel(this._fb);
-        this.transFeeFormLocalModel.markAsPristine();
+      if (!this.transFeeForm) {
+        this.transFeeForm = this._feeService.getReactiveModel(this._fb);
+        this.transFeeForm.markAsPristine();
       }
-      this._feeService.mapDataModelToFormModel(dataModel, (<FormGroup>this.transFeeFormLocalModel));
+      this._feeService.mapDataModelToFeeForm(dataModel, (<FormGroup>this.transFeeForm));
     }
   }
 
-  /**
-   * Uses the updated reactive forms model locally
-   */
-
-  // setToLocalModel() {
-  //   this.transFeeFormLocalModel = this.transFeeFormRecord;
-  //   if (!this.transFeeFormLocalModel.pristine) {
-  //     this.transFeeFormLocalModel.markAsPristine();
-  //   }
-  // }
-
-  onblur() {
-    // console.log('input is typed');
-    this._feeService.mapFormModelToDataModel((<FormGroup>this.transFeeFormLocalModel),
-      this.transFeeModel);
-  }
-
-
   hasFeeYes() {
-    if (this.transFeeFormLocalModel.controls['hasFees'].value) {
-      if (this.transFeeFormLocalModel.controls['hasFees'].value === YES) {
+    if (this.transFeeForm.controls['hasFees'].value) {
+      if (this.transFeeForm.controls['hasFees'].value === YES) {
         return true;
       } else {
-        this.transFeeFormLocalModel.controls['billCompanyId'].setValue(null);
-        this.transFeeFormLocalModel.controls['billCompanyId'].markAsUntouched();
-        this.transFeeFormLocalModel.controls['billContactId'].setValue(null);
-        this.transFeeFormLocalModel.controls['billContactId'].markAsUntouched();
+        this.transFeeForm.controls['billCompanyId'].setValue(null);
+        this.transFeeForm.controls['billCompanyId'].markAsUntouched();
+        this.transFeeForm.controls['billContactId'].setValue(null);
+        this.transFeeForm.controls['billContactId'].markAsUntouched();
       }
     }
     return false;
