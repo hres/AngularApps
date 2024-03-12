@@ -35,6 +35,7 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
     public yesNoList: ICode[] = [];
     public showFieldErrors = false;
     public licenceModel = [];  // todo: clean up licence model code to remove it
+    public maxImpactedLicencesLength = MAX_IMPACTED_LIC_NUM_LENGTH;
     private adminChangesService: CompanyAdminChangesService;
     amendReasonDefs: string[] = [];
   
