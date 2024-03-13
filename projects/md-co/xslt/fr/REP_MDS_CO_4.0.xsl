@@ -564,7 +564,7 @@ span.normalWeight {
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<strong>Tous les numéros de licence concernée(s):&#160;</strong>
+									<strong>Tous les numéros de licence concernée(s) (Placez un retour entre chaque numéro d'homologation):&#160;</strong>
 								</div>
 							</div>
 							<div class="row">
@@ -607,7 +607,7 @@ span.normalWeight {
 	<xsl:template match="contacts/contact">
 		<section class="panel panel-default" >
 			<div class="panel-heading">
-				<h2 class="panel-title">Représentant de la compagnie #&#160;<xsl:value-of select="id + 1"/></h2>
+				<h2 class="panel-title">Représentant de la compagnie&#160;<xsl:value-of select="id + 1"/></h2>
 			</div>
 			<div class="panel-body">
 				<div class="row">

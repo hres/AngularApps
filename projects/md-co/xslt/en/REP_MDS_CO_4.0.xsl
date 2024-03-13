@@ -423,7 +423,7 @@ span.normalWeight {
 							<tr>
 								<td style="text-align: center;font-weight:bold;">Enrolment Status</td>
 								<td style="text-align: center;font-weight:bold;">Enrolment Version</td>
-								<td style="text-align: center;font-weight:bold;">Date generated</td>
+								<td style="text-align: center;font-weight:bold;">Date Generated</td>
 								<td style="text-align: center;font-weight:bold;">Company Identifier</td>
 							</tr>
 							<tr>
@@ -520,7 +520,7 @@ span.normalWeight {
 												Postal Code
 											</xsl:when>
 											<xsl:otherwise>
-												Postal/Zip Code
+												Postal/Zip Code (Use "not applicable" if not available)
 											</xsl:otherwise>
 										</xsl:choose>:&#160;
 										</strong>
@@ -564,7 +564,7 @@ span.normalWeight {
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<strong>All impacted licence number(s):&#160;</strong>
+									<strong>All Impacted Licence Number(s) (Hard return between licence numbers):&#160;</strong>
 								</div>
 							</div>
 							<div class="row">
