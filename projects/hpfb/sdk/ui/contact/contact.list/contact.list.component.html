@@ -2,13 +2,21 @@
   <!--<lib-error-summary *ngIf="showErrorsSummary()" [hiddenSummary]="showErrorsSummary()"-->
   <!--[errorList]="errorList" headingPreamble="heading.contactInfo"-->
   <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></lib-error-summary>-->  
-  
+  <control-messages *ngIf="contactList.invalid"
+                    [showError]="showErrors"
+                    [control]="contactList | formControl"
+                    label="error.msg.contact.one.record"
+                    type="least_one_rec_error"
+                    tableId="contactListTable"
+                    [hidden]="true">
+  </control-messages>
   <lib-accordion [rowsFormArray]="contactList" [accordionHeadingMsgKey]="'heading.contactDetails'" [accordionHeadingSupp]="['contactDetails', 'fullName']" 
     (rowClicked)="handleRowClick($event)">
 
     <ng-template #tmpl let-recordRow let-idx="i">
       <!-- ==={{recordRow.get('id').value}}=== -->
       <!-- === index = {{idx}} ,  === -->
+      <!-- (errors)="updateErrorList($event)" -->
       <company-contact-record 
         [cRRow]="recordRow" [isInternal]="isInternal"
         [languageList]="languageList" [contactStatusList]="contactStatusList" [showErrors]="showErrors" [lang]="lang"

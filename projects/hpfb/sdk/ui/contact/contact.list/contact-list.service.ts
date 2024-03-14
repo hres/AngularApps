@@ -9,7 +9,7 @@ import { Contact } from '../../model/entity-base';
 import { Observable, Subject } from 'rxjs';
 import { EntityBaseService } from '../../model/entity-base.service';
 import { ContactStatus } from '../../common.constants';
-import { UtilsService } from '../../public-api';
+import { UtilsService, ValidationService } from '../../public-api';
 
 @Injectable()
 export class ContactListService extends RecordListBaseService implements RecordListServiceInterface {
@@ -71,7 +71,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
 
   public getReactiveModel(fb: FormBuilder): FormGroup {
     return fb.group({
-      contacts: fb.array([])
+      contacts: fb.array([], [ValidationService.atLeastOneRecord])
     });
   }
 

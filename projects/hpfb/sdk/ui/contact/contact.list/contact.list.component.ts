@@ -16,6 +16,7 @@ import { Contact } from '../../model/entity-base';
 import { Subscription } from 'rxjs';
 import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } from '../../error-msg/error-summary/error-summary-object';
 import { ErrorNotificationService } from '../../error-msg/error.notification.service';
+import { ControlMessagesComponent } from '../../public-api';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
@@ -41,10 +42,12 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
 
   @ViewChild(CompanyContactRecordComponent, {static: true}) companyContactChild: CompanyContactRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
+  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   private errorSummaryChild = null;
   public contactListForm: FormGroup;
-  public errorList = [];
+  public errorList = []; // Error list from company contact rec component
+  public localErrorList = []; // Error list for contact list - list level
 
   private contactModelChangesSubscription: Subscription;
   
@@ -73,6 +76,11 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     this._errorNotificationService.errorSummaryChanged$.subscribe((errors) => {
       this._processErrorSummaries(errors);
     });
+
+    this.msgList.changes.subscribe(errorObjs => {
+      this._updateLocalErrorList(errorObjs);
+    });
+    this.msgList.notifyOnChanges();
 
     // when contactModel changes, check if "at least one company record" rule is met and then execute emitting
     this.contactModelChangesSubscription = this._listService.contactModelChanges$.subscribe(changes => {
@@ -136,6 +144,18 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     }
     if (changes['contactStatusList']) {
       this.initWithData();
+    }
+    if (changes['showErrors']) {
+      this.showErrors = changes['showErrors'].currentValue;
+      let temp = [];
+      if (this.msgList) {
+        this.msgList.forEach(item => {
+          temp.push(item);
+        });
+      }
+      //console.log(temp);
+      this.localErrorList = temp;
+      this._emitErrors(true);
     }
       
   }
@@ -232,6 +252,20 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       } 
     }     
   }
+
+  private _updateLocalErrorList(errs) {
+    console.log("updateErrorList", errs)
+    if (errs) {
+      errs.forEach(err => {
+       this.localErrorList.push(err);
+      });
+    } 
+    if (errs.length == 0) {
+      this.localErrorList = errs;
+    }
+
+    this._emitErrors(false); // needed or will generate a valuechanged error
+  }
   /**
    *  Updates the error list
    * @param errs - the list of errors to broadcast
@@ -253,7 +287,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * Emits errors to higher level error summaries. Used for linking summaries
    * @private
    */
-  private _emitErrors(checkErrorSummary: boolean): void {
+  private _emitErrors(checkErrorSummary: boolean, errList? : []): void {
+    // console.log("emit errors", this.errorList);
     let emitErrors = [];
     // adding the child errors
     // if (this.errorList) { //  && !this.isInternal
@@ -265,14 +300,21 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (checkErrorSummary && this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
     }
-    if (!this.isInternal && this._noNonRemoveRecords(this.contactModel)) {
-      const oerr: ErrorSummaryObject = getEmptyErrorSummaryObj();
-      oerr.index = 0;
-      oerr.tableId = 'contactListTable';
-      oerr.type = ERR_TYPE_LEAST_ONE_REC;
-      oerr.label = 'error.msg.contact.one.record';
-      emitErrors.push(oerr);
+    
+    // Error List is a QueryList type
+    if (this.localErrorList) {
+      this.localErrorList.forEach(err => {
+        emitErrors.push(err);
+      })
     }
+    // if (!this.isInternal && this._noNonRemoveRecords(this.contactModel)) {
+    //   const oerr: ErrorSummaryObject = getEmptyErrorSummaryObj();
+    //   oerr.index = 0;
+    //   oerr.tableId = 'contactListTable';
+    //   oerr.type = ERR_TYPE_LEAST_ONE_REC;
+    //   oerr.label = 'error.msg.contact.one.record';
+    //   emitErrors.push(oerr);
+    // }
     this.errors.emit(emitErrors);
   }
 

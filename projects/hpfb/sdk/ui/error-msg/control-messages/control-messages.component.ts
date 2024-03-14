@@ -47,6 +47,12 @@ export class ControlMessagesComponent implements OnChanges {
    */
   @Input() index: Number;
 
+  /**
+   * Inputs for table level
+   */
+  @Input() tableId: string;
+  @Input() type: string;
+
    /**
    * Number of error from error summary
    */
