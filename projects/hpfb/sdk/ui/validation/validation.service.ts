@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { ContactStatus } from '../common.constants';
 
 @Injectable()
@@ -37,6 +37,7 @@ export class ValidationService {
       'error.mgs.npn': 'error.mgs.npn',
       'error.msg.remove.contact' : 'error.msg.remove.contact',
       'error.msg.revise.contact' : 'error.msg.revise.contact',
+      'error.msg.invalidDate': 'error.msg.invalidDate',
     };
 
     return config[validatorName];
@@ -286,6 +287,7 @@ export class ValidationService {
   }
 
   static atLeastOneCheckboxSelected(formArray: FormArray) {
+    console.log("atLeastOneCheckboxSelected===");  
     // return (): { [key: string]: boolean } | null => {
       const controls = formArray.controls;
   
@@ -295,5 +297,22 @@ export class ValidationService {
       // Return validation error if none are selected
       return isAtLeastOneSelected ? null : { 'required': true };
     // };
+  }
+
+  static dateValidator(control: AbstractControl) {
+    const enteredDate = new Date(control.value);
+    console.log(enteredDate, enteredDate.getTime());  
+
+    // Check if the entered date is valid
+    if (isNaN(enteredDate.getTime())) {
+      return { invalidDate: true };
+    }
+    console.log(enteredDate.toISOString().slice(0, 10))
+    // Check if the entered date matches the parsed date
+    if (enteredDate.toISOString().slice(0, 10) !== control.value) {
+      return { 'error.msg.invalidDate': true };
+    }
+    
+    return null;
   }
 }
