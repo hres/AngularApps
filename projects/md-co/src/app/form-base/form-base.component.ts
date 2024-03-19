@@ -166,14 +166,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this._contactErrors.concat(this._adminChangesErrors)
       )
     );
-    this.cdr.detectChanges(); // doing our own change detection
-    // console.log('form.base', 'processErrors', 'this.errorList.length', this.errorList.length);
-    // for (const e of this.errorList) {
-    //   console.log(e)
-    // }
 
     this.disableMailto = this.errorList.length > 0 || this._isFinal()|| this.isInternal;
     this.showMailToHelpText = false;
+
+    this.cdr.detectChanges(); // doing our own change detection
   }
 
   processAddressErrors(errorList) {
@@ -237,9 +234,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public saveXmlFile() {
     // console.log("saveXmlFile", "this.showErrors", this.showErrors, this.errorList.length)
-    this.showErrors = false;
+    this.showErrors = true;
+    this.processErrors();
     if (this.errorList && this.errorList.length > 0) {
-      this.showErrors = true;
       document.location.href = '#topErrorSummary';
     } else {
       if (this.companyContacts.contactListForm.pristine) {
