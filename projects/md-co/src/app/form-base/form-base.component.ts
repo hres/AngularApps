@@ -296,8 +296,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         output.DEVICE_COMPANY_ENROL.general_information.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusList, EnrollmentStatus.Final, this.lang); // Set to final status
       }
       // add and calculate check_sum if it is xml
-      output.DEVICE_COMPANY_ENROL.check_sum = "";   // this is needed for generating the checksum value
-      output.DEVICE_COMPANY_ENROL.check_sum = this._checkSumService.createHash(output);
+      output.DEVICE_COMPANY_ENROL[CHECK_SUM_CONST] = "";   // this is needed for generating the checksum value
+      output.DEVICE_COMPANY_ENROL[CHECK_SUM_CONST] = this._checkSumService.createHash(output);
     }
     // console.log("_prepareForSaving, data after updates ", JSON.stringify(output, null, 2));
 
