@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { ContactStatus } from '../common.constants';
+import moment from 'moment';
 
 @Injectable()
 export class ValidationService {
@@ -287,7 +288,6 @@ export class ValidationService {
   }
 
   static atLeastOneCheckboxSelected(formArray: FormArray) {
-    console.log("atLeastOneCheckboxSelected===");  
     // return (): { [key: string]: boolean } | null => {
       const controls = formArray.controls;
   
@@ -299,20 +299,4 @@ export class ValidationService {
     // };
   }
 
-  static dateValidator(control: AbstractControl) {
-    const enteredDate = new Date(control.value);
-    console.log(enteredDate, enteredDate.getTime());  
-
-    // Check if the entered date is valid
-    if (isNaN(enteredDate.getTime())) {
-      return { invalidDate: true };
-    }
-    console.log(enteredDate.toISOString().slice(0, 10))
-    // Check if the entered date matches the parsed date
-    if (enteredDate.toISOString().slice(0, 10) !== control.value) {
-      return { 'error.msg.invalidDate': true };
-    }
-    
-    return null;
-  }
 }

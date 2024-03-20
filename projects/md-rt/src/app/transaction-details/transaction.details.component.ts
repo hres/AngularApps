@@ -366,6 +366,9 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   get selectedAmendReasonCodes(): string[] {
     return this._detailsService.getSelectedAmendReasonCodes(this.amendReasonOptionList, this.amendReasonChkFormArray);
   }
- 
+
+  checkDateValidity(event: any): void {
+    this._utilsService.checkInputValidity(event, this.transDetailsForm.get('requestDate'), 'invalidDate');
+  }  
 }
 

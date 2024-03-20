@@ -199,8 +199,8 @@
                             [control]="transDetailsForm.controls['requestDate'] | formControl"
                             controlId="requestDate" label="request.date"
                             parentId="transDetails"></control-messages>
-          <input id="requestDate" name="requestDate" type="date" class="form-control full-width" 
-                 [formControl]="transDetailsForm.controls['requestDate'] | formControl" min="1970-01-01" max="2099-12-31"/>
+                 <input id="requestDate" name="requestDate" type="date" class="form-control full-width"
+                 (blur)="checkDateValidity($event)" formControlName="requestDate" />
         </label>
       </div>
     </div>
