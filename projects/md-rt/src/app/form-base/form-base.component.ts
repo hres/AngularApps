@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { XSLT_PREFIX, ROOT_TAG } from '../app.constants';
-import {  ICode, ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, YES, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService } from '@hpfb/sdk/ui';
+import {  ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, YES, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -90,9 +90,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log('@@@@@@@@@@@@ processErrors');
     this.errorList = [];
     // concat the error arrays
-    this.errorList = this._transactionDetailErrors.concat(this._transFeeErrors);
+    this.errorList = this.errorList.concat(this._transactionDetailErrors.concat(this._transFeeErrors));
 
-    // this.cdr.detectChanges(); // doing our own change detection
+    this.cdr.detectChanges(); // doing our own change detection
   }
 
   processDetailErrors(errorList) {
@@ -110,9 +110,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveXmlFile() {
-    this.showErrors = false;
+	  this.showErrors = true;
+    this.processErrors();
+
     if (this.errorList && this.errorList.length > 0) {
-      this.showErrors = true;
       document.location.href = '#topErrorSummary';
     } else {
       const result: Enrollment = this._prepareForSaving(true);
@@ -136,8 +137,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     if (xmlFile) {
       // add and calculate check_sum if it is xml
-      output.DEVICE_TRANSACTION_ENROL.check_sum = "";   // this is needed for generating the checksum value
-      output.DEVICE_TRANSACTION_ENROL.check_sum = this._checkSumService.createHash(output);
+      output.DEVICE_TRANSACTION_ENROL[CHECK_SUM_CONST] = "";   // this is needed for generating the checksum value
+      output.DEVICE_TRANSACTION_ENROL[CHECK_SUM_CONST] = this._checkSumService.createHash(output);
     }
 
     return output;
@@ -145,23 +146,22 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _buildfileName(output: Enrollment): string {
     return 'rt-' + output.DEVICE_TRANSACTION_ENROL.application_info.dossier_id + '-' + output.DEVICE_TRANSACTION_ENROL.application_info.last_saved_date;
-
   }
 
   public processFile(fileData: ConvertResults) {
     const enrollment : Enrollment = fileData.data;
-     console.log('processing file.....');
+    //  console.log('processing file.....');
      const transactionEnroll: DeviceTransactionEnrol = enrollment[this.rootTagText];
      this._init(transactionEnroll);
   }
 
-  public preload() {
-    // console.log("Calling preload")
-  }
+  // public preload() {
+  //   // console.log("Calling preload")
+  // }
 
-  public updateChild() {
-    // console.log("Calling updateChild")
-  }
+  // public updateChild() {
+  //   // console.log("Calling updateChild")
+  // }
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
