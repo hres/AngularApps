@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-form-base',
@@ -153,6 +154,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     } catch (e) {
       console.error(e);
     }
+
+    $("#overlay-open-btn2").click(function() {
+      console.log("aaaaaaaaaaaaa");
+      jQuery( "#alert-popup" ).trigger( "open.wb-overlay" );
+    })
   }
 
   ngAfterViewInit(): void {
@@ -475,5 +481,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (model != null) {
       model.style.display = 'none'
     }
+  }
+
+  openMe(){
+    console.log("bbbbbbbbbbbbbbbb");
+      jQuery( "#alert-popup" ).trigger( "open.wb-overlay" );
   }
 }

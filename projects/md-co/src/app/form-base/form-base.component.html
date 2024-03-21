@@ -1,8 +1,23 @@
-<p><a href="#centred-popup" aria-controls="centred-popup" class="wb-lbx" role="button">Centred popup (Lightbox)</a></p>
+<!-- <p><a href="#centred-popup" aria-controls="centred-popup" class="wb-lbx" role="button">Centred popup (Lightbox)</a></p>
 <button class="btn btn-outline-success" (click)="openModel()">Add New</button>
 <button type="button" class="btn btn-danger" (click)="closeModel()">Close</button>
 
-<lib-popup [title]="popUpTitle" [message]="popUpMessage"></lib-popup>
+<lib-popup [title]="popUpTitle" [message]="popUpMessage"></lib-popup> -->
+
+
+<!-- <p><a href="#centred-popup" aria-controls="centred-popup" class="wb-lbx" role="button">Centred popup (Lightbox)</a></p> -->
+<p><a href="#" onclick="executeJavaScript()">JavaScript open</a></p>
+<p><a id="overlay-open-btn2" href="#" >Angular open onInit</a></p>
+<p><a id="overlay-open-btn3" href="#" (click)="openMe()" >Angular open function</a></p>
+
+<section id="alert-popup" class="wb-overlay modal-content overlay-def wb-popup-mid overlay-bg">
+  <header class="modal-header">
+    <h2 class="modal-title">Centred popup (Lightbox)</h2>
+  </header>
+  <div class="modal-body">
+    ttttttttttttttt
+  </div>
+</section>
 
 <div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
   <form name="companyForm" [formGroup]="companyForm" novalidate>

@@ -45,7 +45,6 @@
     "lib:package": "cd dist/hpfb/sdk && npm pack",
     "lib:buildAndPack": "run-s lib:build lib:package",
     "clean": "rimraf dist"
-
   },
   "private": true,
   "dependencies": {
@@ -62,6 +61,7 @@
     "crypto-js": "^4.2.0",
     "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.7.1",
     "replace-in-file": "^7.0.2",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",
@@ -74,6 +74,7 @@
     "@angular/compiler-cli": "^17.2.3",
     "@types/file-saver": "^2.0.7",
     "@types/jasmine": "~5.1.0",
+    "@types/jquery": "^3.5.29",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
