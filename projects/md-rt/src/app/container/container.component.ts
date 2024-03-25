@@ -70,7 +70,7 @@ export class ContainerComponent implements OnInit {
         })
       )
       .subscribe((result) => {
-        console.log(result);
+        // console.log(result);
         this._globalService.$deviceClasseList = result['deviceClasses'];
         this._globalService.$activityTypeList = result['activityTypes'];
         this._globalService.$amendReasonList = result['amendReasons'];

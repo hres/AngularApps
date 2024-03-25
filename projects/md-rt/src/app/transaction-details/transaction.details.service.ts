@@ -186,10 +186,6 @@ export class TransactionDetailsService {
     formRecord.controls['orgManufactureLic'].setValue(transactionInfoModel.org_manufacture_lic);
   }
 
-  getAmendReasonCheckboxFormArray(formRecord: FormGroup) {
-    return formRecord.controls['amendReasons'] as FormArray;
-  }  
-
   private _concatTransactionDescriptionDetails(txDescriptionIdTextLabel: IIdTextLabel, requestDate: string, briefDescription: string): ILabel{
     let labelObj: ILabel = this._entityBaseService.getEmptyLabel();
     const enumValue = this._utilsService.getEnumValueFromString(TransactionDesc, txDescriptionIdTextLabel._id);
@@ -221,35 +217,39 @@ export class TransactionDetailsService {
     }
   }
 
+  getAmendReasonCheckboxFormArray(formRecord: FormGroup) {
+    return formRecord.controls['amendReasons'] as FormArray;
+  }  
+
   getSelectedAmendReasonCodes (amendReasonOptionList: CheckboxOption[], amendReasonCheckboxFormArray: FormArray) : string[]{
     return this._converterService.getCheckedCheckboxValues(amendReasonOptionList, amendReasonCheckboxFormArray)
   }
 
   loadAmendReasonOptions(activityTypeId: string, deviceClassId: string, amendReasonList: ICode[], relationship: any, amendReasonOptionList: CheckboxOption[], lang: string, amendReasonCheckboxFormArray: FormArray) : void{
-    console.log("##0",activityTypeId, deviceClassId, amendReasonList, relationship);
-    const group = relationship.find((item) => item.activityTypeId === activityTypeId);
+    // console.log("##0 activityTypeId: ", activityTypeId, "deviceClassId: ", deviceClassId, "amendReasonList: ", amendReasonList, "relationship: ", relationship);
+    const group = relationship.find((item) => item.raTypeId === activityTypeId);
     if (group) {
-      const reasons =  group.amendReasons.filter((member) => member.deviceClassId === deviceClassId);
-      console.log("##1",reasons[0])
-      const reasonIds = reasons[0].values;
-      console.log("##2",reasonIds)
-      const amendReasonCodeList = this._utilsService.filterCodesByIds(amendReasonList, reasonIds);
-      console.log("##3", amendReasonCodeList)
+      // console.log("##1",group)
+      const deviceClassAndAmendReason = group.amendReasons.filter((member) => member.deviceClassId === deviceClassId);
+      // console.log("##2",deviceClassAndAmendReason[0])
+      const availableAmendReasonIds = deviceClassAndAmendReason[0].values;
+      // console.log("##3",availableAmendReasonIds)
+      const availableAmendReasonCodeList = this._utilsService.filterCodesByIds(amendReasonList, availableAmendReasonIds);
+      // console.log("##4", availableAmendReasonCodeList)
 
       // Clear existing items for the amend reason checkbox options and form array
       amendReasonOptionList.length = 0;
       amendReasonCheckboxFormArray.clear();
 
       // Populate the array with new items
-      amendReasonCodeList.forEach((item) => {
+      availableAmendReasonCodeList.forEach((item) => {
         const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
         amendReasonOptionList.push(checkboxOption);
         amendReasonCheckboxFormArray.push(new FormControl(false));
       });
-
-      console.log("##4", amendReasonOptionList)
+      // console.log("##5", amendReasonOptionList)
     } else {
-      console.error("couldn't find amendReasons for activityType", activityTypeId, "and deviceClass", deviceClassId);
+      // console.info("couldn't find amendReasons for activityType", activityTypeId, "and deviceClass", deviceClassId);
     }
   }
 

@@ -1,9 +1,9 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
+  AfterViewInit, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
-import {FormGroup, FormBuilder, FormArray, FormControl, AbstractControl} from '@angular/forms';
-import { BaseComponent, CheckboxOption, ControlMessagesComponent, ConverterService, ICode, ICodeAria, IParentChildren, UtilsService } from '@hpfb/sdk/ui';
+import {FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { BaseComponent, CheckboxOption, ControlMessagesComponent, ICode, ICodeAria, IParentChildren, UtilsService } from '@hpfb/sdk/ui';
 import {TransactionDetailsService} from './transaction.details.service';
 import { GlobalService } from '../global/global.service';
 import { RegulatoryActivityType, AmendReason, DeviceClass, TransactionDesc } from '../app.constants';
@@ -28,14 +28,11 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   public transDescList: ICode[] = [];
   public yesNoList: ICode[] = [];
   public deviceClassList: ICodeAria[] = [];
-  
-  activityTypeTxDescArray: IParentChildren[];
   amendReasonList: ICode[] = [];
-  relationship: any[] = [];
+  raTypeTxDesc: IParentChildren[];   // the relationship betweenraType and txDesc relationship
+  raTypeDeviceClassAmendReason: any[] = [];   // the relationship between raType, device classes and amend reasons
 
   public showFieldErrors = false;
-  public showDate: boolean;
-  public showBriefDesc: boolean;
 
   public amendReasonOptionList: CheckboxOption[] = [];
 
@@ -45,8 +42,6 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     super();
     this.showFieldErrors = false;
     this.showErrors = false;
-    this.showDate = false;
-    this.showBriefDesc = false;
 
     if (!this.transDetailsForm) {
       this.transDetailsForm = this._detailsService.getReactiveModel(this._fb);
@@ -60,10 +55,10 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     this.deviceClassList = this._globalService.$deviceClasseList;
     this.yesNoList = this._globalService.$yesnoList;
     this.amendReasonList = this._globalService.$amendReasonList;
-    this.relationship = this._globalService.$amendReasonRelationship;
-    this.activityTypeTxDescArray = this._globalService.$activityTypeTxDescription;
-    // this console output can be used for verification of the raType and txDesc relationship
-    // console.log(this.activityTypeTxDescArray)
+    this.raTypeDeviceClassAmendReason = this._globalService.$amendReasonRelationship;
+    // console.log(this.raTypeDeviceClassAmendReason)
+    this.raTypeTxDesc = this._globalService.$activityTypeTxDescription;
+    // console.log(this.raTypeTxDesc)
   }
 
   protected override emitErrors(errors: any[]): void {
@@ -74,16 +69,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   ngOnChanges(changes: SimpleChanges) {
 
     if (changes['showErrors']) {
-      this.showFieldErrors = changes['showErrors'].currentValue;
-      const temp = [];
-      if (this.msgList) {
-        this.msgList.forEach(item => {
-          temp.push(item);
-          // console.log(item);
-        });
-      }
-      this.detailErrorList.emit(temp);
-      
+      this.showFieldErrors = changes['showErrors'].currentValue;     
     }
 
     if (changes['transactionInfoModel'] && !changes['transactionInfoModel'].firstChange) {
@@ -94,12 +80,12 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
         this.transDetailsForm.markAsPristine();
       }
       this._detailsService.mapDataModelToDetailForm(dataModel, (<FormGroup>this.transDetailsForm), this.amendReasonList, 
-        this.relationship, this.amendReasonOptionList, this.lang);
+        this.raTypeDeviceClassAmendReason, this.amendReasonOptionList, this.lang);
 
       const raTypeValue: string = this.activityTypeFormControl.value;
       if (raTypeValue) {
         // dynamically load the transaction description dropdowns according to the selected activity type value
-        this.transDescList = this._getTransactionDescriptions(this.activityTypeTxDescArray, raTypeValue);
+        this.transDescList = this._getTransactionDescriptions(this.raTypeTxDesc, raTypeValue);
       }
     }
 
@@ -114,7 +100,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     // console.log("selectedRaTypeValue", selectedRaTypeValue);
     if (selectedRaTypeValue) {
       // dynamically load the transaction description dropdowns according to the selected activity type value
-      this.transDescList = this._getTransactionDescriptions(this.activityTypeTxDescArray, selectedRaTypeValue);
+      this.transDescList = this._getTransactionDescriptions(this.raTypeTxDesc, selectedRaTypeValue);
     } else {
       this.transDescList = [];
     }
@@ -140,15 +126,11 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     const selectedDeviceClass = this.deviceClassFormControl?.value;
 
     if (selectedRaType && selectedDeviceClass) {
-      this._detailsService.loadAmendReasonOptions(selectedRaType, selectedDeviceClass, this.amendReasonList, this.relationship, 
+      this._detailsService.loadAmendReasonOptions(selectedRaType, selectedDeviceClass, this.amendReasonList, this.raTypeDeviceClassAmendReason, 
         this.amendReasonOptionList, this.lang, this.amendReasonChkFormArray);
     } else {
       this.amendReasonOptionList = [];
     }    
-
-    const selectedTxDescription: TransactionDesc = this.txDescriptionFormControl.value;
-    this.showBriefDesc = this._detailsService.isBriefDescRequired(selectedTxDescription);
-    this.showDate = this._detailsService.isRequestDateRequired(selectedTxDescription); 
   }
 
   onOrgManufactureLicblur() {
@@ -200,6 +182,24 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       this._detailsService.getSelectedAmendReasonCodes(this.amendReasonOptionList, this.amendReasonChkFormArray)
     )
   }
+
+  showBriefDesc(){
+    if (this._detailsService.isBriefDescRequired(this.txDescriptionFormControl.value)) {
+      return true;
+    } else {
+      this._utilsService.resetControlsValues(this.transDetailsForm.controls['briefDesc']);
+    }
+    return false;
+  }    
+
+  showDate(){
+    if (this._detailsService.isRequestDateRequired(this.txDescriptionFormControl.value)) {
+      return true;
+    } else {
+      this._utilsService.resetControlsValues(this.transDetailsForm.controls['requestDate']);
+    }
+    return false;
+   } 
 
  // show when Regulatory Activity type is "minor change" and Transaction Description is "Initial" for all classes (I, II, III) or
  // when Regulatory Activity Type is "licence amendment" and Transaction Description is "Initial" for all classes (I, II, III) and for any of the 4 following <Reason for filing this Amendment> : 
@@ -342,8 +342,8 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     return this.txDescriptionFormControl.value === TransactionDesc.INITIAL
   }
 
-  private _getTransactionDescriptions(activityTypeTxDescArray: IParentChildren[], raType: string): ICode[]{
-    return this._utilsService.filterParentChildrenArray(activityTypeTxDescArray, raType);
+  private _getTransactionDescriptions(raTypeTxDesc: IParentChildren[], raType: string): ICode[]{
+    return this._utilsService.filterParentChildrenArray(raTypeTxDesc, raType);
   }
 
   get activityTypeFormControl() {

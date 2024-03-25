@@ -45,14 +45,6 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
   ngOnChanges(changes: SimpleChanges) {
     if (changes['showErrors']) {
       this.showFieldErrors = changes['showErrors'].currentValue;
-      let temp = [];
-      if (this.msgList) {
-        this.msgList.forEach(item => {
-          temp.push(item);
-          // console.log(item);
-        });
-      }
-      this.feeErrorList.emit(temp);
     }
 
     if (changes['transFeeModel']) {
