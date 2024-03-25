@@ -106,7 +106,7 @@ export class ControlMessagesComponent implements OnChanges {
       this.currentError = propertyName;      
       // values to replace placeholders in the error message if they exist. eg "Minimum length {{ requiredLength }} numbers"
       this.errorParams = this.control.errors[propertyName];   
-      console.log(propertyName, Object.keys(this.errorParams).length, JSON.stringify(this.errorParams))
+      // console.log(propertyName, Object.keys(this.errorParams).length, JSON.stringify(this.errorParams))
 
       return this._errMessageService.getValidatorErrorMessageKey(propertyName);
     }
