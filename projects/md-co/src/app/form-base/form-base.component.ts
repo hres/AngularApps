@@ -7,7 +7,7 @@ import { GeneralInformation, PrimaryContact, AdministrativeChanges, Enrollment, 
 import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus, ConverterService, YES, VersionService, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
 import $ from 'jquery';
@@ -78,8 +78,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private activeContactStatuses: string[] = [ContactStatus.New, ContactStatus.Revise , ContactStatus.Active];
   private amendReasonCodesToShowAdminChanges:string[] = new Array(AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE) ;
 
-  public popUpMessage = 'Please save the unsaved input data before generating XML file.';
-  public popUpTitle ='Popup Title';
+  popUpTitle = ''; //TODO: to change after deciding on popup title
+  popupId = 'saveXmlPopup';
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -89,7 +89,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _versionService: VersionService,
     private _loggerService: LoggerService,
     private _checkSumService: CheckSumService,
-    private _converterService: ConverterService
+    private _converterService: ConverterService,
+    private translateService : TranslateService
   ) {
 
     this.showAdminChanges = false;
@@ -154,11 +155,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     } catch (e) {
       console.error(e);
     }
-
-    $("#overlay-open-btn2").click(function() {
-      console.log("aaaaaaaaaaaaa");
-      jQuery( "#alert-popup" ).trigger( "open.wb-overlay" );
-    })
   }
 
   ngAfterViewInit(): void {
@@ -257,13 +253,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         const fileName = this._buildfileName();
         this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
       } else {
-        if (this._utilsService.isFrench(this.lang)) {
-          this.popUpMessage = "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML."
-          this.openModel();
-        } else {
-          this.popUpMessage = "Please save the unsaved input data before generating XML file."
-          this.openModel();
-        }
+        this.popUpTitle = `${this.translateService.instant(this.saveXmlLabel)}`;
+        this.openPopup();
       }
     }
   }
@@ -469,22 +460,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log("_setShowAdminChangesFlag()", "this.selectedAmendReasonCodes", this.selectedAmendReasonCodes, "areLicensesBeingTransfered", areLicensesBeingTransfered, "this.showAdminChanges", this.showAdminChanges);
   }
 
-  openModel() {
-    const model = document.getElementById("centred-popup1");
-    if (model != null) {
-      model.style.display = 'block'
-    }
-  }
-
-  closeModel() {
-    const model = document.getElementById("centred-popup1");
-    if (model != null) {
-      model.style.display = 'none'
-    }
-  }
-
-  openMe(){
-    console.log("bbbbbbbbbbbbbbbb");
-      jQuery( "#alert-popup" ).trigger( "open.wb-overlay" );
+  openPopup(){
+      jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
   }
 }

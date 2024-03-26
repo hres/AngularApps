@@ -10,4 +10,5 @@ import { Component, Input } from '@angular/core';
 export class PopupComponent {
   @Input() message: string ;
   @Input() title: string;
+  @Input() id: string;
 }
