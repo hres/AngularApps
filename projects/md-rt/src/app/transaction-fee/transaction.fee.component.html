@@ -1,7 +1,7 @@
 <div>
     <div [formGroup]="transFeeForm">
       <div class="row">
-        <div class="form-group col-xs-12" >
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
           <label for="hasFees" class="required full-width">
             <span class="field-name">{{'are.fees' |translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -17,8 +17,8 @@
         </div>
       </div>
       <div class="row"  *ngIf="hasFeeYes()">
-        <div class="form-group col-xs-6 minWidth300" >
-          <label for="billCompanyId" class="required full-width" aria-required="true">
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
+          <label for="billCompanyId" class="required full-width" ="true">
             <span class="field-name">{{'billing.company.id'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="transFeeForm.controls['billCompanyId'].invalid"
@@ -29,8 +29,8 @@
                    [formControl]="transFeeForm.controls['billCompanyId'] | formControl" maxlength="6"/>
           </label>
         </div>
-        <div class="form-group col-xs-6 minWidth300" >
-          <label for="billContactId" class="required full-width" aria-required="true">
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
+          <label for="billContactId" class="required full-width" ="true">
             <span class="field-name">{{'billing.contact.id'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="transFeeForm.controls['billContactId'].invalid"
@@ -41,10 +41,8 @@
                    [formControl]="transFeeForm.controls['billContactId'] | formControl" maxlength="5"/>
           </label>
         </div>
-        <div class="col-xs-12 form-group alert alert-info" role="alert">
-             <span>
-              <p aria-live="polite">{{'completed.fee.required'|translate}}</p>
-             </span>
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-info" role="alert">
+            <p aria-live="polite">{{'completed.fee.required'|translate}}</p>
         </div>
       </div>
   
