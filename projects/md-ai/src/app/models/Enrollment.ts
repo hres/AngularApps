@@ -67,7 +67,7 @@ export interface BiologicalMaterial {
     origin_country:             IIdTextLabel;
     family_of_species:          IIdTextLabel;
     tissue_substance_type:      IIdTextLabel;
-    tissue_type_other_details:  IIdTextLabel;
+    tissue_type_other_details:  string;
     derivative:                 IIdTextLabel;
     derivative_other_details:   string;
 }

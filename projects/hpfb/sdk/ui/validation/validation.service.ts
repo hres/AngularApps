@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { ContactStatus } from '../common.constants';
 
 @Injectable()
@@ -37,6 +37,7 @@ export class ValidationService {
       'error.mgs.npn': 'error.mgs.npn',
       'error.msg.remove.contact' : 'error.msg.remove.contact',
       'error.msg.revise.contact' : 'error.msg.revise.contact',
+      'error.msg.materialOneRecord' : 'error.msg.materialOneRecord'
     };
 
     return config[validatorName];
@@ -308,4 +309,21 @@ export class ValidationService {
       return isAtLeastOneSelected ? null : { 'required': true };
     // };
   }
+
+  static atLeastOneRecord(formArray : FormArray) {
+    // USE isNew control value to check if at least one record has been saved
+    let atLeastOneRecord : boolean = false;
+
+    formArray.controls.forEach((formGroup: FormGroup) => {
+      // Access the controls in each FormGroup
+      const isNew = formGroup.get('isNew');
+      if (!isNew.value) {
+        atLeastOneRecord = true;
+      }
+    });
+
+    // const atLeastOneRecord = controls.some((control: AbstractControl) => control['isNew'].value !== true);
+    // console.log("at least one record", atLeastOneRecord);
+    return atLeastOneRecord ? null : { 'error.msg.materialOneRecord' : true };
+} 
 }

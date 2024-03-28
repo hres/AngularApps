@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type, computed, effect } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { XSLT_PREFIX, ROOT_TAG, XSL_EXTENSION } from '../app.constants';
 import {  ICode, ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, YES, NO } from '@hpfb/sdk/ui';
@@ -11,11 +11,13 @@ import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
 import { DeviceModule } from '../device/device.module';
+import { MaterialModule } from '../bio-material/material.module';
+import { MaterialService } from '../bio-material/material.service';
 
 @Component({
   selector: 'app-form-base',
   standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule],
+  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule, MaterialModule],
   providers: [FileConversionService, ApplicationInfoBaseService, FormDataLoaderService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
   templateUrl: './form-base.component.html',
   styleUrls: ['./form-base.component.css'],
@@ -23,13 +25,18 @@ import { DeviceModule } from '../device/device.module';
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
-  @Input() lang;
   @Input() helpTextSequences;
   // @ViewChild(ApplicationInfoDetailsComponent, {static: false}) aiDetails: ApplicationInfoDetailsComponent;
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
+  // TODO - TEST!
   private _materialErrors = [];
+  
+  //computed(() => {
+    // console.log("computed", this._materialService.errors());
+    // this._materialErrors = this._materialService.errors();
+    // this.processErrors(); });
   public applicationForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
   public rootTagText = ROOT_TAG; 
@@ -44,6 +51,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public isSolicitedFlag: boolean;
   public title = '';
   public headingLevel = 'h2';
+
+  lang = this._globalService.lang();
   
 
   public enrollModel : Enrollment;
@@ -65,6 +74,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _versionService: VersionService,
     private _checkSumService: CheckSumService,
     private _converterService: ConverterService,
+    private _materialService: MaterialService,
     private fb: FormBuilder
   ) {
     this.userList = [];
@@ -73,6 +83,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.fileServices = new FileConversionService();
     this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + XSL_EXTENSION;
     this.helpIndex = this._globalService.getHelpIndex();
+
+    effect(() => {
+      console.log("[effect3]", this._materialService.errors());
+      this._materialErrors = this._materialService.errors();
+      this.processErrors();
+    });
   }
 
   ngOnInit() {
@@ -108,6 +124,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = [];
     // concat the two array
     this.errorList = this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialErrors)); // .concat(this._theraErrors);
+    console.log("process errors in form base", this.errorList);
     this.cdr.detectChanges(); // doing our own change detection
   }
 

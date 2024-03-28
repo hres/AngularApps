@@ -11,7 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class InstructionComponent {
   @Input() helpTextSequences;
-  @Input() lang;
+  // @Input() lang; - Not used
+
   constructor() {
     // console.log(
     //   'InstructionComponent ~ helpTextSequences',

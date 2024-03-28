@@ -17,14 +17,14 @@
         <section class="module-attention">
             <details>
                 <summary class="background-medium">{{ "top.instruction" | translate }}</summary>
-                <app-instruction [helpTextSequences]="helpIndex" [lang]="language"></app-instruction>
+                <app-instruction [helpTextSequences]="helpIndex"></app-instruction>
             </details>
         </section>
     </div>
 
     <div body>
         @defer (when loadFormBaseComponent) {
-            <app-form-base [helpTextSequences]="helpIndex" [lang]="language"></app-form-base>
+            <app-form-base [helpTextSequences]="helpIndex"></app-form-base>
         }
     </div>
 </lib-layout> 

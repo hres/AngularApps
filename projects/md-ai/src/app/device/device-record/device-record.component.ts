@@ -10,6 +10,7 @@ import { ErrorSummaryComponent, ControlMessagesComponent, UtilsService } from '@
 import { DeviceDetailsService } from '../device.details/device.details.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
+import { GlobalService } from '../../global/global.service';
 
 
 @Component({
@@ -29,12 +30,13 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
   // @Input() detailsChanged: number;
   // @Input() newRecord: boolean;
   @Input() showErrors: boolean;
-  @Input() lang;
+  // @Input() lang;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
   @Output() errors = new EventEmitter();
 
+  lang = this._globalService.lang();
 
   @ViewChild(DeviceDetailsComponent, {static: true}) deviceDetailsChild;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
@@ -58,7 +60,8 @@ export class DeviceRecordComponent implements OnInit, AfterViewInit {
     private _detailsService: DeviceDetailsService,
     private _translateService: TranslateService,
     private _errorNotificationService: ErrorNotificationService,
-    private _utilsService: UtilsService ) {
+    private _utilsService: UtilsService,
+    private _globalService: GlobalService ) {
     this.showErrors = false;
     this.showErrSummary = false;
     // this.deviceRecordModel = this.cRRow;

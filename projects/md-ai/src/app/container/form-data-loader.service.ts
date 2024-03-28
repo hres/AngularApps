@@ -18,7 +18,7 @@ export class FormDataLoaderService {
   private regActivityTypeJsonPath = DATA_PATH + 'regActivityType.json';
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private diagnosisReasonJsonPath = DATA_PATH + 'priorityRev.json';
-
+  private countryJsonPath = DATA_PATH + 'countries.json';
 
   cachedCompliance$:Observable<ICode[]>;
   cachedDerivative$:Observable<ICode[]>;
@@ -31,6 +31,7 @@ export class FormDataLoaderService {
   cachedRegActivityType$:Observable<ICode[]>;
   cachedKeywords$:Observable<ICode[]>;
   cachedDiagnosisReason$:Observable<ICode[]>;
+  cachedCountries$: Observable<ICode[]>;
 
 
   constructor(private _dataService: DataLoaderService) {}
@@ -157,6 +158,17 @@ export class FormDataLoaderService {
           );
       } 
       return this.cachedDiagnosisReason$;
+  }
+
+  getCountriesList(): Observable<ICode[]> {
+    if (!this.cachedCountries$) {
+        this.cachedCountries$ = this._dataService.getData<ICode>(this.countryJsonPath)
+          .pipe(
+            // tap(()=>console.log('getDeviceClassesList() is called')),
+            shareReplay(1)
+          );
+      } 
+      return this.cachedCountries$;
   }
 
 }

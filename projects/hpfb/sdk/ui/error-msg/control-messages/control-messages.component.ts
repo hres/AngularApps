@@ -77,6 +77,12 @@ export class ControlMessagesComponent implements OnChanges {
    * @type boolean
    */
   private _errorVisible: boolean;
+
+   /**
+   * Inputs for table level
+   */
+   @Input() tableId: string;
+   @Input() type: string;
   
   constructor(private _errMessageService: ErrMessageService) {
     // this.tabSet = null;

@@ -7,6 +7,9 @@ export const XSL_EXTENSION = '.xsl';
 
 export const COMPANY_ID_PREFIX = 'K';
 
+export const DERIVATIVE_OTHER_ID = "30";
+export const TISSUE_OTHER_ID = "32"
+
 export enum DeviceClass {
   ClassII = 'DC2',
   ClassIII = 'DC3',

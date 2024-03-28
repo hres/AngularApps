@@ -32,7 +32,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   @Input() appInfoModel;
   @Input() deviceModel;
   @Input() materialModel;
-  @Input() lang;
+  // @Input() lang;
   @Input() helpTextSequences;
   @Input() loadFileIndicator;
   // @Output() declarationConformity = new EventEmitter();
@@ -43,6 +43,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   //@ViewChild(DeviceListComponent, {static: true}) aiDevices: DeviceListComponent;
   //@ViewChild(MaterialListComponent, {static: false}) bioMaterials: MaterialListComponent;
 
+  // Lists for dropdowns
   public licenceAppTypeList: ICode[] = [];
   public mdsapOrgList: ICode[] = [];
   public actTypeList: ICode[] = [];
@@ -53,10 +54,13 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   public seriousDiagnosisReasonOptionList: CheckboxOption[] = [];
   public complianceOptionList: CheckboxOption[] = [];
 
+  // Lists for checkboxes
   public diagnosisReasonCodeList: ICode[] = [];
   public complianceCodeList: ICode[] = [];
 
   public showFieldErrors = false;
+
+  lang = this._globalService.lang();
 
   constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
               private _detailsService : ApplicationInfoDetailsService,

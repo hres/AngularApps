@@ -18,6 +18,7 @@ import { DeviceListService } from './device/device.list/device-list.service';
 import { DeviceRecordService } from './device/device-record/device-record.service';
 import { DeviceDetailsService } from './device/device.details/device.details.service';
 import { ApplicationInfoBaseService } from './form-base/application-info-base.service';
+import { MaterialModule } from "./bio-material/material.module";
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { ApplicationInfoBaseService } from './form-base/application-info-base.se
         ReactiveFormsModule,
         TranslateModule,
         NumbersOnlyDirective,
-        DeviceModule
+        DeviceModule,
+        MaterialModule
     ]
 })
 export class AppFormModule {}
