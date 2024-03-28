@@ -9,7 +9,7 @@
             "header": "Outside the Regulatory Transaction Process",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company Template (Last updated: March 29, 2024)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company Template (April 2, 2024)</a>",
                     "bullets": [
                         "Required to obtain a company ID and/or provide updated company information to Health Canada.",
                         "Sent via the email.<ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
@@ -29,7 +29,7 @@
             "header": "Within the Regulatory Transaction Process",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory Transaction Template (Last updated: Apr 23, 2020)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory Transaction Template (April 23, 2020)</a>",
                     "bullets": [
                         "Sent via the CESG within the regulatory transaction (application).",
                         "Required with each regulatory transaction filed to Health Canada.",
@@ -37,10 +37,10 @@
                     ]
                 },
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.ai.en }}\">Application Information Template (Last updated: May 14, 2020)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.ai.en }}\">Application Information Template (May 14, 2020)</a>",
                     "bullets": [
                         "Sent via the CESG within the regulatory transaction (application).",
-                        "Required for only a subset of transactions. Refer to section “2.4.2 Application information (AI) Template and Process” of the REP Guidance Document for Medical Devices detailed description of the requirements for the AI template."
+                        "Required for only a subset of transactions. Refer to section “2.54.2 Application information (AI) Template and Process” of the REP Guidance Document for Medical Devices detailed description of the requirements for the AI template."
                     ]
                 },
                 {
@@ -66,7 +66,7 @@
             "header": "Internal User (i.e. HPFB) Links",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.co_internal.en }}\">Company Enrolment -Internal (March 29, 2024) </a>"
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co_internal.en }}\">Company Enrolment -Internal (April 2, 2024)</a>"
                 }
             ]
         },
@@ -74,7 +74,7 @@
             "header": "Stylesheet Download Links",
             "groups": [
                 {
-                    "header": "<a href=\"./mds/stylesheet/medicaldevice_stylesheets_en.zip\">Download stylesheet zip files (March 29, 2024) </a>"
+                    "header": "<a href=\"./mds/stylesheet/medicaldevice_stylesheets_en.zip\">Download stylesheet zip files (July 31, 2024)</a>"
                 }
             ]
         }
