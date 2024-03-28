@@ -49,7 +49,6 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
 
   private contactModelChangesSubscription: Subscription;
 
-  popup: string =''; //TODO: to change after deciding on the popup title
   popupId='contactPopup';
   
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService, 
@@ -366,8 +365,6 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
         }
       })
     } else {
-      //TODO: to change after deciding on the popup title
-      this.popup = "Test";
       this.openPopup();
     }
 

@@ -7,7 +7,7 @@ import { GeneralInformation, PrimaryContact, AdministrativeChanges, Enrollment, 
 import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus, ConverterService, YES, VersionService, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
 import $ from 'jquery';
@@ -78,7 +78,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private activeContactStatuses: string[] = [ContactStatus.New, ContactStatus.Revise , ContactStatus.Active];
   private amendReasonCodesToShowAdminChanges:string[] = new Array(AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE) ;
 
-  popUpTitle = ''; //TODO: to change after deciding on popup title
   popupId = 'saveXmlPopup';
 
   constructor(
@@ -89,8 +88,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _versionService: VersionService,
     private _loggerService: LoggerService,
     private _checkSumService: CheckSumService,
-    private _converterService: ConverterService,
-    private translateService : TranslateService
+    private _converterService: ConverterService
   ) {
 
     this.showAdminChanges = false;
@@ -253,7 +251,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         const fileName = this._buildfileName();
         this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
       } else {
-        this.popUpTitle = `${this.translateService.instant(this.saveXmlLabel)}`;
         this.openPopup();
       }
     }
