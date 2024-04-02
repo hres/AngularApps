@@ -4,9 +4,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { Title } from '@angular/platform-browser';
-import { ENGLISH } from '@hpfb/sdk/ui';
+import { ENGLISH, VersionService } from '@hpfb/sdk/ui';
 import { GlobalService } from './global/global.service';
-import { VersionService } from '@hpfb/sdk/ui/'; 
 import { helpInstructionHeadings } from './app.constants';
 import { ContainerComponent } from './container/container.component';
 
