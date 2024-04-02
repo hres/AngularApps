@@ -8,6 +8,29 @@
     ],
     "releases": [
         {
+            
+            "header": "May 1, 2024 Release",
+            "details": [
+                {
+                    "template": "Regulatory Transaction (RT) Template",
+                    "changes": [
+                        "Updated the definition for Regulatory Activity Type Undefined Regulatory Activity (UDRA)",
+                        "Updated the picklist options for Regulatory Transaction Description when UDRA is selected as the Regulatory Activity Type",
+                        "Added definitions for all picklist options for Regulatory Transaction Description when UDRA is selected as the Regulatory Activity Type",
+                        "Updated Regulatory Transaction Description for Discontinuation of Sale Notification and Notification for Interruption of Sale",
+                        "Added definitions for Discontinuation of Sale Notification and Notification for Interruption of Sale",
+                        "Updated the Regulatory Activity Type that appear with the Regulatory Transaction Description for Discontinuation of Sale Notification and Notification for Interruption of Sale"
+                    ]
+                },                
+                {
+                    "template": "Stylesheet Package",
+                    "changes": [
+                        "New RT stylesheet to match changes to REP RT template"  
+                    ]
+                }
+            ]
+        },
+        {
             "header": "February 28, 2023 Release",
             "details": [
                 {
