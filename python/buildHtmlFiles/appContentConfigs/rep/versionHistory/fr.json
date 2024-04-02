@@ -8,6 +8,28 @@
     ],
     "releases": [
         {
+            
+            "header": "May 1, 2024 Release",
+            "details": [
+                {
+                    "template": "Regulatory Transaction (RT) Template",
+                    "changes": [
+                        "Mise à jour de la définition du type d’activité de réglementation d’une activité réglementaire non définie (ARND)",
+                        "Mise à jour des options de la liste déroulante pour la description de la transaction réglementaire lorsque l’ARND est sélectionnée comme type d’activité de réglementation",
+                        "Ajout des définitions pour toutes les options de liste déroulante pour la description de la transaction réglementaire lorsque l’ARND est sélectionné comme type d’activité de réglementation",
+                        "Mise à jour de la description de la transaction réglementaire pour l’avis de cessation de vente et l’avis d’interruption de vente",
+                        "Ajout des définitions de la transaction pour l’avis de cessation de vente et l’avis d’interruption de vente",
+                        "Mise à jour du type d’activité de réglementation qui apparaît avec la description de la transaction réglementaire de l’avis de cessation de vente et de l’avis d’interruption de vente "
+                    ]
+                },
+                {
+                    "template": "Ensemble de feuilles de style",
+                    "changes": [
+                        "Nouvelle feuille de style TR pour correspondre aux modifications apportées au modèle PIR TR"  
+                    ]
+                }
+            ]
+        },{
             "header": "Publication du 28 février 2023",
             "details": [
                 {
