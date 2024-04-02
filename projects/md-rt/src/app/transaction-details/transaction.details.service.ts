@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { CheckboxOption, ConverterService, ICode, IIdTextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { CheckboxOption, ConverterService, ENGLISH, EntityBaseService, FRENCH, ICode, IIdTextLabel, ILabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { AmendReasons, ApplicationInfo } from '../models/Enrollment';
-import { ActivityType, COMPANY_ID_PREFIX, TransactionDesc } from '../app.constants';
+import { RegulatoryActivityType, COMPANY_ID_PREFIX, TransactionDesc } from '../app.constants';
 import { GlobalService } from '../global/global.service';
 
 @Injectable()
 export class TransactionDetailsService {
 
-  constructor(private _utilsService: UtilsService, private _converterService: ConverterService, private _globalService: GlobalService, ) {}
+  constructor(private _utilsService: UtilsService, private _converterService: ConverterService, private _globalService: GlobalService, private _entityBaseService: EntityBaseService ) {}
 
   /**
    * Gets the reactive forms Model for address details
@@ -26,7 +26,8 @@ export class TransactionDetailsService {
       activityType: ['', Validators.required],
       descriptionType: ['', Validators.required],
       deviceClass: ['', Validators.required],
-      amendReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
+      amendReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]), // holds "Reason for filing this Amendment" dropdown list options selected states (true or false)
+      selectedAmendReasonCodes: [''],    // holds the selected amend reason codes, it's set when "Reason for filing this Amendment" dropdown list onChange"
       rationale: ['', Validators.required],
       proposedPurpose: ['', Validators.required],
       licenceNum: ['', [Validators.required, ValidationService.licenceNumValidator]],
@@ -44,77 +45,85 @@ export class TransactionDetailsService {
     });
   }
 
-  public mapFormModelToDataModel(formRecord: FormGroup, transactionInfoModel: ApplicationInfo, slctdAmendReasonCodes: string[], lang: string ) {
+  // formValue: TransactionDetailsComponent transDetailsForm FormGroup value, to get a specific control's value, use the FormControl's name, eg: dossierId
+  public mapDetailFormToDataModel(formValue: any, transactionInfoModel: ApplicationInfo){
+    const lang = this._globalService.getCurrLanguage();
     const activityTypeList = this._globalService.$activityTypeList;
     const txDescList = this._globalService.$transactionDescriptionList;
     const deviceClassList = this._globalService.$deviceClasseList;
     const amendReasonList = this._globalService.$amendReasonList;
 
-    transactionInfoModel.dossier_id = formRecord.controls['dossierId'].value;
+    transactionInfoModel.dossier_id = formValue.dossierId;
 
-    if (formRecord.controls['manuCompanyId'].value) {
-       transactionInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.controls['manuCompanyId'].value;
+    if (formValue.manuCompanyId) {
+       transactionInfoModel.company_id = COMPANY_ID_PREFIX + formValue.manuCompanyId;
     }
-    if (formRecord.controls['reguCompanyId'].value) {
-       transactionInfoModel.regulatory_company_id = COMPANY_ID_PREFIX + formRecord.controls['reguCompanyId'].value;
+    if (formValue.reguCompanyId) {
+       transactionInfoModel.regulatory_company_id = COMPANY_ID_PREFIX + formValue.reguCompanyId;
     }
-    transactionInfoModel.manufacturing_contact_id = formRecord.controls['manuContactId'].value;
-    transactionInfoModel.regulatory_contact_id = formRecord.controls['reguContactId'].value;
+    transactionInfoModel.manufacturing_contact_id = formValue.manuContactId;
+    transactionInfoModel.regulatory_contact_id = formValue.reguContactId;
 
-    if (formRecord.controls['activityType'].value) {
-      transactionInfoModel.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(activityTypeList, formRecord.controls['activityType'].value, lang);
+    if (formValue.activityType) {
+      transactionInfoModel.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(activityTypeList, formValue.activityType, lang);
     } else {
       transactionInfoModel.regulatory_activity_type = null;
     }
 
-    const txDescriptionControlValue = formRecord.controls['descriptionType'].value;
+    const txDescriptionControlValue = formValue.descriptionType;
     if (txDescriptionControlValue) {
-      const txDescriptionIdTextLabel = this._converterService.findAndConverCodeToIdTextLabel(txDescList, formRecord.controls['descriptionType'].value, lang);
+      const txDescriptionIdTextLabel = this._converterService.findAndConverCodeToIdTextLabel(txDescList, formValue.descriptionType, lang);
       transactionInfoModel.description_type = txDescriptionIdTextLabel;
     } else {
       transactionInfoModel.description_type = null;
       transactionInfoModel.transaction_description = null;
     }
     
-    transactionInfoModel.device_class = formRecord.controls['deviceClass']?.value? 
-      this._converterService.findAndConverCodeToIdTextLabel(deviceClassList, formRecord.controls['deviceClass'].value, lang) : null;
+    transactionInfoModel.device_class = formValue.deviceClass? 
+      this._converterService.findAndConverCodeToIdTextLabel(deviceClassList, formValue.deviceClass, lang) : null;
 
-    const reasons: AmendReasons = {
-      amend_reason: this._converterService.findAndConverCodesToIdTextLabels(amendReasonList, slctdAmendReasonCodes, lang)
+    if (formValue.selectedAmendReasonCodes) {
+      const reasons: AmendReasons = {
+        amend_reason: this._converterService.findAndConverCodesToIdTextLabels(amendReasonList, formValue.selectedAmendReasonCodes, lang)
+      }
+      // if no amend reasons, set the output field to null
+      transactionInfoModel.amend_reasons = reasons.amend_reason.length > 0 ? reasons : null;
+    } else {
+      transactionInfoModel.amend_reasons = null;
     }
-    transactionInfoModel.amend_reasons = reasons;
 
-    transactionInfoModel.rationale = formRecord.controls['rationale']?.value? formRecord.controls['rationale'].value : null;
-    transactionInfoModel.proposed_indication = formRecord.controls['proposedPurpose']?.value ? formRecord.controls['proposedPurpose'].value : null;
+    transactionInfoModel.rationale = formValue.rationale? formValue.rationale : null;
+    transactionInfoModel.proposed_indication = formValue.proposedPurpose? formValue.proposedPurpose : null;
     
 
-    transactionInfoModel.licence_number = formRecord.controls['licenceNum'].value;
+    transactionInfoModel.licence_number = formValue.licenceNum;
     if (this.isMandatoryAppNumRequired(txDescriptionControlValue)) {
-      transactionInfoModel.application_number = formRecord.controls['appNum'].value;
+      transactionInfoModel.application_number = formValue.appNum;
     } else if (this.isOptionalAppNumRequired(txDescriptionControlValue)){
-      transactionInfoModel.application_number = formRecord.controls['appNumOpt'].value;
+      transactionInfoModel.application_number = formValue.appNumOpt;
     } else {
       transactionInfoModel.application_number = null;
     }
 
-    transactionInfoModel.meeting_id = formRecord.controls['meetingId'].value;
-    transactionInfoModel.device_name = formRecord.controls['deviceName'].value;
-    transactionInfoModel.proposed_licence_name = formRecord.controls['licenceName'].value;
+    transactionInfoModel.meeting_id = formValue.meetingId;
+    transactionInfoModel.device_name = formValue.deviceName;
+    transactionInfoModel.proposed_licence_name = formValue.licenceName;
 
-    transactionInfoModel.request_date = formRecord.controls['requestDate'].value;
-    transactionInfoModel.brief_description = formRecord.controls['briefDesc'].value;
+    transactionInfoModel.request_date = formValue.requestDate;
+    transactionInfoModel.brief_description = formValue.briefDesc;
 
     transactionInfoModel.transaction_description = txDescriptionControlValue? this._concatTransactionDescriptionDetails(
-      transactionInfoModel.description_type, transactionInfoModel.request_date, transactionInfoModel.brief_description, lang): null;
+      transactionInfoModel.description_type, transactionInfoModel.request_date, transactionInfoModel.brief_description): null;
 
-    transactionInfoModel.has_ddt = formRecord.controls['hasDdtMan'].value;
+    transactionInfoModel.has_ddt = formValue.hasDdtMan;
 
-    transactionInfoModel.has_app_info = formRecord.controls['hasAppInfo'].value   
-    transactionInfoModel.org_manufacture_id = formRecord.controls['orgManufactureId'].value;
-    transactionInfoModel.org_manufacture_lic = formRecord.controls['orgManufactureLic'].value;
+    transactionInfoModel.has_app_info = formValue.hasAppInfo   
+    transactionInfoModel.org_manufacture_id = formValue.orgManufactureId;
+    transactionInfoModel.org_manufacture_lic = formValue.orgManufactureLic;
+
   }
 
-  public mapDataModelToFormModel(transactionInfoModel: ApplicationInfo, formRecord: FormGroup, amendReasonList: ICode[], relationship: any, amendReasonOptionList: CheckboxOption[], lang: string) {
+  public mapDataModelToDetailForm(transactionInfoModel: ApplicationInfo, formRecord: FormGroup, amendReasonList: ICode[], relationship: any, amendReasonOptionList: CheckboxOption[], lang: string) {
     let activityTypeId: string | undefined;
     let txDescriptionId: string | undefined;
     let deviceClassId: string | undefined;
@@ -177,52 +186,70 @@ export class TransactionDetailsService {
     formRecord.controls['orgManufactureLic'].setValue(transactionInfoModel.org_manufacture_lic);
   }
 
+  private _concatTransactionDescriptionDetails(txDescriptionIdTextLabel: IIdTextLabel, requestDate: string, briefDescription: string): ILabel{
+    let labelObj: ILabel = this._entityBaseService.getEmptyLabel();
+    const enumValue = this._utilsService.getEnumValueFromString(TransactionDesc, txDescriptionIdTextLabel._id);
+
+    // Transaction description English Concat
+    let enConcatText: string | undefined = undefined;
+    const enTxDescription: string = this._utilsService.getLabelFromIdTextLabelByLang(txDescriptionIdTextLabel, ENGLISH);
+    if (this.isRequestDateRequired(enumValue)) {
+      enConcatText = this._utilsService.concat(enTxDescription, 'dated', requestDate)
+    } else if (this.isBriefDescRequired(enumValue)) {
+      enConcatText = this._utilsService.concat(enTxDescription, '-', briefDescription)
+    }
+    labelObj._label_en = enConcatText;
+
+    // Transaction description French Concat
+    let frConcatText: string | undefined = undefined;
+    const frTxDescription: string = this._utilsService.getLabelFromIdTextLabelByLang(txDescriptionIdTextLabel, FRENCH);
+    if (this.isRequestDateRequired(enumValue)) {
+      frConcatText = this._utilsService.concat(frTxDescription, 'daté du', requestDate)
+    } else if (this.isBriefDescRequired(enumValue)) {
+      frConcatText = this._utilsService.concat(frTxDescription, '-', briefDescription)
+    }
+    labelObj._label_fr = frConcatText;
+
+    if (typeof enConcatText === 'undefined' && typeof frConcatText === 'undefined') {
+      return null;
+    } else {
+      return labelObj;
+    }
+  }
+
   getAmendReasonCheckboxFormArray(formRecord: FormGroup) {
     return formRecord.controls['amendReasons'] as FormArray;
   }  
-
-  private _concatTransactionDescriptionDetails(txDescriptionIdTextLabel: IIdTextLabel, requestDate: string, briefDescription: string, lang: string): string{
-    let concatText: string = '';
-    const txDescription: string = this._utilsService.getLabelFromIdTextLabelByLang(txDescriptionIdTextLabel, lang);
-    const enumValue = this._utilsService.getEnumValueFromString(TransactionDesc, txDescriptionIdTextLabel._id);
-    if (this.isRequestDateRequired(enumValue)) {
-      concatText = this._utilsService.concat(txDescription, 'dated', requestDate)
-    } else if (this.isBriefDescRequired(enumValue)) {
-      concatText = this._utilsService.concat(txDescription, '-', briefDescription)
-    }
-
-    return concatText;
-  }
 
   getSelectedAmendReasonCodes (amendReasonOptionList: CheckboxOption[], amendReasonCheckboxFormArray: FormArray) : string[]{
     return this._converterService.getCheckedCheckboxValues(amendReasonOptionList, amendReasonCheckboxFormArray)
   }
 
   loadAmendReasonOptions(activityTypeId: string, deviceClassId: string, amendReasonList: ICode[], relationship: any, amendReasonOptionList: CheckboxOption[], lang: string, amendReasonCheckboxFormArray: FormArray) : void{
-    console.log("##0",activityTypeId, deviceClassId, amendReasonList, relationship);
-    const group = relationship.find((item) => item.activityTypeId === activityTypeId);
+    // console.log("##0 activityTypeId: ", activityTypeId, "deviceClassId: ", deviceClassId, "amendReasonList: ", amendReasonList, "relationship: ", relationship);
+    const group = relationship.find((item) => item.raTypeId === activityTypeId);
     if (group) {
-      const reasons =  group.amendReasons.filter((member) => member.deviceClassId === deviceClassId);
-      console.log("##1",reasons[0])
-      const reasonIds = reasons[0].values;
-      console.log("##2",reasonIds)
-      const amendReasonCodeList = this._utilsService.filterCodesByIds(amendReasonList, reasonIds);
-      console.log("##3", amendReasonCodeList)
+      // console.log("##1",group)
+      const deviceClassAndAmendReason = group.amendReasons.filter((member) => member.deviceClassId === deviceClassId);
+      // console.log("##2",deviceClassAndAmendReason[0])
+      const availableAmendReasonIds = deviceClassAndAmendReason[0].values;
+      // console.log("##3",availableAmendReasonIds)
+      const availableAmendReasonCodeList = this._utilsService.filterCodesByIds(amendReasonList, availableAmendReasonIds);
+      // console.log("##4", availableAmendReasonCodeList)
 
       // Clear existing items for the amend reason checkbox options and form array
       amendReasonOptionList.length = 0;
       amendReasonCheckboxFormArray.clear();
 
       // Populate the array with new items
-      amendReasonCodeList.forEach((item) => {
+      availableAmendReasonCodeList.forEach((item) => {
         const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
         amendReasonOptionList.push(checkboxOption);
         amendReasonCheckboxFormArray.push(new FormControl(false));
       });
-
-      console.log("##4", amendReasonOptionList)
+      // console.log("##5", amendReasonOptionList)
     } else {
-      console.error("couldn't find amendReasons for activityType", activityTypeId, "and deviceClass", deviceClassId);
+      // console.info("couldn't find amendReasons for activityType", activityTypeId, "and deviceClass", deviceClassId);
     }
   }
 
@@ -247,8 +274,8 @@ export class TransactionDetailsService {
     return txDescRequireOptionalAppNum.includes(txDescription)
   }
 
-  isOrgManufactureInfoRequired(raType: ActivityType, txDescription: TransactionDesc): boolean{
-    const raTypeRequireManufactureInfo: string[] = [ActivityType.PrivateLabel, ActivityType.PrivateLabelAmendment];
+  isOrgManufactureInfoRequired(raType: RegulatoryActivityType, txDescription: TransactionDesc): boolean{
+    const raTypeRequireManufactureInfo: string[] = [RegulatoryActivityType.PrivateLabel, RegulatoryActivityType.PrivateLabelAmendment];
     const txDescRequireManufactureInfo = [TransactionDesc.INITIAL, TransactionDesc.RS, TransactionDesc.UD];
 
     return raTypeRequireManufactureInfo.includes(raType) && txDescRequireManufactureInfo.includes(txDescription) ? true : false;

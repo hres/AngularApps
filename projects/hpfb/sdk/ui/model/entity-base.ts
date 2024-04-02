@@ -16,6 +16,11 @@ export interface IIdTextLabel {
   _label_fr: string;
 }
 
+export interface ILabel {
+  _label_en: string;
+  _label_fr: string;
+}
+
 export interface INameAddress {
   company_name: string;
   street_address: string;
