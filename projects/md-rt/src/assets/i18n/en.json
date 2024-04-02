@@ -43,6 +43,7 @@
   "error.mgs.contact.id": "Must be 5 numeric value",
   "error.mgs.licence.number": "Must be 6 numeric value - Add leading 0 if less than 6 digits",
   "error.mgs.application.number": "Please specify a valid application number.",
+  "error.msg.invalidDate": "The date is not valid",
   "commmon.required.bracket": " (required)",
   "errorSummary.transaction": "Transaction Form",
   "error.found.because":" could not be saved because ",

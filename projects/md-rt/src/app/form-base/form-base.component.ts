@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { XSLT_PREFIX, ROOT_TAG } from '../app.constants';
-import {  ICode, ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, YES, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService } from '@hpfb/sdk/ui';
+import {  ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, YES, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,6 +9,8 @@ import { AppFormModule } from '../app.form.module';
 import { TransactionBaseService } from './transaction-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { ApplicationInfo, DeviceTransactionEnrol, Enrollment, TransFees } from '../models/Enrollment';
+import { TransactionDetailsComponent } from '../transaction-details/transaction.details.component';
+import { TransactionFeeComponent } from '../transaction-fee/transaction.fee.component';
 
 @Component({
   selector: 'app-form-base',
@@ -21,8 +23,8 @@ import { ApplicationInfo, DeviceTransactionEnrol, Enrollment, TransFees } from '
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
-  @Input() lang;
-  @Input() helpTextSequences;
+  lang: string;
+  helpIndex: { [key: string]: number }; 
 
   private _transactionDetailErrors = [];
   private _transFeeErrors = [];
@@ -30,34 +32,33 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public showErrors: boolean;
   public errorList = [];
   public rootTagText = ROOT_TAG; 
-  private xslName: string;
-  
-  public title = '';
+    
   public headingLevel = 'h2';
 
   public enrollModel : Enrollment;
   public transactionInfoModel : ApplicationInfo;; 
   public transFeeModel: TransFees;
-  // public transFeeModel = TransactionBaseService.getEmptyTransactionFeeModel();
   public fileServices: FileConversionService;
-  public helpIndex: { [key: string]: number };
 
-  /* public customSettings: TinyMce.Settings | any;*/
+  @ViewChild(TransactionDetailsComponent) detailsComponent: TransactionDetailsComponent;
+  @ViewChild(TransactionFeeComponent) feeComponent: TransactionFeeComponent;
+
   constructor(
     private cdr: ChangeDetectorRef, private fb: FormBuilder,
     private _baseService: TransactionBaseService,
-    private _fileService: FileConversionService, private _utilsService: UtilsService, private _globalService: GlobalService,
+    private _fileService: FileConversionService, private _globalService: GlobalService,
     private _versionService: VersionService,
-    private _checkSumService: CheckSumService,
-    private _converterService: ConverterService
+    private _checkSumService: CheckSumService
   ) {
 
     this.showErrors = false;    
     this.fileServices = new FileConversionService();
-    this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + '.xsl';
   }
 
   ngOnInit() {
+    this.lang = this._globalService.getCurrLanguage();
+    this.helpIndex = this._globalService.getHelpIndex();
+    
     // this means it's associated with a reactive form, and Angular automatically prevents the default form submission behavior
     this.transactionForm = this.fb.group({}); 
 
@@ -86,12 +87,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processErrors() {
-    // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
+    // console.log('@@@@@@@@@@@@ processErrors');
     this.errorList = [];
     // concat the error arrays
-    this.errorList = this._transactionDetailErrors.concat(this._transFeeErrors);
+    this.errorList = this.errorList.concat(this._transactionDetailErrors.concat(this._transFeeErrors));
 
-    // this.cdr.detectChanges(); // doing our own change detection
+    this.cdr.detectChanges(); // doing our own change detection
   }
 
   processDetailErrors(errorList) {
@@ -109,14 +110,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveXmlFile() {
-    this.showErrors = false;
+	  this.showErrors = true;
+    this.processErrors();
+
     if (this.errorList && this.errorList.length > 0) {
-      this.showErrors = true;
       document.location.href = '#topErrorSummary';
     } else {
       const result: Enrollment = this._prepareForSaving(true);
       const fileName: string = this._buildfileName(result);
-      this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
+      const xslName: string = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + '.xsl';
+      this._fileService.saveXmlToFile(result, fileName, true, xslName);
     }
   }
 
@@ -127,20 +130,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _prepareForSaving(xmlFile: boolean): Enrollment {
-    const output: Enrollment = {
-       'DEVICE_TRANSACTION_ENROL': {
-         'template_version': this._globalService.$appVersion,
-         'application_info': this.transactionInfoModel,
-         'transFees': this.transFeeModel
-        }
-    };
+    const detailsFormGroupValue = this.detailsComponent.transDetailsForm.value;
+    const feeFormGroupValue = this.feeComponent.transFeeForm.value;
 
-    // update the last_saved_date
-    output.DEVICE_TRANSACTION_ENROL.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    const output: Enrollment = this._baseService.mapFormToOutput(detailsFormGroupValue, feeFormGroupValue);
+
     if (xmlFile) {
       // add and calculate check_sum if it is xml
-      output.DEVICE_TRANSACTION_ENROL.check_sum = "";   // this is needed for generating the checksum value
-      output.DEVICE_TRANSACTION_ENROL.check_sum = this._checkSumService.createHash(output);
+      output.DEVICE_TRANSACTION_ENROL[CHECK_SUM_CONST] = "";   // this is needed for generating the checksum value
+      output.DEVICE_TRANSACTION_ENROL[CHECK_SUM_CONST] = this._checkSumService.createHash(output);
     }
 
     return output;
@@ -148,23 +146,22 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _buildfileName(output: Enrollment): string {
     return 'rt-' + output.DEVICE_TRANSACTION_ENROL.application_info.dossier_id + '-' + output.DEVICE_TRANSACTION_ENROL.application_info.last_saved_date;
-
   }
 
   public processFile(fileData: ConvertResults) {
     const enrollment : Enrollment = fileData.data;
-     console.log('processing file.....');
+    //  console.log('processing file.....');
      const transactionEnroll: DeviceTransactionEnrol = enrollment[this.rootTagText];
      this._init(transactionEnroll);
   }
 
-  public preload() {
-    // console.log("Calling preload")
-  }
+  // public preload() {
+  //   // console.log("Calling preload")
+  // }
 
-  public updateChild() {
-    // console.log("Calling updateChild")
-  }
+  // public updateChild() {
+  //   // console.log("Calling updateChild")
+  // }
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {

@@ -170,14 +170,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this._contactErrors.concat(this._adminChangesErrors)
       )
     );
-    this.cdr.detectChanges(); // doing our own change detection
-    // console.log('form.base', 'processErrors', 'this.errorList.length', this.errorList.length);
-    // for (const e of this.errorList) {
-    //   console.log(e)
-    // }
 
     this.disableMailto = this.errorList.length > 0 || this._isFinal()|| this.isInternal;
     this.showMailToHelpText = false;
+
+    this.cdr.detectChanges(); // doing our own change detection
   }
 
   processAddressErrors(errorList) {
@@ -241,9 +238,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public saveXmlFile() {
     // console.log("saveXmlFile", "this.showErrors", this.showErrors, this.errorList.length)
-    this.showErrors = false;
+    this.showErrors = true;
+    this.processErrors();
     if (this.errorList && this.errorList.length > 0) {
-      this.showErrors = true;
       document.location.href = '#topErrorSummary';
     } else {
       if (this.companyContacts.contactListForm.pristine) {
@@ -292,8 +289,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         output.DEVICE_COMPANY_ENROL.general_information.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusList, EnrollmentStatus.Final, this.lang); // Set to final status
       }
       // add and calculate check_sum if it is xml
-      output.DEVICE_COMPANY_ENROL.check_sum = "";   // this is needed for generating the checksum value
-      output.DEVICE_COMPANY_ENROL.check_sum = this._checkSumService.createHash(output);
+      output.DEVICE_COMPANY_ENROL[CHECK_SUM_CONST] = "";   // this is needed for generating the checksum value
+      output.DEVICE_COMPANY_ENROL[CHECK_SUM_CONST] = this._checkSumService.createHash(output);
     }
     // console.log("_prepareForSaving, data after updates ", JSON.stringify(output, null, 2));
 
