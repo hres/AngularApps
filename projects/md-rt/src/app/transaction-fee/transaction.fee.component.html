@@ -18,7 +18,7 @@
       </div>
       <div class="row"  *ngIf="hasFeeYes()">
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
-          <label for="billCompanyId" class="required full-width" ="true">
+          <label for="billCompanyId" class="required full-width" >
             <span class="field-name">{{'billing.company.id'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="transFeeForm.controls['billCompanyId'].invalid"
@@ -30,7 +30,7 @@
           </label>
         </div>
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
-          <label for="billContactId" class="required full-width" ="true">
+          <label for="billContactId" class="required full-width" >
             <span class="field-name">{{'billing.contact.id'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="transFeeForm.controls['billContactId'].invalid"
