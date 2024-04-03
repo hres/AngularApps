@@ -28,8 +28,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   public tissueTypeList: ICode[] = [];
   public derivativeList: ICode[] = [];
 
-  // public isTissueTypeOther = false;
-  // public isDerivativeOther = false;
+  public isTissueTypeOther = false;
+  public isDerivativeOther = false;
 
   //isInternal: boolean
   showErrors: boolean;
@@ -46,8 +46,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
 
   constructor(private _globalService: GlobalService, private _utilsService: UtilsService, private _translateService: TranslateService){
     //this.isInternal = this._globalService.$isInternal;
-    this.headingPreambleParams = this.j;
-    this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+    console.log("translated parent label", this.translatedParentLabel);
+    console.log("heading preamble params", this.headingPreambleParams);
 
     effect(() => {
       this.showErrors = this._globalService.showErrors()
@@ -63,6 +63,9 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     this.specFamList = this._globalService.$deviceSpeciesList;
     this.tissueTypeList = this._globalService.$deviceTissueList;
     this.derivativeList = this._globalService.$derivateList;
+
+    this.headingPreambleParams = this.j+1;
+    this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
   }
 
   ngAfterViewInit(): void {
@@ -116,40 +119,39 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
       this.showErrors = true;
     }
   } 
-  
-  isOtherType() {
-    const tissueType = this.cRRow.get('materialInfo.tissueType').value;
+
+  onTissueTypeSelected(e : any) {
+    const selectedTissueType = e.target.value;
     const tissueTypeDetails = this.cRRow.get('materialInfo.tissueTypeOtherDetails');
-    console.log("tissueType", tissueType);
-    if (tissueType) {
-      if (tissueType === TISSUE_OTHER_ID) {
-        return true;
+    if (selectedTissueType) {
+      if (selectedTissueType === TISSUE_OTHER_ID) {
+        this.isTissueTypeOther = true;
       } else {
+        this.isTissueTypeOther = false;
         // Reset tissue type details
         this._utilsService.resetControlsValues(tissueTypeDetails)
         // this.materialFormLocalModel.controls.tissueTypeOtherDetails.setValue(null);
         // this.materialFormLocalModel.controls.tissueTypeOtherDetails.markAsUntouched();
       }
     }
-    return false;
   }
 
-  isOtherDerivative() {
-    const derivative = this.cRRow.get('materialInfo.derivative').value;
+  onDerivativeSelected(e : any) {
+    const selectedDerivative = e.target.value;
     const derivativeDetails = this.cRRow.get('materialInfo.derivativeOtherDetails');
-    console.log("derivative",derivative);
-    if (derivative) {
-      if (derivative === DERIVATIVE_OTHER_ID) {
-        return true;
+    if (selectedDerivative) {
+      if (selectedDerivative === DERIVATIVE_OTHER_ID) {
+        this.isDerivativeOther = true;
       } else {
+        this.isDerivativeOther = false;
         // Reset derivate details
         this._utilsService.resetControlsValues(derivativeDetails);
         // this.materialFormLocalModel.controls.derivativeOtherDetails.setValue(null);
         // this.materialFormLocalModel.controls.derivativeOtherDetails.markAsUntouched();
       }
     }
-    return false;
   }
+
 
   typed(rec) {
     // this._loggerService.log('address.detail', 'country is typed');

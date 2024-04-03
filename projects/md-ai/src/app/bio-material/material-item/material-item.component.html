@@ -70,39 +70,43 @@
         <div class="form-group col-sm-4">
           <label for="tissueType{{j}}" class="full-width">
             <span class="field-name">{{'tissue.type'|translate}}</span>
-            <select id="tissueType{{j}}" name="tissueType{{j}}"
+            <select id="tissueType{{j}}" name="tissueType{{j}}" (change)="onTissueTypeSelected($event)"
                          formControlName='tissueType' class="form-control">
                 <option label=" " value=""></option>
-                <option *ngFor="let tissueType of tissueTypeList" [ngValue]="tissueType.id"> {{tissueType | textTransform : lang }} <option>
+                <option *ngFor="let tissueType of tissueTypeList" [value]="tissueType.id"> {{tissueType | textTransform : lang }} <option>
               </select>
           </label>
         </div>
-        <div class="form-group col-sm-8" *ngIf="isOtherType()">
-          <label for="tissueTypeOtherDetails" class="full-width">
-            <span class="field-name">{{'tissue.other' |translate}}</span>
-            <input id="tissueTypeOtherDetails" name="tissueTypeOtherDetails" class="form-control full-width"
-                   formControlName='tissueTypeOtherDetails'/>
-          </label>
-        </div>
+        @if(isTissueTypeOther) {
+          <div class="form-group col-sm-8">
+            <label for="tissueTypeOtherDetails" class="full-width">
+              <span class="field-name">{{'tissue.other' |translate}}</span>
+              <input id="tissueTypeOtherDetails" name="tissueTypeOtherDetails" class="form-control full-width"
+                     formControlName='tissueTypeOtherDetails'/>
+            </label>
+          </div>
+        }
       </div>
       <div class="row">
         <div class="form-group col-sm-4" >
           <label for="derivative{{j}}" class=" full-width">
             <span class="field-name">{{'derivative'|translate}}</span>
-            <select id="derivative{{j}}" name="derivative{{j}}"
+            <select id="derivative{{j}}" name="derivative{{j}}" (change)="onDerivativeSelected($event)"
                          formControlName='derivative' class="form-control">
                 <option label=" " value=""></option>
-                <option *ngFor="let derivative of derivativeList" [ngValue]="derivative.id"> {{derivative | textTransform : lang }} <option>
+                <option *ngFor="let derivative of derivativeList" [value]="derivative.id"> {{derivative | textTransform : lang }} <option>
               </select>
           </label>
         </div>
-        <div class="form-group col-sm-8" *ngIf="isOtherDerivative()">
-          <label for="derivativeOtherDetails" class="full-width">
-            <span class="field-name">{{'derivative.other' |translate}}</span>
-            <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control full-width"
-                   formControlName='derivativeOtherDetails'/>
-          </label>
-        </div>
+        @if(isDerivativeOther) {
+          <div class="form-group col-sm-8">
+            <label for="derivativeOtherDetails" class="full-width">
+              <span class="field-name">{{'derivative.other' |translate}}</span>
+              <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control full-width"
+                     formControlName='derivativeOtherDetails'/>
+            </label>
+          </div>
+        }
       </div>
       <div class="row">
         <div class="btn-group-sm col-xs-12 text-left">

@@ -9,7 +9,7 @@
                     [hidden]="true">
       </control-messages>
 
-      <lib-accordion [rowsFormArray]="materialsFormArr" [accordionHeadingMsgKey]="'heading.biological.material'" [accordionHeadingSupp]="['materialName']" 
+      <lib-accordion [rowsFormArray]="materialsFormArr" [accordionHeadingMsgKey]="'heading.biological.material'" [accordionHeadingSupp]="['materialInfo', 'materialName']" 
       (rowClicked)="handleRowClick($event)">
     
       <ng-template #tmpl let-recordRow let-idx="i">
