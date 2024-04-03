@@ -65,7 +65,10 @@
             "header": "Liens dédiés aux utilisateurs internes (c.-à-d. DGPSA)",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.co_internal.fr }}\">Enregistrement d’entreprise – interne version 4.0.0</a>"
+                    "header": "",
+                    "bullets": [
+                        "<a href=\"{{ base_url }}{{ template_paths.co_internal.fr }}\">Enregistrement d’entreprise – interne version 4.0.0</a>"
+                    ]
                 }
             ]
         },
@@ -73,7 +76,10 @@
             "header": "Liens de téléchargement des feuilles de style",
             "groups": [
                 {
-                    "header": "<a href=\"./mds/stylesheet/medicaldevice_stylesheets_fr.zip\">Télécharger le fichier zip des feuilles de style (31 juillet 2024)</a>"
+                    "header": "",
+                    "bullets": [
+                        "<a href=\"./mds/stylesheet/medicaldevice_stylesheets_fr.zip\">Télécharger le fichier zip des feuilles de style (31 juillet 2024)</a>"
+                    ]
                 }
             ]
         }
