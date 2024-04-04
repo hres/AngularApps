@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type, ElementRef } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EnrollmentStatus, XSLT_PREFIX, ROOT_TAG, AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
@@ -9,11 +9,13 @@ import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
+import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-form-base',
   standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule, AppFormModule],
+  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule, AppFormModule, PopupComponent],
   templateUrl: './form-base.component.html',
   styleUrls: ['./form-base.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -75,6 +77,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private activeContactStatuses: string[] = [ContactStatus.New, ContactStatus.Revise , ContactStatus.Active];
   private amendReasonCodesToShowAdminChanges:string[] = new Array(AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE) ;
+
+  popupId = 'saveXmlPopup';
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -244,15 +248,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         const fileName = this._buildfileName();
         this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
       } else {
-        if (this._utilsService.isFrench(this.lang)) {
-          alert(
-            "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML."
-          );
-        } else {
-          alert(
-            'Please save the unsaved input data before generating XML file.'
-          );
-        }
+        this.openPopup();
       }
     }
   }
@@ -456,5 +452,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showAdminChanges = this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges) || areLicensesBeingTransfered === YES;
     
     // console.log("_setShowAdminChangesFlag()", "this.selectedAmendReasonCodes", this.selectedAmendReasonCodes, "areLicensesBeingTransfered", areLicensesBeingTransfered, "this.showAdminChanges", this.showAdminChanges);
+  }
+
+  openPopup(){
+      jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
   }
 }
