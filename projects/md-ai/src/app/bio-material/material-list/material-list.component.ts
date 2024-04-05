@@ -90,6 +90,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     //   contactInfo.controls['status'].setValue(status);
     // }
 
+    console.log("saving material info state..", materialInfo.value);
+
     // Update lastSavedState with the current value of contactInfo
     materialInfo.get('lastSavedState').setValue(materialInfo.value);
 
@@ -112,6 +114,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
   deleteMaterialRecord(index){
     console.log(index);
+    const group = this.materialsFormArr.at(index) as FormGroup;
+    const materialInfo = this.getMaterialInfo(group);
+    materialInfo.reset();
     this.materialsFormArr.removeAt(index);
 
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
@@ -125,8 +130,11 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     const group = this.materialsFormArr.at(index) as FormGroup;
     const materialInfo =this.getMaterialInfo(group);
+    console.log("revertMaterial", group);
+    console.log("revertMaterial, materialInfo", materialInfo);
 
     // Revert to the last saved state
+    console.log("fetching last saved state...", materialInfo.get('lastSavedState').value)
     const lastSavedState = materialInfo.get('lastSavedState').value;
     materialInfo.patchValue(lastSavedState);    
 
@@ -200,6 +208,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     const clickedRecordState = event.state;
 
     console.log(this._utilsService.logFormControlState(this.materialListForm))
+
+    console.log(this.materialListForm);
+    console.log(this.materialsFormArr);
 
     if (this.materialListForm.pristine) {
       this.materialsFormArr.controls.forEach( (element: FormGroup, index: number) => {
