@@ -5,6 +5,7 @@ import { ControlMessagesComponent, ErrorModule, ICode, PipesModule, UtilsService
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalService } from '../../global/global.service';
 import { TISSUE_OTHER_ID, DERIVATIVE_OTHER_ID } from '../../app.constants';
+import { MaterialListComponent } from '../material-list/material-list.component';
 
 @Component({
   selector: 'app-material-item',
@@ -22,6 +23,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
+  @Output() error = new EventEmitter(true);
 
   public countries: ICode[] = [];
   public specFamList: ICode[] = [];
@@ -41,17 +43,13 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   headingPreambleParams: any;
   translatedParentLabel: string;
 
-  @Output() error = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  constructor(private _globalService: GlobalService, private _utilsService: UtilsService, private _translateService: TranslateService){
+  constructor(private _globalService: GlobalService, private _utilsService: UtilsService, private _translateService: TranslateService, private _materialListComponent : MaterialListComponent){
     //this.isInternal = this._globalService.$isInternal;
-    console.log("translated parent label", this.translatedParentLabel);
-    console.log("heading preamble params", this.headingPreambleParams);
 
     effect(() => {
       this.showErrors = this._globalService.showErrors()
-      console.log('[effect]', this.showErrors, this._globalService.showErrors())
       if (this._globalService.showErrors()) {
         this._updateErrorList(this.msgList);
       }
@@ -69,11 +67,9 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log("first updated to error list");
     this._updateErrorList(this.msgList);
 
     this.msgList.changes.subscribe(errorObjs => {
-      console.log("changes in msg list", this.msgList);
       this._updateErrorList(this.msgList);
     });
   }
@@ -87,7 +83,6 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
         }
       );
     }
-    console.log("error list - material item component", temp);
     this.errorList = temp;
     this.error.emit(temp);
   }
@@ -98,7 +93,9 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   public deleteMaterialRecord(index: number): void {
-    this.deleteRecord.emit(index);  
+    this.deleteRecord.emit(index);
+    this.cRRow.markAsPristine();
+    this._updateErrorList([]);
   }
 
 
@@ -107,22 +104,22 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   private _save(index: number): void {
-    console.log("save material record - item component");
-    console.log(this.cRRow);
     if (this.cRRow.valid) {
-      console.log("cRRow valid");
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
     } else {
-      console.log("cRRow not valid");
       this.showErrSummary = true;
       this.showErrors = true;
     }
   } 
 
+  /**
+   * This method is to make the field more reactive when selecting "Other"
+   */
   onTissueTypeSelected(e : any) {
     const selectedTissueType = e.target.value;
     const tissueTypeDetails = this.cRRow.get('materialInfo.tissueTypeOtherDetails');
+
     if (selectedTissueType) {
       if (selectedTissueType === TISSUE_OTHER_ID) {
         this.isTissueTypeOther = true;
@@ -130,10 +127,26 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
         this.isTissueTypeOther = false;
         // Reset tissue type details
         this._utilsService.resetControlsValues(tissueTypeDetails)
-        // this.materialFormLocalModel.controls.tissueTypeOtherDetails.setValue(null);
-        // this.materialFormLocalModel.controls.tissueTypeOtherDetails.markAsUntouched();
       }
     }
+  }
+
+  /**
+   * This method ensures that the other details field is shown when control value is "Other" 
+   */
+  tissueTypeOther() {
+    const tissueTypeDetails = this.cRRow.get('materialInfo.tissueTypeOtherDetails');
+    const tissueType = this.cRRow.get('materialInfo.tissueType').value;
+
+    if (tissueType) {
+      if (tissueType === TISSUE_OTHER_ID) {
+        return true;
+      } else {
+        // Reset tissue type details
+        this._utilsService.resetControlsValues(tissueTypeDetails)
+      }
+    }
+    return false;
   }
 
   onDerivativeSelected(e : any) {
@@ -150,6 +163,21 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
         // this.materialFormLocalModel.controls.derivativeOtherDetails.markAsUntouched();
       }
     }
+  }
+
+  derivativeOther() {
+    const derivativeDetails = this.cRRow.get('materialInfo.derivativeOtherDetails');
+    const derivative = this.cRRow.get('materialInfo.derivative').value;
+
+    if (derivative) {
+      if (derivative === DERIVATIVE_OTHER_ID) {
+        return true;
+      } else {
+        // Reset tissue type details
+        this._utilsService.resetControlsValues(derivativeDetails)
+      }
+    }
+    return false;
   }
 
 
@@ -175,9 +203,21 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     return false;
   }
 
+  public disabledDiscardButton() {
+    if (this.cRRow.get('isNew').value) {
+      return true;
+    }
+    return false;
+  }
+
+  public disableDeleteButton() {
+    if (this._materialListComponent.oneRecord()) {
+      return true;
+    }
+    return false;
+  }
+
   public showErrorSummary(): boolean {
-    console.log("showErrorSummary", this.showErrSummary, this.errorList.length, this.errorList);
-    console.log("show error signal", this._globalService.showErrors());
     return (this.showErrSummary && this.errorList.length > 0);
   }
   

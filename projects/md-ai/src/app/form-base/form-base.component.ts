@@ -85,7 +85,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.helpIndex = this._globalService.getHelpIndex();
 
     effect(() => {
-      console.log("[effect3]", this._materialService.errors());
+      // console.log("[effect3]", this._materialService.errors());
       this._materialErrors = this._materialService.errors();
       this.processErrors();
     });
@@ -124,7 +124,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = [];
     // concat the two array
     this.errorList = this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialErrors)); // .concat(this._theraErrors);
-    console.log("process errors in form base", this.errorList);
+    // .log("process errors in form base", this.errorList);
     this.cdr.detectChanges(); // doing our own change detection
   }
 

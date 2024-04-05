@@ -78,7 +78,6 @@ export class ApplicationInfoDetailsService {
     const complianceList = this._globalService.$complianceList;
     const diagnosisReasonList = this._globalService.$diagnosisReasonList;
 
-    console.log(formRecord);
     if (formRecord.controls['companyId'].value) {
       appInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.controls['companyId'].value;
     }
@@ -238,20 +237,12 @@ export class ApplicationInfoDetailsService {
   loadComplianceOptions(complianceList, complianceOptionList, complianceChkboxFormArray, lang) {
     complianceOptionList.length = 0;
     complianceChkboxFormArray.clear();
-
-    console.log("#1", complianceList);
-    console.log("#2", complianceOptionList);
-    console.log("#3", complianceChkboxFormArray);
-
     // Populate the array with new items
     complianceList.forEach((item) => {
       const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
       complianceOptionList.push(checkboxOption);
       complianceChkboxFormArray.push(new FormControl(false));
     });
-
-    console.log("#4", complianceOptionList);
-    console.log("#5", complianceChkboxFormArray);
   }
 
   loadDiagnosisReasonOptions(diagnosisList, seriousDiagnosisReasonOptionList, diagnosisReasonChkFormArray, lang) {

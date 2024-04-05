@@ -23,6 +23,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   // @Output() public contactsUpdated = new EventEmitter();
 
   // errors = signal<ControlMessagesComponent[]>([]);
+  oneRecord = signal<boolean>(true);
 
   materialListForm: FormGroup;
 
@@ -39,7 +40,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     });
 
     effect(() => {
-      console.log('[effect2]', this._materialService.errors());
+      // console.log('[effect2]', this._materialService.errors());
     });
   }
 
@@ -68,11 +69,14 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   addMaterial() {
     const group = this.materialService.createMaterialFormGroup(this.fb);
     this.materialsFormArr.push(group);
+
+    if (this.materialsFormArr.length > 1) {
+      this.oneRecord.set(false);
+    }
   }
 
   saveMaterialRecord(event: any) {  
     const index = event.index;
-    console.log("saveMaterialRecord", index, status);
 
     const group = this.materialsFormArr.at(index) as FormGroup;
     // if this is a new record, assign next available id, otherwise, use it's existing id
@@ -90,10 +94,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     //   contactInfo.controls['status'].setValue(status);
     // }
 
-    console.log("saving material info state..", materialInfo.value);
-
     // Update lastSavedState with the current value of contactInfo
-    materialInfo.get('lastSavedState').setValue(materialInfo.value);
+    group.get('lastSavedState').setValue(materialInfo.value);
 
     this._expandNextInvalidRecord();
 
@@ -113,7 +115,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
  }
 
   deleteMaterialRecord(index){
-    console.log(index);
     const group = this.materialsFormArr.at(index) as FormGroup;
     const materialInfo = this.getMaterialInfo(group);
     materialInfo.reset();
@@ -121,30 +122,22 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
+    if (this.materialsFormArr.length == 1) {
+      this.oneRecord.set(true);
+    }
   }
 
   revertMaterial(event: any) {  
     const index = event.index;
     const id = event.id;
-    console.log("revertMaterials", index, id);
 
     const group = this.materialsFormArr.at(index) as FormGroup;
     const materialInfo =this.getMaterialInfo(group);
-    console.log("revertMaterial", group);
-    console.log("revertMaterial, materialInfo", materialInfo);
 
     // Revert to the last saved state
-    console.log("fetching last saved state...", materialInfo.get('lastSavedState').value)
-    const lastSavedState = materialInfo.get('lastSavedState').value;
-    materialInfo.patchValue(lastSavedState);    
+    const lastSavedState = group.get('lastSavedState').value;
 
-    // const filteredContact = this.contactListData.find(contact => contact.id === id);
-    // if (filteredContact !== undefined) {
-    //   // Found a matching contact
-    //   this._patchContactInfoValue(group, filteredContact);
-    // } else {
-    //   console.error("COULDN'T FIND THE ORIGINAL CONTACT")
-    // }
+    materialInfo.patchValue(lastSavedState);    
   }
 
   
@@ -174,7 +167,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       const group = this.materialService.createMaterialFormGroup(this.fb);
       this.materialsFormArr.push(group);
       const firstFormRecord = this.materialsFormArr.at(0) as FormGroup;
-      console.log("firstFormRecord", firstFormRecord);
       firstFormRecord.controls['expandFlag'].setValue(true);
     }
 
@@ -207,10 +199,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     const clickedIndex = event.index;
     const clickedRecordState = event.state;
 
-    console.log(this._utilsService.logFormControlState(this.materialListForm))
-
-    console.log(this.materialListForm);
-    console.log(this.materialsFormArr);
 
     if (this.materialListForm.pristine) {
       this.materialsFormArr.controls.forEach( (element: FormGroup, index: number) => {
@@ -246,7 +234,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
   
   public disableAddButton(): boolean {
-    console.log("form is invalid: ", !this.materialListForm.valid,  "form has errors: ", this.showErrors, "form is dirty: ", this.materialListForm.dirty);
+    // console.log("material list form", this.materialListForm);
+    // console.log("form is invalid: ", !this.materialListForm.valid,  "form has errors: ", this.showErrors, "form is dirty: ", this.materialListForm.dirty);
     return ( !this.materialListForm.valid  || this.showErrors ||  this.materialListForm.dirty );
   }
 
@@ -259,7 +248,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }  
 
   private _updateLocalErrorList(errs) {
-    console.log("updateErrorList", errs)
     if (errs) {
       errs.forEach(err => {
        this.errorList.push(err);
@@ -273,7 +261,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private _emitErrors(): void {
-    console.log("emit errors", this.errorList);
     let emitErrors = [];
     
     // Error List is a QueryList type

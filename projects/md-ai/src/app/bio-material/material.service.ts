@@ -14,6 +14,7 @@ export class MaterialService {
       id: -1,
       isNew: true,
       expandFlag: true,
+      lastSavedState: null, // store the last saved state of the contactInfo for reverting function
       materialInfo: fb.group({
         materialName: ['', Validators.required],
         deviceName: ['', Validators.required],
@@ -23,7 +24,6 @@ export class MaterialService {
         tissueTypeOtherDetails: ['', []],
         derivative: [null, []],
         derivativeOtherDetails: ['', []],
-        lastSavedState: null // store the last saved state of the contactInfo for reverting function
       }, { updateOn: 'blur' }
       )
     });

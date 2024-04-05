@@ -77,7 +77,7 @@
               </select>
           </label>
         </div>
-        @if(isTissueTypeOther) {
+        @if(isTissueTypeOther || tissueTypeOther()) {
           <div class="form-group col-sm-8">
             <label for="tissueTypeOtherDetails" class="full-width">
               <span class="field-name">{{'tissue.other' |translate}}</span>
@@ -98,7 +98,7 @@
               </select>
           </label>
         </div>
-        @if(isDerivativeOther) {
+        @if(isDerivativeOther || derivativeOther()) {
           <div class="form-group col-sm-8">
             <label for="derivativeOtherDetails" class="full-width">
               <span class="field-name">{{'derivative.other' |translate}}</span>
@@ -112,8 +112,8 @@
         <div class="btn-group-sm col-xs-12 text-left">
           <ul class="list-inline lst-spcd ">
             <button id="saveDeviceRecord" class="btn btn-primary" style="margin: 3px" (click)="saveMaterialRecord(j)" >{{'save.device'|translate}}</button>
-            <button id="deleteDeviceRecord" class="btn btn-danger" style="margin: 3px" (click)="deleteMaterialRecord(j)" >{{'delete.device'|translate}}</button>
-            <button id="revertDeviceRecord" class="btn btn-default" style="margin: 3px" (click)="revertMaterialRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>
+            <button id="deleteDeviceRecord" class="btn btn-danger" style="margin: 3px"  [disabled]="disableDeleteButton()" (click)="deleteMaterialRecord(j)" >{{'delete.device'|translate}}</button>
+            <button id="revertDeviceRecord" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()" (click)="revertMaterialRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>
           </ul>
         </div>
       </div>
