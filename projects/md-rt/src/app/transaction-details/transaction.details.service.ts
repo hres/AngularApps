@@ -179,7 +179,7 @@ export class TransactionDetailsService {
     formRecord.controls['licenceName'].setValue(transactionInfoModel.proposed_licence_name);
     formRecord.controls['requestDate'].setValue(transactionInfoModel.request_date);
     formRecord.controls['hasDdtMan'].setValue(transactionInfoModel.has_ddt);
-    formRecord.controls['hasAppInfo'].setValue(transactionInfoModel.has_app_info);
+    formRecord.controls['hasAppInfo'].setValue( this._utilsService.toBoolean(transactionInfoModel.has_app_info));
     formRecord.controls['rationale'].setValue(transactionInfoModel.rationale);
     formRecord.controls['proposedPurpose'].setValue(transactionInfoModel.proposed_indication);
     formRecord.controls['orgManufactureId'].setValue(transactionInfoModel.org_manufacture_id);
