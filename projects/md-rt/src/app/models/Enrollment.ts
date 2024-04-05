@@ -16,7 +16,7 @@ export interface ApplicationInfo {
   dossier_id:               string;
   dossier_type:             IIdTextLabel;
   company_id:               string;
-  manufacturing_contact_id: string;
+  manufacturer_contact_id: string;
   regulatory_company_id:    string;
   regulatory_contact_id:    string;
   regulatory_activity_lead: IIdTextLabel;

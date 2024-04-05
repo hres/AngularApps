@@ -418,10 +418,10 @@ span.normalWeight {
 				<tr>
 					<td style="text-align: center;font-weight:bold;">Type de dossier</td>
 					<td style="text-align: center;font-weight:bold;">Numéro de dossier</td>
-					<td style="text-align: center;font-weight:bold;">Date Last Saved_fr</td>
+					<td style="text-align: center;font-weight:bold;">Date de création</td>
 				</tr>
 				<tr>
-					<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/dossier_type" /></span> </td>
+					<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/dossier_type/@label_fr" /></span> </td>
 					<td style="text-align: center;"> <span class="mouseHover">HC6-024-<xsl:apply-templates select="/descendant-or-self::application_info/dossier_id" /></span> </td>
 					<td style="text-align: center;"> <span class="mouseHover"><xsl:call-template name="lastDate"><xsl:with-param name="date" select="/descendant-or-self::application_info/last_saved_date" /></xsl:call-template></span> </td>
 				</tr>
@@ -430,7 +430,7 @@ span.normalWeight {
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h2 class="panel-title">Regulatory Transaction Information_fr</h2>
+					<h2 class="panel-title">Inscription à la transaction réglementaire</h2>
 				</div>
 				<div class="panel-body">
 					<section class="panel panel-default" >

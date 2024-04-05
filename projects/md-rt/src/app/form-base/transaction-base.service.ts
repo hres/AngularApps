@@ -31,7 +31,7 @@ export class TransactionBaseService {
         dossier_id: '',
         dossier_type: this._getMedicalDeviceDossierType(),
         company_id: '',
-        manufacturing_contact_id: '',
+        manufacturer_contact_id: '',
         regulatory_company_id: '',
         regulatory_contact_id: '',
         regulatory_activity_lead: this._getMedicalDeviceDirectorateActivityLead(),

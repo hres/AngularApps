@@ -61,7 +61,7 @@ export class TransactionDetailsService {
     if (formValue.reguCompanyId) {
        transactionInfoModel.regulatory_company_id = COMPANY_ID_PREFIX + formValue.reguCompanyId;
     }
-    transactionInfoModel.manufacturing_contact_id = formValue.manuContactId;
+    transactionInfoModel.manufacturer_contact_id = formValue.manuContactId;
     transactionInfoModel.regulatory_contact_id = formValue.reguContactId;
 
     if (formValue.activityType) {
@@ -134,7 +134,7 @@ export class TransactionDetailsService {
       formRecord.controls['manuCompanyId'].setValue(transactionInfoModel.company_id.slice(1));
     }
 
-    formRecord.controls['manuContactId'].setValue(transactionInfoModel.manufacturing_contact_id);
+    formRecord.controls['manuContactId'].setValue(transactionInfoModel.manufacturer_contact_id);
     if (transactionInfoModel.regulatory_company_id) {
       formRecord.controls['reguCompanyId'].setValue(transactionInfoModel.regulatory_company_id.slice(1));
     }
