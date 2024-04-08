@@ -16,7 +16,6 @@ import { Contact } from '../../model/entity-base';
 import { Subscription } from 'rxjs';
 import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } from '../../error-msg/error-summary/error-summary-object';
 import { ErrorNotificationService } from '../../error-msg/error.notification.service';
-import $ from 'jquery';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({

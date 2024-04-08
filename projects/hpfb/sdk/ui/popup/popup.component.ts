@@ -11,4 +11,9 @@ export class PopupComponent {
   @Input() message: string ;
   @Input() title: string;
   @Input() id: string;
+  @Input() close: string;
+
+  closePopup() {
+    jQuery( ".wb-overlay").trigger( "close.wb-overlay" );
+  }
 }
