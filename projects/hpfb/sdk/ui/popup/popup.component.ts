@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import $ from 'jquery';
 
 @Component({
   selector: 'lib-popup',
