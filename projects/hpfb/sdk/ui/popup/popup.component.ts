@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import $ from 'jquery';
 
 @Component({
   selector: 'lib-popup',
@@ -11,4 +12,9 @@ export class PopupComponent {
   @Input() message: string ;
   @Input() title: string;
   @Input() id: string;
+  @Input() close: string;
+
+  closePopup() {
+    jQuery( ".wb-overlay").trigger( "close.wb-overlay" );
+  }
 }

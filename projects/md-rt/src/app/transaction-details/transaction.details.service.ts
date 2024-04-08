@@ -61,7 +61,7 @@ export class TransactionDetailsService {
     if (formValue.reguCompanyId) {
        transactionInfoModel.regulatory_company_id = COMPANY_ID_PREFIX + formValue.reguCompanyId;
     }
-    transactionInfoModel.manufacturing_contact_id = formValue.manuContactId;
+    transactionInfoModel.manufacturer_contact_id = formValue.manuContactId;
     transactionInfoModel.regulatory_contact_id = formValue.reguContactId;
 
     if (formValue.activityType) {
@@ -134,7 +134,7 @@ export class TransactionDetailsService {
       formRecord.controls['manuCompanyId'].setValue(transactionInfoModel.company_id.slice(1));
     }
 
-    formRecord.controls['manuContactId'].setValue(transactionInfoModel.manufacturing_contact_id);
+    formRecord.controls['manuContactId'].setValue(transactionInfoModel.manufacturer_contact_id);
     if (transactionInfoModel.regulatory_company_id) {
       formRecord.controls['reguCompanyId'].setValue(transactionInfoModel.regulatory_company_id.slice(1));
     }
@@ -179,7 +179,7 @@ export class TransactionDetailsService {
     formRecord.controls['licenceName'].setValue(transactionInfoModel.proposed_licence_name);
     formRecord.controls['requestDate'].setValue(transactionInfoModel.request_date);
     formRecord.controls['hasDdtMan'].setValue(transactionInfoModel.has_ddt);
-    formRecord.controls['hasAppInfo'].setValue(transactionInfoModel.has_app_info);
+    formRecord.controls['hasAppInfo'].setValue( this._utilsService.toBoolean(transactionInfoModel.has_app_info));
     formRecord.controls['rationale'].setValue(transactionInfoModel.rationale);
     formRecord.controls['proposedPurpose'].setValue(transactionInfoModel.proposed_indication);
     formRecord.controls['orgManufactureId'].setValue(transactionInfoModel.org_manufacture_id);
