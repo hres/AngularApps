@@ -269,15 +269,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
         emitErrors.push(err);
       })
     }
-    // if (!this.isInternal && this._noNonRemoveRecords(this.contactModel)) {
-    //   const oerr: ErrorSummaryObject = getEmptyErrorSummaryObj();
-    //   oerr.index = 0;
-    //   oerr.tableId = 'contactListTable';
-    //   oerr.type = ERR_TYPE_LEAST_ONE_REC;
-    //   oerr.label = 'error.msg.contact.one.record';
-    //   emitErrors.push(oerr);
-    // }
-    
+   
     this._materialService.errors.update( errors => emitErrors );
   }
 

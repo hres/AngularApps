@@ -6,7 +6,7 @@
     <div formGroupName="materialInfo">
       <div class="row">
         <div class="form-group col-sm-12" >
-          <label for="materialName" class="required full-width" aria-required="true">
+          <label for="materialName{{j}}" class="required full-width" aria-required="true">
             <span class="field-name">{{'material.name'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="cRRow.get('materialInfo.materialName').invalid"
@@ -22,7 +22,7 @@
       </div>
       <div class="row">
         <div class="form-group col-sm-12" >
-          <label for="materialDeviceName" class="required full-width" aria-required="true">
+          <label for="materialDeviceName{{j}}" class="required full-width" aria-required="true">
             <span class="field-name">{{'device.name'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="cRRow.get('materialInfo.deviceName').invalid"
@@ -111,8 +111,8 @@
       <div class="row">
         <div class="btn-group-sm col-xs-12 text-left">
           <ul class="list-inline lst-spcd ">
-            <button id="saveDeviceRecord" class="btn btn-primary" style="margin: 3px" (click)="saveMaterialRecord(j)" >{{'save.device'|translate}}</button>
-            <button id="deleteDeviceRecord" class="btn btn-danger" style="margin: 3px"  [disabled]="disableDeleteButton()" (click)="deleteMaterialRecord(j)" >{{'delete.device'|translate}}</button>
+            <button id="saveDeviceRecord" class="btn btn-primary" style="margin: 3px" (click)="saveMaterialRecord(j)" >{{'save.material'|translate}}</button>
+            <button id="deleteDeviceRecord" class="btn btn-danger" style="margin: 3px"  [disabled]="disableDeleteButton()" (click)="deleteMaterialRecord(j)" >{{'delete.material'|translate}}</button>
             <button id="revertDeviceRecord" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()" (click)="revertMaterialRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>
           </ul>
         </div>

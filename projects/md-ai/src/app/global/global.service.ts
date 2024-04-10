@@ -29,6 +29,7 @@ export class GlobalService {
 
   showErrors = signal<boolean>(false);
   materialFormArrValue = signal<any[]>([]);
+  deviceFormArrValue = signal<any[]>([]);
   lang = signal<string>('');
 
   setShowErrors(flag: boolean): void {
@@ -38,6 +39,10 @@ export class GlobalService {
 
   setMaterialsFormArrValue(val: any[]): void {
     this.materialFormArrValue.set(val);
+  }
+
+  setDevicesFormArrValue(val: any[]): void {
+    this.deviceFormArrValue.set(val);
   }
 
   setCurrLanguage(language : string): void {

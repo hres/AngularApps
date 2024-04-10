@@ -10,9 +10,11 @@ import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
-import { DeviceModule } from '../device/device.module';
+// import { DeviceModule } from '../device/device.module';
 import { MaterialModule } from '../bio-material/material.module';
 import { MaterialService } from '../bio-material/material.service';
+import { DeviceModule } from '../inter-device/device.module';
+import { DeviceService } from '../inter-device/device.service';
 
 @Component({
   selector: 'app-form-base',
@@ -75,6 +77,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _checkSumService: CheckSumService,
     private _converterService: ConverterService,
     private _materialService: MaterialService,
+    private _deviceService: DeviceService,
     private fb: FormBuilder
   ) {
     this.userList = [];
@@ -85,8 +88,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.helpIndex = this._globalService.getHelpIndex();
 
     effect(() => {
-      // console.log("[effect3]", this._materialService.errors());
+      console.log("[effect3] device", this._deviceService.errors());
+      console.log("[effect3] material", this._materialService.errors());
       this._materialErrors = this._materialService.errors();
+      this._deviceErrors = this._deviceService.errors();
       this.processErrors();
     });
   }
