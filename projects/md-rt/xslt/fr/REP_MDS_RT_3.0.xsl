@@ -422,7 +422,7 @@ span.normalWeight {
 				</tr>
 				<tr>
 					<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/dossier_type/@label_fr" /></span> </td>
-					<td style="text-align: center;"> <span class="mouseHover">HC6-024-<xsl:apply-templates select="/descendant-or-self::application_info/dossier_id" /></span> </td>
+					<td style="text-align: center;"> <span class="mouseHover"><xsl:apply-templates select="/descendant-or-self::application_info/dossier_id" /></span> </td>
 					<td style="text-align: center;"> <span class="mouseHover"><xsl:call-template name="lastDate"><xsl:with-param name="date" select="/descendant-or-self::application_info/last_saved_date" /></xsl:call-template></span> </td>
 				</tr>
 			</table>
@@ -438,7 +438,7 @@ span.normalWeight {
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<strong>Numéro de dossier:&#160;</strong>
-										<span class="mouseHover">HC6-024-<xsl:value-of select="/descendant-or-self::application_info/dossier_id"/></span>
+										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/dossier_id"/></span>
 									</div>
 								</div>
 								<div class="row">
