@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output, OnInit, QueryList, ViewChildren, effect, ViewEncapsulation } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ControlMessagesComponent, ErrorModule, ICode, PipesModule, UtilsService } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ICode, PipesModule, UtilsService } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalService } from '../../global/global.service';
 import { TISSUE_OTHER_ID, DERIVATIVE_OTHER_ID } from '../../app.constants';
 import { MaterialListComponent } from '../material-list/material-list.component';
+import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
 
 @Component({
   selector: 'app-material-item',
@@ -37,6 +38,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   showErrors: boolean;
   showErrSummary: boolean = false;
   public errorList = [];
+  private errorSummaryChild: ErrorSummaryComponent = null;
 
   public headingLevel = 'h4';
   headingPreamble: string = "heading.biological.material";
@@ -44,8 +46,13 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   translatedParentLabel: string;
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
-  constructor(private _globalService: GlobalService, private _utilsService: UtilsService, private _translateService: TranslateService, private _materialListComponent : MaterialListComponent){
+  constructor(private _globalService: GlobalService, 
+              private _utilsService: UtilsService, 
+              private _translateService: TranslateService, 
+              private _materialListComponent : MaterialListComponent,
+              private _errorNotificationService : ErrorNotificationService){
     //this.isInternal = this._globalService.$isInternal;
 
     effect(() => {
@@ -72,6 +79,22 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     this.msgList.changes.subscribe(errorObjs => {
       this._updateErrorList(this.msgList);
     });
+    /** this is processsing the errorSummary that is a child in  Contact record **/
+    this.errorSummaryChildList.changes.subscribe(list => {
+      console.log("error summary child change,", list);
+      this.processSummaries(list);
+    });
+  }
+
+  private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
+    if (list.length > 1) {
+      console.warn('Contact List found >1 Error Summary ' + list.length);
+    }
+    this.errorSummaryChild = list.first;
+    // notify subscriber(s) that contact records' error summaries are changed
+    this._errorNotificationService.updateErrorSummary(this.cRRow.get('id').value, this.errorSummaryChild);
+ 
+    // this._emitErrors();
   }
 
   private _updateErrorList(errorObjs) {
@@ -93,6 +116,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   public deleteMaterialRecord(index: number): void {
+    this.errorSummaryChild = null;
     this.deleteRecord.emit(index);
     this.cRRow.markAsPristine();
     this._updateErrorList([]);

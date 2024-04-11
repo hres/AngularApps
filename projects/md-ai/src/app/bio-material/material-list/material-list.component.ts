@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren, ViewEncapsulation, effect, inject, signal } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ControlMessagesComponent, ErrorModule, ExpanderModule, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ExpanderModule, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialService } from '../material.service';
 import { MaterialListService } from './material-list.service';
@@ -9,6 +9,7 @@ import { GlobalService } from '../../global/global.service';
 import { MaterialItemComponent } from '../material-item/material-item.component';
 import { BiologicalMaterial, BiologicalMaterials } from '../../models/Enrollment';
 import { first } from 'rxjs';
+import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
 
 @Component({
     selector: 'app-material-list',
@@ -32,8 +33,13 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
   public showErrors = false;
   public errorList = [];
+  errorSummaryChild = null;
 
-  constructor(private fb: FormBuilder, private _utilsService: UtilsService, private _globalService: GlobalService, private _materialService : MaterialService) {
+  constructor(private fb: FormBuilder, 
+              private _utilsService: UtilsService, 
+              private _globalService: GlobalService, 
+              private _materialService : MaterialService,
+              private _errorNotificationService : ErrorNotificationService) {
 
     this.materialListForm = this.fb.group({
       materials: this.fb.array([], [ValidationService.atLeastOneRecord])
@@ -60,7 +66,26 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this._updateLocalErrorList(errorObjs);
     });
     this.msgList.notifyOnChanges();
+
+    this._errorNotificationService.errorSummaryChanged$.subscribe((errors) => {
+      this._processErrorSummaries(errors);
+    });
   }
+
+  private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
+    // console.log('...._processErrorSummaries:', errSummaryEntries);
+    // get the first entry where the errSummaryMessage property is not empty 
+    // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
+    console.log("processing error summary in contact list component...", errSummaryEntries);
+    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage);
+    // console.log('....', filteredErrSummaryEntry);
+    if (filteredErrSummaryEntry) {
+      this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
+    } else {
+      this.errorSummaryChild = null;
+    }
+    this._emitErrors();
+  } 
 
   get materialsFormArr(): FormArray {
     return this.materialListForm.get('materials') as FormArray;
@@ -262,6 +287,10 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
   private _emitErrors(): void {
     let emitErrors = [];
+
+    if (this.errorSummaryChild) {
+      emitErrors.push(this.errorSummaryChild);
+    }
     
     // Error List is a QueryList type
     if (this.errorList) {
