@@ -5,6 +5,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class MaterialService {
   errors = signal([]);
 
+  public createMaterialInfoFormGroup(fb: FormBuilder) : FormGroup | null {
+    if (!fb) {
+      return null;
+    }
+    return fb.group({
+      hasRecombinant: [null, Validators.required],
+      isAnimalHumanSourced : [null, Validators.required],
+      isListedIddTable: [null, Validators.required]
+    })
+  }
+
   public createMaterialFormGroup(fb: FormBuilder) : FormGroup | null {
     if (!fb) {
       return null;

@@ -309,21 +309,4 @@ export class ValidationService {
       return isAtLeastOneSelected ? null : { 'required': true };
     // };
   }
-
-  static atLeastOneRecord(formArray : FormArray) {
-    // USE isNew control value to check if at least one record has been saved
-    let atLeastOneRecord : boolean = false;
-
-    formArray.controls.forEach((formGroup: FormGroup) => {
-      // Access the controls in each FormGroup
-      const isNew = formGroup.get('isNew');
-      if (!isNew.value) {
-        atLeastOneRecord = true;
-      }
-    });
-
-    // const atLeastOneRecord = controls.some((control: AbstractControl) => control['isNew'].value !== true);
-    // console.log("at least one record", atLeastOneRecord);
-    return atLeastOneRecord ? null : { 'error.msg.materialOneRecord' : true };
-} 
 }

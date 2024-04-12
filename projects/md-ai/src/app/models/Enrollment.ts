@@ -44,6 +44,7 @@ export interface ApplicationInfo {
     has_recombinant:                string;
     is_animal_human_sourced :       string;
     is_listed_idd_table:            string;
+    material_data:                  BiologicalMaterialData;
     priority_review:                    string;
     is_diagnosis_treatment_serious:     DiagnosisReasons;
 }
@@ -54,6 +55,13 @@ export interface Compliances {
 
 export interface DiagnosisReasons {
     diagnosis_reason : IIdTextLabel[];
+}
+
+export interface BiologicalMaterialData {
+    has_recombinant:                string;
+    is_animal_human_sourced :       string;
+    is_listed_idd_table:            string;
+    biological_materials: BiologicalMaterials
 }
 
 export interface BiologicalMaterials {

@@ -234,12 +234,12 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  public disableDeleteButton() {
-    if (this._materialListComponent.oneRecord()) {
-      return true;
-    }
-    return false;
-  }
+  // public disableDeleteButton() {
+  //   if (this._materialListComponent.oneRecord()) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   public showErrorSummary(): boolean {
     return (this.showErrSummary && this.errorList.length > 0);

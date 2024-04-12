@@ -1,0 +1,73 @@
+<section class="panel  panel-default">
+    <header class="panel-heading clearfix">
+      <h2 class="panel-title">{{'containing.material'|translate}}</h2>
+    </header>
+    <div class="panel-body">
+      <div class="row">
+        <div class="form-group col-xs-12" >
+          <label for="hasRecombinant" class="required full-width">
+            <span class="field-name">{{'consist.recombinant' |translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="materialInfoForm.controls['hasRecombinant'].invalid"
+                              [showError]="showErrors"
+                              [control]="materialInfoForm.controls['hasRecombinant'] | formControl"
+                              controlId="hasRecombinant" label="consist.recombinant" parentId="materialInfoDetails"></control-messages>
+
+            <select id="hasRecombinant" name="hasRecombinant" required class="form-control"
+                   [formControl]="materialInfoForm.controls['hasRecombinant'] | formControl">
+              <option label=" " value=""></option>
+              <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
+            </select>
+          </label>
+        </div>
+      </div>
+     <!-- <div *ngIf="isRecombinant()" class="row"> -->
+      <div class="row">
+      <div class="form-group col-xs-12" >
+          <label for="isAnimalHumanSourced" class="required full-width">
+            <span class="field-name">{{'contain.material' |translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="materialInfoForm.controls['isAnimalHumanSourced'].invalid"
+                              [showError]="showErrors"
+                              [control]="materialInfoForm.controls['isAnimalHumanSourced'] | formControl"
+                              controlId="isAnimalHumanSourced" label="contain.material" parentId="materialInfoDetails"></control-messages>
+            <select id="isAnimalHumanSourced" name="isAnimalHumanSourced" required class="form-control"
+                    (change)="animalHumanSourcedOnChange()"
+                    [formControl]="materialInfoForm.controls['isAnimalHumanSourced'] | formControl">
+              <option label=" " value=""></option>
+              <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div *ngIf="isAnimalHumanSourced()" class="row">
+        <div class="form-group col-xs-12" >
+          <label for="isListedIddTable" class="required full-width">
+            <span class="field-name">{{'is.same.material' |translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="materialInfoForm.controls['isListedIddTable'].invalid"
+                              [showError]="showErrors"
+                              [control]="materialInfoForm.controls['isListedIddTable'] | formControl"
+                              controlId="isListedIddTable" label="is.same.material" parentId="materialInfoDetails"></control-messages>
+            <select id="isListedIddTable" name="isListedIddTable" required class="form-control"
+                    [formControl]="materialInfoForm.controls['isListedIddTable'] | formControl">
+              <option label=" " value=""></option>
+              <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div *ngIf="isAnimalHumanSourced()">
+        <section id="materialList" class="panel  panel-default">
+          <header class="panel-heading clearfix">
+            <h3 class="panel-title">{{'heading.materials'|translate}}</h3>
+          </header>
+          <div class="panel-body">
+            <!-- (errors)="processMaterialErrors($event)" [countryList]="countryList" [lang]="lang"
+                            [showErrors]="showFieldErrors" -->
+            <app-material-list [materialListData]="materialListModel"> </app-material-list>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>

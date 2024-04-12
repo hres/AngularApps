@@ -108,6 +108,7 @@ export class ApplicationInfoBaseService {
         has_recombinant: '',
         is_animal_human_sourced: '',
         is_listed_idd_table: '',
+        material_data: null,
         priority_review: '',
         is_diagnosis_treatment_serious: null
       }
