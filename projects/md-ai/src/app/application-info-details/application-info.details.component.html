@@ -118,7 +118,7 @@
                     [control]="appInfoFormLocalModel.controls['deviceClass'] | formControl"
                     controlId="deviceClass" label="device.class" parentId="appInfoDetails"></control-messages>
             </legend>
-              <div class="radio" *ngFor="let class of devClassList; let i = index">
+              <div id="deviceClass" class="radio" *ngFor="let class of devClassList; let i = index">
                 <label aria-hidden="true" for="deviceClass{{i}}">
                   <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
                     (change)="deviceClassOnblur()"
