@@ -34,7 +34,7 @@
   "are.fees": "De nouveaux frais ou des frais révisés sont-ils associés à cette transaction?",
   "billing.company.id": "Identifiant de l'entreprise de facturation",
   "billing.contact.id": "Identifiant du contact de facturation",
-  "completed.fee.required":"Un formulaire de frais complété est toujours requis, cependant, les frais applicables seront facturés.",
+  "completed.fee.required":"Les frais applicables seront facturés; cependant, un formulaire de frais complété est toujours requis.",
   "required": "Ce champ est obligatoire.",
   "minlength": "Minimum de",
   "error.mgs.dossier.id": "Numéro de dossier - doit contenir une lettre minuscule suivie de 6 chiffres",

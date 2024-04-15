@@ -34,7 +34,7 @@
   "are.fees": "Are new fees or revised fees associated with this transaction?",
   "billing.company.id": "Billing Company Identifier",
   "billing.contact.id": "Billing Contact Identifier",
-  "completed.fee.required":"A completed fee form is still required, however, the applicable fees will be invoiced.",
+  "completed.fee.required":"The applicable fees will be invoiced; however, a completed fee form is still required.",
   "required": "This field is required",
   "minlength": "Minimum length",
   "error.mgs.dossier.id": "Dossier Identifier - must be lowercase letter followed by 6 numbers",
