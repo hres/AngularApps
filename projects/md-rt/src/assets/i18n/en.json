@@ -71,7 +71,7 @@
   "proposed.indication": "Proposed purpose/Indication for Use",
   "section.show.option": "[ This section may not be visible. ] ",
   "PROTECTED_B": "Protected \"B\" when completed",
-  "original.manufacturing.company.id": "Orginal Manufacturer's Company Identifier",
+  "original.manufacturing.company.id": "Original Manufacturer's Company Identifier",
   "original.manufacturer.licence.number": "Original Manufacturer's Licence Number",
   "help.load.file.02": "When continuing with a working copy, the format of the file to load should be .hcsc.",
   "help.load.file.03": "When viewing/updating a final XML file, the format of the file to load should be .xml.",
