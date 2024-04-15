@@ -35,6 +35,7 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
   }
 
   ngOnInit() {
+    this.lang = this._globalService.getCurrLanguage();
     this.yesNoList = this._globalService.$yesnoList;
   }
 
