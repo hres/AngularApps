@@ -443,22 +443,22 @@ span.normalWeight {
 								</div>
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Numéro d’identification du fabricant:&#160;</strong>
+										<strong>Identification de la compagnie du fabricant:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/company_id"/></span>
 									</div>
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Identifiant de la compagnie de réglementation:&#160;</strong>
+										<strong>Identifiant de la compagnie réglementaire:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_company_id"/></span>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Identificateur du contact du fabricant:&#160;</strong>
+										<strong>Identifiant du contact du fabricant:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/manufacturer_contact_id"/></span>
 									</div>
 
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Identificateur du contact réglementaire:&#160;</strong>
+										<strong>Identifiant du contact réglementaire:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_contact_id"/></span>
 									</div>
 								</div>
@@ -549,7 +549,7 @@ span.normalWeight {
 								<xsl:if test="/descendant-or-self::application_info/device_name != ''">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<strong>Nom de l'appareil:&#160;</strong>
+											<strong>Nom d'instrument, tel qu'il apparaît sur l'étiquette:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_name"/></span>
 										</div>
 									</div>
@@ -563,7 +563,7 @@ span.normalWeight {
 								<xsl:if test="/descendant-or-self::application_info/org_manufacture_id != ''">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-											<strong>Identifiant de l'entreprise du fabricant d'origine:&#160;</strong>
+											<strong>Identifiant de la compagnie du fabricant d'origine:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/org_manufacture_id"/></span>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -582,7 +582,7 @@ span.normalWeight {
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/has_app_info"/></xsl:call-template>
 										<span class="mouseHover">
-											<strong>Informations sur la demande XML inclus dans la transaction?</strong>
+											<strong>Informations sur la demande d'homologation XML inclus dans la transaction?</strong>
 										</span>
 									</div>
 								</div>
@@ -620,8 +620,8 @@ span.normalWeight {
 	<xsl:template name="YesNoUnknow">
 		<xsl:param name="value" select="/.."/>
 		<xsl:choose>
-		<xsl:when test="$value = 'yes'">Oui</xsl:when>
-		<xsl:when test="$value = 'no'">Non</xsl:when>
+		<xsl:when test="translate($value, $smallcase, $uppercase) = 'YES'">Oui</xsl:when>
+		<xsl:when test="translate($value, $smallcase, $uppercase) = 'NO'">Non</xsl:when>
 		<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
