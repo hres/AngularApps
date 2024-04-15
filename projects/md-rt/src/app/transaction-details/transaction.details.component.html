@@ -28,7 +28,7 @@
                             [control]="transDetailsForm.controls['manuCompanyId'] | formControl"
                             controlId="manuCompanyId" label="manufacturing.company.id" parentId="transDetails"
                             ></control-messages>
-          <input id="manuCompanyId" name="manuCompanyId" class="form-control full-width" data-only-digits 
+          <input id="manuCompanyId" name="manuCompanyId" class="form-control" data-only-digits 
                  [formControl]="transDetailsForm.controls['manuCompanyId'] | formControl" maxlength="6" />
         </label>
       </div>
@@ -41,7 +41,7 @@
                             [control]="transDetailsForm.controls['reguCompanyId'] | formControl"
                             controlId="reguCompanyId" label="regulatory.company.id" parentId="transDetails"
                             ></control-messages>
-          <input id="reguCompanyId" name="reguCompanyId" class="form-control full-width" data-only-digits 
+          <input id="reguCompanyId" name="reguCompanyId" class="form-control" data-only-digits 
                  [formControl]="transDetailsForm.controls['reguCompanyId'] | formControl" maxlength="6" />
         </label>
       </div>
@@ -56,7 +56,7 @@
                             [showError]="showFieldErrors"
                             [control]="transDetailsForm.controls['manuContactId'] | formControl"
                             controlId="manuContactId" label="manufacturing.contact.id" parentId="transDetails"></control-messages>
-          <input id="manuContactId" name="manuContactId" class="form-control full-width"  data-only-digits
+          <input id="manuContactId" name="manuContactId" class="form-control"  data-only-digits
                  [formControl]="transDetailsForm.controls['manuContactId'] | formControl" maxlength="5" />
         </label>
       </div>
@@ -71,7 +71,7 @@
                             [showError]="showFieldErrors"
                             [control]="transDetailsForm.controls['reguContactId'] | formControl"
                             controlId="reguContactId" label="regulatory.contact.id" parentId="transDetails"></control-messages>
-          <input id="reguContactId" name="reguContactId" class="form-control full-width" data-only-digits 
+          <input id="reguContactId" name="reguContactId" class="form-control" data-only-digits 
                  [formControl]="transDetailsForm.controls['reguContactId'] | formControl" maxlength="5" />
         </label>
       </div>
@@ -199,7 +199,7 @@
                             [control]="transDetailsForm.controls['requestDate'] | formControl"
                             controlId="requestDate" label="request.date"
                             parentId="transDetails"></control-messages>
-                 <input id="requestDate" name="requestDate" type="date" class="form-control full-width"
+                 <input id="requestDate" name="requestDate" type="date" class="form-control"
                  (blur)="checkDateValidity($event)" formControlName="requestDate" />
         </label>
       </div>
@@ -218,7 +218,7 @@
                             [control]="transDetailsForm.controls['appNum'] | formControl"
                             controlId="appNum" label="application.number"
                             parentId="transDetails"></control-messages>
-          <input id="appNum" name="appNum" class="form-control full-width" 
+          <input id="appNum" name="appNum" class="form-control" 
                  [formControl]="transDetailsForm.controls['appNum'] | formControl" maxlength="6"  data-only-digits/>
         </label>
       </div>
