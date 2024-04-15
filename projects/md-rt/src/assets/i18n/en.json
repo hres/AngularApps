@@ -37,7 +37,7 @@
   "completed.fee.required":"The applicable fees will be invoiced; however, a completed fee form is still required.",
   "required": "This field is required",
   "minlength": "Minimum length",
-  "error.mgs.dossier.id": "Dossier Identifier - must be lowercase letter followed by 6 numbers",
+  "error.mgs.dossier.id": "Must be lowercase \"m\" followed by 6 numbers",
   "error.mgs.5.numeric": "Must be 5 numeric value",
   "error.mgs.6.numeric": "Must be 6 numeric value",
   "error.mgs.contact.id": "Must be 5 numeric value",

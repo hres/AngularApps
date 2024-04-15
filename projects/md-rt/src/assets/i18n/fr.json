@@ -37,7 +37,7 @@
   "completed.fee.required":"Les frais applicables seront facturés; cependant, un formulaire de frais complété est toujours requis.",
   "required": "Ce champ est obligatoire.",
   "minlength": "Minimum de",
-  "error.mgs.dossier.id": "Numéro de dossier - doit contenir une lettre minuscule suivie de 6 chiffres",
+  "error.mgs.dossier.id": "Doit contenir un « m » minuscule suivie de 6 chiffres",
   "error.mgs.5.numeric": "Doit contenir 5 chiffres",
   "error.mgs.6.numeric": "Doit contenir 6 chiffres",
   "error.mgs.contact.id": "Doit contenir 5 chiffres",
