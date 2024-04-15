@@ -168,7 +168,7 @@
                             [control]="transDetailsForm.controls['rationale'] | formControl"
                             controlId="rationale" label="rationale"
                             parentId="transDetails"></control-messages>
-          <textarea  rows="3" id="rationale" name="rationale" class="form-control full-width"  maxlength="500" [formControl]="transDetailsForm.controls['rationale'] | formControl"
+          <textarea  rows="3" id="rationale" name="rationale" class="form-control full-width" maxlength="500" [formControl]="transDetailsForm.controls['rationale'] | formControl"
              required ></textarea>
         </label>
       </div>
@@ -183,7 +183,7 @@
                             [control]="transDetailsForm.controls['proposedPurpose'] | formControl"
                             controlId="proposedPurpose" label="proposed.indication"
                             parentId="transDetails"></control-messages>
-          <textarea  rows="3" id="proposedPurpose" name="proposedPurpose" class="form-control full-width"  [formControl]="transDetailsForm.controls['proposedPurpose'] | formControl"
+          <textarea  rows="3" id="proposedPurpose" name="proposedPurpose" class="form-control full-width" maxlength="500" [formControl]="transDetailsForm.controls['proposedPurpose'] | formControl"
            required ></textarea>
         </label>
       </div>
@@ -300,7 +300,7 @@
                             [control]="transDetailsForm.controls['briefDesc'] | formControl"
                             controlId="briefDesc" label="brief.descr"
                             parentId="transDetails"></control-messages>
-          <textarea type="text" class="form-control full-width" id="briefDesc" name="briefDesc" 
+          <textarea type="text" class="form-control full-width" id="briefDesc" name="briefDesc" maxlength="200" 
                     required [formControl]="transDetailsForm.controls['briefDesc'] | formControl"></textarea>
         </label>
       </div>
