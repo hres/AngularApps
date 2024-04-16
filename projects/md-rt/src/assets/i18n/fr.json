@@ -69,7 +69,7 @@
   "template.version": "Version du modèle: ",
   "rationale": "Justification",
   "proposed.indication": "Objectif proposé / indication d'utilisation",
-  "section.show.option": "[ Cette section peut ne pas être visible. ]",
+  "section.show.option": "[ Cette section peut ne pas être visible. ] ",
   "PROTECTED_B": "Protégé \"B\" une fois rempli",
   "original.manufacturing.company.id": "Identifiant de la compagnie du fabricant d'origine",
   "original.manufacturer.licence.number": "Numéro de licence du fabricant d'origine",
