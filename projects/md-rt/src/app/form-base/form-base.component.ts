@@ -118,7 +118,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     } else {
       const result: Enrollment = this._prepareForSaving(true);
       const fileName: string = this._buildfileName(result);
-      const xslName: string = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + '.xsl';
+      const xslName: string = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.$appVersion) + '.xsl';
       this._fileService.saveXmlToFile(result, fileName, true, xslName);
     }
   }
