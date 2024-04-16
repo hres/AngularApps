@@ -578,14 +578,6 @@ span.normalWeight {
 										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/has_ddt"/></xsl:call-template></span>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/has_app_info"/></xsl:call-template>
-										<span class="mouseHover">
-											<strong>Application information XML included in transaction?</strong>
-										</span>
-									</div>
-								</div>
 							</div>
 					</section>
 					<section class="panel panel-default" >

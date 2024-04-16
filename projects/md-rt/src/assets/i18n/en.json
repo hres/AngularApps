@@ -29,7 +29,6 @@
   "request.date": "Date of Request",
   "brief.descr": "Brief Description",
   "has.ddt": "Device details table included?",
-  "has.app.info": "Application information XML included in transaction?",
   "fees": "Fees",
   "are.fees": "Are new fees or revised fees associated with this transaction?",
   "billing.company.id": "Billing Company Identifier",

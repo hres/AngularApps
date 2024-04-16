@@ -29,7 +29,6 @@
   "request.date": "Date de la demande",
   "brief.descr": "Brève description",
   "has.ddt": "Tableau des détails de l'instrument inclus?",
-  "has.app.info": "Informations sur la demande d'homologation XML inclus dans la transaction?",
   "fees": "Frais",
   "are.fees": "De nouveaux frais ou des frais révisés sont-ils associés à cette transaction?",
   "billing.company.id": "Identifiant de l'entreprise de facturation",
