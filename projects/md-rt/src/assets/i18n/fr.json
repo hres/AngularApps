@@ -26,7 +26,7 @@
   "device.name": "Nom d'instrument, tel qu'il apparaît sur l'étiquette",
   "licence.name": "Nom proposé pour la licence",
   "include.ddt": "Joignez à cette demande la feuille de calcul Détails de l'instrument avec la feuille correspondante « changement de nom de l'instrument » remplie.",
-  "request.date": "Date de la demande (AAAA-MM-JJ)",
+  "request.date": "Date de la demande",
   "brief.descr": "Brève description",
   "has.ddt": "Tableau des détails de l'instrument inclus?",
   "has.app.info": "Informations sur la demande d'homologation XML inclus dans la transaction?",
