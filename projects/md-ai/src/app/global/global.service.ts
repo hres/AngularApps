@@ -33,7 +33,7 @@ export class GlobalService {
   lang = signal<string>('');
 
   setShowErrors(flag: boolean): void {
-    console.log("setShowErrors to", flag)
+    // console.log("setShowErrors to", flag)
     this.showErrors.set(flag);
   }
 

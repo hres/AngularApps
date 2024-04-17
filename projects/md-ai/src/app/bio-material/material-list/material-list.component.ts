@@ -19,12 +19,13 @@ import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notificat
 
 export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() public materialListData: BiologicalMaterial[];
+  @Output() public errorListUpdated = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // @Output() public contactsUpdated = new EventEmitter();
 
   // errors = signal<ControlMessagesComponent[]>([]);
-  oneRecord = signal<boolean>(true);
+  // oneRecord = signal<boolean>(true);
 
   materialListForm: FormGroup;
 
@@ -42,7 +43,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
               private _errorNotificationService : ErrorNotificationService) {
 
     this.materialListForm = this.fb.group({
-      materials: this.fb.array([], [ValidationService.atLeastOneRecord])
+      materials: this.fb.array([], [this.atLeastOneMaterial])
     });
 
     effect(() => {
@@ -51,12 +52,13 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
-    
+    this._init();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     // console.log(this._utilsService.checkComponentChanges(changes));
     if (changes['materialListData']) {
+      // console.log("material list component - changes");
       this._init(changes['materialListData'].currentValue);
     }
   }
@@ -95,9 +97,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     const group = this.materialService.createMaterialFormGroup(this.fb);
     this.materialsFormArr.push(group);
 
-    if (this.materialsFormArr.length > 1) {
-      this.oneRecord.set(false);
-    }
+    // if (this.materialsFormArr.length > 1) {
+    //   this.oneRecord.set(false);
+    // }
   }
 
   saveMaterialRecord(event: any) {  
@@ -147,8 +149,11 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
-    if (this.materialsFormArr.length == 1) {
-      this.oneRecord.set(true);
+    // if (this.materialsFormArr.length == 1) {
+    //   this.oneRecord.set(true);
+    // }
+    if(this.materialsFormArr.length == 0) {
+
     }
   }
 
@@ -166,7 +171,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   
-  private _init(materialsData: BiologicalMaterial[]) {
+  private _init(materialsData?: BiologicalMaterial[]) {
       // Clear existing controls
     this.materialsFormArr.clear();
 
@@ -261,7 +266,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   public disableAddButton(): boolean {
     // console.log("material list form", this.materialListForm);
     // console.log("form is invalid: ", !this.materialListForm.valid,  "form has errors: ", this.showErrors, "form is dirty: ", this.materialListForm.dirty);
-    return ( !this.materialListForm.valid  || this.showErrors ||  this.materialListForm.dirty );
+    return ( this.showErrors ||  this.materialListForm.dirty );
   }
 
   getMaterialInfo(materialFormGroup : FormGroup): FormGroup {
@@ -298,8 +303,27 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
         emitErrors.push(err);
       })
     }
-   
-    this._materialService.errors.update( errors => emitErrors );
+    
+    console.log("emitting errors to info comp ..", emitErrors);
+    this.errorListUpdated.emit(emitErrors);
+    // this._materialService.errors.update( errors => emitErrors );
   }
+
+  atLeastOneMaterial(formArray : FormArray) {
+    // USE isNew control value to check if at least one record has been saved
+    let atLeastOneRecord : boolean = false;
+
+    formArray.controls.forEach((formGroup: FormGroup) => {
+      // Access the controls in each FormGroup
+      const isNew = formGroup.get('isNew');
+      if (!isNew.value) {
+        atLeastOneRecord = true;
+      }
+    });
+
+    // const atLeastOneRecord = controls.some((control: AbstractControl) => control['isNew'].value !== true);
+    // console.log("at least one record", atLeastOneRecord);
+    return atLeastOneRecord ? null : { 'error.msg.materialOneRecord' : true };
+} 
 
 }

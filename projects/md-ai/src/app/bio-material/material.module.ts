@@ -5,6 +5,7 @@ import { MaterialItemComponent } from './material-item/material-item.component';
 import { MaterialListComponent } from './material-list/material-list.component';
 import { MaterialService } from './material.service';
 import { MaterialListService } from './material-list/material-list.service'; 
+import { MaterialInfoComponent } from './material-info/material-info.component';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import {BrowserModule} from '@angular/platform-browser';
@@ -26,10 +27,12 @@ import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective } from '
   declarations: [
     MaterialItemComponent,
     MaterialListComponent,
+    MaterialInfoComponent
   ],
   exports: [
     MaterialItemComponent,
-    MaterialListComponent
+    MaterialListComponent,
+    MaterialInfoComponent
   ],
   providers: [
    MaterialListService,

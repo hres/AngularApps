@@ -51,10 +51,10 @@ export class ApplicationInfoDetailsService {
       sapReqNum: ['', []],
       authNum: ['',[ValidationService.numeric6Validator]],
       declarationConformity : [null, Validators.required],
-      hasRecombinant: [null, Validators.required],
-      isAnimalHumanSourced : [null, Validators.required],
-      // hasMaterial: [null, Validators.required],
-      isListedIddTable: [null, Validators.required],
+      // hasRecombinant: [null, Validators.required],
+      // isAnimalHumanSourced : [null, Validators.required],
+      // // hasMaterial: [null, Validators.required],
+      // isListedIddTable: [null, Validators.required],
       isPriorityReq: [null, []],
       diagnosisReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected])
     });
@@ -123,9 +123,9 @@ export class ApplicationInfoDetailsService {
     appInfoModel.sap_request_number = formRecord.controls['sapReqNum'].value;
     appInfoModel.authorization_id = formRecord.controls['authNum'].value;
     appInfoModel.declaration_conformity = formRecord.controls['declarationConformity'].value;
-    appInfoModel.has_recombinant = formRecord.controls['hasRecombinant'].value;
-    appInfoModel.is_animal_human_sourced = formRecord.controls['isAnimalHumanSourced'].value;
-    appInfoModel.is_listed_idd_table = formRecord.controls['isListedIddTable'].value;
+    // appInfoModel.has_recombinant = formRecord.controls['hasRecombinant'].value;
+    // appInfoModel.is_animal_human_sourced = formRecord.controls['isAnimalHumanSourced'].value;
+    // appInfoModel.is_listed_idd_table = formRecord.controls['isListedIddTable'].value;
     appInfoModel.priority_review = formRecord.controls['isPriorityReq'].value;
     const reasons: DiagnosisReasons = {
       diagnosis_reason: this._converterService.findAndConverCodesToIdTextLabels(diagnosisReasonList, slctdDiagnosisReasonCodes, lang)
@@ -212,9 +212,9 @@ export class ApplicationInfoDetailsService {
     formRecord.controls['sapReqNum'].setValue(appInfoModel.sap_request_number);
     formRecord.controls['authNum'].setValue(appInfoModel.authorization_id);
     formRecord.controls['declarationConformity'].setValue(appInfoModel.declaration_conformity);
-    formRecord.controls['hasRecombinant'].setValue(appInfoModel.has_recombinant);
-    formRecord.controls['isAnimalHumanSourced'].setValue(appInfoModel.is_animal_human_sourced);
-    formRecord.controls['isListedIddTable'].setValue(appInfoModel.is_listed_idd_table);
+    // formRecord.controls['hasRecombinant'].setValue(appInfoModel.has_recombinant);
+    // formRecord.controls['isAnimalHumanSourced'].setValue(appInfoModel.is_animal_human_sourced);
+    // formRecord.controls['isListedIddTable'].setValue(appInfoModel.is_listed_idd_table);
     formRecord.controls['isPriorityReq'].setValue(appInfoModel.priority_review);
 
     if (appInfoModel.is_diagnosis_treatment_serious) {
