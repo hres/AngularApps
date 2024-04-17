@@ -128,8 +128,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
     this.errorList = [];
     // concat the two array
-    this.errorList = this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialErrors)); // .concat(this._theraErrors);
-    // .log("process errors in form base", this.errorList);
+    this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialErrors))); // .concat(this._theraErrors);
+    console.log("process errors in form base", this.errorList);
+    console.log("printing material errors", this._materialErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -143,9 +144,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processMaterialtErrors(errorList) {
-    this._materialErrors = errorList;
+  resetMaterialErrors(reset : boolean) {
+    if (reset) {
+      this._materialErrors = [];
+    }
     this.processErrors();
+
   }
 
   public hideErrorSummary() {
@@ -153,9 +157,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveXmlFile() {
-    this.showErrors = false;
+    this.showErrors = true;
+    this._globalService.setShowErrors(true);
+    this.processErrors();
     if (this.errorList && this.errorList.length > 0) {
-      this.showErrors = true;
       document.location.href = '#topErrorSummary';
     } else {
       const result: Enrollment = this._prepareForSaving(true);

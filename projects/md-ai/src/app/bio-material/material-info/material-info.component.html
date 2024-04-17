@@ -65,7 +65,7 @@
           <div class="panel-body">
             <!-- (errors)="processMaterialErrors($event)" [countryList]="countryList" [lang]="lang"
                             [showErrors]="showFieldErrors" -->
-            <app-material-list [materialListData]="materialListModel"> </app-material-list>
+            <app-material-list [materialListData]="materialListModel" (errorListUpdated)="updateMaterialListErrors($event)"> </app-material-list>
           </div>
         </section>
       </div>

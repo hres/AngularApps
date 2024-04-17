@@ -29,6 +29,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
   showErrors: boolean;
   showErrSummary: boolean = false;
   public errorList = [];
+  public materialListErrors = [];
 
   constructor(private _fb: FormBuilder,
               private _utilsService: UtilsService,
@@ -38,7 +39,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
       this.materialInfoForm = this.materialService.createMaterialInfoFormGroup(this._fb);
     }            
     effect(() => {
-      this.showErrors = this._globalService.showErrors()
+      this.showErrors = this._globalService.showErrors();
       if (this._globalService.showErrors()) {
         this._updateErrorList(this.msgList);
       }
@@ -64,15 +65,24 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
 
   private _updateErrorList(errorObjs) {
     const temp = [];
+    console.log("updating error list in info...");
     if (errorObjs) {
       errorObjs.forEach(
         error => {
+          console.log(error);
           temp.push(error);
         }
       );
     }
     this.errorList = temp;
+    console.log("updated error list in material info", this.errorList);
 
+    this._emitErrors();
+  }
+
+  updateMaterialListErrors(errors) {
+    console.log("updating list errors in info comp", errors);
+    this.materialListErrors = errors;
     this._emitErrors();
   }
 
@@ -98,6 +108,8 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
     if (!this.materialInfoForm.controls['isAnimalHumanSourced'].value ||
     this.materialInfoForm.controls['isAnimalHumanSourced'].value === NO) {
       this.materialListModel = [];
+      this.materialListErrors = [];
+      this._emitErrors();
     } else {
     }
   }
@@ -125,6 +137,14 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
         emitErrors.push(err);
       })
     }
+
+    if (this.materialListErrors) {
+      this.materialListErrors.forEach( err => {
+        emitErrors.push(err);
+      })
+    }
+
+    console.log("emitting errors in material info", this.errorList);
    
     this._materialService.errors.update( errors => emitErrors );
   }

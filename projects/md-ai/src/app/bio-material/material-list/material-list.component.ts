@@ -19,6 +19,7 @@ import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notificat
 
 export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() public materialListData: BiologicalMaterial[];
+  @Output() public errorListUpdated = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // @Output() public contactsUpdated = new EventEmitter();
@@ -57,7 +58,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
     // console.log(this._utilsService.checkComponentChanges(changes));
     if (changes['materialListData']) {
-      console.log("material list component - changes");
+      // console.log("material list component - changes");
       this._init(changes['materialListData'].currentValue);
     }
   }
@@ -263,7 +264,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
   
   public disableAddButton(): boolean {
-    console.log("material list form", this.materialListForm);
+    // console.log("material list form", this.materialListForm);
     // console.log("form is invalid: ", !this.materialListForm.valid,  "form has errors: ", this.showErrors, "form is dirty: ", this.materialListForm.dirty);
     return ( this.showErrors ||  this.materialListForm.dirty );
   }
@@ -302,8 +303,10 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
         emitErrors.push(err);
       })
     }
-   
-    this._materialService.errors.update( errors => emitErrors );
+    
+    console.log("emitting errors to info comp ..", emitErrors);
+    this.errorListUpdated.emit(emitErrors);
+    // this._materialService.errors.update( errors => emitErrors );
   }
 
   atLeastOneMaterial(formArray : FormArray) {

@@ -153,7 +153,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       this._detailsService.mapDataModelToFormModel(dataModel, this.appInfoFormLocalModel, this.complianceCodeList, this.diagnosisReasonCodeList, this.complianceOptionList, this.seriousDiagnosisReasonOptionList, this.lang);
       //this._updateLists();
       // this._hasReasonChecked();
-      this._hasMaterialRecord();
+      // this._hasMaterialRecord();
     }
   }
 
@@ -179,40 +179,33 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
   // For bio materials 
-  isAnimalHumanSourcedOnblur() {
-    if (!this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value ||
-      this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value === NO) {
-      this.materialModel = [];
-    }
-    this.onblur();
-  }
+  // isAnimalHumanSourcedOnblur() {
+  //   if (!this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value ||
+  //     this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value === NO) {
+  //     this.materialModel = [];
+  //   }
+  //   this.onblur();
+  // }
 
   deviceClassOnblur() {
     if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
       !this.isDeviceIV()) {
-      const valuesToReset = ['hasRecombinant', 'isAnimalHumanSourced', 'isListedIddTable'];
-      this._resetControlValues(valuesToReset)
-      this.materialModel = [];
+      this.materialErrorList.emit(true);
     }
     this.onblur();
   }
 
-  // For bio material
-  private _hasMaterialRecord() {
-    // this.appInfoFormLocalModel.controls.hasMaterial.setValue(null);
-    // if (this.materialModel && this.materialModel.length > 0) {
-    //   this.appInfoFormLocalModel.controls.hasMaterial.setValue('hasRecord');
-    // }
-  }
+  // // For bio material
+  // private _hasMaterialRecord() {
+  //   // this.appInfoFormLocalModel.controls.hasMaterial.setValue(null);
+  //   // if (this.materialModel && this.materialModel.length > 0) {
+  //   //   this.appInfoFormLocalModel.controls.hasMaterial.setValue('hasRecord');
+  //   // }
+  // }
 
   processDeviceErrors(errorList) {
     this.deviceErrorList.emit(errorList);
 
-  }
-
-  processMaterialErrors(errorList) {
-    this.materialErrorList.emit(errorList);
-    this._hasMaterialRecord();
   }
 
   private _resetControlValues(listOfValues : string[]) {
@@ -321,19 +314,19 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
   // For bio materials
-  isAnimalHumanSourced() {
-    if (this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value &&
-          this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value === YES) {
-        // this.bioMaterials. = ;
-        return true;
-    } else {
-      this._resetControlValues(['isListedIddTable']);
-        // this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
-        // this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
-        // this.materialModel = [];
-    }
-    return false;
-  }
+  // isAnimalHumanSourced() {
+  //   if (this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value &&
+  //         this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value === YES) {
+  //       // this.bioMaterials. = ;
+  //       return true;
+  //   } else {
+  //     this._resetControlValues(['isListedIddTable']);
+  //       // this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
+  //       // this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
+  //       // this.materialModel = [];
+  //   }
+  //   return false;
+  // }
 
   isLicenced() {
     if ((this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.Licence
