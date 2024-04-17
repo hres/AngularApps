@@ -269,6 +269,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     let output: Enrollment = { 
       DEVICE_COMPANY_ENROL: {
         template_version: this._globalService.$appVersion,
+        form_language: this._globalService.getCurrLanguage(),
         general_information: this.genInfoModel,
         address: this.addressModel,
         contacts: {contact: this.contactModel},

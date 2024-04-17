@@ -6,6 +6,7 @@ export interface Enrollment {
 
 export interface DeviceCompanyEnrol {
   template_version:       string;
+  form_language:          string;
   check_sum?:             string;
   general_information:    GeneralInformation;
   address:                INameAddress;

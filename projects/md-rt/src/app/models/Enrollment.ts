@@ -5,7 +5,8 @@ export interface Enrollment {
 }
 
 export interface DeviceTransactionEnrol {
-  template_version:         string;    
+  template_version:         string;
+  form_language:            string;
   check_sum?:               string;
   application_info:         ApplicationInfo;
   transFees:                TransFees;

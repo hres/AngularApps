@@ -152,6 +152,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const output: Enrollment = {
        'DEVICE_APPLICATION_INFO': {
          'template_version': this._globalService.$appVersion,
+         'form_language': this._globalService.getCurrLanguage(),
          'application_info': this.appInfoModel,
          'devices': {device: this.deviceModel},
          'biological_materials': this.materialModel

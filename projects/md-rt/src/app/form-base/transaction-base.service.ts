@@ -16,6 +16,7 @@ export class TransactionBaseService {
     const enrollment: Enrollment = {
       DEVICE_TRANSACTION_ENROL: {
         template_version: '',
+        form_language: '',
         application_info: this.getEmptyApplicationInfoModel(),
         transFees: this.getEmptyTransactionFeeModel(),
       }
@@ -88,6 +89,7 @@ export class TransactionBaseService {
     const output: Enrollment = {
        'DEVICE_TRANSACTION_ENROL': {
          'template_version': this._globalService.$appVersion,
+         'form_language': this._globalService.getCurrLanguage(),
          'application_info': transactionInfoModel,
          'transFees': transFeeModel
         }
