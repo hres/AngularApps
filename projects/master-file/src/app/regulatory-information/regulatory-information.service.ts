@@ -183,8 +183,15 @@ export class RegulatoryInformationService {
     // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
     
     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
-      dataModel.lifecycle_record.transaction_description = 
-      GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "dated", dataModel.lifecycle_record.sequence_from_date);
+      if (lang === 'fr'){
+        dataModel.lifecycle_record.transaction_description = 
+        GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "daté du", dataModel.lifecycle_record.sequence_from_date);
+      }else {
+        dataModel.lifecycle_record.transaction_description = 
+        GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "dated", dataModel.lifecycle_record.sequence_from_date);
+      }
+
+      
     } else {
       dataModel.lifecycle_record.transaction_description = 
       GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, dataModel.lifecycle_record.sequence_from_date);
