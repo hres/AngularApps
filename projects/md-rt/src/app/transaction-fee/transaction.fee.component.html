@@ -25,7 +25,7 @@
                               [showError]="showFieldErrors"
                               [control]="transFeeForm.controls['billCompanyId'] | formControl"
                               controlId="billCompanyId" label="billing.company.id" parentId="transFees"></control-messages>
-            <input id="billCompanyId" class="form-control"  name="billCompanyId" autofocus
+            <input id="billCompanyId" class="form-control"  name="billCompanyId" data-only-digits
                    [formControl]="transFeeForm.controls['billCompanyId'] | formControl" maxlength="6"/>
           </label>
         </div>
@@ -37,7 +37,7 @@
                               [showError]="showFieldErrors"
                               [control]="transFeeForm.controls['billContactId'] | formControl"
                               controlId="billContactId" label="billing.contact.id" parentId="transFees"></control-messages>
-            <input id="billContactId" class="form-control"   name="billContactId"
+            <input id="billContactId" class="form-control"   name="billContactId" data-only-digits
                    [formControl]="transFeeForm.controls['billContactId'] | formControl" maxlength="5"/>
           </label>
         </div>
