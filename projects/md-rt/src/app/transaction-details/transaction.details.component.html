@@ -168,8 +168,8 @@
                             [control]="transDetailsForm.controls['rationale'] | formControl"
                             controlId="rationale" label="rationale"
                             parentId="transDetails"></control-messages>
-          <textarea  rows="3" id="rationale" name="rationale" class="form-control full-width" maxlength="500" [formControl]="transDetailsForm.controls['rationale'] | formControl"
-             required ></textarea>
+          <textarea  rows="3" id="rationale" name="rationale" class="form-control full-width" maxlength="500" 
+            [formControl]="transDetailsForm.controls['rationale'] | formControl" required ></textarea>
         </label>
       </div>
     </div>
@@ -183,8 +183,8 @@
                             [control]="transDetailsForm.controls['proposedPurpose'] | formControl"
                             controlId="proposedPurpose" label="proposed.indication"
                             parentId="transDetails"></control-messages>
-          <textarea  rows="3" id="proposedPurpose" name="proposedPurpose" class="form-control full-width" maxlength="500" [formControl]="transDetailsForm.controls['proposedPurpose'] | formControl"
-           required ></textarea>
+          <textarea  rows="3" id="proposedPurpose" name="proposedPurpose" class="form-control full-width" maxlength="500" 
+            [formControl]="transDetailsForm.controls['proposedPurpose'] | formControl" required ></textarea>
         </label>
       </div>
     </div>
@@ -249,7 +249,7 @@
                  [formControl]="transDetailsForm.controls['meetingId'] | formControl" maxlength="6" />
         </label>
       </div>
-      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngIf="showDeviceName()">
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showDeviceName()">
         <label for="deviceName" class="required full-width">
           <span class="field-name" >{{ 'device.name' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
@@ -261,13 +261,14 @@
                             [control]="transDetailsForm.controls['deviceName'] | formControl"
                             controlId="deviceName" label="device.name"
                             parentId="transDetails"></control-messages>
-          <input id="deviceName" name="deviceName" class="form-control full-width" 
-                 [formControl]="transDetailsForm.controls['deviceName'] | formControl" maxlength="150" />
+          <textarea rows="2" id="deviceName" name="deviceName" class="form-control full-width" maxlength="150" 
+                 [formControl]="transDetailsForm.controls['deviceName'] | formControl" required></textarea>
         </label>
       </div>
     </div>
+
     <div class="row" *ngIf="showLicenceName()">
-      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="form-group">
         </div>
         <label for="licenceName" class="required full-width">
@@ -278,11 +279,12 @@
                             [control]="transDetailsForm.controls['licenceName'] | formControl"
                             controlId="licenceName" label="licence.name"
                             parentId="transDetails"></control-messages>
-          <input class="form-control full-width" id="licenceName" name="licenceName" 
-                 required [formControl]="transDetailsForm.controls['licenceName'] | formControl" maxlength="150" />
+          <textarea rows="2" class="form-control full-width" id="licenceName" name="licenceName" maxlength="150" 
+                 [formControl]="transDetailsForm.controls['licenceName'] | formControl" required></textarea>
         </label>
       </div>
     </div>
+
     <div class="row" *ngIf="showDeviceNameChangeInfo()">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-info" role="alert">
         <p aria-live="polite">{{ 'include.ddt'|translate }}</p>
@@ -300,11 +302,12 @@
                             [control]="transDetailsForm.controls['briefDesc'] | formControl"
                             controlId="briefDesc" label="brief.descr"
                             parentId="transDetails"></control-messages>
-          <textarea type="text" class="form-control full-width" id="briefDesc" name="briefDesc" maxlength="200" 
-                    required [formControl]="transDetailsForm.controls['briefDesc'] | formControl"></textarea>
+          <textarea rows="3" class="form-control full-width" id="briefDesc" name="briefDesc" maxlength="200" 
+                    [formControl]="transDetailsForm.controls['briefDesc'] | formControl" required></textarea>
         </label>
       </div>
     </div>
+
     <div class="row">
       <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
       <label for="licenceNum" class="form-group required full-width">
@@ -319,10 +322,11 @@
                           controlId="licenceNum" label="licence.number"
                           parentId="transDetails"></control-messages>
         <input id="licenceNum" name="licenceNum" class="form-control" (blur)="licenceNumOnblur()"
-               [formControl]="transDetailsForm.controls['licenceNum']| formControl" maxlength="6" data-only-digits/>
+              required [formControl]="transDetailsForm.controls['licenceNum']| formControl" maxlength="6" data-only-digits/>
       </label>
       </div>
     </div>
+
     <div class="row" *ngIf="showOrgManufactureInfo()">
       <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <label for="orgManufactureId" class="required">
