@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren, ViewEncapsulation, effect, inject } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation, effect, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 //import { BiologicalMaterialData } from '../../models/Enrollment';
 import { MaterialService } from '../material.service';
 import { ControlMessagesComponent, ICode, NO, UtilsService, YES } from '@hpfb/sdk/ui';
 import { GlobalService } from '../../global/global.service';
 import { BiologicalMaterialData } from '../../models/Enrollment';
+import { MaterialListComponent } from '../material-list/material-list.component';
 
 @Component({
   selector: 'app-material-info',
@@ -13,15 +14,15 @@ import { BiologicalMaterialData } from '../../models/Enrollment';
 })
 
 export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
+  
+  public materialInfoForm : FormGroup;
   @Input() public materialData;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-
+  @ViewChild(MaterialListComponent) aiMaterials: MaterialListComponent;
+  
   lang = this._globalService.lang();
 
   materialService = inject(MaterialService)
-
-  public materialInfoForm : FormGroup;
-
   public materialListModel;
 
   public yesNoList: ICode[] = [];

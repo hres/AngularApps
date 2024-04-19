@@ -1,6 +1,7 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation,
+  ViewChild
 } from '@angular/core';
 import {FormGroup, FormBuilder, FormArray, FormControl} from '@angular/forms';
 import { CheckboxOption, ControlMessagesComponent, YES, NO, ConverterService, ICode, UtilsService, ICodeAria, ICodeDefinition } from '@hpfb/sdk/ui';
@@ -12,6 +13,8 @@ import {ApplicationInfoDetailsService} from './application-info.details.service'
 import { GlobalService } from '../global/global.service';
 import { DeviceClass, ActivityType, Compliance} from '../app.constants';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
+import { DeviceListComponent } from '../inter-device/device-list/device-list.component';
+import { MaterialInfoComponent } from '../bio-material/material-info/material-info.component';
 
 @Component({
   selector: 'app-info-details',
@@ -40,8 +43,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   @Output() deviceErrorList = new EventEmitter(true);
   @Output() materialErrorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-  //@ViewChild(DeviceListComponent, {static: true}) aiDevices: DeviceListComponent;
-  //@ViewChild(MaterialListComponent, {static: false}) bioMaterials: MaterialListComponent;
+  
+  @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
+  @ViewChild(MaterialInfoComponent) bioMaterialInfo: MaterialInfoComponent;
 
   // Lists for dropdowns
   public licenceAppTypeList: ICode[] = [];
@@ -175,7 +179,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   private _saveData(): void{
     // save data to output model
-    this._detailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel), this.appInfoModel, this.selectedComplianceCodes, this.selectedDiagnosisCodes, this.lang);
+    // this._detailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel), this.appInfoModel, this.lang);
   }
 
   // For bio materials 
@@ -392,10 +396,12 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
   seriousDiagnosisOnChange() {
+    this.appInfoFormLocalModel.controls['selectedDiagnosisCodes'].setValue(this.selectedDiagnosisCodes);
     this._saveData();
   }
 
   complianceOnChange() {
+    this.appInfoFormLocalModel.controls['selectedComplianceCodes'].setValue(this.selectedComplianceCodes);
     this._saveData();
   }
 

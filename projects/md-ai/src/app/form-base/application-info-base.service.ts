@@ -1,7 +1,11 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { EntityBaseService, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData } from '../models/Enrollment';
+import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
+import { GlobalService } from '../global/global.service';
+import { DeviceService } from '../inter-device/device.service';
+import { MaterialService } from '../bio-material/material.service';
 // import {GlobalsService} from '../globals/globals.service';
 // import {ValidationService} from '../validation.service';
 // import {ListService} from '../list-service';
@@ -10,7 +14,13 @@ import { ApplicationInfo, Enrollment, Device, BiologicalMaterial } from '../mode
 export class ApplicationInfoBaseService {
 
 
-  constructor(private _fb: FormBuilder, private _entityBaseService: EntityBaseService, private _utilsService: UtilsService) {
+  constructor(private _fb: FormBuilder, 
+              private _entityBaseService: EntityBaseService, 
+              private _globalService: GlobalService,
+              private _utilsService: UtilsService,
+              private _applicationInfoDetailsService : ApplicationInfoDetailsService,
+              private _deviceService : DeviceService,
+              private _materialService : MaterialService) {
   }
 
   /**
@@ -66,7 +76,8 @@ export class ApplicationInfoBaseService {
         template_version: '',
         application_info: this.getEmptyApplicationInfoModel(),
         devices: {device: []},
-        biological_materials: null, // TODO DIANA - Is this undefined? Search for list of objects
+        material_info: this.getEmptyMaterialInfoModel()
+        // biological_materials: null, // TODO DIANA - Is this undefined? Search for list of objects
       }
     };
 
@@ -105,10 +116,9 @@ export class ApplicationInfoBaseService {
         interim_order_authorization: '',
         authorization_id: '',
         declaration_conformity:  '',
-        has_recombinant: '',
-        is_animal_human_sourced: '',
-        is_listed_idd_table: '',
-        material_data: null,
+        // has_recombinant: '',
+        // is_animal_human_sourced: '',
+        // is_listed_idd_table: '',
         priority_review: '',
         is_diagnosis_treatment_serious: null
       }
@@ -129,9 +139,88 @@ export class ApplicationInfoBaseService {
     )
   }
 
+  public getEmptyMaterialInfoModel() : BiologicalMaterialData {
+    return (
+      {
+        has_recombinant: '',
+        is_animal_human_sourced: '',
+        is_listed_idd_table: '',
+        biological_materials: {material: []}
+      }
+    )
+  }
+
+  public getEmptyMaterialModel(): BiologicalMaterial {
+    return (
+      {
+        material_id:                null,
+        material_name:              '',
+        device_name:                '',
+        origin_country:             this._entityBaseService.getEmptyIdTextLabel(),
+        family_of_species:          this._entityBaseService.getEmptyIdTextLabel(),
+        tissue_substance_type:      this._entityBaseService.getEmptyIdTextLabel(),
+        tissue_type_other_details:  '',
+        derivative:                 this._entityBaseService.getEmptyIdTextLabel(),
+        derivative_other_details:   ''
+      }
+    )
+  }
+
 
   private _getRegulatoryActivityLead() {
     return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Device Directorate', 'Direction des instruments médicaux');
+  }
+
+  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm) {
+    let deviceModelList = [];
+    let materialModelList = [];
+    let materialInfoModel : BiologicalMaterialData = null;
+    
+    let aiModel: ApplicationInfo = this.getEmptyApplicationInfoModel();
+    console.log("printing ai form..", aiDetailsForm);
+    this._applicationInfoDetailsService.mapFormModelToDataModel(aiDetailsForm, aiModel, this._globalService.lang());
+    console.log("printing ai model after mapping...", aiModel);
+
+    if (devicesForm) {
+      for (let i = 0; i < devicesForm.length; i++) {
+        console.log("print device from", devicesForm[i]);
+        let deviceModel: Device = this.getEmptyDeviceModel();
+        this._deviceService.mapFormModelToOutputModel(devicesForm[i].deviceInfo, deviceModel);
+        deviceModelList.push(deviceModel);
+      }
+    }
+    console.log("printing device model list...", deviceModelList);
+
+    if (materialDetailsForm) {
+      materialInfoModel = this.getEmptyMaterialInfoModel();
+      console.log("printing material info form...", materialDetailsForm);
+      this._materialService.mapMaterialInfoModelToOutput(materialDetailsForm, materialInfoModel);
+
+      if (materialsForm) {
+        for (let i = 0; i < materialsForm.length; i++) {
+          console.log("print material from", materialsForm[i]);
+          let materialModel: BiologicalMaterial = this.getEmptyMaterialModel();
+          this._materialService.mapMaterialModelToOutputModel(materialsForm[i].materialInfo, materialModel);
+          materialModelList.push(materialModel);
+        }
+
+        materialInfoModel.biological_materials = {material : materialModelList};
+      }
+    }
+
+    const output: Enrollment = {
+      'DEVICE_APPLICATION_INFO': {
+        'template_version': this._globalService.$appVersion,
+        'application_info': aiModel,
+        'devices': {device : deviceModelList},
+        'material_info' : materialInfoModel
+       }
+   };
+
+   // update the last_saved_date
+   output.DEVICE_APPLICATION_INFO.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm')
+
+   return output;
   }
 
  

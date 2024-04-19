@@ -9,7 +9,8 @@ export interface DeviceApplicationEnrol {
     check_sum?:                     string;
     application_info:               ApplicationInfo;
     devices:                        Devices;
-    biological_materials:           BiologicalMaterials;}
+    material_info:                      BiologicalMaterialData;
+}
 
 export interface ApplicationInfo {
     last_saved_date:                string;
@@ -41,10 +42,9 @@ export interface ApplicationInfo {
     interim_order_authorization:    string;
     authorization_id:               string;
     declaration_conformity :        string;
-    has_recombinant:                string;
-    is_animal_human_sourced :       string;
-    is_listed_idd_table:            string;
-    material_data:                  BiologicalMaterialData;
+    // has_recombinant:                string;
+    // is_animal_human_sourced :       string;
+    // is_listed_idd_table:            string;
     priority_review:                    string;
     is_diagnosis_treatment_serious:     DiagnosisReasons;
 }
@@ -61,7 +61,7 @@ export interface BiologicalMaterialData {
     has_recombinant:                string;
     is_animal_human_sourced :       string;
     is_listed_idd_table:            string;
-    biological_materials: BiologicalMaterials
+    biological_materials: BiologicalMaterials;
 }
 
 export interface BiologicalMaterials {

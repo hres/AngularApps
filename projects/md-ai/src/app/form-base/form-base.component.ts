@@ -28,7 +28,7 @@ import { DeviceService } from '../inter-device/device.service';
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
   @Input() helpTextSequences;
-  // @ViewChild(ApplicationInfoDetailsComponent, {static: false}) aiDetails: ApplicationInfoDetailsComponent;
+  @ViewChild(ApplicationInfoDetailsComponent) aiDetails: ApplicationInfoDetailsComponent;
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
@@ -110,8 +110,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // console.log("onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
       }
 
-      const transactionEnroll: DeviceApplicationEnrol = this.enrollModel[this.rootTagText];
-      this._init(transactionEnroll);
+      const applicationEnroll: DeviceApplicationEnrol = this.enrollModel[this.rootTagText];
+      this._init(applicationEnroll);
 
       //this.helpIndex = this._globalService.getHelpIndex();
 
@@ -176,17 +176,36 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _prepareForSaving(xmlFile: boolean): Enrollment {
-    const output: Enrollment = {
-       'DEVICE_APPLICATION_INFO': {
-         'template_version': this._globalService.$appVersion,
-         'application_info': this.appInfoModel,
-         'devices': {device: this.deviceModel},
-         'biological_materials': this.materialModel
-        }
-    };
+    let devicesFormArrayValue = null;
+    let devicesFormMaterialInfo = [];
+    let materialInfoFormGroupValue = null;
+    let materialsFormArrayValue = null;
 
-    // update the last_saved_date
-    output.DEVICE_APPLICATION_INFO.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm')
+    const aiDetailsFormGroupValue = this.aiDetails.appInfoFormLocalModel.value;
+
+    if (this.aiDetails.aiDevices.devicesFormArr) {
+      devicesFormArrayValue = this.aiDetails.aiDevices.devicesFormArr.value
+    }
+
+    if (this.aiDetails.bioMaterialInfo) {
+      materialInfoFormGroupValue = this.aiDetails.bioMaterialInfo.materialInfoForm.value;
+
+      if (this.aiDetails.bioMaterialInfo.aiMaterials) {
+        materialsFormArrayValue = this.aiDetails.bioMaterialInfo.aiMaterials.materialsFormArr.value;
+      }
+    }
+    
+    console.log("devices in form base", devicesFormArrayValue);
+    console.log("material info in form base", materialInfoFormGroupValue);
+    console.log("materials in form base", materialsFormArrayValue);
+
+    const output: Enrollment = this._baseService.mapFormToOutput(aiDetailsFormGroupValue, devicesFormArrayValue, materialInfoFormGroupValue, materialsFormArrayValue);
+
+    if (xmlFile) {
+      // add and calculate check_sum if it is xml
+      output.DEVICE_APPLICATION_INFO[CHECK_SUM_CONST] = "";   // this is needed for generating the checksum value
+      output.DEVICE_APPLICATION_INFO[CHECK_SUM_CONST] = this._checkSumService.createHash(output);
+    }
 
     return output;
   }
@@ -224,7 +243,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this._utilsService.isEmpty(this.deviceModel)) {
       this.deviceModel = [];
     }
-    this.materialModel = applicationEnroll.biological_materials;
+    //this.materialModel = applicationEnroll.biological_materials;
   }
 
 }

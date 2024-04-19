@@ -28,4 +28,22 @@ export class DeviceService {
       )
     });
   }
+
+  public mapFormModelToOutputModel(formRecord: any, deviceModel) {
+    deviceModel.device_name = formRecord.deviceName;
+    deviceModel.device_Authorized = formRecord.deviceAuthorized;
+    deviceModel.licence_number = formRecord.licenceNum
+    deviceModel.device_application_submitted = formRecord.deviceApplicationSubmitted;
+    deviceModel.device_application_number = formRecord.deviceApplicationNumber;
+    deviceModel.device_explain = formRecord.deviceExplain;
+  }
+
+  public mapOutputModelToFormModel(deviceModel, formRecord: FormGroup) {
+    formRecord.controls['deviceName'].setValue(deviceModel.device_name);
+    formRecord.controls['deviceAuthorized'].setValue(deviceModel.device_Authorized);
+    formRecord.controls['licenceNum'].setValue(deviceModel.licence_number);
+    formRecord.controls['deviceApplicationSubmitted'].setValue(deviceModel.device_application_submitted);
+    formRecord.controls['deviceApplicationNumber'].setValue(deviceModel.device_application_number);
+    formRecord.controls['deviceExplain'].setValue(deviceModel.device_explain);
+  }
 }

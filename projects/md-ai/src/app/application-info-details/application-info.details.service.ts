@@ -43,6 +43,7 @@ export class ApplicationInfoDetailsService {
       activeIngredients: [null, Validators.required],
       manufacturer: [null, Validators.required],
       compliance: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
+      selectedComplianceCodes: [''],
       otherPharmacopeia: [null, Validators.required],
       provisionMdrIT: [false, []],
       provisionMdrSA: [false, []],
@@ -56,7 +57,8 @@ export class ApplicationInfoDetailsService {
       // // hasMaterial: [null, Validators.required],
       // isListedIddTable: [null, Validators.required],
       isPriorityReq: [null, []],
-      diagnosisReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected])
+      diagnosisReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
+      selectedDiagnosisCodes: ['']
     });
   }
 
@@ -68,7 +70,7 @@ export class ApplicationInfoDetailsService {
     return this._converterService.getCheckedCheckboxValues(complianceList, complianceChkFormArray);
   }
 
-  public mapFormModelToDataModel(formRecord: FormGroup, appInfoModel, slctdComplianceCodes : string[], slctdDiagnosisReasonCodes : string[], lang) {
+  public mapFormModelToDataModel(formRecord: any, appInfoModel, lang) {
     const licenceAppTypeList = this._globalService.$licenceAppTypeList;
     const mdsapOrgList = this._globalService.$mdAuditProgramList;
     const actTypeList = this._globalService.$regActivityTypeList;
@@ -78,57 +80,57 @@ export class ApplicationInfoDetailsService {
     const complianceList = this._globalService.$complianceList;
     const diagnosisReasonList = this._globalService.$diagnosisReasonList;
 
-    if (formRecord.controls['companyId'].value) {
-      appInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.controls['companyId'].value;
+    if (formRecord.company_id) {
+      appInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.company_id;
     }
-    appInfoModel.dossier_id = formRecord.controls['dossierId'].value;
-    appInfoModel.mdsap_number = formRecord.controls['mdsapNum'].value;
+    appInfoModel.dossier_id = formRecord.dossierId;
+    appInfoModel.mdsap_number = formRecord.mdsapNum;
     
-    const mdsapOrgCodeValue = this._utilsService.findCodeById(mdsapOrgList, formRecord.controls['mdsapOrg'].value);
+    const mdsapOrgCodeValue = this._utilsService.findCodeById(mdsapOrgList, formRecord.mdsapOrg);
     appInfoModel.mdsap_org = mdsapOrgCodeValue? this._converterService.convertCodeToIdTextLabel(mdsapOrgCodeValue, lang) : null;
     
-    const licenceAppTypeCodeValue = this._utilsService.findCodeById(licenceAppTypeList, formRecord.controls['licenceAppType'].value);
+    const licenceAppTypeCodeValue = this._utilsService.findCodeById(licenceAppTypeList, formRecord.licenceAppType);
     appInfoModel.licence_application_type = licenceAppTypeCodeValue? this._converterService.convertCodeToIdTextLabel(licenceAppTypeCodeValue, lang) : null;
 
-    const actTypeCodeValue = this._utilsService.findCodeById(actTypeList, formRecord.controls['activityType'].value);
+    const actTypeCodeValue = this._utilsService.findCodeById(actTypeList, formRecord.activityType);
     appInfoModel.regulatory_activity_type = actTypeCodeValue? this._converterService.convertCodeToIdTextLabel(actTypeCodeValue, lang) : null;
 
-    const devClassCodeValue = this._utilsService.findCodeById(devClassList, formRecord.controls['deviceClass'].value);
+    const devClassCodeValue = this._utilsService.findCodeById(devClassList, formRecord.deviceClass);
     appInfoModel.device_class = devClassCodeValue? this._converterService.convertCodeToIdTextLabel(devClassCodeValue, lang) : null;
 
-    appInfoModel.is_ivdd = formRecord.controls['isIvdd'].value;
-    appInfoModel.is_home_use = formRecord.controls['isHomeUse'].value;
-    appInfoModel.is_care_point_use = formRecord.controls['isCarePoint'].value;
-    appInfoModel.is_emit_radiation = formRecord.controls['isEmitRadiation'].value;
-    appInfoModel.has_drug = formRecord.controls['hasDrug'].value;
+    appInfoModel.is_ivdd = formRecord.isIvdd;
+    appInfoModel.is_home_use = formRecord.isHomeUse;
+    appInfoModel.is_care_point_use = formRecord.isCarePoint;
+    appInfoModel.is_emit_radiation = formRecord.isEmitRadiation;
+    appInfoModel.has_drug = formRecord.hasDrug;
 
-    const hasDinNpnCodeValue = this._utilsService.findCodeById(drugTypeList, formRecord.controls['hasDinNpn'].value);
+    const hasDinNpnCodeValue = this._utilsService.findCodeById(drugTypeList, formRecord.hasDinNpn);
     appInfoModel.has_din_npn = hasDinNpnCodeValue? this._converterService.convertCodeToIdTextLabel(hasDinNpnCodeValue, lang) : null;
     
   
     const compliances: Compliances = {
-      compliance: this._converterService.findAndConverCodesToIdTextLabels(complianceList, slctdComplianceCodes, lang)
+      compliance: this._converterService.findAndConverCodesToIdTextLabels(complianceList, formRecord.selectedComplianceCodes, lang)
     }
     appInfoModel.compliance = compliances;
-    appInfoModel.din = formRecord.controls['din'].value;
-    appInfoModel.npn = formRecord.controls['npn'].value;
-    appInfoModel.drug_name = formRecord.controls['drugName'].value;
-    appInfoModel.active_ingredients = formRecord.controls['activeIngredients'].value;
-    appInfoModel.manufacturer = formRecord.controls['manufacturer'].value;
-    appInfoModel.other_pharmacopeia = formRecord.controls['otherPharmacopeia'].value;
-    appInfoModel.provision_mdr_it = formRecord.controls['provisionMdrIT'].value ? YES : NO; // Diana TODO - Refactor
-    appInfoModel.provision_mdr_sa = formRecord.controls['provisionMdrSA'].value ? YES : NO;
-    appInfoModel.interim_order_authorization = formRecord.controls['provisionMdrIOA'].value ? YES : NO;
-    appInfoModel.application_number = formRecord.controls['applicationNum'].value;
-    appInfoModel.sap_request_number = formRecord.controls['sapReqNum'].value;
-    appInfoModel.authorization_id = formRecord.controls['authNum'].value;
-    appInfoModel.declaration_conformity = formRecord.controls['declarationConformity'].value;
+    appInfoModel.din = formRecord.din;
+    appInfoModel.npn = formRecord.npn;
+    appInfoModel.drug_name = formRecord.drugName;
+    appInfoModel.active_ingredients = formRecord.activeIngredients;
+    appInfoModel.manufacturer = formRecord.manufacturer;
+    appInfoModel.other_pharmacopeia = formRecord.otherPharmacopeia;
+    appInfoModel.provision_mdr_it = formRecord.provisionMdrIT ? YES : NO; // Diana TODO - Refactor
+    appInfoModel.provision_mdr_sa = formRecord.provisionMdrSA ? YES : NO;
+    appInfoModel.interim_order_authorization = formRecord.provisionMdrIOA ? YES : NO;
+    appInfoModel.application_number = formRecord.applicationNum;
+    appInfoModel.sap_request_number = formRecord.sapReqNum;
+    appInfoModel.authorization_id = formRecord.authNum;
+    appInfoModel.declaration_conformity = formRecord.declarationConformity;
     // appInfoModel.has_recombinant = formRecord.controls['hasRecombinant'].value;
     // appInfoModel.is_animal_human_sourced = formRecord.controls['isAnimalHumanSourced'].value;
     // appInfoModel.is_listed_idd_table = formRecord.controls['isListedIddTable'].value;
-    appInfoModel.priority_review = formRecord.controls['isPriorityReq'].value;
+    appInfoModel.priority_review = formRecord.isPriorityReq;
     const reasons: DiagnosisReasons = {
-      diagnosis_reason: this._converterService.findAndConverCodesToIdTextLabels(diagnosisReasonList, slctdDiagnosisReasonCodes, lang)
+      diagnosis_reason: this._converterService.findAndConverCodesToIdTextLabels(diagnosisReasonList, formRecord.selectedDiagnosisCodes, lang)
     }
     appInfoModel.is_diagnosis_treatment_serious = reasons;
   }

@@ -17,14 +17,13 @@ import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notificat
 })
 
 export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
+  deviceListForm: FormGroup;
   @Input() public deviceListData: Device[];
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // @Output() public contactsUpdated = new EventEmitter();
 
   // errors = signal<ControlMessagesComponent[]>([]);
-
-  deviceListForm: FormGroup;
 
   deviceService = inject(DeviceService)
   deviceListService = inject(DeviceListService)
@@ -84,10 +83,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     }
     this._emitErrors();
   } 
-
-  get devicesFormArr(): FormArray {
-    return this.deviceListForm.get('devices') as FormArray;
-  }
 
   addDevice() {
     const group = this.deviceService.createDeviceFormGroup(this.fb);
@@ -162,7 +157,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     this.devicesFormArr.clear();
 
     if (devicesData) {
-
       if (devicesData.length > 0) {
         devicesData.forEach(device => {
           const group = this.deviceService.createDeviceFormGroup(this.fb);
@@ -254,14 +248,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     return ( !this.deviceListForm.valid  || this.showErrors ||  this.deviceListForm.dirty );
   }
 
-  getDeviceInfo(deviceFormGroup : FormGroup): FormGroup {
-    return deviceFormGroup.get('deviceInfo') as FormGroup;
-  }
-
-  getDevicesFormArrValues(): any {
-    return this.devicesFormArr.value;
-  }  
-
   private _updateLocalErrorList(errs) {
     if (errs) {
       errs.forEach(err => {
@@ -291,5 +277,17 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
    
     this._deviceService.errors.update( errors => emitErrors );
   }
+
+  get devicesFormArr(): FormArray {
+    return this.deviceListForm.get('devices') as FormArray;
+  }
+
+  getDeviceInfo(deviceFormGroup : FormGroup): FormGroup {
+    return deviceFormGroup.get('deviceInfo') as FormGroup;
+  }
+
+  getDevicesFormArrValues(): any {
+    return this.devicesFormArr.value;
+  }  
 
 }
