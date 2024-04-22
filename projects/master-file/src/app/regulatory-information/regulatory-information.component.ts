@@ -45,13 +45,15 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   selectedTxDescDefinition: string;
   public showFieldErrors: boolean = false;
   public showDateAndRequester: boolean = false;
+  public showReqRevisedTxDesc: boolean = false;
+  public showRevisedTxDesc: boolean = false;
   public showContactFees: boolean[] = [true, true];
   mfTypeSub!: Subscription;
   mfTypeTxDescSub!: Subscription;
   mfUseSub!: Subscription;
 
-  showDateAndRequesterTxDescs: string[] = ['12', '14']; // Transaction Description values are defined in txDescriptions.json
-  showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
+  showDateAndRequesterTxDescs: string[] = ['12', '14', '21']; // Transaction Description values are defined in txDescriptions.json
+  showDateAndRequesterOnlyTxDescs: string[] = ['12', '14','21'];
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder) {
@@ -219,6 +221,19 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       this._saveData();
     }
   }
+
+  reqRevisionChanged(e) {
+    this.regulartoryFormModel.controls['reqRevision'].setValue(null);
+    this.regulartoryFormModel.controls['reqRevision'].setValue(e.target.value);
+    if (e.target.value && e.target.value === 'Y') {
+      this.showRevisedTxDesc = true;
+    } else {
+      this.showRevisedTxDesc = false;
+      this.regulartoryFormModel.controls['revisedTxDesc'].setValue(''); // null or empty? 
+    }
+  }
+
+
 
   private _saveData() {
     this._regulatoryInfoService.mapFormModelToDataModel(

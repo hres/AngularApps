@@ -155,4 +155,24 @@
                 [formControl]="regulartoryFormModel.controls['requester'] | formControl">
         </div>
     </div>
+    <div class="row form-group" *ngIf="showReqRevisedTxDesc">
+        <fieldset class="col-md-12 chkbxrdio-grp"
+          data-ng-class="{'has-error':regulartoryFormModel.controls['reqRevision'].$invalid}">
+          <legend class="required">
+            {{'req.revision' |translate}}
+            <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+            <control-messages *ngIf="regulartoryFormModel.controls['reqRevision'].invalid" [showError]="showFieldErrors"
+              [control]="regulartoryFormModel.controls['reqRevision'] | formControl" controlId="reqRevisionId"
+              label="req.revision" parentId="mfFees" parentLabel="Regulatory Information"></control-messages>
+          </legend>
+          <input type="radio" id="reqRevisionId" name="reqRevision" value="Y" (blur)="onblur()"
+            (change)="reqRevisionChanged($event)"
+            [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl"  required />
+          <label for="reqRevisionId">&nbsp;{{'yes'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input type="radio" id="reqRevisionId_1" name="reqRevision" value="N" (blur)="onblur()"
+            (change)="reqRevisionChanged($event)"
+            [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl" required />
+          <label for="reqRevisionId_1">&nbsp;{{'no'|translate}}</label>
+        </fieldset>
+      </div>
 </div>
