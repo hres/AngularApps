@@ -19,25 +19,25 @@
       <div class="row"  *ngIf="hasFeeYes()">
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
           <label for="billCompanyId" class="required full-width" >
-            <span class="field-name">{{'billing.company.id'|translate}}</span>
+            <span class="field-name">{{'billing.company.id'|translate}} {{ 'minNumber6'|translate }}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="transFeeForm.controls['billCompanyId'].invalid"
                               [showError]="showFieldErrors"
                               [control]="transFeeForm.controls['billCompanyId'] | formControl"
                               controlId="billCompanyId" label="billing.company.id" parentId="transFees"></control-messages>
-            <input id="billCompanyId" class="form-control"  name="billCompanyId" autofocus
+            <input id="billCompanyId" class="form-control"  name="billCompanyId" data-only-digits
                    [formControl]="transFeeForm.controls['billCompanyId'] | formControl" maxlength="6"/>
           </label>
         </div>
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
           <label for="billContactId" class="required full-width" >
-            <span class="field-name">{{'billing.contact.id'|translate}}</span>
+            <span class="field-name">{{'billing.contact.id'|translate}} {{ 'minNumber6'|translate }}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="transFeeForm.controls['billContactId'].invalid"
                               [showError]="showFieldErrors"
                               [control]="transFeeForm.controls['billContactId'] | formControl"
                               controlId="billContactId" label="billing.contact.id" parentId="transFees"></control-messages>
-            <input id="billContactId" class="form-control"   name="billContactId"
+            <input id="billContactId" class="form-control"   name="billContactId" data-only-digits
                    [formControl]="transFeeForm.controls['billContactId'] | formControl" maxlength="5"/>
           </label>
         </div>

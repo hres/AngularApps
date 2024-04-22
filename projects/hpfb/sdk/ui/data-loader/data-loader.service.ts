@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, tap, throwError} from 'rxjs';
-import { SortOn } from './data'; 
+import { ICode, SortOn } from './data'; 
 
 @Injectable({
   providedIn: 'root'
@@ -16,24 +16,27 @@ export class DataLoaderService {
     return this.http.get<any>(endpoint).pipe();
   }
 
-  public getSortedData<T>(filename: string, compareField: SortOn): Observable<T[]> {
-    const sortByPriority = (a, b) => {
-      const valA = a.sortPriority == null ? -1 : a.sortPriority;
-      const valB = b.sortPriority == null ? -1 : b.sortPriority;
-      return valA < valB ? -1 : valA > valB ? 1 : 0;
-    };
+  public getSortedData<T extends ICode>(endpoint: string, compareField: SortOn): Observable<T[]> {
+    const compareFn = this.getCompareFunction(compareField);
 
-    const sortById = (a, b) => {
-      const valA = +a.id;   // convert id from string to number
-      const valB = +b.id;
-      return valA < valB ? -1 : valA > valB ? 1 : 0;
-    };
-
-    const compareFn = compareField === SortOn.PRIORITY? sortByPriority : sortById;
-
-    return this.getData<T>(filename).pipe(
+    return this.getData<T>(endpoint).pipe(
       map(data => data.sort(compareFn))
     );
+  }
+
+  private getCompareFunction(compareField: SortOn) {
+    return (a: ICode, b: ICode) => {
+      const valA = this.getFieldValue(a, compareField);
+      const valB = this.getFieldValue(b, compareField);
+      return valA < valB ? -1 : valA > valB ? 1 : 0;
+    };
+  }
+
+  private getFieldValue(obj: ICode, field: SortOn): string | number {
+    if (field === SortOn.PRIORITY && obj.sortPriority !== undefined) {
+      return obj.sortPriority;
+    }
+    return obj[field];
   }
 
   public handleError(err: HttpErrorResponse): Observable<never> {

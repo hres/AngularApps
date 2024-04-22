@@ -64,6 +64,7 @@ export class ApplicationInfoBaseService {
     const enrollment: Enrollment = {
       DEVICE_APPLICATION_INFO: {
         template_version: '',
+        form_language: '',
         application_info: this.getEmptyApplicationInfoModel(),
         devices: {device: []},
         biological_materials: null, // TODO DIANA - Is this undefined? Search for list of objects

@@ -549,7 +549,7 @@ span.normalWeight {
 								<xsl:if test="/descendant-or-self::application_info/device_name != ''">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<strong>Name of Device:&#160;</strong>
+											<strong>Name of Device, as it appears on the labele:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_name"/></span>
 										</div>
 									</div>
@@ -576,14 +576,6 @@ span.normalWeight {
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<strong>Device details table included?&#160;</strong>
 										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/has_ddt"/></xsl:call-template></span>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/has_app_info"/></xsl:call-template>
-										<span class="mouseHover">
-											<strong>Application information XML included in transaction?</strong>
-										</span>
 									</div>
 								</div>
 							</div>
@@ -620,9 +612,8 @@ span.normalWeight {
 	<xsl:template name="YesNoUnknow">
 		<xsl:param name="value" select="/.."/>
 		<xsl:choose>
-		<xsl:when test="$value = 'yes'">Yes</xsl:when>
-		<xsl:when test="$value = 'no'">No</xsl:when>
-		<xsl:otherwise></xsl:otherwise>
+		<xsl:when test="translate($value, $smallcase, $uppercase) = 'YES'">Yes</xsl:when>
+		<xsl:when test="translate($value, $smallcase, $uppercase) = 'NO'">No</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template name="hp-checkbox">

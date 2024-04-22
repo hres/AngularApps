@@ -23,8 +23,10 @@ export interface IParentChildren {
 }
 
 export enum SortOn {
-  ID,
-  PRIORITY
+  ID = 'id',
+  ENGLISH = 'en',
+  FRENCH = 'fr',
+  PRIORITY = 'sortPriority'
 }
 
 export interface IKeyword {
