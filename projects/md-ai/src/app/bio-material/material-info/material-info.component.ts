@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MaterialService } from '../material.service';
 import { ControlMessagesComponent, ICode, NO, UtilsService, YES } from '@hpfb/sdk/ui';
 import { GlobalService } from '../../global/global.service';
-import { BiologicalMaterialData } from '../../models/Enrollment';
+import { BiologicalMaterial, BiologicalMaterialData } from '../../models/Enrollment';
 import { MaterialListComponent } from '../material-list/material-list.component';
 
 @Component({
@@ -16,7 +16,7 @@ import { MaterialListComponent } from '../material-list/material-list.component'
 export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
   
   public materialInfoForm : FormGroup;
-  @Input() public materialData;
+  @Input() public materialInfo;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChild(MaterialListComponent) aiMaterials: MaterialListComponent;
   
@@ -24,6 +24,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
 
   materialService = inject(MaterialService)
   public materialListModel;
+  public materialListModel2;
 
   public yesNoList: ICode[] = [];
 
@@ -52,8 +53,8 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['materialData']) {
-      this._init(changes['materialData'].currentValue);
+    if (changes['materialInfo']) {
+      this._init(changes['materialInfo'].currentValue);
     }
   }
   
@@ -82,27 +83,26 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
   }
 
   updateMaterialListErrors(errors) {
-    console.log("updating list errors in info comp", errors);
     this.materialListErrors = errors;
     this._emitErrors();
   }
 
   private _init(materialData : BiologicalMaterialData) {
-    const materialModel = materialData;
     if (!this.materialInfoForm) {
       this.materialInfoForm = this.materialService.createMaterialInfoFormGroup(this._fb);
       this.materialInfoForm.markAsPristine();
-
-      this.materialInfoForm.patchValue({
-        hasRecombinant: materialData.has_recombinant,
-        isAnimalHumanSourced: materialData.is_animal_human_sourced,
-        isListedIddTable: materialData.is_listed_idd_table
-      })
-
-      this.materialListModel = materialData.biological_materials;
     } else {
       this.materialInfoForm = this.materialService.createMaterialInfoFormGroup(this._fb);
     }
+
+    this.materialInfoForm.patchValue({
+      hasRecombinant: materialData.has_recombinant,
+      isAnimalHumanSourced: materialData.is_animal_human_sourced,
+      isListedIddTable: materialData.is_listed_idd_table
+    })
+    
+    this.materialListModel = materialData.biological_materials;
+
   }
 
   animalHumanSourcedOnChange() {

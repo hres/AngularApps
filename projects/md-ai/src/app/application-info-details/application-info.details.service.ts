@@ -80,8 +80,8 @@ export class ApplicationInfoDetailsService {
     const complianceList = this._globalService.$complianceList;
     const diagnosisReasonList = this._globalService.$diagnosisReasonList;
 
-    if (formRecord.company_id) {
-      appInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.company_id;
+    if (formRecord.companyId) {
+      appInfoModel.company_id = COMPANY_ID_PREFIX + formRecord.companyId;
     }
     appInfoModel.dossier_id = formRecord.dossierId;
     appInfoModel.mdsap_number = formRecord.mdsapNum;

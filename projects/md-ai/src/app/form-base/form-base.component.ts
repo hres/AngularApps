@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
-import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device, BiologicalMaterialData, BiologicalMaterial } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
 // import { DeviceModule } from '../device/device.module';
 import { MaterialModule } from '../bio-material/material.module';
@@ -44,7 +44,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public rootTagText = ROOT_TAG; 
   private xslName: string;
 
-  public loadFileIndicator = 0;
+  // public loadFileIndicator = 0;
 
   public countryList = [];
 
@@ -61,7 +61,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public appInfoModel : ApplicationInfo; 
   public transactionModel: Enrollment;
   public deviceModel: Device[];
-  public materialModel: BiologicalMaterials;
+  public materialInfo: BiologicalMaterialData;
 
   public fileServices: FileConversionService;
   public helpIndex: { [key: string]: number };
@@ -177,7 +177,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _prepareForSaving(xmlFile: boolean): Enrollment {
     let devicesFormArrayValue = null;
-    let devicesFormMaterialInfo = [];
     let materialInfoFormGroupValue = null;
     let materialsFormArrayValue = null;
 
@@ -195,6 +194,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
     }
     
+    console.log("ai details", aiDetailsFormGroupValue);
     console.log("devices in form base", devicesFormArrayValue);
     console.log("material info in form base", materialInfoFormGroupValue);
     console.log("materials in form base", materialsFormArrayValue);
@@ -216,7 +216,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
  public processFile(fileData : ConvertResults) {
-  this.loadFileIndicator++;
+  // this.loadFileIndicator++;
   const enrollment : Enrollment = fileData.data;
   console.log('processing file.....');
   console.log(enrollment);
@@ -243,7 +243,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this._utilsService.isEmpty(this.deviceModel)) {
       this.deviceModel = [];
     }
-    //this.materialModel = applicationEnroll.biological_materials;
+    this.materialInfo = applicationEnroll.material_info;
+
+    console.log("initializing models from file upload...");
+    console.log("device model", this.deviceModel);
+    console.log("material info", this.materialInfo);
   }
 
 }

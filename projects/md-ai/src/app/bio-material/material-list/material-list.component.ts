@@ -36,6 +36,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   public errorList = [];
   errorSummaryChild = null;
 
+  firstChange: boolean = false;
+
   constructor(private fb: FormBuilder, 
               private _utilsService: UtilsService, 
               private _globalService: GlobalService, 
@@ -52,10 +54,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this._init();
+   
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.firstChange = this._utilsService.isFirstChange(changes);
+
     // console.log(this._utilsService.checkComponentChanges(changes));
     if (changes['materialListData']) {
       // console.log("material list component - changes");
@@ -171,14 +175,15 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   
-  private _init(materialsData?: BiologicalMaterial[]) {
+  private _init(materialsData?: BiologicalMaterials) {
       // Clear existing controls
     this.materialsFormArr.clear();
+    const materials = materialsData.material;
 
-    if (materialsData) {
+    if (materials.length > 0) {
 
-      if (materialsData.length > 0) {
-        materialsData.forEach(material => {
+      if (materialsData) {
+        materials.forEach(material => {
           const group = this.materialService.createMaterialFormGroup(this.fb);
 
           // Set values after defining the form controls
@@ -199,7 +204,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       const firstFormRecord = this.materialsFormArr.at(0) as FormGroup;
       firstFormRecord.controls['expandFlag'].setValue(true);
     }
-
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
 
     // if (this.isInternal) {
@@ -214,13 +218,13 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   // todo add contact type
   private _patchMaterialInfoValue(group: FormGroup, material): void {
     group.controls['materialInfo'].patchValue({
-      materialName: material.material_id,
+      materialName: material.material_name,
       deviceName: material.device_name,
-      originCountry: material.origin_country._id,
+      originCountry: material.origin_country? material.origin_country._id : '',
       specFamily: material.family_of_species._id,
-      tissueType: material.tissue_substance_type._id,
+      tissueType: material.tissue_substance_type._id? material.tissue_substance_type._id : '',
       tissueTypeOtherDetails: material.tissue_type_other_details,
-      derivative: material.derivate._id,
+      derivative: material.derivative? material.derivative._id : '',
       derivativeOtherDetails: material.derivative_other_details
     });
   }

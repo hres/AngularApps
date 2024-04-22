@@ -34,7 +34,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   //@Input() countryList;
   @Input() appInfoModel;
   @Input() deviceModel;
-  @Input() materialModel;
+  @Input() materialInfo;
   // @Input() lang;
   @Input() helpTextSequences;
   @Input() loadFileIndicator;

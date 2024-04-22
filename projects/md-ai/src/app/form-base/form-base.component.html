@@ -40,14 +40,14 @@
               </header>
               <div class="panel-body">
                 <!-- [detailsChanged]="updateChild"
-                  (declarationConformity)="disableSaveXmlButton($event)"
+                  (declarationConformity)="disableSaveXmlButton($event)
+                  [loadFileIndicator]="loadFileIndicator"
                           -->
                 <app-info-details [showErrors]="showErrors"
                                   [appInfoModel]="appInfoModel"
                                   [deviceModel]="deviceModel" 
-                                  [materialModel]="materialModel"                                  
+                                  [materialInfo]="materialInfo"    
                                   [helpTextSequences]="helpIndex"
-                                  [loadFileIndicator]="loadFileIndicator"
                                   (detailErrorList)="processDetailErrors($event)"
                                   (deviceErrorList)="processDeviceErrors($event)"                                 
                                   (materialErrorList)="resetMaterialErrors($event)">

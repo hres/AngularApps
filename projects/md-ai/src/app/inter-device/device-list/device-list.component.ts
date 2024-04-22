@@ -170,6 +170,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
           this._patchDeviceInfoValue(group, device);
 
+          this._deviceService.setDeviceDetailsErrorsToNull(group.controls['deviceInfo']);
           this.devicesFormArr.push(group);
         });
       }

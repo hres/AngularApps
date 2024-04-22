@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { GlobalService } from '../../global/global.service';
 import { TISSUE_OTHER_ID, DERIVATIVE_OTHER_ID } from '../../app.constants';
 import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
+import { DeviceService } from '../device.service';
 
 @Component({
   selector: 'app-device-item',
@@ -50,7 +51,8 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   constructor(private _globalService: GlobalService, 
               private _utilsService: UtilsService, 
               private _translateService: TranslateService,
-              private _errorNotificationService : ErrorNotificationService){
+              private _errorNotificationService : ErrorNotificationService,
+              private _deviceService : DeviceService){
     //this.isInternal = this._globalService.$isInternal;
 
     effect(() => {
@@ -124,7 +126,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
   private _save(index: number): void {
     if (!(this.errorList.length > 0)) { // If there are no errors -> Set null inputs that are invalid to valid
-      this._setDeviceDetailsErrorsToNull(this.cRRow.get('deviceInfo'));
+      this._deviceService.setDeviceDetailsErrorsToNull(this.cRRow.get('deviceInfo'));
     }
     // console.log("saving record - device item", this.cRRow);
     if (this.cRRow.valid) {
@@ -136,25 +138,6 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
       this.showErrors = true;
     }
   } 
-
-  /**
-   * Using this method to set the errors of control values that were not touched to false.
-   * This is because there are certain controls/inputs that only appear to user when they
-   * select a specific value.
-   * 
-   * For ex: When selecting yes to if a device that has been authorized in Canada
-   * -> YES: Licence Number appears, not app number & previously submitted & explanation inputs
-   * -> App number, previously submitted and explanations become INVALID because they are required
-   * when a user selects NO (for authorized in Canada)
-   * @param formGroup 
-   */
-  private _setDeviceDetailsErrorsToNull(formGroup) {
-    // console.log("setting device details errors to null...", formGroup);
-    Object.keys(formGroup.controls).forEach((key) => {
-      formGroup.get(key).setErrors(null);
-    });
-  }
-
   
   isDeviceAuthorized() {
     const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
