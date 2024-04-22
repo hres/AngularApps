@@ -27,7 +27,9 @@ export class ValidationService {
       'error.mgs.contact.id': 'error.mgs.contact.id',
       'error.mgs.primary.company.id': 'error.mgs.primary.company.id',
       'error.mgs.primary.contact.id': 'error.mgs.primary.contact.id',
+      'error.mgs.5.numeric': 'error.mgs.5.numeric',
       'error.mgs.6.numeric': 'error.mgs.6.numeric',
+      'error.mgs.8.numeric':'error.mgs.8.numeric',
       'error.mgs.regu.contact.id': 'error.mgs.regu.contact.id',
       'error.mgs.dossier.id': 'error.mgs.dossier.id',
       'error.mgs.licence.number': 'error.mgs.licence.number',
@@ -36,6 +38,7 @@ export class ValidationService {
       'error.mgs.npn': 'error.mgs.npn',
       'error.msg.remove.contact' : 'error.msg.remove.contact',
       'error.msg.revise.contact' : 'error.msg.revise.contact',
+      'error.msg.invalidDate': 'error.msg.invalidDate',
     };
 
     return config[validatorName];
@@ -175,6 +178,18 @@ export class ValidationService {
     }
   }
 
+  static numeric8Validator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{8}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.8.numeric': true};
+    }
+  }
+
+
   static dossierIdValidator(control) {
     if (!control.value) {
       return null;
@@ -295,4 +310,5 @@ export class ValidationService {
       return isAtLeastOneSelected ? null : { 'required': true };
     // };
   }
+
 }

@@ -10,11 +10,12 @@ import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
+import { DeviceModule } from '../device/device.module';
 
 @Component({
   selector: 'app-form-base',
   standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule],
+  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule],
   providers: [FileConversionService, ApplicationInfoBaseService, FormDataLoaderService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
   templateUrl: './form-base.component.html',
   styleUrls: ['./form-base.component.css'],
@@ -34,6 +35,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public rootTagText = ROOT_TAG; 
   private xslName: string;
 
+  public loadFileIndicator = 0;
+
   public countryList = [];
 
   public userList = [];
@@ -46,7 +49,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Enrollment;
   public appInfoModel : ApplicationInfo; 
   public transactionModel: Enrollment;
-  public deviceModel: Devices;
+  public deviceModel: Device[];
   public materialModel: BiologicalMaterials;
 
   public fileServices: FileConversionService;
@@ -69,6 +72,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.isSolicitedFlag = false;
     this.fileServices = new FileConversionService();
     this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + XSL_EXTENSION;
+    this.helpIndex = this._globalService.getHelpIndex();
   }
 
   ngOnInit() {
@@ -88,7 +92,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       const transactionEnroll: DeviceApplicationEnrol = this.enrollModel[this.rootTagText];
       this._init(transactionEnroll);
 
-      this.helpIndex = this._globalService.getHelpIndex();
+      //this.helpIndex = this._globalService.getHelpIndex();
 
     } catch (e) {
       console.error(e);
@@ -148,8 +152,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const output: Enrollment = {
        'DEVICE_APPLICATION_INFO': {
          'template_version': this._globalService.$appVersion,
+         'form_language': this._globalService.getCurrLanguage(),
          'application_info': this.appInfoModel,
-         'devices': this.deviceModel,
+         'devices': {device: this.deviceModel},
          'biological_materials': this.materialModel
         }
     };
@@ -166,6 +171,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
  public processFile(fileData : ConvertResults) {
+  this.loadFileIndicator++;
   const enrollment : Enrollment = fileData.data;
   console.log('processing file.....');
   console.log(enrollment);
@@ -187,7 +193,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _init(applicationEnroll: DeviceApplicationEnrol) {
     this.appInfoModel = applicationEnroll.application_info;
-    this.deviceModel = applicationEnroll.devices;
+    const tDevices = applicationEnroll.devices['device'];
+    this.deviceModel = Array.isArray(tDevices) ? tDevices : [tDevices];
+    if (this._utilsService.isEmpty(this.deviceModel)) {
+      this.deviceModel = [];
+    }
     this.materialModel = applicationEnroll.biological_materials;
   }
 

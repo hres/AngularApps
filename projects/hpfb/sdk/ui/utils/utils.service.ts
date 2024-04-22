@@ -1,10 +1,9 @@
 import { Injectable, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { CANADA, USA, FRENCH, NO, YES } from '../common.constants';
+import { CANADA, USA, FRENCH } from '../common.constants';
 import { DatePipe } from '@angular/common';
 import { ICode, ICodeDefinition, IParentChildren } from '../data-loader/data';
 import { IIdTextLabel } from '../model/entity-base';
-import { LoggerService } from '../logger/logger.service';
 
 @Injectable()
 export class UtilsService {
@@ -176,10 +175,10 @@ export class UtilsService {
 
   // return true if the value is in the array of valid values
   toBoolean = (value: string | number | boolean): boolean => 
-  [true, 'true', 'True', 'TRUE', '1', 1].includes(value);  
-  
+    [true, 'TRUE', 'T', '1', 1].includes(typeof value === 'string' ? value.toUpperCase() : value);
+
   isEmpty(value: any): boolean {
-    return value === null || value === undefined;
+    return value === null || value === undefined || value === "";
   }
 
   flattenArrays<T>(arrays: T[]): T[] {

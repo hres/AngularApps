@@ -17,6 +17,7 @@ export class FilereaderComponent implements OnInit {
   @Output() complete = new EventEmitter();
   @Input() rootTag : string = '';
   @Input() lang : string = '';
+  @Input() instructionVar?: string = '';    // optional input, used in html to render different instructions
 
   public status = IMPORT_SUCCESS;
   public importSuccess = false;

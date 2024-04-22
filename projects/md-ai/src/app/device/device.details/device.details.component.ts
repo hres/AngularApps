@@ -3,9 +3,10 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
-import { ControlMessagesComponent, YES, NO, UtilsService } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, YES, NO, UtilsService, ICode } from '@hpfb/sdk/ui';
 import {DeviceDetailsService} from './device.details.service';
 import {isArray} from 'util';
+import { GlobalService } from '../../global/global.service';
 
 
 @Component({
@@ -19,10 +20,12 @@ import {isArray} from 'util';
  */
 export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
-  public deviceFormLocalModel: FormGroup;
+  // public deviceFormLocalModel: FormGroup;
   @Input('group') public deviceRecord: FormGroup; // device detail form will use the reactive model passed in from the device record component - TODO
-  @Input() detailsChanged: number;
+  // @Input() detailsChanged: number;
+  @Input() recordId: string;
   @Input() showErrors: boolean;
+  @Input() lang;
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -31,37 +34,29 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   public showFieldErrors: boolean = false;
   private detailsService: DeviceDetailsService;
 
-  public yesNoList: Array<any> = [];
+  public yesNoList: ICode[] = [];
 
-  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private _utilsService : UtilsService) {
+  constructor(private _fb: FormBuilder, 
+    private cdr: ChangeDetectorRef, 
+    private _utilsService : UtilsService, 
+    private _detailsService: DeviceDetailsService,
+    private _globalService: GlobalService) {
+
     this.showFieldErrors = false;
     this.showErrors = false;
     this.detailsService = new DeviceDetailsService();
+    this.yesNoList = this._globalService.$yesNoList;
     // this.yesNoList = this.detailsService.getYesNoList();
   }
 
   ngOnInit() {
-    if (!this.deviceFormLocalModel) {
-      this.deviceFormLocalModel = DeviceDetailsService.getReactiveModel(this._fb);
-    }
-    this.detailsChanged = 0;
-
   }
 
   ngAfterViewInit() {
-    this.msgList.changes.subscribe(errorObjs => {
-      // let temp = [];
+     this.msgList.changes.subscribe(errorObjs => {
       this._updateErrorList(errorObjs);
-
-      /* errorObjs.forEach(
-         error => {
-           temp.push(error);
-         }
-       );
-       this.errorList.emit(temp);*/
     });
     this.msgList.notifyOnChanges();
-    document.location.href = '#deviceName';
   }
 
   private _updateErrorList(errorObjs) {
@@ -80,59 +75,40 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   ngOnChanges(changes: SimpleChanges) {
 
     // since we can't detect changes on objects, using a separate flag
-    if (changes['detailsChanged']) { // used as a change indicator for the model
-      // console.log("the details cbange");
-      if (this.deviceRecord) {
-        this.setToLocalModel();
+    // if (changes['detailsChanged']) { // used as a change indicator for the model
+    //   // console.log("the details cbange");
+    //   if (this.deviceRecord) {
+    //     this.setToLocalModel();
 
-      } else {
-        this.deviceFormLocalModel = DeviceDetailsService.getReactiveModel(this._fb);
-        this.deviceFormLocalModel.markAsPristine();
-      }
+    //   } else {
+    //     this.deviceFormLocalModel = DeviceDetailsService.getReactiveModel(this._fb);
+    //     this.deviceFormLocalModel.markAsPristine();
+    //   }
 
-    }
+    // }
     if (changes['showErrors']) {
-      if ( document.getElementById('deviceName')) {
-        this.showFieldErrors = changes['showErrors'].currentValue;
-        let temp = [];
-        if (this.msgList) {
-          this.msgList.forEach(item => {
-            temp.push(item);
-            // console.log(item);
-          });
-        }
-        this.errorList.emit(temp);
+      this.showFieldErrors = changes['showErrors'].currentValue;
+      let temp = [];
+      if (this.msgList) {
+        this.msgList.forEach(item => {
+          temp.push(item);
+          // console.log(item);
+        });
       }
+      this.errorList.emit(temp);
     }
 
   }
-
-  /**
-   * Uses the updated reactive forms model locally
-   */
-
-  setToLocalModel() {
-    this.deviceFormLocalModel = this.deviceRecord;
-    if (!this.deviceFormLocalModel.pristine) {
-      this.deviceFormLocalModel.markAsPristine();
-    }
-  }
-
- // licenceNumOnblur() {
- //   // if (this.deviceFormLocalModel.controls.licenceNum.value && !isNaN(this.deviceFormLocalModel.controls.licenceNum.value)) {
- //  //     const lnum = '000000' + this.deviceFormLocalModel.controls.licenceNum.value;
- //  //     this.deviceFormLocalModel.controls.licenceNum.setValue(lnum.substring(lnum.length - 6));
- ////  }
 
   private _resetControlValues(listOfValues : string[]) {
     for (let i = 0; i < listOfValues.length; i++) {
-      this._utilsService.resetControlsValues(this.deviceFormLocalModel.controls[listOfValues[i]]);
+      this._utilsService.resetControlsValues(this.deviceRecord.controls[listOfValues[i]]);
     }
   }
 
   isDeviceAuthorized() {
-    if (this.deviceFormLocalModel.controls['deviceAuthorized'].value &&
-        this.deviceFormLocalModel.controls['deviceAuthorized'].value === YES) {
+    if (this.deviceRecord.controls['deviceAuthorized'].value &&
+        this.deviceRecord.controls['deviceAuthorized'].value === YES) {
           const valuesToReset = ['deviceApplicationSubmitted', 'deviceApplicationNumber', 'deviceExplain'];
           this._resetControlValues(valuesToReset)
       return true;
@@ -141,8 +117,8 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   isDeviceNotAuthorized() {
-    if (this.deviceFormLocalModel.controls['deviceAuthorized'].value &&
-      this.deviceFormLocalModel.controls['deviceAuthorized'].value === NO) {
+    if (this.deviceRecord.controls['deviceAuthorized'].value &&
+      this.deviceRecord.controls['deviceAuthorized'].value === NO) {
       this._resetControlValues(['licenceNum']);
       return true;
     }
@@ -150,8 +126,8 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   isDeviceApplicationSubmitted() {
-    if (this.deviceFormLocalModel.controls['deviceApplicationSubmitted'].value &&
-      this.deviceFormLocalModel.controls['deviceApplicationSubmitted'].value === YES) {
+    if (this.deviceRecord.controls['deviceApplicationSubmitted'].value &&
+      this.deviceRecord.controls['deviceApplicationSubmitted'].value === YES) {
         this._resetControlValues(['deviceExplain'])
       return true;
     }
@@ -159,8 +135,8 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   isDeviceApplicationNotSubmitted() {
-    if (this.deviceFormLocalModel.controls['deviceApplicationSubmitted'].value &&
-      this.deviceFormLocalModel.controls['deviceApplicationSubmitted'].value === NO) {
+    if (this.deviceRecord.controls['deviceApplicationSubmitted'].value &&
+      this.deviceRecord.controls['deviceApplicationSubmitted'].value === NO) {
         this._resetControlValues(['deviceApplicationNumber']);
       return true;
     }

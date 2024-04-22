@@ -1,8 +1,10 @@
-<div [formGroup]="contactListForm"  id="contactListTable">
+<div [formGroup]="contactListForm">
   <!--<lib-error-summary *ngIf="showErrorsSummary()" [hiddenSummary]="showErrorsSummary()"-->
   <!--[errorList]="errorList" headingPreamble="heading.contactInfo"-->
   <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></lib-error-summary>-->  
-  
+
+  <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.data.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
+
   <lib-accordion [rowsFormArray]="contactList" [accordionHeadingMsgKey]="'heading.contactDetails'" [accordionHeadingSupp]="['contactDetails', 'fullName']" 
     (rowClicked)="handleRowClick($event)">
 

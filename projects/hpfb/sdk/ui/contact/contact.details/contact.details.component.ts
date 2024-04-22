@@ -7,6 +7,7 @@ import { ControlMessagesComponent } from '../../error-msg/control-messages/contr
 import {ContactDetailsService} from './contact.details.service';
 import { ICode } from '../../data-loader/data';
 import { UtilsService } from '../../utils/utils.service';
+import { ContactStatus } from '../../common.constants';
 
 @Component({
   selector: 'contact-details',
@@ -34,6 +35,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public showFieldErrors: boolean = false;
+  public disableEdit: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef, private _utilsService: UtilsService) {
     this.showFieldErrors = false;
@@ -41,6 +43,8 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   }
 
   ngOnInit() {
+    // for external site, disable editing if the Contact Status is REMOVE
+    this.disableEdit = (!this.isInternal && this.contactDetailForm.get('status').value === ContactStatus.Remove)
   }
 
   ngAfterViewInit() {

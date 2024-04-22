@@ -13,27 +13,37 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApplicationInfoDetailsComponent } from './application-info-details/application-info.details.component';
 import { ApplicationInfoDetailsService } from './application-info-details/application-info.details.service';
+import { DeviceModule } from "./device/device.module";
+import { DeviceListService } from './device/device.list/device-list.service';
+import { DeviceRecordService } from './device/device-record/device-record.service';
+import { DeviceDetailsService } from './device/device.details/device.details.service';
+import { ApplicationInfoBaseService } from './form-base/application-info-base.service';
 
 @NgModule({
-  declarations: [
-    ApplicationInfoDetailsComponent
-  ],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    CommonUiFeatureModule,
-    ErrorModule,
-    PipesModule,
-    ExpanderModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    NumbersOnlyDirective
-  ],
-  providers: [
-    ApplicationInfoDetailsService
-  ],
-  exports: [CommonUiFeatureModule, 
-    ApplicationInfoDetailsComponent
-  ],
+    declarations: [
+        ApplicationInfoDetailsComponent
+    ],
+    providers: [
+        ApplicationInfoDetailsService,
+        DeviceListService,
+        DeviceRecordService,
+        DeviceDetailsService,
+        ApplicationInfoBaseService
+    ],
+    exports: [CommonUiFeatureModule,
+        ApplicationInfoDetailsComponent
+    ],
+    imports: [
+        CommonModule,
+        TranslateModule,
+        CommonUiFeatureModule,
+        ErrorModule,
+        PipesModule,
+        ExpanderModule,
+        ReactiveFormsModule,
+        TranslateModule,
+        NumbersOnlyDirective,
+        DeviceModule
+    ]
 })
 export class AppFormModule {}

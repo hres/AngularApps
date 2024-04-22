@@ -1,11 +1,12 @@
-import { IIdTextLabel } from "@hpfb/sdk/ui";
+import { IIdTextLabel, ILabel } from "@hpfb/sdk/ui";
 
 export interface Enrollment {
   DEVICE_TRANSACTION_ENROL: DeviceTransactionEnrol;
 }
 
 export interface DeviceTransactionEnrol {
-  template_version:         string;    
+  template_version:         string;
+  form_language:            string;
   check_sum?:               string;
   application_info:         ApplicationInfo;
   transFees:                TransFees;
@@ -16,7 +17,7 @@ export interface ApplicationInfo {
   dossier_id:               string;
   dossier_type:             IIdTextLabel;
   company_id:               string;
-  manufacturing_contact_id: string;
+  manufacturer_contact_id: string;
   regulatory_company_id:    string;
   regulatory_contact_id:    string;
   regulatory_activity_lead: IIdTextLabel;
@@ -28,7 +29,7 @@ export interface ApplicationInfo {
   application_number:       string;
   device_name:              string;
   request_date:             string;
-  transaction_description:  string;
+  transaction_description:  ILabel;
   has_ddt:                  string;
   has_app_info:             string;
   org_manufacture_id:       string;

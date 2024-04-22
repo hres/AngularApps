@@ -47,6 +47,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   public errorList = [];
 
   private contactModelChangesSubscription: Subscription;
+
+  popupId='contactPopup';
   
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService, 
     private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService) {
@@ -362,15 +364,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
         }
       })
     } else {
-      if (this._utilsService.isFrench(this.lang)) {
-        alert(
-          "Veuillez sauvegarder les données d'entrée non enregistrées."
-        );
-      } else {
-        alert(
-          'Please save the unsaved input data.'
-        );
-      }
+      this.openPopup();
     }
 
   }
@@ -379,5 +373,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     // Unsubscribe to avoid memory leaks
     this.contactModelChangesSubscription.unsubscribe();
   }
+  openPopup(){
+    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+}
 }
 

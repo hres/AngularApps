@@ -34,6 +34,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   @Input() materialModel;
   @Input() lang;
   @Input() helpTextSequences;
+  @Input() loadFileIndicator;
   // @Output() declarationConformity = new EventEmitter();
   @Output() detailErrorList = new EventEmitter(true);
   @Output() deviceErrorList = new EventEmitter(true);

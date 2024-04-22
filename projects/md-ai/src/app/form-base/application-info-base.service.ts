@@ -64,8 +64,9 @@ export class ApplicationInfoBaseService {
     const enrollment: Enrollment = {
       DEVICE_APPLICATION_INFO: {
         template_version: '',
+        form_language: '',
         application_info: this.getEmptyApplicationInfoModel(),
-        devices: null, // TODO DIANA - Is this undefined? Search for list of objects
+        devices: {device: []},
         biological_materials: null, // TODO DIANA - Is this undefined? Search for list of objects
       }
     };
@@ -113,6 +114,21 @@ export class ApplicationInfoBaseService {
       }
     )
   }
+
+  public getEmptyDeviceModel() : Device {
+    return (
+      {
+        id: null,
+        device_name: '',
+        device_authorized: '',
+        licence_number: '',
+        device_application_submitted: '',
+        device_application_number: '',
+        device_explain: ''
+      }
+    )
+  }
+
 
   private _getRegulatoryActivityLead() {
     return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Device Directorate', 'Direction des instruments médicaux');

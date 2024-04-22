@@ -5,7 +5,8 @@ export interface Enrollment {
 }
 
 export interface DeviceApplicationEnrol {
-    template_version:               string;     // template_version??
+    template_version:               string;
+    form_language:                  string;
     check_sum?:                     string;
     application_info:               ApplicationInfo;
     devices:                        Devices;
@@ -77,6 +78,7 @@ export interface Devices {
 }
 
 export interface Device {
+    id:                             number;
     device_name:                    string;
     device_authorized:              string;
     licence_number:                 string;

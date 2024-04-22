@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="wb-frmvld">
   <form name="transactionForm" [formGroup]="transactionForm" novalidate>
     <div class="row mrgn-tp-md">
       <div class="col-md-12">
@@ -12,13 +12,13 @@
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'load.file'|translate}}
             <sup id="tr1-rf">
-              <a class="fn-lnk" href="#tr1"><span
+              <a class="fn-lnk mrgn-tp-md" href="#tr1"><span
                   class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileInx']}}</a>
             </sup>
           </h2>
         </header>
         <div class="panel-body">
-          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang"></lib-file-reader>
+          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [instructionVar]="'1'"></lib-file-reader>
         </div>
       </section>
     </div>
@@ -31,21 +31,21 @@
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'heading.transaction'|translate}}
             <sup id="tr2-rf">
-              <a class="fn-lnk" href="#tr2"><span
+              <a class="fn-lnk mrgn-tp-md" href="#tr2"><span
                   class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['transactionInfoInx']}}</a>
             </sup>
           </h2>
         </header>
         <div class="panel-body">
-          <transaction-details [lang]="lang" [transactionInfoModel]="transactionInfoModel"
-            [helpIndex]="helpIndex" (detailErrorList)="processDetailErrors($event)"></transaction-details>
+          <transaction-details [showErrors]="showErrors" [transactionInfoModel]="transactionInfoModel"
+            (detailErrorList)="processDetailErrors($event)"></transaction-details>
 
           <section class="panel panel-default">
             <header class="panel-heading clearfix">
               <h3 class="panel-title">{{'fees'|translate}}</h3>
             </header>
             <div class="panel-body">
-              <transaction-fee (feeErrorList)="processTransFeeErrors($event)" [lang]="lang" 
+              <transaction-fee (feeErrorList)="processTransFeeErrors($event)" [showErrors]="showErrors"
                 [transFeeModel]="transFeeModel"></transaction-fee>
             </div>
           </section>
@@ -68,7 +68,6 @@
       </div>
     </div>
 
-    <!--pre> myForm valid{{myForm.valid}}</pre>
-        <pre> myForm{{myForm.value |json}}</pre-->
+    <!-- <pre> transactionForm: {{transactionForm.value |json}}</pre> -->
   </form>
 </div>

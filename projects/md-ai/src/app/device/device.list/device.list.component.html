@@ -1,38 +1,34 @@
-<div [formGroup]="deviceListForm">
-    <div formArrayName="devices">
-      <expander-component [group]="dataModel" [disableExpand]="newRecordIndicator"
-                          [isValid]="validRec" [addRecord]="addRecordMsg"
-                          [columnDefinitions]="columnDefinitions"
-                          [deleteRecord]="deleteRecordMsg">
-        <device-record
-          [detailsChanged]="updateDeviceDetails"
-          [newRecord]="newRecordIndicator"
-          [showErrors]="showErrors"
-          (saveRecord)="saveDeviceRecord($event)"
-          (errors)="updateErrorList($event)"
-          (revertRecord)="revertDevice($event)" (deleteRecord)="deleteDevice($event)"></device-record>
+<div [formGroup]="deviceListForm" id="deviceListTable">
   
-      </expander-component>
-      <div *ngIf="newRecordIndicator">
-        <device-record
-          [detailsChanged]="updateDeviceDetails"
-          [newRecord]="newRecordIndicator"
+  <lib-accordion [rowsFormArray]="deviceList" [accordionHeadingMsgKey]="'heading.interdependent.device'" [accordionHeadingSupp]="['deviceDetails', 'deviceName']" 
+  (rowClicked)="handleRowClick($event)">
+
+    <ng-template #tmpl let-recordRow let-idx="i">
+      <!-- ==={{recordRow.get('id').value}}=== -->
+      <!-- === index = {{idx}} ,  === -->
+
+      <!-- [newRecord = "newRecordIndicator"-->
+      <!-- [group]="newDeviceForm" -->
+      <!-- [detailsChanged]="updateDeviceDetails" -->
+      <device-record
+          [cRRow]="recordRow"
           [showErrors]="showErrors"
-          [group]="newDeviceForm"
+          [lang]="lang"
           (saveRecord)="saveDeviceRecord($event)"
           (errors)="updateErrorList($event)"
           (revertRecord)="revertDevice($event)" (deleteRecord)="deleteDevice($event)"></device-record>
-      </div>
+    </ng-template>
+
+  </lib-accordion>
+
+  <div class="row mrgn-tp-md mrgn-bttm-lg">
+    <div class="btn-group-sm col-md-12 text-left">
+      <button class="btn btn-primary" (click)="addDevice()" id="addDeviceBtn" [disabled]="disableAddButton()">
+        {{'add.device'|translate}}
+      </button>
     </div>
-    <div class="row mrgn-tp-md mrgn-bttm-lg">
-      <div class="btn-group-sm col-md-12 text-left">
-        <button id="addDevice" class="btn btn-primary" (click)="addDevice()"
-                [disabled]="isDirty()">
-         {{'add.device'|translate}}
-        </button>
-      </div>
-    </div>
+  </div>
   <!--pre>Form Data {{deviceListForm.value |json}}</pre>
     <pre>Data Model for Device List {{dataModel|json}}</pre-->
-  </div>
+</div>
   
