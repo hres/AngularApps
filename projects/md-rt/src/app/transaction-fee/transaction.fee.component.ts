@@ -21,6 +21,7 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
   lang: string;
   public yesNoList: ICode[] = [];
   public showFieldErrors = false;
+  hasFeeYes: boolean = false;
 
   constructor(private _fb: FormBuilder, private _feeService:TransactionFeeService, private _globalService: GlobalService,
               private cdr: ChangeDetectorRef) {
@@ -37,6 +38,17 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
   ngOnInit() {
     this.lang = this._globalService.getCurrLanguage();
     this.yesNoList = this._globalService.$yesnoList;
+  }
+
+  override ngAfterViewInit() {
+    super.ngAfterViewInit();
+    this.setupEventListeners();
+  }
+
+  private setupEventListeners() {
+    const hasFeesDropdown = document.getElementById('hasFees') as HTMLSelectElement;
+    // Add event listener to the hasFeesDropdown
+    hasFeesDropdown.addEventListener('change', this.hasFeesOnChange.bind(this));
   }
 
   protected override emitErrors(errors: any[]): void {
@@ -58,18 +70,19 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
     }
   }
 
-  hasFeeYes() {
+  hasFeesOnChange() {
+    console.log(this.transFeeForm.controls['hasFees'].value)
     if (this.transFeeForm.controls['hasFees'].value) {
       if (this.transFeeForm.controls['hasFees'].value === YES) {
-        return true;
+        this.hasFeeYes = true;
       } else {
+        this.hasFeeYes = false;
         this.transFeeForm.controls['billCompanyId'].setValue(null);
         this.transFeeForm.controls['billCompanyId'].markAsUntouched();
         this.transFeeForm.controls['billContactId'].setValue(null);
         this.transFeeForm.controls['billContactId'].markAsUntouched();
       }
     }
-    return false;
   }
   
 }
