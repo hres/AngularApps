@@ -574,7 +574,7 @@ span.normalWeight {
 								</xsl:if>
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Tableau des détails de l'instrument inclus?&#160;</strong>
+										<strong>Fichier Excel de détails de l'instrument inclus?&#160;</strong>
 										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/has_ddt"/></xsl:call-template></span>
 									</div>
 								</div>
@@ -594,7 +594,7 @@ span.normalWeight {
 							<xsl:if test="/descendant-or-self::transFees/has_fees = 'yes'">
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Identifiant de l'entreprise de facturation:&#160;</strong>
+										<strong>Identifiant de la compagnie de facturation:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::transFees/billing_company_id"/></span>
 									</div>
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
