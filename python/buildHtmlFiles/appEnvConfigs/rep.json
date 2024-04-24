@@ -7,11 +7,49 @@
         }
     },
     "index_html_name": {
-        "en": "mds_index.html",
-        "fr": "mds_index-fr.html"
+        "en": "index",
+        "fr": "index-fr"
     },
     "version_history_html_name": {
-        "en": "version_history.html",
-        "fr": "historique_revisions.html"
+        "en": "version_history",
+        "fr": "historique_revisions"
+    },
+    "template_paths": {
+        "dev": {
+            "co": {
+                "en": "company/company.html",
+                "fr": "company/entreprise.html"
+            },
+            "co_internal": {
+                "en": "prod_v42_wcag/company/companyINT-en.html ",
+                "fr": "prod_v42_wcag/company/companyINT-fr.html"
+            },
+            "rt": {
+                "en": "v44/transaction/regulatory-transaction.html",
+                "fr": "v44/transaction/réglementaire-transaction.html"
+            },
+            "pi": {
+                "en": "v44/product/product.html",
+                "fr": "v44/product/produit.html"
+            }
+        },
+        "prod": {
+            "co": {
+                "en": "company/company.html",
+                "fr": "company/entreprise.html"
+            },
+            "co_internal": {
+                "en": "prod_v42_wcag/company/companyINT-en.html ",
+                "fr": "prod_v42_wcag/company/companyINT-fr.html"
+            },
+            "rt": {
+                "en": "v44/transaction/regulatory-transaction.html",
+                "fr": "v44/transaction/réglementaire-transaction.html"
+            },
+            "pi": {
+                "en": "v44/product/product.html",
+                "fr": "v44/product/produit.html"
+            }
+        }
     }
 }

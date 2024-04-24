@@ -1,12 +1,18 @@
 {
     "title": "Processus d'inscription réglementaire (PIR) pour les produits pharmaceutiques humain et vétérinaire et désinfectants",
     "h1_header": "Processus d'inscription réglementaire (PIR) pour les produits pharmaceutiques humain et vétérinaire et désinfectants",
+    "paragraphs": [
+        "<div class=\"alert alert-info\"><p>Afin d’accéder à la version la plus récente du modèle, n’oubliez pas de supprimer fréquemment votre mémoire cache et d’« actualiser » les liens du modèle sur votre navigateur Web avant chaque utilisation.</p></div>"
+    ],
     "sections": [
         {
             "header": "Liens de modèle et le de formulaire",
             "groups": [
                 {
-                    "header": "<a href=\"./historique_révisions.html\">Historique des versions du modèle  (mise à jour 28/02/2023)</a>"
+                    "header": "",
+                    "bullets": [
+                        "<a href=\"./historique_révisions.html\">Historique des versions du modèle (mise à jour 01/05/2024)</a>"
+                    ]
                 }
             ]
         },
@@ -34,6 +40,49 @@
                         "Obligation d'obtenir un ID de dossier, avant de déposer une transaction réglementaire pour un nouveau dossier ou un dossier dont vous ne connaissez pas l'ID de dossier.",
                         "Reportez-vous à la section «2.4 Processus de demande pour un ID de dossier» du document d'orientation PIR."
                     ]
+                }
+            ]
+        },
+        {
+            "header": "Dans le cadre du processus de transaction réglementaire",
+            "groups": [
+                {
+                    "header": "<a href=\"./prod_v44/transaction/r%C3%A9glementaire-transaction.html\">Modèle de transaction réglementaire (TR) pour les médicaments à usage humain et désinfectants ( mise à jour 01/05/2024)</a>",
+                    "bullets": [
+                        "Obligatoire avec chaque transaction réglementaire déposée auprès de Santé Canada.",
+                        "Envoyé via la PCDE dans le dossier 1.2.1 pour les médicaments à usage humain ou partie I dossier 1.5 pour les médicaments vétérinaires de la transaction réglementaire (soumission).",
+                        "Pour une description détaillée des exigences pour les modèles TR et IP, reportez-vous aux sections «2.5 Modèle de transaction réglementaire (TR) et processus» et «3.2 Structure des dossiers» du document d'orientation du PIR."
+                    ]
+                },
+                {
+                    "header": "<a href=\"./prod_v44/product/produit.html\">Modèle d'information sur le produit (IP) (mise à jour 12/02/2024)</a>",
+                    "bullets": [
+                        "Obligatoire uniquement pour un sous-ensemble de transactions. Reportez-vous à la section « 2.5.2 Modèle et processus d'information sur le produit (PI) » du document d'orientation du PIR pour la liste des transactions de sous-ensemble.",
+                        "Envoyé via la PCDE dans le dossier 1.2.1 pour les médicaments à usage humain ou partie I dossier 1.5 pour les médicaments vétérinaires de la transaction réglementaire (si fourni).",
+                        "Pour une description détaillée des exigences pour les modèles TR et IP, reportez-vous aux sections «2.5 Modèle de transaction réglementaire (TR) et processus» et «3.2 Structure des dossiers» du document d'orientation du PIR."
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "Liens de téléchargement de feuilles de style",
+            "groups": [
+                {
+                    "header": "",
+                    "bullets": [
+                        "<a href=\"./stylesheet/pharmabio_stylesheets_fr.zip\">Télécharger le fichier zip des feuilles de style (mise à jour 28/02/2023)</a>"                    ]
+                }
+            ]
+        },
+        {
+            "internal_only": true,
+            "header": "Internal User Links",
+            "groups": [
+                {
+                    "header": "",
+                    "bullets": [
+                        "<a href=\"./prod_v42_wcag/company/companyINT-fr.html\">Modèle de compagnie - version internale 4.2.4</a>",
+                        "<a href=\"https://lam-dev.hres.ca/REP-Form-Internal/PROD/repDiff/diffForm-en.html#/main\">Comparison tool (Deployed Sep 18, 2020)</a>"                       ]
                 }
             ]
         }

@@ -8,8 +8,8 @@
         "fr": "mds_index-fr"
     },
     "version_history_html_name": {
-        "en": "version_history.html",
-        "fr": "historique_revisions.html"
+        "en": "version_history",
+        "fr": "historique_revisions"
     },
     "template_paths": {
         "dev": {
