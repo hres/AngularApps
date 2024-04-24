@@ -25,10 +25,10 @@
   "meeting.id": "Meeting Identifier",
   "device.name": "Name of Device, as it appears on the label",
   "licence.name": "Proposed licence name",
-  "include.ddt": "Include the Device Details spreadsheet with the corresponding ‘device name change’, sheet completed, with this submission.",
+  "include.ddt": "Include the Device Details Excel File with the corresponding ‘device name change’ sheet completed, with this submission.",
   "request.date": "Date of Request",
   "brief.descr": "Brief Description",
-  "has.ddt": "Device details table included?",
+  "has.ddt": "Device Details Excel File included?",
   "fees": "Fees",
   "are.fees": "Are new fees or revised fees associated with this transaction?",
   "billing.company.id": "Billing Company Identifier",
@@ -77,7 +77,7 @@
   "help.transaction.01": "The Company identifier must be obtained from the final company XML file, issued by Health Canada.",
   "help.transaction.02": "The Dossier identifier can be obtained from the final dossier XML file or other Health Canada issued document.(e.g. m178974).",
   "help.dossierId.01": "The dossier identifier is a code created by Health Canada to uniquely identify the dossier.  If a dossier ID has not yet been assigned, manufacturers must request for one using the medical device dossier ID request form.",
-  "help.dossierId.02": "The format of a Dossier Identifier is a letter followed by six digits. (e.g. m######).",
+  "help.dossierId.02": "The format of a Dossier Identifier is a lowercase \"m\" followed by six digits. (e.g. m######).",
   "help.contactId": "All regulatory correspondence will be sent to this contact, but the licence will be issued to the Manufacturer. A medical device licence application can be submitted by a third party.",
   "help.deviceClass.01": "Refer to the ",
   "help.deviceClass.02": "Guidance Document - Guidance on the Risk-based Classification System for Non-In Vitro Diagnostic Devices (non-IVDDs)",
@@ -86,5 +86,8 @@
   "help.device.name": "Only one name should be entered in this field. The listed name will be used as the licence name unless it is deemed that a generic licence name is more appropriate to cover all of the devices contained within the licence.",
   "help.licence.number.01": "This number is assigned by Health Canada once a device(s) has been authorized for sale. ",
   "help.licence.number.02": "If the Licence number has not yet been assigned, use 000000.",
-  "help.device.detail": "The identifiers listed in the device details table must appear on and match the identifier listed on the submitted labelling."
+  "help.device.detail.01": "The identifiers listed in the Device Details Excel File must appear on and match the identifier listed on the submitted labelling.",
+  "help.device.detail.02": "Required for all new licence applications, as well as any amendment applications that may impact a manufacturers catalogue listing.",
+  "help.device.detail.03": "The Device Details Excel File is available on the <a href='https://lam-dev.hres.ca/REP-Form/mds_index.html'>REP Index Page for Medical Devices.</a>"
+
 }
