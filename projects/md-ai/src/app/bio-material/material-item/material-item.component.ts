@@ -17,7 +17,6 @@ import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notificat
 export class MaterialItemComponent implements OnInit, AfterViewInit {
   @Input() cRRow: FormGroup;
   @Input() j: number;
-  //@Input() lang: string;
 
   lang = this._globalService.lang();
 
@@ -34,7 +33,6 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   public isTissueTypeOther = false;
   public isDerivativeOther = false;
 
-  //isInternal: boolean
   showErrors: boolean;
   showErrSummary: boolean = false;
   public errorList = [];
@@ -53,7 +51,6 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
               private _translateService: TranslateService, 
               private _materialListComponent : MaterialListComponent,
               private _errorNotificationService : ErrorNotificationService){
-    //this.isInternal = this._globalService.$isInternal;
 
     effect(() => {
       this.showErrors = this._globalService.showErrors()
@@ -183,8 +180,6 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
         this.isDerivativeOther = false;
         // Reset derivate details
         this._utilsService.resetControlsValues(derivativeDetails);
-        // this.materialFormLocalModel.controls.derivativeOtherDetails.setValue(null);
-        // this.materialFormLocalModel.controls.derivativeOtherDetails.markAsUntouched();
       }
     }
   }
@@ -234,21 +229,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  // public disableDeleteButton() {
-  //   if (this._materialListComponent.oneRecord()) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   public showErrorSummary(): boolean {
     return (this.showErrSummary && this.errorList.length > 0);
   }
-  
-  // todo use include, not !Remove
-  // public isActiveContact(): boolean {
-  //   return (!this.isContactStatus(ContactStatus.Remove));
-  // }
-
  
 }

@@ -1,10 +1,9 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation, effect, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-//import { BiologicalMaterialData } from '../../models/Enrollment';
 import { MaterialService } from '../material.service';
 import { ControlMessagesComponent, ICode, NO, UtilsService, YES } from '@hpfb/sdk/ui';
 import { GlobalService } from '../../global/global.service';
-import { BiologicalMaterial, BiologicalMaterialData } from '../../models/Enrollment';
+import { BiologicalMaterialData } from '../../models/Enrollment';
 import { MaterialListComponent } from '../material-list/material-list.component';
 
 @Component({
@@ -24,7 +23,6 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
 
   materialService = inject(MaterialService)
   public materialListModel;
-  public materialListModel2;
 
   public yesNoList: ICode[] = [];
 
@@ -67,17 +65,17 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
 
   private _updateErrorList(errorObjs) {
     const temp = [];
-    console.log("updating error list in info...");
+    // console.log("updating error list in info...");
     if (errorObjs) {
       errorObjs.forEach(
         error => {
-          console.log(error);
+          // console.log(error);
           temp.push(error);
         }
       );
     }
     this.errorList = temp;
-    console.log("updated error list in material info", this.errorList);
+    // console.log("updated error list in material info", this.errorList);
 
     this._emitErrors();
   }
@@ -108,23 +106,22 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
   animalHumanSourcedOnChange() {
     if (!this.materialInfoForm.controls['isAnimalHumanSourced'].value ||
     this.materialInfoForm.controls['isAnimalHumanSourced'].value === NO) {
-      this.materialListModel = [];
+      this.materialListModel.material = [];
       this.materialListErrors = [];
       this._emitErrors();
     } else {
+      if (!this.materialListModel.material) {
+        this.materialListModel.material = [];
+      }
     }
   }
 
   isAnimalHumanSourced() {
     if (this.materialInfoForm.controls['isAnimalHumanSourced'].value &&
-          this.materialInfoForm.controls['isAnimalHumanSourced'].value === YES) {
-        // this.bioMaterials. = ;
-        return true;
+          this.materialInfoForm.controls['isAnimalHumanSourced'].value === YES) {  
+      return true;
     } else {
       this._utilsService.resetControlsValues(this.materialInfoForm.controls['isListedIddTable']);
-        // this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
-        // this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
-        //this.materialListModel = [];
     }
     return false;
   }
@@ -145,8 +142,6 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
       })
     }
 
-    console.log("emitting errors in material info", this.errorList);
-   
     this._materialService.errors.update( errors => emitErrors );
   }
 

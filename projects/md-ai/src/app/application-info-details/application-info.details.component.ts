@@ -5,14 +5,9 @@ import {
 } from '@angular/core';
 import {FormGroup, FormBuilder, FormArray, FormControl} from '@angular/forms';
 import { CheckboxOption, ControlMessagesComponent, YES, NO, ConverterService, ICode, UtilsService, ICodeAria, ICodeDefinition } from '@hpfb/sdk/ui';
-import {HttpClient} from '@angular/common/http';
-// import {DeviceListComponent} from '../device/device.list/device.list.component';
-// import {MaterialListComponent} from '../bio-material/material.list/material.list.component';
-import {TranslateService} from '@ngx-translate/core';
 import {ApplicationInfoDetailsService} from './application-info.details.service';
 import { GlobalService } from '../global/global.service';
 import { DeviceClass, ActivityType, Compliance} from '../app.constants';
-import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { DeviceListComponent } from '../inter-device/device-list/device-list.component';
 import { MaterialInfoComponent } from '../bio-material/material-info/material-info.component';
 
@@ -28,20 +23,16 @@ import { MaterialInfoComponent } from '../bio-material/material-info/material-in
 export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
   public appInfoFormLocalModel: FormGroup;
-  //@Input('group') public appInfoFormRecord: FormGroup;
-  //@Input() detailsChanged: number;
   @Input() showErrors: boolean;
-  //@Input() countryList;
   @Input() appInfoModel;
   @Input() deviceModel;
   @Input() materialInfo;
-  // @Input() lang;
+
   @Input() helpTextSequences;
   @Input() loadFileIndicator;
-  // @Output() declarationConformity = new EventEmitter();
-  @Output() detailErrorList = new EventEmitter(true);
-  @Output() deviceErrorList = new EventEmitter(true);
-  @Output() materialErrorList = new EventEmitter(true);
+  @Output() detailErrorList = new EventEmitter(true); // For processing app info details errors
+  @Output() deviceErrorList = new EventEmitter(true); // For processing device component errors
+  @Output() materialErrorList = new EventEmitter(true); // For processing material component errors (info + list)
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   
   @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
@@ -74,9 +65,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
-    // this.detailsService = new ApplicationInfoDetailsService();
-    // this.deviceClassList = this.detailsService.getDeviceClassList();
-    // this.yesNoList = this.detailsService.getYesNoList();
     if (!this.appInfoFormLocalModel) {
       this.appInfoFormLocalModel = this._detailsService.getReactiveModel(this._fb);
     }
@@ -141,13 +129,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       }
       this.detailErrorList.emit(temp);
     }
-    // if (changes['deviceClassList']) {
-    //   this.devClassList = changes['deviceClassList'].currentValue;
-    // }
-    // if (changes['appInfoFormLocalModel']) {
-    //   console.log('**********the app info details changed');
-    //   //this.appInfoFormRecord = this.appInfoFormLocalModel;
-    // }
+   
     if (changes['appInfoModel']) {
       const dataModel = changes['appInfoModel'].currentValue;
       if (!this.appInfoFormLocalModel) {
@@ -155,41 +137,13 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this.appInfoFormLocalModel.markAsPristine();
       }
       this._detailsService.mapDataModelToFormModel(dataModel, this.appInfoFormLocalModel, this.complianceCodeList, this.diagnosisReasonCodeList, this.complianceOptionList, this.seriousDiagnosisReasonOptionList, this.lang);
-      //this._updateLists();
-      // this._hasReasonChecked();
-      // this._hasMaterialRecord();
     }
   }
 
-  /**
-   * Uses the updated reactive forms model locally
-   */
-
-  // setToLocalModel() {
-    // this.appInfoFormLocalModel = this.appInfoFormRecord;
-    // if (!this.appInfoFormLocalModel.pristine) {
-    //   this.appInfoFormLocalModel.markAsPristine();
-    // }
-  // }
-
-
   onblur() {
-    this._saveData();
+    // this._saveData();
   }
 
-  private _saveData(): void{
-    // save data to output model
-    // this._detailsService.mapFormModelToDataModel((<FormGroup>this.appInfoFormLocalModel), this.appInfoModel, this.lang);
-  }
-
-  // For bio materials 
-  // isAnimalHumanSourcedOnblur() {
-  //   if (!this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value ||
-  //     this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value === NO) {
-  //     this.materialModel = [];
-  //   }
-  //   this.onblur();
-  // }
 
   deviceClassOnblur() {
     if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
@@ -198,14 +152,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     }
     this.onblur();
   }
-
-  // // For bio material
-  // private _hasMaterialRecord() {
-  //   // this.appInfoFormLocalModel.controls.hasMaterial.setValue(null);
-  //   // if (this.materialModel && this.materialModel.length > 0) {
-  //   //   this.appInfoFormLocalModel.controls.hasMaterial.setValue('hasRecord');
-  //   // }
-  // }
 
   processDeviceErrors(errorList) {
     this.deviceErrorList.emit(errorList);
@@ -317,21 +263,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
-  // For bio materials
-  // isAnimalHumanSourced() {
-  //   if (this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value &&
-  //         this.appInfoFormLocalModel.controls['isAnimalHumanSourced'].value === YES) {
-  //       // this.bioMaterials. = ;
-  //       return true;
-  //   } else {
-  //     this._resetControlValues(['isListedIddTable']);
-  //       // this.appInfoFormLocalModel.controls.isListedIddTable.setValue(null);
-  //       // this.appInfoFormLocalModel.controls.isListedIddTable.markAsUntouched();
-  //       // this.materialModel = [];
-  //   }
-  //   return false;
-  // }
-
   isLicenced() {
     if ((this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.Licence
         || this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.LicenceAmendment)
@@ -397,12 +328,10 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   seriousDiagnosisOnChange() {
     this.appInfoFormLocalModel.controls['selectedDiagnosisCodes'].setValue(this.selectedDiagnosisCodes);
-    this._saveData();
   }
 
   complianceOnChange() {
     this.appInfoFormLocalModel.controls['selectedComplianceCodes'].setValue(this.selectedComplianceCodes);
-    this._saveData();
   }
 
   private _updateDiagnosisReasonArray() {

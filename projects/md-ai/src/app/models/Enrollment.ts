@@ -42,9 +42,6 @@ export interface ApplicationInfo {
     interim_order_authorization:    string;
     authorization_id:               string;
     declaration_conformity :        string;
-    // has_recombinant:                string;
-    // is_animal_human_sourced :       string;
-    // is_listed_idd_table:            string;
     priority_review:                    string;
     is_diagnosis_treatment_serious:     DiagnosisReasons;
 }

@@ -1,14 +1,11 @@
-import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { EntityBaseService, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { Injectable } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData } from '../models/Enrollment';
 import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
 import { GlobalService } from '../global/global.service';
 import { DeviceService } from '../inter-device/device.service';
 import { MaterialService } from '../bio-material/material.service';
-// import {GlobalsService} from '../globals/globals.service';
-// import {ValidationService} from '../validation.service';
-// import {ListService} from '../list-service';
 
 @Injectable()
 export class ApplicationInfoBaseService {
@@ -23,53 +20,6 @@ export class ApplicationInfoBaseService {
               private _materialService : MaterialService) {
   }
 
-  /**
-   * Gets the reactive forms Model for generalInfo details
-   * @param {FormBuilder} fb
-   * @returns {any}
-   */
-  public static getReactiveModel(fb: FormBuilder) {
-    if (!fb) {
-      return null;
-    }
-    return fb.group({
-      // enrolVersion: '0.0',
-      // lastSavedDate: '',
-      // companyId: ['', [Validators.required, Validators.min(6)]],
-      // dossierId: ['', [Validators.required, Validators.min(7)]],
-      // mdsapNum: [null, Validators.required],
-      // mdsapOrg: [null, Validators.required],
-      // licenceAppType: [null, Validators.required],
-      // activityType: [null, Validators.required],
-      // deviceClass: [null, Validators.required],
-      // isIvdd: [null, Validators.required],
-      // isHomeUse: [null, Validators.required],
-      // isCarePoint: [null, Validators.required],
-      // isEmitRadiation: [null, Validators.required],
-      // hasDrug: [null, Validators.required],
-      // hasDinNpn: [null, []],
-      // din: ['', [Validators.required, Validators.min(8)]],
-      // npn: ['', [Validators.required, Validators.min(8)]],
-      // drugName: [null, Validators.required],
-      // activeIngredients: [null, Validators.required],
-      // manufacturer: [null, Validators.required],
-      // hasCompliance: [null, Validators.required],
-      // complianceUsp: [false, []],
-      // complianceGmp: [false, []],
-      // complianceOther: [false, []],
-      // otherPharmacopeia: [null, Validators.required],
-      // provisionMdrIT: [false, []],
-      // provisionMdrSA: [false, []],
-      // applicationNum: ['', []],
-      // sapReqNum: ['', []],
-      // declarationConformity : [null, Validators.required],
-      // hasRecombinant: [null, Validators.required],
-      // isAnimalHumanSourced : [null, Validators.required],
-      // hasMaterial: [null, Validators.required],
-      // isListedIddTable: [null, Validators.required]
-    });
-  }
-
   public getEmptyEnrol(): Enrollment {
     const enrollment: Enrollment = {
       DEVICE_APPLICATION_INFO: {
@@ -77,7 +27,6 @@ export class ApplicationInfoBaseService {
         application_info: this.getEmptyApplicationInfoModel(),
         devices: {device: []},
         material_info: this.getEmptyMaterialInfoModel()
-        // biological_materials: null, // TODO DIANA - Is this undefined? Search for list of objects
       }
     };
 
@@ -116,9 +65,6 @@ export class ApplicationInfoBaseService {
         interim_order_authorization: '',
         authorization_id: '',
         declaration_conformity:  '',
-        // has_recombinant: '',
-        // is_animal_human_sourced: '',
-        // is_listed_idd_table: '',
         priority_review: '',
         is_diagnosis_treatment_serious: null
       }
@@ -177,28 +123,22 @@ export class ApplicationInfoBaseService {
     let materialInfoModel : BiologicalMaterialData = null;
     
     let aiModel: ApplicationInfo = this.getEmptyApplicationInfoModel();
-    console.log("printing ai form..", aiDetailsForm);
     this._applicationInfoDetailsService.mapFormModelToDataModel(aiDetailsForm, aiModel, this._globalService.lang());
-    console.log("printing ai model after mapping...", aiModel);
 
     if (devicesForm) {
       for (let i = 0; i < devicesForm.length; i++) {
-        console.log("print device from", devicesForm[i]);
         let deviceModel: Device = this.getEmptyDeviceModel();
         this._deviceService.mapFormModelToOutputModel(devicesForm[i].deviceInfo, deviceModel);
         deviceModelList.push(deviceModel);
       }
     }
-    console.log("printing device model list...", deviceModelList);
 
     if (materialDetailsForm) {
       materialInfoModel = this.getEmptyMaterialInfoModel();
-      console.log("printing material info form...", materialDetailsForm);
       this._materialService.mapMaterialInfoModelToOutput(materialDetailsForm, materialInfoModel);
 
       if (materialsForm) {
         for (let i = 0; i < materialsForm.length; i++) {
-          console.log("print material from", materialsForm[i]);
           let materialModel: BiologicalMaterial = this.getEmptyMaterialModel();
           this._materialService.mapMaterialModelToOutputModel(materialsForm[i].materialInfo, materialModel);
           materialModelList.push(materialModel);

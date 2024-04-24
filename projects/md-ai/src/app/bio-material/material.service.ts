@@ -74,20 +74,21 @@ export class MaterialService {
 
     const specFamilyCodeValue = this._utilsService.findCodeById(speciesList, formRecord.specFamily);
     materialModel.family_of_species = specFamilyCodeValue? this._converterService.convertCodeToIdTextLabel(specFamilyCodeValue, this._globalService.lang()) : null;
-    
-    //materialModel.family_of_species = formRecord.specFamily;
 
     const tissueTypeCodeValue = this._utilsService.findCodeById(tissueList, formRecord.tissueType);
     materialModel.tissue_substance_type = tissueTypeCodeValue? this._converterService.convertCodeToIdTextLabel(tissueTypeCodeValue, this._globalService.lang()) : null;
-    //materialModel.tissue_substance_type = formRecord.tissueType;
     materialModel.tissue_type_other_details = formRecord.tissueTypeOtherDetails;
 
     const derivativeCodeValue = this._utilsService.findCodeById(derivativeList, formRecord.derivative);
     materialModel.derivative = derivativeCodeValue? this._converterService.convertCodeToIdTextLabel(derivativeCodeValue, this._globalService.lang()) : null;
-    //materialModel.derivative = formRecord.derivative;
     materialModel.derivative_other_details = formRecord.derivativeOtherDetails;
   }
 
+  /**
+   * TODO - Change to patch value
+   * @param materialModel
+   * @param formRecord 
+   */
   public mapOutputModelToMaterialModel(materialModel, formRecord: FormGroup) {
     formRecord.controls['materialName'].setValue(materialModel.material_name);
     formRecord.controls['deviceName'].setValue(materialModel.device_name);

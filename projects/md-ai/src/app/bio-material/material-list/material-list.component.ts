@@ -22,10 +22,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() public errorListUpdated = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  // @Output() public contactsUpdated = new EventEmitter();
-
-  // errors = signal<ControlMessagesComponent[]>([]);
-  // oneRecord = signal<boolean>(true);
+  lang = this._globalService.lang();
 
   materialListForm: FormGroup;
 
@@ -100,10 +97,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   addMaterial() {
     const group = this.materialService.createMaterialFormGroup(this.fb);
     this.materialsFormArr.push(group);
-
-    // if (this.materialsFormArr.length > 1) {
-    //   this.oneRecord.set(false);
-    // }
   }
 
   saveMaterialRecord(event: any) {  
@@ -120,17 +113,11 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     const materialInfo = this.getMaterialInfo(group);
 
-    // Update the status if it is passed in
-    // if (status) {
-    //   contactInfo.controls['status'].setValue(status);
-    // }
-
     // Update lastSavedState with the current value of contactInfo
     group.get('lastSavedState').setValue(materialInfo.value);
 
     this._expandNextInvalidRecord();
 
-    // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
   }
 
@@ -151,11 +138,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     materialInfo.reset();
     this.materialsFormArr.removeAt(index);
 
-    // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
-    // if (this.materialsFormArr.length == 1) {
-    //   this.oneRecord.set(true);
-    // }
     if(this.materialsFormArr.length == 0) {
 
     }
@@ -177,6 +160,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   
   private _init(materialsData?: BiologicalMaterials) {
       // Clear existing controls
+    console.log(materialsData);
     this.materialsFormArr.clear();
     const materials = materialsData.material;
 
@@ -206,12 +190,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     }
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
 
-    // if (this.isInternal) {
-    //   this._expandNextInvalidRecord();
-    // } else {
-      // expand the first record
-
-      // Set the list of form groups
+    // Set the list of form groups
     this.materialListService.setList(this.materialsFormArr.controls as FormGroup[]);
   }
 
@@ -241,15 +220,15 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
         }
       })
     } else {
-      // if (this._utilsService.isFrench(this.lang)) {
-      //   alert(
-      //     "Veuillez sauvegarder les données d'entrée non enregistrées."
-      //   );
-      // } else {
+      if (this._utilsService.isFrench(this.lang)) {
+        alert(
+          "Veuillez sauvegarder les données d'entrée non enregistrées."
+        );
+      } else {
         alert(
           'Please save the unsaved input data.'
         );
-      // }
+      }
     }
 
   } 
@@ -308,7 +287,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       })
     }
     
-    console.log("emitting errors to info comp ..", emitErrors);
+    // console.log("emitting errors to info comp ..", emitErrors);
     this.errorListUpdated.emit(emitErrors);
     // this._materialService.errors.update( errors => emitErrors );
   }

@@ -32,8 +32,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
-  // TODO - TEST!
-  private _materialErrors = [];
+  private _materialErrors = []; // Combines material info and material list errors
   
   //computed(() => {
     // console.log("computed", this._materialService.errors());
@@ -43,8 +42,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public errorList = [];
   public rootTagText = ROOT_TAG; 
   private xslName: string;
-
-  // public loadFileIndicator = 0;
 
   public countryList = [];
 
@@ -65,8 +62,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public fileServices: FileConversionService;
   public helpIndex: { [key: string]: number };
-  //public disableSaveXml = true;
-
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
@@ -88,8 +83,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.helpIndex = this._globalService.getHelpIndex();
 
     effect(() => {
-      console.log("[effect3] device", this._deviceService.errors());
-      console.log("[effect3] material", this._materialService.errors());
+      // console.log("[effect3] device", this._deviceService.errors());
+      // console.log("[effect3] material", this._materialService.errors());
       this._materialErrors = this._materialService.errors();
       this._deviceErrors = this._deviceService.errors();
       this.processErrors();
@@ -129,8 +124,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = [];
     // concat the two array
     this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialErrors))); // .concat(this._theraErrors);
-    console.log("process errors in form base", this.errorList);
-    console.log("printing material errors", this._materialErrors);
+    // console.log("process errors in form base", this.errorList);
+    // console.log("printing material errors", this._materialErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -144,12 +139,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
+  /**
+   * Resets material errors when device class is changed from Class IV
+   * @param reset : flag if material errors need to be reset
+   */
   resetMaterialErrors(reset : boolean) {
     if (reset) {
       this._materialErrors = [];
     }
     this.processErrors();
-
   }
 
   public hideErrorSummary() {
@@ -193,11 +191,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         materialsFormArrayValue = this.aiDetails.bioMaterialInfo.aiMaterials.materialsFormArr.value;
       }
     }
-    
-    console.log("ai details", aiDetailsFormGroupValue);
-    console.log("devices in form base", devicesFormArrayValue);
-    console.log("material info in form base", materialInfoFormGroupValue);
-    console.log("materials in form base", materialsFormArrayValue);
 
     const output: Enrollment = this._baseService.mapFormToOutput(aiDetailsFormGroupValue, devicesFormArrayValue, materialInfoFormGroupValue, materialsFormArrayValue);
 
@@ -244,10 +237,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.deviceModel = [];
     }
     this.materialInfo = applicationEnroll.material_info;
-
-    console.log("initializing models from file upload...");
-    console.log("device model", this.deviceModel);
-    console.log("material info", this.materialInfo);
   }
 
 }

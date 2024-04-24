@@ -35,8 +35,6 @@ export class ApplicationInfoDetailsService {
       isEmitRadiation: [null, Validators.required],
       hasDrug: [null, Validators.required],
       hasDinNpn: [null, []],
-     /** din: ['', []],
-      npn: ['', []], **/
       din: [null, [Validators.required, ValidationService.numeric8Validator]],
       npn: [null, [Validators.required, ValidationService.numeric8Validator]],
       drugName: [null, Validators.required],
@@ -52,10 +50,6 @@ export class ApplicationInfoDetailsService {
       sapReqNum: ['', []],
       authNum: ['',[ValidationService.numeric6Validator]],
       declarationConformity : [null, Validators.required],
-      // hasRecombinant: [null, Validators.required],
-      // isAnimalHumanSourced : [null, Validators.required],
-      // // hasMaterial: [null, Validators.required],
-      // isListedIddTable: [null, Validators.required],
       isPriorityReq: [null, []],
       diagnosisReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
       selectedDiagnosisCodes: ['']
@@ -118,16 +112,15 @@ export class ApplicationInfoDetailsService {
     appInfoModel.active_ingredients = formRecord.activeIngredients;
     appInfoModel.manufacturer = formRecord.manufacturer;
     appInfoModel.other_pharmacopeia = formRecord.otherPharmacopeia;
-    appInfoModel.provision_mdr_it = formRecord.provisionMdrIT ? YES : NO; // Diana TODO - Refactor
+
+    appInfoModel.provision_mdr_it = formRecord.provisionMdrIT ? YES : NO;
     appInfoModel.provision_mdr_sa = formRecord.provisionMdrSA ? YES : NO;
     appInfoModel.interim_order_authorization = formRecord.provisionMdrIOA ? YES : NO;
+
     appInfoModel.application_number = formRecord.applicationNum;
     appInfoModel.sap_request_number = formRecord.sapReqNum;
     appInfoModel.authorization_id = formRecord.authNum;
     appInfoModel.declaration_conformity = formRecord.declarationConformity;
-    // appInfoModel.has_recombinant = formRecord.controls['hasRecombinant'].value;
-    // appInfoModel.is_animal_human_sourced = formRecord.controls['isAnimalHumanSourced'].value;
-    // appInfoModel.is_listed_idd_table = formRecord.controls['isListedIddTable'].value;
     appInfoModel.priority_review = formRecord.isPriorityReq;
     const reasons: DiagnosisReasons = {
       diagnosis_reason: this._converterService.findAndConverCodesToIdTextLabels(diagnosisReasonList, formRecord.selectedDiagnosisCodes, lang)
@@ -204,19 +197,18 @@ export class ApplicationInfoDetailsService {
     formRecord.controls['activeIngredients'].setValue(appInfoModel.active_ingredients);
     formRecord.controls['manufacturer'].setValue(appInfoModel.manufacturer);
     formRecord.controls['otherPharmacopeia'].setValue(appInfoModel.other_pharmacopeia);
+
     const mdtit = appInfoModel.provision_mdr_it === YES ? true : false;
     formRecord.controls['provisionMdrIT'].setValue(mdtit);
     const mdrsa = appInfoModel.provision_mdr_sa === YES ? true : false;
     formRecord.controls['provisionMdrSA'].setValue(mdrsa);
     const mdrioa = appInfoModel.interim_order_authorization === YES ? true : false;
     formRecord.controls['provisionMdrIOA'].setValue(mdrioa)
+    
     formRecord.controls['applicationNum'].setValue(appInfoModel.application_number);
     formRecord.controls['sapReqNum'].setValue(appInfoModel.sap_request_number);
     formRecord.controls['authNum'].setValue(appInfoModel.authorization_id);
     formRecord.controls['declarationConformity'].setValue(appInfoModel.declaration_conformity);
-    // formRecord.controls['hasRecombinant'].setValue(appInfoModel.has_recombinant);
-    // formRecord.controls['isAnimalHumanSourced'].setValue(appInfoModel.is_animal_human_sourced);
-    // formRecord.controls['isListedIddTable'].setValue(appInfoModel.is_listed_idd_table);
     formRecord.controls['isPriorityReq'].setValue(appInfoModel.priority_review);
 
     if (appInfoModel.is_diagnosis_treatment_serious) {
