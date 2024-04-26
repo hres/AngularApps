@@ -6,7 +6,7 @@
     <div formGroupName="materialInfo">
       <div class="row">
         <div class="form-group col-sm-12" >
-          <label for="materialName{{j}}" class="required full-width" aria-required="true">
+          <label for="materialName{{j}}" class="required full-width">
             <span class="field-name">{{'material.name'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="cRRow.get('materialInfo.materialName').invalid"
@@ -22,7 +22,7 @@
       </div>
       <div class="row">
         <div class="form-group col-sm-12" >
-          <label for="materialDeviceName{{j}}" class="required full-width" aria-required="true">
+          <label for="materialDeviceName{{j}}" class="required full-width">
             <span class="field-name">{{'device.name'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="cRRow.get('materialInfo.deviceName').invalid"
@@ -49,7 +49,7 @@
           </label>
         </div>
         <div class="form-group col-sm-5 col-xs-12" >
-          <label for="specFamily{{j}}" class="required full-width" aria-required="true">
+          <label for="specFamily{{j}}" class="required full-width">
             <span class="field-name">{{'species.family'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="cRRow.get('materialInfo.specFamily').invalid"

@@ -2,7 +2,7 @@
     <div [formGroup]="appInfoFormLocalModel">
       <div class="row">
         <div class="form-group col-sm-6 col-xs-12 " >
-          <label for="companyId" class="required full-width" aria-required="true">
+          <label for="companyId" class="required full-width">
             <span class="field-name">{{'company.id'|translate}} {{'minNumber6'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="appInfoFormLocalModel.controls['companyId'].invalid"
@@ -15,7 +15,7 @@
           </label>
         </div>
         <div class="form-group col-sm-5 col-xs-126 " >
-          <label for="dossierId" class="required full-width" aria-required="true">
+          <label for="dossierId" class="required full-width">
             <span class="field-name">{{'dossier.id'|translate}}  {{'minAlphanum7'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="appInfoFormLocalModel.controls['dossierId'].invalid"
@@ -229,7 +229,7 @@
                 </label>
               </div>
               <div  *ngIf="hasDin()" class="form-group col-xs-6" >
-                <label for="din" class="required full-width" aria-required="true">
+                <label for="din" class="required full-width">
                   <span class="field-name">{{'din'|translate}} {{'minNumber8' |translate}}</span>
                   <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['din'].invalid"
@@ -242,7 +242,7 @@
                 </label>
               </div>
               <div  *ngIf="hasNpn()" class="form-group col-xs-6" >
-                <label for="npn" class="required full-width" aria-required="true">
+                <label for="npn" class="required full-width">
                   <span class="field-name">{{'npn'|translate}} {{'minNumber8' |translate}}</span>
                   <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['npn'].invalid"

@@ -42,7 +42,7 @@
       
             @if(deviceAuthorized || isDeviceAuthorized()) {
               <div class="form-group col-sm-12 ">
-                <label for="licenceNum{{j}}" class="required" aria-required="true">
+                <label for="licenceNum{{j}}" class="required">
                   <span class="field-name">{{'licence.application.number' |translate}} {{'minNumber6' |translate}}</span>
                   <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <!--<sup id="ap7-rf">-->
@@ -82,7 +82,7 @@
             
             @if(deviceAppSubmitted || isDeviceApplicationSubmitted()) {
             <div class="form-group col-sm-12 ">
-              <label for="deviceApplicationNumber{{j}}" class="required" aria-required="true">
+              <label for="deviceApplicationNumber{{j}}" class="required">
                 <span class="field-name">{{'application.number' |translate}} {{'minNumber6' |translate}}</span>
                 <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="cRRow.get('deviceInfo.deviceApplicationNumber').invalid"
@@ -98,7 +98,7 @@
             
             @if(deviceAppNotSubmitted || isDeviceApplicationNotSubmitted()) {
             <div class="form-group col-sm-12">
-              <label for="deviceExplain{{j}}" class="required" aria-required="true">
+              <label for="deviceExplain{{j}}" class="required">
                 <span class="field-name">{{'device.explain'|translate}}</span>
                 <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="cRRow.get('deviceInfo.deviceExplain').invalid"
