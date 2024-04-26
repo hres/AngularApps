@@ -152,6 +152,7 @@ export class ApplicationInfoBaseService {
     const output: Enrollment = {
       'DEVICE_APPLICATION_INFO': {
         'template_version': this._globalService.$appVersion,
+        'form_language': this._globalService.getCurrLanguage(),
         'application_info': aiModel,
         'devices': {device : deviceModelList},
         'material_info' : materialInfoModel
