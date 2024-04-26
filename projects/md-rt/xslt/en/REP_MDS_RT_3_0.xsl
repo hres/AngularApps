@@ -412,17 +412,17 @@ span.normalWeight {
 	<!-- Application Information Enrolment -->
 
 	<xsl:template name="mybody">
-		<h1>Regulatory Transaction Template: Regulatory Enrolment Process (REP) (Version: 3.0)</h1>
+		<h1>Regulatory Transaction Template: Regulatory Enrolment Process (REP) for Medical Devices (Version: 3.0)</h1>
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
 					<td style="text-align: center;font-weight:bold;">Dossier Type</td>
 					<td style="text-align: center;font-weight:bold;">Dossier Identifier</td>
-					<td style="text-align: center;font-weight:bold;">Date Last Saved</td>
+					<td style="text-align: center;font-weight:bold;">Date Generated</td>
 				</tr>
 				<tr>
-					<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/dossier_type" /></span> </td>
-					<td style="text-align: center;"> <span class="mouseHover">HC6-024-<xsl:apply-templates select="/descendant-or-self::application_info/dossier_id" /></span> </td>
+					<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/dossier_type/@label_en" /></span> </td>
+					<td style="text-align: center;"> <span class="mouseHover"><xsl:apply-templates select="/descendant-or-self::application_info/dossier_id" /></span> </td>
 					<td style="text-align: center;"> <span class="mouseHover"><xsl:call-template name="lastDate"><xsl:with-param name="date" select="/descendant-or-self::application_info/last_saved_date" /></xsl:call-template></span> </td>
 				</tr>
 			</table>
@@ -430,145 +430,152 @@ span.normalWeight {
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h2 class="panel-title">Regulatory Transaction Information</h2>
+					<h2 class="panel-title">Regulatory Transaction Enrolment</h2>
 				</div>
 				<div class="panel-body">
 					<section class="panel panel-default" >
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-xs-6">
-										<strong>Manufacturing Company Identifier:&#160;</strong>
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<strong>Dossier Identifier:&#160;</strong>
+										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/dossier_id"/></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<strong>Manufacturer Company Identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/company_id"/></span>
 									</div>
-									<div class="col-xs-5">
-										<strong>Manufacturing Contact Identifier:&#160;</strong>
-										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/manufacturing_contact_id"/></span>
-									</div>
-									<div class="col-xs-6">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 										<strong>Regulatory Company Identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_company_id"/></span>
 									</div>
-									<div class="col-xs-5">
+								</div>
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<strong>Manufacturer Contact Identifier:&#160;</strong>
+										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/manufacturer_contact_id"/></span>
+									</div>
+
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 										<strong>Regulatory Contact Identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_contact_id"/></span>
 									</div>
-									<div class="col-xs-6">
-										<strong>Activity Lead:&#160;</strong>
-										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_lead"/></span>
-									</div>
-									<div class="col-xs-5">
-										<strong>Activity Type:&#160;</strong>
-										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_type"/></span>
-									</div>
-									<div class="col-xs-6">
-										<strong>Transaction Description:&#160;</strong>
-										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/transaction_description"/></span>
-									</div>
-									<xsl:if test="/descendant-or-self::application_info/device_class != ''">
-										<div class="col-xs-6">
-											<strong>Device Class:&#160;</strong>
-											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_class"/></span>
-										</div>
-									</xsl:if>
 								</div>
-								<xsl:if test="count(/descendant-or-self::application_info/amend_reasons/*[. = 'yes']) > 0">
-									<div class="row">&#160;</div>
-									<div class="row">
-										<div class="col-xs-12"><strong>Reason for filing this Amendment</strong></div>
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<strong>Regulatory Activity Type:&#160;</strong>
+										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_type/@label_en"/></span>
 									</div>
-									<div class="row">
-										<xsl:for-each select="/descendant-or-self::application_info/amend_reasons/*">
-											<xsl:if test=". = 'yes'">
-												<div class="col-xs-5">
-													<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="current()"/></xsl:call-template>
-													<span class="mouseHover">
-														<xsl:call-template name="converter"><xsl:with-param name="value" select="name()"/></xsl:call-template>
-													</span>
-												</div>
-												<xsl:if test=". = 'other_change'">
-													<div class="col-xs-12">
-														<strong>Other details:</strong>
-													</div>
-													<div class="col-xs-12">
-														<xsl:value-of select="/descendant-or-self::application_info/amend_reasons/other_details"/>
-													</div>
-												</xsl:if>
-											</xsl:if>
-										</xsl:for-each>
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<strong>Transaction Description:&#160;</strong>
+										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/description_type/@label_en"/></span>
 									</div>
+								</div>
+								<xsl:if test="/descendant-or-self::application_info/device_class != ''">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<strong>Device Class:&#160;</strong>
+											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_class/@label_en"/></span>
+										</div>
+									</div>
+								</xsl:if>
+								<xsl:if test="/descendant-or-self::application_info/amend_reasons/amend_reason">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Reason for filing this Amendment</strong></div>
+									</div>
+									<xsl:for-each select="/descendant-or-self::application_info/amend_reasons/amend_reason">
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="mouseHover"><xsl:value-of select="@label_en"/></span>
+											</div>
+										</div>
+									</xsl:for-each>
 								</xsl:if>
 								<xsl:if test="/descendant-or-self::application_info/rationale != ''">
 									<div class="row">
-										<div class="col-xs-12">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											<strong>Rationale:</strong>
 										</div>
-										<div class="col-xs-11">
+									</div>
+									<div class="row">
+										<div class="ccol-lg-12 col-md-12 col-sm-12 col-xs-12">
 											<xsl:value-of select="/descendant-or-self::application_info/rationale"/>
 										</div>
 									</div>
 								</xsl:if>
-								<div class="row">
-									<xsl:if test="/descendant-or-self::application_info/proposed_licence_name != ''">
-										<div class="col-xs-6">
-											<strong>Proposed licence name:&#160;<br/></strong>
+								<xsl:if test="/descendant-or-self::application_info/proposed_indication != ''">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<strong>Proposed Purpose/Indication for Use:</strong>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<xsl:value-of select="/descendant-or-self::application_info/proposed_indication"/>
+										</div>
+									</div>
+								</xsl:if>
+								<xsl:if test="/descendant-or-self::application_info/proposed_licence_name != ''">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<strong>Proposed licence name:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/proposed_licence_name"/></span>
 										</div>
-									</xsl:if>
+									</div>
+								</xsl:if>
+								<xsl:if test="/descendant-or-self::application_info/request_date != ''">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<strong>Date of Request:&#160;</strong>
+											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/request_date"/></span>
+										</div>
+									</div>
+								</xsl:if>
+								<div class="row">
 									<xsl:if test="/descendant-or-self::application_info/application_number != ''">
-										<div class="col-xs-6">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 											<strong>Application Number:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/application_number"/></span>
 										</div>
 									</xsl:if>
-									<xsl:if test="/descendant-or-self::application_info/device_name != ''">
-										<div class="col-xs-6">
-											<strong>Name of Device:&#160;</strong>
-											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_name"/></span>
-										</div>
-									</xsl:if>
 									<xsl:if test="/descendant-or-self::application_info/description_type/@id = 'MM'">
-										<div class="col-xs-6">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 											<strong>Meeting Identifier:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/meeting_id"/></span>
 										</div>
-									</xsl:if>
-									<xsl:if test="/descendant-or-self::application_info/brief_description != ''">
-										<div class="col-xs-6">
-											<strong>Brief Description:&#160;</strong>
-											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/brief_description"/></span>
+								</xsl:if>
+								</div>
+								<xsl:if test="/descendant-or-self::application_info/device_name != ''">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<strong>Name of Device, as it appears on the labele:&#160;</strong>
+											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_name"/></span>
 										</div>
-									</xsl:if>
-									<xsl:if test="/descendant-or-self::application_info/proposed_indication != ''">
-										<div class="col-xs-12">
-											<strong>Proposed Purpose/Indication for Use:&#160;</strong>
-											<div class="col-xs-12">
-												<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/proposed_indication"/></span>
-											</div>
-										</div>
-									</xsl:if>
-									<div class="col-xs-12">
+									</div>
+								</xsl:if>
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<strong>Licence number:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_number"/></span>
 									</div>
-									<xsl:if test="/descendant-or-self::application_info/org_manufacture_id != ''">
-										<div class="col-xs-6">
+								</div>
+								<xsl:if test="/descendant-or-self::application_info/org_manufacture_id != ''">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 											<strong>Original Manufacturer's Company Identifier:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/org_manufacture_id"/></span>
 										</div>
-										<div class="col-xs-6">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 											<strong>Original Manufacturer's Licence Number:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/org_manufacture_lic"/></span>
 										</div>
-									</xsl:if>
-									<div class="col-xs-5">
-										<strong>Device details table included?&#160;</strong>
-										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/has_ddt"/></xsl:call-template></span>
 									</div>
-									<div class="col-xs-5">
-										<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/has_app_info"/></xsl:call-template>
-										<span class="mouseHover">
-											<strong>Application information XML included in transaction?</strong>
-										</span>
+								</xsl:if>
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<strong>Device Details Excel File included?&#160;</strong>
+										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/has_ddt"/></xsl:call-template></span>
 									</div>
 								</div>
 							</div>
@@ -583,22 +590,19 @@ span.normalWeight {
 									<strong>Are new fees or revised fees associated with this transactions? &#160;</strong>
 									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::transFees/has_fees"/></xsl:call-template></span>
 								</div>
-								<xsl:if test="/descendant-or-self::transFees/has_fees = 'yes'">
-								<div class="col-xs-6">
-									<strong>Billing Company Identifier :&#160;</strong>
-									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::transFees/billing_company_id"/></span>
-								</div>
-								<div class="col-xs-5">
-									<strong>Billing Contact Identifier:&#160;</strong>
-									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::transFees/billing_contact_id"/></span>
-								</div>
-								<div class="col-xs-12">
-									<div class="alert alert-info">
-										A completed fee form is still required, however, the applicable fees will be invoiced.
+							</div>
+							<xsl:if test="/descendant-or-self::transFees/has_fees = 'yes'">
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<strong>Billing Company Identifier:&#160;</strong>
+										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::transFees/billing_company_id"/></span>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<strong>Billing Contact Identifier:&#160;</strong>
+										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::transFees/billing_contact_id"/></span>
 									</div>
 								</div>
-								</xsl:if>
-							</div>
+							</xsl:if>
 						</div>
 					</section>
 				</div>
@@ -608,86 +612,18 @@ span.normalWeight {
 	<xsl:template name="YesNoUnknow">
 		<xsl:param name="value" select="/.."/>
 		<xsl:choose>
-		<xsl:when test="$value = 'yes'">Yes</xsl:when>
-		<xsl:when test="$value = 'no'">No</xsl:when>
-		<xsl:otherwise>Unknown</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<xsl:template name="getLabel">
-		<xsl:param name="node" select="/.."/>
-		<xsl:choose>
-		<xsl:when test="$language = 'fra'">
-			<xsl:value-of select="$node/@label_fr"/>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:value-of select="$node/@label_en"/>
-		</xsl:otherwise>
+		<xsl:when test="translate($value, $smallcase, $uppercase) = 'YES'">Yes</xsl:when>
+		<xsl:when test="translate($value, $smallcase, $uppercase) = 'NO'">No</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template name="hp-checkbox">
 		<xsl:param name="value" select="/.."/>
 		<span class="c-checkbox">
 		<xsl:choose>
-			<xsl:when test="$value = 'yes'">X </xsl:when>
+			<xsl:when test="$value = 'true'">X </xsl:when>
 			<xsl:otherwise>&#160;&#160;</xsl:otherwise>
 		</xsl:choose>
 		</span>
-	</xsl:template>
-	<xsl:template name="CapitalFirstLetter">
-		<xsl:param name="value" select="/.."/>
-		<xsl:value-of select="translate(substring($value,1,1), $smallcase, $uppercase)"/>
-		<xsl:value-of select="translate(substring($value,2), $uppercase, $smallcase)"/>
-	</xsl:template>
-	<xsl:template name="converter">
-		<xsl:param name="value" select="/.."/>
-		<xsl:choose>
-			<xsl:when test=" 'classification_change' = $value">
-				<xsl:value-of select="'Change to the classification of a device'"/>
-			</xsl:when>
-			<xsl:when test=" 'licence_change' = $value">
-				<xsl:value-of select="'Change in the licence name'"/>
-			</xsl:when>
-			<xsl:when test=" 'process_change' = $value">
-				<xsl:value-of select="'Significant change in manufacturing process, facility of equipment'"/>
-			</xsl:when>
-			<xsl:when test=" 'quality_change' = $value">
-				<xsl:value-of select="'Significant change in manufacturing quality control procedures'"/>
-			</xsl:when>
-			<xsl:when test=" 'design_change' = $value">
-				<xsl:value-of select="'Significant change in design or performance'"/>
-			</xsl:when>
-			<xsl:when test=" 'materials_change' = $value">
-				<xsl:value-of select="'Significant change in materials'"/>
-			</xsl:when>
-			<xsl:when test=" 'labelling_change' = $value">
-				<xsl:value-of select="'Significant change in the labelling of the device'"/>
-			</xsl:when>
-			<xsl:when test=" 'safety_change' = $value">
-				<xsl:value-of select="'Any change which could affect the safety and effectiveness of the device'"/>
-			</xsl:when>
-			<xsl:when test=" 'purpose_change' = $value">
-				<xsl:value-of select="'Change to the purpose/indication of a device'"/>
-			</xsl:when>
-			<xsl:when test=" 'add_delete_change' = $value">
-				<xsl:value-of select="'Addition/Deletion'"/>
-			</xsl:when>
-			<xsl:when test=" 'device_change' = $value">
-				<xsl:value-of select="'Change in the device name'"/>
-			</xsl:when>
-			<xsl:when test=" 'manufacturer_address_change' = $value">
-				<xsl:value-of select="'Manufacturer address change'"/>
-			</xsl:when>
-			<xsl:when test=" 'facility_change' = $value">
-				<xsl:value-of select="'Facility change'"/>
-			</xsl:when>
-			<xsl:when test=" 'other_change' = $value">
-				<xsl:value-of select="'Other change'"/>
-			</xsl:when>
-
-			<xsl:otherwise>
-				<xsl:value-of select="$value"/>
-			</xsl:otherwise>
-		</xsl:choose>
 	</xsl:template>
 	<xsl:template name="lastDate">
 		<xsl:param name="date" select="/.."/>
@@ -698,36 +634,3 @@ span.normalWeight {
 		<xsl:value-of select="substring($date, 14)"/>
 	</xsl:template>
 </xsl:stylesheet>
-
-<!-- Stylus Studio meta-information - (c) 2004-2009. Progress Software Corporation. All rights reserved.
-
-<metaInformation>
-	<scenarios>
-		<scenario default="yes" name="Scenario1" userelativepaths="no" externalpreview="yes" url="file:///c:/Users/hcuser/Downloads/rt-m543434-2020-03-18-1137 (1).xml" htmlbaseurl="" outputurl="file:///c:/SPM/test/TRANSACTION.html" processortype="saxon8"
-		          useresolver="yes" profilemode="0" profiledepth="" profilelength="" urlprofilexml="" commandline="" additionalpath="" additionalclasspath="" postprocessortype="none" postprocesscommandline="" postprocessadditionalpath=""
-		          postprocessgeneratedext="" validateoutput="no" validator="internal" customvalidator="">
-			<advancedProp name="sInitialMode" value=""/>
-			<advancedProp name="schemaCache" value="||"/>
-			<advancedProp name="bXsltOneIsOkay" value="true"/>
-			<advancedProp name="bSchemaAware" value="true"/>
-			<advancedProp name="bGenerateByteCode" value="true"/>
-			<advancedProp name="bXml11" value="false"/>
-			<advancedProp name="iValidation" value="0"/>
-			<advancedProp name="bExtensions" value="true"/>
-			<advancedProp name="iWhitespace" value="0"/>
-			<advancedProp name="sInitialTemplate" value=""/>
-			<advancedProp name="bTinyTree" value="true"/>
-			<advancedProp name="xsltVersion" value="2.0"/>
-			<advancedProp name="bWarnings" value="true"/>
-			<advancedProp name="bUseDTD" value="false"/>
-			<advancedProp name="iErrorHandling" value="fatal"/>
-		</scenario>
-	</scenarios>
-	<MapperMetaTag>
-		<MapperInfo srcSchemaPathIsRelative="yes" srcSchemaInterpretAsXML="no" destSchemaPath="" destSchemaRoot="" destSchemaPathIsRelative="yes" destSchemaInterpretAsXML="no"/>
-		<MapperBlockPosition></MapperBlockPosition>
-		<TemplateContext></TemplateContext>
-		<MapperFilter side="source"></MapperFilter>
-	</MapperMetaTag>
-</metaInformation>
--->

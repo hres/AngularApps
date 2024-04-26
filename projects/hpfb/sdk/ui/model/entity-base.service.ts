@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Contact, IIdText, IIdTextLabel, INameAddress } from './entity-base';
+import { Contact, IIdText, IIdTextLabel, ILabel, INameAddress } from './entity-base';
 
 @Injectable()
 export class EntityBaseService {
@@ -16,6 +16,13 @@ export class EntityBaseService {
     return {
       __text: '',
       _id: '',
+    };
+  }
+
+  getEmptyLabel(): ILabel {
+    return {
+      _label_en: '',
+      _label_fr: '',
     };
   }
 

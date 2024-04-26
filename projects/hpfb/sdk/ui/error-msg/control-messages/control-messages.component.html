@@ -2,7 +2,7 @@
     <strong class="error">
     <span class="label label-danger">
       @if(errorSummaryFlag && errorNumber) {
-        {{'error' | translate: {number: errorNumber} }}&nbsp;
+        <span class="prefix">{{'error' | translate: {number: errorNumber} }}&nbsp;</span>
       } 
       {{errorMessage | translate: errorParams }}
     </span>

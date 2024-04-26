@@ -1,5 +1,7 @@
 export * from './layout/layout.component';
 
+export * from './component-base/base.component';
+
 export * from './expander/expander.component';
 export * from './expander/accordion/accordion.component';
 export * from './expander/expander.module';

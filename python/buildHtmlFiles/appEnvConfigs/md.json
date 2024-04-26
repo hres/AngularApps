@@ -14,12 +14,12 @@
     "template_paths": {
         "dev": {
             "co": {
-                "en": "mds/prod_v40/company/en/md-company.html",
-                "fr": "mds/prod_v40/company/fr/im-entreprise.html"
+                "en": "mds/company/en/md-company.html",
+                "fr": "mds/company/fr/im-entreprise.html"
             },
             "co_internal": {
-                "en": "mds/prod_v40/internal/en/index-internal.html ",
-                "fr": "mds/prod_v40/internal/fr/index-internal.html"
+                "en": "mds/internal/company/en/index-internal.html ",
+                "fr": "mds/internal/company/fr/index-internal.html"
             },
             "rt": {
                 "en": "mds/transaction/en/index.html",

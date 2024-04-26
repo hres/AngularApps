@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type, ElementRef } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EnrollmentStatus, XSLT_PREFIX, ROOT_TAG, AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
@@ -9,11 +9,13 @@ import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
+import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-form-base',
   standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule, AppFormModule],
+  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule, AppFormModule, PopupComponent],
   templateUrl: './form-base.component.html',
   styleUrls: ['./form-base.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -75,6 +77,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private activeContactStatuses: string[] = [ContactStatus.New, ContactStatus.Revise , ContactStatus.Active];
   private amendReasonCodesToShowAdminChanges:string[] = new Array(AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE) ;
+
+  popupId = 'saveXmlPopup';
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -166,14 +170,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this._contactErrors.concat(this._adminChangesErrors)
       )
     );
-    this.cdr.detectChanges(); // doing our own change detection
-    // console.log('form.base', 'processErrors', 'this.errorList.length', this.errorList.length);
-    // for (const e of this.errorList) {
-    //   console.log(e)
-    // }
 
     this.disableMailto = this.errorList.length > 0 || this._isFinal()|| this.isInternal;
     this.showMailToHelpText = false;
+
+    this.cdr.detectChanges(); // doing our own change detection
   }
 
   processAddressErrors(errorList) {
@@ -237,9 +238,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public saveXmlFile() {
     // console.log("saveXmlFile", "this.showErrors", this.showErrors, this.errorList.length)
-    this.showErrors = false;
+    this.showErrors = true;
+    this.processErrors();
     if (this.errorList && this.errorList.length > 0) {
-      this.showErrors = true;
       document.location.href = '#topErrorSummary';
     } else {
       if (this.companyContacts.contactListForm.pristine) {
@@ -247,15 +248,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         const fileName = this._buildfileName();
         this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
       } else {
-        if (this._utilsService.isFrench(this.lang)) {
-          alert(
-            "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML."
-          );
-        } else {
-          alert(
-            'Please save the unsaved input data before generating XML file.'
-          );
-        }
+        this.openPopup();
       }
     }
   }
@@ -276,6 +269,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     let output: Enrollment = { 
       DEVICE_COMPANY_ENROL: {
         template_version: this._globalService.$appVersion,
+        form_language: this._globalService.getCurrLanguage(),
         general_information: this.genInfoModel,
         address: this.addressModel,
         contacts: {contact: this.contactModel},
@@ -296,8 +290,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         output.DEVICE_COMPANY_ENROL.general_information.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusList, EnrollmentStatus.Final, this.lang); // Set to final status
       }
       // add and calculate check_sum if it is xml
-      output.DEVICE_COMPANY_ENROL.check_sum = "";   // this is needed for generating the checksum value
-      output.DEVICE_COMPANY_ENROL.check_sum = this._checkSumService.createHash(output);
+      output.DEVICE_COMPANY_ENROL[CHECK_SUM_CONST] = "";   // this is needed for generating the checksum value
+      output.DEVICE_COMPANY_ENROL[CHECK_SUM_CONST] = this._checkSumService.createHash(output);
     }
     // console.log("_prepareForSaving, data after updates ", JSON.stringify(output, null, 2));
 
@@ -459,5 +453,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showAdminChanges = this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges) || areLicensesBeingTransfered === YES;
     
     // console.log("_setShowAdminChangesFlag()", "this.selectedAmendReasonCodes", this.selectedAmendReasonCodes, "areLicensesBeingTransfered", areLicensesBeingTransfered, "this.showAdminChanges", this.showAdminChanges);
+  }
+
+  openPopup(){
+      jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
   }
 }

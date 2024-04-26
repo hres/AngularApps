@@ -78,7 +78,11 @@
         <dt>{{helpTextSequences.deviceDetailInx}}</dt>
         <dd id="tr9">
         <p>{{'has.ddt'|translate}}</p>
-        <p>{{'help.device.detail'|translate}}</p>
+        <ul>
+            <li>{{'help.device.detail.01'|translate}}</li>
+            <li>{{'help.device.detail.02'|translate}}</li>
+            <li [innerHTML]="'help.device.detail.03' | translate"></li>
+        </ul>
         <p class="fn-rtn"><a href="#tr9-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences['deviceDetailInx']}}
             <span class="wb-inv"> referrer</span></a></p>
         </dd>

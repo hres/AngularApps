@@ -6,7 +6,7 @@ export const XSLT_PREFIX = 'REP_MDS_RT_';
 export const COMPANY_ID_PREFIX = 'K';
 
 // the values need to match the code values in activity types json data file
-export enum ActivityType {
+export enum RegulatoryActivityType {
   Licence = 'B02-20160301-039',
   PrivateLabel = 'B02-20160301-073',
   PrivateLabelAmendment = 'B02-20160301-074',
@@ -42,9 +42,11 @@ export enum DeviceClass {
 }
 
 export enum AmendReason {
-  purpose_change = 'purpose_change',
-  licence_change = 'licence_change',
-  device_change = 'device_change',
+  PURPOSE_CHANGE = 'PURPOSE_CHANGE',
+  LICENCE_CHANGE = 'LICENCE_CHANGE',
+  DEVICE_CHANGE = 'DEVICE_CHANGE',
+  CLASSIFICATION_CHANGE = 'CLASSIFICATION_CHANGE',
+  ADD_DELETE_CHANGE = 'ADD_DELETE_CHANGE'
 }
 
 export const helpInstructionHeadings = [
