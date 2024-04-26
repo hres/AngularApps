@@ -140,22 +140,15 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     }
   }
 
-  onblur() {
-    // this._saveData();
-  }
-
-
   deviceClassOnblur() {
     if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
       !this.isDeviceIV()) {
       this.materialErrorList.emit(true);
     }
-    this.onblur();
   }
 
   processDeviceErrors(errorList) {
     this.deviceErrorList.emit(errorList);
-
   }
 
   private _resetControlValues(listOfValues : string[]) {
@@ -223,8 +216,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       const valuesToReset = ['din', 'npn'];
       this._resetControlValues(valuesToReset);
     }
-    this.onblur();
-
+    
   }
 
   isOtherPharmacopeia() {
@@ -307,7 +299,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   priorityRequestedOnChange() {
     this._updateDiagnosisReasonArray();
-    this.onblur();
   }
 
   showDiagnosisReasons() {
@@ -323,7 +314,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   hasDrugOnChange() {
     this._updateComplianceArray();
-    this.onblur();
   }
 
   seriousDiagnosisOnChange() {
