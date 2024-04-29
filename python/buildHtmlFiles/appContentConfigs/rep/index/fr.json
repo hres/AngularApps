@@ -11,7 +11,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"./historique_révisions.html\">Historique des versions du modèle (mise à jour 01/05/2024)</a>"
+                        "<a href=\"{{ base_url }}/historique_révisions.html\">Historique des versions du modèle (mise à jour 01/05/2024)</a>"
                     ]
                 }
             ]
@@ -20,7 +20,7 @@
             "header": "En dehors du processus de transaction réglementaire",
             "groups": [
                 {
-                    "header": "<a href=\"./company/entreprise.html\">Modèle de l'entreprise (mise à jour 28/02/2023)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.fr }}\">Modèle de l'entreprise (mise à jour 28/02/2023)</a>",
                     "bullets": [
                         "Obligatoire pour obtenir un identifiant d'entreprise et / ou fournir des informations à jour sur l'entreprise à Santé Canada.",
                         "Envoyé par courriel.<ul><li>Joignez l’ébauche de fichier CO XML avant l’envoi.</li></ul>",
@@ -47,7 +47,7 @@
             "header": "Dans le cadre du processus de transaction réglementaire",
             "groups": [
                 {
-                    "header": "<a href=\"./prod_v44/transaction/r%C3%A9glementaire-transaction.html\">Modèle de transaction réglementaire (TR) pour les médicaments à usage humain et désinfectants ( mise à jour 01/05/2024)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.fr }}\">Modèle de transaction réglementaire (TR) pour les médicaments à usage humain et désinfectants ( mise à jour 01/05/2024)</a>",
                     "bullets": [
                         "Obligatoire avec chaque transaction réglementaire déposée auprès de Santé Canada.",
                         "Envoyé via la PCDE dans le dossier 1.2.1 pour les médicaments à usage humain ou partie I dossier 1.5 pour les médicaments vétérinaires de la transaction réglementaire (soumission).",
@@ -55,7 +55,7 @@
                     ]
                 },
                 {
-                    "header": "<a href=\"./prod_v44/product/produit.html\">Modèle d'information sur le produit (IP) (mise à jour 12/02/2024)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.pi.fr }}\">Modèle d'information sur le produit (IP) (mise à jour 12/02/2024)</a>",
                     "bullets": [
                         "Obligatoire uniquement pour un sous-ensemble de transactions. Reportez-vous à la section « 2.5.2 Modèle et processus d'information sur le produit (PI) » du document d'orientation du PIR pour la liste des transactions de sous-ensemble.",
                         "Envoyé via la PCDE dans le dossier 1.2.1 pour les médicaments à usage humain ou partie I dossier 1.5 pour les médicaments vétérinaires de la transaction réglementaire (si fourni).",
@@ -70,19 +70,19 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"./stylesheet/pharmabio_stylesheets_fr.zip\">Télécharger le fichier zip des feuilles de style (mise à jour 28/02/2023)</a>"                    ]
+                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.fr }}\">Télécharger le fichier zip des feuilles de style (mise à jour 28/02/2023)</a>"                    ]
                 }
             ]
         },
         {
             "internal_only": true,
-            "header": "Internal User Links",
+            "header": "Liens internes de l'utilisateur",
             "groups": [
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"./prod_v42_wcag/company/companyINT-fr.html\">Modèle de compagnie - version internale 4.2.4</a>",
-                        "<a href=\"https://lam-dev.hres.ca/REP-Form-Internal/PROD/repDiff/diffForm-en.html#/main\">Comparison tool (Deployed Sep 18, 2020)</a>"                       ]
+                        "<a href=\"{{ base_url }}prod_v42_wcag/company/companyINT-fr.html\">Modèle de compagnie - version internale 4.2.4</a>",
+                        "<a href=\"https://lam-dev.hres.ca/REP-Form-Internal/PROD/repDiff/diffForm-en.html\">Comparison tool (Deployed Sep 18, 2020)</a>"                       ]
                 }
             ]
         }

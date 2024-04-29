@@ -28,6 +28,10 @@
             "ai": {
                 "en": "mds/applicationInfo/en/index.html",
                 "fr": "mds/applicationInfo/en/index.html"
+            },
+            "stylesheets": {
+                "en": "mds/stylesheet/medicaldevice_stylesheets_en.zip",
+                "fr": "mds/stylesheet/medicaldevice_stylesheets_fr.zip"
             }
         },
         "prod": {
@@ -46,6 +50,10 @@
             "ai": {
                 "en": "mds/applicationInfo/en/index.html",
                 "fr": "mds/applicationInfo/en/index.html"
+            },
+            "stylesheets": {
+                "en": "mds/stylesheet/medicaldevice_stylesheets_en.zip",
+                "fr": "mds/stylesheet/medicaldevice_stylesheets_fr.zip"
             }
         }
     }

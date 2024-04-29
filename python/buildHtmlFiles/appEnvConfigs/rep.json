@@ -17,20 +17,24 @@
     "template_paths": {
         "dev": {
             "co": {
-                "en": "company/company.html",
-                "fr": "company/entreprise.html"
+                "en": "prod_v42_wcag/company/company.html",
+                "fr": "prod_v42_wcag/company/entreprise.html"
             },
             "co_internal": {
                 "en": "prod_v42_wcag/company/companyINT-en.html ",
                 "fr": "prod_v42_wcag/company/companyINT-fr.html"
             },
             "rt": {
-                "en": "v44/transaction/regulatory-transaction.html",
-                "fr": "v44/transaction/réglementaire-transaction.html"
+                "en": "prod_v44/transaction/regulatory-transaction.html",
+                "fr": "prod_v44/transaction/réglementaire-transaction.html"
             },
             "pi": {
-                "en": "v44/product/product.html",
-                "fr": "v44/product/produit.html"
+                "en": "prod_v44/product/product.html",
+                "fr": "prod_v44/product/produit.html"
+            },
+            "stylesheets": {
+                "en": "stylesheet/pharmabio_stylesheets_en.zip",
+                "fr": "stylesheet/pharmabio_stylesheets_en.zip"
             }
         },
         "prod": {
@@ -49,6 +53,10 @@
             "pi": {
                 "en": "v44/product/product.html",
                 "fr": "v44/product/produit.html"
+            },
+            "stylesheets": {
+                "en": "stylesheet/pharmabio_stylesheets_en.zip",
+                "fr": "stylesheet/pharmabio_stylesheets_en.zip"
             }
         }
     }

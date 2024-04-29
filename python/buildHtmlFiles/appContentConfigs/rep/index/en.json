@@ -11,7 +11,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"./version_history.html\">Template version history  (updated 2024-05-01)</a>"
+                        "<a href=\"{{ base_url }}version_history.html\">Template version history  (updated 2024-05-01)</a>"
                     ]
                 }
             ]
@@ -20,7 +20,7 @@
             "header": "Outside the Regulatory Transaction Process",
             "groups": [
                 {
-                    "header": "<a href=\"./company/company.html\">Company (CO) Template (updated 2023-02-28)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company (CO) Template (updated 2023-02-28)</a>",
                     "bullets": [
                         "Required to obtain a company ID and/or update company information to Health Canada.",
                         "Sent via email. <ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
@@ -47,7 +47,7 @@
             "header": "Within the Regulatory Transaction Process",
             "groups": [
                 {
-                    "header": "<a href=\"./prod_v44/transaction/regulatory-transaction.html\">Regulatory Transaction (RT) Template (updated on 2024-05-01)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory Transaction (RT) Template (updated on 2024-05-01)</a>",
                     "bullets": [
                         "Required with each regulatory transaction filed to Health Canada.",
                         "Sent via the CESG in folder 1.2.1 for human drugs and disinfectants or part I folder 1.5 for veterinary drugs of the regulatory transaction (submission).",
@@ -55,7 +55,7 @@
                     ]
                 },
                 {
-                    "header": "<a href=\"./prod_v44/product/product.html\">Product Information (PI) Template (updated on 2024-02-12)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.pi.en }}\">Product Information (PI) Template (updated on 2024-02-12)</a>",
                     "bullets": [
                         "Required for only a subset of transactions. Refer to section “2.5.2 Product information (PI) Template and Process” of the REP Guidance Document for list of subset transaction.",
                         "Sent via the CESG in folder 1.2.1 for human drugs and disinfectants or part I folder 1.5 for veterinary drugs of the regulatory transaction (when provided).",
@@ -70,7 +70,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"./stylesheet/pharmabio_stylesheets_en.zip\">Download stylesheet zip file (Updated 2023-02-28)</a>"                    ]
+                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.en }}\">Download stylesheet zip file (Updated 2023-02-28)</a>"                    ]
                 }
             ]
         },
@@ -81,8 +81,8 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"./prod_v42_wcag/company/companyINT-en.html\">Enregistrement d’entreprise – interne version 4.2.4</a>",
-                        "<a href=\"./pilot/repDiff/diffForm-en.html\">Comparison tool (Deployed Sep 18, 2020)</a>"                       ]
+                        "<a href=\"{{ base_url }}prod_v42_wcag/company/companyINT-en.html\">Company Enrolment - Internal version 4.2.4</a>",
+                        "<a href=\"https://lam-dev.hres.ca/REP-Form-Internal/PROD/repDiff/diffForm-en.html\">Comparison tool (Deployed Sep 18, 2020)</a>"                       ]
                 }
             ]
         }
