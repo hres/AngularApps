@@ -4,7 +4,8 @@
     "paragraphs": [
         "Health Canada has updated the Regulatory Enrolment Process (REP) templates to reflect process changes and improvements. Refer to the Guidance Document: Regulatory Enrolment Process (REP) – Drugs for Human and Veterinary Use and Disinfectants for more information on the templates.",
         "In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use.",
-        "Should you have any questions regarding the content of this document, please contact <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"en\">ereview@hc-sc.gc.ca</a>."
+        "Should you have any questions regarding the content of this document, please contact <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"en\">ereview@hc-sc.gc.ca</a>.",
+        "<div class=\"alert alert-info\"><p>In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use.</p></div>"
     ],
     "releases": [
         {
@@ -26,6 +27,17 @@
                     "template": "Stylesheet Package",
                     "changes": [
                         "New RT stylesheet to match changes to REP RT template"  
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "February 12, 2024 Release",
+            "details": [
+                {
+                    "template": "Product Information (PI) Template",
+                    "changes": [
+                        "Added the Pediatric Pilot Survey"
                     ]
                 }
             ]
@@ -65,6 +77,116 @@
                     "changes": [
                         "Added text regarding fax number",
                         "Updated email address in the Privacy Notice Statement"
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "October 1, 2022 Release",
+            "details": [
+                {
+                    "template": "Regulatory Transaction (RT) Template",
+                    "changes": [
+                        "Updated the Pharmaceutical Drugs Directorate name",
+                        "Removal of the fee amounts",
+                        "Updated the instructions regarding the fees",
+                        "Removal of Regulatory Activity Type “DSUR (Developmental Safety Update Report)”",
+                        "Removal of Regulatory Transaction Description “Second Language PM & Final Package Insert” and “Second Language Product Monograph”",
+                        "Added new Regulatory Transaction Description “Product Labelling-Post approval”"
+                    ]
+                },
+                {
+                    "template": "Product Information (PI) Template",
+                    "changes": [
+                        "Updated instructions for Cross-licensed Product",
+                        "Removal of the rule requiring at least one medical ingredient in a formulation",
+                        "Updated instructions for dilutes, adjuvants and placebos",
+                        "Added disaggregated data questions"
+                    ]
+                },
+                {
+                    "template": "Stylesheet Package",
+                    "changes": [
+                        "New RT and PI version 4.4 stylesheets to match changes to REP RT and PI templates."
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "March 1, 2022 Release",
+            "details": [
+                {
+                    "template": "Regulatory Transaction (RT) Template",
+                    "changes": [
+                        "Updated fees as per section 4.1 of the Fees in Respect of Drugs and Medical Devices Order.",
+                        "Added Submission Class – “Labelling only - with administrative component”",
+                        "Added new Regulatory Activity “Protocol Review” and associated transaction descriptions for dossier type “veterinary”",
+                        "Updated instructions for various fields and added further descriptions for fields."
+                    ]
+                },
+                {
+                    "template": "Product Information (PI) Template",
+                    "changes": [
+                        "Added “Administrative component” question and reason for administrative component picklist."
+                    ]
+                },
+                {
+                    "template": "Stylesheet Package",
+                    "changes": [
+                        "New RT and PI version 4.3 stylesheets to match changes to REP RT and PI templates."
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "November 22, 2021 Release",
+            "details": [
+                {
+                    "template": "Company (CO) Template",
+                    "changes": [
+                        "Added the “Submit to Health Canada” button to generate email template. Refer to section 2.3 of the REP guidance document for more information.",
+                        "Removed Primary REP contact role."
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "May 3, 2021 Release",
+            "details": [
+                {
+                    "template": "Company (CO) Template",
+                    "changes": [
+                        "Added “Reason for Filing” field. Refer to instruction on CO template for more information.",
+                        "Removed importer company role and importer contact role Refer to section 3 of the REP guidance document for more information.",
+                        "Updated instructions for various fields.",
+                        "Revised “Country” picklist."
+                    ]
+                },
+                {
+                    "template": "Regulatory Transaction (RT) Template",
+                    "changes": [
+                        "Updated picklist option for “Dossier Type”, “Regulatory Activity Lead”, “Regulatory Activity Types” and “Associated Transaction Descriptions” to incorporate veterinary drugs.",
+                        "Updated instructions for various fields to include veterinary drugs.",
+                        "Updated instructions for various fields and added further descriptions for fields."
+                    ]
+                },
+                {
+                    "template": "Product Information (PI) Template",
+                    "changes": [
+                        "Resolved bugs",
+                        "Added option for proprietary information under the formulation section and revised associated requirements for non-medicinal ingredient. Refer to section 5 of the REP guidance document for more information.",
+                        "Revised “Calculated as Base” picklist to include the option “ingredient is not a salt”.",
+                        "Updated instructions for various fields.",
+                        "Removed HC6-024 prefix from “Dossier Identifier” field.",
+                        "Removed Importer Company Identifier” field.",
+                        "Updated instructions for various fields specific to veterinary drugs.",
+                        "Revised “Country” picklist."
+                    ]
+                },
+                {
+                    "template": "Stylesheet Package",
+                    "changes": [
+                        "New CO and PI version 4.2 stylesheets to match changes to REP CO and PI templates."
                     ]
                 }
             ]
