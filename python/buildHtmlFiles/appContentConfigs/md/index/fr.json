@@ -78,7 +78,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.en }}\">Télécharger le fichier zip des feuilles de style (31 juillet 2024)</a>"
+                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.fr }}\">Télécharger le fichier zip des feuilles de style (31 juillet 2024)</a>"
                     ]
                 }
             ]

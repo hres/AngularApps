@@ -34,7 +34,7 @@
             },
             "stylesheets": {
                 "en": "stylesheet/pharmabio_stylesheets_en.zip",
-                "fr": "stylesheet/pharmabio_stylesheets_en.zip"
+                "fr": "stylesheet/pharmabio_stylesheets_fr.zip"
             }
         },
         "prod": {
@@ -56,7 +56,7 @@
             },
             "stylesheets": {
                 "en": "stylesheet/pharmabio_stylesheets_en.zip",
-                "fr": "stylesheet/pharmabio_stylesheets_en.zip"
+                "fr": "stylesheet/pharmabio_stylesheets_fr.zip"
             }
         }
     }
