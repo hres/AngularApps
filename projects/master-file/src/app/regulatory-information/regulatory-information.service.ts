@@ -110,6 +110,8 @@ export class RegulatoryInformationService {
      descriptionType: [null, Validators.required],
      requestDate: [null, Validators.required],
      requester: [null, Validators.required],
+     reqRevision: [null, Validators.required],
+     revisedDescriptionType: [null, Validators.required],
    });
   }
 
@@ -162,6 +164,19 @@ export class RegulatoryInformationService {
       'lifecycle_record.requester_of_solicited_information',
       GlobalsService.OP_TYPE_TEXT
     ),    
+    new DataMapping(
+      'reqRevision',
+      GlobalsService.FC_TYPE_INPUT,
+      'lifecycle_record.revise_trans_desc_request',
+      GlobalsService.OP_TYPE_TEXT
+    ),    
+    new DataMapping(
+      'revisedDescriptionType',
+      GlobalsService.FC_TYPE_ICODE,
+      'lifecycle_record.revised_trans_desc',
+      GlobalsService.OP_TYPE_IDTEXTLABEL
+    ),    
+    
   ];
 
   public mapFormModelToDataModel(

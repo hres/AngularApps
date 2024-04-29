@@ -448,7 +448,7 @@ span.normalWeight {
           <div class="col-xs-12">
             <strong>Nom de la fiche maîtresse:&#160;</strong>
             <span class="mouseHover normalWeight">
-              <xsl:value-of select="ectd/product_name"/>
+              <xsl:value-of select="ectd/product_name" />
             </span>
           </div>
         </div>
@@ -456,7 +456,7 @@ span.normalWeight {
           <div class="col-xs-12">
             <strong>Numéro de fiche maîtresse:&#160;</strong>
             <span class="mouseHover normalWeight">
-              <xsl:value-of select="ectd/lifecycle_record/master_file_number"/>
+              <xsl:value-of select="ectd/lifecycle_record/master_file_number" />
             </span>
           </div>
         </div>
@@ -464,7 +464,7 @@ span.normalWeight {
           <div class="col-xs-12">
             <strong>Type de la fiche maîtresse:&#160;</strong>
             <span class="mouseHover normalWeight">
-              <xsl:value-of select="ectd/lifecycle_record/regulatory_activity_type"/>
+              <xsl:value-of select="ectd/lifecycle_record/regulatory_activity_type" />
             </span>
           </div>
         </div>
@@ -472,7 +472,7 @@ span.normalWeight {
           <div class="col-xs-12">
             <strong>Usage du fiche maîtresse:&#160;</strong>
             <span class="mouseHover normalWeight">
-              <xsl:value-of select="ectd/lifecycle_record/master_file_use"/>
+              <xsl:value-of select="ectd/lifecycle_record/master_file_use" />
             </span>
           </div>
         </div>
@@ -480,7 +480,7 @@ span.normalWeight {
           <div class="col-xs-12">
             <strong>Description de la transaction:&#160;</strong>
             <span class="mouseHover normalWeight">
-              <xsl:value-of select="ectd/lifecycle_record/sequence_description_value"/>
+              <xsl:value-of select="ectd/lifecycle_record/sequence_description_value" />
             </span>
           </div>
         </div>
@@ -489,7 +489,7 @@ span.normalWeight {
             <div class="col-xs-6">
               <strong>Date:&#160;</strong>
               <span class="mouseHover normalWeight">
-                <xsl:value-of select="ectd/lifecycle_record/sequence_from_date"/>
+                <xsl:value-of select="ectd/lifecycle_record/sequence_from_date" />
               </span>
             </div>
           </xsl:if>
@@ -497,11 +497,31 @@ span.normalWeight {
             <div class="col-xs-6">
               <strong>Requester of solicited information:&#160;</strong>
               <span class="mouseHover normalWeight">
-                <xsl:value-of select="ectd/lifecycle_record/requester_of_solicited_information"/>
+                <xsl:value-of select="ectd/lifecycle_record/requester_of_solicited_information" />
               </span>
             </div>
           </xsl:if>
         </div>
+        <xsl:if test="ectd/lifecycle_record/revise_trans_desc_request !=''">
+          <div class="row">
+            <div class="col-xs-12">
+              <strong>La demande de clarification vous a-t-elle obligé à réviser la description de la transaction?&#160;</strong>
+              <span class="mouseHover normalWeight">
+                <xsl:value-of select="ectd/lifecycle_record/revise_trans_desc_request" />
+              </span>
+            </div>
+          </div>
+        </xsl:if>
+        <xsl:if test="ectd/lifecycle_record/revised_trans_desc !=''">
+          <div class="row">
+            <div class="col-xs-12">
+              <strong>Description de la transaction révisée:&#160;</strong>
+              <span class="mouseHover normalWeight">
+                <xsl:value-of select="ectd/lifecycle_record/revised_trans_desc" />
+              </span>
+            </div>
+          </div>
+        </xsl:if>
       </div>
     </section>
 
@@ -846,4 +866,3 @@ span.normalWeight {
   </xsl:template>
 
 </xsl:transform>
-

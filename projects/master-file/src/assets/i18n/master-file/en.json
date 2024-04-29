@@ -148,5 +148,6 @@
   "agent.not.applicable":"Authorized Agent or Authorized Third Party Name and Address not applicable",
   "postal.not.applicable":"(Use “not applicable” if not available)",
   "req.revision":"Did the Clarification Request require you to revise the Transaction Description?",
-  "revised.tx.desc":"Revised Transaction Description"
+  "revised.transaction.description":"Revised Transaction Description"
+
 }
