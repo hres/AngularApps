@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, TranslateModule],
   templateUrl: './instruction.component.html',
+  styleUrls: ['./instruction.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class InstructionComponent {
