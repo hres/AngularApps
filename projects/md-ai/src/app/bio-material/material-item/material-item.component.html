@@ -58,11 +58,11 @@
                               controlId="specFamily" label="species.family" parentId="materialDetails"
                               translatedParentLabel="{{translatedParentLabel}}">
             </control-messages>
-              <select id="specFamily{{j}}" name="specFamily{{j}}" required
-                      formControlName='specFamily' class="form-control">
-                <option label=" " value=""></option>
-                <option *ngFor="let specFam of specFamList" [ngValue]="specFam.id"> {{specFam | textTransform : lang }} <option>
-              </select>
+              <select id="specFamily{{j}}" name="specFamily{{j}}" required class="form-control" 
+                    formControlName='specFamily'>
+              <option label=" " value=""></option>
+              <option *ngFor="let specFam of specFamList" [ngValue]="specFam.id"> {{ specFam | textTransform : lang}}</option>
+            </select>
           </label>
         </div>
       </div>
@@ -70,11 +70,11 @@
         <div class="form-group col-sm-4">
           <label for="tissueType{{j}}" class="full-width">
             <span class="field-name">{{'tissue.type'|translate}}</span>
-            <select id="tissueType{{j}}" name="tissueType{{j}}" (change)="onTissueTypeSelected($event)"
-                         formControlName='tissueType' class="form-control">
-                <option label=" " value=""></option>
-                <option *ngFor="let tissueType of tissueTypeList" [value]="tissueType.id"> {{tissueType | textTransform : lang }} <option>
-              </select>
+              <select id="tissueType{{j}}" name="tissueType{{j}}" class="form-control" 
+                    formControlName='tissueType' (change)="onTissueTypeSelected($event)">
+              <option label=" " value=""></option>
+              <option *ngFor="let tissueType of tissueTypeList" [value]="tissueType.id"> {{ tissueType | textTransform : lang}}</option>
+            </select>
           </label>
         </div>
         @if(isTissueTypeOther || tissueTypeOther()) {
@@ -91,11 +91,11 @@
         <div class="form-group col-sm-4" >
           <label for="derivative{{j}}" class=" full-width">
             <span class="field-name">{{'derivative'|translate}}</span>
-            <select id="derivative{{j}}" name="derivative{{j}}" (change)="onDerivativeSelected($event)"
-                         formControlName='derivative' class="form-control">
-                <option label=" " value=""></option>
-                <option *ngFor="let derivative of derivativeList" [value]="derivative.id"> {{derivative | textTransform : lang }} <option>
-              </select>
+              <select id="derivative{{j}}" name="derivative{{j}}" class="form-control" 
+                    formControlName='derivative' (change)="onDerivativeSelected($event)">
+              <option label=" " value=""></option>
+              <option *ngFor="let derivative of derivativeList" [value]="derivative.id"> {{ derivative | textTransform : lang}}</option>
+            </select>
           </label>
         </div>
         @if(isDerivativeOther || derivativeOther()) {

@@ -163,7 +163,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
           // Set values after defining the form controls
           group.patchValue({
-            id: device.id,
+            id: device.device_id,
             isNew: false,
             expandFlag: false,
           });

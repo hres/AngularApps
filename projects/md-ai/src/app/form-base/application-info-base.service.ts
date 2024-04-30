@@ -75,7 +75,7 @@ export class ApplicationInfoBaseService {
   public getEmptyDeviceModel() : Device {
     return (
       {
-        id: null,
+        device_id: null,
         device_name: '',
         device_authorized: '',
         licence_number: '',
@@ -130,6 +130,7 @@ export class ApplicationInfoBaseService {
       for (let i = 0; i < devicesForm.length; i++) {
         let deviceModel: Device = this.getEmptyDeviceModel();
         this._deviceService.mapFormModelToOutputModel(devicesForm[i].deviceInfo, deviceModel);
+        deviceModel.device_id = devicesForm[i].id;
         deviceModelList.push(deviceModel);
       }
     }
@@ -142,6 +143,7 @@ export class ApplicationInfoBaseService {
         for (let i = 0; i < materialsForm.length; i++) {
           let materialModel: BiologicalMaterial = this.getEmptyMaterialModel();
           this._materialService.mapMaterialModelToOutputModel(materialsForm[i].materialInfo, materialModel);
+          materialModel.material_id = materialsForm[i].id;
           materialModelList.push(materialModel);
         }
 

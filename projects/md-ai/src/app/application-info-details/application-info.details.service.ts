@@ -113,9 +113,9 @@ export class ApplicationInfoDetailsService {
     appInfoModel.manufacturer = formRecord.manufacturer;
     appInfoModel.other_pharmacopeia = formRecord.otherPharmacopeia;
 
-    appInfoModel.provision_mdr_it = formRecord.provisionMdrIT ? YES : NO;
-    appInfoModel.provision_mdr_sa = formRecord.provisionMdrSA ? YES : NO;
-    appInfoModel.interim_order_authorization = formRecord.provisionMdrIOA ? YES : NO;
+    appInfoModel.provision_mdr_it = formRecord.provisionMdrIT
+    appInfoModel.provision_mdr_sa = formRecord.provisionMdrSA
+    appInfoModel.interim_order_authorization = formRecord.provisionMdrIOA
 
     appInfoModel.application_number = formRecord.applicationNum;
     appInfoModel.sap_request_number = formRecord.sapReqNum;
@@ -198,11 +198,11 @@ export class ApplicationInfoDetailsService {
     formRecord.controls['manufacturer'].setValue(appInfoModel.manufacturer);
     formRecord.controls['otherPharmacopeia'].setValue(appInfoModel.other_pharmacopeia);
 
-    const mdtit = appInfoModel.provision_mdr_it === YES ? true : false;
+    const mdtit = appInfoModel.provision_mdr_it;
     formRecord.controls['provisionMdrIT'].setValue(mdtit);
-    const mdrsa = appInfoModel.provision_mdr_sa === YES ? true : false;
+    const mdrsa = appInfoModel.provision_mdr_sa;
     formRecord.controls['provisionMdrSA'].setValue(mdrsa);
-    const mdrioa = appInfoModel.interim_order_authorization === YES ? true : false;
+    const mdrioa = appInfoModel.interim_order_authorization;
     formRecord.controls['provisionMdrIOA'].setValue(mdrioa)
     
     formRecord.controls['applicationNum'].setValue(appInfoModel.application_number);
