@@ -110,8 +110,8 @@
           <fieldset class="chkbxrdio-grp" >
             <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-                <sup id="tr4-rf">
-                  <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>4</a>
+                <sup id="ap6-rf">
+                  <a class="fn-lnk" href="#ap6"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpTextSequences.devClsIndx}}</a>
                 </sup>
                 <control-messages *ngIf="appInfoFormLocalModel.controls['deviceClass'].invalid"
                     [showError]="showFieldErrors"
@@ -547,7 +547,7 @@
                         <control-messages *ngIf="diagnosisReasonChkFormArray.invalid"
                                         [showError]="showFieldErrors"
                                         [control]="diagnosisReasonChkFormArray | formControl"
-                                        controlId="diagnosisReasons" label="diagnosis.reason"
+                                        controlId="diagnosisReasons" label="priority.rev.devices"
                                         parentId="appInfoDetails"></control-messages>
                     </legend>
                     <ng-container formArrayName="diagnosisReasons" *ngFor="let reason of diagnosisReasonChkFormArray.controls; let i = index">
