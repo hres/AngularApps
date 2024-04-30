@@ -193,7 +193,7 @@
                         (change)="onTxDescriptionSelected($any($event.target).value)"
                         [formControl]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl">
                         <option label=" " value=""></option>
-                        <option *ngFor="let desc of txDescOptions" [ngValue]="desc"> {{ desc | textTransform: lang }}
+                        <option *ngFor="let desc of revTxDescOptions" [ngValue]="desc"> {{ desc | textTransform: lang }}
                         </option>
                     </select>
                 </label>

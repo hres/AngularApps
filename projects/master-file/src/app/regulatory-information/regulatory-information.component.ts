@@ -41,6 +41,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   mfTypeDescArray: IParentChildren[] = [];
   mfUseOptions: ICode[];
   txDescOptions: ICode[];
+  revTxDescOptions: ICode[];
   selectedMfTypeDefinition: string;
   selectedTxDescDefinition: string;
   public showFieldErrors: boolean = false;
@@ -226,6 +227,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   }
 
   reqRevisionChanged(e) {
+    this._getRevisedTransactionDescriptions();
+
     this.regulartoryFormModel.controls['reqRevision'].setValue(null);
     this.regulartoryFormModel.controls['reqRevision'].setValue(e.target.value);
     if (e.target.value && e.target.value === 'Y') {
@@ -252,6 +255,11 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     const selectedMfTypeId = mfTypeControl?.value.id;
     // console.log("RegulatoryInformationComponent ~ _getTransactionDescriptions ~ selectedMfTypeId:", selectedMfTypeId);
     this.txDescOptions = GlobalsService.filterParentChildrenArray(this.mfTypeDescArray, selectedMfTypeId);
+  }
+
+  private _getRevisedTransactionDescriptions(): void {
+    
+    this.revTxDescOptions =this.txDescOptions.filter(desc => desc.id !== this.RevisedTxDescId);
   }
 
   checkDateValidity(event: any): void {
