@@ -59,7 +59,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public holder: string = 'holder';
   public agent: string = 'agent';
 
-  showDateAndRequesterTxDescs: string[] = ['12', '14'];
+  showDateAndRequesterTxDescs: string[] = ['12', '14', '13'];
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 

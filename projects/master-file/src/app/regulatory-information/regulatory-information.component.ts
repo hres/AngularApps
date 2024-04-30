@@ -54,8 +54,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   mfUseSub!: Subscription;
 
   showDateAndRequesterTxDescs: string[] = ['12', '14', '21']; // Transaction Description values are defined in txDescriptions.json
-  showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
-  revisedTxDescId: string = '21';
+  showDateAndRequesterOnlyTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions.
+  revisedTxDescId: string = '21'; 
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
   
   revisedTxDescOptions = ['2','4','6','7','10','11','15','16','17','18','19'];
