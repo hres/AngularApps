@@ -1,4 +1,4 @@
-<form [formGroup]="deviceListForm">
+<div [formGroup]="deviceListForm">
     <div formArrayName="devices">
 
       <lib-accordion [rowsFormArray]="devicesFormArr" [accordionHeadingMsgKey]="'heading.interdependent.device'" [accordionHeadingSupp]="['deviceInfo', 'deviceName']" 
@@ -31,4 +31,4 @@
     <!-- <button (click)="coaddNewContact(comp.get('projects'))">Add new Project</button> -->
     <!-- <pre>{{deviceListForm.value | json}}</pre> -->
     </div>
-  </form>
+  </div>

@@ -1,5 +1,5 @@
 <lib-layout>
-    <div header>
+    <ng-container header>
         <section class="module-attention">
             <details>
                 <summary class="background-medium">{{ "top.privacy.statement" | translate }}</summary>
@@ -20,11 +20,11 @@
                 <app-instruction [helpTextSequences]="helpIndex"></app-instruction>
             </details>
         </section>
-    </div>
+    </ng-container>
 
-    <div body>
+    <ng-container body>
         @defer (when loadFormBaseComponent) {
             <app-form-base [helpTextSequences]="helpIndex"></app-form-base>
         }
-    </div>
+    </ng-container>
 </lib-layout> 
