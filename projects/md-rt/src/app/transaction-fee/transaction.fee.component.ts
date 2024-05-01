@@ -40,17 +40,6 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
     this.yesNoList = this._globalService.$yesnoList;
   }
 
-  override ngAfterViewInit() {
-    super.ngAfterViewInit();
-    this.setupEventListeners();
-  }
-
-  private setupEventListeners() {
-    const hasFeesDropdown = document.getElementById('hasFees') as HTMLSelectElement;
-    // Add event listener to the hasFeesDropdown
-    hasFeesDropdown.addEventListener('change', this.hasFeesOnChange.bind(this));
-  }
-
   protected override emitErrors(errors: any[]): void {
     this.feeErrorList.emit(errors);
   }

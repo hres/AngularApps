@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { TransactionBaseService } from './transaction-base.service';
-import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { ApplicationInfo, DeviceTransactionEnrol, Enrollment, TransFees } from '../models/Enrollment';
 import { TransactionDetailsComponent } from '../transaction-details/transaction.details.component';
 import { TransactionFeeComponent } from '../transaction-fee/transaction.fee.component';
@@ -16,7 +15,7 @@ import { TransactionFeeComponent } from '../transaction-fee/transaction.fee.comp
   selector: 'app-form-base',
   standalone: true,
   imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule],
-  providers: [FileConversionService, TransactionBaseService, FormDataLoaderService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
+  providers: [FileConversionService, TransactionBaseService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
   templateUrl: './form-base.component.html',
   styleUrls: ['./form-base.component.css'],
   encapsulation: ViewEncapsulation.None,
