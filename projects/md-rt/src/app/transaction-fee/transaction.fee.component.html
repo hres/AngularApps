@@ -9,7 +9,7 @@
                               [showError]="showFieldErrors"
                               [control]="transFeeForm.controls['hasFees'] | formControl"
                               controlId="hasFees" label="are.fees" parentId="transFees"></control-messages>
-            <select id="hasFees" required class="form-control"  [formControl]="transFeeForm.controls['hasFees'] | formControl">
+            <select id="hasFees" required class="form-control"  [formControl]="transFeeForm.controls['hasFees'] | formControl" (change)="hasFeesOnChange()">
               <option label=" " value=""></option>
               <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
             </select>
