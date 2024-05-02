@@ -81,7 +81,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.showErrors = false;
     this.showContactFees = [true, true];
     this.appVersion = this._versionService.getApplicationVersion();
-    let xsltVersion = this.appVersion.split('.',2).join(".");
+    let xsltVersion = this.appVersion.split('.',2).join("_");
     this.xslName = GlobalsService.MASTER_FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
   }
 
