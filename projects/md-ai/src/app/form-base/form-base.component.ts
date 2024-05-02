@@ -11,15 +11,16 @@ import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
 import { DeviceModule } from '../device/device.module';
+import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 
 @Component({
-  selector: 'app-form-base',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule],
-  providers: [FileConversionService, ApplicationInfoBaseService, FormDataLoaderService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
-  templateUrl: './form-base.component.html',
-  styleUrls: ['./form-base.component.css'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-form-base',
+    standalone: true,
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule, FilereaderInstructionComponent],
+    providers: [FileConversionService, ApplicationInfoBaseService, FormDataLoaderService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
+    templateUrl: './form-base.component.html',
+    styleUrls: ['./form-base.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;

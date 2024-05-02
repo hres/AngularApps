@@ -10,15 +10,16 @@ import { TransactionBaseService } from './transaction-base.service';
 import { ApplicationInfo, DeviceTransactionEnrol, Enrollment, TransFees } from '../models/Enrollment';
 import { TransactionDetailsComponent } from '../transaction-details/transaction.details.component';
 import { TransactionFeeComponent } from '../transaction-fee/transaction.fee.component';
+import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 
 @Component({
-  selector: 'app-form-base',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule],
-  providers: [FileConversionService, TransactionBaseService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
-  templateUrl: './form-base.component.html',
-  styleUrls: ['./form-base.component.css'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-form-base',
+    standalone: true,
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent],
+    providers: [FileConversionService, TransactionBaseService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
+    templateUrl: './form-base.component.html',
+    styleUrls: ['./form-base.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;

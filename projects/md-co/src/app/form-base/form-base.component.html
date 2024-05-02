@@ -20,7 +20,7 @@
           </header>
           <div class="panel-body"> 
             <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang">
-              <ng-container extraNote><div [ngClass]="'alert alert-info'" *ngIf="showAmendNote"><span>{{'amend.note' | translate}}</span></div></ng-container>
+              <app-filereader-instruction fileUploadInstruction [lang]="lang" [isInternal]="isInternal" [showAmendNote]="showAmendNote"></app-filereader-instruction>
             </lib-file-reader>
           </div>
         </section>

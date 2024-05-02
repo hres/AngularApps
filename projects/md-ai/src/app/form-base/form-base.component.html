@@ -18,7 +18,9 @@
             </header>
             <div class="panel-body">
               <div class="row">
-                <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang"  [instructionVar]="'1'"></lib-file-reader>
+                <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang">
+                  <app-filereader-instruction fileUploadInstruction [lang]="lang"></app-filereader-instruction>
+                </lib-file-reader>
               </div>
             </div>
           </section>
