@@ -133,9 +133,11 @@ export class MasterFileBaseService {
         _id: 'B14-20160301-07',
       },
       regulatory_activity_type: undefined,
+      revise_trans_desc_request: '',
+      revised_trans_desc: undefined,
       sequence_description_value: undefined,
       sequence_from_date: undefined,
-      transaction_description: '',
+      transaction_description: undefined,
       requester_of_solicited_information: '',
     };
 

@@ -53,9 +53,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   mfTypeTxDescSub!: Subscription;
   mfUseSub!: Subscription;
 
-  showDateAndRequesterTxDescs: string[] = ['12', '14', '21']; // Transaction Description values are defined in txDescriptions.json
+  showDateAndRequesterTxDescs: string[] = ['12', '14', '13']; // Transaction Description values are defined in txDescriptions.json
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions.
-  revisedTxDescId: string = '21'; 
+  revisedTxDescId: string = '13'; 
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
   
   revisedTxDescOptions = ['2','4','6','7','10','11','15','16','17','18','19'];
@@ -217,25 +217,48 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     this.showContactFees[1] = !this.noFeeTxDescs.includes(
       txDescControl?.value.id
     );
-
+      console.log("revisedDescriptionType value: ")
+      console.log(this.regulartoryFormModel.controls["revisedDescriptionType"].value)
+      
     this.showReqRevisedTxDesc = (this.revisedTxDescId===txDescControl?.value.id);
+    this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
+    if (this.dataModel.lifecycle_record.revise_trans_desc_request){
+      
+      
+    }
 
     if (e) {
       // when the action is triggered from the UI    
       // reset requestDate and requester fields values
       GlobalsService.resetControlValue(this.regulartoryFormModel.controls['requestDate'], this.regulartoryFormModel.controls['requester']);
+
       this.trDescUpdated.emit(this.showContactFees);
       this._saveData();
     }
   }
+  onRevTxDescriptionSelected(e: any): void {
+    const revTxDescControl = this.regulartoryFormModel.get('revisedDescriptionType');
+    console.log("onRevTxDescriptionSelected")
+    if (e) {
+      // when the action is triggered from the UI    
+      
+      this._saveData();
+    }
+  }
 
-  reqRevisionChanged(e) {
+
+
+  reqRevisionChanged(e:any):void {
+
     this._getRevisedTransactionDescriptions();
+    const reqRevisionControl = this.regulartoryFormModel.get("reqRevision");
+    this.showRevisedTxDesc = (reqRevisionControl?.value === 'Y');
 
     this.regulartoryFormModel.controls['reqRevision'].setValue(null);
     this.regulartoryFormModel.controls['reqRevision'].setValue(e.target.value);
     if (e.target.value && e.target.value === 'Y') {
       this.showRevisedTxDesc = true;
+      
     } else {
       this.showRevisedTxDesc = false;
       this.regulartoryFormModel.controls['revisedTxDesc'].setValue(''); // null or empty? 

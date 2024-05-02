@@ -198,17 +198,19 @@ export class RegulatoryInformationService {
     // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
     
     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
-      if (lang === 'fr'){
-        dataModel.lifecycle_record.transaction_description = 
+      
+        dataModel.lifecycle_record.transaction_description._label_en = 
         GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "daté du", dataModel.lifecycle_record.sequence_from_date);
-      }else {
-        dataModel.lifecycle_record.transaction_description = 
+    
+        dataModel.lifecycle_record.transaction_description._label_fr = 
         GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "dated", dataModel.lifecycle_record.sequence_from_date);
-      }
+    
 
       
     } else {
-      dataModel.lifecycle_record.transaction_description = 
+      dataModel.lifecycle_record.transaction_description._label_en = 
+      GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, dataModel.lifecycle_record.sequence_from_date);
+      dataModel.lifecycle_record.transaction_description._label_fr = 
       GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, dataModel.lifecycle_record.sequence_from_date);
     }
 
@@ -250,6 +252,8 @@ export class RegulatoryInformationService {
         } else if (controlName === 'masterFileUse') {
           GlobalsService.updateControlValue(controlName, control, this.mfUseOptions$);
         } else if (controlName === 'descriptionType') {
+          GlobalsService.updateControlValue(controlName, control, this.txDescs$);
+        } else if (controlName === 'revisedDescriptionType'){
           GlobalsService.updateControlValue(controlName, control, this.txDescs$);
         }
       }

@@ -190,7 +190,7 @@
                         controlId="reviseddescriptionType" label="revised.transaction.description" parentId="regulatoryInfo"
                         parentLabel="MasterFile Information"></control-messages>
                     <select id="revisedDescriptionType" name="reviseddescriptionType" required class="form-control full-width"
-                        (change)="onTxDescriptionSelected($any($event.target).value)"
+                        (change)="onRevTxDescriptionSelected($any($event.target).value)"
                         [formControl]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl">
                         <option label=" " value=""></option>
                         <option *ngFor="let desc of revTxDescOptions" [ngValue]="desc"> {{ desc | textTransform: lang }}
