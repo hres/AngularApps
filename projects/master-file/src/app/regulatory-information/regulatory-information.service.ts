@@ -199,19 +199,20 @@ export class RegulatoryInformationService {
     
     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
       
-        dataModel.lifecycle_record.transaction_description._label_en = 
-        GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "daté du", dataModel.lifecycle_record.sequence_from_date);
-    
-        dataModel.lifecycle_record.transaction_description._label_fr = 
-        GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "dated", dataModel.lifecycle_record.sequence_from_date);
-    
+      
+      dataModel.lifecycle_record.transaction_description = {
+        '_label_en':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, "dated", dataModel.lifecycle_record.sequence_from_date),
+        '_label_fr':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, "daté du", dataModel.lifecycle_record.sequence_from_date)
+
+      }
 
       
     } else {
-      dataModel.lifecycle_record.transaction_description._label_en = 
-      GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, dataModel.lifecycle_record.sequence_from_date);
-      dataModel.lifecycle_record.transaction_description._label_fr = 
-      GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, dataModel.lifecycle_record.sequence_from_date);
+      dataModel.lifecycle_record.transaction_description = {
+        '_label_en':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
+        '_label_fr':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
+
+      }
     }
 
     // HPFBFORMS-192, Master File Name, allow any case in form but when saving to XML put in upper case
