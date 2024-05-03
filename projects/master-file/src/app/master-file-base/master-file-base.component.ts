@@ -59,7 +59,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
   public holder: string = 'holder';
   public agent: string = 'agent';
 
-  showDateAndRequesterTxDescs: string[] = ['12', '14'];
+  showDateAndRequesterTxDescs: string[] = ['12', '14', '13'];
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
@@ -81,7 +81,7 @@ export class MasterFileBaseComponent implements OnInit, AfterViewInit {
     this.showErrors = false;
     this.showContactFees = [true, true];
     this.appVersion = this._versionService.getApplicationVersion();
-    let xsltVersion = this.appVersion.split('.',2).join(".");
+    let xsltVersion = this.appVersion.split('.',2).join("_");
     this.xslName = GlobalsService.MASTER_FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
   }
 

@@ -41,9 +41,11 @@ export interface LifecycleRecord {
   master_file_use: IIdTextLabel;
   regulatory_activity_lead: IIdText;
   regulatory_activity_type: IIdTextLabel;
+  revise_trans_desc_request: string;
+  revised_trans_desc: IIdTextLabel;
   sequence_description_value: IIdTextLabel;
   sequence_from_date: string;
-  transaction_description: string;
+  transaction_description: ILabel;
   requester_of_solicited_information: string;
 }
 
@@ -88,6 +90,11 @@ export interface IIdText {
 export interface IIdTextLabel {
   _id: string;
   __text?: string;
+  _label_en: string;
+  _label_fr: string;
+}
+
+export interface ILabel {
   _label_en: string;
   _label_fr: string;
 }

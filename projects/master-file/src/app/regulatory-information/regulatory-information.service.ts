@@ -110,6 +110,8 @@ export class RegulatoryInformationService {
      descriptionType: [null, Validators.required],
      requestDate: [null, Validators.required],
      requester: [null, Validators.required],
+     reqRevision: [null, Validators.required],
+     revisedDescriptionType: [null, Validators.required],
    });
   }
 
@@ -162,6 +164,19 @@ export class RegulatoryInformationService {
       'lifecycle_record.requester_of_solicited_information',
       GlobalsService.OP_TYPE_TEXT
     ),    
+    new DataMapping(
+      'reqRevision',
+      GlobalsService.FC_TYPE_INPUT,
+      'lifecycle_record.revise_trans_desc_request',
+      GlobalsService.OP_TYPE_TEXT
+    ),    
+    new DataMapping(
+      'revisedDescriptionType',
+      GlobalsService.FC_TYPE_ICODE,
+      'lifecycle_record.revised_trans_desc',
+      GlobalsService.OP_TYPE_IDTEXTLABEL
+    ),    
+    
   ];
 
   public mapFormModelToDataModel(
@@ -183,10 +198,19 @@ export class RegulatoryInformationService {
     // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
     
     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
-      dataModel.lifecycle_record.transaction_description = 
-      GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "dated", dataModel.lifecycle_record.sequence_from_date);
+      
+        dataModel.lifecycle_record.transaction_description._label_en = 
+        GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "daté du", dataModel.lifecycle_record.sequence_from_date);
+    
+        dataModel.lifecycle_record.transaction_description._label_fr = 
+        GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, "dated", dataModel.lifecycle_record.sequence_from_date);
+    
+
+      
     } else {
-      dataModel.lifecycle_record.transaction_description = 
+      dataModel.lifecycle_record.transaction_description._label_en = 
+      GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, dataModel.lifecycle_record.sequence_from_date);
+      dataModel.lifecycle_record.transaction_description._label_fr = 
       GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value.__text, dataModel.lifecycle_record.sequence_from_date);
     }
 
@@ -228,6 +252,8 @@ export class RegulatoryInformationService {
         } else if (controlName === 'masterFileUse') {
           GlobalsService.updateControlValue(controlName, control, this.mfUseOptions$);
         } else if (controlName === 'descriptionType') {
+          GlobalsService.updateControlValue(controlName, control, this.txDescs$);
+        } else if (controlName === 'revisedDescriptionType'){
           GlobalsService.updateControlValue(controlName, control, this.txDescs$);
         }
       }
