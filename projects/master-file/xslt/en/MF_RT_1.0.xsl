@@ -502,29 +502,6 @@ span.normalWeight {
             </div>
           </xsl:if>
         </div>
-        <xsl:if test="ectd/lifecycle_record/revise_trans_desc_request !=''">
-          <div class="row">
-            <div class="col-xs-12">
-              <strong>Did the Clarification Request require you to revise the Transaction Description?&#160;</strong>
-              <span class="mouseHover normalWeight">
-                <xsl:call-template name="YesNoUnknow">
-                  <xsl:with-param name="value" select="ectd/lifecycle_record/revise_trans_desc_request"/>
-                </xsl:call-template>
-                
-              </span>
-            </div>
-          </div>
-        </xsl:if>
-        <xsl:if test="ectd/lifecycle_record/revised_trans_desc !=''">
-          <div class="row">
-            <div class="col-xs-12">
-              <strong>Revised Transaction Description:&#160;</strong>
-              <span class="mouseHover normalWeight">
-                <xsl:value-of select="ectd/lifecycle_record/revised_trans_desc" />
-              </span>
-            </div>
-          </div>
-        </xsl:if>
       </div>
     </section>
 

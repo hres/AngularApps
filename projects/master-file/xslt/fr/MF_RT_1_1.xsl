@@ -507,7 +507,9 @@ span.normalWeight {
             <div class="col-xs-12">
               <strong>La demande de clarification vous a-t-elle obligé à réviser la description de la transaction?&#160;</strong>
               <span class="mouseHover normalWeight">
-                <xsl:value-of select="ectd/lifecycle_record/revise_trans_desc_request" />
+              <xsl:call-template name="YesNoUnknow">
+                <xsl:with-param name="value" select="ectd/lifecycle_record/revise_trans_desc_request"/>
+              </xsl:call-template>
               </span>
             </div>
           </div>
