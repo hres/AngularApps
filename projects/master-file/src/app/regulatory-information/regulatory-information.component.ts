@@ -217,15 +217,11 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     this.showContactFees[1] = !this.noFeeTxDescs.includes(
       txDescControl?.value.id
     );
-      console.log("revisedDescriptionType value: ")
-      console.log(this.regulartoryFormModel.controls["revisedDescriptionType"].value)
+      
       
     this.showReqRevisedTxDesc = (this.revisedTxDescId===txDescControl?.value.id);
     this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
-    if (this.dataModel.lifecycle_record.revise_trans_desc_request){
-      
-      
-    }
+    if (this.showRevisedTxDesc){this._getRevisedTransactionDescriptions();}
 
     if (e) {
       // when the action is triggered from the UI    
@@ -238,7 +234,6 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   }
   onRevTxDescriptionSelected(e: any): void {
     const revTxDescControl = this.regulartoryFormModel.get('revisedDescriptionType');
-    console.log("onRevTxDescriptionSelected")
     if (e) {
       // when the action is triggered from the UI    
       
