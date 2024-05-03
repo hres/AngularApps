@@ -108,6 +108,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
     this.materialInfoForm.controls['isAnimalHumanSourced'].value === NO) {
       this.materialListModel.material = [];
       this.materialListErrors = [];
+      this._materialService.showSummary.set(false);
       this._emitErrors();
     } else {
       if (!this.materialListModel.material) {
@@ -142,7 +143,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
       })
     }
 
-    this._materialService.errors.update( errors => emitErrors );
+    this._materialService.materialErrors.update( errors => emitErrors );
   }
 
 }

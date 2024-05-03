@@ -4,7 +4,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ICode, NO, PipesModule, UtilsService, YES } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalService } from '../../global/global.service';
-import { TISSUE_OTHER_ID, DERIVATIVE_OTHER_ID } from '../../app.constants';
+import { TISSUE_OTHER_ID, DERIVATIVE_OTHER_ID, DEVICE_ERROR_PREFIX } from '../../app.constants';
 import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
 import { DeviceService } from '../device.service';
 
@@ -89,7 +89,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     }
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
-    this._errorNotificationService.updateErrorSummary(this.cRRow.get('id').value, this.errorSummaryChild);
+    this._errorNotificationService.updateErrorSummary(DEVICE_ERROR_PREFIX + this.cRRow.get('id').value, this.errorSummaryChild);
  
     // this._emitErrors();
   }
@@ -240,7 +240,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   }
 
   public showErrorSummary(): boolean {
-    return (this.showErrSummary && this.errorList.length > 0);
+    return ((this.showErrSummary || this._deviceService.showDeviceErrorSummary()) && this.errorList.length > 0);
   }
   
   // todo use include, not !Remove

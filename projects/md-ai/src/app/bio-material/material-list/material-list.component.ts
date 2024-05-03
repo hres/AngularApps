@@ -10,6 +10,7 @@ import { MaterialItemComponent } from '../material-item/material-item.component'
 import { BiologicalMaterial, BiologicalMaterials } from '../../models/Enrollment';
 import { first } from 'rxjs';
 import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
+import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } from '@hpfb/sdk/ui/error-msg/error-summary/error-summary-object';
 
 @Component({
     selector: 'app-material-list',
@@ -20,7 +21,7 @@ import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notificat
 export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() public materialListData: BiologicalMaterial[];
   @Output() public errorListUpdated = new EventEmitter();
-  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   lang = this._globalService.lang();
 
@@ -30,7 +31,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   materialListService = inject(MaterialListService)
 
   public showErrors = false;
-  public errorList = [];
+  // public errorList = [];
   errorSummaryChild = null;
 
   firstChange: boolean = false;
@@ -39,7 +40,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
               private _utilsService: UtilsService, 
               private _globalService: GlobalService, 
               private _materialService : MaterialService,
-              private _errorNotificationService : ErrorNotificationService) {
+              private _errNotifService : ErrorNotificationService) {
 
     this.materialListForm = this.fb.group({
       materials: this.fb.array([], [this.atLeastOneMaterial])
@@ -65,12 +66,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.msgList.changes.subscribe(errorObjs => {
-      this._updateLocalErrorList(errorObjs);
-    });
-    this.msgList.notifyOnChanges();
+    // this.msgList.changes.subscribe(errorObjs => {
+    //   this._updateLocalErrorList(errorObjs);
+    // });
+    // this.msgList.notifyOnChanges();
 
-    this._errorNotificationService.errorSummaryChanged$.subscribe((errors) => {
+    this._errNotifService.errorSummaryChanged$.subscribe((errors) => {
       this._processErrorSummaries(errors);
     });
   }
@@ -79,9 +80,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     // console.log('...._processErrorSummaries:', errSummaryEntries);
     // get the first entry where the errSummaryMessage property is not empty 
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
-    console.log("processing error summary in contact list component...", errSummaryEntries);
-    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage);
-    // console.log('....', filteredErrSummaryEntry);
+    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId !== "deviceListTable");
     if (filteredErrSummaryEntry) {
       this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
     } else {
@@ -260,20 +259,21 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     return this.materialsFormArr.value;
   }  
 
-  private _updateLocalErrorList(errs) {
-    if (errs) {
-      errs.forEach(err => {
-       this.errorList.push(err);
-      });
-    } 
-    if (errs.length == 0) {
-      this.errorList = errs;
-    }
+  // private _updateLocalErrorList(errs) {
+  //   if (errs) {
+  //     errs.forEach(err => {
+  //      this.errorList.push(err);
+  //     });
+  //   } 
+  //   if (errs.length == 0) {
+  //     this.errorList = errs;
+  //   }
 
-    this._emitErrors(); // needed or will generate a valuechanged error
-  }
+  //   this._emitErrors(); // needed or will generate a valuechanged error
+  // }
 
   private _emitErrors(): void {
+    console.log("emitting errors in material list", this.materialsFormArr);
     let emitErrors = [];
 
     if (this.errorSummaryChild) {
@@ -281,11 +281,17 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     }
     
     // Error List is a QueryList type
-    if (this.errorList) {
-      this.errorList.forEach(err => {
-        emitErrors.push(err);
-      })
+    // if (this.errorList) {
+    //   this.errorList.forEach(err => {
+    //     emitErrors.push(err);
+    //   })
+    // }
+
+    if (this.materialsFormArr.errors) {
+      emitErrors.push(this.materialsFormArr.errors['atLeastOneMat']);
     }
+
+    console.log("emit errs", emitErrors);
     
     // console.log("emitting errors to info comp ..", emitErrors);
     this.errorListUpdated.emit(emitErrors);
@@ -295,18 +301,28 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   atLeastOneMaterial(formArray : FormArray) {
     // USE isNew control value to check if at least one record has been saved
     let atLeastOneRecord : boolean = false;
+    let oerr : ErrorSummaryObject = null;
 
     formArray.controls.forEach((formGroup: FormGroup) => {
       // Access the controls in each FormGroup
       const isNew = formGroup.get('isNew');
       if (!isNew.value) {
         atLeastOneRecord = true;
+      } else {
+        oerr = getEmptyErrorSummaryObj();
+        oerr.index = 0;
+        oerr.tableId = 'materialListTable';
+        oerr.type = ERR_TYPE_LEAST_ONE_REC;
+        oerr.label = 'error.msg.materialOneRecord';
       }
     });
 
+    console.log("1 rec", atLeastOneRecord);
+    console.log(oerr);
+
     // const atLeastOneRecord = controls.some((control: AbstractControl) => control['isNew'].value !== true);
     // console.log("at least one record", atLeastOneRecord);
-    return atLeastOneRecord ? null : { 'error.msg.materialOneRecord' : true };
-} 
+    return atLeastOneRecord ? null : { atLeastOneMat : oerr};
+  } 
 
 }

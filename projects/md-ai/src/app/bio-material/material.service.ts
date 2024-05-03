@@ -6,7 +6,8 @@ import { GlobalService } from '../global/global.service';
 @Injectable()
 export class MaterialService {
   
-  errors = signal([]);
+  materialErrors = signal([]); // Material Component -> Form Base
+  showSummary = signal(false); // Form Base -> Material Component
 
   constructor(private _utilsService : UtilsService,
               private _converterService : ConverterService,

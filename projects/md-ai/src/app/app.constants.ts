@@ -7,6 +7,9 @@ export const XSL_EXTENSION = '.xsl';
 
 export const COMPANY_ID_PREFIX = 'K';
 
+export const MATERIAL_ERROR_PREFIX = 'm';
+export const DEVICE_ERROR_PREFIX = 'd';
+
 export const DERIVATIVE_OTHER_ID = "30";
 export const TISSUE_OTHER_ID = "32"
 

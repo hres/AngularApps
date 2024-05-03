@@ -1,13 +1,5 @@
 <div [formGroup]="materialListForm">
     <div formArrayName="materials">
-      <control-messages *ngIf="materialsFormArr.errors"
-                    [showError]="showErrors"
-                    [control]="materialsFormArr | formControl"
-                    label="error.msg.materialOneRecord"
-                    type="least_one_rec_error"
-                    tableId="materialListTable"
-                    [hidden]="true">
-      </control-messages>
 
       <lib-accordion [rowsFormArray]="materialsFormArr" [accordionHeadingMsgKey]="'heading.biological.material'" [accordionHeadingSupp]="['materialInfo', 'materialName']" 
       (rowClicked)="handleRowClick($event)">

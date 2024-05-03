@@ -4,7 +4,9 @@ import { ValidationService } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class DeviceService {
-  errors = signal([]);
+
+  deviceErrors = signal([]);
+  showDeviceErrorSummary = signal(false);
 
   public createDeviceFormGroup(fb: FormBuilder) : FormGroup | null {
     if (!fb) {

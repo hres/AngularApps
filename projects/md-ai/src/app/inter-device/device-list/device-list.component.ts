@@ -36,7 +36,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
               private _utilsService: UtilsService, 
               private _globalService: GlobalService, 
               private _deviceService : DeviceService,
-              private _errorNotificationService : ErrorNotificationService) {
+              private _errorDeviceNotificationService : ErrorNotificationService) {
 
     this.deviceListForm = this.fb.group({
       devices: this.fb.array([])
@@ -64,7 +64,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     });
     this.msgList.notifyOnChanges();
     
-    this._errorNotificationService.errorSummaryChanged$.subscribe((errors) => {
+    this._errorDeviceNotificationService.errorSummaryChanged$.subscribe((errors) => {
       this._processErrorSummaries(errors);
     });
   }
@@ -73,8 +73,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     // console.log('...._processErrorSummaries:', errSummaryEntries);
     // get the first entry where the errSummaryMessage property is not empty 
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
-    console.log("processing error summary in contact list component...", errSummaryEntries);
-    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage);
+    // console.log("processing error summary in contact list component...", errSummaryEntries);
+    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId !== "materialListTable");
     // console.log('....', filteredErrSummaryEntry);
     if (filteredErrSummaryEntry) {
       this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
@@ -133,6 +133,11 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     const deviceInfo = this.getDeviceInfo(group);
     deviceInfo.reset();
     this.devicesFormArr.removeAt(index);
+
+    if (this.devicesFormArr.length == 0) {
+      this._deviceService.showDeviceErrorSummary.set(false);
+      
+    }
 
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
@@ -276,7 +281,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       })
     }
    
-    this._deviceService.errors.update( errors => emitErrors );
+    this._deviceService.deviceErrors.update( errors => emitErrors );
   }
 
   get devicesFormArr(): FormArray {

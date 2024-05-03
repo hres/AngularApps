@@ -85,10 +85,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     effect(() => {
       // console.log("[effect3] device", this._deviceService.errors());
       // console.log("[effect3] material", this._materialService.errors());
-      this._materialErrors = this._materialService.errors();
-      this._deviceErrors = this._deviceService.errors();
+      this._materialErrors = this._materialService.materialErrors();
       this.processErrors();
     });
+    effect(() => {
+      this._deviceErrors = this._deviceService.deviceErrors();
+      this.processErrors();
+    })
   }
 
   ngOnInit() {
@@ -120,7 +123,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processErrors() {
-    // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
+    // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base comp');
     this.errorList = [];
     // concat the two array
     this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialErrors))); // .concat(this._theraErrors);
@@ -148,6 +151,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   resetMaterialErrors(reset : boolean) {
     if (reset) {
       this._materialErrors = [];
+      this._materialService.showSummary.set(false);
     }
     this.processErrors();
   }
@@ -157,8 +161,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveXmlFile() {
+    console.log("saving xml...");
     this.showErrors = true;
     this._globalService.setShowErrors(true);
+    this._materialService.showSummary.set(true);
+    this._deviceService.showDeviceErrorSummary.set(true);
     this.processErrors();
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummary';

@@ -4,9 +4,10 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ICode, PipesModule, UtilsService } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalService } from '../../global/global.service';
-import { TISSUE_OTHER_ID, DERIVATIVE_OTHER_ID } from '../../app.constants';
+import { TISSUE_OTHER_ID, DERIVATIVE_OTHER_ID, MATERIAL_ERROR_PREFIX } from '../../app.constants';
 import { MaterialListComponent } from '../material-list/material-list.component';
 import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
+import { MaterialService } from '../material.service';
 
 @Component({
   selector: 'app-material-item',
@@ -50,7 +51,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
               private _utilsService: UtilsService, 
               private _translateService: TranslateService, 
               private _materialListComponent : MaterialListComponent,
-              private _errorNotificationService : ErrorNotificationService){
+              private _errNotifService : ErrorNotificationService,
+              private _materialService : MaterialService){
 
     effect(() => {
       this.showErrors = this._globalService.showErrors()
@@ -89,7 +91,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     }
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
-    this._errorNotificationService.updateErrorSummary(this.cRRow.get('id').value, this.errorSummaryChild);
+    this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, this.errorSummaryChild);
  
     // this._emitErrors();
   }
@@ -230,7 +232,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   public showErrorSummary(): boolean {
-    return (this.showErrSummary && this.errorList.length > 0);
+    return ((this.showErrSummary || this._materialService.showSummary()) && this.errorList.length > 0);
   }
  
 }
