@@ -1,0 +1,119 @@
+<div [formGroup]="cRRow">
+  <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
+  [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
+  [headingLevel]="headingLevel" label="error.msg.bioMaterials" compId="materialListTable"></lib-error-summary> 
+
+    <div formGroupName="materialInfo">
+      <div class="row">
+        <div class="form-group col-sm-12" >
+          <label for="materialName{{j}}" class="required full-width">
+            <span class="field-name">{{'material.name'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="cRRow.get('materialInfo.materialName').invalid"
+                              [showError]="showErrors"
+                              [control]="cRRow.get('materialInfo.materialName') | formControl"
+                              controlId="materialName" label="material.name" parentId="materialDetails"
+                              translatedParentLabel="{{translatedParentLabel}}">
+            </control-messages>
+            <input id="materialName{{j}}" name="materialName" class="form-control full-width"
+                   formControlName='materialName' maxlength="60"/>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-12" >
+          <label for="materialDeviceName{{j}}" class="required full-width">
+            <span class="field-name">{{'device.name'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="cRRow.get('materialInfo.deviceName').invalid"
+                              [showError]="showErrors"
+                              [control]="cRRow.get('materialInfo.deviceName') | formControl"
+                              controlId="deviceName" label="device.name" parentId="materialDetails"
+                              translatedParentLabel="{{translatedParentLabel}}">
+            </control-messages>
+            <input id="materialDeviceName{{j}}" name="materialDeviceName" class="form-control full-width"
+                formControlName='deviceName' maxlength="150"/>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-5 col-xs-12" >
+          <label for="country{{j}}" class="full-width">
+            <span class="field-name">{{'country'|translate}}</span>
+            <select class="margin-top-small" id="country{{j}}"  formControlName="originCountry"  class="required form-control"                      
+              (typed)="typed($event)" (change)="tempCountryOnChange($event)"> 
+              <option *ngFor="let ctry of countries" [ngValue]="ctry.id">{{ctry | textTransform: lang }}</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-group col-sm-4" >
+          <label for="specFamily{{j}}" class="required full-width">
+            <span class="field-name">{{'species.family'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="cRRow.get('materialInfo.specFamily').invalid"
+                              [showError]="showErrors"
+                              [control]="cRRow.get('materialInfo.specFamily') | formControl"
+                              controlId="specFamily" label="species.family" parentId="materialDetails"
+                              translatedParentLabel="{{translatedParentLabel}}">
+            </control-messages>
+              <select id="specFamily{{j}}" name="specFamily{{j}}" required class="form-control" 
+                    formControlName='specFamily'>
+              <option label=" " value=""></option>
+              <option *ngFor="let specFam of specFamList" [ngValue]="specFam.id"> {{ specFam | textTransform : lang}}</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-5">
+          <label for="tissueType{{j}}" class="full-width">
+            <span class="field-name">{{'tissue.type'|translate}}</span>
+              <select id="tissueType{{j}}" name="tissueType{{j}}" class="form-control" 
+                    formControlName='tissueType' (change)="onTissueTypeSelected($event)">
+              <option label=" " value=""></option>
+              <option *ngFor="let tissueType of tissueTypeList" [value]="tissueType.id"> {{ tissueType | textTransform : lang}}</option>
+            </select>
+          </label>
+        </div>
+        @if(isTissueTypeOther || tissueTypeOther()) {
+          <div class="form-group col-sm-8">
+            <label for="tissueTypeOtherDetails" class="full-width">
+              <span class="field-name">{{'tissue.other' |translate}}</span>
+              <input id="tissueTypeOtherDetails" name="tissueTypeOtherDetails" class="form-control full-width"
+                     formControlName='tissueTypeOtherDetails'/>
+            </label>
+          </div>
+        }
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-4" >
+          <label for="derivative{{j}}" class=" full-width">
+            <span class="field-name">{{'derivative'|translate}}</span>
+              <select id="derivative{{j}}" name="derivative{{j}}" class="form-control" 
+                    formControlName='derivative' (change)="onDerivativeSelected($event)">
+              <option label=" " value=""></option>
+              <option *ngFor="let derivative of derivativeList" [value]="derivative.id"> {{ derivative | textTransform : lang}}</option>
+            </select>
+          </label>
+        </div>
+        @if(isDerivativeOther || derivativeOther()) {
+          <div class="form-group col-sm-8">
+            <label for="derivativeOtherDetails" class="full-width">
+              <span class="field-name">{{'derivative.other' |translate}}</span>
+              <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control full-width"
+                     formControlName='derivativeOtherDetails'/>
+            </label>
+          </div>
+        }
+      </div>
+      <div class="row">
+        <div class="btn-group-sm col-xs-12 text-left">          
+          <button id="saveMaterialRecord" class="btn btn-primary" style="margin: 3px" (click)="saveMaterialRecord(j)" >{{'save.material'|translate}}</button>
+          <button id="deleteMaterialRecord" class="btn btn-danger" style="margin: 3px"  (click)="deleteMaterialRecord(j)" >{{'delete.material'|translate}}</button> <!--[disabled]="disableDeleteButton()"-->
+          <button id="revertMaterialRecord" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()" (click)="revertMaterialRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>          
+        </div>
+      </div>
+      <!-- <pre>{{materialFormLocalModel.value |json}}</pre>-->
+    </div>
+  </div>
+  

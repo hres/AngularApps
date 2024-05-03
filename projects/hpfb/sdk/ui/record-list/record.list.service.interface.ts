@@ -13,3 +13,8 @@ export interface RecordListServiceInterface {
   // getRecordId(record: FormGroup);
   // setRecordId(record: FormGroup, value: number);
 }
+
+export interface IListService {
+  setList(list: FormGroup[]): void;
+  getNextId(): number;
+}

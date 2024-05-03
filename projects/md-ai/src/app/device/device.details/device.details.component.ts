@@ -25,9 +25,11 @@ export class DeviceDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   // @Input() detailsChanged: number;
   @Input() recordId: string;
   @Input() showErrors: boolean;
-  @Input() lang;
+  //@Input() lang;
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+
+  lang = this._globalService.lang();
 
   // For the searchable select box, only accepts/saves id and text.
   // Will need to convert

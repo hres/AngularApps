@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type, computed, effect } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { XSLT_PREFIX, ROOT_TAG, XSL_EXTENSION } from '../app.constants';
 import {  ICode, ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, YES, NO } from '@hpfb/sdk/ui';
@@ -8,14 +8,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
-import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device, BiologicalMaterialData, BiologicalMaterial } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
-import { DeviceModule } from '../device/device.module';
+// import { DeviceModule } from '../device/device.module';
+import { MaterialModule } from '../bio-material/material.module';
+import { MaterialService } from '../bio-material/material.service';
+import { DeviceModule } from '../inter-device/device.module';
+import { DeviceService } from '../inter-device/device.service';
 
 @Component({
   selector: 'app-form-base',
   standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule],
+  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule, MaterialModule],
   providers: [FileConversionService, ApplicationInfoBaseService, FormDataLoaderService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
   templateUrl: './form-base.component.html',
   styleUrls: ['./form-base.component.css'],
@@ -23,19 +27,21 @@ import { DeviceModule } from '../device/device.module';
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
-  @Input() lang;
   @Input() helpTextSequences;
-  // @ViewChild(ApplicationInfoDetailsComponent, {static: false}) aiDetails: ApplicationInfoDetailsComponent;
+  @ViewChild(ApplicationInfoDetailsComponent) aiDetails: ApplicationInfoDetailsComponent;
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
-  private _materialErrors = [];
+  private _materialErrors = []; // Combines material info and material list errors
+  
+  //computed(() => {
+    // console.log("computed", this._materialService.errors());
+    // this._materialErrors = this._materialService.errors();
+    // this.processErrors(); });
   public applicationForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
   public rootTagText = ROOT_TAG; 
   private xslName: string;
-
-  public loadFileIndicator = 0;
 
   public countryList = [];
 
@@ -44,18 +50,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public isSolicitedFlag: boolean;
   public title = '';
   public headingLevel = 'h2';
+
+  lang = this._globalService.lang();
   
 
   public enrollModel : Enrollment;
   public appInfoModel : ApplicationInfo; 
   public transactionModel: Enrollment;
   public deviceModel: Device[];
-  public materialModel: BiologicalMaterials;
+  public materialInfo: BiologicalMaterialData;
 
   public fileServices: FileConversionService;
   public helpIndex: { [key: string]: number };
-  //public disableSaveXml = true;
-
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
@@ -65,6 +71,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _versionService: VersionService,
     private _checkSumService: CheckSumService,
     private _converterService: ConverterService,
+    private _materialService: MaterialService,
+    private _deviceService: DeviceService,
     private fb: FormBuilder
   ) {
     this.userList = [];
@@ -73,6 +81,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.fileServices = new FileConversionService();
     this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + XSL_EXTENSION;
     this.helpIndex = this._globalService.getHelpIndex();
+
+    effect(() => {
+      // console.log("[effect3] device", this._deviceService.errors());
+      // console.log("[effect3] material", this._materialService.errors());
+      this._materialErrors = this._materialService.materialErrors();
+      this.processErrors();
+    });
+    effect(() => {
+      this._deviceErrors = this._deviceService.deviceErrors();
+      this.processErrors();
+    })
   }
 
   ngOnInit() {
@@ -89,8 +108,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // console.log("onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
       }
 
-      const transactionEnroll: DeviceApplicationEnrol = this.enrollModel[this.rootTagText];
-      this._init(transactionEnroll);
+      const applicationEnroll: DeviceApplicationEnrol = this.enrollModel[this.rootTagText];
+      this._init(applicationEnroll);
 
       //this.helpIndex = this._globalService.getHelpIndex();
 
@@ -104,10 +123,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processErrors() {
-    // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base compo
+    // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base comp');
     this.errorList = [];
     // concat the two array
-    this.errorList = this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialErrors)); // .concat(this._theraErrors);
+    this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialErrors))); // .concat(this._theraErrors);
+    // console.log("process errors in form base", this.errorList);
+    this.errorList.sort((a, b) => a.errorNumber - b.errorNumber);
+    // console.log(this.errorList);
+    // console.log("printing material errors", this._materialErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -121,8 +144,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processMaterialtErrors(errorList) {
-    this._materialErrors = errorList;
+  /**
+   * Resets material errors when device class is changed from Class IV
+   * @param reset : flag if material errors need to be reset
+   */
+  resetMaterialErrors(reset : boolean) {
+    if (reset) {
+      this._materialErrors = [];
+      this._materialService.showSummary.set(false);
+    }
     this.processErrors();
   }
 
@@ -131,9 +161,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveXmlFile() {
-    this.showErrors = false;
+    console.log("saving xml...");
+    this.showErrors = true;
+    this._globalService.setShowErrors(true);
+    this._materialService.showSummary.set(true);
+    this._deviceService.showDeviceErrorSummary.set(true);
+    this.processErrors();
     if (this.errorList && this.errorList.length > 0) {
-      this.showErrors = true;
       document.location.href = '#topErrorSummary';
     } else {
       const result: Enrollment = this._prepareForSaving(true);
@@ -149,18 +183,31 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _prepareForSaving(xmlFile: boolean): Enrollment {
-    const output: Enrollment = {
-       'DEVICE_APPLICATION_INFO': {
-         'template_version': this._globalService.$appVersion,
-         'form_language': this._globalService.getCurrLanguage(),
-         'application_info': this.appInfoModel,
-         'devices': {device: this.deviceModel},
-         'biological_materials': this.materialModel
-        }
-    };
+    let devicesFormArrayValue = null;
+    let materialInfoFormGroupValue = null;
+    let materialsFormArrayValue = null;
 
-    // update the last_saved_date
-    output.DEVICE_APPLICATION_INFO.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm')
+    const aiDetailsFormGroupValue = this.aiDetails.appInfoFormLocalModel.value;
+
+    if (this.aiDetails.aiDevices.devicesFormArr) {
+      devicesFormArrayValue = this.aiDetails.aiDevices.devicesFormArr.value
+    }
+
+    if (this.aiDetails.bioMaterialInfo) {
+      materialInfoFormGroupValue = this.aiDetails.bioMaterialInfo.materialInfoForm.value;
+
+      if (this.aiDetails.bioMaterialInfo.aiMaterials) {
+        materialsFormArrayValue = this.aiDetails.bioMaterialInfo.aiMaterials.materialsFormArr.value;
+      }
+    }
+
+    const output: Enrollment = this._baseService.mapFormToOutput(aiDetailsFormGroupValue, devicesFormArrayValue, materialInfoFormGroupValue, materialsFormArrayValue);
+
+    if (xmlFile) {
+      // add and calculate check_sum if it is xml
+      output.DEVICE_APPLICATION_INFO[CHECK_SUM_CONST] = "";   // this is needed for generating the checksum value
+      output.DEVICE_APPLICATION_INFO[CHECK_SUM_CONST] = this._checkSumService.createHash(output);
+    }
 
     return output;
   }
@@ -171,7 +218,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
  public processFile(fileData : ConvertResults) {
-  this.loadFileIndicator++;
+  // this.loadFileIndicator++;
   const enrollment : Enrollment = fileData.data;
   console.log('processing file.....');
   console.log(enrollment);
@@ -198,7 +245,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this._utilsService.isEmpty(this.deviceModel)) {
       this.deviceModel = [];
     }
-    this.materialModel = applicationEnroll.biological_materials;
+    this.materialInfo = applicationEnroll.material_info;
   }
 
 }
