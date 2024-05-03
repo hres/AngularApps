@@ -36,6 +36,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
   firstChange: boolean = false;
 
+  popupId = "materialPopup";
+
   constructor(private fb: FormBuilder, 
               private _utilsService: UtilsService, 
               private _globalService: GlobalService, 
@@ -219,15 +221,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
         }
       })
     } else {
-      if (this._utilsService.isFrench(this.lang)) {
-        alert(
-          "Veuillez sauvegarder les données d'entrée non enregistrées."
-        );
-      } else {
-        alert(
-          'Please save the unsaved input data.'
-        );
-      }
+      this.openPopup();
     }
 
   } 
@@ -325,4 +319,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     return atLeastOneRecord ? null : { atLeastOneMat : oerr};
   } 
 
+  openPopup(){
+    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  }
 }

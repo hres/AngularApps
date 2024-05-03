@@ -32,6 +32,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   public errorList = [];
   errorSummaryChild = null;
 
+  popupId = 'devicePopup';
+
   constructor(private fb: FormBuilder, 
               private _utilsService: UtilsService, 
               private _globalService: GlobalService, 
@@ -222,15 +224,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
         }
       })
     } else {
-      // if (this._utilsService.isFrench(this.lang)) {
-      //   alert(
-      //     "Veuillez sauvegarder les données d'entrée non enregistrées."
-      //   );
-      // } else {
-        alert(
-          'Please save the unsaved input data.'
-        );
-      // }
+      this.openPopup();
     }
 
   } 
@@ -295,5 +289,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   getDevicesFormArrValues(): any {
     return this.devicesFormArr.value;
   }  
+
+  openPopup(){
+    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  }
 
 }

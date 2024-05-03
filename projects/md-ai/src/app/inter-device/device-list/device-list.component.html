@@ -1,4 +1,5 @@
 <div [formGroup]="deviceListForm">
+  <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.data.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
     <div formArrayName="devices">
 
       <lib-accordion [rowsFormArray]="devicesFormArr" [accordionHeadingMsgKey]="'heading.interdependent.device'" [accordionHeadingSupp]="['deviceInfo', 'deviceName']" 
