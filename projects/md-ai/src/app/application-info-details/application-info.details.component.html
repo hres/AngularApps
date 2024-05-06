@@ -2,7 +2,7 @@
     <div [formGroup]="appInfoFormLocalModel">
       <div class="row">
         <div class="form-group col-sm-6 col-xs-12 " >
-          <label for="companyId" class="required full-width" aria-required="true">
+          <label for="companyId" class="required full-width">
             <span class="field-name">{{'company.id'|translate}} {{'minNumber6'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="appInfoFormLocalModel.controls['companyId'].invalid"
@@ -10,12 +10,12 @@
                               [control]="appInfoFormLocalModel.controls['companyId'] | formControl"
                               controlId="companyId" label="company.id" parentId="appInfoDetails">
             </control-messages>
-            <input id="companyId" name="companyId" class="form-control" (blur)="onblur()"
+            <input id="companyId" name="companyId" class="form-control"
                    [formControl]="appInfoFormLocalModel.controls['companyId'] | formControl" maxlength="6" data-only-digits/>
           </label>
         </div>
-        <div class="form-group col-sm-5 col-xs-126 " >
-          <label for="dossierId" class="required full-width" aria-required="true">
+        <div class="form-group col-sm-6 col-xs-12 " >
+          <label for="dossierId" class="required full-width">
             <span class="field-name">{{'dossier.id'|translate}}  {{'minAlphanum7'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="appInfoFormLocalModel.controls['dossierId'].invalid"
@@ -23,7 +23,7 @@
                               [control]="appInfoFormLocalModel.controls['dossierId'] | formControl"
                               controlId="dossierId" label="dossier.id" parentId="appInfoDetails">
             </control-messages>
-            <input id="dossierId" name="dossierId" class="form-control"  (blur)="onblur()"
+            <input id="dossierId" name="dossierId" class="form-control"
                    [formControl]="appInfoFormLocalModel.controls['dossierId'] | formControl" maxlength="7"/>
           </label>
         </div>
@@ -40,7 +40,7 @@
                               [showError]="showFieldErrors"
                               [control]="appInfoFormLocalModel.controls['mdsapNum'] | formControl"
                               controlId="mdsapNum" label="mdsap.number" parentId="appInfoDetails"></control-messages>
-            <input id="mdsapNum" name="mdsapNum" class="form-control "  (blur)="onblur()"
+            <input id="mdsapNum" name="mdsapNum" class="form-control" 
                    [formControl]="appInfoFormLocalModel.controls['mdsapNum'] | formControl" maxlength="30"/>
           </label>
         </div>
@@ -57,7 +57,7 @@
                               [showError]="showFieldErrors"
                               [control]="appInfoFormLocalModel.controls['mdsapOrg'] | formControl"
                               controlId="mdsapOrg" label="mdsap.org" parentId="appInfoDetails"></control-messages>
-            <select id="mdsapOrg" name="mdsapOrg" required class="form-control " (change)="onblur()"
+            <select id="mdsapOrg" name="mdsapOrg" required class="form-control" 
                     [formControl]="appInfoFormLocalModel.controls['mdsapOrg'] | formControl">
               <option label=" " value=""></option>
               <option *ngFor="let mdsapOrg of mdsapOrgList" [ngValue]="mdsapOrg.id"> {{ mdsapOrg | textTransform : lang}}</option>
@@ -79,7 +79,7 @@
                               controlId="licenceAppType" label="licence.app.type"
                               parentId="appInfoDetails"></control-messages>
             <select id="licenceAppType" name="licenceAppType" required class="form-control "
-                    (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['licenceAppType'] | formControl">
+                   [formControl]="appInfoFormLocalModel.controls['licenceAppType'] | formControl">
               <option label=" " value=""></option>
               <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat | textTransform : lang}}</option>
             </select>
@@ -97,7 +97,7 @@
                               controlId="activityType" label="activity.type"
                               parentId="appInfoDetails"></control-messages>
             <select id="activityType" name="activityType"
-                    (change)="onblur()" required class="form-control full-width"
+                    required class="form-control full-width"
                     [formControl]="appInfoFormLocalModel.controls['activityType'] | formControl">
               <option label=" " value=""></option>
               <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{type | textTransform : lang}}</option>
@@ -110,15 +110,15 @@
           <fieldset class="chkbxrdio-grp" >
             <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-                <sup id="tr4-rf">
-                  <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate }}</span>4</a>
+                <sup id="ap6-rf">
+                  <a class="fn-lnk" href="#ap6"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpTextSequences.devClsIndx}}</a>
                 </sup>
                 <control-messages *ngIf="appInfoFormLocalModel.controls['deviceClass'].invalid"
                     [showError]="showFieldErrors"
                     [control]="appInfoFormLocalModel.controls['deviceClass'] | formControl"
                     controlId="deviceClass" label="device.class" parentId="appInfoDetails"></control-messages>
             </legend>
-              <div class="radio" *ngFor="let class of devClassList; let i = index">
+              <div id="deviceClassDiv{{i}}" class="radio" *ngFor="let class of devClassList; let i = index">
                 <label aria-hidden="true" for="deviceClass{{i}}">
                   <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
                     (change)="deviceClassOnblur()"
@@ -145,7 +145,7 @@
                                     [control]="appInfoFormLocalModel.controls['isIvdd'] | formControl"
                                     controlId="isIvdd" label="is.ivdd" parentId="appInfoDetails"></control-messages>
                  <select id="isIvdd" name="isIvdd" required class="form-control"
-                         (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['isIvdd'] | formControl">
+                         [formControl]="appInfoFormLocalModel.controls['isIvdd'] | formControl">
                     <option label=" " value=""></option>
                     <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
                   </select>
@@ -162,7 +162,7 @@
                                     [control]="appInfoFormLocalModel.controls['isHomeUse'] | formControl"
                                     controlId="isHomeUse" label="is.home.use" parentId="appInfoDetails"></control-messages>
                   <select id="isHomeUse" name="isHomeUse" required class="form-control"
-                          (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['isHomeUse'] | formControl">
+                          [formControl]="appInfoFormLocalModel.controls['isHomeUse'] | formControl">
                     <option label=" " value=""></option>
                     <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
                   </select>
@@ -177,7 +177,7 @@
                                     [control]="appInfoFormLocalModel.controls['isCarePoint'] | formControl"
                                     controlId="isCarePoint" label="is.point.care" parentId="appInfoDetails"></control-messages>
                   <select id="isCarePoint" name="isCarePoint" required class="form-control"
-                          (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['isCarePoint'] | formControl">
+                           [formControl]="appInfoFormLocalModel.controls['isCarePoint'] | formControl">
                     <option label=" " value=""></option>
                     <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
                   </select>
@@ -195,7 +195,7 @@
                                     controlId="isEmitRadiation" label="contain.radiation"
                                     parentId="appInfoDetails"></control-messages>
                   <select id="isEmitRadiation" name="isEmitRadiation" required class="form-control"
-                          (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['isEmitRadiation'] | formControl">
+                           [formControl]="appInfoFormLocalModel.controls['isEmitRadiation'] | formControl">
                     <option label=" " value=""></option>
                     <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
                   </select>
@@ -229,7 +229,7 @@
                 </label>
               </div>
               <div  *ngIf="hasDin()" class="form-group col-xs-6" >
-                <label for="din" class="required full-width" aria-required="true">
+                <label for="din" class="required full-width">
                   <span class="field-name">{{'din'|translate}} {{'minNumber8' |translate}}</span>
                   <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['din'].invalid"
@@ -237,12 +237,12 @@
                                     [control]="appInfoFormLocalModel.controls['din'] | formControl"
                                     controlId="din" label="din" parentId="appInfoDetails">
                   </control-messages>
-                  <input id="din" name="din"  class="form-control full-width"  (blur)="onblur()"
+                  <input id="din" name="din"  class="form-control full-width"
                          [formControl]="appInfoFormLocalModel.controls['din'] | formControl" maxlength="8" data-only-digits/>
                 </label>
               </div>
               <div  *ngIf="hasNpn()" class="form-group col-xs-6" >
-                <label for="npn" class="required full-width" aria-required="true">
+                <label for="npn" class="required full-width">
                   <span class="field-name">{{'npn'|translate}} {{'minNumber8' |translate}}</span>
                   <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['npn'].invalid"
@@ -250,7 +250,7 @@
                                     [control]="appInfoFormLocalModel.controls['npn'] | formControl"
                                     controlId="npn" label="npn" parentId="appInfoDetails">
                   </control-messages>
-                  <input id="npn" name="npn" class="form-control full-width"  (blur)="onblur()"
+                  <input id="npn" name="npn" class="form-control full-width"
                          [formControl]="appInfoFormLocalModel.controls['npn'] | formControl" maxlength="8" data-only-digits/>
                 </label>
               </div>
@@ -258,9 +258,7 @@
             <div *ngIf="hasDrug()">
               <div class="row">
                 <div class="col-xs-12 form-group alert alert-info" role="alert">
-                       <span>
-                        <p aria-live="polite">{{'combination.products.related'|translate}}</p>
-                       </span>
+                  <p aria-live="polite">{{'combination.products.related'|translate}}</p>
                 </div>
               </div>
               <div class="row">
@@ -273,7 +271,7 @@
                                       [control]="appInfoFormLocalModel.controls['drugName'] | formControl"
                                       controlId="drugName" label="drug.name" parentId="appInfoDetails">
                     </control-messages>
-                    <textarea type="text" class="form-control full-width" id="drugName" name="drugName" (blur)="onblur()"
+                    <textarea class="form-control full-width" id="drugName" name="drugName"
                               [formControl]="appInfoFormLocalModel.controls['drugName'] | formControl" maxlength="256"></textarea>
                   </label>
                 </div>
@@ -288,8 +286,8 @@
                                       [control]="appInfoFormLocalModel.controls['activeIngredients'] | formControl"
                                       controlId="activeIngredients" label="active.ingredient" parentId="appInfoDetails">
                     </control-messages>
-                    <textarea type="text" class="form-control full-width" id="activeIngredients" name="activeIngredients"
-                              (blur)="onblur()" [formControl]="appInfoFormLocalModel.controls['activeIngredients'] | formControl"
+                    <textarea class="form-control full-width" id="activeIngredients" name="activeIngredients"
+                              [formControl]="appInfoFormLocalModel.controls['activeIngredients'] | formControl"
                               maxlength="256"></textarea>
                   </label>
                 </div>
@@ -304,7 +302,7 @@
                                       [control]="appInfoFormLocalModel.controls['manufacturer'] | formControl"
                                       controlId="manufacturer" label="manufacturer" parentId="appInfoDetails">
                     </control-messages>
-                    <input id="manufacturer" name="manufacturer" class="form-control full-width" (blur)="onblur()"
+                    <input id="manufacturer" name="manufacturer" class="form-control full-width" 
                            [formControl]="appInfoFormLocalModel.controls['manufacturer'] | formControl" maxlength="80"/>
                   </label>
                 </div>
@@ -338,7 +336,7 @@
                                           [control]="appInfoFormLocalModel.controls['otherPharmacopeia'] | formControl"
                                           controlId="otherPharmacopeia" label="other.pharmacopeia" parentId="appInfoDetails">
                         </control-messages>
-                        <input id="otherPharmacopeia" name="otherPharmacopeia" class="form-control full-width" (blur)="onblur()"
+                        <input id="otherPharmacopeia" name="otherPharmacopeia" class="form-control full-width"
                                [formControl]="appInfoFormLocalModel.controls['otherPharmacopeia'] | formControl" maxlength="20"/>
                       </label>
                     </div>
@@ -368,7 +366,7 @@
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-mdr-it">
-                        <input type="checkbox" (change)="onblur()"
+                        <input type="checkbox" 
                                [formControl]="appInfoFormLocalModel.controls['provisionMdrIT'] | formControl"
                                id="chk-mdr-it" name="chk-mdr-it"/>
                         <span>{{'mdr.it'|translate}}</span>
@@ -383,8 +381,8 @@
                                         [control]="appInfoFormLocalModel.controls['applicationNum'] | formControl"
                                         controlId="applicationNum" label="application.number" parentId="appInfoDetails">
                       </control-messages>
-                      <input id="applicationNum" name="applicationNum" class="form-control full-width"  (blur)="onblur()"
-                             [formControl]="appInfoFormLocalModel.controls['applicationNum'] | formControl" only-digits maxlength="6" data-only-digits/>
+                      <input id="applicationNum" name="applicationNum" class="form-control full-width" 
+                             [formControl]="appInfoFormLocalModel.controls['applicationNum'] | formControl" data-only-digits maxlength="6" data-only-digits/>
                     </label>
                   </div>
                 </div>
@@ -392,7 +390,7 @@
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-mdr-sa">
-                        <input type="checkbox" (change)="onblur()"
+                        <input type="checkbox" 
                               [formControl]="appInfoFormLocalModel.controls['provisionMdrSA'] | formControl"
                               id="chk-mdr-sa"/>
                         {{'mdr.sa'|translate}}
@@ -402,7 +400,7 @@
                   <div class="form-group col-xs-7" *ngIf="isSa()">
                     <label for="sapReqNum" class=" full-width">
                       <span class="field-name">{{'sap.req.number'|translate}}</span>
-                      <input id="sapReqNum" name="sapReqNum" class="form-control full-width"  (blur)="onblur()"
+                      <input id="sapReqNum" name="sapReqNum" class="form-control full-width" 
                             [formControl]="appInfoFormLocalModel.controls['sapReqNum'] | formControl" maxlength="30"/>
                     </label>
                   </div>
@@ -411,7 +409,7 @@
                   <div class="col-sm-4">
                     <div class="checkbox">
                       <label for="chk-mdr-ioa">
-                        <input type="checkbox" (change)="onblur()"
+                        <input type="checkbox" 
                               [formControl]="appInfoFormLocalModel.controls['provisionMdrIOA'] | formControl"
                               id="chk-mdr-ioa"/>
                         {{'mdr.ioa'|translate}}
@@ -425,7 +423,7 @@
                       [showError]="showFieldErrors"
                       [control]="appInfoFormLocalModel.controls['authNum'] | formControl"
                       controlId="authNum" label="auth.id" parentId="appInfoDetails"> </control-messages>
-                      <input id="authNum" name="authNum" class="form-control full-width"  (blur)="onblur()"
+                      <input id="authNum" name="authNum" class="form-control full-width" 
                             [formControl]="appInfoFormLocalModel.controls['authNum'] | formControl" maxlength="6" data-only-digits/>
                     </label>
                   </div>
@@ -442,10 +440,7 @@
             <h3 class="panel-title">{{'heading.devices'|translate}}</h3>
           </header>
           <div class="panel-body">
-            <device-list  (errors)="processDeviceErrors($event)"
-                          [loadFileIndicator]="loadFileIndicator"
-                          [showErrors]="showFieldErrors"
-                          [deviceModel]="deviceModel"> </device-list>
+            <app-device-list [deviceListData]="deviceModel"> </app-device-list>
           </div>
         </section>
       </div>
@@ -470,7 +465,7 @@
                                     controlId="declarationConformity" label="conformity.declaration"
                                     parentId="appInfoDetails"></control-messages>
                   <select id="declarationConformity" name="declarationConformity" required class="form-control"
-                          (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['declarationConformity'] | formControl">
+                          [formControl]="appInfoFormLocalModel.controls['declarationConformity'] | formControl">
                     <option label=" " value=""></option>
                     <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
                   </select>
@@ -490,7 +485,7 @@
                                     <!--controlId="declarationConformity" label="conformity.declaration"-->
                                     <!--parentId="appInfoDetails"></control-messages>-->
                   <select id="declarationConformity" name="declarationConformity" class="form-control"
-                          (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['declarationConformity'] | formControl">
+                         [formControl]="appInfoFormLocalModel.controls['declarationConformity'] | formControl">
                     <option label=" " value=""></option>
                     <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
                   </select>
@@ -511,85 +506,7 @@
       </div>
   
       <div *ngIf="isDeviceIV()">
-        <section class="panel  panel-default">
-          <header class="panel-heading clearfix">
-            <h2 class="panel-title">{{'containing.material'|translate}}</h2>
-          </header>
-          <div class="panel-body">
-            <div class="row">
-              <div class="form-group col-xs-12" >
-                <label for="hasRecombinant" class="required full-width">
-                  <span class="field-name">{{'consist.recombinant' |translate}}</span>
-                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-                  <control-messages *ngIf="appInfoFormLocalModel.controls['hasRecombinant'].invalid"
-                                    [showError]="showFieldErrors"
-                                    [control]="appInfoFormLocalModel.controls['hasRecombinant'] | formControl"
-                                    controlId="hasRecombinant" label="consist.recombinant" parentId="appInfoDetails"></control-messages>
-  
-                  <select id="hasRecombinant" name="hasRecombinant" required class="form-control"
-                          (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['hasRecombinant'] | formControl">
-                    <option label=" " value=""></option>
-                    <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
-                  </select>
-                </label>
-              </div>
-            </div>
-           <!-- <div *ngIf="isRecombinant()" class="row"> -->
-            <div class="row">
-            <div class="form-group col-xs-12" >
-                <label for="isAnimalHumanSourced" class="required full-width">
-                  <span class="field-name">{{'contain.material' |translate}}</span>
-                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-                  <control-messages *ngIf="appInfoFormLocalModel.controls['isAnimalHumanSourced'].invalid"
-                                    [showError]="showFieldErrors"
-                                    [control]="appInfoFormLocalModel.controls['isAnimalHumanSourced'] | formControl"
-                                    controlId="isAnimalHumanSourced" label="contain.material" parentId="appInfoDetails"></control-messages>
-                  <select id="isAnimalHumanSourced" name="isAnimalHumanSourced" required class="form-control"
-                          (change)="isAnimalHumanSourcedOnblur()" (change)="isAnimalHumanSourcedOnblur()"
-                          [formControl]="appInfoFormLocalModel.controls['isAnimalHumanSourced'] | formControl">
-                    <option label=" " value=""></option>
-                    <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
-                  </select>
-                </label>
-              </div>
-            </div>
-            <div *ngIf="isAnimalHumanSourced()" class="row">
-              <div class="form-group col-xs-12" >
-                <label for="isListedIddTable" class="required full-width">
-                  <span class="field-name">{{'is.same.material' |translate}}</span>
-                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-                  <control-messages *ngIf="appInfoFormLocalModel.controls['isListedIddTable'].invalid"
-                                    [showError]="showFieldErrors"
-                                    [control]="appInfoFormLocalModel.controls['isListedIddTable'] | formControl"
-                                    controlId="isListedIddTable" label="is.same.material" parentId="appInfoDetails"></control-messages>
-                  <select id="isListedIddTable" name="isListedIddTable" required class="form-control"
-                          (change)="onblur()" [formControl]="appInfoFormLocalModel.controls['isListedIddTable'] | formControl">
-                    <option label=" " value=""></option>
-                    <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
-                  </select>
-                </label>
-              </div>
-            </div>
-            <div *ngIf="isAnimalHumanSourced()">
-              <section id="materialList" class="panel  panel-default">
-                <header class="panel-heading clearfix">
-                  <h3 class="panel-title">{{'heading.material.table'|translate}}</h3>
-                  <control-messages *ngIf="appInfoFormLocalModel.controls['hasMaterial'].invalid"
-                                    [showError]="false"
-                                    [control]="appInfoFormLocalModel.controls['hasMaterial'] | formControl"
-                                    controlId="hasMaterial" label="heading.material"
-                                    parentId="materialList"></control-messages>
-                  <input id="hasMaterial" name="hasMaterial" type="hidden" required [formControl]="appInfoFormLocalModel.controls['hasMaterial'] | formControl"/>
-                </header>
-                <div class="panel-body">
-                  <!-- <material-list  (errors)="processMaterialErrors($event)" [countryList]="countryList" [lang]="lang"
-                                  [showErrors]="showFieldErrors"
-                                  [materialModel]="materialModel"></material-list> -->
-                </div>
-              </section>
-            </div>
-          </div>
-        </section>
+        <app-material-info [materialInfo]="materialInfo"> </app-material-info>
       </div>
       <div>
         <section class="panel  panel-default">
@@ -604,7 +521,7 @@
             
               <div class="row">
                 <div class="form-group col-xs-12">
-                <label for="isListedIddTable" class="full-width">
+                <label for="isPriorityReq" class="full-width">
                   <span class="field-name">{{'is.priority.req' |translate}}</span>
                   <!-- <control-messages *ngIf="appInfoFormLocalModel.controls['isPriorityReq'].invalid"
                                     [showError]="showFieldErrors"
@@ -628,7 +545,7 @@
                         <control-messages *ngIf="diagnosisReasonChkFormArray.invalid"
                                         [showError]="showFieldErrors"
                                         [control]="diagnosisReasonChkFormArray | formControl"
-                                        controlId="diagnosisReasons" label="diagnosis.reason"
+                                        controlId="diagnosisReasons" label="priority.rev.devices"
                                         parentId="appInfoDetails"></control-messages>
                     </legend>
                     <ng-container formArrayName="diagnosisReasons" *ngFor="let reason of diagnosisReasonChkFormArray.controls; let i = index">
@@ -658,7 +575,7 @@
         </section>
       </div>
   
-      <pre>{{appInfoFormLocalModel.value |json}}</pre>
+      <!-- <pre>{{appInfoFormLocalModel.value |json}}</pre> -->
     </div>
   </div>
   

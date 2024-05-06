@@ -36,14 +36,15 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getMdAuditProgramList(),
     this._formDataLoader.getRegActivityTypeList(),
     this._formDataLoader.getYesNoList(),
-    this._formDataLoader.getDiagnosisReasonList()
+    this._formDataLoader.getDiagnosisReasonList(),
+    this._formDataLoader.getCountriesList(),
   ];
 
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
 
   ngOnInit(): void {
-    this.language = this._globalService.getCurrLanguage();
+    this.language = this._globalService.lang();
     this.helpIndex = this._globalService.getHelpIndex();
     this.devEnv = this._globalService.$devEnv;
 
@@ -61,6 +62,7 @@ export class ContainerComponent implements OnInit {
       this._globalService.$regActivityTypeList = data[8];
       this._globalService.$yesNoList = data[9];
       this._globalService.$diagnosisReasonList = data[10];
+      this._globalService.$countryList = data[11];
 
       this.loadFormBaseComponent = true;
     });

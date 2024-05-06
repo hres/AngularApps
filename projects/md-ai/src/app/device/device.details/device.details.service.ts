@@ -35,7 +35,7 @@ export class DeviceDetailsService {
     return (
       {
         device_name: '',
-        device_Authorized: '',
+        device_authorized: '',
         licence_number: '',
         device_application_submitted: '',
         device_application_number: '',
@@ -46,7 +46,7 @@ export class DeviceDetailsService {
 
   public mapFormModelToDataModel(formRecord: FormGroup, deviceModel) {
     deviceModel.device_name = formRecord.controls['deviceName'].value;
-    deviceModel.device_Authorized = formRecord.controls['deviceAuthorized'].value;
+    deviceModel.device_authorized = formRecord.controls['deviceAuthorized'].value;
     deviceModel.licence_number = formRecord.controls['licenceNum'].value;
     deviceModel.device_application_submitted = formRecord.controls['deviceApplicationSubmitted'].value;
     deviceModel.device_application_number = formRecord.controls['deviceApplicationNumber'].value;
@@ -55,7 +55,7 @@ export class DeviceDetailsService {
 
   public mapDataModelToFormModel(deviceModel, formRecord: FormGroup) {
     formRecord.controls['deviceName'].setValue(deviceModel.device_name);
-    formRecord.controls['deviceAuthorized'].setValue(deviceModel.device_Authorized);
+    formRecord.controls['deviceAuthorized'].setValue(deviceModel.device_authorized);
     formRecord.controls['licenceNum'].setValue(deviceModel.licence_number);
     formRecord.controls['deviceApplicationSubmitted'].setValue(deviceModel.device_application_submitted);
     formRecord.controls['deviceApplicationNumber'].setValue(deviceModel.device_application_number);

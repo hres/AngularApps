@@ -110,7 +110,7 @@ export class DeviceListService extends RecordListBaseService implements RecordLi
     }
 
     this.notifyDeviceModelChanges({ ...modelList });
-    id = deviceModel.id;
+    id = deviceModel.device_id;
     return id;
   }
 

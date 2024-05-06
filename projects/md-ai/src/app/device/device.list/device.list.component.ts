@@ -29,12 +29,13 @@ export class DeviceListComponent extends RecordListBaseComponent implements OnIn
   @Input() public saveDevice;
   @Input() public showErrors: boolean;
   @Input() public loadFileIndicator;
-  @Input() lang;
+  //@Input() lang;
   @Output() public errors = new EventEmitter();
 
   @ViewChild(DeviceRecordComponent, {static: true}) deviceChild: DeviceRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
+  lang = this._globalService.lang();
   private errorSummaryChild = null;
   // private prevRow = -1;
   // public updateDeviceDetails = 0;
@@ -51,7 +52,8 @@ export class DeviceListComponent extends RecordListBaseComponent implements OnIn
 
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService, private _listService: DeviceListService,
               private _errorNotificationService : ErrorNotificationService,
-              private _recordService : DeviceRecordService) {
+              private _recordService : DeviceRecordService,
+              private _globalService : GlobalService) {
     super();
     this.deviceListForm = this._listService.getReactiveModel(_fb);
     //console.log("device list form - list component", this.deviceListForm);

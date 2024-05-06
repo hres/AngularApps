@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ICode, ICodeAria, InstructionService } from '@hpfb/sdk/ui';
 import {Enrollment} from '../models/Enrollment';
 
@@ -24,8 +24,30 @@ export class GlobalService {
   private mdAuditProgramList : ICode[];
   private regActivityTypeList : ICode[];
   private yesNoList : ICode[];
-  private diagnosisReasonList : ICode[]
+  private diagnosisReasonList : ICode[];
+  private countryList : ICode[];
 
+  showErrors = signal<boolean>(false);
+  materialFormArrValue = signal<any[]>([]);
+  deviceFormArrValue = signal<any[]>([]);
+  lang = signal<string>('');
+
+  setShowErrors(flag: boolean): void {
+    // console.log("setShowErrors to", flag)
+    this.showErrors.set(flag);
+  }
+
+  setMaterialsFormArrValue(val: any[]): void {
+    this.materialFormArrValue.set(val);
+  }
+
+  setDevicesFormArrValue(val: any[]): void {
+    this.deviceFormArrValue.set(val);
+  }
+
+  setCurrLanguage(language : string): void {
+    this.lang.set(language);
+  }
 
   /**
    * Getter $devEnv
@@ -67,12 +89,12 @@ export class GlobalService {
     return this.helpIndex;
   }
 
-  setCurrLanguage(language: string) {
-    this.currLanguage = language;
-  }
+  // setCurrLanguage(language: string) {
+  //   this.currLanguage = language;
+  // }
 
   getCurrLanguage() {
-    return this.currLanguage;
+    return this.lang();
   }
 
   setEnrollment(enrollment: Enrollment) {
@@ -170,4 +192,13 @@ export class GlobalService {
   public set $diagnosisReasonList(value: ICode[]) {
     this.diagnosisReasonList = value;
   }
+
+  public get $countryList() : ICode[] {
+    return this.countryList;
+  }
+
+  public set $countryList(value: ICode[]) {
+    this.countryList = value;
+  }
+
 }
