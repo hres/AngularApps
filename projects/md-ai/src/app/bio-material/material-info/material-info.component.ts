@@ -5,6 +5,7 @@ import { ControlMessagesComponent, ICode, NO, UtilsService, YES } from '@hpfb/sd
 import { GlobalService } from '../../global/global.service';
 import { BiologicalMaterialData } from '../../models/Enrollment';
 import { MaterialListComponent } from '../material-list/material-list.component';
+import { ApplicationInfoBaseService } from '../../form-base/application-info-base.service';
 
 @Component({
   selector: 'app-material-info',
@@ -34,7 +35,8 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
   constructor(private _fb: FormBuilder,
               private _utilsService: UtilsService,
               private _materialService : MaterialService,
-              private _globalService: GlobalService) {
+              private _globalService: GlobalService,
+              private _applicationInfoBaseService : ApplicationInfoBaseService) {
     if (!this.materialInfoForm) {
       this.materialInfoForm = this.materialService.createMaterialInfoFormGroup(this._fb);
     }            
@@ -92,15 +94,22 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
     } else {
       this.materialInfoForm = this.materialService.createMaterialInfoFormGroup(this._fb);
     }
-
-    this.materialInfoForm.patchValue({
-      hasRecombinant: materialData.has_recombinant,
-      isAnimalHumanSourced: materialData.is_animal_human_sourced,
-      isListedIddTable: materialData.is_listed_idd_table
-    })
     
-    this.materialListModel = materialData.biological_materials;
+    if (materialData) {
+      this.materialInfoForm.patchValue({
+        hasRecombinant: materialData.has_recombinant? materialData.has_recombinant : '',
+        isAnimalHumanSourced: materialData.is_animal_human_sourced? materialData.is_animal_human_sourced : '',
+        isListedIddTable: materialData.is_listed_idd_table ? materialData.is_listed_idd_table : ''
+      })
 
+      if (materialData.biological_materials) {
+        this.materialListModel = materialData.biological_materials;
+      } else {
+        this.materialListModel = this._applicationInfoBaseService.getEmptyMaterialListModel();
+      }
+    } else {
+      this.materialListModel = this._applicationInfoBaseService.getEmptyMaterialListModel();
+    }
   }
 
   animalHumanSourcedOnChange() {
@@ -111,8 +120,10 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
       this._materialService.showSummary.set(false);
       this._emitErrors();
     } else {
-      if (!this.materialListModel.material) {
-        this.materialListModel.material = [];
+      if (this.materialListModel) {
+        if (!this.materialListModel.material) {
+          this.materialListModel.material = [];
+        }
       }
     }
   }

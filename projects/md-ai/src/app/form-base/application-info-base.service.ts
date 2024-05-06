@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials } from '../models/Enrollment';
 import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
 import { GlobalService } from '../global/global.service';
 import { DeviceService } from '../inter-device/device.service';
@@ -109,6 +109,14 @@ export class ApplicationInfoBaseService {
         tissue_type_other_details:  '',
         derivative:                 this._entityBaseService.getEmptyIdTextLabel(),
         derivative_other_details:   ''
+      }
+    )
+  }
+
+  public getEmptyMaterialListModel(): BiologicalMaterials {
+    return (
+      {
+        material : []
       }
     )
   }

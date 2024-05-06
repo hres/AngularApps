@@ -161,28 +161,30 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   
   private _init(materialsData?: BiologicalMaterials) {
       // Clear existing controls
-    console.log(materialsData);
     this.materialsFormArr.clear();
     const materials = materialsData.material;
 
+    // if (materialsData) {
+    //   materials = materialsData.material;
+    // }
+
     if (materials.length > 0) {
+        if (materialsData) {
+          materials.forEach(material => {
+            const group = this.materialService.createMaterialFormGroup(this.fb);
 
-      if (materialsData) {
-        materials.forEach(material => {
-          const group = this.materialService.createMaterialFormGroup(this.fb);
+            // Set values after defining the form controls
+            group.patchValue({
+              id: material.material_id,
+              isNew: false,
+              expandFlag: false,
+            });
 
-          // Set values after defining the form controls
-          group.patchValue({
-            id: material.material_id,
-            isNew: false,
-            expandFlag: false,
+            this._patchMaterialInfoValue(group, material);
+
+            this.materialsFormArr.push(group);
           });
-
-          this._patchMaterialInfoValue(group, material);
-
-          this.materialsFormArr.push(group);
-        });
-      }
+        }
     } else {
       const group = this.materialService.createMaterialFormGroup(this.fb);
       this.materialsFormArr.push(group);
