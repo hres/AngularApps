@@ -233,7 +233,7 @@
                             [control]="transDetailsForm.controls['appNumOpt'] | formControl"
                             controlId="appNumOpt" label="application.number"
                             parentId="transDetails"></control-messages>
-          <input id="appNumOpt" name="appNumOpt" class="form-control full-width" 
+          <input id="appNumOpt" name="appNumOpt" class="form-control" 
                  [formControl]="transDetailsForm.controls['appNumOpt'] | formControl" maxlength="6" data-only-digits/>
         </label>
       </div>
@@ -245,7 +245,7 @@
                             [control]="transDetailsForm.controls['meetingId'] | formControl"
                             controlId="meetingId" label="meeting.id"
                             parentId="transDetails"></control-messages>
-          <input id="meetingId" name="meetingId" class="form-control full-width" data-only-digits 
+          <input id="meetingId" name="meetingId" class="form-control" data-only-digits 
                  [formControl]="transDetailsForm.controls['meetingId'] | formControl" maxlength="6" />
         </label>
       </div>
