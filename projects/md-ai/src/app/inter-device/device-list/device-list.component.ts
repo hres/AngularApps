@@ -136,11 +136,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     deviceInfo.reset();
     this.devicesFormArr.removeAt(index);
 
-    if (this.devicesFormArr.length == 0) {
-      this._deviceService.showDeviceErrorSummary.set(false);
-      
-    }
-
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
     console.log("deleting device record..");

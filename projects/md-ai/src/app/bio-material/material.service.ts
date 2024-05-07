@@ -6,12 +6,28 @@ import { GlobalService } from '../global/global.service';
 @Injectable()
 export class MaterialService {
   
-  materialErrors = signal([]); // Material Component -> Form Base
-  showSummary = signal(false); // Form Base -> Material Component
+  materialInfoErrors = signal([]); // Material Component -> Form Base
+  materialListErrors = signal([]); 
 
   constructor(private _utilsService : UtilsService,
               private _converterService : ConverterService,
               private _globalService : GlobalService) {
+  }
+
+  public setListErrors(errorList) {
+    this.materialListErrors.update(error => errorList);
+  }
+
+  public getListErrors() {
+    return this.materialListErrors();
+  }
+
+  public setInfoErrors(errorList) {
+    this.materialInfoErrors.update(error => errorList);
+  }
+
+  public getInfoErrors() {
+    return this.materialInfoErrors();
   }
 
   public createMaterialInfoFormGroup(fb: FormBuilder) : FormGroup | null {
