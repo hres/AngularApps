@@ -40,7 +40,7 @@
   "discard.record": "Supprimer l'enregistrement",
   "set.revise.status": "Réviser le contact",
   "set.remove.status": "Effacer le contact",
-  "set.active.status": "Activer le contact",
+  "set.active.status": "Activer et enregistrer le contact",
   "remove.contact": "Supprimer le contact",
   "required": "Ce champ est obligatoire.",
   "error.msg.minlength": "Minimum de {{ requiredLength }} numéros",
