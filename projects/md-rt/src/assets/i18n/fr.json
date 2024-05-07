@@ -12,7 +12,7 @@
   "heading.transaction": "Inscription à la transaction réglementaire",
   "dossier.id": "Numéro de dossier (composé d’un « m » minuscule suivie de 6 chiffres)",
   "dossier.type": "Type de dossier",
-  "manufacturing.company.id": "Identification de la compagnie du fabricant",
+  "manufacturing.company.id": "Identifiant de la compagnie du fabricant",
   "manufacturing.contact.id": "Identifiant du contact du fabricant",
   "regulatory.company.id": "Identifiant de la compagnie réglementaire",
   "regulatory.contact.id": "Identifiant du contact réglementaire",
