@@ -20,7 +20,7 @@ import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } f
 
 export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() public materialListData: BiologicalMaterial[];
-  @Output() public errorListUpdated = new EventEmitter();
+  // @Output() public errorListUpdated = new EventEmitter();
   // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   lang = this._globalService.lang();
@@ -38,6 +38,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
   popupId = "materialPopup";
 
+  atLeastOneRec = signal(false);
+  atLeastOneRecBoolean = false;
+
   constructor(private fb: FormBuilder, 
               private _utilsService: UtilsService, 
               private _globalService: GlobalService, 
@@ -49,7 +52,11 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     });
 
     effect(() => {
-      // console.log('[effect2]', this._materialService.errors());
+      console.log('[effect]', this.atLeastOneRec());
+      this.atLeastOneRecBoolean = this.atLeastOneRec();
+      this._emitErrors();
+    }, {
+      allowSignalWrites: true
     });
   }
 
@@ -111,7 +118,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       isNew: false,
       expandFlag: false,    // collapse this record
     });
-
     const materialInfo = this.getMaterialInfo(group);
 
     // Update lastSavedState with the current value of contactInfo
@@ -120,6 +126,11 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     this._expandNextInvalidRecord();
 
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
+
+    if (this.materialsFormArr.length > 0) {
+      this.atLeastOneRec.set(true);
+    }
+
   }
 
   private _expandNextInvalidRecord(){
@@ -140,8 +151,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     this.materialsFormArr.removeAt(index);
 
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
-    if(this.materialsFormArr.length == 0) {
-
+    
+    if (this.materialsFormArr.length == 0) {
+      this.atLeastOneRec.set(false);
     }
   }
 
@@ -272,6 +284,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     console.log("emitting errors in material list", this.materialsFormArr);
     let emitErrors = [];
 
+    console.log(this.errorSummaryChild);
+    console.log("material array errs", this.materialsFormArr);
+
     if (this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
     }
@@ -287,10 +302,10 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       emitErrors.push(this.materialsFormArr.errors['atLeastOneMat']);
     }
 
-    console.log("emit errs", emitErrors);
+   this._materialService.setListErrors(emitErrors);
     
     // console.log("emitting errors to info comp ..", emitErrors);
-    this.errorListUpdated.emit(emitErrors);
+    // this.errorListUpdated.emit(emitErrors);
     // this._materialService.errors.update( errors => emitErrors );
   }
 
@@ -299,22 +314,26 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     let atLeastOneRecord : boolean = false;
     let oerr : ErrorSummaryObject = null;
 
+    // console.log(formArray);
+
     formArray.controls.forEach((formGroup: FormGroup) => {
       // Access the controls in each FormGroup
       const isNew = formGroup.get('isNew');
       if (!isNew.value) {
         atLeastOneRecord = true;
-      } else {
-        oerr = getEmptyErrorSummaryObj();
-        oerr.index = 0;
-        oerr.tableId = 'materialListTable';
-        oerr.type = ERR_TYPE_LEAST_ONE_REC;
-        oerr.label = 'error.msg.materialOneRecord';
       }
     });
 
-    console.log("1 rec", atLeastOneRecord);
-    console.log(oerr);
+    if (!atLeastOneRecord) {
+      oerr = getEmptyErrorSummaryObj();
+      oerr.index = 0;
+      oerr.tableId = 'materialListTable';
+      oerr.type = ERR_TYPE_LEAST_ONE_REC;
+      oerr.label = 'error.msg.materialOneRecord';
+    }
+
+    // console.log("1 rec", atLeastOneRecord);
+    // console.log(oerr);
 
     // const atLeastOneRecord = controls.some((control: AbstractControl) => control['isNew'].value !== true);
     // console.log("at least one record", atLeastOneRecord);

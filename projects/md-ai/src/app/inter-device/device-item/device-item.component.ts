@@ -57,6 +57,8 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
     effect(() => {
       this.showErrors = this._globalService.showErrors()
+      this.showErrSummary = this.showErrors;
+
       if (this._globalService.showErrors()) {
         this._updateErrorList(this.msgList);
       }
@@ -240,7 +242,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   }
 
   public showErrorSummary(): boolean {
-    return ((this.showErrSummary || this._deviceService.showDeviceErrorSummary()) && this.errorList.length > 0);
+    return ((this.showErrSummary) && this.errorList.length > 0);
   }
   
   // todo use include, not !Remove

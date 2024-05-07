@@ -82,10 +82,10 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
     this._emitErrors();
   }
 
-  updateMaterialListErrors(errors) {
-    this.materialListErrors = errors;
-    this._emitErrors();
-  }
+  // updateMaterialListErrors(errors) {
+  //   this.materialListErrors = errors;
+  //   this._emitErrors();
+  // }
 
   private _init(materialData : BiologicalMaterialData) {
     if (!this.materialInfoForm) {
@@ -117,7 +117,6 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
     this.materialInfoForm.controls['isAnimalHumanSourced'].value === NO) {
       this.materialListModel.material = [];
       this.materialListErrors = [];
-      this._materialService.showSummary.set(false);
       this._emitErrors();
     } else {
       if (this.materialListModel) {
@@ -139,22 +138,21 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
   }
 
   private _emitErrors(): void {
-    let emitErrors = [];
+    let infoErrors = [];
 
     // Error List is a QueryList type
     if (this.errorList) {
       this.errorList.forEach(err => {
-        emitErrors.push(err);
+        infoErrors.push(err);
       })
     }
 
-    if (this.materialListErrors) {
-      this.materialListErrors.forEach( err => {
-        emitErrors.push(err);
-      })
-    }
+    // console.log(this.errorList);
+    // console.log(this.materialListErrors);
 
-    this._materialService.materialErrors.update( errors => emitErrors );
+    this._materialService.setInfoErrors(infoErrors);
+    // this._materialService.materialListErrors.update( errors => listErrors );
+    // console.log("material2 updated");
   }
 
 }
