@@ -51,7 +51,7 @@
   "minNumber6": "(6 chiffres)",
   "minNumber8": "(8 chiffres)",
   "reason.amend": "Raison du dépôt de cet amendement",
-  "save.working.copy": "Enregistrer une copie de travail",
+  "save.working.copy": "Enregistrer la copie de travail",
   "generate.final": "Générer le XML final",
   "msg.success.load": "Le fichier a été chargé avec succès",
   "msg.err.parseFail": "Erreur: il y a eu une erreur en analysant le fichier de travail.",
