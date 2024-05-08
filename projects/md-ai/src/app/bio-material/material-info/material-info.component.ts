@@ -30,7 +30,6 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
   showErrors: boolean;
   showErrSummary: boolean = false;
   public errorList = [];
-  public materialListErrors = [];
 
   constructor(private _fb: FormBuilder,
               private _utilsService: UtilsService,
@@ -116,7 +115,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
     if (!this.materialInfoForm.controls['isAnimalHumanSourced'].value ||
     this.materialInfoForm.controls['isAnimalHumanSourced'].value === NO) {
       this.materialListModel.material = [];
-      this.materialListErrors = [];
+      this.materialService.setListErrors([]);
       this._emitErrors();
     } else {
       if (this.materialListModel) {

@@ -115,7 +115,7 @@
     "appl.status": "fr_Enrolment Status",
     "enrol.version": "fr_Enrolment Version",
     "date.saved": "fr_Date Last Saved",
-    "save.working.copy": "Enregistrer une copie de travail",
+    "save.working.copy": "Enregistrer la copie de travail",
     "generate.final": "Enregistrer la version finale XML",
     "msg.success.load": "Le fichier a été chargé avec succès",
     "msg.err.parseFail": "Erreur: il y a eu une erreur en analysant le fichier de travail.",
