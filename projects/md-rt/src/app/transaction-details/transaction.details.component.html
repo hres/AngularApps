@@ -147,14 +147,14 @@
                               controlId="amendReasons" label="amend.reason"
                               parentId="transDetails"></control-messages>
           </legend>
-          <ng-container formArrayName="amendReasons" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
-            <div class="checkbox">
+          <ul class="form-group list-unstyled">
+            <li class="checkbox" formArrayName="amendReasons" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
               <label for={{amendReasonOptionList[i].value}}>
                 <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" 
                   (change)="amendReasonOnChange()"/> {{amendReasonOptionList[i].label}}
               </label>
-            </div>
-          </ng-container>
+            </li>
+          </ul>
         </fieldset>
       </div>
     </div>

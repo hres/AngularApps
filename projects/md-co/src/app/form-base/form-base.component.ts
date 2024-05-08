@@ -11,14 +11,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
 import $ from 'jquery';
+import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 
 @Component({
-  selector: 'app-form-base',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule, AppFormModule, PopupComponent],
-  templateUrl: './form-base.component.html',
-  styleUrls: ['./form-base.component.css'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-form-base',
+    standalone: true,
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule, AppFormModule, PopupComponent, FilereaderInstructionComponent],
+    templateUrl: './form-base.component.html',
+    styleUrls: ['./form-base.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;

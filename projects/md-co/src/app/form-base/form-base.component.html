@@ -14,13 +14,13 @@
           <header class="panel-heading clearfix group-beside">
             <h2 class="panel-title">{{'load.file'|translate}}   
               <sup id="co1-rf">
-                <a class="fn-lnk mrgn-tp-md" href="#co1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['loadFileIndx']}}</a>
+                <a class="fn-lnk mrgn-tp-md" href="#co1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['loadFileInx']}}</a>
               </sup>
             </h2>
           </header>
           <div class="panel-body"> 
             <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang">
-              <ng-container extraNote><div [ngClass]="'alert alert-info'" *ngIf="showAmendNote"><span>{{'amend.note' | translate}}</span></div></ng-container>
+              <app-filereader-instruction fileUploadInstruction [lang]="lang" [isInternal]="isInternal" [showAmendNote]="showAmendNote"></app-filereader-instruction>
             </lib-file-reader>
           </div>
         </section>
