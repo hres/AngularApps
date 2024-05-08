@@ -35,7 +35,7 @@
     "discard.record": "Discard Record",
     "set.revise.status": "Revise Contact",
     "set.remove.status": "Delete Contact",
-    "set.active.status": "Active Contact",
+    "set.active.status": "Activate and save contact",
     "remove.contact": "Remove Contact",
     "required": "This field is required",
     "error.msg.minlength": "Minimum length {{ requiredLength }} numbers",

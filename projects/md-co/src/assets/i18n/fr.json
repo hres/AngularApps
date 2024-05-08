@@ -40,7 +40,7 @@
   "discard.record": "Supprimer l'enregistrement",
   "set.revise.status": "Réviser le contact",
   "set.remove.status": "Effacer le contact",
-  "set.active.status": "Activer le contact",
+  "set.active.status": "Activer et enregistrer le contact",
   "remove.contact": "Supprimer le contact",
   "required": "Ce champ est obligatoire.",
   "error.msg.minlength": "Minimum de {{ requiredLength }} numéros",
@@ -112,7 +112,7 @@
   "new.company.id": "Nouvel identifiant de la compagnie",
   "new.contact.id": "Nouvel identifiant du contact",
   "new.contact.name": "Nom du nouveau contact",
-  "save.working.copy": "Enregistrer une copie de travail",
+  "save.working.copy": "Enregistrer la copie de travail",
   "save.draft": "Enregistrer le brouillon XML",
   "approve.final": "Enregistrer la version finale XML",
 
