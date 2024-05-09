@@ -281,6 +281,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   private _getRevisedTransactionDescriptions(): void {
     
     this.revTxDescOptions =this.txDescOptions.filter(desc => this.revisedTxDescOptions.includes(desc.id));
+    this.revTxDescOptions.forEach(desc => {
+      desc.id = desc.revisionSaveVal;
+    });
   }
   
 
