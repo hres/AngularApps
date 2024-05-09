@@ -58,6 +58,7 @@
     "@angular/router": "^17.2.3",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "cpx": "^1.5.0",
     "crypto-js": "^4.2.0",
     "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
