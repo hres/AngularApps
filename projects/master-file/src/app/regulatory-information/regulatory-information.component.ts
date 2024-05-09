@@ -227,6 +227,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       // when the action is triggered from the UI    
       // reset requestDate and requester fields values
       GlobalsService.resetControlValue(this.regulartoryFormModel.controls['requestDate'], this.regulartoryFormModel.controls['requester']);
+      GlobalsService.resetControlValue(this.regulartoryFormModel.controls['reqRevision'], this.regulartoryFormModel.controls['revisedDescriptionType']);
 
       this.trDescUpdated.emit(this.showContactFees);
       this._saveData();
@@ -256,7 +257,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       
     } else {
       this.showRevisedTxDesc = false;
-      this.regulartoryFormModel.controls['revisedTxDesc'].setValue(''); // null or empty? 
+      GlobalsService.resetControlValue(this.regulartoryFormModel.controls['revisedDescriptionType']);
     }
   }
 
@@ -282,7 +283,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     
     this.revTxDescOptions =this.txDescOptions.filter(desc => this.revisedTxDescOptions.includes(desc.id));
     this.revTxDescOptions.forEach(desc => {
-      desc.id = desc.revisionSaveVal;
+     // desc.id = desc.revisionSaveVal;
     });
   }
   
