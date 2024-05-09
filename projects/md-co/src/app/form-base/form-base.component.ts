@@ -300,19 +300,21 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public processFile(fileData: ConvertResults) {
-    this.loadFileIndicator++;
-    const enrollment : Enrollment = fileData.data;
-    // this._loggerService.log('form.base', 'processingFile', JSON.stringify(enrollment, null, 2));
-    this._globalService.setEnrollment(enrollment);
+    if (fileData.messages.length === 0 && fileData.data !== null) {
+      this.loadFileIndicator++;
+      const enrollment : Enrollment = fileData.data;
+      // this._loggerService.log('form.base', 'processingFile', JSON.stringify(enrollment, null, 2));
+      this._globalService.setEnrollment(enrollment);
 
-    const companyEnroll: DeviceCompanyEnrol = enrollment[this.rootTagText];
-    this._init(companyEnroll);
+      const companyEnroll: DeviceCompanyEnrol = enrollment[this.rootTagText];
+      this._init(companyEnroll);
 
-    if (this.isInternal) {
-      // once load data files on internal site, lower components should update error list and push them up
-      this.showErrors = true;
+      if (this.isInternal) {
+        // once load data files on internal site, lower components should update error list and push them up
+        this.showErrors = true;
+      }
+      // console.log("processFile", "internal?", this.isInternal, "this.showErrors", this.showErrors) 
     }
-    // console.log("processFile", "internal?", this.isInternal, "this.showErrors", this.showErrors) 
   }
 
   private _updateEnrollmentVersion(genInfo: GeneralInformation) {

@@ -218,12 +218,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
  public processFile(fileData : ConvertResults) {
-  // this.loadFileIndicator++;
-  const enrollment : Enrollment = fileData.data;
-  console.log('processing file.....');
-  console.log(enrollment);
-  const applicationEnroll: DeviceApplicationEnrol = enrollment[this.rootTagText];
-  this._init(applicationEnroll);
+  if (fileData.messages.length === 0 && fileData.data !== null) {
+    // this.loadFileIndicator++;
+    const enrollment : Enrollment = fileData.data;
+    console.log('processing file.....');
+    console.log(enrollment);
+    const applicationEnroll: DeviceApplicationEnrol = enrollment[this.rootTagText];
+    this._init(applicationEnroll);
+  }
  }
 
   public preload() {
