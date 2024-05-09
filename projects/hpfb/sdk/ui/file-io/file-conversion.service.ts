@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 // import * as xml2js from 'xml2js';
 import {ConvertResults} from './convert-results';
 import * as FileSaver from 'file-saver';
-import { DRAFT_FILE_TYPE, FINAL_FILE_TYPE, IMPORT_SUCCESS, PARSE_FAILE } from './file-io-constants';
+import { DRAFT_FILE_TYPE, FINAL_FILE_TYPE, IMPORT_SUCCESS, PARSE_FAIL } from './file-io-constants';
 
 declare var X2JS: any;
 
@@ -25,7 +25,7 @@ export class FileConversionService {
       convertResult.messages.push(IMPORT_SUCCESS);
     } catch (e) {
       convertResult.data = null;
-      convertResult.messages.push(PARSE_FAILE);
+      convertResult.messages.push(PARSE_FAIL);
     }
   }
 
@@ -46,7 +46,7 @@ export class FileConversionService {
     // converts XML as a string to a json
     convertResult.data = jsonConverter.xml_str2json(data);
     if (convertResult.data == null) {
-      convertResult.messages.push(PARSE_FAILE);
+      convertResult.messages.push(PARSE_FAIL);
     }
     return (null);
 
