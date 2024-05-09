@@ -218,7 +218,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
  public processFile(fileData : ConvertResults) {
-  if (fileData.messages.length === 0 && fileData.data !== null) {
+  if (fileData.data !== null) {
     // this.loadFileIndicator++;
     const enrollment : Enrollment = fileData.data;
     console.log('processing file.....');
