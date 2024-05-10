@@ -1,6 +1,6 @@
 <div id="materialListTable" [formGroup]="materialListForm">
   <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.data.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
-    <div formArrayName="materials">
+    <div [formArrayName]="'materials'">
 
       <lib-accordion [rowsFormArray]="materialsFormArr" [accordionHeadingMsgKey]="'heading.biological.material'" [accordionHeadingSupp]="['materialInfo', 'materialName']" 
       (rowClicked)="handleRowClick($event)">
