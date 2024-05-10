@@ -9,6 +9,9 @@ export class MaterialService {
   materialInfoErrors = signal([]); // Material Component -> Form Base
   materialListErrors = signal([]); 
 
+  //showMaterialErrorSummary = signal(false);
+  showMaterialErrorSummaryOneRec = signal(false);
+
   constructor(private _utilsService : UtilsService,
               private _converterService : ConverterService,
               private _globalService : GlobalService) {

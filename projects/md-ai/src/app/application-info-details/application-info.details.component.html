@@ -319,13 +319,13 @@
                                       controlId="hasCompliances" label="compliance"
                                       parentId="appInfoDetails"></control-messages>
                   </legend>
-                  <ng-container formArrayName="compliance" *ngFor="let comp of complianceChkFormArray.controls; let i = index">
-                    <div class="checkbox">
+                  <ul class="form-group list-unstyled">
+                    <li class="checkbox" formArrayName="amendReasons" *ngFor="let comp of complianceChkFormArray.controls; let i = index">
                       <label for={{complianceOptionList[i].value}}>
                         <input type="checkbox" id={{complianceOptionList[i].value}} [formControl]="comp | formControl" (change)="complianceOnChange()"/> {{complianceOptionList[i].label}}
                       </label>
-                    </div>
-                  </ng-container>                 
+                    </li>
+                  </ul>                 
                   <div *ngIf="isOtherPharmacopeia()" class="row">
                     <div class="form-group col-xs-12" >
                       <label for="otherPharmacopeia" class="required full-width">
@@ -548,13 +548,13 @@
                                         controlId="diagnosisReasons" label="priority.rev.devices"
                                         parentId="appInfoDetails"></control-messages>
                     </legend>
-                    <ng-container formArrayName="diagnosisReasons" *ngFor="let reason of diagnosisReasonChkFormArray.controls; let i = index">
-                      <div class="checkbox">
+                    <ul class="form-group list-unstyled">
+                      <li class="checkbox" formArrayName="amendReasons" *ngFor="let reason of diagnosisReasonChkFormArray.controls; let i = index">
                         <label for={{seriousDiagnosisReasonOptionList[i].value}}>
                           <input type="checkbox" id={{seriousDiagnosisReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="seriousDiagnosisOnChange()"/> {{seriousDiagnosisReasonOptionList[i].label}}
                         </label>
-                      </div>
-                    </ng-container>
+                      </li>
+                    </ul>
                   </fieldset>
                 </div>
               </div>

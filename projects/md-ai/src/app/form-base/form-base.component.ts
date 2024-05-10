@@ -67,6 +67,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public helpIndex: { [key: string]: number };
 
   popupId = 'saveXmlPopup';
+  processXmlCount : number = 0;
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
@@ -160,6 +161,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   resetMaterialErrors(reset : boolean) {
     if (reset) {
       this._materialListErrors = [];
+      this._materialInfoErrors = [];
     }
     this.processErrors();
   }
@@ -169,9 +171,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveXmlFile() {
+    this.processXmlCount++;
     console.log("saving xml...");
     this.showErrors = true;
     this._globalService.setShowErrors(true);
+    this.showDeviceErrorSummary();
+    this.showMaterialSummary();
+
     // console.log("saving xml file...material errs", this._materialService.materialErrors())
     // this._materialService.showSummary.set(true);
     // this._deviceService.showDeviceErrorSummary.set(true);
@@ -292,6 +298,63 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   openPopup(){
     jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  }
+
+  showDeviceErrorSummary() {
+    if (this.aiDetails.aiDevices.devicesFormArr) {
+      const devicesFormArrayControls = this.aiDetails.aiDevices.devicesFormArr.controls;
+      console.log(devicesFormArrayControls);
+
+      // If there's more than one device records that are created, and the first one is valid, set showErrorSummary to false -> Do not show error summary for records
+      // below the first one - This is for when a record is created after generating XML/error summary for form is shown
+      if ((devicesFormArrayControls.length > 1 && !devicesFormArrayControls[0].invalid)) {
+        this._deviceService.showDeviceErrorSummaryOneRec.set(false);
+      } else {
+        this._deviceService.showDeviceErrorSummaryOneRec.set(true);
+      }
+
+      for (let i = 0; i < devicesFormArrayControls.length; i++) {
+        // if (devicesFormArrayControls[i].invalid) {
+        //   this._deviceService.showDeviceErrorSummary.set(true);
+        // } 
+
+        // If Generate XML is clicked for the first time and if there are any empty/unsaved records, show error summary
+        if (this.processXmlCount == 1 && devicesFormArrayControls[i].invalid) {
+          console.log("here");
+          this._deviceService.showDeviceErrorSummaryOneRec.set(true);
+        }
+      }
+    }
+  }
+
+  showMaterialSummary() {
+    if (this.aiDetails.bioMaterialInfo) {
+
+      if (this.aiDetails.bioMaterialInfo.aiMaterials) {
+        const materialsFormArrayControls = this.aiDetails.bioMaterialInfo.aiMaterials.materialsFormArr.controls;
+
+        console.log(materialsFormArrayControls);
+
+        // If there's more than one device records that are created, and the first one is valid, set showErrorSummary to false -> Do not show error summary for records
+        // below the first one - This is for when a record is created after generating XML/error summary for form is shown
+        if ((materialsFormArrayControls.length > 1 && !materialsFormArrayControls[0].invalid)) {
+          this._materialService.showMaterialErrorSummaryOneRec.set(false);
+        } else {
+          this._materialService.showMaterialErrorSummaryOneRec.set(true);
+        }
+
+        for (let i = 0; i < materialsFormArrayControls.length; i++) {
+          // if (materialsFormArrayControls[i].invalid) {
+            // this._materialService.showMaterialErrorSummary.set(true);
+          // } 
+
+          // If Generate XML is clicked for the first time and if there are any empty/unsaved records, show error summary
+          if (this.processXmlCount == 1 && materialsFormArrayControls[i].invalid) {
+            this._materialService.showMaterialErrorSummaryOneRec.set(true);
+          }
+        }
+      }
+    }
   }
 
 }

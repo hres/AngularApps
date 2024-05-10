@@ -105,6 +105,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   addMaterial() {
     const group = this.materialService.createMaterialFormGroup(this.fb);
     this.materialsFormArr.push(group);
+    if (this.materialsFormArr.length > 1) {
+      this._materialService.showMaterialErrorSummaryOneRec.set(false);
+    }
   }
 
   saveMaterialRecord(event: any) {  
@@ -154,6 +157,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     
     if (this.materialsFormArr.length == 0) {
       this.atLeastOneRec.set(false);
+    }
+    if (this.materialsFormArr.length == 1) {
+      this._materialService.showMaterialErrorSummaryOneRec.set(true);
     }
   }
 

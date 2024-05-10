@@ -55,11 +55,16 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
               private _materialService : MaterialService){
 
     effect(() => {
+      //this._materialService.showMaterialErrorSummary() && 
+      if (this._materialService.showMaterialErrorSummaryOneRec()) {
       this.showErrors = this._globalService.showErrors()
       this.showErrSummary = this.showErrors;
-      if (this._globalService.showErrors()) {
-        this._updateErrorList(this.msgList);
+
+        if (this._globalService.showErrors()) {
+          this._updateErrorList(this.msgList);
+        }
       }
+    
     });
   }
 

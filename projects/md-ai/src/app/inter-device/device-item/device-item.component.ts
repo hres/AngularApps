@@ -56,12 +56,16 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     //this.isInternal = this._globalService.$isInternal;
 
     effect(() => {
+      // this._deviceService.showDeviceErrorSummary() 
+      if (this._deviceService.showDeviceErrorSummaryOneRec()) {
       this.showErrors = this._globalService.showErrors()
       this.showErrSummary = this.showErrors;
 
-      if (this._globalService.showErrors()) {
-        this._updateErrorList(this.msgList);
+        if (this._globalService.showErrors()) {
+          this._updateErrorList(this.msgList);
+        }
       }
+    
     });
   }
 

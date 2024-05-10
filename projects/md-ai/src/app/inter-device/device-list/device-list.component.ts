@@ -87,8 +87,12 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   } 
 
   addDevice() {
+    this._deviceService.showDeviceErrorSummaryOneRec.set(false);
     const group = this.deviceService.createDeviceFormGroup(this.fb);
     this.devicesFormArr.push(group);
+    if (this.devicesFormArr.length > 1) {
+      this._deviceService.showDeviceErrorSummaryOneRec.set(false);
+    }
   }
 
   saveDeviceRecord(event: any) {  
@@ -139,6 +143,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
     console.log("deleting device record..");
+    if (this.devicesFormArr.length == 1) {
+      this._deviceService.showDeviceErrorSummaryOneRec.set(true);
+    }
     this.errorSummaryChild = null;
     this._emitErrors();
   }
