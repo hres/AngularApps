@@ -28,7 +28,7 @@ export const helpInstructionHeadings = [
   'compREPInx',
   'rationaleInx',
   'conStatInx',
-  'routIdInx',
+  // 'routIdInx',
   'addRecordInx',
   'desRenewalInx',
   'desFinanceInx',

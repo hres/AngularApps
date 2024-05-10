@@ -55,7 +55,7 @@ export interface Contact {
   phone_num: string;
   phone_ext: string;
   email: string;
-  RoutingID: string;
+//  routingID: string;
 }
 
 export interface Contacts {
