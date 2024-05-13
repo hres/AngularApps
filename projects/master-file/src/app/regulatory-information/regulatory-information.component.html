@@ -129,7 +129,7 @@
         </div>
         <div class="row" *ngIf="showDateAndRequester">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="requestDate" class="required full-width">
+                <label for="requestDate" class="required">
                     <span class="field-name">{{ 'request.date' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="regulartoryFormModel.controls['requestDate'].invalid"
@@ -137,7 +137,7 @@
                         [control]="regulartoryFormModel.controls['requestDate'] | formControl" controlId="requestDate"
                         label="request.date" parentId="regulatoryInfo"
                         parentLabel="MasterFile Information"></control-messages>
-                    <input id="requestDate" name="requestDate" type="date" class="form-control full-width"
+                    <input id="requestDate" name="requestDate" type="date" class="form-control"
                         (blur)="onblur()" (input)="checkDateValidity($event)"
                         [formControl]="regulartoryFormModel.controls['requestDate'] | formControl" />
                 </label>
