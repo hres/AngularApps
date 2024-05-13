@@ -84,14 +84,14 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm-12">
+      <div class="form-group col-sm-6">
         <label class="full-width" for="{{contType}}FaxNumber">
           <span class="field-name" i18n>{{'fax.number' |translate }}</span><br/>
           <span class="field-name small" i18n>{{'fax.number.nofaxnum' |translate }}</span>
           <control-messages *ngIf="contactFormLocalModel.controls['faxNumber'].invalid" [showError]="showFieldErrors"
             [control]="contactFormLocalModel.controls['faxNumber'] | formControl" controlId="{{contType}}FaxNumber" label="fax.number"
             parentId="{{contType}}Info" parentLabel="{{contType}} Info" requiredLength="10"></control-messages>
-          <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control" data-only-digits maxlength="25"
+            <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control full-width" data-only-digits maxlength="25"
                  [formControl]="contactFormLocalModel.controls['faxNumber'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
