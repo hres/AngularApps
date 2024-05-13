@@ -138,7 +138,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialInfoErrors.concat(this._materialListErrors)))); // .concat(this._theraErrors);
     // console.log("process errors in form base", this.errorList);
     console.log(this.errorList);
-    this.errorList.sort((a, b) => a.errorNumber - b.errorNumber);
     // console.log(this.errorList);
     // console.log("printing material errors", this._materialErrors);
     this.cdr.detectChanges(); // doing our own change detection
