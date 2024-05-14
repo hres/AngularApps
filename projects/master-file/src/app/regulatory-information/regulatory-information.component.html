@@ -179,7 +179,7 @@
                 <label for="reqRevisionId_1">&nbsp;{{'no'|translate}}</label>
             </fieldset>
         </div>
-        <div class="row" *ngIf="showRevisedTxDesc">
+        <div class="row" *ngIf="showRevisedTxDesc && showReqRevisedTxDesc">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="revisedDescriptionType" class="required full-width">
                     <span class="field-name">{{ 'revised.transaction.description' |translate }}</span>
