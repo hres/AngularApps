@@ -41,8 +41,12 @@
                    [formControl]="transFeeForm.controls['billContactId'] | formControl" maxlength="5"/>
           </label>
         </div>
-        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-info" role="alert">
-            <p aria-live="polite">{{'completed.fee.required'|translate}}</p>
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div role="alert" class="alert alert-info">
+            <p aria-live="polite">
+              {{'completed.fee.required'|translate}}
+            </p>
+          </div>
         </div>
       </div>
   
