@@ -37,7 +37,7 @@ export class ContactDetailsService {
       phoneNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.phoneNumberValidator]],
       phoneExtension: '',
       email: [null, [Validators.required, ValidationService.emailValidator]],
-      routingId: ''
+      // routingId: ''
       // recordProcessed: [null, recordProcessedValidator]
     });
   }
@@ -60,7 +60,7 @@ export class ContactDetailsService {
     contactModel.phone_num = formRecord.controls['phoneNumber'].value;
     contactModel.phone_ext = formRecord.controls['phoneExtension'].value;
     contactModel.email = formRecord.controls['email'].value;
-    contactModel.RoutingID = formRecord.controls['routingId'].value;
+    // contactModel.routingID = formRecord.controls['routingId'].value;
     // contactModel.hc_status = formRecord.controls.recordProcessed.value ? GlobalsService.YES : GlobalsService.NO;
   }
 
@@ -95,7 +95,7 @@ export class ContactDetailsService {
     formRecord.controls['phoneNumber'].setValue(contactModel.phone_num);
     formRecord.controls['phoneExtension'].setValue(contactModel.phone_ext);
     formRecord.controls['email'].setValue(contactModel.email);
-    formRecord.controls['routingId'].setValue(contactModel.RoutingID);
+    // formRecord.controls['routingId'].setValue(contactModel.routingID);
     // if (contactModel.hc_status) {
     //   const hcs = contactModel.hc_status === GlobalsService.YES ? true : false;
     //   formRecord.controls.recordProcessed.setValue(hcs);
