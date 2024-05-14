@@ -3,7 +3,7 @@
     [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
     [headingLevel]="headingLevel" label="error.msg.deviceDetails" compId="deviceListTable"></lib-error-summary> 
   
-    <div formGroupName="deviceInfo">
+    <div [formGroupName]="'deviceInfo'">
         <div class="row">
             <div class="form-group col-sm-12">
               <label for="deviceName{{j}}" class="required full-width">
@@ -15,7 +15,7 @@
                                   controlId="deviceName{{j}}" label="device.name" parentId="deviceDetails"
                                   parentLabel="{{translatedParentLabel}}"></control-messages>
                 <input id="deviceName{{j}}" name="deviceName" class="form-control full-width"
-                       formControlName="deviceName" maxlength="150"/>
+                       [formControlName]="'deviceName'" maxlength="150"/>
               </label>
             </div>
           </div>
@@ -32,7 +32,7 @@
                                   parentLabel="{{translatedParentLabel}}"></control-messages>
       
                 <select id="deviceAuthorized{{j}}" name="deviceAuthorized{{j}}" required class="form-control" (change)="onDeviceAuthorizedChange($event)"
-                        formControlName="deviceAuthorized">
+                        [formControlName]="'deviceAuthorized'">
       
                   <option label=" " value=""></option>
                   <option *ngFor="let yesno of yesNoList" [value]="yesno.id"> {{yesno | textTransform: lang}}</option>
@@ -54,7 +54,7 @@
                     controlId="licenceNum{{j}}" label="licence.application.number" parentId="deviceDetails"
                     parentLabel="{{translatedParentLabel}}"></control-messages>
                   <input id="licenceNum{{j}}" name="licenceNum" class="form-control" data-only-digits maxlength="6"
-                        formControlName="licenceNum" minlength="6" required/>
+                        [formControlName]="'licenceNum'" minlength="6" required/>
                 </label>
               </div>
             }
@@ -71,7 +71,7 @@
                   parentLabel="{{translatedParentLabel}}"></control-messages>
       
                 <select id="deviceApplicationSubmitted{{j}}" name="deviceApplicationSubmitted" class="form-control" (change)="onDeviceAppChange($event)"
-                        required formControlName="deviceApplicationSubmitted">
+                        required [formControlName]="'deviceApplicationSubmitted'">
       
                   <option label=" " value=""></option>
                   <option *ngFor="let yesno of yesNoList" [value]="yesno.id"> {{yesno | textTransform : lang}}</option>
@@ -91,7 +91,7 @@
                   controlId="deviceApplicationNumber{{j}}" label="application.number" parentId="deviceDetails"
                   parentLabel="{{translatedParentLabel}}"></control-messages>
                 <input id="deviceApplicationNumber{{j}}" name="deviceApplicationNumber" class="form-control" required
-                       data-only-digits maxlength="6" minlength="6" formControlName="deviceApplicationNumber"/>
+                       data-only-digits maxlength="6" minlength="6" [formControlName]="'deviceApplicationNumber'"/>
               </label>
             </div>
             }
@@ -108,7 +108,7 @@
                   parentLabel="{{translatedParentLabel}}"></control-messages>
               </label>
                 <textarea id="deviceExplain{{j}}" name="deviceExplain" class="form-control full-width"
-                          required formControlName="deviceExplain" rows="5" maxlength="1000"></textarea> 
+                          required [formControlName]="'deviceExplain'" rows="5" maxlength="1000"></textarea> 
             </div>
             }
         <div class="row">

@@ -3,7 +3,7 @@
   [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
   [headingLevel]="headingLevel" label="error.msg.bioMaterials" compId="materialListTable"></lib-error-summary> 
 
-    <div formGroupName="materialInfo">
+    <div [formGroupName]="'materialInfo'">
       <div class="row">
         <div class="form-group col-sm-12" >
           <label for="materialName{{j}}" class="required full-width">
@@ -16,7 +16,7 @@
                               translatedParentLabel="{{translatedParentLabel}}">
             </control-messages>
             <input id="materialName{{j}}" name="materialName" class="form-control full-width"
-                   formControlName='materialName' maxlength="60"/>
+                   [formControlName]="'materialName'" maxlength="60"/>
           </label>
         </div>
       </div>
@@ -32,7 +32,7 @@
                               translatedParentLabel="{{translatedParentLabel}}">
             </control-messages>
             <input id="materialDeviceName{{j}}" name="materialDeviceName" class="form-control full-width"
-                formControlName='deviceName' maxlength="150"/>
+                [formControlName]="'deviceName'" maxlength="150"/>
           </label>
         </div>
       </div>
@@ -40,7 +40,7 @@
         <div class="form-group col-sm-5 col-xs-12" >
           <label for="country{{j}}" class="full-width">
             <span class="field-name">{{'country'|translate}}</span>
-            <select class="margin-top-small" id="country{{j}}"  formControlName="originCountry"  class="required form-control"                      
+            <select class="margin-top-small" id="country{{j}}"  [formControlName]="'originCountry'"  class="required form-control"                      
               (typed)="typed($event)" (change)="tempCountryOnChange($event)"> 
               <option *ngFor="let ctry of countries" [ngValue]="ctry.id">{{ctry | textTransform: lang }}</option>
             </select>
@@ -57,7 +57,7 @@
                               translatedParentLabel="{{translatedParentLabel}}">
             </control-messages>
               <select id="specFamily{{j}}" name="specFamily{{j}}" required class="form-control" 
-                    formControlName='specFamily'>
+                    [formControlName]="'specFamily'">
               <option label=" " value=""></option>
               <option *ngFor="let specFam of specFamList" [ngValue]="specFam.id"> {{ specFam | textTransform : lang}}</option>
             </select>
@@ -69,7 +69,7 @@
           <label for="tissueType{{j}}" class="full-width">
             <span class="field-name">{{'tissue.type'|translate}}</span>
               <select id="tissueType{{j}}" name="tissueType{{j}}" class="form-control" 
-                    formControlName='tissueType' (change)="onTissueTypeSelected($event)">
+                    [formControlName]="'tissueType'" (change)="onTissueTypeSelected($event)">
               <option label=" " value=""></option>
               <option *ngFor="let tissueType of tissueTypeList" [value]="tissueType.id"> {{ tissueType | textTransform : lang}}</option>
             </select>
@@ -80,7 +80,7 @@
             <label for="tissueTypeOtherDetails" class="full-width">
               <span class="field-name">{{'tissue.other' |translate}}</span>
               <input id="tissueTypeOtherDetails" name="tissueTypeOtherDetails" class="form-control full-width"
-                     formControlName='tissueTypeOtherDetails'/>
+                     [formControlName]="'tissueTypeOtherDetails'"/>
             </label>
           </div>
         }
@@ -90,7 +90,7 @@
           <label for="derivative{{j}}" class=" full-width">
             <span class="field-name">{{'derivative'|translate}}</span>
               <select id="derivative{{j}}" name="derivative{{j}}" class="form-control" 
-                    formControlName='derivative' (change)="onDerivativeSelected($event)">
+                    [formControlName]="'derivative'" (change)="onDerivativeSelected($event)">
               <option label=" " value=""></option>
               <option *ngFor="let derivative of derivativeList" [value]="derivative.id"> {{ derivative | textTransform : lang}}</option>
             </select>
@@ -101,7 +101,7 @@
             <label for="derivativeOtherDetails" class="full-width">
               <span class="field-name">{{'derivative.other' |translate}}</span>
               <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control full-width"
-                     formControlName='derivativeOtherDetails'/>
+                     [formControlName]="'derivativeOtherDetails'"/>
             </label>
           </div>
         }
