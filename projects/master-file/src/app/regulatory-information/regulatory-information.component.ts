@@ -269,6 +269,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       this.dataModel,
       this.lang
     );
+    //changing the id of the revised_trans_desc save value to conform with matrix.
+    this.dataModel.lifecycle_record.revised_trans_desc._id = this.regulartoryFormModel.value.revisedDescriptionType.revisionSaveVal;
+      
   }
   
   // dynamically load the transaction description dropdowns according to the master type value
