@@ -58,7 +58,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   revisedTxDescId: string = '13'; 
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
   
-  revisedTxDescOptions = ['2','4','6','7','10','11','15','16','17','18','19'];
+  revisedTxDescOptionsType1and4 = ['2','4','6','7','10','11','15','16','17','18','19'];
+  revisedTxDescOptionsType2and3and5 = ['2','6','7','10','11','15','16','19'];
   
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder) {
@@ -197,6 +198,12 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     // get the transaction description dropdown list
     this._getTransactionDescriptions();
 
+    //change the revised list as well
+    this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
+    if (this.showRevisedTxDesc){
+      this._getRevisedTransactionDescriptions();
+    }
+
     if (e) {
       // when the action is triggered from the UI
       this._saveData();
@@ -274,13 +281,20 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   private _getTransactionDescriptions(): void {
     const mfTypeControl = this.regulartoryFormModel.get('masterFileType');
     const selectedMfTypeId = mfTypeControl?.value.id;
-    // console.log("RegulatoryInformationComponent ~ _getTransactionDescriptions ~ selectedMfTypeId:", selectedMfTypeId);
+    //console.log("RegulatoryInformationComponent ~ _getTransactionDescriptions ~ selectedMfTypeId:", selectedMfTypeId);
+
     this.txDescOptions = GlobalsService.filterParentChildrenArray(this.mfTypeDescArray, selectedMfTypeId);
   }
 
   private _getRevisedTransactionDescriptions(): void {
-    
-    this.revTxDescOptions =this.txDescOptions.filter(desc => this.revisedTxDescOptions.includes(desc.id));
+    const mfTypeControl = this.regulartoryFormModel.get('masterFileType');
+    const selectedMfTypeNumber= mfTypeControl?.value.en;
+
+    if (selectedMfTypeNumber === "Type I" || selectedMfTypeNumber === "Type IV") {
+      this.revTxDescOptions = this.txDescOptions.filter(desc => this.revisedTxDescOptionsType1and4.includes(desc.id));
+    } else {
+      this.revTxDescOptions = this.txDescOptions.filter(desc => this.revisedTxDescOptionsType2and3and5.includes(desc.id));
+    }
   }
   
 
