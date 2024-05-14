@@ -11,14 +11,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
 import $ from 'jquery';
+import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 
 @Component({
-  selector: 'app-form-base',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule, AppFormModule, PopupComponent],
-  templateUrl: './form-base.component.html',
-  styleUrls: ['./form-base.component.css'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-form-base',
+    standalone: true,
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule, AppFormModule, PopupComponent, FilereaderInstructionComponent],
+    templateUrl: './form-base.component.html',
+    styleUrls: ['./form-base.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -299,19 +300,21 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public processFile(fileData: ConvertResults) {
-    this.loadFileIndicator++;
-    const enrollment : Enrollment = fileData.data;
-    // this._loggerService.log('form.base', 'processingFile', JSON.stringify(enrollment, null, 2));
-    this._globalService.setEnrollment(enrollment);
+    if (fileData.data !== null) {
+      this.loadFileIndicator++;
+      const enrollment : Enrollment = fileData.data;
+      // this._loggerService.log('form.base', 'processingFile', JSON.stringify(enrollment, null, 2));
+      this._globalService.setEnrollment(enrollment);
 
-    const companyEnroll: DeviceCompanyEnrol = enrollment[this.rootTagText];
-    this._init(companyEnroll);
+      const companyEnroll: DeviceCompanyEnrol = enrollment[this.rootTagText];
+      this._init(companyEnroll);
 
-    if (this.isInternal) {
-      // once load data files on internal site, lower components should update error list and push them up
-      this.showErrors = true;
+      if (this.isInternal) {
+        // once load data files on internal site, lower components should update error list and push them up
+        this.showErrors = true;
+      }
+      // console.log("processFile", "internal?", this.isInternal, "this.showErrors", this.showErrors) 
     }
-    // console.log("processFile", "internal?", this.isInternal, "this.showErrors", this.showErrors) 
   }
 
   private _updateEnrollmentVersion(genInfo: GeneralInformation) {

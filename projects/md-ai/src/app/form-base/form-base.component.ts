@@ -10,7 +10,7 @@ import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device, BiologicalMaterialData, BiologicalMaterial } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
-// import { DeviceModule } from '../device/device.module';
+import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { MaterialModule } from '../bio-material/material.module';
 import { MaterialService } from '../bio-material/material.service';
 import { DeviceModule } from '../inter-device/device.module';
@@ -21,7 +21,7 @@ import $ from 'jquery';
 @Component({
   selector: 'app-form-base',
   standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule, MaterialModule, PopupComponent],
+  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule, MaterialModule, FilereaderInstructionComponent, PopupComponent],
   providers: [FileConversionService, ApplicationInfoBaseService, FormDataLoaderService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
   templateUrl: './form-base.component.html',
   styleUrls: ['./form-base.component.css'],
@@ -265,12 +265,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
  public processFile(fileData : ConvertResults) {
-  // this.loadFileIndicator++;
-  const enrollment : Enrollment = fileData.data;
-  console.log('processing file.....');
-  console.log(enrollment);
-  const applicationEnroll: DeviceApplicationEnrol = enrollment[this.rootTagText];
-  this._init(applicationEnroll);
+  if (fileData.data !== null) {
+    // this.loadFileIndicator++;
+    const enrollment : Enrollment = fileData.data;
+    console.log('processing file.....');
+    console.log(enrollment);
+    const applicationEnroll: DeviceApplicationEnrol = enrollment[this.rootTagText];
+    this._init(applicationEnroll);
+  }
  }
 
   public preload() {

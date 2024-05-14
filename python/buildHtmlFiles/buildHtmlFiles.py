@@ -104,7 +104,8 @@ def generate_files(option):
                     env = 'prod'
                     target_dir = f'{app}/{appContentConfigSubfolder}'
                     dist_dir = os.path.join(curr_path, f'{dist_root_folder}/{target_dir}')
-                    final_file_path = buildUtils.generate_from_jinja_template(jinja_template_dir, jinja_html_template_name, dist_dir, target_file_name, 
+                    final_file_name = f'{target_file_name}.html'
+                    final_file_path = buildUtils.generate_from_jinja_template(jinja_template_dir, jinja_html_template_name, dist_dir, final_file_name, 
                                                        env=env, data=f2_data, lngHref=lngHref, dateModified=modification_date)
                     print(f'...... {final_file_path} is generated successfully.')     
                     

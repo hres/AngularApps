@@ -1,12 +1,18 @@
 {
     "title": "Regulatory Enrolment Process (REP) for Human and Veterinary Drugs and Disinfectants",
     "h1_header": "Regulatory Enrolment Process (REP) for Human and Veterinary Drugs and Disinfectants",
+    "paragraphs": [
+        "<div class=\"alert alert-info\"><p>In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use.</p></div>"
+    ],
     "sections": [
         {
             "header": "REP Templates & Form Links",
             "groups": [
                 {
-                    "header": "<a href=\"./version_history.html\">Template version history  (updated 2023-02-28)</a>"
+                    "header": "",
+                    "bullets": [
+                        "<a href=\"{{ base_url }}version_history.html\">Template version history  (updated 2024-05-01)</a>"
+                    ]
                 }
             ]
         },
@@ -14,7 +20,7 @@
             "header": "Outside the Regulatory Transaction Process",
             "groups": [
                 {
-                    "header": "<a href=\"./company/company.html\">Company (CO) Template (updated 2023-02-28)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company (CO) Template (updated 2023-02-28)</a>",
                     "bullets": [
                         "Required to obtain a company ID and/or update company information to Health Canada.",
                         "Sent via email. <ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
@@ -34,6 +40,49 @@
                         "Required to obtain a Dossier ID, prior to filing a regulatory transaction for a new dossier or a dossier for which you do not know the Dossier ID.",
                         "Refer to section “2.4 Dossier ID Request Process” of the REP guidance document."
                     ]
+                }
+            ]
+        },
+        {
+            "header": "Within the Regulatory Transaction Process",
+            "groups": [
+                {
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory Transaction (RT) Template (updated on 2024-05-01)</a>",
+                    "bullets": [
+                        "Required with each regulatory transaction filed to Health Canada.",
+                        "Sent via the CESG in folder 1.2.1 for human drugs and disinfectants or part I folder 1.5 for veterinary drugs of the regulatory transaction (submission).",
+                        "For detailed descriptions of the requirements for the RT and PI templates, refer to section “2.5 Regulatory Transaction Filing Process” and “3.2 Folder Structure” of the REP guidance document."
+                    ]
+                },
+                {
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.pi.en }}\">Product Information (PI) Template (updated on 2024-02-12)</a>",
+                    "bullets": [
+                        "Required for only a subset of transactions. Refer to section “2.5.2 Product information (PI) Template and Process” of the REP Guidance Document for list of subset transaction.",
+                        "Sent via the CESG in folder 1.2.1 for human drugs and disinfectants or part I folder 1.5 for veterinary drugs of the regulatory transaction (when provided).",
+                        "For detailed descriptions of the requirements for the RT and PI templates, refer to sections “2.5 Regulatory Transaction Filing Process” and “3.2 Folder Structure” of the REP guidance document."
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "Stylesheet Download Links",
+            "groups": [
+                {
+                    "header": "",
+                    "bullets": [
+                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.en }}\">Download stylesheet zip file (Updated 2023-02-28)</a>"                    ]
+                }
+            ]
+        },
+        {
+            "internal_only": true,
+            "header": "Internal User Links",
+            "groups": [
+                {
+                    "header": "",
+                    "bullets": [
+                        "<a href=\"{{ base_url }}prod_v42_wcag/company/companyINT-en.html\">Company Enrolment - Internal version 4.2.4</a>",
+                        "<a href=\"https://lam-dev.hres.ca/REP-Form-Internal/PROD/repDiff/diffForm-en.html\">Comparison tool (Deployed Sep 18, 2020)</a>"                       ]
                 }
             ]
         }

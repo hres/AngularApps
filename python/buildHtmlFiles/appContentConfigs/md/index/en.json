@@ -79,7 +79,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"./mds/stylesheet/medicaldevice_stylesheets_en.zip\">Download stylesheet zip files (July 31, 2024)</a>"
+                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.en }}\">Download stylesheet zip files (July 31, 2024)</a>"
                     ]
                 }
             ]

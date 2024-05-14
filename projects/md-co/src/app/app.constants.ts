@@ -24,11 +24,11 @@ export enum EnrollmentStatus {
 }
 
 export const helpInstructionHeadings = [
-  'loadFileIndx',
+  'loadFileInx',
   'compREPInx',
   'rationaleInx',
   'conStatInx',
-  'routIdInx',
+  // 'routIdInx',
   'addRecordInx',
   'desRenewalInx',
   'desFinanceInx',

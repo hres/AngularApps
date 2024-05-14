@@ -667,12 +667,12 @@ span.normalWeight {
 						<span class="mouseHover"><xsl:value-of select="email"/></span>
 					</div>
 				</div>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<strong>Routing Identifier:&#160;</strong>
-						<span class="mouseHover"><xsl:value-of select="RoutingID"/><xsl:value-of select="RoutingID"/></span>
+						<span class="mouseHover"><xsl:value-of select="routingID"/><xsl:value-of select="routingID"/></span>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</section>
 	</xsl:template>

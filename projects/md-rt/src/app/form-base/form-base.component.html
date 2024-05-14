@@ -1,4 +1,4 @@
-<div class="wb-frmvld">
+<div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
   <form name="transactionForm" [formGroup]="transactionForm" novalidate>
     <div class="row mrgn-tp-md">
       <div class="col-md-12">
@@ -18,7 +18,9 @@
           </h2>
         </header>
         <div class="panel-body">
-          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [instructionVar]="'1'"></lib-file-reader>
+          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang">
+            <app-filereader-instruction fileUploadInstruction [lang]="lang"></app-filereader-instruction>
+          </lib-file-reader>
         </div>
       </section>
     </div>

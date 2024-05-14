@@ -1,7 +1,7 @@
 export const IMPORT_SUCCESS = 'msg.success.load'; // json key
-export const PARSE_FAILE = 'msg.err.PARSE_FAILE';
-export const JSON_PARSE_FAILE = 'msg.err.jsonparse'; // json key
-export const XML_PARSE_FAILE = 'msg.err.xmlparse';
+export const PARSE_FAIL = 'msg.err.parse.fail';
+// export const JSON_PARSE_FAIL = 'msg.err.jsonparse'; // json key
+// export const XML_PARSE_FAIL = 'msg.err.xmlparse';
 export const FILE_TYPE_ERROR = 'msg.err.file.type';
 export const FORM_TYPE_ERROR = 'msg.err.form.type';
 export const CHECK_SUM_ERROR = 'msg.err.checksum';

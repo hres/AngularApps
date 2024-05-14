@@ -7,19 +7,19 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { TransactionBaseService } from './transaction-base.service';
-import { FormDataLoaderService } from '../container/form-data-loader.service';
 import { ApplicationInfo, DeviceTransactionEnrol, Enrollment, TransFees } from '../models/Enrollment';
 import { TransactionDetailsComponent } from '../transaction-details/transaction.details.component';
 import { TransactionFeeComponent } from '../transaction-fee/transaction.fee.component';
+import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 
 @Component({
-  selector: 'app-form-base',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule],
-  providers: [FileConversionService, TransactionBaseService, FormDataLoaderService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
-  templateUrl: './form-base.component.html',
-  styleUrls: ['./form-base.component.css'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-form-base',
+    standalone: true,
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent],
+    providers: [FileConversionService, TransactionBaseService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
+    templateUrl: './form-base.component.html',
+    styleUrls: ['./form-base.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -149,10 +149,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public processFile(fileData: ConvertResults) {
-    const enrollment : Enrollment = fileData.data;
-    //  console.log('processing file.....');
-     const transactionEnroll: DeviceTransactionEnrol = enrollment[this.rootTagText];
-     this._init(transactionEnroll);
+    if (fileData.data !== null) {
+      const enrollment : Enrollment = fileData.data;
+      //  console.log('processing file.....');
+      const transactionEnroll: DeviceTransactionEnrol = enrollment[this.rootTagText];
+      this._init(transactionEnroll);
+    }
   }
 
   // public preload() {
