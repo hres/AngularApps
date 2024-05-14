@@ -129,7 +129,7 @@
         </div>
         <div class="row" *ngIf="showDateAndRequester">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="requestDate" class="required full-width">
+                <label for="requestDate" class="required">
                     <span class="field-name">{{ 'request.date' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="regulartoryFormModel.controls['requestDate'].invalid"
@@ -137,7 +137,7 @@
                         [control]="regulartoryFormModel.controls['requestDate'] | formControl" controlId="requestDate"
                         label="request.date" parentId="regulatoryInfo"
                         parentLabel="MasterFile Information"></control-messages>
-                    <input id="requestDate" name="requestDate" type="date" class="form-control full-width"
+                    <input id="requestDate" name="requestDate" type="date" class="form-control"
                         (blur)="onblur()" (input)="checkDateValidity($event)"
                         [formControl]="regulartoryFormModel.controls['requestDate'] | formControl" />
                 </label>
@@ -181,15 +181,15 @@
         </div>
         <div class="row" *ngIf="showRevisedTxDesc">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="reviseddescriptionType" class="required full-width">
+                <label for="revisedDescriptionType" class="required full-width">
                     <span class="field-name">{{ 'revised.transaction.description' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="regulartoryFormModel.controls['revisedDescriptionType'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl"
-                        controlId="reviseddescriptionType" label="revised.transaction.description" parentId="regulatoryInfo"
+                        controlId="revisedDescriptionType" label="revised.transaction.description" parentId="regulatoryInfo"
                         parentLabel="MasterFile Information"></control-messages>
-                    <select id="revisedDescriptionType" name="reviseddescriptionType" required class="form-control full-width"
+                    <select id="revisedDescriptionType" name="revisedDescriptionType" required class="form-control full-width"
                         (change)="onRevTxDescriptionSelected($any($event.target).value)"
                         [formControl]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl">
                         <option label=" " value=""></option>

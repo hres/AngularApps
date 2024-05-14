@@ -39,6 +39,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
 
   mfTypeOptions: ICodeAria[];
   mfTypeDescArray: IParentChildren[] = [];
+  mfRevisedTypeDescArray: IParentChildren[] = [];
   mfUseOptions: ICode[];
   txDescOptions: ICode[];
   revTxDescOptions: ICode[];
@@ -51,6 +52,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   public showContactFees: boolean[] = [true, true];
   mfTypeSub!: Subscription;
   mfTypeTxDescSub!: Subscription;
+  mfRevisedTypeTxDescSub!: Subscription;
   mfUseSub!: Subscription;
 
   showDateAndRequesterTxDescs: string[] = ['12', '14', '13']; // Transaction Description values are defined in txDescriptions.json
@@ -58,7 +60,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   revisedTxDescId: string = '13'; 
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
   
-  revisedTxDescOptions = ['2','4','6','7','10','11','15','16','17','18','19'];
+  //revisedTxDescOptionsType1and4 = ['2','4','6','7','10','11','15','16','17','18','19'];
+  //revisedTxDescOptionsType2and3and5 = ['2','6','7','10','11','15','16','19'];
   
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder) {
@@ -80,6 +83,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       .getMasterFileTypeAndTransactionDescription()
       .subscribe((response) => (this.mfTypeDescArray = response));
 
+    this.mfRevisedTypeTxDescSub = this._regulatoryInfoService
+      .getMasterFileRevisedTypeAndTransactionDescription()
+      .subscribe((response) => (this.mfRevisedTypeDescArray = response));
 
     this.mfUseSub = this._regulatoryInfoService
       .getMasterFileUses()
@@ -197,6 +203,12 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     // get the transaction description dropdown list
     this._getTransactionDescriptions();
 
+    //change the revised list as well
+    this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
+    if (this.showRevisedTxDesc){
+      this._getRevisedTransactionDescriptions();
+    }
+
     if (e) {
       // when the action is triggered from the UI
       this._saveData();
@@ -274,13 +286,21 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   private _getTransactionDescriptions(): void {
     const mfTypeControl = this.regulartoryFormModel.get('masterFileType');
     const selectedMfTypeId = mfTypeControl?.value.id;
-    // console.log("RegulatoryInformationComponent ~ _getTransactionDescriptions ~ selectedMfTypeId:", selectedMfTypeId);
+    //console.log("RegulatoryInformationComponent ~ _getTransactionDescriptions ~ selectedMfTypeId:", selectedMfTypeId);
+
     this.txDescOptions = GlobalsService.filterParentChildrenArray(this.mfTypeDescArray, selectedMfTypeId);
   }
 
   private _getRevisedTransactionDescriptions(): void {
-    
-    this.revTxDescOptions =this.txDescOptions.filter(desc => this.revisedTxDescOptions.includes(desc.id));
+    const mfTypeControl = this.regulartoryFormModel.get('masterFileType');
+    const selectedMfTypeId= mfTypeControl?.value.id;
+
+    //if (selectedMfTypeId === "B02-20160301-023" || selectedMfTypeId === "B02-20160301-026") {
+    //  this.revTxDescOptions = this.txDescOptions.filter(desc => this.revisedTxDescOptionsType1and4.includes(desc.id));
+    //} else {
+    //  this.revTxDescOptions = this.txDescOptions.filter(desc => this.revisedTxDescOptionsType2and3and5.includes(desc.id));
+    //}
+    this.revTxDescOptions = GlobalsService.filterParentChildrenArray(this.mfRevisedTypeDescArray, selectedMfTypeId);
   }
   
 
