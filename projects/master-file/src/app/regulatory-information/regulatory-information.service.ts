@@ -31,6 +31,7 @@ export class RegulatoryInformationService {
   mfUseOptions$: Observable<ICode[]>;
   txDescs$: Observable<ICodeDefinition[]>;
   mfTypeTxDescOptions$: Observable<IParentChildren[]>;
+  mfRevisedTypeTxDescOptions$: Observable<IParentChildren[]>;
 
   showDateAndRequesterTxDescs: string[] = ['12', '14'];
 
@@ -84,6 +85,33 @@ export class RegulatoryInformationService {
     );
 
     return this.mfTypeTxDescOptions$;
+  }
+
+
+  getMasterFileRevisedTypeAndTransactionDescription(): Observable<IParentChildren[]> {
+    const mfRevisedTypeAndTransactionDescription$ = this._dataService
+      .getData<any>('mfRevisedTypeTxDescription.json')
+      .pipe(
+        catchError(this._dataService.handleError)
+      );
+
+
+    this.mfRevisedTypeTxDescOptions$ = combineLatest([
+      mfRevisedTypeAndTransactionDescription$,
+      this.getTxDescriptions(),
+    ]).pipe(
+      map(([arr1, arr2]) => {
+        return arr1.map((item) => ({
+          parentId: item.mfId,
+          children: arr2.filter((x) => {
+            return item.descIds.includes(x.id);
+          }),
+        }));
+      }),
+      shareReplay(1)
+    );
+
+    return this.mfRevisedTypeTxDescOptions$;
   }
 
   getMasterFileUses(): Observable<ICode[]> {
