@@ -46,7 +46,7 @@
           </select>
         </label>
       </div>
-      <div class="form-group col-sm-4">
+      <div class="form-group col-sm-6">
         <label for="{{contType}}JobTitle" class="required full-width">
           <span class="field-name">{{'job.title'|translate}}</span>
           <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
@@ -91,7 +91,7 @@
           <control-messages *ngIf="contactFormLocalModel.controls['faxNumber'].invalid" [showError]="showFieldErrors"
             [control]="contactFormLocalModel.controls['faxNumber'] | formControl" controlId="{{contType}}FaxNumber" label="fax.number"
             parentId="{{contType}}Info" parentLabel="{{contType}} Info" requiredLength="10"></control-messages>
-            <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control full-width" data-only-digits maxlength="25"
+          <input name="faxNumber" id="{{contType}}FaxNumber" class="form-control full-width" data-only-digits maxlength="25"
                  [formControl]="contactFormLocalModel.controls['faxNumber'] | formControl" (blur)="onblur()"/>
         </label>
       </div>
