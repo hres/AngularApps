@@ -139,7 +139,9 @@ export class ApplicationInfoBaseService {
         let deviceModel: Device = this.getEmptyDeviceModel();
         this._deviceService.mapFormModelToOutputModel(devicesForm[i].deviceInfo, deviceModel);
         deviceModel.device_id = devicesForm[i].id;
-        deviceModelList.push(deviceModel);
+        if (deviceModel.device_id != -1) {
+          deviceModelList.push(deviceModel);
+        }
       }
     }
 
@@ -152,7 +154,9 @@ export class ApplicationInfoBaseService {
           let materialModel: BiologicalMaterial = this.getEmptyMaterialModel();
           this._materialService.mapMaterialModelToOutputModel(materialsForm[i].materialInfo, materialModel);
           materialModel.material_id = materialsForm[i].id;
-          materialModelList.push(materialModel);
+          if (materialModel.material_id != -1) {
+            materialModelList.push(materialModel);
+          }
         }
 
         materialInfoModel.biological_materials = {material : materialModelList};
