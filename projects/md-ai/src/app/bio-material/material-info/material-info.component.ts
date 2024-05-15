@@ -5,6 +5,7 @@ import { ControlMessagesComponent, ICode, NO, UtilsService, YES } from '@hpfb/sd
 import { GlobalService } from '../../global/global.service';
 import { BiologicalMaterialData } from '../../models/Enrollment';
 import { MaterialListComponent } from '../material-list/material-list.component';
+import { ApplicationInfoBaseService } from '../../form-base/application-info-base.service';
 
 @Component({
   selector: 'app-material-info',
@@ -29,12 +30,12 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
   showErrors: boolean;
   showErrSummary: boolean = false;
   public errorList = [];
-  public materialListErrors = [];
 
   constructor(private _fb: FormBuilder,
               private _utilsService: UtilsService,
               private _materialService : MaterialService,
-              private _globalService: GlobalService) {
+              private _globalService: GlobalService,
+              private _applicationInfoBaseService : ApplicationInfoBaseService) {
     if (!this.materialInfoForm) {
       this.materialInfoForm = this.materialService.createMaterialInfoFormGroup(this._fb);
     }            
@@ -80,10 +81,10 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
     this._emitErrors();
   }
 
-  updateMaterialListErrors(errors) {
-    this.materialListErrors = errors;
-    this._emitErrors();
-  }
+  // updateMaterialListErrors(errors) {
+  //   this.materialListErrors = errors;
+  //   this._emitErrors();
+  // }
 
   private _init(materialData : BiologicalMaterialData) {
     if (!this.materialInfoForm) {
@@ -92,27 +93,35 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
     } else {
       this.materialInfoForm = this.materialService.createMaterialInfoFormGroup(this._fb);
     }
-
-    this.materialInfoForm.patchValue({
-      hasRecombinant: materialData.has_recombinant,
-      isAnimalHumanSourced: materialData.is_animal_human_sourced,
-      isListedIddTable: materialData.is_listed_idd_table
-    })
     
-    this.materialListModel = materialData.biological_materials;
+    if (materialData) {
+      this.materialInfoForm.patchValue({
+        hasRecombinant: materialData.has_recombinant? materialData.has_recombinant : '',
+        isAnimalHumanSourced: materialData.is_animal_human_sourced? materialData.is_animal_human_sourced : '',
+        isListedIddTable: materialData.is_listed_idd_table ? materialData.is_listed_idd_table : ''
+      })
 
+      if (materialData.biological_materials) {
+        this.materialListModel = materialData.biological_materials;
+      } else {
+        this.materialListModel = this._applicationInfoBaseService.getEmptyMaterialListModel();
+      }
+    } else {
+      this.materialListModel = this._applicationInfoBaseService.getEmptyMaterialListModel();
+    }
   }
 
   animalHumanSourcedOnChange() {
     if (!this.materialInfoForm.controls['isAnimalHumanSourced'].value ||
     this.materialInfoForm.controls['isAnimalHumanSourced'].value === NO) {
       this.materialListModel.material = [];
-      this.materialListErrors = [];
-      this._materialService.showSummary.set(false);
+      this.materialService.setListErrors([]);
       this._emitErrors();
     } else {
-      if (!this.materialListModel.material) {
-        this.materialListModel.material = [];
+      if (this.materialListModel) {
+        if (!this.materialListModel.material) {
+          this.materialListModel.material = [];
+        }
       }
     }
   }
@@ -128,22 +137,21 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
   }
 
   private _emitErrors(): void {
-    let emitErrors = [];
+    let infoErrors = [];
 
     // Error List is a QueryList type
     if (this.errorList) {
       this.errorList.forEach(err => {
-        emitErrors.push(err);
+        infoErrors.push(err);
       })
     }
 
-    if (this.materialListErrors) {
-      this.materialListErrors.forEach( err => {
-        emitErrors.push(err);
-      })
-    }
+    // console.log(this.errorList);
+    // console.log(this.materialListErrors);
 
-    this._materialService.materialErrors.update( errors => emitErrors );
+    this._materialService.setInfoErrors(infoErrors);
+    // this._materialService.materialListErrors.update( errors => listErrors );
+    // console.log("material2 updated");
   }
 
 }

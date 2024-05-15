@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import $ from 'jquery';
 
 @Component({
@@ -6,7 +6,8 @@ import $ from 'jquery';
   standalone: true,
   imports: [],
   templateUrl: './popup.component.html',
-  styleUrl: './popup.component.css'
+  styleUrl: './popup.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class PopupComponent {
   @Input() message: string ;

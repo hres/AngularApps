@@ -67,7 +67,7 @@ export interface BiologicalMaterials {
 }
 
 export interface BiologicalMaterial {
-    material_id:                string;
+    material_id:                number;
     material_name:              string;
     device_name:                string;
     origin_country:             IIdTextLabel;

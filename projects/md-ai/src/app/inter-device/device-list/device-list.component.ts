@@ -32,6 +32,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   public errorList = [];
   errorSummaryChild = null;
 
+  popupId = 'devicePopup';
+
   constructor(private fb: FormBuilder, 
               private _utilsService: UtilsService, 
               private _globalService: GlobalService, 
@@ -85,8 +87,12 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   } 
 
   addDevice() {
+    this._deviceService.showDeviceErrorSummaryOneRec.set(false);
     const group = this.deviceService.createDeviceFormGroup(this.fb);
     this.devicesFormArr.push(group);
+    if (this.devicesFormArr.length > 1) {
+      this._deviceService.showDeviceErrorSummaryOneRec.set(false);
+    }
   }
 
   saveDeviceRecord(event: any) {  
@@ -134,13 +140,14 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     deviceInfo.reset();
     this.devicesFormArr.removeAt(index);
 
-    if (this.devicesFormArr.length == 0) {
-      this._deviceService.showDeviceErrorSummary.set(false);
-      
-    }
-
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
+    console.log("deleting device record..");
+    if (this.devicesFormArr.length == 1) {
+      this._deviceService.showDeviceErrorSummaryOneRec.set(true);
+    }
+    this.errorSummaryChild = null;
+    this._emitErrors();
   }
 
   revertDevice(event: any) {  
@@ -222,15 +229,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
         }
       })
     } else {
-      // if (this._utilsService.isFrench(this.lang)) {
-      //   alert(
-      //     "Veuillez sauvegarder les données d'entrée non enregistrées."
-      //   );
-      // } else {
-        alert(
-          'Please save the unsaved input data.'
-        );
-      // }
+      this.openPopup();
     }
 
   } 
@@ -280,7 +279,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
         emitErrors.push(err);
       })
     }
-   
+    console.log(this.errorSummaryChild);
+    console.log(this.errorList);
+    console.log("emitting errors", emitErrors);
     this._deviceService.deviceErrors.update( errors => emitErrors );
   }
 
@@ -295,5 +296,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   getDevicesFormArrValues(): any {
     return this.devicesFormArr.value;
   }  
+
+  openPopup(){
+    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  }
 
 }

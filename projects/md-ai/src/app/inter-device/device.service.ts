@@ -6,7 +6,9 @@ import { ValidationService } from '@hpfb/sdk/ui';
 export class DeviceService {
 
   deviceErrors = signal([]);
-  showDeviceErrorSummary = signal(false);
+  
+  // showDeviceErrorSummary = signal(false);
+  showDeviceErrorSummaryOneRec = signal(false);
 
   public createDeviceFormGroup(fb: FormBuilder) : FormGroup | null {
     if (!fb) {

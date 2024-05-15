@@ -15,11 +15,13 @@ import { MaterialModule } from '../bio-material/material.module';
 import { MaterialService } from '../bio-material/material.service';
 import { DeviceModule } from '../inter-device/device.module';
 import { DeviceService } from '../inter-device/device.service';
+import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-form-base',
   standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule, MaterialModule, FilereaderInstructionComponent],
+  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, DeviceModule, MaterialModule, FilereaderInstructionComponent, PopupComponent],
   providers: [FileConversionService, ApplicationInfoBaseService, FormDataLoaderService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
   templateUrl: './form-base.component.html',
   styleUrls: ['./form-base.component.css'],
@@ -32,7 +34,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
-  private _materialErrors = []; // Combines material info and material list errors
+  private _materialInfoErrors = []; 
+  private _materialListErrors = [];
   
   //computed(() => {
     // console.log("computed", this._materialService.errors());
@@ -63,6 +66,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public fileServices: FileConversionService;
   public helpIndex: { [key: string]: number };
 
+  popupId = 'saveXmlPopup';
+  processXmlCount : number = 0;
+
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
     private cdr: ChangeDetectorRef,
@@ -84,8 +90,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     effect(() => {
       // console.log("[effect3] device", this._deviceService.errors());
-      // console.log("[effect3] material", this._materialService.errors());
-      this._materialErrors = this._materialService.materialErrors();
+      // console.log("[effect3] material", this._materialService.materialListErrors());
+      this._materialListErrors = this._materialService.getListErrors();
+      this._materialInfoErrors = this._materialService.getInfoErrors();
       this.processErrors();
     });
     effect(() => {
@@ -125,10 +132,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base comp');
     this.errorList = [];
+    console.log(this._materialListErrors);
+    console.log(this._materialInfoErrors);
     // concat the two array
-    this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialErrors))); // .concat(this._theraErrors);
+    this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialInfoErrors.concat(this._materialListErrors)))); // .concat(this._theraErrors);
     // console.log("process errors in form base", this.errorList);
-    this.errorList.sort((a, b) => a.errorNumber - b.errorNumber);
+    console.log(this.errorList);
     // console.log(this.errorList);
     // console.log("printing material errors", this._materialErrors);
     this.cdr.detectChanges(); // doing our own change detection
@@ -150,8 +159,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
    */
   resetMaterialErrors(reset : boolean) {
     if (reset) {
-      this._materialErrors = [];
-      this._materialService.showSummary.set(false);
+      this._materialListErrors = [];
+      this._materialInfoErrors = [];
     }
     this.processErrors();
   }
@@ -161,19 +170,57 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveXmlFile() {
+    this.processXmlCount++;
     console.log("saving xml...");
     this.showErrors = true;
     this._globalService.setShowErrors(true);
-    this._materialService.showSummary.set(true);
-    this._deviceService.showDeviceErrorSummary.set(true);
+    this.showDeviceErrorSummary();
+    this.showMaterialSummary();
+
+    // console.log("saving xml file...material errs", this._materialService.materialErrors())
+    // this._materialService.showSummary.set(true);
+    // this._deviceService.showDeviceErrorSummary.set(true);
     this.processErrors();
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummary';
     } else {
-      const result: Enrollment = this._prepareForSaving(true);
-      const fileName: string = this._buildfileName(result);
-      this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
+      const aiDevices = this.aiDetails.aiDevices;
+      
+      let aiMaterials;
+      if (this.aiDetails.bioMaterialInfo) {
+        aiMaterials = this.aiDetails.bioMaterialInfo.aiMaterials;
+      }
+
+      if (aiMaterials && !aiDevices) {
+        if (this.aiDetails.bioMaterialInfo.aiMaterials.materialListForm.pristine) {
+          this.prepareXml();
+        } else {
+            this.openPopup();
+        }
+      } 
+
+      if (!aiMaterials && aiDevices) {
+        if (this.aiDetails.aiDevices.deviceListForm.pristine) {
+          this.prepareXml();
+        } else {
+            this.openPopup();
+        }
+      }
+
+      if (aiMaterials && aiDevices) {
+        if (this.aiDetails.aiDevices.deviceListForm.pristine && this.aiDetails.bioMaterialInfo.aiMaterials.materialListForm.pristine) {
+          this.prepareXml();
+        } else {
+            this.openPopup();
+        }
+      }
     }
+  }
+
+  public prepareXml() {
+    const result: Enrollment = this._prepareForSaving(true);
+    const fileName: string = this._buildfileName(result);
+    this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
   }
 
   public saveWorkingCopyFile() {
@@ -248,6 +295,67 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.deviceModel = [];
     }
     this.materialInfo = applicationEnroll.material_info;
+  }
+
+  openPopup(){
+    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  }
+
+  showDeviceErrorSummary() {
+    if (this.aiDetails.aiDevices.devicesFormArr) {
+      const devicesFormArrayControls = this.aiDetails.aiDevices.devicesFormArr.controls;
+      console.log(devicesFormArrayControls);
+
+      // If there's more than one device records that are created, and the first one is valid, set showErrorSummary to false -> Do not show error summary for records
+      // below the first one - This is for when a record is created after generating XML/error summary for form is shown
+      if ((devicesFormArrayControls.length > 1 && !devicesFormArrayControls[0].invalid)) {
+        this._deviceService.showDeviceErrorSummaryOneRec.set(false);
+      } else {
+        this._deviceService.showDeviceErrorSummaryOneRec.set(true);
+      }
+
+      for (let i = 0; i < devicesFormArrayControls.length; i++) {
+        // if (devicesFormArrayControls[i].invalid) {
+        //   this._deviceService.showDeviceErrorSummary.set(true);
+        // } 
+
+        // If Generate XML is clicked for the first time and if there are any empty/unsaved records, show error summary
+        if (this.processXmlCount == 1 && devicesFormArrayControls[i].invalid) {
+          console.log("here");
+          this._deviceService.showDeviceErrorSummaryOneRec.set(true);
+        }
+      }
+    }
+  }
+
+  showMaterialSummary() {
+    if (this.aiDetails.bioMaterialInfo) {
+
+      if (this.aiDetails.bioMaterialInfo.aiMaterials) {
+        const materialsFormArrayControls = this.aiDetails.bioMaterialInfo.aiMaterials.materialsFormArr.controls;
+
+        console.log(materialsFormArrayControls);
+
+        // If there's more than one device records that are created, and the first one is valid, set showErrorSummary to false -> Do not show error summary for records
+        // below the first one - This is for when a record is created after generating XML/error summary for form is shown
+        if ((materialsFormArrayControls.length > 1 && !materialsFormArrayControls[0].invalid)) {
+          this._materialService.showMaterialErrorSummaryOneRec.set(false);
+        } else {
+          this._materialService.showMaterialErrorSummaryOneRec.set(true);
+        }
+
+        for (let i = 0; i < materialsFormArrayControls.length; i++) {
+          // if (materialsFormArrayControls[i].invalid) {
+            // this._materialService.showMaterialErrorSummary.set(true);
+          // } 
+
+          // If Generate XML is clicked for the first time and if there are any empty/unsaved records, show error summary
+          if (this.processXmlCount == 1 && materialsFormArrayControls[i].invalid) {
+            this._materialService.showMaterialErrorSummaryOneRec.set(true);
+          }
+        }
+      }
+    }
   }
 
 }

@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import {BrowserModule} from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective } from '@hpfb/sdk/ui';
+import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective } from '
     ErrorModule,
     PipesModule,
     ExpanderModule,
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    PopupComponent
   ],
   declarations: [
     MaterialItemComponent,

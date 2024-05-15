@@ -14,10 +14,15 @@
 
           <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'"
             aria-hidden="true"></i>
-          @if (accordionHeadingSupp!=null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) != null) {
+          @if (accordionHeadingSupp!=null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) != null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) != '') 
+          {
             {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }} -
             {{recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value}}
-          }@else {
+          } 
+          @else if (accordionHeadingSupp!=null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) != null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) == '') {
+            {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }}
+          }
+          @else {
             {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }}
           }
         </h4>

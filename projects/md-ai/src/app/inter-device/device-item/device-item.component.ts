@@ -56,10 +56,16 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     //this.isInternal = this._globalService.$isInternal;
 
     effect(() => {
+      // this._deviceService.showDeviceErrorSummary() 
+      if (this._deviceService.showDeviceErrorSummaryOneRec()) {
       this.showErrors = this._globalService.showErrors()
-      if (this._globalService.showErrors()) {
-        this._updateErrorList(this.msgList);
+      this.showErrSummary = this.showErrors;
+
+        if (this._globalService.showErrors()) {
+          this._updateErrorList(this.msgList);
+        }
       }
+    
     });
   }
 
@@ -240,7 +246,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   }
 
   public showErrorSummary(): boolean {
-    return ((this.showErrSummary || this._deviceService.showDeviceErrorSummary()) && this.errorList.length > 0);
+    return ((this.showErrSummary) && this.errorList.length > 0);
   }
   
   // todo use include, not !Remove

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials } from '../models/Enrollment';
 import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
 import { GlobalService } from '../global/global.service';
 import { DeviceService } from '../inter-device/device.service';
@@ -113,6 +113,14 @@ export class ApplicationInfoBaseService {
     )
   }
 
+  public getEmptyMaterialListModel(): BiologicalMaterials {
+    return (
+      {
+        material : []
+      }
+    )
+  }
+
 
   private _getRegulatoryActivityLead() {
     return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Device Directorate', 'Direction des instruments médicaux');
@@ -131,7 +139,9 @@ export class ApplicationInfoBaseService {
         let deviceModel: Device = this.getEmptyDeviceModel();
         this._deviceService.mapFormModelToOutputModel(devicesForm[i].deviceInfo, deviceModel);
         deviceModel.device_id = devicesForm[i].id;
-        deviceModelList.push(deviceModel);
+        if (deviceModel.device_id != -1) {
+          deviceModelList.push(deviceModel);
+        }
       }
     }
 
@@ -144,7 +154,9 @@ export class ApplicationInfoBaseService {
           let materialModel: BiologicalMaterial = this.getEmptyMaterialModel();
           this._materialService.mapMaterialModelToOutputModel(materialsForm[i].materialInfo, materialModel);
           materialModel.material_id = materialsForm[i].id;
-          materialModelList.push(materialModel);
+          if (materialModel.material_id != -1) {
+            materialModelList.push(materialModel);
+          }
         }
 
         materialInfoModel.biological_materials = {material : materialModelList};
