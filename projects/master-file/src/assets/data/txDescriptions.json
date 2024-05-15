@@ -9,7 +9,8 @@
         "id": "2",
         "en": "Letter of Access",
         "fr": "Lettre d'accès",
-        "sortPriority": 7
+        "sortPriority": 7,
+        "revisionSaveVal": "7"
     },
     {
         "id": "3",
@@ -21,7 +22,8 @@
         "id": "4",
         "en": "CEP, Attestations and Letter of Access",
         "fr": "CEP, attestations et lettre d'accès",
-        "sortPriority": 13
+        "sortPriority": 13,
+        "revisionSaveVal": "8"
     },
     {
         "id": "5",
@@ -35,13 +37,15 @@
         "id": "6",
         "en": "Conversion and Letter of Access",
         "fr": "Conversion et lettre d'accès",
-        "sortPriority": 16
+        "sortPriority": 16,
+        "revisionSaveVal": "9"
     },
     {
         "id": "7",
         "en": "Conversion, Update and Letter of Access",
         "fr": "Conversion, mise à jour et lettre d'accès",
-        "sortPriority": 17
+        "sortPriority": 17,
+        "revisionSaveVal": "10"
     },
     {
         "id": "8",
@@ -61,13 +65,16 @@
         "fr": "Réactivation de la fiche maîtresse",
         "defEn": "The Master File is being converted from the paper format to the non - eCTD or eCTD format. The Master File is closed and the Master File Holder wishes to reactivate the Master File. Please note: for either scenario, the entire Master File must be submitted including any changes/updates that have occured since the previous version of the Master File. Fees apply. ",
         "defFr": " La fiche maîtresse est convertie du format papier au format non-eCTD ou eCTD. La fiche maîtresse est fermée et le titulaire de la fiche maîtresse souhaite la réactiver. Veuillez noter que : pour les deux scénarios, la fiche maîtresse complète doit être soumise y compris tous les changements et toutes les mises à jour qui se sont produits depuis la version précédente de la fiche maîtresse. Des frais s’appliquent",
-        "sortPriority": 19
+        "sortPriority": 19,
+        "revisionSaveVal": "11"
     },
     {
         "id": "11",
         "en": "New Master File and Letter of Access",
         "fr": "Nouvelle fiche maîtresse et lettre d’accès",
-        "sortPriority": 1
+        "sortPriority": 1,
+        "revisionSaveVal": "1"
+
     }, 
     {
         "id": "12",
@@ -85,31 +92,36 @@
         "id": "15",
         "en": "Update",
         "fr": "Mise à jour",
-        "sortPriority": 2
+        "sortPriority": 2,
+        "revisionSaveVal": "2"
     }, 
     {
         "id": "16",
         "en": "Update and Letter of Access",
         "fr": "Mise à jour et lettre d'accès",
-        "sortPriority": 3
+        "sortPriority": 3,
+        "revisionSaveVal": "3"
     },
     {
         "id": "17",
         "en": "Update, CEP and Attestations",
         "fr": "Mise à jour, CEP et attestations",
-        "sortPriority": 4
+        "sortPriority": 4,
+        "revisionSaveVal": "4"
     },
     {
         "id": "18",
         "en": "Update, CEP, Attestations and Letter of Access",
         "fr": "Mise à jour, CEP, attestations  et lettre d'accès",
-        "sortPriority": 5
+        "sortPriority": 5,
+        "revisionSaveVal": "5"
     },
     {
         "id": "19",
         "en": "Update and Conversion",
         "fr": "Mise à jour et conversion",
-        "sortPriority": 6
+        "sortPriority": 6,
+        "revisionSaveVal": "6"
     },
     {
         "id": "20",

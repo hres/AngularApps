@@ -239,6 +239,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       // when the action is triggered from the UI    
       // reset requestDate and requester fields values
       GlobalsService.resetControlValue(this.regulartoryFormModel.controls['requestDate'], this.regulartoryFormModel.controls['requester']);
+      GlobalsService.resetControlValue(this.regulartoryFormModel.controls['reqRevision'], this.regulartoryFormModel.controls['revisedDescriptionType']);
 
       this.trDescUpdated.emit(this.showContactFees);
       this._saveData();
@@ -268,7 +269,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       
     } else {
       this.showRevisedTxDesc = false;
-      this.regulartoryFormModel.controls['revisedTxDesc'].setValue(''); // null or empty? 
+      GlobalsService.resetControlValue(this.regulartoryFormModel.controls['revisedDescriptionType']);
     }
   }
 
@@ -280,6 +281,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       this.dataModel,
       this.lang
     );
+    //changing the id of the revised_trans_desc save value to conform with matrix.
+    this.dataModel.lifecycle_record.revised_trans_desc._id = this.regulartoryFormModel.value.revisedDescriptionType.revisionSaveVal;
+      
   }
   
   // dynamically load the transaction description dropdowns according to the master type value
