@@ -5,7 +5,7 @@ export interface Enrollment {
 }
 
 export interface DeviceApplicationEnrol {
-    template_version:               string;
+    software_version:               string;
     form_language:                  string;
     check_sum?:                     string;
     application_info:               ApplicationInfo;
