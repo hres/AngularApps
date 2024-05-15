@@ -439,25 +439,25 @@ span.normalWeight {
 						</div>
 						<div class="col-xs-6">
 							<strong>Type de demande d'homologation:&#160;</strong>
-							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_application_type" /></span>
+							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_application_type/@label_fr"/></span>
 						</div>
 						<div class="col-xs-12">
 							<strong>Programme d’audit unique des matériels médicaux (PAUMM) Organisation d'audit:&#160;</strong>
-							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_org"/></span>
+							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_org/@label_fr"/></span>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-6">
 							<strong>Responsable de l’activité réglementaire:&#160;</strong>
-							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_lead" /></span>
+							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_lead/@label_fr" /></span>
 						</div>
 						<div class="col-xs-6">
 							<strong>Type d'activité réglementaire:&#160;</strong>
-							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_type"/></span>
+							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_type/@label_fr"/></span>
 						</div>
 						<div class="col-xs-6">
 							<strong>Catégorie d'instruments:&#160;</strong>
-							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_class"/></span>
+							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_class/@label_fr"/></span>
 						</div>
 					</div>
 					<div class="row"><br/></div>
@@ -535,21 +535,14 @@ span.normalWeight {
 										<div class="row">&#160;
 											<strong>Conformité:&#160;</strong>
 										</div>
-										<div class="row">&#160;
-											<div class="col-xs-3">
-												<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/compliance_usp"/></xsl:call-template>
-												<span class="mouseHover">USP</span>
-											</div>
-											<div class="col-xs-3">
-												<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/compliance_gmp"/></xsl:call-template>
-												<span class="mouseHover">BPF</span>
-											</div>
-											<div class="col-xs-3">
-												<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/compliance_other"/></xsl:call-template>
-												<span class="mouseHover">Autres pharmacopées</span>
-											</div>
-										</div>
-										<xsl:if test="/descendant-or-self::application_info/compliance_other = 'yes'">
+										<xsl:for-each select="/descendant-or-self::application_info/compliance/compliance">
+												<div class="row">
+													<div class="col-xs-12">
+														<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
+													</div>
+												</div>
+										</xsl:for-each>	
+										<xsl:if test="/descendant-or-self::application_info/other_pharmacopeia !=''">
 											<div class="row">&#160;
 												<strong>Indiquer une autre pharmacopée :&#160;</strong>
 												<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/other_pharmacopeia"/></span>
@@ -575,24 +568,41 @@ span.normalWeight {
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_it"/></xsl:call-template>
 									<span class="mouseHover">Essai expérimental</span>
 								</div>
-								<div class="col-xs-6">
-									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_sa"/></xsl:call-template>
-									<span class="mouseHover">Accès spécial</span>
-								</div>
-								<xsl:if test="/descendant-or-self::application_info/provision_mdr_it = 'yes'">
+								<xsl:if test="/descendant-or-self::application_info/provision_mdr_it = 'true'">
 								<div class="col-xs-6">
 									<strong>Numéro d'application:&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/application_number"/></span>
 								</div>
 								</xsl:if>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_sa"/></xsl:call-template>
+									<span class="mouseHover">Accès spécial</span>
+								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_it = 'no' and /descendant-or-self::application_info/provision_mdr_sa = 'yes'">
 									<div class="col-xs-6">&#160;</div>
 								</xsl:if>
-								<xsl:if test="/descendant-or-self::application_info/provision_mdr_sa = 'yes'">
+								<xsl:if test="/descendant-or-self::application_info/provision_mdr_sa = 'true'">
 								<div class="col-xs-6">
 									<strong>Numéro de demande PAS:&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/sap_request_number"/></span>
 								</div>
+								</xsl:if>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/interim_order_authorization"/></xsl:call-template>
+									<span class="mouseHover">Autorisation délivrée au titre de l'arrêté d'urgence</span>
+								</div>
+								<xsl:if test="/descendant-or-self::application_info/interim_order_authorization = 'true'">
+								<div class="col-xs-6">
+									<strong>ID d'autorisation:&#160;</strong>
+									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/authorization_id"/></span>
+								</div>
+								</xsl:if>		
+								<xsl:if test="/descendant-or-self::application_info/provision_mdr_it = 'no' and /descendant-or-self::application_info/provision_mdr_sa = 'yes'">
+									<div class="col-xs-6">&#160;</div>
 								</xsl:if>
 							</div>
 						</div>
@@ -636,32 +646,58 @@ span.normalWeight {
 							<div class="row">
 								<div class="col-xs-12">
 								<strong>Cet instrument est-il constitué de matériel recombinant?&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/has_recombinant"/></xsl:call-template></span>
+								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/has_recombinant"/></xsl:call-template></span>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-xs-12">
 								<strong>Cet instrument contient-il ou est-il produit à l'aide de matériel d'origine animale ou humaine?&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/is_animal_human_sourced"/></xsl:call-template></span>
+								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_animal_human_sourced"/></xsl:call-template></span>
 								</div>
 							</div>
-							<xsl:if test="/descendant-or-self::application_info/is_animal_human_sourced = 'yes'">
+							<xsl:if test="/descendant-or-self::material_info/is_animal_human_sourced = 'yes'">
 								<div class="row">
 								<div class="col-xs-12">
 									<strong>Le matériel biologique est-il le même pour tous les instruments répertoriés dans le tableau des détails des instruments? &#160;</strong>
-									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/is_listed_idd_table"/></xsl:call-template></span>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_listed_idd_table"/></xsl:call-template></span>
 								</div>
 								</div>
 							</xsl:if>
-							<xsl:if test="count(/descendant-or-self::materials/material/id) > 0">
+							<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/material_id) > 0">
 								<section class="panel panel-default" >
 									<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
 										<h2 class="panel-title">Tableau des attributs des matières biologiques</h2>
 									</div>
 									<div class="panel-body">
-										<xsl:call-template name="biologicMaterial"><xsl:with-param name="values" select="/descendant-or-self::materials"/></xsl:call-template>
+										<xsl:apply-templates select="/descendant-or-self::material_info/biological_materials/material"/>
 									</div>
 								</section>
+							</xsl:if>
+						</div>
+					</section>
+					<section class="panel panel-default" >
+						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+							<h2 class="panel-title">Examen prioritaire</h2>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12">
+								<strong>Un examen prioritaire est-il demandé pour cette application?&#160;</strong>
+								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/priority_review"/></xsl:call-template></span>
+								</div>
+							</div>
+							
+							<xsl:if test="/descendant-or-self::application_info/is_diagnosis_treatment_serious/diagnosis_reason">
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Un examen prioritaire est demandé pour l’instrument en question, car il est destiné au diagnostic ou au traitement d'une maladie ou d'une affection grave, mettant la vie de l'individu en danger ou gravement débilitante, et il existe des preuves cliniques substantielles que l'instrument médical :</strong></div>
+								</div>
+								<xsl:for-each select="/descendant-or-self::application_info/is_diagnosis_treatment_serious/diagnosis_reason">
+									<div class="row">
+										<div class="col-xs-12">
+											<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
+										</div>
+									</div>
+								</xsl:for-each>
 							</xsl:if>
 						</div>
 					</section>
@@ -669,62 +705,61 @@ span.normalWeight {
 			</div>
 		</section>
 	</xsl:template>
-	<xsl:template name="biologicMaterial">
-		<xsl:param name="values" select="/.."/>
-		<xsl:for-each select="$values/material">
-			<h4>Matériel biologique &#160;<xsl:value-of select="position()"/></h4>
+	<xsl:template name="biologicMaterial" match="material_info/biological_materials/material">
+		
+		<h4>Matériel biologique &#160;<xsl:value-of select="position()"/></h4>
+		<div class="col-xs-12">
+		<div class="row">
 			<div class="col-xs-12">
-			<div class="row">
-				<div class="col-xs-12">
-				<strong>Nom du matériel:&#160;</strong>
-				<span class="mouseHover"><xsl:value-of select="./material_name"/></span>
-				</div>
+			<strong>Nom du matériel:&#160;</strong>
+			<span class="mouseHover"><xsl:value-of select="./material_name"/></span>
 			</div>
-			<div class="row">
-				<div class="col-xs-12">
-				<strong>Nom de l'instrument compatible:&#160;</strong>
-				<span class="mouseHover"><xsl:value-of select="./device_name"/></span>
-				</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+			<strong>Nom de l'instrument compatible:&#160;</strong>
+			<span class="mouseHover"><xsl:value-of select="./device_name"/></span>
 			</div>
-			<div class="row">
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<strong>Pays d'origine (pour animaux seulement):&#160;</strong>
+				<span class="mouseHover"><xsl:value-of select="./origin_country/@label_fr"/></span>
+			</div>
+			<div class="col-xs-5">
+				<strong>Famille de l'espèce:&#160;</strong>
+				<span class="mouseHover"><xsl:value-of select="./family_of_species/@label_fr"/></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<strong>Type de tissus/substances:&#160;</strong>
+				<span class="mouseHover"><xsl:value-of select="./tissue_substance_type/@label_fr"/></span>
+			</div>
+			<div class="col-xs-5">
+				<strong>Dérivé:&#160;</strong>
+				<span class="mouseHover"><xsl:value-of select="./derivative/@label_fr"/></span>
+			</div>
+			<xsl:if test="./tissue_substance_type/@id = '32'">
 				<div class="col-xs-5">
-					<strong>Pays d'origine (pour animaux seulement):&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="./origin_country"/></span>
+					<strong>Autres détails sur les types de tissus:&#160;</strong>
+					<span class="mouseHover"><xsl:value-of select="./tissue_type_other_details"/></span>
 				</div>
+			</xsl:if>
+			<xsl:if test="./tissue_substance_type/@id != 'other' and ./derivative/@id = 'other'">
+				<div class="col-xs-5">&#160;</div>
+			</xsl:if>
+			<xsl:if test="./derivative/@id = '30'">
 				<div class="col-xs-5">
-					<strong>Famille de l'espèce:&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="./family_of_species"/></span>
+					<strong>Autres détails sur les dérivés:&#160;</strong>
+					<span class="mouseHover"><xsl:value-of select="./derivative_other_details"/></span>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-5">
-					<strong>Type de tissus/substances:&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="./tissue_substance_type"/></span>
-				</div>
-				<div class="col-xs-5">
-					<strong>Dérivé:&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="./derivative"/></span>
-				</div>
-				<xsl:if test="./tissue_substance_type/@id = 'other'">
-					<div class="col-xs-5">
-						<strong>Autres détails sur les types de tissus:&#160;</strong>
-						<span class="mouseHover"><xsl:value-of select="./tissue_type_other_details"/></span>
-					</div>
-				</xsl:if>
-				<xsl:if test="./tissue_substance_type/@id != 'other' and ./derivative/@id = 'other'">
-					<div class="col-xs-5">&#160;</div>
-				</xsl:if>
-				<xsl:if test="./derivative/@id = 'other'">
-					<div class="col-xs-5">
-						<strong>Autres détails sur les dérivés:&#160;</strong>
-						<span class="mouseHover"><xsl:value-of select="./derivative_other_details"/></span>
-					</div>
-				</xsl:if>
-			</div>
-			<div class="row"><br/><hr /><br/></div>
-			</div>
-			<!--<div class="row"><hr /></div>-->
-		</xsl:for-each>
+			</xsl:if>
+		</div>
+		<div class="row"><br/><hr /><br/></div>
+		</div>
+		<!--<div class="row"><hr /></div>-->
+		
 	</xsl:template>
 	<xsl:template name="compatibleDevices">
 		<xsl:param name="values" select="/.." />
@@ -738,14 +773,14 @@ span.normalWeight {
 				</div>
 				<div class="col-xs-12">
 					<strong>Cet instrument a-t-il été autorisé par Santé Canada?&#160;</strong>
-					<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="./device_Authorized"/></xsl:call-template></span>
+					<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="./device_authorized"/></xsl:call-template></span>
 
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-6">
 					<xsl:choose>
-					<xsl:when test="device_Authorized = 'yes'">
+					<xsl:when test="device_authorized = 'yes'">
 						<strong>Numéro de licence:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="./licence_number"/></span>
 					</xsl:when>
@@ -786,7 +821,7 @@ span.normalWeight {
 		<xsl:param name="value" select="/.."/>
 		<span class="c-checkbox">
 		<xsl:choose>
-			<xsl:when test="$value = 'yes'">
+			<xsl:when test="$value = 'true'">
 				X
 			</xsl:when>
 			<xsl:otherwise>
