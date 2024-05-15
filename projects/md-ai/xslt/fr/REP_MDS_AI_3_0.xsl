@@ -448,10 +448,6 @@ span.normalWeight {
 					</div>
 					<div class="row">
 						<div class="col-xs-6">
-							<strong>Responsable de l’activité réglementaire:&#160;</strong>
-							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_lead/@label_fr" /></span>
-						</div>
-						<div class="col-xs-6">
 							<strong>Type d'activité réglementaire:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_type/@label_fr"/></span>
 						</div>

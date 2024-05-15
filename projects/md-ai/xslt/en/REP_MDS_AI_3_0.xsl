@@ -448,10 +448,6 @@ span.normalWeight {
 					</div>
 					<div class="row">
 						<div class="col-xs-6">
-							<strong>Activity Lead:&#160;</strong>
-							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_lead/@label_en" /></span>
-						</div>
-						<div class="col-xs-6">
 							<strong>Regulatory Activity Type:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_type/@label_en"/></span>
 						</div>
