@@ -15,7 +15,7 @@
         "dev": {
             "co": {
                 "en": "mds/company/en/md-company.html",
-                "fr": "mds/company/fr/im-entreprise.html"
+                "fr": "mds/company/fr/im-compagnie.html"
             },
             "co_internal": {
                 "en": "mds/internal/company/en/index-internal.html ",
@@ -37,7 +37,7 @@
         "prod": {
             "co": {
                 "en": "mds/company/en/md-company.html",
-                "fr": "mds/company/fr/im-entreprise.html"
+                "fr": "mds/company/fr/im-compagnie.html"
             },
             "co_internal": {
                 "en": "mds/internal/en/index-internal.html ",
