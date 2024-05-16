@@ -26,7 +26,7 @@ export class CompanyBaseService {
   public getEmptyEnrol(): Enrollment {
     const enrollment: Enrollment = {
       DEVICE_COMPANY_ENROL: {
-        template_version: '',
+        software_version: '',
         form_language: '',
         general_information: this.getEmptyGenInfoModel(),
         address: this._entityBaseService.getEmptyAddressDetailsModel(),

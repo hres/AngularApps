@@ -18,7 +18,7 @@ const config = {
         },
         "fr": {
             "indexFileOriginalName": "/index-fr.html",
-            "indexFileNewName": "/im-entreprise.html",
+            "indexFileNewName": "/im-compagnie.html",
         }
       },
       "md-co-internal": {
