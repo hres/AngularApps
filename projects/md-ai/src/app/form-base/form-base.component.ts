@@ -85,7 +85,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showErrors = false;
     this.isSolicitedFlag = false;
     this.fileServices = new FileConversionService();
-    this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + XSL_EXTENSION;
+    this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.$appVersion) + XSL_EXTENSION;
     this.helpIndex = this._globalService.getHelpIndex();
 
     effect(() => {
