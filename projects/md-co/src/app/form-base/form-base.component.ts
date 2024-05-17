@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type, ElementRef } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { EnrollmentStatus, XSLT_PREFIX, ROOT_TAG, AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE } from '../app.constants';
+import { EnrollmentStatus, XSLT_PREFIX, ROOT_TAG, AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE, ContactStatus } from '../app.constants';
 import { CompanyDataLoaderService } from './company-data-loader.service';
 import { CompanyBaseService } from './company-base.service';
-import { GeneralInformation, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol} from '../models/Enrollment';
-import {  ICode, IKeyword, ConvertResults, FileConversionService, INameAddress, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ContactListComponent, Contact, ContactStatus, ConverterService, YES, VersionService, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule } from '@hpfb/sdk/ui';
+import { GeneralInformation, PrimaryContact, AdministrativeChanges, Enrollment, DeviceCompanyEnrol, INameAddress, Contact} from '../models/Enrollment';
+import {  ICode, IKeyword, ConvertResults, FileConversionService, CheckSumService, LoggerService, UtilsService, CHECK_SUM_CONST, ConverterService, YES, VersionService, FileIoModule, ErrorModule, PipesModule } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,14 +12,17 @@ import { AppFormModule } from '../app.form.module';
 import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
 import $ from 'jquery';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
+import { ContactListComponent } from '../contact/contact.list/contact.list.component';
+import { ContactModule } from '../contact/contact.module';
+import { AddressModule } from '../address/address.module';
 
 @Component({
     selector: 'app-form-base',
     standalone: true,
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AddressModule, ContactModule, AppFormModule, PopupComponent, FilereaderInstructionComponent],
     templateUrl: './form-base.component.html',
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, PopupComponent, FilereaderInstructionComponent, ContactModule, AddressModule]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -410,7 +413,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   // update active contact list for Primary Contact component
-  updateActiveContactList(contacts: Contact[]) {
+  updateActiveContactList(contacts: any) {
     const activeCntList = contacts.filter(contact => this.activeContactStatuses.includes(contact.status._id));
     this.activeContacts = [];
     if (activeCntList) {

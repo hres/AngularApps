@@ -70,12 +70,12 @@
                   <h3 class="panel-title">{{'heading.contactInfo'|translate}}</h3>
                 </header>
                 <div class="panel-body"> 
-                  <lib-contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternal"
+                  <app-contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternal"
                                  [loadFileIndicator]="loadFileIndicator" [lang]="lang"
                                  [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status._id"
                                  [showErrors]="showErrors" [contactModel]="contactModel"
                                  [languageList]="languageList" [contactStatusList]="contactStatusList"
-                                 (contactsUpdated)="updateActiveContactList($event)"></lib-contact-list>
+                                 (contactsUpdated)="updateActiveContactList($event)"></app-contact-list>
                 </div>
               </section>
               </div>

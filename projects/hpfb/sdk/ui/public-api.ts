@@ -9,6 +9,8 @@ export * from './expander/expander.module';
 export * from './error-msg/control-messages/control-messages.component';
 export * from './error-msg/error-summary/error-summary.component';
 export * from './error-msg/error-ui.module';
+export * from './error-msg/error.notification.service';
+export * from './error-msg/error-summary/error-summary-object';
 
 export * from './data-loader/data-loader.service';
 export * from './data-loader/data';
@@ -18,14 +20,6 @@ export * from './model/entity-base.service';
 export * from './model/form-model';
 
 export * from './converter/converter.service';
-
-export * from './address/address.details/address.details.component';
-export * from './address/address.module';
-
-export * from './contact/contact.list/contact.list.component';
-export * from './contact/company-contact-record/company-contact-record.component';
-export * from './contact/contact.details/contact.details.component';
-export * from './contact/contact.module';
 
 export * from './file-io/convert-results';
 export * from './file-io/file-conversion.service';
@@ -66,3 +60,5 @@ export * from './routing/routing.service'
 export * from './record-list/record.list.base.component';
 export * from './record-list/record.list.base.service';
 export * from './record-list/record.list.service.interface';
+
+export * from './popup/popup.component';

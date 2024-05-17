@@ -3,11 +3,9 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
-import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 import {AddressDetailsService} from './address.details.service';
-import { UtilsService } from '../../utils/utils.service';
-import { LoggerService } from '../../logger/logger.service';
-import { INameAddress } from '../../model/entity-base';
+import { ControlMessagesComponent, LoggerService, UtilsService } from '@hpfb/sdk/ui';
+import { INameAddress } from '../../models/Enrollment';
 
 @Component({
   selector: 'lib-address-details',

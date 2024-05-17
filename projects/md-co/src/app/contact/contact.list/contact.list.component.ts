@@ -6,20 +6,15 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
 import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {ContactListService} from './contact-list.service';
-import { RecordListBaseComponent } from '../../record-list/record.list.base.component';
 import {TranslateService} from '@ngx-translate/core';
-import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
-import { FINAL, ContactStatus } from '../../common.constants';
-import { ICode } from '../../data-loader/data';
-import { UtilsService } from '../../utils/utils.service';
-import { Contact } from '../../model/entity-base';
+import { ContactStatus } from '../../app.constants';
 import { Subscription } from 'rxjs';
-import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } from '../../error-msg/error-summary/error-summary-object';
-import { ErrorNotificationService } from '../../error-msg/error.notification.service';
+import { ErrorSummaryComponent, ICode, RecordListBaseComponent, UtilsService, ErrorNotificationService, ErrorSummaryObject, getEmptyErrorSummaryObj, ERR_TYPE_LEAST_ONE_REC } from '@hpfb/sdk/ui';
+import { Contact } from '../../models/Enrollment';
 
 //  import {ExpanderComponent} from '../../common/expander/expander.component';
 @Component({
-  selector: 'lib-contact-list',
+  selector: 'app-contact-list',
   templateUrl: './contact.list.component.html',
   styleUrls: ['./contact.list.component.css'],
   encapsulation: ViewEncapsulation.None

@@ -5,20 +5,14 @@ import { ContactListService } from './contact.list/contact-list.service';
 import { ContactDetailsComponent } from './contact.details/contact.details.component';
 import { CompanyContactRecordComponent } from './company-contact-record/company-contact-record.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { BrowserModule } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { ErrorModule } from '../error-msg/error-ui.module';
-import { PipesModule } from '../pipes/pipes.module';
-import { ExpanderModule } from '../expander/expander.module';
 import { CompanyContactRecordService } from './company-contact-record/company-contact-record.service';
 import { ContactDetailsService } from './contact.details/contact.details.service';
-import { NumbersOnlyDirective } from '../directives/number.only.directive';
-import { PopupComponent } from '../popup/popup.component';
+import { ErrorModule, ExpanderModule, NumbersOnlyDirective, PipesModule, PopupComponent } from '@hpfb/sdk/ui';
 
 @NgModule({
   imports: [
     CommonModule,
-    // BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,

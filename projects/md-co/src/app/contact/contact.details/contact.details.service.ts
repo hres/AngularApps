@@ -1,11 +1,11 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ValidationService } from '../../validation/validation.service';
-import { UtilsService } from '../../utils/utils.service';
-import { ConverterService } from '../../converter/converter.service';
-import { ICode } from '../../data-loader/data';
-import { Contact } from '../../model/entity-base';
-import { ContactStatus } from '../../common.constants';
+
+
+
+import { ContactStatus } from '../../app.constants';
+import { ConverterService, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { Contact } from '../../models/Enrollment';
 
 @Injectable()
 export class ContactDetailsService {
@@ -21,7 +21,7 @@ export class ContactDetailsService {
     if (!fb) {return null; }
     const contactIdValidators = isInternal ? [Validators.required, ValidationService.dossierContactIdValidator] : [];
     // const recordProcessedValidator = isInternal ? [Validators.required] : [];
-    const statusValidator = isInternal ? [ValidationService.contactStatusValidator] : [];
+    const statusValidator = isInternal ? [this.contactStatusValidator] : [];
     return fb.group({
       contactId: [null, contactIdValidators],
       status: [ContactStatus.New,statusValidator],
@@ -110,4 +110,16 @@ export class ContactDetailsService {
     contactDetailFormRecord.controls['statusText'].setValue(this._utilsService.findAndTranslateCode(contactStatusList, lang, statusId));
   }
 
+  contactStatusValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.toUpperCase()==ContactStatus.Remove) {
+      return {'error.msg.remove.contact': true};
+    } else if (control.value.toUpperCase()==ContactStatus.Revise) {
+      return {'error.msg.revise.contact': true};
+    } else {
+      return null;
+    }
+  }
 }

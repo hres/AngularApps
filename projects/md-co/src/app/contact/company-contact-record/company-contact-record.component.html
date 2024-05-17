@@ -4,11 +4,11 @@
                  [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
                  [headingLevel]="headingLevel" label="error.msg.contactDetails" compId="contactListTable"></lib-error-summary> 
 
-  <contact-details [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang"
+  <app-contact-details [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang"
                    [languageList]="languageList" [contactStatusList]="contactStatusList"
                    [recordId]="contactRecordModel.get('id').value" [group]="contactDetailsForm"
                    [helpTextSequences]="helpTextSequences" [translatedParentLabel]="translatedParentLabel"
-                   (errorList)="updateErrorList($event)"></contact-details>
+                   (errorList)="updateErrorList($event)"></app-contact-details>
 
                    <div class="row">
                     <div class="btn-group-sm col-xs-12 text-left">

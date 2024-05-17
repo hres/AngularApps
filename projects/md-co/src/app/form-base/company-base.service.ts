@@ -1,7 +1,7 @@
-import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { AdministrativeChanges, Enrollment, GeneralInformation, PrimaryContact } from '../models/Enrollment';
-import { INameAddress, EntityBaseService } from '@hpfb/sdk/ui';
+import { Injectable} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AdministrativeChanges, Contact, Enrollment, GeneralInformation, INameAddress, PrimaryContact } from '../models/Enrollment';
+import { EntityBaseService } from '@hpfb/sdk/ui';
 import { EnrollmentStatus } from '../app.constants';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class CompanyBaseService {
         software_version: '',
         form_language: '',
         general_information: this.getEmptyGenInfoModel(),
-        address: this._entityBaseService.getEmptyAddressDetailsModel(),
+        address: this.getEmptyAddressDetailsModel(),
         contacts: {contact: []},
         primary_contact: this.getEmptyPrimarycontactModel(),
         administrative_changes: this.getEmptyAdminChangesModel(),
@@ -89,4 +89,31 @@ export class CompanyBaseService {
     );
   }
 
+  getEmptyAddressDetailsModel(): INameAddress {
+    return {
+      company_name: '',
+      street_address: '',
+      city: '',
+      country: this._entityBaseService.getEmptyIdTextLabel(),
+      province_lov: this._entityBaseService.getEmptyIdTextLabel(),
+      province_text: '',
+      postal_code: '',
+    };
+  }
+
+  getEmptyContactModel(): Contact {
+    return {
+      id: null,
+      contact_id: '',
+      status: this._entityBaseService.getEmptyIdTextLabel(),
+      full_name: '',
+      language_correspondence: this._entityBaseService.getEmptyIdTextLabel(),
+      job_title: '',
+      fax_num: '',
+      phone_num: '',
+      phone_ext: '',
+      email: '',
+      // routingID: '',
+    };
+  }
 }

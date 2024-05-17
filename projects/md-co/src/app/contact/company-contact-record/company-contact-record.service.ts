@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ContactDetailsService} from '../contact.details/contact.details.service';
-import { ICode } from '../../data-loader/data';
-import { Contact } from '../../model/entity-base';
+import { Contact } from '../../models/Enrollment';
+import { ICode } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class CompanyContactRecordService {
