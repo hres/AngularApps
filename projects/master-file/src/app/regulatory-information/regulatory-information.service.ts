@@ -227,7 +227,6 @@ export class RegulatoryInformationService {
     
     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
       
-      
       dataModel.lifecycle_record.transaction_description = {
         '_label_en':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, "dated", dataModel.lifecycle_record.sequence_from_date),
         '_label_fr':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, "daté du", dataModel.lifecycle_record.sequence_from_date)
@@ -240,9 +239,14 @@ export class RegulatoryInformationService {
         '_label_en':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
         '_label_fr':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
 
-      }
+      }  
     }
-
+    if (lang === "en"){
+      dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_en;
+      
+    }else if (lang === "fr"){
+      dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_fr;
+    }
     // HPFBFORMS-192, Master File Name, allow any case in form but when saving to XML put in upper case
     const masterFileNameMapping = GlobalsService.findDataMappingByFormControlName(this.regInfoDataMappings, 'masterFileName');
     if (masterFileNameMapping == null) {
