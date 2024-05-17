@@ -45,7 +45,7 @@ export interface LifecycleRecord {
   revised_trans_desc: IIdTextLabel;
   sequence_description_value: IIdTextLabel;
   sequence_from_date: string;
-  transaction_description: ILabel;
+  transaction_description: ITextLabel;
   requester_of_solicited_information: string;
 }
 
@@ -95,6 +95,12 @@ export interface IIdTextLabel {
 }
 
 export interface ILabel {
+  _label_en: string;
+  _label_fr: string;
+}
+
+export interface ITextLabel {
+  __text?: string;
   _label_en: string;
   _label_fr: string;
 }
