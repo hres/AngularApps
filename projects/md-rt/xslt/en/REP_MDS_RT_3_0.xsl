@@ -412,7 +412,7 @@ span.normalWeight {
 	<!-- Application Information Enrolment -->
 
 	<xsl:template name="mybody">
-		<h1>Regulatory Transaction Template: Regulatory Enrolment Process (REP) for Medical Devices (Version: 3.0)</h1>
+		<h1>Regulatory Transaction Template: Regulatory Enrolment Process (REP) for Medical Devices (Version: 3.0.0)</h1>
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
