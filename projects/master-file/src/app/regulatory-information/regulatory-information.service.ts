@@ -33,6 +33,8 @@ export class RegulatoryInformationService {
   mfTypeTxDescOptions$: Observable<IParentChildren[]>;
   mfRevisedTypeTxDescOptions$: Observable<IParentChildren[]>;
 
+  descriptionTypeList: ICodeDefinition[];
+
   showDateAndRequesterTxDescs: string[] = ['12','13', '14'];
 
   getMasterFileTypes(): Observable<ICodeAria[]> {
@@ -176,7 +178,7 @@ export class RegulatoryInformationService {
     ),
     new DataMapping(
       'descriptionType',
-      GlobalsService.FC_TYPE_ICODE,
+      GlobalsService.FC_TYPE_ID,
       'lifecycle_record.sequence_description_value',
       GlobalsService.OP_TYPE_IDTEXTLABEL
     ),
@@ -200,7 +202,7 @@ export class RegulatoryInformationService {
     ),    
     new DataMapping(
       'revisedDescriptionType',
-      GlobalsService.FC_TYPE_ICODE,
+      GlobalsService.FC_TYPE_ID,
       'lifecycle_record.revised_trans_desc',
       GlobalsService.OP_TYPE_IDTEXTLABEL
     ),    
@@ -212,13 +214,18 @@ export class RegulatoryInformationService {
     dataModel: Ectd,
     lang: string
   ): void {
-
+    let descriptionTypeList : any;
+    this.getTxDescriptions().subscribe(event => {
+                                            console.log(event);
+                                            this.descriptionTypeList = event;});
+    
     for (let mapping of this.regInfoDataMappings) {
       GlobalsService.convertFormDataToOutputModel(
         mapping,
         formRecord,
         dataModel,
-        lang
+        lang,
+        this.descriptionTypeList
       );
     }
 
