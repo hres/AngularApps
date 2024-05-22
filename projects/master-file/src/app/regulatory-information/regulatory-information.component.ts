@@ -216,22 +216,22 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   }
 
   onTxDescriptionSelected(e: any): void {
-    const txDescControl = this.regulartoryFormModel.get('descriptionType');
+    const txDescControl = this.regulartoryFormModel.get('descriptionType').value;
     this.selectedTxDescDefinition = GlobalsService.getCodeDefinitionByLang(txDescControl?.value, this.lang);
     
     this.showDateAndRequester = this.showDateAndRequesterTxDescs.includes(
-      txDescControl?.value.id
+      txDescControl
     );
     
     this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
-      txDescControl?.value.id
+      txDescControl
     );
     this.showContactFees[1] = !this.noFeeTxDescs.includes(
-      txDescControl?.value.id
+      txDescControl
     );
       
       
-    this.showReqRevisedTxDesc = (this.revisedTxDescId===txDescControl?.value.id);
+    this.showReqRevisedTxDesc = (this.revisedTxDescId===txDescControl);
     this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
     if (this.showRevisedTxDesc){this._getRevisedTransactionDescriptions();}
 
@@ -246,7 +246,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     }
   }
   onRevTxDescriptionSelected(e: any): void {
-    const revTxDescControl = this.regulartoryFormModel.get('revisedDescriptionType');
+    const revTxDescControl = this.regulartoryFormModel.get('revisedDescriptionType').value;
     if (e) {
       // when the action is triggered from the UI    
       

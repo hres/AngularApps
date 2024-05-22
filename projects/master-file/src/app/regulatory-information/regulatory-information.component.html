@@ -114,11 +114,14 @@
                         (change)="onTxDescriptionSelected($any($event.target).value)"
                         [formControl]="regulartoryFormModel.controls['descriptionType'] | formControl">
                         <option label=" " value=""></option>
-                        <option *ngFor="let desc of txDescOptions" [ngValue]="desc"> {{ desc | textTransform: lang }}
+                        <option *ngFor="let desc of txDescOptions" [ngValue]="desc.id"> {{ desc | textTransform: lang }}
                         </option>
                     </select>
                 </label>
             </div>
+        </div>
+        <div>
+            <pre>{{regulartoryFormModel.value |json}}</pre>
         </div>
         <div class="row" *ngIf="selectedTxDescDefinition">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -193,7 +196,7 @@
                         (change)="onRevTxDescriptionSelected($any($event.target).value)"
                         [formControl]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl">
                         <option label=" " value=""></option>
-                        <option *ngFor="let desc of revTxDescOptions" [ngValue]="desc"> {{ desc | textTransform: lang }}
+                        <option *ngFor="let desc of revTxDescOptions" [ngValue]="desc.id"> {{ desc | textTransform: lang }}
                         </option>
                     </select>
                 </label>
