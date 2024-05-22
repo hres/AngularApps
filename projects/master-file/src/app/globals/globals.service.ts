@@ -298,6 +298,20 @@ export class GlobalsService {
     }
   }  
 
+
+  // Function to find a match by id and return the appropriate definition based on lang
+  public static getCodeDefinitionByIdByLang(id: string, list: ICodeDefinition[], lang: string): string {
+    // Find the ICodeDefinition object with the matching id
+    const codeDefinition = list.find(item => item.id === id);
+
+    // If no match is found, return undefined
+    if (!codeDefinition) {
+      return null;
+    }
+
+    return this.getCodeDefinitionByLang(codeDefinition, lang);
+  }
+
   // return true if the value is in the array of valid values
   public static toBoolean = (value: string | number | boolean): boolean => 
   [true, 'true', 'True', 'TRUE', '1', 1].includes(value);
