@@ -33,6 +33,8 @@ export class RegulatoryInformationService {
   mfTypeTxDescOptions$: Observable<IParentChildren[]>;
   mfRevisedTypeTxDescOptions$: Observable<IParentChildren[]>;
 
+
+
   showDateAndRequesterTxDescs: string[] = ['12','13', '14'];
 
   getMasterFileTypes(): Observable<ICodeAria[]> {
@@ -46,12 +48,15 @@ export class RegulatoryInformationService {
   }
 
   getTxDescriptions(): Observable<ICodeDefinition[]> {
-    this.txDescs$ = this._dataService
-      .getSortedData<ICodeDefinition>('txDescriptions.json', SortOn.PRIORITY) 
-      .pipe(
-        //tap((_) => console.log('getTxDescriptions is executed')),
-        shareReplay(1)
-      );
+    // store the shared observable in a private property and reusing it in subsequent calls
+    if (!this.txDescs$) {
+      this.txDescs$ = this._dataService
+        .getSortedData<ICodeDefinition>('txDescriptions.json', SortOn.PRIORITY) 
+        .pipe(
+          // tap((_) => console.log('getTxDescriptions is executed')),
+          shareReplay(1)
+        );
+    }
     return this.txDescs$;
   }
 
@@ -176,7 +181,7 @@ export class RegulatoryInformationService {
     ),
     new DataMapping(
       'descriptionType',
-      GlobalsService.FC_TYPE_ICODE,
+      GlobalsService.FC_TYPE_ID,
       'lifecycle_record.sequence_description_value',
       GlobalsService.OP_TYPE_IDTEXTLABEL
     ),
@@ -200,7 +205,7 @@ export class RegulatoryInformationService {
     ),    
     new DataMapping(
       'revisedDescriptionType',
-      GlobalsService.FC_TYPE_ICODE,
+      GlobalsService.FC_TYPE_ID,
       'lifecycle_record.revised_trans_desc',
       GlobalsService.OP_TYPE_IDTEXTLABEL
     ),    
@@ -210,49 +215,46 @@ export class RegulatoryInformationService {
   public mapFormModelToDataModel(
     formRecord: FormGroup,
     dataModel: Ectd,
-    lang: string
-  ): void {
-
+    lang: string, descriptionTypeList:ICodeDefinition[]
+  ): void {    
     for (let mapping of this.regInfoDataMappings) {
       GlobalsService.convertFormDataToOutputModel(
         mapping,
         formRecord,
         dataModel,
-        lang
+        lang,
+        descriptionTypeList
       );
     }
 
     // save concatenated data to the dataModel
     // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
-    
-    if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
-      
-      dataModel.lifecycle_record.transaction_description = {
-        '_label_en':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, "dated", dataModel.lifecycle_record.sequence_from_date),
-        '_label_fr':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, "daté du", dataModel.lifecycle_record.sequence_from_date)
-
+    if (dataModel.lifecycle_record.sequence_description_value?._id) {    
+      if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {    
+        dataModel.lifecycle_record.transaction_description = {
+          '_label_en':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, "dated", dataModel.lifecycle_record.sequence_from_date),
+          '_label_fr':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, "daté du", dataModel.lifecycle_record.sequence_from_date)
+        }      
+      } else {
+        dataModel.lifecycle_record.transaction_description = {
+          '_label_en':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
+          '_label_fr':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
+        }  
       }
-
-      
-    } else {
-      dataModel.lifecycle_record.transaction_description = {
-        '_label_en':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
-        '_label_fr':GlobalsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
-
-      }  
-    }
-    if (lang === "en"){
-      dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_en;
-      
-    }else if (lang === "fr"){
-      dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_fr;
+      if (GlobalsService.isFrench(lang)) {
+        dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_fr;
+      }else{
+        dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_en;
+      }
     }
     // HPFBFORMS-192, Master File Name, allow any case in form but when saving to XML put in upper case
     const masterFileNameMapping = GlobalsService.findDataMappingByFormControlName(this.regInfoDataMappings, 'masterFileName');
     if (masterFileNameMapping == null) {
       console.log("couldn't find masterFileNameMapping");
     } else {
-      dataModel[masterFileNameMapping.outputDataName] = dataModel[masterFileNameMapping.outputDataName].toUpperCase();
+      if (dataModel[masterFileNameMapping.outputDataName]) {
+        dataModel[masterFileNameMapping.outputDataName] = dataModel[masterFileNameMapping.outputDataName].toUpperCase();
+      }
     }
   }
 
@@ -284,10 +286,6 @@ export class RegulatoryInformationService {
           GlobalsService.updateControlValue(controlName, control,  this.mfTypeOptions$ );
         } else if (controlName === 'masterFileUse') {
           GlobalsService.updateControlValue(controlName, control, this.mfUseOptions$);
-        } else if (controlName === 'descriptionType') {
-          GlobalsService.updateControlValue(controlName, control, this.txDescs$);
-        } else if (controlName === 'revisedDescriptionType'){
-          GlobalsService.updateControlValue(controlName, control, this.txDescs$);
         }
       }
     }

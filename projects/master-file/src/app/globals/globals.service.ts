@@ -28,6 +28,7 @@ export class GlobalsService {
   // form control types
   public static FC_TYPE_INPUT = '1';
   public static FC_TYPE_ICODE = '2';
+  public static FC_TYPE_ID = '3';
   // output data types
   public static OP_TYPE_TEXT = '10';
   public static OP_TYPE_IDTEXTLABEL = '20';
@@ -50,13 +51,14 @@ export class GlobalsService {
     mapping: DataMapping,
     formRecord: FormGroup,
     output,
-    lang: string
+    lang: string,
+    descriptionTypeList?
   ): void {
-
     try{
       var splitted = mapping.outputDataName.split('.');
 
       let val: any;
+      let temp_val: any;
       if (mapping.formControlType === GlobalsService.FC_TYPE_INPUT) {
         val = formRecord.controls[mapping.formControlName].value;
       } else if (mapping.formControlType === GlobalsService.FC_TYPE_ICODE) {
@@ -64,6 +66,9 @@ export class GlobalsService {
           formRecord.controls[mapping.formControlName].value,
           lang
         );
+      } else if (mapping.formControlType === GlobalsService.FC_TYPE_ID) {
+        temp_val = this.findCodeById(descriptionTypeList, formRecord.controls[mapping.formControlName].value);
+        val = this.convertCodeToIdTextLabel(temp_val, lang);
       }
 
       // console.log(
@@ -86,6 +91,21 @@ export class GlobalsService {
       console.log('convertFormDataToOutputModel ~ ', ex.message)
     }
   }
+
+   /**
+   * find a code by its id in a code array
+   * @param codeArray 
+   * @param id 
+   * @returns either a code or undefined
+   */
+  static findCodeById(codeArray: ICodeDefinition[], id: string): ICode | undefined {
+    return this.isEmpty(id)? undefined : codeArray.find(obj => obj.id === id);
+  }
+
+  static isEmpty(value: any): boolean {
+    return value === null || value === undefined || value === "";
+  }
+
 
   /*
   set form control's value from data model
@@ -277,6 +297,20 @@ export class GlobalsService {
       return null;
     }
   }  
+
+
+  // Function to find a match by id and return the appropriate definition based on lang
+  public static getCodeDefinitionByIdByLang(id: string, list: ICodeDefinition[], lang: string): string {
+    // Find the ICodeDefinition object with the matching id
+    const codeDefinition = list.find(item => item.id === id);
+
+    // If no match is found, return undefined
+    if (!codeDefinition) {
+      return null;
+    }
+
+    return this.getCodeDefinitionByLang(codeDefinition, lang);
+  }
 
   // return true if the value is in the array of valid values
   public static toBoolean = (value: string | number | boolean): boolean => 

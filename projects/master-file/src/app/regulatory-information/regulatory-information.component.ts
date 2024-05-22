@@ -27,7 +27,7 @@ import { Ectd } from '../models/transaction';
   encapsulation: ViewEncapsulation.None,
 })
 export class RegulatoryInformationComponent implements OnInit, OnDestroy {
-  public regulartoryFormModel: FormGroup; 
+  public regulartoryFormModel: FormGroup;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() dataModel: Ectd;
@@ -43,6 +43,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   mfUseOptions: ICode[];
   txDescOptions: ICode[];
   revTxDescOptions: ICode[];
+  descriptionTypeList: ICodeDefinition[];
   selectedMfTypeDefinition: string;
   selectedTxDescDefinition: string;
   public showFieldErrors: boolean = false;
@@ -54,26 +55,26 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   mfTypeTxDescSub!: Subscription;
   mfRevisedTypeTxDescSub!: Subscription;
   mfUseSub!: Subscription;
+  txDescSub!: Subscription;
 
-  showDateAndRequesterTxDescs: string[] = ['12', '14', '13']; // Transaction Description values are defined in txDescriptions.json
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions.
-  revisedTxDescId: string = '13'; 
+  txDescRquireRevise: string = '13';
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
-  
-  //revisedTxDescOptionsType1and4 = ['2','4','6','7','10','11','15','16','17','18','19'];
-  //revisedTxDescOptionsType2and3and5 = ['2','6','7','10','11','15','16','19'];
-  
+
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder) {
     this.showFieldErrors = false;
   }
 
   ngOnInit(): void {
-    // this line can be used to debug the loaded Transaction Descriptions' values and orders
-    // console.log('==>',  this._regulatoryInfoService.getTxDescriptions().subscribe(r => console.log(r)));
     if (!this.regulartoryFormModel) {
       this.regulartoryFormModel = RegulatoryInformationService.getRegularInfoForm(this._fb);
     }
+
+    this.txDescSub = this._regulatoryInfoService.getTxDescriptions().subscribe(response => {
+      // this console log can be used to debug the loaded Transaction Descriptions' values and orders
+      // console.log(response);
+      this.descriptionTypeList = response});
 
     this.mfTypeSub = this._regulatoryInfoService
       .getMasterFileTypes()
@@ -113,7 +114,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     const isFirstChange = GlobalsService.isFirstChange(changes);
     // console.log("RegulatoryInformationComponent ~ ngOnChanges ~ isFirstChange:", isFirstChange);
-    
+
     // since we can't detect changes on objects, using a separate flag
     // if (changes['detailsChanged']) {
     //   // used as a change indicator for the model
@@ -127,7 +128,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     //     this.regulartoryFormModel.markAsPristine();
     //   }
     // }
-    
+
     // Ignore first trigger of ngOnChanges
     if (!isFirstChange) {
       if (changes['showErrors']) {
@@ -167,23 +168,17 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
         this.onMfTypeSelected(null);
 
         this.onTxDescriptionSelected(null);
-
-        // this._updateLists();
-        // this._setDescFieldFlags(
-        //   this.regulartoryFormModel.controls['descriptionType'].value
-        // );
       }
     }
-    //   if (changes['userList']) {
-    //     this.userList = changes['userList'].currentValue;
-    //   }
   }
 
   ngOnDestroy() {
     // unsubscribe the subscription(s)
     this.mfTypeSub.unsubscribe();
     this.mfTypeTxDescSub.unsubscribe();
+    this.mfRevisedTypeTxDescSub.unsubscribe();
     this.mfUseSub.unsubscribe();
+    this.txDescSub.unsubscribe();
   }
 
   onblur() {
@@ -199,7 +194,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   onMfTypeSelected(e: any): void {
     const mfTypeControl = this.regulartoryFormModel.get('masterFileType');
     this.selectedMfTypeDefinition = GlobalsService.getCodeDefinitionByLang(mfTypeControl?.value, this.lang);
-    
+
     // get the transaction description dropdown list
     this._getTransactionDescriptions();
 
@@ -216,27 +211,27 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
   }
 
   onTxDescriptionSelected(e: any): void {
-    const txDescControl = this.regulartoryFormModel.get('descriptionType');
-    this.selectedTxDescDefinition = GlobalsService.getCodeDefinitionByLang(txDescControl?.value, this.lang);
-    
-    this.showDateAndRequester = this.showDateAndRequesterTxDescs.includes(
-      txDescControl?.value.id
+    const selectedTxDescId = this.regulartoryFormModel.get('descriptionType').value;
+    this.selectedTxDescDefinition = GlobalsService.getCodeDefinitionByIdByLang(selectedTxDescId, this.descriptionTypeList, this.lang);
+    // console.log(this.selectedTxDescDefinition);
+
+    this.showDateAndRequester = this._regulatoryInfoService.showDateAndRequesterTxDescs.includes(
+      selectedTxDescId
     );
-    
+
     this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
-      txDescControl?.value.id
+      selectedTxDescId
     );
     this.showContactFees[1] = !this.noFeeTxDescs.includes(
-      txDescControl?.value.id
+      selectedTxDescId
     );
-      
-      
-    this.showReqRevisedTxDesc = (this.revisedTxDescId===txDescControl?.value.id);
+
+    this.showReqRevisedTxDesc = (this.txDescRquireRevise===selectedTxDescId);
     this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
     if (this.showRevisedTxDesc){this._getRevisedTransactionDescriptions();}
 
     if (e) {
-      // when the action is triggered from the UI    
+      // when the action is triggered from the UI
       // reset requestDate and requester fields values
       GlobalsService.resetControlValue(this.regulartoryFormModel.controls['requestDate'], this.regulartoryFormModel.controls['requester']);
       GlobalsService.resetControlValue(this.regulartoryFormModel.controls['reqRevision'], this.regulartoryFormModel.controls['revisedDescriptionType']);
@@ -245,11 +240,11 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
       this._saveData();
     }
   }
+
   onRevTxDescriptionSelected(e: any): void {
-    const revTxDescControl = this.regulartoryFormModel.get('revisedDescriptionType');
+//     const revTxDescControl = this.regulartoryFormModel.get('revisedDescriptionType').value;
     if (e) {
-      // when the action is triggered from the UI    
-      
+      // when the action is triggered from the UI
       this._saveData();
     }
   }
@@ -266,26 +261,21 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     this.regulartoryFormModel.controls['reqRevision'].setValue(e.target.value);
     if (e.target.value && e.target.value === 'Y') {
       this.showRevisedTxDesc = true;
-      
+
     } else {
       this.showRevisedTxDesc = false;
       GlobalsService.resetControlValue(this.regulartoryFormModel.controls['revisedDescriptionType']);
     }
   }
 
-
-
   private _saveData() {
     this._regulatoryInfoService.mapFormModelToDataModel(
       <FormGroup>this.regulartoryFormModel,
       this.dataModel,
-      this.lang
+      this.lang, this.descriptionTypeList
     );
-    //changing the id of the revised_trans_desc save value to conform with matrix.
-    this.dataModel.lifecycle_record.revised_trans_desc._id = this.regulartoryFormModel.value.revisedDescriptionType.revisionSaveVal;
-      
   }
-  
+
   // dynamically load the transaction description dropdowns according to the master type value
   private _getTransactionDescriptions(): void {
     const mfTypeControl = this.regulartoryFormModel.get('masterFileType');
@@ -299,17 +289,12 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy {
     const mfTypeControl = this.regulartoryFormModel.get('masterFileType');
     const selectedMfTypeId= mfTypeControl?.value.id;
 
-    //if (selectedMfTypeId === "B02-20160301-023" || selectedMfTypeId === "B02-20160301-026") {
-    //  this.revTxDescOptions = this.txDescOptions.filter(desc => this.revisedTxDescOptionsType1and4.includes(desc.id));
-    //} else {
-    //  this.revTxDescOptions = this.txDescOptions.filter(desc => this.revisedTxDescOptionsType2and3and5.includes(desc.id));
-    //}
     this.revTxDescOptions = GlobalsService.filterParentChildrenArray(this.mfRevisedTypeDescArray, selectedMfTypeId);
   }
-  
+
 
   checkDateValidity(event: any): void {
     GlobalsService.checkInputValidity(event, this.regulartoryFormModel.get('requestDate'), 'invalidDate');
-  }  
+  }
 
 }

@@ -5,7 +5,6 @@ export interface ICode {
   en: string;
   fr: string;
   sortPriority?: number;
-  revisionSaveVal?: string;
 }
 
 export interface ICodeDefinition extends ICode {
