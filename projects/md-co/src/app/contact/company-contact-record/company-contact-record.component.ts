@@ -6,16 +6,12 @@ import {
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ContactDetailsComponent} from '../contact.details/contact.details.component';
 import {ContactDetailsService} from '../contact.details/contact.details.service';
-import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
-import { ErrorSummaryComponent } from '../../error-msg/error-summary/error-summary.component';
-import { ICode } from '../../data-loader/data';
-import { UtilsService } from '../../utils/utils.service';
-import { ContactStatus } from '../../common.constants';
+import { ContactStatus } from '../../app.constants';
 import {TranslateService} from '@ngx-translate/core';
-import { ErrorNotificationService } from '../../error-msg/error.notification.service';
+import { ICode, UtilsService, ControlMessagesComponent, ErrorSummaryComponent, ErrorNotificationService } from '@hpfb/sdk/ui';
 
 @Component({
-  selector: 'company-contact-record',
+  selector: 'app-company-contact-record',
   templateUrl: './company-contact-record.component.html',
   styleUrls: ['./company-contact-record.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

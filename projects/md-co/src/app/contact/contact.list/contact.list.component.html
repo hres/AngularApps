@@ -11,12 +11,12 @@
     <ng-template #tmpl let-recordRow let-idx="i">
       <!-- ==={{recordRow.get('id').value}}=== -->
       <!-- === index = {{idx}} ,  === -->
-      <company-contact-record 
+      <app-company-contact-record 
         [cRRow]="recordRow" [isInternal]="isInternal"
         [languageList]="languageList" [contactStatusList]="contactStatusList" [showErrors]="showErrors" [lang]="lang"
         [helpTextSequences]="helpTextSequences" (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)" (revertRecord)="revertContact($event)"
-        (deleteRecord)="deleteContact($event)"></company-contact-record>
+        (deleteRecord)="deleteContact($event)"></app-company-contact-record>
     </ng-template>
 
   </lib-accordion>

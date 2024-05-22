@@ -1,4 +1,4 @@
-import { INameAddress, IIdTextLabel, Contact, Contacts } from "@hpfb/sdk/ui";
+import { IIdTextLabel } from "@hpfb/sdk/ui";
 
 export interface Enrollment {
   DEVICE_COMPANY_ENROL: DeviceCompanyEnrol;
@@ -42,4 +42,30 @@ export interface PrimaryContact {
   finance_contact_name: string;
 }
 
+export interface Contact {
+  id: number;
+  contact_id: string;
+  status: IIdTextLabel;
+  full_name: string;
+  language_correspondence: IIdTextLabel;
+  job_title: string;
+  fax_num: string;
+  phone_num: string;
+  phone_ext: string;
+  email: string;
+//  routingID: string;
+}
 
+export interface Contacts {
+  contact: Contact[];
+}
+
+export interface INameAddress {
+  company_name: string;
+  street_address: string;
+  city: string;
+  country: IIdTextLabel;
+  province_lov: IIdTextLabel;  
+  province_text: string;
+  postal_code: string;
+}

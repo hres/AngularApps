@@ -23,6 +23,14 @@ export enum EnrollmentStatus {
   Final = 'FINAL',
 }
 
+// the values need to match the code values in contact status json data file
+export enum ContactStatus {
+  New = 'NEW',
+  Revise = 'REVISE',
+  Remove = 'REMOVE',
+  Active = 'ACTIVE',
+}
+
 export const helpInstructionHeadings = [
   'loadFileInx',
   'compREPInx',

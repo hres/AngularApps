@@ -2,14 +2,12 @@ import {Injectable} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
 import {ContactDetailsService} from '../contact.details/contact.details.service';
-import { RecordListServiceInterface } from '../../record-list/record.list.service.interface';
-import { RecordListBaseService } from '../../record-list/record.list.base.service';
-import { ICode } from '../../data-loader/data';
-import { Contact } from '../../model/entity-base';
 import { Observable, Subject } from 'rxjs';
-import { EntityBaseService } from '../../model/entity-base.service';
-import { ContactStatus } from '../../common.constants';
-import { UtilsService } from '../../public-api';
+import { ContactStatus } from '../../app.constants';
+import { ICode, UtilsService, RecordListServiceInterface, RecordListBaseService } from '@hpfb/sdk/ui';
+import { Contact } from '../../models/Enrollment';
+import { CompanyBaseService } from '../../form-base/company-base.service';
+
 
 @Injectable()
 export class ContactListService extends RecordListBaseService implements RecordListServiceInterface {
@@ -29,7 +27,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
     this.contactModelSubject.next(changes);
   }
 
-  constructor(private _recordService: CompanyContactRecordService, private _entityBaseService: EntityBaseService, private _utilsService: UtilsService,
+  constructor(private _recordService: CompanyContactRecordService, private _companyBaseService: CompanyBaseService, private _utilsService: UtilsService,
     private _detailsService: ContactDetailsService) {
     super();
     this.contactList = [];
@@ -63,7 +61,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
   // }
 
   getEmptyContactModel(): Contact {
-    let contact: Contact = this._entityBaseService.getEmptyContactModel();
+    let contact: Contact = this._companyBaseService.getEmptyContactModel();
     // this value is used when reverting an unsaved contact formRecord
     contact.status._id = ContactStatus.New;
     return contact;

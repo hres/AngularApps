@@ -7,11 +7,3 @@ export const NO: string = 'no';
 
 // the value needs to match enrollment 'FINAL' status code loaded from the json data file
 export const FINAL: string = 'FINAL';
-
-// the values need to match the code values in contact status json data file
-export enum ContactStatus {
-  New = 'NEW',
-  Revise = 'REVISE',
-  Remove = 'REMOVE',
-  Active = 'ACTIVE',
-}

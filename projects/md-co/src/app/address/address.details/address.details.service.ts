@@ -1,10 +1,7 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ValidationService } from '../../validation/validation.service';
-import { UtilsService } from '../../utils/utils.service';
-import { ConverterService } from '../../converter/converter.service';
-import { ICode } from '../../data-loader/data';
-import { INameAddress } from '../../model/entity-base';
+import { INameAddress } from '../../models/Enrollment';
+import { UtilsService, ConverterService, ValidationService, ICode } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class AddressDetailsService {

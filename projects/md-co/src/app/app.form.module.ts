@@ -3,8 +3,6 @@ import {
   ErrorModule,
   PipesModule,
   ExpanderModule,
-  AddressModule,
-  ContactModule,
   CommonUiFeatureModule,
   NumbersOnlyDirective
 } from '@hpfb/sdk/ui';

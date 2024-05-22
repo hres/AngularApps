@@ -3,14 +3,12 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
-import { ControlMessagesComponent } from '../../error-msg/control-messages/control-messages.component';
 import {ContactDetailsService} from './contact.details.service';
-import { ICode } from '../../data-loader/data';
-import { UtilsService } from '../../utils/utils.service';
-import { ContactStatus } from '../../common.constants';
+import { ContactStatus } from '../../app.constants';
+import { ICode, UtilsService, ControlMessagesComponent } from '@hpfb/sdk/ui';
 
 @Component({
-  selector: 'contact-details',
+  selector: 'app-contact-details',
   templateUrl: 'contact.details.component.html',
   encapsulation: ViewEncapsulation.None
 })
