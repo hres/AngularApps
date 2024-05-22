@@ -437,13 +437,13 @@ span.normalWeight {
 							<strong>Medical Device Single Audit Program (MDSAP) Certificate Number:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_number" /></span>
 						</div>
-						<div class="col-xs-6">
-							<strong>Licence Application Type:&#160;</strong>
-							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_application_type/@label_en" /></span>
-						</div>
 						<div class="col-xs-12">
 							<strong>Medical Device Single Audit Program (MDSAP) Auditing Organization:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_org/@label_en"/></span>
+						</div>
+						<div class="col-xs-6">
+							<strong>Licence Application Type:&#160;</strong>
+							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_application_type/@label_en" /></span>
 						</div>
 					</div>
 					<div class="row">
@@ -660,7 +660,7 @@ span.normalWeight {
 							<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/material_id) > 0">
 								<section class="panel panel-default" >
 									<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-										<h2 class="panel-title">Biological Material Attribute Table</h2>
+										<h2 class="panel-title">Biological Material Attribute</h2>
 									</div>
 									<div class="panel-body">
 										<xsl:apply-templates select="/descendant-or-self::material_info/biological_materials/material"/>
@@ -720,6 +720,8 @@ span.normalWeight {
 					<strong>Country of Origin (for animals only):&#160;</strong>
 					<span class="mouseHover"><xsl:value-of select="./origin_country/@label_en"/></span>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-xs-5">
 					<strong>Family of Species:&#160;</strong>
 					<span class="mouseHover"><xsl:value-of select="./family_of_species/@label_en"/></span>
@@ -730,10 +732,6 @@ span.normalWeight {
 					<strong>Tissue/Substance Type:&#160;</strong>
 					<span class="mouseHover"><xsl:value-of select="./tissue_substance_type/@label_en"/></span>
 				</div>
-				<div class="col-xs-5">
-					<strong>Derivative:&#160;</strong>
-					<span class="mouseHover"><xsl:value-of select="./derivative/@label_en"/></span>
-				</div>
 				<xsl:if test="./tissue_substance_type/@id = '32'">
 					<div class="col-xs-5">
 						<strong>Tissue Type Other Details:&#160;</strong>
@@ -743,6 +741,12 @@ span.normalWeight {
 				<xsl:if test="./tissue_substance_type/@id != 'other' and ./derivative/@id = 'other'">
 					<div class="col-xs-5">&#160;</div>
 				</xsl:if>
+			</div>
+			<div class="row">
+				<div class="col-xs-5">
+					<strong>Derivative:&#160;</strong>
+					<span class="mouseHover"><xsl:value-of select="./derivative/@label_en"/></span>
+				</div>
 				<xsl:if test="./derivative/@id = '30'">
 					<div class="col-xs-5">
 						<strong>Derivative Other Details:&#160;</strong>
