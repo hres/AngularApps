@@ -495,7 +495,7 @@ span.normalWeight {
           </xsl:if>
           <xsl:if test="ectd/lifecycle_record/requester_of_solicited_information !=''">
             <div class="col-xs-6">
-              <strong>Requester of solicited information:&#160;</strong>
+              <strong>Demandeur d’information sollicitée:&#160;</strong>
               <span class="mouseHover normalWeight">
                 <xsl:value-of select="ectd/lifecycle_record/requester_of_solicited_information" />
               </span>
@@ -581,7 +581,7 @@ span.normalWeight {
           <xsl:if test="contact_info/agent_not_applicable = 'false'">
             <section class="panel  panel-default">
               <header class="panel-heading clearfix">
-                <h3 class="panel-title">Coordonnées de l’agent autorisé ou du tiers au nom du titulaire</h3>
+                <h3 class="panel-title">Coordonnées de l’agent autorisé ou du tiers autorisé</h3>
               </header>
               <div class="panel-body">
                 <xsl:call-template name="contact">
@@ -635,7 +635,7 @@ span.normalWeight {
                   Agent autorisé de la fiche maîtresse / Tiers au nom du titulaire autorisé
                 </xsl:when>
                 <xsl:when test=" 'MasterFileHolder' = fee_details/who_responsible_fee">
-                  de la fiche maîtresse
+                  Propriétaire de la fiche maîtresse
                 </xsl:when>
               </xsl:choose>
             </div>
@@ -766,7 +766,7 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <strong>Rue:&#160;</strong>
+        <strong>Adresse:&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/street_address"/>
         </span>
@@ -831,7 +831,7 @@ span.normalWeight {
         </span>
       </div>
       <div class="col-xs-6">
-        <strong>Titre:&#160;</strong>
+        <strong>Titre du poste:&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/job_title"/>
         </span>
@@ -839,7 +839,7 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Numéro de téléphone:&#160;</strong>
+        <strong>Numéro de téléphone (y compris le code régional):&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/phone_num"/>
         </span>
@@ -853,7 +853,8 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Numéro de fax:&#160;</strong>
+        <strong>Numéro de télécopieur (y compris le code régional) Si vous n'indiquez pas un numéro de télécopieur, vous autorisez la réception de la communication de facturation par courriel.:
+          &#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/fax_num"/>
         </span>
