@@ -853,11 +853,12 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Numéro de télécopieur (y compris le code régional) Si vous n'indiquez pas un numéro de télécopieur, vous autorisez la réception de la communication de facturation par courriel.:
-          &#160;</strong>
+        <strong>Numéro de télécopieur (y compris le code régional):&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/fax_num"/>
         </span>
+        <br></br>
+        <strong>Si vous n'indiquez pas un numéro de télécopieur, vous autorisez la réception de la communication de facturation par courriel.</strong>
       </div>
       <div class="col-xs-6">
         <strong>Courriel :&#160;</strong>

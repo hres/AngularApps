@@ -850,10 +850,13 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Fax Number (including area code).By not entering a fax number, you authorise receipt of billing communication by email.:&#160;</strong>
+        <strong>Fax Number (including area code):&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/fax_num"/>
         </span>
+        <br></br>
+        <strong>By not entering a fax number, you authorise receipt of billing communication by email.</strong>
+        
       </div>
       <div class="col-xs-6">
         <strong>Email :&#160;</strong>
