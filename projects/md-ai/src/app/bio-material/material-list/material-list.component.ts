@@ -181,8 +181,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       // Clear existing controls
     this.materialsFormArr.clear();
 
-    if (materialsData) {
-        if (materialsData.length > 0) {
+    if (materialsData.length > 0) {
+        if (materialsData) {
           materialsData.forEach(material => {
             const group = this.materialService.createMaterialFormGroup(this.fb);
 
