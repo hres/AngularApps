@@ -177,18 +177,13 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   
-  private _init(materialsData?: BiologicalMaterials) {
+  private _init(materialsData: BiologicalMaterial[]) {
       // Clear existing controls
     this.materialsFormArr.clear();
-    const materials = materialsData.material;
 
-    // if (materialsData) {
-    //   materials = materialsData.material;
-    // }
-
-    if (materials.length > 0) {
-        if (materialsData) {
-          materials.forEach(material => {
+    if (materialsData) {
+        if (materialsData.length > 0) {
+          materialsData.forEach(material => {
             const group = this.materialService.createMaterialFormGroup(this.fb);
 
             // Set values after defining the form controls
