@@ -56,6 +56,7 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
         this.transFeeForm.markAsPristine();
       }
       this._feeService.mapDataModelToFeeForm(dataModel, (<FormGroup>this.transFeeForm));
+      this.hasFeesOnChange();
     }
   }
 
