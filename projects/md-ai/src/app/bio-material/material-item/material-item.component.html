@@ -12,7 +12,7 @@
             <control-messages *ngIf="cRRow.get('materialInfo.materialName').invalid"
                               [showError]="showErrors"
                               [control]="cRRow.get('materialInfo.materialName') | formControl"
-                              controlId="materialName" label="material.name" parentId="materialDetails"
+                              controlId="materialName{{j}}" label="material.name" parentId="materialDetails"
                               translatedParentLabel="{{translatedParentLabel}}">
             </control-messages>
             <input id="materialName{{j}}" name="materialName" class="form-control full-width"
@@ -28,7 +28,7 @@
             <control-messages *ngIf="cRRow.get('materialInfo.deviceName').invalid"
                               [showError]="showErrors"
                               [control]="cRRow.get('materialInfo.deviceName') | formControl"
-                              controlId="deviceName" label="device.name" parentId="materialDetails"
+                              controlId="materialDeviceName{{j}}" label="device.name" parentId="materialDetails"
                               translatedParentLabel="{{translatedParentLabel}}">
             </control-messages>
             <input id="materialDeviceName{{j}}" name="materialDeviceName" class="form-control full-width"
@@ -53,7 +53,7 @@
             <control-messages *ngIf="cRRow.get('materialInfo.specFamily').invalid"
                               [showError]="showErrors"
                               [control]="cRRow.get('materialInfo.specFamily') | formControl"
-                              controlId="specFamily" label="species.family" parentId="materialDetails"
+                              controlId="specFamily{{j}}" label="species.family" parentId="materialDetails"
                               translatedParentLabel="{{translatedParentLabel}}">
             </control-messages>
               <select id="specFamily{{j}}" name="specFamily{{j}}" required class="form-control" 

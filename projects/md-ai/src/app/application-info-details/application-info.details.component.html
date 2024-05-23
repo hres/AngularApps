@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-xs-12 minWidth300" >
+        <div class="form-group col-xs-6 minWidth300" >
           <label for="licenceAppType" class="required full-width">
             <span class="field-name">{{'licence.app.type' |translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -78,7 +78,7 @@
                               [control]="appInfoFormLocalModel.controls['licenceAppType'] | formControl"
                               controlId="licenceAppType" label="licence.app.type"
                               parentId="appInfoDetails"></control-messages>
-            <select id="licenceAppType" name="licenceAppType" required class="form-control "
+            <select id="licenceAppType" name="licenceAppType" required class="form-control full-width"
                    [formControl]="appInfoFormLocalModel.controls['licenceAppType'] | formControl">
               <option label=" " value=""></option>
               <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat | textTransform : lang}}</option>
@@ -107,7 +107,7 @@
         </div>
       <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <fieldset class="chkbxrdio-grp" >
+          <fieldset class="chkbxrdio-grp" id="deviceClass">
             <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                 <sup id="ap6-rf">
@@ -228,7 +228,7 @@
                   </select>
                 </label>
               </div>
-              <div  *ngIf="hasDin()" class="form-group col-xs-6" >
+              <div  *ngIf="hasDin()" class="form-group col-xs-12" >
                 <label for="din" class="required full-width">
                   <span class="field-name">{{'din'|translate}} {{'minNumber8' |translate}}</span>
                   <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -237,11 +237,11 @@
                                     [control]="appInfoFormLocalModel.controls['din'] | formControl"
                                     controlId="din" label="din" parentId="appInfoDetails">
                   </control-messages>
-                  <input id="din" name="din"  class="form-control full-width"
+                  <input id="din" name="din"  class="form-control"
                          [formControl]="appInfoFormLocalModel.controls['din'] | formControl" maxlength="8" data-only-digits/>
                 </label>
               </div>
-              <div  *ngIf="hasNpn()" class="form-group col-xs-6" >
+              <div  *ngIf="hasNpn()" class="form-group col-xs-12" >
                 <label for="npn" class="required full-width">
                   <span class="field-name">{{'npn'|translate}} {{'minNumber8' |translate}}</span>
                   <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -250,7 +250,7 @@
                                     [control]="appInfoFormLocalModel.controls['npn'] | formControl"
                                     controlId="npn" label="npn" parentId="appInfoDetails">
                   </control-messages>
-                  <input id="npn" name="npn" class="form-control full-width"
+                  <input id="npn" name="npn" class="form-control"
                          [formControl]="appInfoFormLocalModel.controls['npn'] | formControl" maxlength="8" data-only-digits/>
                 </label>
               </div>
@@ -316,7 +316,7 @@
                     <control-messages *ngIf="complianceChkFormArray.invalid"
                                       [showError]="showFieldErrors"
                                       [control]="complianceChkFormArray | formControl"
-                                      controlId="hasCompliances" label="compliance"
+                                      controlId="compliance" label="compliance"
                                       parentId="appInfoDetails"></control-messages>
                   </legend>
                   <ul class="form-group list-unstyled">
