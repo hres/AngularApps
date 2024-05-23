@@ -757,7 +757,7 @@ span.normalWeight {
     <xsl:param name="value" select="/.."/>
     <div class="row">
       <div class="col-xs-12">
-        <strong>Company Name:&#160;</strong>
+        <strong>Company Name (Full Legal Name):&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/company_name"/>
         </span>
@@ -796,7 +796,7 @@ span.normalWeight {
           </xsl:if>
       </div>
       <div class="col-xs-6">
-        <strong>Postal Code:&#160;</strong>
+        <strong>Postal/ZIP Code (Use "not applicable" if not available):&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/postal_code"/>
         </span>
@@ -836,7 +836,7 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Phone Number:&#160;</strong>
+        <strong>Phone Number (including area Code):&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/phone_num"/>
         </span>
@@ -850,10 +850,13 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Fax Number:&#160;</strong>
+        <strong>Fax Number (including area code):&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/fax_num"/>
         </span>
+        <br></br>
+        <strong>By not entering a fax number, you authorise receipt of billing communication by email.</strong>
+        
       </div>
       <div class="col-xs-6">
         <strong>Email :&#160;</strong>
