@@ -75,7 +75,7 @@
             </select>
           </label>
         </div>
-        @if(isTissueTypeOther || tissueTypeOther()) {
+        @if(isTissueTypeOther) {
           <div class="form-group col-sm-8">
             <label for="tissueTypeOtherDetails" class="full-width">
               <span class="field-name">{{'tissue.other' |translate}}</span>
@@ -96,7 +96,7 @@
             </select>
           </label>
         </div>
-        @if(isDerivativeOther || derivativeOther()) {
+        @if(isDerivativeOther) {
           <div class="form-group col-sm-8">
             <label for="derivativeOtherDetails" class="full-width">
               <span class="field-name">{{'derivative.other' |translate}}</span>
