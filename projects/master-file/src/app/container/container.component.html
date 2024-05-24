@@ -1,0 +1,30 @@
+<lib-layout>
+    <ng-container header>
+        <section class="module-attention">
+            <details>
+                <summary class="background-medium">{{ "top.privacy.statement" | translate }}</summary>
+                <lib-privacy-statement [lang]="language"></lib-privacy-statement>
+            </details>
+
+        </section>
+
+        <div class="module-attention">
+            <details>
+                <summary class="background-medium">{{ "top.security.declaimer" | translate }}</summary>
+                <lib-security-disclaimer [lang]="language"></lib-security-disclaimer>
+            </details>
+        </div>
+
+        <section class="module-attention">
+            <details>
+                <summary class="background-medium">{{ "top.instruction" | translate }}</summary>
+                <app-instruction [helpTextSequences]="helpIndex" [lang]="language"></app-instruction>
+            </details>
+        </section>
+    </ng-container>
+
+    <ng-container body>
+        <pre *ngIf="devEnv">isInternal: {{isInternal}}</pre>
+        <app-form-base [isInternal]="isInternal" [helpTextSequences]="helpIndex" [lang]="language"></app-form-base>
+    </ng-container>
+</lib-layout> 
