@@ -144,61 +144,6 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
       this.showErrors = true;
     }
   } 
-  
-  isDeviceAuthorized() {
-    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
-    const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted');
-    const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber');
-    const deviceExplain = this.cRRow.get('deviceInfo.deviceExplain');
-    const licenceNum = this.cRRow.get('deviceInfo.licenceNum');
-
-    if (deviceAuthorized) {
-      if (deviceAuthorized === YES) {
-        this._utilsService.resetControlsValues(deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
-        return true;
-      } else {
-        this._utilsService.resetControlsValues(licenceNum);
-      }
-    }
-    return false;
-  }
-
-  isDeviceNotAuthorized() {
-    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
-    const licenceNum = this.cRRow.get('deviceInfo.licenceNum');
-    if (deviceAuthorized && deviceAuthorized === NO) {
-      this._utilsService.resetControlsValues(licenceNum);
-      return true;
-    }
-    return false;
-  }
-
-  isDeviceApplicationSubmitted() {
-    const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
-    const deviceExplain = this.cRRow.get('deviceInfo.deviceExplain');
-    const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber')
-
-    if (deviceApplicationSubmitted) {
-      if (deviceApplicationSubmitted === YES) {
-        this._utilsService.resetControlsValues(deviceExplain);
-        return true;
-      } else {
-        this._utilsService.resetControlsValues(deviceApplicationNumber);
-      }
-    }
-    return false;
-  }
-
-  isDeviceApplicationNotSubmitted() {
-    const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
-    const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber');
-
-    if (deviceApplicationSubmitted && deviceApplicationSubmitted === NO) {
-      this._utilsService.resetControlsValues(deviceApplicationNumber);
-      return true;
-    }
-    return false;
-  }
 
   onDeviceAuthorizedChange(e: any) {
     const deviceAuthorized = e.target.value;
@@ -209,9 +154,11 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
     if (deviceAuthorized) {
       if (deviceAuthorized === YES) {
+        this.deviceAppSubmitted = false;
+        this.deviceAppNotSubmitted = false; 
         this.deviceAuthorized = true;
         this.deviceNotAuthorized = false;
-        this._utilsService.resetControlsValues(deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
+        this._utilsService.resetControlsValues(deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
       } else {
         this.deviceAuthorized = false;
         this.deviceNotAuthorized = true;
