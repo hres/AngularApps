@@ -677,15 +677,15 @@ span.normalWeight {
 							<div class="row">
 								<div class="col-xs-12">
 								<strong>Is priority review requested for this application?&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/priority_review"/></xsl:call-template></span>
+								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::priority_review/priority_review"/></xsl:call-template></span>
 								</div>
 							</div>
 							
-							<xsl:if test="/descendant-or-self::application_info/is_diagnosis_treatment_serious/diagnosis_reason">
+							<xsl:if test="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Priority review is being requested for the subject devices as it is intended for the diagnosis or treatment of a serious, life-threatening or severely debilitating disease or condition and there is substantial clinical evidence that the medical device:</strong></div>
 								</div>
-								<xsl:for-each select="/descendant-or-self::application_info/is_diagnosis_treatment_serious/diagnosis_reason">
+								<xsl:for-each select="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
 									<div class="row">
 										<div class="col-xs-12">
 											<span class="mouseHover"><xsl:value-of select="@label_en"/></span>
