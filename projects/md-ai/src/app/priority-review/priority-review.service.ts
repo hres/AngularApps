@@ -71,6 +71,7 @@ export class PriorityReviewService {
               this.loadDiagnosisReasonOptions(diagnosisReasonList, diagnosisOptionList, diagnosisFormArray, lang)
               this._converterService.checkCheckboxes(loadedDiagnosisCodes, diagnosisOptionList, diagnosisFormArray);
             }  
+            formRecord.controls['selectedDiagnosisCodes'].setValue(loadedDiagnosisCodes);
         }
     }
     
