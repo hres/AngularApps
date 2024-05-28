@@ -555,7 +555,7 @@ span.normalWeight {
           </section>
           <section class="panel  panel-default">
             <header class="panel-heading clearfix">
-              <h3 class="panel-title">Nom et adresse de l’agent autorisé ou du tiers au nom du titulaire</h3>
+              <h3 class="panel-title">Nom et adresse de l’agent autorisé ou du tiers autorisé</h3>
             </header>
             <div class="panel-body">
               <xsl:if test="contact_info/agent_not_applicable = 'true'">
@@ -799,7 +799,7 @@ span.normalWeight {
         </span>
       </div>
       <div class="col-xs-6">
-        <strong>Code postale:&#160;</strong>
+        <strong>Code postal:&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/postal_code"/>
         </span>
