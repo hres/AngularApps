@@ -54,6 +54,19 @@
                                   (deviceErrorList)="processDeviceErrors($event)"                                 
                                   (materialErrorList)="resetMaterialErrors($event)">
                 </app-info-details>
+                <section class="panel panel-default">
+                  <header class="panel-heading clearfix">
+                    <h2 class="panel-title">{{'priority.review'|translate}}
+                      <sup id="ap9-rf">
+                        <a class="fn-lnk" href="#ap9"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.priRevIndx}}</a>
+                      </sup>
+                    </h2>
+                  </header>
+                  <div class="panel-body">
+                    <app-priority-review [helpTextSequences]="helpIndex" [priorityRevModel]="priorityRevModel" 
+                    [showErrors]="showErrors" (priorityRevErrorList)="processPriorityRevErrors($event)"></app-priority-review>
+                  </div>
+                </section>
 
               </div>
             </section>
