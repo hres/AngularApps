@@ -836,7 +836,7 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Phone Number (including area Code):&#160;</strong>
+        <strong>Phone Number (including area code):&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/phone_num"/>
         </span>
