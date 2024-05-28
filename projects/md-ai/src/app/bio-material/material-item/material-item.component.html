@@ -86,8 +86,8 @@
         }
       </div>
       <div class="row">
-        <div class="form-group col-sm-4" >
-          <label for="derivative{{j}}" class=" full-width">
+        <div class="form-group col-xs-12 col-sm-6 col-md-8" >
+          <label for="derivative{{j}}" class="full-width">
             <span class="field-name">{{'derivative'|translate}}</span>
               <select id="derivative{{j}}" name="derivative{{j}}" class="form-control" 
                     [formControlName]="'derivative'" (change)="onDerivativeSelected($event)">
@@ -97,7 +97,7 @@
           </label>
         </div>
         @if(isDerivativeOther) {
-          <div class="form-group col-sm-8">
+          <div class="form-group col-xs-6 col-md-4">
             <label for="derivativeOtherDetails" class="full-width">
               <span class="field-name">{{'derivative.other' |translate}}</span>
               <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control full-width" maxlength="60"
