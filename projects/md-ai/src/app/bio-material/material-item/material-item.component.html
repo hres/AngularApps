@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-sm-4">
+        <div class="form-group col-xs-12 col-sm-6 col-md-8">
           <label for="tissueType{{j}}" class="full-width">
             <span class="field-name">{{'tissue.type'|translate}}</span>
               <select id="tissueType{{j}}" name="tissueType{{j}}" class="form-control" 
@@ -75,16 +75,18 @@
             </select>
           </label>
         </div>
-        @if(isTissueTypeOther) {
+      </div>
+      @if(isTissueTypeOther) {
+        <div class="row">
           <div class="form-group col-sm-8">
             <label for="tissueTypeOtherDetails" class="full-width">
               <span class="field-name">{{'tissue.other' |translate}}</span>
               <input id="tissueTypeOtherDetails" name="tissueTypeOtherDetails" class="form-control full-width" maxlength="60"
-                     [formControlName]="'tissueTypeOtherDetails'"/>
+                    [formControlName]="'tissueTypeOtherDetails'"/>
             </label>
           </div>
-        }
-      </div>
+        </div>
+      }
       <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-8" >
           <label for="derivative{{j}}" class="full-width">
@@ -96,16 +98,18 @@
             </select>
           </label>
         </div>
-        @if(isDerivativeOther) {
-          <div class="form-group col-xs-6 col-md-4">
+      </div>
+      @if(isDerivativeOther) {
+        <div class="row">
+          <div class="form-group col-sm-8">
             <label for="derivativeOtherDetails" class="full-width">
               <span class="field-name">{{'derivative.other' |translate}}</span>
               <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control full-width" maxlength="60"
-                     [formControlName]="'derivativeOtherDetails'"/>
+                    [formControlName]="'derivativeOtherDetails'"/>
             </label>
           </div>
-        }
-      </div>
+        </div>
+      }
       <div class="row">
         <div class="btn-group-sm col-xs-12 text-left">          
           <button id="saveMaterialRecord" class="btn btn-primary" style="margin: 3px" (click)="saveMaterialRecord(j)" >{{'save.material'|translate}}</button>
