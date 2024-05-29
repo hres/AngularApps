@@ -257,8 +257,12 @@
             </div>
             <div *ngIf="hasDrug()">
               <div class="row">
-                <div class="col-xs-12 form-group alert alert-info" role="alert">
-                  <p aria-live="polite">{{'combination.products.related'|translate}}</p>
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div role="alert" class="alert alert-info">
+                    <p aria-live="polite">
+                      {{'combination.products.related'|translate}}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div class="row">
