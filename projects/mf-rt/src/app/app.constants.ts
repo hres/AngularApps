@@ -1,3 +1,5 @@
+export const ROOT_TAG: string = 'TODO';
+
 export const helpInstructionHeadings = [
     'loadFileIndx',
     'dossierIdIndx',

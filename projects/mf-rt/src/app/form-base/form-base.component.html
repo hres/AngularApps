@@ -24,5 +24,19 @@
         </div>
       </section>
     </div>
+    <div id="topErrorSummaryId">
+      <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+        headingPreamble="errorSummary.company"></lib-error-summary>
+    </div>
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <app-regulatory-information />
+          </div>
+      </section>
+    </div>
   </form>
 </div>
