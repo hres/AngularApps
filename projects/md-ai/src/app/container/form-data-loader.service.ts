@@ -65,7 +65,7 @@ export class FormDataLoaderService {
   }
 
   getDerivativeList(): Observable<ICode[]> {
-    const compareField: SortOn = this.getCompareField();
+    const compareField: SortOn[] = this.getCompareFields(true);
     if (!this.cachedDerivative$) {
         this.cachedDerivative$ = this._dataService.getSortedDataAccents<ICode>(this.derivativeJsonPath, compareField)
           .pipe(
@@ -88,7 +88,7 @@ export class FormDataLoaderService {
   }
 
   getDeviceSpeciesList(): Observable<ICode[]> {
-    const compareField: SortOn = this.getCompareField();
+    const compareField: SortOn[] = this.getCompareFields(true);
     if (!this.cachedDeviceSpecies$) {
         this.cachedDeviceSpecies$ = this._dataService.getSortedDataAccents<ICode>(this.deviceSpeciesJsonPath, compareField)
           .pipe(
@@ -100,7 +100,7 @@ export class FormDataLoaderService {
   }
 
   getDeviceTissueList(): Observable<ICode[]> {
-    const compareField: SortOn = this.getCompareField();
+    const compareField: SortOn[] = this.getCompareFields(true);
     if (!this.cachedDeviceTissues$) {
         this.cachedDeviceTissues$ = this._dataService.getSortedDataAccents<ICode>(this.deviceTissueJsonPath, compareField)
           .pipe(
@@ -167,7 +167,7 @@ export class FormDataLoaderService {
   }
 
   getCountriesList(): Observable<ICode[]> {
-    const compareField: SortOn = this.getCompareField();
+    const compareField: SortOn[] = this.getCompareFields(false);
     if (!this.cachedCountries$) {
         this.cachedCountries$ = this._dataService.getSortedDataAccents<ICode>(this.countryJsonPath, compareField)
           .pipe(
@@ -179,9 +179,15 @@ export class FormDataLoaderService {
   }
 
   // REPMDFORM-284, Alphabetize RA and Transaction Description drop-downs
-  getCompareField():SortOn{
+  getCompareFields(sortOnPriority : boolean):SortOn[]{
+    let compareFields : SortOn[] = [];
+    if (sortOnPriority) {
+      compareFields.push(SortOn.PRIORITY);
+    }
+    
     const lang = this._globalService.getCurrLanguage();
-    return this._utilsService.isFrench(lang) ? SortOn.FRENCH: SortOn.ENGLISH;
-  }
+    this._utilsService.isFrench(lang) ? compareFields.push(SortOn.FRENCH): compareFields.push(SortOn.ENGLISH);
 
+    return compareFields;
+  }
 }
