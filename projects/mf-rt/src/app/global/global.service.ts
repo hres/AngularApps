@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { InstructionService } from '@hpfb/sdk/ui';
+import { ICodeAria, InstructionService } from '@hpfb/sdk/ui';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +10,10 @@ export class GlobalService {
 
   private devEnv: boolean;
   private appVersion: string;
-  private isInternal: boolean;
   private helpIndex: { [key: string]: number };
   private currLanguage: string;
+
+  private countriesList: ICodeAria[];
 
   /**
    * Getter $devEnv
@@ -46,14 +47,6 @@ export class GlobalService {
     this.appVersion = value;
   }
 
-  public get $isInternal(): boolean {
-    return this.isInternal;
-  }
-
-  public set $isInternal(value: boolean) {
-    this.isInternal = value;
-  }
-
   setHelpIndex(helpIndex: string[]) {
     this.helpIndex = this.instructionService.getHelpTextIndex(helpIndex);
   }
@@ -70,4 +63,11 @@ export class GlobalService {
     return this.currLanguage;
   }
 
+  public get $countriesList(): ICodeAria[] {
+		return this.countriesList;
+	}
+
+  public set $countriesList(value: ICodeAria[]) {
+		this.countriesList = value;
+	}
 }

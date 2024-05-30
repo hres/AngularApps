@@ -1,4 +1,5 @@
-// todo cleanup unused fields
+import { IText, IIdText, IIdTextLabel, ILabel } from "@hpfb/sdk/ui";
+
 export interface Transaction {
   TRANSACTION_ENROL: TransactionEnrol;
 }
@@ -45,7 +46,7 @@ export interface LifecycleRecord {
   revised_trans_desc: IIdTextLabel;
   sequence_description_value: IIdTextLabel;
   sequence_from_date: string;
-  transaction_description: ITextLabel;
+  transaction_description: IIdTextLabel;
   requester_of_solicited_information: string;
 }
 
@@ -76,31 +77,4 @@ export interface IContact {
   phone_ext: string;
   fax_num: string;
   email: string;
-}
-
-export interface IText {
-  __text: string;
-}
-
-export interface IIdText {
-  _id: string;
-  __text?: string;
-}
-
-export interface IIdTextLabel {
-  _id: string;
-  __text?: string;
-  _label_en: string;
-  _label_fr: string;
-}
-
-export interface ILabel {
-  _label_en: string;
-  _label_fr: string;
-}
-
-export interface ITextLabel {
-  __text?: string;
-  _label_en: string;
-  _label_fr: string;
 }

@@ -23,7 +23,6 @@ processFile($event: any) {
 throw new Error('Method not implemented.');
 }
   public errors;
-  @Input() isInternal;
   @Input() lang;
   @Input() helpTextSequences;
 
