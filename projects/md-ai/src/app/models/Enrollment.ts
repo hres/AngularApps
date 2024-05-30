@@ -10,7 +10,8 @@ export interface DeviceApplicationEnrol {
     check_sum?:                     string;
     application_info:               ApplicationInfo;
     devices:                        Devices;
-    material_info:                      BiologicalMaterialData;
+    material_info:                  BiologicalMaterialData;
+    priority_review:                PriorityReview;
 }
 
 export interface ApplicationInfo {
@@ -43,16 +44,10 @@ export interface ApplicationInfo {
     interim_order_authorization:    string;
     authorization_id:               string;
     declaration_conformity :        string;
-    priority_review:                    string;
-    is_diagnosis_treatment_serious:     DiagnosisReasons;
 }
 
 export interface Compliances {
     compliance : IIdTextLabel[];
-}
-
-export interface DiagnosisReasons {
-    diagnosis_reason : IIdTextLabel[];
 }
 
 export interface BiologicalMaterialData {
@@ -90,4 +85,13 @@ export interface Device {
     device_application_submitted:   string;
     device_application_number:      string;
     device_explain:                 string;
+}
+
+export interface PriorityReview {
+    priority_review:                    string;
+    is_diagnosis_treatment_serious:     DiagnosisReasons;
+}
+
+export interface DiagnosisReasons {
+    diagnosis_reason : IIdTextLabel[];
 }

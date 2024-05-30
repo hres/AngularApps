@@ -7,3 +7,6 @@ export const NO: string = 'no';
 
 // the value needs to match enrollment 'FINAL' status code loaded from the json data file
 export const FINAL: string = 'FINAL';
+
+export const OTHER_EN: string = "Other";
+export const OTHER_FR: string = "Autre"

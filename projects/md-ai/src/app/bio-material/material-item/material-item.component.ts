@@ -160,24 +160,6 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /**
-   * This method ensures that the other details field is shown when control value is "Other" 
-   */
-  tissueTypeOther() {
-    const tissueTypeDetails = this.cRRow.get('materialInfo.tissueTypeOtherDetails');
-    const tissueType = this.cRRow.get('materialInfo.tissueType').value;
-
-    if (tissueType) {
-      if (tissueType === TISSUE_OTHER_ID) {
-        return true;
-      } else {
-        // Reset tissue type details
-        this._utilsService.resetControlsValues(tissueTypeDetails)
-      }
-    }
-    return false;
-  }
-
   onDerivativeSelected(e : any) {
     const selectedDerivative = e.target.value;
     const derivativeDetails = this.cRRow.get('materialInfo.derivativeOtherDetails');
@@ -191,22 +173,6 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
       }
     }
   }
-
-  derivativeOther() {
-    const derivativeDetails = this.cRRow.get('materialInfo.derivativeOtherDetails');
-    const derivative = this.cRRow.get('materialInfo.derivative').value;
-
-    if (derivative) {
-      if (derivative === DERIVATIVE_OTHER_ID) {
-        return true;
-      } else {
-        // Reset tissue type details
-        this._utilsService.resetControlsValues(derivativeDetails)
-      }
-    }
-    return false;
-  }
-
 
   typed(rec) {
     // this._loggerService.log('address.detail', 'country is typed');

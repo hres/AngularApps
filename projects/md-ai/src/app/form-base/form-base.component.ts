@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
-import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device, BiologicalMaterialData, BiologicalMaterial } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device, BiologicalMaterialData, BiologicalMaterial, PriorityReview } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { MaterialModule } from '../bio-material/material.module';
@@ -17,6 +17,7 @@ import { DeviceModule } from '../inter-device/device.module';
 import { DeviceService } from '../inter-device/device.service';
 import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
 import $ from 'jquery';
+import { PriorityReviewComponent } from '../priority-review/priority-review.component';
 
 @Component({
   selector: 'app-form-base',
@@ -31,11 +32,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
   @Input() helpTextSequences;
   @ViewChild(ApplicationInfoDetailsComponent) aiDetails: ApplicationInfoDetailsComponent;
+  @ViewChild(PriorityReviewComponent) priorityReview: PriorityReviewComponent;
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
   private _materialInfoErrors = []; 
   private _materialListErrors = [];
+  private _priorityRevErrors = [];
   
   //computed(() => {
     // console.log("computed", this._materialService.errors());
@@ -62,6 +65,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public transactionModel: Enrollment;
   public deviceModel: Device[];
   public materialInfo: BiologicalMaterialData;
+  public priorityRevModel : PriorityReview;
 
   public fileServices: FileConversionService;
   public helpIndex: { [key: string]: number };
@@ -135,7 +139,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     console.log(this._materialListErrors);
     console.log(this._materialInfoErrors);
     // concat the two array
-    this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialInfoErrors.concat(this._materialListErrors)))); // .concat(this._theraErrors);
+    this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialInfoErrors.concat(this._materialListErrors.concat(this._priorityRevErrors))))); // .concat(this._theraErrors);
     // console.log("process errors in form base", this.errorList);
     console.log(this.errorList);
     // console.log(this.errorList);
@@ -151,6 +155,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processDeviceErrors(errorList) {
     this._deviceErrors = errorList;
     this.processErrors();
+  }
+  
+  processPriorityRevErrors(errorList) {
+    this._priorityRevErrors = errorList;
+    this.processErrors()
   }
 
   /**
@@ -248,7 +257,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
     }
 
-    const output: Enrollment = this._baseService.mapFormToOutput(aiDetailsFormGroupValue, devicesFormArrayValue, materialInfoFormGroupValue, materialsFormArrayValue);
+    const priorityRevFormGroupValue = this.priorityReview.priorityReviewLocalModel.value;
+
+    const output: Enrollment = this._baseService.mapFormToOutput(aiDetailsFormGroupValue, devicesFormArrayValue, materialInfoFormGroupValue, materialsFormArrayValue, priorityRevFormGroupValue);
 
     if (xmlFile) {
       // add and calculate check_sum if it is xml
@@ -295,6 +306,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.deviceModel = [];
     }
     this.materialInfo = applicationEnroll.material_info;
+    this.priorityRevModel = applicationEnroll.priority_review;
   }
 
   openPopup(){
