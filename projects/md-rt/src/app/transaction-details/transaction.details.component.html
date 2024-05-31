@@ -112,7 +112,7 @@
       </div>
     </div>
     <div class="row" *ngIf="showDeviceClass()">
-      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" >
             <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
@@ -124,13 +124,17 @@
                     [control]="transDetailsForm.controls['deviceClass'] | formControl"
                     controlId="deviceClass0" label="device.class" parentId="transDetails"></control-messages>
             </legend>
-              <div class="radio" *ngFor="let class of deviceClassList; let i = index">
-                <label aria-hidden="true" for="deviceClass{{i}}">
-                  <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
-                    (change)="deviceClassOnChange()"
-                    [formControl]="transDetailsForm.controls['deviceClass'] | formControl" required/>
-                    {{class | textTransform: lang }}
-                </label>
+              <div *ngFor="let class of deviceClassList; let i = index">
+                <ul class="list-unstyled">
+                  <li class="radio">
+                  <label for="deviceClass{{i}}">
+                    <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
+                      (change)="deviceClassOnChange()"
+                      [formControl]="transDetailsForm.controls['deviceClass'] | formControl" required/>
+                      {{class | textTransform: lang }}
+                  </label>
+                  </li>
+                </ul>
               </div>
         </fieldset>
       </div>  
