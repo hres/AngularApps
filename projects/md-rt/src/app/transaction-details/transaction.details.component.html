@@ -124,18 +124,16 @@
                     [control]="transDetailsForm.controls['deviceClass'] | formControl"
                     controlId="deviceClass0" label="device.class" parentId="transDetails"></control-messages>
             </legend>
-              <div *ngFor="let class of deviceClassList; let i = index">
-                <ul class="list-unstyled">
-                  <li class="radio">
-                  <label for="deviceClass{{i}}">
-                    <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
-                      (change)="deviceClassOnChange()"
-                      [formControl]="transDetailsForm.controls['deviceClass'] | formControl" required/>
-                      {{class | textTransform: lang }}
-                  </label>
-                  </li>
-                </ul>
-              </div>
+            <ul class="form-group list-unstyled">
+              <li class="radio" *ngFor="let class of deviceClassList; let i = index">
+                <label for="deviceClass{{i}}">
+                  <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
+                    (change)="deviceClassOnChange()"
+                    [formControl]="transDetailsForm.controls['deviceClass'] | formControl" required/>
+                    {{class | textTransform: lang }}
+                </label>
+              </li>
+            </ul>
         </fieldset>
       </div>  
     </div>
