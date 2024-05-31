@@ -10,7 +10,7 @@
     <Strong> {{importedFileName}}</Strong>
   </div>
 </div>
-<div role="alert" aria-live="polite" [ngClass]="status == 'msg.success.load' ? 'alert alert-success' : 'alert alert-danger'" *ngIf="showFileLoadStatus">
+<div role="alert" [ngClass]="status == 'msg.success.load' ? 'alert alert-success' : 'alert alert-danger'" *ngIf="showFileLoadStatus">
   <p>{{status | translate}}</p>
 </div>
 
