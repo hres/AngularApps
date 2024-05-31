@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output, OnInit, QueryList, ViewChildren, effect, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output, OnInit, QueryList, ViewChildren, effect, ViewEncapsulation, SimpleChange, SimpleChanges } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ICode, PipesModule, UtilsService } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
@@ -68,6 +68,11 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngOnChanges(changes : SimpleChanges) {
+    this.onDerivativeSelected(null);
+    this.onTissueTypeSelected(null);
+  }
+
   async ngOnInit() {
     this.countries = this._globalService.$countryList;
     this.specFamList = this._globalService.$deviceSpeciesList;
@@ -86,7 +91,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     });
     /** this is processsing the errorSummary that is a child in  Contact record **/
     this.errorSummaryChildList.changes.subscribe(list => {
-      console.log("error summary child change,", list);
+      //console.log("error summary child change,", list);
       this.processSummaries(list);
     });
   }
@@ -146,7 +151,12 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
    * This method is to make the field more reactive when selecting "Other"
    */
   onTissueTypeSelected(e : any) {
-    const selectedTissueType = e.target.value;
+    let selectedTissueType;
+    if (e) {
+      selectedTissueType = e.target.value;
+    } else {
+      selectedTissueType = this.cRRow.get('materialInfo.tissueType').value;
+    }
     const tissueTypeDetails = this.cRRow.get('materialInfo.tissueTypeOtherDetails');
 
     if (selectedTissueType) {
@@ -161,7 +171,12 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   onDerivativeSelected(e : any) {
-    const selectedDerivative = e.target.value;
+    let selectedDerivative;
+    if (e) {
+      selectedDerivative = e.target.value;
+    } else {
+      selectedDerivative = this.cRRow.get('materialInfo.derivative').value;
+    }
     const derivativeDetails = this.cRRow.get('materialInfo.derivativeOtherDetails');
     if (selectedDerivative) {
       if (selectedDerivative === DERIVATIVE_OTHER_ID) {

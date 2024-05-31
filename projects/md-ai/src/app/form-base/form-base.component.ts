@@ -136,12 +136,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base comp');
     this.errorList = [];
-    console.log(this._materialListErrors);
-    console.log(this._materialInfoErrors);
     // concat the two array
     this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialInfoErrors.concat(this._materialListErrors.concat(this._priorityRevErrors))))); // .concat(this._theraErrors);
     // console.log("process errors in form base", this.errorList);
-    console.log(this.errorList);
     // console.log(this.errorList);
     // console.log("printing material errors", this._materialErrors);
     this.cdr.detectChanges(); // doing our own change detection
@@ -316,7 +313,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   showDeviceErrorSummary() {
     if (this.aiDetails.aiDevices.devicesFormArr) {
       const devicesFormArrayControls = this.aiDetails.aiDevices.devicesFormArr.controls;
-      console.log(devicesFormArrayControls);
 
       // If there's more than one device records that are created, and the first one is valid, set showErrorSummary to false -> Do not show error summary for records
       // below the first one - This is for when a record is created after generating XML/error summary for form is shown
@@ -333,7 +329,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
         // If Generate XML is clicked for the first time and if there are any empty/unsaved records, show error summary
         if (this.processXmlCount == 1 && devicesFormArrayControls[i].invalid) {
-          console.log("here");
           this._deviceService.showDeviceErrorSummaryOneRec.set(true);
         }
       }
@@ -345,8 +340,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
       if (this.aiDetails.bioMaterialInfo.aiMaterials) {
         const materialsFormArrayControls = this.aiDetails.bioMaterialInfo.aiMaterials.materialsFormArr.controls;
-
-        console.log(materialsFormArrayControls);
 
         // If there's more than one device records that are created, and the first one is valid, set showErrorSummary to false -> Do not show error summary for records
         // below the first one - This is for when a record is created after generating XML/error summary for form is shown

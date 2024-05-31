@@ -142,7 +142,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
-    console.log("deleting device record..");
     if (this.devicesFormArr.length == 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(true);
     }
@@ -279,9 +278,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
         emitErrors.push(err);
       })
     }
-    console.log(this.errorSummaryChild);
-    console.log(this.errorList);
-    console.log("emitting errors", emitErrors);
     this._deviceService.deviceErrors.update( errors => emitErrors );
   }
 
