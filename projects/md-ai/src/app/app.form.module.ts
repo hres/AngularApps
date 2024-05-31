@@ -3,8 +3,6 @@ import {
   ErrorModule,
   PipesModule,
   ExpanderModule,
-  AddressModule,
-  ContactModule,
   CommonUiFeatureModule,
   NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
@@ -16,17 +14,22 @@ import { ApplicationInfoDetailsService } from './application-info-details/applic
 import { ApplicationInfoBaseService } from './form-base/application-info-base.service';
 import { MaterialModule } from "./bio-material/material.module";
 import { DeviceModule } from './inter-device/device.module';
+import { PriorityReviewComponent } from './priority-review/priority-review.component';
+import { PriorityReviewService } from './priority-review/priority-review.service';
 
 @NgModule({
     declarations: [
-        ApplicationInfoDetailsComponent
+        ApplicationInfoDetailsComponent,
+        PriorityReviewComponent
     ],
     providers: [
         ApplicationInfoDetailsService,
-        ApplicationInfoBaseService
+        ApplicationInfoBaseService,
+        PriorityReviewService
     ],
     exports: [CommonUiFeatureModule,
-        ApplicationInfoDetailsComponent
+        ApplicationInfoDetailsComponent,
+        PriorityReviewComponent
     ],
     imports: [
         CommonModule,

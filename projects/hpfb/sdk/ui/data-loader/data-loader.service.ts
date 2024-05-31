@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, tap, throwError} from 'rxjs';
 import { ICode, SortOn } from './data'; 
+import { OTHER_EN, OTHER_FR } from '../common.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,12 @@ export class DataLoaderService {
     return this.http.get<any>(endpoint).pipe();
   }
 
+  /**
+   * @deprecated Will not be used in the future, use getSortedDataAccents() instead
+   * @param endpoint 
+   * @param compareField 
+   * @returns 
+   */
   public getSortedData<T extends ICode>(endpoint: string, compareField: SortOn): Observable<T[]> {
     const compareFn = this.getCompareFunction(compareField);
 
@@ -32,9 +39,31 @@ export class DataLoaderService {
     };
   }
 
+  public getSortedDataAccents<T extends ICode>(endpoint: string, compareFields: SortOn[]): Observable<T[]> {
+    const compareFn = this.getCompareFunctions(compareFields);
+
+    return this.getData<T>(endpoint).pipe(
+      map(data => data.sort(compareFn))
+    );
+  }
+
+  private getCompareFunctions(compareFields: SortOn[]) {
+    return (a: ICode, b: ICode) => {
+      let valA = '';
+      let valB = '';
+      for (const field of compareFields) {
+        valA += this.getFieldValue(a, field);
+        valB += this.getFieldValue(b, field);
+      } 
+      return valA.toString().localeCompare(valB.toString());
+    };
+  }
+
   private getFieldValue(obj: ICode, field: SortOn): string | number {
     if (field === SortOn.PRIORITY && obj.sortPriority !== undefined) {
-      return obj.sortPriority;
+      // Pad leading 0's, assume the max # of digits in sortPriority is 2 
+      const paddedValue = obj.sortPriority.toString().padStart(3, '0'); 
+      return paddedValue;
     }
     return obj[field];
   }

@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Observable, map, shareReplay, tap} from 'rxjs';
 import { DATA_PATH } from '../app.constants';
-import { DataLoaderService } from '@hpfb/sdk/ui';
-import { ICode, ICodeDefinition, IKeyword } from '@hpfb/sdk/ui/data-loader/data';
+import { DataLoaderService, UtilsService } from '@hpfb/sdk/ui';
+import { ICode, ICodeDefinition, IKeyword, SortOn } from '@hpfb/sdk/ui/data-loader/data';
+import { GlobalService } from '../global/global.service';
 
 @Injectable()
 export class FormDataLoaderService {
@@ -34,7 +35,9 @@ export class FormDataLoaderService {
   cachedCountries$: Observable<ICode[]>;
 
 
-  constructor(private _dataService: DataLoaderService) {}
+  constructor(private _dataService: DataLoaderService,
+              private _globalService: GlobalService,
+              private _utilsService: UtilsService) {}
 
   getYesNoList(): Observable<ICode[]> {
     if (!this.cachedKeywords$) {
@@ -62,8 +65,9 @@ export class FormDataLoaderService {
   }
 
   getDerivativeList(): Observable<ICode[]> {
+    const compareField: SortOn[] = this.getCompareFields(true);
     if (!this.cachedDerivative$) {
-        this.cachedDerivative$ = this._dataService.getData<ICode>(this.derivativeJsonPath)
+        this.cachedDerivative$ = this._dataService.getSortedDataAccents<ICode>(this.derivativeJsonPath, compareField)
           .pipe(
             // tap(()=>console.log('getDeviceClassesList() is called')),
             shareReplay(1)
@@ -84,8 +88,9 @@ export class FormDataLoaderService {
   }
 
   getDeviceSpeciesList(): Observable<ICode[]> {
+    const compareField: SortOn[] = this.getCompareFields(true);
     if (!this.cachedDeviceSpecies$) {
-        this.cachedDeviceSpecies$ = this._dataService.getData<ICode>(this.deviceSpeciesJsonPath)
+        this.cachedDeviceSpecies$ = this._dataService.getSortedDataAccents<ICode>(this.deviceSpeciesJsonPath, compareField)
           .pipe(
             // tap(()=>console.log('getDeviceClassesList() is called')),
             shareReplay(1)
@@ -95,8 +100,9 @@ export class FormDataLoaderService {
   }
 
   getDeviceTissueList(): Observable<ICode[]> {
+    const compareField: SortOn[] = this.getCompareFields(true);
     if (!this.cachedDeviceTissues$) {
-        this.cachedDeviceTissues$ = this._dataService.getData<ICode>(this.deviceTissueJsonPath)
+        this.cachedDeviceTissues$ = this._dataService.getSortedDataAccents<ICode>(this.deviceTissueJsonPath, compareField)
           .pipe(
             // tap(()=>console.log('getDeviceClassesList() is called')),
             shareReplay(1)
@@ -161,8 +167,9 @@ export class FormDataLoaderService {
   }
 
   getCountriesList(): Observable<ICode[]> {
+    const compareField: SortOn[] = this.getCompareFields(false);
     if (!this.cachedCountries$) {
-        this.cachedCountries$ = this._dataService.getData<ICode>(this.countryJsonPath)
+        this.cachedCountries$ = this._dataService.getSortedDataAccents<ICode>(this.countryJsonPath, compareField)
           .pipe(
             // tap(()=>console.log('getDeviceClassesList() is called')),
             shareReplay(1)
@@ -171,4 +178,16 @@ export class FormDataLoaderService {
       return this.cachedCountries$;
   }
 
+  // REPMDFORM-284, Alphabetize RA and Transaction Description drop-downs
+  getCompareFields(sortOnPriority : boolean):SortOn[]{
+    let compareFields : SortOn[] = [];
+    if (sortOnPriority) {
+      compareFields.push(SortOn.PRIORITY);
+    }
+    
+    const lang = this._globalService.getCurrLanguage();
+    this._utilsService.isFrench(lang) ? compareFields.push(SortOn.FRENCH): compareFields.push(SortOn.ENGLISH);
+
+    return compareFields;
+  }
 }

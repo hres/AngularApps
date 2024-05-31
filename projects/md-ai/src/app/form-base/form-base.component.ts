@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
-import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device, BiologicalMaterialData, BiologicalMaterial } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device, BiologicalMaterialData, BiologicalMaterial, PriorityReview } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { MaterialModule } from '../bio-material/material.module';
@@ -17,6 +17,7 @@ import { DeviceModule } from '../inter-device/device.module';
 import { DeviceService } from '../inter-device/device.service';
 import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
 import $ from 'jquery';
+import { PriorityReviewComponent } from '../priority-review/priority-review.component';
 
 @Component({
   selector: 'app-form-base',
@@ -31,11 +32,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
   @Input() helpTextSequences;
   @ViewChild(ApplicationInfoDetailsComponent) aiDetails: ApplicationInfoDetailsComponent;
+  @ViewChild(PriorityReviewComponent) priorityReview: PriorityReviewComponent;
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
   private _materialInfoErrors = []; 
   private _materialListErrors = [];
+  private _priorityRevErrors = [];
   
   //computed(() => {
     // console.log("computed", this._materialService.errors());
@@ -62,6 +65,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public transactionModel: Enrollment;
   public deviceModel: Device[];
   public materialInfo: BiologicalMaterialData;
+  public priorityRevModel : PriorityReview;
 
   public fileServices: FileConversionService;
   public helpIndex: { [key: string]: number };
@@ -132,12 +136,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processErrors() {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base comp');
     this.errorList = [];
-    console.log(this._materialListErrors);
-    console.log(this._materialInfoErrors);
     // concat the two array
-    this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialInfoErrors.concat(this._materialListErrors)))); // .concat(this._theraErrors);
+    this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialInfoErrors.concat(this._materialListErrors.concat(this._priorityRevErrors))))); // .concat(this._theraErrors);
     // console.log("process errors in form base", this.errorList);
-    console.log(this.errorList);
     // console.log(this.errorList);
     // console.log("printing material errors", this._materialErrors);
     this.cdr.detectChanges(); // doing our own change detection
@@ -151,6 +152,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processDeviceErrors(errorList) {
     this._deviceErrors = errorList;
     this.processErrors();
+  }
+  
+  processPriorityRevErrors(errorList) {
+    this._priorityRevErrors = errorList;
+    this.processErrors()
   }
 
   /**
@@ -248,7 +254,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
     }
 
-    const output: Enrollment = this._baseService.mapFormToOutput(aiDetailsFormGroupValue, devicesFormArrayValue, materialInfoFormGroupValue, materialsFormArrayValue);
+    const priorityRevFormGroupValue = this.priorityReview.priorityReviewLocalModel.value;
+
+    const output: Enrollment = this._baseService.mapFormToOutput(aiDetailsFormGroupValue, devicesFormArrayValue, materialInfoFormGroupValue, materialsFormArrayValue, priorityRevFormGroupValue);
 
     if (xmlFile) {
       // add and calculate check_sum if it is xml
@@ -295,6 +303,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.deviceModel = [];
     }
     this.materialInfo = applicationEnroll.material_info;
+    this.priorityRevModel = applicationEnroll.priority_review;
   }
 
   openPopup(){
@@ -304,7 +313,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   showDeviceErrorSummary() {
     if (this.aiDetails.aiDevices.devicesFormArr) {
       const devicesFormArrayControls = this.aiDetails.aiDevices.devicesFormArr.controls;
-      console.log(devicesFormArrayControls);
 
       // If there's more than one device records that are created, and the first one is valid, set showErrorSummary to false -> Do not show error summary for records
       // below the first one - This is for when a record is created after generating XML/error summary for form is shown
@@ -321,7 +329,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
         // If Generate XML is clicked for the first time and if there are any empty/unsaved records, show error summary
         if (this.processXmlCount == 1 && devicesFormArrayControls[i].invalid) {
-          console.log("here");
           this._deviceService.showDeviceErrorSummaryOneRec.set(true);
         }
       }
@@ -333,8 +340,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
       if (this.aiDetails.bioMaterialInfo.aiMaterials) {
         const materialsFormArrayControls = this.aiDetails.bioMaterialInfo.aiMaterials.materialsFormArr.controls;
-
-        console.log(materialsFormArrayControls);
 
         // If there's more than one device records that are created, and the first one is valid, set showErrorSummary to false -> Do not show error summary for records
         // below the first one - This is for when a record is created after generating XML/error summary for form is shown
