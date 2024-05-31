@@ -49,15 +49,8 @@ export class ApplicationInfoDetailsService {
       applicationNum: ['', [ValidationService.numeric6Validator]],
       sapReqNum: ['', []],
       authNum: ['',[ValidationService.numeric6Validator]],
-      declarationConformity : [null, Validators.required],
-      isPriorityReq: [null, []],
-      diagnosisReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
-      selectedDiagnosisCodes: ['']
+      declarationConformity : [null, Validators.required]
     });
-  }
-
-  getSelectedDiagnosisCodes(seriousDiagnosisReasonList: CheckboxOption[], diagnosisReasonChkFormArray: FormArray) : string[] {
-    return this._converterService.getCheckedCheckboxValues(seriousDiagnosisReasonList, diagnosisReasonChkFormArray);
   }
 
   getSelectedComplianceCodes(complianceList: CheckboxOption[], complianceChkFormArray: FormArray) : string[]{
@@ -121,14 +114,9 @@ export class ApplicationInfoDetailsService {
     appInfoModel.sap_request_number = formRecord.sapReqNum;
     appInfoModel.authorization_id = formRecord.authNum;
     appInfoModel.declaration_conformity = formRecord.declarationConformity;
-    appInfoModel.priority_review = formRecord.isPriorityReq;
-    const reasons: DiagnosisReasons = {
-      diagnosis_reason: this._converterService.findAndConverCodesToIdTextLabels(diagnosisReasonList, formRecord.selectedDiagnosisCodes, lang)
-    }
-    appInfoModel.is_diagnosis_treatment_serious = reasons;
   }
 
-  public mapDataModelToFormModel(appInfoModel: ApplicationInfo, formRecord: FormGroup, complianceList: ICode[], diagnosisReasonList: ICode[], complianceOptionList : CheckboxOption[], diagnosisOptionList: CheckboxOption[], lang) {
+  public mapDataModelToFormModel(appInfoModel: ApplicationInfo, formRecord: FormGroup, complianceList: ICode[], complianceOptionList : CheckboxOption[], lang) {
     let mdsapOrgId: string | undefined;
     let licenceAppTypeId: string | undefined;
     let regActivityTypeId: string | undefined;
@@ -209,23 +197,10 @@ export class ApplicationInfoDetailsService {
     formRecord.controls['sapReqNum'].setValue(appInfoModel.sap_request_number);
     formRecord.controls['authNum'].setValue(appInfoModel.authorization_id);
     formRecord.controls['declarationConformity'].setValue(appInfoModel.declaration_conformity);
-    formRecord.controls['isPriorityReq'].setValue(appInfoModel.priority_review);
-
-    if (appInfoModel.is_diagnosis_treatment_serious) {
-      const loadedDiagnosisCodes: string[] = this._utilsService.getIdsFromIdTextLabels(appInfoModel.is_diagnosis_treatment_serious.diagnosis_reason);
-      if (loadedDiagnosisCodes.length > 0) {
-        const diagnosisFormArray = this.getDiagnosisChkboxFormArray(formRecord);
-        this.loadDiagnosisReasonOptions(diagnosisReasonList, diagnosisOptionList, diagnosisFormArray, lang)
-        this._converterService.checkCheckboxes(loadedDiagnosisCodes, diagnosisOptionList, diagnosisFormArray);
-      }  
-    }
   }
 
   getComplianceChkboxFormArray(formRecord: FormGroup) {
     return formRecord.controls['compliance'] as FormArray;
-  }  
-  getDiagnosisChkboxFormArray(formRecord: FormGroup) {
-    return formRecord.controls['diagnosisReasons'] as FormArray;
   }  
 
   loadComplianceOptions(complianceList, complianceOptionList, complianceChkboxFormArray, lang) {
@@ -239,18 +214,4 @@ export class ApplicationInfoDetailsService {
     });
   }
 
-  loadDiagnosisReasonOptions(diagnosisList, seriousDiagnosisReasonOptionList, diagnosisReasonChkFormArray, lang) {
-    seriousDiagnosisReasonOptionList.length = 0;
-    diagnosisReasonChkFormArray.clear();
-
-   
-    // Populate the array with new items
-    diagnosisList.forEach((item) => {
-      const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
-      seriousDiagnosisReasonOptionList.push(checkboxOption);
-      diagnosisReasonChkFormArray.push(new FormControl(false));
-    });
-
-    
-  }
 }

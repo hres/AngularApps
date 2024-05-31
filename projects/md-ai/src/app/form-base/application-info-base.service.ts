@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials, PriorityReview } from '../models/Enrollment';
 import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
 import { GlobalService } from '../global/global.service';
 import { DeviceService } from '../inter-device/device.service';
 import { MaterialService } from '../bio-material/material.service';
+import { PriorityReviewService } from '../priority-review/priority-review.service';
 
 @Injectable()
 export class ApplicationInfoBaseService {
@@ -17,7 +18,8 @@ export class ApplicationInfoBaseService {
               private _utilsService: UtilsService,
               private _applicationInfoDetailsService : ApplicationInfoDetailsService,
               private _deviceService : DeviceService,
-              private _materialService : MaterialService) {
+              private _materialService : MaterialService,
+              private _priorityReviewService : PriorityReviewService) {
   }
 
   public getEmptyEnrol(): Enrollment {
@@ -27,7 +29,8 @@ export class ApplicationInfoBaseService {
         form_language: '',
         application_info: this.getEmptyApplicationInfoModel(),
         devices: {device: []},
-        material_info: this.getEmptyMaterialInfoModel()
+        material_info: this.getEmptyMaterialInfoModel(),
+        priority_review: this.getEmptyPriorityReviewModel()
       }
     };
 
@@ -66,8 +69,6 @@ export class ApplicationInfoBaseService {
         interim_order_authorization: '',
         authorization_id: '',
         declaration_conformity:  '',
-        priority_review: '',
-        is_diagnosis_treatment_serious: null
       }
     )
   }
@@ -121,12 +122,21 @@ export class ApplicationInfoBaseService {
     )
   }
 
+  public getEmptyPriorityReviewModel() : PriorityReview {
+    return (
+      {
+        priority_review: '',
+        is_diagnosis_treatment_serious: null
+      }
+    )
+  }
+
 
   private _getRegulatoryActivityLead() {
     return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Device Directorate', 'Direction des instruments médicaux');
   }
 
-  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm) {
+  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, priorityReviewForm) {
     let deviceModelList = [];
     let materialModelList = [];
     let materialInfoModel : BiologicalMaterialData = null;
@@ -162,6 +172,9 @@ export class ApplicationInfoBaseService {
         materialInfoModel.biological_materials = {material : materialModelList};
       }
     }
+    
+    let priorityRevModel: PriorityReview = this.getEmptyPriorityReviewModel();
+    this._priorityReviewService.mapFormModelToDataModel(priorityReviewForm, priorityRevModel, this._globalService.lang());
 
     const output: Enrollment = {
       'DEVICE_APPLICATION_INFO': {
@@ -169,7 +182,8 @@ export class ApplicationInfoBaseService {
         'form_language': this._globalService.getCurrLanguage(),
         'application_info': aiModel,
         'devices': {device : deviceModelList},
-        'material_info' : materialInfoModel
+        'material_info' : materialInfoModel,
+        'priority_review' : priorityRevModel
        }
    };
 

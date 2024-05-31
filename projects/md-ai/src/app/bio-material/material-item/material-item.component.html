@@ -12,7 +12,7 @@
             <control-messages *ngIf="cRRow.get('materialInfo.materialName').invalid"
                               [showError]="showErrors"
                               [control]="cRRow.get('materialInfo.materialName') | formControl"
-                              controlId="materialName" label="material.name" parentId="materialDetails"
+                              controlId="materialName{{j}}" label="material.name" parentId="materialDetails"
                               translatedParentLabel="{{translatedParentLabel}}">
             </control-messages>
             <input id="materialName{{j}}" name="materialName" class="form-control full-width"
@@ -28,7 +28,7 @@
             <control-messages *ngIf="cRRow.get('materialInfo.deviceName').invalid"
                               [showError]="showErrors"
                               [control]="cRRow.get('materialInfo.deviceName') | formControl"
-                              controlId="deviceName" label="device.name" parentId="materialDetails"
+                              controlId="materialDeviceName{{j}}" label="device.name" parentId="materialDetails"
                               translatedParentLabel="{{translatedParentLabel}}">
             </control-messages>
             <input id="materialDeviceName{{j}}" name="materialDeviceName" class="form-control full-width"
@@ -53,7 +53,7 @@
             <control-messages *ngIf="cRRow.get('materialInfo.specFamily').invalid"
                               [showError]="showErrors"
                               [control]="cRRow.get('materialInfo.specFamily') | formControl"
-                              controlId="specFamily" label="species.family" parentId="materialDetails"
+                              controlId="specFamily{{j}}" label="species.family" parentId="materialDetails"
                               translatedParentLabel="{{translatedParentLabel}}">
             </control-messages>
               <select id="specFamily{{j}}" name="specFamily{{j}}" required class="form-control" 
@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-sm-4">
+        <div class="form-group col-xs-12 col-sm-6 col-md-8">
           <label for="tissueType{{j}}" class="full-width">
             <span class="field-name">{{'tissue.type'|translate}}</span>
               <select id="tissueType{{j}}" name="tissueType{{j}}" class="form-control" 
@@ -75,19 +75,21 @@
             </select>
           </label>
         </div>
-        @if(isTissueTypeOther || tissueTypeOther()) {
+      </div>
+      @if(isTissueTypeOther) {
+        <div class="row">
           <div class="form-group col-sm-8">
             <label for="tissueTypeOtherDetails" class="full-width">
               <span class="field-name">{{'tissue.other' |translate}}</span>
-              <input id="tissueTypeOtherDetails" name="tissueTypeOtherDetails" class="form-control full-width"
-                     [formControlName]="'tissueTypeOtherDetails'"/>
+              <input id="tissueTypeOtherDetails" name="tissueTypeOtherDetails" class="form-control full-width" maxlength="60"
+                    [formControlName]="'tissueTypeOtherDetails'"/>
             </label>
           </div>
-        }
-      </div>
+        </div>
+      }
       <div class="row">
-        <div class="form-group col-sm-4" >
-          <label for="derivative{{j}}" class=" full-width">
+        <div class="form-group col-xs-12 col-sm-6 col-md-8" >
+          <label for="derivative{{j}}" class="full-width">
             <span class="field-name">{{'derivative'|translate}}</span>
               <select id="derivative{{j}}" name="derivative{{j}}" class="form-control" 
                     [formControlName]="'derivative'" (change)="onDerivativeSelected($event)">
@@ -96,16 +98,18 @@
             </select>
           </label>
         </div>
-        @if(isDerivativeOther || derivativeOther()) {
+      </div>
+      @if(isDerivativeOther) {
+        <div class="row">
           <div class="form-group col-sm-8">
             <label for="derivativeOtherDetails" class="full-width">
               <span class="field-name">{{'derivative.other' |translate}}</span>
-              <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control full-width"
-                     [formControlName]="'derivativeOtherDetails'"/>
+              <input id="derivativeOtherDetails" name="derivativeOtherDetails" class="form-control full-width" maxlength="60"
+                    [formControlName]="'derivativeOtherDetails'"/>
             </label>
           </div>
-        }
-      </div>
+        </div>
+      }
       <div class="row">
         <div class="btn-group-sm col-xs-12 text-left">          
           <button id="saveMaterialRecord" class="btn btn-primary" style="margin: 3px" (click)="saveMaterialRecord(j)" >{{'save.material'|translate}}</button>

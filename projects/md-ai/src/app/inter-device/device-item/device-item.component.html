@@ -14,8 +14,8 @@
                                   [control]="cRRow.get('deviceInfo.deviceName') | formControl"
                                   controlId="deviceName{{j}}" label="device.name" parentId="deviceDetails"
                                   parentLabel="{{translatedParentLabel}}"></control-messages>
-                <input id="deviceName{{j}}" name="deviceName" class="form-control full-width"
-                       [formControlName]="'deviceName'" maxlength="150"/>
+                <textarea id="deviceName{{j}}" name="deviceName" class="form-control full-width"
+                       [formControlName]="'deviceName'" maxlength="150"></textarea>
               </label>
             </div>
           </div>
@@ -39,8 +39,7 @@
                 </select>
               </label>
             </div>
-      
-            @if(deviceAuthorized || isDeviceAuthorized()) {
+            @if(deviceAuthorized) {
               <div class="form-group col-sm-12 ">
                 <label for="licenceNum{{j}}" class="required">
                   <span class="field-name">{{'licence.application.number' |translate}} {{'minNumber6' |translate}}</span>
@@ -58,8 +57,7 @@
                 </label>
               </div>
             }
-            
-            @if(deviceNotAuthorized || isDeviceNotAuthorized()) {
+            @if(deviceNotAuthorized) {
             <div class="form-group col-sm-12">
               <label for="deviceApplicationSubmitted{{j}}" class="required full-width">
                 <span class="field-name">{{'device.application.submitted' |translate}}</span>
@@ -80,7 +78,7 @@
             </div>
             }
             
-            @if(deviceAppSubmitted || isDeviceApplicationSubmitted()) {
+            @if(deviceAppSubmitted) {
             <div class="form-group col-sm-12 ">
               <label for="deviceApplicationNumber{{j}}" class="required">
                 <span class="field-name">{{'application.number' |translate}} {{'minNumber6' |translate}}</span>
@@ -96,7 +94,7 @@
             </div>
             }
             
-            @if(deviceAppNotSubmitted || isDeviceApplicationNotSubmitted()) {
+            @if(deviceAppNotSubmitted) {
             <div class="form-group col-sm-12">
               <label for="deviceExplain{{j}}" class="required">
                 <span class="field-name">{{'device.explain'|translate}}</span>

@@ -411,13 +411,13 @@ span.normalWeight {
 	<!-- Application Information Enrolment -->
 
 	<xsl:template name="mybody">
-		<h1>Application Information Template: Regulatory Enrolment Process (REP) (Version: 3.0)_fr</h1>
+		<h1>Modèle d’information sur les demandes d’homologation: Processus d'inscription réglementaire (PIR) pour les instruments médicaux (Version 3.0.0)</h1>
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
 					<td style="text-align: center;font-weight:bold;">Numéro d’identification du fabricant</td>
 					<td style="text-align: center;font-weight:bold;">Numéro de dossier</td>
-					<td style="text-align: center;font-weight:bold;">Date Last Saved_fr</td>
+					<td style="text-align: center;font-weight:bold;">Date de la derniére enregistrement</td>
 				</tr>
 				<tr>
 					<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/company_id" /></span> </td>
@@ -436,14 +436,14 @@ span.normalWeight {
 						<div class="col-xs-6">
 							<strong>Numéro de certificat du Programme d’audit unique des matériels médicaux (PAUMM):&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_number" /></span>
+						</div>					
+						<div class="col-xs-12">
+							<strong>Programme d’audit unique des matériels médicaux (PAUMM) Organisation d'audit:&#160;</strong>
+							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_org/@label_fr"/></span>
 						</div>
 						<div class="col-xs-6">
 							<strong>Type de demande d'homologation:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_application_type/@label_fr"/></span>
-						</div>
-						<div class="col-xs-12">
-							<strong>Programme d’audit unique des matériels médicaux (PAUMM) Organisation d'audit:&#160;</strong>
-							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_org/@label_fr"/></span>
 						</div>
 					</div>
 					<div class="row">
@@ -562,7 +562,7 @@ span.normalWeight {
 							<div class="row">
 								<div class="col-xs-6">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_it"/></xsl:call-template>
-									<span class="mouseHover">Essai expérimental</span>
+									<span class="mouseHover">Test expérimental</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_it = 'true'">
 								<div class="col-xs-6">
@@ -679,15 +679,15 @@ span.normalWeight {
 							<div class="row">
 								<div class="col-xs-12">
 								<strong>Un examen prioritaire est-il demandé pour cette application?&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/priority_review"/></xsl:call-template></span>
+								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::priority_review/priority_review"/></xsl:call-template></span>
 								</div>
 							</div>
 							
-							<xsl:if test="/descendant-or-self::application_info/is_diagnosis_treatment_serious/diagnosis_reason">
+							<xsl:if test="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Un examen prioritaire est demandé pour l’instrument en question, car il est destiné au diagnostic ou au traitement d'une maladie ou d'une affection grave, mettant la vie de l'individu en danger ou gravement débilitante, et il existe des preuves cliniques substantielles que l'instrument médical :</strong></div>
 								</div>
-								<xsl:for-each select="/descendant-or-self::application_info/is_diagnosis_treatment_serious/diagnosis_reason">
+								<xsl:for-each select="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
 									<div class="row">
 										<div class="col-xs-12">
 											<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
@@ -722,6 +722,8 @@ span.normalWeight {
 				<strong>Pays d'origine (pour animaux seulement):&#160;</strong>
 				<span class="mouseHover"><xsl:value-of select="./origin_country/@label_fr"/></span>
 			</div>
+		</div>
+		<div class="row">
 			<div class="col-xs-5">
 				<strong>Famille de l'espèce:&#160;</strong>
 				<span class="mouseHover"><xsl:value-of select="./family_of_species/@label_fr"/></span>
@@ -732,10 +734,6 @@ span.normalWeight {
 				<strong>Type de tissus/substances:&#160;</strong>
 				<span class="mouseHover"><xsl:value-of select="./tissue_substance_type/@label_fr"/></span>
 			</div>
-			<div class="col-xs-5">
-				<strong>Dérivé:&#160;</strong>
-				<span class="mouseHover"><xsl:value-of select="./derivative/@label_fr"/></span>
-			</div>
 			<xsl:if test="./tissue_substance_type/@id = '32'">
 				<div class="col-xs-5">
 					<strong>Autres détails sur les types de tissus:&#160;</strong>
@@ -745,6 +743,12 @@ span.normalWeight {
 			<xsl:if test="./tissue_substance_type/@id != 'other' and ./derivative/@id = 'other'">
 				<div class="col-xs-5">&#160;</div>
 			</xsl:if>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<strong>Dérivé:&#160;</strong>
+				<span class="mouseHover"><xsl:value-of select="./derivative/@label_fr"/></span>
+			</div>
 			<xsl:if test="./derivative/@id = '30'">
 				<div class="col-xs-5">
 					<strong>Autres détails sur les dérivés:&#160;</strong>
