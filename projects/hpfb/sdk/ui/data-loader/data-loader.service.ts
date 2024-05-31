@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, tap, throwError} from 'rxjs';
 import { ICode, SortOn } from './data'; 
+import { OTHER_EN, OTHER_FR } from '../common.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,32 @@ export class DataLoaderService {
     );
   }
 
+  public getSortedDataAccents<T extends ICode>(endpoint: string, compareField: SortOn): Observable<T[]> {
+    const compareFn = this.getCompareFunctionOther(compareField);
+
+    return this.getData<T>(endpoint).pipe(
+      map(data => data.sort(compareFn))
+    );
+  }
+
   private getCompareFunction(compareField: SortOn) {
     return (a: ICode, b: ICode) => {
       const valA = this.getFieldValue(a, compareField);
       const valB = this.getFieldValue(b, compareField);
       return valA < valB ? -1 : valA > valB ? 1 : 0;
+    };
+  }
+
+  private getCompareFunctionOther(compareField: SortOn) {
+    return (a: ICode, b: ICode) => {
+      const valA = this.getFieldValue(a, compareField);
+      const valB = this.getFieldValue(b, compareField);
+
+      // Place last if value is "Other"/"Autre"
+      if (valA === OTHER_EN || valA === OTHER_FR) return 1;
+      if (valB === OTHER_EN || valB === OTHER_FR) return -1;
+      
+      return valA.toString().localeCompare(valB.toString());
     };
   }
 

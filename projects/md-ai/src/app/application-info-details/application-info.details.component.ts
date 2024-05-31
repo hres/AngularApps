@@ -46,11 +46,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   public drugTypeList: ICode[] = [];
   public yesNoList: ICode[] = [];
 
-  public seriousDiagnosisReasonOptionList: CheckboxOption[] = [];
   public complianceOptionList: CheckboxOption[] = [];
 
   // Lists for checkboxes
-  public diagnosisReasonCodeList: ICode[] = [];
   public complianceCodeList: ICode[] = [];
 
   public showFieldErrors = false;
@@ -79,7 +77,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this.yesNoList = this._globalService.$yesNoList;
 
     this.complianceCodeList = this._globalService.$complianceList;
-    this.diagnosisReasonCodeList = this._globalService.$diagnosisReasonList;
   }
 
   ngAfterViewInit() {
@@ -136,7 +133,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this.appInfoFormLocalModel = this._detailsService.getReactiveModel(this._fb);
         this.appInfoFormLocalModel.markAsPristine();
       }
-      this._detailsService.mapDataModelToFormModel(dataModel, this.appInfoFormLocalModel, this.complianceCodeList, this.diagnosisReasonCodeList, this.complianceOptionList, this.seriousDiagnosisReasonOptionList, this.lang);
+      this._detailsService.mapDataModelToFormModel(dataModel, this.appInfoFormLocalModel, this.complianceCodeList, this.complianceOptionList, this.lang);
     }
   }
 
@@ -297,41 +294,14 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
-  priorityRequestedOnChange() {
-    this._updateDiagnosisReasonArray();
-  }
-
-  showDiagnosisReasons() {
-    if (this.appInfoFormLocalModel.controls['isPriorityReq'].value &&
-          this.appInfoFormLocalModel.controls['isPriorityReq'].value === YES) {
-         return true;
-    }
-    else {
-      this._utilsService.resetControlsValues(this.appInfoFormLocalModel.controls['diagnosisReasons']);
-    }
-    return false;
-  }
-
   hasDrugOnChange() {
     this._updateComplianceArray();
   }
 
-  seriousDiagnosisOnChange() {
-    this.appInfoFormLocalModel.controls['selectedDiagnosisCodes'].setValue(this.selectedDiagnosisCodes);
-  }
 
   complianceOnChange() {
     this.appInfoFormLocalModel.controls['selectedComplianceCodes'].setValue(this.selectedComplianceCodes);
   }
-
-  private _updateDiagnosisReasonArray() {
-    const diagnosisReasonList = this._globalService.$diagnosisReasonList;
-    this.seriousDiagnosisReasonOptionList = diagnosisReasonList.map((item) => {
-      return this._converterService.convertCodeToCheckboxOption(item, this.lang);
-    });
-
-    this.seriousDiagnosisReasonOptionList.forEach(() => this.diagnosisReasonChkFormArray.push(new FormControl(false)));
-  } 
 
   private _updateComplianceArray() {
     const complianceChkList = this._globalService.$complianceList;
@@ -340,15 +310,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     });
 
     this.complianceOptionList.forEach(() => this.complianceChkFormArray.push(new FormControl(false)));
-  }
-
-  get diagnosisReasonChkFormArray() {
-    return this.appInfoFormLocalModel.controls['diagnosisReasons'] as FormArray
-
-  }
-
-  get selectedDiagnosisCodes(): string[] {
-    return this._detailsService.getSelectedDiagnosisCodes(this.seriousDiagnosisReasonOptionList, this.diagnosisReasonChkFormArray);
   }
 
   get complianceChkFormArray() {

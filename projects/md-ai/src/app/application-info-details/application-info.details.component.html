@@ -1,7 +1,7 @@
 <div>
     <div [formGroup]="appInfoFormLocalModel">
       <div class="row">
-        <div class="form-group col-sm-6 col-xs-12 " >
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
           <label for="companyId" class="required full-width">
             <span class="field-name">{{'company.id'|translate}} {{'minNumber6'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -14,7 +14,7 @@
                    [formControl]="appInfoFormLocalModel.controls['companyId'] | formControl" maxlength="6" data-only-digits/>
           </label>
         </div>
-        <div class="form-group col-sm-6 col-xs-12 " >
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
           <label for="dossierId" class="required full-width">
             <span class="field-name">{{'dossier.id'|translate}}  {{'minAlphanum7'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -34,13 +34,13 @@
             <span class="field-name">{{'mdsap.number'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <sup id="ap3-rf">
-              <a class="fn-lnk" href="#ap3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.mdsapNumIndx}}</a>
+              <a class="fn-lnk mrgn-tp-md" href="#ap3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.mdsapNumIndx}}</a>
             </sup>
             <control-messages *ngIf="appInfoFormLocalModel.controls['mdsapNum'].invalid"
                               [showError]="showFieldErrors"
                               [control]="appInfoFormLocalModel.controls['mdsapNum'] | formControl"
                               controlId="mdsapNum" label="mdsap.number" parentId="appInfoDetails"></control-messages>
-            <input id="mdsapNum" name="mdsapNum" class="form-control" 
+            <input id="mdsapNum" name="mdsapNum" class="form-control" size="50"
                    [formControl]="appInfoFormLocalModel.controls['mdsapNum'] | formControl" maxlength="30"/>
           </label>
         </div>
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-xs-12 minWidth300" >
+        <div class="form-group col-xs-6 minWidth300" >
           <label for="licenceAppType" class="required full-width">
             <span class="field-name">{{'licence.app.type' |translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -78,7 +78,7 @@
                               [control]="appInfoFormLocalModel.controls['licenceAppType'] | formControl"
                               controlId="licenceAppType" label="licence.app.type"
                               parentId="appInfoDetails"></control-messages>
-            <select id="licenceAppType" name="licenceAppType" required class="form-control "
+            <select id="licenceAppType" name="licenceAppType" required class="form-control full-width"
                    [formControl]="appInfoFormLocalModel.controls['licenceAppType'] | formControl">
               <option label=" " value=""></option>
               <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat | textTransform : lang}}</option>
@@ -107,7 +107,7 @@
         </div>
       <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <fieldset class="chkbxrdio-grp" >
+          <fieldset class="chkbxrdio-grp" id="deviceClass">
             <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                 <sup id="ap6-rf">
@@ -228,7 +228,7 @@
                   </select>
                 </label>
               </div>
-              <div  *ngIf="hasDin()" class="form-group col-xs-6" >
+              <div  *ngIf="hasDin()" class="form-group col-xs-12" >
                 <label for="din" class="required full-width">
                   <span class="field-name">{{'din'|translate}} {{'minNumber8' |translate}}</span>
                   <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -237,11 +237,11 @@
                                     [control]="appInfoFormLocalModel.controls['din'] | formControl"
                                     controlId="din" label="din" parentId="appInfoDetails">
                   </control-messages>
-                  <input id="din" name="din"  class="form-control full-width"
+                  <input id="din" name="din"  class="form-control"
                          [formControl]="appInfoFormLocalModel.controls['din'] | formControl" maxlength="8" data-only-digits/>
                 </label>
               </div>
-              <div  *ngIf="hasNpn()" class="form-group col-xs-6" >
+              <div  *ngIf="hasNpn()" class="form-group col-xs-12" >
                 <label for="npn" class="required full-width">
                   <span class="field-name">{{'npn'|translate}} {{'minNumber8' |translate}}</span>
                   <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
@@ -250,15 +250,19 @@
                                     [control]="appInfoFormLocalModel.controls['npn'] | formControl"
                                     controlId="npn" label="npn" parentId="appInfoDetails">
                   </control-messages>
-                  <input id="npn" name="npn" class="form-control full-width"
+                  <input id="npn" name="npn" class="form-control"
                          [formControl]="appInfoFormLocalModel.controls['npn'] | formControl" maxlength="8" data-only-digits/>
                 </label>
               </div>
             </div>
             <div *ngIf="hasDrug()">
               <div class="row">
-                <div class="col-xs-12 form-group alert alert-info" role="alert">
-                  <p aria-live="polite">{{'combination.products.related'|translate}}</p>
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div role="alert" class="alert alert-info">
+                    <p aria-live="polite">
+                      {{'combination.products.related'|translate}}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div class="row">
@@ -316,7 +320,7 @@
                     <control-messages *ngIf="complianceChkFormArray.invalid"
                                       [showError]="showFieldErrors"
                                       [control]="complianceChkFormArray | formControl"
-                                      controlId="hasCompliances" label="compliance"
+                                      controlId="compliance" label="compliance"
                                       parentId="appInfoDetails"></control-messages>
                   </legend>
                   <ul class="form-group list-unstyled">
@@ -328,7 +332,7 @@
                   </ul>                 
                   <div *ngIf="isOtherPharmacopeia()" class="row">
                     <div class="form-group col-xs-12" >
-                      <label for="otherPharmacopeia" class="required full-width">
+                      <label for="otherPharmacopeia" class="required">
                         <span class="field-name">{{'other.pharmacopeia'|translate}}</span>
                         <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                         <control-messages *ngIf="appInfoFormLocalModel.controls['otherPharmacopeia'].invalid"
@@ -336,7 +340,7 @@
                                           [control]="appInfoFormLocalModel.controls['otherPharmacopeia'] | formControl"
                                           controlId="otherPharmacopeia" label="other.pharmacopeia" parentId="appInfoDetails">
                         </control-messages>
-                        <input id="otherPharmacopeia" name="otherPharmacopeia" class="form-control full-width"
+                        <input id="otherPharmacopeia" name="otherPharmacopeia" class="form-control full-width" size="50"
                                [formControl]="appInfoFormLocalModel.controls['otherPharmacopeia'] | formControl" maxlength="20"/>
                       </label>
                     </div>
@@ -375,7 +379,7 @@
                   </div>
                   <div  class="form-group col-xs-7" *ngIf="isIt()">
                     <label for="applicationNum" class=" full-width">
-                      <span class="field-name">{{'application.number'|translate}}</span>
+                      <span class="field-name">{{'application.number'|translate}} {{'minNumber6'|translate}}</span>
                       <control-messages *ngIf="appInfoFormLocalModel.controls['applicationNum'].invalid"
                                         [showError]="showFieldErrors"
                                         [control]="appInfoFormLocalModel.controls['applicationNum'] | formControl"
@@ -418,7 +422,7 @@
                   </div>
                   <div class="form-group col-xs-7" *ngIf="isIoa()">
                     <label for="authNum" class=" full-width">
-                      <span class="field-name">{{'auth.id'|translate}}</span>
+                      <span class="field-name">{{'auth.id'|translate}} {{'minNumber6'|translate}}</span>
                       <control-messages *ngIf="appInfoFormLocalModel.controls['authNum'].invalid"
                       [showError]="showFieldErrors"
                       [control]="appInfoFormLocalModel.controls['authNum'] | formControl"
@@ -507,72 +511,6 @@
   
       <div *ngIf="isDeviceIV()">
         <app-material-info [materialInfo]="materialInfo"> </app-material-info>
-      </div>
-      <div>
-        <section class="panel  panel-default">
-          <header class="panel-heading clearfix">
-            <h2 class="panel-title">{{'priority.review'|translate}}
-              <sup id="ap9-rf">
-                <a class="fn-lnk" href="#ap9"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.priRevIndx}}</a>
-              </sup>
-            </h2>
-          </header>
-          <div class="panel-body">
-            
-              <div class="row">
-                <div class="form-group col-xs-12">
-                <label for="isPriorityReq" class="full-width">
-                  <span class="field-name">{{'is.priority.req' |translate}}</span>
-                  <!-- <control-messages *ngIf="appInfoFormLocalModel.controls['isPriorityReq'].invalid"
-                                    [showError]="showFieldErrors"
-                                    [control]="appInfoFormLocalModel.controls['isPriorityReq'] | formControl"
-                                    controlId="isPriorityReq" label="is.priority.requested" parentId="appInfoDetails"></control-messages> -->
-                  <select id="isPriorityReq" name="isPriorityReq" required class="form-control"
-                          (change)="priorityRequestedOnChange()" [formControl]="appInfoFormLocalModel.controls['isPriorityReq'] | formControl">
-                    <option label=" " value=""></option>
-                    <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
-                  </select>
-                </label>
-              </div>
-              </div> 
-              <div *ngIf="showDiagnosisReasons()">
-              <div class="row">
-                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <fieldset class="chkbxrdio-grp" id="diagnosisReasons">
-                    <legend class="required">
-                        <span class="field-name">{{'priority.rev.devices' | translate}}</span>
-                        <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-                        <control-messages *ngIf="diagnosisReasonChkFormArray.invalid"
-                                        [showError]="showFieldErrors"
-                                        [control]="diagnosisReasonChkFormArray | formControl"
-                                        controlId="diagnosisReasons" label="priority.rev.devices"
-                                        parentId="appInfoDetails"></control-messages>
-                    </legend>
-                    <ul class="form-group list-unstyled">
-                      <li class="checkbox" formArrayName="diagnosisReasons" *ngFor="let reason of diagnosisReasonChkFormArray.controls; let i = index">
-                        <label for={{seriousDiagnosisReasonOptionList[i].value}}>
-                          <input type="checkbox" id={{seriousDiagnosisReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="seriousDiagnosisOnChange()"/> {{seriousDiagnosisReasonOptionList[i].label}}
-                        </label>
-                      </li>
-                    </ul>
-                  </fieldset>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <div class="alert alert-info" role="alert">
-                      <p aria-live="polite">{{'priority.rationale' | translate}}</p>
-                      <ul>
-                        <li>{{'priority.rationale.01' | translate}}</li>
-                        <li>{{'priority.rationale.02' | translate}}</li>
-                        <li>{{'priority.rationale.03' | translate}}</li>
-                      </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
   
       <!-- <pre>{{appInfoFormLocalModel.value |json}}</pre> -->

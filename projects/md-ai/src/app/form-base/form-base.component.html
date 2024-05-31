@@ -1,6 +1,6 @@
 <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.xml.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
 
-<div class="container-fluid">
+<div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
     <form name="aplicationForm" [formGroup]="applicationForm" novalidate>
         <div class="row mrgn-tp-md">
           <div class="col-md-12">
@@ -14,7 +14,7 @@
             <header class="panel-heading clearfix">
               <h2 class="panel-title">{{'load.file'|translate}}
                 <sup id="ap1-rf">
-                  <a class="fn-lnk" href="#ap1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['loadFileIndx']}}</a>
+                  <a class="fn-lnk mrgn-tp-md" href="#ap1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['loadFileIndx']}}</a>
                 </sup>
               </h2>
             </header>
@@ -54,6 +54,19 @@
                                   (deviceErrorList)="processDeviceErrors($event)"                                 
                                   (materialErrorList)="resetMaterialErrors($event)">
                 </app-info-details>
+                <section class="panel panel-default">
+                  <header class="panel-heading clearfix">
+                    <h2 class="panel-title">{{'priority.review'|translate}}
+                      <sup id="ap9-rf">
+                        <a class="fn-lnk" href="#ap9"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.priRevIndx}}</a>
+                      </sup>
+                    </h2>
+                  </header>
+                  <div class="panel-body">
+                    <app-priority-review [helpTextSequences]="helpIndex" [priorityRevModel]="priorityRevModel" 
+                    [showErrors]="showErrors" (priorityRevErrorList)="processPriorityRevErrors($event)"></app-priority-review>
+                  </div>
+                </section>
 
               </div>
             </section>
