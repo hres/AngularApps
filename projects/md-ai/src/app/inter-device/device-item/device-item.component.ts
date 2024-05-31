@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output, OnInit, QueryList, ViewChildren, effect, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output, OnInit, QueryList, ViewChildren, effect, ViewEncapsulation, SimpleChange, SimpleChanges } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ICode, NO, PipesModule, UtilsService, YES } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
@@ -69,6 +69,11 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngOnChanges(changes : SimpleChanges) {
+    this.onDeviceAuthorizedChange(null);
+    this.onDeviceAppChange(null); 
+  }
+
   async ngOnInit() {
     this.yesNoList = this._globalService.$yesNoList;
 
@@ -84,7 +89,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     });
     /** this is processsing the errorSummary that is a child in  Contact record **/
     this.errorSummaryChildList.changes.subscribe(list => {
-      console.log("error summary child change,", list);
+      //console.log("error summary child change,", list);
       this.processSummaries(list);
     });
   }
@@ -146,7 +151,14 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   } 
 
   onDeviceAuthorizedChange(e: any) {
-    const deviceAuthorized = e.target.value;
+    let deviceAuthorized;
+
+    if (e) {
+      deviceAuthorized = e.target.value;
+    } else {
+      deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
+    }
+
     const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted');
     const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber');
     const deviceExplain = this.cRRow.get('deviceInfo.deviceExplain');
@@ -168,7 +180,14 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   }
 
   onDeviceAppChange(e: any) {
-    const deviceApplicationSubmitted = e.target.value;
+    let deviceApplicationSubmitted;
+
+    if (e) {
+      deviceApplicationSubmitted = e.target.value;
+    } else {
+      deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
+    }
+
     const deviceExplain = this.cRRow.get('deviceInfo.deviceExplain');
     const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber')
 

@@ -64,7 +64,7 @@ export class PriorityReviewService {
     public mapDataModelToFormModel(priorityRevModel: PriorityReview, formRecord: FormGroup, diagnosisReasonList: ICode[], diagnosisOptionList: CheckboxOption[], lang) {
         formRecord.controls['isPriorityReq'].setValue(priorityRevModel.priority_review);
 
-        if (priorityRevModel) {
+        if (priorityRevModel.priority_review) {
             const loadedDiagnosisCodes: string[] = this._utilsService.getIdsFromIdTextLabels(priorityRevModel.is_diagnosis_treatment_serious.diagnosis_reason);
             if (loadedDiagnosisCodes.length > 0) {
               const diagnosisFormArray = this.getDiagnosisChkboxFormArray(formRecord);

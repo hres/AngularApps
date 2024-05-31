@@ -50,7 +50,6 @@ export class ContainerComponent implements OnInit {
 
     // Use forkJoin to wait for all API calls to complete
     forkJoin(this.dataSources).subscribe((data) => {
-      console.log(data);
       this._globalService.$complianceList = data[0];
       this._globalService.$derivateList = data[1];
       this._globalService.$deviceClassesList = data[2];

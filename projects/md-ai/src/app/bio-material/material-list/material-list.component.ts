@@ -52,7 +52,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     });
 
     effect(() => {
-      console.log('[effect]', this.atLeastOneRec());
+      //console.log('[effect]', this.atLeastOneRec());
       this.atLeastOneRecBoolean = this.atLeastOneRec();
       this._emitErrors();
     }, {
@@ -282,11 +282,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   // }
 
   private _emitErrors(): void {
-    console.log("emitting errors in material list", this.materialsFormArr);
     let emitErrors = [];
-
-    console.log(this.errorSummaryChild);
-    console.log("material array errs", this.materialsFormArr);
 
     if (this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);

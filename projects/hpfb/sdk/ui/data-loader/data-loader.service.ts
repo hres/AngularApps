@@ -17,16 +17,14 @@ export class DataLoaderService {
     return this.http.get<any>(endpoint).pipe();
   }
 
+  /**
+   * @deprecated Will not be used in the future, use getSortedDataAccents() instead
+   * @param endpoint 
+   * @param compareField 
+   * @returns 
+   */
   public getSortedData<T extends ICode>(endpoint: string, compareField: SortOn): Observable<T[]> {
     const compareFn = this.getCompareFunction(compareField);
-
-    return this.getData<T>(endpoint).pipe(
-      map(data => data.sort(compareFn))
-    );
-  }
-
-  public getSortedDataAccents<T extends ICode>(endpoint: string, compareField: SortOn): Observable<T[]> {
-    const compareFn = this.getCompareFunctionOther(compareField);
 
     return this.getData<T>(endpoint).pipe(
       map(data => data.sort(compareFn))
@@ -41,22 +39,31 @@ export class DataLoaderService {
     };
   }
 
-  private getCompareFunctionOther(compareField: SortOn) {
-    return (a: ICode, b: ICode) => {
-      const valA = this.getFieldValue(a, compareField);
-      const valB = this.getFieldValue(b, compareField);
+  public getSortedDataAccents<T extends ICode>(endpoint: string, compareFields: SortOn[]): Observable<T[]> {
+    const compareFn = this.getCompareFunctions(compareFields);
 
-      // Place last if value is "Other"/"Autre"
-      if (valA === OTHER_EN || valA === OTHER_FR) return 1;
-      if (valB === OTHER_EN || valB === OTHER_FR) return -1;
-      
+    return this.getData<T>(endpoint).pipe(
+      map(data => data.sort(compareFn))
+    );
+  }
+
+  private getCompareFunctions(compareFields: SortOn[]) {
+    return (a: ICode, b: ICode) => {
+      let valA = '';
+      let valB = '';
+      for (const field of compareFields) {
+        valA += this.getFieldValue(a, field);
+        valB += this.getFieldValue(b, field);
+      } 
       return valA.toString().localeCompare(valB.toString());
     };
   }
 
   private getFieldValue(obj: ICode, field: SortOn): string | number {
     if (field === SortOn.PRIORITY && obj.sortPriority !== undefined) {
-      return obj.sortPriority;
+      // Pad leading 0's, assume the max # of digits in sortPriority is 2 
+      const paddedValue = obj.sortPriority.toString().padStart(3, '0'); 
+      return paddedValue;
     }
     return obj[field];
   }
