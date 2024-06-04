@@ -549,7 +549,7 @@ span.normalWeight {
 								<xsl:if test="/descendant-or-self::application_info/device_name != ''">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<strong>Name of Device, as it appears on the labele:&#160;</strong>
+											<strong>Name of Device, as it appears on the label:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_name"/></span>
 										</div>
 									</div>
