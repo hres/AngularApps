@@ -26,7 +26,7 @@
     </div>
     <div id="topErrorSummaryId">
       <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-        headingPreamble="errorSummary.company"></lib-error-summary>
+        headingPreamble="errorSummary.masterfile"></lib-error-summary>
     </div>
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
@@ -34,9 +34,23 @@
           <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
           </header>
           <div class="panel-body">
-            <app-regulatory-information />
+            <regulatory-information (regulatoryInfoErrorList)="processRegulatoryInfoErrors($event)" [showErrors]="showErrors"
+            [regulatoryInfoModel]="regulatoryInfoModel"/>
           </div>
       </section>
+    </div>
+
+    <div class="row btn-group-sm">
+      <div class="form-group col-md-4">
+        <button type="button" class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
+          {{'save.working.copy'|translate}}
+        </button>
+      </div>
+      <div class="form-group col-md-4">
+        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
+          {{'generate.final'|translate}}
+        </button>
+      </div>
     </div>
   </form>
 </div>

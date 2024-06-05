@@ -9,9 +9,11 @@ import {
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RegulatoryInformationComponent } from './regulatory-information/regulatory-information.component';
 
 @NgModule({
   declarations: [
+    RegulatoryInformationComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [
   ],
   exports: [CommonUiFeatureModule, 
+    RegulatoryInformationComponent
    ],
 })
 export class AppFormModule {}

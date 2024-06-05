@@ -297,4 +297,31 @@ export class ValidationService {
     // };
   }
 
+  static masterFileNumberValidator(control) {
+    // todo
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{4}-[0-9]{3}$/)) {
+      return null;
+    } else {
+      return { 'error.mgs.incorrectFormat': true }; 
+    }
+  }
+
+    // if first letter is e, then followed by 6 numbers
+  // if first letter is f, then followed by 7 numbers
+  static masterFileDossierIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (
+      control.value.match(/^[e]{1}[0-9]{6}$/) ||
+      control.value.match(/^[f]{1}[0-9]{7}$/)
+    ) {
+      return null;
+    } else {
+      return {'error.mgs.dossier.id': true};
+    }
+  }
 }
