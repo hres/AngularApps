@@ -133,7 +133,7 @@ export class ApplicationInfoBaseService {
 
 
   private _getRegulatoryActivityLead() {
-    return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Device Directorate', 'Direction des instruments médicaux');
+    return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Devices Directorate', 'Direction des instruments médicaux');
   }
 
   mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, priorityReviewForm) {
