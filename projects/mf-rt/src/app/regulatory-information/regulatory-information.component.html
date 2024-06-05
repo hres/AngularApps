@@ -1,3 +1,22 @@
 <div>
-        Regulatory Information Component TODO
+        <div [formGroup]="regulartoryInfoFormModel">
+                <div class="row">
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label for="dossierId" class="required full-width">
+                                <span class="field-name">{{ 'dossier.id'|translate }} {{ 'alphanumeric6or7'|translate }} </span>
+                                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                                <sup id="tr2-rf">
+                                    <a class="fn-lnk" href="#tr2"><span
+                                            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierIdIndx']}}</a>
+                                </sup>
+                                <control-messages *ngIf="regulartoryInfoFormModel.controls['dossierId'].invalid"
+                                    [showError]="showFieldErrors"
+                                    [control]="regulartoryInfoFormModel.controls['dossierId'] | formControl" controlId="dossierId"
+                                    label="dossier.id" parentId="regulatoryInfo"></control-messages>                                    
+                                    <input id="dossierId" name="dossierId" class="form-control"
+                                        [formControl]="regulartoryInfoFormModel.controls['dossierId'] | formControl" maxlength="8" /> 
+                            </label>
+                        </div>
+                    </div>
+        </div>
 </div>
