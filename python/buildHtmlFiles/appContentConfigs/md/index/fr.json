@@ -3,13 +3,14 @@
     "h1_header": "Processus d’inscription réglementaire (PIR) pour les instruments médicaux",
     "sections": [
         {
-            "header": "Liens d’accès au modèle et au formulaire du PIR"
+            "header": "Liens d’accès au modèle et au formulaire du PIR",
+            "alert": "Afin d’accéder à la version la plus récente du modèle, n’oubliez pas de supprimer fréquemment votre mémoire cache et d’« actualiser » les liens du modèle sur votre navigateur Web avant chaque utilisation."
         },
         {
             "header": "Processus de transaction réglementaire externe",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.fr }}\">Modèle de l’entreprise (2 avril 2024)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.fr }}\">Modèle de compagnie (2 avril 2024)</a>",
                     "bullets": [
                         "Obligatoire afin d’obtenir un identifiant d'entreprise et/ou fournir des informations à jour sur l'entreprise à Santé Canada.",
                         "Envoyé par courriel.<ul><li>Joignez l’ébauche de fichier CO XML avant l’envoi.</li></ul>",
@@ -28,7 +29,7 @@
             "header": "Dans le cadre du processus de transaction réglementaire",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.fr }}\">Modèle de transaction réglementaire (à venir)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.fr }}\">Modèle de transaction réglementaire (31 juillet 2024)</a>",
                     "bullets": [
                         "Envoyé par la PCDE dans le cadre de la transaction réglementaire (demande).",
                         "Requis avec chaque transaction réglementaire déposée auprès de Santé Canada.",
@@ -36,7 +37,7 @@
                     ]
                 },
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.ai.fr }}\">Modèle d’information sur les demandes d’homologation (à venir)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.ai.fr }}\">Modèle d’information sur les demandes d’homologation (31 juillet 2024)</a>",
                     "bullets": [
                         "Envoyé par le PCDE dans le cadre de la transaction réglementaire (demande).    ",
                         "Obligatoire uniquement pour un sous-ensemble de transactions. Reportez-vous à la section « 2.5.2 Modèle et processus d'information sur la demande » de l'ébauche du document d'orientation PIR pour les dispositifs médicaux décrivant en détail les exigences relatives au modèle d'information sur les demandes d’homologation."
