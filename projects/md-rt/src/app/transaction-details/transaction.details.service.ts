@@ -214,17 +214,18 @@ export class TransactionDetailsService {
     }
     labelObj._label_fr = frConcatText;
 
-    let concatText: string | undefined = undefined;
-    if (this._utilsService.isFrench(this._globalService.getCurrLanguage())){
-      concatText = frConcatText
-    } else {
-      concatText = enConcatText;
-    }
-    labelObj.__text = concatText;
 
     if (typeof enConcatText === 'undefined' && typeof frConcatText === 'undefined') {
       return null;
     } else {
+      let concatText: string | undefined = undefined;
+      if (this._utilsService.isFrench(this._globalService.getCurrLanguage())){
+        concatText = frConcatText
+      } else {
+        concatText = enConcatText;
+      }
+      labelObj.__text = concatText;
+      
       return labelObj;
     }
   }
