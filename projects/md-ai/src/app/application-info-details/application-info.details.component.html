@@ -106,7 +106,7 @@
         </div>
         </div>
       <div class="row">
-        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <fieldset class="chkbxrdio-grp" id="deviceClass">
             <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
@@ -118,14 +118,16 @@
                     [control]="appInfoFormLocalModel.controls['deviceClass'] | formControl"
                     controlId="deviceClass" label="device.class" parentId="appInfoDetails"></control-messages>
             </legend>
-              <div id="deviceClassDiv{{i}}" class="radio" *ngFor="let class of devClassList; let i = index">
-                <label aria-hidden="true" for="deviceClass{{i}}">
-                  <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
-                    (change)="deviceClassOnblur()"
-                    [formControl]="appInfoFormLocalModel.controls['deviceClass'] | formControl" required/>
-                    {{class | textTransform: lang }}
-                </label>
-              </div>
+              <ul class="form-group list-unstyled">
+                <li class="radio" id="deviceClassDiv{{i}}" *ngFor="let class of devClassList; let i = index">
+                  <label for="deviceClass{{i}}">
+                    <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
+                      (change)="deviceClassOnblur()"
+                      [formControl]="appInfoFormLocalModel.controls['deviceClass'] | formControl" required/>
+                      {{class | textTransform: lang }}
+                  </label>
+                </li>
+              </ul>
           </fieldset>
         </div>
       </div>
