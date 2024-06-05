@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ICodeAria, InstructionService } from '@hpfb/sdk/ui';
+import { ICode, ICodeAria, InstructionService } from '@hpfb/sdk/ui';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,10 @@ export class GlobalService {
   private helpIndex: { [key: string]: number };
   private currLanguage: string;
 
+    // data loaded from json files
   private countriesList: ICodeAria[];
+  private yesnoList: ICode[];
+
 
   /**
    * Getter $devEnv
@@ -69,5 +72,13 @@ export class GlobalService {
 
   public set $countriesList(value: ICodeAria[]) {
 		this.countriesList = value;
+	}
+
+  public get $yesnoList(): ICode[] {
+		return this.yesnoList;
+	}
+
+	public set $yesnoList(value: ICode[]) {
+		this.yesnoList = value;
 	}
 }
