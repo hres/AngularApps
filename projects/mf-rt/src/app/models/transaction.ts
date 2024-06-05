@@ -78,7 +78,3 @@ export interface IContact {
   fax_num: string;
   email: string;
 }
-
-export interface RegulatoryInformation {
-  dossier_id: string;
-}

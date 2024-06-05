@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild } from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -8,7 +8,8 @@ import { AppFormModule } from '../app.form.module';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationComponent } from "../regulatory-information/regulatory-information.component";
-import { RegulatoryInformation } from '../models/transaction';
+import { MasterFileBaseService } from './master-file-base.service';
+import { Ectd, Transaction, TransactionEnrol} from '../models/transaction';
 
 @Component({
     selector: 'app-form-base',
@@ -16,8 +17,8 @@ import { RegulatoryInformation } from '../models/transaction';
     templateUrl: './form-base.component.html',
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
-    providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent]
+    providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, MasterFileBaseService],
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, RegulatoryInformationComponent]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
 processFile($event: any) {
@@ -36,11 +37,16 @@ throw new Error('Method not implemented.');
 
   private _regulatoryInfoErrors = [];
 
-  public regulatoryInfoModel: RegulatoryInformation;
+  private appVersion: string;
+  private xslName: string;
+
+  public enrollModel : Transaction;
+  public transactionEnrollModel: TransactionEnrol;
+  public ectdModel: Ectd;
 
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
  
-  constructor(private _globalService: GlobalService, private cdr: ChangeDetectorRef,
+  constructor(private _baseService: MasterFileBaseService, private _globalService: GlobalService, private cdr: ChangeDetectorRef,
     private fb: FormBuilder
   ) {
 
@@ -51,6 +57,17 @@ throw new Error('Method not implemented.');
   }
   ngOnInit(): void {
     try {
+
+      if (!this._globalService.$enrollment) {
+        // this._loggerService.log("form.base", "onInit", "enrollement doesn't exist, create a new one");
+        this.enrollModel = this._baseService.getEmptyEnrol();
+        this._globalService.$enrollment = this.enrollModel;
+      } else {
+        this.enrollModel = this._globalService.$enrollment;
+        // console.log("onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
+      }
+
+      this.transactionEnrollModel = this.enrollModel[this.rootTagText];
 
       this.helpIndex = this._globalService.getHelpIndex();
       this.masterFileForm = this.fb.group({}); 
@@ -78,6 +95,32 @@ throw new Error('Method not implemented.');
     this.processErrors();
   }
 
+  public setShowContactFeesFlag(flag) {   //ling todo in signal
+    // this.showContactFees = flag;
+
+    // if (this.showContactFees[0] === false) {
+    //   this.holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+    //   this.holderContactModel = MasterFileBaseService.getEmptyContactModel();
+    //   this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+    //   this.agentContactModel = MasterFileBaseService.getEmptyContactModel();
+    //   this._addressErrors = [];
+    //   this._agentAddressErrors = [];
+    //   this._contactErrors = [];
+    //   this._agentContactErrors = [];
+    // }
+    // if (this.showContactFees[1] === false) {
+    //   this.transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
+    //   this._transFeeErrors = [];
+    // }
+    // this.processErrors();
+  }
+
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    $event.returnValue = true;
+  }
+  
   public saveXmlFile() {
 	  this.showErrors = true;
     this.processErrors();

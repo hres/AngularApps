@@ -34,8 +34,11 @@
           <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
           </header>
           <div class="panel-body">
-            <regulatory-information (regulatoryInfoErrorList)="processRegulatoryInfoErrors($event)" [showErrors]="showErrors"
-            [regulatoryInfoModel]="regulatoryInfoModel"/>
+            <app-regulatory-information [showErrors]="showErrors" [dataModel]="ectdModel"
+              (errorList)="processRegulatoryInfoErrors($event)"
+              (trDescUpdated)="setShowContactFeesFlag($event)"></app-regulatory-information>
+              <!-- <regulatory-information (regulatoryInfoErrorList)="processRegulatoryInfoErrors($event)" [showErrors]="showErrors"
+              [regulatoryInfoModel]="regulatoryInfoModel"/> -->
           </div>
       </section>
     </div>

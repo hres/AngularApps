@@ -13,7 +13,7 @@ import { RegulatoryInformationComponent } from './regulatory-information/regulat
 
 @NgModule({
   declarations: [
-    RegulatoryInformationComponent
+    
   ],
   imports: [
     CommonModule,
@@ -29,7 +29,7 @@ import { RegulatoryInformationComponent } from './regulatory-information/regulat
   providers: [
   ],
   exports: [CommonUiFeatureModule, 
-    RegulatoryInformationComponent
+    
    ],
 })
 export class AppFormModule {}
