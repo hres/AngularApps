@@ -42,7 +42,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   @Output() trDescUpdated = new EventEmitter();
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  mfTypeOptions: ICodeAria[];
+  mfTypeOptions: ICodeAria[] = [];
   mfTypeDescArray: IParentChildren[] = [];
   mfRevisedTypeDescArray: IParentChildren[] = [];
   mfUseOptions: ICode[];
@@ -56,7 +56,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   public showReqRevisedTxDesc: boolean = false;
   public showRevisedTxDesc: boolean = false;
   public showContactFees: boolean[] = [true, true];
-  mfTypeSub!: Subscription;
+
   mfTypeTxDescSub!: Subscription;
   mfRevisedTypeTxDescSub!: Subscription;
   mfUseSub!: Subscription;
@@ -85,9 +85,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   //     // console.log(response);
   //     this.descriptionTypeList = response});
 
-  //   this.mfTypeSub = this._regulatoryInfoService
-  //     .getMasterFileTypes()
-  //     .subscribe((response) => (this.mfTypeOptions = response));
+    this.mfTypeOptions = this._globalService.mfTypes
 
   //   this.mfTypeTxDescSub = this._regulatoryInfoService
   //     .getMasterFileTypeAndTransactionDescription()
@@ -183,7 +181,6 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
 
   ngOnDestroy() {
     // unsubscribe the subscription(s)
-    this.mfTypeSub.unsubscribe();
     this.mfTypeTxDescSub.unsubscribe();
     this.mfRevisedTypeTxDescSub.unsubscribe();
     this.mfUseSub.unsubscribe();
