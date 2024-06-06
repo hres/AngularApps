@@ -19,7 +19,7 @@
   "activity.type": "Regulatory Activity Type",
   "trans.description": "Transaction Description",
   "device.class": "Device Class",
-  "amend.reason": "Reason for filing this Amendment",
+  "amend.reason": "Reason for filing this amendment",
   "licence.number": "Licence Number",
   "application.number": "Application Number",
   "meeting.id": "Meeting Identifier",

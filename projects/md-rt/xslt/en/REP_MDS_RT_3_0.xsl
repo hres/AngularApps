@@ -482,7 +482,7 @@ span.normalWeight {
 								</xsl:if>
 								<xsl:if test="/descendant-or-self::application_info/amend_reasons/amend_reason">
 									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Reason for filing this Amendment</strong></div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Reason for filing this amendment</strong></div>
 									</div>
 									<xsl:for-each select="/descendant-or-self::application_info/amend_reasons/amend_reason">
 										<div class="row">
