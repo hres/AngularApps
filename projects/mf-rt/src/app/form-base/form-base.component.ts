@@ -9,7 +9,8 @@ import { FilereaderInstructionComponent } from "../filereader-instruction/filere
 import { ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationComponent } from "../regulatory-information/regulatory-information.component";
 import { MasterFileBaseService } from './master-file-base.service';
-import { Ectd, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
+import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
 
 @Component({
     selector: 'app-form-base',
@@ -18,7 +19,7 @@ import { Ectd, Transaction, TransactionEnrol} from '../models/transaction';
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
     providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, MasterFileBaseService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, RegulatoryInformationComponent]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, RegulatoryInformationComponent, MasterFileFeeComponent]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
 processFile($event: any) {
@@ -36,6 +37,7 @@ throw new Error('Method not implemented.');
   public headingLevel = 'h2';
 
   private _regulatoryInfoErrors = [];
+  private _transFeeErrors = [];
 
   private appVersion: string;
   private xslName: string;
@@ -43,8 +45,11 @@ throw new Error('Method not implemented.');
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
+  public transFeeModel: FeeDetails;
 
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
+  @ViewChild(MasterFileFeeComponent) MasterFileFeeComponent: MasterFileFeeComponent;
+
  
   constructor(private _baseService: MasterFileBaseService, private _globalService: GlobalService, private cdr: ChangeDetectorRef,
     private fb: FormBuilder
@@ -92,6 +97,11 @@ throw new Error('Method not implemented.');
 
   processRegulatoryInfoErrors(errorList) {
     this._regulatoryInfoErrors = errorList;
+    this.processErrors();
+  }
+
+  processTransFeeErrors(errorList) {
+    this._transFeeErrors = errorList;
     this.processErrors();
   }
 

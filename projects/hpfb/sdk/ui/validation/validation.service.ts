@@ -324,4 +324,26 @@ export class ValidationService {
       return {'error.mgs.dossier.id': true};
     }
   }
+
+  static accountNumberValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]*$/)) {
+      return null;
+    } else {
+      return {'error.msg.account': true};
+    }
+  }
+
+  static businessNumberValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]*$/)) {
+      return null;
+    } else {
+      return {'error.msg.business': true};
+    }
+  }
 }
