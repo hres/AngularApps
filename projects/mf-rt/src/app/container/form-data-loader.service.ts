@@ -9,6 +9,9 @@ export class FormDataLoaderService {
 
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private countriesJsonPath = DATA_PATH + 'countries.json';
+  private mfTypesJsonPath = DATA_PATH + 'mfTypes.json';
+  private txDescriptionsJsonPath = DATA_PATH + 'txDescriptions.json';
+  private mfUsesJsonPath = DATA_PATH + 'mfUses.json';
   
   cachedKeywords$:Observable<ICode[]>;
   cachedCountries$:Observable<ICode[]>;
@@ -47,7 +50,7 @@ export class FormDataLoaderService {
 
   getMasterFileTypes(): Observable<ICodeAria[]> {
     this.mfTypeOptions$ = this._dataService
-      .getData<ICodeAria>('mfTypes.json')
+      .getData<ICodeAria>(this.mfTypesJsonPath)
       .pipe(
         //tap((_) => console.log('getMasterFileTypeOptions is executed')),
         shareReplay(1)
@@ -59,7 +62,7 @@ export class FormDataLoaderService {
     // store the shared observable in a private property and reusing it in subsequent calls
     if (!this.txDescs$) {
       this.txDescs$ = this._dataService
-        .getSortedData<ICodeDefinition>('txDescriptions.json', SortOn.PRIORITY) 
+        .getSortedData<ICodeDefinition>(this.txDescriptionsJsonPath, SortOn.PRIORITY) 
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
@@ -128,7 +131,7 @@ export class FormDataLoaderService {
   // }
 
   getMasterFileUses(): Observable<ICode[]> {
-    this.mfUseOptions$ = this._dataService.getData<ICode>('mfUses.json').pipe(
+    this.mfUseOptions$ = this._dataService.getData<ICode>(this.mfUsesJsonPath).pipe(
       //tap((_) => console.log('getMasterFileUses is executed')),
       shareReplay(1)
     );

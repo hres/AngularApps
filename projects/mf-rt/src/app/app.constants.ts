@@ -1,4 +1,4 @@
-export const ROOT_TAG: string = 'TODO';
+export const ROOT_TAG: string = 'TRANSACTION_ENROL';
 
 export const DATA_PATH: string = './assets/data/';
 

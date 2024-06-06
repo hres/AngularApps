@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ICode, ICodeAria, InstructionService } from '@hpfb/sdk/ui';
+import { Transaction } from '../models/transaction';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class GlobalService {
   private appVersion: string;
   private helpIndex: { [key: string]: number };
   private currLanguage: string;
+  private enrollment: Transaction;
 
     // data loaded from json files
   private countriesList: ICodeAria[];
@@ -64,6 +66,22 @@ export class GlobalService {
 
   getCurrLanguage() {
     return this.currLanguage;
+  }
+  
+  /**
+   * Getter $enrollment
+   * @return {Transaction}
+   */
+  public get $enrollment(): Transaction {
+    return this.enrollment;
+  }
+
+  /**
+   * Setter $enrollment
+   * @param {Transaction} value
+   */
+  public set $enrollment(value: Transaction) {
+    this.enrollment = value;
   }
 
   public get $countriesList(): ICodeAria[] {

@@ -173,6 +173,19 @@ export class UtilsService {
     }
   }  
 
+  // Function to find a match by id and return the appropriate definition based on lang
+ getCodeDefinitionByIdByLang(id: string, list: ICodeDefinition[], lang: string): string {
+    // Find the ICodeDefinition object with the matching id
+    const codeDefinition = list.find(item => item.id === id);
+
+    // If no match is found, return undefined
+    if (!codeDefinition) {
+      return null;
+    }
+
+    return this.getCodeDefinitionByLang(codeDefinition, lang);
+  }    
+
   // return true if the value is in the array of valid values
   toBoolean = (value: string | number | boolean): boolean => 
     [true, 'TRUE', 'T', '1', 1].includes(typeof value === 'string' ? value.toUpperCase() : value);
