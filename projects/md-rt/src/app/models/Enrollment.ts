@@ -31,7 +31,6 @@ export interface ApplicationInfo {
   request_date:             string;
   transaction_description:  ILabel;
   has_ddt:                  string;
-  has_app_info:             string;
   org_manufacture_id:       string;
   org_manufacture_lic:      string;
   meeting_id:               string;
