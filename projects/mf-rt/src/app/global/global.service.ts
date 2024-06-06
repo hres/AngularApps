@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ENGLISH, ICode, ICodeAria, InstructionService } from '@hpfb/sdk/ui';
+import { ENGLISH, ICode, ICodeAria, ICodeDefinition, IParentChildren, InstructionService } from '@hpfb/sdk/ui';
 import { Transaction } from '../models/transaction';
 
 @Injectable({
@@ -17,6 +17,10 @@ export class GlobalService {
   private _countriesList: ICodeAria[];
   private _yesnoList: ICode[];
   private _mfTypes: ICodeAria[] = [];
+  private _mfUses: ICode[];
+  private _txDescs: ICodeDefinition[] = [];
+  private _mfTypeTxDescs: IParentChildren[] = [];
+  private _mfRevisedTypeDescs: IParentChildren[] = [];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -108,6 +112,45 @@ export class GlobalService {
   // Setter for mfTypes
   public set mfTypes(value: ICodeAria[]) {
     this._mfTypes = value;
+  }
+
+  // Getter for _mfUses
+  public get mfUses(): ICode[] {
+    return this._mfUses;
+  }
+
+  // Setter for _mfUses
+  public set mfUses(value: ICode[]) {
+    this._mfUses = value;
   }  
-    
+
+  // Getter for _txDescs
+  public get txDescs(): ICodeDefinition[] {
+    return this._txDescs;
+  }
+  
+  // Setter for _txDescs
+  public set txDescs(value: ICodeDefinition[]) {
+    this._txDescs = value;
+  }
+
+  // Getter for _mfTypeTxDescs
+  public get mfTypeTxDescs(): IParentChildren[] {
+    return this._mfTypeTxDescs;
+  }
+
+  // Setter for _mfTypeTxDescs
+  public set mfTypeTxDescs(value: IParentChildren[]) {
+    this._mfTypeTxDescs = value;
+  }  
+
+  // Getter for _mfRevisedTypeDescs
+  public get mfRevisedTypeDescs(): IParentChildren[] {
+    return this._mfRevisedTypeDescs;
+  }
+
+  // Setter for _mfRevisedTypeDescs
+  public set mfRevisedTypeDescs(value: IParentChildren[]) {
+    this._mfRevisedTypeDescs = value;
+  }  
 }
