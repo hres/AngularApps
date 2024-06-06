@@ -73,8 +73,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   }
 
   ngOnInit(): void {
-    this.lang = this._globalService.getCurrLanguage();
-    this.helpIndex = this._globalService.getHelpIndex();
+    this.lang = this._globalService.currLanguage;
+    this.helpIndex = this._globalService.helpIndex;
     
     if (!this.regulartoryFormModel) {
       this.regulartoryFormModel = RegulatoryInformationService.getRegularInfoForm(this._fb);

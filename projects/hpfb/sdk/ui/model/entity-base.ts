@@ -20,3 +20,9 @@ export interface ILabel {
   _label_en: string;
   _label_fr: string;
 }
+
+export interface ITextLabel {
+  __text?: string;
+  _label_en: string;
+  _label_fr: string;
+}

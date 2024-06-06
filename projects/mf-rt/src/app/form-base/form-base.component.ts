@@ -58,18 +58,18 @@ throw new Error('Method not implemented.');
   ngOnInit(): void {
     try {
 
-      if (!this._globalService.$enrollment) {
+      if (!this._globalService.enrollment) {
         // this._loggerService.log("form.base", "onInit", "enrollement doesn't exist, create a new one");
         this.enrollModel = this._baseService.getEmptyEnrol();
-        this._globalService.$enrollment = this.enrollModel;
+        this._globalService.enrollment = this.enrollModel;
       } else {
-        this.enrollModel = this._globalService.$enrollment;
+        this.enrollModel = this._globalService.enrollment;
         // console.log("onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
       }
 
       this.transactionEnrollModel = this.enrollModel[this.rootTagText];
 
-      this.helpIndex = this._globalService.getHelpIndex();
+      this.helpIndex = this._globalService.helpIndex;
       this.masterFileForm = this.fb.group({}); 
 
     } catch (e) {
