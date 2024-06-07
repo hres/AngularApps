@@ -42,7 +42,7 @@ export class MasterFileFeeService {
     );
   }
 
-  public static mapFormModelToDataModel(formRecord: FormGroup, mfFeeModel) {
+  public mapFormModelToDataModel(formRecord: FormGroup, mfFeeModel) {
     mfFeeModel.are_there_access_letters = formRecord.controls['areAccessLetters'].value;
     mfFeeModel.number_of_access_letters = formRecord.controls['numOfAccessLetter'].value;
     mfFeeModel.who_responsible_fee = formRecord.controls['whoResponsible'].value;
@@ -50,7 +50,7 @@ export class MasterFileFeeService {
     mfFeeModel.cra_business_number = formRecord.controls['businessNumber'].value;
   }
 
-  public static mapDataModelToFormModel(mfFeeModel, formRecord: FormGroup) {
+  public mapDataModelToFormModel(mfFeeModel, formRecord: FormGroup) {
     formRecord.controls['areAccessLetters'].setValue(mfFeeModel.are_there_access_letters);
     formRecord.controls['numOfAccessLetter'].setValue(mfFeeModel.number_of_access_letters);
     formRecord.controls['whoResponsible'].setValue(mfFeeModel.who_responsible_fee);

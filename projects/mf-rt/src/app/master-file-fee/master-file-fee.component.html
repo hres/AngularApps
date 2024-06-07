@@ -13,8 +13,7 @@
       </div>
     </div>
     <div class="row form-group">
-        <!-- <fieldset class="col-md-12 chkbxrdio-grp"
-          data-ng-class="{'has-error':mfFeeFormLocalModel.controls['areAccessLetters'].$invalid}">
+        <fieldset class="col-md-12 chkbxrdio-grp">
           <legend class="required">
             {{'are.access.letters' |translate}}
             <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
@@ -26,31 +25,31 @@
               [control]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" controlId="areAccessLettersId"
               label="are.access.letters" parentId="mfFees" parentLabel="Master File Fees"></control-messages>
           </legend>
-          <input type="radio" id="areAccessLettersId" name="areAccessLetters" value="Y" (blur)="onblur()"
-            (change)="areAccessLettersChanged($event)"
-            [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl"  required />
-          <label for="areAccessLettersId">&nbsp;{{'yes'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input type="radio" id="areAccessLettersId_1" name="areAccessLetters" value="N" (blur)="onblur()"
-            (change)="areAccessLettersChanged($event)"
-            [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" required />
-          <label for="areAccessLettersId_1">&nbsp;{{'no'|translate}}</label>
-        </fieldset> -->
-      </div>
-      <!-- <div class="row" *ngIf="showNumOfAccessLetter">
-        <div class="form-group col-xs-12 minWidth300" >
+          <div class="radio-inline" *ngFor="let yesno of yesNoList; let i = index">
+            <input type="radio"
+                id="areAccessLettersId{{i}}" name="areAccessLetters" [value]="yesno" 
+                (change)="areAccessLettersChanged()"
+                [formControl]="mfFeeFormLocalModel.controls['areAccessLetters'] | formControl" required/>
+            <label aria-hidden="true" for="masterFileType{{i}}">{{yesno | textTransform: lang }}
+            </label>
+           </div>
+        </fieldset>
+    </div>
+    <div class="row" *ngIf="showNumOfAccessLetter">
+        <div class="form-group col-xs-12" >
           <label for="numOfAccessLetter" class="required full-width">
-            <span class="field-name" i18n>{{'number.of.letters'|translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'number.of.letters'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="mfFeeFormLocalModel.controls['numOfAccessLetter'].invalid"
                               [showError]="showFieldErrors"
                               [control]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl"
                               controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"
                               parentLabel="Master File Fees"></control-messages>
-            <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3" (blur)="onblur()"
+            <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3"
                    [formControl]="mfFeeFormLocalModel.controls['numOfAccessLetter'] | formControl" data-only-digits/>
           </label>
         </div>
-      </div> -->
+    </div>
       <!-- <div class="row form-group">
         <fieldset class="col-md-12 chkbxrdio-grp"
           data-ng-class="{'has-error':mfFeeFormLocalModel.controls['whoResponsible'].$invalid}">
