@@ -20,15 +20,16 @@ import { Ectd } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { Orientation, RadioButton } from "../radio-button/radio-button";
 
 @Component({
-  selector: 'app-regulatory-information',
-  standalone: true,
-  templateUrl: './regulatory-information.component.html',
-  styles: [],
-  encapsulation: ViewEncapsulation.None,
-  providers: [UtilsService, EntityBaseService, RegulatoryInformationService],
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, ErrorModule, PipesModule]
+    selector: 'app-regulatory-information',
+    standalone: true,
+    templateUrl: './regulatory-information.component.html',
+    styles: [],
+    encapsulation: ViewEncapsulation.None,
+    providers: [UtilsService, EntityBaseService, RegulatoryInformationService],
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, ErrorModule, PipesModule, RadioButton]
 })
 export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterViewInit {
   lang: string;
@@ -57,6 +58,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   public showReqRevisedTxDesc: boolean = false;
   public showRevisedTxDesc: boolean = false;
   public showContactFees: boolean[] = [true, true];
+
+  orientation2: Orientation = 'horizontal';
+  selectedValue: string = '';
 
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions.
   txDescRquireRevise: string = '13';
@@ -212,8 +216,14 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     );
 
     this.showReqRevisedTxDesc = (this.txDescRquireRevise===selectedTxDescId);
-    this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
-    if (this.showRevisedTxDesc){this._getRevisedTransactionDescriptions();}
+    if (this.showReqRevisedTxDesc) {
+      this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
+      if (this.showRevisedTxDesc){this._getRevisedTransactionDescriptions();}
+    } else {
+      // todo
+      // this._utilsService.resetControlsValues(this.regulartoryFormModel.get("reqRevision"), )
+    }
+
 
     if (e) {
       // when the action is triggered from the UI
@@ -237,10 +247,11 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
 
 
   reqRevisionChanged(e:any):void {
-
+    console.log("mmmmmmmmmmmmm", e);
     this._getRevisedTransactionDescriptions();
-    const reqRevisionControl = this.regulartoryFormModel.get("reqRevision");
-    this.showRevisedTxDesc = (reqRevisionControl?.value === 'Y');
+    // const reqRevisionControl = this.regulartoryFormModel.get("reqRevision");
+    // this.showRevisedTxDesc = (reqRevisionControl?.value === 'Y');
+    this.showRevisedTxDesc = e === 'Y'
 
     // this.regulartoryFormModel.controls['reqRevision'].setValue(null);
     // this.regulartoryFormModel.controls['reqRevision'].setValue(e.target.value);

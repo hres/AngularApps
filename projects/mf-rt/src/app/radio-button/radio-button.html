@@ -1,0 +1,10 @@
+<ul [ngClass]="{ 'form-inline': orientation() === 'horizontal', 'form-group': orientation() === 'vertical' }" class="list-unstyled" >
+    <li [ngClass]="{ 'label-inline': orientation() === 'horizontal', 'radio': orientation() === 'vertical' }"
+        *ngFor="let obj of objList(); let i = index">
+        <label for="controlName(){{i}}">
+            <input type="radio" name="controlName()" id="controlName(){{i}}" [value]="obj.id"
+                [checked]="obj.id === value()" (change)="onValueChange(obj)" />
+            {{ obj | textTransform: lang() }}
+        </label>
+    </li>
+</ul>
