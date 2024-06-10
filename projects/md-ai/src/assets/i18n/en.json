@@ -80,7 +80,7 @@
     "auth.id":"Authorization ID",
     "standards.list": "Recognized Standards Complied with in the manufacture of the Device",
     "conformity.declaration": "Declaration of Conformity form (available on the Health Canada website) confirms that the medical device(s) comply with Recognized Standards or equivalent or better standards",
-    "declaration.instruct": "Health Canada cannot process your medical Device Licence Application without the Declaration of Conformity",
+    "declaration.instruct": "Health Canada cannot process your Medical Device Licence Application without the Declaration of Conformity",
     "containing.material": "Devices containing Biological Material",
     "commmon.required.bracket": " (required)",
     "consist.recombinant": "Does this device consist of recombinant material?",
