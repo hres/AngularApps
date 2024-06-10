@@ -117,7 +117,6 @@ export class TransactionDetailsService {
 
     transactionInfoModel.has_ddt = formValue.hasDdtMan;
 
-    // transactionInfoModel.has_app_info = formValue.hasAppInfo   
     transactionInfoModel.org_manufacture_id = formValue.orgManufactureId;
     transactionInfoModel.org_manufacture_lic = formValue.orgManufactureLic;
 
@@ -178,8 +177,8 @@ export class TransactionDetailsService {
     formRecord.controls['deviceName'].setValue(transactionInfoModel.device_name);
     formRecord.controls['licenceName'].setValue(transactionInfoModel.proposed_licence_name);
     formRecord.controls['requestDate'].setValue(transactionInfoModel.request_date);
+    formRecord.controls['briefDesc'].setValue(transactionInfoModel.brief_description);
     formRecord.controls['hasDdtMan'].setValue(transactionInfoModel.has_ddt);
-    // formRecord.controls['hasAppInfo'].setValue( this._utilsService.toBoolean(transactionInfoModel.has_app_info));
     formRecord.controls['rationale'].setValue(transactionInfoModel.rationale);
     formRecord.controls['proposedPurpose'].setValue(transactionInfoModel.proposed_indication);
     formRecord.controls['orgManufactureId'].setValue(transactionInfoModel.org_manufacture_id);
