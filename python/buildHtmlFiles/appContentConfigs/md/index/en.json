@@ -3,7 +3,8 @@
     "h1_header": "Regulatory Enrolment Process (REP) for Medical Devices",
     "sections": [
         {
-            "header": "REP Template & Form Links"
+            "header": "REP Template & Form Links",
+            "alert": "In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use"
         },
         {
             "header": "Outside the Regulatory Transaction Process",
@@ -29,7 +30,7 @@
             "header": "Within the Regulatory Transaction Process",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory Transaction Template (April 23, 2020)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory Transaction Template (July 31, 2024)</a>",
                     "bullets": [
                         "Sent via the CESG within the regulatory transaction (application).",
                         "Required with each regulatory transaction filed to Health Canada.",
@@ -37,7 +38,7 @@
                     ]
                 },
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.ai.en }}\">Application Information Template (May 14, 2020)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.ai.en }}\">Application Information Template (July 31, 2024)</a>",
                     "bullets": [
                         "Sent via the CESG within the regulatory transaction (application).",
                         "Required for only a subset of transactions. Refer to section “2.5.2 Application information (AI) Template and Process” of the REP Guidance Document for Medical Devices detailed description of the requirements for the AI template."

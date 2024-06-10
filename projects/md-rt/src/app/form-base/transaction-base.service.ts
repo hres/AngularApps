@@ -46,7 +46,6 @@ export class TransactionBaseService {
         request_date: '',
         transaction_description: null,
         has_ddt: '',
-        has_app_info: '',
         org_manufacture_id: '',
         org_manufacture_lic: '',
         meeting_id: '',
@@ -73,7 +72,7 @@ export class TransactionBaseService {
   }
 
   private _getMedicalDeviceDirectorateActivityLead(): IIdTextLabel { 
-    return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Device Directorate', 'Direction des instruments médicaux');
+    return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Devices Directorate', 'Direction des instruments médicaux');
   }
 
 

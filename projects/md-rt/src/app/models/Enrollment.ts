@@ -1,4 +1,4 @@
-import { IIdTextLabel, ILabel } from "@hpfb/sdk/ui";
+import { IIdTextLabel, ILabel, ITextLabel } from "@hpfb/sdk/ui";
 
 export interface Enrollment {
   DEVICE_TRANSACTION_ENROL: DeviceTransactionEnrol;
@@ -29,9 +29,8 @@ export interface ApplicationInfo {
   application_number:       string;
   device_name:              string;
   request_date:             string;
-  transaction_description:  ILabel;
+  transaction_description:  ITextLabel;
   has_ddt:                  string;
-  has_app_info:             string;
   org_manufacture_id:       string;
   org_manufacture_lic:      string;
   meeting_id:               string;

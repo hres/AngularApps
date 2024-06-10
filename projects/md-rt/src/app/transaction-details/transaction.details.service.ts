@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { CheckboxOption, ConverterService, ENGLISH, EntityBaseService, FRENCH, ICode, IIdTextLabel, ILabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { CheckboxOption, ConverterService, ENGLISH, EntityBaseService, FRENCH, ICode, IIdTextLabel, ITextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { AmendReasons, ApplicationInfo } from '../models/Enrollment';
 import { RegulatoryActivityType, COMPANY_ID_PREFIX, TransactionDesc } from '../app.constants';
 import { GlobalService } from '../global/global.service';
@@ -117,7 +117,6 @@ export class TransactionDetailsService {
 
     transactionInfoModel.has_ddt = formValue.hasDdtMan;
 
-    // transactionInfoModel.has_app_info = formValue.hasAppInfo   
     transactionInfoModel.org_manufacture_id = formValue.orgManufactureId;
     transactionInfoModel.org_manufacture_lic = formValue.orgManufactureLic;
 
@@ -178,16 +177,16 @@ export class TransactionDetailsService {
     formRecord.controls['deviceName'].setValue(transactionInfoModel.device_name);
     formRecord.controls['licenceName'].setValue(transactionInfoModel.proposed_licence_name);
     formRecord.controls['requestDate'].setValue(transactionInfoModel.request_date);
+    formRecord.controls['briefDesc'].setValue(transactionInfoModel.brief_description);
     formRecord.controls['hasDdtMan'].setValue(transactionInfoModel.has_ddt);
-    // formRecord.controls['hasAppInfo'].setValue( this._utilsService.toBoolean(transactionInfoModel.has_app_info));
     formRecord.controls['rationale'].setValue(transactionInfoModel.rationale);
     formRecord.controls['proposedPurpose'].setValue(transactionInfoModel.proposed_indication);
     formRecord.controls['orgManufactureId'].setValue(transactionInfoModel.org_manufacture_id);
     formRecord.controls['orgManufactureLic'].setValue(transactionInfoModel.org_manufacture_lic);
   }
 
-  private _concatTransactionDescriptionDetails(txDescriptionIdTextLabel: IIdTextLabel, requestDate: string, briefDescription: string): ILabel{
-    let labelObj: ILabel = this._entityBaseService.getEmptyLabel();
+  private _concatTransactionDescriptionDetails(txDescriptionIdTextLabel: IIdTextLabel, requestDate: string, briefDescription: string): ITextLabel{
+    let labelObj: ITextLabel = this._entityBaseService.getEmptyITextLabel();
     const enumValue = this._utilsService.getEnumValueFromString(TransactionDesc, txDescriptionIdTextLabel._id);
 
     // Transaction description English Concat
@@ -197,6 +196,8 @@ export class TransactionDetailsService {
       enConcatText = this._utilsService.concat(enTxDescription, 'dated', requestDate)
     } else if (this.isBriefDescRequired(enumValue)) {
       enConcatText = this._utilsService.concat(enTxDescription, '-', briefDescription)
+    } else {
+      enConcatText = enTxDescription;
     }
     labelObj._label_en = enConcatText;
 
@@ -207,12 +208,23 @@ export class TransactionDetailsService {
       frConcatText = this._utilsService.concat(frTxDescription, 'daté du', requestDate)
     } else if (this.isBriefDescRequired(enumValue)) {
       frConcatText = this._utilsService.concat(frTxDescription, '-', briefDescription)
+    } else {
+      frConcatText = frTxDescription;
     }
     labelObj._label_fr = frConcatText;
+
 
     if (typeof enConcatText === 'undefined' && typeof frConcatText === 'undefined') {
       return null;
     } else {
+      let concatText: string | undefined = undefined;
+      if (this._utilsService.isFrench(this._globalService.getCurrLanguage())){
+        concatText = frConcatText
+      } else {
+        concatText = enConcatText;
+      }
+      labelObj.__text = concatText;
+      
       return labelObj;
     }
   }

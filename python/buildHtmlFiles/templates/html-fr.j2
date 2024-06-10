@@ -68,6 +68,9 @@
 				{% if site == "internal" %}
 					{# Display all sections when site is "internal" #}
 					<h2>{{section.header}}</h2>
+					{% if section.alert %}
+						<div class="alert alert-info" style="text-decoration: underline">{{section.alert}}</div>
+					{% endif %}
 					{%- for group in section.groups %}
 					<h3>{{group.header}}</h3>
 					<ul>
@@ -82,6 +85,9 @@
 					{# Display sections which don't have "internal_only" when site is not "internal" #}
 					{% if section.internal_only != true %}
 						<h2>{{ section.header }}</h2>
+						{% if section.alert %}
+							<div class="alert alert-info" style="text-decoration: underline">{{section.alert}}</div>
+						{% endif %}
 						{% for group in section.groups %}
 							<h3>{{ group.header }}</h3>
 							<ul>
