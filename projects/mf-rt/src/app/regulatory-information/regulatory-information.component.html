@@ -2,7 +2,7 @@
     <div [formGroup]="regulartoryFormModel">
         <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <label for="dossierId" class="required full-width">
+                <label for="dossierId" class="required">
                     <span class="field-name">{{ 'dossier.id'|translate }} {{ 'alphanumeric6or7'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <sup id="tr2-rf">
@@ -12,10 +12,9 @@
                     <control-messages *ngIf="regulartoryFormModel.controls['dossierId'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['dossierId'] | formControl" controlId="dossierId"
-                        label="dossier.id" parentId="regulatoryInfo"
-                        parentLabel="MasterFile Information"></control-messages>
+                        label="dossier.id" parentId="regulatoryInfo"></control-messages>
                     <span class="rep-input-group">
-                        <input id="dossierId" name="dossierId" class="form-control full-width" (blur)="onblur()"
+                        <input id="dossierId" name="dossierId" class="form-control" (blur)="onblur()"
                             [formControl]="regulartoryFormModel.controls['dossierId'] | formControl" maxlength="8" />
                     </span>
                 </label>
@@ -29,8 +28,7 @@
                     <control-messages *ngIf="regulartoryFormModel.controls['masterFileName'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['masterFileName'] | formControl"
-                        controlId="masterFileName" label="masterfile.name" parentId="regulatoryInfo"
-                        parentLabel="MasterFile Information"></control-messages>
+                        controlId="masterFileName" label="masterfile.name" parentId="regulatoryInfo"></control-messages>
                     <input id="masterFileName" name="masterFileName" class="form-control full-width" (blur)="onblur()"
                         [formControl]="regulartoryFormModel.controls['masterFileName'] | formControl" maxlength="256"/>
                 </label>
@@ -42,39 +40,37 @@
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['masterFileNumber'] | formControl"
                         controlId="masterFileNumber" label="masterfile.number" parentId="regulatoryInfo"
-                        parentLabel="MasterFile Information"></control-messages>
+                        ></control-messages>
                     <input id="masterFileNumber" name="masterFileNumber" class="form-control full-width" (blur)="onblur()"
                         [formControl]="regulartoryFormModel.controls['masterFileNumber'] | formControl" />
                 </label>
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <fieldset class="chkbxrdio-grp">
-                    <legend class="required">
-                        {{'masterfile.type'|translate}}
-                        <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-                        <control-messages *ngIf="regulartoryFormModel.controls['masterFileType'].invalid"
-                            [showError]="showFieldErrors"
-                            [control]="regulartoryFormModel.controls['masterFileType'] | formControl"
-                            controlId="masterFileType" label="masterfile.type" parentId="regulatoryInfo"
-                            parentLabel="MasterFile Information"></control-messages>
-                    </legend>
-                    <div id="masterFileType">
-                        <div *ngFor="let mfType of mfTypeOptions; let i = index">
-                            <input attr.aria-label="{{mfType | ariaTransform: lang}}" type="radio"
-                                id="masterFileType{{i}}" name="masterFileType" [value]="mfType" 
-                                (blur)="onblur()"
-                                (change)="onMfTypeSelected($event)"
-                                [formControl]="regulartoryFormModel.controls['masterFileType'] | formControl" required/>
-                            <label aria-hidden="true" for="masterFileType{{i}}">{{mfType | textTransform: lang }}
-                            </label>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-        </div>
-        <!-- <div class="row" *ngIf="selectedMfTypeDefinition">
+            <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <fieldset class="chkbxrdio-grp" >
+                  <legend class="required"><span class="field-name">{{'masterfile.type'|translate}}</span>
+                      <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+                      <control-messages *ngIf="regulartoryFormModel.controls['masterFileType'].invalid"
+                          [showError]="showFieldErrors"
+                          [control]="regulartoryFormModel.controls['masterFileType'] | formControl"
+                          controlId="masterFileType[0]" label="masterfile.type" parentId="regulatoryInfo"></control-messages>
+                  </legend>
+                  <ul class="form-group list-unstyled">
+                    <li class="radio" *ngFor="let mfType of mfTypeOptions; let i = index">
+                      <label aria-hidden="true" for="masterFileType{{i}}">
+                        <input attr.aria-label="{{mfType | ariaTransform: lang}}" type="radio" attr.aria-label="{{mfType | ariaTransform: lang}}" 
+                            id="masterFileType{{i}}" name="masterFileType" [value]="mfType.id"
+                          (change)="onMfTypeSelected($event)"
+                          [formControl]="regulartoryFormModel.controls['masterFileType'] | formControl" required/>
+                          {{mfType | textTransform: lang }}
+                      </label>
+                    </li>
+                  </ul>
+              </fieldset>
+            </div>  
+          </div>              
+        <div class="row" *ngIf="selectedMfTypeDefinition">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="alert alert-info" role="alert">
                     <p aria-live="polite">{{selectedMfTypeDefinition}}</p>
@@ -89,13 +85,13 @@
                     <control-messages *ngIf="regulartoryFormModel.controls['masterFileUse'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['masterFileUse'] | formControl"
-                        controlId="masterFileUse" label="masterfile.use" parentId="regulatoryInfo"
-                        parentLabel="MasterFile Information"></control-messages>
+                        controlId="masterFileUse" label="masterfile.use" parentId="regulatoryInfo"></control-messages>
                     <select id="masterFileUse" name="masterFileUse" required class="form-control full-width"
+                        (blur)="onblur()"
                         (change)="onblur()"
                         [formControl]="regulartoryFormModel.controls['masterFileUse'] | formControl">
                         <option label=" " value=""></option>
-                        <option *ngFor="let mfUse of mfUseOptions" [ngValue]="mfUse"> {{ mfUse | textTransform: lang }}</option>
+                        <option *ngFor="let mfUse of mfUseOptions" [value]="mfUse.id"> {{ mfUse| textTransform: lang }}</option>
                     </select>
                 </label>
             </div>
@@ -108,19 +104,18 @@
                     <control-messages *ngIf="regulartoryFormModel.controls['descriptionType'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['descriptionType'] | formControl"
-                        controlId="descriptionType" label="transaction.description" parentId="regulatoryInfo"
-                        parentLabel="MasterFile Information"></control-messages>
+                        controlId="descriptionType" label="transaction.description" parentId="regulatoryInfo"></control-messages>
                     <select id="descriptionType" name="descriptionType" required class="form-control full-width"
                         (change)="onTxDescriptionSelected($any($event.target).value)"
                         [formControl]="regulartoryFormModel.controls['descriptionType'] | formControl">
                         <option label=" " value=""></option>
-                        <option *ngFor="let desc of txDescOptions" [ngValue]="desc.id"> {{ desc | textTransform: lang }}
+                        <option *ngFor="let desc of txDescOptions" [value]="desc.id"> {{ desc | textTransform: lang }}
                         </option>
                     </select>
                 </label>
             </div>
         </div>
-        <div class="row" *ngIf="selectedTxDescDefinition">
+       <div class="row" *ngIf="selectedTxDescDefinition">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="alert alert-info" role="alert">
                     <p aria-live="polite">{{selectedTxDescDefinition}}</p>
@@ -136,7 +131,7 @@
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['requestDate'] | formControl" controlId="requestDate"
                         label="request.date" parentId="regulatoryInfo"
-                        parentLabel="MasterFile Information"></control-messages>
+                        ></control-messages>
                     <input id="requestDate" name="requestDate" type="date" class="form-control"
                         (blur)="onblur()" (input)="checkDateValidity($event)"
                         [formControl]="regulartoryFormModel.controls['requestDate'] | formControl" />
@@ -145,13 +140,13 @@
 
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="requester" class="required full-width">
-                    <span class="field-name" i18n>{{'requester.title'|translate}}</span>
-                    <strong class="required" aria-hidden="true" i18n>{{'commmon.required.bracket'|translate}}</strong>
+                    <span class="field-name">{{'requester.title'|translate}}</span>
+                    <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                     <control-messages *ngIf="regulartoryFormModel.controls['requester'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['requester'] | formControl" controlId="requester"
                         label="requester.title" parentId="regulatoryInfo"
-                        parentLabel="MasterFile Information"></control-messages>
+                        ></control-messages>
                 </label>
                 <input id="requester" name="requester" type="text" class="form-control full-width" (blur)="onblur()"
                     [formControl]="regulartoryFormModel.controls['requester'] | formControl">
@@ -169,16 +164,26 @@
                         label="req.revision" parentId="regulatoryInfo"
                         parentLabel="Regulatory Information"></control-messages>
                 </legend>
-                <input type="radio" id="reqRevisionId" name="reqRevision" value="Y" (blur)="onblur()"
+                <!-- <input type="radio" id="reqRevisionId" name="reqRevision" value="Y" (blur)="onblur()"
                     (change)="reqRevisionChanged($event)"
                     [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl" required />
                 <label for="reqRevisionId">&nbsp;{{'yes'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <input type="radio" id="reqRevisionId_1" name="reqRevision" value="N" (blur)="onblur()"
                     (change)="reqRevisionChanged($event)"
                     [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl" required />
-                <label for="reqRevisionId_1">&nbsp;{{'no'|translate}}</label>
+                <label for="reqRevisionId_1">&nbsp;{{'no'|translate}}</label> -->
+                <ul class="form-group form-inline list-unstyled">
+                    <li class="label-inline" *ngFor="let yesno of yesNoList; let i = index">
+                        <label for="reqRevisionId{{i}}">
+                        <input type="radio" name="reqRevision" id="reqRevisionId{{i}}" [value]="yesno.id" (blur)="onblur()"
+                            (change)="reqRevisionChanged($event)"
+                            [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl" required />
+                        {{ yesno | textTransform: lang }}</label>
+                    </li>
+                </ul>
             </fieldset>
         </div>
+        {{showRevisedTxDesc}}  {{showReqRevisedTxDesc}}
         <div class="row" *ngIf="showRevisedTxDesc && showReqRevisedTxDesc">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="revisedDescriptionType" class="required full-width">
@@ -188,17 +193,17 @@
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl"
                         controlId="revisedDescriptionType" label="revised.transaction.description" parentId="regulatoryInfo"
-                        parentLabel="MasterFile Information"></control-messages>
+                        ></control-messages>
                     <select id="revisedDescriptionType" name="revisedDescriptionType" required class="form-control full-width"
                         (change)="onRevTxDescriptionSelected($any($event.target).value)"
                         [formControl]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl">
                         <option label=" " value=""></option>
-                        <option *ngFor="let desc of revTxDescOptions" [ngValue]="desc.id"> {{ desc | textTransform: lang }}
+                        <option *ngFor="let desc of revTxDescOptions" [value]="desc.id"> {{ desc | textTransform: lang }}
                         </option>
                     </select>
                 </label>
             </div>
-        </div> -->
+        </div>
 
     </div>
 </div>

@@ -18,12 +18,12 @@
         "name": "yesno",
         "data": [
             {
-                "id": "yes",
+                "id": "Y",
                 "en": "Yes",
                 "fr": "Oui"
             },
             {
-                "id": "no",
+                "id": "N",
                 "en": "No",
                 "fr": "Non"
             }
