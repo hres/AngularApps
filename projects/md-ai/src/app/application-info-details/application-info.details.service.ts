@@ -106,9 +106,10 @@ export class ApplicationInfoDetailsService {
     appInfoModel.manufacturer = formRecord.manufacturer;
     appInfoModel.other_pharmacopeia = formRecord.otherPharmacopeia;
 
-    appInfoModel.provision_mdr_it = formRecord.provisionMdrIT
-    appInfoModel.provision_mdr_sa = formRecord.provisionMdrSA
-    appInfoModel.interim_order_authorization = formRecord.provisionMdrIOA
+
+    appInfoModel.provision_mdr_it = formRecord.provisionMdrIT === false  ? null : formRecord.provisionMdrIT;
+    appInfoModel.provision_mdr_sa = formRecord.provisionMdrSA === false ? null : formRecord.provisionMdrSA;
+    appInfoModel.interim_order_authorization = formRecord.provisionMdrIOA === false ? null : formRecord.provisionMdrIOA;
 
     appInfoModel.application_number = formRecord.applicationNum;
     appInfoModel.sap_request_number = formRecord.sapReqNum;
