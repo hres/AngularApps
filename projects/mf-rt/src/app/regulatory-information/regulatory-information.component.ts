@@ -10,7 +10,8 @@ import {
   Output,
   QueryList,
   SimpleChanges,
-  ViewChildren, ViewEncapsulation
+  ViewChildren, ViewEncapsulation,
+  model
 } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ControlMessagesComponent, ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule } from '@hpfb/sdk/ui';
@@ -61,6 +62,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
 
   orientation2: Orientation = 'horizontal';
   selectedValue: string = '';
+
+  readonly aaaTxDescValue = model<string>();
 
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions.
   txDescRquireRevise: string = '13';
@@ -200,6 +203,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   }
 
   onTxDescriptionSelected(e: any): void {
+    console.log('onTxDescriptionSelected==>', e)
     const selectedTxDescId = this.regulartoryFormModel.get('descriptionType').value;
     this.selectedTxDescDefinition = this._utilsService.getCodeDefinitionByIdByLang(selectedTxDescId, this.descriptionTypeList, this.lang);
     // console.log(this.selectedTxDescDefinition);
@@ -207,7 +211,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     this.showDateAndRequester = this._regulatoryInfoService.showDateAndRequesterTxDescs.includes(
       selectedTxDescId
     );
-
+      // converted to signal, delete later
     this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
       selectedTxDescId
     );
@@ -215,12 +219,14 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
       selectedTxDescId
     );
 
+    this.aaaTxDescValue.set(e);   // set the signal
+
     this.showReqRevisedTxDesc = (this.txDescRquireRevise===selectedTxDescId);
     if (this.showReqRevisedTxDesc) {
       this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
       if (this.showRevisedTxDesc){this._getRevisedTransactionDescriptions();}
     } else {
-      // todo
+      // todo reset fields based on the condition
       // this._utilsService.resetControlsValues(this.regulartoryFormModel.get("reqRevision"), )
     }
 
@@ -228,8 +234,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     if (e) {
       // when the action is triggered from the UI
       // reset requestDate and requester fields values
-      // GlobalsService.resetControlValue(this.regulartoryFormModel.controls['requestDate'], this.regulartoryFormModel.controls['requester']);
-      // GlobalsService.resetControlValue(this.regulartoryFormModel.controls['reqRevision'], this.regulartoryFormModel.controls['revisedDescriptionType']);
+      this._utilsService.resetControlsValues(this.regulartoryFormModel.controls['requestDate'], this.regulartoryFormModel.controls['requester']);
+      this._utilsService.resetControlsValues(this.regulartoryFormModel.controls['reqRevision'], this.regulartoryFormModel.controls['revisedDescriptionType']);
 
       this.trDescUpdated.emit(this.showContactFees);
       this._saveData();

@@ -140,4 +140,14 @@ throw new Error('Method not implemented.');
     // const fileName: string = this._buildfileName(result);
     // this._fileService.saveJsonToFile(result, fileName, null);
   }
+
+
+  // signal stuff
+  selectedTxDescriptionValue: string = '';
+
+  handler1(e:any):void {
+    console.log("descriptionTypeChanged==>", e, "todo need to toggle the contact/fee rendering here");
+
+  }
+
 }

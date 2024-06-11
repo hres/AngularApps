@@ -36,7 +36,9 @@
           <div class="panel-body">
             <app-regulatory-information [showErrors]="showErrors" [dataModel]="ectdModel"
               (errorList)="processRegulatoryInfoErrors($event)"
-              (trDescUpdated)="setShowContactFeesFlag($event)"></app-regulatory-information>
+              (trDescUpdated)="setShowContactFeesFlag($event)"
+              [(aaaTxDescValue)]="selectedTxDescriptionValue" (aaaTxDescValueChange)="handler1($event)"
+              ></app-regulatory-information>
               <!-- <regulatory-information (regulatoryInfoErrorList)="processRegulatoryInfoErrors($event)" [showErrors]="showErrors"
               [regulatoryInfoModel]="regulatoryInfoModel"/> -->
           </div>
