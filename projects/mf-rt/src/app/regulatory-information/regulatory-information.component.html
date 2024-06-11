@@ -91,7 +91,7 @@
                         (change)="onblur()"
                         [formControl]="regulartoryFormModel.controls['masterFileUse'] | formControl">
                         <option label=" " value=""></option>
-                        <option *ngFor="let mfUse of mfUseOptions" [ngValue]="mfUse.id"> {{ mfUse| textTransform: lang }}</option>
+                        <option *ngFor="let mfUse of mfUseOptions" [value]="mfUse.id"> {{ mfUse| textTransform: lang }}</option>
                     </select>
                 </label>
             </div>
@@ -109,7 +109,7 @@
                         (change)="onTxDescriptionSelected($any($event.target).value)"
                         [formControl]="regulartoryFormModel.controls['descriptionType'] | formControl">
                         <option label=" " value=""></option>
-                        <option *ngFor="let desc of txDescOptions" [ngValue]="desc.id"> {{ desc | textTransform: lang }}
+                        <option *ngFor="let desc of txDescOptions" [value]="desc.id"> {{ desc | textTransform: lang }}
                         </option>
                     </select>
                 </label>
@@ -198,7 +198,7 @@
                         (change)="onRevTxDescriptionSelected($any($event.target).value)"
                         [formControl]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl">
                         <option label=" " value=""></option>
-                        <option *ngFor="let desc of revTxDescOptions" [ngValue]="desc.id"> {{ desc | textTransform: lang }}
+                        <option *ngFor="let desc of revTxDescOptions" [value]="desc.id"> {{ desc | textTransform: lang }}
                         </option>
                     </select>
                 </label>
