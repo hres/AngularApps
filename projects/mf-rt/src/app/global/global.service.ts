@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ENGLISH, ICode, ICodeAria, ICodeDefinition, IParentChildren, InstructionService } from '@hpfb/sdk/ui';
+import { ENGLISH, HelpIndex, ICode, ICodeAria, ICodeDefinition, IParentChildren, InstructionService } from '@hpfb/sdk/ui';
 import { Transaction } from '../models/transaction';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Transaction } from '../models/transaction';
 export class GlobalService {
   private _devEnv: boolean = false;
   private _appVersion: string  = '0.0.0';
-  private _helpIndex: { [key: string]: number };
+  private _helpIndex: HelpIndex;
   private _currLanguage: string = ENGLISH;
   private _enrollment: Transaction;
 
@@ -60,7 +60,7 @@ export class GlobalService {
     this._helpIndex = this.instructionService.getHelpTextIndex(helpIndex);
   }
 
-  public get helpIndex(): { [key: string]: number }{
+  public get helpIndex(): HelpIndex{
     return this._helpIndex;
   }
 

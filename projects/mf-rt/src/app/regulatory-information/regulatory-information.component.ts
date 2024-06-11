@@ -13,7 +13,7 @@ import {
   ViewChildren, ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { ControlMessagesComponent, ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
 import { Ectd } from '../models/transaction';
@@ -32,7 +32,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterViewInit {
   lang: string;
-  helpIndex: { [key: string]: number }; 
+  helpIndex: HelpIndex; 
 
   public regulartoryFormModel: FormGroup;
   @Input() detailsChanged: number;

@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService } from '@hpfb/sdk/ui';
+import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -28,7 +28,7 @@ throw new Error('Method not implemented.');
   @Input() lang;
   @Input() helpTextSequences;
 
-  public helpIndex: { [key: string]: number }; // todo CompanyBaseService.getHelpTextIndex();
+  public helpIndex: HelpIndex; // todo CompanyBaseService.getHelpTextIndex();
   public masterFileForm: FormGroup;
   public rootTagText = ROOT_TAG; 
   public showErrors: boolean;

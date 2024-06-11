@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class InstructionService {
-  private helpTextIndx: { [key: string]: number } = {};
+  private helpTextIndx: HelpIndex = {};
   constructor() {
   }
 
@@ -23,4 +23,9 @@ export class InstructionService {
   }
 
  
+}
+
+
+export interface HelpIndex {
+  [key: string]: number;
 }
