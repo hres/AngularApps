@@ -10,7 +10,9 @@ import {
   Output,
   QueryList,
   SimpleChanges,
-  ViewChildren, ViewEncapsulation
+  ViewChildren, ViewEncapsulation,
+  computed,
+  signal
 } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ControlMessagesComponent, ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex } from '@hpfb/sdk/ui';
@@ -53,7 +55,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   selectedTxDescDefinition: string;
   public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
-  public showDateAndRequester: boolean = false;
+
   public showReqRevisedTxDesc: boolean = false;
   public showRevisedTxDesc: boolean = false;
   public showContactFees: boolean[] = [true, true];
@@ -61,6 +63,12 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions.
   txDescRquireRevise: string = '13';
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
+
+  // signal and computed fields
+  selectedTxDescSignal = signal('');
+  showDateAndRequester = computed(() => {
+    return this._regulatoryInfoService.showDateAndRequesterTxDescs.includes(this.selectedTxDescSignal());
+  });
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
@@ -199,10 +207,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     const selectedTxDescId = this.regulartoryFormModel.get('descriptionType').value;
     this.selectedTxDescDefinition = this._utilsService.getCodeDefinitionByIdByLang(selectedTxDescId, this.descriptionTypeList, this.lang);
     // console.log(this.selectedTxDescDefinition);
-
-    this.showDateAndRequester = this._regulatoryInfoService.showDateAndRequesterTxDescs.includes(
-      selectedTxDescId
-    );
+    this.selectedTxDescSignal.set(selectedTxDescId);
 
     this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
       selectedTxDescId
