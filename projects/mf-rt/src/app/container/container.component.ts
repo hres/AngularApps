@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GlobalService } from '../global/global.service';
-import { LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent } from '@hpfb/sdk/ui';
+import { HelpIndex, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent } from '@hpfb/sdk/ui';
 import { TranslateModule } from '@ngx-translate/core';
 import { InstructionComponent } from '../instruction/instruction.component';
 import { FormBaseComponent } from '../form-base/form-base.component';
@@ -19,7 +19,7 @@ import { Observable, forkJoin } from 'rxjs';
 export class ContainerComponent implements OnInit {
 
   language: string;
-  helpIndex: { [key: string]: number };
+  helpIndex: HelpIndex;
   devEnv: boolean = false;
   loadFormBaseComponent: boolean = false;
 
@@ -27,8 +27,10 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getCountriesList(),
     this._formDataLoader.getYesNoList(),
     this._formDataLoader.getMasterFileTypes(),
-    this._formDataLoader.getTxDescriptions(),
     this._formDataLoader.getMasterFileUses(),
+    this._formDataLoader.getTxDescriptions(),
+    this._formDataLoader.getMasterFileTypeAndTransactionDescription(),
+    this._formDataLoader.getMasterFileRevisedTypeAndTransactionDescription()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -43,6 +45,10 @@ export class ContainerComponent implements OnInit {
       this._globalService.countriesList = data[0];
       this._globalService.yesnoList = data[1];
       this._globalService.mfTypes = data[2];
+      this._globalService.mfUses = data[3];
+      this._globalService.txDescs = data[4];
+      this._globalService.mfTypeTxDescs = data[5];
+      this._globalService.mfRevisedTypeDescs = data[6];
 
       this.loadFormBaseComponent = true;
     });
