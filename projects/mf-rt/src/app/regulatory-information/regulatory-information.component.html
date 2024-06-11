@@ -152,7 +152,7 @@
                     [formControl]="regulartoryFormModel.controls['requester'] | formControl">
             </div>
         </div>
-        <div class="row form-group" *ngIf="showReqRevisedTxDesc">
+        <div class="row form-group" *ngIf="showReqRevisedTxDesc()">
             <fieldset class="col-md-12 chkbxrdio-grp"
                 data-ng-class="{'has-error':regulartoryFormModel.controls['reqRevision'].$invalid}">
                 <legend class="required">
@@ -160,22 +160,13 @@
                     <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
                     <control-messages *ngIf="regulartoryFormModel.controls['reqRevision'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['reqRevision'] | formControl" controlId="reqRevisionId"
-                        label="req.revision" parentId="regulatoryInfo"
-                        parentLabel="Regulatory Information"></control-messages>
+                        [control]="regulartoryFormModel.controls['reqRevision'] | formControl" controlId="reqRevision"
+                        label="req.revision" parentId="regulatoryInfo"></control-messages>
                 </legend>
-                <!-- <input type="radio" id="reqRevisionId" name="reqRevision" value="Y" (blur)="onblur()"
-                    (change)="reqRevisionChanged($event)"
-                    [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl" required />
-                <label for="reqRevisionId">&nbsp;{{'yes'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="radio" id="reqRevisionId_1" name="reqRevision" value="N" (blur)="onblur()"
-                    (change)="reqRevisionChanged($event)"
-                    [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl" required />
-                <label for="reqRevisionId_1">&nbsp;{{'no'|translate}}</label> -->
                 <ul class="form-group form-inline list-unstyled">
                     <li class="label-inline" *ngFor="let yesno of yesNoList; let i = index">
-                        <label for="reqRevisionId{{i}}">
-                        <input type="radio" name="reqRevision" id="reqRevisionId{{i}}" [value]="yesno.id" (blur)="onblur()"
+                        <label for="reqRevision{{i}}">
+                        <input type="radio" name="reqRevision" id="reqRevision{{i}}" [value]="yesno.id" (blur)="onblur()"
                             (change)="reqRevisionChanged($event)"
                             [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl" required />
                         {{ yesno | textTransform: lang }}</label>
@@ -183,8 +174,7 @@
                 </ul>
             </fieldset>
         </div>
-        {{showRevisedTxDesc}}  {{showReqRevisedTxDesc}}
-        <div class="row" *ngIf="showRevisedTxDesc && showReqRevisedTxDesc">
+        <div class="row" *ngIf="showRevisedTxDesc()">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="revisedDescriptionType" class="required full-width">
                     <span class="field-name">{{ 'revised.transaction.description' |translate }}</span>
