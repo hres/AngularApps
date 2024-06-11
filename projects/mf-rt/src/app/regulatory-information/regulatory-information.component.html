@@ -91,7 +91,7 @@
                         (change)="onblur()"
                         [formControl]="regulartoryFormModel.controls['masterFileUse'] | formControl">
                         <option label=" " value=""></option>
-                        <option *ngFor="let mfUse of mfUseOptions" [ngValue]="mfUse"> {{ mfUse | textTransform: lang }}</option>
+                        <option *ngFor="let mfUse of mfUseOptions" [ngValue]="mfUse.id"> {{ mfUse| textTransform: lang }}</option>
                     </select>
                 </label>
             </div>
