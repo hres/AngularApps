@@ -75,12 +75,12 @@ export class FormDataLoaderService {
     const mfTypeAndTransactionDescription$ = this._dataService
       .getData<any>(DATA_PATH + 'mfTypeTxDescription.json')
       .pipe(
-        tap((data) =>
-          console.log(
-            'getMasterFileTypeAndTransactionDescription ~ typeDescription: ',
-            JSON.stringify(data)
-          )
-        ),
+        // tap((data) =>
+        //   console.log(
+        //     'getMasterFileTypeAndTransactionDescription ~ typeDescription: ',
+        //     JSON.stringify(data)
+        //   )
+        // ),
         // catchError(this._dataService.handleError)
       );
 
