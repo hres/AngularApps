@@ -42,12 +42,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public showContactFees: boolean[];
   public headingLevel = 'h2';
 
+  public rootTagText = ROOT_TAG;
   private appVersion: string;
   private xslName: string;
 
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
+  // public holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  // public agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  // public holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
+  // public agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
   public transFeeModel: FeeDetails;
 
   public notApplicable: boolean = false;
@@ -88,7 +93,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // console.log("onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
       }
 
-      this.transactionEnrollModel = this.enrollModel[ROOT_TAG];
+      this.transactionEnrollModel = this.enrollModel[this.rootTagText];
 
       this.lang = this._globalService.currLanguage;
       this.helpIndex = this._globalService.helpIndex;
@@ -137,10 +142,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.errorList = this.errorList.concat(
         this._addressErrors.concat(this._contactErrors)
       );
-      // if(!this.notApplicable)
-      //   this.errorList = this.errorList.concat(
-      //     this._agentAddressErrors.concat(this._agentContactErrors)
-      //   );
+      if(!this.notApplicable)
+        this.errorList = this.errorList.concat(
+          this._agentAddressErrors.concat(this._agentContactErrors)
+        );
       this.errorList = this.errorList.concat(this._contactConfirmError);
     }
 
@@ -162,11 +167,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._transFeeErrors = errorList;
     this.processErrors();
   }
-
-  // processTransFeeErrors(errorList) {
-  //   this._transFeeErrors = errorList;
-  //   this.processErrors();
-  // }
 
   // processAddressErrors(errorList) {
   //   this._addressErrors = errorList;
