@@ -134,8 +134,6 @@
   "who.responsible": "Qui paiera les frais?",
   "account.num": "Numéro de compte du client (si émis)",
   "business.num": "Numéro d’entreprise de l'Agence du revenu du Canada (le cas échéant)",
-  "mf.holder": "Propriétaire de la fiche maîtresse",
-  "mf.agent": "Agent autorisé de la fiche maîtresse / Tiers au nom du titulaire autorisé",
   "contactInfoConfirm": "Confirmation des coordonnées",
   "certify.info": "Je certifie que les informations et le matériel contenus dans cette demande/transaction de la fiche maîtresse sont exacts et complets.",
   "certifyAccurateComplete": "Attestation de l’exactitude et de la complétude",

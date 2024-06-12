@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { BaseComponent, EntityBaseService, ErrorModule, ICode, PipesModule, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, EntityBaseService, ErrorModule, HelpIndex, ICode, PipesModule, UtilsService } from '@hpfb/sdk/ui';
 import { TranslateModule } from '@ngx-translate/core';
 import { MasterFileFeeService } from './master-file.fee.service';
 import { GlobalService } from '../global/global.service';
@@ -17,10 +17,11 @@ import { FeeDetails } from '../models/transaction';
 })
 export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   lang: string;
-  helpIndex: { [key: string]: number }; 
+  helpIndex: HelpIndex; 
   public showFieldErrors: boolean = false;
   public showNumOfAccessLetter: boolean;
   public yesNoList: ICode[] = [];
+  public whoResponsibleList : ICode[] = [];
   public mfFeeFormLocalModel: FormGroup;
 
   @Input() showErrors: boolean;
@@ -44,7 +45,7 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
     this.helpIndex = this._globalService.helpIndex;
     this.showNumOfAccessLetter = false;
     this.yesNoList = this._globalService.yesnoList;
-
+    this.whoResponsibleList = this._globalService.whoResponsible;
   }
   
   ngOnChanges(changes: SimpleChanges) {
@@ -71,11 +72,12 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   }
 
   areAccessLettersChanged() {
-    if (this.mfFeeFormLocalModel.controls['areAccessLetters'].value.id === 'yes') {
+    if (this.mfFeeFormLocalModel.controls['areAccessLetters'].value.id === 'Y') {
       this.showNumOfAccessLetter = true;
     } else {
       this.showNumOfAccessLetter = false;
       this.mfFeeFormLocalModel.controls['numOfAccessLetter'].setValue(''); // null or empty? 
     }
   }
+
 }
