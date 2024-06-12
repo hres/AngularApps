@@ -28,5 +28,20 @@
                 "fr": "Non"
             }
         ]
+    },
+    {
+        "name": "whoResponsible",
+        "data": [
+            {
+                "id": "MasterFileHolder",
+                "en": "Master File Holder",
+                "fr": "Propriétaire de la fiche maîtresse"
+            },
+            {
+                "id": "AuthorizedMasterFileAgent",
+                "en": "Authorized Master File Agent / Authorized Third Party",
+                "fr": "Agent autorisé de la fiche maîtresse / Tiers au nom du titulaire autorisé"
+            }
+        ]
     }
 ]
