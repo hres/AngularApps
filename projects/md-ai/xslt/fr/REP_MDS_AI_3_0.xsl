@@ -499,7 +499,7 @@ span.normalWeight {
 									<xsl:choose>
 									<xsl:when test="/descendant-or-self::application_info/has_din_npn/@id = 'din'">
 										<div class="row">&#160;
-											<strong>Numéro d'identification d'un médicament (DIN):&#160;</strong>
+											<strong>Numéro d'identification du médicament (DIN):&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/din"/></span>
 										</div>
 									</xsl:when>

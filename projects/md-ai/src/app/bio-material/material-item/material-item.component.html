@@ -37,16 +37,16 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-sm-5 col-xs-12" >
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
           <label for="country{{j}}" class="full-width">
             <span class="field-name">{{'country'|translate}}</span>
-            <select class="margin-top-small" id="country{{j}}"  [formControlName]="'originCountry'"  class="required form-control"                      
+            <select class="margin-top-small" id="country{{j}}"  [formControlName]="'originCountry'"  class="form-control"                      
               (typed)="typed($event)" (change)="tempCountryOnChange($event)"> 
               <option *ngFor="let ctry of countries" [ngValue]="ctry.id">{{ctry | textTransform: lang }}</option>
             </select>
           </label>
         </div>
-        <div class="form-group col-sm-4" >
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
           <label for="specFamily{{j}}" class="required full-width">
             <span class="field-name">{{'species.family'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
