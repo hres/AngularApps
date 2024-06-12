@@ -21,6 +21,7 @@ export class GlobalService {
   private _txDescs: ICodeDefinition[] = [];
   private _mfTypeTxDescs: IParentChildren[] = [];
   private _mfRevisedTypeDescs: IParentChildren[] = [];
+  private _whoResponsible: ICode[];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -153,4 +154,14 @@ export class GlobalService {
   public set mfRevisedTypeDescs(value: IParentChildren[]) {
     this._mfRevisedTypeDescs = value;
   }  
+
+  // Getter for _whoResponsible
+  public get whoResponsible(): ICode[] {
+    return this._whoResponsible;
+  }
+
+  // Setter for _whoResponsible
+  public set whoResponsible(value: ICode[]) {
+    this._whoResponsible = value;
+  }
 }

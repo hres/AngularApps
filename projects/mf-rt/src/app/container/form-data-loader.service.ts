@@ -13,7 +13,8 @@ export class FormDataLoaderService {
   private txDescriptionsJsonPath = DATA_PATH + 'txDescriptions.json';
   private mfUsesJsonPath = DATA_PATH + 'mfUses.json';
   
-  cachedKeywords$:Observable<ICode[]>;
+  cachedYesNo$:Observable<ICode[]>;
+  cachedWhoResponsible$:Observable<ICode[]>;
   cachedCountries$:Observable<ICode[]>;
   mfTypeOptions$: Observable<ICodeAria[]>;
   mfUseOptions$: Observable<ICode[]>;
@@ -24,8 +25,8 @@ export class FormDataLoaderService {
   constructor(private _dataService: DataLoaderService) {}
 
   getYesNoList(): Observable<ICode[]> {
-    if (!this.cachedKeywords$) {
-      this.cachedKeywords$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+    if (!this.cachedYesNo$) {
+      this.cachedYesNo$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
         .pipe(
           map(keywords => {
             return keywords.find(keyword => keyword.name === 'yesno')?.data || [];
@@ -34,7 +35,21 @@ export class FormDataLoaderService {
           shareReplay(1)
         );
     } 
-    return this.cachedKeywords$;
+    return this.cachedYesNo$;
+  }
+
+  getWhoResponsibleList(): Observable<ICode[]> {
+    if (!this.cachedWhoResponsible$) {
+      this.cachedWhoResponsible$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          map(keywords => {
+            return keywords.find(keyword => keyword.name === 'whoResponsible')?.data || [];
+          }),
+          // tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedWhoResponsible$;
   }
 
   getCountriesList(): Observable<ICode[]> {

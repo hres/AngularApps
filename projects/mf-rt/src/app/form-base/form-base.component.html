@@ -41,6 +41,18 @@
               [regulatoryInfoModel]="regulatoryInfoModel"/> -->
           </div>
       </section>
+
+      <div>
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <h2 class="panel-title">{{'panel.title.fees'|translate}}</h2>
+            </header>
+            <div class="panel-body">
+            <master-file-fee (errorList)="processTransFeeErrors($event)" [showErrors]="showErrors"
+              [dataModel]="transFeeModel"></master-file-fee>
+            </div>
+        </section>
+      </div>
     </div>
 
     <div class="row btn-group-sm">

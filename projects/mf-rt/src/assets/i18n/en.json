@@ -130,8 +130,6 @@
   "who.responsible": "Who is responsible for payment of fees?",
   "account.num": "Customer/Client Account Number (if issued)",
   "business.num": "Canada Revenue Agency Business Number (if applicable)",
-  "mf.holder": "Master File Holder",
-  "mf.agent": "Authorized Master File Agent / Authorized Third Party",
   "contactInfoConfirm": "Contact Information Confirmation",
   "certify.info": "I certify that the information and material included in this Master File Application/Transaction is accurate and complete.",
   "certifyAccurateComplete": "Certify Accurate and Complete",
