@@ -16,7 +16,7 @@
             </sup>
           </h2>
         </header>
-        <div class="panel-body"> 
+        <div class="panel-body">
           <!-- <file-reader (complete)="processFile($event)" [rootTag]="rootTagText"></file-reader> -->
           <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang">
             <app-filereader-instruction fileUploadInstruction [lang]="lang"></app-filereader-instruction>
@@ -36,13 +36,117 @@
           <div class="panel-body">
             <app-regulatory-information [showErrors]="showErrors" [dataModel]="ectdModel"
               (errorList)="processRegulatoryInfoErrors($event)"
-              (trDescUpdated)="setShowContactFeesFlag($event)"></app-regulatory-information>
+              (trDescUpdated)="setShowContactFeesFlag($event)"
+              ></app-regulatory-information>
               <!-- <regulatory-information (regulatoryInfoErrorList)="processRegulatoryInfoErrors($event)" [showErrors]="showErrors"
               [regulatoryInfoModel]="regulatoryInfoModel"/> -->
           </div>
       </section>
 
-      <div>
+      <div *ngIf="showContactFees[0]">
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <h2 class="panel-title">{{'panel.title.contactInfo'|translate}}</h2>
+            </header>
+            <div class="panel-body">
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix group-beside">
+                  <h3 class="panel-title">{{'heading.holder.address'|translate}}
+                  </h3>
+                  <sup id="tr3-rf">
+                    <a class="fn-lnk" href="#tr3"><span
+                        class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['holderAddrIndx']}}</a>
+                  </sup>
+                </header>
+                <div class="panel-body">address-details todo
+                  <!-- <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang" [provinceList]="provinceList"
+                    [addressModel]="holderAddressModel" [stateList]="stateList" [helpIndex]="helpIndex"
+                    (errorList)="processAddressErrors($event)" [addrType]="holder">
+                  </address-details> -->
+                </div>
+              </section>
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.holder.contact'|translate}}</h3>
+                </header>
+                <div class="panel-body">contact-details todo
+                  <!-- <contact-details [showErrors]="showErrors" [lang]="lang"
+                    [contactDetailsModel]="holderContactModel" [helpIndex]="helpIndex"
+                    (errorList)="processContactErrors($event)" [contType]="holder">
+                  </contact-details> -->
+                </div>
+              </section>
+
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix group-beside">
+                  <h3 class="panel-title">{{'heading.agent.address'|translate}}
+                  </h3>
+                  <sup id="tr4-rf">
+                    <a class="fn-lnk" href="#tr4"><span
+                        class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['agentAddrIndx']}}</a>
+                  </sup>
+                </header>
+                <div class="panel-body">
+                 <!-- extract this to a separate component and remove notApplicable field from the base component -->
+                  <div class="row rep-margin-left">
+                    <div class="col-xs-12">
+                      <div class="checkbox">
+                        <label for="notApplicableId">
+                          <control-messages *ngIf="masterFileForm.controls['notApplicable'].invalid"
+                                    [showError]="showErrors" parentId="mfDetails"
+                                    [control]="masterFileForm.controls['notApplicable'] | formControl"
+                                    controlId="notApplicableId" label="notApplicable"
+                                    parentLabel="MasterFile Information"></control-messages>
+                          <input attr.aria-label= "{{'agent.not.applicable' | translate}}" name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
+                            id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl" />
+                          <span aria-hidden="true"><b>{{'not.applicable'|translate}}</b></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div> address-details todo
+                  <!-- <address-details *ngIf="!notApplicable" [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
+                    [provinceList]="provinceList" [addressModel]="agentAddressModel" [stateList]="stateList" [addrType]="agent"
+                    [helpIndex]="helpIndex" (errorList)="processAgentAddressErrors($event)">
+                  </address-details> -->
+                </div>
+              </section>
+              <section class="panel  panel-default" *ngIf="!notApplicable">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.agent.contact'|translate}}</h3>
+                </header>
+                <div class="panel-body">contact-details todo
+                  <!-- <contact-details [showErrors]="showErrors" [lang]="lang" [contactDetailsModel]="agentContactModel"
+                    [helpIndex]="helpIndex" (errorList)="processAgentContactErrors($event)" [contType]="agent">
+                  </contact-details> -->
+                </div>
+              </section>
+              <div class="col-xs-12 full-width">
+                <div class="checkbox required">
+                  <label for="contactInfoConfirmId">
+                    <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId"
+                    (blur)="processErrors()"
+                    (change)="onChanged($event, 'contactInfoConfirm')"
+                      [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
+
+                    <span><b>{{'info.confirmation'|translate}}</b></span>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <sup id="tr5-rf">
+                      <a class="fn-lnk" href="#tr5"><span
+                          class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['confmValidIndx']}}</a>
+                    </sup>
+                    <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
+                                    [showError]="showErrors" parentId="mfContactInfoConfirm"
+                                    [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
+                                    controlId="contactInfoConfirmId" label="info.confirmation"
+                                    parentLabel="MasterFile Contact Info Confirmation"></control-messages>
+                  </label>
+                </div>
+              </div>
+          </div>
+        </section>
+      </div>
+
+      <div *ngIf="showContactFees[1]">
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
             <h2 class="panel-title">{{'panel.title.fees'|translate}}</h2>
