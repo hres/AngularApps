@@ -10,7 +10,9 @@ import {
   Output,
   QueryList,
   SimpleChanges,
-  ViewChildren, ViewEncapsulation
+  ViewChildren, ViewEncapsulation,
+  computed,
+  signal
 } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ControlMessagesComponent, ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex } from '@hpfb/sdk/ui';
@@ -53,14 +55,29 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   selectedTxDescDefinition: string;
   public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
-  public showDateAndRequester: boolean = false;
-  public showReqRevisedTxDesc: boolean = false;
-  public showRevisedTxDesc: boolean = false;
+    
   public showContactFees: boolean[] = [true, true];
 
   showDateAndRequesterOnlyTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions.
   txDescRquireRevise: string = '13';
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
+
+  // writable signal for the answer of "Transaction Description" field
+  selectedTxDescSignal = signal('');
+  // computed signal for rendering of the "Date of Request" and "Requester of solicited information" fields
+  showDateAndRequester = computed(() => {
+    return this._regulatoryInfoService.showDateAndRequesterTxDescs.includes(this.selectedTxDescSignal());
+  });
+  // computed signal for rendering of the "Did the Clarification Request require you to revise the Transaction Description?" field
+  showReqRevisedTxDesc = computed(() => {
+    return this.txDescRquireRevise === this.selectedTxDescSignal();
+  });
+  // writable signal for the answer of "Did the Clarification Request require you to revise the Transaction Description?" field
+  selectedReqRevisionSignal = signal('');
+  // computed signal for rendering of the "Revised Transaction Description" fields
+  showRevisedTxDesc = computed(() => {
+    return this.showReqRevisedTxDesc() && this.selectedReqRevisionSignal() === 'Y'
+  });
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
@@ -183,12 +200,6 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     // get the transaction description dropdown list
     this._getTransactionDescriptions();
 
-    //change the revised list as well
-    this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
-    if (this.showRevisedTxDesc){
-      this._getRevisedTransactionDescriptions();
-    }
-
     if (e) {
       // when the action is triggered from the UI
       this._saveData();
@@ -199,10 +210,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     const selectedTxDescId = this.regulartoryFormModel.get('descriptionType').value;
     this.selectedTxDescDefinition = this._utilsService.getCodeDefinitionByIdByLang(selectedTxDescId, this.descriptionTypeList, this.lang);
     // console.log(this.selectedTxDescDefinition);
-
-    this.showDateAndRequester = this._regulatoryInfoService.showDateAndRequesterTxDescs.includes(
-      selectedTxDescId
-    );
+    this.selectedTxDescSignal.set(selectedTxDescId);
 
     this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
       selectedTxDescId
@@ -211,16 +219,26 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
       selectedTxDescId
     );
 
-    this.showReqRevisedTxDesc = (this.txDescRquireRevise===selectedTxDescId);
-    this.showRevisedTxDesc =( this.regulartoryFormModel.get("reqRevision")?.value === 'Y');
-    if (this.showRevisedTxDesc){this._getRevisedTransactionDescriptions();}
+    if (!this.showDateAndRequester()) {
+      console.log('reset request date and requester fields when transaction description does not require them');
+      const valuesToReset = ['requestDate', 'requester'];
+      this._resetControlValues(valuesToReset);
+    }
+
+    if (!this.showReqRevisedTxDesc()) {
+      console.log('reset reqRevision and revised transaction description fields if transaction description is not 13');
+      const valuesToReset = ['reqRevision', 'revisedDescriptionType'];
+      this._resetControlValues(valuesToReset);
+    }
+
+    if (!this.showReqRevisedTxDesc()) {
+      console.log('reset revised transaction description if reqRevision is No');
+      const valuesToReset = ['revisedDescriptionType'];
+      this._resetControlValues(valuesToReset);
+    }
 
     if (e) {
       // when the action is triggered from the UI
-      // reset requestDate and requester fields values
-      // GlobalsService.resetControlValue(this.regulartoryFormModel.controls['requestDate'], this.regulartoryFormModel.controls['requester']);
-      // GlobalsService.resetControlValue(this.regulartoryFormModel.controls['reqRevision'], this.regulartoryFormModel.controls['revisedDescriptionType']);
-
       this.trDescUpdated.emit(this.showContactFees);
       this._saveData();
     }
@@ -238,9 +256,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
 
   reqRevisionChanged(e:any):void {
 
-    this._getRevisedTransactionDescriptions();
-    const reqRevisionControl = this.regulartoryFormModel.get("reqRevision");
-    this.showRevisedTxDesc = (reqRevisionControl?.value === 'Y');
+    // this._getRevisedTransactionDescriptions();
+    // const reqRevisionControl = this.regulartoryFormModel.get("reqRevision");
+    // this.showRevisedTxDesc = (reqRevisionControl?.value === 'Y');
 
     // this.regulartoryFormModel.controls['reqRevision'].setValue(null);
     // this.regulartoryFormModel.controls['reqRevision'].setValue(e.target.value);
@@ -251,7 +269,12 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     //   this.showRevisedTxDesc = false;
     //   this._utilsService.resetControlsValues(this.regulartoryFormModel.controls['revisedDescriptionType']);
     // }
-    if (!this.showRevisedTxDesc) {
+    this.selectedReqRevisionSignal.set(this.reqRevision?.value);
+    if (this.showRevisedTxDesc()) {
+      console.log("reqRevision is Y, load revised transaction description")
+      this._getRevisedTransactionDescriptions();
+    } else {
+      console.log("reqRevision is N, clear revised transaction description")
       this._utilsService.resetControlsValues(this.regulartoryFormModel.controls['revisedDescriptionType']);
     }
   }
@@ -285,4 +308,13 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     this._utilsService.checkInputValidity(event, this.regulartoryFormModel.get('requestDate'), 'invalidDate');
   }
 
+  get reqRevision() {
+    return this.regulartoryFormModel.get("reqRevision") as FormGroup;
+  }
+
+  private _resetControlValues(listOfValues : string[]) {
+    for (let i = 0; i < listOfValues.length; i++) {
+      this._utilsService.resetControlsValues(this.regulartoryFormModel.controls[listOfValues[i]]);
+    }
+  }
 }

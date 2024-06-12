@@ -15,7 +15,7 @@
                         label="dossier.id" parentId="regulatoryInfo"></control-messages>
                     <span class="rep-input-group">
                         <input id="dossierId" name="dossierId" class="form-control" (blur)="onblur()"
-                            [formControl]="regulartoryFormModel.controls['dossierId'] | formControl" maxlength="8" />
+                            [formControlName]="'dossierId'" maxlength="8" />
                     </span>
                 </label>
             </div>
@@ -30,7 +30,7 @@
                         [control]="regulartoryFormModel.controls['masterFileName'] | formControl"
                         controlId="masterFileName" label="masterfile.name" parentId="regulatoryInfo"></control-messages>
                     <input id="masterFileName" name="masterFileName" class="form-control full-width" (blur)="onblur()"
-                        [formControl]="regulartoryFormModel.controls['masterFileName'] | formControl" maxlength="256"/>
+                        [formControlName]="'masterFileName'" maxlength="256"/>
                 </label>
             </div>
             <div class=".form-inline form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -39,10 +39,9 @@
                     <control-messages *ngIf="regulartoryFormModel.controls['masterFileNumber'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['masterFileNumber'] | formControl"
-                        controlId="masterFileNumber" label="masterfile.number" parentId="regulatoryInfo"
-                        ></control-messages>
+                        controlId="masterFileNumber" label="masterfile.number" parentId="regulatoryInfo"></control-messages>
                     <input id="masterFileNumber" name="masterFileNumber" class="form-control full-width" (blur)="onblur()"
-                        [formControl]="regulartoryFormModel.controls['masterFileNumber'] | formControl" />
+                        [formControlName]="'masterFileNumber'" />
                 </label>
             </div>
         </div>
@@ -62,7 +61,7 @@
                         <input attr.aria-label="{{mfType | ariaTransform: lang}}" type="radio" attr.aria-label="{{mfType | ariaTransform: lang}}" 
                             id="masterFileType{{i}}" name="masterFileType" [value]="mfType.id"
                           (change)="onMfTypeSelected($event)"
-                          [formControl]="regulartoryFormModel.controls['masterFileType'] | formControl" required/>
+                          [formControlName]="'masterFileType'" required/>
                           {{mfType | textTransform: lang }}
                       </label>
                     </li>
@@ -89,7 +88,7 @@
                     <select id="masterFileUse" name="masterFileUse" required class="form-control full-width"
                         (blur)="onblur()"
                         (change)="onblur()"
-                        [formControl]="regulartoryFormModel.controls['masterFileUse'] | formControl">
+                        [formControlName]="'masterFileUse'">
                         <option label=" " value=""></option>
                         <option *ngFor="let mfUse of mfUseOptions" [value]="mfUse.id"> {{ mfUse| textTransform: lang }}</option>
                     </select>
@@ -107,7 +106,7 @@
                         controlId="descriptionType" label="transaction.description" parentId="regulatoryInfo"></control-messages>
                     <select id="descriptionType" name="descriptionType" required class="form-control full-width"
                         (change)="onTxDescriptionSelected($any($event.target).value)"
-                        [formControl]="regulartoryFormModel.controls['descriptionType'] | formControl">
+                        [formControlName]="'descriptionType'">
                         <option label=" " value=""></option>
                         <option *ngFor="let desc of txDescOptions" [value]="desc.id"> {{ desc | textTransform: lang }}
                         </option>
@@ -122,7 +121,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="showDateAndRequester">
+        <div class="row" *ngIf="showDateAndRequester()">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="requestDate" class="required">
                     <span class="field-name">{{ 'request.date' |translate }}</span>
@@ -130,11 +129,10 @@
                     <control-messages *ngIf="regulartoryFormModel.controls['requestDate'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['requestDate'] | formControl" controlId="requestDate"
-                        label="request.date" parentId="regulatoryInfo"
-                        ></control-messages>
+                        label="request.date" parentId="regulatoryInfo"></control-messages>
                     <input id="requestDate" name="requestDate" type="date" class="form-control"
                         (blur)="onblur()" (input)="checkDateValidity($event)"
-                        [formControl]="regulartoryFormModel.controls['requestDate'] | formControl" />
+                        [formControlName]="'requestDate'" />
                 </label>
             </div>
 
@@ -145,14 +143,13 @@
                     <control-messages *ngIf="regulartoryFormModel.controls['requester'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['requester'] | formControl" controlId="requester"
-                        label="requester.title" parentId="regulatoryInfo"
-                        ></control-messages>
+                        label="requester.title" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="requester" name="requester" type="text" class="form-control full-width" (blur)="onblur()"
-                    [formControl]="regulartoryFormModel.controls['requester'] | formControl">
+                    [formControlName]="'requester'">
             </div>
         </div>
-        <div class="row form-group" *ngIf="showReqRevisedTxDesc">
+        <div class="row form-group" *ngIf="showReqRevisedTxDesc()">
             <fieldset class="col-md-12 chkbxrdio-grp"
                 data-ng-class="{'has-error':regulartoryFormModel.controls['reqRevision'].$invalid}">
                 <legend class="required">
@@ -160,31 +157,21 @@
                     <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
                     <control-messages *ngIf="regulartoryFormModel.controls['reqRevision'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['reqRevision'] | formControl" controlId="reqRevisionId"
-                        label="req.revision" parentId="regulatoryInfo"
-                        parentLabel="Regulatory Information"></control-messages>
+                        [control]="regulartoryFormModel.controls['reqRevision'] | formControl" controlId="reqRevision"
+                        label="req.revision" parentId="regulatoryInfo"></control-messages>
                 </legend>
-                <!-- <input type="radio" id="reqRevisionId" name="reqRevision" value="Y" (blur)="onblur()"
-                    (change)="reqRevisionChanged($event)"
-                    [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl" required />
-                <label for="reqRevisionId">&nbsp;{{'yes'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="radio" id="reqRevisionId_1" name="reqRevision" value="N" (blur)="onblur()"
-                    (change)="reqRevisionChanged($event)"
-                    [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl" required />
-                <label for="reqRevisionId_1">&nbsp;{{'no'|translate}}</label> -->
                 <ul class="form-group form-inline list-unstyled">
                     <li class="label-inline" *ngFor="let yesno of yesNoList; let i = index">
-                        <label for="reqRevisionId{{i}}">
-                        <input type="radio" name="reqRevision" id="reqRevisionId{{i}}" [value]="yesno.id" (blur)="onblur()"
+                        <label for="reqRevision{{i}}">
+                        <input type="radio" name="reqRevision" id="reqRevision{{i}}" [value]="yesno.id" (blur)="onblur()"
                             (change)="reqRevisionChanged($event)"
-                            [formControl]="regulartoryFormModel.controls['reqRevision'] | formControl" required />
+                            [formControlName]="'reqRevision'" required />
                         {{ yesno | textTransform: lang }}</label>
                     </li>
                 </ul>
             </fieldset>
         </div>
-        {{showRevisedTxDesc}}  {{showReqRevisedTxDesc}}
-        <div class="row" *ngIf="showRevisedTxDesc && showReqRevisedTxDesc">
+        <div class="row" *ngIf="showRevisedTxDesc()">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="revisedDescriptionType" class="required full-width">
                     <span class="field-name">{{ 'revised.transaction.description' |translate }}</span>
@@ -192,11 +179,10 @@
                     <control-messages *ngIf="regulartoryFormModel.controls['revisedDescriptionType'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl"
-                        controlId="revisedDescriptionType" label="revised.transaction.description" parentId="regulatoryInfo"
-                        ></control-messages>
+                        controlId="revisedDescriptionType" label="revised.transaction.description" parentId="regulatoryInfo"></control-messages>
                     <select id="revisedDescriptionType" name="revisedDescriptionType" required class="form-control full-width"
                         (change)="onRevTxDescriptionSelected($any($event.target).value)"
-                        [formControl]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl">
+                        [formControlName]="'revisedDescriptionType'">
                         <option label=" " value=""></option>
                         <option *ngFor="let desc of revTxDescOptions" [value]="desc.id"> {{ desc | textTransform: lang }}
                         </option>
