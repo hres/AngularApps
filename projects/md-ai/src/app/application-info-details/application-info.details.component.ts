@@ -258,6 +258,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       && (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIII
         || this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIV)) {
       return true;
+    } else {
+      this._resetControlValues(['declarationConformity']);
     }
     return false;
   }

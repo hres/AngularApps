@@ -104,7 +104,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
       if (materialData.biological_materials) {
         const tMaterials = materialData.biological_materials['material'];
         this.materialListModel = Array.isArray(tMaterials) ? tMaterials : [tMaterials];
-        if (this._utilsService.isEmpty(this.materialListModel)) {
+        if (this._utilsService.isEmpty(tMaterials)) {
           this.materialListModel = [];
         }
         // this.materialListModel = materialData.biological_materials;
