@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList } from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -39,7 +39,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public masterFileForm: FormGroup; // todo: do we need it? could remove?
   public errorList = [];
   public showErrors: boolean;
-  public showContactFees: boolean[];
+  // public showContactFees: boolean[];
   public headingLevel = 'h2';
 
   public rootTagText = ROOT_TAG;
@@ -60,8 +60,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public agent: string = 'agent';
 
   showDateAndRequesterTxDescs: string[] = ['12', '14', '13'];
-  showDateAndRequesterOnlyTxDescs: string[] = ['12', '14'];
-  noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
+  noContactTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions
+  noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20']; //Fee section is not shown for these Transaction Descriptions
+ 
+  // writable signal for the answer of "Transaction Description" field
+  readonly selectedTxDescSignal = signal<string>('');
+  // computed signal for rendering of the "Contact" and "Fees" sections
+  showContact = computed(() => {
+    return this.selectedTxDescSignal()==='' ? true : !this.noContactTxDescs.includes(this.selectedTxDescSignal());
+  });
+  showFee = computed(() => {
+    return this.selectedTxDescSignal()==='' ? true : !this.noFeeTxDescs.includes(this.selectedTxDescSignal());
+  });
 
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
 
@@ -72,7 +82,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private fileServices: FileConversionService
   ) {
     this.showErrors = false;
-    this.showContactFees = [true, true];
+    // this.showContactFees = [true, true];
     this.appVersion = this._globalService.appVersion;
     let xsltVersion = this.appVersion.split('.',2).join("_");
     this.xslName = MASTER_FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
@@ -101,6 +111,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       console.error(e);
     }
   }
+
   ngAfterViewInit(): void {
     document.location.href = '#def-top';
 
@@ -138,20 +149,20 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // concat the error arrays
     this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
 
-    if (this.showContactFees[0] === true) {
-      this.errorList = this.errorList.concat(
-        this._addressErrors.concat(this._contactErrors)
-      );
-      if(!this.notApplicable)
-        this.errorList = this.errorList.concat(
-          this._agentAddressErrors.concat(this._agentContactErrors)
-        );
-      this.errorList = this.errorList.concat(this._contactConfirmError);
-    }
+    // if (this.showContactFees[0] === true) {
+    //   this.errorList = this.errorList.concat(
+    //     this._addressErrors.concat(this._contactErrors)
+    //   );
+    //   if(!this.notApplicable)
+    //     this.errorList = this.errorList.concat(
+    //       this._agentAddressErrors.concat(this._agentContactErrors)
+    //     );
+    //   this.errorList = this.errorList.concat(this._contactConfirmError);
+    // }
 
-    if (this.showContactFees[1] === true) {
-      this.errorList = this.errorList.concat(this._transFeeErrors);
-    }
+    // if (this.showContactFees[1] === true) {
+    //   this.errorList = this.errorList.concat(this._transFeeErrors);
+    // }
 
     this.errorList = this.errorList.concat(this.__certficationErrors);
 
@@ -211,7 +222,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.ectdModel = this.transactionEnrollModel.ectd;
 
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
-    //   this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
+    //   this.showContactFees[0] = !this.noContactTxDescs.includes(
     //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
     //   this.showContactFees[1] = !this.noFeeTxDescs.includes(
     //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
@@ -247,8 +258,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log("Calling preload")
   }
 
-  public setShowContactFeesFlag(flag) {
-    this.showContactFees = flag;
+  public setSelectedTxDesc(val: string) {
+    console.log("setSelectedTxDesc==>", val);
+    this.selectedTxDescSignal.set(val);
+    // this.showContactFees = flag; 
 
     // if (this.showContactFees[0] === false) {
     //   this.holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
@@ -293,12 +306,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._updateSavedDate();
     this._updateSoftwareVersion();
 
-    if (this.ectdModel.lifecycle_record.sequence_description_value) {
-      this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
-        this.ectdModel?.lifecycle_record.sequence_description_value._id);
-      this.showContactFees[1] = !this.noFeeTxDescs.includes(
-        this.ectdModel?.lifecycle_record.sequence_description_value._id);
-    }
+    // if (this.ectdModel.lifecycle_record.sequence_description_value) {
+    //   this.showContactFees[0] = !this.noContactTxDescs.includes(
+    //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
+    //   this.showContactFees[1] = !this.noFeeTxDescs.includes(
+    //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
+    // }
     // if (this.showContactFees[0] === true) {
     //   this.transactionEnrollModel.contact_info = MasterFileBaseService.getEmptyContactInfo();
     //   this.transactionEnrollModel.contact_info.holder_name_address = this.holderAddressModel;

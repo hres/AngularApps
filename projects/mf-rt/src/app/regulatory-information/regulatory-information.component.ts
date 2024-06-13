@@ -56,14 +56,10 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
     
-  public showContactFees: boolean[] = [true, true];
-
-  showDateAndRequesterOnlyTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions.
   txDescRquireRevise: string = '13';
-  noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20'];
 
   // writable signal for the answer of "Transaction Description" field
-  selectedTxDescSignal = signal('');
+  readonly selectedTxDescSignal = signal<string>('');
   // computed signal for rendering of the "Date of Request" and "Requester of solicited information" fields
   showDateAndRequester = computed(() => {
     return this._regulatoryInfoService.showDateAndRequesterTxDescs.includes(this.selectedTxDescSignal());
@@ -212,13 +208,6 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     // console.log(this.selectedTxDescDefinition);
     this.selectedTxDescSignal.set(selectedTxDescId);
 
-    this.showContactFees[0] = !this.showDateAndRequesterOnlyTxDescs.includes(
-      selectedTxDescId
-    );
-    this.showContactFees[1] = !this.noFeeTxDescs.includes(
-      selectedTxDescId
-    );
-
     if (!this.showDateAndRequester()) {
       console.log('reset request date and requester fields when transaction description does not require them');
       const valuesToReset = ['requestDate', 'requester'];
@@ -239,7 +228,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
 
     if (e) {
       // when the action is triggered from the UI
-      this.trDescUpdated.emit(this.showContactFees);
+      this.trDescUpdated.emit(selectedTxDescId);
       this._saveData();
     }
   }
@@ -302,7 +291,6 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
 
     this.revTxDescOptions = this._utilsService.filterParentChildrenArray(this.mfRevisedTypeDescArray, selectedMfTypeId);
   }
-
 
   checkDateValidity(event: any): void {
     this._utilsService.checkInputValidity(event, this.regulartoryFormModel.get('requestDate'), 'invalidDate');
