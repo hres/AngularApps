@@ -168,6 +168,7 @@ export class TransactionDetailsService {
         this.loadAmendReasonOptions(activityTypeId, deviceClassId, amendReasonList, relationship, amendReasonOptionList, lang, amendReasonFormArray);
         this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
       }  
+      formRecord.controls['selectedAmendReasonCodes'].setValue(loadedAmendReasonCodes);
     }
 
     formRecord.controls['licenceNum'].setValue(transactionInfoModel.licence_number);
