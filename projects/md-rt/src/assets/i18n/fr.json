@@ -10,7 +10,7 @@
   "refresh.file.input": "Actualisez cette page",
   "error":"Erreur {{number}}:",
   "heading.transaction": "Inscription à la transaction réglementaire",
-  "dossier.id": "Numéro de dossier (composé d’un « m » minuscule suivie de 6 chiffres)",
+  "dossier.id": "Numéro de dossier (« m » minuscule suivie de 6 chiffres)",
   "dossier.type": "Type de dossier",
   "manufacturing.company.id": "Identifiant de la compagnie du fabricant",
   "manufacturing.contact.id": "Identifiant du contact du fabricant",
