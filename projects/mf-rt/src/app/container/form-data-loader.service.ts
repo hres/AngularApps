@@ -9,6 +9,8 @@ export class FormDataLoaderService {
 
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private countriesJsonPath = DATA_PATH + 'countries.json';
+  private provincesJsonPath = DATA_PATH + 'provinces.json';
+  private statesJsonPath = DATA_PATH + 'states.json';
   private mfTypesJsonPath = DATA_PATH + 'mfTypes.json';
   private txDescriptionsJsonPath = DATA_PATH + 'txDescriptions.json';
   private mfUsesJsonPath = DATA_PATH + 'mfUses.json';
@@ -16,6 +18,8 @@ export class FormDataLoaderService {
   cachedYesNo$:Observable<ICode[]>;
   cachedWhoResponsible$:Observable<ICode[]>;
   cachedCountries$:Observable<ICode[]>;
+  cachedProvinces$:Observable<ICode[]>;
+  cachedStates$:Observable<ICode[]>;
   mfTypeOptions$: Observable<ICodeAria[]>;
   mfUseOptions$: Observable<ICode[]>;
   txDescs$: Observable<ICodeDefinition[]>;
@@ -52,15 +56,37 @@ export class FormDataLoaderService {
     return this.cachedWhoResponsible$;
   }
 
-  getCountriesList(): Observable<ICode[]> {
+  getCountryList(): Observable<ICode[]> {
     if (!this.cachedCountries$) {
       this.cachedCountries$ = this._dataService.getData<ICode>(this.countriesJsonPath)
         .pipe(
-          // tap(()=>console.log('getDeviceClassesList() is called')),
+          // tap(()=>console.log('getCountryList() is called')),
           shareReplay(1)
         );
     } 
     return this.cachedCountries$;
+  }
+
+  getProvinceList(): Observable<ICode[]> {
+    if (!this.cachedProvinces$) {
+      this.cachedProvinces$ = this._dataService.getData<ICode>(this.provincesJsonPath)
+        .pipe(
+          // tap(()=>console.log('getProvinceList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedProvinces$;
+  }
+
+  getStateList(): Observable<ICode[]> {
+    if (!this.cachedStates$) {
+      this.cachedStates$ = this._dataService.getData<ICode>(this.statesJsonPath)
+        .pipe(
+          // tap(()=>console.log('getStateList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedStates$;
   }
 
   getMasterFileTypes(): Observable<ICodeAria[]> {

@@ -24,7 +24,9 @@ export class ContainerComponent implements OnInit {
   loadFormBaseComponent: boolean = false;
 
   dataSources: Observable<any>[] = [
-    this._formDataLoader.getCountriesList(),
+    this._formDataLoader.getCountryList(),
+    this._formDataLoader.getProvinceList(),
+    this._formDataLoader.getStateList(),
     this._formDataLoader.getYesNoList(),
     this._formDataLoader.getMasterFileTypes(),
     this._formDataLoader.getMasterFileUses(),
@@ -43,14 +45,16 @@ export class ContainerComponent implements OnInit {
     
     forkJoin(this.dataSources).subscribe((data) => {
       console.log(data);
-      this._globalService.countriesList = data[0];
-      this._globalService.yesnoList = data[1];
-      this._globalService.mfTypes = data[2];
-      this._globalService.mfUses = data[3];
-      this._globalService.txDescs = data[4];
-      this._globalService.mfTypeTxDescs = data[5];
-      this._globalService.mfRevisedTypeDescs = data[6];
-      this._globalService.whoResponsible = data[7];
+      this._globalService.countryList = data[0];
+      this._globalService.provinceList = data[1];
+      this._globalService.stateList = data[2];
+      this._globalService.yesnoList = data[3];
+      this._globalService.mfTypes = data[4];
+      this._globalService.mfUses = data[5];
+      this._globalService.txDescs = data[6];
+      this._globalService.mfTypeTxDescs = data[7];
+      this._globalService.mfRevisedTypeDescs = data[8];
+      this._globalService.whoResponsible = data[9];
       this.loadFormBaseComponent = true;
     });
   }
