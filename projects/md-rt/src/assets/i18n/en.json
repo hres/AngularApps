@@ -10,7 +10,7 @@
   "refresh.file.input": "Refresh this page",
   "error":"Error {{number}}:",
   "heading.transaction": "Regulatory Transaction Enrolment",
-  "dossier.id": "Dossier Identifier (\"m\" and 6 numbers)",
+  "dossier.id": "Dossier Identifier (\"m\" followed by 6 numbers)",
   "dossier.type": "Dossier Type",
   "manufacturing.company.id": "Manufacturer Company Identifier",
   "manufacturing.contact.id": "Manufacturer Contact Identifier",
