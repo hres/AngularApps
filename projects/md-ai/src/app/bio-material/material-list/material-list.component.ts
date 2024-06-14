@@ -152,7 +152,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     const materialInfo = this.getMaterialInfo(group);
     materialInfo.reset();
     this.materialsFormArr.removeAt(index);
-    this.materialListService.rearrangeIds(this.getMaterialsFormArrValues());
 
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
     
@@ -189,7 +188,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
             // Set values after defining the form controls
             group.patchValue({
-              id: material.material_id,
+              id: material.id,
               isNew: false,
               expandFlag: false,
             });
