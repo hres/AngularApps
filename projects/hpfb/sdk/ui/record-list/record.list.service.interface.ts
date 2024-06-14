@@ -17,4 +17,5 @@ export interface RecordListServiceInterface {
 export interface IListService {
   setList(list: FormGroup[]): void;
   getNextId(): number;
+  rearrangeIds(formArrValue);
 }

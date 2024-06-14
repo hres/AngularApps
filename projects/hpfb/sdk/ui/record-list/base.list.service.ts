@@ -27,4 +27,10 @@ export abstract class BaseListService implements IListService {
     // Increment the maximum ID to get the next available ID
     return maxId + 1;
   }
+
+  rearrangeIds(formArrValue): void{
+    formArrValue.forEach((record, index) => {
+      record.id = index + 1;
+    });
+  }
 }

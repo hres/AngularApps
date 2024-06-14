@@ -152,6 +152,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     const materialInfo = this.getMaterialInfo(group);
     materialInfo.reset();
     this.materialsFormArr.removeAt(index);
+    this.materialListService.rearrangeIds(this.getMaterialsFormArrValues());
 
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
     

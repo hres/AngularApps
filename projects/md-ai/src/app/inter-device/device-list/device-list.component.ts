@@ -139,8 +139,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     const deviceInfo = this.getDeviceInfo(group);
     deviceInfo.reset();
     this.devicesFormArr.removeAt(index);
+    this.deviceListService.rearrangeIds(this.getDevicesFormArrValues());
 
-    // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
     if (this.devicesFormArr.length == 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(true);
