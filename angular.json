@@ -433,7 +433,40 @@
             "scripts": []
           },
           "configurations": {
+            "production-en": {
+              "outputPath": "dist/mf-rt/en",
+              "index": "projects/hpfb/sdk/src/index-en.html",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/mf-rt/src/environments/environment.ts",
+                  "with": "projects/mf-rt/src/environments/environment.prod-en.ts"
+                }
+              ]
+            },
+            "production-fr": {
+              "outputPath": "dist/mf-rt/fr",
+              "index": "projects/hpfb/sdk/src/index-fr.html",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/mf-rt/src/environments/environment.ts",
+                  "with": "projects/mf-rt/src/environments/environment.prod-fr.ts"
+                }
+              ]
+            },
             "production": {
+              
               "budgets": [
                 {
                   "type": "initial",
