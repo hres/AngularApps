@@ -299,7 +299,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.appInfoModel = applicationEnroll.application_info;
     const tDevices = applicationEnroll.devices['device'];
     this.deviceModel = Array.isArray(tDevices) ? tDevices : [tDevices];
-    if (this._utilsService.isEmpty(this.deviceModel)) {
+    if (this._utilsService.isEmpty(tDevices)) {
       this.deviceModel = [];
     }
     this.materialInfo = applicationEnroll.material_info;

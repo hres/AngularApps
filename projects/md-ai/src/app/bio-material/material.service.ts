@@ -81,27 +81,30 @@ export class MaterialService {
   }
 
   public mapMaterialModelToOutputModel(formRecord: any, materialModel) {
+    const materialInfo = formRecord.materialInfo;
+
     const countryList = this._globalService.$countryList;
     const speciesList = this._globalService.$deviceSpeciesList;
     const tissueList = this._globalService.$deviceTissueList;
     const derivativeList = this._globalService.$derivateList;
 
-    materialModel.material_name = formRecord.materialName;
-    materialModel.device_name = formRecord.deviceName;
+    materialModel.id = formRecord.id;
+    materialModel.material_name = materialInfo.materialName;
+    materialModel.device_name = materialInfo.deviceName;
 
-    const countryCodeValue = this._utilsService.findCodeById(countryList, formRecord.originCountry);
+    const countryCodeValue = this._utilsService.findCodeById(countryList, materialInfo.originCountry);
     materialModel.origin_country = countryCodeValue? this._converterService.convertCodeToIdTextLabel(countryCodeValue, this._globalService.lang()) : null;
 
-    const specFamilyCodeValue = this._utilsService.findCodeById(speciesList, formRecord.specFamily);
+    const specFamilyCodeValue = this._utilsService.findCodeById(speciesList, materialInfo.specFamily);
     materialModel.family_of_species = specFamilyCodeValue? this._converterService.convertCodeToIdTextLabel(specFamilyCodeValue, this._globalService.lang()) : null;
 
-    const tissueTypeCodeValue = this._utilsService.findCodeById(tissueList, formRecord.tissueType);
+    const tissueTypeCodeValue = this._utilsService.findCodeById(tissueList, materialInfo.tissueType);
     materialModel.tissue_substance_type = tissueTypeCodeValue? this._converterService.convertCodeToIdTextLabel(tissueTypeCodeValue, this._globalService.lang()) : null;
-    materialModel.tissue_type_other_details = formRecord.tissueTypeOtherDetails;
+    materialModel.tissue_type_other_details = materialInfo.tissueTypeOtherDetails;
 
-    const derivativeCodeValue = this._utilsService.findCodeById(derivativeList, formRecord.derivative);
+    const derivativeCodeValue = this._utilsService.findCodeById(derivativeList, materialInfo.derivative);
     materialModel.derivative = derivativeCodeValue? this._converterService.convertCodeToIdTextLabel(derivativeCodeValue, this._globalService.lang()) : null;
-    materialModel.derivative_other_details = formRecord.derivativeOtherDetails;
+    materialModel.derivative_other_details = materialInfo.derivativeOtherDetails;
   }
 
   /**
