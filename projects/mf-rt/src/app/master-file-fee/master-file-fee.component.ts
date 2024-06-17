@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BaseComponent, EntityBaseService, ErrorModule, HelpIndex, ICode, PipesModule, UtilsService } from '@hpfb/sdk/ui';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,11 +9,9 @@ import { FeeDetails } from '../models/transaction';
 
 @Component({
   selector: 'master-file-fee',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, ErrorModule, PipesModule],
-  providers: [MasterFileFeeService],
   templateUrl: './master-file-fee.component.html',
-  styleUrl: './master-file-fee.component.css'
+  styleUrl: './master-file-fee.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   lang: string;

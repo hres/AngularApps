@@ -25,12 +25,9 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-regulatory-information',
-  standalone: true,
   templateUrl: './regulatory-information.component.html',
   styles: [],
   encapsulation: ViewEncapsulation.None,
-  providers: [UtilsService, EntityBaseService, RegulatoryInformationService],
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, ErrorModule, PipesModule]
 })
 export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterViewInit {
   lang: string;

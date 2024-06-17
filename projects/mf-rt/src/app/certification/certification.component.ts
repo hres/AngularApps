@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BaseComponent, ErrorModule, HelpIndex, PipesModule, UtilsService } from '@hpfb/sdk/ui';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,11 +9,9 @@ import { CertificationService } from './certification.service';
 
 @Component({
   selector: 'certification',
-  standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, ErrorModule, PipesModule],
-  providers: [CertificationService],
   templateUrl: './certification.component.html',
-  styleUrl: './certification.component.css'
+  styleUrl: './certification.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class CertificationComponent extends BaseComponent implements OnInit{
 
