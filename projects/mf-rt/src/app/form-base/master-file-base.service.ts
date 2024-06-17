@@ -103,11 +103,12 @@ export class MasterFileBaseService {
         account_number: '',
         cra_business_number: ''
       },
-      certify_accurate_complete: undefined,
-      full_name: '',
-      submit_date: '',
-      consent_privacy: undefined
-
+      certification: {
+        certify_accurate_complete: undefined,
+        full_name: '',
+        submit_date: '',
+        consent_privacy: undefined
+      }
     };
     
     return TransactionEnrol;

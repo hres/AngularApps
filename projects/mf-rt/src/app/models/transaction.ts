@@ -12,6 +12,10 @@ export interface TransactionEnrol {
   ectd: Ectd;
   fee_details: FeeDetails;
   contact_info: ContactInfo;
+  certification: Certification;
+}
+
+export interface Certification {
   certify_accurate_complete: boolean;
   full_name: string;
   submit_date: string;
