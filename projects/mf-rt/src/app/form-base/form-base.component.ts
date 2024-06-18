@@ -11,7 +11,6 @@ import { RegulatoryInformationComponent } from "../regulatory-information/regula
 import { MasterFileBaseService } from './master-file-base.service';
 import { Certification, Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
 import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
-import { CertificationComponent } from '../certification/certification.component';
 
 @Component({
     selector: 'app-form-base',
@@ -20,7 +19,7 @@ import { CertificationComponent } from '../certification/certification.component
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
     providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, MasterFileBaseService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, RegulatoryInformationComponent, MasterFileFeeComponent, CertificationComponent]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;

@@ -7,11 +7,12 @@ import { FormBaseComponent } from '../form-base/form-base.component';
 import { CommonModule } from '@angular/common';
 import { FormDataLoaderService } from './form-data-loader.service';
 import { Observable, forkJoin } from 'rxjs';
+import { AppFormModule } from '../app.form.module';
 
 @Component({
   selector: 'app-container',
   standalone: true,
-  imports: [CommonModule, TranslateModule, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent, InstructionComponent, FormBaseComponent],
+  imports: [CommonModule, TranslateModule, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent, InstructionComponent, FormBaseComponent, AppFormModule],
   providers: [FormDataLoaderService],
   templateUrl: './container.component.html',
   encapsulation: ViewEncapsulation.None
