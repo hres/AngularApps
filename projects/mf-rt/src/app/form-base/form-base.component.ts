@@ -9,7 +9,7 @@ import { FilereaderInstructionComponent } from "../filereader-instruction/filere
 import { MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationComponent } from "../regulatory-information/regulatory-information.component";
 import { MasterFileBaseService } from './master-file-base.service';
-import { Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
+import { Certification, Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
 import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
 
 @Component({
@@ -19,7 +19,7 @@ import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.compo
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
     providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, MasterFileBaseService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, RegulatoryInformationComponent, MasterFileFeeComponent]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -35,7 +35,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _agentContactErrors = [];
   private _baseErrors = [];
   private _contactConfirmError = [];
-  private __certficationErrors = [];
+  private _certficationErrors = [];
   public masterFileForm: FormGroup; // todo: do we need it? could remove?
   public errorList = [];
   public showErrors: boolean;
@@ -54,6 +54,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // public holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
   // public agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
   public transFeeModel: FeeDetails;
+  public certificationModel: Certification;
 
   public notApplicable: boolean = false;
   public holder: string = 'holder';
@@ -140,7 +141,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
 
     this._contactConfirmError = contactConfirmTempError;
-    this.__certficationErrors = certifTempErrors;
+    this._certficationErrors = certifTempErrors;
   }
 
   processErrors() {
@@ -164,7 +165,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.errorList = this.errorList.concat(this._transFeeErrors);
     // }
 
-    this.errorList = this.errorList.concat(this.__certficationErrors);
+    this.errorList = this.errorList.concat(this._certficationErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -176,6 +177,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processTransFeeErrors(errorList) {
     this._transFeeErrors = errorList;
+    this.processErrors();
+  }
+
+  processCertificationErrors(errorList) {
+    this._certficationErrors = errorList;
     this.processErrors();
   }
 
@@ -330,15 +336,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.transactionEnrollModel.fee_details = null;
     // }
 
-    this.transactionEnrollModel.certify_accurate_complete =
-      this.masterFileForm.controls['certifyAccurateComplete'].value;
-    this.transactionEnrollModel.full_name =
-      this.masterFileForm.controls['fullName'].value;
-    this.transactionEnrollModel.submit_date =
-      this.masterFileForm.controls['submitDate'].value;
-    this.transactionEnrollModel.consent_privacy =
-      this.masterFileForm.controls['consentPrivacy'].value;
-
+    this.transactionEnrollModel.certification = this.certificationModel;
 
     const result: Transaction = {
       TRANSACTION_ENROL: this.transactionEnrollModel,

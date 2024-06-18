@@ -1,19 +1,11 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {
-  Ectd,
-  LifecycleRecord,
-  TransactionEnrol,
-  Transaction,
-  ContactInfo,
-  IContact,
-} from '../models/transaction';
+import {Ectd, LifecycleRecord, TransactionEnrol, Transaction, ContactInfo, IContact, INameAddress, FeeDetails} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class MasterFileBaseService {
-
 
   constructor(private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
@@ -45,7 +37,7 @@ export class MasterFileBaseService {
     return enrollment;
   }
 
-  public getEmptyMasterFileFeeModel() {
+  public getEmptyMasterFileFeeModel() : FeeDetails{
     return (
       {
 		  are_there_access_letters: null,
@@ -61,7 +53,7 @@ export class MasterFileBaseService {
    * Gets an empty Address Details Model
    *
    */
-  public getEmptyAddressDetailsModel() {
+  public getEmptyAddressDetailsModel() : INameAddress{
 
     return (
       {
@@ -111,11 +103,12 @@ export class MasterFileBaseService {
         account_number: '',
         cra_business_number: ''
       },
-      certify_accurate_complete: undefined,
-      full_name: '',
-      submit_date: '',
-      consent_privacy: undefined
-
+      certification: {
+        certify_accurate_complete: undefined,
+        full_name: '',
+        submit_date: '',
+        consent_privacy: undefined
+      }
     };
     
     return TransactionEnrol;
@@ -172,46 +165,15 @@ export class MasterFileBaseService {
   }
 
   public getEmptyContactInfo() : ContactInfo {
-     const conInfo: ContactInfo = {
-       holder_name_address: {
-        company_name: '',
-        street_address: '',
-        city: '',
-        country: {
-          __text: '',
-          _id: '',
-          _label_en: '',
-          _label_fr: ''
-        },
-        province_lov: {
-          __text: '',
-          _id: ''
-        },
-        province_text: '',
-        postal_code: ''
-      },
+     const contactInfo: ContactInfo = {
+       holder_name_address: this.getEmptyAddressDetailsModel(),
       holder_contact: this.getEmptyContactModel(),
       agent_not_applicable: undefined,
-      agent_name_address: {
-        company_name: '',
-        street_address: '',
-        city: '',
-        country: {
-          __text: '',
-          _id: '',
-          _label_en: '',
-          _label_fr: ''
-        },
-        province_lov: {
-          __text: '',
-          _id: ''
-        },
-        province_text: '',
-        postal_code: ''
-      },
+      agent_name_address: this.getEmptyAddressDetailsModel(),
       agent_contact: this.getEmptyContactModel(),
       contact_info_confirm: undefined
     }
-    return conInfo;
+    return contactInfo;
   }
+  
 }

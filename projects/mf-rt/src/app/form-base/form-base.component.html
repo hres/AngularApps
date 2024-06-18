@@ -162,70 +162,9 @@
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'panel.title.certification'|translate}}</h2>
         </header>
-        <div class="panel-body">certification todo
-          <!-- <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkbox required">
-              <label for="certifyAccurateCompleteId">
-                <input name="certifyAccurateCompleteName" type="checkbox" id="certifyAccurateCompleteId" (blur)="processErrors()"
-                  (change)="onChanged($event, 'certifyAccurateComplete')"
-                  [formControl]="masterFileForm.controls['certifyAccurateComplete'] | formControl" />
-                <span><b>{{'certify.info'|translate}}</b></span>
-                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                <control-messages *ngIf="masterFileForm.controls['certifyAccurateComplete'].invalid" [showError]="showErrors"
-                  parentId="mfCertif" [control]="masterFileForm.controls['certifyAccurateComplete'] | formControl"
-                  controlId="certifyAccurateCompleteId" label="certify.info"
-                  parentLabel="MasterFile Certification"></control-messages>
-              </label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="required">
-                <label for="fullNameId" class="required">
-                  <span><strong>{{'full.name'|translate}}</strong></span>
-                  <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                  <control-messages *ngIf="masterFileForm.controls['fullName'].invalid" [showError]="showErrors"
-                    parentId="mfCertif" [control]="masterFileForm.controls['fullName'] | formControl"
-                    controlId="fullNameId" label="fullName"
-                    parentLabel="MasterFile Certification"></control-messages>
-                  <input name="fullName" class="form-control" id="fullNameId" maxlength="120" (blur)="processErrors()"
-                    [formControl]="masterFileForm.controls['fullName'] | formControl" />
-                </label>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <label for="submitDateId" class="required">
-                <span><b>{{'submit.date'|translate}}</b></span>
-                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                <control-messages *ngIf="masterFileForm.controls['submitDate'].invalid" [showError]="showErrors"
-                  parentId="mfCertif" [control]="masterFileForm.controls['submitDate'] | formControl" controlId="submitDateId"
-                  label="submitDate" parentLabel="MasterFile Certification"></control-messages>
-                <input name="submitDate" class="form-control" id="submitDateId" type="date" (blur)="processErrors()"
-                  [formControl]="masterFileForm.controls['submitDate'] | formControl" (input)="checkDateValidity($event)" /> 
-              </label>
-            </div>
-          </div>
-
-          <div class="row col-xs-12 form-group alert alert-info">
-            <p aria-live="polite"><span class="visually-hidden">{{'alert.info' | translate}}</span>{{'agent.warning'|translate}}</p>
-          </div>
-          <div class="row col-xs-12 full-width">
-            <div class="checkbox required">
-              <label for="consentPrivacyId">            
-                <input name="consentPrivacyName" type="checkbox" id="consentPrivacyId" (blur)="processErrors()"
-                  (change)="onChanged($event, 'consentPrivacy')"
-                  [formControl]="masterFileForm.controls['consentPrivacy'] | formControl" />
-                <span><b>{{'consent.privacy'|translate}}</b></span>
-                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                <control-messages *ngIf="masterFileForm.controls['consentPrivacy'].invalid" [showError]="showErrors"
-                  parentId="mfCertif" [control]="masterFileForm.controls['consentPrivacy'] | formControl"
-                  controlId="consentPrivacyId" label="consent.privacy"
-                  parentLabel="MasterFile Certification"></control-messages>
-              </label>
-            </div>
-          </div> -->
-
+        <div class="panel-body">
+          <certification (errorList)="processTransFeeErrors($event)" [showErrors]="showErrors"
+          [dataModel]="certificationModel"></certification>
         </div>
       </section>
     </div>
