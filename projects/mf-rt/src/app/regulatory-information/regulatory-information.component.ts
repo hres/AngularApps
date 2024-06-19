@@ -31,7 +31,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   lang: string;
   helpIndex: HelpIndex; 
 
-  public regulartoryFormModel: FormGroup;
+  public regulartoryInfoForm: FormGroup;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() dataModel: Ectd;
@@ -79,8 +79,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
     
-    if (!this.regulartoryFormModel) {
-      this.regulartoryFormModel = RegulatoryInformationService.getRegularInfoForm(this._fb);
+    if (!this.regulartoryInfoForm) {
+      this.regulartoryInfoForm = RegulatoryInformationService.getRegularInfoForm(this._fb);
     }
 
     this.descriptionTypeList = this._globalService.txDescs;
@@ -131,15 +131,15 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
       }
       if (changes['dataModel']) {
         const dataModelCurrentValue = changes['dataModel'].currentValue as Ectd;
-        // if (!this.regulartoryFormModel) {
-        //   this.regulartoryFormModel = this.detailsService.getReactiveModel(
+        // if (!this.regulartoryInfoForm) {
+        //   this.regulartoryInfoForm = this.detailsService.getReactiveModel(
         //     this._fb
         //   );
-        //   this.regulartoryFormModel.markAsPristine();
+        //   this.regulartoryInfoForm.markAsPristine();
         // }
         this._regulatoryInfoService.mapDataModelToFormModel(
           dataModelCurrentValue,
-          <FormGroup>this.regulartoryFormModel,);
+          <FormGroup>this.regulartoryInfoForm,);
 
         this.onMfTypeSelected(null);
         this.onTxDescriptionSelected(null);
@@ -160,7 +160,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   }
 
   onTxDescriptionSelected(e: any): void {
-    const selectedTxDescId = this.regulartoryFormModel.get('descriptionType').value;
+    const selectedTxDescId = this.regulartoryInfoForm.get('descriptionType').value;
     this.selectedTxDescDefinition = this._utilsService.getCodeDefinitionByIdByLang(selectedTxDescId, this.descriptionTypeList, this.lang);
     // console.log(this.selectedTxDescDefinition);
     this.selectedTxDescSignal.set(selectedTxDescId);
@@ -209,20 +209,20 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   }
 
   checkDateValidity(event: any): void {
-    this._utilsService.checkInputValidity(event, this.regulartoryFormModel.get('requestDate'), 'invalidDate');
+    this._utilsService.checkInputValidity(event, this.regulartoryInfoForm.get('requestDate'), 'invalidDate');
   }
 
   get reqRevision() {
-    return this.regulartoryFormModel.get("reqRevision") as FormGroup;
+    return this.regulartoryInfoForm.get("reqRevision") as FormGroup;
   }
 
   get selectedMfTypeId() {
-    return this.regulartoryFormModel.get('masterFileType').value;
+    return this.regulartoryInfoForm.get('masterFileType').value;
   }
 
   private _resetControlValues(listOfValues : string[]) {
     for (let i = 0; i < listOfValues.length; i++) {
-      this._utilsService.resetControlsValues(this.regulartoryFormModel.controls[listOfValues[i]]);
+      this._utilsService.resetControlsValues(this.regulartoryInfoForm.controls[listOfValues[i]]);
     }
   }
 }

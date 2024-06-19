@@ -1,5 +1,5 @@
 <div>
-    <div [formGroup]="regulartoryFormModel">
+    <div [formGroup]="regulartoryInfoForm">
         <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="dossierId" class="required">
@@ -9,9 +9,9 @@
                         <a class="fn-lnk" href="#tr2"><span
                                 class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierIdIndx']}}</a>
                     </sup>
-                    <control-messages *ngIf="regulartoryFormModel.controls['dossierId'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['dossierId'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['dossierId'] | formControl" controlId="dossierId"
+                        [control]="regulartoryInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
                         label="dossier.id" parentId="regulatoryInfo"></control-messages>
                     <span class="rep-input-group">
                         <input id="dossierId" name="dossierId" class="form-control" 
@@ -25,9 +25,9 @@
                 <label for="masterFileName" class="required full-width">
                     <span class="field-name">{{ 'masterfile.name'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="regulartoryFormModel.controls['masterFileName'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['masterFileName'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['masterFileName'] | formControl"
+                        [control]="regulartoryInfoForm.controls['masterFileName'] | formControl"
                         controlId="masterFileName" label="masterfile.name" parentId="regulatoryInfo"></control-messages>
                     <input id="masterFileName" name="masterFileName" class="form-control full-width" 
                         [formControlName]="'masterFileName'" maxlength="256"/>
@@ -36,9 +36,9 @@
             <div class=".form-inline form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="masterFileNumber" class="full-width">
                     <span class="field-name">{{ 'masterfile.number'|translate }} </span>
-                    <control-messages *ngIf="regulartoryFormModel.controls['masterFileNumber'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['masterFileNumber'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['masterFileNumber'] | formControl"
+                        [control]="regulartoryInfoForm.controls['masterFileNumber'] | formControl"
                         controlId="masterFileNumber" label="masterfile.number" parentId="regulatoryInfo"></control-messages>
                     <input id="masterFileNumber" name="masterFileNumber" class="form-control full-width" 
                         [formControlName]="'masterFileNumber'" />
@@ -50,9 +50,9 @@
               <fieldset class="chkbxrdio-grp" >
                   <legend class="required"><span class="field-name">{{'masterfile.type'|translate}}</span>
                       <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-                      <control-messages *ngIf="regulartoryFormModel.controls['masterFileType'].invalid"
+                      <control-messages *ngIf="regulartoryInfoForm.controls['masterFileType'].invalid"
                           [showError]="showFieldErrors"
-                          [control]="regulartoryFormModel.controls['masterFileType'] | formControl"
+                          [control]="regulartoryInfoForm.controls['masterFileType'] | formControl"
                           controlId="masterFileType[0]" label="masterfile.type" parentId="regulatoryInfo"></control-messages>
                   </legend>
                   <ul class="form-group list-unstyled">
@@ -81,9 +81,9 @@
                 <label for="masterFileUse" class="required full-width">
                     <span class="field-name">{{ 'masterfile.use' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="regulartoryFormModel.controls['masterFileUse'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['masterFileUse'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['masterFileUse'] | formControl"
+                        [control]="regulartoryInfoForm.controls['masterFileUse'] | formControl"
                         controlId="masterFileUse" label="masterfile.use" parentId="regulatoryInfo"></control-messages>
                     <select id="masterFileUse" name="masterFileUse" required class="form-control full-width"
                         [formControlName]="'masterFileUse'">
@@ -98,9 +98,9 @@
                 <label for="descriptionType" class="required full-width">
                     <span class="field-name">{{ 'transaction.description' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="regulartoryFormModel.controls['descriptionType'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['descriptionType'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['descriptionType'] | formControl"
+                        [control]="regulartoryInfoForm.controls['descriptionType'] | formControl"
                         controlId="descriptionType" label="transaction.description" parentId="regulatoryInfo"></control-messages>
                     <select id="descriptionType" name="descriptionType" required class="form-control full-width"
                         (change)="onTxDescriptionSelected($any($event.target).value)"
@@ -124,9 +124,9 @@
                 <label for="requestDate" class="required">
                     <span class="field-name">{{ 'request.date' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="regulartoryFormModel.controls['requestDate'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['requestDate'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['requestDate'] | formControl" controlId="requestDate"
+                        [control]="regulartoryInfoForm.controls['requestDate'] | formControl" controlId="requestDate"
                         label="request.date" parentId="regulatoryInfo"></control-messages>
                     <input id="requestDate" name="requestDate" type="date" class="form-control"
                          (input)="checkDateValidity($event)"
@@ -138,9 +138,9 @@
                 <label for="requester" class="required full-width">
                     <span class="field-name">{{'requester.title'|translate}}</span>
                     <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-                    <control-messages *ngIf="regulartoryFormModel.controls['requester'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['requester'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['requester'] | formControl" controlId="requester"
+                        [control]="regulartoryInfoForm.controls['requester'] | formControl" controlId="requester"
                         label="requester.title" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="requester" name="requester" type="text" class="form-control full-width" 
@@ -149,13 +149,13 @@
         </div>
         <div class="row form-group" *ngIf="showReqRevisedTxDesc()">
             <fieldset class="col-md-12 chkbxrdio-grp"
-                data-ng-class="{'has-error':regulartoryFormModel.controls['reqRevision'].$invalid}">
+                data-ng-class="{'has-error':regulartoryInfoForm.controls['reqRevision'].$invalid}">
                 <legend class="required">
                     {{'req.revision' |translate}}
                     <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
-                    <control-messages *ngIf="regulartoryFormModel.controls['reqRevision'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['reqRevision'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['reqRevision'] | formControl" controlId="reqRevision"
+                        [control]="regulartoryInfoForm.controls['reqRevision'] | formControl" controlId="reqRevision"
                         label="req.revision" parentId="regulatoryInfo"></control-messages>
                 </legend>
                 <ul class="form-group form-inline list-unstyled">
@@ -174,9 +174,9 @@
                 <label for="revisedDescriptionType" class="required full-width">
                     <span class="field-name">{{ 'revised.transaction.description' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="regulartoryFormModel.controls['revisedDescriptionType'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['revisedDescriptionType'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryFormModel.controls['revisedDescriptionType'] | formControl"
+                        [control]="regulartoryInfoForm.controls['revisedDescriptionType'] | formControl"
                         controlId="revisedDescriptionType" label="revised.transaction.description" parentId="regulatoryInfo"></control-messages>
                     <select id="revisedDescriptionType" name="revisedDescriptionType" required class="form-control full-width"
                         [formControlName]="'revisedDescriptionType'">

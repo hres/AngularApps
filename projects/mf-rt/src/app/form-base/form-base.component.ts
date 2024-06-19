@@ -310,7 +310,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._updateSavedDate();
     this._updateSoftwareVersion();
 
-    const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.regulartoryFormModel.value;
+    const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.regulartoryInfoForm.value;
 
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
