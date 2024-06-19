@@ -17,10 +17,10 @@ export class CertificationService {
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
     return fb.group({
-        certifyAccurateComplete: [null, Validators.required],
+        certifyAccurateComplete: [false, Validators.requiredTrue],
         fullName: [null, Validators.required],
         submitDate: [null, Validators.required],
-        consentPrivacy: [null, Validators.required]
+        consentPrivacy: [false, Validators.requiredTrue]
     });
   }
 

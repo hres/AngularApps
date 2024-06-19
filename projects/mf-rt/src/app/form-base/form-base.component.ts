@@ -161,9 +161,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // }
 
     // if (this.showContactFees[1] === true) {
-    //   this.errorList = this.errorList.concat(this._transFeeErrors);
+      this.errorList = this.errorList.concat(this._transFeeErrors);
     // }
-
     this.errorList = this.errorList.concat(this._certficationErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
