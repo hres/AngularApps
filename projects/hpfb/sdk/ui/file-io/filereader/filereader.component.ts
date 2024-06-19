@@ -23,6 +23,7 @@ export class FilereaderComponent implements OnInit {
   public importedFileName = "";
   public showFileLoadStatus = false;
   private rootId = '';
+  public fileImported = false;
   
   constructor(private translate: TranslateService) {
   }
@@ -53,6 +54,7 @@ export class FilereaderComponent implements OnInit {
    * @param inputValue
    */
   readSelectedFile(inputValue: any): void {
+    this.fileImported = true;
     let file: File = inputValue.files[0];
     let myReader: FileReader = new FileReader();
     let self = this;

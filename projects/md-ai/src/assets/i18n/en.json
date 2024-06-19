@@ -6,6 +6,8 @@
     "top.security.declaimer": "Security Disclaimer",
     "top.instruction": "Instructions",
     "select.file": "Select a file to load",
+    "choose.file":"Choose File",
+    "no.file.chosen": "No file chosen",
     "load.file": "Load an Application Information Enrolment File",
     "application-info.enrolment": "Regulatory Application Information Enrolment",
     "heading.app-info": "Application Information",
