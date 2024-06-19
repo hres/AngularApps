@@ -1,4 +1,4 @@
-import { IText, IIdText, IIdTextLabel, ILabel } from "@hpfb/sdk/ui";
+import { IIdText, IIdTextLabel, ITextLabel } from "@hpfb/sdk/ui";
 
 export interface Transaction {
   TRANSACTION_ENROL: TransactionEnrol;
@@ -50,7 +50,7 @@ export interface LifecycleRecord {
   revised_trans_desc: IIdTextLabel;
   sequence_description_value: IIdTextLabel;
   sequence_from_date: string;
-  transaction_description: IIdTextLabel;
+  transaction_description: ITextLabel;
   requester_of_solicited_information: string;
 }
 
