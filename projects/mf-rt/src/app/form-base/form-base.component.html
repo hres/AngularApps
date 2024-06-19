@@ -68,11 +68,10 @@
                 <header class="panel-heading clearfix">
                   <h3 class="panel-title">{{'heading.holder.contact'|translate}}</h3>
                 </header>
-                <div class="panel-body">contact-details todo
-                  <!-- <contact-details [showErrors]="showErrors" [lang]="lang"
-                    [contactDetailsModel]="holderContactModel" [helpIndex]="helpIndex"
-                    (errorList)="processContactErrors($event)" [contType]="holder">
-                  </contact-details> -->
+                <div class="panel-body">
+                   <contact-details [showErrors]="showErrors" [dataModel]="holderContactModel"
+                    (errorList)="processContactErrors($event)" [contactType]="holder">
+                  </contact-details> 
                 </div>
               </section>
 
