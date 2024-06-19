@@ -22,7 +22,7 @@ export class RegulatoryInformationService {
    return fb.group({
      dossierId: [
        null,
-       [Validators.required, ValidationService.dossierIdValidator],
+       [Validators.required, ValidationService.mfDossierIdValidator],
      ],
      masterFileName: [null, Validators.required],
      masterFileNumber: [null, ValidationService.masterFileNumberValidator],
