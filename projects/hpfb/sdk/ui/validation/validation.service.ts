@@ -37,6 +37,7 @@ export class ValidationService {
       'error.mgs.npn': 'error.mgs.npn',
       'error.msg.remove.contact' : 'error.msg.remove.contact',
       'error.msg.revise.contact' : 'error.msg.revise.contact',
+      'error.mgs.incorrectFormat': 'error.mgs.incorrectFormat',
       'error.msg.invalidDate': 'error.msg.invalidDate',
     };
 
@@ -309,7 +310,7 @@ export class ValidationService {
     }
   }
 
-    // if first letter is e, then followed by 6 numbers
+  // if first letter is e, then followed by 6 numbers
   // if first letter is f, then followed by 7 numbers
   static masterFileDossierIdValidator(control) {
     if (!control.value) {
