@@ -151,19 +151,21 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
 
     // if (this.showContactFees[0] === true) {
-    //   this.errorList = this.errorList.concat(
-    //     this._addressErrors.concat(this._contactErrors)
-    //   );
+    if (this.showContact()) {
+      this.errorList = this.errorList.concat(
+        this._addressErrors.concat(this._contactErrors)
+      );
     //   if(!this.notApplicable)
     //     this.errorList = this.errorList.concat(
     //       this._agentAddressErrors.concat(this._agentContactErrors)
     //     );
     //   this.errorList = this.errorList.concat(this._contactConfirmError);
-    // }
+    }
 
     // if (this.showContactFees[1] === true) {
+    if (this.showFee()) {
       this.errorList = this.errorList.concat(this._transFeeErrors);
-    // }
+    }
     this.errorList = this.errorList.concat(this._certficationErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
@@ -199,10 +201,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   //   this.processErrors();
   // }
 
-  // processAgentAddressErrors(errorList) {
-  //   this._agentAddressErrors = errorList;
-  //   this.processErrors();
-  // }
+  processAgentAddressErrors(errorList) {
+    this._agentAddressErrors = errorList;
+    this.processErrors();
+  }
 
   // processAgentContactErrors(errorList) {
   //   this._agentContactErrors = errorList;
@@ -246,7 +248,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.agentContactModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_contact;
     // }
     // if (this.showContactFees[1] === true) {
-      this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
+      this.transFeeModel = this.transactionEnrollModel.fee_details;
     // }
 
     // MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
