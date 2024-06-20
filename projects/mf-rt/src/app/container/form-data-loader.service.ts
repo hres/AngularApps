@@ -15,6 +15,7 @@ export class FormDataLoaderService {
   private txDescriptionsJsonPath = DATA_PATH + 'txDescriptions.json';
   private mfUsesJsonPath = DATA_PATH + 'mfUses.json';
   
+  cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
   cachedWhoResponsible$:Observable<ICode[]>;
   cachedCountries$:Observable<ICode[]>;
@@ -27,6 +28,20 @@ export class FormDataLoaderService {
   mfRevisedTypeTxDescOptions$: Observable<IParentChildren[]>;
 
   constructor(private _dataService: DataLoaderService) {}
+
+  getLanguageList(): Observable<ICode[]> {
+    if (!this.cashedLanguages$) {
+      this.cashedLanguages$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          map(keywords => {
+            return keywords.find(keyword => keyword.name === 'languages')?.data || [];
+          }),
+          // tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cashedLanguages$;
+  }
 
   getYesNoList(): Observable<ICode[]> {
     if (!this.cachedYesNo$) {

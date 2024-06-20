@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, HelpIndex, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, HelpIndex, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { IContact } from '../models/transaction';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ContactDetailsService } from './contact-details.service';
@@ -16,6 +16,7 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   helpIndex: HelpIndex; 
   public showFieldErrors: boolean = false;
   public contactFormLocalModel: FormGroup;
+  public languageList: ICode[] = [];
 
   @Input() showErrors: boolean;
   @Input() dataModel: IContact;
@@ -28,6 +29,7 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
       super();
     this.showFieldErrors = false;
     this.showErrors = false;
+    this.languageList = this._globalService.languageList;
 
     if (!this.contactFormLocalModel) {
       this.contactFormLocalModel = this._contactDetailsService.getReactiveModel(this._fb);

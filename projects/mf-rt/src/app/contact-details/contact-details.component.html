@@ -26,38 +26,34 @@
           </label>
         </div>
       </div>
-      <!--
       <div class="row">
         <div class="form-group col-sm-6" >
           <label for="{{contactType}}Language" class="required">
             <span class="field-name">{{'lang.correspond' |translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactFormLocalModel.controls['language'].invalid"
                               [showError]="showFieldErrors"
                               [control]="contactFormLocalModel.controls['language'] | formControl"
-                              controlId="{{contactType}}Language" label="lang.correspond" parentId="{{contactType}}Info"
-                              parentLabel="{{contactType}} Info"></control-messages>
-            <select id="{{contactType}}Language" required class="form-control" [formControl]="contactFormLocalModel.controls['language'] | formControl" 
-              (change)="onLanguageSelected($any($event.target).value)">
+                              controlId="{{contactType}}Language" label="lang.correspond" parentId="{{contactType}}Info"></control-messages>
+            <select id="{{contactType}}Language" required class="form-control" [formControl]="contactFormLocalModel.controls['language'] | formControl">
               <option label=" " value=""></option>
-              <option *ngFor="let langOption of languages" [ngValue]="langOption.id">{{langOption | textTransform: lang }}</option>
+              <option *ngFor="let langOption of languageList" [value]="langOption.id">{{langOption | textTransform: lang }}</option>
             </select>
           </label>
         </div>
         <div class="form-group col-sm-6">
           <label for="{{contactType}}JobTitle" class="required full-width">
             <span class="field-name">{{'job.title'|translate}}</span>
-            <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactFormLocalModel.controls['jobTitle'].invalid"
                               [showError]="showFieldErrors"
                               [control]="contactFormLocalModel.controls['jobTitle'] | formControl"
-                              controlId="{{contactType}}JobTitle" label="job.title" parentId="{{contactType}}Info"
-                              parentLabel="{{contactType}} Info"></control-messages>
+                              controlId="{{contactType}}JobTitle" label="job.title" parentId="{{contactType}}Info"></control-messages>
             <input name="jobTitle" id="{{contactType}}JobTitle" class="form-control full-width" maxlength="60" 
-            [formControl]="contactFormLocalModel.controls['jobTitle'] | formControl" (blur)="onblur()"/>
+            [formControl]="contactFormLocalModel.controls['jobTitle'] | formControl"/>
           </label>
         </div>
-      </div> -->
+      </div>
       <div class="row">
         <div class="form-group col-sm-6" >
           <label for="{{contactType}}PhoneNumber" class="required full-width">
