@@ -62,11 +62,11 @@ const config = {
         "breadcrumbsPath": "mf",
         "en": {
             "indexFileOriginalName": "/index-en.html",
-            "indexFileNewName": "/mf-regulatory-transaction.html",
+            "indexFileNewName": "/master-file-form.html",
         },
         "fr": {
             "indexFileOriginalName": "/index-fr.html",
-            "indexFileNewName": "/im-transaction-reglementaire.html",
+            "indexFileNewName": "/formulaire-fiche-maitresse.html",
         }
       }
 
