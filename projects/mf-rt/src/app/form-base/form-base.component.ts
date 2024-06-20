@@ -26,6 +26,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   lang: string;
   helpIndex: HelpIndex;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
 
   private _regulatoryInfoErrors = [];
   private _transFeeErrors = [];
@@ -73,8 +74,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   showFee = computed(() => {
     return this.selectedTxDescSignal()==='' ? true : !this.noFeeTxDescs.includes(this.selectedTxDescSignal());
   });
-
-  @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
 
   constructor(
     private _fb: FormBuilder,
@@ -317,6 +316,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._updateSavedDate();
     this._updateSoftwareVersion();
 
+    const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.regulartoryInfoForm.value;
+
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
     //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
@@ -341,13 +342,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.transactionEnrollModel.fee_details = null;
     // }
 
-    this.transactionEnrollModel.certification = this.certificationModel;
+    // this.transactionEnrollModel.certification = this.certificationModel;
 
-    const result: Transaction = {
-      TRANSACTION_ENROL: this.transactionEnrollModel,
-    };
-
-    console.log('_prepareForSaving ~ result', JSON.stringify(result));
+    const result: Transaction = this._baseService.mapFormToOutput(regulatoryInfoFormGroupValue);
+    console.log('_prepareForSaving ~ result', JSON.stringify(result, null, 2));
 
     return result;
   }

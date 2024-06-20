@@ -20,8 +20,6 @@ import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
 import { Ectd } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
-import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-regulatory-information',
@@ -33,7 +31,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   lang: string;
   helpIndex: HelpIndex; 
 
-  public regulartoryFormModel: FormGroup;
+  public regulartoryInfoForm: FormGroup;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() dataModel: Ectd;
@@ -73,7 +71,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   });
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
-    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _utilsService: UtilsService, private _globalService: GlobalService) {
     this.showFieldErrors = false;
   }
 
@@ -81,8 +79,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
     
-    if (!this.regulartoryFormModel) {
-      this.regulartoryFormModel = RegulatoryInformationService.getRegularInfoForm(this._fb);
+    if (!this.regulartoryInfoForm) {
+      this.regulartoryInfoForm = RegulatoryInformationService.getRegularInfoForm(this._fb);
     }
 
     this.descriptionTypeList = this._globalService.txDescs;
@@ -114,21 +112,6 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   ngOnChanges(changes: SimpleChanges) {
     const isFirstChange = this._utilsService.isFirstChange(changes);
     // console.log("RegulatoryInformationComponent ~ ngOnChanges ~ isFirstChange:", isFirstChange);
-
-    // since we can't detect changes on objects, using a separate flag
-    // if (changes['detailsChanged']) {
-    //   // used as a change indicator for the model
-    //   // console.log("the details cbange");
-    //   if (this.mfDetailsFormRecord) {
-    //     this.setToLocalModel();
-    //   } else {
-    //     this.regulartoryFormModel = this.detailsService.getReactiveModel(
-    //       this._fb
-    //     );
-    //     this.regulartoryFormModel.markAsPristine();
-    //   }
-    // }
-
     // Ignore first trigger of ngOnChanges
     if (!isFirstChange) {
       if (changes['showErrors']) {
@@ -146,28 +129,21 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
         }
         this.errorList.emit(temp);
       }
-      if (changes['regulartoryFormModel']) {
-        //?????????
-        // console.log('**********the master-file details changed');
-        // this.mfDetailsFormRecord = this.regulartoryFormModel;
-      }
       if (changes['dataModel']) {
         const dataModelCurrentValue = changes['dataModel'].currentValue as Ectd;
-        // if (!this.regulartoryFormModel) {
-        //   this.regulartoryFormModel = this.detailsService.getReactiveModel(
+        // if (!this.regulartoryInfoForm) {
+        //   this.regulartoryInfoForm = this.detailsService.getReactiveModel(
         //     this._fb
         //   );
-        //   this.regulartoryFormModel.markAsPristine();
+        //   this.regulartoryInfoForm.markAsPristine();
         // }
         this._regulatoryInfoService.mapDataModelToFormModel(
           dataModelCurrentValue,
-          <FormGroup>this.regulartoryFormModel,
-          this.lang
-        );
+          <FormGroup>this.regulartoryInfoForm,);
 
         this.onMfTypeSelected(null);
-
         this.onTxDescriptionSelected(null);
+        this.reqRevisionChanged(null);
       }
     }
   }
@@ -175,32 +151,16 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   ngOnDestroy() {
   }
 
-  onblur() {
-    // console.log('onblur');
-    this._saveData();
-  }
-
-  // onblurMFName() {
-  //   this.regulartoryFormModel.controls['masterFileName'].setValue(this.regulartoryFormModel.get('masterFileName').value.toUpperCase());
-  //   this._saveData();
-  // }
-
   onMfTypeSelected(e: any): void {
-    const selectedMfTypeId = this.regulartoryFormModel.get('masterFileType').value;
-    const codeDefinition = this._utilsService.findCodeDefinitionById(this.mfTypeOptions, selectedMfTypeId);
+    const codeDefinition = this._utilsService.findCodeDefinitionById(this.mfTypeOptions, this.selectedMfTypeId);
     this.selectedMfTypeDefinition = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
 
     // get the transaction description dropdown list
-    this._getTransactionDescriptions();
-
-    if (e) {
-      // when the action is triggered from the UI
-      this._saveData();
-    }
+    this._getTransactionDescriptions(this.selectedMfTypeId);
   }
 
   onTxDescriptionSelected(e: any): void {
-    const selectedTxDescId = this.regulartoryFormModel.get('descriptionType').value;
+    const selectedTxDescId = this.regulartoryInfoForm.get('descriptionType').value;
     this.selectedTxDescDefinition = this._utilsService.getCodeDefinitionByIdByLang(selectedTxDescId, this.descriptionTypeList, this.lang);
     // console.log(this.selectedTxDescDefinition);
     this.selectedTxDescSignal.set(selectedTxDescId);
@@ -226,80 +186,43 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     if (e) {
       // when the action is triggered from the UI
       this.trDescUpdated.emit(selectedTxDescId);
-      this._saveData();
     }
   }
-
-  onRevTxDescriptionSelected(e: any): void {
-//     const revTxDescControl = this.regulartoryFormModel.get('revisedDescriptionType').value;
-    if (e) {
-      // when the action is triggered from the UI
-      this._saveData();
-    }
-  }
-
-
 
   reqRevisionChanged(e:any):void {
-
-    // this._getRevisedTransactionDescriptions();
-    // const reqRevisionControl = this.regulartoryFormModel.get("reqRevision");
-    // this.showRevisedTxDesc = (reqRevisionControl?.value === 'Y');
-
-    // this.regulartoryFormModel.controls['reqRevision'].setValue(null);
-    // this.regulartoryFormModel.controls['reqRevision'].setValue(e.target.value);
-    // if (e.target.value && e.target.value === 'Y') {
-    //   this.showRevisedTxDesc = true;
-
-    // } else {
-    //   this.showRevisedTxDesc = false;
-    //   this._utilsService.resetControlsValues(this.regulartoryFormModel.controls['revisedDescriptionType']);
-    // }
     this.selectedReqRevisionSignal.set(this.reqRevision?.value);
     if (this.showRevisedTxDesc()) {
-      console.log("reqRevision is Y, load revised transaction description")
-      this._getRevisedTransactionDescriptions();
+      this._getRevisedTransactionDescriptions(this.selectedMfTypeId);
     } else {
-      console.log("reqRevision is N, clear revised transaction description")
-      this._utilsService.resetControlsValues(this.regulartoryFormModel.controls['revisedDescriptionType']);
+      const valuesToReset = ['revisedDescriptionType'];
+      this._resetControlValues(valuesToReset);
     }
-  }
-
-  private _saveData() {
-    this._regulatoryInfoService.mapFormModelToDataModel(
-      <FormGroup>this.regulartoryFormModel,
-      this.dataModel,
-      this.lang, this.descriptionTypeList
-    );
   }
 
   // dynamically load the transaction description dropdowns according to the master type value
-  private _getTransactionDescriptions(): void {
-    const mfTypeControl = this.regulartoryFormModel.get('masterFileType');
-    const selectedMfTypeId = mfTypeControl?.value;
-    console.log("RegulatoryInformationComponent ~ _getTransactionDescriptions ~ selectedMfTypeId:", selectedMfTypeId);
-
-    this.txDescOptions = this._utilsService.filterParentChildrenArray(this.mfTypeDescArray, selectedMfTypeId);
+  private _getTransactionDescriptions(mfTypeId: string): void {
+    this.txDescOptions = this._utilsService.filterParentChildrenArray(this.mfTypeDescArray, mfTypeId);
   }
 
-  private _getRevisedTransactionDescriptions(): void {
-    const mfTypeControl = this.regulartoryFormModel.get('masterFileType');
-    const selectedMfTypeId= mfTypeControl?.value;
-
-    this.revTxDescOptions = this._utilsService.filterParentChildrenArray(this.mfRevisedTypeDescArray, selectedMfTypeId);
+  private _getRevisedTransactionDescriptions(mfTypeId: string): void {
+    this.revTxDescOptions = this._utilsService.filterParentChildrenArray(this.mfRevisedTypeDescArray, mfTypeId);
   }
 
   checkDateValidity(event: any): void {
-    this._utilsService.checkInputValidity(event, this.regulartoryFormModel.get('requestDate'), 'invalidDate');
+    this._utilsService.checkInputValidity(event, this.regulartoryInfoForm.get('requestDate'), 'invalidDate');
   }
 
   get reqRevision() {
-    return this.regulartoryFormModel.get("reqRevision") as FormGroup;
+    return this.regulartoryInfoForm.get("reqRevision") as FormGroup;
+  }
+
+  get selectedMfTypeId() {
+    return this.regulartoryInfoForm.get('masterFileType').value;
   }
 
   private _resetControlValues(listOfValues : string[]) {
     for (let i = 0; i < listOfValues.length; i++) {
-      this._utilsService.resetControlsValues(this.regulartoryFormModel.controls[listOfValues[i]]);
+      this._utilsService.resetControlsValues(this.regulartoryInfoForm.controls[listOfValues[i]]);
     }
   }
 }

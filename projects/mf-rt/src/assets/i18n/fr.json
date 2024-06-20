@@ -10,6 +10,7 @@
   "instruction.help": "Instructions pour compléter les sections du formulaire",
   "load.file": "Télécharger un formulaire de demande de fiche maîtresse",
   "select.file": "Sélectionnez un fichier à télécharger",
+  "refresh.file.input": "Actualisez cette page",
   "master.file.enrolment": "fr_Regulatory Master File Transaction and Application Enrolment",
   "instruction.dossier.id.line1": "Dossier formaté eCTD - e123456<br />Dossier formaté non-eCTD - f1234567",
   "instruction.dossier.id.line2": "En cas de dépôt d'une <strong>NOUVELLE</strong> demande d'enregistrement d'une fiche maîtresse, demander un nouvel ID de dossier eCTD en remplissant <a href='https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/demandes-presentations/lignes-directrices/depot-soumissions-electroniques/formulaire-demande-id-dossiers-fiches-maitresses.html'>le Formulaire de demande pour les ID de dossiers Fiches maîtresses</a> en ligne.",

@@ -127,6 +127,9 @@ export class UtilsService {
 
   // filter an IParentChildren array by parentId and return its children
   filterParentChildrenArray(arr: IParentChildren[], pId: string) : ICodeDefinition[]{
+    if (!pId) {
+      return [];
+    }
     const filteredArray = arr.filter(
       (x) => x.parentId === pId
     );
@@ -135,7 +138,13 @@ export class UtilsService {
     //      filteredArray
     // );
 
-    return filteredArray[0]['children'];
+    // Check if filteredArray is not empty and return children
+    if (filteredArray.length > 0) {
+      return filteredArray[0]['children'];
+    }
+
+    // If no match found, return an empty array
+    return [];
   }    
 
   // return a concatated string, delimited by a space

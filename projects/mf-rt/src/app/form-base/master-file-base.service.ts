@@ -2,12 +2,16 @@ import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Ectd, LifecycleRecord, TransactionEnrol, Transaction, ContactInfo, IContact, INameAddress, FeeDetails} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
-import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
+import { UtilsService } from '@hpfb/sdk/ui';
+import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
+import { MasterFileFeeService } from '../master-file-fee/master-file.fee.service';
+import { ROOT_TAG } from '../app.constants';
 
 @Injectable()
 export class MasterFileBaseService {
 
-  constructor(private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
+  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _feeService: MasterFileFeeService,
+    private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
 
   /**
@@ -175,5 +179,18 @@ export class MasterFileBaseService {
     }
     return contactInfo;
   }
-  
+
+  public mapFormToOutput(regulatoryInfoFormGroupValue: any): Transaction{
+    console.log(regulatoryInfoFormGroupValue)
+    const newTransactionEnrol: TransactionEnrol = this.getEmptyTransactionEnrol();
+    
+    // let regulatoryInfoModel: Ectd = this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue);
+    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, newTransactionEnrol.ectd);
+
+    const output: Transaction = {
+      TRANSACTION_ENROL: newTransactionEnrol
+    };
+
+    return output;
+  }
 }
