@@ -9,7 +9,7 @@ import { FilereaderInstructionComponent } from "../filereader-instruction/filere
 import { MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationComponent } from "../regulatory-information/regulatory-information.component";
 import { MasterFileBaseService } from './master-file-base.service';
-import { Certification, Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
+import { Certification, Ectd, FeeDetails, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
 
 @Component({
@@ -52,7 +52,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public ectdModel: Ectd;
   // public holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
   // public agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-  // public holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
+  public holderContactModel: IContact; 
   // public agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
   public transFeeModel: FeeDetails;
   public certificationModel: Certification;
@@ -104,6 +104,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
 
       this.transactionEnrollModel = this.enrollModel[this.rootTagText];
+      this.holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
 
       this.lang = this._globalService.currLanguage;
       this.helpIndex = this._globalService.helpIndex;
@@ -170,6 +171,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processRegulatoryInfoErrors(errorList) {
     this._regulatoryInfoErrors = errorList;
+    this.processErrors();
+  }
+
+  processContactErrors(errorList) {
+    this._contactErrors = errorList;
     this.processErrors();
   }
 
@@ -331,7 +337,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.transactionEnrollModel.contact_info = null;
     // }
     // if (this.showContactFees[1] === true) {
-    //   this.transactionEnrollModel.fee_details = this.transFeeModel;
+      this.transactionEnrollModel.fee_details = this.transFeeModel;
     // } else {
     //   this.transactionEnrollModel.fee_details = null;
     // }
