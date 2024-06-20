@@ -424,6 +424,16 @@
             ],
             "tsConfig": "projects/mf-rt/tsconfig.app.json",
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/mf-rt/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/hpfb/sdk/src/assets",
+                "output": "/assets/temp"
+              },
               "projects/mf-rt/src/favicon.ico",
               "projects/mf-rt/src/assets"
             ],
