@@ -34,7 +34,8 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getTxDescriptions(),
     this._formDataLoader.getMasterFileTypeAndTransactionDescription(),
     this._formDataLoader.getMasterFileRevisedTypeAndTransactionDescription(),
-    this._formDataLoader.getWhoResponsibleList()
+    this._formDataLoader.getWhoResponsibleList(),
+    this._formDataLoader.getLanguageList()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -56,6 +57,7 @@ export class ContainerComponent implements OnInit {
       this._globalService.mfTypeTxDescs = data[7];
       this._globalService.mfRevisedTypeDescs = data[8];
       this._globalService.whoResponsible = data[9];
+      this._globalService.languageList = data[10];
       this.loadFormBaseComponent = true;
     });
   }
