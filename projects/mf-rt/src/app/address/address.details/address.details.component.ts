@@ -136,7 +136,6 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
     if (!isFirstChange) {
       if (changes['showErrors']) {
-
         this.showFieldErrors = changes['showErrors'].currentValue;
         let temp = [];
         if (this.msgList) {
@@ -160,7 +159,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
         // if (dataModel.country) {
         //   this._setCountryState(dataModel.country._id, this.addressForm);
         // }
-        this.onCountryChange();
+        this.onCountryChange(null);
       }
     }
   }
@@ -175,13 +174,15 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   // }
 
 
-  onCountryChange() {
+  onCountryChange(e: any): void {
     const selectedCountryId = this.addressForm.controls['country'].value;
     this.selectedCountrySignal.set(selectedCountryId);
 
-    // reset provText field
-    const valuesToReset = ['provText', 'postal', 'provState'];
-    this._resetControlValues(valuesToReset);
+    if (e) {
+      // reset provText field when the action is triggered from the UI
+      const valuesToReset = ['provText', 'postal', 'provState'];
+      this._resetControlValues(valuesToReset);
+    }
 
     if (this.isCanadaOrUSA()) {
       // updte provState and postal fields' validator and refresh the provStateList based on country

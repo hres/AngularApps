@@ -62,7 +62,7 @@
                             [control]="addressForm.controls['country'] | formControl"
                             controlId="{{addrType}}Country" label="addressDetails.country" parentId="{{addrType}}Info"></control-messages>
           <select id="{{addrType}}Country" required formControlName="country" class="required form-control"                      
-                  (change)="onCountryChange()">
+                  (change)="onCountryChange($event)">
             <option label=" " value=""></option>
             <option *ngFor="let ctry of countryList" [value]="ctry.id">{{ ctry| textTransform: lang }}</option>
           </select>
