@@ -15,10 +15,13 @@ import { CertificationComponent } from './certification/certification.component'
 import { MasterFileFeeComponent } from './master-file-fee/master-file-fee.component';
 import { MasterFileFeeService } from './master-file-fee/master-file.fee.service';
 import { CertificationService } from './certification/certification.service';
+import { AddressDetailsComponent } from './address/address.details/address.details.component';
+import { AddressDetailsService } from './address/address.details/address.details.service';
 
 @NgModule({
   declarations: [
     RegulatoryInformationComponent,
+    AddressDetailsComponent,
     MasterFileFeeComponent, 
     CertificationComponent
   ],
@@ -35,11 +38,13 @@ import { CertificationService } from './certification/certification.service';
   ],
   providers: [
     RegulatoryInformationService,
+    AddressDetailsService,
     MasterFileFeeService,
     CertificationService
   ],
   exports: [CommonUiFeatureModule, 
     RegulatoryInformationComponent,
+    AddressDetailsComponent,
     MasterFileFeeComponent, 
     CertificationComponent
    ],

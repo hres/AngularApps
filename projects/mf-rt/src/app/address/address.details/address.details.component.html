@@ -3,8 +3,8 @@
     <div class="row">
       <div class="form-group col-xs-12" >
         <label for="{{addrType}}CompanyName" class="required full-width">
-          <span class="field-name" i18n>{{'company.name.full'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name">{{'company.name.full'|translate}}</span>
+          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['companyName'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['companyName'] | formControl"
@@ -30,8 +30,8 @@
     <div class="row">
       <div class="form-group col-xs-12" >
         <label for="{{addrType}}Address" class="required full-width">
-          <span class="field-name" i18n>{{'addressDetails.street'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name">{{'addressDetails.street'|translate}}</span>
+          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['address'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['address'] | formControl"
@@ -45,8 +45,8 @@
     <div class="row">
       <div class="form-group col-sm-6 col-xs-12" >
         <label for="{{addrType}}City" class="required full-width">
-          <span class="field-name" i18n>{{'addressDetails.city'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name">{{'addressDetails.city'|translate}}</span>
+          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['city'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['city'] | formControl"
@@ -58,42 +58,39 @@
       </div>
       <div class="form-group col-sm-5 col-xs-12" >
         <label class="required full-width" for="{{addrType}}Country">
-          <span class="field-name" i18n>{{'addressDetails.country'|translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
+          <span class="field-name">{{'addressDetails.country'|translate}}</span>
+          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressFormLocalModel.controls['country'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['country'] | formControl"
                             controlId="{{addrType}}Country" label="addressDetails.country" parentId="{{addrType}}Info"
                             parentLabel="REP Address"></control-messages>
-              <select class="margin-top-small" id="{{addrType}}Country" [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required form-control"                      
-                       (typed)="typed()"
-                       (blur)="typed()"
-                       (add)="typed()"
-                       (selected)="processCountry()">
-              
-                <option *ngFor="let ctry of countries" label="{{lang=='en' ? ctry.en : ctry.fr}}" value="{{ctry.id}}">{{lang=='en' ? ctry.en : ctry.fr}}</option>
-              <!--[if lte IE 9]></select><![endif]-->
-              </select>
+
+          <select id="{{addrType}}Country" required [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required form-control"                      
+                  (change)="onCountryChange()">
+            <option label=" " value=""></option>
+            <option *ngFor="let ctry of countryList" [value]="ctry.id">{{ ctry| textTransform: lang }}</option>
+          </select>
         </label>
       </div>
     </div>
     <div class="row">
-      <div *ngIf="!showProvText" class="form-group col-xs-12 col-sm-6" >
+      <div *ngIf="isCanadaOrUSA()" class="form-group col-xs-12 col-sm-6" >
         <label for="{{addrType}}ProvState" class="required full-width">
           <span class="field-name">{{provinceLabel |translate}}</span>
-          <strong *ngIf="!showProvText" class="required" i18n>{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="addressFormLocalModel.controls['provList'].invalid"
+          <strong *ngIf="isCanadaOrUSA()" class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="addressFormLocalModel.controls['provState'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="addressFormLocalModel.controls['provList'] | formControl"
+                            [control]="addressFormLocalModel.controls['provState'] | formControl"
                             controlId="{{addrType}}ProvState" label="{{provinceLabel}}" parentId="{{addrType}}Info"
                             parentLabel="{{addrType}} Info"></control-messages>
-          <select id="{{addrType}}ProvState" required class="form-control full-width" (blur)="onblur()" [formControl]="addressFormLocalModel.controls['provList'] | formControl">
+          <select id="{{addrType}}ProvState" required class="form-control full-width" (blur)="onblur()" [formControl]="addressFormLocalModel.controls['provState'] | formControl">
             <option label=" " value=""></option>
             <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov | textTransform: lang}}</option>
           </select>
         </label>
       </div>
-      <div *ngIf="showProvText" class="form-group col-xs-12 col-sm-6">
+      <div *ngIf="!isCanadaOrUSA()" class="form-group col-xs-12 col-sm-6">
         <label for="{{addrType}}ProvText" class="full-width">
           <span class="field-name">{{'addressDetails.provState'|translate}}</span>
           <input name="provText" id="{{addrType}}ProvText" class="form-control full-width" (blur)="onblur()"
@@ -107,22 +104,22 @@
       </div>
       <div class="form-group col-sm-6 col-xs-12">
         <label for="{{addrType}}Postal" class="required">
-          <span class="field-name" i18n>{{ postalLabel |translate}}</span>
-          <strong class="required" i18n>{{'commmon.required.bracket'|translate}}</strong><br/>
-          <span *ngIf="showProvText" class="field-name small" i18n>{{'postal.not.applicable' |translate }}</span>
+          <span class="field-name">{{ postalLabel |translate}}</span>
+          <strong class="required">{{'commmon.required.bracket'|translate}}</strong><br/>
+          <span *ngIf="!isCanadaOrUSA()" class="field-name small">{{'postal.not.applicable' |translate }}</span>
           <control-messages *ngIf="addressFormLocalModel.controls['postal'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressFormLocalModel.controls['postal'] | formControl"
                             controlId="{{addrType}}Postal" label="{{postalLabel}}" parentId="{{addrType}}Info"
-                            parentLabel="{{addrType}} Info"></control-messages>
-          <input *ngIf="showProvText" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
+                            parentLabel="{{addrType}} Info"></control-messages> 
+          input *ngIf="!isCanadaOrUSA()" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
                  maxlength="20" />
-          <input *ngIf="!showProvText && postalCode" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
+          <input *ngIf="isCanada()" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
                  maxlength="6" />
-          <input *ngIf="!showProvText && zipCode" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
-                 maxlength="5" data-only-digits/>
+          <input *ngIf="isUsa()" name="postal" id="{{addrType}}Postal" class="form-control" [formControl]="addressFormLocalModel.controls['postal'] | formControl"  (blur)="onblur()"
+                 maxlength="5" data-only-digits/>       
         </label>
     </div>
-    <!-- <pre>{{addressFormLocalModel.value |json}}</pre>-->
+    <pre>{{addressFormLocalModel.value |json}}</pre>
   </div>
 </div>

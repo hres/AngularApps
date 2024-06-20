@@ -9,7 +9,7 @@ import { FilereaderInstructionComponent } from "../filereader-instruction/filere
 import { MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationComponent } from "../regulatory-information/regulatory-information.component";
 import { MasterFileBaseService } from './master-file-base.service';
-import { Certification, Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
+import { Certification, Ectd, FeeDetails, INameAddress, Transaction, TransactionEnrol} from '../models/transaction';
 import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
 
 @Component({
@@ -50,8 +50,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
-  // public holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-  // public agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  public holderAddressModel: INameAddress;
+  public agentAddressModel: INameAddress;
   // public holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
   // public agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
   public transFeeModel: FeeDetails;
@@ -183,10 +183,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  // processAddressErrors(errorList) {
-  //   this._addressErrors = errorList;
-  //   this.processErrors();
-  // }
+  processAddressErrors(errorList) {
+    this._addressErrors = errorList;
+    this.processErrors();
+  }
 
   // processContactErrors(errorList) {
   //   this._contactErrors = errorList;
@@ -224,6 +224,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     console.log(fileData);
     this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
     this.ectdModel = this.transactionEnrollModel.ectd;
+    this.holderAddressModel = this.transactionEnrollModel.contact_info.holder_name_address;
+    this.agentAddressModel = this.transactionEnrollModel.contact_info.agent_name_address;
 
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
