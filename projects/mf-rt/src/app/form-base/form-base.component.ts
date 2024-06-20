@@ -9,7 +9,7 @@ import { FilereaderInstructionComponent } from "../filereader-instruction/filere
 import { MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationComponent } from "../regulatory-information/regulatory-information.component";
 import { MasterFileBaseService } from './master-file-base.service';
-import { Certification, Ectd, FeeDetails, IContact, Transaction, TransactionEnrol} from '../models/transaction';
+import { Certification, Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
 
 @Component({
@@ -50,8 +50,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
-  // public holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-  // public agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
+  public holderAddressModel: INameAddress;
+  public agentAddressModel: INameAddress;
   public holderContactModel: IContact; 
   // public agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
   public transFeeModel: FeeDetails;
@@ -151,19 +151,21 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
 
     // if (this.showContactFees[0] === true) {
-    //   this.errorList = this.errorList.concat(
-    //     this._addressErrors.concat(this._contactErrors)
-    //   );
+    if (this.showContact()) {
+      this.errorList = this.errorList.concat(
+        this._addressErrors.concat(this._contactErrors)
+      );
     //   if(!this.notApplicable)
     //     this.errorList = this.errorList.concat(
     //       this._agentAddressErrors.concat(this._agentContactErrors)
     //     );
     //   this.errorList = this.errorList.concat(this._contactConfirmError);
-    // }
+    }
 
     // if (this.showContactFees[1] === true) {
+    if (this.showFee()) {
       this.errorList = this.errorList.concat(this._transFeeErrors);
-    // }
+    }
     this.errorList = this.errorList.concat(this._certficationErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
@@ -189,20 +191,20 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  // processAddressErrors(errorList) {
-  //   this._addressErrors = errorList;
-  //   this.processErrors();
-  // }
+  processAddressErrors(errorList) {
+    this._addressErrors = errorList;
+    this.processErrors();
+  }
 
   // processContactErrors(errorList) {
   //   this._contactErrors = errorList;
   //   this.processErrors();
   // }
 
-  // processAgentAddressErrors(errorList) {
-  //   this._agentAddressErrors = errorList;
-  //   this.processErrors();
-  // }
+  processAgentAddressErrors(errorList) {
+    this._agentAddressErrors = errorList;
+    this.processErrors();
+  }
 
   // processAgentContactErrors(errorList) {
   //   this._agentContactErrors = errorList;
@@ -230,6 +232,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     console.log(fileData);
     this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
     this.ectdModel = this.transactionEnrollModel.ectd;
+    this.holderAddressModel = this.transactionEnrollModel.contact_info.holder_name_address;
+    this.agentAddressModel = this.transactionEnrollModel.contact_info.agent_name_address;
 
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
@@ -244,7 +248,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.agentContactModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_contact;
     // }
     // if (this.showContactFees[1] === true) {
-      this.transFeeModel = fileData.data.TRANSACTION_ENROL.fee_details;
+      this.transFeeModel = this.transactionEnrollModel.fee_details;
     // }
 
     // MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);

@@ -220,9 +220,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     return this.regulartoryInfoForm.get('masterFileType').value;
   }
 
-  private _resetControlValues(listOfValues : string[]) {
-    for (let i = 0; i < listOfValues.length; i++) {
-      this._utilsService.resetControlsValues(this.regulartoryInfoForm.controls[listOfValues[i]]);
+  private _resetControlValues(controlNames: string[]) {
+    for (let i = 0; i < controlNames.length; i++) {
+      this._utilsService.resetControlsValues(this.regulartoryInfoForm.controls[controlNames[i]]);
     }
   }
 }

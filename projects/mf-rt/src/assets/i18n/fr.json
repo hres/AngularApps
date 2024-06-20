@@ -46,7 +46,7 @@
   "error.mgs.regu.contact.id": "fr_Please specify a valid regulatory manufacturer contact Identifier.",
   "error.mgs.incorrectFormat": "Format incorrect.",
   "error.msg.postal": "Ce format n'est pas valide",
-  "error.msg.zip": "Ce format n'est pas valide",
+  "error.mgs.zip": "Ce format n'est pas valide",
   "error.msg.phone": "Ce format n'est pas valide",
   "error.msg.email": "Ce format n'est pas valide",
   "error.msg.fax": "Ce format n'est pas valide",
