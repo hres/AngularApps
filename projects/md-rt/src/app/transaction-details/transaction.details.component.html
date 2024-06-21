@@ -115,7 +115,7 @@
       <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" >
             <legend class="required"><span class="field-name">{{'device.class'|translate}}</span>
-                <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+                <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                 <sup id="tr5-rf">
                   <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{ 'instruction'|translate }}</span>{{helpIndex['deviceClassInx']}}</a>
                 </sup>
@@ -127,10 +127,17 @@
             <ul class="form-group list-unstyled">
               <li class="radio" *ngFor="let class of deviceClassList; let i = index">
                 <label for="deviceClass{{i}}">
-                  <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
+                  @if(i == 0){
+                    <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
                     (change)="deviceClassOnChange()"
-                    [formControl]="transDetailsForm.controls['deviceClass'] | formControl" required/>
+                    [formControl]="transDetailsForm.controls['deviceClass'] | formControl" data-rule-required="true"/>
                     {{class | textTransform: lang }}
+                  } @else {
+                    <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
+                    (change)="deviceClassOnChange()"
+                    [formControl]="transDetailsForm.controls['deviceClass'] | formControl" />
+                    {{class | textTransform: lang }}
+                  }
                 </label>
               </li>
             </ul>
