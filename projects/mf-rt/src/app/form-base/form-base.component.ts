@@ -6,7 +6,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
-import { MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG } from '../app.constants';
+import { ADDR_CONT_TYPE, MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationComponent } from "../regulatory-information/regulatory-information.component";
 import { MasterFileBaseService } from './master-file-base.service';
 import { Certification, Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
@@ -60,8 +60,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public certificationModel: Certification;
 
   public notApplicable: boolean = false;
-  public holder: string = 'holder';
-  public agent: string = 'agent';
+  public holder: string = ADDR_CONT_TYPE.HOLDER;
+  public agent: string = ADDR_CONT_TYPE.AGENT;
 
   showDateAndRequesterTxDescs: string[] = ['12', '14', '13'];
   noContactTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions

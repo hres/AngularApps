@@ -5,7 +5,7 @@ import { GlobalService } from '../global/global.service';
 import { UtilsService } from '@hpfb/sdk/ui';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 import { MasterFileFeeService } from '../master-file-fee/master-file.fee.service';
-import { ROOT_TAG } from '../app.constants';
+import { ADDR_CONT_TYPE, ROOT_TAG } from '../app.constants';
 import { AddressDetailsService } from '../address/address.details/address.details.service';
 
 @Injectable()
@@ -192,9 +192,9 @@ export class MasterFileBaseService {
     this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, newTransactionEnrol.ectd, lang);
 
     addressesFormGroupValue.forEach(address => {
-      if (address.addrType === 'holder') {
+      if (address.addrType === ADDR_CONT_TYPE.HOLDER) {
         this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.holder_name_address, lang);
-      } else if (address.addrType === 'agent') {
+      } else if (address.addrType === ADDR_CONT_TYPE.AGENT) {
         this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.agent_name_address, lang);
       }
     });
