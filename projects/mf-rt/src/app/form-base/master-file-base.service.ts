@@ -6,11 +6,13 @@ import { UtilsService } from '@hpfb/sdk/ui';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 import { MasterFileFeeService } from '../master-file-fee/master-file.fee.service';
 import { ROOT_TAG } from '../app.constants';
+import { AddressDetailsService } from '../address/address.details/address.details.service';
 
 @Injectable()
 export class MasterFileBaseService {
 
-  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _feeService: MasterFileFeeService,
+  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _addressDetailsService: AddressDetailsService,
+    private _feeService: MasterFileFeeService,
     private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
 
@@ -180,12 +182,22 @@ export class MasterFileBaseService {
     return contactInfo;
   }
 
-  public mapFormToOutput(regulatoryInfoFormGroupValue: any): Transaction{
-    console.log(regulatoryInfoFormGroupValue)
+  public mapFormToOutput(regulatoryInfoFormGroupValue: any, addressesFormGroupValue: Array<{ addrType: string, value: any }>): Transaction{
+
+    const lang = this._globalService.currLanguage;
+
+    // console.log(regulatoryInfoFormGroupValue)
     const newTransactionEnrol: TransactionEnrol = this.getEmptyTransactionEnrol();
     
-    // let regulatoryInfoModel: Ectd = this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue);
-    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, newTransactionEnrol.ectd);
+    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, newTransactionEnrol.ectd, lang);
+
+    addressesFormGroupValue.forEach(address => {
+      if (address.addrType === 'holder') {
+        this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.holder_name_address, lang);
+      } else if (address.addrType === 'agent') {
+        this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.agent_name_address, lang);
+      }
+    });
 
     const output: Transaction = {
       TRANSACTION_ENROL: newTransactionEnrol

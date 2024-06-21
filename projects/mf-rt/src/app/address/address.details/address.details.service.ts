@@ -7,14 +7,7 @@ import { INameAddress } from '../../models/transaction';
 @Injectable()
 export class AddressDetailsService {
 
-  private countryList: Array<any>;
-  private stateList: Array<any>;
-  public provinces: Array<any> = [];
-
-
-  constructor(private _utilsService: UtilsService, private _converterService: ConverterService, private _globalService: GlobalService) {
-    this.countryList = [];
-  }
+  constructor(private _utilsService: UtilsService, private _converterService: ConverterService, private _globalService: GlobalService) { }
 
   /**
    * Gets the reactive forms Model for address details
@@ -35,32 +28,34 @@ export class AddressDetailsService {
     });
   }
 
-  public mapFormModelToDataModel(formRecord: FormGroup, addressModel: INameAddress, countryList: ICode[], combinedProvStatList: ICode[], lang: string) {
-    addressModel.company_name = formRecord.controls['companyName'].value;
-    // addressModel.business_number = formRecord.controls.businessNum.value;
-    addressModel.street_address = formRecord.controls['address'].value;
-    addressModel.city = formRecord.controls['city'].value;
-    if (formRecord.controls['country'].value && formRecord.controls['country'].value.length > 0) {
-      addressModel.country =  this._converterService.findAndConverCodeToIdTextLabel(countryList, formRecord.controls['country'].value, lang);
-    } else {
-      addressModel.country = null;
-    }
+  public mapFormModelToDataModel(formValue: any, addressModel: INameAddress, lang: string) {
+    const countryList: ICode[] = this._globalService.countryList;
+    const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
 
-    const country_id = addressModel.country._id;
-    if (this._utilsService.isCanadaOrUSA(country_id)) {
-      addressModel.province_text = '';
-      addressModel.province_lov = formRecord.controls['provState'].value ? 
-        this._converterService.findAndConverCodeToIdTextLabel(combinedProvStatList, formRecord.controls['provState'].value, lang) : null;
+    addressModel.company_name = formValue['companyName'];
+    addressModel.street_address = formValue['address'];
+    addressModel.city = formValue['city'];
+
+    addressModel.country = formValue['country'] ? 
+        this._converterService.findAndConverCodeToIdTextLabel(countryList, formValue['country'], lang) : null;
+
+    if (addressModel.country) {
+      if (this._utilsService.isCanadaOrUSA(addressModel.country._id)) {
+        addressModel.province_text = '';
+        addressModel.province_lov = formValue['provState'] ? 
+          this._converterService.findAndConverCodeToIdTextLabel(combinedProvStatList, formValue['provState'], lang) : null;
+        }else {
+          addressModel.province_text = formValue['provText'];
+          addressModel.province_lov = null;
+        } 
     } else {
-      addressModel.province_lov = null;
-      addressModel.province_text = formRecord.controls['provText'].value
+      addressModel.province_text = formValue['provText'];
     }
-    addressModel.postal_code = formRecord.controls['postal'].value;
+    addressModel.postal_code = formValue['postal'];
   }
 
   public mapDataModelToFormModel(addressModel, formRecord: FormGroup) {
     formRecord.controls['companyName'].setValue(addressModel.company_name);
-    // formRecord.controls.businessNum.setValue(addressModel.business_number);
     formRecord.controls['address'].setValue(addressModel.street_address);
     formRecord.controls['city'].setValue(addressModel.city);
     formRecord.controls['postal'].setValue(addressModel.postal_code);
@@ -108,13 +103,4 @@ export class AddressDetailsService {
     return listToReturn;
   }
   
-  /**
-   * Sets the country list to be used for all addres details records
-   * @param {Array<any>} value
-   */
-  public setCountryList(value: Array<any>) {
-    this.countryList = value;
-
-  }
-
 }

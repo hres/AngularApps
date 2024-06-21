@@ -36,9 +36,7 @@ export class RegulatoryInformationService {
    });
   }
 
-  public mapFormModelToDataModel(formValue: any, dataModel: Ectd): void {
-
-    const lang = this._globalService.currLanguage;
+  public mapFormModelToDataModel(formValue: any, dataModel: Ectd, lang: string): void {
 
     dataModel.dossier_id = formValue['dossierId'];
     dataModel.product_name = formValue['masterFileName'];

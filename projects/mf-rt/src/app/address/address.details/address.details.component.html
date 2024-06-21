@@ -9,7 +9,7 @@
                             [showError]="showFieldErrors"
                             [control]="addressForm.controls['companyName'] | formControl"
                             controlId="{{addrType}}CompanyName" label="company.name.full" parentId="{{addrType}}Info"></control-messages>
-          <input name="companyName" id="{{addrType}}CompanyName" class="form-control full-width" (blur)="onblur()"
+          <input name="companyName" id="{{addrType}}CompanyName" class="form-control full-width" 
                  formControlName="companyName" maxlength="200"/>
         </label>
       </div>
@@ -22,7 +22,7 @@
             <!--<a class="fn-lnk" href="#co3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.busNumInx}}</a>-->
           <!--</sup>-->
           <!--<input name="businessNum" id="businessNum" class="form-control full-width"-->
-                 <!--[formControl]="addressForm.controls.businessNum" (blur)="onblur()"  maxlength="9"/>-->
+                 <!--[formControl]="addressForm.controls.businessNum"   maxlength="9"/>-->
         <!--</label>-->
       <!--</div>-->
     <!--</div>-->
@@ -35,7 +35,7 @@
                             [showError]="showFieldErrors"
                             [control]="addressForm.controls['address'] | formControl"
                             controlId="{{addrType}}Address" label="addressDetails.street" parentId="{{addrType}}Info"></control-messages>
-          <input name="address" id="{{addrType}}Address" class="form-control full-width" (blur)="onblur()"
+          <input name="address" id="{{addrType}}Address" class="form-control full-width" 
             formControlName="address" maxlength="250"/>
         </label>
       </div>
@@ -49,7 +49,7 @@
                             [showError]="showFieldErrors"
                             [control]="addressForm.controls['city'] | formControl"
                             controlId="{{addrType}}City" label="addressDetails.city" parentId="{{addrType}}Info"></control-messages>
-          <input name="city" id="{{addrType}}City" class="form-control full-width"  (blur)="onblur()"
+          <input name="city" id="{{addrType}}City" class="form-control full-width"  
                  formControlName="city" maxlength="60"/>
         </label>
       </div>
@@ -78,7 +78,7 @@
                             [showError]="showFieldErrors"
                             [control]="addressForm.controls['provState'] | formControl"
                             controlId="{{addrType}}ProvState" label="{{provinceLabel}}" parentId="{{addrType}}Info"></control-messages>
-          <select id="{{addrType}}ProvState" required class="form-control full-width" (blur)="onblur()" formControlName="provState">
+          <select id="{{addrType}}ProvState" required class="form-control full-width"  formControlName="provState">
             <option label=" " value=""></option>
             <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov | textTransform: lang}}</option>
           </select>
@@ -87,7 +87,7 @@
       <div *ngIf="!isCanadaOrUSA()" class="form-group col-xs-12 col-sm-6">
         <label for="{{addrType}}ProvText" class="full-width">
           <span class="field-name">{{'addressDetails.provState'|translate}}</span>
-          <input name="provText" id="{{addrType}}ProvText" class="form-control full-width" (blur)="onblur()"
+          <input name="provText" id="{{addrType}}ProvText" class="form-control full-width" 
                  formControlName="provText" maxlength="40"/>
         <!--  <control-messages *ngIf="addressForm.controls['provText'].invalid"
                             [showError]="showFieldErrors"
@@ -106,11 +106,11 @@
                             [control]="addressForm.controls['postal'] | formControl"
                             controlId="{{addrType}}Postal" label="{{postalLabel}}" parentId="{{addrType}}Info"
                             ></control-messages> 
-          <input *ngIf="!isCanadaOrUSA()" name="postal" id="{{addrType}}Postal" class="form-control" formControlName="postal"  (blur)="onblur()"
+          <input *ngIf="!isCanadaOrUSA()" name="postal" id="{{addrType}}Postal" class="form-control" formControlName="postal"  
                  maxlength="20" />
-          <input *ngIf="isCanada()" name="postal" id="{{addrType}}Postal" class="form-control" formControlName="postal"  (blur)="onblur()"
+          <input *ngIf="isCanada()" name="postal" id="{{addrType}}Postal" class="form-control" formControlName="postal"  
                  maxlength="6" />
-          <input *ngIf="isUsa()" name="postal" id="{{addrType}}Postal" class="form-control" formControlName="postal"  (blur)="onblur()"
+          <input *ngIf="isUsa()" name="postal" id="{{addrType}}Postal" class="form-control" formControlName="postal"  
                  maxlength="5" data-only-digits/>       
         </label>
     </div>
