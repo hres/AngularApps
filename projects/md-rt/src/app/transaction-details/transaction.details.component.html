@@ -127,17 +127,10 @@
             <ul class="form-group list-unstyled">
               <li class="radio" *ngFor="let class of deviceClassList; let i = index">
                 <label for="deviceClass{{i}}">
-                  @if(i == 0){
-                    <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
+                  <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
                     (change)="deviceClassOnChange()"
-                    [formControl]="transDetailsForm.controls['deviceClass'] | formControl" data-rule-required="true"/>
+                    [formControl]="transDetailsForm.controls['deviceClass'] | formControl"/>
                     {{class | textTransform: lang }}
-                  } @else {
-                    <input type="radio" attr.aria-label="{{class | ariaTransform: lang}}" id="deviceClass{{i}}" name="deviceClass" [value]="class.id"
-                    (change)="deviceClassOnChange()"
-                    [formControl]="transDetailsForm.controls['deviceClass'] | formControl" />
-                    {{class | textTransform: lang }}
-                  }
                 </label>
               </li>
             </ul>
@@ -149,7 +142,7 @@
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" id="amendReasons">
           <legend class="required"><span class="field-name">{{'amend.reason' | translate}}</span>
-              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
               <control-messages *ngIf="amendReasonChkFormArray.invalid"
                               [showError]="showFieldErrors"
                               [control]="amendReasonChkFormArray | formControl"
