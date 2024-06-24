@@ -53,7 +53,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public holderAddressModel: INameAddress;
   public agentAddressModel: INameAddress;
   public holderContactModel: IContact; 
-  // public agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
+  public agentContactModel: IContact;
   public transFeeModel: FeeDetails;
   public certificationModel: Certification;
 
@@ -105,6 +105,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
       this.transactionEnrollModel = this.enrollModel[this.rootTagText];
       this.holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
+      this.agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
 
       this.lang = this._globalService.currLanguage;
       this.helpIndex = this._globalService.helpIndex;
@@ -176,11 +177,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processContactErrors(errorList) {
-    this._contactErrors = errorList;
-    this.processErrors();
-  }
-
   processTransFeeErrors(errorList) {
     this._transFeeErrors = errorList;
     this.processErrors();
@@ -196,20 +192,20 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  // processContactErrors(errorList) {
-  //   this._contactErrors = errorList;
-  //   this.processErrors();
-  // }
+  processContactErrors(errorList) {
+    this._contactErrors = errorList;
+    this.processErrors();
+  }
 
   processAgentAddressErrors(errorList) {
     this._agentAddressErrors = errorList;
     this.processErrors();
   }
 
-  // processAgentContactErrors(errorList) {
-  //   this._agentContactErrors = errorList;
-  //   this.processErrors();
-  // }
+  processAgentContactErrors(errorList) {
+    this._agentContactErrors = errorList;
+    this.processErrors();
+  }
 
   public hideErrorSummary() {
     return this.showErrors && this.errorList && this.errorList.length > 0;
