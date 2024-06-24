@@ -72,7 +72,7 @@ export class RegulatoryInformationService {
     }
 
     // HPFBFORMS-192, Master File Name, allow any case in form but when saving to XML put in upper case
-    dataModel.product_name = dataModel.product_name.toUpperCase();
+    dataModel.product_name = dataModel.product_name?.toUpperCase();
   }
 
   public mapDataModelToFormModel(dataModel: Ectd, formRecord: FormGroup): void {
