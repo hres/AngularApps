@@ -492,7 +492,7 @@ span.normalWeight {
 									</div>
 									<xsl:if test="/descendant-or-self::application_info/has_drug = 'yes'">
 										<div class="row">&#160;
-											<strong>Does the drug have a Drug Identification Number (DIN) or the Natural Product Number (NPN):&#160;</strong>
+											<strong>Does the drug have a Drug Identification Number (DIN) or a Natural Product Number (NPN):&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/has_din_npn"/></span>
 										</div>
 									</xsl:if>
@@ -512,11 +512,6 @@ span.normalWeight {
 									</xsl:choose>
 									<xsl:if test="/descendant-or-self::application_info/has_drug = 'yes'">
 										<div class="row">&#160;
-											<div class="col-xs-12 alert alert-INFO">
-												For combination products, please complete the information listed below with respect to the drug or drug substance.
-											</div>
-										</div>
-										<div class="row">&#160;
 											<strong>Brand/Trade Name of Drug:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/drug_name"/></span>
 										</div>
@@ -529,7 +524,7 @@ span.normalWeight {
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/manufacturer"/></span>
 										</div>
 										<div class="row">&#160;
-											<strong>Compliance:&#160;</strong>
+											<strong>Compliance&#160;</strong>
 										</div>
 										<xsl:for-each select="/descendant-or-self::application_info/compliance/compliance">
 												<div class="row">
@@ -611,7 +606,7 @@ span.normalWeight {
 					</section>
 					<section class="panel panel-default" >
 						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-							<h2 class="panel-title">Recognized Standards Complied with in the manufacture of the Device</h2>
+							<h2 class="panel-title">Recognized Standards Complied within the manufacture of the Device</h2>
 						</div>
 						<div class="panel-body">
 							<div class="row">
@@ -660,7 +655,7 @@ span.normalWeight {
 							<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/material_id) > 0">
 								<section class="panel panel-default" >
 									<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-										<h2 class="panel-title">Biological Material Attribute</h2>
+										<h2 class="panel-title">Biological Material Attributes</h2>
 									</div>
 									<div class="panel-body">
 										<xsl:apply-templates select="/descendant-or-self::material_info/biological_materials/material"/>

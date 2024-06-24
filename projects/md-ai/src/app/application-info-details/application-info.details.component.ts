@@ -148,7 +148,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     this.deviceErrorList.emit(errorList);
   }
 
-  private _resetControlValues(listOfValues : string[]) {
+  private _resetControlValues(listOfValues : any[]) {
     for (let i = 0; i < listOfValues.length; i++) {
       this._utilsService.resetControlsValues(this.appInfoFormLocalModel.controls[listOfValues[i]]);
     }
@@ -181,7 +181,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
           this.appInfoFormLocalModel.controls['hasDrug'].value === YES) {
       return true;
     } else {
-      const valuesToReset = ['hasDinNpn', 'compliance', 'din', 'npn', 'drugName', 'activeIngredients', 'manufacturer','otherPharmacopeia'];
+      const valuesToReset = ['hasDinNpn', 'compliance', 'din', 'npn', 'drugName', 'activeIngredients', 'manufacturer', 'selectedComplianceCodes', this.complianceChkFormArray, 'otherPharmacopeia'];
       this._resetControlValues(valuesToReset);
     }
     return false;
@@ -258,6 +258,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       && (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIII
         || this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIV)) {
       return true;
+    } else {
+      this._resetControlValues(['declarationConformity']);
     }
     return false;
   }

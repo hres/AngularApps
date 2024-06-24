@@ -415,9 +415,9 @@ span.normalWeight {
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
-					<td style="text-align: center;font-weight:bold;">Numéro d’identification du fabricant</td>
+					<td style="text-align: center;font-weight:bold;">Identifiant de la compagnie du fabricant</td>
 					<td style="text-align: center;font-weight:bold;">Numéro de dossier</td>
-					<td style="text-align: center;font-weight:bold;">Date de la derniére enregistrement</td>
+					<td style="text-align: center;font-weight:bold;">Date de la dernière enregistrement</td>
 				</tr>
 				<tr>
 					<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/company_id" /></span> </td>
@@ -499,7 +499,7 @@ span.normalWeight {
 									<xsl:choose>
 									<xsl:when test="/descendant-or-self::application_info/has_din_npn/@id = 'din'">
 										<div class="row">&#160;
-											<strong>Numéro d'identification d'un médicament (DIN):&#160;</strong>
+											<strong>Numéro d'identification du médicament (DIN):&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/din"/></span>
 										</div>
 									</xsl:when>
@@ -511,11 +511,6 @@ span.normalWeight {
 									</xsl:when>
 									</xsl:choose>
 									<xsl:if test="/descendant-or-self::application_info/has_drug = 'yes'">
-										<div class="row">&#160;
-											<div class="col-xs-12 alert alert-INFO">
-												Pour les produits combinés, veuillez compléter les informations ci-dessous en ce qui concerne le médicament ou la substance médicamenteuse.
-											</div>
-										</div>
 										<div class="row">&#160;
 											<strong>Marque / nom commercial du médicament:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/drug_name"/></span>
