@@ -44,7 +44,7 @@ export class ContactDetailsService {
     contactModel.email = formRecord.controls['email'].value;
   }
 
-  public mapDataModelToFormModel(contactModel, formRecord: FormGroup, lang: string, languageList: ICode[]) {
+  public mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
 
     formRecord.controls['firstName'].setValue(contactModel.given_name);
     // formRecord.controls['initials.setValue(contactModel.initials);
