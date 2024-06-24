@@ -69,7 +69,7 @@
                   <h3 class="panel-title">{{'heading.holder.contact'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-                   <contact-details [showErrors]="showErrors" [dataModel]="holderContactModel"
+                   <contact-details [showErrors]="showErrors" [contactDetailsModel]="holderContactModel"
                     (errorList)="processContactErrors($event)" [contactType]="holder">
                   </contact-details> 
                 </div>
@@ -112,10 +112,10 @@
                 <header class="panel-heading clearfix">
                   <h3 class="panel-title">{{'heading.agent.contact'|translate}}</h3>
                 </header>
-                <div class="panel-body">contact-details todo
-                  <!-- <contact-details [showErrors]="showErrors" [lang]="lang" [contactDetailsModel]="agentContactModel"
-                    [helpIndex]="helpIndex" (errorList)="processAgentContactErrors($event)" [contType]="agent">
-                  </contact-details> -->
+                <div class="panel-body">
+                  <contact-details [showErrors]="showErrors" [contactDetailsModel]="agentContactModel"
+                  (errorList)="processAgentContactErrors($event)" [contactType]="agent">
+                </contact-details> 
                 </div>
               </section>
               <div class="col-xs-12 full-width">
