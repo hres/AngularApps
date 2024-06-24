@@ -303,7 +303,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   }
 
   showDeviceNameChangeInfo() {
-    return this.selectedAmendReasonCodes.includes(AmendReason.DEVICE_CHANGE) ? true : false;
+    return this.selectedAmendReasonCodes.includes(AmendReason.DEVICE_CHANGE) || this.selectedAmendReasonCodes.includes(AmendReason.ADD_DELETE_CHANGE) ? true : false;
   }
 
   showMeetingId() {

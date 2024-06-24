@@ -140,7 +140,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     deviceInfo.reset();
     this.devicesFormArr.removeAt(index);
 
-    // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
     if (this.devicesFormArr.length == 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(true);
@@ -174,7 +173,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
           // Set values after defining the form controls
           group.patchValue({
-            id: device.device_id,
+            id: device.id,
             isNew: false,
             expandFlag: false,
           });

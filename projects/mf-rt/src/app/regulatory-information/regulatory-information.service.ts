@@ -36,9 +36,7 @@ export class RegulatoryInformationService {
    });
   }
 
-  public mapFormModelToDataModel(formValue: any, dataModel: Ectd): void {
-
-    const lang = this._globalService.currLanguage;
+  public mapFormModelToDataModel(formValue: any, dataModel: Ectd, lang: string): void {
 
     dataModel.dossier_id = formValue['dossierId'];
     dataModel.product_name = formValue['masterFileName'];
@@ -74,7 +72,7 @@ export class RegulatoryInformationService {
     }
 
     // HPFBFORMS-192, Master File Name, allow any case in form but when saving to XML put in upper case
-    dataModel.product_name = dataModel.product_name.toUpperCase();
+    dataModel.product_name = dataModel.product_name?.toUpperCase();
   }
 
   public mapDataModelToFormModel(dataModel: Ectd, formRecord: FormGroup): void {

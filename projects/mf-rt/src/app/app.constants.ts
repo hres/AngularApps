@@ -14,3 +14,9 @@ export const helpInstructionHeadings = [
     'accessLetrIndx',
     'accountNumIndx',
   ];
+
+  // address/contact type
+  export const ADDR_CONT_TYPE = {
+    HOLDER: 'holder',
+    AGENT: 'agent'
+  };

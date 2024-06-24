@@ -62,7 +62,7 @@ export interface BiologicalMaterials {
 }
 
 export interface BiologicalMaterial {
-    material_id:                number;
+    id:                         number;
     material_name:              string;
     device_name:                string;
     origin_country:             IIdTextLabel;
@@ -78,7 +78,7 @@ export interface Devices {
 }
 
 export interface Device {
-    device_id:                             number;
+    id:                             number;
     device_name:                    string;
     device_authorized:              string;
     licence_number:                 string;

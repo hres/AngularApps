@@ -6,11 +6,11 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
-import { MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG } from '../app.constants';
+import { ADDR_CONT_TYPE, MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationComponent } from "../regulatory-information/regulatory-information.component";
 import { MasterFileBaseService } from './master-file-base.service';
 import { Certification, Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
-import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
+import { AddressDetailsComponent } from '../address/address.details/address.details.component';
 
 @Component({
     selector: 'app-form-base',
@@ -25,8 +25,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
   lang: string;
   helpIndex: HelpIndex;
+
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
+  @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
 
   private _regulatoryInfoErrors = [];
   private _transFeeErrors = [];
@@ -58,8 +60,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public certificationModel: Certification;
 
   public notApplicable: boolean = false;
-  public holder: string = 'holder';
-  public agent: string = 'agent';
+  public holder: string = ADDR_CONT_TYPE.HOLDER;
+  public agent: string = ADDR_CONT_TYPE.AGENT;
 
   showDateAndRequesterTxDescs: string[] = ['12', '14', '13'];
   noContactTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions
@@ -316,7 +318,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._updateSavedDate();
     this._updateSoftwareVersion();
 
-    const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.regulartoryInfoForm.value;
+    const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
+    const addressesFormGroupValue = this.addressComponents.map((comp: AddressDetailsComponent) => ({
+      addrType: comp.addrType,
+      value: comp.getFormValue()
+    }));    
 
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
@@ -344,7 +350,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     // this.transactionEnrollModel.certification = this.certificationModel;
 
-    const result: Transaction = this._baseService.mapFormToOutput(regulatoryInfoFormGroupValue);
+    const result: Transaction = this._baseService.mapFormToOutput(regulatoryInfoFormGroupValue, addressesFormGroupValue);
     console.log('_prepareForSaving ~ result', JSON.stringify(result, null, 2));
 
     return result;
@@ -382,4 +388,5 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   checkDateValidity(event: any): void {
     this._utilsService.checkInputValidity(event, this.masterFileForm.get('submitDate'), 'invalidDate');
   }
+
 }

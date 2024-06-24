@@ -76,7 +76,7 @@ export class ApplicationInfoBaseService {
   public getEmptyDeviceModel() : Device {
     return (
       {
-        device_id: null,
+        id: null,
         device_name: '',
         device_authorized: '',
         licence_number: '',
@@ -101,7 +101,7 @@ export class ApplicationInfoBaseService {
   public getEmptyMaterialModel(): BiologicalMaterial {
     return (
       {
-        material_id:                null,
+        id:                null,
         material_name:              '',
         device_name:                '',
         origin_country:             this._entityBaseService.getEmptyIdTextLabel(),
@@ -147,11 +147,8 @@ export class ApplicationInfoBaseService {
     if (devicesForm) {
       for (let i = 0; i < devicesForm.length; i++) {
         let deviceModel: Device = this.getEmptyDeviceModel();
-        this._deviceService.mapFormModelToOutputModel(devicesForm[i].deviceInfo, deviceModel);
-        deviceModel.device_id = devicesForm[i].id;
-        if (deviceModel.device_id != -1) {
-          deviceModelList.push(deviceModel);
-        }
+        this._deviceService.mapFormModelToOutputModel(devicesForm[i], deviceModel);
+        deviceModelList.push(deviceModel);
       }
     }
 
@@ -162,11 +159,8 @@ export class ApplicationInfoBaseService {
       if (materialsForm) {
         for (let i = 0; i < materialsForm.length; i++) {
           let materialModel: BiologicalMaterial = this.getEmptyMaterialModel();
-          this._materialService.mapMaterialModelToOutputModel(materialsForm[i].materialInfo, materialModel);
-          materialModel.material_id = materialsForm[i].id;
-          if (materialModel.material_id != -1) {
-            materialModelList.push(materialModel);
-          }
+          this._materialService.mapMaterialModelToOutputModel(materialsForm[i], materialModel);
+          materialModelList.push(materialModel);
         }
 
         materialInfoModel.biological_materials = {material : materialModelList};

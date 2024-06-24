@@ -57,10 +57,10 @@
                         class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['holderAddrIndx']}}</a>
                   </sup>
                 </header>
-                <div class="panel-body">address-details todo
+                <div class="panel-body">
                   <address-details [showErrors]="showErrors" 
-                    [addressModel]="holderAddressModel" 
-                    (errorList)="processAddressErrors($event)" [addrType]="holder">
+                    [addressModel]="holderAddressModel" [addrType]="holder"
+                    (errorList)="processAddressErrors($event)">
                   </address-details>
                 </div>
               </section>
@@ -101,11 +101,11 @@
                         </label>
                       </div>
                     </div>
-                  </div> address-details todo
-                  <!-- <address-details *ngIf="!notApplicable" [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
-                    [provinceList]="provinceList" [addressModel]="agentAddressModel" [stateList]="stateList" [addrType]="agent"
-                    [helpIndex]="helpIndex" (errorList)="processAgentAddressErrors($event)">
-                  </address-details> -->
+                  </div>
+                  <address-details *ngIf="!notApplicable" [showErrors]="showErrors" 
+                  [addressModel]="agentAddressModel" [addrType]="agent"
+                    (errorList)="processAgentAddressErrors($event)">
+                  </address-details>
                 </div>
               </section>
               <section class="panel  panel-default" *ngIf="!notApplicable">

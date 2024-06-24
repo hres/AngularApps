@@ -24,26 +24,18 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   provinceList: ICode[] = [];
   stateList: ICode[] = [];
 
-  public addressForm: FormGroup;
-  @Input('group') public addressFormRecord: FormGroup;
-  @Input() public addressDetailsModel;
-  @Input() detailsChanged: number;
   @Input() showErrors: boolean;
-
   @Input() addressModel;
   @Input() addrType;
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  // For the searchable select box, only accepts/saves id and text.
-  // Will need to convert
-
+  public addressForm: FormGroup;
   public provStateList: ICode[] = [];
   public provinceLabel = 'addressDetails.province';
   public postalLabel = 'addressDetails.postalZipCode';
   
   public showFieldErrors = false;
-
 
  // writable signal for the answer of "Country" field
   readonly selectedCountrySignal = signal<string>('');
@@ -75,7 +67,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
       this.addressForm = this._detailsService.getReactiveModel(this._fb);
     }
     // this._setCountryState(this.addressForm.controls['country'].value,this.addressForm);
-    this.detailsChanged = 0;
+    // this.detailsChanged = 0;
   }
 
   ngAfterViewInit() {
@@ -107,14 +99,8 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   }
 
-
   ngDoCheck() {
-    /*  this.isValid();
-      this._syncCurrentExpandedRow();*/
-    // this.processCountry()
-    // this._setCountryState(event,this.addressForm);
   }
-
 
   ngOnChanges(changes: SimpleChanges) {
     const isFirstChange = this._utilsService.isFirstChange(changes);
@@ -156,23 +142,11 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
         //   this._setCountryState(dataModel.country._id, this.addressForm);
         // }
         this._detailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressForm));
-        // if (dataModel.country) {
-        //   this._setCountryState(dataModel.country._id, this.addressForm);
-        // }
+
         this.onCountryChange(null);
       }
     }
   }
-
-  // _setCountryState(countryValue, formModel) {
-  //   this.provStateList = this._detailsService.setProvinceState(formModel, countryValue, this.provinceList, this.stateList);
-  //   this._setPostalPattern(countryValue);
-  //   // update errors manually?
-  //   if (this.showFieldErrors) {
-  //     this.cdr.detectChanges(); // doing our own change detection
-  //   }
-  // }
-
 
   onCountryChange(e: any): void {
     const selectedCountryId = this.addressForm.controls['country'].value;
@@ -215,26 +189,11 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
       this.postalLabel = 'addressDetails.postalZipCode';
       this.provinceLabel = '';
-    }    
-    
+    }
   }
 
-
-  // /**
-  //  * Uses the updated reactive forms model locally
-  //  */
-
-  // setToLocalModel() {
-  //   this.addressForm = this.addressFormRecord;
-  //   if (!this.addressForm.pristine) {
-  //     this.addressForm.markAsPristine();
-  //   }
-  // }
-
-  onblur() {
-    // console.log('input is typed');
-    // this._detailsService.mapFormModelToDataModel((<FormGroup>this.addressForm),
-    //   this.addressModel, this.countryList, this.provStateList, this.lang);
+  getFormValue() {
+    return this.addressForm.value;
   }
 
   private _resetControlValues(controlNames: string[]) {
@@ -242,5 +201,6 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
       this._utilsService.resetControlsValues(this.addressForm.controls[controlNames[i]]);
     }
   }
+
 }
 
