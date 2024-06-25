@@ -1,12 +1,14 @@
-import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ValidationService } from '@hpfb/sdk/ui';
+import { ConverterService, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { FeeDetails } from '../models/transaction';
+import { GlobalService } from '../global/global.service';
 
 
 @Injectable()
 export class MasterFileFeeService {
 
-  constructor() {
+  constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService) {
   }
 
   /**
@@ -24,36 +26,20 @@ export class MasterFileFeeService {
       businessNumber: ['', [Validators.minLength(9), ValidationService.businessNumberValidator]],
     });
   }
+  public mapFormModelToDataModel(formValue: any, mfFeeModel: FeeDetails) {
+    const lang = this._globalService.currLanguage;
 
-  /**
-   * Gets an empty data model
-   *
-   */
-  public getEmptyModel() {
-
-    return (
-      {
-        are_there_access_letters: '',
-        number_of_access_letters: '',
-        who_responsible_fee: '',
-        account_number: '',
-        cra_business_number: ''
-      }
-    );
+    mfFeeModel.are_there_access_letters = formValue['areAccessLetters'];
+    mfFeeModel.number_of_access_letters = formValue['numOfAccessLetter'];
+    mfFeeModel.who_responsible_fee = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.whoResponsible, formValue['whoResponsible'], lang);
+    mfFeeModel.account_number = formValue['accountNumber'];
+    mfFeeModel.cra_business_number = formValue['businessNumber'];
   }
 
-  public mapFormModelToDataModel(formRecord: FormGroup, mfFeeModel) {
-    mfFeeModel.are_there_access_letters = formRecord.controls['areAccessLetters'].value;
-    mfFeeModel.number_of_access_letters = formRecord.controls['numOfAccessLetter'].value;
-    mfFeeModel.who_responsible_fee = formRecord.controls['whoResponsible'].value;
-    mfFeeModel.account_number = formRecord.controls['accountNumber'].value;
-    mfFeeModel.cra_business_number = formRecord.controls['businessNumber'].value;
-  }
-
-  public mapDataModelToFormModel(mfFeeModel, formRecord: FormGroup) {
+  public mapDataModelToFormModel(mfFeeModel: FeeDetails, formRecord: FormGroup) {
     formRecord.controls['areAccessLetters'].setValue(mfFeeModel.are_there_access_letters);
     formRecord.controls['numOfAccessLetter'].setValue(mfFeeModel.number_of_access_letters);
-    formRecord.controls['whoResponsible'].setValue(mfFeeModel.who_responsible_fee);
+    formRecord.controls['whoResponsible'].setValue(mfFeeModel.who_responsible_fee._id);
     formRecord.controls['accountNumber'].setValue(mfFeeModel.account_number);
     formRecord.controls['businessNumber'].setValue(mfFeeModel.cra_business_number);
   }
