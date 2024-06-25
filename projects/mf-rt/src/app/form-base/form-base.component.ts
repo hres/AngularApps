@@ -11,6 +11,7 @@ import { RegulatoryInformationComponent } from "../regulatory-information/regula
 import { MasterFileBaseService } from './master-file-base.service';
 import { Certification, Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { AddressDetailsComponent } from '../address/address.details/address.details.component';
+import { CertificationComponent } from '../certification/certification.component';
 
 @Component({
     selector: 'app-form-base',
@@ -29,6 +30,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
+  @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
   private _regulatoryInfoErrors = [];
   private _transFeeErrors = [];
@@ -248,7 +250,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // if (this.showContactFees[1] === true) {
       this.transFeeModel = this.transactionEnrollModel.fee_details;
     // }
-
+    this.certificationModel = this.transactionEnrollModel.certification;
     // MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
     this.agentInfoOnChange();
   }
@@ -322,7 +324,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const addressesFormGroupValue = this.addressComponents.map((comp: AddressDetailsComponent) => ({
       addrType: comp.addrType,
       value: comp.getFormValue()
-    }));    
+    })); 
+    const certificationFormGroupValue = this.certificationComponent.getFormValue(); 
 
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
@@ -350,7 +353,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     // this.transactionEnrollModel.certification = this.certificationModel;
 
-    const result: Transaction = this._baseService.mapFormToOutput(regulatoryInfoFormGroupValue, addressesFormGroupValue);
+    const result: Transaction = this._baseService.mapFormToOutput(regulatoryInfoFormGroupValue, addressesFormGroupValue, certificationFormGroupValue);
     console.log('_prepareForSaving ~ result', JSON.stringify(result, null, 2));
 
     return result;
