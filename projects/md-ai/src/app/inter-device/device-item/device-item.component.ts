@@ -120,6 +120,9 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
   public revertDeviceRecord(index: number, recordId: number): void {
     this.revertRecord.emit({ index: index, id: recordId });
+    this.onDeviceAuthorizedChange(null);
+    this.onDeviceAppChange(null); 
+
     this.cRRow.markAsPristine();
   }
 
