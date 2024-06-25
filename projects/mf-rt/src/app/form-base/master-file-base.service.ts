@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Ectd, LifecycleRecord, TransactionEnrol, Transaction, ContactInfo, IContact, INameAddress, FeeDetails, Certification} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
-import { UtilsService } from '@hpfb/sdk/ui';
+import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 import { MasterFileFeeService } from '../master-file-fee/master-file.fee.service';
 import { ADDR_CONT_TYPE, ROOT_TAG } from '../app.constants';
@@ -13,7 +13,7 @@ export class MasterFileBaseService {
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _addressDetailsService: AddressDetailsService,
     private _feeService: MasterFileFeeService,
-    private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
 
   /**
@@ -44,7 +44,7 @@ export class MasterFileBaseService {
       {
 		  are_there_access_letters: null,
 		  number_of_access_letters: '',
-		  who_responsible_fee: '',
+		  who_responsible_fee: this._entityBaseService.getEmptyIdTextLabel() ,
 		  account_number: '',
 		  cra_business_number: ''
       }
@@ -176,27 +176,13 @@ export class MasterFileBaseService {
     formRecord.controls['consentPrivacy'].setValue(undefined);
   }
 
-  public mapFormToOutput(regulatoryInfoFormGroupValue: any, addressesFormGroupValue: Array<{ addrType: string, value: any }>): Transaction{
+  public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any, certificationFormValue: any): void{
+    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd);
+    //todo map certificationFormValue to output data
 
-    const lang = this._globalService.currLanguage;
+  }
 
-    // console.log(regulatoryInfoFormGroupValue)
-    const newTransactionEnrol: TransactionEnrol = this.getEmptyTransactionEnrol();
-    
-    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, newTransactionEnrol.ectd, lang);
-
-    addressesFormGroupValue.forEach(address => {
-      if (address.addrType === ADDR_CONT_TYPE.HOLDER) {
-        this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.holder_name_address, lang);
-      } else if (address.addrType === ADDR_CONT_TYPE.AGENT) {
-        this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.agent_name_address, lang);
-      }
-    });
-
-    const output: Transaction = {
-      TRANSACTION_ENROL: newTransactionEnrol
-    };
-
-    return output;
+  public mapFeeFormToOutput(outputFee: TransactionEnrol, feeFormGroupValue: any): void{
+    this._feeService.mapFormModelToDataModel(feeFormGroupValue, outputFee.fee_details);    
   }
 }
