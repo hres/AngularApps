@@ -1,6 +1,7 @@
 import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ValidationService } from '@hpfb/sdk/ui';
+import { Certification } from '../models/transaction';
 
 
 @Injectable()
@@ -24,18 +25,18 @@ export class CertificationService {
     });
   }
 
-  public mapFormModelToDataModel(formRecord: FormGroup, certificationModel) {
-    certificationModel.certifyAccurateComplete = formRecord.controls['certifyAccurateComplete'].value;
-    certificationModel.fullName = formRecord.controls['fullName'].value;
-    certificationModel.submitDate = formRecord.controls['submitDate'].value;
-    certificationModel.consentPrivacy = formRecord.controls['consentPrivacy'].value;
+  public mapFormModelToDataModel(formValue: any, certificationModel: Certification) {
+    certificationModel.certify_accurate_complete = formValue['certifyAccurateComplete'];
+    certificationModel.full_name = formValue['fullName'];
+    certificationModel.submit_date = formValue['submitDate'];
+    certificationModel.consent_privacy = formValue['consentPrivacy'];
   }
 
-  public mapDataModelToFormModel(certificationModel, formRecord: FormGroup) {
-    formRecord.controls['certifyAccurateComplete'].setValue(certificationModel.certifyAccurateComplete);
-    formRecord.controls['fullName'].setValue(certificationModel.fullName);
-    formRecord.controls['submitDate'].setValue(certificationModel.submitDate);
-    formRecord.controls['consentPrivacy'].setValue(certificationModel.consentPrivacy);
+  public mapDataModelToFormModel(certificationModel: Certification, formRecord: FormGroup) {
+    formRecord.controls['certifyAccurateComplete'].setValue(certificationModel.certify_accurate_complete);
+    formRecord.controls['fullName'].setValue(certificationModel.full_name);
+    formRecord.controls['submitDate'].setValue(certificationModel.submit_date);
+    formRecord.controls['consentPrivacy'].setValue(certificationModel.consent_privacy);
   }
 
 }

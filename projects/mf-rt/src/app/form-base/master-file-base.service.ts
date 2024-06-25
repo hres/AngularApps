@@ -7,12 +7,13 @@ import { RegulatoryInformationService } from '../regulatory-information/regulato
 import { MasterFileFeeService } from '../master-file-fee/master-file.fee.service';
 import { ADDR_CONT_TYPE, ROOT_TAG } from '../app.constants';
 import { AddressDetailsService } from '../address/address.details/address.details.service';
+import { CertificationService } from '../certification/certification.service';
 
 @Injectable()
 export class MasterFileBaseService {
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _addressDetailsService: AddressDetailsService,
-    private _feeService: MasterFileFeeService,
+    private _feeService: MasterFileFeeService, private _certificationService: CertificationService,
     private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
 
@@ -28,10 +29,6 @@ export class MasterFileBaseService {
     return fb.group({
       notApplicable: [false, []],
       contactInfoConfirm: [null, Validators.required],
-      certifyAccurateComplete: [null, Validators.required],
-      fullName: [null, Validators.required],
-      submitDate: [null, Validators.required],
-      consentPrivacy: [null, Validators.required]
     });
   }
 
@@ -110,10 +107,10 @@ export class MasterFileBaseService {
         cra_business_number: ''
       },
       certification: {
-        certify_accurate_complete: undefined,
+        certify_accurate_complete: false,
         full_name: '',
         submit_date: '',
-        consent_privacy: undefined
+        consent_privacy: false
       }
     };
     
@@ -164,10 +161,7 @@ export class MasterFileBaseService {
 
     // Resets certifcation section and contact info confirmation
     formRecord.controls['contactInfoConfirm'].setValue(undefined);
-    formRecord.controls['certifyAccurateComplete'].setValue(undefined);
-    formRecord.controls['fullName'].setValue('');
-    formRecord.controls['submitDate'].setValue('');
-    formRecord.controls['consentPrivacy'].setValue(undefined);
+
   }
 
   public getEmptyContactInfo() : ContactInfo {
@@ -182,7 +176,7 @@ export class MasterFileBaseService {
     return contactInfo;
   }
 
-  public mapFormToOutput(regulatoryInfoFormGroupValue: any, addressesFormGroupValue: Array<{ addrType: string, value: any }>): Transaction{
+  public mapFormToOutput(regulatoryInfoFormGroupValue: any, addressesFormGroupValue: Array<{ addrType: string, value: any }>, certificationFormGroupValue: any): Transaction{
 
     const lang = this._globalService.currLanguage;
 
@@ -198,6 +192,8 @@ export class MasterFileBaseService {
         this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.agent_name_address, lang);
       }
     });
+
+    this._certificationService.mapFormModelToDataModel(certificationFormGroupValue, newTransactionEnrol.certification);
 
     const output: Transaction = {
       TRANSACTION_ENROL: newTransactionEnrol
