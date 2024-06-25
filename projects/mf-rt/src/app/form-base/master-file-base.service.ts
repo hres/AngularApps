@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, LifecycleRecord, TransactionEnrol, Transaction, ContactInfo, IContact, INameAddress, FeeDetails} from '../models/transaction';
+import {Ectd, LifecycleRecord, TransactionEnrol, Transaction, ContactInfo, IContact, INameAddress, FeeDetails, Certification} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { UtilsService } from '@hpfb/sdk/ui';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
@@ -28,10 +28,6 @@ export class MasterFileBaseService {
     return fb.group({
       notApplicable: [false, []],
       contactInfoConfirm: [null, Validators.required],
-      certifyAccurateComplete: [null, Validators.required],
-      fullName: [null, Validators.required],
-      submitDate: [null, Validators.required],
-      consentPrivacy: [null, Validators.required]
     });
   }
 
@@ -102,19 +98,8 @@ export class MasterFileBaseService {
       data_checksum: '',
       ectd: this.getEmptyEctd(),
       contact_info: this.getEmptyContactInfo(),
-      fee_details: {
-        are_there_access_letters: '',
-        number_of_access_letters: '',
-        who_responsible_fee: '',
-        account_number: '',
-        cra_business_number: ''
-      },
-      certification: {
-        certify_accurate_complete: undefined,
-        full_name: '',
-        submit_date: '',
-        consent_privacy: undefined
-      }
+      fee_details: this.getEmptyMasterFileFeeModel(),
+      certification: this.getCertification(),
     };
     
     return TransactionEnrol;
@@ -158,6 +143,27 @@ export class MasterFileBaseService {
     return lifecycleRecord;
   }
 
+  public getEmptyContactInfo() : ContactInfo {
+    const contactInfo: ContactInfo = {
+      holder_name_address: this.getEmptyAddressDetailsModel(),
+      holder_contact: this.getEmptyContactModel(),
+      agent_not_applicable: undefined,
+      agent_name_address: this.getEmptyAddressDetailsModel(),
+      agent_contact: this.getEmptyContactModel(),
+      contact_info_confirm: undefined
+    }
+    return contactInfo;
+  }
+
+  public getCertification() : Certification {
+    return {
+      certify_accurate_complete: undefined,
+      full_name: '',
+      submit_date: '',
+      consent_privacy: undefined
+    }
+  }
+
   public mapDataModelToFormModel(mfDataModel, formRecord: FormGroup) {
     // console.log(mfDataModel.contact_info.agent_not_applicable, typeof mfDataModel.contact_info.agent_not_applicable);
     formRecord.controls['notApplicable'].setValue(this._utilsService.toBoolean(mfDataModel.contact_info.agent_not_applicable));
@@ -168,18 +174,6 @@ export class MasterFileBaseService {
     formRecord.controls['fullName'].setValue('');
     formRecord.controls['submitDate'].setValue('');
     formRecord.controls['consentPrivacy'].setValue(undefined);
-  }
-
-  public getEmptyContactInfo() : ContactInfo {
-     const contactInfo: ContactInfo = {
-       holder_name_address: this.getEmptyAddressDetailsModel(),
-      holder_contact: this.getEmptyContactModel(),
-      agent_not_applicable: undefined,
-      agent_name_address: this.getEmptyAddressDetailsModel(),
-      agent_contact: this.getEmptyContactModel(),
-      contact_info_confirm: undefined
-    }
-    return contactInfo;
   }
 
   public mapFormToOutput(regulatoryInfoFormGroupValue: any, addressesFormGroupValue: Array<{ addrType: string, value: any }>): Transaction{
