@@ -12,6 +12,7 @@ import { MasterFileBaseService } from './master-file-base.service';
 import { Certification, Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { AddressDetailsComponent } from '../address/address.details/address.details.component';
 import { CertificationComponent } from '../certification/certification.component';
+import { ContactDetailsComponent } from '../contact-details/contact-details.component';
 
 @Component({
     selector: 'app-form-base',
@@ -30,6 +31,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
+  @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
   @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
   private _regulatoryInfoErrors = [];
@@ -234,6 +236,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.ectdModel = this.transactionEnrollModel.ectd;
     this.holderAddressModel = this.transactionEnrollModel.contact_info.holder_name_address;
     this.agentAddressModel = this.transactionEnrollModel.contact_info.agent_name_address;
+    this.holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
+    this.agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
 
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
@@ -325,6 +329,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       addrType: comp.addrType,
       value: comp.getFormValue()
     })); 
+    const contactsFormGroupValue = this.contactDetailsComponents.map((comp: ContactDetailsComponent) => ({
+      contactType: comp.contactType,
+      value: comp.getFormValue()
+    })); 
     const certificationFormGroupValue = this.certificationComponent.getFormValue(); 
 
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
@@ -353,7 +361,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     // this.transactionEnrollModel.certification = this.certificationModel;
 
-    const result: Transaction = this._baseService.mapFormToOutput(regulatoryInfoFormGroupValue, addressesFormGroupValue, certificationFormGroupValue);
+    const result: Transaction = this._baseService.mapFormToOutput(regulatoryInfoFormGroupValue, addressesFormGroupValue, contactsFormGroupValue, certificationFormGroupValue);
     console.log('_prepareForSaving ~ result', JSON.stringify(result, null, 2));
 
     return result;
