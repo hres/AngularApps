@@ -1,11 +1,11 @@
 {
     "environments": {
         "dev": "https://lam-dev.hres.ca/rep-dev/",
-        "prod": "https://lam-dev.hres.ca/REP-Form/"
+        "prod": "https://health-products.canada.ca/rep-pir/"
     },
     "index_html_name": {
-        "en": "mds_index",
-        "fr": "mds_index-fr"
+        "en": "mds-index",
+        "fr": "mds-index-fr"
     },
     "version_history_html_name": {
         "en": "version_history",
@@ -22,12 +22,12 @@
                 "fr": "mds/internal/company/fr/index-internal.html"
             },
             "rt": {
-                "en": "mds/transaction/en/index.html",
-                "fr": "mds/transaction/en/index.html"
+                "en": "mds/transaction/en/md-regulatory-transaction.html",
+                "fr": "mds/transaction/fr/im-transaction-reglementaire.html"
             },
             "ai": {
-                "en": "mds/applicationInfo/en/index.html",
-                "fr": "mds/applicationInfo/en/index.html"
+                "en": "mds/applicationInfo/en/md-application-information.html",
+                "fr": "mds/applicationInfo/fr/im-information-demande-homologation.html"
             },
             "stylesheets": {
                 "en": "mds/stylesheet/medicaldevice_stylesheets_en.zip",
@@ -44,12 +44,12 @@
                 "fr": "mds/internal/fr/index-internal.html"
             },
             "rt": {
-                "en": "mds/transaction/en/index.html",
-                "fr": "mds/transaction/en/index.html"
+                "en": "mds/transaction/en/md-regulatory-transaction.html",
+                "fr": "mds/transaction/fr/im-transaction-reglementaire.html"
             },
             "ai": {
-                "en": "mds/applicationInfo/en/index.html",
-                "fr": "mds/applicationInfo/en/index.html"
+                "en": "mds/applicationInfo/en/md-application-information.html",
+                "fr": "mds/applicationInfo/fr/im-information-demande-homologation.html"
             },
             "stylesheets": {
                 "en": "mds/stylesheet/medicaldevice_stylesheets_en.zip",
