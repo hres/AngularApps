@@ -18,7 +18,7 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   public showNumOfAccessLetter: boolean = false;
   public yesNoList: ICode[] = [];
   public whoResponsibleList : ICode[] = [];
-  public mfFeeFormLocalModel: FormGroup;
+  public feeForm: FormGroup;
 
   @Input() showErrors: boolean;
   @Input() dataModel: FeeDetails;
@@ -30,8 +30,8 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
     this.showFieldErrors = false;
     this.showErrors = false;
 
-    if (!this.mfFeeFormLocalModel) {
-      this.mfFeeFormLocalModel = this._masterFileFeeService.getReactiveModel(this._fb);
+    if (!this.feeForm) {
+      this.feeForm = this._masterFileFeeService.getReactiveModel(this._fb);
     }
   }
 
@@ -50,11 +50,11 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
       }
       if (changes['dataModel']) {
         const dataModel = changes['dataModel'].currentValue as FeeDetails;
-        // if (!this.mfFeeFormLocalModel) {
-        //   this.mfFeeFormLocalModel = this._masterFileFeeService.getReactiveModel(this._fb);
-        //   this.mfFeeFormLocalModel.markAsPristine();
+        // if (!this.feeForm) {
+        //   this.feeForm = this._masterFileFeeService.getReactiveModel(this._fb);
+        //   this.feeForm.markAsPristine();
         // }
-        this._masterFileFeeService.mapDataModelToFormModel(dataModel, (<FormGroup>this.mfFeeFormLocalModel));
+        this._masterFileFeeService.mapDataModelToFormModel(dataModel, (<FormGroup>this.feeForm));
         this.areAccessLettersChanged();
       }
     }
@@ -65,15 +65,15 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   }
 
   areAccessLettersChanged() {
-    if (this.mfFeeFormLocalModel.controls['areAccessLetters'].value === 'Y') {
+    if (this.feeForm.controls['areAccessLetters'].value === 'Y') {
       this.showNumOfAccessLetter = true;
     } else {
       this.showNumOfAccessLetter = false;
-      this.mfFeeFormLocalModel.controls['numOfAccessLetter'].setValue(''); // null or empty? 
+      this.feeForm.controls['numOfAccessLetter'].setValue(''); // null or empty? 
     }
   }
 
   getFormValue() {
-    return this.mfFeeFormLocalModel.value;
+    return this.feeForm.value;
   }
 }
