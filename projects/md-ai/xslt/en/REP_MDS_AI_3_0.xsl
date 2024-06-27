@@ -411,7 +411,7 @@ span.normalWeight {
 	<!-- Application Information Enrolment -->
 
 	<xsl:template name="mybody">
-		<h1>Application Information Template: Regulatory Enrolment Process (REP) (Version: 3.0)</h1>
+		<h1>Application Information Template: Regulatory Enrolment Process (REP) (Version: 3.0.0)</h1>
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
@@ -647,12 +647,12 @@ span.normalWeight {
 							<xsl:if test="/descendant-or-self::material_info/is_animal_human_sourced = 'yes'">
 								<div class="row">
 								<div class="col-xs-12">
-									<strong>Is the biological material the same for all devices listed in the device details table? &#160;</strong>
+									<strong>Is the biological material the same for all devices listed in the Device Details Excel File? &#160;</strong>
 									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_listed_idd_table"/></xsl:call-template></span>
 								</div>
 								</div>
 							</xsl:if>
-							<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/material_id) > 0">
+							<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/id) > 0">
 								<section class="panel panel-default" >
 									<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
 										<h2 class="panel-title">Biological Material Attributes</h2>

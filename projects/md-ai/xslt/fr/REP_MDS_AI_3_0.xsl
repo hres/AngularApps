@@ -649,15 +649,15 @@ span.normalWeight {
 							<xsl:if test="/descendant-or-self::material_info/is_animal_human_sourced = 'yes'">
 								<div class="row">
 								<div class="col-xs-12">
-									<strong>Le matériel biologique est-il le même pour tous les instruments répertoriés dans le tableau des détails des instruments? &#160;</strong>
+									<strong>Le matériel biologique est-il le même pour tous les instruments répertoriés dans le fichier Excel de détails de l'instrument? &#160;</strong>
 									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_listed_idd_table"/></xsl:call-template></span>
 								</div>
 								</div>
 							</xsl:if>
-							<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/material_id) > 0">
+							<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/id) > 0">
 								<section class="panel panel-default" >
 									<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-										<h2 class="panel-title">Tableau des attributs des matières biologiques</h2>
+										<h2 class="panel-title">Tableau des attributs des matériels biologiques</h2>
 									</div>
 									<div class="panel-body">
 										<xsl:apply-templates select="/descendant-or-self::material_info/biological_materials/material"/>
