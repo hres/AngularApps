@@ -269,15 +269,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.certificationModel = trans.certification;
   }
 
-  private _updateSavedDate(transactionEnrol: TransactionEnrol) {
-    const today = new Date();
-    const pipe = new DatePipe('en-US');
-    transactionEnrol.date_saved = pipe.transform(
-      today,
-      'yyyy-MM-dd-hhmm'
-    );
-  }
-
   public preload() {
     // console.log("Calling preload")
   }
@@ -363,7 +354,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       newTransactionEnrol.fee_details = null;
     }
 
-    this._updateSavedDate(newTransactionEnrol);
+    newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    newTransactionEnrol.software_version = this._globalService.appVersion;
+    newTransactionEnrol.form_language = this._globalService.currLanguage;
 
     if (xmlFile) {
       // todo checksum here

@@ -95,9 +95,10 @@ export class MasterFileBaseService {
   public getEmptyTransactionEnrol(): TransactionEnrol {
     const TransactionEnrol: TransactionEnrol = {
       template_type: 'PHARMA',
-      software_version: this._globalService.appVersion,
       date_saved: undefined,
-      data_checksum: '',
+      software_version: '',
+      form_language: '',
+      check_sum: '',
       ectd: this.getEmptyEctd(),
       contact_info: this.getEmptyContactInfo(),
       fee_details: this.getEmptyMasterFileFeeModel(),
