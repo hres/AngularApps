@@ -57,22 +57,21 @@
                         class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['holderAddrIndx']}}</a>
                   </sup>
                 </header>
-                <div class="panel-body">address-details todo
-                  <!-- <address-details [showErrors]="showErrors" [countryList]="countryList" [lang]="lang" [provinceList]="provinceList"
-                    [addressModel]="holderAddressModel" [stateList]="stateList" [helpIndex]="helpIndex"
-                    (errorList)="processAddressErrors($event)" [addrType]="holder">
-                  </address-details> -->
+                <div class="panel-body">
+                  <address-details [showErrors]="showErrors" 
+                    [addressModel]="holderAddressModel" [addrType]="holder"
+                    (errorList)="processAddressErrors($event)">
+                  </address-details>
                 </div>
               </section>
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix">
                   <h3 class="panel-title">{{'heading.holder.contact'|translate}}</h3>
                 </header>
-                <div class="panel-body">contact-details todo
-                  <!-- <contact-details [showErrors]="showErrors" [lang]="lang"
-                    [contactDetailsModel]="holderContactModel" [helpIndex]="helpIndex"
-                    (errorList)="processContactErrors($event)" [contType]="holder">
-                  </contact-details> -->
+                <div class="panel-body">
+                   <contact-details [showErrors]="showErrors" [contactDetailsModel]="holderContactModel"
+                    (errorList)="processContactErrors($event)" [contactType]="holder">
+                  </contact-details> 
                 </div>
               </section>
 
@@ -102,21 +101,21 @@
                         </label>
                       </div>
                     </div>
-                  </div> address-details todo
-                  <!-- <address-details *ngIf="!notApplicable" [showErrors]="showErrors" [countryList]="countryList" [lang]="lang"
-                    [provinceList]="provinceList" [addressModel]="agentAddressModel" [stateList]="stateList" [addrType]="agent"
-                    [helpIndex]="helpIndex" (errorList)="processAgentAddressErrors($event)">
-                  </address-details> -->
+                  </div>
+                  <address-details *ngIf="!notApplicable" [showErrors]="showErrors" 
+                  [addressModel]="agentAddressModel" [addrType]="agent"
+                    (errorList)="processAgentAddressErrors($event)">
+                  </address-details>
                 </div>
               </section>
               <section class="panel  panel-default" *ngIf="!notApplicable">
                 <header class="panel-heading clearfix">
                   <h3 class="panel-title">{{'heading.agent.contact'|translate}}</h3>
                 </header>
-                <div class="panel-body">contact-details todo
-                  <!-- <contact-details [showErrors]="showErrors" [lang]="lang" [contactDetailsModel]="agentContactModel"
-                    [helpIndex]="helpIndex" (errorList)="processAgentContactErrors($event)" [contType]="agent">
-                  </contact-details> -->
+                <div class="panel-body">
+                  <contact-details [showErrors]="showErrors" [contactDetailsModel]="agentContactModel"
+                  (errorList)="processAgentContactErrors($event)" [contactType]="agent">
+                </contact-details> 
                 </div>
               </section>
               <div class="col-xs-12 full-width">
@@ -163,7 +162,7 @@
           <h2 class="panel-title">{{'panel.title.certification'|translate}}</h2>
         </header>
         <div class="panel-body">
-          <certification (errorList)="processTransFeeErrors($event)" [showErrors]="showErrors"
+          <certification (errorList)="processCertificationErrors($event)" [showErrors]="showErrors"
           [dataModel]="certificationModel"></certification>
         </div>
       </section>

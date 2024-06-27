@@ -34,12 +34,15 @@ export class DeviceService {
   }
 
   public mapFormModelToOutputModel(formRecord: any, deviceModel) {
-    deviceModel.device_name = formRecord.deviceName;
-    deviceModel.device_authorized = formRecord.deviceAuthorized;
-    deviceModel.licence_number = formRecord.licenceNum
-    deviceModel.device_application_submitted = formRecord.deviceApplicationSubmitted;
-    deviceModel.device_application_number = formRecord.deviceApplicationNumber;
-    deviceModel.device_explain = formRecord.deviceExplain;
+    const deviceInfo = formRecord.deviceInfo;
+
+    deviceModel.id = formRecord.id;
+    deviceModel.device_name = deviceInfo.deviceName;
+    deviceModel.device_authorized = deviceInfo.deviceAuthorized;
+    deviceModel.licence_number = deviceInfo.licenceNum
+    deviceModel.device_application_submitted = deviceInfo.deviceApplicationSubmitted;
+    deviceModel.device_application_number = deviceInfo.deviceApplicationNumber;
+    deviceModel.device_explain = deviceInfo.deviceExplain;
   }
 
   public mapOutputModelToFormModel(deviceModel, formRecord: FormGroup) {

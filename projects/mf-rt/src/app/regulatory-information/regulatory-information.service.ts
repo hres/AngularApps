@@ -1,27 +1,17 @@
 import { Injectable } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import {
-  Observable,
-  catchError,
-  combineLatest,
-  map,
-  throwError,
-  shareReplay,
-  tap,
-  filter,
-} from 'rxjs';
-import { ConverterService, DataMapping, FC_TYPE_ICODE, FC_TYPE_ID, FC_TYPE_INPUT, ICode, ICodeAria, ICodeDefinition, IParentChildren, OP_TYPE_IDTEXTLABEL, OP_TYPE_TEXT, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { Ectd, TransactionEnrol } from '../models/transaction';
+import { ConverterService, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { Ectd } from '../models/transaction';
+import { GlobalService } from '../global/global.service';
 
 @Injectable()
 export class RegulatoryInformationService {
 
-  constructor(private _converterService: ConverterService) {}
+  constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService) {}
 
   showDateAndRequesterTxDescs: string[] = ['12','13', '14'];
 
@@ -32,7 +22,7 @@ export class RegulatoryInformationService {
    return fb.group({
      dossierId: [
        null,
-       [Validators.required, ValidationService.dossierIdValidator],
+       [Validators.required, ValidationService.masterFileDossierIdValidator],
      ],
      masterFileName: [null, Validators.required],
      masterFileNumber: [null, ValidationService.masterFileNumberValidator],
@@ -46,147 +36,82 @@ export class RegulatoryInformationService {
    });
   }
 
-  regInfoDataMappings: DataMapping[] = [
-    new DataMapping(
-      'dossierId',
-      FC_TYPE_INPUT,
-      'dossier_id',
-      OP_TYPE_TEXT
-    ),
-    new DataMapping(
-      'masterFileName',
-      FC_TYPE_INPUT,
-      'product_name',
-      OP_TYPE_TEXT
-    ),
-    new DataMapping(
-      'masterFileNumber',
-      FC_TYPE_INPUT,
-      'lifecycle_record.master_file_number',
-      OP_TYPE_TEXT
-    ),
-    new DataMapping(
-      'masterFileType',
-      FC_TYPE_ICODE,
-      'lifecycle_record.regulatory_activity_type',
-      OP_TYPE_IDTEXTLABEL
-    ),
-    new DataMapping(
-      'masterFileUse',
-      FC_TYPE_ICODE,
-      'lifecycle_record.master_file_use',
-      OP_TYPE_IDTEXTLABEL
-    ),
-    new DataMapping(
-      'descriptionType',
-      FC_TYPE_ID,
-      'lifecycle_record.sequence_description_value',
-      OP_TYPE_IDTEXTLABEL
-    ),
-    new DataMapping(
-      'requestDate',
-      FC_TYPE_INPUT,
-      'lifecycle_record.sequence_from_date',
-      OP_TYPE_TEXT
-    ),
-    new DataMapping(
-      'requester',
-      FC_TYPE_INPUT,
-      'lifecycle_record.requester_of_solicited_information',
-      OP_TYPE_TEXT
-    ),    
-    new DataMapping(
-      'reqRevision',
-      FC_TYPE_INPUT,
-      'lifecycle_record.revise_trans_desc_request',
-      OP_TYPE_TEXT
-    ),    
-    new DataMapping(
-      'revisedDescriptionType',
-      FC_TYPE_ID,
-      'lifecycle_record.revised_trans_desc',
-      OP_TYPE_IDTEXTLABEL
-    ),    
+  public mapFormModelToDataModel(formValue: any, dataModel: Ectd, lang: string): void {
+
+    dataModel.dossier_id = formValue['dossierId'];
+    dataModel.product_name = formValue['masterFileName'];
+    dataModel.lifecycle_record.master_file_number = formValue['masterFileNumber'];
+    dataModel.lifecycle_record.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfTypes, formValue['masterFileType'], lang);
+    dataModel.lifecycle_record.master_file_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfUses, formValue['masterFileUse'], lang);
+    dataModel.lifecycle_record.sequence_description_value = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.txDescs, formValue['descriptionType'], lang);
+    dataModel.lifecycle_record.sequence_from_date = formValue['requestDate'];
+    dataModel.lifecycle_record.requester_of_solicited_information = formValue['requester'];
+    dataModel.lifecycle_record.revise_trans_desc_request = formValue['reqRevision'];
+    dataModel.lifecycle_record.revised_trans_desc = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.txDescs, formValue['revisedDescriptionType'], lang);
     
-  ];
-
-  public mapFormModelToDataModel(
-    formRecord: FormGroup,
-    dataModel: Ectd,
-    lang: string, descriptionTypeList:ICodeDefinition[]
-  ): void {    
-    for (let mapping of this.regInfoDataMappings) {
-      this._converterService.convertFormDataToOutputModel(
-        mapping,
-        formRecord,
-        dataModel,
-        lang,
-        descriptionTypeList
-      );
-    }
-
     // save concatenated data to the dataModel
     // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
-    // if (dataModel.lifecycle_record.sequence_description_value?._id) {    
-    //   if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {    
-    //     dataModel.lifecycle_record.transaction_description = {
-    //       '_label_en':concat(dataModel.lifecycle_record.sequence_description_value._label_en, "dated", dataModel.lifecycle_record.sequence_from_date),
-    //       '_label_fr':concat(dataModel.lifecycle_record.sequence_description_value._label_fr, "daté du", dataModel.lifecycle_record.sequence_from_date)
-    //     }      
-    //   } else {
-    //     dataModel.lifecycle_record.transaction_description = {
-    //       '_label_en':concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
-    //       '_label_fr':concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
-    //     }  
-    //   }
-    //   if (isFrench(lang)) {
-    //     dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_fr;
-    //   }else{
-    //     dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_en;
-    //   }
-    // }
-    // HPFBFORMS-192, Master File Name, allow any case in form but when saving to XML put in upper case
-    // const masterFileNameMapping = findDataMappingByFormControlName(this.regInfoDataMappings, 'masterFileName');
-    // if (masterFileNameMapping == null) {
-    //   console.log("couldn't find masterFileNameMapping");
-    // } else {
-    //   if (dataModel[masterFileNameMapping.outputDataName]) {
-    //     dataModel[masterFileNameMapping.outputDataName] = dataModel[masterFileNameMapping.outputDataName].toUpperCase();
-    //   }
-    // }
-  }
-
-  public mapDataModelToFormModel(
-    dataModel: Ectd,
-    formRecord: FormGroup,
-    lang: string
-  ): void {
-    // loop through all mappings to set form values from the data model
-    for (let mapping of this.regInfoDataMappings) {
-      this._converterService.convertOutputModelToFormData(
-        mapping,
-        formRecord,
-        dataModel,
-        lang
-      );
-    }
-
-    // loop through all mappings again to deal with  those form controls whose value is an object
-    // it will use the object id, which is set to the from control by previous looping, to find the object from the object subscription and then assign the object to the form control
-    for (let mapping of this.regInfoDataMappings) {
-      if (mapping.outputDataType === OP_TYPE_IDTEXTLABEL) {
-        const control = formRecord.controls[
-          mapping.formControlName
-        ] as FormControl;
-        const controlName = mapping.formControlName;
-
-        // if (controlName === 'masterFileType') {
-        //   updateControlValue(controlName, control,  this.mfTypeOptions$ );
-        // } else if (controlName === 'masterFileUse') {
-        //   updateControlValue(controlName, control, this.mfUseOptions$);
-        // }
+    if (dataModel.lifecycle_record.sequence_description_value?._id) {    
+      console.log(dataModel.lifecycle_record.sequence_description_value._id, typeof dataModel.lifecycle_record.sequence_description_value._id)
+      if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {    
+        dataModel.lifecycle_record.transaction_description = {
+          '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, "dated", dataModel.lifecycle_record.sequence_from_date),
+          '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, "daté du", dataModel.lifecycle_record.sequence_from_date)
+        }      
+      } else {
+        dataModel.lifecycle_record.transaction_description = {
+          '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
+          '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
+        }  
+      }
+      if (this._utilsService.isFrench(lang)) {
+        dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_fr;
+      }else{
+        dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_en;
       }
     }
+
+    // HPFBFORMS-192, Master File Name, allow any case in form but when saving to XML put in upper case
+    dataModel.product_name = dataModel.product_name?.toUpperCase();
+  }
+
+  public mapDataModelToFormModel(dataModel: Ectd, formRecord: FormGroup): void {
+    formRecord.controls['dossierId'].setValue(dataModel.dossier_id);
+    formRecord.controls['masterFileName'].setValue(dataModel.product_name);
+    formRecord.controls['masterFileNumber'].setValue(dataModel.lifecycle_record.master_file_number);
+
+    if(dataModel.lifecycle_record.regulatory_activity_type?._id){
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.lifecycle_record.regulatory_activity_type);
+      formRecord.controls['masterFileType'].setValue(id? id : null);
+    } else {
+      formRecord.controls['masterFileType'].setValue(null);
+    }
+
+    if(dataModel.lifecycle_record.master_file_use?._id){
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.lifecycle_record.master_file_use);
+      formRecord.controls['masterFileUse'].setValue(id? id : null);
+    } else {
+      formRecord.controls['masterFileUse'].setValue(null);
+    }
+
+    if(dataModel.lifecycle_record.sequence_description_value?._id){
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.lifecycle_record.sequence_description_value);
+      formRecord.controls['descriptionType'].setValue(id? id : null);
+    } else {
+      formRecord.controls['descriptionType'].setValue(null);
+    }
+
+    formRecord.controls['requestDate'].setValue(dataModel.lifecycle_record.sequence_from_date);
+    formRecord.controls['requester'].setValue(dataModel.lifecycle_record.requester_of_solicited_information);
+    formRecord.controls['reqRevision'].setValue(dataModel.lifecycle_record.revise_trans_desc_request);
+
+    if (dataModel.lifecycle_record.revised_trans_desc?._id) {
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.lifecycle_record.revised_trans_desc);
+      formRecord.controls['revisedDescriptionType'].setValue(id? id : null);
+    } else {
+      formRecord.controls['revisedDescriptionType'].setValue(null);
+    }
+    
   }
 
 }

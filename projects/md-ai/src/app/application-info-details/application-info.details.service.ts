@@ -94,11 +94,15 @@ export class ApplicationInfoDetailsService {
     const hasDinNpnCodeValue = this._utilsService.findCodeById(drugTypeList, formRecord.hasDinNpn);
     appInfoModel.has_din_npn = hasDinNpnCodeValue? this._converterService.convertCodeToIdTextLabel(hasDinNpnCodeValue, lang) : null;
     
-  
-    const compliances: Compliances = {
-      compliance: this._converterService.findAndConverCodesToIdTextLabels(complianceList, formRecord.selectedComplianceCodes, lang)
+    if (formRecord.selectedComplianceCodes) {
+      const compliances: Compliances = {
+        compliance: this._converterService.findAndConverCodesToIdTextLabels(complianceList, formRecord.selectedComplianceCodes, lang)
+      }
+      appInfoModel.compliance = compliances.compliance.length > 0 ? compliances : null;
+    } else {
+      appInfoModel.compliance = null;
     }
-    appInfoModel.compliance = compliances;
+    
     appInfoModel.din = formRecord.din;
     appInfoModel.npn = formRecord.npn;
     appInfoModel.drug_name = formRecord.drugName;
@@ -106,9 +110,10 @@ export class ApplicationInfoDetailsService {
     appInfoModel.manufacturer = formRecord.manufacturer;
     appInfoModel.other_pharmacopeia = formRecord.otherPharmacopeia;
 
-    appInfoModel.provision_mdr_it = formRecord.provisionMdrIT
-    appInfoModel.provision_mdr_sa = formRecord.provisionMdrSA
-    appInfoModel.interim_order_authorization = formRecord.provisionMdrIOA
+
+    appInfoModel.provision_mdr_it = formRecord.provisionMdrIT === false  ? null : formRecord.provisionMdrIT;
+    appInfoModel.provision_mdr_sa = formRecord.provisionMdrSA === false ? null : formRecord.provisionMdrSA;
+    appInfoModel.interim_order_authorization = formRecord.provisionMdrIOA === false ? null : formRecord.provisionMdrIOA;
 
     appInfoModel.application_number = formRecord.applicationNum;
     appInfoModel.sap_request_number = formRecord.sapReqNum;
@@ -177,6 +182,7 @@ export class ApplicationInfoDetailsService {
         this.loadComplianceOptions(complianceList, complianceOptionList, complianceFormArray, lang);
         this._converterService.checkCheckboxes(loadedComplianceReasonCodes, complianceOptionList, complianceFormArray);
       }  
+      formRecord.controls['selectedComplianceCodes'].setValue(loadedComplianceReasonCodes);
     }
 
     formRecord.controls['din'].setValue(appInfoModel.din);

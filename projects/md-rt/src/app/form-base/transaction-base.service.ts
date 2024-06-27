@@ -68,7 +68,7 @@ export class TransactionBaseService {
   }
 
   private _getMedicalDeviceDossierType(): IIdTextLabel { 
-    return this._utilsService.createIIdTextLabelObj('D23', 'Medical Device', 'Instruments Médicaux');
+    return this._utilsService.createIIdTextLabelObj('D23', 'Medical Devices', 'Instruments Médicaux');
   }
 
   private _getMedicalDeviceDirectorateActivityLead(): IIdTextLabel { 
