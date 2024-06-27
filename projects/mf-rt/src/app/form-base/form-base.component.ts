@@ -256,8 +256,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // if (this.showFee()) {
     //   this.transFeeModel = this.transactionEnrollModel.fee_details;
     // }
-    this.certificationModel = this.transactionEnrollModel.certification;
+    // this.certificationModel = this.transactionEnrollModel.certification;
     // MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
+    this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.masterFileForm);
     this.agentInfoOnChange();
   }
 
@@ -339,13 +340,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._updateSavedDate();
     this._updateSoftwareVersion();
 
-    const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
-    const addressesFormGroupValue = this.addressComponents.map((comp: AddressDetailsComponent) => ({
-      addrType: comp.addrType,
-      value: comp.getFormValue()
-    })); 
-    const certificationFormGroupValue = this.certificationComponent.getFormValue(); 
-
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
     //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
@@ -370,27 +364,38 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.transactionEnrollModel.fee_details = null;
     // }
 
-    // this.transactionEnrollModel.certification = this.certificationModel;
-
     const newTransactionEnrol: TransactionEnrol = this._baseService.getEmptyTransactionEnrol();
 
+    // regulatoryInfo and certification are always rendered, do their mappings to output data here
+    const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
+    const certificationFormGroupValue = this.certificationComponent.getFormValue(); 
     this._baseService.mapRequiredFormsToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue, certificationFormGroupValue);
 
+    // contactInfo and fee are conditional rendered, do their mappings to output data only when applicable
     if (this.showContact()) {
-      // todo
       newTransactionEnrol.contact_info.agent_not_applicable = this.masterFileForm.controls['notApplicable'].value;
       newTransactionEnrol.contact_info.contact_info_confirm = this.masterFileForm.controls['contactInfoConfirm'].value;
+      console.log(newTransactionEnrol.contact_info.agent_not_applicable, newTransactionEnrol.contact_info.contact_info_confirm);
+
+      const addressesFormGroupValue = this.addressComponents.map((comp: AddressDetailsComponent) => ({
+        addrType: comp.addrType,
+        value: comp.getFormValue()
+      })); 
+      // todo
+      const contactFormGroupValue = null;
+
+      this._baseService.mapAddressFormContactFormToOutput(newTransactionEnrol.contact_info, addressesFormGroupValue, contactFormGroupValue);
+
     } else {
       newTransactionEnrol.contact_info = null;
     }
 
     if (this.showFee()) {
       const feeFormGroupValue = this.feeComponent.getFormValue();
-      this._baseService.mapFeeFormToOutput(newTransactionEnrol, feeFormGroupValue);
+      this._baseService.mapFeeFormToOutput(newTransactionEnrol.fee_details, feeFormGroupValue);
     } else {
       newTransactionEnrol.fee_details = null;
     }
-
 
     // const newTransactionEnrol: Transaction = this._baseService.mapRequiredFormsToOutput(regulatoryInfoFormGroupValue, addressesFormGroupValue);
     console.log('_prepareForSaving ~ newTransactionEnrol', JSON.stringify(newTransactionEnrol, null, 2));

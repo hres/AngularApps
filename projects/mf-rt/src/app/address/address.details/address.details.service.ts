@@ -18,7 +18,6 @@ export class AddressDetailsService {
     if (!fb) {return null; }
     return fb.group({
       companyName: [null, Validators.required],
-      // businessNum: '',
       address: [null, Validators.required],
       provText: '',
       provState: '',
@@ -28,7 +27,9 @@ export class AddressDetailsService {
     });
   }
 
-  public mapFormModelToDataModel(formValue: any, addressModel: INameAddress, lang: string) {
+  public mapFormModelToDataModel(formValue: any, addressModel: INameAddress) {
+
+    const lang = this._globalService.currLanguage;
     const countryList: ICode[] = this._globalService.countryList;
     const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
 

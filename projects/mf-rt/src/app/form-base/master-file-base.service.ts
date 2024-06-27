@@ -165,22 +165,39 @@ export class MasterFileBaseService {
     }
   }
 
-  public mapDataModelToFormModel(mfDataModel, formRecord: FormGroup) {
-    // console.log(mfDataModel.contact_info.agent_not_applicable, typeof mfDataModel.contact_info.agent_not_applicable);
-    formRecord.controls['notApplicable'].setValue(this._utilsService.toBoolean(mfDataModel.contact_info.agent_not_applicable));
+  public mapDataModelToFormModel(contactInfo: ContactInfo, formRecord: FormGroup) {
+    console.log(contactInfo.agent_not_applicable, typeof contactInfo.agent_not_applicable, this._utilsService.toBoolean(contactInfo.agent_not_applicable));
+    formRecord.controls['notApplicable'].setValue(this._utilsService.toBoolean(contactInfo.agent_not_applicable));
 
     // Resets certifcation section and contact info confirmation
     formRecord.controls['contactInfoConfirm'].setValue(undefined);
-
   }
 
-  public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any, certificationFormValue: any): void{
+  public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any, certificationFormGroupValue: any): void{
     this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd);
-    //todo map certificationFormValue to output data
-
+    this._certificationService.mapFormModelToDataModel(certificationFormGroupValue, outputTransactionEnrol.certification)
   }
 
-  public mapFeeFormToOutput(outputFee: TransactionEnrol, feeFormGroupValue: any): void{
-    this._feeService.mapFormModelToDataModel(feeFormGroupValue, outputFee.fee_details);    
+  public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, addressesFormGroupValue: Array<{ addrType: string, value: any }>, contactFormGroupValue: Array<{ addrType: string, value: any }>): void{
+    if (contactInfo.agent_not_applicable) {
+      const holderAddress = addressesFormGroupValue.filter(address => address.addrType === ADDR_CONT_TYPE.HOLDER)[0];
+      if (holderAddress) {
+        this._addressDetailsService.mapFormModelToDataModel(holderAddress.value, contactInfo.holder_name_address);
+      }
+      // todo holderContact
+    } else {
+      addressesFormGroupValue.forEach(address => {
+        if (address.addrType === ADDR_CONT_TYPE.HOLDER) {
+          this._addressDetailsService.mapFormModelToDataModel(address.value, contactInfo.holder_name_address);
+        } else if (address.addrType === ADDR_CONT_TYPE.AGENT) {
+          this._addressDetailsService.mapFormModelToDataModel(address.value, contactInfo.agent_name_address);
+        }
+      });
+      // todo holderContact and agentContact
+    }
+  }
+
+  public mapFeeFormToOutput(feeDetail: FeeDetails, feeFormGroupValue: any): void{
+    this._feeService.mapFormModelToDataModel(feeFormGroupValue, feeDetail);    
   }
 }
