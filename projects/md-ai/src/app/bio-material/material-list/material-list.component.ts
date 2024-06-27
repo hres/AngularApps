@@ -330,8 +330,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       oerr.label = 'error.msg.materialOneRecord';
     }
 
-    console.log("1 rec", atLeastOneRecord);
-    console.log(oerr);
+    // console.log("1 rec", atLeastOneRecord);
+    // console.log(oerr);
 
     // const atLeastOneRecord = controls.some((control: AbstractControl) => control['isNew'].value !== true);
     // console.log("at least one record", atLeastOneRecord);
