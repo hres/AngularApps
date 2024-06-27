@@ -52,8 +52,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public headingLevel = 'h2';
 
   public rootTagText = ROOT_TAG;
-  private appVersion: string;
-  private xslName: string;
 
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
@@ -90,13 +88,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private  _baseService: MasterFileBaseService, private _globalService: GlobalService, private _utilsService: UtilsService,
-    private fileServices: FileConversionService
+    private fileServices: FileConversionService, private _versionService: VersionService, private _checkSumService: CheckSumService
   ) {
     this.showErrors = false;
-    // this.showContactFees = [true, true];
-    this.appVersion = this._globalService.appVersion;
-    let xsltVersion = this.appVersion.split('.',2).join("_");
-    this.xslName = MASTER_FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
   }
 
   async ngOnInit() {
@@ -229,8 +223,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public saveWorkingCopyFile() {
-    const result = this._prepareForSaving(false);
-    const fileName = this._generateFileName();
+    const result: Transaction = this._prepareForSaving(false);
+    const fileName = this._generateFileName(result[ROOT_TAG]);
     this.fileServices.saveJsonToFile(result, fileName, null);
   }
 
@@ -275,17 +269,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.certificationModel = trans.certification;
   }
 
-  private _updateSavedDate() {
+  private _updateSavedDate(transactionEnrol: TransactionEnrol) {
     const today = new Date();
     const pipe = new DatePipe('en-US');
-    this.transactionEnrollModel.date_saved = pipe.transform(
+    transactionEnrol.date_saved = pipe.transform(
       today,
       'yyyy-MM-dd-hhmm'
     );
-  }
-
-  private _updateSoftwareVersion() {
-    this.transactionEnrollModel.software_version = this.appVersion;
   }
 
   public preload() {
@@ -324,51 +314,23 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   _saveXML() {
     if (this.errorList && this.errorList.length < 1) {
-      const result = this._prepareForSaving(true);
-      const fileName = this._generateFileName();
+      const result: Transaction = this._prepareForSaving(true);
+      const fileName = this._generateFileName(result[ROOT_TAG]);
+      const xsltVersion = this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.appVersion)
+      const xslName = MASTER_FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
 
       console.log('save ...');
-      this.fileServices.saveXmlToFile(result, fileName, true, this.xslName);
+      this.fileServices.saveXmlToFile(result, fileName, true, xslName);
       return;
     }
     document.location.href = '#topErrorSummaryId';
   }
 
-  private _prepareForSaving(finalFile: boolean): Transaction {
-    if (finalFile) {
-      // this.masterFileModel.enrol_version = this.masterFileModel.enrol_version; // todo do we need the enrol_version field?
-    }
-
-    this._updateSavedDate();
-    this._updateSoftwareVersion();
-
-    // if (this.ectdModel.lifecycle_record.sequence_description_value) {
-    //   this.showContactFees[0] = !this.noContactTxDescs.includes(
-    //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
-    //   this.showContactFees[1] = !this.noFeeTxDescs.includes(
-    //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
-    // }
-    // if (this.showContactFees[0] === true) {
-    //   this.transactionEnrollModel.contact_info = MasterFileBaseService.getEmptyContactInfo();
-    //   this.transactionEnrollModel.contact_info.holder_name_address = this.holderAddressModel;
-    //   this.transactionEnrollModel.contact_info.holder_contact = this.holderContactModel;
-    //   this.transactionEnrollModel.contact_info.agent_name_address = this.agentAddressModel;
-    //   this.transactionEnrollModel.contact_info.agent_contact = this.agentContactModel;
-    //   this.transactionEnrollModel.contact_info.contact_info_confirm =
-    //     this.masterFileForm.controls['contactInfoConfirm'].value;
-    //   this.transactionEnrollModel.contact_info.agent_not_applicable = this.notApplicable;
-    // } else {
-    //   this.transactionEnrollModel.contact_info = null;
-    // }
-    // if (this.showContactFees[1] === true) {
-      // this.transactionEnrollModel.fee_details = this.showFee()? this.transFeeModel : null;
-    // } else {
-    //   this.transactionEnrollModel.fee_details = null;
-    // }
+  private _prepareForSaving(xmlFile: boolean): Transaction {
 
     const newTransactionEnrol: TransactionEnrol = this._baseService.getEmptyTransactionEnrol();
 
-    // regulatoryInfo and certification are always rendered, do their mappings to output data here
+    // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
     const certificationFormGroupValue = this.certificationComponent.getFormValue(); 
     this._baseService.mapRequiredFormsToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue, certificationFormGroupValue);
@@ -401,7 +363,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       newTransactionEnrol.fee_details = null;
     }
 
-    // const newTransactionEnrol: Transaction = this._baseService.mapRequiredFormsToOutput(regulatoryInfoFormGroupValue, addressesFormGroupValue);
+    this._updateSavedDate(newTransactionEnrol);
+
+    if (xmlFile) {
+      // todo checksum here
+    }
+
     console.log('_prepareForSaving ~ newTransactionEnrol', JSON.stringify(newTransactionEnrol, null, 2));
 
     const output: Transaction = {
@@ -411,12 +378,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return output;
   }
 
-  private _generateFileName(): string {
+  private _generateFileName(transactionEnrol: TransactionEnrol): string {
     let fileName =
       MASTER_FILE_OUTPUT_PREFIX + "-" +
-      this.transactionEnrollModel.ectd.dossier_id +
+      transactionEnrol.ectd.dossier_id +
       '-' +
-      this.transactionEnrollModel.date_saved;
+      transactionEnrol.date_saved;
     return fileName;
   }
 
