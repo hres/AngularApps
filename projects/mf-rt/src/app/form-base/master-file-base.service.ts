@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, LifecycleRecord, TransactionEnrol, Transaction, ContactInfo, IContact, INameAddress, FeeDetails, Certification} from '../models/transaction';
+import {Ectd, LifecycleRecord, TransactionEnrol, Transaction, ContactInfo, IContact, INameAddress, FeeDetails} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
@@ -101,7 +101,10 @@ export class MasterFileBaseService {
       ectd: this.getEmptyEctd(),
       contact_info: this.getEmptyContactInfo(),
       fee_details: this.getEmptyMasterFileFeeModel(),
-      certification: this.getCertification(),
+      certify_accurate_complete: false,
+      full_name: '',
+      submit_date: undefined,
+      consent_privacy: false
     };
     
     return TransactionEnrol;
@@ -157,15 +160,6 @@ export class MasterFileBaseService {
     return contactInfo;
   }
 
-  public getCertification() : Certification {
-    return {
-      certify_accurate_complete: undefined,
-      full_name: '',
-      submit_date: '',
-      consent_privacy: undefined
-    }
-  }
-
   public mapDataModelToFormModel(contactInfo: ContactInfo, formRecord: FormGroup) {
     console.log(contactInfo.agent_not_applicable, typeof contactInfo.agent_not_applicable, this._utilsService.toBoolean(contactInfo.agent_not_applicable));
     formRecord.controls['notApplicable'].setValue(this._utilsService.toBoolean(contactInfo.agent_not_applicable));
@@ -176,7 +170,7 @@ export class MasterFileBaseService {
 
   public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any, certificationFormGroupValue: any): void{
     this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd);
-    this._certificationService.mapFormModelToDataModel(certificationFormGroupValue, outputTransactionEnrol.certification)
+    this._certificationService.mapFormModelToDataModel(certificationFormGroupValue, outputTransactionEnrol)
   }
 
   public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, 

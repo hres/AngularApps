@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -9,7 +9,7 @@ import { FilereaderInstructionComponent } from "../filereader-instruction/filere
 import { ADDR_CONT_TYPE, MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationComponent } from "../regulatory-information/regulatory-information.component";
 import { MasterFileBaseService } from './master-file-base.service';
-import { Certification, Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { AddressDetailsComponent } from '../address/address.details/address.details.component';
 import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
 import { CertificationComponent } from '../certification/certification.component';
@@ -63,7 +63,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public holderContactModel: IContact; 
   public agentContactModel: IContact;
   public transFeeModel: FeeDetails;
-  public certificationModel: Certification;
 
   public notApplicable: boolean = false;
   public holder: string = ADDR_CONT_TYPE.HOLDER;
@@ -272,7 +271,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.agentAddressModel = trans.contact_info.agent_name_address;
     this.agentContactModel = trans.contact_info.agent_contact;
     this.transFeeModel = trans.fee_details;
-    this.certificationModel = trans.certification;
   }
 
   private _updateSavedDate() {

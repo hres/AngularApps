@@ -1,9 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { BaseComponent, ErrorModule, HelpIndex, PipesModule, UtilsService } from '@hpfb/sdk/ui';
-import { TranslateModule } from '@ngx-translate/core';
-import { Certification } from '../models/transaction';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { BaseComponent, HelpIndex, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CertificationService } from './certification.service';
 
@@ -21,7 +18,6 @@ export class CertificationComponent extends BaseComponent implements OnInit{
   public certificationForm: FormGroup;
 
   @Input() showErrors: boolean;
-  @Input() dataModel: Certification;
   @Output() errorList = new EventEmitter(true);
 
   constructor(private _certificationService: CertificationService, private _fb: FormBuilder, private _utilsService: UtilsService,
@@ -56,10 +52,6 @@ export class CertificationComponent extends BaseComponent implements OnInit{
           });
         }
         this.errorList.emit(temp);
-      }
-      if (changes['dataModel']) {
-        const dataModelCurrentValue = changes['dataModel'].currentValue as Certification;
-        this._certificationService.mapDataModelToFormModel(dataModelCurrentValue, (<FormGroup>this.certificationForm));
       }
     }
   }
