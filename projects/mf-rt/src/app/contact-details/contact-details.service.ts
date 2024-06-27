@@ -30,8 +30,11 @@ export class ContactDetailsService {
     });
   }
 
-  public mapFormModelToDataModel(formValue: any, contactModel: IContact, lang: string) {
+  public mapFormModelToDataModel(formValue: any, contactModel: IContact) {
+
+    const lang = this._globalService.currLanguage;
     const languageList: ICode[] = this._globalService.languageList;
+
     contactModel.given_name = formValue['firstName'];
     // contactModel.initials = formRecord.controls['initials.value;
     contactModel.surname = formValue['lastName'];
@@ -43,7 +46,7 @@ export class ContactDetailsService {
     contactModel.email = formValue['email'];
   }
 
-  public mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
+  public mapDataModelToFormModel(contactModel: IContact, formRecord: FormGroup) {
 
     formRecord.controls['firstName'].setValue(contactModel.given_name);
     formRecord.controls['lastName'].setValue(contactModel.surname);

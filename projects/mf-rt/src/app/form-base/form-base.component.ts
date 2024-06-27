@@ -11,6 +11,7 @@ import { RegulatoryInformationComponent } from "../regulatory-information/regula
 import { MasterFileBaseService } from './master-file-base.service';
 import { Certification, Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { AddressDetailsComponent } from '../address/address.details/address.details.component';
+import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
 import { CertificationComponent } from '../certification/certification.component';
 import { ContactDetailsComponent } from '../contact-details/contact-details.component';
 
@@ -31,6 +32,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
+  @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
   @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
   @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
@@ -81,6 +83,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return this.selectedTxDescSignal()==='' ? true : !this.noFeeTxDescs.includes(this.selectedTxDescSignal());
   });
 
+  showContactFlag: boolean = true;
+  showFeeFlag: boolean = true;
+
   constructor(
     private _fb: FormBuilder,
     private cdr: ChangeDetectorRef,
@@ -101,17 +106,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     try {
 
       if (!this._globalService.enrollment) {
-        // this._loggerService.log("form.base", "onInit", "enrollement doesn't exist, create a new one");
+        console.log("onInit", "enrollement doesn't exist, create a new one");
         this.enrollModel = this._baseService.getEmptyEnrol();
         this._globalService.enrollment = this.enrollModel;
       } else {
         this.enrollModel = this._globalService.enrollment;
-        // console.log("onInit", "get enrollement from globalservice", JSON.stringify(this.enrollModel, null, 2));
+        console.log("onInit", "get enrollement from globalservice");
       }
 
       this.transactionEnrollModel = this.enrollModel[this.rootTagText];
-      this.holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
-      this.agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
+      console.log('oninit', JSON.stringify(this.transactionEnrollModel, null, 2));
+
+      this._initModels(this.transactionEnrollModel);
 
       this.lang = this._globalService.currLanguage;
       this.helpIndex = this._globalService.helpIndex;
@@ -119,7 +125,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       console.error(e);
     }
   }
-
   ngAfterViewInit(): void {
     document.location.href = '#def-top';
 
@@ -183,6 +188,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
+  processContactErrors(errorList) {
+    this._contactErrors = errorList;
+    this.processErrors();
+  }
+
   processTransFeeErrors(errorList) {
     this._transFeeErrors = errorList;
     this.processErrors();
@@ -195,11 +205,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processAddressErrors(errorList) {
     this._addressErrors = errorList;
-    this.processErrors();
-  }
-
-  processContactErrors(errorList) {
-    this._contactErrors = errorList;
     this.processErrors();
   }
 
@@ -233,11 +238,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     console.log('processing file.....');
     console.log(fileData);
     this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
-    this.ectdModel = this.transactionEnrollModel.ectd;
-    this.holderAddressModel = this.transactionEnrollModel.contact_info.holder_name_address;
-    this.agentAddressModel = this.transactionEnrollModel.contact_info.agent_name_address;
-    this.holderContactModel = this.transactionEnrollModel.contact_info.holder_contact;
-    this.agentContactModel = this.transactionEnrollModel.contact_info.agent_contact;
+    this._initModels(this.transactionEnrollModel);
+
+    this.setSelectedTxDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
+
 
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
@@ -251,12 +255,24 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.agentAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_name_address;
     //   this.agentContactModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_contact;
     // }
-    // if (this.showContactFees[1] === true) {
-      this.transFeeModel = this.transactionEnrollModel.fee_details;
+    // if (this.showFee()) {
+    //   this.transFeeModel = this.transactionEnrollModel.fee_details;
     // }
-    this.certificationModel = this.transactionEnrollModel.certification;
+    // this.certificationModel = this.transactionEnrollModel.certification;
     // MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
+    this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.masterFileForm);
     this.agentInfoOnChange();
+  }
+
+  
+  private _initModels(trans: TransactionEnrol) {
+    this.ectdModel = trans.ectd;
+    this.holderAddressModel = trans.contact_info.holder_name_address;
+    this.holderContactModel = trans.contact_info.holder_contact;
+    this.agentAddressModel = trans.contact_info.agent_name_address;
+    this.agentContactModel = trans.contact_info.agent_contact;
+    this.transFeeModel = trans.fee_details;
+    this.certificationModel = trans.certification;
   }
 
   private _updateSavedDate() {
@@ -278,24 +294,26 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public setSelectedTxDesc(val: string) {
     console.log("setSelectedTxDesc==>", val);
+    // set the value of selectedTxDescSignal and showContact/showFee will be computed
     this.selectedTxDescSignal.set(val);
-    // this.showContactFees = flag; 
 
-    // if (this.showContactFees[0] === false) {
-    //   this.holderAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-    //   this.holderContactModel = MasterFileBaseService.getEmptyContactModel();
-    //   this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-    //   this.agentContactModel = MasterFileBaseService.getEmptyContactModel();
-    //   this._addressErrors = [];
-    //   this._agentAddressErrors = [];
-    //   this._contactErrors = [];
-    //   this._agentContactErrors = [];
-    // }
-    // if (this.showContactFees[1] === false) {
-    //   this.transFeeModel = MasterFileBaseService.getEmptyMasterFileFeeModel();
-    //   this._transFeeErrors = [];
-    // }
-    // this.processErrors();
+    if (!this.showContact()) {
+      this.holderAddressModel = this._baseService.getEmptyAddressDetailsModel();
+      this.holderContactModel = this._baseService.getEmptyContactModel();
+      this.agentAddressModel = this._baseService.getEmptyAddressDetailsModel();
+      this.agentContactModel = this._baseService.getEmptyContactModel();
+      this._addressErrors = [];
+      this._agentAddressErrors = [];
+      this._contactErrors = [];
+      this._agentContactErrors = [];
+    }
+
+    if (!this.showFee()) {
+      this.transFeeModel = this._baseService.getEmptyMasterFileFeeModel();
+      this._transFeeErrors = [];
+    }
+    
+    this.processErrors();
   }
 
 
@@ -324,17 +342,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._updateSavedDate();
     this._updateSoftwareVersion();
 
-    const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
-    const addressesFormGroupValue = this.addressComponents.map((comp: AddressDetailsComponent) => ({
-      addrType: comp.addrType,
-      value: comp.getFormValue()
-    })); 
-    const contactsFormGroupValue = this.contactDetailsComponents.map((comp: ContactDetailsComponent) => ({
-      contactType: comp.contactType,
-      value: comp.getFormValue()
-    })); 
-    const certificationFormGroupValue = this.certificationComponent.getFormValue(); 
-
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
     //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
@@ -354,17 +361,54 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.transactionEnrollModel.contact_info = null;
     // }
     // if (this.showContactFees[1] === true) {
-      this.transactionEnrollModel.fee_details = this.transFeeModel;
+      // this.transactionEnrollModel.fee_details = this.showFee()? this.transFeeModel : null;
     // } else {
     //   this.transactionEnrollModel.fee_details = null;
     // }
 
-    // this.transactionEnrollModel.certification = this.certificationModel;
+    const newTransactionEnrol: TransactionEnrol = this._baseService.getEmptyTransactionEnrol();
 
-    const result: Transaction = this._baseService.mapFormToOutput(regulatoryInfoFormGroupValue, addressesFormGroupValue, contactsFormGroupValue, certificationFormGroupValue);
-    console.log('_prepareForSaving ~ result', JSON.stringify(result, null, 2));
+    // regulatoryInfo and certification are always rendered, do their mappings to output data here
+    const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
+    const certificationFormGroupValue = this.certificationComponent.getFormValue(); 
+    this._baseService.mapRequiredFormsToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue, certificationFormGroupValue);
 
-    return result;
+    // contactInfo and fee are conditional rendered, do their mappings to output data only when applicable
+    if (this.showContact()) {
+      newTransactionEnrol.contact_info.agent_not_applicable = this.masterFileForm.controls['notApplicable'].value;
+      newTransactionEnrol.contact_info.contact_info_confirm = this.masterFileForm.controls['contactInfoConfirm'].value;
+      console.log(newTransactionEnrol.contact_info.agent_not_applicable, newTransactionEnrol.contact_info.contact_info_confirm);
+
+      const addressesFormGroupValue = this.addressComponents.map((comp: AddressDetailsComponent) => ({
+        addrType: comp.addrType,
+        value: comp.getFormValue()
+      })); 
+      const contactsFormGroupValue = this.contactDetailsComponents.map((comp: ContactDetailsComponent) => ({
+        contactType: comp.contactType,
+        value: comp.getFormValue()
+      })); 
+
+      this._baseService.mapAddressFormContactFormToOutput(newTransactionEnrol.contact_info, addressesFormGroupValue, contactsFormGroupValue);
+
+    } else {
+      newTransactionEnrol.contact_info = null;
+    }
+
+    if (this.showFee()) {
+      const feeFormGroupValue = this.feeComponent.getFormValue();
+      this._baseService.mapFeeFormToOutput(newTransactionEnrol.fee_details, feeFormGroupValue);
+    } else {
+      newTransactionEnrol.fee_details = null;
+    }
+
+    // const newTransactionEnrol: Transaction = this._baseService.mapRequiredFormsToOutput(regulatoryInfoFormGroupValue, addressesFormGroupValue);
+    console.log('_prepareForSaving ~ newTransactionEnrol', JSON.stringify(newTransactionEnrol, null, 2));
+
+    const output: Transaction = {
+      TRANSACTION_ENROL: newTransactionEnrol
+    };
+
+    return output;
   }
 
   private _generateFileName(): string {
@@ -380,12 +424,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.notApplicable = this.masterFileForm.controls['notApplicable'].value;
     // console.log ("this.notApplicable=",this.notApplicable, typeof this.notApplicable);
 
-    // if (this.notApplicable) {
-    //   this.agentAddressModel = MasterFileBaseService.getEmptyAddressDetailsModel();
-    //   this.agentContactModel = MasterFileBaseService.getEmptyContactModel();
-    //   this._agentAddressErrors = null;
-    //   this._agentContactErrors = null;
-    // }
+    if (this.notApplicable) {
+      this.agentAddressModel = this._baseService.getEmptyAddressDetailsModel();
+      this.agentContactModel = this._baseService.getEmptyContactModel();
+      this._agentAddressErrors = null;
+      this._agentContactErrors = null;
+    }
 
     this.processErrors();
   }

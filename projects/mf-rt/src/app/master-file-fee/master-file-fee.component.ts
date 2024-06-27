@@ -1,8 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { BaseComponent, EntityBaseService, ErrorModule, HelpIndex, ICode, PipesModule, UtilsService } from '@hpfb/sdk/ui';
-import { TranslateModule } from '@ngx-translate/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { BaseComponent, HelpIndex, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { MasterFileFeeService } from './master-file.fee.service';
 import { GlobalService } from '../global/global.service';
 import { FeeDetails } from '../models/transaction';
@@ -17,7 +15,7 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   lang: string;
   helpIndex: HelpIndex; 
   public showFieldErrors: boolean = false;
-  public showNumOfAccessLetter: boolean;
+  public showNumOfAccessLetter: boolean = false;
   public yesNoList: ICode[] = [];
   public whoResponsibleList : ICode[] = [];
   public mfFeeFormLocalModel: FormGroup;
@@ -27,7 +25,7 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   @Output() errorList = new EventEmitter(true);
 
   constructor(private _masterFileFeeService: MasterFileFeeService, private _fb: FormBuilder, 
-    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _utilsService: UtilsService, private _globalService: GlobalService) {
       super();
     this.showFieldErrors = false;
     this.showErrors = false;
@@ -35,32 +33,29 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
     if (!this.mfFeeFormLocalModel) {
       this.mfFeeFormLocalModel = this._masterFileFeeService.getReactiveModel(this._fb);
     }
-
   }
 
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-    this.showNumOfAccessLetter = false;
     this.yesNoList = this._globalService.yesnoList;
     this.whoResponsibleList = this._globalService.whoResponsible;
   }
   
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['showErrors']) {
-      this.showFieldErrors = changes['showErrors'].currentValue;
-    }
-    if (changes['transFeeModel']) {
-      const dataModel = changes['transFeeModel'].currentValue;
-      if (!this.mfFeeFormLocalModel) {
-        this.mfFeeFormLocalModel = this._masterFileFeeService.getReactiveModel(this._fb);
-        this.mfFeeFormLocalModel.markAsPristine();
+    const isFirstChange = this._utilsService.isFirstChange(changes);
+    if (!isFirstChange) {
+      if (changes['showErrors']) {
+        this.showFieldErrors = changes['showErrors'].currentValue;
       }
-      this._masterFileFeeService.mapDataModelToFormModel(dataModel, (<FormGroup>this.mfFeeFormLocalModel));
-      if (dataModel.are_there_access_letters && dataModel.are_there_access_letters === 'Y') {
-        this.showNumOfAccessLetter = true;
-      } else {
-        this.showNumOfAccessLetter = false;
+      if (changes['dataModel']) {
+        const dataModel = changes['dataModel'].currentValue as FeeDetails;
+        // if (!this.mfFeeFormLocalModel) {
+        //   this.mfFeeFormLocalModel = this._masterFileFeeService.getReactiveModel(this._fb);
+        //   this.mfFeeFormLocalModel.markAsPristine();
+        // }
+        this._masterFileFeeService.mapDataModelToFormModel(dataModel, (<FormGroup>this.mfFeeFormLocalModel));
+        this.areAccessLettersChanged();
       }
     }
   }
@@ -70,7 +65,7 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   }
 
   areAccessLettersChanged() {
-    if (this.mfFeeFormLocalModel.controls['areAccessLetters'].value.id === 'Y') {
+    if (this.mfFeeFormLocalModel.controls['areAccessLetters'].value === 'Y') {
       this.showNumOfAccessLetter = true;
     } else {
       this.showNumOfAccessLetter = false;
@@ -78,4 +73,7 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
     }
   }
 
+  getFormValue() {
+    return this.mfFeeFormLocalModel.value;
+  }
 }

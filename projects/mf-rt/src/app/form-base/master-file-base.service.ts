@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, LifecycleRecord, TransactionEnrol, Transaction, ContactInfo, IContact, INameAddress, FeeDetails} from '../models/transaction';
+import {Ectd, LifecycleRecord, TransactionEnrol, Transaction, ContactInfo, IContact, INameAddress, FeeDetails, Certification} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
-import { UtilsService } from '@hpfb/sdk/ui';
+import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 import { MasterFileFeeService } from '../master-file-fee/master-file.fee.service';
 import { ADDR_CONT_TYPE, ROOT_TAG } from '../app.constants';
@@ -15,7 +15,7 @@ export class MasterFileBaseService {
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _addressDetailsService: AddressDetailsService, private _contactDetailsService: ContactDetailsService,
     private _feeService: MasterFileFeeService, private _certificationService: CertificationService,
-    private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
 
   /**
@@ -46,7 +46,7 @@ export class MasterFileBaseService {
       {
 		  are_there_access_letters: null,
 		  number_of_access_letters: '',
-		  who_responsible_fee: '',
+		  who_responsible_fee: this._entityBaseService.getEmptyIdTextLabel() ,
 		  account_number: '',
 		  cra_business_number: ''
       }
@@ -100,19 +100,8 @@ export class MasterFileBaseService {
       data_checksum: '',
       ectd: this.getEmptyEctd(),
       contact_info: this.getEmptyContactInfo(),
-      fee_details: {
-        are_there_access_letters: '',
-        number_of_access_letters: '',
-        who_responsible_fee: '',
-        account_number: '',
-        cra_business_number: ''
-      },
-      certification: {
-        certify_accurate_complete: false,
-        full_name: '',
-        submit_date: '',
-        consent_privacy: false
-      }
+      fee_details: this.getEmptyMasterFileFeeModel(),
+      certification: this.getCertification(),
     };
     
     return TransactionEnrol;
@@ -156,18 +145,9 @@ export class MasterFileBaseService {
     return lifecycleRecord;
   }
 
-  public mapDataModelToFormModel(mfDataModel, formRecord: FormGroup) {
-    // console.log(mfDataModel.contact_info.agent_not_applicable, typeof mfDataModel.contact_info.agent_not_applicable);
-    formRecord.controls['notApplicable'].setValue(this._utilsService.toBoolean(mfDataModel.contact_info.agent_not_applicable));
-
-    // Resets certifcation section and contact info confirmation
-    formRecord.controls['contactInfoConfirm'].setValue(undefined);
-
-  }
-
   public getEmptyContactInfo() : ContactInfo {
-     const contactInfo: ContactInfo = {
-       holder_name_address: this.getEmptyAddressDetailsModel(),
+    const contactInfo: ContactInfo = {
+      holder_name_address: this.getEmptyAddressDetailsModel(),
       holder_contact: this.getEmptyContactModel(),
       agent_not_applicable: undefined,
       agent_name_address: this.getEmptyAddressDetailsModel(),
@@ -177,37 +157,64 @@ export class MasterFileBaseService {
     return contactInfo;
   }
 
-  public mapFormToOutput(regulatoryInfoFormGroupValue: any, addressesFormGroupValue: Array<{ addrType: string, value: any }>, contactsFormGroupValue: Array<{ contactType: string, value: any }>,certificationFormGroupValue: any): Transaction{
+  public getCertification() : Certification {
+    return {
+      certify_accurate_complete: undefined,
+      full_name: '',
+      submit_date: '',
+      consent_privacy: undefined
+    }
+  }
 
-    const lang = this._globalService.currLanguage;
+  public mapDataModelToFormModel(contactInfo: ContactInfo, formRecord: FormGroup) {
+    console.log(contactInfo.agent_not_applicable, typeof contactInfo.agent_not_applicable, this._utilsService.toBoolean(contactInfo.agent_not_applicable));
+    formRecord.controls['notApplicable'].setValue(this._utilsService.toBoolean(contactInfo.agent_not_applicable));
 
-    // console.log(regulatoryInfoFormGroupValue)
-    const newTransactionEnrol: TransactionEnrol = this.getEmptyTransactionEnrol();
-    
-    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, newTransactionEnrol.ectd, lang);
+    // Resets certifcation section and contact info confirmation
+    formRecord.controls['contactInfoConfirm'].setValue(undefined);
+  }
 
-    addressesFormGroupValue.forEach(address => {
-      if (address.addrType === ADDR_CONT_TYPE.HOLDER) {
-        this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.holder_name_address, lang);
-      } else if (address.addrType === ADDR_CONT_TYPE.AGENT) {
-        this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.agent_name_address, lang);
+  public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any, certificationFormGroupValue: any): void{
+    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd);
+    this._certificationService.mapFormModelToDataModel(certificationFormGroupValue, outputTransactionEnrol.certification)
+  }
+
+  public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, 
+    addressesFormGroupValue: Array<{ addrType: string, value: any }>, contactsFormGroupValue: Array<{ contactType: string, value: any }>): void{
+
+    if (contactInfo.agent_not_applicable) {
+      const holderAddress = addressesFormGroupValue.filter(address => address.addrType === ADDR_CONT_TYPE.HOLDER)[0];
+      if (holderAddress) {
+        this._addressDetailsService.mapFormModelToDataModel(holderAddress.value, contactInfo.holder_name_address);
+      } else {
+        console.error('mapAddressFormContactFormToOutput ~ No holder address found');
       }
-    });
 
-    contactsFormGroupValue.forEach(contact => {
-      if (contact.contactType === ADDR_CONT_TYPE.HOLDER) {
-        this._contactDetailsService.mapFormModelToDataModel(contact.value, newTransactionEnrol.contact_info.holder_contact, lang);
-      } else if (contact.contactType === ADDR_CONT_TYPE.AGENT) {
-        this._contactDetailsService.mapFormModelToDataModel(contact.value, newTransactionEnrol.contact_info.agent_contact, lang);
+      const holderContact = contactsFormGroupValue.filter(contact => contact.contactType === ADDR_CONT_TYPE.HOLDER)[0];
+      if (holderContact) {
+        this._contactDetailsService.mapFormModelToDataModel(holderContact.value, contactInfo.holder_contact);
+      } else {
+        console.error('mapAddressFormContactFormToOutput ~ No holder contact found');
       }
-    });
+    } else {
+      addressesFormGroupValue.forEach(address => {
+        if (address.addrType === ADDR_CONT_TYPE.HOLDER) {
+          this._addressDetailsService.mapFormModelToDataModel(address.value, contactInfo.holder_name_address);
+        } else if (address.addrType === ADDR_CONT_TYPE.AGENT) {
+          this._addressDetailsService.mapFormModelToDataModel(address.value, contactInfo.agent_name_address);
+        }
+      });
+      contactsFormGroupValue.forEach(contact => {
+        if (contact.contactType === ADDR_CONT_TYPE.HOLDER) {
+          this._contactDetailsService.mapFormModelToDataModel(contact.value, contactInfo.holder_contact);
+        } else if (contact.contactType === ADDR_CONT_TYPE.AGENT) {
+          this._contactDetailsService.mapFormModelToDataModel(contact.value, contactInfo.agent_contact);
+        }
+      });
+    }
+  }
 
-    this._certificationService.mapFormModelToDataModel(certificationFormGroupValue, newTransactionEnrol.certification);
-
-    const output: Transaction = {
-      TRANSACTION_ENROL: newTransactionEnrol
-    };
-
-    return output;
+  public mapFeeFormToOutput(feeDetail: FeeDetails, feeFormGroupValue: any): void{
+    this._feeService.mapFormModelToDataModel(feeFormGroupValue, feeDetail);    
   }
 }
