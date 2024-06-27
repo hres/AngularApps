@@ -57,6 +57,18 @@ const config = {
             "indexFileNewName": "/im-information-demande-homologation.html",
         }
       },
+      "mf-rt": {
+        "outputPath": DIST_DIR + "/mf-rt",
+        "breadcrumbsPath": "mf",
+        "en": {
+            "indexFileOriginalName": "/index-en.html",
+            "indexFileNewName": "/master-file-form.html",
+        },
+        "fr": {
+            "indexFileOriginalName": "/index-fr.html",
+            "indexFileNewName": "/formulaire-fiche-maitresse.html",
+        }
+      }
 
     }
 

@@ -15,7 +15,7 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   lang: string;
   helpIndex: HelpIndex; 
   public showFieldErrors: boolean = false;
-  public contactFormLocalModel: FormGroup;
+  public contactDetailsForm: FormGroup;
   public languageList: ICode[] = [];
 
   @Input() showErrors: boolean;
@@ -31,8 +31,8 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
     this.showErrors = false;
     this.languageList = this._globalService.languageList;
 
-    if (!this.contactFormLocalModel) {
-      this.contactFormLocalModel = this._contactDetailsService.getReactiveModel(this._fb);
+    if (!this.contactDetailsForm) {
+      this.contactDetailsForm = this._contactDetailsService.getReactiveModel(this._fb);
     }
 
   }
@@ -43,20 +43,32 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['showErrors']) {
-      this.showFieldErrors = changes['showErrors'].currentValue;
-    }
-    if (changes['contactDetailsModel']) {
-      const dataModel = changes['contactDetailsModel'].currentValue;
-      if (!this.contactFormLocalModel) {
-        this.contactFormLocalModel = this._contactDetailsService.getReactiveModel(this._fb);
-        this.contactFormLocalModel.markAsPristine();
+    const isFirstChange = this._utilsService.isFirstChange(changes);
+    if (!isFirstChange) {
+      if (changes['showErrors']) {
+        this.showFieldErrors = changes['showErrors'].currentValue;
+        let temp = [];
+        if (this.msgList) {
+          this.msgList.forEach(item => {
+            temp.push(item);
+            // console.log(item);
+          });
+        }
+        this.errorList.emit(temp);
       }
-      this._contactDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.contactFormLocalModel));
+
+      if (changes['contactDetailsModel']) {
+        const dataModel = changes['contactDetailsModel'].currentValue as IContact;
+        this._contactDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.contactDetailsForm));
+      }
     }
   }
 
   protected override emitErrors(errors: any[]): void {
     this.errorList.emit(errors);
+  }
+
+  getFormValue() {
+    return this.contactDetailsForm.value;
   }
 }

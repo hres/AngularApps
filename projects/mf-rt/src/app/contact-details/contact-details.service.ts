@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ConverterService, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { IContact } from '../models/transaction';
+import { GlobalService } from '../global/global.service';
 
 
 @Injectable()
 export class ContactDetailsService {
 
-  constructor(private _utilsService: UtilsService, private _converterService: ConverterService) {
+  constructor(private _utilsService: UtilsService, private _converterService: ConverterService, private _globalService: GlobalService) {
   }
 
   /**
@@ -28,30 +30,28 @@ export class ContactDetailsService {
     });
   }
 
-  public mapFormModelToDataModel(formRecord: FormGroup, contactModel, lang: string, languageList: ICode[]) {
-    contactModel.given_name = formRecord.controls['firstName'].value;
+  public mapFormModelToDataModel(formValue: any, contactModel: IContact) {
+
+    const lang = this._globalService.currLanguage;
+    const languageList: ICode[] = this._globalService.languageList;
+
+    contactModel.given_name = formValue['firstName'];
     // contactModel.initials = formRecord.controls['initials.value;
-    contactModel.surname = formRecord.controls['lastName'].value;
-    if (formRecord.controls['language'].value) {
-        contactModel.language_correspondance = this._converterService.findAndConverCodeToIdTextLabel(languageList, formRecord.controls['language'].value, lang);
-    } else {
-        contactModel.language_correspondance = null;
-    }
-    contactModel.job_title = formRecord.controls['jobTitle'].value;
-    contactModel.fax_num = formRecord.controls['faxNumber'].value;
-    contactModel.phone_num = formRecord.controls['phoneNumber'].value;
-    contactModel.phone_ext = formRecord.controls['phoneExtension'].value;
-    contactModel.email = formRecord.controls['email'].value;
+    contactModel.surname = formValue['lastName'];
+    contactModel.language_correspondance = formValue['language']? this._converterService.findAndConverCodeToIdTextLabel(languageList, formValue['language'], lang) : null;
+    contactModel.job_title = formValue['jobTitle'];
+    contactModel.fax_num = formValue['faxNumber'];
+    contactModel.phone_num = formValue['phoneNumber'];
+    contactModel.phone_ext = formValue['phoneExtension'];
+    contactModel.email = formValue['email'];
   }
 
-  public mapDataModelToFormModel(contactModel, formRecord: FormGroup) {
+  public mapDataModelToFormModel(contactModel: IContact, formRecord: FormGroup) {
 
     formRecord.controls['firstName'].setValue(contactModel.given_name);
-    // formRecord.controls['initials.setValue(contactModel.initials);
     formRecord.controls['lastName'].setValue(contactModel.surname);
     if (contactModel.language_correspondance) {
-        const langId: string | undefined = this._utilsService.getIdFromIdTextLabel(contactModel.language_correspondence);
-        formRecord.controls['language'].setValue(langId? langId : null);
+        formRecord.controls['language'].setValue(contactModel.language_correspondance._id);
     } else {
       formRecord.controls['language'].setValue(null);
     }

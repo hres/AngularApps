@@ -13,6 +13,7 @@ import { Certification, Ectd, FeeDetails, INameAddress, IContact, Transaction, T
 import { AddressDetailsComponent } from '../address/address.details/address.details.component';
 import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
 import { CertificationComponent } from '../certification/certification.component';
+import { ContactDetailsComponent } from '../contact-details/contact-details.component';
 
 @Component({
     selector: 'app-form-base',
@@ -32,6 +33,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
+  @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
   @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
   private _regulatoryInfoErrors = [];
@@ -381,10 +383,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         addrType: comp.addrType,
         value: comp.getFormValue()
       })); 
-      // todo
-      const contactFormGroupValue = null;
+      const contactsFormGroupValue = this.contactDetailsComponents.map((comp: ContactDetailsComponent) => ({
+        contactType: comp.contactType,
+        value: comp.getFormValue()
+      })); 
 
-      this._baseService.mapAddressFormContactFormToOutput(newTransactionEnrol.contact_info, addressesFormGroupValue, contactFormGroupValue);
+      this._baseService.mapAddressFormContactFormToOutput(newTransactionEnrol.contact_info, addressesFormGroupValue, contactsFormGroupValue);
 
     } else {
       newTransactionEnrol.contact_info = null;

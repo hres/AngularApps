@@ -8,11 +8,12 @@ import { MasterFileFeeService } from '../master-file-fee/master-file.fee.service
 import { ADDR_CONT_TYPE, ROOT_TAG } from '../app.constants';
 import { AddressDetailsService } from '../address/address.details/address.details.service';
 import { CertificationService } from '../certification/certification.service';
+import { ContactDetailsService } from '../contact-details/contact-details.service';
 
 @Injectable()
 export class MasterFileBaseService {
 
-  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _addressDetailsService: AddressDetailsService,
+  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _addressDetailsService: AddressDetailsService, private _contactDetailsService: ContactDetailsService,
     private _feeService: MasterFileFeeService, private _certificationService: CertificationService,
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
@@ -178,13 +179,23 @@ export class MasterFileBaseService {
     this._certificationService.mapFormModelToDataModel(certificationFormGroupValue, outputTransactionEnrol.certification)
   }
 
-  public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, addressesFormGroupValue: Array<{ addrType: string, value: any }>, contactFormGroupValue: Array<{ addrType: string, value: any }>): void{
+  public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, 
+    addressesFormGroupValue: Array<{ addrType: string, value: any }>, contactsFormGroupValue: Array<{ contactType: string, value: any }>): void{
+
     if (contactInfo.agent_not_applicable) {
       const holderAddress = addressesFormGroupValue.filter(address => address.addrType === ADDR_CONT_TYPE.HOLDER)[0];
       if (holderAddress) {
         this._addressDetailsService.mapFormModelToDataModel(holderAddress.value, contactInfo.holder_name_address);
+      } else {
+        console.error('mapAddressFormContactFormToOutput ~ No holder address found');
       }
-      // todo holderContact
+
+      const holderContact = contactsFormGroupValue.filter(contact => contact.contactType === ADDR_CONT_TYPE.HOLDER)[0];
+      if (holderContact) {
+        this._contactDetailsService.mapFormModelToDataModel(holderContact.value, contactInfo.holder_contact);
+      } else {
+        console.error('mapAddressFormContactFormToOutput ~ No holder contact found');
+      }
     } else {
       addressesFormGroupValue.forEach(address => {
         if (address.addrType === ADDR_CONT_TYPE.HOLDER) {
@@ -193,7 +204,13 @@ export class MasterFileBaseService {
           this._addressDetailsService.mapFormModelToDataModel(address.value, contactInfo.agent_name_address);
         }
       });
-      // todo holderContact and agentContact
+      contactsFormGroupValue.forEach(contact => {
+        if (contact.contactType === ADDR_CONT_TYPE.HOLDER) {
+          this._contactDetailsService.mapFormModelToDataModel(contact.value, contactInfo.holder_contact);
+        } else if (contact.contactType === ADDR_CONT_TYPE.AGENT) {
+          this._contactDetailsService.mapFormModelToDataModel(contact.value, contactInfo.agent_contact);
+        }
+      });
     }
   }
 

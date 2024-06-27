@@ -1,12 +1,13 @@
+<div [formGroup] = "certificationForm">
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkbox required">
         <label for="certifyAccurateCompleteId">
-        <input name="certifyAccurateCompleteName" type="checkbox" id="certifyAccurateCompleteId" 
-        [formControl]="mfCertificationForm.controls['certifyAccurateComplete'] | formControl" />
+        <input type="checkbox" id="certifyAccurateCompleteId" 
+        [formControlName]="'certifyAccurateComplete'" />
         <span><b>{{'certify.info'|translate}}</b></span>
         <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-        <control-messages *ngIf="mfCertificationForm.controls['certifyAccurateComplete'].invalid" [showError]="showErrors"
-            parentId="mfCertif" [control]="mfCertificationForm.controls['certifyAccurateComplete'] | formControl"
+        <control-messages *ngIf="certificationForm.controls['certifyAccurateComplete'].invalid" [showError]="showErrors"
+            parentId="mfCertif" [control]="certificationForm.controls['certifyAccurateComplete'] | formControl"
             controlId="certifyAccurateCompleteId" label="certify.info"></control-messages>
         </label>
     </div>
@@ -17,11 +18,11 @@
     <label for="fullNameId" class="required">
         <span><strong>{{'full.name'|translate}}</strong></span>
         <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-        <control-messages *ngIf="mfCertificationForm.controls['fullName'].invalid" [showError]="showErrors"
-        parentId="mfCertif" [control]="mfCertificationForm.controls['fullName'] | formControl"
+        <control-messages *ngIf="certificationForm.controls['fullName'].invalid" [showError]="showErrors"
+        parentId="mfCertif" [control]="certificationForm.controls['fullName'] | formControl"
         controlId="fullNameId" label="fullName"></control-messages>
         <input name="fullName" class="form-control" id="fullNameId" maxlength="120"
-        [formControl]="mfCertificationForm.controls['fullName'] | formControl" />
+        [formControlName]="'fullName'" />
     </label>
     </div>
 </div>
@@ -30,11 +31,11 @@
     <label for="submitDateId" class="required">
     <span><b>{{'submit.date'|translate}}</b></span>
     <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-    <control-messages *ngIf="mfCertificationForm.controls['submitDate'].invalid" [showError]="showErrors"
-        parentId="mfCertif" [control]="mfCertificationForm.controls['submitDate'] | formControl" controlId="submitDateId"
+    <control-messages *ngIf="certificationForm.controls['submitDate'].invalid" [showError]="showErrors"
+        parentId="mfCertif" [control]="certificationForm.controls['submitDate'] | formControl" controlId="submitDateId"
         label="submitDate"></control-messages>
     <input name="submitDate" class="form-control" id="submitDateId" type="date"
-        [formControl]="mfCertificationForm.controls['submitDate'] | formControl" (input)="checkDateValidity($event)" /> 
+        [formControlName]="'submitDate'" (input)="checkDateValidity($event)" /> 
     </label>
 </div>
 </div>
@@ -46,12 +47,13 @@
     <div class="checkbox required">
         <label for="consentPrivacyId">            
         <input name="consentPrivacyName" type="checkbox" id="consentPrivacyId"
-            [formControl]="mfCertificationForm.controls['consentPrivacy'] | formControl" />
+            [formControlName]="'consentPrivacy'" />
         <span><b>{{'consent.privacy'|translate}}</b></span>
         <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-        <control-messages *ngIf="mfCertificationForm.controls['consentPrivacy'].invalid" [showError]="showErrors"
-            parentId="mfCertif" [control]="mfCertificationForm.controls['consentPrivacy'] | formControl"
+        <control-messages *ngIf="certificationForm.controls['consentPrivacy'].invalid" [showError]="showErrors"
+            parentId="mfCertif" [control]="certificationForm.controls['consentPrivacy'] | formControl"
             controlId="consentPrivacyId" label="consent.privacy"></control-messages>
         </label>
     </div>
+</div>
 </div>
