@@ -10,7 +10,7 @@
             "header": "Outside the Regulatory Transaction Process",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company Template (April 2, 2024)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company Template (July 31, 2024)</a>",
                     "bullets": [
                         "Required to obtain a company ID and/or provide updated company information to Health Canada.",
                         "Sent via the email.<ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
