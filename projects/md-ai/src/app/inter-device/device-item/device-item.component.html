@@ -102,7 +102,7 @@
                 <control-messages *ngIf="cRRow.get('deviceInfo.deviceExplain').invalid"
                   [showError]="showErrors"
                   [control]="cRRow.get('deviceInfo.deviceExplain') | formControl"
-                  controlId="deviceApplicationNumber{{j}}" label="device.explain" parentId="deviceDetails"
+                  controlId="deviceExplain{{j}}" label="device.explain" parentId="deviceDetails"
                   parentLabel="{{translatedParentLabel}}"></control-messages>
               </label>
                 <textarea id="deviceExplain{{j}}" name="deviceExplain" class="form-control full-width"
