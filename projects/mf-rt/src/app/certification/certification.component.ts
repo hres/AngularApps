@@ -18,7 +18,7 @@ export class CertificationComponent extends BaseComponent implements OnInit{
   lang: string;
   helpIndex: HelpIndex; 
   public showFieldErrors: boolean = false;
-  public mfCertificationForm: FormGroup;
+  public certificationForm: FormGroup;
 
   @Input() showErrors: boolean;
   @Input() dataModel: Certification;
@@ -31,8 +31,8 @@ export class CertificationComponent extends BaseComponent implements OnInit{
     this.showFieldErrors = false;
     this.showErrors = false;
 
-    if (!this.mfCertificationForm) {
-      this.mfCertificationForm = this._certificationService.getReactiveModel(this._fb);
+    if (!this.certificationForm) {
+      this.certificationForm = this._certificationService.getReactiveModel(this._fb);
     }
 
   }
@@ -59,7 +59,7 @@ export class CertificationComponent extends BaseComponent implements OnInit{
       }
       if (changes['dataModel']) {
         const dataModelCurrentValue = changes['dataModel'].currentValue as Certification;
-        this._certificationService.mapDataModelToFormModel(dataModelCurrentValue, (<FormGroup>this.mfCertificationForm));
+        this._certificationService.mapDataModelToFormModel(dataModelCurrentValue, (<FormGroup>this.certificationForm));
       }
     }
   }
@@ -69,10 +69,10 @@ export class CertificationComponent extends BaseComponent implements OnInit{
   }
 
   checkDateValidity(event: any): void {
-    this._utilsService.checkInputValidity(event, this.mfCertificationForm.get('submitDate'), 'invalidDate');
+    this._utilsService.checkInputValidity(event, this.certificationForm.get('submitDate'), 'invalidDate');
   }  
 
     getFormValue() {
-    return this.mfCertificationForm.value;
+    return this.certificationForm.value;
   }
 }

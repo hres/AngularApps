@@ -8,11 +8,12 @@ import { MasterFileFeeService } from '../master-file-fee/master-file.fee.service
 import { ADDR_CONT_TYPE, ROOT_TAG } from '../app.constants';
 import { AddressDetailsService } from '../address/address.details/address.details.service';
 import { CertificationService } from '../certification/certification.service';
+import { ContactDetailsService } from '../contact-details/contact-details.service';
 
 @Injectable()
 export class MasterFileBaseService {
 
-  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _addressDetailsService: AddressDetailsService,
+  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _addressDetailsService: AddressDetailsService, private _contactDetailsService: ContactDetailsService,
     private _feeService: MasterFileFeeService, private _certificationService: CertificationService,
     private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
@@ -176,7 +177,7 @@ export class MasterFileBaseService {
     return contactInfo;
   }
 
-  public mapFormToOutput(regulatoryInfoFormGroupValue: any, addressesFormGroupValue: Array<{ addrType: string, value: any }>, certificationFormGroupValue: any): Transaction{
+  public mapFormToOutput(regulatoryInfoFormGroupValue: any, addressesFormGroupValue: Array<{ addrType: string, value: any }>, contactsFormGroupValue: Array<{ contactType: string, value: any }>,certificationFormGroupValue: any): Transaction{
 
     const lang = this._globalService.currLanguage;
 
@@ -190,6 +191,14 @@ export class MasterFileBaseService {
         this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.holder_name_address, lang);
       } else if (address.addrType === ADDR_CONT_TYPE.AGENT) {
         this._addressDetailsService.mapFormModelToDataModel(address.value, newTransactionEnrol.contact_info.agent_name_address, lang);
+      }
+    });
+
+    contactsFormGroupValue.forEach(contact => {
+      if (contact.contactType === ADDR_CONT_TYPE.HOLDER) {
+        this._contactDetailsService.mapFormModelToDataModel(contact.value, newTransactionEnrol.contact_info.holder_contact, lang);
+      } else if (contact.contactType === ADDR_CONT_TYPE.AGENT) {
+        this._contactDetailsService.mapFormModelToDataModel(contact.value, newTransactionEnrol.contact_info.agent_contact, lang);
       }
     });
 
