@@ -12,6 +12,7 @@ import { MasterFileBaseService } from './master-file-base.service';
 import { Certification, Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { AddressDetailsComponent } from '../address/address.details/address.details.component';
 import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
+import { CertificationComponent } from '../certification/certification.component';
 
 @Component({
     selector: 'app-form-base',
@@ -31,6 +32,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
+  @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
   private _regulatoryInfoErrors = [];
   private _transFeeErrors = [];
@@ -254,7 +256,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // if (this.showFee()) {
     //   this.transFeeModel = this.transactionEnrollModel.fee_details;
     // }
-
+    this.certificationModel = this.transactionEnrollModel.certification;
     // MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
     this.agentInfoOnChange();
   }
@@ -341,7 +343,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const addressesFormGroupValue = this.addressComponents.map((comp: AddressDetailsComponent) => ({
       addrType: comp.addrType,
       value: comp.getFormValue()
-    }));    
+    })); 
+    const certificationFormGroupValue = this.certificationComponent.getFormValue(); 
 
     // if (this.ectdModel.lifecycle_record.sequence_description_value) {
     //   this.showContactFees[0] = !this.noContactTxDescs.includes(
@@ -371,7 +374,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const newTransactionEnrol: TransactionEnrol = this._baseService.getEmptyTransactionEnrol();
 
-    this._baseService.mapRequiredFormsToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue, "certificationFormValue todo");
+    this._baseService.mapRequiredFormsToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue, certificationFormGroupValue);
 
     if (this.showContact()) {
       // todo

@@ -7,12 +7,13 @@ import { RegulatoryInformationService } from '../regulatory-information/regulato
 import { MasterFileFeeService } from '../master-file-fee/master-file.fee.service';
 import { ADDR_CONT_TYPE, ROOT_TAG } from '../app.constants';
 import { AddressDetailsService } from '../address/address.details/address.details.service';
+import { CertificationService } from '../certification/certification.service';
 
 @Injectable()
 export class MasterFileBaseService {
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _addressDetailsService: AddressDetailsService,
-    private _feeService: MasterFileFeeService,
+    private _feeService: MasterFileFeeService, private _certificationService: CertificationService,
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
 
@@ -170,10 +171,7 @@ export class MasterFileBaseService {
 
     // Resets certifcation section and contact info confirmation
     formRecord.controls['contactInfoConfirm'].setValue(undefined);
-    formRecord.controls['certifyAccurateComplete'].setValue(undefined);
-    formRecord.controls['fullName'].setValue('');
-    formRecord.controls['submitDate'].setValue('');
-    formRecord.controls['consentPrivacy'].setValue(undefined);
+
   }
 
   public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any, certificationFormValue: any): void{

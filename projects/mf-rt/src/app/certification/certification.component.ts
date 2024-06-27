@@ -43,16 +43,24 @@ export class CertificationComponent extends BaseComponent implements OnInit{
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['showErrors']) {
-      this.showFieldErrors = changes['showErrors'].currentValue;
-    }
-    if (changes['certificationModel']) {
-      const dataModel = changes['certificationModel'].currentValue;
-      if (!this.mfCertificationForm) {
-        this.mfCertificationForm = this._certificationService.getReactiveModel(this._fb);
-        this.mfCertificationForm.markAsPristine();
+    const isFirstChange = this._utilsService.isFirstChange(changes);
+    // Ignore first trigger of ngOnChanges
+    if (!isFirstChange) {
+      if (changes['showErrors']) {
+        this.showFieldErrors = changes['showErrors'].currentValue;
+        const temp = [];
+        if (this.msgList) {
+          this.msgList.forEach((item) => {
+            temp.push(item);
+            // console.log(item);
+          });
+        }
+        this.errorList.emit(temp);
       }
-      this._certificationService.mapDataModelToFormModel(dataModel, (<FormGroup>this.mfCertificationForm));
+      if (changes['dataModel']) {
+        const dataModelCurrentValue = changes['dataModel'].currentValue as Certification;
+        this._certificationService.mapDataModelToFormModel(dataModelCurrentValue, (<FormGroup>this.mfCertificationForm));
+      }
     }
   }
 
@@ -63,4 +71,8 @@ export class CertificationComponent extends BaseComponent implements OnInit{
   checkDateValidity(event: any): void {
     this._utilsService.checkInputValidity(event, this.mfCertificationForm.get('submitDate'), 'invalidDate');
   }  
+
+    getFormValue() {
+    return this.mfCertificationForm.value;
+  }
 }
