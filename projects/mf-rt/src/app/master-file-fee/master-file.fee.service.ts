@@ -39,7 +39,7 @@ export class MasterFileFeeService {
   public mapDataModelToFormModel(mfFeeModel: FeeDetails, formRecord: FormGroup) {
     formRecord.controls['areAccessLetters'].setValue(mfFeeModel.are_there_access_letters);
     formRecord.controls['numOfAccessLetter'].setValue(mfFeeModel.number_of_access_letters);
-    formRecord.controls['whoResponsible'].setValue(mfFeeModel.who_responsible_fee._id);
+    formRecord.controls['whoResponsible'].setValue(mfFeeModel.who_responsible_fee?._id);
     formRecord.controls['accountNumber'].setValue(mfFeeModel.account_number);
     formRecord.controls['businessNumber'].setValue(mfFeeModel.cra_business_number);
   }
