@@ -326,7 +326,7 @@
                                       parentId="appInfoDetails"></control-messages>
                   </legend>
                   <ul class="form-group list-unstyled">
-                    <li class="checkbox" formArrayName="compliance" *ngFor="let comp of complianceChkFormArray.controls; let i = index">
+                    <li class="checkbox" [formArrayName]="'compliance'" *ngFor="let comp of complianceChkFormArray.controls; let i = index">
                       <label for={{complianceOptionList[i].value}}>
                         <input type="checkbox" id={{complianceOptionList[i].value}} [formControl]="comp | formControl" (change)="complianceOnChange()"/> {{complianceOptionList[i].label}}
                       </label>

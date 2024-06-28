@@ -29,7 +29,7 @@
                                 parentId="priorityReview"></control-messages>
             </legend>
             <ul class="form-group list-unstyled">
-            <li class="checkbox" formArrayName="diagnosisReasons" *ngFor="let reason of diagnosisReasonChkFormArray.controls; let i = index">
+            <li class="checkbox" [formArrayName]="'diagnosisReasons'" *ngFor="let reason of diagnosisReasonChkFormArray.controls; let i = index">
                 <label for={{seriousDiagnosisReasonOptionList[i].value}}>
                 <input type="checkbox" id={{seriousDiagnosisReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="seriousDiagnosisOnChange()"/> {{seriousDiagnosisReasonOptionList[i].label}}
                 </label>
