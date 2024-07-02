@@ -51,11 +51,11 @@
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix group-beside">
                   <h3 class="panel-title">{{'heading.holder.address'|translate}}
-                  </h3>
                   <sup id="tr3-rf">
                     <a class="fn-lnk" href="#tr3"><span
                         class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['holderAddrIndx']}}</a>
                   </sup>
+                  </h3>
                 </header>
                 <div class="panel-body">
                   <address-details [showErrors]="showErrors" 
@@ -78,11 +78,11 @@
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix group-beside">
                   <h3 class="panel-title">{{'heading.agent.address'|translate}}
-                  </h3>
                   <sup id="tr4-rf">
                     <a class="fn-lnk" href="#tr4"><span
                         class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['agentAddrIndx']}}</a>
                   </sup>
+                  </h3>
                 </header>
                 <div class="panel-body">
                  <!-- extract this to a separate component and remove notApplicable field from the base component -->
@@ -127,11 +127,12 @@
                       [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
 
                     <span><b>{{'info.confirmation'|translate}}</b></span>
-                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}
                     <sup id="tr5-rf">
                       <a class="fn-lnk" href="#tr5"><span
                           class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['confmValidIndx']}}</a>
                     </sup>
+                    </strong>
                     <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
                                     [showError]="showErrors" parentId="mfContactInfoConfirm"
                                     [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
