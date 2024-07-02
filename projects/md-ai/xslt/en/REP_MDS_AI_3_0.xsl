@@ -676,7 +676,7 @@ span.normalWeight {
 								</div>
 							</div>
 							
-							<xsl:if test="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
+							<xsl:if test="/descendant-or-self::priority_review/priority_review = 'yes'">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Priority review is being requested for the subject devices as it is intended for the diagnosis or treatment of a serious, life-threatening or severely debilitating disease or condition and there is substantial clinical evidence that the medical device:</strong></div>
 								</div>
