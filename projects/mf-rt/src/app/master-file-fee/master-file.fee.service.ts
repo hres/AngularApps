@@ -26,6 +26,7 @@ export class MasterFileFeeService {
       businessNumber: ['', [Validators.minLength(9), ValidationService.businessNumberValidator]],
     });
   }
+  
   public mapFormModelToDataModel(formValue: any, mfFeeModel: FeeDetails) {
     const lang = this._globalService.currLanguage;
 
