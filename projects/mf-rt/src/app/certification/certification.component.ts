@@ -5,7 +5,7 @@ import { GlobalService } from '../global/global.service';
 import { CertificationService } from './certification.service';
 
 @Component({
-  selector: 'certification',
+  selector: 'app-certification',
   templateUrl: './certification.component.html',
   styleUrl: './certification.component.css',
   encapsulation: ViewEncapsulation.None,
