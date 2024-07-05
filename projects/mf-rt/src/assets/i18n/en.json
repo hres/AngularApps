@@ -73,7 +73,7 @@
   "msg.err.file.load": "There was a problem loading the file.",
   "msg.err.file.type": "Error: An invalid file type was selected.",
   "msg.err.form.type": "Error: the wrong form type was selected for this form.",
-  "msg.err.checksum.fail": "The checksum in the file does not match the calculated checksum",
+  "msg.err.checksum": "Error: there was an error parsing the file.",
   "error.msg.number": "Please enter a valid number",
   "return.instruction": "Return to instruction reference",
   "section.show.option": "[ This section may not be visible. ] ",
