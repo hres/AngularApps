@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults } from '@hpfb/sdk/ui';
+import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -356,15 +356,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     newTransactionEnrol.software_version = this._globalService.appVersion;
     newTransactionEnrol.form_language = this._globalService.currLanguage;
 
-    if (xmlFile) {
-      // todo checksum here
-    }
-
-    console.log('_prepareForSaving ~ newTransactionEnrol', JSON.stringify(newTransactionEnrol, null, 2));
-
     const output: Transaction = {
       TRANSACTION_ENROL: newTransactionEnrol
     };
+
+    if (xmlFile) {
+      // add and calculate check_sum if it is xml
+      output.TRANSACTION_ENROL[CHECK_SUM_CONST]  = "";   // this is needed for generating the checksum value
+      output.TRANSACTION_ENROL[CHECK_SUM_CONST]  = this._checkSumService.createHash(output);
+    }
+
+    console.log('_prepareForSaving ~ newTransactionEnrol', JSON.stringify(output, null, 2));
 
     return output;
   }
