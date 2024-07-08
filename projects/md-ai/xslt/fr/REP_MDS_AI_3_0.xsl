@@ -598,100 +598,98 @@ span.normalWeight {
 							</div>
 						</div>
 					</section>
-					<section class="panel panel-default" >
-						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-							<h2 class="panel-title">Compatibilité des instruments interdépendants</h2>
-						</div>
-						<div class="panel-body">
-							<xsl:call-template name="compatibleDevices"><xsl:with-param name="values" select="/descendant-or-self::devices"/></xsl:call-template>
-						</div>
-					</section>
-					<section class="panel panel-default" >
-						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-							<h2 class="panel-title">Normes reconnues respectées dans la fabrication de l'instrument</h2>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-xs-12">
-								<strong>Le formulaire de déclaration de conformité (disponible sur le site Web de Santé Canada) confirme que le ou les instruments médicaux sont conformes aux normes reconnues ou à des normes équivalentes ou supérieures:&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/declaration_conformity"/></xsl:call-template></span>
-								</div>
+					<xsl:if test="count(/descendant-or-self::devices/device/id) > 0">
+						<section class="panel panel-default" >
+							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+								<h2 class="panel-title">Compatibilité des instruments interdépendants</h2>
 							</div>
-							<xsl:if test="/descendant-or-self::application_info/declaration_conformity = 'no'">
+							<div class="panel-body">
+								<xsl:call-template name="compatibleDevices"><xsl:with-param name="values" select="/descendant-or-self::devices"/></xsl:call-template>
+							</div>
+						</section>
+					</xsl:if>
+					<xsl:if test="/descendant-or-self::application_info/declaration_conformity != ''">
+						<section class="panel panel-default" >
+							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+								<h2 class="panel-title">Normes reconnues respectées dans la fabrication de l'instrument</h2>
+							</div>
+							<div class="panel-body">
 								<div class="row">
-									<div class="col-xs-12 alert alert-INFO">
-									<ul><li>
-				Santé Canada ne peut pas traiter votre demande d'homologation d'instruments médicaux sans la déclaration de conformité
-				</li>
-				</ul>
+									<div class="col-xs-12">
+									<strong>Le formulaire de déclaration de conformité (disponible sur le site Web de Santé Canada) confirme que le ou les instruments médicaux sont conformes aux normes reconnues ou à des normes équivalentes ou supérieures:&#160;</strong>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/declaration_conformity"/></xsl:call-template></span>
 									</div>
 								</div>
-							</xsl:if>
-						</div>
-					</section>
-					<section class="panel panel-default" >
-						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-							<h2 class="panel-title">Instruments contenant du matériel biologique</h2>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-xs-12">
-								<strong>Cet instrument est-il constitué de matériel recombinant?&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/has_recombinant"/></xsl:call-template></span>
-								</div>
 							</div>
-							<div class="row">
-								<div class="col-xs-12">
-								<strong>Cet instrument contient-il ou est-il produit à l'aide de matériel d'origine animale ou humaine?&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_animal_human_sourced"/></xsl:call-template></span>
-								</div>
+						</section>
+					</xsl:if>
+					<xsl:if test="/descendant-or-self::application_info/device_class/@id = 'DC4'">
+						<section class="panel panel-default" >
+							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+								<h2 class="panel-title">Instruments contenant du matériel biologique</h2>
 							</div>
-							<xsl:if test="/descendant-or-self::material_info/is_animal_human_sourced = 'yes'">
+							<div class="panel-body">
 								<div class="row">
-								<div class="col-xs-12">
-									<strong>Le matériel biologique est-il le même pour tous les instruments répertoriés dans le fichier Excel de détails de l'instrument? &#160;</strong>
-									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_listed_idd_table"/></xsl:call-template></span>
-								</div>
-								</div>
-							</xsl:if>
-							<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/id) > 0">
-								<section class="panel panel-default" >
-									<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-										<h2 class="panel-title">Tableau des attributs des matériels biologiques</h2>
+									<div class="col-xs-12">
+									<strong>Cet instrument est-il constitué de matériel recombinant?&#160;</strong>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/has_recombinant"/></xsl:call-template></span>
 									</div>
-									<div class="panel-body">
-										<xsl:apply-templates select="/descendant-or-self::material_info/biological_materials/material"/>
-									</div>
-								</section>
-							</xsl:if>
-						</div>
-					</section>
-					<section class="panel panel-default" >
-						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-							<h2 class="panel-title">Examen prioritaire</h2>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-xs-12">
-								<strong>Un examen prioritaire est-il demandé pour cette application?&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::priority_review/priority_review"/></xsl:call-template></span>
 								</div>
-							</div>
-							
-							<xsl:if test="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
 								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Un examen prioritaire est demandé pour l’instrument en question, car il est destiné au diagnostic ou au traitement d'une maladie ou d'une affection grave, mettant la vie de l'individu en danger ou gravement débilitante, et il existe des preuves cliniques substantielles que l'instrument médical :</strong></div>
+									<div class="col-xs-12">
+									<strong>Cet instrument contient-il ou est-il produit à l'aide de matériel d'origine animale ou humaine?&#160;</strong>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_animal_human_sourced"/></xsl:call-template></span>
+									</div>
 								</div>
-								<xsl:for-each select="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
+								<xsl:if test="/descendant-or-self::material_info/is_animal_human_sourced = 'yes'">
 									<div class="row">
-										<div class="col-xs-12">
-											<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
-										</div>
+									<div class="col-xs-12">
+										<strong>Le matériel biologique est-il le même pour tous les instruments répertoriés dans le fichier Excel de détails de l'instrument? &#160;</strong>
+										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_listed_idd_table"/></xsl:call-template></span>
 									</div>
-								</xsl:for-each>
-							</xsl:if>
-						</div>
-					</section>
+									</div>
+								</xsl:if>
+								<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/id) > 0">
+									<section class="panel panel-default" >
+										<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+											<h2 class="panel-title">Tableau des attributs des matériels biologiques</h2>
+										</div>
+										<div class="panel-body">
+											<xsl:apply-templates select="/descendant-or-self::material_info/biological_materials/material"/>
+										</div>
+									</section>
+								</xsl:if>
+							</div>
+						</section>
+					</xsl:if>
+					<xsl:if test="/descendant-or-self::application_info/priority_review/priority_review != ''">
+						<section class="panel panel-default" >
+							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+								<h2 class="panel-title">Examen prioritaire</h2>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-12">
+									<strong>Un examen prioritaire est-il demandé pour cette application?&#160;</strong>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::priority_review/priority_review"/></xsl:call-template></span>
+									</div>
+								</div>
+								
+								<xsl:if test="/descendant-or-self::priority_review/priority_review = 'yes'">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Un examen prioritaire est demandé pour l’instrument en question, car il est destiné au diagnostic ou au traitement d'une maladie ou d'une affection grave, mettant la vie de l'individu en danger ou gravement débilitante, et il existe des preuves cliniques substantielles que l'instrument médical :</strong></div>
+									</div>
+									<xsl:for-each select="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
+											</div>
+										</div>
+									</xsl:for-each>
+								</xsl:if>
+							</div>
+						</section>
+					</xsl:if>
 				</div>
 			</div>
 		</section>

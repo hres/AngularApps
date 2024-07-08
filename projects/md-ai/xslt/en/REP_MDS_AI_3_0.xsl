@@ -596,100 +596,98 @@ span.normalWeight {
 							</div>
 						</div>
 					</section>
-					<section class="panel panel-default" >
-						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-							<h2 class="panel-title">Compatibility of interdependent devices</h2>
-						</div>
-						<div class="panel-body">
-							<xsl:call-template name="compatibleDevices"><xsl:with-param name="values" select="/descendant-or-self::devices"/></xsl:call-template>
-						</div>
-					</section>
-					<section class="panel panel-default" >
-						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-							<h2 class="panel-title">Recognized Standards Complied within the manufacture of the Device</h2>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-xs-12">
-								<strong>Declaration of Conformity form (available on the Health Canada website) confirms that the medical device(s) comply with Recognized Standards or equivalent or better standards:&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/declaration_conformity"/></xsl:call-template></span>
-								</div>
+					<xsl:if test="count(/descendant-or-self::devices/device/id) > 0">
+						<section class="panel panel-default" >
+							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+								<h2 class="panel-title">Compatibility of interdependent devices</h2>
 							</div>
-							<xsl:if test="/descendant-or-self::application_info/declaration_conformity = 'no'">
+							<div class="panel-body">
+								<xsl:call-template name="compatibleDevices"><xsl:with-param name="values" select="/descendant-or-self::devices"/></xsl:call-template>
+							</div>
+						</section>
+					</xsl:if>
+					<xsl:if test="/descendant-or-self::application_info/declaration_conformity != ''">					
+						<section class="panel panel-default" >
+							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+								<h2 class="panel-title">Recognized Standards Complied within the manufacture of the Device</h2>
+							</div>
+							<div class="panel-body">
 								<div class="row">
-									<div class="col-xs-12 alert alert-INFO">
-									<ul><li>
-				Health Canada can not process your Medical Device Licence Application without the Declaration of Conformity
-				</li>
-				</ul>
+									<div class="col-xs-12">
+									<strong>Declaration of Conformity form (available on the Health Canada website) confirms that the medical device(s) comply with Recognized Standards or equivalent or better standards:&#160;</strong>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/declaration_conformity"/></xsl:call-template></span>
 									</div>
 								</div>
-							</xsl:if>
-						</div>
-					</section>
-					<section class="panel panel-default" >
-						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-							<h2 class="panel-title">Devices containing Biological Material</h2>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-xs-12">
-								<strong>Does this device consist of recombinant material?&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/has_recombinant"/></xsl:call-template></span>
-								</div>
 							</div>
-							<div class="row">
-								<div class="col-xs-12">
-								<strong>Does this device contain, or is it produced using, any animal or human sourced material?&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_animal_human_sourced"/></xsl:call-template></span>
-								</div>
+						</section>					
+					</xsl:if>
+					<xsl:if test="/descendant-or-self::application_info/device_class/@id = 'DC4'">
+						<section class="panel panel-default" >
+							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+								<h2 class="panel-title">Devices containing Biological Material</h2>
 							</div>
-							<xsl:if test="/descendant-or-self::material_info/is_animal_human_sourced = 'yes'">
+							<div class="panel-body">
 								<div class="row">
-								<div class="col-xs-12">
-									<strong>Is the biological material the same for all devices listed in the Device Details Excel File? &#160;</strong>
-									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_listed_idd_table"/></xsl:call-template></span>
-								</div>
-								</div>
-							</xsl:if>
-							<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/id) > 0">
-								<section class="panel panel-default" >
-									<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-										<h2 class="panel-title">Biological Material Attributes</h2>
+									<div class="col-xs-12">
+									<strong>Does this device consist of recombinant material?&#160;</strong>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/has_recombinant"/></xsl:call-template></span>
 									</div>
-									<div class="panel-body">
-										<xsl:apply-templates select="/descendant-or-self::material_info/biological_materials/material"/>
-									</div>
-								</section>
-							</xsl:if>
-						</div>
-					</section>
-					<section class="panel panel-default" >
-						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-							<h2 class="panel-title">Priority Review</h2>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-xs-12">
-								<strong>Is priority review requested for this application?&#160;</strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::priority_review/priority_review"/></xsl:call-template></span>
 								</div>
-							</div>
-							
-							<xsl:if test="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
 								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Priority review is being requested for the subject devices as it is intended for the diagnosis or treatment of a serious, life-threatening or severely debilitating disease or condition and there is substantial clinical evidence that the medical device:</strong></div>
+									<div class="col-xs-12">
+									<strong>Does this device contain, or is it produced using, any animal or human sourced material?&#160;</strong>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_animal_human_sourced"/></xsl:call-template></span>
+									</div>
 								</div>
-								<xsl:for-each select="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
+								<xsl:if test="/descendant-or-self::material_info/is_animal_human_sourced = 'yes'">
 									<div class="row">
-										<div class="col-xs-12">
-											<span class="mouseHover"><xsl:value-of select="@label_en"/></span>
-										</div>
+									<div class="col-xs-12">
+										<strong>Is the biological material the same for all devices listed in the Device Details Excel File? &#160;</strong>
+										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_listed_idd_table"/></xsl:call-template></span>
 									</div>
-								</xsl:for-each>
-							</xsl:if>
-						</div>
-					</section>
+									</div>
+								</xsl:if>
+								<xsl:if test="count(/descendant-or-self::material_info/biological_materials/material/id) > 0">
+									<section class="panel panel-default" >
+										<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+											<h2 class="panel-title">Biological Material Attributes</h2>
+										</div>
+										<div class="panel-body">
+											<xsl:apply-templates select="/descendant-or-self::material_info/biological_materials/material"/>
+										</div>
+									</section>
+								</xsl:if>
+							</div>
+						</section>
+					</xsl:if>
+					<xsl:if test="/descendant-or-self::application_info/priority_review/priority_review != ''">
+						<section class="panel panel-default" >
+							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
+								<h2 class="panel-title">Priority Review</h2>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-12">
+									<strong>Is priority review requested for this application?&#160;</strong>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::priority_review/priority_review"/></xsl:call-template></span>
+									</div>
+								</div>
+								
+								<xsl:if test="/descendant-or-self::priority_review/priority_review = 'yes'">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Priority review is being requested for the subject devices as it is intended for the diagnosis or treatment of a serious, life-threatening or severely debilitating disease or condition and there is substantial clinical evidence that the medical device:</strong></div>
+									</div>
+									<xsl:for-each select="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="mouseHover"><xsl:value-of select="@label_en"/></span>
+											</div>
+										</div>
+									</xsl:for-each>
+								</xsl:if>
+							</div>
+						</section>
+					</xsl:if>
 				</div>
 			</div>
 		</section>
