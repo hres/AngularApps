@@ -53,7 +53,7 @@
                       <control-messages *ngIf="regulartoryInfoForm.controls['masterFileType'].invalid"
                           [showError]="showFieldErrors"
                           [control]="regulartoryInfoForm.controls['masterFileType'] | formControl"
-                          controlId="masterFileType[0]" label="masterfile.type" parentId="regulatoryInfo"></control-messages>
+                          controlId="masterFileType0" label="masterfile.type" parentId="regulatoryInfo"></control-messages>
                   </legend>
                   <ul class="form-group list-unstyled">
                     <li class="radio" *ngFor="let mfType of mfTypeOptions; let i = index">
