@@ -96,7 +96,7 @@
             
             @if(deviceAppNotSubmitted) {
             <div class="form-group col-sm-12">
-              <label for="deviceExplain{{j}}" class="required">
+              <label for="deviceExplain{{j}}" class="required full-width">
                 <span class="field-name">{{'device.explain'|translate}}</span>
                 <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="cRRow.get('deviceInfo.deviceExplain').invalid"
@@ -104,9 +104,9 @@
                   [control]="cRRow.get('deviceInfo.deviceExplain') | formControl"
                   controlId="deviceExplain{{j}}" label="device.explain" parentId="deviceDetails"
                   parentLabel="{{translatedParentLabel}}"></control-messages>
-              </label>
                 <textarea id="deviceExplain{{j}}" name="deviceExplain" class="form-control full-width"
                           required [formControlName]="'deviceExplain'" rows="5" maxlength="1000"></textarea> 
+              </label>
             </div>
             }
         <div class="row">

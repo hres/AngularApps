@@ -248,7 +248,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   public disableAddButton(): boolean {
     // console.log("device list form", this.deviceListForm);
     // console.log("form is invalid: ", !this.deviceListForm.valid,  "form has errors: ", this.showErrors, "form is dirty: ", this.deviceListForm.dirty);
-    return ( !this.deviceListForm.valid  || this.showErrors ||  this.deviceListForm.dirty );
+    return ( this.showErrors ||  this.deviceListForm.dirty );
   }
 
   private _updateLocalErrorList(errs) {
