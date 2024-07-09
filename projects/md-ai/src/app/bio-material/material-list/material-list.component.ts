@@ -157,6 +157,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     
     if (this.materialsFormArr.length == 0) {
       this.atLeastOneRec.set(false);
+      this._emitErrors();
     }
     if (this.materialsFormArr.length == 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(true);

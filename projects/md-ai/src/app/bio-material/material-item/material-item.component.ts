@@ -122,6 +122,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
 
   public revertMaterialRecord(index: number, recordId: number): void {
     this.revertRecord.emit({ index: index, id: recordId });
+    this.onDerivativeSelected(null);
+    this.onTissueTypeSelected(null);
     this.cRRow.markAsPristine();
   }
 
