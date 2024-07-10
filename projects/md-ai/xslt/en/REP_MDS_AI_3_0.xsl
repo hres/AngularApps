@@ -492,7 +492,7 @@ span.normalWeight {
 									</div>
 									<xsl:if test="/descendant-or-self::application_info/has_drug = 'yes'">
 										<div class="row">&#160;
-											<strong>Does the drug have a Drug Identification Number (DIN) or a Natural Product Number (NPN)?:&#160;</strong>
+											<strong>Does the drug have a Drug Identification Number (DIN) or a Natural Product Number (NPN)?&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/has_din_npn"/></span>
 										</div>
 									</xsl:if>
@@ -551,7 +551,7 @@ span.normalWeight {
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-xs-6">
-								<strong>Has this device been previously authorized for sale in Canada under the following provisions of the Medical Devices Regulations?</strong>
+								<strong>Has this device been previously authorized for sale in Canada under the following provisions of the Medical Devices Regulations?:</strong>
 								</div>
 							</div>
 							<div class="row">
