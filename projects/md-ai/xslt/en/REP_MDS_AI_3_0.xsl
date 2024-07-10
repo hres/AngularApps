@@ -551,7 +551,7 @@ span.normalWeight {
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-xs-6">
-								<strong>Has this device been previously authorized for sale in Canada under the following provisions of the Medical Devices Regulations?:</strong>
+								<strong>Has this device been previously authorized for sale in Canada under the following provisions of the Medical Devices Regulations?</strong>
 								</div>
 							</div>
 							<div class="row">
