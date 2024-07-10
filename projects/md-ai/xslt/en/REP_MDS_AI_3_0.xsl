@@ -660,7 +660,7 @@ span.normalWeight {
 							</div>
 						</section>
 					</xsl:if>
-					<xsl:if test="/descendant-or-self::application_info/priority_review/priority_review != ''">
+					<xsl:if test="/descendant-or-self::priority_review/priority_review != ''">
 						<section class="panel panel-default" >
 							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
 								<h2 class="panel-title">Priority Review</h2>

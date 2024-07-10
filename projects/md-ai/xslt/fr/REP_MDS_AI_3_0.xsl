@@ -661,8 +661,8 @@ span.normalWeight {
 								</xsl:if>
 							</div>
 						</section>
-					</xsl:if>
-					<xsl:if test="/descendant-or-self::application_info/priority_review/priority_review != ''">
+					</xsl:if>	
+					<xsl:if test="/descendant-or-self::priority_review/priority_review != ''">			
 						<section class="panel panel-default" >
 							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
 								<h2 class="panel-title">Examen prioritaire</h2>
@@ -688,8 +688,8 @@ span.normalWeight {
 									</xsl:for-each>
 								</xsl:if>
 							</div>
-						</section>
-					</xsl:if>
+						</section>		
+					</xsl:if>	
 				</div>
 			</div>
 		</section>
