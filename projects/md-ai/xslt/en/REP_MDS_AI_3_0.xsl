@@ -492,7 +492,7 @@ span.normalWeight {
 									</div>
 									<xsl:if test="/descendant-or-self::application_info/has_drug = 'yes'">
 										<div class="row">&#160;
-											<strong>Does the drug have a Drug Identification Number (DIN) or a Natural Product Number (NPN)?&#160;</strong>
+											<strong>Does the drug have a Drug Identification Number (DIN) or a Natural Product Number (NPN)?:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/has_din_npn"/></span>
 										</div>
 									</xsl:if>
