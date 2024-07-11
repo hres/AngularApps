@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {AddressDetailsService} from './address.details.service';
-import { ControlMessagesComponent, HelpIndex, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { BaseComponent, ControlMessagesComponent, HelpIndex, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../../global/global.service';
 import { INameAddress } from '../../models/transaction';
 
@@ -17,7 +17,7 @@ import { INameAddress } from '../../models/transaction';
   encapsulation: ViewEncapsulation.None
 })
 
-export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit {
+export class AddressDetailsComponent extends BaseComponent implements OnInit, OnChanges {
   lang: string;
   helpTextSequences: HelpIndex; 
   countryList: ICode[] = [];
@@ -29,7 +29,6 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() addrType;
   @Input() addrGroupLabelKey;
   @Output() errorList = new EventEmitter(true);
-  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public addressForm: FormGroup;
   public provStateList: ICode[] = [];
@@ -53,6 +52,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private _detailsService: AddressDetailsService, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
+    super();
     this.showFieldErrors = false;
     this.showErrors = false;
   }
@@ -67,83 +67,23 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
     if (!this.addressForm) {
       this.addressForm = this._detailsService.getReactiveModel(this._fb);
     }
-    // this._setCountryState(this.addressForm.controls['country'].value,this.addressForm);
-    // this.detailsChanged = 0;
   }
 
-  ngAfterViewInit() {
-    this.msgList.changes.subscribe(errorObjs => {
-      let temp = [];
-      this._updateErrorList(errorObjs);
-
-      /* errorObjs.forEach(
-         error => {
-           temp.push(error);
-         }
-       );
-       this.errorList.emit(temp);*/
-    });
-    this.msgList.notifyOnChanges();
-
-  }
-
-  private _updateErrorList(errorObjs) {
-    let temp = [];
-    if (errorObjs) {
-      errorObjs.forEach(
-        error => {
-          temp.push(error);
-        }
-      );
-    }
-    this.errorList.emit(temp);
-
-  }
-
-  ngDoCheck() {
+  protected override emitErrors(errors: any[]): void {
+    this.errorList.emit(errors);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     const isFirstChange = this._utilsService.isFirstChange(changes);
-    console.log("isFirstChange:", isFirstChange);
-
-    // since we can't detect changes on objects, using a separate flag
-    // if (changes['detailsChanged']) { // used as a change indicator for the model
-    //   // console.log("the details cbange");
-    //   if (this.addressFormRecord) {
-    //     this._setCountryState(this.addressFormRecord.controls['country'].value, this.addressFormRecord);
-    //     this.setToLocalModel();
-
-    //   } else {
-    //     this.addressForm = AddressDetailsService.getReactiveModel(this._fb);
-    //     this._setCountryState(this.addressForm.controls['country'].value, this.addressForm);
-    //     this.addressForm.markAsPristine();
-    //   }
-    // }
-
+    // console.log("isFirstChange:", isFirstChange);
     if (!isFirstChange) {
       if (changes['showErrors']) {
         this.showFieldErrors = changes['showErrors'].currentValue;
-        let temp = [];
-        if (this.msgList) {
-          this.msgList.forEach(item => {
-            temp.push(item);
-            // console.log(item);
-          });
-        }
-        this.errorList.emit(temp);
       }
 
       if (changes['addressModel']) {
         const dataModel = changes['addressModel'].currentValue as INameAddress;
-        // if (!this.addressForm)
-        //   this.addressForm = this._detailsService.getReactiveModel(this._fb);
-        // if (dataModel.country) {
-        //   this.countrySelected = dataModel.country.__text;
-        //   this._setCountryState(dataModel.country._id, this.addressForm);
-        // }
         this._detailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressForm));
-
         this.onCountryChange(null);
       }
     }
