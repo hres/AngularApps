@@ -89,8 +89,7 @@
                           <control-messages *ngIf="masterFileForm.controls['notApplicable'].invalid"
                                     [showError]="showErrors" parentId="mfDetails"
                                     [control]="masterFileForm.controls['notApplicable'] | formControl"
-                                    controlId="notApplicableId" label="notApplicable"
-                                    parentLabel="MasterFile Information"></control-messages>
+                                    controlId="notApplicableId" label="notApplicable"></control-messages>
                           <input attr.aria-label= "{{'agent.not.applicable' | translate}}" name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
                             id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl" />
                           <span aria-hidden="true"><b>{{'not.applicable'|translate}}</b></span>
@@ -132,8 +131,7 @@
                     <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
                                     [showError]="showErrors" parentId="mfContactInfoConfirm"
                                     [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
-                                    controlId="contactInfoConfirmId" label="info.confirmation"
-                                    parentLabel="MasterFile Contact Info Confirmation"></control-messages>
+                                    controlId="contactInfoConfirmId" label="info.confirmation"></control-messages>
                   </label>
                 </div>
               </div>
