@@ -38,13 +38,11 @@
         <li *ngIf="controlError.type!=='component_error' && controlError.type!='least_one_rec_error'">
           <a href="#{{controlError.controlId}}" target="_self" (click)="processEvents(controlError)">
             {{'error' | translate: {number:controlError.errorNumber} }}
-            @if(this.headingLevel==='h4'){
+            
               @if(controlError.compRef.translatedParentLabel) {
                 {{controlError.compRef.translatedParentLabel}}&nbsp;&#8208;&nbsp;
-              } @else {
-                {{controlError.compRef.parentLabel | translate}}&nbsp;&#8208;&nbsp;
               }
-            } 
+            
             {{controlError.compRef.label | translate}}&nbsp;&#8208;&nbsp;{{ getValidatorErrorMessageKey(controlError.compRef.currentError) | translate: controlError.compRef.errorParams}}
           </a>
         </li>
