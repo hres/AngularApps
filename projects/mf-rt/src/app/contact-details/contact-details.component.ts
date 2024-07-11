@@ -22,6 +22,7 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   @Input() contactDetailsModel: IContact;
   @Output() errorList = new EventEmitter(true);
   @Input() contactType;
+  @Input() contactGroupLabelKey;
 
   constructor(private _contactDetailsService: ContactDetailsService, private _fb: FormBuilder, private _utilsService: UtilsService,
     //private _entityBaseService: EntityBaseService,  

@@ -27,6 +27,7 @@ export class AddressDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() showErrors: boolean;
   @Input() addressModel;
   @Input() addrType;
+  @Input() addrGroupLabelKey;
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 

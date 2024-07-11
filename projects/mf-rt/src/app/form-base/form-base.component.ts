@@ -2,7 +2,7 @@ import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, 
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
@@ -45,10 +45,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _baseErrors = [];
   private _contactConfirmError = [];
   private _certficationErrors = [];
-  public masterFileForm: FormGroup; // todo: do we need it? could remove?
+  public masterFileForm: FormGroup; 
   public errorList = [];
   public showErrors: boolean;
-  // public showContactFees: boolean[];
+  
   public headingLevel = 'h2';
 
   public rootTagText = ROOT_TAG;
@@ -66,7 +66,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public holder: string = ADDR_CONT_TYPE.HOLDER;
   public agent: string = ADDR_CONT_TYPE.AGENT;
 
-  showDateAndRequesterTxDescs: string[] = ['12', '14', '13'];
   noContactTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions
   noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20']; //Fee section is not shown for these Transaction Descriptions
  
@@ -92,7 +91,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showErrors = false;
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     if (!this.masterFileForm) {
       this.masterFileForm = this._baseService.getReactiveModel(this._fb);
     }
@@ -160,14 +159,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.errorList = this.errorList.concat(
         this._addressErrors.concat(this._contactErrors)
       );
-    //   if(!this.notApplicable)
-    //     this.errorList = this.errorList.concat(
-    //       this._agentAddressErrors.concat(this._agentContactErrors)
-    //     );
-    //   this.errorList = this.errorList.concat(this._contactConfirmError);
+      if(!this.notApplicable)
+        this.errorList = this.errorList.concat(
+          this._agentAddressErrors.concat(this._agentContactErrors)
+        );
+      this.errorList = this.errorList.concat(this._contactConfirmError);
     }
 
-    // if (this.showContactFees[1] === true) {
     if (this.showFee()) {
       this.errorList = this.errorList.concat(this._transFeeErrors);
     }
@@ -366,7 +364,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       output.TRANSACTION_ENROL[CHECK_SUM_CONST]  = this._checkSumService.createHash(output);
     }
 
-    console.log('_prepareForSaving ~ newTransactionEnrol', JSON.stringify(output, null, 2));
+    console.log('_prepareForSaving ~ output', JSON.stringify(output, null, 2));
 
     return output;
   }
