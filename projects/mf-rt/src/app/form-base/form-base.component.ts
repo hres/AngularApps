@@ -30,6 +30,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   helpIndex: HelpIndex;
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
@@ -42,7 +43,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _contactErrors = [];
   private _agentAddressErrors = [];
   private _agentContactErrors = [];
-  private _baseErrors = [];
   private _contactConfirmError = [];
   private _certficationErrors = [];
   public masterFileForm: FormGroup; 
@@ -129,23 +129,19 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _updateErrorList(errorObjs) {
-    let certifTempErrors = [];
     let contactConfirmTempError = [];
     if (errorObjs) {
       errorObjs.forEach(
         error => {
-          // console.log(error);
-          if (error.label === 'contactInfoConfirm') {
+          console.log(error);
+          if (error.label === 'info.confirmation') {
             contactConfirmTempError.push(error);
-          } else {
-            certifTempErrors.push(error);
           }
         }
       );
     }
 
     this._contactConfirmError = contactConfirmTempError;
-    this._certficationErrors = certifTempErrors;
   }
 
   processErrors() {
@@ -154,7 +150,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // concat the error arrays
     this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
 
-    // if (this.showContactFees[0] === true) {
     if (this.showContact()) {
       this.errorList = this.errorList.concat(
         this._addressErrors.concat(this._contactErrors)
@@ -169,6 +164,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.showFee()) {
       this.errorList = this.errorList.concat(this._transFeeErrors);
     }
+
     this.errorList = this.errorList.concat(this._certficationErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
@@ -230,31 +226,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     console.log(fileData);
     this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
     this._initModels(this.transactionEnrollModel);
-
     this.setSelectedTxDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
-
-
-    // if (this.ectdModel.lifecycle_record.sequence_description_value) {
-    //   this.showContactFees[0] = !this.noContactTxDescs.includes(
-    //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
-    //   this.showContactFees[1] = !this.noFeeTxDescs.includes(
-    //     this.ectdModel?.lifecycle_record.sequence_description_value._id);
-    // }
-    // if (this.showContactFees[0] === true) {
-    //   this.holderAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_name_address;
-    //   this.holderContactModel = fileData.data.TRANSACTION_ENROL.contact_info.holder_contact;
-    //   this.agentAddressModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_name_address;
-    //   this.agentContactModel = fileData.data.TRANSACTION_ENROL.contact_info.agent_contact;
-    // }
-    // if (this.showFee()) {
-    //   this.transFeeModel = this.transactionEnrollModel.fee_details;
-    // }
-    // this.certificationModel = this.transactionEnrollModel.certification;
-    // MasterFileBaseService.mapDataModelToFormModel(this.transactionEnrollModel, this.masterFileForm);
     this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.masterFileForm);
     this.agentInfoOnChange();
   }
-
   
   private _initModels(trans: TransactionEnrol) {
     this.ectdModel = trans.ectd;
