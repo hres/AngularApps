@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, HelpIndex, ICode, UtilsService } from '@hpfb/sdk/ui';
-import { IContact } from '../models/transaction';
+import { IContact } from '../../models/transaction';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ContactDetailsService } from './contact-details.service';
-import { GlobalService } from '../global/global.service';
+import { GlobalService } from '../../global/global.service';
 
 @Component({
   selector: 'contact-details',

@@ -13,7 +13,7 @@ import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol
 import { AddressDetailsComponent } from '../address/address.details/address.details.component';
 import { MasterFileFeeComponent } from '../master-file-fee/master-file-fee.component';
 import { CertificationComponent } from '../certification/certification.component';
-import { ContactDetailsComponent } from '../contact-details/contact-details.component';
+import { ContactDetailsComponent } from '../contact/contact-details/contact-details.component';
 
 @Component({
     selector: 'app-form-base',
