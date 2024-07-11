@@ -25,7 +25,6 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   @Input() contactGroupLabelKey;
 
   constructor(private _contactDetailsService: ContactDetailsService, private _fb: FormBuilder, private _utilsService: UtilsService,
-    //private _entityBaseService: EntityBaseService,  
     private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -48,14 +47,6 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
     if (!isFirstChange) {
       if (changes['showErrors']) {
         this.showFieldErrors = changes['showErrors'].currentValue;
-        let temp = [];
-        if (this.msgList) {
-          this.msgList.forEach(item => {
-            temp.push(item);
-            // console.log(item);
-          });
-        }
-        this.errorList.emit(temp);
       }
 
       if (changes['contactDetailsModel']) {
