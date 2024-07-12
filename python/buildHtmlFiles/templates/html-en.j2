@@ -70,7 +70,7 @@
 					{# Display all sections when site is "internal" #}
 					<h2>{{section.header}}</h2>
 					{% if section.alert %}
-						<div class="alert alert-info" style="text-decoration: underline">{{section.alert}}</div>
+						<div class="alert alert-info"><p>{{section.alert}}<p></div>
 					{% endif %}
 					{%- for group in section.groups %}
 					<h3>{{group.header}}</h3>
@@ -87,7 +87,7 @@
 					{% if section.internal_only != true %}
 						<h2>{{ section.header }}</h2>
 						{% if section.alert %}
-					    	<div class="alert alert-info" style="text-decoration: underline">{{section.alert}}</div>
+					    	<div class="alert alert-info"><p>{{section.alert}}</p></div>
 						{% endif %}
 						{% for group in section.groups %}
 							<h3>{{ group.header }}</h3>
