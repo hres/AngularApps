@@ -21,8 +21,8 @@ export class AddressDetailsService {
       address: [null, Validators.required],
       provText: '',
       provState: '',
-      city: ['', [Validators.required, Validators.min(5)]],
-      country: [null, [Validators.required, ValidationService.countryValidator]],
+      city: ['', [Validators.required]],
+      country: [null, [Validators.required]],
       postal: ['', [Validators.required]]
     });
   }

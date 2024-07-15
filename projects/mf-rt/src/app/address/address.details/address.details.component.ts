@@ -1,12 +1,12 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation,
+  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation,
   signal,
   computed
 } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {AddressDetailsService} from './address.details.service';
-import { BaseComponent, ControlMessagesComponent, HelpIndex, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { BaseComponent, HelpIndex, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../../global/global.service';
 import { INameAddress } from '../../models/transaction';
 
@@ -94,7 +94,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     this.selectedCountrySignal.set(selectedCountryId);
 
     if (e) {
-      // reset provText field when the action is triggered from the UI
+      // reset provText etc fields when the action is triggered from the UI
       const valuesToReset = ['provText', 'postal', 'provState'];
       this._resetControlValues(valuesToReset);
     }
