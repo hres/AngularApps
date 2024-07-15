@@ -8,7 +8,7 @@ import { MasterFileFeeService } from '../master-file-fee/master-file.fee.service
 import { ADDR_CONT_TYPE, ROOT_TAG } from '../app.constants';
 import { AddressDetailsService } from '../address/address.details/address.details.service';
 import { CertificationService } from '../certification/certification.service';
-import { ContactDetailsService } from '../contact-details/contact-details.service';
+import { ContactDetailsService } from '../contact/contact-details/contact-details.service';
 
 @Injectable()
 export class MasterFileBaseService {

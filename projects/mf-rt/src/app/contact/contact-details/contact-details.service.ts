@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ConverterService, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { IContact } from '../models/transaction';
-import { GlobalService } from '../global/global.service';
+import { IContact } from '../../models/transaction';
+import { GlobalService } from '../../global/global.service';
 
 
 @Injectable()

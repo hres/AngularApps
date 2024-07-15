@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, HelpIndex, ICode, UtilsService } from '@hpfb/sdk/ui';
-import { IContact } from '../models/transaction';
+import { IContact } from '../../models/transaction';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ContactDetailsService } from './contact-details.service';
-import { GlobalService } from '../global/global.service';
+import { GlobalService } from '../../global/global.service';
 
 @Component({
   selector: 'contact-details',
@@ -22,9 +22,9 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   @Input() contactDetailsModel: IContact;
   @Output() errorList = new EventEmitter(true);
   @Input() contactType;
+  @Input() contactGroupLabelKey;
 
   constructor(private _contactDetailsService: ContactDetailsService, private _fb: FormBuilder, private _utilsService: UtilsService,
-    //private _entityBaseService: EntityBaseService,  
     private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -47,14 +47,6 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
     if (!isFirstChange) {
       if (changes['showErrors']) {
         this.showFieldErrors = changes['showErrors'].currentValue;
-        let temp = [];
-        if (this.msgList) {
-          this.msgList.forEach(item => {
-            temp.push(item);
-            // console.log(item);
-          });
-        }
-        this.errorList.emit(temp);
       }
 
       if (changes['contactDetailsModel']) {

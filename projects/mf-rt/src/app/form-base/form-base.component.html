@@ -17,7 +17,6 @@
           </h2>
         </header>
         <div class="panel-body">
-          <!-- <file-reader (complete)="processFile($event)" [rootTag]="rootTagText"></file-reader> -->
           <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath" 
             [startCheckSumVersion]="startCheckSumVersionNum" [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
             <app-filereader-instruction fileUploadInstruction [lang]="lang"></app-filereader-instruction>
@@ -38,8 +37,6 @@
             <app-regulatory-information [showErrors]="showErrors" [dataModel]="ectdModel"
               (errorList)="processRegulatoryInfoErrors($event)"
               (trDescUpdated)="setSelectedTxDesc($event)"></app-regulatory-information>
-              <!-- <regulatory-information (regulatoryInfoErrorList)="processRegulatoryInfoErrors($event)" [showErrors]="showErrors"
-              [regulatoryInfoModel]="regulatoryInfoModel"/> -->
           </div>
       </section>
 
@@ -60,7 +57,7 @@
                 </header>
                 <div class="panel-body">
                   <address-details [showErrors]="showErrors" 
-                    [addressModel]="holderAddressModel" [addrType]="holder"
+                    [addressModel]="holderAddressModel" [addrType]="holder" [addrGroupLabelKey]="'label.holder'"
                     (errorList)="processAddressErrors($event)">
                   </address-details>
                 </div>
@@ -71,7 +68,7 @@
                 </header>
                 <div class="panel-body">
                    <contact-details [showErrors]="showErrors" [contactDetailsModel]="holderContactModel"
-                    (errorList)="processContactErrors($event)" [contactType]="holder">
+                    (errorList)="processContactErrors($event)" [contactType]="holder" [contactGroupLabelKey]="'label.holder'">
                   </contact-details> 
                 </div>
               </section>
@@ -86,7 +83,6 @@
                   </h3>
                 </header>
                 <div class="panel-body">
-                 <!-- extract this to a separate component and remove notApplicable field from the base component -->
                   <div class="row rep-margin-left">
                     <div class="col-xs-12">
                       <div class="checkbox">
@@ -94,8 +90,7 @@
                           <control-messages *ngIf="masterFileForm.controls['notApplicable'].invalid"
                                     [showError]="showErrors" parentId="mfDetails"
                                     [control]="masterFileForm.controls['notApplicable'] | formControl"
-                                    controlId="notApplicableId" label="notApplicable"
-                                    parentLabel="MasterFile Information"></control-messages>
+                                    controlId="notApplicableId" label="notApplicable"></control-messages>
                           <input attr.aria-label= "{{'agent.not.applicable' | translate}}" name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
                             id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl" />
                           <span aria-hidden="true"><b>{{'not.applicable'|translate}}</b></span>
@@ -104,7 +99,7 @@
                     </div>
                   </div>
                   <address-details *ngIf="!notApplicable" [showErrors]="showErrors" 
-                  [addressModel]="agentAddressModel" [addrType]="agent"
+                    [addressModel]="agentAddressModel" [addrType]="agent" [addrGroupLabelKey]="'label.agent'"
                     (errorList)="processAgentAddressErrors($event)">
                   </address-details>
                 </div>
@@ -115,7 +110,7 @@
                 </header>
                 <div class="panel-body">
                   <contact-details [showErrors]="showErrors" [contactDetailsModel]="agentContactModel"
-                  (errorList)="processAgentContactErrors($event)" [contactType]="agent">
+                  (errorList)="processAgentContactErrors($event)" [contactType]="agent" [contactGroupLabelKey]="'label.agent'">
                 </contact-details> 
                 </div>
               </section>
@@ -137,8 +132,7 @@
                     <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
                                     [showError]="showErrors" parentId="mfContactInfoConfirm"
                                     [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
-                                    controlId="contactInfoConfirmId" label="info.confirmation"
-                                    parentLabel="MasterFile Contact Info Confirmation"></control-messages>
+                                    controlId="contactInfoConfirmId" label="info.confirmation"></control-messages>
                   </label>
                 </div>
               </div>

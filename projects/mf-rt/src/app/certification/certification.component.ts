@@ -20,10 +20,9 @@ export class CertificationComponent extends BaseComponent implements OnInit{
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
 
-  constructor(private _certificationService: CertificationService, private _fb: FormBuilder, private _utilsService: UtilsService,
-    //private _entityBaseService: EntityBaseService,  
+  constructor(private _certificationService: CertificationService, private _fb: FormBuilder, private _utilsService: UtilsService, 
     private _globalService: GlobalService) {
-      super();
+    super();
     this.showFieldErrors = false;
     this.showErrors = false;
 
@@ -44,14 +43,6 @@ export class CertificationComponent extends BaseComponent implements OnInit{
     if (!isFirstChange) {
       if (changes['showErrors']) {
         this.showFieldErrors = changes['showErrors'].currentValue;
-        const temp = [];
-        if (this.msgList) {
-          this.msgList.forEach((item) => {
-            temp.push(item);
-            // console.log(item);
-          });
-        }
-        this.errorList.emit(temp);
       }
     }
   }
@@ -64,7 +55,7 @@ export class CertificationComponent extends BaseComponent implements OnInit{
     this._utilsService.checkInputValidity(event, this.certificationForm.get('submitDate'), 'invalidDate');
   }  
 
-    getFormValue() {
+  getFormValue() {
     return this.certificationForm.value;
   }
 }
