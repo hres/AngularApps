@@ -6,7 +6,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
-import { ADDR_CONT_TYPE, MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG } from '../app.constants';
+import { ADDR_CONT_TYPE, MASTER_FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
 import { RegulatoryInformationComponent } from "../regulatory-information/regulatory-information.component";
 import { MasterFileBaseService } from './master-file-base.service';
 import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
@@ -28,6 +28,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
   lang: string;
   helpIndex: HelpIndex;
+  devEnv: boolean;
+  byPassCheckSum: boolean;
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
@@ -52,6 +54,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public headingLevel = 'h2';
 
   public rootTagText = ROOT_TAG;
+  public versionTagPath = VERSION_TAG_PATH;
+  public startCheckSumVersionNum = START_CHECKSUM_VERSION;
 
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
@@ -114,6 +118,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
       this.lang = this._globalService.currLanguage;
       this.helpIndex = this._globalService.helpIndex;
+      this.devEnv = this._globalService.devEnv;
+      this.byPassCheckSum = this._globalService.byPassChecksum;
     } catch (e) {
       console.error(e);
     }

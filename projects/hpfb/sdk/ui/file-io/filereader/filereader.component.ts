@@ -10,13 +10,18 @@ import { CHECK_SUM_CONST } from '../../check-sum/check-sum-constants';
   selector: 'lib-file-reader',
   templateUrl: './filereader.component.html',
   styleUrls: ['./filereader.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class FilereaderComponent implements OnInit {
   @Output() complete = new EventEmitter();
   @Input() rootTag : string = '';
   @Input() lang : string = '';
+  @Input() versionTagPath? : string; //The xml path of the version tag in XML seperated by "." ex. "TRANSACTION_ENROL.software_version"
+  @Input() startCheckSumVersion? : number;
+  @Input() devEnv? : boolean;
+  @Input() byPassCheckSum? : boolean;
+
 
   public status = IMPORT_SUCCESS;
   public importSuccess = false;
@@ -59,7 +64,7 @@ export class FilereaderComponent implements OnInit {
     myReader.onloadend = function (e) {
       // you can perform an action with data here callback for asynch load
       let convertResult = new ConvertResults();
-      FilereaderComponent._readFile(file.name, myReader.result, self.rootId, convertResult);
+      FilereaderComponent._readFile(file.name, myReader.result, self.rootId, convertResult, self.versionTagPath, self.startCheckSumVersion, self.devEnv, self.byPassCheckSum);
       if (convertResult.messages && convertResult.messages.length > 0) {
         self.status = convertResult.messages[0];
       } else {
@@ -87,7 +92,7 @@ export class FilereaderComponent implements OnInit {
    * @param {ConvertResults} convertResult -The results of the file read
    * @private
    */
-  private static _readFile(name:string, result, rootId:string, convertResult:ConvertResults) {
+  private static _readFile(name:string, result, rootId:string, convertResult:ConvertResults, versionTagPath:string, startCheckSumVersion: number, devEnv:boolean, byPass:boolean) {
     let splitFile = name.split('.');
     let fileType = splitFile[splitFile.length - 1];
     let conversion:FileConversionService =new FileConversionService();
@@ -102,8 +107,14 @@ export class FilereaderComponent implements OnInit {
       if (convertResult.messages.length === 0) {
         FilereaderComponent.checkRootTagMatch(convertResult, rootId);
       }
+      // MF-RT will start to use the strict checksum while other apps still keep their current behaviour
       if(fileType.toLowerCase() === FINAL_FILE_TYPE && convertResult.messages.length === 0){
-        this.checkSumCheck(convertResult, rootId);
+        if (this.doCheckSumCheck(convertResult, versionTagPath, startCheckSumVersion, devEnv, byPass))
+          if (versionTagPath ==null && startCheckSumVersion == null) {
+            this.checkSumCheck(convertResult, rootId);
+          } else {
+            this.strictCheckSumCheck(convertResult, rootId);
+          }
       }
     } else {
       convertResult.data = null;
@@ -136,4 +147,32 @@ export class FilereaderComponent implements OnInit {
     }
   }
 
+  private static strictCheckSumCheck(convertResult:ConvertResults, rootName:string) {
+    const checkSum: CheckSumService = new CheckSumService();
+
+    if(!checkSum.checkHash(convertResult.data)){
+      convertResult.data = null;
+      convertResult.messages = [];
+      convertResult.messages.push(CHECK_SUM_ERROR);
+    }
+  }
+
+  private static doCheckSumCheck(convertResult:ConvertResults, versionPath: string, startCheckSumVersion: number, devEnv: boolean, byPass: boolean){
+    if (versionPath !=null && startCheckSumVersion != null) {
+      var version = convertResult.data;
+      versionPath.split(".").forEach(function(key){
+        version = version[key];
+      })
+      version = parseInt(version.split('.')[0], 10);
+      if (version < startCheckSumVersion) {
+        return false;
+      }
+    } 
+    if (devEnv && byPass) {
+      console.warn("Bypassing Checksum Verification in Dev Mode!")
+      return false;
+    }
+    return true;
+  }
 }
+
