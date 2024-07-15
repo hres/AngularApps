@@ -26,7 +26,7 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
 
   constructor(private _masterFileFeeService: MasterFileFeeService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
-      super();
+    super();
     this.showFieldErrors = false;
     this.showErrors = false;
 
@@ -50,10 +50,6 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
       }
       if (changes['dataModel']) {
         const dataModel = changes['dataModel'].currentValue as FeeDetails;
-        // if (!this.feeForm) {
-        //   this.feeForm = this._masterFileFeeService.getReactiveModel(this._fb);
-        //   this.feeForm.markAsPristine();
-        // }
         this._masterFileFeeService.mapDataModelToFormModel(dataModel, (<FormGroup>this.feeForm));
         this.areAccessLettersChanged();
       }
