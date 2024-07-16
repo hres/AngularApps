@@ -36,6 +36,7 @@ export class AppComponent {
     this._globalService.helpIndex = helpInstructionHeadings;
     this._globalService.appVersion = this._versionService.getApplicationVersion(environment);
     this._globalService.devEnv = !environment.production;
+    this._globalService.byPassChecksum = environment.byPassCheckSum;
 
     this.translate.get('form.title').subscribe((res) => {
       this.setTitle(res);

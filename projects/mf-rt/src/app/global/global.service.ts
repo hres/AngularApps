@@ -12,6 +12,7 @@ export class GlobalService {
   private _helpIndex: HelpIndex;
   private _currLanguage: string = ENGLISH;
   private _enrollment: Transaction;
+  private _byPassChecksum: boolean = false;
 
   // data loaded from json files
   private _countryList: ICode[];
@@ -192,5 +193,13 @@ export class GlobalService {
     // Setter for _whoResponsible
     public set languageList(value: ICode[]) {
       this._languageList = value;
+    }
+
+    public set byPassChecksum(value: boolean) {
+      this._byPassChecksum = value;
+    }
+
+    public get byPassChecksum(): boolean {
+      return this._byPassChecksum;
     }
 }

@@ -17,7 +17,8 @@
           </h2>
         </header>
         <div class="panel-body">
-          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang">
+          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath" 
+            [startCheckSumVersion]="startCheckSumVersionNum" [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
             <app-filereader-instruction fileUploadInstruction [lang]="lang"></app-filereader-instruction>
           </lib-file-reader>
         </div>
