@@ -1,6 +1,4 @@
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -14,8 +12,7 @@ import {
   computed,
   signal
 } from '@angular/core';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { ControlMessagesComponent, ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex } from '@hpfb/sdk/ui';
+import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
 import { Ectd } from '../models/transaction';
@@ -27,7 +24,7 @@ import { GlobalService } from '../global/global.service';
   styles: [],
   encapsulation: ViewEncapsulation.None,
 })
-export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterViewInit {
+export class RegulatoryInformationComponent extends BaseComponent implements OnInit {
   lang: string;
   helpIndex: HelpIndex; 
 
@@ -37,7 +34,6 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
   @Input() dataModel: Ectd;
   @Output() errorList = new EventEmitter(true);
   @Output() trDescUpdated = new EventEmitter();
-  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   mfTypeOptions: ICodeAria[] = [];
   mfTypeDescArray: IParentChildren[] = [];
@@ -72,6 +68,7 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
+    super();
     this.showFieldErrors = false;
   }
 
@@ -91,22 +88,8 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     this.yesNoList = this._globalService.yesnoList;
   }
 
-  ngAfterViewInit() {
-    this.msgList.changes.subscribe((errorObjs) => {
-      const temp = [];
-      this._updateErrorList(errorObjs);
-    });
-    this.msgList.notifyOnChanges();
-  }
-
-  private _updateErrorList(errorObjs) {
-    const temp = [];
-    if (errorObjs) {
-      errorObjs.forEach((error) => {
-        temp.push(error);
-      });
-    }
-    this.errorList.emit(temp);
+  protected override emitErrors(errors: any[]): void {
+    this.errorList.emit(errors);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -116,27 +99,9 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     if (!isFirstChange) {
       if (changes['showErrors']) {
         this.showFieldErrors = changes['showErrors'].currentValue;
-        // console.log(
-        //   'MasterFileDetailsComponent ~ ngOnChanges ~ this.showFieldErrors',
-        //   this.showFieldErrors
-        // );
-        const temp = [];
-        if (this.msgList) {
-          this.msgList.forEach((item) => {
-            temp.push(item);
-            // console.log(item);
-          });
-        }
-        this.errorList.emit(temp);
       }
       if (changes['dataModel']) {
         const dataModelCurrentValue = changes['dataModel'].currentValue as Ectd;
-        // if (!this.regulartoryInfoForm) {
-        //   this.regulartoryInfoForm = this.detailsService.getReactiveModel(
-        //     this._fb
-        //   );
-        //   this.regulartoryInfoForm.markAsPristine();
-        // }
         this._regulatoryInfoService.mapDataModelToFormModel(
           dataModelCurrentValue,
           <FormGroup>this.regulartoryInfoForm,);
@@ -146,9 +111,6 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
         this.reqRevisionChanged(null);
       }
     }
-  }
-
-  ngOnDestroy() {
   }
 
   onMfTypeSelected(e: any): void {
@@ -166,19 +128,19 @@ export class RegulatoryInformationComponent implements OnInit, OnDestroy, AfterV
     this.selectedTxDescSignal.set(selectedTxDescId);
 
     if (!this.showDateAndRequester()) {
-      console.log('reset request date and requester fields when transaction description does not require them');
+      // console.log('reset request date and requester fields when transaction description does not require them');
       const valuesToReset = ['requestDate', 'requester'];
       this._resetControlValues(valuesToReset);
     }
 
     if (!this.showReqRevisedTxDesc()) {
-      console.log('reset reqRevision and revised transaction description fields if transaction description is not 13');
+      // console.log('reset reqRevision and revised transaction description fields if transaction description is not 13');
       const valuesToReset = ['reqRevision', 'revisedDescriptionType'];
       this._resetControlValues(valuesToReset);
     }
 
     if (!this.showReqRevisedTxDesc()) {
-      console.log('reset revised transaction description if reqRevision is No');
+      // console.log('reset revised transaction description if reqRevision is No');
       const valuesToReset = ['revisedDescriptionType'];
       this._resetControlValues(valuesToReset);
     }
