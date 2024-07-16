@@ -70,8 +70,8 @@ export class FilereaderComponent implements OnInit {
 
       if(self.status === IMPORT_SUCCESS){
         self.importSuccess = true;
-        self.importedFileName = file.name;
       }
+      self.importedFileName = file.name;
       self.showFileLoadStatus = true;
      
       self.complete.emit(convertResult);
