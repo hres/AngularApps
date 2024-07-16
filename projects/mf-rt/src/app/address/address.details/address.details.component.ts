@@ -83,8 +83,10 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
 
       if (changes['addressModel']) {
         const dataModel = changes['addressModel'].currentValue as INameAddress;
-        this._detailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressForm));
-        this.onCountryChange(null);
+        if (dataModel) {
+          this._detailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressForm));
+          this.onCountryChange(null);
+        }
       }
     }
   }
