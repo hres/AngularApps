@@ -184,6 +184,7 @@ export class MasterFileBaseService {
       } else {
         console.error('mapAddressFormContactFormToOutput ~ No holder address found');
       }
+      contactInfo.agent_name_address = null;
 
       const holderContact = contactsFormGroupValue.filter(contact => contact.contactType === ADDR_CONT_TYPE.HOLDER)[0];
       if (holderContact) {
@@ -191,6 +192,8 @@ export class MasterFileBaseService {
       } else {
         console.error('mapAddressFormContactFormToOutput ~ No holder contact found');
       }
+      contactInfo.agent_contact = null;
+
     } else {
       addressesFormGroupValue.forEach(address => {
         if (address.addrType === ADDR_CONT_TYPE.HOLDER) {
