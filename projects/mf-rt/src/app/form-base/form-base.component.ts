@@ -102,16 +102,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     try {
 
       if (!this._globalService.enrollment) {
-        console.log("onInit", "enrollement doesn't exist, create a new one");
+        // console.log("onInit", "enrollement doesn't exist, create a new one");
         this.enrollModel = this._baseService.getEmptyEnrol();
         this._globalService.enrollment = this.enrollModel;
       } else {
         this.enrollModel = this._globalService.enrollment;
-        console.log("onInit", "get enrollement from globalservice");
+        // console.log("onInit", "get enrollement from globalservice");
       }
 
       this.transactionEnrollModel = this.enrollModel[this.rootTagText];
-      console.log('oninit', JSON.stringify(this.transactionEnrollModel, null, 2));
+      // console.log('oninit', JSON.stringify(this.transactionEnrollModel, null, 2));
 
       this._initModels(this.transactionEnrollModel);
 
@@ -139,7 +139,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (errorObjs) {
       errorObjs.forEach(
         error => {
-          console.log(error);
+          // console.log(error);
           if (error.label === 'info.confirmation') {
             contactConfirmTempError.push(error);
           }
@@ -228,13 +228,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public processFile(fileData: ConvertResults) {
-    console.log('processing file.....');
-    console.log(fileData);
-    this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
-    this._initModels(this.transactionEnrollModel);
-    this.setSelectedTxDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
-    this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.masterFileForm);
-    this.agentInfoOnChange();
+    // console.log(fileData);
+    if (fileData.data !== null) {
+      this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
+      this._initModels(this.transactionEnrollModel);
+      this.setSelectedTxDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
+      this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.masterFileForm);
+      this.agentInfoOnChange();
+    }
   }
   
   private _initModels(trans: TransactionEnrol) {
@@ -251,7 +252,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public setSelectedTxDesc(val: string) {
-    console.log("setSelectedTxDesc==>", val);
+    // console.log("setSelectedTxDesc==>", val);
     // set the value of selectedTxDescSignal and showContact/showFee will be computed
     this.selectedTxDescSignal.set(val);
 
