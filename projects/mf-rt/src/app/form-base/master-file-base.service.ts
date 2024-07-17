@@ -162,7 +162,7 @@ export class MasterFileBaseService {
   }
 
   public mapDataModelToFormModel(contactInfo: ContactInfo, formRecord: FormGroup) {
-    console.log(contactInfo.agent_not_applicable, typeof contactInfo.agent_not_applicable, this._utilsService.toBoolean(contactInfo.agent_not_applicable));
+    // console.log(contactInfo.agent_not_applicable, typeof contactInfo.agent_not_applicable, this._utilsService.toBoolean(contactInfo.agent_not_applicable));
     formRecord.controls['notApplicable'].setValue(this._utilsService.toBoolean(contactInfo.agent_not_applicable));
 
     // Resets certifcation section and contact info confirmation

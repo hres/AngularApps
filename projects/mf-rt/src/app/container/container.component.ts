@@ -46,7 +46,7 @@ export class ContainerComponent implements OnInit {
     this.devEnv = this._globalService.devEnv;
     
     forkJoin(this.dataSources).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this._globalService.countryList = data[0];
       this._globalService.provinceList = data[1];
       this._globalService.stateList = data[2];
