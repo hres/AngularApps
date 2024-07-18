@@ -288,7 +288,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       const xsltVersion = this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.appVersion)
       const xslName = MASTER_FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
 
-      console.log('save ...');
       this.fileServices.saveXmlToFile(result, fileName, true, xslName);
       return;
     }
