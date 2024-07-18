@@ -29,7 +29,7 @@ export class MasterFileBaseService {
     }
     return fb.group({
       notApplicable: [false, []],
-      contactInfoConfirm: [null, Validators.required],
+      contactInfoConfirm: [false, Validators.requiredTrue],
     });
   }
 
@@ -46,7 +46,7 @@ export class MasterFileBaseService {
       {
 		  are_there_access_letters: null,
 		  number_of_access_letters: '',
-		  who_responsible_fee: this._entityBaseService.getEmptyIdTextLabel() ,
+		  who_responsible_fee: '',
 		  account_number: '',
 		  cra_business_number: ''
       }
@@ -156,7 +156,7 @@ export class MasterFileBaseService {
       agent_not_applicable: undefined,
       agent_name_address: this.getEmptyAddressDetailsModel(),
       agent_contact: this.getEmptyContactModel(),
-      contact_info_confirm: undefined
+      contact_info_confirm: false
     }
     return contactInfo;
   }
@@ -164,9 +164,7 @@ export class MasterFileBaseService {
   public mapDataModelToFormModel(contactInfo: ContactInfo, formRecord: FormGroup) {
     // console.log(contactInfo.agent_not_applicable, typeof contactInfo.agent_not_applicable, this._utilsService.toBoolean(contactInfo.agent_not_applicable));
     formRecord.controls['notApplicable'].setValue(this._utilsService.toBoolean(contactInfo.agent_not_applicable));
-
-    // Resets certifcation section and contact info confirmation
-    formRecord.controls['contactInfoConfirm'].setValue(undefined);
+    // user needs to check contactInfoConfirm checkbox each time they submit the form, so no need to load it from the uploaded data file
   }
 
   public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any, certificationFormGroupValue: any): void{

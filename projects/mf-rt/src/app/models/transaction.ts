@@ -54,7 +54,7 @@ export interface LifecycleRecord {
 export interface FeeDetails {
   are_there_access_letters: string;
   number_of_access_letters: string;
-  who_responsible_fee: IIdTextLabel;
+  who_responsible_fee: string;
   account_number: string;
   cra_business_number: string
 }
