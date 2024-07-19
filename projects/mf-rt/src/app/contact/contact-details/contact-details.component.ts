@@ -6,7 +6,7 @@ import { ContactDetailsService } from './contact-details.service';
 import { GlobalService } from '../../global/global.service';
 
 @Component({
-  selector: 'contact-details',
+  selector: 'app-contact-details',
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.css',
   encapsulation: ViewEncapsulation.None,

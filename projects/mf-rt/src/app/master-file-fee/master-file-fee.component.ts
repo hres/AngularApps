@@ -6,7 +6,7 @@ import { GlobalService } from '../global/global.service';
 import { FeeDetails } from '../models/transaction';
 
 @Component({
-  selector: 'master-file-fee',
+  selector: 'app-master-file-fee',
   templateUrl: './master-file-fee.component.html',
   styleUrl: './master-file-fee.component.css',
   encapsulation: ViewEncapsulation.None,
