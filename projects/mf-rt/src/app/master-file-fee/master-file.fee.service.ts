@@ -22,8 +22,8 @@ export class MasterFileFeeService {
       areAccessLetters: [null, Validators.required],
       numOfAccessLetter: [null, [Validators.required]],
       whoResponsible: [null, [Validators.required]],
-      accountNumber: ['', [Validators.minLength(5), ValidationService.accountNumberValidator]],
-      businessNumber: ['', [Validators.minLength(9), ValidationService.businessNumberValidator]],
+      accountNumber: ['', [Validators.minLength(5)]],
+      businessNumber: ['', [Validators.minLength(9)]],
     });
   }
   
@@ -32,7 +32,7 @@ export class MasterFileFeeService {
 
     mfFeeModel.are_there_access_letters = formValue['areAccessLetters'];
     mfFeeModel.number_of_access_letters = formValue['numOfAccessLetter'];
-    mfFeeModel.who_responsible_fee = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.whoResponsible, formValue['whoResponsible'], lang);
+    mfFeeModel.who_responsible_fee = formValue['whoResponsible'];
     mfFeeModel.account_number = formValue['accountNumber'];
     mfFeeModel.cra_business_number = formValue['businessNumber'];
   }
@@ -40,7 +40,7 @@ export class MasterFileFeeService {
   public mapDataModelToFormModel(mfFeeModel: FeeDetails, formRecord: FormGroup) {
     formRecord.controls['areAccessLetters'].setValue(mfFeeModel.are_there_access_letters);
     formRecord.controls['numOfAccessLetter'].setValue(mfFeeModel.number_of_access_letters);
-    formRecord.controls['whoResponsible'].setValue(mfFeeModel.who_responsible_fee?._id);
+    formRecord.controls['whoResponsible'].setValue(mfFeeModel.who_responsible_fee);
     formRecord.controls['accountNumber'].setValue(mfFeeModel.account_number);
     formRecord.controls['businessNumber'].setValue(mfFeeModel.cra_business_number);
   }

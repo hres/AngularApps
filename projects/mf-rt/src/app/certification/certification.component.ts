@@ -45,6 +45,8 @@ export class CertificationComponent extends BaseComponent implements OnInit{
         this.showFieldErrors = changes['showErrors'].currentValue;
       }
     }
+
+    // user needs to refill the certificate section each time they submit the form, so no need to load it from the uploaded data file
   }
 
   protected override emitErrors(errors: any[]): void {

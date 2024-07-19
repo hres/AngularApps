@@ -51,7 +51,9 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
 
       if (changes['contactDetailsModel']) {
         const dataModel = changes['contactDetailsModel'].currentValue as IContact;
-        this._contactDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.contactDetailsForm));
+        if (dataModel) {
+          this._contactDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.contactDetailsForm));
+        }       
       }
     }
   }
