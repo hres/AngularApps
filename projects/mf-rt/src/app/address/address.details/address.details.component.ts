@@ -11,7 +11,7 @@ import { GlobalService } from '../../global/global.service';
 import { INameAddress } from '../../models/transaction';
 
 @Component({
-  selector: 'address-details',
+  selector: 'app-address-details',
   templateUrl: 'address.details.component.html',
   styleUrls: ['address.details.component.css'],
   encapsulation: ViewEncapsulation.None

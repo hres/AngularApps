@@ -56,10 +56,10 @@
                   </h3>
                 </header>
                 <div class="panel-body">
-                  <address-details [showErrors]="showErrors" 
+                  <app-address-details [showErrors]="showErrors" 
                     [addressModel]="holderAddressModel" [addrType]="holder" [addrGroupLabelKey]="'label.holder'"
                     (errorList)="processAddressErrors($event)">
-                  </address-details>
+                  </app-address-details>
                 </div>
               </section>
               <section class="panel  panel-default">
@@ -67,9 +67,9 @@
                   <h3 class="panel-title">{{'heading.holder.contact'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-                   <contact-details [showErrors]="showErrors" [contactDetailsModel]="holderContactModel"
+                   <app-contact-details [showErrors]="showErrors" [contactDetailsModel]="holderContactModel"
                     (errorList)="processContactErrors($event)" [contactType]="holder" [contactGroupLabelKey]="'label.holder'">
-                  </contact-details> 
+                  </app-contact-details> 
                 </div>
               </section>
 
@@ -98,10 +98,10 @@
                       </div>
                     </div>
                   </div>
-                  <address-details *ngIf="!notApplicable" [showErrors]="showErrors" 
+                  <app-address-details *ngIf="!notApplicable" [showErrors]="showErrors" 
                     [addressModel]="agentAddressModel" [addrType]="agent" [addrGroupLabelKey]="'label.agent'"
                     (errorList)="processAgentAddressErrors($event)">
-                  </address-details>
+                  </app-address-details>
                 </div>
               </section>
               <section class="panel  panel-default" *ngIf="!notApplicable">
@@ -109,9 +109,9 @@
                   <h3 class="panel-title">{{'heading.agent.contact'|translate}}</h3>
                 </header>
                 <div class="panel-body">
-                  <contact-details [showErrors]="showErrors" [contactDetailsModel]="agentContactModel"
+                  <app-contact-details [showErrors]="showErrors" [contactDetailsModel]="agentContactModel"
                   (errorList)="processAgentContactErrors($event)" [contactType]="agent" [contactGroupLabelKey]="'label.agent'">
-                </contact-details> 
+                </app-contact-details> 
                 </div>
               </section>
               <div class="col-xs-12 full-width">
@@ -147,8 +147,8 @@
             <h2 class="panel-title">{{'panel.title.fees'|translate}}</h2>
             </header>
             <div class="panel-body">
-            <master-file-fee (errorList)="processTransFeeErrors($event)" [showErrors]="showErrors"
-              [dataModel]="transFeeModel"></master-file-fee>
+            <app-master-file-fee (errorList)="processTransFeeErrors($event)" [showErrors]="showErrors"
+              [dataModel]="transFeeModel"></app-master-file-fee>
             </div>
         </section>
       </div>
