@@ -10,4 +10,5 @@ import { Component, Input } from '@angular/core';
 })
 export class PrivacyStatementComponent {
   @Input() lang;
+  @Input() purposeOfCollection?;
 }
