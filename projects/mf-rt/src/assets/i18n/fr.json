@@ -150,6 +150,7 @@
   "agent.not.applicable":"Le nom et l'adresse de l’agent autorisé ou du tiers autorisé ne sont pas applicables.",
   "postal.not.applicable":"(Si pas disponible, utilisez « sans objet »)",
   "req.revision":"La demande de clarification vous a-t-elle obligé à réviser la description de la transaction?",
-  "revised.transaction.description":"Description de la transaction révisée"
+  "revised.transaction.description":"Description de la transaction révisée",
+  "purpose.of.collection":"Santé Canada a besoin des renseignements personnels pour traiter les formulaires de demande réglementaire. Les informations que vous fournissez peuvent être utilisées pour vous contacter afin de vérifier les informations fournies, d'évaluer la faisabilité de l'inscription d'entreprises, de dossiers et de suivre les activités et transactions réglementaires."
 
 }

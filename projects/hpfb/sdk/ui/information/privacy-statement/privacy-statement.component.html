@@ -7,11 +7,12 @@
         collected under the authority of the Food and Drugs Act and the Food and Drug Regulations.
     </p>
     <p>
-        <b>Purpose of collection</b>: Health Canada requires the personal information to process regulatory
+        <b>Purpose of collection</b>: <ng-container *ngIf="purposeOfCollection; else defaultPurpose">{{purposeOfCollection}}</ng-container>
+        <ng-template #defaultPurpose>Health Canada requires the personal information to process regulatory
         application forms related to medical devices under the Regulatory Enrolment Process (REP) within the Canadian drug registration framework. The information you provide may
         be used to contact you to verify provided information, to assess the feasibility of enrolling companies,
         dossiers, and
-        track regulatory activities and transactions .
+        track regulatory activities and transactions.</ng-template>
     </p>
     <p>
         <b>For more information</b>: The class of records are described under HC HP 005 on <a

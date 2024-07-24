@@ -147,6 +147,7 @@
   "agent.not.applicable":"Authorized Agent or Authorized Third Party Name and Address not applicable",
   "postal.not.applicable":"(Use “not applicable” if not available)",
   "req.revision":"Did the Clarification Request require you to revise the Transaction Description?",
-  "revised.transaction.description":"Revised Transaction Description"
+  "revised.transaction.description":"Revised Transaction Description",
+  "purpose.of.collection":"Health Canada requires the personal information to process regulatory application forms. The information you provide may be used to contact you to verify provided information, to assess the feasibility of enrolling companies, dossiers, and track regulatory activities and transactions."
 
 }
