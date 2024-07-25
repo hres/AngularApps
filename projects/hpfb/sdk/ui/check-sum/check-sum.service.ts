@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import  * as CryptoJS from 'crypto-js';
 import {FileConversionService} from '../file-io/file-conversion.service';
-import { ConvertResults } from '../public-api';
+import { ConvertResults } from '../file-io/convert-results';
 import { CHECK_SUM_CONST } from './check-sum-constants';
 
 @Injectable({
