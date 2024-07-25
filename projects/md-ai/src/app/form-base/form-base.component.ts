@@ -18,6 +18,9 @@ import { DeviceService } from '../inter-device/device.service';
 import { PopupComponent } from '@hpfb/sdk/ui/popup/popup.component';
 import $ from 'jquery';
 import { PriorityReviewComponent } from '../priority-review/priority-review.component';
+import { DeviceListComponent } from '../inter-device/device-list/device-list.component';
+import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
+import { MaterialInfoComponent } from '../bio-material/material-info/material-info.component';
 
 @Component({
   selector: 'app-form-base',
@@ -32,6 +35,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
   @Input() helpTextSequences;
   @ViewChild(ApplicationInfoDetailsComponent) aiDetails: ApplicationInfoDetailsComponent;
+  @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
+  @ViewChild(MaterialInfoComponent) bioMaterialInfo: MaterialInfoComponent;
   @ViewChild(PriorityReviewComponent) priorityReview: PriorityReviewComponent;
 
   private _appInfoDetailErrors = [];
@@ -83,6 +88,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _converterService: ConverterService,
     private _materialService: MaterialService,
     private _deviceService: DeviceService,
+    private _appInfoService: ApplicationInfoDetailsService,
     private fb: FormBuilder
   ) {
     this.userList = [];
@@ -148,11 +154,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._appInfoDetailErrors = errorList;
     this.processErrors();
   }
-
-  processDeviceErrors(errorList) {
-    this._deviceErrors = errorList;
-    this.processErrors();
-  }
   
   processPriorityRevErrors(errorList) {
     this._priorityRevErrors = errorList;
@@ -190,15 +191,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummary';
     } else {
-      const aiDevices = this.aiDetails.aiDevices;
+      const aiDevices = this.aiDevices;
       
       let aiMaterials;
-      if (this.aiDetails.bioMaterialInfo) {
-        aiMaterials = this.aiDetails.bioMaterialInfo.aiMaterials;
+      if (this.bioMaterialInfo) {
+        aiMaterials = this.bioMaterialInfo.aiMaterials;
       }
 
       if (aiMaterials && !aiDevices) {
-        if (this.aiDetails.bioMaterialInfo.aiMaterials.materialListForm.pristine) {
+        if (this.bioMaterialInfo.aiMaterials.materialListForm.pristine) {
           this.prepareXml();
         } else {
             this.openPopup();
@@ -206,7 +207,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       } 
 
       if (!aiMaterials && aiDevices) {
-        if (this.aiDetails.aiDevices.deviceListForm.pristine) {
+        if (this.aiDevices.deviceListForm.pristine) {
           this.prepareXml();
         } else {
             this.openPopup();
@@ -214,7 +215,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
 
       if (aiMaterials && aiDevices) {
-        if (this.aiDetails.aiDevices.deviceListForm.pristine && this.aiDetails.bioMaterialInfo.aiMaterials.materialListForm.pristine) {
+        if (this.aiDevices.deviceListForm.pristine && this.bioMaterialInfo.aiMaterials.materialListForm.pristine) {
           this.prepareXml();
         } else {
             this.openPopup();
@@ -242,15 +243,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const aiDetailsFormGroupValue = this.aiDetails.appInfoFormLocalModel.value;
 
-    if (this.aiDetails.aiDevices.devicesFormArr) {
-      devicesFormArrayValue = this.aiDetails.aiDevices.devicesFormArr.value
+    if (this.aiDevices.devicesFormArr) {
+      devicesFormArrayValue = this.aiDevices.devicesFormArr.value
     }
 
-    if (this.aiDetails.bioMaterialInfo) {
-      materialInfoFormGroupValue = this.aiDetails.bioMaterialInfo.materialInfoForm.value;
+    if (this.bioMaterialInfo) {
+      materialInfoFormGroupValue = this.bioMaterialInfo.materialInfoForm.value;
 
-      if (this.aiDetails.bioMaterialInfo.aiMaterials) {
-        materialsFormArrayValue = this.aiDetails.bioMaterialInfo.aiMaterials.materialsFormArr.value;
+      if (this.bioMaterialInfo.aiMaterials) {
+        materialsFormArrayValue = this.bioMaterialInfo.aiMaterials.materialsFormArr.value;
       }
     }
 
@@ -311,8 +312,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   showDeviceErrorSummary() {
-    if (this.aiDetails.aiDevices.devicesFormArr) {
-      const devicesFormArrayControls = this.aiDetails.aiDevices.devicesFormArr.controls;
+    if (this.aiDevices.devicesFormArr) {
+      const devicesFormArrayControls = this.aiDevices.devicesFormArr.controls;
 
       // If there's more than one device records that are created, and the first one is valid, set showErrorSummary to false -> Do not show error summary for records
       // below the first one - This is for when a record is created after generating XML/error summary for form is shown
@@ -336,10 +337,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   showMaterialSummary() {
-    if (this.aiDetails.bioMaterialInfo) {
+    if (this.bioMaterialInfo) {
 
-      if (this.aiDetails.bioMaterialInfo.aiMaterials) {
-        const materialsFormArrayControls = this.aiDetails.bioMaterialInfo.aiMaterials.materialsFormArr.controls;
+      if (this.bioMaterialInfo.aiMaterials) {
+        const materialsFormArrayControls = this.bioMaterialInfo.aiMaterials.materialsFormArr.controls;
 
         // If there's more than one device records that are created, and the first one is valid, set showErrorSummary to false -> Do not show error summary for records
         // below the first one - This is for when a record is created after generating XML/error summary for form is shown
@@ -361,6 +362,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         }
       }
     }
+  }
+
+  public isDeviceIV() : boolean {
+    if (this._appInfoService.deviceClassIV()) {
+      return true;
+    } 
+    return false;
   }
 
 }

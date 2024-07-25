@@ -17,13 +17,10 @@ import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notificat
 })
 
 export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
-  deviceListForm: FormGroup;
   @Input() public deviceListData: Device[];
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  // @Output() public contactsUpdated = new EventEmitter();
-
-  // errors = signal<ControlMessagesComponent[]>([]);
+  deviceListForm: FormGroup;
 
   deviceService = inject(DeviceService)
   deviceListService = inject(DeviceListService)
@@ -193,23 +190,16 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
 
-    // if (this.isInternal) {
-    //   this._expandNextInvalidRecord();
-    // } else {
-      // expand the first record
-
-      // Set the list of form groups
+    // Set the list of form groups
     this.deviceListService.setList(this.devicesFormArr.controls as FormGroup[]);
   }
 
-  // todo add contact type
   private _patchDeviceInfoValue(group: FormGroup, device): void {
     group.controls['deviceInfo'].patchValue({
       deviceName: device.device_name,
       deviceAuthorized: device.device_authorized,
       licenceNum: device.licence_number,
       deviceApplicationSubmitted: device.device_application_submitted,
-      //deviceApplicationNumber: [null, [Validators.required, ValidationService.appNumValidator ]],
       deviceApplicationNumber: device.device_application_number,
       deviceExplain: device.device_explain
     });
@@ -218,7 +208,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   handleRowClick(event: any) {  
     const clickedIndex = event.index;
     const clickedRecordState = event.state;
-
 
     if (this.deviceListForm.pristine) {
       this.devicesFormArr.controls.forEach( (element: FormGroup, index: number) => {

@@ -25,18 +25,15 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   public appInfoFormLocalModel: FormGroup;
   @Input() showErrors: boolean;
   @Input() appInfoModel;
-  @Input() deviceModel;
-  @Input() materialInfo;
 
   @Input() helpTextSequences;
   @Input() loadFileIndicator;
   @Output() detailErrorList = new EventEmitter(true); // For processing app info details errors
-  @Output() deviceErrorList = new EventEmitter(true); // For processing device component errors
   @Output() materialErrorList = new EventEmitter(true); // For processing material component errors (info + list)
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   
-  @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
-  @ViewChild(MaterialInfoComponent) bioMaterialInfo: MaterialInfoComponent;
+  // @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
+  // @ViewChild(MaterialInfoComponent) bioMaterialInfo: MaterialInfoComponent;
 
   // Lists for dropdowns
   public licenceAppTypeList: ICode[] = [];
@@ -140,13 +137,19 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   deviceClassOnblur() {
     if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
       !this.isDeviceIV()) {
+      this._detailsService.deviceClassIV.set(false);
       this.materialErrorList.emit(true);
-    }
+    } 
+
+    if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
+      this.isDeviceIV()) {
+        this._detailsService.deviceClassIV.set(true);
+      }
   }
 
-  processDeviceErrors(errorList) {
-    this.deviceErrorList.emit(errorList);
-  }
+  // processDeviceErrors(errorList) {
+  //   this.deviceErrorList.emit(errorList);
+  // }
 
   private _resetControlValues(listOfValues : any[]) {
     for (let i = 0; i < listOfValues.length; i++) {

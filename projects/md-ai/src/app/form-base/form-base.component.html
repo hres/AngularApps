@@ -47,13 +47,21 @@
                           -->
                 <app-info-details [showErrors]="showErrors"
                                   [appInfoModel]="appInfoModel"
-                                  [deviceModel]="deviceModel" 
-                                  [materialInfo]="materialInfo"    
                                   [helpTextSequences]="helpIndex"
-                                  (detailErrorList)="processDetailErrors($event)"
-                                  (deviceErrorList)="processDeviceErrors($event)"                                 
+                                  (detailErrorList)="processDetailErrors($event)"                                 
                                   (materialErrorList)="resetMaterialErrors($event)">
                 </app-info-details>
+                <section class="panel  panel-default">
+                  <header class="panel-heading clearfix">
+                    <h3 class="panel-title">{{'heading.devices'|translate}}</h3>
+                  </header>
+                  <div class="panel-body">
+                    <app-device-list [deviceListData]="deviceModel"> </app-device-list>
+                  </div>
+                </section>
+                <div *ngIf="isDeviceIV()">
+                  <app-material-info [materialInfo]="materialInfo"> </app-material-info>
+                </div>
                 <section class="panel panel-default">
                   <header class="panel-heading clearfix">
                     <h2 class="panel-title">{{'priority.review'|translate}}

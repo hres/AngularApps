@@ -1,4 +1,4 @@
-import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
+import {AfterViewInit, Injectable, OnChanges, OnInit, signal} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { IIdTextLabel, UtilsService, ValidationService, YES, NO, CheckboxOption, ConverterService, ICode } from '@hpfb/sdk/ui';
 // import {GlobalsService} from '../globals/globals.service';
@@ -10,6 +10,8 @@ import { GlobalService } from '../global/global.service';
 
 @Injectable()
 export class ApplicationInfoDetailsService {
+
+  public deviceClassIV = signal(false);
 
   constructor(private _utilsService : UtilsService, private _converterService : ConverterService, private _globalService: GlobalService) {
   }
@@ -219,5 +221,7 @@ export class ApplicationInfoDetailsService {
       complianceChkboxFormArray.push(new FormControl(false));
     });
   }
+
+
 
 }

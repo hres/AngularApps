@@ -1,14 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren, ViewEncapsulation, effect, inject, signal } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ExpanderModule, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { TranslateModule } from '@ngx-translate/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation, effect, inject, signal } from '@angular/core';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { ErrorSummaryComponent, UtilsService } from '@hpfb/sdk/ui';
 import { MaterialService } from '../material.service';
 import { MaterialListService } from './material-list.service';
 import { GlobalService } from '../../global/global.service';
-import { MaterialItemComponent } from '../material-item/material-item.component';
-import { BiologicalMaterial, BiologicalMaterials } from '../../models/Enrollment';
-import { first } from 'rxjs';
+import { BiologicalMaterial } from '../../models/Enrollment';
 import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
 import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } from '@hpfb/sdk/ui/error-msg/error-summary/error-summary-object';
 
@@ -20,10 +16,6 @@ import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } f
 
 export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() public materialListData: BiologicalMaterial[];
-  // @Output() public errorListUpdated = new EventEmitter();
-  // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-
-  lang = this._globalService.lang();
 
   materialListForm: FormGroup;
 
@@ -31,7 +23,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   materialListService = inject(MaterialListService)
 
   public showErrors = false;
-  // public errorList = [];
   errorSummaryChild = null;
 
   firstChange: boolean = false;
@@ -269,19 +260,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     return this.materialsFormArr.value;
   }  
 
-  // private _updateLocalErrorList(errs) {
-  //   if (errs) {
-  //     errs.forEach(err => {
-  //      this.errorList.push(err);
-  //     });
-  //   } 
-  //   if (errs.length == 0) {
-  //     this.errorList = errs;
-  //   }
-
-  //   this._emitErrors(); // needed or will generate a valuechanged error
-  // }
-
   private _emitErrors(): void {
     let emitErrors = [];
 
@@ -289,13 +267,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       emitErrors.push(this.errorSummaryChild);
     }
     
-    // Error List is a QueryList type
-    // if (this.errorList) {
-    //   this.errorList.forEach(err => {
-    //     emitErrors.push(err);
-    //   })
-    // }
-
     if (this.materialsFormArr.errors) {
       emitErrors.push(this.materialsFormArr.errors['atLeastOneMat']);
     }
