@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, combineLatest, map, shareReplay, tap} from 'rxjs';
 import { DATA_PATH } from '../app.constants';
-import { ICode, ICodeAria, ICodeDefinition, IKeyword, IParentChildren, SortOn } from '@hpfb/sdk/ui/data-loader/data';
-import { DataLoaderService } from '@hpfb/sdk/ui';
+import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParentChildren, SortOn } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class FormDataLoaderService {
