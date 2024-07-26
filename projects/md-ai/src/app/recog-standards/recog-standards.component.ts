@@ -1,52 +1,29 @@
-import {
-  Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation,
-  ViewChild
-} from '@angular/core';
-import {FormGroup, FormBuilder, FormArray, FormControl} from '@angular/forms';
-import { CheckboxOption, ControlMessagesComponent, YES, NO, ConverterService, ICode, UtilsService, ICodeAria, ICodeDefinition } from '@hpfb/sdk/ui';
-import {ApplicationInfoDetailsService} from './application-info.details.service';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren, ViewEncapsulation, effect, inject, signal } from '@angular/core';
+import { FormGroup, FormBuilder, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ExpanderModule, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { TranslateModule } from '@ngx-translate/core';
 import { GlobalService } from '../global/global.service';
-import { DeviceClass, ActivityType, Compliance} from '../app.constants';
-import { DeviceListComponent } from '../inter-device/device-list/device-list.component';
-import { MaterialInfoComponent } from '../bio-material/material-info/material-info.component';
-import { RecogStandardsComponent } from '../recog-standards/recog-standards.component';
+import { first } from 'rxjs';
+import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
 
 
 @Component({
-  selector: 'app-info-details',
-  templateUrl: 'application-info.details.component.html',
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-recog-standards',
+  templateUrl: './recog-standards.component.html',
+  styleUrl: './recog-standards.component.css'
 })
-
-/**
- * Sample component is used for nothing
- */
-export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, AfterViewInit {
-
-  public appInfoFormLocalModel: FormGroup;
+export class RecogStandardsComponent implements OnInit, OnChanges, AfterViewInit {
+  public complianceForm: FormGroup;
   @Input() showErrors: boolean;
-  @Input() appInfoModel;
-  @Input() deviceModel;
-  @Input() materialInfo;
 
   @Input() helpTextSequences;
   @Input() loadFileIndicator;
-  @Output() detailErrorList = new EventEmitter(true); // For processing app info details errors
-  @Output() deviceErrorList = new EventEmitter(true); // For processing device component errors
-  @Output() materialErrorList = new EventEmitter(true); // For processing material component errors (info + list)
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   
-  @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
-  @ViewChild(MaterialInfoComponent) bioMaterialInfo: MaterialInfoComponent;
 
   // Lists for dropdowns
-  public licenceAppTypeList: ICode[] = [];
-  public mdsapOrgList: ICode[] = [];
-  public actTypeList: ICode[] = [];
-  public devClassList: ICodeAria[] = [];
-  public drugTypeList: ICode[] = [];
-  public yesNoList: ICode[] = [];
+
 
   public complianceOptionList: CheckboxOption[] = [];
 
@@ -57,27 +34,22 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   lang = this._globalService.lang();
 
-  constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
-              private _detailsService : ApplicationInfoDetailsService,
-              private _globalService : GlobalService,
-              private _converterService : ConverterService,
-              private _utilsService: UtilsService) {
-    // todo: dataLoader = new DossierDataLoaderService(this.http);
-    this.showFieldErrors = false;
-    this.showErrors = false;
-    if (!this.appInfoFormLocalModel) {
-      this.appInfoFormLocalModel = this._detailsService.getReactiveModel(this._fb);
-    }
-  }
+  constructor(private fb: FormBuilder, 
+    private _utilsService: UtilsService, 
+    private _globalService: GlobalService, 
+    private _deviceService : DeviceService,
+    private _errorDeviceNotificationService : ErrorNotificationService) {
+
+this.complianceForm = this.fb.group({
+devices: this.fb.array([])
+});
+
+effect(() => {
+// console.log('[effect2]', this._deviceService.errors());
+});
+}
 
   async ngOnInit() {
-    this.licenceAppTypeList = this._globalService.$licenceAppTypeList;
-    this.mdsapOrgList = this._globalService.$mdAuditProgramList;
-    this.actTypeList = this._globalService.$regActivityTypeList;
-    this.devClassList = this._globalService.$deviceClassesList;
-    this.drugTypeList = this._globalService.$rawDrugTypeList;
-    this.yesNoList = this._globalService.$yesNoList;
-
     this.complianceCodeList = this._globalService.$complianceList;
   }
 
@@ -139,16 +111,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     }
   }
 
-  deviceClassOnblur() {
-    if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
-      !this.isDeviceIV()) {
-      this.materialErrorList.emit(true);
-    }
-  }
+  
 
-  processDeviceErrors(errorList) {
-    this.deviceErrorList.emit(errorList);
-  }
 
   private _resetControlValues(listOfValues : any[]) {
     for (let i = 0; i < listOfValues.length; i++) {
@@ -156,27 +120,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     }
   }
 
-  isIVDD() {
-    if (this.appInfoFormLocalModel.controls['isIvdd'].value &&
-        this.appInfoFormLocalModel.controls['isIvdd'].value === YES) {
-      return true;
-    } else {
-      const valuesToReset = ['isHomeUse', 'isCarePoint'];
-      this._resetControlValues(valuesToReset)
-    }
-    return false;
-  }
 
-  isNOIVDD() {
-    if (this.appInfoFormLocalModel.controls['isIvdd'].value &&
-          this.appInfoFormLocalModel.controls['isIvdd'].value === NO) {
-      return true;
-    } else {
-      const valuesToReset = ['hasDrug', 'hasDinNpn', 'din', 'npn', 'drugName', 'activeIngredients', 'manufacturer', 'otherPharmacopeia', 'compliance'];
-      this._resetControlValues(valuesToReset);
-    }
-    return false;
-  }
 
   hasDrug() {
     if (this.appInfoFormLocalModel.controls['hasDrug'].value &&
@@ -254,52 +198,12 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
-  isLicenced() {
-    if ((this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.Licence
-        || this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.LicenceAmendment)
-      && (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIII
-        || this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIV)) {
-      return true;
-    } else {
-      this._resetControlValues(['declarationConformity']);
-    }
-    return false;
-  }
-
-  isMandatory() {
-    if (this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.Licence
-      && (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIII
-        || this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIV)) {
-      return true;
-    }
-    return false;
-  }
 
   isNoDeclaration() {
     if (this.appInfoFormLocalModel.controls['declarationConformity'].value) {
       return (this.appInfoFormLocalModel.controls['declarationConformity'].value === NO);
     }
     return false;
-  }
-
-  isOptional() {
-    if (this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.LicenceAmendment
-      && (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIII
-        || this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIV)) {
-      return true;
-    }
-    return false;
-  }
-
-  isDeviceIV() {
-    if (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIV) {
-      return true;
-    }
-    return false;
-  }
-
-  hasDrugOnChange() {
-    this._updateComplianceArray();
   }
 
 
@@ -325,4 +229,3 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   }
 
 }
-

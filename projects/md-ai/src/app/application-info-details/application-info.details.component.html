@@ -457,56 +457,7 @@
             <h2 class="panel-title">{{'standards.list'|translate}}</h2>
           </header>
           <div class="panel-body">
-            <div *ngIf="isMandatory()" class="row">
-              <div class="form-group col-xs-12">
-                <label  for="declarationConformity" class="required full-width">
-                  <span class="field-name">{{'conformity.declaration' |translate}}</span>
-                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-                  <sup id="ap8-rf">
-                    <a class="fn-lnk" href="#ap8"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.cfmDecIndx}}</a>
-                  </sup>
-                  <control-messages *ngIf="appInfoFormLocalModel.controls['declarationConformity'].invalid"
-                                    [showError]="showFieldErrors"
-                                    [control]="appInfoFormLocalModel.controls['declarationConformity'] | formControl"
-                                    controlId="declarationConformity" label="conformity.declaration"
-                                    parentId="appInfoDetails"></control-messages>
-                  <select id="declarationConformity" name="declarationConformity" required class="form-control"
-                          [formControl]="appInfoFormLocalModel.controls['declarationConformity'] | formControl">
-                    <option label=" " value=""></option>
-                    <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
-                  </select>
-                </label>
-              </div>
-            </div>
-            <div  *ngIf="isOptional()" class="row">
-              <div class="form-group col-xs-12">
-                <label for="declarationConformity" class="full-width">
-                  <span class="field-name">{{'conformity.declaration' |translate}}</span>
-                  <sup id="ap8-rf">
-                    <a class="fn-lnk" href="#ap8"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.cfmDecIndx}}</a>
-                  </sup>
-                  <!--<control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"-->
-                                    <!--[showError]="showFieldErrors"-->
-                                    <!--[control]="appInfoFormLocalModel.controls.declarationConformity"-->
-                                    <!--controlId="declarationConformity" label="conformity.declaration"-->
-                                    <!--parentId="appInfoDetails"></control-messages>-->
-                  <select id="declarationConformity" name="declarationConformity" class="form-control"
-                         [formControl]="appInfoFormLocalModel.controls['declarationConformity'] | formControl">
-                    <option label=" " value=""></option>
-                    <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
-                  </select>
-                </label>
-              </div>
-            </div>
-            <div *ngIf="isNoDeclaration()" class="row">
-              <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="alert alert-info" role="alert">
-                  <span>
-                    <p aria-live="polite">{{'declaration.instruct'|translate}}</p> 
-                  </span>
-                </div>
-              </div>
-            </div>  
+            <app-recog-standards> </app-recog-standards> 
           </div>
         </section>
       </div>

@@ -45,7 +45,8 @@
     "lib:package": "cd dist/hpfb/sdk && npm pack",
     "lib:buildAndPack": "run-s lib:build lib:package",
     "========== comment line, util scripts==========": "",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "create": "ng g c recog-standards --project=md-ai"
   },
   "private": true,
   "dependencies": {
