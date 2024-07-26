@@ -17,9 +17,6 @@ import { MaterialInfoComponent } from '../bio-material/material-info/material-in
   encapsulation: ViewEncapsulation.None
 })
 
-/**
- * Sample component is used for nothing
- */
 export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
   public appInfoFormLocalModel: FormGroup;
@@ -29,11 +26,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   @Input() helpTextSequences;
   @Input() loadFileIndicator;
   @Output() detailErrorList = new EventEmitter(true); // For processing app info details errors
-  @Output() materialErrorList = new EventEmitter(true); // For processing material component errors (info + list)
+  @Output() resetMaterialErrorList = new EventEmitter(true); // To reset material errors 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-  
-  // @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
-  // @ViewChild(MaterialInfoComponent) bioMaterialInfo: MaterialInfoComponent;
 
   // Lists for dropdowns
   public licenceAppTypeList: ICode[] = [];
@@ -52,12 +46,11 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   lang = this._globalService.lang();
 
-  constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
+  constructor(private _fb: FormBuilder,
               private _detailsService : ApplicationInfoDetailsService,
               private _globalService : GlobalService,
               private _converterService : ConverterService,
               private _utilsService: UtilsService) {
-    // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
     if (!this.appInfoFormLocalModel) {
@@ -100,17 +93,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   ngOnChanges(changes: SimpleChanges) {
 
-    // since we can't detect changes on objects, using a separate flag
-    // if (changes['detailsChanged']) { // used as a change indicator for the model
-      // console.log("the details cbange");
-      // if (this.appInfoFormRecord) {
-      //   this.setToLocalModel();
-
-      // } else {
-      //   this.appInfoFormLocalModel = this.detailsService.getReactiveModel(this._fb);
-      //   this.appInfoFormLocalModel.markAsPristine();
-      // }
-    // }
     if (changes['showErrors']) {
 
       this.showFieldErrors = changes['showErrors'].currentValue;
@@ -138,7 +120,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
       !this.isDeviceIV()) {
       this._detailsService.deviceClassIV.set(false);
-      this.materialErrorList.emit(true);
+      this.resetMaterialErrorList.emit(true);
     } 
 
     if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
@@ -146,10 +128,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this._detailsService.deviceClassIV.set(true);
       }
   }
-
-  // processDeviceErrors(errorList) {
-  //   this.deviceErrorList.emit(errorList);
-  // }
 
   private _resetControlValues(listOfValues : any[]) {
     for (let i = 0; i < listOfValues.length; i++) {
