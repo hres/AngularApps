@@ -3,5 +3,8 @@
   "dest": "../../../dist/hpfb/sdk",
   "lib": {
     "entryFile": "./public-api.ts"
-  }
+  },
+  "assets": [
+    "./css/*"
+  ]
 }
