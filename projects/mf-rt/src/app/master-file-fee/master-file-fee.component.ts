@@ -43,11 +43,9 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   }
   
   ngOnChanges(changes: SimpleChanges) {
+    this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
     if (!isFirstChange) {
-      if (changes['showErrors']) {
-        this.showFieldErrors = changes['showErrors'].currentValue;
-      }
       if (changes['dataModel']) {
         const dataModel = changes['dataModel'].currentValue as FeeDetails;
         this._masterFileFeeService.mapDataModelToFormModel(dataModel, (<FormGroup>this.feeForm));
