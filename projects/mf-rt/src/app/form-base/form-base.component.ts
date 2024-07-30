@@ -240,11 +240,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   
   private _initModels(trans: TransactionEnrol) {
     this.ectdModel = trans.ectd;
-    this.holderAddressModel = trans.contact_info.holder_name_address;
-    this.holderContactModel = trans.contact_info.holder_contact;
-    this.agentAddressModel = trans.contact_info.agent_name_address;
-    this.agentContactModel = trans.contact_info.agent_contact;
-    this.transFeeModel = trans.fee_details;
+    if (trans.contact_info != null) {
+      this.holderAddressModel = trans.contact_info.holder_name_address;
+      this.holderContactModel = trans.contact_info.holder_contact;
+      this.agentAddressModel = trans.contact_info.agent_name_address;
+      this.agentContactModel = trans.contact_info.agent_contact;
+    }
+    if (trans.fee_details != null) {
+      this.transFeeModel = trans.fee_details;
+    }
   }
 
   public preload() {
