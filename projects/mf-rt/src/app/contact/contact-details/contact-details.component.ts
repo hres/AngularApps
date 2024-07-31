@@ -43,12 +43,9 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
     if (!isFirstChange) {
-      if (changes['showErrors']) {
-        this.showFieldErrors = changes['showErrors'].currentValue;
-      }
-
       if (changes['contactDetailsModel']) {
         const dataModel = changes['contactDetailsModel'].currentValue as IContact;
         if (dataModel) {

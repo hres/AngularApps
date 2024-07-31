@@ -74,13 +74,10 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
     // console.log("isFirstChange:", isFirstChange);
     if (!isFirstChange) {
-      if (changes['showErrors']) {
-        this.showFieldErrors = changes['showErrors'].currentValue;
-      }
-
       if (changes['addressModel']) {
         const dataModel = changes['addressModel'].currentValue as INameAddress;
         if (dataModel) {
