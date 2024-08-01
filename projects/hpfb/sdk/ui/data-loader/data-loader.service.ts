@@ -2,7 +2,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, tap, throwError} from 'rxjs';
 import { ICode, SortOn } from './data'; 
-import { OTHER_EN, OTHER_FR } from '../common.constants';
 
 @Injectable({
   providedIn: 'root'
