@@ -11,7 +11,7 @@
   "load.file": "Télécharger un formulaire de demande de fiche maîtresse",
   "select.file": "Sélectionnez un fichier à télécharger",
   "choose.file":"Choisir le fichier",
-  "no.file.chosen": "fr_No file chosen",
+  "no.file.chosen": "Aucun fichier choisi",
   "refresh.file.input": "Actualisez cette page",
   "master.file.enrolment": "fr_Regulatory Master File Transaction and Application Enrolment",
   "instruction.dossier.id.line1": "Dossier formaté eCTD - e123456<br />Dossier formaté non-eCTD - f1234567",
