@@ -94,11 +94,13 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   addMaterial() {
+    const newIndex = this.materialsFormArr.length;
     const group = this.materialService.createMaterialFormGroup(this.fb);
     this.materialsFormArr.push(group);
     if (this.materialsFormArr.length > 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(false);
     }
+    document.location.href = '#materialName' + newIndex;
   }
 
   saveMaterialRecord(event: any) {  

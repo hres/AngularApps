@@ -85,11 +85,13 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
   addDevice() {
     this._deviceService.showDeviceErrorSummaryOneRec.set(false);
+    const newIndex = this.devicesFormArr.length;
     const group = this.deviceService.createDeviceFormGroup(this.fb);
     this.devicesFormArr.push(group);
     if (this.devicesFormArr.length > 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(false);
-    }
+    }    
+    document.location.href = '#deviceName' + newIndex;
   }
 
   saveDeviceRecord(event: any) {  
