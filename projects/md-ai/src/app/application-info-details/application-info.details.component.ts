@@ -39,6 +39,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   
   @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
   @ViewChild(MaterialInfoComponent) bioMaterialInfo: MaterialInfoComponent;
+  @ViewChild(RecogStandardsComponent) recogStandardsInfo: RecogStandardsComponent;
+
 
   // Lists for dropdowns
   public licenceAppTypeList: ICode[] = [];
