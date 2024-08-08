@@ -5,12 +5,9 @@
 /tmp
 /out-tsc
 /bazel-out
-/python/buildHtmlFiles/dist
 
 # Node
 /node_modules
-/apps/*/node_modules
-/projects/hpfb/*/node_modules
 npm-debug.log
 yarn-error.log
 
@@ -39,7 +36,6 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
-/python/buildHtmlFiles/__*
 
 # System files
 .DS_Store
