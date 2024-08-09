@@ -1,74 +1,39 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "$schema": "../../node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "@hpfb/sdk": {
-      "projectType": "library",
-      "root": "projects/hpfb/sdk",
-      "sourceRoot": "projects/hpfb/sdk",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/hpfb/sdk/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/hpfb/sdk/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/hpfb/sdk/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/hpfb/sdk/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
     "mf-rt": {
       "projectType": "application",
       "schematics": {},
-      "root": "projects/mf-rt",
-      "sourceRoot": "projects/mf-rt/src",
+      "root": "",
+      "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/mf-rt",
-            "index": "projects/hpfb/sdk/src/index.html",
-            "browser": "projects/mf-rt/src/main.ts",
+            "outputPath": "../../dist/mf-rt",
+            "index": "../../projects/hpfb/sdk/src/index.html",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "projects/mf-rt/tsconfig.app.json",
+            "tsConfig": "tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/mf-rt/src/assets",
+                "input": "src/assets",
                 "output": "/assets"
               },
               {
                 "glob": "**/*",
-                "input": "projects/hpfb/sdk/src/assets",
+                "input": "../../projects/hpfb/sdk/src/assets",
                 "output": "/assets/temp"
-              },
-              "projects/mf-rt/src/favicon.ico",
-              "projects/mf-rt/src/assets"
+              }              
             ],
             "styles": [
-              "projects/mf-rt/src/styles.css"
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -84,8 +49,8 @@
               "extractLicenses": true,
               "fileReplacements": [
                 {
-                  "replace": "projects/mf-rt/src/environments/environment.ts",
-                  "with": "projects/mf-rt/src/environments/environment.prod-en.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod-en.ts"
                 }
               ]
             },
@@ -100,13 +65,12 @@
               "extractLicenses": true,
               "fileReplacements": [
                 {
-                  "replace": "projects/mf-rt/src/environments/environment.ts",
-                  "with": "projects/mf-rt/src/environments/environment.prod-fr.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod-fr.ts"
                 }
               ]
             },
             "production": {
-              
               "budgets": [
                 {
                   "type": "initial",
@@ -154,21 +118,18 @@
               "zone.js",
               "zone.js/testing"
             ],
-            "tsConfig": "projects/mf-rt/tsconfig.spec.json",
+            "tsConfig": "tsconfig.spec.json",
             "assets": [
-              "projects/mf-rt/src/favicon.ico",
-              "projects/mf-rt/src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
-              "projects/mf-rt/src/styles.css"
+              "src/styles.css"
             ],
             "scripts": []
           }
         }
       }
     }
-  },
-  "cli": {
-    "analytics": false
   }
 }

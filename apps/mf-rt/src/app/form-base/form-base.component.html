@@ -1,0 +1,179 @@
+<div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
+  <form name="MasterFileForm" [formGroup]="masterFileForm" novalidate>
+    <div class="row mrgn-tp-md">
+      <div class="col-md-12">
+        <div class="text-right">
+          <span id="securityInfo" class="fa fa-shield fa-sm"><strong>&nbsp;{{'PROTECTED_B'|translate}}</strong></span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'load.file'|translate}}
+            <sup id="tr1-rf">
+              <a class="fn-lnk mrgn-tp-md" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileIndx']}}</a>
+            </sup>
+          </h2>
+        </header>
+        <div class="panel-body">
+          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath" 
+            [startCheckSumVersion]="startCheckSumVersionNum" [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
+            <app-filereader-instruction fileUploadInstruction [lang]="lang"></app-filereader-instruction>
+          </lib-file-reader>
+        </div>
+      </section>
+    </div>
+    <div id="topErrorSummaryId">
+      <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
+        headingPreamble="errorSummary.masterfile"></lib-error-summary>
+    </div>
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <app-regulatory-information [showErrors]="showErrors" [dataModel]="ectdModel"
+              (errorList)="processRegulatoryInfoErrors($event)"
+              (trDescUpdated)="setSelectedTxDesc($event)"></app-regulatory-information>
+          </div>
+      </section>
+
+      <div *ngIf="showContact()">
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <h2 class="panel-title">{{'panel.title.contactInfo'|translate}}</h2>
+            </header>
+            <div class="panel-body">
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix group-beside">
+                  <h3 class="panel-title">{{'heading.holder.address'|translate}}
+                  <sup id="tr3-rf">
+                    <a class="fn-lnk" href="#tr3"><span
+                        class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['holderAddrIndx']}}</a>
+                  </sup>
+                  </h3>
+                </header>
+                <div class="panel-body">
+                  <app-address-details [showErrors]="showErrors" 
+                    [addressModel]="holderAddressModel" [addrType]="holder" [addrGroupLabelKey]="'label.holder'"
+                    (errorList)="processAddressErrors($event)">
+                  </app-address-details>
+                </div>
+              </section>
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.holder.contact'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                   <app-contact-details [showErrors]="showErrors" [contactDetailsModel]="holderContactModel"
+                    (errorList)="processContactErrors($event)" [contactType]="holder" [contactGroupLabelKey]="'label.holder'">
+                  </app-contact-details> 
+                </div>
+              </section>
+
+              <section class="panel  panel-default">
+                <header class="panel-heading clearfix group-beside">
+                  <h3 class="panel-title">{{'heading.agent.address'|translate}}
+                  <sup id="tr4-rf">
+                    <a class="fn-lnk" href="#tr4"><span
+                        class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['agentAddrIndx']}}</a>
+                  </sup>
+                  </h3>
+                </header>
+                <div class="panel-body">
+                  <div class="row rep-margin-left">
+                    <div class="col-xs-12">
+                      <div class="checkbox">
+                        <label for="notApplicableId">
+                          <control-messages *ngIf="masterFileForm.controls['notApplicable'].invalid"
+                                    [showError]="showErrors" parentId="mfDetails"
+                                    [control]="masterFileForm.controls['notApplicable'] | formControl"
+                                    controlId="notApplicableId" label="notApplicable"></control-messages>
+                          <input attr.aria-label= "{{'agent.not.applicable' | translate}}" name="notApplicableName" type="checkbox" (change)="agentInfoOnChange()"
+                            id="notApplicableId" [formControl]="masterFileForm.controls['notApplicable'] | formControl" />
+                          <span aria-hidden="true"><b>{{'not.applicable'|translate}}</b></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <app-address-details *ngIf="!notApplicable" [showErrors]="showErrors" 
+                    [addressModel]="agentAddressModel" [addrType]="agent" [addrGroupLabelKey]="'label.agent'"
+                    (errorList)="processAgentAddressErrors($event)">
+                  </app-address-details>
+                </div>
+              </section>
+              <section class="panel  panel-default" *ngIf="!notApplicable">
+                <header class="panel-heading clearfix">
+                  <h3 class="panel-title">{{'heading.agent.contact'|translate}}</h3>
+                </header>
+                <div class="panel-body">
+                  <app-contact-details [showErrors]="showErrors" [contactDetailsModel]="agentContactModel"
+                  (errorList)="processAgentContactErrors($event)" [contactType]="agent" [contactGroupLabelKey]="'label.agent'">
+                </app-contact-details> 
+                </div>
+              </section>
+              <div class="col-xs-12 full-width">
+                <div class="checkbox required">
+                  <label for="contactInfoConfirmId">
+                    <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId"
+                    (blur)="processErrors()"
+                    (change)="onChanged($event, 'contactInfoConfirm')"
+                      [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
+
+                    <span><b>{{'info.confirmation'|translate}}</b></span>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}
+                    <sup id="tr5-rf">
+                      <a class="fn-lnk" href="#tr5"><span
+                          class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['confmValidIndx']}}</a>
+                    </sup>
+                    </strong>
+                    <control-messages *ngIf="masterFileForm.controls['contactInfoConfirm'].invalid"
+                                    [showError]="showErrors" parentId="mfContactInfoConfirm"
+                                    [control]="masterFileForm.controls['contactInfoConfirm'] | formControl"
+                                    controlId="contactInfoConfirmId" label="info.confirmation"></control-messages>
+                  </label>
+                </div>
+              </div>
+          </div>
+          <!-- <pre>{{masterFileForm.value |json}}</pre> -->
+        </section>
+      </div>
+
+      <div *ngIf="showFee()">
+        <section class="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <h2 class="panel-title">{{'panel.title.fees'|translate}}</h2>
+            </header>
+            <div class="panel-body">
+            <app-master-file-fee (errorList)="processTransFeeErrors($event)" [showErrors]="showErrors"
+              [dataModel]="transFeeModel"></app-master-file-fee>
+            </div>
+        </section>
+      </div>
+    </div>
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.certification'|translate}}</h2>
+        </header>
+        <div class="panel-body">
+          <app-certification (errorList)="processCertificationErrors($event)" [showErrors]="showErrors"></app-certification>
+        </div>
+      </section>
+    </div>
+    <div class="row btn-group-sm">
+      <div class="form-group col-md-4">
+        <button type="button" class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
+          {{'save.working.copy'|translate}}
+        </button>
+      </div>
+      <div class="form-group col-md-4">
+        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
+          {{'generate.final'|translate}}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

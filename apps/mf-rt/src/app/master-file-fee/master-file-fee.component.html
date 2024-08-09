@@ -1,0 +1,101 @@
+<div>
+    <div [formGroup]="feeForm">
+      <div class="col-xs-12 form-group alert alert-info">
+          <p aria-live="polite"><span class="wb-inv">{{'alert.info' | translate}}</span>{{'fee.warning1'|translate}}</p>
+          <p aria-live="polite">{{'fee.warning2'|translate}}
+            <a href="{{'fee.warning.link.url'|translate}}">{{'fee.warning.link.title'|translate}}</a>
+            {{'fee.warning3'|translate}}
+            <strong>
+            <sup id="tr6-rf">
+              <a class="fn-lnk" href="#tr6"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['feeNoteIndx']}}</a>
+            </sup>
+            </strong>
+          </p>
+      </div>
+    <div class="row form-group">
+        <fieldset class="col-md-12 chkbxrdio-grp">
+          <legend class="required">
+            {{'are.access.letters' |translate}}
+            <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+            <sup id="tr7-rf">
+              <a class="fn-lnk" href="#tr7"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['accessLetrIndx']}}</a>
+            </sup>
+            <control-messages *ngIf="feeForm.controls['areAccessLetters'].invalid" [showError]="showFieldErrors"
+              [control]="feeForm.controls['areAccessLetters'] | formControl" controlId="areAccessLettersId"
+              label="are.access.letters" parentId="mfFees"></control-messages>
+          </legend>
+          <div class="radio-inline" *ngFor="let yesno of yesNoList; let i = index">
+            <input type="radio"
+                id="areAccessLettersId{{i}}" name="areAccessLetters" [value]="yesno.id" 
+                (change)="areAccessLettersChanged()"
+                [formControl]="feeForm.controls['areAccessLetters'] | formControl" required/>
+            <label aria-hidden="true" for="areAccessLettersId{{i}}">{{yesno | textTransform: lang }}
+            </label>
+           </div>
+        </fieldset>
+    </div>
+    <div class="row" *ngIf="showNumOfAccessLetter">
+        <div class="form-group col-xs-12" >
+          <label for="numOfAccessLetter" class="required full-width">
+            <span class="field-name">{{'number.of.letters'|translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="feeForm.controls['numOfAccessLetter'].invalid"
+                              [showError]="showFieldErrors"
+                              [control]="feeForm.controls['numOfAccessLetter'] | formControl"
+                              controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"></control-messages>
+            <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3"
+                   [formControl]="feeForm.controls['numOfAccessLetter'] | formControl" data-only-digits/>
+          </label>
+        </div>
+    </div>
+    <div class="row form-group">
+        <fieldset class="col-md-12 chkbxrdio-grp">
+          <legend class="required">
+            {{'who.responsible' |translate}}
+            <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+            <control-messages *ngIf="feeForm.controls['whoResponsible'].invalid" [showError]="showFieldErrors"
+              [control]="feeForm.controls['whoResponsible'] | formControl" controlId="whoResponsibleId"
+              label="who.responsible" parentId="mfFees"></control-messages>
+          </legend>
+          <div class="radio" *ngFor="let who of whoResponsibleList; let i = index">
+            <label aria-hidden="true" for="whoResponsibleId{{i}}">
+                <input type="radio" id="whoResponsibleId{{i}}" name="whoResponsible" [value]="who.id" 
+                [formControl]="feeForm.controls['whoResponsible'] | formControl" required/>
+                {{who | textTransform: lang }}
+            </label>
+           </div>
+        </fieldset>
+    </div>
+      <div class="row">
+        <div class="form-group col-sm-6" >
+          <label for="accountNumber" class="full-width">
+            <span class="field-name">{{'account.num'|translate}}</span>
+            <sup id="tr8-rf">
+              <a class="fn-lnk" href="#tr8"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['accountNumIndx']}}</a>
+            </sup>
+            <control-messages *ngIf="feeForm.controls['accountNumber'].invalid"
+                              [showError]="showFieldErrors"
+                              [control]="feeForm.controls['accountNumber'] | formControl"
+                              controlId="accountNumber" label="account.num" parentId="mfFees"
+                              requiredLength="5"></control-messages>
+            <input id="accountNumber" class="form-control" name="accountNumber" data-only-digits
+                   [formControl]="feeForm.controls['accountNumber'] | formControl" maxlength="5"/>
+          </label>
+        </div><div class="form-group col-sm-6">
+          <label for="businessNumber" class="full-width">
+            <span class="field-name">{{'business.num'|translate}}</span>
+            <control-messages *ngIf="feeForm.controls['businessNumber'].invalid"
+                              [showError]="showFieldErrors"
+                              [control]="feeForm.controls['businessNumber'] | formControl"
+                              controlId="businessNumber" label="business.num" parentId="mfFees"
+                              requiredLength="9"></control-messages>
+            <input id="businessNumber" class="form-control" name="businessNumber" data-only-digits
+              [formControl]="feeForm.controls['businessNumber'] | formControl" maxlength="9" />
+          </label>
+        </div>
+      </div>
+    </div>
+</div>
