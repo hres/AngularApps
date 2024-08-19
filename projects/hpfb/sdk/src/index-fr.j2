@@ -1,63 +1,67 @@
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-fr.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
 		<title></title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta http-equiv="content-security-policy" content="script-src 'self' 'unsafe-inline' www.canada.ca; img-src 'self' www.canada.ca; font-src 'self' www.canada.ca maxcdn.bootstrapcdn.com fonts.gstatic.com; style-src 'self' www.canada.ca maxcdn.bootstrapcdn.com 'unsafe-inline'; default-src 'self' www.canada.ca; ">
-		<meta name="author" content="Health Canada" />
-		<meta property="dcterms.creator" content="Government of Canada, Health Canada">
-		<meta property="dcterms.issued" title="W3CDTF" content="<!-- build:dateIssued -->">
-		<meta property="dcterms.modified" title="W3CDTF" content="<!-- build:dateModified -->">
-		<meta property="dcterms.language" title="ISO639-2/T" content="eng">
-		<!-- build:metaData-en.html -->
+		<meta name="author" content="Santé Canada"/>
+		<meta property="dcterms.creator" content="Gouvernement du Canada, Santé Canada"/>
+		<meta property="dcterms.issued" title="W3CDTF" content="{{dateIssued}}">
+		<meta property="dcterms.modified" title="W3CDTF" content="{{dateModified}}">
+		<meta property="dcterms.language" title="ISO639-2/T" content="fra"/>
+		{% set metadata_file = static_files_path ~ 'metaData-' ~ lang ~ '.html' %}
+		{% include metadata_file %}
 		<!-- Meta data-->
 		<!-- Load closure template scripts -->
 		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v5_0_0/cdts/compiled/soyutils.js"></script>
-		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v5_0_0/cdts/compiled/wet-en.js"></script>
+		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v5_0_0/cdts/compiled/wet-fr.js"></script>
 		<noscript>
 			<!-- Write closure fall-back static file -->
-			<!-- build:refTop.html -->
+			{% set reftop_file = static_files_path ~ 'refTop.html' %}
+			{% include reftop_file %}
 		</noscript>
 		<!-- Write closure template -->
 		<!-- cssIncludes -->
 		<script>
 			document.write(wet.builder.refTop({
-				"cdnEnv": "prod"
+				"cdnEnv": "{{env}}"
 			}));
 		</script>
 	</head>
 	<body vocab="https://schema.org/" typeof="WebPage">
 		<div id="def-top">
 			<!-- Write closure fall-back static file -->
-			<!-- build:top-en.html -->
+			{% set top_file = static_files_path ~ 'top-' ~ lang ~ '.html' %}
+			{% include top_file %}
 		</div>
 		<!-- Write closure template -->
 		<script>
 			var defTop = document.getElementById("def-top");
 			defTop.outerHTML = wet.builder.top({
 				"lngLinks": [{
-					"lang": "fr",
-					"href": "<!-- build:lngHref -->",
-					"text": "Français"
+					"lang": "en",
+					"href": "{{lngHref}}",
+					"text": "English"
 				}],
 				"breadcrumbs": [{
 					"title": "Canada.ca",
-					"href": "https://www.canada.ca/en.html"
+					"href": "https://www.canada.ca/fr.html"
 				}, {
-					"title": "Departments and agencies",
-					"href": "https://www.canada.ca/en/government/dept.html"
+					"title": "Ministères et organismes",
+					"href": "https://www.canada.ca/fr/gouvernement/min.html"
 				}, {
-					"title": "Health Canada",
-					"href": "https://www.canada.ca/en/health-canada.html"
-				},
-				<!-- build:breadcrumbs-en.html -->
+					"title": "Santé Canada",
+					"href": "https://www.canada.ca/fr/sante-canada.html"
+				}, 
+				{% set breadcrumbs_file = static_files_path ~ 'breadcrumbs-' ~ lang ~ '.html' %}
+				{% include breadcrumbs_file %}
 				],
-				"cdnEnv": "prod"
+				"cdnEnv": "{{env}}"
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
@@ -66,32 +70,34 @@
 			<!--content ends here -->
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
-				<!-- build:preFooter-en.html -->
+				{% set preFooter_file = static_files_path ~ 'preFooter-' ~ lang ~ '.html' %}
+				{% include preFooter_file %}
 			</div>
 			<!-- Write closure template -->
 			<script>
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
-					"dateModified": "<!-- build:dateModified -->",
-					"cdnEnv": "prod"
+					"dateModified": "{{dateModified}}",
+					"cdnEnv": "{{env}}"
 				});
 			</script>
 		</main>
 		<div id="def-footer">
 			<!-- Write closure fall-back static file -->
-			<!-- build:footer-en.html -->
+			{% set footer_file = static_files_path ~ 'footer-' ~ lang ~ '.html' %}
+			{% include footer_file %}
 		</div>
 		<!-- Write closure template -->
 		<script>
 			var defFooter = document.getElementById("def-footer");
 			defFooter.outerHTML = wet.builder.footer({
-				"cdnEnv": "prod"
+				"cdnEnv": "{{env}}"
 			});
 		</script>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				"cdnEnv": "prod"
+				"cdnEnv": "{{env}}"
 			}));
 		</script>
     <!--Start add custom scripts here-->
