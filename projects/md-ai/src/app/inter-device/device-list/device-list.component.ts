@@ -120,6 +120,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
+    document.location.href = '#addDeviceBtn';
   }
 
   private _expandNextInvalidRecord(){

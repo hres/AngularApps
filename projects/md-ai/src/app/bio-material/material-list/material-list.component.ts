@@ -126,7 +126,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.materialsFormArr.length > 0) {
       this.atLeastOneRec.set(true);
     }
-
+    document.location.href = '#addMaterialBtn';
   }
 
   private _expandNextInvalidRecord(){

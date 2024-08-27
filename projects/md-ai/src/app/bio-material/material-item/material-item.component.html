@@ -112,9 +112,9 @@
       }
       <div class="row">
         <div class="btn-group-sm col-xs-12 text-left">          
-          <button id="saveMaterialRecord" class="btn btn-primary" style="margin: 3px" (click)="saveMaterialRecord(j)" >{{'save.material'|translate}}</button>
-          <button id="deleteMaterialRecord" class="btn btn-danger" style="margin: 3px"  (click)="deleteMaterialRecord(j)" >{{'delete.material'|translate}}</button> <!--[disabled]="disableDeleteButton()"-->
-          <button id="revertMaterialRecord" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()" (click)="revertMaterialRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>          
+          <button id="saveMaterialRecord{{j}}" class="btn btn-primary" style="margin: 3px" (click)="saveMaterialRecord(j)" >{{'save.material'|translate}}</button>
+          <button id="deleteMaterialRecord{{j}}" class="btn btn-danger" style="margin: 3px"  (click)="deleteMaterialRecord(j)" >{{'delete.material'|translate}}</button> <!--[disabled]="disableDeleteButton()"-->
+          <button id="revertMaterialRecord{{j}}" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()" (click)="revertMaterialRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>          
         </div>
       </div>
       <!-- <pre>{{materialFormLocalModel.value |json}}</pre>-->
