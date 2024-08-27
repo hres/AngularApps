@@ -41,8 +41,17 @@
     <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="alert alert-info" role="alert">
-            <p aria-live="polite">{{'priority.rationale' | translate}}</p>
-            <ul>
+            <!-- Combined paragraph for screen readers -->
+            <p aria-live="polite" class="sr-only">
+                {{'priority.rationale' | translate}}
+                {{'priority.rationale.01' | translate}}, 
+                {{'priority.rationale.02' | translate}}, 
+                {{'priority.rationale.03' | translate}}
+            </p>
+
+            <!-- Original content for visual display -->
+            <p>{{'priority.rationale' | translate}}</p>
+            <ul aria-hidden="true">
                 <li>{{'priority.rationale.01' | translate}}</li>
                 <li>{{'priority.rationale.02' | translate}}</li>
                 <li>{{'priority.rationale.03' | translate}}</li>
