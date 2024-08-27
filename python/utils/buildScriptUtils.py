@@ -1,12 +1,17 @@
 import os
-import shutil
 import jinja2
 
-def generate_from_jinja_template(template_dir, template_file_name, output_dir, output_file_name, **kwargs):
+def generate_from_jinja_template(template_dirs, template_file_name, output_dir, output_file_name, 
+                                              **kwargs):
+    # print("\nrunning 'generate_from_jinja_template'")
+    # parameters = locals()
+    # # Print each parameter with an indent
+    # for key, value in parameters.items():
+    #     print(f"\t {key}: {value}")
+        
     try:
-        # Load the jinja template config
-        jinja_template_loader = jinja2.FileSystemLoader(searchpath=template_dir)
-        jinja_template_env = jinja2.Environment(loader=jinja_template_loader)
+        # Set up the Jinja environment and load templates from all directories in template_dirs
+        jinja_template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dirs))
 
         # Load the template
         template = jinja_template_env.get_template(template_file_name)
@@ -31,7 +36,6 @@ def generate_from_jinja_template(template_dir, template_file_name, output_dir, o
     except Exception as e:
         # Raise the exception to the caller
         raise GenerationError(f"An unexpected error occurred. {e}")
-
     
 # Define custom exceptions
 class TemplateNotFoundError(Exception):

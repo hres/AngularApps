@@ -6,7 +6,14 @@
     "start": "ng serve --port 4201 -o",
     "build": "npm run build-prod & npm run build-dev",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-prod": "npm run build-prod-en & npm run build-prod-fr",
+    "build-prod-en": "ng build --configuration=production-en && npm run post-build -- --template=mf-rt --env=prod --language=en ",
+    "build-prod-fr": "ng build --configuration=production-fr && npm run post-build -- --template=mf-rt --env=prod --language=fr ",
+    "build-dev": "npm run build-dev-en & npm run build-dev-fr",
+    "build-dev-en": "ng build --configuration=development-en && npm run post-build -- --template=mf-rt --env=dev --language=en ",
+    "build-dev-fr": "ng build --configuration=development-fr && npm run post-build -- --template=mf-rt --env=dev --language=fr ",
+    "post-build": "python ../../python/post-app-build/post-build.py"
   },
   "dependencies": {
     "@hpfb/sdk": "file:../../libs/hpfb-sdk-1.1.0.tgz"

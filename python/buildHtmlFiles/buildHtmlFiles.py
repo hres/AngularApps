@@ -1,8 +1,10 @@
 import json
 import os
 import datetime
-import buildScriptUtils as buildUtils;
-import fileUtils as fileUtils;
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import utils.buildScriptUtils as buildUtils;
+import utils.fileUtils as fileUtils;
 
 # global variables
 dist_root_folder = 'dist'
@@ -83,15 +85,21 @@ def generate_files(option):
                             temp_dir = os.path.join(temp_folder, target_dir) 
                             temp_file_name = f'{target_file_name}.j2'                            
                             # first generate a temp file using the html template, the temp file will have places holders for template application urls
-                            buildUtils.generate_from_jinja_template(jinja_template_dir, jinja_html_template_name, temp_dir, temp_file_name, 
-                                                            env=env, site=site, data=f2_data, lngHref=lngHref, dateModified=modification_date)
+                            buildUtils.generate_from_jinja_template(template_dirs=[jinja_template_dir], 
+                                                                    template_file_name=jinja_html_template_name, 
+                                                                    output_dir=temp_dir, 
+                                                                    output_file_name=temp_file_name, 
+                                                                    env=env, site=site, data=f2_data, lngHref=lngHref, dateModified=modification_date)
                                 
                             # then use the temp file as the template to genereate final html file, 
                             # replace places holders for template application urls (eg. {{ base_url }}{{ template_paths.rt.en }}) with values from the environment configs
                             dist_dir = os.path.join(curr_path, f'{dist_root_folder}/{target_dir}')
                             final_file_name = f'{target_file_name}.html'
-                            final_file_path = buildUtils.generate_from_jinja_template(temp_dir, temp_file_name, dist_dir, final_file_name, 
-                                                            base_url=serverBaseUrl,template_paths=template_paths)
+                            final_file_path = buildUtils.generate_from_jinja_template(template_dirs=[temp_dir],
+                                                                    template_file_name=temp_file_name, 
+                                                                    output_dir=dist_dir, 
+                                                                    output_file_name=final_file_name, 
+                                                                    base_url=serverBaseUrl,template_paths=template_paths)
                             print(f'.......... {final_file_path} is generated successfully.')     
                                 
                             
@@ -105,8 +113,11 @@ def generate_files(option):
                     target_dir = f'{app}/{appContentConfigSubfolder}'
                     dist_dir = os.path.join(curr_path, f'{dist_root_folder}/{target_dir}')
                     final_file_name = f'{target_file_name}.html'
-                    final_file_path = buildUtils.generate_from_jinja_template(jinja_template_dir, jinja_html_template_name, dist_dir, final_file_name, 
-                                                       env=env, data=f2_data, lngHref=lngHref, dateModified=modification_date)
+                    final_file_path = buildUtils.generate_from_jinja_template(template_dirs=[jinja_template_dir],
+                                                                    template_file_name=jinja_html_template_name, 
+                                                                    output_dir=dist_dir, 
+                                                                    output_file_name=final_file_name, 
+                                                                    env=env, data=f2_data, lngHref=lngHref, dateModified=modification_date)
                     print(f'...... {final_file_path} is generated successfully.')     
                     
                     
