@@ -113,9 +113,9 @@
         <div class="row">
           <div class="btn-group-sm col-xs-12 text-left">
            
-              <button id="saveDeviceRecord{{j}}" class="btn btn-primary" style="margin: 3px" (click)="saveDeviceRecord(j)" >{{'save.device'|translate}}</button>
-              <button id="deleteDeviceRecord{{j}}" class="btn btn-danger" style="margin: 3px" (click)="deleteDeviceRecord(j)" >{{'delete.device'|translate}}</button>
-              <button id="revertDeviceRecord{{j}}" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()" (click)="revertDeviceRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>
+              <button id="saveDeviceRecord{{j}}" attr.aria-label="{{'save.device' | translate}} {{'heading.interdependent.device' | translate: {seqnumber: j + 1} }}" class="btn btn-primary" style="margin: 3px" (click)="saveDeviceRecord(j)" >{{'save.device'|translate}}</button>
+              <button id="deleteDeviceRecord{{j}}" attr.aria-label="{{'delete.device' | translate}} {{'heading.interdependent.device' | translate: {seqnumber: j + 1} }}" class="btn btn-danger" style="margin: 3px" (click)="deleteDeviceRecord(j)" >{{'delete.device'|translate}}</button>
+              <button id="revertDeviceRecord{{j}}" attr.aria-label="{{'discard.changes' | translate}} {{'heading.interdependent.device' | translate: {seqnumber: j + 1} }}" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()" (click)="revertDeviceRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>
             
           </div>
         </div>
