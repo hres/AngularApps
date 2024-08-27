@@ -10,8 +10,6 @@ import { GlobalService } from '../global/global.service';
 import { DeviceClass, ActivityType, Compliance} from '../app.constants';
 import { DeviceListComponent } from '../inter-device/device-list/device-list.component';
 import { MaterialInfoComponent } from '../bio-material/material-info/material-info.component';
-import { RecogStandardsComponent } from '../recog-standards/recog-standards.component';
-
 
 @Component({
   selector: 'app-info-details',
