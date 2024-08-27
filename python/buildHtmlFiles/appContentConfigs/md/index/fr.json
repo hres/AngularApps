@@ -68,7 +68,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"{{ base_url }}{{ template_paths.co_internal.fr }}\">Enregistrement de compagnie – interne version 4.0.0</a>"
+                        "<a href=\"{{ template_paths.co_internal.fr }}\">Enregistrement de compagnie – interne version 4.0.0</a>"
                     ]
                 }
             ]

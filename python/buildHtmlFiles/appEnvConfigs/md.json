@@ -18,8 +18,8 @@
                 "fr": "mds/company/fr/im-compagnie.html"
             },
             "co_internal": {
-                "en": "mds/internal/company/en/index-internal.html ",
-                "fr": "mds/internal/company/fr/index-internal.html"
+                "en": "https://lam-dev.hres.ca/rep-dev/mds/internal/company/en/index-internal.html",
+                "fr": "https://lam-dev.hres.ca/rep-dev/mds/internal/company/fr/index-internal.html"
             },
             "rt": {
                 "en": "mds/transaction/en/md-regulatory-transaction.html",
@@ -40,8 +40,8 @@
                 "fr": "mds/company/fr/im-compagnie.html"
             },
             "co_internal": {
-                "en": "mds/internal/en/index-internal.html ",
-                "fr": "mds/internal/fr/index-internal.html"
+                "en": "https://lam-dev.hres.ca/REP-Form-Internal/mds/company/en/index-internal.html",
+                "fr": "https://lam-dev.hres.ca/REP-Form-Internal/mds/company/fr/index-internal.html"
             },
             "rt": {
                 "en": "mds/transaction/en/md-regulatory-transaction.html",
