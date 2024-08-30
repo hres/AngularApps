@@ -12,6 +12,7 @@ export interface DeviceApplicationEnrol {
     devices:                        Devices;
     material_info:                  BiologicalMaterialData;
     priority_review:                PriorityReview;
+    standards_complied:             StandardsComplied;
 }
 
 export interface ApplicationInfo {
@@ -43,7 +44,6 @@ export interface ApplicationInfo {
     sap_request_number:             string;
     interim_order_authorization:    string;
     authorization_id:               string;
-    declaration_conformity :        string;
 }
 
 export interface Compliances {
@@ -94,4 +94,8 @@ export interface PriorityReview {
 
 export interface DiagnosisReasons {
     diagnosis_reason : IIdTextLabel[];
+}
+
+export interface StandardsComplied{
+    declaration_conformity :        string;
 }

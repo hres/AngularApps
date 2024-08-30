@@ -16,20 +16,26 @@ import { MaterialModule } from "./bio-material/material.module";
 import { DeviceModule } from './inter-device/device.module';
 import { PriorityReviewComponent } from './priority-review/priority-review.component';
 import { PriorityReviewService } from './priority-review/priority-review.service';
+import { StandardsCompliedComponent } from './standards-complied/standards-complied.component';
+import { StandardsCompliedService } from './standards-complied/standards-complied.component';
+
 
 @NgModule({
     declarations: [
         ApplicationInfoDetailsComponent,
-        PriorityReviewComponent
+        PriorityReviewComponent,
+        StandardsCompliedComponent
     ],
     providers: [
         ApplicationInfoDetailsService,
         ApplicationInfoBaseService,
-        PriorityReviewService
+        PriorityReviewService,
+        StandardsCompliedService
     ],
     exports: [CommonUiFeatureModule,
         ApplicationInfoDetailsComponent,
-        PriorityReviewComponent
+        PriorityReviewComponent,
+        StandardsCompliedComponent
     ],
     imports: [
         CommonModule,

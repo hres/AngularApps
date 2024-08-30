@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials, PriorityReview } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials, PriorityReview, StandardsComplied } from '../models/Enrollment';
 import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
 import { GlobalService } from '../global/global.service';
 import { DeviceService } from '../inter-device/device.service';
 import { MaterialService } from '../bio-material/material.service';
 import { PriorityReviewService } from '../priority-review/priority-review.service';
+import { StandardsCompliedService} from '../standards-complied/standards-complied.service';
 
 @Injectable()
 export class ApplicationInfoBaseService {
@@ -19,7 +20,8 @@ export class ApplicationInfoBaseService {
               private _applicationInfoDetailsService : ApplicationInfoDetailsService,
               private _deviceService : DeviceService,
               private _materialService : MaterialService,
-              private _priorityReviewService : PriorityReviewService) {
+              private _priorityReviewService : PriorityReviewService,
+              private _standardsCompliedService : StandardsCompliedService) {
   }
 
   public getEmptyEnrol(): Enrollment {
@@ -30,7 +32,8 @@ export class ApplicationInfoBaseService {
         application_info: this.getEmptyApplicationInfoModel(),
         devices: {device: []},
         material_info: this.getEmptyMaterialInfoModel(),
-        priority_review: this.getEmptyPriorityReviewModel()
+        priority_review: this.getEmptyPriorityReviewModel(),
+        standards_complied: this.getEmptyStandardsCompliedModel()
       }
     };
 
@@ -67,9 +70,8 @@ export class ApplicationInfoBaseService {
         application_number: '',
         sap_request_number:'',
         interim_order_authorization: '',
-        authorization_id: '',
-        declaration_conformity:  '',
-      }
+        authorization_id: ''
+        }
     )
   }
 
@@ -131,12 +133,19 @@ export class ApplicationInfoBaseService {
     )
   }
 
+  public getEmptyStandardsCompliedModel() : StandardsComplied {
+    return  (
+      {
+    declaration_conformity:  '',
+      }
+    )
+  }
 
   private _getRegulatoryActivityLead() {
     return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Devices Directorate', 'Direction des instruments médicaux');
   }
 
-  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, priorityReviewForm) {
+  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, priorityReviewForm, standardsCompliedForm) {
     let deviceModelList = [];
     let materialModelList = [];
     let materialInfoModel : BiologicalMaterialData = null;
@@ -170,6 +179,9 @@ export class ApplicationInfoBaseService {
     let priorityRevModel: PriorityReview = this.getEmptyPriorityReviewModel();
     this._priorityReviewService.mapFormModelToDataModel(priorityReviewForm, priorityRevModel, this._globalService.lang());
 
+    let standardsCompModel: StandardsComplied = this.getEmptyStandardsCompliedModel();
+    this._standardsCompliedService.mapFormModelToDataModel(standardsCompliedForm, standardsCompModel, this._globalService.lang()); 
+
     const output: Enrollment = {
       'DEVICE_APPLICATION_INFO': {
         'software_version': this._globalService.$appVersion,
@@ -177,7 +189,8 @@ export class ApplicationInfoBaseService {
         'application_info': aiModel,
         'devices': {device : deviceModelList},
         'material_info' : materialInfoModel,
-        'priority_review' : priorityRevModel
+        'priority_review' : priorityRevModel,
+        'standards_complied' : standardsCompModel
        }
    };
 
