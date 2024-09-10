@@ -119,6 +119,13 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
     // get the transaction description dropdown list
     this._getTransactionDescriptions(this.selectedMfTypeId);
+
+    if (this.showRevisedTxDesc()) {
+      this._getRevisedTransactionDescriptions(this.selectedMfTypeId);
+    } else {
+      const valuesToReset = ['revisedDescriptionType'];
+      this._resetControlValues(valuesToReset);
+    }
   }
 
   onTxDescriptionSelected(e: any): void {
