@@ -15,7 +15,7 @@
     </div>
   <div class="row form-group">
       <fieldset class="col-md-12 chkbxrdio-grp">
-        <legend class="required">
+        <legend class="required" id="areAccessLettersId">
           {{'are.access.letters' |translate}}
           <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
           <sup id="tr7-rf">
@@ -53,7 +53,7 @@
   </div>
   <div class="row form-group">
       <fieldset class="col-md-12 chkbxrdio-grp">
-        <legend class="required">
+        <legend class="required" id="whoResponsibleId">
           {{'who.responsible' |translate}}
           <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
           <control-messages *ngIf="feeForm.controls['whoResponsible'].invalid" [showError]="showFieldErrors"
