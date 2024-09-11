@@ -10,6 +10,7 @@ export interface DeviceApplicationEnrol {
     check_sum?:                     string;
     application_info:               ApplicationInfo;
     devices:                        Devices;
+    declaration_conformity:         DeclarationComformity;
     material_info:                  BiologicalMaterialData;
     priority_review:                PriorityReview;
 }
@@ -43,7 +44,6 @@ export interface ApplicationInfo {
     sap_request_number:             string;
     interim_order_authorization:    string;
     authorization_id:               string;
-    declaration_conformity :        string;
 }
 
 export interface Compliances {
@@ -90,6 +90,10 @@ export interface Device {
 export interface PriorityReview {
     priority_review:                    string;
     is_diagnosis_treatment_serious:     DiagnosisReasons;
+}
+
+export interface DeclarationComformity {
+    declaration_conformity :        string;
 }
 
 export interface DiagnosisReasons {

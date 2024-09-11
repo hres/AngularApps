@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren, Input, QueryList, HostListener, ViewEncapsulation, AfterViewInit, SimpleChanges, Type, computed, effect } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { XSLT_PREFIX, ROOT_TAG, XSL_EXTENSION } from '../app.constants';
+import { XSLT_PREFIX, ROOT_TAG, XSL_EXTENSION, ActivityType, DeviceClass } from '../app.constants';
 import {  ICode, ConvertResults, FileConversionService, CheckSumService, UtilsService, CHECK_SUM_CONST, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, YES, NO } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { ApplicationInfoBaseService } from './application-info-base.service';
 import { FormDataLoaderService } from '../container/form-data-loader.service';
-import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device, BiologicalMaterialData, BiologicalMaterial, PriorityReview } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, DeviceApplicationEnrol, Devices, BiologicalMaterials, Device, BiologicalMaterialData, BiologicalMaterial, PriorityReview, DeclarationComformity } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { MaterialModule } from '../bio-material/material.module';
@@ -21,6 +21,7 @@ import { PriorityReviewComponent } from '../priority-review/priority-review.comp
 import { DeviceListComponent } from '../inter-device/device-list/device-list.component';
 import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
 import { MaterialInfoComponent } from '../bio-material/material-info/material-info.component';
+import { DeclarationConformityComponent } from '../declaration-conformity/declaration-conformity.component';
 
 @Component({
   selector: 'app-form-base',
@@ -38,12 +39,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
   @ViewChild(MaterialInfoComponent) bioMaterialInfo: MaterialInfoComponent;
   @ViewChild(PriorityReviewComponent) priorityReview: PriorityReviewComponent;
+  @ViewChild(DeclarationConformityComponent) declarationConformity: DeclarationConformityComponent;
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
   private _materialInfoErrors = []; 
   private _materialListErrors = [];
   private _priorityRevErrors = [];
+  private _declarationErrors = [];
   
   //computed(() => {
     // console.log("computed", this._materialService.errors());
@@ -71,6 +74,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public deviceModel: Device[];
   public materialInfo: BiologicalMaterialData;
   public priorityRevModel : PriorityReview;
+  public declarationModel : DeclarationComformity;
 
   public fileServices: FileConversionService;
   public helpIndex: { [key: string]: number };
@@ -143,7 +147,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log('@@@@@@@@@@@@ Processing errors in ApplicationInfo base comp');
     this.errorList = [];
     // concat the two array
-    this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._materialInfoErrors.concat(this._materialListErrors.concat(this._priorityRevErrors))))); // .concat(this._theraErrors);
+    this.errorList = this.errorList.concat(this._appInfoDetailErrors.concat(this._deviceErrors.concat(this._declarationErrors.concat(this._materialInfoErrors.concat(this._materialListErrors.concat(this._priorityRevErrors)))))); // .concat(this._theraErrors);
     // console.log("process errors in form base", this.errorList);
     // console.log(this.errorList);
     // console.log("printing material errors", this._materialErrors);
@@ -157,7 +161,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   
   processPriorityRevErrors(errorList) {
     this._priorityRevErrors = errorList;
-    this.processErrors()
+    this.processErrors();
+  }
+
+  processDeclarationErrors(errorList){
+    this._declarationErrors = errorList;
+    this.processErrors();
   }
 
   /**
@@ -257,7 +266,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const priorityRevFormGroupValue = this.priorityReview.priorityReviewLocalModel.value;
 
-    const output: Enrollment = this._baseService.mapFormToOutput(aiDetailsFormGroupValue, devicesFormArrayValue, materialInfoFormGroupValue, materialsFormArrayValue, priorityRevFormGroupValue);
+    const declarationConFormGroupValue = this.declarationConformity.declarationLocalModel.value;
+
+    const output: Enrollment = this._baseService.mapFormToOutput(aiDetailsFormGroupValue, devicesFormArrayValue, materialInfoFormGroupValue, materialsFormArrayValue, priorityRevFormGroupValue, declarationConFormGroupValue);
 
     if (xmlFile) {
       // add and calculate check_sum if it is xml
@@ -305,6 +316,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
     this.materialInfo = applicationEnroll.material_info;
     this.priorityRevModel = applicationEnroll.priority_review;
+    this.declarationModel = applicationEnroll.declaration_conformity;
   }
 
   openPopup(){
@@ -365,10 +377,27 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public isDeviceIV() : boolean {
+    console.log("show materials");
+    console.log(this._appInfoService.deviceClassIV());
+
     if (this._appInfoService.deviceClassIV()) {
       return true;
     } 
     return false;
+  }
+
+  public showDeclarationConformityAndPriorityRev() {
+    if ((this._appInfoService.raTypeLicence()
+      || this._appInfoService.raTypeLicenceAmend())
+    && (this._appInfoService.deviceClassIII()
+      || this._appInfoService.deviceClassIV())) {
+      return true;
+    } else {
+      // Signal to decl. component to reset its value
+
+    }
+    return false;
+
   }
 
 }

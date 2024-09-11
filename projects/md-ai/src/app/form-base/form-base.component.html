@@ -59,9 +59,13 @@
                     <app-device-list [deviceListData]="deviceModel"> </app-device-list>
                   </div>
                 </section>
+                <div *ngIf="showDeclarationConformityAndPriorityRev()">
+                  <app-declaration-conformity [helpTextSequences]="helpIndex" [declarationModel]="declarationModel" [showErrors]="showErrors" (declarationErrorList)="processDeclarationErrors($event)"></app-declaration-conformity>
+                </div>
                 <div *ngIf="isDeviceIV()">
                   <app-material-info [materialInfo]="materialInfo"> </app-material-info>
                 </div>
+                <div *ngIf="showDeclarationConformityAndPriorityRev()" >
                 <section class="panel panel-default">
                   <header class="panel-heading clearfix">
                     <h2 class="panel-title">{{'priority.review'|translate}}
@@ -75,7 +79,7 @@
                     [showErrors]="showErrors" (priorityRevErrorList)="processPriorityRevErrors($event)"></app-priority-review>
                   </div>
                 </section>
-
+              </div>
               </div>
             </section>
           </div>

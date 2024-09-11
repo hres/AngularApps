@@ -113,6 +113,8 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this.appInfoFormLocalModel.markAsPristine();
       }
       this._detailsService.mapDataModelToFormModel(dataModel, this.appInfoFormLocalModel, this.complianceCodeList, this.complianceOptionList, this.lang);
+      this.deviceClassOnblur();
+      this.activityTypeOnChange();
     }
   }
 
@@ -126,7 +128,17 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
       this.isDeviceIV()) {
         this._detailsService.deviceClassIV.set(true);
-      }
+    }
+
+    if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
+      !this.isDeviceIII()) {
+      this._detailsService.deviceClassIII.set(false);
+    } 
+
+    if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
+      this.isDeviceIII()) {
+        this._detailsService.deviceClassIII.set(true);
+    }
   }
 
   private _resetControlValues(listOfValues : any[]) {
@@ -277,8 +289,55 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
+  isDeviceIII() {
+    if (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIII) {
+      return true;
+    }
+    return false;
+  }
+
   hasDrugOnChange() {
     this._updateComplianceArray();
+  }
+
+  activityTypeOnChange() {
+    if (this.appInfoFormLocalModel.controls['activityType'].value &&
+      this.isActivityTypeLicence()){
+      this._detailsService.raTypeLicence.set(true);
+    }
+
+    if (!this.appInfoFormLocalModel.controls['activityType'].value ||
+      !this.isActivityTypeLicence()) {
+      this._detailsService.raTypeLicence.set(false);
+    }
+
+    if (this.appInfoFormLocalModel.controls['activityType'].value &&
+      this.isActivityTypeLicenceAmend()) {
+      this._detailsService.raTypeLicenceAmend.set(true);
+    }
+
+    if (!this.appInfoFormLocalModel.controls['activityType'].value ||
+      !this.isActivityTypeLicenceAmend()) {
+      this._detailsService.raTypeLicenceAmend.set(false);
+    }
+
+    console.log("activity type on change");
+    console.log(this._detailsService.raTypeLicence());
+    console.log(this._detailsService.raTypeLicenceAmend());
+  }
+
+  isActivityTypeLicence() {
+    if (this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.Licence) {
+      return true;
+    }
+    return false;
+  }
+
+  isActivityTypeLicenceAmend() {
+    if (this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.LicenceAmendment) {
+      return true;
+    }
+    return false;
   }
 
 
