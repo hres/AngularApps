@@ -25,9 +25,9 @@ export class ContainerComponent implements OnInit {
   loadFormBaseComponent: boolean = false;
 
   dataSources: Observable<any>[] = [
-    this._formDataLoader.getCountryList(),
-    this._formDataLoader.getProvinceList(),
-    this._formDataLoader.getStateList(),
+    this._formDataLoader.getCountryList(this._globalService.currLanguage),
+    this._formDataLoader.getProvinceList(this._globalService.currLanguage),
+    this._formDataLoader.getStateList(this._globalService.currLanguage),
     this._formDataLoader.getYesNoList(),
     this._formDataLoader.getMasterFileTypes(),
     this._formDataLoader.getMasterFileUses(),

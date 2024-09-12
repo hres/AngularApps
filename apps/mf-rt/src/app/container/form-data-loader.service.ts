@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, combineLatest, map, shareReplay, tap} from 'rxjs';
 import { DATA_PATH } from '../app.constants';
-import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParentChildren, SortOn } from '@hpfb/sdk/ui';
+import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParentChildren, SortOn, UtilsService } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class FormDataLoaderService {
@@ -26,7 +26,7 @@ export class FormDataLoaderService {
   mfTypeTxDescOptions$: Observable<IParentChildren[]>;
   mfRevisedTypeTxDescOptions$: Observable<IParentChildren[]>;
 
-  constructor(private _dataService: DataLoaderService) {}
+  constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
   getLanguageList(): Observable<ICode[]> {
     if (!this.cashedLanguages$) {
@@ -70,9 +70,9 @@ export class FormDataLoaderService {
     return this.cachedWhoResponsible$;
   }
 
-  getCountryList(): Observable<ICode[]> {
+  getCountryList(lang: string): Observable<ICode[]> {
     if (!this.cachedCountries$) {
-      this.cachedCountries$ = this._dataService.getData<ICode>(this.countriesJsonPath)
+      this.cachedCountries$ = this._dataService.getSortedDataAccents<ICode>(this.countriesJsonPath, this._utilsService.getCompareFields(false, lang))
         .pipe(
           // tap(()=>console.log('getCountryList() is called')),
           shareReplay(1)
@@ -81,9 +81,9 @@ export class FormDataLoaderService {
     return this.cachedCountries$;
   }
 
-  getProvinceList(): Observable<ICode[]> {
+  getProvinceList(lang: string): Observable<ICode[]> {
     if (!this.cachedProvinces$) {
-      this.cachedProvinces$ = this._dataService.getData<ICode>(this.provincesJsonPath)
+      this.cachedProvinces$ = this._dataService.getSortedDataAccents<ICode>(this.provincesJsonPath, this._utilsService.getCompareFields(false, lang))
         .pipe(
           // tap(()=>console.log('getProvinceList() is called')),
           shareReplay(1)
@@ -92,9 +92,9 @@ export class FormDataLoaderService {
     return this.cachedProvinces$;
   }
 
-  getStateList(): Observable<ICode[]> {
+  getStateList(lang: string): Observable<ICode[]> {
     if (!this.cachedStates$) {
-      this.cachedStates$ = this._dataService.getData<ICode>(this.statesJsonPath)
+      this.cachedStates$ = this._dataService.getSortedDataAccents<ICode>(this.statesJsonPath, this._utilsService.getCompareFields(false, lang))
         .pipe(
           // tap(()=>console.log('getStateList() is called')),
           shareReplay(1)
