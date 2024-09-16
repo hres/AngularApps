@@ -13,7 +13,7 @@
                                   [showError]="showErrors"
                                   [control]="cRRow.get('deviceInfo.deviceName') | formControl"
                                   controlId="deviceName{{j}}" label="device.name" parentId="deviceDetails"
-                                  parentLabel="{{translatedParentLabel}}"></control-messages>
+                                  translatedParentLabel="{{translatedParentLabel}}"></control-messages>
                 <textarea id="deviceName{{j}}" name="deviceName" class="form-control full-width"
                        [formControlName]="'deviceName'" maxlength="150"></textarea>
               </label>
@@ -29,7 +29,7 @@
                                   [showError]="showErrors"
                                   [control]="cRRow.get('deviceInfo.deviceAuthorized') | formControl"
                                   controlId="deviceAuthorized{{j}}" label="device.authorized" parentId="deviceDetails"
-                                  parentLabel="{{translatedParentLabel}}"></control-messages>
+                                  translatedParentLabel="{{translatedParentLabel}}"></control-messages>
       
                 <select id="deviceAuthorized{{j}}" name="deviceAuthorized{{j}}" required class="form-control" (change)="onDeviceAuthorizedChange($event)"
                         [formControlName]="'deviceAuthorized'">
@@ -51,7 +51,7 @@
                     [showError]="showErrors"
                     [control]="cRRow.get('deviceInfo.licenceNum') | formControl"
                     controlId="licenceNum{{j}}" label="licence.application.number" parentId="deviceDetails"
-                    parentLabel="{{translatedParentLabel}}"></control-messages>
+                    translatedParentLabel="{{translatedParentLabel}}"></control-messages>
                   <input id="licenceNum{{j}}" name="licenceNum" class="form-control" data-only-digits maxlength="6"
                         [formControlName]="'licenceNum'" minlength="6" required/>
                 </label>
@@ -66,7 +66,7 @@
                   [showError]="showErrors"
                   [control]="cRRow.get('deviceInfo.deviceApplicationSubmitted') | formControl"
                   controlId="deviceApplicationSubmitted{{j}}" label="device.application.submitted" parentId="deviceDetails"
-                  parentLabel="{{translatedParentLabel}}"></control-messages>
+                  translatedParentLabel="{{translatedParentLabel}}"></control-messages>
       
                 <select id="deviceApplicationSubmitted{{j}}" name="deviceApplicationSubmitted" class="form-control" (change)="onDeviceAppChange($event)"
                         required [formControlName]="'deviceApplicationSubmitted'">
@@ -87,7 +87,7 @@
                   [showError]="showErrors"
                   [control]="cRRow.get('deviceInfo.deviceApplicationNumber') | formControl"
                   controlId="deviceApplicationNumber{{j}}" label="application.number" parentId="deviceDetails"
-                  parentLabel="{{translatedParentLabel}}"></control-messages>
+                  translatedParentLabel="{{translatedParentLabel}}"></control-messages>
                 <input id="deviceApplicationNumber{{j}}" name="deviceApplicationNumber" class="form-control" required
                        data-only-digits maxlength="6" minlength="6" [formControlName]="'deviceApplicationNumber'"/>
               </label>
@@ -103,7 +103,7 @@
                   [showError]="showErrors"
                   [control]="cRRow.get('deviceInfo.deviceExplain') | formControl"
                   controlId="deviceExplain{{j}}" label="device.explain" parentId="deviceDetails"
-                  parentLabel="{{translatedParentLabel}}"></control-messages>
+                  translatedParentLabel="{{translatedParentLabel}}"></control-messages>
                 <textarea id="deviceExplain{{j}}" name="deviceExplain" class="form-control full-width"
                           required [formControlName]="'deviceExplain'" rows="5" maxlength="1000"></textarea> 
               </label>
