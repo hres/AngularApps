@@ -277,7 +277,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // this.loadFileIndicator++;
     const enrollment : Enrollment = fileData.data;
     console.log('processing file.....');
-    console.log(enrollment);
+    console.log("this is enrollement: ", enrollment);
     const applicationEnroll: DeviceApplicationEnrol = enrollment[this.rootTagText];
     this._init(applicationEnroll);
   }

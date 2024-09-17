@@ -64,6 +64,7 @@ export class FilereaderComponent implements OnInit {
         self.status = convertResult.messages[0];
       } else {
         self.status = IMPORT_SUCCESS;
+        console.log('good xml file here');
       }
 
       if(self.status === IMPORT_SUCCESS){
@@ -87,30 +88,36 @@ export class FilereaderComponent implements OnInit {
    * @param {ConvertResults} convertResult -The results of the file read
    * @private
    */
-  private static _readFile(name:string, result, rootId:string, convertResult:ConvertResults) {
+  private static _readFile(name: string, result: any, rootId: string, convertResult: ConvertResults) {
     let splitFile = name.split('.');
-    let fileType = splitFile[splitFile.length - 1];
-    let conversion:FileConversionService =new FileConversionService();
-
-    if ((fileType.toLowerCase()) === DRAFT_FILE_TYPE || fileType.toLowerCase() === FINAL_FILE_TYPE) {
-      if ((fileType.toLowerCase()) === DRAFT_FILE_TYPE) {
+    let fileType = splitFile[splitFile.length - 1].toLowerCase(); // Ensure case-insensitive comparison
+    let conversion: FileConversionService = new FileConversionService();
+  
+    // Handle different file types
+    if (fileType === DRAFT_FILE_TYPE || fileType === FINAL_FILE_TYPE) {
+      // these are for HCSC
+      if (fileType === DRAFT_FILE_TYPE) { 
+        console.log("its a hcsc file");
         conversion.convertToJSONObjects(result, convertResult);
-      } else {
+      } else if (fileType === FINAL_FILE_TYPE) { 
+        console.log("its a xml file");
         conversion.convertXMLToJSONObjects(result, convertResult);
       }
-      // console.log(convertResult.data);
+  
       if (convertResult.messages.length === 0) {
         FilereaderComponent.checkRootTagMatch(convertResult, rootId);
       }
-      if(fileType.toLowerCase() === FINAL_FILE_TYPE && convertResult.messages.length === 0){
+  
+      if (fileType === FINAL_FILE_TYPE && convertResult.messages.length === 0) {
         this.checkSumCheck(convertResult, rootId);
       }
     } else {
       convertResult.data = null;
-      convertResult.messages=[]; //clear msessages
+      convertResult.messages = []; // Clear messages
       convertResult.messages.push(FILE_TYPE_ERROR);
     }
   }
+  
   private static checkRootTagMatch(convertResult:ConvertResults, rootName:string) {
     if (!rootName|| !convertResult ||!convertResult.data) return;
 

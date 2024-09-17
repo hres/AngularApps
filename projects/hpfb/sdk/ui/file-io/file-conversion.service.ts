@@ -23,6 +23,7 @@ export class FileConversionService {
     try {
       convertResult.data = JSON.parse(jsonData);
       convertResult.messages.push(IMPORT_SUCCESS);
+      console.log('good hcsc file');
     } catch (e) {
       convertResult.data = null;
       convertResult.messages.push(PARSE_FAIL);
@@ -47,6 +48,7 @@ export class FileConversionService {
     convertResult.data = jsonConverter.xml_str2json(data);
     if (convertResult.data == null) {
       convertResult.messages.push(PARSE_FAIL);
+      console.log("bad xml file");
     }
     return (null);
 
