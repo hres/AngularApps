@@ -32,6 +32,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   atLeastOneRec = signal(false);
   atLeastOneRecBoolean = false;
 
+  statusMessage : string = '';
+
   constructor(private fb: FormBuilder, 
               private _utilsService: UtilsService, 
               private _globalService: GlobalService, 
@@ -126,6 +128,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.materialsFormArr.length > 0) {
       this.atLeastOneRec.set(true);
     }
+    this.statusMessage = "Biological material record " + id + " has been saved.";
     document.location.href = '#addMaterialBtn';
   }
 
@@ -141,6 +144,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
  }
 
   deleteMaterialRecord(index){
+    const id : string = (index + 1).toString();
     const group = this.materialsFormArr.at(index) as FormGroup;
     const materialInfo = this.getMaterialInfo(group);
     materialInfo.reset();
@@ -155,11 +159,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.materialsFormArr.length == 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(true);
     }
+    this.statusMessage = "Biological material record " + id + " has been deleted.";
   }
 
   revertMaterial(event: any) {  
     const index = event.index;
-    const id = event.id;
+    const id : string = (index + 1).toString();
 
     const group = this.materialsFormArr.at(index) as FormGroup;
     const materialInfo =this.getMaterialInfo(group);
@@ -167,7 +172,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     // Revert to the last saved state
     const lastSavedState = group.get('lastSavedState').value;
 
-    materialInfo.patchValue(lastSavedState);    
+    materialInfo.patchValue(lastSavedState);
+    this.statusMessage = "Biological material record " + id + " changes has been discarded.";        
   }
 
   

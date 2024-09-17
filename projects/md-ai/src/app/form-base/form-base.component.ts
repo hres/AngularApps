@@ -377,8 +377,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public isDeviceIV() : boolean {
-    console.log("show materials");
-    console.log(this._appInfoService.deviceClassIV());
 
     if (this._appInfoService.deviceClassIV()) {
       return true;

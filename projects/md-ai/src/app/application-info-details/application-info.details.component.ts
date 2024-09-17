@@ -320,10 +320,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       !this.isActivityTypeLicenceAmend()) {
       this._detailsService.raTypeLicenceAmend.set(false);
     }
-
-    console.log("activity type on change");
-    console.log(this._detailsService.raTypeLicence());
-    console.log(this._detailsService.raTypeLicenceAmend());
   }
 
   isActivityTypeLicence() {

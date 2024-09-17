@@ -26,7 +26,9 @@ export class DeclarationConformityService{
         declarationModel.declaration_conformity = formRecord.declarationConformity;
     } 
     
-    public mapDataModelToFormModel(priorityRevModel: DeclarationComformity, formRecord: FormGroup) {
-        formRecord.controls['declarationConformity'].setValue(priorityRevModel.declaration_conformity);
+    public mapDataModelToFormModel(declarationModel: DeclarationComformity, formRecord: FormGroup) {
+        if (declarationModel) {
+            formRecord.controls['declarationConformity'].setValue(declarationModel.declaration_conformity);
+        }
     }
 }

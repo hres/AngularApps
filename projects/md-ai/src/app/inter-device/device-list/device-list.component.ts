@@ -31,6 +31,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
   popupId = 'devicePopup';
 
+  statusMessage : string = '';
+
   constructor(private fb: FormBuilder, 
               private _utilsService: UtilsService, 
               private _globalService: GlobalService, 
@@ -120,6 +122,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
+    this.statusMessage = "Device record " + id + " has been saved.";
     document.location.href = '#addDeviceBtn';
   }
 
@@ -135,6 +138,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
  }
 
   deleteDeviceRecord(index){
+    const id : string = (index + 1).toString();
     const group = this.devicesFormArr.at(index) as FormGroup;
     const deviceInfo = this.getDeviceInfo(group);
     deviceInfo.reset();
@@ -146,11 +150,12 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     }
     this.errorSummaryChild = null;
     this._emitErrors();
+    this.statusMessage = "Device record " + id + " has been deleted.";
   }
 
   revertDevice(event: any) {  
     const index = event.index;
-    const id = event.id;
+    const id : string = (index + 1).toString();
 
     const group = this.devicesFormArr.at(index) as FormGroup;
     const deviceInfo =this.getDeviceInfo(group);
@@ -158,7 +163,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     // Revert to the last saved state
     const lastSavedState = group.get('lastSavedState').value;
 
-    deviceInfo.patchValue(lastSavedState);    
+    deviceInfo.patchValue(lastSavedState);
+    this.statusMessage = "Device record " + id + " changes has been discarded.";    
   }
 
   
