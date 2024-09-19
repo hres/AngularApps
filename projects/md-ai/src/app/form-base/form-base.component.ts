@@ -249,6 +249,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     let devicesFormArrayValue = null;
     let materialInfoFormGroupValue = null;
     let materialsFormArrayValue = null;
+    let priorityRevFormGroupValue = null;
+    let declarationConFormGroupValue = null;
 
     const aiDetailsFormGroupValue = this.aiDetails.appInfoFormLocalModel.value;
 
@@ -264,9 +266,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
     }
 
-    const priorityRevFormGroupValue = this.priorityReview.priorityReviewLocalModel.value;
+    if (this.priorityReview) {
+      priorityRevFormGroupValue = this.priorityReview.priorityReviewLocalModel.value;
+    }
 
-    const declarationConFormGroupValue = this.declarationConformity.declarationLocalModel.value;
+    if (this.declarationConformity) {
+      declarationConFormGroupValue = this.declarationConformity.declarationLocalModel.value;
+    }
 
     const output: Enrollment = this._baseService.mapFormToOutput(aiDetailsFormGroupValue, devicesFormArrayValue, materialInfoFormGroupValue, materialsFormArrayValue, priorityRevFormGroupValue, declarationConFormGroupValue);
 

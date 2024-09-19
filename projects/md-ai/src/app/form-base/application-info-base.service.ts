@@ -150,6 +150,8 @@ export class ApplicationInfoBaseService {
     let deviceModelList = [];
     let materialModelList = [];
     let materialInfoModel : BiologicalMaterialData = null;
+    let priorityRevModel : PriorityReview = null;
+    let declarationConModel : DeclarationComformity = null;
     
     let aiModel: ApplicationInfo = this.getEmptyApplicationInfoModel();
     this._applicationInfoDetailsService.mapFormModelToDataModel(aiDetailsForm, aiModel, this._globalService.lang());
@@ -177,11 +179,15 @@ export class ApplicationInfoBaseService {
       }
     }
     
-    let priorityRevModel: PriorityReview = this.getEmptyPriorityReviewModel();
-    this._priorityReviewService.mapFormModelToDataModel(priorityReviewForm, priorityRevModel, this._globalService.lang());
+    if (priorityReviewForm) {
+      let priorityRevModel: PriorityReview = this.getEmptyPriorityReviewModel();
+      this._priorityReviewService.mapFormModelToDataModel(priorityReviewForm, priorityRevModel, this._globalService.lang());
+    }
 
-    let declarationConModel: DeclarationComformity = this.getEmptyDeclarationConModel();
-    this._declarationConService.mapFormModelToDataModel(declarationConFrom, declarationConModel)
+    if (declarationConFrom) {
+      let declarationConModel: DeclarationComformity = this.getEmptyDeclarationConModel();
+      this._declarationConService.mapFormModelToDataModel(declarationConFrom, declarationConModel);
+    }
 
     const output: Enrollment = {
       'DEVICE_APPLICATION_INFO': {
