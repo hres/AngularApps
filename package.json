@@ -7,6 +7,8 @@
     "========== comment line, Master File ==========": "",
     "start-mf:rt": "pnpm --filter mf-rt start",
     "build-mf-rt": "npm run clean-dist && pnpm --filter mf-rt build",
+    "========== comment line, PharmaBio REP RT ==========": "",
+    "start-pbv:rt": "pnpm --filter pbv-rt start",
     "========== comment line, hpfb/sdk lib scripts==========": "",
     "sdk-lib:build": "ng build @hpfb/sdk",
     "sdk-lib:watch": "ng build @hpfb/sdk --watch --configuration development",
