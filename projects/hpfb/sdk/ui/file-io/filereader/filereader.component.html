@@ -10,19 +10,8 @@
     <Strong> {{importedFileName}}</Strong>
   </div>
 </div>
-<div role="alert" [ngClass]="status == 'msg.success.load' ? 'alert alert-success' : 'alert alert-danger'" *ngIf="showFileLoadStatus"> 
-  <p>{{status | translate}}</p> 
-</div> 
-
-<!-- IF NOT SUCCESSFUL --> 
-<!-- <div role="alert" *ngif="!importSuccess && showFileLoadStatus" class="alert alert-danger"> 
-  <span>{{status | translate}}</span> 
-</div>  -->
-
-<!-- IF SUCCESSFUL --> 
-<!-- <div  role="alert" *ngif="importSuccess && showFileLoadStatus" class="alert alert-success"> 
-  <p><span>{{status | translate}}</span></p> 
-</div> -->
-
+<div [ngClass]="status == 'msg.success.load' ? 'alert alert-success' : 'alert alert-danger'" *ngIf="displayAlert">
+  <span role="alert">{{status | translate}}</span>
+</div>
 
 <ng-content select="[fileUploadInstruction]"></ng-content>
