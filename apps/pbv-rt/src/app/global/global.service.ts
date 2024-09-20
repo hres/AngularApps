@@ -27,6 +27,7 @@ export class GlobalService {
   private _provinceList: ICode[];
   private _stateList: ICode[];
   private _yesnoList: ICode[];
+  private _dossierTypes: ICodeDefinition[] = [];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -132,5 +133,13 @@ export class GlobalService {
 
   public get byPassChecksum(): boolean {
     return this._byPassChecksum;
+  }
+
+  public get dossierTypes(): ICodeDefinition[] {
+    return this._dossierTypes;
+  }
+  
+  public set dossierTypes(value: ICodeDefinition[]) {
+    this._dossierTypes = value;
   }
 }
