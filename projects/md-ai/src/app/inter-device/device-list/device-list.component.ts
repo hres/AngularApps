@@ -164,7 +164,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     const lastSavedState = group.get('lastSavedState').value;
 
     deviceInfo.patchValue(lastSavedState);
-    this.statusMessage = "Device record " + id + " changes has been discarded.";    
+    this.statusMessage = "Device record " + id + " changes have been discarded.";    
   }
 
   
@@ -182,9 +182,11 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
             id: device.id,
             isNew: false,
             expandFlag: false,
+            lastSavedState: device
           });
 
-          this._patchDeviceInfoValue(group, device);
+          this._patchDeviceInfoValue(group.get('lastSavedState'), device);
+          this._patchDeviceInfoValue(group.controls['deviceInfo'], device);
 
           this._deviceService.setDeviceDetailsErrorsToNull(group.controls['deviceInfo']);
           this.devicesFormArr.push(group);
@@ -203,8 +205,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     this.deviceListService.setList(this.devicesFormArr.controls as FormGroup[]);
   }
 
-  private _patchDeviceInfoValue(group: FormGroup, device): void {
-    group.controls['deviceInfo'].patchValue({
+  // Change so that it can be used by last saved state and patching in general
+  private _patchDeviceInfoValue(form, device): void {
+    form.patchValue({
       deviceName: device.device_name,
       deviceAuthorized: device.device_authorized,
       licenceNum: device.licence_number,

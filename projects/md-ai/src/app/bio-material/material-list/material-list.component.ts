@@ -173,7 +173,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     const lastSavedState = group.get('lastSavedState').value;
 
     materialInfo.patchValue(lastSavedState);
-    this.statusMessage = "Biological material record " + id + " changes has been discarded.";        
+    this.statusMessage = "Biological material record " + id + " changes have been discarded.";        
   }
 
   
@@ -191,9 +191,11 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
               id: material.id,
               isNew: false,
               expandFlag: false,
+              lastSavedState: material
             });
-
-            this._patchMaterialInfoValue(group, material);
+            
+            this._patchMaterialInfoValue(group.get('lastSavedState'), material);
+            this._patchMaterialInfoValue(group.controls['deviceInfo'], material);
 
             this.materialsFormArr.push(group);
           });
@@ -211,8 +213,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   // todo add contact type
-  private _patchMaterialInfoValue(group: FormGroup, material): void {
-    group.controls['materialInfo'].patchValue({
+  private _patchMaterialInfoValue(form, material): void {
+    form.patchValue({
       materialName: material.material_name,
       deviceName: material.device_name,
       originCountry: material.origin_country? material.origin_country._id : '',
