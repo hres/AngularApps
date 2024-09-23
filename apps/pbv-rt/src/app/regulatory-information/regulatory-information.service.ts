@@ -20,10 +20,12 @@ export class RegulatoryInformationService {
       return null;
    }
    return fb.group({
-    //  dossierId: [
-    //    null,
-    //    [Validators.required, ValidationService.masterFileDossierIdValidator],
-    //  ],
+     dossierId: [
+       null,
+       [Validators.required],
+     ],
+     companyId: [null, [Validators.required]],
+     productName: [null, [Validators.required]]
     //  masterFileName: [null, Validators.required],
     //  masterFileNumber: [null, ValidationService.masterFileNumberValidator],
     //  masterFileType: [null, Validators.required],
