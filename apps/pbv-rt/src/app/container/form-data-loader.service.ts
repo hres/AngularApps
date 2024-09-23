@@ -10,6 +10,7 @@ export class FormDataLoaderService {
   private countriesJsonPath = DATA_PATH + 'countries.json';
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
+  private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
   
   cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
@@ -17,11 +18,11 @@ export class FormDataLoaderService {
   cachedCountries$:Observable<ICode[]>;
   cachedProvinces$:Observable<ICode[]>;
   cachedStates$:Observable<ICode[]>;
-  mfTypeOptions$: Observable<ICodeAria[]>;
-  mfUseOptions$: Observable<ICode[]>;
-  txDescs$: Observable<ICodeDefinition[]>;
-  mfTypeTxDescOptions$: Observable<IParentChildren[]>;
-  mfRevisedTypeTxDescOptions$: Observable<IParentChildren[]>;
+  dossierTypes$: Observable<ICodeDefinition[]>;
+  // mfUseOptions$: Observable<ICode[]>;
+  // txDescs$: Observable<ICodeDefinition[]>;
+  // mfTypeTxDescOptions$: Observable<IParentChildren[]>;
+  // mfRevisedTypeTxDescOptions$: Observable<IParentChildren[]>;
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -56,6 +57,16 @@ export class FormDataLoaderService {
         );
     } 
     return this.cachedStates$;
+  }
+
+  getDossierTypes(): Observable<ICodeDefinition[]> {
+    this.dossierTypes$ = this._dataService
+      .getData<ICodeAria>(this.dossierTypesJsonPath)
+      .pipe(
+        //tap((_) => console.log('getMasterFileTypeOptions is executed')),
+        shareReplay(1)
+      );
+    return this.dossierTypes$;
   }
 
 }
