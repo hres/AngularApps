@@ -27,12 +27,20 @@ export interface LifecycleRecord {
   control_number: string;
   regulatory_activity_lead: IIdText;
   regulatory_activity_type: IIdTextLabel;
-  revise_trans_desc_request: string;
-  revised_trans_desc: IIdTextLabel;
   sequence_description_value: IIdTextLabel;
   sequence_from_date: string;
-  transaction_description: ITextLabel;
+  sequence_to_date: string;
+  sequence_details: string;
+  sequence_details_change: string;
+  sequence_version: string;
+  sequence_year: string;
+  transaction_description: string;
+  requester_name: string;
+  requester_name2: string;
+  requester_name3: string;
   requester_of_solicited_information: string;
+  from_time: string;
+  to_time: string;
 }
 
 export interface FeeDetails {

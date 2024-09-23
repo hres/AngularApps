@@ -1,13 +1,14 @@
-import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed, inject, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
+import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
+import { AppSignalService } from '../signal/app-signal.service';
 
 @Component({
     selector: 'app-form-base',
@@ -67,18 +68,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // noContactTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions
   // noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20']; //Fee section is not shown for these Transaction Descriptions
  
-  // writable signal for the answer of "Transaction Description" field
-  // readonly selectedTxDescSignal = signal<string>('');
-  // // computed signal for rendering of the "Contact" and "Fees" sections
-  // showContact = computed(() => {
-  //   return this.selectedTxDescSignal()==='' ? true : !this.noContactTxDescs.includes(this.selectedTxDescSignal());
-  // });
-  // showFee = computed(() => {
-  //   return this.selectedTxDescSignal()==='' ? true : !this.noFeeTxDescs.includes(this.selectedTxDescSignal());
-  // });
+  
+  private _signalService = inject(AppSignalService)
 
-  // showContactFlag: boolean = true;
-  // showFeeFlag: boolean = true;
+  // dossier type related signals
+  readonly selectedDossierType: Signal<string> = this._signalService.getSelectedDossierType();
+  isVeterinaryDossierType: Signal<boolean> =  computed(() => this.selectedDossierType() === DOSSIER_TYPE.VETERINARY);
+  isPharmaOrBioDossierType: Signal<boolean> = computed(() => this.selectedDossierType() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.selectedDossierType() === DOSSIER_TYPE.BIOLOGIC_HUMAN);
+
+  // computed signal for rendering "Fees" section
+  showFees: Signal<boolean> = computed(() => {
+    return this._utilsService.isEmpty(this.selectedDossierType()) ? true : this.isPharmaOrBioDossierType();
+  });
 
   constructor(
     private _fb: FormBuilder,
@@ -150,7 +151,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.errorList = this.errorList.concat(this._contactConfirmError);
     // }
 
-    // if (this.showFee()) {
+    // if (this.showFees()) {
     //   this.errorList = this.errorList.concat(this._transFeeErrors);
     // }
 
@@ -240,7 +241,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   // public setSelectedTxDesc(val: string) {
   //   // console.log("setSelectedTxDesc==>", val);
-  //   // set the value of selectedTxDescSignal and showContact/showFee will be computed
+  //   // set the value of selectedTxDescSignal and showContact/showFees will be computed
   //   this.selectedTxDescSignal.set(val);
 
   //   if (!this.showContact()) {
@@ -254,7 +255,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   //     this._agentContactErrors = [];
   //   }
 
-  //   if (!this.showFee()) {
+  //   if (!this.showFees()) {
   //     this.transFeeModel = this._baseService.getEmptyMasterFileFeeModel();
   //     this._transFeeErrors = [];
   //   }
@@ -311,7 +312,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   newTransactionEnrol.contact_info = null;
     // }
 
-    // if (this.showFee()) {
+    // if (this.showFees()) {
     //   const feeFormGroupValue = this.feeComponent.getFormValue();
     //   this._baseService.mapFeeFormToOutput(newTransactionEnrol.fee_details, feeFormGroupValue);
     // } else {

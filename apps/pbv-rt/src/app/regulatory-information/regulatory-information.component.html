@@ -1,28 +1,33 @@
 <div>
     <div [formGroup]="regulartoryInfoForm">
-        todo
-        <!-- <div class="row">
+        <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <label for="dossierId" class="required">
-                    <span class="field-name">{{ 'dossier.id'|translate }} {{ 'alphanumeric6or7'|translate }}</span>
+                <label for="dossierType" class="required">
+                    <span class="field-name">{{ 'dossier.type'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <sup id="tr2-rf">
                         <a class="fn-lnk" href="#tr2"><span
-                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierIdIndx']}}</a>
+                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierTypeIndx']}}</a>
                     </sup>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['dossierId'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['dossierType'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
+                        [control]="regulartoryInfoForm.controls['dossierType'] | formControl" controlId="dossierType"
                         label="dossier.id" parentId="regulatoryInfo"></control-messages>
-                    <span class="rep-input-group">
-                        <input id="dossierId" name="dossierId" class="form-control" 
-                            [formControlName]="'dossierId'" maxlength="8" />
-                    </span>
+                    <select id="dossierType" name="dossierType" required class="form-control full-width"
+                        [formControlName]="'dossierType'" (change)="onDossierTypeSelected($any($event.target).value)">
+                        <option label=" " value=""></option>
+                        <option *ngFor="let item of dossierTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
+                    </select>
                 </label>
             </div>
         </div>
+        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedDossierTypeDefinition">
+            <div class="alert alert-info" role="alert">
+                <p aria-live="polite">{{selectedDossierTypeDefinition}}</p>
+            </div>
+        </div>
         <div class="row">
-            <div class=".form-inline form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <!-- <div class=".form-inline form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="masterFileName" class="required full-width">
                     <span class="field-name">{{ 'masterfile.name'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -44,9 +49,9 @@
                     <input id="masterFileNumber" name="masterFileNumber" class="form-control full-width" 
                         [formControlName]="'masterFileNumber'" />
                 </label>
-            </div>
+            </div> -->
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <fieldset class="chkbxrdio-grp" >
                   <legend class="required"><span class="field-name">{{'masterfile.type'|translate}}</span>
@@ -70,13 +75,6 @@
               </fieldset>
             </div>  
           </div>              
-        <div class="row" *ngIf="selectedMfTypeDefinition">
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="alert alert-info" role="alert">
-                    <p aria-live="polite">{{selectedMfTypeDefinition}}</p>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="masterFileUse" class="required full-width">
