@@ -421,5 +421,9 @@
     "ra.type.note.eusands": "Health Canada will not invoice fees for Extraordinary Use New Drugs filed under C.08.002.1 of the Food and Drug Regulations (FDR), however please ensure the applicable submission class is selected in the fee section below.",
     "ra.type.note.eusnds": "Health Canada will not invoice fees for Extraordinary Use New Drugs filed under C.08.002.1 of the Food and Drug Regulations (FDR), however please ensure the applicable submission class is selected in the fee section below.",
     "ra.type.note.psurpv": "For NOC/c products",
-    "rq.review.report": "Request Review Report(s)"
+    "rq.review.report": "Request Review Report(s)",
+    "5digits.only": " (5 digits only)",
+    "commmon.required.bracket": " (required)",
+    "dossier.id.format": "(a lowercase letter followed by 6 numbers)",
+    "product.name": "Product Name"
 }

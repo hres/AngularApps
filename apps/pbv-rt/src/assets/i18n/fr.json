@@ -421,5 +421,9 @@
     "ra.type.note.eusands": "Santé Canada ne facturera pas de frais pour les drogues nouvelles à usage extraordinaire déposées en vertu de l'article C.08.002.1 du Règlement sur les aliments et drogues (RAD). Cependant, veuillez vous assurer que la classe de présentation applicable est sélectionnée dans la section des frais ci-dessous.",
     "ra.type.note.eusnds": "Santé Canada ne facturera pas de frais pour les drogues nouvelles à usage extraordinaire déposées en vertu de l'article C.08.002.1 du Règlement sur les aliments et drogues (RAD). Cependant, veuillez vous assurer que la classe de présentation applicable est sélectionnée dans la section des frais ci-dessous.",
     "ra.type.note.psurpv": "Pour les produits AC-C",
-    "rq.review.report": "Demande de rapport(s) d’examen"
+    "rq.review.report": "Demande de rapport(s) d’examen",
+    "5digits.only": " (5 chiffres seulement)",
+    "commmon.required.bracket": " (obligatoire)",
+    "dossier.id.format": "(composé d’une lettre minuscule suivie de six chiffres)",
+    "product.name": "Nom du produit"
 }
