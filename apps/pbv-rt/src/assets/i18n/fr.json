@@ -1,5 +1,6 @@
 {
     "form.title": "Modèle de transaction réglementaire: Processus d'inscription réglementaire",
+    "errorSummary.form.name": "Le formulaire",	
     "dossier.type": "Type de dossier",
     "date.submitted": "Date de soumission (AAAA-MM-JJ)",
     "sequence.descript": "Description de la transactions de réglementation",

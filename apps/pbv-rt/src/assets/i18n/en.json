@@ -1,5 +1,6 @@
 {
     "form.title": "Regulatory Transaction Template: Regulatory Enrolment Process (REP)",
+    "errorSummary.form.name": "The form",	
     "dossier.type": "Dossier Type",
     "date.submitted": "Date Submitted (YYYY-MM-DD)",
     "sequence.descript": "Regulatory Transaction Description",
