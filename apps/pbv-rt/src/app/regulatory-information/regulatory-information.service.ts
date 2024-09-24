@@ -20,6 +20,10 @@ export class RegulatoryInformationService {
       return null;
    }
    return fb.group({
+    dossierType: [
+      null,
+      [Validators.required],
+    ],
      dossierId: [
        null,
        [Validators.required],
@@ -41,7 +45,7 @@ export class RegulatoryInformationService {
   // public mapFormModelToDataModel(formValue: any, dataModel: Ectd): void {
   //   const lang = this._globalService.currLanguage;
 
-  //   dataModel.dossier_id = formValue['dossierId'];
+  //   dataModel.dossier_id = formValue['dossierType'];
   //   dataModel.product_name = formValue['masterFileName'];
   //   dataModel.lifecycle_record.master_file_number = formValue['masterFileNumber'];
   //   dataModel.lifecycle_record.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfTypes, formValue['masterFileType'], lang);
@@ -79,7 +83,7 @@ export class RegulatoryInformationService {
   // }
 
   // public mapDataModelToFormModel(dataModel: Ectd, formRecord: FormGroup): void {
-  //   formRecord.controls['dossierId'].setValue(dataModel.dossier_id);
+  //   formRecord.controls['dossierType'].setValue(dataModel.dossier_id);
   //   formRecord.controls['masterFileName'].setValue(dataModel.product_name);
   //   formRecord.controls['masterFileNumber'].setValue(dataModel.lifecycle_record.master_file_number);
 

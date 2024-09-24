@@ -1,25 +1,31 @@
 <div>
     <div [formGroup]="regulartoryInfoForm">
-        <!-- <div class="row">
+        <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <label for="dossierId" class="required">
-                    <span class="field-name">{{ 'dossier.id'|translate }} {{ 'alphanumeric6or7'|translate }}</span>
+                <label for="dossierType" class="required">
+                    <span class="field-name">{{ 'dossier.type'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <sup id="tr2-rf">
                         <a class="fn-lnk" href="#tr2"><span
-                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierIdIndx']}}</a>
+                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierTypeIndx']}}</a>
                     </sup>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['dossierId'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['dossierType'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
-                        label="dossier.id" parentId="regulatoryInfo"></control-messages>
-                    <span class="rep-input-group">
-                        <input id="dossierId" name="dossierId" class="form-control" 
-                            [formControlName]="'dossierId'" maxlength="8" />
-                    </span>
+                        [control]="regulartoryInfoForm.controls['dossierType'] | formControl" controlId="dossierType"
+                        label="dossier.type" parentId="regulatoryInfo"></control-messages>
+                    <select id="dossierType" name="dossierType" required class="form-control full-width"
+                        [formControlName]="'dossierType'" (change)="onDossierTypeSelected($any($event.target).value)">
+                        <option label=" " value=""></option>
+                        <option *ngFor="let item of dossierTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
+                    </select>
                 </label>
             </div>
-        </div> -->
+        </div>
+        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedDossierTypeDefinition">
+            <div class="alert alert-info" role="alert">
+                <p aria-live="polite">{{selectedDossierTypeDefinition}}</p>
+            </div>
+        </div>
         <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="companyId" class="required">
@@ -31,7 +37,7 @@
                     <control-messages *ngIf="regulartoryInfoForm.controls['companyId'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryInfoForm.controls['companyId'] | formControl"
-                        controlId="companyId" label="companyId" parentId="regulatoryInfo"></control-messages>
+                        controlId="companyId" label="company.id" parentId="regulatoryInfo"></control-messages>
                     <input id="company.id" name="companyId" class="form-control" 
                         [formControlName]="'companyId'" minlength="5" maxlength="5" size="6"/>
                 </label>
@@ -71,7 +77,20 @@
                             [formControlName]="'productName'" maxlength="400" ></textarea>
                 </label>
             </div>
-          </div>   
+          </div>
+          <section class="panel  panel-default">
+            <header class="panel-heading clearfix group-beside">
+              <h3 class="panel-title">{{'heading.transaction.details'|translate}}
+              <sup id="tr3-rf">
+                <!-- <a class="fn-lnk mrgn-tp-md" href="#tr3"><span
+                    class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['holderAddrIndx']}}</a> -->
+              </sup>
+              </h3>
+            </header>
+            <div class="panel-body">
+              todo
+            </div>
+          </section>
                   <!--        
         <div class="row" *ngIf="selectedMfTypeDefinition">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">

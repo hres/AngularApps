@@ -11,7 +11,8 @@ export const helpInstructionHeadings = [
     'dossierTypeIndx',
     'companyIdIndx',
     'dossierIdIndx',
-    'productNameIndx'
+    'productNameIndx',
+    'controlNumberIndx'
   ];
 
 export const DOSSIER_TYPE = {

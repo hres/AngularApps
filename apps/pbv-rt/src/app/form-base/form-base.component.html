@@ -25,15 +25,25 @@
     </div>
     <div id="topErrorSummaryId">
       <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-        headingPreamble="errorSummary.masterfile"></lib-error-summary>
+        headingPreamble="errorSummary.form.name"></lib-error-summary>
     </div>
+    <!-- in base ==> <br />showErrors(): {{showErrors()}}<br />isVeterinary: {{isVeterinaryDossierType()}} <br />showFees(): {{showFees()}} -->
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
         <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
+          <h2 class="panel-title">{{'panel.title.regulatory.info'|translate}}</h2>
           </header>
           <div class="panel-body">
             <app-regulatory-information></app-regulatory-information>
+          </div>
+      </section>
+
+      <section class="panel panel-primary mrgn-tp-lg" *ngIf="showFees()">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.fees'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            todo <!-- <app-fees [testinput]="isVeterinaryDossierType()"></app-fees> -->
           </div>
       </section>
     </div>
