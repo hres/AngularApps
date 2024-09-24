@@ -12,7 +12,7 @@
                     <control-messages *ngIf="regulartoryInfoForm.controls['dossierType'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryInfoForm.controls['dossierType'] | formControl" controlId="dossierType"
-                        label="dossier.id" parentId="regulatoryInfo"></control-messages>
+                        label="dossier.type" parentId="regulatoryInfo"></control-messages>
                     <select id="dossierType" name="dossierType" required class="form-control full-width"
                         [formControlName]="'dossierType'" (change)="onDossierTypeSelected($any($event.target).value)">
                         <option label=" " value=""></option>
@@ -37,7 +37,7 @@
                     <control-messages *ngIf="regulartoryInfoForm.controls['companyId'].invalid"
                         [showError]="showFieldErrors"
                         [control]="regulartoryInfoForm.controls['companyId'] | formControl"
-                        controlId="companyId" label="companyId" parentId="regulatoryInfo"></control-messages>
+                        controlId="companyId" label="company.id" parentId="regulatoryInfo"></control-messages>
                     <input id="company.id" name="companyId" class="form-control" 
                         [formControlName]="'companyId'" minlength="5" maxlength="5" size="6"/>
                 </label>
