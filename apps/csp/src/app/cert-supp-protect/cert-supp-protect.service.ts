@@ -9,7 +9,7 @@ import { Ectd } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 
 @Injectable()
-export class RegulatoryInformationService {
+export class CertSuppProtectService {
 
   constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService) {}
 

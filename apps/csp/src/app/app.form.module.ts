@@ -9,8 +9,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CSPComponent } from './cert-supp-protect/cert-supp-protect.component';
-import { CSPService } from './cert-supp-protect/cert-supp-protect.service';
+import { CertSuppProtectComponent } from './cert-supp-protect/cert-supp-protect.component';
+import { CertSuppProtectService } from './cert-supp-protect/cert-supp-protect.service';
 
 @NgModule({
   declarations: [

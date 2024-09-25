@@ -1,5 +1,5 @@
 <div>
-    <div [formGroup]="regulartoryInfoForm">
+    <div [formGroup]="certSuppProtectForm">
         <!-- <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="dossierId" class="required">
@@ -28,10 +28,10 @@
                     <sup id="tr3-rf">
                         <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['companyIdIndx']}}</a>
                     </sup>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['companyId'].invalid"
+                    <control-messages *ngIf="certSuppProtectForm.controls['companyId'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryInfoForm.controls['companyId'] | formControl"
-                        controlId="companyId" label="companyId" parentId="regulatoryInfo"></control-messages>
+                        [control]="certSuppProtectForm.controls['companyId'] | formControl"
+                        controlId="companyId" label="companyId" parentId="certSuppProtect"></control-messages>
                     <input id="company.id" name="companyId" class="form-control" 
                         [formControlName]="'companyId'" minlength="5" maxlength="5" size="6"/>
                 </label>
@@ -45,10 +45,10 @@
                     <sup id="tr4-rf">
                         <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierIdIndx']}}</a>
                     </sup>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['dossierId'].invalid"
+                    <control-messages *ngIf="certSuppProtectForm.controls['dossierId'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
-                        label="dossier.id" parentId="regulatoryInfo"></control-messages>
+                        [control]="certSuppProtectForm.controls['dossierId'] | formControl" controlId="dossierId"
+                        label="dossier.id" parentId="certSuppProtect"></control-messages>
                         <input id="dossierId" name="dossierId" class="form-control" 
                             [formControlName]="'dossierId'" maxlength="8" size="7" />
                 </label>
@@ -63,10 +63,10 @@
                         <a class="fn-lnk" href="#tr5"><span
                                 class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['productNameIndx']}}</a>
                     </sup>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['productName'].invalid"
+                    <control-messages *ngIf="certSuppProtectForm.controls['productName'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryInfoForm.controls['productName'] | formControl" controlId="productName"
-                        label="product.name" parentId="regulatoryInfo"></control-messages>
+                        [control]="certSuppProtectForm.controls['productName'] | formControl" controlId="productName"
+                        label="product.name" parentId="certSuppProtect"></control-messages>
                         <textarea id="productName" name="productName" class="form-control full-width"
                             [formControlName]="'productName'" maxlength="400" ></textarea>
                 </label>

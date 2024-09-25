@@ -14,21 +14,21 @@ import {
 } from '@angular/core';
 import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { RegulatoryInformationService } from './regulatory-information.service';
+import { CertSuppProtectService } from './cert-supp-protect.service';
 import { Ectd } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 
 @Component({
-  selector: 'app-regulatory-information',
-  templateUrl: './regulatory-information.component.html',
+  selector: 'app-cert-supp-protect',
+  templateUrl: './cert-supp-protect.component.html',
   styles: [],
   encapsulation: ViewEncapsulation.None,
 })
-export class RegulatoryInformationComponent extends BaseComponent implements OnInit {
+export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   lang: string;
   helpIndex: HelpIndex; 
 
-  public regulartoryInfoForm: FormGroup;
+  public certSuppProtectForm: FormGroup;
   // @Input() detailsChanged: number;
   // @Input() showErrors: boolean;
   // @Input() dataModel: Ectd;
@@ -66,7 +66,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   //   return this.showReqRevisedTxDesc() && this.selectedReqRevisionSignal() === 'Y'
   // });
 
-  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
+  constructor(private _CertSuppProtectService: CertSuppProtectService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -76,8 +76,8 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
     
-    if (!this.regulartoryInfoForm) {
-      this.regulartoryInfoForm = RegulatoryInformationService.getRegularInfoForm(this._fb);
+    if (!this.certSuppProtectForm) {
+      this.certSuppProtectForm = CertSuppProtectService.getRegularInfoForm(this._fb);
     }
 
     // this.descriptionTypeList = this._globalService.txDescs;
@@ -195,7 +195,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   private _resetControlValues(controlNames: string[]) {
     for (let i = 0; i < controlNames.length; i++) {
-      this._utilsService.resetControlsValues(this.regulartoryInfoForm.controls[controlNames[i]]);
+      this._utilsService.resetControlsValues(this.certSuppProtectForm.controls[controlNames[i]]);
     }
   }
 

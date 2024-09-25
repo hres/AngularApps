@@ -1,4 +1,4 @@
 export const baseEnv = {
-  appVersion: '5.0.0',
+  appVersion: '2.0.0',
   byPassCheckSum: false
 };
