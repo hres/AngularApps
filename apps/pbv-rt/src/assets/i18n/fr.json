@@ -428,5 +428,6 @@
     "top.instruction": "Instructions pour compléter les sections du formulaire",
     "non.visible": "[ Cette section peut ne pas être visible. ] ",
     "ctrl.num": "Numéro de contrôle",
-    "routing.id": "Identificateur d'acheminement"
+    "routing.id": "Identificateur d'acheminement",
+    "help.email": "ESGHelpDesk@fda.hhs.gov"
 }
