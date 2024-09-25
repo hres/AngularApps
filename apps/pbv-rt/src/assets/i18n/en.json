@@ -6,7 +6,6 @@
     "top.security.declaimer": "Security Disclaimer",
     "top.instruction": "Instructions for Completing Sections on Form",
     "toc.form": "Form",
-    "instruction.help": "Instructions for completing sections on form",
     "load.file": "Load a Regulatory Transaction File",
     "select.file": "Select a file to load",
     "choose.file":"Choose File",
@@ -280,8 +279,6 @@
     "activity.lead.pmv": "Post-Market Vigilance: Includes all regulatory activities and transactions under the Marketed Health Products Directorate (MHPD) mandate (prescription and non-prescription pharmaceuticals for human use, biologics, radiopharmaceuticals).",
     "activity.lead.chp": "Consumer Health Products: Includes all regulatory activities and transactions for non-prescription pharmaceuticals and disinfectants under the Natural and Non-Prescription Health Products Directorate (NNHPD) mandate.",
     "activity.lead.vet": "Veterinary: Includes all regulatory activities and transactions for prescription and non-prescription pharmaceuticals under the Veterinary Drugs Directorate (VDD) mandate.",
-
-
     "ht.load.file.2": "When continuing with a working copy, the format of the file to load should be .hcsc.",
     "ht.load.file.3": "When viewing/updating a final XML file, the format of the file to load should be .xml.",
     "ht.dossier.type.1": "Biologic dossier applies to all biologic products and radiopharmaceuticals",
