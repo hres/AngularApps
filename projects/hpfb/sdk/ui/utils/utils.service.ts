@@ -2,7 +2,7 @@ import { Injectable, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { CANADA, USA, FRENCH } from '../common.constants';
 import { DatePipe } from '@angular/common';
-import { ICode, ICodeDefinition, IParentChildren } from '../data-loader/data';
+import { ICode, ICodeDefinition, IParentChildren, SortOn } from '../data-loader/data';
 import { IIdTextLabel } from '../model/entity-base';
 
 @Injectable()
@@ -362,5 +362,18 @@ export class UtilsService {
       return '';
     }
     return value.substring(1, value.length - 1);
+  }
+
+  // get CompareFields to compare a list of Code objects
+  // sort on sortPriority field first if required, and then en or fr field based on the form's language
+  getCompareFields(sortOnPriority: boolean, lang: string):SortOn[]{
+    let compareFields : SortOn[] = [];
+    if (sortOnPriority) {
+      compareFields.push(SortOn.PRIORITY);
+    }
+
+    this.isFrench(lang) ? compareFields.push(SortOn.FRENCH): compareFields.push(SortOn.ENGLISH);
+
+    return compareFields;
   }
 }

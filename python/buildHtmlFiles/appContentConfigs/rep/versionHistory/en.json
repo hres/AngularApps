@@ -2,18 +2,35 @@
     "title": "Regulatory Enrolment Process (REP) Template Revision History",
     "h1_header": "Regulatory Enrolment Process (REP) Template Revision History",
     "paragraphs": [
-        "Health Canada has updated the Regulatory Enrolment Process (REP) templates to reflect process changes and improvements. Refer to the Guidance Document: Regulatory Enrolment Process (REP) – Drugs for Human and Veterinary Use and Disinfectants for more information on the templates.",
-        "In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use.",
-        "Should you have any questions regarding the content of this document, please contact <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"en\">ereview@hc-sc.gc.ca</a>.",
+        "This page outlines changes related to the Regulatory Enrolment Process (REP) templates. Should you have any questions regarding the content of this page, please contact <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"en\">ereview@hc-sc.gc.ca</a>.",
         "<div class=\"alert alert-info\"><p>In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use.</p></div>"
     ],
     "releases": [
         {
             
+            "header": "October 2, 2024 Release",
+            "details": [
+                {
+                    "template": "Regulatory Transaction (RT) Template<br>Version 4.4.3",
+                    "changes": [
+                        "Updated instructions for Control Number",
+                        "Removed Regulatory Activity Lead field for Veterinary dossier",
+                        "Changed Regulatory Activity Lead from Post-Market Vigilance to Post-Market Vigilance (for Marketed Health Products Directorate)",
+                        "Added definitions for various regulatory activity types",
+                        "Added new Regulatory Activity Type Notification of Foreign Action (NFA-PV)",
+                        "Removed the Regulatory Activity Type New Drug Submission with flexibilities for Designated COVID-19 Drugs (NDS CV) from Veterinary Dossier", 
+                        "Added the Regulatory Transaction Descriptions: Final Risk Communication Document, Immediate Notification and Request Review Reports",
+                        "Updated info bubble for the third party authorization section"
+                    ]
+                }
+            ]
+        },
+        {
+            
             "header": "May 1, 2024 Release",
             "details": [
                 {
-                    "template": "Regulatory Transaction (RT) Template",
+                    "template": "Regulatory Transaction (RT) Template<br>Version 4.4.2",
                     "changes": [
                         "Updated the definition for Regulatory Activity Type Undefined Regulatory Activity (UDRA)",
                         "Updated the picklist options for Regulatory Transaction Description when UDRA is selected as the Regulatory Activity Type",

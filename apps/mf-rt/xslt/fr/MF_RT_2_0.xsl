@@ -555,7 +555,7 @@ span.normalWeight {
           </section>
           <section class="panel  panel-default">
             <header class="panel-heading clearfix">
-              <h3 class="panel-title">Nom et adresse de l’agent autorisé ou du tiers au nom du titulaire</h3>
+              <h3 class="panel-title">Nom et adresse de l’agent autorisé ou du tiers autorisé</h3>
             </header>
             <div class="panel-body">
               <xsl:if test="contact_info/agent_not_applicable = 'true'">
