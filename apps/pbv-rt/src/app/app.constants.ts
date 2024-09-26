@@ -7,5 +7,22 @@ export const DATA_PATH: string = './assets/data/';
 export const FILE_OUTPUT_PREFIX = 'REP';
 
 export const helpInstructionHeadings = [
-    'loadFileIndx'
+    'loadFileIndx',
+    'dossierTypeIndx',
+    'compIdIndx',
+    'dossierIdIndx',
+    'prodNameIndx',
+    'prioRevIndx',
+    'nocRevIndx',
+    'adminSubIndx',
+    'ctrlNumIndx',
+    'regActIndx',
+    'yearChangeIndx',
+    'briefDescIndx',
+    'requestSoliIndx',
+    'feeTransIndx',
+    'feesIndx',
+    'regContactIndx',
+    'routeIdIndx',
+    'genFinalIndx'
   ];
