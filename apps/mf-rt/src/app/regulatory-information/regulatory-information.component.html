@@ -150,7 +150,7 @@
         <div class="row form-group" *ngIf="showReqRevisedTxDesc()">
             <fieldset class="col-md-12 chkbxrdio-grp"
                 data-ng-class="{'has-error':regulartoryInfoForm.controls['reqRevision'].$invalid}">
-                <legend class="required">
+                <legend class="required" id="reqRevision">
                     {{'req.revision' |translate}}
                     <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
                     <control-messages *ngIf="regulartoryInfoForm.controls['reqRevision'].invalid"
