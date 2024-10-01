@@ -122,7 +122,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
     if (this.showRevisedTxDesc()) {
       this._getRevisedTransactionDescriptions(this.selectedMfTypeId);
-    } else if (e != null){ // REPMFFORM-197 do not reset revised transaction description when loading file
+    } else {
       const valuesToReset = ['revisedDescriptionType'];
       this._resetControlValues(valuesToReset);
     }

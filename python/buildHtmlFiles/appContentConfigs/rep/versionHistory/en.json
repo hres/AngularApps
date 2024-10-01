@@ -8,7 +8,7 @@
     "releases": [
         {
             
-            "header": "October 22, 2024 Release",
+            "header": "October 2, 2024 Release",
             "details": [
                 {
                     "template": "Regulatory Transaction (RT) Template<br>Version 4.4.3",
@@ -16,12 +16,10 @@
                         "Updated instructions for Control Number",
                         "Removed Regulatory Activity Lead field for Veterinary dossier",
                         "Changed Regulatory Activity Lead from Post-Market Vigilance to Post-Market Vigilance (for Marketed Health Products Directorate)",
-                        "Added definitions for various regulatory activity types and transactions descriptions",
-                        "Updated the transaction description list for various regulatory activity types",
-                        "Added new Regulatory Activity Type: Notification of Foreign Action (NFA-PV)",
-                        "Removed the Regulatory Activity Type: New Drug Submission with flexibilities for Designated COVID-19 Drugs (NDS CV) and Regulatory Cooperation Council (RCC) from Veterinary Dossier", 
+                        "Added definitions for various regulatory activity types",
+                        "Added new Regulatory Activity Type Notification of Foreign Action (NFA-PV)",
+                        "Removed the Regulatory Activity Type New Drug Submission with flexibilities for Designated COVID-19 Drugs (NDS CV) from Veterinary Dossier", 
                         "Added the Regulatory Transaction Descriptions: Final Risk Communication Document, Immediate Notification and Request Review Reports",
-                        "Added requestor name field for transaction description: Comments on Summary Basis of Decision (SBD)",
                         "Updated info bubble for the third party authorization section"
                     ]
                 }

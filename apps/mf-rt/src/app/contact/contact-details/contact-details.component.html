@@ -10,9 +10,9 @@
                               [control]="contactDetailsForm.controls['firstName'] | formControl"
                               controlId="{{contactType}}FirstName" label="first.name" parentId="{{contactType}}Info"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-          </label>
-          <input name="firstName" id="{{contactType}}FirstName" class="form-control full-width" maxlength="60" 
+            <input name="firstName" id="{{contactType}}FirstName" class="form-control full-width" maxlength="60" 
               [formControlName]="'firstName'"/>
+          </label>
         </div>
         <div class="form-group col-sm-6" >
           <label for="{{contactType}}LastName" class="required full-width">
@@ -23,9 +23,9 @@
                               [control]="contactDetailsForm.controls['lastName'] | formControl"
                               controlId="{{contactType}}LastName" label="last.name" parentId="{{contactType}}Info"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-          </label>
-          <input name="lastName" id="{{contactType}}LastName" class="form-control full-width" maxlength="60" 
+            <input name="lastName" id="{{contactType}}LastName" class="form-control full-width" maxlength="60" 
               [formControlName]="'lastName'"/>
+          </label>
         </div>
       </div>
       <div class="row">
@@ -38,11 +38,11 @@
                               [control]="contactDetailsForm.controls['language'] | formControl"
                               controlId="{{contactType}}Language" label="lang.correspond" parentId="{{contactType}}Info"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
+            <select id="{{contactType}}Language" required class="form-control" [formControlName]="'language'">
+              <option label=" " value=""></option>
+              <option *ngFor="let langOption of languageList" [value]="langOption.id">{{langOption | textTransform: lang }}</option>
+            </select>
           </label>
-          <select id="{{contactType}}Language" required class="form-control" [formControlName]="'language'">
-            <option label=" " value=""></option>
-            <option *ngFor="let langOption of languageList" [value]="langOption.id">{{langOption | textTransform: lang }}</option>
-          </select>
         </div>
         <div class="form-group col-sm-6">
           <label for="{{contactType}}JobTitle" class="required full-width">
@@ -53,8 +53,8 @@
                               [control]="contactDetailsForm.controls['jobTitle'] | formControl"
                               controlId="{{contactType}}JobTitle" label="job.title" parentId="{{contactType}}Info"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-        </label>
-        <input name="jobTitle" id="{{contactType}}JobTitle" class="form-control full-width" maxlength="60" [formControlName]="'jobTitle'"/>
+            <input name="jobTitle" id="{{contactType}}JobTitle" class="form-control full-width" maxlength="60" [formControlName]="'jobTitle'"/>
+          </label>
         </div>
       </div>
       <div class="row">
@@ -68,16 +68,16 @@
                               controlId="{{contactType}}PhoneNumber" label="phone.number" parentId="{{contactType}}Info"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"
                               requiredLength="10"></control-messages>
-          </label>
-          <input name="phoneNumber" id="{{contactType}}PhoneNumber" class="form-control full-width" data-only-digits
+            <input name="phoneNumber" id="{{contactType}}PhoneNumber" class="form-control full-width" data-only-digits
               [formControlName]="'phoneNumber'" maxlength="25"/>
+          </label>
         </div>
         <div class="form-group col-sm-3">
           <label for="{{contactType}}PhoneExtension">
             <span class="field-name">{{'phone.extension' |translate}}</span>
-          </label>
-          <input name="phoneExtension" id="{{contactType}}PhoneExtension" class="form-control" maxlength="10" data-only-digits
+            <input name="phoneExtension" id="{{contactType}}PhoneExtension" class="form-control" maxlength="10" data-only-digits
             [formControlName]="'phoneExtension'"/>
+          </label>
         </div>
       </div>
       <div class="row">
@@ -89,9 +89,9 @@
               [control]="contactDetailsForm.controls['faxNumber'] | formControl" controlId="{{contactType}}FaxNumber" label="fax.number"
               parentId="{{contactType}}Info" requiredLength="10"
               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-          </label>
-          <input name="faxNumber" id="{{contactType}}FaxNumber" class="form-control full-width" data-only-digits maxlength="25"
+            <input name="faxNumber" id="{{contactType}}FaxNumber" class="form-control full-width" data-only-digits maxlength="25"
                    [formControlName]="'faxNumber'"/>
+          </label>
         </div>
       </div>
       <div class="row">
@@ -104,8 +104,8 @@
                               [control]="contactDetailsForm.controls['email'] | formControl"
                               controlId="{{contactType}}Email" label="contact.email" parentId="{{contactType}}Info"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
+            <input name="email" id="{{contactType}}Email" class="form-control full-width" maxlength="80" [formControlName]="'email'" />
           </label>
-          <input name="email" id="{{contactType}}Email" class="form-control full-width" maxlength="80" [formControlName]="'email'" />
         </div>
         
       </div>
