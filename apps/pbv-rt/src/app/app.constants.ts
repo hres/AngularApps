@@ -26,3 +26,9 @@ export const helpInstructionHeadings = [
     'routeIdIndx',
     'genFinalIndx'
   ];
+
+export const DOSSIER_TYPE = {
+  PHARMACEUTICAL_HUMAN: "D22",
+  BIOLOGIC_HUMAN: "D21",
+  VETERINARY: "D24"
+}; 

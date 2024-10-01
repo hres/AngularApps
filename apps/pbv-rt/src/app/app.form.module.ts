@@ -11,10 +11,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegulatoryInformationComponent } from './regulatory-information/regulatory-information.component';
 import { RegulatoryInformationService } from './regulatory-information/regulatory-information.service';
+import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { TransactionDetailsService } from './transaction-details/transaction-details.service';
 
 @NgModule({
   declarations: [
-    RegulatoryInformationComponent
+    RegulatoryInformationComponent,
+    TransactionDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -28,10 +31,12 @@ import { RegulatoryInformationService } from './regulatory-information/regulator
     NumbersOnlyDirective
   ],
   providers: [
-    RegulatoryInformationService
+    RegulatoryInformationService,
+    TransactionDetailsService
   ],
   exports: [CommonUiFeatureModule,
-    RegulatoryInformationComponent
+    RegulatoryInformationComponent,
+    TransactionDetailsComponent
    ],
 })
 export class AppFormModule {}

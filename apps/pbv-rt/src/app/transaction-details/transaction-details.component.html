@@ -1,0 +1,19 @@
+<div [formGroup]="transctionDetailsForm">
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="controlNumber" class="required">
+                <span class="field-name">{{'company.id'|translate }}&nbsp;{{'5digits.only'|translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <sup id="tr3-rf">
+                    <a class="fn-lnk" href="#tr9"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['controlNumberIndx']}}</a>
+                </sup>
+                <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid"
+                    [showError]="showErrors()"
+                    [control]="transctionDetailsForm.controls['controlNumber'] | formControl"
+                    controlId="controlNumber" label="controlNumber" parentId="regulatoryInfo"></control-messages>
+                <input id="company.id" name="controlNumber" class="form-control" 
+                    [formControlName]="'controlNumber'" minlength="5" maxlength="5" size="6"/>
+            </label>
+        </div>
+    </div>
+</div>

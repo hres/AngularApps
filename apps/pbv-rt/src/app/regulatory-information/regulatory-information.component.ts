@@ -10,13 +10,16 @@ import {
   SimpleChanges,
   ViewChildren, ViewEncapsulation,
   computed,
-  signal
+  signal,
+  inject,
+  Signal
 } from '@angular/core';
 import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
 import { Ectd } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
+import { AppSignalService } from '../signal/app-signal.service';
 
 @Component({
   selector: 'app-regulatory-information',
@@ -35,14 +38,14 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   // @Output() errorList = new EventEmitter(true);
   // @Output() trDescUpdated = new EventEmitter();
 
-  // mfTypeOptions: ICodeAria[] = [];
+  dossierTypeOptions: ICodeDefinition[] = [];
   // mfTypeDescArray: IParentChildren[] = [];
   // mfRevisedTypeDescArray: IParentChildren[] = [];
   // mfUseOptions: ICode[] = [];
   // txDescOptions: ICode[];
   // revTxDescOptions: ICode[];
   // descriptionTypeList: ICodeDefinition[];
-  // selectedMfTypeDefinition: string;
+  selectedDossierTypeDefinition: string;
   // selectedTxDescDefinition: string;
   // public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
@@ -66,6 +69,8 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   //   return this.showReqRevisedTxDesc() && this.selectedReqRevisionSignal() === 'Y'
   // });
 
+  private _signalService = inject(AppSignalService)
+
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
@@ -81,7 +86,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     }
 
     // this.descriptionTypeList = this._globalService.txDescs;
-    // this.mfTypeOptions = this._globalService.mfTypes;
+    this.dossierTypeOptions = this._globalService.dossierTypes;
     // this.mfTypeDescArray = this._globalService.mfTypeTxDescs;
     // this.mfRevisedTypeDescArray = this._globalService.mfRevisedTypeDescs;
     // this.mfUseOptions = this._globalService.mfUses;
@@ -113,9 +118,11 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     }
   }
 
-  // onMfTypeSelected(e: any): void {
-  //   const codeDefinition = this._utilsService.findCodeDefinitionById(this.mfTypeOptions, this.selectedMfTypeId);
-  //   this.selectedMfTypeDefinition = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
+  onDossierTypeSelected(selectedDossierTypeId: string) {
+    // console.log('Selected dossier type id:', selectedDossierTypeId);
+    this._signalService.setSelectedDossierType(selectedDossierTypeId)
+    const codeDefinition = this._utilsService.findCodeDefinitionById(this.dossierTypeOptions, selectedDossierTypeId);
+    this.selectedDossierTypeDefinition = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
 
   //   // get the transaction description dropdown list
   //   this._getTransactionDescriptions(this.selectedMfTypeId);
@@ -126,7 +133,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   //     const valuesToReset = ['revisedDescriptionType'];
   //     this._resetControlValues(valuesToReset);
   //   }
-  // }
+  }
 
   // onTxDescriptionSelected(e: any): void {
   //   const selectedTxDescId = this.regulartoryInfoForm.get('descriptionType').value;

@@ -111,8 +111,16 @@ export class FormBaseService {
       sequence_from_date: undefined,
       transaction_description: undefined,
       requester_of_solicited_information: '',
-      revise_trans_desc_request: '',
-      revised_trans_desc: undefined,
+      sequence_to_date: undefined,
+      sequence_details: undefined,
+      sequence_details_change: undefined,
+      sequence_version: undefined,
+      sequence_year: undefined,
+      requester_name: undefined,
+      requester_name2: undefined,
+      requester_name3: undefined,
+      from_time: undefined,
+      to_time: undefined,
     };
 
     // console.log(
