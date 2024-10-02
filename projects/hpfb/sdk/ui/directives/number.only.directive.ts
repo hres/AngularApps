@@ -8,7 +8,7 @@ import { NgControl } from '@angular/forms';
 })
 export class NumbersOnlyDirective {
 
-  constructor(private control: NgControl) { }
+  constructor(private control: NgControl, private el: ElementRef) { }
 
   @HostListener('input', ['$event.target.value'])
   onInput(value: string) {
@@ -24,8 +24,12 @@ export class NumbersOnlyDirective {
 
   private filterValue(value: string) {
     // Replace any non-numeric characters with an empty string
-    const newValue = value.replace(/[^\d]/g, '');
+    var newValue = value.replace(/[^\d]/g, '');
     // Update the form control value with the cleaned value
+    if (this.el.nativeElement.maxLength != null) {
+      const pos = this.el.nativeElement.maxLength;
+      newValue = newValue.substring(0, pos);
+    }  
     this.control.control.setValue(newValue);
   }
 

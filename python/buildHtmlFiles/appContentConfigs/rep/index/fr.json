@@ -11,7 +11,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"{{ base_url }}/historique_révisions.html\">Historique des versions du modèle (02/10/2024)</a>"
+                        "<a href=\"{{ base_url }}/historique_révisions.html\">Historique des versions du modèle (22/10/2024)</a>"
                     ]
                 }
             ]
@@ -47,7 +47,7 @@
             "header": "Dans le cadre du processus de transaction réglementaire",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.fr }}\">Modèle de transaction réglementaire (TR) pour les médicaments à usage humain et désinfectants (02/10/2024)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.fr }}\">Modèle de transaction réglementaire (TR) pour les médicaments à usage humain et désinfectants (22/10/2024)</a>",
                     "bullets": [
                         "Obligatoire avec chaque transaction réglementaire déposée auprès de Santé Canada.",
                         "Envoyé via la PCDE dans le dossier 1.2.1 pour les médicaments à usage humain ou partie I dossier 1.5 pour les médicaments vétérinaires de la transaction réglementaire (soumission).",
