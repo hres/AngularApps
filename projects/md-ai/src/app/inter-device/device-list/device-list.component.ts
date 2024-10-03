@@ -122,7 +122,11 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
-    this.statusMessage = "Device record " + id + " has been saved.";
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Device record " + id + " has been saved.";
+    } else {
+      this.statusMessage = "Enregistrement d’intrument " + id + " a été sauvegardé.";
+    }
     document.location.href = '#addDeviceBtn';
   }
 
@@ -150,7 +154,11 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     }
     this.errorSummaryChild = null;
     this._emitErrors();
-    this.statusMessage = "Device record " + id + " has been deleted.";
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Device record " + id + " has been deleted.";
+    } else {
+      this.statusMessage = "Enregistrement d’intrument " + id + " a été supprimé.";
+    }
   }
 
   revertDevice(event: any) {  
@@ -164,7 +172,11 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     const lastSavedState = group.get('lastSavedState').value;
 
     deviceInfo.patchValue(lastSavedState);
-    this.statusMessage = "Device record " + id + " changes have been discarded.";    
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Device record " + id + " changes have been discarded.";    
+    } else {
+      this.statusMessage = "Les modifications d’enregistrement d’intrument " + id + " ont été annulées.";
+    }
   }
 
   

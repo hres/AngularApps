@@ -128,7 +128,13 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.materialsFormArr.length > 0) {
       this.atLeastOneRec.set(true);
     }
-    this.statusMessage = "Biological material record " + id + " has been saved.";
+
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Biological material record " + id + " has been saved.";
+    } else {
+      this.statusMessage = "Enregistrement du matériel biologique " + id + " a été sauvegardé.";
+    }
+
     document.location.href = '#addMaterialBtn';
   }
 
@@ -159,7 +165,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.materialsFormArr.length == 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(true);
     }
-    this.statusMessage = "Biological material record " + id + " has been deleted.";
+
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Biological material record " + id + " has been deleted.";
+    } else {
+      this.statusMessage = "Enregistrement du matériel biologique " + id + " a été supprimé.";
+    }
   }
 
   revertMaterial(event: any) {  
@@ -173,7 +184,11 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     const lastSavedState = group.get('lastSavedState').value;
 
     materialInfo.patchValue(lastSavedState);
-    this.statusMessage = "Biological material record " + id + " changes have been discarded.";        
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Biological material record " + id + " changes have been discarded.";        
+    } else {
+      this.statusMessage = "Les modification du matériel biologique " + id + " ont été annulées.";
+    }
   }
 
   
@@ -273,12 +288,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   private _emitErrors(): void {
     let emitErrors = [];
 
-    if (this.errorSummaryChild) {
-      emitErrors.push(this.errorSummaryChild);
-    }
-    
     if (this.materialsFormArr.errors) {
       emitErrors.push(this.materialsFormArr.errors['atLeastOneMat']);
+    } else {
+      if (this.errorSummaryChild) {
+        emitErrors.push(this.errorSummaryChild);
+      }
     }
 
    this._materialService.setListErrors(emitErrors);
