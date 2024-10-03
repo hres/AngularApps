@@ -32,7 +32,7 @@
                     <span class="field-name">{{'company.id'|translate }}&nbsp;{{'5digits.only'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <sup id="tr3-rf">
-                        <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['companyIdIndx']}}</a>
+                        <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['compIdIndx']}}</a>
                     </sup>
                     <control-messages *ngIf="regulartoryInfoForm.controls['companyId'].invalid"
                         [showError]="showFieldErrors"
@@ -62,12 +62,12 @@
           </div>
           <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <label for="productName" class="required full-width">
+                <label for="productName" class="required">
                     <span class="field-name">{{ 'product.name'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <sup id="tr5-rf">
                         <a class="fn-lnk" href="#tr5"><span
-                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['productNameIndx']}}</a>
+                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodNameIndx']}}</a>
                     </sup>
                     <control-messages *ngIf="regulartoryInfoForm.controls['productName'].invalid"
                         [showError]="showFieldErrors"
