@@ -4,12 +4,14 @@ import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails,
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
+import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 
 @Injectable()
 export class FormBaseService {
 
   constructor(
-    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,
+    private _regulatoryInfoService: RegulatoryInformationService) {
   }
 
   /**
@@ -149,10 +151,9 @@ export class FormBaseService {
   //   // user needs to check contactInfoConfirm checkbox each time they submit the form, so no need to load it from the uploaded data file
   // }
 
-  // public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any, certificationFormGroupValue: any): void{
-  //   this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd);
-  //   this._certificationService.mapFormModelToDataModel(certificationFormGroupValue, outputTransactionEnrol)
-  // }
+  public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any): void{
+    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd);
+  }
 
   // public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, 
   //   addressesFormGroupValue: Array<{ addrType: string, value: any }>, contactsFormGroupValue: Array<{ contactType: string, value: any }>): void{

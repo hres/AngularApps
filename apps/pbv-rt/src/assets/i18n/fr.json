@@ -340,5 +340,8 @@
     "5digits.only": " (5 chiffres seulement)",
     "commmon.required.bracket": " (obligatoire)",
     "dossier.id.format": "(composé d’une lettre minuscule suivie de six chiffres)",
-    "product.name": "Nom du produit"
+    "product.name": "Nom du produit",
+    "error.msg.minlength": "Veuillez fournir au moins {{ requiredLength }} chiffres.",
+    "error.mgs.dossier.id": "Format incorrect. - Le numéro de dossier est incorrect pour ce type de dossier. Veuillez vérifier le numéro de dossier et le type de dossier pour votre produit."
+
 }

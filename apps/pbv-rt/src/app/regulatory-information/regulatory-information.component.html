@@ -13,12 +13,12 @@
                         [showError]="showFieldErrors"
                         [control]="regulartoryInfoForm.controls['dossierType'] | formControl" controlId="dossierType"
                         label="dossier.type" parentId="regulatoryInfo"></control-messages>
-                    <select id="dossierType" name="dossierType" required class="form-control full-width"
-                        [formControlName]="'dossierType'" (change)="onDossierTypeSelected($any($event.target).value)">
-                        <option label=" " value=""></option>
-                        <option *ngFor="let item of dossierTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
-                    </select>
                 </label>
+                <select id="dossierType" name="dossierType" required class="form-control full-width"
+                    [formControlName]="'dossierType'" (change)="onDossierTypeSelected($any($event.target).value)">
+                    <option label=" " value=""></option>
+                    <option *ngFor="let item of dossierTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
+                </select>
             </div>
         </div>
         <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedDossierTypeDefinition">
@@ -38,9 +38,9 @@
                         [showError]="showFieldErrors"
                         [control]="regulartoryInfoForm.controls['companyId'] | formControl"
                         controlId="companyId" label="company.id" parentId="regulatoryInfo"></control-messages>
-                    <input id="company.id" name="companyId" class="form-control" 
-                        [formControlName]="'companyId'" minlength="5" maxlength="5" size="6"/>
                 </label>
+                <input id="company.id" name="companyId" class="form-control" data-only-digits
+                        [formControlName]="'companyId'" minlength="5" maxlength="5" size="6"/>
             </div>
         </div>
         <div class="row">
@@ -55,9 +55,9 @@
                         [showError]="showFieldErrors"
                         [control]="regulartoryInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
                         label="dossier.id" parentId="regulatoryInfo"></control-messages>
-                        <input id="dossierId" name="dossierId" class="form-control" 
-                            [formControlName]="'dossierId'" maxlength="8" size="7" />
                 </label>
+                <input id="dossierId" name="dossierId" class="form-control" 
+                            [formControlName]="'dossierId'" maxlength="8" size="7" />
             </div>
           </div>
           <div class="row">
@@ -73,9 +73,9 @@
                         [showError]="showFieldErrors"
                         [control]="regulartoryInfoForm.controls['productName'] | formControl" controlId="productName"
                         label="product.name" parentId="regulatoryInfo"></control-messages>
-                        <textarea id="productName" name="productName" class="form-control full-width"
-                            [formControlName]="'productName'" maxlength="400" ></textarea>
                 </label>
+                <textarea id="productName" name="productName" class="form-control full-width"
+                            [formControlName]="'productName'" maxlength="400" ></textarea>
             </div>
           </div>
           <section class="panel  panel-default">
