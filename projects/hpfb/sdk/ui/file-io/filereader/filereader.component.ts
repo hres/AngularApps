@@ -21,7 +21,7 @@ export class FilereaderComponent implements OnInit {
   public status = IMPORT_SUCCESS;
   public importSuccess = false;
   public importedFileName = "";
-  public showFileLoadStatus = false;
+  public displayAlert = false;   // reloads the role=alert each message
   private rootId = '';
   
   constructor(private translate: TranslateService) {
@@ -70,7 +70,11 @@ export class FilereaderComponent implements OnInit {
         self.importSuccess = true;
         self.importedFileName = file.name;
       }
-      self.showFileLoadStatus = true;
+
+      self.displayAlert = false;
+      setTimeout(() => { // this reloads the message
+        self.displayAlert = true;
+      }, 10);
      
       self.complete.emit(convertResult);
     };
