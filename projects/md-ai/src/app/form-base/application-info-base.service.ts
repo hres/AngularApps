@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials, PriorityReview } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials, PriorityReview, DeclarationComformity } from '../models/Enrollment';
 import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
 import { GlobalService } from '../global/global.service';
 import { DeviceService } from '../inter-device/device.service';
 import { MaterialService } from '../bio-material/material.service';
 import { PriorityReviewService } from '../priority-review/priority-review.service';
+import { DeclarationConformityService } from '../declaration-conformity/declaration-conformity.service';
 
 @Injectable()
 export class ApplicationInfoBaseService {
@@ -19,7 +20,8 @@ export class ApplicationInfoBaseService {
               private _applicationInfoDetailsService : ApplicationInfoDetailsService,
               private _deviceService : DeviceService,
               private _materialService : MaterialService,
-              private _priorityReviewService : PriorityReviewService) {
+              private _priorityReviewService : PriorityReviewService,
+              private _declarationConService : DeclarationConformityService) {
   }
 
   public getEmptyEnrol(): Enrollment {
@@ -29,6 +31,7 @@ export class ApplicationInfoBaseService {
         form_language: '',
         application_info: this.getEmptyApplicationInfoModel(),
         devices: {device: []},
+        declaration_conformity: this.getEmptyDeclarationConModel(),
         material_info: this.getEmptyMaterialInfoModel(),
         priority_review: this.getEmptyPriorityReviewModel()
       }
@@ -68,7 +71,6 @@ export class ApplicationInfoBaseService {
         sap_request_number:'',
         interim_order_authorization: '',
         authorization_id: '',
-        declaration_conformity:  '',
       }
     )
   }
@@ -131,15 +133,25 @@ export class ApplicationInfoBaseService {
     )
   }
 
+  public getEmptyDeclarationConModel() : DeclarationComformity {
+    return (
+      {
+        declaration_conformity: ''
+      }
+    )
+  }
+
 
   private _getRegulatoryActivityLead() {
     return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Devices Directorate', 'Direction des instruments médicaux');
   }
 
-  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, priorityReviewForm) {
+  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, priorityReviewForm, declarationConFrom) {
     let deviceModelList = [];
     let materialModelList = [];
     let materialInfoModel : BiologicalMaterialData = null;
+    let priorityRevModel : PriorityReview = null;
+    let declarationConModel : DeclarationComformity = null;
     
     let aiModel: ApplicationInfo = this.getEmptyApplicationInfoModel();
     this._applicationInfoDetailsService.mapFormModelToDataModel(aiDetailsForm, aiModel, this._globalService.lang());
@@ -167,8 +179,15 @@ export class ApplicationInfoBaseService {
       }
     }
     
-    let priorityRevModel: PriorityReview = this.getEmptyPriorityReviewModel();
-    this._priorityReviewService.mapFormModelToDataModel(priorityReviewForm, priorityRevModel, this._globalService.lang());
+    if (priorityReviewForm) {
+      let priorityRevModel: PriorityReview = this.getEmptyPriorityReviewModel();
+      this._priorityReviewService.mapFormModelToDataModel(priorityReviewForm, priorityRevModel, this._globalService.lang());
+    }
+
+    if (declarationConFrom) {
+      let declarationConModel: DeclarationComformity = this.getEmptyDeclarationConModel();
+      this._declarationConService.mapFormModelToDataModel(declarationConFrom, declarationConModel);
+    }
 
     const output: Enrollment = {
       'DEVICE_APPLICATION_INFO': {
@@ -176,9 +195,10 @@ export class ApplicationInfoBaseService {
         'form_language': this._globalService.getCurrLanguage(),
         'application_info': aiModel,
         'devices': {device : deviceModelList},
+        'declaration_conformity': declarationConModel,
         'material_info' : materialInfoModel,
-        'priority_review' : priorityRevModel
-       }
+        'priority_review' : priorityRevModel       
+      }
    };
 
    // update the last_saved_date

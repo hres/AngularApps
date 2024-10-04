@@ -17,13 +17,10 @@ import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notificat
 })
 
 export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
-  deviceListForm: FormGroup;
   @Input() public deviceListData: Device[];
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  // @Output() public contactsUpdated = new EventEmitter();
-
-  // errors = signal<ControlMessagesComponent[]>([]);
+  deviceListForm: FormGroup;
 
   deviceService = inject(DeviceService)
   deviceListService = inject(DeviceListService)
@@ -33,6 +30,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   errorSummaryChild = null;
 
   popupId = 'devicePopup';
+
+  statusMessage : string = '';
 
   constructor(private fb: FormBuilder, 
               private _utilsService: UtilsService, 
@@ -88,11 +87,13 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
   addDevice() {
     this._deviceService.showDeviceErrorSummaryOneRec.set(false);
+    const newIndex = this.devicesFormArr.length;
     const group = this.deviceService.createDeviceFormGroup(this.fb);
     this.devicesFormArr.push(group);
     if (this.devicesFormArr.length > 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(false);
-    }
+    }    
+    document.location.href = '#deviceName' + newIndex;
   }
 
   saveDeviceRecord(event: any) {  
@@ -121,6 +122,12 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Device record " + id + " has been saved.";
+    } else {
+      this.statusMessage = "Enregistrement d’intrument " + id + " a été sauvegardé.";
+    }
+    document.location.href = '#addDeviceBtn';
   }
 
   private _expandNextInvalidRecord(){
@@ -135,6 +142,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
  }
 
   deleteDeviceRecord(index){
+    const id : string = (index + 1).toString();
     const group = this.devicesFormArr.at(index) as FormGroup;
     const deviceInfo = this.getDeviceInfo(group);
     deviceInfo.reset();
@@ -146,11 +154,16 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     }
     this.errorSummaryChild = null;
     this._emitErrors();
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Device record " + id + " has been deleted.";
+    } else {
+      this.statusMessage = "Enregistrement d’intrument " + id + " a été supprimé.";
+    }
   }
 
   revertDevice(event: any) {  
     const index = event.index;
-    const id = event.id;
+    const id : string = (index + 1).toString();
 
     const group = this.devicesFormArr.at(index) as FormGroup;
     const deviceInfo =this.getDeviceInfo(group);
@@ -158,7 +171,12 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     // Revert to the last saved state
     const lastSavedState = group.get('lastSavedState').value;
 
-    deviceInfo.patchValue(lastSavedState);    
+    deviceInfo.patchValue(lastSavedState);
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Device record " + id + " changes have been discarded.";    
+    } else {
+      this.statusMessage = "Les modifications d’enregistrement d’intrument " + id + " ont été annulées.";
+    }
   }
 
   
@@ -176,9 +194,11 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
             id: device.id,
             isNew: false,
             expandFlag: false,
+            lastSavedState: device
           });
 
-          this._patchDeviceInfoValue(group, device);
+          this._patchDeviceInfoValue(group.get('lastSavedState'), device);
+          this._patchDeviceInfoValue(group.controls['deviceInfo'], device);
 
           this._deviceService.setDeviceDetailsErrorsToNull(group.controls['deviceInfo']);
           this.devicesFormArr.push(group);
@@ -193,23 +213,17 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
 
-    // if (this.isInternal) {
-    //   this._expandNextInvalidRecord();
-    // } else {
-      // expand the first record
-
-      // Set the list of form groups
+    // Set the list of form groups
     this.deviceListService.setList(this.devicesFormArr.controls as FormGroup[]);
   }
 
-  // todo add contact type
-  private _patchDeviceInfoValue(group: FormGroup, device): void {
-    group.controls['deviceInfo'].patchValue({
+  // Change so that it can be used by last saved state and patching in general
+  private _patchDeviceInfoValue(form, device): void {
+    form.patchValue({
       deviceName: device.device_name,
       deviceAuthorized: device.device_authorized,
       licenceNum: device.licence_number,
       deviceApplicationSubmitted: device.device_application_submitted,
-      //deviceApplicationNumber: [null, [Validators.required, ValidationService.appNumValidator ]],
       deviceApplicationNumber: device.device_application_number,
       deviceExplain: device.device_explain
     });
@@ -218,7 +232,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   handleRowClick(event: any) {  
     const clickedIndex = event.index;
     const clickedRecordState = event.state;
-
 
     if (this.deviceListForm.pristine) {
       this.devicesFormArr.controls.forEach( (element: FormGroup, index: number) => {

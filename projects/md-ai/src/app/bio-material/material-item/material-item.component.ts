@@ -98,7 +98,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
 
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
     if (list.length > 1) {
-      console.warn('Contact List found >1 Error Summary ' + list.length);
+      console.warn('Material List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
@@ -146,6 +146,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     } else {
       this.showErrSummary = true;
       this.showErrors = true;
+      document.location.href = '#materialErrorSummary';
     }
   } 
 

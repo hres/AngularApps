@@ -1,4 +1,4 @@
-import {AfterViewInit, Injectable, OnChanges, OnInit} from '@angular/core';
+import {AfterViewInit, Injectable, OnChanges, OnInit, signal} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { IIdTextLabel, UtilsService, ValidationService, YES, NO, CheckboxOption, ConverterService, ICode } from '@hpfb/sdk/ui';
 // import {GlobalsService} from '../globals/globals.service';
@@ -10,6 +10,12 @@ import { GlobalService } from '../global/global.service';
 
 @Injectable()
 export class ApplicationInfoDetailsService {
+
+  public deviceClassIV = signal(false);
+  public deviceClassIII = signal(false);
+
+  public raTypeLicence = signal(false);
+  public raTypeLicenceAmend = signal(false);
 
   constructor(private _utilsService : UtilsService, private _converterService : ConverterService, private _globalService: GlobalService) {
   }
@@ -48,8 +54,7 @@ export class ApplicationInfoDetailsService {
       provisionMdrIOA: [false, []],
       applicationNum: ['', [ValidationService.numeric6Validator]],
       sapReqNum: ['', []],
-      authNum: ['',[ValidationService.numeric6Validator]],
-      declarationConformity : [null, Validators.required]
+      authNum: ['',[ValidationService.numeric6Validator]]
     });
   }
 
@@ -118,7 +123,6 @@ export class ApplicationInfoDetailsService {
     appInfoModel.application_number = formRecord.applicationNum;
     appInfoModel.sap_request_number = formRecord.sapReqNum;
     appInfoModel.authorization_id = formRecord.authNum;
-    appInfoModel.declaration_conformity = formRecord.declarationConformity;
   }
 
   public mapDataModelToFormModel(appInfoModel: ApplicationInfo, formRecord: FormGroup, complianceList: ICode[], complianceOptionList : CheckboxOption[], lang) {
@@ -202,7 +206,6 @@ export class ApplicationInfoDetailsService {
     formRecord.controls['applicationNum'].setValue(appInfoModel.application_number);
     formRecord.controls['sapReqNum'].setValue(appInfoModel.sap_request_number);
     formRecord.controls['authNum'].setValue(appInfoModel.authorization_id);
-    formRecord.controls['declarationConformity'].setValue(appInfoModel.declaration_conformity);
   }
 
   getComplianceChkboxFormArray(formRecord: FormGroup) {
@@ -219,5 +222,7 @@ export class ApplicationInfoDetailsService {
       complianceChkboxFormArray.push(new FormControl(false));
     });
   }
+
+
 
 }

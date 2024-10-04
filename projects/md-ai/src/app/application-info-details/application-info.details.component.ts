@@ -17,26 +17,17 @@ import { MaterialInfoComponent } from '../bio-material/material-info/material-in
   encapsulation: ViewEncapsulation.None
 })
 
-/**
- * Sample component is used for nothing
- */
 export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
   public appInfoFormLocalModel: FormGroup;
   @Input() showErrors: boolean;
   @Input() appInfoModel;
-  @Input() deviceModel;
-  @Input() materialInfo;
 
   @Input() helpTextSequences;
   @Input() loadFileIndicator;
   @Output() detailErrorList = new EventEmitter(true); // For processing app info details errors
-  @Output() deviceErrorList = new EventEmitter(true); // For processing device component errors
-  @Output() materialErrorList = new EventEmitter(true); // For processing material component errors (info + list)
+  @Output() resetMaterialErrorList = new EventEmitter(true); // To reset material errors 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-  
-  @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
-  @ViewChild(MaterialInfoComponent) bioMaterialInfo: MaterialInfoComponent;
 
   // Lists for dropdowns
   public licenceAppTypeList: ICode[] = [];
@@ -55,12 +46,11 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   lang = this._globalService.lang();
 
-  constructor(private _fb: FormBuilder, // todo: private dataLoader: DossierDataLoaderService,
+  constructor(private _fb: FormBuilder,
               private _detailsService : ApplicationInfoDetailsService,
               private _globalService : GlobalService,
               private _converterService : ConverterService,
               private _utilsService: UtilsService) {
-    // todo: dataLoader = new DossierDataLoaderService(this.http);
     this.showFieldErrors = false;
     this.showErrors = false;
     if (!this.appInfoFormLocalModel) {
@@ -103,17 +93,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
 
   ngOnChanges(changes: SimpleChanges) {
 
-    // since we can't detect changes on objects, using a separate flag
-    // if (changes['detailsChanged']) { // used as a change indicator for the model
-      // console.log("the details cbange");
-      // if (this.appInfoFormRecord) {
-      //   this.setToLocalModel();
-
-      // } else {
-      //   this.appInfoFormLocalModel = this.detailsService.getReactiveModel(this._fb);
-      //   this.appInfoFormLocalModel.markAsPristine();
-      // }
-    // }
     if (changes['showErrors']) {
 
       this.showFieldErrors = changes['showErrors'].currentValue;
@@ -134,18 +113,32 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
         this.appInfoFormLocalModel.markAsPristine();
       }
       this._detailsService.mapDataModelToFormModel(dataModel, this.appInfoFormLocalModel, this.complianceCodeList, this.complianceOptionList, this.lang);
+      this.deviceClassOnblur();
+      this.activityTypeOnChange();
     }
   }
 
   deviceClassOnblur() {
     if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
       !this.isDeviceIV()) {
-      this.materialErrorList.emit(true);
-    }
-  }
+      this._detailsService.deviceClassIV.set(false);
+      this.resetMaterialErrorList.emit(true);
+    } 
 
-  processDeviceErrors(errorList) {
-    this.deviceErrorList.emit(errorList);
+    if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
+      this.isDeviceIV()) {
+        this._detailsService.deviceClassIV.set(true);
+    }
+
+    if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
+      !this.isDeviceIII()) {
+      this._detailsService.deviceClassIII.set(false);
+    } 
+
+    if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
+      this.isDeviceIII()) {
+        this._detailsService.deviceClassIII.set(true);
+    }
   }
 
   private _resetControlValues(listOfValues : any[]) {
@@ -296,8 +289,51 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     return false;
   }
 
+  isDeviceIII() {
+    if (this.appInfoFormLocalModel.controls['deviceClass'].value === DeviceClass.ClassIII) {
+      return true;
+    }
+    return false;
+  }
+
   hasDrugOnChange() {
     this._updateComplianceArray();
+  }
+
+  activityTypeOnChange() {
+    if (this.appInfoFormLocalModel.controls['activityType'].value &&
+      this.isActivityTypeLicence()){
+      this._detailsService.raTypeLicence.set(true);
+    }
+
+    if (!this.appInfoFormLocalModel.controls['activityType'].value ||
+      !this.isActivityTypeLicence()) {
+      this._detailsService.raTypeLicence.set(false);
+    }
+
+    if (this.appInfoFormLocalModel.controls['activityType'].value &&
+      this.isActivityTypeLicenceAmend()) {
+      this._detailsService.raTypeLicenceAmend.set(true);
+    }
+
+    if (!this.appInfoFormLocalModel.controls['activityType'].value ||
+      !this.isActivityTypeLicenceAmend()) {
+      this._detailsService.raTypeLicenceAmend.set(false);
+    }
+  }
+
+  isActivityTypeLicence() {
+    if (this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.Licence) {
+      return true;
+    }
+    return false;
+  }
+
+  isActivityTypeLicenceAmend() {
+    if (this.appInfoFormLocalModel.controls['activityType'].value === ActivityType.LicenceAmendment) {
+      return true;
+    }
+    return false;
   }
 
 

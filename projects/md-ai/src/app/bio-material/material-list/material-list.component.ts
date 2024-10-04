@@ -1,14 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren, ViewEncapsulation, effect, inject, signal } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ExpanderModule, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { TranslateModule } from '@ngx-translate/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation, effect, inject, signal } from '@angular/core';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { ErrorSummaryComponent, UtilsService } from '@hpfb/sdk/ui';
 import { MaterialService } from '../material.service';
 import { MaterialListService } from './material-list.service';
 import { GlobalService } from '../../global/global.service';
-import { MaterialItemComponent } from '../material-item/material-item.component';
-import { BiologicalMaterial, BiologicalMaterials } from '../../models/Enrollment';
-import { first } from 'rxjs';
+import { BiologicalMaterial } from '../../models/Enrollment';
 import { ErrorNotificationService } from '@hpfb/sdk/ui/error-msg/error.notification.service';
 import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } from '@hpfb/sdk/ui/error-msg/error-summary/error-summary-object';
 
@@ -20,10 +16,6 @@ import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } f
 
 export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() public materialListData: BiologicalMaterial[];
-  // @Output() public errorListUpdated = new EventEmitter();
-  // @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-
-  lang = this._globalService.lang();
 
   materialListForm: FormGroup;
 
@@ -31,7 +23,6 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   materialListService = inject(MaterialListService)
 
   public showErrors = false;
-  // public errorList = [];
   errorSummaryChild = null;
 
   firstChange: boolean = false;
@@ -40,6 +31,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
   atLeastOneRec = signal(false);
   atLeastOneRecBoolean = false;
+
+  statusMessage : string = '';
 
   constructor(private fb: FormBuilder, 
               private _utilsService: UtilsService, 
@@ -103,11 +96,13 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   addMaterial() {
+    const newIndex = this.materialsFormArr.length;
     const group = this.materialService.createMaterialFormGroup(this.fb);
     this.materialsFormArr.push(group);
     if (this.materialsFormArr.length > 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(false);
     }
+    document.location.href = '#materialName' + newIndex;
   }
 
   saveMaterialRecord(event: any) {  
@@ -134,6 +129,13 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this.atLeastOneRec.set(true);
     }
 
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Biological material record " + id + " has been saved.";
+    } else {
+      this.statusMessage = "Enregistrement du matériel biologique " + id + " a été sauvegardé.";
+    }
+
+    document.location.href = '#addMaterialBtn';
   }
 
   private _expandNextInvalidRecord(){
@@ -148,6 +150,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
  }
 
   deleteMaterialRecord(index){
+    const id : string = (index + 1).toString();
     const group = this.materialsFormArr.at(index) as FormGroup;
     const materialInfo = this.getMaterialInfo(group);
     materialInfo.reset();
@@ -162,11 +165,17 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.materialsFormArr.length == 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(true);
     }
+
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Biological material record " + id + " has been deleted.";
+    } else {
+      this.statusMessage = "Enregistrement du matériel biologique " + id + " a été supprimé.";
+    }
   }
 
   revertMaterial(event: any) {  
     const index = event.index;
-    const id = event.id;
+    const id : string = (index + 1).toString();
 
     const group = this.materialsFormArr.at(index) as FormGroup;
     const materialInfo =this.getMaterialInfo(group);
@@ -174,7 +183,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     // Revert to the last saved state
     const lastSavedState = group.get('lastSavedState').value;
 
-    materialInfo.patchValue(lastSavedState);    
+    materialInfo.patchValue(lastSavedState);
+    if (this._globalService.lang() == "en") {
+      this.statusMessage = "Biological material record " + id + " changes have been discarded.";        
+    } else {
+      this.statusMessage = "Les modification du matériel biologique " + id + " ont été annulées.";
+    }
   }
 
   
@@ -192,9 +206,11 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
               id: material.id,
               isNew: false,
               expandFlag: false,
+              lastSavedState: material
             });
-
-            this._patchMaterialInfoValue(group, material);
+            
+            this._patchMaterialInfoValue(group.get('lastSavedState'), material);
+            this._patchMaterialInfoValue(group.controls['deviceInfo'], material);
 
             this.materialsFormArr.push(group);
           });
@@ -212,8 +228,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   // todo add contact type
-  private _patchMaterialInfoValue(group: FormGroup, material): void {
-    group.controls['materialInfo'].patchValue({
+  private _patchMaterialInfoValue(form, material): void {
+    form.patchValue({
       materialName: material.material_name,
       deviceName: material.device_name,
       originCountry: material.origin_country? material.origin_country._id : '',
@@ -269,35 +285,15 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     return this.materialsFormArr.value;
   }  
 
-  // private _updateLocalErrorList(errs) {
-  //   if (errs) {
-  //     errs.forEach(err => {
-  //      this.errorList.push(err);
-  //     });
-  //   } 
-  //   if (errs.length == 0) {
-  //     this.errorList = errs;
-  //   }
-
-  //   this._emitErrors(); // needed or will generate a valuechanged error
-  // }
-
   private _emitErrors(): void {
     let emitErrors = [];
 
-    if (this.errorSummaryChild) {
-      emitErrors.push(this.errorSummaryChild);
-    }
-    
-    // Error List is a QueryList type
-    // if (this.errorList) {
-    //   this.errorList.forEach(err => {
-    //     emitErrors.push(err);
-    //   })
-    // }
-
     if (this.materialsFormArr.errors) {
       emitErrors.push(this.materialsFormArr.errors['atLeastOneMat']);
+    } else {
+      if (this.errorSummaryChild) {
+        emitErrors.push(this.errorSummaryChild);
+      }
     }
 
    this._materialService.setListErrors(emitErrors);

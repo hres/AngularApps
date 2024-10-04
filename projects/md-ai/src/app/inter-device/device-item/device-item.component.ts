@@ -17,7 +17,6 @@ import { DeviceService } from '../device.service';
 export class DeviceItemComponent implements OnInit, AfterViewInit {
   @Input() cRRow: FormGroup;
   @Input() j: number;
-  //@Input() lang: string;
 
   lang = this._globalService.lang();
 
@@ -96,7 +95,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
     if (list.length > 1) {
-      console.warn('Contact List found >1 Error Summary ' + list.length);
+      console.warn('Device List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
@@ -150,6 +149,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     } else {
       this.showErrSummary = true;
       this.showErrors = true;
+      document.location.href = '#deviceErrorSummary'
     }
   } 
 
