@@ -26,7 +26,7 @@ export class RegulatoryInformationService {
     ],
      dossierId: [
        null,
-       [Validators.required],
+       [Validators.required, this.pharmabioDossierIdValidator],
      ],
      companyId: [null, [Validators.required]],
      productName: [null, [Validators.required]]
@@ -42,11 +42,12 @@ export class RegulatoryInformationService {
    });
   }
 
-  // public mapFormModelToDataModel(formValue: any, dataModel: Ectd): void {
-  //   const lang = this._globalService.currLanguage;
+  public mapFormModelToDataModel(formValue: any, dataModel: Ectd): void {
+    const lang = this._globalService.currLanguage;
 
-  //   dataModel.dossier_id = formValue['dossierType'];
-  //   dataModel.product_name = formValue['masterFileName'];
+    dataModel.company_id = formValue['companyId'];
+    dataModel.dossier_id = formValue['dossierId'];
+    dataModel.product_name = formValue['productName'];
   //   dataModel.lifecycle_record.master_file_number = formValue['masterFileNumber'];
   //   dataModel.lifecycle_record.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfTypes, formValue['masterFileType'], lang);
   //   dataModel.lifecycle_record.master_file_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfUses, formValue['masterFileUse'], lang);
@@ -80,11 +81,12 @@ export class RegulatoryInformationService {
 
   //   // HPFBFORMS-192, Master File Name, allow any case in form but when saving to XML put in upper case
   //   dataModel.product_name = dataModel.product_name?.toUpperCase();
-  // }
+  }
 
-  // public mapDataModelToFormModel(dataModel: Ectd, formRecord: FormGroup): void {
-  //   formRecord.controls['dossierType'].setValue(dataModel.dossier_id);
-  //   formRecord.controls['masterFileName'].setValue(dataModel.product_name);
+  public mapDataModelToFormModel(dataModel: Ectd, formRecord: FormGroup): void {
+    formRecord.controls['companyId'].setValue(dataModel.company_id);
+    formRecord.controls['dossierId'].setValue(dataModel.dossier_id);
+    formRecord.controls['productName'].setValue(dataModel.product_name);
   //   formRecord.controls['masterFileNumber'].setValue(dataModel.lifecycle_record.master_file_number);
 
   //   if(dataModel.lifecycle_record.regulatory_activity_type?._id){
@@ -117,8 +119,20 @@ export class RegulatoryInformationService {
   //     formRecord.controls['revisedDescriptionType'].setValue(id? id : null);
   //   } else {
   //     formRecord.controls['revisedDescriptionType'].setValue(null);
-  //   }
+    // }
     
-  // }
+  }
+
+  //TODO: to move to pharmabio library
+  static pharmabioDossierIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[a-z]{1}[0-9]{6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.dossier.id': true};
+    }
+  }
 
 }

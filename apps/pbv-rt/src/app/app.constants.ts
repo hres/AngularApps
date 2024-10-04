@@ -9,10 +9,22 @@ export const FILE_OUTPUT_PREFIX = 'REP';
 export const helpInstructionHeadings = [
     'loadFileIndx',
     'dossierTypeIndx',
-    'companyIdIndx',
+    'compIdIndx',
     'dossierIdIndx',
-    'productNameIndx',
-    'controlNumberIndx'
+    'prodNameIndx',
+    'prioRevIndx',
+    'nocRevIndx',
+    'adminSubIndx',
+    'ctrlNumIndx',
+    'regActIndx',
+    'yearChangeIndx',
+    'briefDescIndx',
+    'requestSoliIndx',
+    'feeTransIndx',
+    'feesIndx',
+    'regContactIndx',
+    'routeIdIndx',
+    'genFinalIndx'
   ];
 
 export const DOSSIER_TYPE = {
