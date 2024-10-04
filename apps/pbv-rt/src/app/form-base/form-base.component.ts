@@ -7,9 +7,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol, IContactInformation} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
 import { RegulatoryInformationComponent } from '../regulatory-information/regulatory-information.component';
+import { RegulatoryContactComponent } from '../regulatory-contact/regulatory-contact.component';
 
 @Component({
     selector: 'app-form-base',
@@ -30,12 +31,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
+  @ViewChild(RegulatoryContactComponent) regulatoryContactComponent: RegulatoryContactComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
   // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
   // @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
   private _regulatoryInfoErrors = [];
+  private _regulatoryContactErrors = [];
   // private _transFeeErrors = [];
   // private _addressErrors = [];
   // private _contactErrors = [];
@@ -56,6 +59,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
+  public contactModel: IContactInformation;
   // public holderAddressModel: INameAddress;
   // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact; 
@@ -139,7 +143,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log('@@@@@@@@@@@@ processErrors');
     this.errorList = [];
     // concat the error arrays
-    this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
+    this.errorList = this.errorList.concat(this._regulatoryInfoErrors.concat(this._regulatoryContactErrors));
 
     // if (this.showContact()) {
     //   this.errorList = this.errorList.concat(
@@ -163,6 +167,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processRegulatoryInfoErrors(errorList) {
     this._regulatoryInfoErrors = errorList;
+    this.processErrors();
+  }
+
+  processContactInfoErrors(errorList) {
+    this._regulatoryContactErrors = errorList;
     this.processErrors();
   }
 
@@ -234,6 +243,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (trans.fee_details != null) {
       this.transFeeModel = trans.fee_details;
     }
+    this.contactModel = trans.contact_info;
   }
 
   public preload() {

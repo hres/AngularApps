@@ -1,1 +1,44 @@
-<p>regulatory-contact works!</p>
+<div>
+    <div [formGroup]="regulatoryContactForm">
+        <h3 class="mrgn-tp-sm">{{ 'company.info' | translate }}</h3>
+        <div class="row form-group">
+            <fieldset class="col-md-12 chkbxrdio-grp">
+                <legend class="required" id="thirdPartyId">
+                    {{ 'is.signed.3rd.party' | translate}}
+                    <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+                    <control-messages *ngIf="regulatoryContactForm.controls['isSigned3rdParty'].invalid" [showError]="showFieldErrors"
+                    [control]="regulatoryContactForm.controls['isSigned3rdParty'] | formControl" controlId="thirdPartyId"
+                    label="is.signed.3rd.party" parentId="pbvContact"></control-messages>
+                </legend>
+                <ng-container *ngFor="let yesno of yesNoList; let i = index">
+                    <label for="isSigned3rdParty{{i}}" class="radio-inline">
+                        <input type="radio"
+                        id="isSigned3rdParty{{i}}" name="isSigned3rdParty" [value]="yesno.id"
+                        (change)="isSigned3rdPartyChanged()"
+                        [formControl]="regulatoryContactForm.controls['isSigned3rdParty'] | formControl" required/>
+                        {{yesno | textTransform: lang}}
+                    </label>
+                </ng-container>
+            </fieldset>
+        </div>
+        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showThirdPartyNote">
+            <div class="alert alert-info" role="alert">
+                <p aria-live="polite">{{ 'aut.letter.note' | translate}}</p>
+            </div>
+        </div>
+        <div class="row" *ngIf="showCompanyNameField()">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="companyName" class="required">
+                    <span class="field-name">{{ 'company.name'|translate }}</span>
+                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <control-messages *ngIf="regulatoryContactForm.controls['companyName'].invalid"
+                        [showError]="showFieldErrors"
+                        [control]="regulatoryContactForm.controls['companyName'] | formControl" controlId="companyName"
+                        label="company.name" parentId="pbvContact"></control-messages>
+                    <input maxlength="100" id="companyName" class="form-control"
+                        name="companyName" [formControl]="regulatoryContactForm.controls['companyName'] | formControl" />
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

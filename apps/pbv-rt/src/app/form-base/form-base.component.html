@@ -47,6 +47,22 @@
             todo <!-- <app-fees [testinput]="isVeterinaryDossierType()"></app-fees> -->
           </div>
       </section>
+
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.reg.contact.this'|translate}}
+            <h2 class="panel-title">{{'load.file'|translate}}
+              todo <!-- <sup id="tr1-rf">
+                <a class="fn-lnk mrgn-tp-md" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileIndx']}}</a>
+              </sup> -->
+            </h2>
+          </h2>
+          </header>
+          <div class="panel-body">
+            <app-regulatory-contact [showErrors]="showErrors" [dataModel]="contactModel"
+            (errorList)="processRegulatoryInfoErrors($event)"></app-regulatory-contact>
+          </div>
+      </section>
     </div>
 
     <div class="row btn-group-sm">

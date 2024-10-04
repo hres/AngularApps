@@ -12,6 +12,7 @@ export interface TransactionEnrol {
   check_sum?: string;
   ectd: Ectd;
   fee_details: FeeDetails;
+  contact_info: IContactInformation;
 }
 
 export interface Ectd {
@@ -46,8 +47,12 @@ export interface LifecycleRecord {
 export interface FeeDetails {
 }
 
-export interface INameAddress {
+export interface IContactInformation {
+  is_3rd_party_signed: string;
   company_name: string;
+}
+
+export interface INameAddress {
   street_address: string;
   city: string;
   province_lov: IIdText;
