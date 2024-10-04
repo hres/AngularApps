@@ -33,9 +33,9 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   public regulartoryInfoForm: FormGroup;
   // @Input() detailsChanged: number;
-  // @Input() showErrors: boolean;
-  // @Input() dataModel: Ectd;
-  // @Output() errorList = new EventEmitter(true);
+  @Input() showErrors: boolean;
+  @Input() dataModel: Ectd;
+  @Output() errorList = new EventEmitter(true);
   // @Output() trDescUpdated = new EventEmitter();
 
   dossierTypeOptions: ICodeDefinition[] = [];
@@ -102,19 +102,19 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     // console.log("RegulatoryInformationComponent ~ ngOnChanges ~ isFirstChange:", isFirstChange);
     // Ignore first trigger of ngOnChanges
     if (!isFirstChange) {
-      // if (changes['showErrors']) {
-      //   this.showFieldErrors = changes['showErrors'].currentValue;
-      // }
-      // if (changes['dataModel']) {
-      //   const dataModelCurrentValue = changes['dataModel'].currentValue as Ectd;
-      //   this._regulatoryInfoService.mapDataModelToFormModel(
-      //     dataModelCurrentValue,
-      //     <FormGroup>this.regulartoryInfoForm,);
+      if (changes['showErrors']) {
+        this.showFieldErrors = changes['showErrors'].currentValue;
+      }
+      if (changes['dataModel']) {
+        const dataModelCurrentValue = changes['dataModel'].currentValue as Ectd;
+        this._regulatoryInfoService.mapDataModelToFormModel(
+          dataModelCurrentValue,
+          <FormGroup>this.regulartoryInfoForm);
 
-      //   this.onMfTypeSelected(null);
-      //   this.onTxDescriptionSelected(null);
-      //   this.reqRevisionChanged(null);
-      // }
+        // this.onMfTypeSelected(null);
+        // this.onTxDescriptionSelected(null);
+        // this.reqRevisionChanged(null);
+      }
     }
   }
 
@@ -196,9 +196,9 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   //   return this.regulartoryInfoForm.get('masterFileType').value;
   // }
 
-  // getFormValue() {
-  //   return this.regulartoryInfoForm.value;
-  // }
+  getFormValue() {
+    return this.regulartoryInfoForm.value;
+  }
 
   private _resetControlValues(controlNames: string[]) {
     for (let i = 0; i < controlNames.length; i++) {

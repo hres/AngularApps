@@ -344,8 +344,11 @@
     "non.visible": "[ Cette section peut ne pas être visible. ] ",
     "ctrl.num": "Numéro de contrôle",
     "routing.id": "Identificateur d'acheminement",
-    "help.email": "ESGHelpDesk@fda.hhs.gov"
+    "help.email": "ESGHelpDesk@fda.hhs.gov",
     "5digits.only": " (5 chiffres seulement)",
     "commmon.required.bracket": " (obligatoire)",
-    "dossier.id.format": "(composé d’une lettre minuscule suivie de six chiffres)"
+    "dossier.id.format": "(composé d’une lettre minuscule suivie de six chiffres)",
+    "error.msg.minlength": "Veuillez fournir au moins {{ requiredLength }} chiffres.",
+    "error.mgs.dossier.id": "Format incorrect. - Le numéro de dossier est incorrect pour ce type de dossier. Veuillez vérifier le numéro de dossier et le type de dossier pour votre produit."
+
 }

@@ -9,6 +9,7 @@ import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VER
 import { FormBaseService } from './form-base.service';
 import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
+import { RegulatoryInformationComponent } from '../regulatory-information/regulatory-information.component';
 
 @Component({
     selector: 'app-form-base',
@@ -28,13 +29,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   
-  // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
+  @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
   // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
   // @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
-  // private _regulatoryInfoErrors = [];
+  private _regulatoryInfoErrors = [];
   // private _transFeeErrors = [];
   // private _addressErrors = [];
   // private _contactErrors = [];
@@ -138,7 +139,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log('@@@@@@@@@@@@ processErrors');
     this.errorList = [];
     // concat the error arrays
-    // this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
+    this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
 
     // if (this.showContact()) {
     //   this.errorList = this.errorList.concat(
@@ -160,10 +161,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.cdr.detectChanges(); // doing our own change detection
   }
 
-  // processRegulatoryInfoErrors(errorList) {
-  //   this._regulatoryInfoErrors = errorList;
-  //   this.processErrors();
-  // }
+  processRegulatoryInfoErrors(errorList) {
+    this._regulatoryInfoErrors = errorList;
+    this.processErrors();
+  }
 
   // processContactErrors(errorList) {
   //   this._contactErrors = errorList;
@@ -287,9 +288,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const newTransactionEnrol: TransactionEnrol = this._baseService.getEmptyTransactionEnrol();
 
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
-    // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
-    // const certificationFormGroupValue = this.certificationComponent.getFormValue(); 
-    // this._baseService.mapRequiredFormsToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue, certificationFormGroupValue);
+    const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
+    this._baseService.mapRequiredFormsToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue);
 
     // // contactInfo and fee are conditional rendered, do their mappings to output data only when applicable
     // if (this.showContact()) {
