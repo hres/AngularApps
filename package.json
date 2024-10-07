@@ -10,14 +10,16 @@
     "========== comment line, PharmaBio REP RT ==========": "",
     "start-pbv:rt": "pnpm --filter pbv-rt start",
     "========== comment line, hpfb/sdk lib scripts==========": "",
-    "sdk-lib:build": "ng build @hpfb/sdk",
+    "sdk-lib-increment-build-number": "pnpm run increment-build-number  ./projects/hpfb/sdk/package.json",
+    "sdk-lib:build": "pnpm run sdk-lib-increment-build-number && ng build @hpfb/sdk",
     "sdk-lib:watch": "ng build @hpfb/sdk --watch --configuration development",
     "sdk-lib:package": "cd dist/hpfb/sdk && npm pack",
     "sdk-lib:move": "npm run move-file -- --source_relative_path ./dist/hpfb/sdk --filename_pattern hpfb-*.tgz --destination_relative_path ./libs",
     "sdk-lib:buildPackageAndMove": "run-s sdk-lib:build sdk-lib:package sdk-lib:move",
     "========== comment line, util scripts==========": "",
     "clean-dist": "rimraf dist",
-    "move-file": "python ./python/utils/move-file.py  "
+    "move-file": "python ./python/utils/move-file.py ",
+    "increment-build-number": "python ./python/utils/increment-build-number.py "
   },
   "private": true,
   "dependencies": {
