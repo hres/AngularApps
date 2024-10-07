@@ -6,19 +6,20 @@ import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParent
 @Injectable()
 export class FormDataLoaderService {
 
-  // private keywordsJsonPath = DATA_PATH + 'keywords.json';
+  private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private countriesJsonPath = DATA_PATH + 'countries.json';
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
   private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
+  private adminSubTypesJsonPath = DATA_PATH + 'adminSubTypes.json';
   
   cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
-  cachedWhoResponsible$:Observable<ICode[]>;
   cachedCountries$:Observable<ICode[]>;
   cachedProvinces$:Observable<ICode[]>;
   cachedStates$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
+  cachedAdminSubTypes$: Observable<ICode[]>;
   // mfUseOptions$: Observable<ICode[]>;
   // txDescs$: Observable<ICodeDefinition[]>;
   // mfTypeTxDescOptions$: Observable<IParentChildren[]>;
@@ -69,4 +70,25 @@ export class FormDataLoaderService {
     return this.dossierTypes$;
   }
 
+  getYesNoList(): Observable<ICode[]> {
+    if (!this.cachedYesNo$) {
+      this.cachedYesNo$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          map(keywords => {
+            return keywords.find(keyword => keyword.name === 'yesno')?.data || [];
+          }),
+          // tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedYesNo$;
+  }
+
+  getAdminSubTypes(): Observable<ICode[]> {
+    this.cachedAdminSubTypes$ = this._dataService.getData<ICode>(this.adminSubTypesJsonPath)
+    .pipe(
+      shareReplay(1)
+    );
+    return this.cachedAdminSubTypes$;
+  }
 }

@@ -39,6 +39,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   // @Output() trDescUpdated = new EventEmitter();
 
   dossierTypeOptions: ICodeDefinition[] = [];
+  adminSubTypeOptions: ICode[] = [];
   // mfTypeDescArray: IParentChildren[] = [];
   // mfRevisedTypeDescArray: IParentChildren[] = [];
   // mfUseOptions: ICode[] = [];
@@ -47,8 +48,9 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   // descriptionTypeList: ICodeDefinition[];
   selectedDossierTypeDefinition: string;
   // selectedTxDescDefinition: string;
-  // public yesNoList: ICode[] = [];
+  public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
+
     
   // txDescRquireRevise: string = '13';
 
@@ -71,6 +73,23 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   private _signalService = inject(AppSignalService)
 
+  readonly pharma: string = 'D22';
+  readonly bio: string = 'D21';
+  readonly vet: string = 'D24';
+
+  readonly selectedDossierTypeSignal = this._signalService.getSelectedDossierType();
+  isPharmaBio = computed(() => {
+    return this.selectedDossierTypeSignal() === this.pharma || this.selectedDossierTypeSignal() === this.bio;
+  });
+  dossierTypeSelected = computed(() => {
+    return this.selectedDossierTypeSignal() === this.pharma || this.selectedDossierTypeSignal() === this.bio || this.selectedDossierTypeSignal() === this.vet;
+  });
+
+  adminSubmissionSelected = signal('');
+  isAdminSubmission = computed(() => {
+    return this.adminSubmissionSelected() === 'Y';
+  });
+
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
@@ -90,7 +109,8 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     // this.mfTypeDescArray = this._globalService.mfTypeTxDescs;
     // this.mfRevisedTypeDescArray = this._globalService.mfRevisedTypeDescs;
     // this.mfUseOptions = this._globalService.mfUses;
-    // this.yesNoList = this._globalService.yesnoList;
+    this.yesNoList = this._globalService.yesnoList;
+    this.adminSubTypeOptions = this._globalService.adminSubTypes;
   }
 
   protected override emitErrors(errors: any[]): void {
@@ -133,6 +153,10 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   //     const valuesToReset = ['revisedDescriptionType'];
   //     this._resetControlValues(valuesToReset);
   //   }
+  }
+
+  onAdminSubmissionSelected(e:any) {
+    this.adminSubmissionSelected.set(this.regulartoryInfoForm.get("isAdminSubmission")?.value);
   }
 
   // onTxDescriptionSelected(e: any): void {

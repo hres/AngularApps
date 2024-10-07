@@ -28,6 +28,7 @@ export class GlobalService {
   private _stateList: ICode[];
   private _yesnoList: ICode[];
   private _dossierTypes: ICodeDefinition[] = [];
+  private _adminSubTypes: ICode[];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -141,5 +142,13 @@ export class GlobalService {
   
   public set dossierTypes(value: ICodeDefinition[]) {
     this._dossierTypes = value;
+  }
+
+  public get adminSubTypes(): ICode[] {
+    return this._adminSubTypes;
+  }
+
+  public set adminSubTypes(value: ICode[]) {
+    this._adminSubTypes = value;
   }
 }
