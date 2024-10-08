@@ -27,5 +27,12 @@ export abstract class BaseComponent implements AfterViewInit {
     this.emitErrors(temp);
   }
 
+  // append errors from child component
+  protected _appendErrorsFromChild(errorsFromChild: ControlMessagesComponent[]) {
+    const parentErrors = this.msgList.toArray();
+    const combinedErrors = [...parentErrors, ...errorsFromChild];
+    this.emitErrors(combinedErrors);  // Call the abstract method
+  }
+
   protected abstract emitErrors(errors: any[]): void;
 }
