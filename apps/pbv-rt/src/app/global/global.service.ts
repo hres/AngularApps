@@ -34,6 +34,8 @@ export class GlobalService {
   private _dossierTypeAndRaLeadsRelationship: any[] = [];
   private _raLeadAndRaTypesRelationship: any[] = [];
   private _dossierTypeRaTypeAndTransactionDescriptionsRelationship: any[] = [];
+  private _dossierTypeRaLeads: IParentChildren[] = [];
+  private _adminSubTypes: ICode[];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -144,7 +146,7 @@ export class GlobalService {
   public get dossierTypes(): ICodeDefinition[] {
     return this._dossierTypes;
   }
-  
+
   public set dossierTypes(value: ICodeDefinition[]) {
     this._dossierTypes = value;
   }
@@ -164,7 +166,7 @@ export class GlobalService {
   public set raTypes(value: ICodeDefinition[]) {
     this._raTypes = value;
   }
-  
+
   public get transactionDescriptions(): ICodeDefinition[] {
     return this._transactionDescriptions;
   }
@@ -172,7 +174,7 @@ export class GlobalService {
   public set transactionDescriptions(value: ICodeDefinition[]) {
     this._transactionDescriptions = value;
   }
-  
+
   public get dossierTypeAndRaLeadsRelationship(): any[] {
     return this._dossierTypeAndRaLeadsRelationship;
   }
@@ -195,5 +197,13 @@ export class GlobalService {
 
   public set dossierTypeRaTypeAndTransactionDescriptionsRelationship(value: any[]) {
     this._dossierTypeRaTypeAndTransactionDescriptionsRelationship = value;
+  }
+
+  public get adminSubTypes(): ICode[] {
+    return this._adminSubTypes;
+  }
+
+  public set adminSubTypes(value: ICode[]) {
+    this._adminSubTypes = value;
   }
 }

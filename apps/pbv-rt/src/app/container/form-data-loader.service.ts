@@ -6,7 +6,7 @@ import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParent
 @Injectable()
 export class FormDataLoaderService {
 
-  // private keywordsJsonPath = DATA_PATH + 'keywords.json';
+  private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private countriesJsonPath = DATA_PATH + 'countries.json';
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
@@ -14,14 +14,15 @@ export class FormDataLoaderService {
   private raLeadsJsonPath = DATA_PATH + 'raLeads.json';
   private raTypesJsonPath = DATA_PATH + 'raTypes.json';
   private transactionDescriptionsJsonPath = DATA_PATH + 'transactionDescriptions.json';
+  private adminSubTypesJsonPath = DATA_PATH + 'adminSubTypes.json';
 
   cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
-  cachedWhoResponsible$:Observable<ICode[]>;
   cachedCountries$:Observable<ICode[]>;
   cachedProvinces$:Observable<ICode[]>;
   cachedStates$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
+  cachedAdminSubTypes$: Observable<ICode[]>;
   raLeads$: Observable<ICodeDefinition[]>;
   raTypes$: Observable<ICodeDefinition[]>;
   transactionDescriptions$: Observable<ICodeDefinition[]>;
@@ -38,7 +39,7 @@ export class FormDataLoaderService {
           // tap(()=>console.log('getCountryList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedCountries$;
   }
 
@@ -49,7 +50,7 @@ export class FormDataLoaderService {
           // tap(()=>console.log('getProvinceList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedProvinces$;
   }
 
@@ -60,7 +61,7 @@ export class FormDataLoaderService {
           // tap(()=>console.log('getStateList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedStates$;
   }
 
@@ -78,7 +79,7 @@ export class FormDataLoaderService {
     // store the shared observable in a private property and reusing it in subsequent calls
     if (!this.raLeads$) {
       this.raLeads$ = this._dataService
-        .getData<ICodeDefinition>(this.raLeadsJsonPath) 
+        .getData<ICodeDefinition>(this.raLeadsJsonPath)
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
@@ -91,7 +92,7 @@ export class FormDataLoaderService {
     // store the shared observable in a private property and reusing it in subsequent calls
     if (!this.raTypes$) {
       this.raTypes$ = this._dataService
-        .getData<ICodeDefinition>(this.raTypesJsonPath) 
+        .getData<ICodeDefinition>(this.raTypesJsonPath)
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
@@ -104,7 +105,7 @@ export class FormDataLoaderService {
     // store the shared observable in a private property and reusing it in subsequent calls
     if (!this.transactionDescriptions$) {
       this.transactionDescriptions$ = this._dataService
-        .getData<ICodeDefinition>(this.transactionDescriptionsJsonPath) 
+        .getData<ICodeDefinition>(this.transactionDescriptionsJsonPath)
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
@@ -116,7 +117,7 @@ export class FormDataLoaderService {
   getDossierTypeAndRaLeads(): Observable<any[]> {
     if (!this.dossierTypeAndRaLeadsRelationship$) {
       this.dossierTypeAndRaLeadsRelationship$ = this._dataService
-        .getData<any>(DATA_PATH + 'dossierTypeAndRaLeads.json') 
+        .getData<any>(DATA_PATH + 'dossierTypeAndRaLeads.json')
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
@@ -128,7 +129,7 @@ export class FormDataLoaderService {
   getRaLeadAndRaTypes(): Observable<any[]> {
     if (!this.raLeadAndRaTypesRelationship$) {
       this.raLeadAndRaTypesRelationship$ = this._dataService
-        .getData<any>(DATA_PATH + 'raLeadAndRaTypes.json') 
+        .getData<any>(DATA_PATH + 'raLeadAndRaTypes.json')
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
@@ -140,7 +141,7 @@ export class FormDataLoaderService {
   getDossierTypeRaTypeAndTransactionDescriptions(): Observable<any[]> {
     if (!this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$) {
       this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$ = this._dataService
-        .getData<any>(DATA_PATH + 'dossierTypeRaTypeAndTransactionDescriptions.json') 
+        .getData<any>(DATA_PATH + 'dossierTypeRaTypeAndTransactionDescriptions.json')
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
@@ -148,7 +149,28 @@ export class FormDataLoaderService {
     }
     return this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$;
   }
-  
-  
 
+
+
+  getYesNoList(): Observable<ICode[]> {
+    if (!this.cachedYesNo$) {
+      this.cachedYesNo$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          map(keywords => {
+            return keywords.find(keyword => keyword.name === 'yesno')?.data || [];
+          }),
+          // tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    }
+    return this.cachedYesNo$;
+  }
+
+  getAdminSubTypes(): Observable<ICode[]> {
+    this.cachedAdminSubTypes$ = this._dataService.getData<ICode>(this.adminSubTypesJsonPath)
+    .pipe(
+      shareReplay(1)
+    );
+    return this.cachedAdminSubTypes$;
+  }
 }

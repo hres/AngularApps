@@ -14,7 +14,7 @@
                         [control]="regulartoryInfoForm.controls['dossierType'] | formControl" controlId="dossierType"
                         label="dossier.type" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <select id="dossierType" name="dossierType" required class="form-control full-width"
+                <select id="dossierType" name="dossierType" required class="form-control"
                     [formControlName]="'dossierType'" (change)="onDossierTypeSelected($any($event.target).value)">
                     <option label=" " value=""></option>
                     <option *ngFor="let item of dossierTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
@@ -56,7 +56,7 @@
                         [control]="regulartoryInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
                         label="dossier.id" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="dossierId" name="dossierId" class="form-control" 
+                <input id="dossierId" name="dossierId" class="form-control"
                             [formControlName]="'dossierId'" maxlength="8" size="7" />
             </div>
           </div>
@@ -78,6 +78,99 @@
                             [formControlName]="'productName'" maxlength="400" ></textarea>
             </div>
           </div>
+          <div class="row form-group" *ngIf="isPharmaBio()">
+            <fieldset class="col-md-12 chkbxrdio-grp">
+              <legend class="required" id="isPriority">
+                {{'is.priority' |translate}}
+                <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+                <sup id="tr6-rf">
+                  <a class="fn-lnk" href="#tr6"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prioRevIndx']}}</a>
+                </sup>
+                <control-messages *ngIf="regulartoryInfoForm.controls['isPriority'].invalid" [showError]="showFieldErrors"
+                  [control]="regulartoryInfoForm.controls['isPriority'] | formControl" controlId="isPriority"
+                  label="is.priority" parentId="regulatoryInfo"></control-messages>
+              </legend>
+              <ng-container *ngFor="let yesno of yesNoList; let i = index">
+                <label for="isPriority{{i}}" class="radio-inline">
+                  <input type="radio"
+                    id="isPriority{{i}}" name="isPriority" [value]="yesno.id"
+                    [formControl]="regulartoryInfoForm.controls['isPriority'] | formControl" required/>
+                  {{yesno | textTransform: lang }}
+                  </label>
+               </ng-container>
+            </fieldset>
+        </div>
+        <div class="row form-group" *ngIf="isPharmaBio()">
+            <fieldset class="col-md-12 chkbxrdio-grp">
+              <legend class="required" id="isPriority">
+                {{'is.noc' |translate}}
+                <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+                <sup id="tr7-rf">
+                  <a class="fn-lnk" href="#tr7"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['nocRevIndx']}}</a>
+                </sup>
+                <control-messages *ngIf="regulartoryInfoForm.controls['isNOC'].invalid" [showError]="showFieldErrors"
+                  [control]="regulartoryInfoForm.controls['isNOC'] | formControl" controlId="isNOC"
+                  label="is.noc" parentId="regulatoryInfo"></control-messages>
+              </legend>
+              <ng-container *ngFor="let yesno of yesNoList; let i = index">
+                <label for="isNOC{{i}}" class="radio-inline">
+                  <input type="radio"
+                    id="isNOC{{i}}" name="isNOC" [value]="yesno.id"
+                    [formControl]="regulartoryInfoForm.controls['isNOC'] | formControl" required/>
+                  {{yesno | textTransform: lang }}
+                  </label>
+               </ng-container>
+            </fieldset>
+        </div>
+        <div class="row form-group" *ngIf="dossierTypeSelected()">
+            <fieldset class="col-md-12 chkbxrdio-grp">
+              <legend class="required" id="isPriority">
+                {{'is.admin.submission' |translate}}
+                <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+                <sup id="tr8-rf">
+                  <a class="fn-lnk" href="#tr8"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminSubIndx']}}</a>
+                </sup>
+                <control-messages *ngIf="regulartoryInfoForm.controls['isAdminSubmission'].invalid" [showError]="showFieldErrors"
+                  [control]="regulartoryInfoForm.controls['isAdminSubmission'] | formControl" controlId="isAdminSubmission"
+                  label="is.admin.submission" parentId="regulatoryInfo"></control-messages>
+              </legend>
+              <ng-container *ngFor="let yesno of yesNoList; let i = index">
+                <label for="isAdminSubmission{{i}}" class="radio-inline">
+                  <input type="radio" (change)="onAdminSubmissionSelected($event)"
+                    id="isAdminSubmission{{i}}" name="isAdminSubmission" [value]="yesno.id"
+                    [formControl]="regulartoryInfoForm.controls['isAdminSubmission'] | formControl" required/>
+                  {{yesno | textTransform: lang }}
+                  </label>
+               </ng-container>
+            </fieldset>
+        </div>
+        <div class="row form-group well" *ngIf="isAdminSubmission()">
+            <p>{{'refer.to.guide.doc'|translate}}
+                <a href="{{'admin.guide.doc.url'|translate}}">{{'admin.guide.doc'|translate}}</a>
+            </p>
+            <p>{{'admin.guide.doc.note'|translate}}</p>
+            <p>{{'admin.guide.doc.note2'|translate}}</p>
+        </div>
+        <div class="row" *ngIf="isAdminSubmission()">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="adminSubType" class="required">
+                    <span class="field-name">{{'admin.sub.type'|translate }}</span>
+                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <control-messages *ngIf="regulartoryInfoForm.controls['adminSubType'].invalid"
+                        [showError]="showFieldErrors"
+                        [control]="regulartoryInfoForm.controls['adminSubType'] | formControl" controlId="adminSubType"
+                        label="admin.sub.type" parentId="regulatoryInfo"></control-messages>
+                </label>
+                <select id="adminSubType" name="adminSubType" required class="form-control"
+                    [formControlName]="'adminSubType'">
+                    <option label=" " value=""></option>
+                    <option *ngFor="let item of adminSubTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
+                </select>
+            </div>
+          </div>
           <section class="panel  panel-default">
             <header class="panel-heading clearfix group-beside">
               <h3 class="panel-title">{{'heading.transaction.details'|translate}}</h3>
@@ -86,7 +179,7 @@
               <app-transaction-details #transactionDetailsChild [showErrors]="showErrors"(errorList)="processTransactionDetailsErrors($event)"></app-transaction-details>
             </div>
           </section>
-                  <!--        
+                  <!--
         <div class="row" *ngIf="selectedMfTypeDefinition">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="alert alert-info" role="alert">
@@ -161,7 +254,7 @@
                         [control]="regulartoryInfoForm.controls['requester'] | formControl" controlId="requester"
                         label="requester.title" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="requester" name="requester" type="text" class="form-control full-width" 
+                <input id="requester" name="requester" type="text" class="form-control full-width"
                     [formControlName]="'requester'">
             </div>
         </div>
@@ -179,7 +272,7 @@
                 <ul class="form-group form-inline list-unstyled">
                     <li class="label-inline" *ngFor="let yesno of yesNoList; let i = index">
                         <label for="reqRevision{{i}}">
-                        <input type="radio" name="reqRevision" id="reqRevision{{i}}" [value]="yesno.id" 
+                        <input type="radio" name="reqRevision" id="reqRevision{{i}}" [value]="yesno.id"
                             (change)="reqRevisionChanged($event)"
                             [formControlName]="'reqRevision'" required />
                         {{ yesno | textTransform: lang }}</label>

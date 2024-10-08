@@ -33,7 +33,7 @@ import { TransactionDetailsComponent } from '../transaction-details/transaction-
 })
 export class RegulatoryInformationComponent extends BaseComponent implements OnInit {
   lang: string;
-  helpIndex: HelpIndex; 
+  helpIndex: HelpIndex;
 
   public regulartoryInfoForm: FormGroup;
   // @Input() detailsChanged: number;
@@ -51,7 +51,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   // descriptionTypeList: ICodeDefinition[];
   selectedDossierTypeDefinition: string;
   // selectedTxDescDefinition: string;
-  // public yesNoList: ICode[] = [];
+  public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
 
   private tranDetailsChild = viewChild("transactionDetailsChild", {
@@ -77,7 +77,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   private _signalService = inject(AppSignalService)
 
-  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
+  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder,
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -86,7 +86,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-    
+
     if (!this.regulartoryInfoForm) {
       this.regulartoryInfoForm = RegulatoryInformationService.getRegularInfoForm(this._fb);
     }
@@ -96,7 +96,8 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     // this.mfTypeDescArray = this._globalService.mfTypeTxDescs;
     // this.mfRevisedTypeDescArray = this._globalService.mfRevisedTypeDescs;
     // this.mfUseOptions = this._globalService.mfUses;
-    // this.yesNoList = this._globalService.yesnoList;
+    this.yesNoList = this._globalService.yesnoList;
+    this.adminSubTypeOptions = this._globalService.adminSubTypes;
   }
 
   protected override emitErrors(errors: ControlMessagesComponent[]): void {
@@ -212,7 +213,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     const regInfoFormValues = this.regulartoryInfoForm.value;
     const tranDetailsFormValues = this.tranDetailsChild().getFormValue();
 
-    return { ...regInfoFormValues, ...tranDetailsFormValues };       
+    return { ...regInfoFormValues, ...tranDetailsFormValues };
   }
 
   private _resetControlValues(controlNames: string[]) {

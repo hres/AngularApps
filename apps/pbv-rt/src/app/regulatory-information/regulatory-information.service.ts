@@ -29,7 +29,11 @@ export class RegulatoryInformationService {
        [Validators.required, this.pharmabioDossierIdValidator],
      ],
      companyId: [null, [Validators.required]],
-     productName: [null, [Validators.required]]
+     productName: [null, [Validators.required]],
+     isPriority: [null, [Validators.required]],
+     isNOC: [null, [Validators.required]],
+     isAdminSubmission: [null, [Validators.required]],
+     adminSubType:[null, [Validators.required]]
     //  masterFileName: [null, Validators.required],
     //  masterFileNumber: [null, ValidationService.masterFileNumberValidator],
     //  masterFileType: [null, Validators.required],
@@ -49,29 +53,32 @@ export class RegulatoryInformationService {
     dataModel.company_id = formValue['companyId'];
     dataModel.dossier_id = formValue['dossierId'];
     dataModel.product_name = formValue['productName'];
-    dataModel.lifecycle_record.control_number = formValue['controlNumber'];
-    dataModel.lifecycle_record.regulatory_activity_lead = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.raLeads, formValue['activityLead'], lang);
-  
+    dataModel.is_priority = formValue['isPriority'];
+    dataModel.is_noc = formValue['isNOC'];
+    dataModel.is_admin_submission = formValue['isAdminSubmission'];
+  //   dataModel.lifecycle_record.master_file_number = formValue['masterFileNumber'];
+  //   dataModel.lifecycle_record.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfTypes, formValue['masterFileType'], lang);
+  //   dataModel.lifecycle_record.master_file_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfUses, formValue['masterFileUse'], lang);
   //   dataModel.lifecycle_record.sequence_description_value = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.txDescs, formValue['descriptionType'], lang);
   //   dataModel.lifecycle_record.sequence_from_date = formValue['requestDate'];
   //   dataModel.lifecycle_record.requester_of_solicited_information = formValue['requester'];
   //   dataModel.lifecycle_record.revise_trans_desc_request = formValue['reqRevision'];
   //   dataModel.lifecycle_record.revised_trans_desc = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.txDescs, formValue['revisedDescriptionType'], lang);
-    
+
   //   // save concatenated data to the dataModel
   //   // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
-  //   if (dataModel.lifecycle_record.sequence_description_value?._id) {    
+  //   if (dataModel.lifecycle_record.sequence_description_value?._id) {
   //     console.log(dataModel.lifecycle_record.sequence_description_value._id, typeof dataModel.lifecycle_record.sequence_description_value._id)
-  //     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {    
+  //     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
   //       dataModel.lifecycle_record.transaction_description = {
   //         '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, "dated", dataModel.lifecycle_record.sequence_from_date),
   //         '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, "daté du", dataModel.lifecycle_record.sequence_from_date)
-  //       }      
+  //       }
   //     } else {
   //       dataModel.lifecycle_record.transaction_description = {
   //         '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
   //         '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
-  //       }  
+  //       }
   //     }
   //     if (this._utilsService.isFrench(lang)) {
   //       dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_fr;
@@ -88,6 +95,9 @@ export class RegulatoryInformationService {
     formRecord.controls['companyId'].setValue(dataModel.company_id);
     formRecord.controls['dossierId'].setValue(dataModel.dossier_id);
     formRecord.controls['productName'].setValue(dataModel.product_name);
+    formRecord.controls['isPriority'].setValue(dataModel.is_priority);
+    formRecord.controls['isNOC'].setValue(dataModel.is_noc);
+    formRecord.controls['isAdminSubmission'].setValue(dataModel.is_admin_submission);
   //   formRecord.controls['masterFileNumber'].setValue(dataModel.lifecycle_record.master_file_number);
 
   //   if(dataModel.lifecycle_record.regulatory_activity_type?._id){
@@ -121,7 +131,7 @@ export class RegulatoryInformationService {
   //   } else {
   //     formRecord.controls['revisedDescriptionType'].setValue(null);
     // }
-    
+
   }
 
   //TODO: to move to pharmabio library
