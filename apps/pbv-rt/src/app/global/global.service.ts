@@ -28,6 +28,8 @@ export class GlobalService {
   private _stateList: ICode[];
   private _yesnoList: ICode[];
   private _dossierTypes: ICodeDefinition[] = [];
+  private _raLeads: ICodeDefinition[] = [];
+  private _dossierTypeRaLeads: IParentChildren[] = [];
   private _adminSubTypes: ICode[];
 
   constructor(private instructionService: InstructionService) {}
@@ -142,6 +144,33 @@ export class GlobalService {
   
   public set dossierTypes(value: ICodeDefinition[]) {
     this._dossierTypes = value;
+  }
+
+  public get raLeads(): ICodeDefinition[] {
+    return this._raLeads;
+  }
+
+  public set raLeads(value: ICodeDefinition[]) {
+    this._raLeads = value;
+  }
+
+  public get dossierTypeRaLeads(): IParentChildren[] {
+    return this._dossierTypeRaLeads;
+  }
+
+  public set dossierTypeRaLeads(value: IParentChildren[]) {
+    this._dossierTypeRaLeads = value;
+  }
+
+  /////////////test
+  private _relationship: any[] = [];
+
+  public get relationship(): any[] {
+    return this._relationship;
+  }
+
+  public set relationship(value: any[]) {
+    this._relationship = value;
   }
 
   public get adminSubTypes(): ICode[] {

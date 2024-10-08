@@ -29,6 +29,9 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getProvinceList(this._globalService.currLanguage),
     this._formDataLoader.getStateList(this._globalService.currLanguage),
     this._formDataLoader.getDossierTypes(),
+    this._formDataLoader.getRaLeads(),
+    this._formDataLoader.getDossierTypeAndRaLeads(),
+    this._formDataLoader.getRelationship(),
     this._formDataLoader.getYesNoList(),
     this._formDataLoader.getAdminSubTypes()
   ];
@@ -46,8 +49,11 @@ export class ContainerComponent implements OnInit {
       this._globalService.provinceList = data[1];
       this._globalService.stateList = data[2];
       this._globalService.dossierTypes = data[3];
-      this._globalService.yesnoList = data[4];
-      this._globalService.adminSubTypes = data[5];
+      this._globalService.raLeads = data[4];
+      this._globalService.dossierTypeRaLeads = data[5];
+      this._globalService.relationship = data[6];
+      this._globalService.yesnoList = data[7];
+      this._globalService.adminSubTypes = data[8];
       this.loadFormBaseComponent = true;
     });
   }
