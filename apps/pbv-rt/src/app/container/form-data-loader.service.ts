@@ -12,6 +12,8 @@ export class FormDataLoaderService {
   private statesJsonPath = DATA_PATH + 'states.json';
   private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
   private raLeadsJsonPath = DATA_PATH + 'raLeads.json';
+  private raTypesJsonPath = DATA_PATH + 'raTypes.json';
+  private transactionDescriptionsJsonPath = DATA_PATH + 'transactionDescriptions.json';
   private adminSubTypesJsonPath = DATA_PATH + 'adminSubTypes.json';
 
   cashedLanguages$:Observable<ICode[]>;
@@ -21,10 +23,12 @@ export class FormDataLoaderService {
   cachedStates$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
   cachedAdminSubTypes$: Observable<ICode[]>;
-  relationship$: Observable<any[]>;
   raLeads$: Observable<ICodeDefinition[]>;
-  dossierTypeRaLeadsOptions$: Observable<IParentChildren[]>;
-  // mfRevisedTypeTxDescOptions$: Observable<IParentChildren[]>;
+  raTypes$: Observable<ICodeDefinition[]>;
+  transactionDescriptions$: Observable<ICodeDefinition[]>;
+  dossierTypeAndRaLeadsRelationship$: Observable<any[]>;
+  raLeadAndRaTypesRelationship$: Observable<any[]>;
+  dossierTypeRaTypeAndTransactionDescriptionsRelationship$: Observable<any[]>;
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -35,7 +39,7 @@ export class FormDataLoaderService {
           // tap(()=>console.log('getCountryList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedCountries$;
   }
 
@@ -46,7 +50,7 @@ export class FormDataLoaderService {
           // tap(()=>console.log('getProvinceList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedProvinces$;
   }
 
@@ -57,7 +61,7 @@ export class FormDataLoaderService {
           // tap(()=>console.log('getStateList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedStates$;
   }
 
@@ -75,7 +79,7 @@ export class FormDataLoaderService {
     // store the shared observable in a private property and reusing it in subsequent calls
     if (!this.raLeads$) {
       this.raLeads$ = this._dataService
-        .getData<ICodeDefinition>(this.raLeadsJsonPath) 
+        .getData<ICodeDefinition>(this.raLeadsJsonPath)
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
@@ -84,49 +88,69 @@ export class FormDataLoaderService {
     return this.raLeads$;
   }
 
-  getRelationship(): Observable<ICodeDefinition[]> {
-    if (!this.relationship$) {
-      this.relationship$ = this._dataService
-        .getData<any>(DATA_PATH + 'dossierTypeRaLeads.json') 
+  getRaTypes(): Observable<ICodeDefinition[]> {
+    // store the shared observable in a private property and reusing it in subsequent calls
+    if (!this.raTypes$) {
+      this.raTypes$ = this._dataService
+        .getData<ICodeDefinition>(this.raTypesJsonPath)
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
         );
     }
-    return this.relationship$;
+    return this.raTypes$;
   }
 
-  getDossierTypeAndRaLeads(): Observable<IParentChildren[]> {
-    const dossierTypeAndRaLeads$ = this._dataService
-      .getData<any>(DATA_PATH + 'dossierTypeRaLeads.json')
-      .pipe(
-        // tap((data) =>
-        //   console.log(
-        //     'getDossierTypeAndRaLeads ~ typeDescription: ',
-        //     JSON.stringify(data)
-        //   )
-        // ),
-        // catchError(this._dataService.handleError)
-      );
-
-
-    this.dossierTypeRaLeadsOptions$ = combineLatest([
-      dossierTypeAndRaLeads$,
-      this.getRaLeads(),
-    ]).pipe(
-      map(([arr1, arr2]) => {
-        return arr1.map((item) => ({
-          parentId: item.dossierTypeId,
-          children: arr2.filter((x) => {
-            return item.raLeadIds.includes(x.id);
-          }),
-        }));
-      }),
-      shareReplay(1)
-    );
-
-    return this.dossierTypeRaLeadsOptions$;
+  getTransactionDescriptions(): Observable<ICodeDefinition[]> {
+    // store the shared observable in a private property and reusing it in subsequent calls
+    if (!this.transactionDescriptions$) {
+      this.transactionDescriptions$ = this._dataService
+        .getData<ICodeDefinition>(this.transactionDescriptionsJsonPath)
+        .pipe(
+          // tap((_) => console.log('getTxDescriptions is executed')),
+          shareReplay(1)
+        );
+    }
+    return this.transactionDescriptions$;
   }
+
+  getDossierTypeAndRaLeads(): Observable<any[]> {
+    if (!this.dossierTypeAndRaLeadsRelationship$) {
+      this.dossierTypeAndRaLeadsRelationship$ = this._dataService
+        .getData<any>(DATA_PATH + 'dossierTypeAndRaLeads.json')
+        .pipe(
+          // tap((_) => console.log('getTxDescriptions is executed')),
+          shareReplay(1)
+        );
+    }
+    return this.dossierTypeAndRaLeadsRelationship$;
+  }
+
+  getRaLeadAndRaTypes(): Observable<any[]> {
+    if (!this.raLeadAndRaTypesRelationship$) {
+      this.raLeadAndRaTypesRelationship$ = this._dataService
+        .getData<any>(DATA_PATH + 'raLeadAndRaTypes.json')
+        .pipe(
+          // tap((_) => console.log('getTxDescriptions is executed')),
+          shareReplay(1)
+        );
+    }
+    return this.raLeadAndRaTypesRelationship$;
+  }
+
+  getDossierTypeRaTypeAndTransactionDescriptions(): Observable<any[]> {
+    if (!this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$) {
+      this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$ = this._dataService
+        .getData<any>(DATA_PATH + 'dossierTypeRaTypeAndTransactionDescriptions.json')
+        .pipe(
+          // tap((_) => console.log('getTxDescriptions is executed')),
+          shareReplay(1)
+        );
+    }
+    return this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$;
+  }
+
+
 
   getYesNoList(): Observable<ICode[]> {
     if (!this.cachedYesNo$) {
@@ -138,7 +162,7 @@ export class FormDataLoaderService {
           // tap(()=>console.log('getKeywordList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedYesNo$;
   }
 

@@ -30,8 +30,9 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getStateList(this._globalService.currLanguage),
     this._formDataLoader.getDossierTypes(),
     this._formDataLoader.getRaLeads(),
+    this._formDataLoader.getRaTypes(),
+    this._formDataLoader.getTransactionDescriptions(),
     this._formDataLoader.getDossierTypeAndRaLeads(),
-    this._formDataLoader.getRelationship(),
     this._formDataLoader.getYesNoList(),
     this._formDataLoader.getAdminSubTypes(this._globalService.currLanguage)
   ];
@@ -42,7 +43,7 @@ export class ContainerComponent implements OnInit {
     this.language = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
     this.devEnv = this._globalService.devEnv;
-    
+
     forkJoin(this.dataSources).subscribe((data) => {
       // console.log(data);
       this._globalService.countryList = data[0];
@@ -50,12 +51,16 @@ export class ContainerComponent implements OnInit {
       this._globalService.stateList = data[2];
       this._globalService.dossierTypes = data[3];
       this._globalService.raLeads = data[4];
-      this._globalService.dossierTypeRaLeads = data[5];
-      this._globalService.relationship = data[6];
-      this._globalService.yesnoList = data[7];
-      this._globalService.adminSubTypes = data[8];
+      this._globalService.raTypes = data[5];
+      this._globalService.transactionDescriptions = data[6];
+      this._globalService.dossierTypeAndRaLeadsRelationship = data[7];
+      this._globalService.raLeadAndRaTypesRelationship = data[8];
+      this._globalService.dossierTypeRaTypeAndTransactionDescriptionsRelationship = data[9];
+      this._globalService.yesnoList = data[10];
+      this._globalService.adminSubTypes = data[11];
+
       this.loadFormBaseComponent = true;
     });
   }
-  
+
 }

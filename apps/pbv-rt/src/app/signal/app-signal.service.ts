@@ -6,7 +6,7 @@ import { DOSSIER_TYPE } from '../app.constants';
 })
 export class AppSignalService {
 
-  private readonly selectedDossierType = signal<string>("")
+  private readonly selectedDossierType = signal<string>(null)
 
   getSelectedDossierType(): Signal<string>{
     return this.selectedDossierType.asReadonly();

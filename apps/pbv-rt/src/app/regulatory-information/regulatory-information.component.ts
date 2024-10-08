@@ -12,14 +12,18 @@ import {
   computed,
   signal,
   inject,
-  Signal
+  Signal,
+  input,
+  viewChild,
+  effect
 } from '@angular/core';
-import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
+import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent, ControlMessagesComponent } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
 import { Ectd, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
+import { TransactionDetailsComponent } from '../transaction-details/transaction-details.component';
 import { DOSSIER_TYPE } from '../app.constants';
 
 @Component({
@@ -52,8 +56,9 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
 
-    
-  // txDescRquireRevise: string = '13';
+  private tranDetailsChild = viewChild("transactionDetailsChild", {
+    read: TransactionDetailsComponent
+  });
 
   // // writable signal for the answer of "Transaction Description" field
   // readonly selectedTxDescSignal = signal<string>('');
@@ -112,8 +117,14 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     this.adminSubTypeOptions = this._globalService.adminSubTypes;
   }
 
-  protected override emitErrors(errors: any[]): void {
-    // this.errorList.emit(errors);
+  protected override emitErrors(errors: ControlMessagesComponent[]): void {
+    // the combined list of errors from both "regulatory information" and "transaction details"
+    // console.log('Combined Errors List: ', errors);
+    this.errorList.emit(errors);
+  }
+
+  processTransactionDetailsErrors(childErrors) {
+    this._appendErrorsFromChild(childErrors);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -227,7 +238,10 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   // }
 
   getFormValue() {
-    return this.regulartoryInfoForm.value;
+    const regInfoFormValues = this.regulartoryInfoForm.value;
+    const tranDetailsFormValues = this.tranDetailsChild().getFormValue();
+
+    return { ...regInfoFormValues, ...tranDetailsFormValues };
   }
 
   private _resetControlValues(controlNames: string[]) {

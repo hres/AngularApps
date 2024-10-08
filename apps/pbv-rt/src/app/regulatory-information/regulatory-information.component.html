@@ -56,7 +56,7 @@
                         [control]="regulartoryInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
                         label="dossier.id" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="dossierId" name="dossierId" class="form-control" 
+                <input id="dossierId" name="dossierId" class="form-control"
                             [formControlName]="'dossierId'" maxlength="8" size="7" />
             </div>
           </div>
@@ -94,7 +94,7 @@
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
                 <label for="isPriority{{i}}" class="radio-inline">
                   <input type="radio"
-                    id="isPriority{{i}}" name="isPriority" [value]="yesno.id" 
+                    id="isPriority{{i}}" name="isPriority" [value]="yesno.id"
                     [formControl]="regulartoryInfoForm.controls['isPriority'] | formControl" required/>
                   {{yesno | textTransform: lang }}
                   </label>
@@ -117,7 +117,7 @@
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
                 <label for="isNOC{{i}}" class="radio-inline">
                   <input type="radio"
-                    id="isNOC{{i}}" name="isNOC" [value]="yesno.id" 
+                    id="isNOC{{i}}" name="isNOC" [value]="yesno.id"
                     [formControl]="regulartoryInfoForm.controls['isNOC'] | formControl" required/>
                   {{yesno | textTransform: lang }}
                   </label>
@@ -140,7 +140,7 @@
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
                 <label for="isAdminSubmission{{i}}" class="radio-inline">
                   <input type="radio" (change)="onAdminSubmissionSelected($event)"
-                    id="isAdminSubmission{{i}}" name="isAdminSubmission" [value]="yesno.id" 
+                    id="isAdminSubmission{{i}}" name="isAdminSubmission" [value]="yesno.id"
                     [formControl]="regulartoryInfoForm.controls['isAdminSubmission'] | formControl" required/>
                   {{yesno | textTransform: lang }}
                   </label>
@@ -171,7 +171,7 @@
                         <option *ngFor="let item of adminSubTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
                     </select>
                 </div>
-            </div>
+              </div>
             <div *ngIf="selectedAdminSubType ==='ADDITIONAL_PRODUCT_CHGE'">
                 <ul>
                     <li>{{'addition.prod.name.note.1'| translate}}</li>
@@ -242,20 +242,15 @@
                 </div>
             </div>
         </ng-container>
-        <section class="panel  panel-default">
-        <header class="panel-heading clearfix group-beside">
-            <h3 class="panel-title">{{'heading.transaction.details'|translate}}
-            <sup id="tr3-rf">
-            <!-- <a class="fn-lnk mrgn-tp-md" href="#tr3"><span
-                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['holderAddrIndx']}}</a> -->
-            </sup>
-            </h3>
-        </header>
-        <div class="panel-body">
-            todo
-        </div>
-        </section>
-                  <!--        
+          <section class="panel  panel-default">
+            <header class="panel-heading clearfix group-beside">
+              <h3 class="panel-title">{{'heading.transaction.details'|translate}}</h3>
+            </header>
+            <div class="panel-body">
+              <app-transaction-details #transactionDetailsChild [showErrors]="showErrors"(errorList)="processTransactionDetailsErrors($event)"></app-transaction-details>
+            </div>
+          </section>
+                  <!--
         <div class="row" *ngIf="selectedMfTypeDefinition">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="alert alert-info" role="alert">
@@ -330,7 +325,7 @@
                         [control]="regulartoryInfoForm.controls['requester'] | formControl" controlId="requester"
                         label="requester.title" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="requester" name="requester" type="text" class="form-control full-width" 
+                <input id="requester" name="requester" type="text" class="form-control full-width"
                     [formControlName]="'requester'">
             </div>
         </div>
@@ -348,7 +343,7 @@
                 <ul class="form-group form-inline list-unstyled">
                     <li class="label-inline" *ngFor="let yesno of yesNoList; let i = index">
                         <label for="reqRevision{{i}}">
-                        <input type="radio" name="reqRevision" id="reqRevision{{i}}" [value]="yesno.id" 
+                        <input type="radio" name="reqRevision" id="reqRevision{{i}}" [value]="yesno.id"
                             (change)="reqRevisionChanged($event)"
                             [formControlName]="'reqRevision'" required />
                         {{ yesno | textTransform: lang }}</label>

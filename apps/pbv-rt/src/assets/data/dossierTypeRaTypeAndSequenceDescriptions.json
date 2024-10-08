@@ -1,0 +1,73 @@
+[
+    {
+        "dossierTypeIds": [
+            "D21",
+            "D22"
+        ],
+        "combos": [
+            {
+                "raTypeId": "B02-20160301-001",
+                "sequenceDescriptionIds": [
+                    "ADMINISTRATIVE",
+                    "CANCEL_LETTER",
+                    "COMMENTS_NOC",
+                    "CONSENT_LTR",
+                    "DATA_PROTECT_CORRESP",
+                    "CORR_PATENT_MED"
+                ]
+            },
+            {
+                "raTypeId": "B02-20180522-01",
+                "sequenceDescriptionIds": [
+                    "DIN_DISCONTINUED",
+                    "DRUG_NOTIF_FORM",
+                    "FORM_IV",
+                    "FORM_V",
+                    "IMMEDIATE_NOTIFICATION",
+                    "INITIAL"
+                ]
+            }
+        ]
+    },
+    {
+        "dossierTypeIds": [
+            "D24"
+        ],
+        "combos": [
+            {
+                "raTypeId": "B02-20160301-001",
+                "sequenceDescriptionIds": [
+                    "ADMINISTRATIVE",
+                    "CANCEL_LETTER",
+                    "COMMENTS_NOC",
+                    "CONSENT_LTR",
+                    "DATA_PROTECT_CORRESP",
+                    "CORR_PATENT_MED",
+                    "DIN_DISCONTINUED",
+                    "DRUG_NOTIF_FORM",
+                    "FORM_IV",
+                    "FORM_V",
+                    "IMMEDIATE_NOTIFICATION",
+                    "INITIAL"
+                ]
+            },
+            {
+                "raTypeId": "B02-20160301-001",
+                "sequenceDescriptionIds": [
+                    "ADMINISTRATIVE",
+                    "CANCEL_LETTER",
+                    "COMMENTS_NOC",
+                    "CONSENT_LTR",
+                    "DATA_PROTECT_CORRESP",
+                    "CORR_PATENT_MED",
+                    "DIN_DISCONTINUED",
+                    "DRUG_NOTIF_FORM",
+                    "FORM_IV",
+                    "FORM_V",
+                    "IMMEDIATE_NOTIFICATION",
+                    "INITIAL"
+                ]
+            }
+        ]
+    }
+]
