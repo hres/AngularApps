@@ -42,11 +42,12 @@
         drogues et du Règlement sur les aliments et drogues.
     </p>
     <p>
-        <b>But de la collecte </b>: Santé Canada a besoin des renseignements personnels pour traiter les formulaires de
+        <b>But de la collecte </b>: <ng-container *ngIf="purposeOfCollection; else defaultPurpose">{{purposeOfCollection}}</ng-container>
+        <ng-template #defaultPurpose>Santé Canada a besoin des renseignements personnels pour traiter les formulaires de
         demande réglementaire liés aux instruments médicaux au sein du processus d'inscription réglementaire (PIR) dans le cadre canadien d'enregistrement des médicaments. Les informations que vous fournissez peuvent être utilisées pour vous
         contacter afin de vérifier les informations fournies, d'évaluer la faisabilité de l'inscription d'entreprises,
         de
-        dossiers et de suivre les activités et transactions réglementaires.
+        dossiers et de suivre les activités et transactions réglementaires.</ng-template>
     </p>
     <p>
         <b>Pour de plus amples renseignements </b>: La catégorie de documents est décrite sous HC HP 005 sur le site web
