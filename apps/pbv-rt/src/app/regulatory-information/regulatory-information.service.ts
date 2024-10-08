@@ -49,6 +49,7 @@ export class RegulatoryInformationService {
   public mapFormModelToDataModel(formValue: any, dataModel: Ectd): void {
     const lang = this._globalService.currLanguage;
 
+    dataModel.dossier_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.dossierTypes, formValue['dossierType'], lang);
     dataModel.company_id = formValue['companyId'];
     dataModel.dossier_id = formValue['dossierId'];
     dataModel.product_name = formValue['productName'];
@@ -63,21 +64,21 @@ export class RegulatoryInformationService {
   //   dataModel.lifecycle_record.requester_of_solicited_information = formValue['requester'];
   //   dataModel.lifecycle_record.revise_trans_desc_request = formValue['reqRevision'];
   //   dataModel.lifecycle_record.revised_trans_desc = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.txDescs, formValue['revisedDescriptionType'], lang);
-    
+
   //   // save concatenated data to the dataModel
   //   // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
-  //   if (dataModel.lifecycle_record.sequence_description_value?._id) {    
+  //   if (dataModel.lifecycle_record.sequence_description_value?._id) {
   //     console.log(dataModel.lifecycle_record.sequence_description_value._id, typeof dataModel.lifecycle_record.sequence_description_value._id)
-  //     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {    
+  //     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
   //       dataModel.lifecycle_record.transaction_description = {
   //         '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, "dated", dataModel.lifecycle_record.sequence_from_date),
   //         '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, "daté du", dataModel.lifecycle_record.sequence_from_date)
-  //       }      
+  //       }
   //     } else {
   //       dataModel.lifecycle_record.transaction_description = {
   //         '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
   //         '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
-  //       }  
+  //       }
   //     }
   //     if (this._utilsService.isFrench(lang)) {
   //       dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_fr;
@@ -130,7 +131,7 @@ export class RegulatoryInformationService {
   //   } else {
   //     formRecord.controls['revisedDescriptionType'].setValue(null);
     // }
-    
+
   }
 
   //TODO: to move to pharmabio library
