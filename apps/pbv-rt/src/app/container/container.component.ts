@@ -30,8 +30,11 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getStateList(this._globalService.currLanguage),
     this._formDataLoader.getDossierTypes(),
     this._formDataLoader.getRaLeads(),
+    this._formDataLoader.getRaTypes(),
+    this._formDataLoader.getTransactionDescriptions(),
     this._formDataLoader.getDossierTypeAndRaLeads(),
-    this._formDataLoader.getRelationship()
+    this._formDataLoader.getRaLeadAndRaTypes(),
+    this._formDataLoader.getDossierTypeRaTypeAndTransactionDescriptions()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -48,8 +51,12 @@ export class ContainerComponent implements OnInit {
       this._globalService.stateList = data[2];
       this._globalService.dossierTypes = data[3];
       this._globalService.raLeads = data[4];
-      this._globalService.dossierTypeRaLeads = data[5];
-      this._globalService.relationship = data[6];
+      this._globalService.raTypes = data[5];
+      this._globalService.transactionDescriptions = data[6];
+      this._globalService.dossierTypeAndRaLeadsRelationship = data[7]; 
+      this._globalService.raLeadAndRaTypesRelationship = data[8];
+      this._globalService.dossierTypeRaTypeAndTransactionDescriptionsRelationship = data[9];
+
       this.loadFormBaseComponent = true;
     });
   }

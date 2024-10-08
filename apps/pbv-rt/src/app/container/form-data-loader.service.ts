@@ -12,6 +12,8 @@ export class FormDataLoaderService {
   private statesJsonPath = DATA_PATH + 'states.json';
   private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
   private raLeadsJsonPath = DATA_PATH + 'raLeads.json';
+  private raTypesJsonPath = DATA_PATH + 'raTypes.json';
+  private transactionDescriptionsJsonPath = DATA_PATH + 'transactionDescriptions.json';
 
   cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
@@ -20,10 +22,12 @@ export class FormDataLoaderService {
   cachedProvinces$:Observable<ICode[]>;
   cachedStates$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
-  relationship$: Observable<any[]>;
   raLeads$: Observable<ICodeDefinition[]>;
-  dossierTypeRaLeadsOptions$: Observable<IParentChildren[]>;
-  // mfRevisedTypeTxDescOptions$: Observable<IParentChildren[]>;
+  raTypes$: Observable<ICodeDefinition[]>;
+  transactionDescriptions$: Observable<ICodeDefinition[]>;
+  dossierTypeAndRaLeadsRelationship$: Observable<any[]>;
+  raLeadAndRaTypesRelationship$: Observable<any[]>;
+  dossierTypeRaTypeAndTransactionDescriptionsRelationship$: Observable<any[]>;
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -83,48 +87,68 @@ export class FormDataLoaderService {
     return this.raLeads$;
   }
 
-  getRelationship(): Observable<ICodeDefinition[]> {
-    if (!this.relationship$) {
-      this.relationship$ = this._dataService
-        .getData<any>(DATA_PATH + 'dossierTypeRaLeads.json') 
+  getRaTypes(): Observable<ICodeDefinition[]> {
+    // store the shared observable in a private property and reusing it in subsequent calls
+    if (!this.raTypes$) {
+      this.raTypes$ = this._dataService
+        .getData<ICodeDefinition>(this.raTypesJsonPath) 
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
         );
     }
-    return this.relationship$;
+    return this.raTypes$;
   }
 
-  getDossierTypeAndRaLeads(): Observable<IParentChildren[]> {
-    const dossierTypeAndRaLeads$ = this._dataService
-      .getData<any>(DATA_PATH + 'dossierTypeRaLeads.json')
-      .pipe(
-        // tap((data) =>
-        //   console.log(
-        //     'getDossierTypeAndRaLeads ~ typeDescription: ',
-        //     JSON.stringify(data)
-        //   )
-        // ),
-        // catchError(this._dataService.handleError)
-      );
-
-
-    this.dossierTypeRaLeadsOptions$ = combineLatest([
-      dossierTypeAndRaLeads$,
-      this.getRaLeads(),
-    ]).pipe(
-      map(([arr1, arr2]) => {
-        return arr1.map((item) => ({
-          parentId: item.dossierTypeId,
-          children: arr2.filter((x) => {
-            return item.raLeadIds.includes(x.id);
-          }),
-        }));
-      }),
-      shareReplay(1)
-    );
-
-    return this.dossierTypeRaLeadsOptions$;
+  getTransactionDescriptions(): Observable<ICodeDefinition[]> {
+    // store the shared observable in a private property and reusing it in subsequent calls
+    if (!this.transactionDescriptions$) {
+      this.transactionDescriptions$ = this._dataService
+        .getData<ICodeDefinition>(this.transactionDescriptionsJsonPath) 
+        .pipe(
+          // tap((_) => console.log('getTxDescriptions is executed')),
+          shareReplay(1)
+        );
+    }
+    return this.transactionDescriptions$;
   }
+
+  getDossierTypeAndRaLeads(): Observable<any[]> {
+    if (!this.dossierTypeAndRaLeadsRelationship$) {
+      this.dossierTypeAndRaLeadsRelationship$ = this._dataService
+        .getData<any>(DATA_PATH + 'dossierTypeAndRaLeads.json') 
+        .pipe(
+          // tap((_) => console.log('getTxDescriptions is executed')),
+          shareReplay(1)
+        );
+    }
+    return this.dossierTypeAndRaLeadsRelationship$;
+  }
+
+  getRaLeadAndRaTypes(): Observable<any[]> {
+    if (!this.raLeadAndRaTypesRelationship$) {
+      this.raLeadAndRaTypesRelationship$ = this._dataService
+        .getData<any>(DATA_PATH + 'raLeadAndRaTypes.json') 
+        .pipe(
+          // tap((_) => console.log('getTxDescriptions is executed')),
+          shareReplay(1)
+        );
+    }
+    return this.raLeadAndRaTypesRelationship$;
+  }
+
+  getDossierTypeRaTypeAndTransactionDescriptions(): Observable<any[]> {
+    if (!this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$) {
+      this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$ = this._dataService
+        .getData<any>(DATA_PATH + 'dossierTypeRaTypeAndTransactionDescriptions.json') 
+        .pipe(
+          // tap((_) => console.log('getTxDescriptions is executed')),
+          shareReplay(1)
+        );
+    }
+    return this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$;
+  }
+  
+  
 
 }

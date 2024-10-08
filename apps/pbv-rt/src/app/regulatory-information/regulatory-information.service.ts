@@ -45,12 +45,13 @@ export class RegulatoryInformationService {
   public mapFormModelToDataModel(formValue: any, dataModel: Ectd): void {
     const lang = this._globalService.currLanguage;
 
+    dataModel.dossier_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.dossierTypes, formValue['dossierType'], lang);
     dataModel.company_id = formValue['companyId'];
     dataModel.dossier_id = formValue['dossierId'];
     dataModel.product_name = formValue['productName'];
-  //   dataModel.lifecycle_record.master_file_number = formValue['masterFileNumber'];
-  //   dataModel.lifecycle_record.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfTypes, formValue['masterFileType'], lang);
-  //   dataModel.lifecycle_record.master_file_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfUses, formValue['masterFileUse'], lang);
+    dataModel.lifecycle_record.control_number = formValue['controlNumber'];
+    dataModel.lifecycle_record.regulatory_activity_lead = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.raLeads, formValue['activityLead'], lang);
+  
   //   dataModel.lifecycle_record.sequence_description_value = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.txDescs, formValue['descriptionType'], lang);
   //   dataModel.lifecycle_record.sequence_from_date = formValue['requestDate'];
   //   dataModel.lifecycle_record.requester_of_solicited_information = formValue['requester'];

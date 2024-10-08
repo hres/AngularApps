@@ -80,15 +80,10 @@
           </div>
           <section class="panel  panel-default">
             <header class="panel-heading clearfix group-beside">
-              <h3 class="panel-title">{{'heading.transaction.details'|translate}}
-              <sup id="tr3-rf">
-                <!-- <a class="fn-lnk mrgn-tp-md" href="#tr3"><span
-                    class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['holderAddrIndx']}}</a> -->
-              </sup>
-              </h3>
+              <h3 class="panel-title">{{'heading.transaction.details'|translate}}</h3>
             </header>
             <div class="panel-body">
-              todo
+              <app-transaction-details #transactionDetailsChild [showErrors]="showErrors"(errorList)="processTransactionDetailsErrors($event)"></app-transaction-details>
             </div>
           </section>
                   <!--        

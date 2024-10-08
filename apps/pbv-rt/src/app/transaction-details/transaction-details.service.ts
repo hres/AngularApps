@@ -14,10 +14,10 @@ export class TransactionDetailsService {
       return null;
    }
    return fb.group({
-    controlNumber: [
-      null,
-      [Validators.required],
-    ]
+    controlNumber: [null, [Validators.required]],
+    activityLead: [null, [Validators.required]],
+    activityType: [null, Validators.required],
+    descriptionType: [null, Validators.required],
    });
   }
 }
