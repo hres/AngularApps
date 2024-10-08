@@ -33,7 +33,7 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getDossierTypeAndRaLeads(),
     this._formDataLoader.getRelationship(),
     this._formDataLoader.getYesNoList(),
-    this._formDataLoader.getAdminSubTypes()
+    this._formDataLoader.getAdminSubTypes(this._globalService.currLanguage)
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}

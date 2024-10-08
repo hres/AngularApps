@@ -5,7 +5,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ConverterService, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { Ectd } from '../models/transaction';
+import { Ectd, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 
 @Injectable()
@@ -46,15 +46,17 @@ export class RegulatoryInformationService {
    });
   }
 
-  public mapFormModelToDataModel(formValue: any, dataModel: Ectd): void {
+  public mapFormModelToDataModel(formValue: any, dataModel: TransactionEnrol): void {
     const lang = this._globalService.currLanguage;
 
-    dataModel.company_id = formValue['companyId'];
-    dataModel.dossier_id = formValue['dossierId'];
-    dataModel.product_name = formValue['productName'];
+    dataModel.ectd.company_id = formValue['companyId'];
+    dataModel.ectd.dossier_id = formValue['dossierId'];
+    dataModel.ectd.product_name = formValue['productName'];
     dataModel.is_priority = formValue['isPriority'];
     dataModel.is_noc = formValue['isNOC'];
-    dataModel.is_admin_submission = formValue['isAdminSubmission'];
+    dataModel.is_admin_sub = formValue['isAdminSubmission'];
+    dataModel.sub_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.adminSubTypes, formValue['adminSubType'], lang);
+
   //   dataModel.lifecycle_record.master_file_number = formValue['masterFileNumber'];
   //   dataModel.lifecycle_record.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfTypes, formValue['masterFileType'], lang);
   //   dataModel.lifecycle_record.master_file_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfUses, formValue['masterFileUse'], lang);
@@ -90,13 +92,19 @@ export class RegulatoryInformationService {
   //   dataModel.product_name = dataModel.product_name?.toUpperCase();
   }
 
-  public mapDataModelToFormModel(dataModel: Ectd, formRecord: FormGroup): void {
-    formRecord.controls['companyId'].setValue(dataModel.company_id);
-    formRecord.controls['dossierId'].setValue(dataModel.dossier_id);
-    formRecord.controls['productName'].setValue(dataModel.product_name);
+  public mapDataModelToFormModel(dataModel: TransactionEnrol, formRecord: FormGroup): void {
+    formRecord.controls['companyId'].setValue(dataModel.ectd.company_id);
+    formRecord.controls['dossierId'].setValue(dataModel.ectd.dossier_id);
+    formRecord.controls['productName'].setValue(dataModel.ectd.product_name);
     formRecord.controls['isPriority'].setValue(dataModel.is_priority);
     formRecord.controls['isNOC'].setValue(dataModel.is_noc);
-    formRecord.controls['isAdminSubmission'].setValue(dataModel.is_admin_submission);
+    formRecord.controls['isAdminSubmission'].setValue(dataModel.is_admin_sub);
+    if(dataModel.sub_type?._id){
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.sub_type);
+      formRecord.controls['subType'].setValue(id? id : null);
+    } else {
+      formRecord.controls['subType'].setValue(null);
+    }
   //   formRecord.controls['masterFileNumber'].setValue(dataModel.lifecycle_record.master_file_number);
 
   //   if(dataModel.lifecycle_record.regulatory_activity_type?._id){

@@ -142,8 +142,8 @@ export class FormDataLoaderService {
     return this.cachedYesNo$;
   }
 
-  getAdminSubTypes(): Observable<ICode[]> {
-    this.cachedAdminSubTypes$ = this._dataService.getData<ICode>(this.adminSubTypesJsonPath)
+  getAdminSubTypes(lang: string): Observable<ICode[]> {
+    this.cachedAdminSubTypes$ = this._dataService.getSortedDataAccents<ICode>(this.adminSubTypesJsonPath, this._utilsService.getCompareFields(false, lang))
     .pipe(
       shareReplay(1)
     );

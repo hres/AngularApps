@@ -17,9 +17,10 @@ import {
 import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
-import { Ectd } from '../models/transaction';
+import { Ectd, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
+import { DOSSIER_TYPE } from '../app.constants';
 
 @Component({
   selector: 'app-regulatory-information',
@@ -34,7 +35,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   public regulartoryInfoForm: FormGroup;
   // @Input() detailsChanged: number;
   @Input() showErrors: boolean;
-  @Input() dataModel: Ectd;
+  @Input() dataModel: TransactionEnrol;
   @Output() errorList = new EventEmitter(true);
   // @Output() trDescUpdated = new EventEmitter();
 
@@ -73,22 +74,20 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   private _signalService = inject(AppSignalService)
 
-  readonly pharma: string = 'D22';
-  readonly bio: string = 'D21';
-  readonly vet: string = 'D24';
-
   readonly selectedDossierTypeSignal = this._signalService.getSelectedDossierType();
   isPharmaBio = computed(() => {
-    return this.selectedDossierTypeSignal() === this.pharma || this.selectedDossierTypeSignal() === this.bio;
+    return this.selectedDossierTypeSignal() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.selectedDossierTypeSignal() === DOSSIER_TYPE.BIOLOGIC_HUMAN;
   });
   dossierTypeSelected = computed(() => {
-    return this.selectedDossierTypeSignal() === this.pharma || this.selectedDossierTypeSignal() === this.bio || this.selectedDossierTypeSignal() === this.vet;
+    return this.selectedDossierTypeSignal() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.selectedDossierTypeSignal() === DOSSIER_TYPE.BIOLOGIC_HUMAN || this.selectedDossierTypeSignal() === DOSSIER_TYPE.VETERINARY;
   });
 
   adminSubmissionSelected = signal('');
   isAdminSubmission = computed(() => {
     return this.adminSubmissionSelected() === 'Y';
   });
+
+  selectedAdminSubType: string = '';
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
@@ -126,7 +125,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
         this.showFieldErrors = changes['showErrors'].currentValue;
       }
       if (changes['dataModel']) {
-        const dataModelCurrentValue = changes['dataModel'].currentValue as Ectd;
+        const dataModelCurrentValue = changes['dataModel'].currentValue as TransactionEnrol;
         this._regulatoryInfoService.mapDataModelToFormModel(
           dataModelCurrentValue,
           <FormGroup>this.regulartoryInfoForm);
@@ -157,6 +156,13 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   onAdminSubmissionSelected(e:any) {
     this.adminSubmissionSelected.set(this.regulartoryInfoForm.get("isAdminSubmission")?.value);
+    const valuesToReset = ['adminSubType'];
+    this._resetControlValues(valuesToReset);
+    this.selectedAdminSubType = '';
+  }
+
+  onAdminSubTypeSelected(e:any) {
+    this.selectedAdminSubType = this.regulartoryInfoForm.get("adminSubType").value;
   }
 
   // onTxDescriptionSelected(e: any): void {
