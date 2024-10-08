@@ -33,7 +33,7 @@ import { TransactionDetailsComponent } from '../transaction-details/transaction-
 })
 export class RegulatoryInformationComponent extends BaseComponent implements OnInit {
   lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpIndex; 
 
   public regulartoryInfoForm: FormGroup;
   // @Input() detailsChanged: number;
@@ -43,6 +43,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   // @Output() trDescUpdated = new EventEmitter();
 
   dossierTypeOptions: ICodeDefinition[] = [];
+  adminSubTypeOptions: ICode[] = [];
   // mfTypeDescArray: IParentChildren[] = [];
   // mfRevisedTypeDescArray: IParentChildren[] = [];
   // mfUseOptions: ICode[] = [];
@@ -77,7 +78,24 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   private _signalService = inject(AppSignalService)
 
-  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder,
+  readonly pharma: string = 'D22';
+  readonly bio: string = 'D21';
+  readonly vet: string = 'D24';
+
+  readonly selectedDossierTypeSignal = this._signalService.getSelectedDossierType();
+  isPharmaBio = computed(() => {
+    return this.selectedDossierTypeSignal() === this.pharma || this.selectedDossierTypeSignal() === this.bio;
+  });
+  dossierTypeSelected = computed(() => {
+    return this.selectedDossierTypeSignal() === this.pharma || this.selectedDossierTypeSignal() === this.bio || this.selectedDossierTypeSignal() === this.vet;
+  });
+
+  adminSubmissionSelected = signal('');
+  isAdminSubmission = computed(() => {
+    return this.adminSubmissionSelected() === 'Y';
+  });
+
+  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -86,7 +104,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-
+    
     if (!this.regulartoryInfoForm) {
       this.regulartoryInfoForm = RegulatoryInformationService.getRegularInfoForm(this._fb);
     }
@@ -146,6 +164,10 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   //     const valuesToReset = ['revisedDescriptionType'];
   //     this._resetControlValues(valuesToReset);
   //   }
+  }
+
+  onAdminSubmissionSelected(e:any) {
+    this.adminSubmissionSelected.set(this.regulartoryInfoForm.get("isAdminSubmission")?.value);
   }
 
   // onTxDescriptionSelected(e: any): void {
