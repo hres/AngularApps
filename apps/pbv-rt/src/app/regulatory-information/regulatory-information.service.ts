@@ -29,7 +29,11 @@ export class RegulatoryInformationService {
        [Validators.required, this.pharmabioDossierIdValidator],
      ],
      companyId: [null, [Validators.required]],
-     productName: [null, [Validators.required]]
+     productName: [null, [Validators.required]],
+     isPriority: [null, [Validators.required]],
+     isNOC: [null, [Validators.required]],
+     isAdminSubmission: [null, [Validators.required]],
+     adminSubType:[null, [Validators.required]]
     //  masterFileName: [null, Validators.required],
     //  masterFileNumber: [null, ValidationService.masterFileNumberValidator],
     //  masterFileType: [null, Validators.required],
@@ -48,6 +52,9 @@ export class RegulatoryInformationService {
     dataModel.company_id = formValue['companyId'];
     dataModel.dossier_id = formValue['dossierId'];
     dataModel.product_name = formValue['productName'];
+    dataModel.is_priority = formValue['isPriority'];
+    dataModel.is_noc = formValue['isNOC'];
+    dataModel.is_admin_submission = formValue['isAdminSubmission'];
   //   dataModel.lifecycle_record.master_file_number = formValue['masterFileNumber'];
   //   dataModel.lifecycle_record.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfTypes, formValue['masterFileType'], lang);
   //   dataModel.lifecycle_record.master_file_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfUses, formValue['masterFileUse'], lang);
@@ -87,6 +94,9 @@ export class RegulatoryInformationService {
     formRecord.controls['companyId'].setValue(dataModel.company_id);
     formRecord.controls['dossierId'].setValue(dataModel.dossier_id);
     formRecord.controls['productName'].setValue(dataModel.product_name);
+    formRecord.controls['isPriority'].setValue(dataModel.is_priority);
+    formRecord.controls['isNOC'].setValue(dataModel.is_noc);
+    formRecord.controls['isAdminSubmission'].setValue(dataModel.is_admin_submission);
   //   formRecord.controls['masterFileNumber'].setValue(dataModel.lifecycle_record.master_file_number);
 
   //   if(dataModel.lifecycle_record.regulatory_activity_type?._id){

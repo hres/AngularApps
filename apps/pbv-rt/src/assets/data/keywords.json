@@ -1,0 +1,17 @@
+[
+    {
+        "name": "yesno",
+        "data": [
+            {
+                "id": "Y",
+                "en": "Yes",
+                "fr": "Oui"
+            },
+            {
+                "id": "N",
+                "en": "No",
+                "fr": "Non"
+            }
+        ]
+    }
+]

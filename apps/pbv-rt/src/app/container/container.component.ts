@@ -31,7 +31,9 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getDossierTypes(),
     this._formDataLoader.getRaLeads(),
     this._formDataLoader.getDossierTypeAndRaLeads(),
-    this._formDataLoader.getRelationship()
+    this._formDataLoader.getRelationship(),
+    this._formDataLoader.getYesNoList(),
+    this._formDataLoader.getAdminSubTypes()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -50,6 +52,8 @@ export class ContainerComponent implements OnInit {
       this._globalService.raLeads = data[4];
       this._globalService.dossierTypeRaLeads = data[5];
       this._globalService.relationship = data[6];
+      this._globalService.yesnoList = data[7];
+      this._globalService.adminSubTypes = data[8];
       this.loadFormBaseComponent = true;
     });
   }

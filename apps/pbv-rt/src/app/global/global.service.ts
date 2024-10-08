@@ -30,6 +30,7 @@ export class GlobalService {
   private _dossierTypes: ICodeDefinition[] = [];
   private _raLeads: ICodeDefinition[] = [];
   private _dossierTypeRaLeads: IParentChildren[] = [];
+  private _adminSubTypes: ICode[];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -170,5 +171,13 @@ export class GlobalService {
 
   public set relationship(value: any[]) {
     this._relationship = value;
+  }
+
+  public get adminSubTypes(): ICode[] {
+    return this._adminSubTypes;
+  }
+
+  public set adminSubTypes(value: ICode[]) {
+    this._adminSubTypes = value;
   }
 }

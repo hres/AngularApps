@@ -96,6 +96,9 @@ export class FormBaseService {
       dossier_id: '',
       dossier_type: { _id: 'D25' },
       product_name: '',
+      is_priority:'',
+      is_noc:'',
+      is_admin_submission:'',
       product_protocol: '',
       lifecycle_record: this.getEmptyLifecycleRecord(),
     };
