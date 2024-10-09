@@ -6,7 +6,7 @@ import {
   CommonUiFeatureModule,
   NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CertSuppProtectComponent } from './cert-supp-protect/cert-supp-protect.component';
@@ -28,7 +28,7 @@ import { CertSuppProtectService } from './cert-supp-protect/cert-supp-protect.se
     NumbersOnlyDirective
   ],
   providers: [
-    CertSuppProtectService
+    CertSuppProtectService,DatePipe
   ],
   exports: [CommonUiFeatureModule,
     CertSuppProtectComponent

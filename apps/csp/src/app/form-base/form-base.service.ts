@@ -4,14 +4,21 @@ import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails,
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class FormBaseService {
 
+
+  private messageSource = new BehaviorSubject('');
+  currentMessage = this.messageSource.asObservable();
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
 
+  saveWorkcopyEvent(message: string){
+    this.messageSource.next(message);
+  }
   /**
    * Gets the reactive forms Model for generalInfo details
    * @param {FormBuilder} fb
@@ -31,7 +38,7 @@ export class FormBaseService {
     const enrollment: Transaction = {
       TRANSACTION_ENROL: this.getEmptyTransactionEnrol()
     };
-    
+
     return enrollment;
   }
 
@@ -84,7 +91,7 @@ export class FormBaseService {
       ectd: this.getEmptyEctd(),
       fee_details: this.getEmptyMasterFileFeeModel()
     };
-    
+
     return TransactionEnrol;
   }
 
@@ -146,7 +153,7 @@ export class FormBaseService {
   //   this._certificationService.mapFormModelToDataModel(certificationFormGroupValue, outputTransactionEnrol)
   // }
 
-  // public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, 
+  // public mapAddressFormContactFormToOutput(contactInfo: ContactInfo,
   //   addressesFormGroupValue: Array<{ addrType: string, value: any }>, contactsFormGroupValue: Array<{ contactType: string, value: any }>): void{
 
   //   if (contactInfo.agent_not_applicable) {
@@ -185,6 +192,6 @@ export class FormBaseService {
   // }
 
   // public mapFeeFormToOutput(feeDetail: FeeDetails, feeFormGroupValue: any): void{
-  //   this._feeService.mapFormModelToDataModel(feeFormGroupValue, feeDetail);    
+  //   this._feeService.mapFormModelToDataModel(feeFormGroupValue, feeDetail);
   // }
 }

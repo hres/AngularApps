@@ -17,6 +17,8 @@ import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CertSuppProtectService } from './cert-supp-protect.service';
 import { Ectd } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
+import { Subscription } from 'rxjs';
+import { FormBaseService } from '../form-base/form-base.service';
 
 @Component({
   selector: 'app-cert-supp-protect',
@@ -26,7 +28,8 @@ import { GlobalService } from '../global/global.service';
 })
 export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   lang: string;
-  helpIndex: HelpIndex; 
+  helpIndex: HelpIndex;
+  subscription: Subscription;
 
   public certSuppProtectForm: FormGroup;
   // @Input() detailsChanged: number;
@@ -46,7 +49,7 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   // selectedTxDescDefinition: string;
   // public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
-    
+
   // txDescRquireRevise: string = '13';
 
   // // writable signal for the answer of "Transaction Description" field
@@ -66,8 +69,8 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   //   return this.showReqRevisedTxDesc() && this.selectedReqRevisionSignal() === 'Y'
   // });
 
-  constructor(private _CertSuppProtectService: CertSuppProtectService, private _fb: FormBuilder, 
-    private _utilsService: UtilsService, private _globalService: GlobalService) {
+  constructor(private _CertSuppProtectService: CertSuppProtectService, private _fb: FormBuilder,
+    private _utilsService: UtilsService, private _globalService: GlobalService, private formBaseService: FormBaseService) {
     super();
     this.showFieldErrors = false;
   }
@@ -75,10 +78,22 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-    
+
+
+    this.subscription = this.formBaseService.currentMessage.subscribe(message => {
+      if(this.certSuppProtectForm != undefined ){
+        this.certSuppProtectForm.patchValue({dateLastSaved: message});
+        if(this.certSuppProtectForm.get('enrollVersion').value != undefined ){
+        this.certSuppProtectForm.patchValue({enrollVersion: this._CertSuppProtectService.getUpdateEnrolmentVersion(this.certSuppProtectForm.get('enrollVersion').value)});
+        }
+     }
+    })
+
     if (!this.certSuppProtectForm) {
       this.certSuppProtectForm = CertSuppProtectService.getRegularInfoForm(this._fb);
     }
+
+
 
     // this.descriptionTypeList = this._globalService.txDescs;
     // this.mfTypeOptions = this._globalService.mfTypes;
@@ -197,6 +212,10 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
     for (let i = 0; i < controlNames.length; i++) {
       this._utilsService.resetControlsValues(this.certSuppProtectForm.controls[controlNames[i]]);
     }
+  }
+
+  ngOnDestroy(): void {
+   this.subscription.unsubscribe();
   }
 
 }
