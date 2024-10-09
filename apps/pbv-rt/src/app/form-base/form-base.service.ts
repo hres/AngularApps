@@ -84,7 +84,11 @@ export class FormBaseService {
       form_language: '',
       check_sum: '',
       ectd: this.getEmptyEctd(),
-      fee_details: this.getEmptyMasterFileFeeModel()
+      fee_details: this.getEmptyMasterFileFeeModel(),
+      is_priority: '',
+      is_noc: '',
+      is_admin_sub: '',
+      sub_type: undefined
     };
     
     return TransactionEnrol;
@@ -96,9 +100,6 @@ export class FormBaseService {
       dossier_id: '',
       dossier_type: { _id: 'D25' },
       product_name: '',
-      is_priority:'',
-      is_noc:'',
-      is_admin_submission:'',
       product_protocol: '',
       lifecycle_record: this.getEmptyLifecycleRecord(),
     };
@@ -155,7 +156,7 @@ export class FormBaseService {
   // }
 
   public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any): void{
-    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd);
+    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol);
   }
 
   // public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, 

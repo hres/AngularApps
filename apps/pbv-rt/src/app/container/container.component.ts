@@ -36,7 +36,7 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getRaLeadAndRaTypes(),
     this._formDataLoader.getDossierTypeRaTypeAndTransactionDescriptions(),
     this._formDataLoader.getYesNoList(),
-    this._formDataLoader.getAdminSubTypes()
+    this._formDataLoader.getAdminSubTypes(this._globalService.currLanguage)
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}

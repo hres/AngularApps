@@ -12,6 +12,10 @@ export interface TransactionEnrol {
   check_sum?: string;
   ectd: Ectd;
   fee_details: FeeDetails;
+  is_priority: string;
+  is_noc: string;
+  is_admin_sub: string;
+  sub_type: IIdTextLabel;
 }
 
 export interface Ectd {
@@ -19,9 +23,6 @@ export interface Ectd {
   dossier_id: string;
   dossier_type: IIdText;
   product_name: string;
-  is_priority: string;
-  is_noc: string;
-  is_admin_submission: string;
   product_protocol: string;
   lifecycle_record: LifecycleRecord;
 }
