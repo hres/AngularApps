@@ -21,9 +21,9 @@
         <control-messages *ngIf="certificationForm.controls['fullName'].invalid" [showError]="showErrors"
         parentId="mfCertif" [control]="certificationForm.controls['fullName'] | formControl"
         controlId="fullNameId" label="fullName"></control-messages>
-        <input name="fullName" class="form-control" id="fullNameId" maxlength="120"
-        [formControlName]="'fullName'" />
     </label>
+    <input name="fullName" class="form-control" id="fullNameId" maxlength="120"
+        [formControlName]="'fullName'" />
     </div>
 </div>
 
@@ -34,9 +34,9 @@
     <control-messages *ngIf="certificationForm.controls['submitDate'].invalid" [showError]="showErrors"
         parentId="mfCertif" [control]="certificationForm.controls['submitDate'] | formControl" controlId="submitDateId"
         label="submitDate"></control-messages>
+    </label>
     <input name="submitDate" class="form-control" id="submitDateId" type="date"
         [formControlName]="'submitDate'" (input)="checkDateValidity($event)" /> 
-    </label>
 </div>
 </div>
 
