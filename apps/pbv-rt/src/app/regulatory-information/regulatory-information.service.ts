@@ -33,7 +33,8 @@ export class RegulatoryInformationService {
      isPriority: [null, [Validators.required]],
      isNOC: [null, [Validators.required]],
      isAdminSubmission: [null, [Validators.required]],
-     adminSubType:[null, [Validators.required]]
+     adminSubType:[null, [Validators.required]],
+     isFees: [null, [Validators.required]]
     //  masterFileName: [null, Validators.required],
     //  masterFileNumber: [null, ValidationService.masterFileNumberValidator],
     //  masterFileType: [null, Validators.required],
@@ -57,6 +58,7 @@ export class RegulatoryInformationService {
     dataModel.is_noc = formValue['isNOC'];
     dataModel.is_admin_sub = formValue['isAdminSubmission'];
     dataModel.sub_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.adminSubTypes, formValue['adminSubType'], lang);
+    dataModel.is_fees = formValue['isFees'];
 
   //   dataModel.lifecycle_record.master_file_number = formValue['masterFileNumber'];
   //   dataModel.lifecycle_record.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfTypes, formValue['masterFileType'], lang);
@@ -102,10 +104,11 @@ export class RegulatoryInformationService {
     formRecord.controls['isAdminSubmission'].setValue(dataModel.is_admin_sub);
     if(dataModel.sub_type?._id){
       const id = this._utilsService.getIdFromIdTextLabel(dataModel.sub_type);
-      formRecord.controls['subType'].setValue(id? id : null);
+      formRecord.controls['adminSubType'].setValue(id? id : null);
     } else {
-      formRecord.controls['subType'].setValue(null);
+      formRecord.controls['adminSubType'].setValue(null);
     }
+    formRecord.controls['isFees'].setValue(dataModel.is_fees);
   //   formRecord.controls['masterFileNumber'].setValue(dataModel.lifecycle_record.master_file_number);
 
   //   if(dataModel.lifecycle_record.regulatory_activity_type?._id){
