@@ -19,6 +19,7 @@ import { Ectd } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { Subscription } from 'rxjs';
 import { FormBaseService } from '../form-base/form-base.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cert-supp-protect',
@@ -29,7 +30,7 @@ import { FormBaseService } from '../form-base/form-base.service';
 export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   lang: string;
   helpIndex: HelpIndex;
-  subscription: Subscription;
+  @Input() saveWorkCopyTime: number;
 
   public certSuppProtectForm: FormGroup;
   // @Input() detailsChanged: number;
@@ -70,7 +71,7 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   // });
 
   constructor(private _CertSuppProtectService: CertSuppProtectService, private _fb: FormBuilder,
-    private _utilsService: UtilsService, private _globalService: GlobalService, private formBaseService: FormBaseService) {
+    private _utilsService: UtilsService, private _globalService: GlobalService, private formBaseService: FormBaseService, private datepipe: DatePipe) {
     super();
     this.showFieldErrors = false;
   }
@@ -78,16 +79,6 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-
-
-    this.subscription = this.formBaseService.currentMessage.subscribe(message => {
-      if(this.certSuppProtectForm != undefined ){
-        this.certSuppProtectForm.patchValue({dateLastSaved: message});
-        if(this.certSuppProtectForm.get('enrollVersion').value != undefined ){
-        this.certSuppProtectForm.patchValue({enrollVersion: this._CertSuppProtectService.getUpdateEnrolmentVersion(this.certSuppProtectForm.get('enrollVersion').value)});
-        }
-     }
-    })
 
     if (!this.certSuppProtectForm) {
       this.certSuppProtectForm = CertSuppProtectService.getRegularInfoForm(this._fb);
@@ -108,6 +99,12 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if(this.certSuppProtectForm != undefined ){
+      this.certSuppProtectForm.patchValue({dateLastSaved:  this.datepipe.transform(new Date( new Date(this.saveWorkCopyTime)), 'yyyy-MM-dd')});
+      if(this.certSuppProtectForm.get('enrollVersion').value != undefined ){
+      this.certSuppProtectForm.patchValue({enrollVersion: this._CertSuppProtectService.getUpdateEnrolmentVersion(this.certSuppProtectForm.get('enrollVersion').value)});
+      }
+   }
     const isFirstChange = this._utilsService.isFirstChange(changes);
     // console.log("RegulatoryInformationComponent ~ ngOnChanges ~ isFirstChange:", isFirstChange);
     // Ignore first trigger of ngOnChanges
@@ -214,8 +211,5 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
     }
   }
 
-  ngOnDestroy(): void {
-   this.subscription.unsubscribe();
-  }
 
 }

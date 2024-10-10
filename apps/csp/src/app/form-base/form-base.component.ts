@@ -16,7 +16,7 @@ import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
     providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, AppFormModule]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -24,6 +24,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   helpIndex: HelpIndex;
   devEnv: boolean;
   byPassCheckSum: boolean;
+  saveWorkCopyTime: number;
+
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -209,8 +211,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const result: Transaction = this._prepareForSaving(false);
     const fileName = this._generateFileName(result[ROOT_TAG]);
     this.fileServices.saveJsonToFile(result, fileName, null);
-    this._baseService.saveWorkcopyEvent(this.datepipe.transform(new Date, 'yyyy-MM-dd'));
-  }
+    this.saveWorkCopyTime = Date.now();
+   }
 
   public processFile(fileData: ConvertResults) {
     // console.log(fileData);

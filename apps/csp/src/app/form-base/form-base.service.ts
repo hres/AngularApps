@@ -16,9 +16,6 @@ export class FormBaseService {
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
   }
 
-  saveWorkcopyEvent(message: string){
-    this.messageSource.next(message);
-  }
   /**
    * Gets the reactive forms Model for generalInfo details
    * @param {FormBuilder} fb
@@ -194,4 +191,6 @@ export class FormBaseService {
   // public mapFeeFormToOutput(feeDetail: FeeDetails, feeFormGroupValue: any): void{
   //   this._feeService.mapFormModelToDataModel(feeFormGroupValue, feeDetail);
   // }
+
+
 }
