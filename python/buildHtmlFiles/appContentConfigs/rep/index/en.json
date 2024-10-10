@@ -11,7 +11,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"{{ base_url }}version_history.html\">Template version history (2024-10-02)</a>"
+                        "<a href=\"{{ base_url }}version_history.html\">Template version history (2024-10-22)</a>"
                     ]
                 }
             ]
@@ -47,7 +47,7 @@
             "header": "Within the Regulatory Transaction Process",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory Transaction (RT) Template (2024-10-02)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory Transaction (RT) Template (2024-10-22)</a>",
                     "bullets": [
                         "Required with each regulatory transaction filed to Health Canada.",
                         "Sent via the CESG in folder 1.2.1 for human drugs and disinfectants or part I folder 1.5 for veterinary drugs of the regulatory transaction (submission).",
