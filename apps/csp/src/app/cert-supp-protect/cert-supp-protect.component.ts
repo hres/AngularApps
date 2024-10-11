@@ -17,6 +17,9 @@ import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CertSuppProtectService } from './cert-supp-protect.service';
 import { Ectd } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
+import { Subscription } from 'rxjs';
+import { FormBaseService } from '../form-base/form-base.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cert-supp-protect',
@@ -26,7 +29,8 @@ import { GlobalService } from '../global/global.service';
 })
 export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   lang: string;
-  helpIndex: HelpIndex; 
+  helpIndex: HelpIndex;
+  @Input() saveWorkCopyTime: number;
 
   public certSuppProtectForm: FormGroup;
   // @Input() detailsChanged: number;
@@ -46,7 +50,7 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   // selectedTxDescDefinition: string;
   // public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
-    
+
   // txDescRquireRevise: string = '13';
 
   // // writable signal for the answer of "Transaction Description" field
@@ -66,8 +70,8 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   //   return this.showReqRevisedTxDesc() && this.selectedReqRevisionSignal() === 'Y'
   // });
 
-  constructor(private _CertSuppProtectService: CertSuppProtectService, private _fb: FormBuilder, 
-    private _utilsService: UtilsService, private _globalService: GlobalService) {
+  constructor(private _CertSuppProtectService: CertSuppProtectService, private _fb: FormBuilder,
+    private _utilsService: UtilsService, private _globalService: GlobalService, private formBaseService: FormBaseService, private datepipe: DatePipe) {
     super();
     this.showFieldErrors = false;
   }
@@ -75,10 +79,12 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-    
+
     if (!this.certSuppProtectForm) {
       this.certSuppProtectForm = CertSuppProtectService.getRegularInfoForm(this._fb);
     }
+
+
 
     // this.descriptionTypeList = this._globalService.txDescs;
     // this.mfTypeOptions = this._globalService.mfTypes;
@@ -93,6 +99,12 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if(this.certSuppProtectForm != undefined ){
+      this.certSuppProtectForm.patchValue({dateLastSaved:  this.datepipe.transform(new Date( new Date(this.saveWorkCopyTime)), 'yyyy-MM-dd')});
+      if(this.certSuppProtectForm.get('enrollVersion').value != undefined ){
+      this.certSuppProtectForm.patchValue({enrollVersion: this._CertSuppProtectService.getUpdateEnrolmentVersion(this.certSuppProtectForm.get('enrollVersion').value)});
+      }
+   }
     const isFirstChange = this._utilsService.isFirstChange(changes);
     // console.log("RegulatoryInformationComponent ~ ngOnChanges ~ isFirstChange:", isFirstChange);
     // Ignore first trigger of ngOnChanges
@@ -198,5 +210,6 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit {
       this._utilsService.resetControlsValues(this.certSuppProtectForm.controls[controlNames[i]]);
     }
   }
+
 
 }
