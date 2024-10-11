@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
 import { SdkComponent } from './sdk.component';
 
-
-
 @NgModule({
-  declarations: [
-    SdkComponent
-  ],
   imports: [
+    SdkComponent
   ],
   exports: [
     SdkComponent
