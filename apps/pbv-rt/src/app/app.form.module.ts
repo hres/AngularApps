@@ -13,11 +13,14 @@ import { RegulatoryInformationComponent } from './regulatory-information/regulat
 import { RegulatoryInformationService } from './regulatory-information/regulatory-information.service';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 import { TransactionDetailsService } from './transaction-details/transaction-details.service';
+import { FeesComponent } from './fees/fees.component';
+import { FeesService } from './fees/fees.service';
 
 @NgModule({
   declarations: [
     RegulatoryInformationComponent,
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    FeesComponent
   ],
   imports: [
     CommonModule,
@@ -32,11 +35,13 @@ import { TransactionDetailsService } from './transaction-details/transaction-det
   ],
   providers: [
     RegulatoryInformationService,
-    TransactionDetailsService
+    TransactionDetailsService,
+    FeesService
   ],
   exports: [CommonUiFeatureModule,
     RegulatoryInformationComponent,
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    FeesComponent
    ],
 })
 export class AppFormModule {}

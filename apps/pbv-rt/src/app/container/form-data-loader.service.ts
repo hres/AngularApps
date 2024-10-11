@@ -15,6 +15,7 @@ export class FormDataLoaderService {
   private raTypesJsonPath = DATA_PATH + 'raTypes.json';
   private transactionDescriptionsJsonPath = DATA_PATH + 'transactionDescriptions.json';
   private adminSubTypesJsonPath = DATA_PATH + 'adminSubTypes.json';
+  private submissionClassesJsonPath = DATA_PATH + 'submissionClasses.json';
 
   cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
@@ -29,6 +30,7 @@ export class FormDataLoaderService {
   dossierTypeAndRaLeadsRelationship$: Observable<any[]>;
   raLeadAndRaTypesRelationship$: Observable<any[]>;
   dossierTypeRaTypeAndTransactionDescriptionsRelationship$: Observable<any[]>;
+  submissionClasses$: Observable<ICodeDefinition[]>;
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -172,5 +174,13 @@ export class FormDataLoaderService {
       shareReplay(1)
     );
     return this.cachedAdminSubTypes$;
+  }
+
+  getSubmissionClasses(): Observable<ICodeDefinition[]> {
+    this.submissionClasses$ = this._dataService.getData<ICodeDefinition>(this.submissionClassesJsonPath)
+    .pipe(
+      shareReplay(1)
+    );
+    return this.submissionClasses$;
   }
 }

@@ -49,6 +49,7 @@ export interface LifecycleRecord {
 }
 
 export interface FeeDetails {
+  submission_class: IIdTextLabel;
 }
 
 export interface INameAddress {
