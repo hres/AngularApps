@@ -44,6 +44,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   private contactModelChangesSubscription: Subscription;
 
   popupId='contactPopup';
+
+  statusMessage : string = '';
   
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService, 
     private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService) {
@@ -169,16 +171,13 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * Adds an contact UI record to the contact List
    */
   public addContact(): void {
+    const newIndex = this.contactList.length;
 
     this._createFormContact();
 
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
 
-    if (this.isInternal) {
-      document.location.href = '#contactId';
-    } else {
-      document.location.href = '#status';
-    }
+    document.location.href = '#fullName' + newIndex;
     this.showErrors = false;
   }
 
@@ -210,6 +209,12 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     this._errorNotificationService.removeErrorSummary(recordId.toString());
 
     this._expandNextInvalidRecord();
+
+    if (this.lang == "en") {
+      this.statusMessage = "Contact record " + (recordId + 1) + " has been saved."
+    } else {
+
+    }
 
     this.showErrors = true;
     if (!this.isInternal) {
@@ -259,9 +264,6 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     //     emitErrors.push(error);
     //   });
     // }
-    if (checkErrorSummary && this.errorSummaryChild) {
-      emitErrors.push(this.errorSummaryChild);
-    }
     if (!this.isInternal && this._noNonRemoveRecords(this.contactModel)) {
       const oerr: ErrorSummaryObject = getEmptyErrorSummaryObj();
       oerr.index = 0;
@@ -269,7 +271,12 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       oerr.type = ERR_TYPE_LEAST_ONE_REC;
       oerr.label = 'error.msg.contact.one.record';
       emitErrors.push(oerr);
+    } else {
+      if (checkErrorSummary && this.errorSummaryChild) {
+        emitErrors.push(this.errorSummaryChild);
+      }
     }
+    console.log(emitErrors);
     this.errors.emit(emitErrors);
   }
 
@@ -292,6 +299,11 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       // should never happen, there should always be a UI record
       console.warn('ContactList:rec is null');
     }
+    if (this.lang == "en") {
+      this.statusMessage = "Contact record " + (recordId + 1) + " changes have been reverted."
+    } else {
+
+    }
     if (this.isInternal) {
       document.location.href = '#contactId';
     } else {
@@ -309,8 +321,35 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     this._errorNotificationService.removeErrorSummary(id);
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
     this._expandNextInvalidRecord();
+    if (this.lang == "en") {
+      this.statusMessage = "Contact record " + (id + 1) + " has been deleted."
+    } else {
+
+    }
     document.location.href = '#contactListTable';
     this.contactsUpdated.emit(this.contactModel);
+  }
+
+  public statusChange(idAndStatus): void {
+    const id = idAndStatus.id + 1;
+    const status = idAndStatus.status;
+    console.log("id and status", id, status);
+
+    if (this.lang == "en") {
+      switch (status) {
+        case ContactStatus.Active:
+          this.statusMessage = "Contact record " + id + " status is now active.";
+          break;
+        case ContactStatus.Remove:
+          this.statusMessage = "Contact record " + id + " status has been changed to remove.";
+          break;
+        case ContactStatus.Revise:
+          this.statusMessage = "Contact record " + id + " status has been changed to revise.";
+          break;
+      }
+    } else {
+
+    }
   }
 
   /**

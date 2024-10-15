@@ -16,7 +16,8 @@
         [languageList]="languageList" [contactStatusList]="contactStatusList" [showErrors]="showErrors" [lang]="lang"
         [helpTextSequences]="helpTextSequences" (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)" (revertRecord)="revertContact($event)"
-        (deleteRecord)="deleteContact($event)"></app-company-contact-record>
+        (deleteRecord)="deleteContact($event)"
+        (statusChange)="statusChange($event)"></app-company-contact-record>
     </ng-template>
 
   </lib-accordion>
@@ -29,6 +30,9 @@
       <sup id="co5-rf" tabindex="-1"><a href="#co5" class="fn-lnk"><b><span class="wb-inv">instruction</span>5</b></a></sup>
     </div>
   </div>
+  <div class="sr-only" id="statusMsg" aria-live="polite" role="status">{{ statusMessage }}</div>
+
+  <!-- <div class="sr-only" id="statusMsg" aria-live="polite" role="status">{{ statusMessage }}</div> -->
   <!-- <pre>Form Data {{contactListForm.value |json}}</pre>
   <pre>Data Model for Contact List {{contactModel|json}}</pre> -->
 </div>

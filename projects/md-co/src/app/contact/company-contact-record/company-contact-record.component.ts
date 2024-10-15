@@ -33,6 +33,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
+  @Output() statusChange = new EventEmitter<{id:number, status:string}>;
   @Output() errors = new EventEmitter();
 
   @ViewChild(ContactDetailsComponent, {static: true}) contactDetailsChild;
@@ -161,16 +162,19 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public setStatusToRevise(): void {
     this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Revise, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
+    this.statusChange.emit({id:this.contactRecordModel.get('id').value + 1, status:ContactStatus.Revise})
   }
 
   public setStatusToRemove(): void {
     this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Remove, this.contactStatusList, this.lang, true);
     this.saveContactRecord();
+    this.statusChange.emit({id:this.contactRecordModel.get('id').value + 1, status:ContactStatus.Remove})
   }
 
   public activeContactRecord(): void {
     // this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
     this.saveContactRecord(ContactStatus.Active)
+    this.statusChange.emit({id:this.contactRecordModel.get('id').value + 1, status:ContactStatus.Active})
   }
 
   public saveContactRecord(contactStatus?: ContactStatus): void {

@@ -23,6 +23,8 @@ export class FilereaderComponent implements OnInit {
   public importedFileName = "";
   public displayAlert = false;   // reloads the role=alert each message
   private rootId = '';
+  public fileImported = false;
+
   
   constructor(private translate: TranslateService) {
   }
@@ -53,6 +55,7 @@ export class FilereaderComponent implements OnInit {
    * @param inputValue
    */
   readSelectedFile(inputValue: any): void {
+    this.fileImported = true;
     let file: File = inputValue.files[0];
     let myReader: FileReader = new FileReader();
     let self = this;
@@ -68,13 +71,16 @@ export class FilereaderComponent implements OnInit {
 
       if(self.status === IMPORT_SUCCESS){
         self.importSuccess = true;
-        self.importedFileName = file.name;
       }
+      self.importedFileName = file.name;
 
       self.displayAlert = false;
       setTimeout(() => { // this reloads the message
         self.displayAlert = true;
       }, 10);
+
+      const alertElement = document.getElementById('displayAlert');
+      alertElement.textContent = self.status;
      
       self.complete.emit(convertResult);
     };
@@ -103,9 +109,8 @@ export class FilereaderComponent implements OnInit {
         conversion.convertXMLToJSONObjects(result, convertResult);
       }
       // console.log(convertResult.data);
-      if (convertResult.messages.length === 0) {
-        FilereaderComponent.checkRootTagMatch(convertResult, rootId);
-      }
+      FilereaderComponent.checkRootTagMatch(convertResult, rootId);
+      
       if(fileType.toLowerCase() === FINAL_FILE_TYPE && convertResult.messages.length === 0){
         this.checkSumCheck(convertResult, rootId);
       }
