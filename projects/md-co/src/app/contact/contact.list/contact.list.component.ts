@@ -213,7 +213,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (this.lang == "en") {
       this.statusMessage = "Contact record " + (recordId + 1) + " has been saved."
     } else {
-
+      this.statusMessage = "CEnregistrement du contact " + (recordId + 1) + " a été sauvegardé."
     }
 
     this.showErrors = true;
@@ -300,9 +300,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       console.warn('ContactList:rec is null');
     }
     if (this.lang == "en") {
-      this.statusMessage = "Contact record " + (recordId + 1) + " changes have been reverted."
+      this.statusMessage = "Contact record " + (recordId + 1) + "  changes have been discarded."
     } else {
-
+      this.statusMessage = "Les modifications du contact " + (recordId + 1) + " ont été annulées."
     }
     if (this.isInternal) {
       document.location.href = '#contactId';
@@ -324,7 +324,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (this.lang == "en") {
       this.statusMessage = "Contact record " + (id + 1) + " has been deleted."
     } else {
-
+      this.statusMessage = "Enregistrement du contact  " + (id + 1) + " a été supprimé."
     }
     document.location.href = '#contactListTable';
     this.contactsUpdated.emit(this.contactModel);
@@ -348,7 +348,17 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
           break;
       }
     } else {
-
+      switch (status) {
+        case ContactStatus.Active:
+          this.statusMessage = " Le statut d’enregistrement de contact " + id + " est maintenant actif.";
+          break;
+        case ContactStatus.Remove:
+          this.statusMessage = "Le statut d’enregistrement de contact " + id + " a été modifié pour être supprimé.";
+          break;
+        case ContactStatus.Revise:
+          this.statusMessage = "Le statut d’enregistrement de contact " + id + " a été modifié pour être révisé.";
+          break;
+      }
     }
   }
 
