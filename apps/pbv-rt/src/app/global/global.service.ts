@@ -33,7 +33,7 @@ export class GlobalService {
   private _transactionDescriptions: ICodeDefinition[] = [];
   private _dossierTypeAndRaLeadsRelationship: any[] = [];
   private _raLeadAndRaTypesRelationship: any[] = [];
-  private _dossierTypeRaTypeAndTransactionDescriptionsRelationship: any[] = [];
+  private _raLeadRaTypeAndTxnDescrs: any[] = [];
   private _dossierTypeRaLeads: IParentChildren[] = [];
   private _adminSubTypes: ICode[];
   private _submissionClasses: ICodeDefinition[];
@@ -192,12 +192,12 @@ export class GlobalService {
     this._raLeadAndRaTypesRelationship = value;
   }
 
-  public get dossierTypeRaTypeAndTransactionDescriptionsRelationship(): any[] {
-    return this._dossierTypeRaTypeAndTransactionDescriptionsRelationship;
+  public get raLeadRaTypeAndTxnDescrs(): any[] {
+    return this._raLeadRaTypeAndTxnDescrs;
   }
 
-  public set dossierTypeRaTypeAndTransactionDescriptionsRelationship(value: any[]) {
-    this._dossierTypeRaTypeAndTransactionDescriptionsRelationship = value;
+  public set raLeadRaTypeAndTxnDescrs(value: any[]) {
+    this._raLeadRaTypeAndTxnDescrs = value;
   }
 
   public get adminSubTypes(): ICode[] {
