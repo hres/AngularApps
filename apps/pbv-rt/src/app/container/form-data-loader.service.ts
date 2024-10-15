@@ -14,6 +14,7 @@ export class FormDataLoaderService {
   private raLeadsJsonPath = DATA_PATH + 'raLeads.json';
   private raTypesJsonPath = DATA_PATH + 'raTypes.json';
   private transactionDescriptionsJsonPath = DATA_PATH + 'transactionDescriptions.json';
+  private raLeadRaTypeAndTxnDescrJsonPath = DATA_PATH + 'raLeadRaTypeAndTxnDescrs.json';
   private adminSubTypesJsonPath = DATA_PATH + 'adminSubTypes.json';
   private submissionClassesJsonPath = DATA_PATH + 'submissionClasses.json';
 
@@ -29,7 +30,7 @@ export class FormDataLoaderService {
   transactionDescriptions$: Observable<ICodeDefinition[]>;
   dossierTypeAndRaLeadsRelationship$: Observable<any[]>;
   raLeadAndRaTypesRelationship$: Observable<any[]>;
-  dossierTypeRaTypeAndTransactionDescriptionsRelationship$: Observable<any[]>;
+  raLeadRaTypeAndTxnDescrs$: Observable<any[]>;
   submissionClasses$: Observable<ICodeDefinition[]>;
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
@@ -140,16 +141,16 @@ export class FormDataLoaderService {
     return this.raLeadAndRaTypesRelationship$;
   }
 
-  getDossierTypeRaTypeAndTransactionDescriptions(): Observable<any[]> {
-    if (!this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$) {
-      this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$ = this._dataService
-        .getData<any>(DATA_PATH + 'dossierTypeRaTypeAndTransactionDescriptions.json')
+  geRaLeadRaTypeAndTransactionDescriptions(): Observable<any[]> {
+    if (!this.raLeadRaTypeAndTxnDescrs$) {
+      this.raLeadRaTypeAndTxnDescrs$ = this._dataService
+        .getData<any>(this.raLeadRaTypeAndTxnDescrJsonPath)
         .pipe(
           // tap((_) => console.log('getTxDescriptions is executed')),
           shareReplay(1)
         );
     }
-    return this.dossierTypeRaTypeAndTransactionDescriptionsRelationship$;
+    return this.raLeadRaTypeAndTxnDescrs$;
   }
 
 

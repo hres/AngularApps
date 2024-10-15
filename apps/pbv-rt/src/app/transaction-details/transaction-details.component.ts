@@ -39,11 +39,18 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   raLeadList: Signal<ICodeDefinition[]> =  computed(() => {
     if(this.selectedDossierTypeId()){
       const filteredDossierTypeAndRaLeads = this._globalService.dossierTypeAndRaLeadsRelationship.filter(item => item.dossierTypeId === this.selectedDossierTypeId());
-      const raLeadIds = filteredDossierTypeAndRaLeads.length ? filteredDossierTypeAndRaLeads[0].raLeadIds : [];
-      console.log('updating raLeadList => raLeadIds', raLeadIds);
-      const filteredRaLeads = this._globalService.raLeads.filter(lead => raLeadIds.includes(lead.id));
-      console.log('updating raLeadList => filteredRaLeads', filteredRaLeads);
-      return filteredRaLeads; 
+      console.log('updating raLeadList => filteredDossierTypeAndRaLeads', filteredDossierTypeAndRaLeads);
+
+      if (filteredDossierTypeAndRaLeads.length === 1) {
+        const raLeadIds = filteredDossierTypeAndRaLeads[0].raLeadIds;
+        console.log('updating raLeadList => raLeadIds', raLeadIds);
+        const filteredRaLeads = this._globalService.raLeads.filter(lead => raLeadIds.includes(lead.id));
+        console.log('updating raLeadList => filteredRaLeads', filteredRaLeads);
+        return filteredRaLeads; 
+      } else {
+        console.error(`updating raLeadList => found ${filteredDossierTypeAndRaLeads.length} filteredDossierTypeAndRaLeads `);
+        return [];
+      }
     } else {
       return [];
     }
@@ -53,37 +60,42 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   raTypeList: Signal<ICodeDefinition[]> =  computed(() => {
     if(this.selectedRaLeadId()){
       const filteredRaLeadAndRaTypes = this._globalService.raLeadAndRaTypesRelationship.filter(item => item.raLeadId === this.selectedRaLeadId());
-      const raTypeIds = filteredRaLeadAndRaTypes.length ? filteredRaLeadAndRaTypes[0].raTypeIds : [];
-      console.log('updating raTypeList => raTypeIds', raTypeIds);
-      const filtereRaTypes = this._globalService.raTypes.filter(type => raTypeIds.includes(type.id));
-      console.log('updating raTypeList => filtereRaTypes', filtereRaTypes);
-      return filtereRaTypes; 
+      console.log('updating raTypeList => filteredRaLeadAndRaTypes', filteredRaLeadAndRaTypes);
+
+      if (filteredRaLeadAndRaTypes.length === 1) {
+        const raTypeIds = filteredRaLeadAndRaTypes[0].raTypeIds;
+        console.log('updating raTypeList => raTypeIds', raTypeIds);
+        const filteredRaTypes = this._globalService.raTypes.filter(type => raTypeIds.includes(type.id));
+        console.log('updating raTypeList => filtereRaTypes', filteredRaTypes);
+        return filteredRaTypes; 
+      } else {
+        console.error(`updating raTypeList => found ${filteredRaLeadAndRaTypes.length} filteredRaLeadAndRaTypes `);
+        return [];
+      }
     } else {
       return [];
     }
   });
 
-  // Regulatory Transaction Description drodropdown list is computed based on the selected Dossier Type and the selected Regulatory Activity Lead
+  // Regulatory Transaction Description drodropdown list is computed based on the selected Regulatory Activity Lead and the selected Regulatory Activity Type
   transactionDescriptionList: Signal<ICodeDefinition[]> =  computed(() => {
-    console.log("updating transactionDescriptionList => this.selectedDossierTypeId()", this.selectedDossierTypeId(), "this.selectedRaTypeId()", this.selectedRaTypeId())
+    if(this.selectedRaLeadId() && this.selectedRaTypeId()) {
+      // filter the raLeadRaTypeAndTxnDescrs dataset by raLeadId and raTypeId
+      const filteredRaLeadRaTypeAndTxnDescrs = 
+        this._globalService.raLeadRaTypeAndTxnDescrs.filter(item => item.raLeadId === this.selectedRaLeadId() && item.raTypeId === this.selectedRaTypeId());
+      console.log("updating transactionDescriptionList => this.selectedRaLeadId()", this.selectedRaLeadId(), "this.selectedRaTypeId()", this.selectedRaTypeId(), "filteredRaLeadRaTypeAndTxnDescrs ", filteredRaLeadRaTypeAndTxnDescrs);
 
-    if(this.selectedDossierTypeId() && this.selectedRaTypeId()) {
-      // filter the dataset by selectedDossierTypeId first
-      const filteredDossierTypeRaTypeAndTransactionDescriptions = this._globalService.dossierTypeRaTypeAndTransactionDescriptionsRelationship.find(dossier => dossier.dossierTypeIds.includes(this.selectedDossierTypeId()));
-      console.log("updating transactionDescriptionList => filteredDossierTypeRaTypeAndTransactionDescriptions ", filteredDossierTypeRaTypeAndTransactionDescriptions);
-      if (filteredDossierTypeRaTypeAndTransactionDescriptions) {
-          // then filter by selectedRaTypeId
-          const sequenceDescriptionIds = filteredDossierTypeRaTypeAndTransactionDescriptions.combos
-              .filter(value => value.raTypeId === this.selectedRaTypeId())
-              .map(value => value.sequenceDescriptionIds);
-
-          console.log("updating transactionDescriptionList => sequenceDescriptionIds", sequenceDescriptionIds);
-
-          const filtereTransactionDescriptions = this._globalService.transactionDescriptions.filter(item => sequenceDescriptionIds[0].includes(item.id));
-          console.log('updating transactionDescriptionList => filtereTransactionDescriptions', filtereTransactionDescriptions);
-          return filtereTransactionDescriptions; 
+      if (filteredRaLeadRaTypeAndTxnDescrs.length === 1) {
+        // get the txnDescrIds for this raLeadId and raTypeId combination
+        const transactionDescriptionIds = filteredRaLeadRaTypeAndTxnDescrs[0].txnDescrIds;
+        console.log("updating transactionDescriptionList => transactionDescriptionIds", transactionDescriptionIds);
+        // filter the transactionDescriptions dataset based on the transactionDescriptionIds
+        const filtereTransactionDescriptions = this._globalService.transactionDescriptions.filter(item => transactionDescriptionIds.includes(item.id));
+        console.log('updating transactionDescriptionList => filtereTransactionDescriptions', filtereTransactionDescriptions);
+        return filtereTransactionDescriptions; 
       } else {
-          return [];
+        console.error(`updating transactionDescriptionList => found ${filteredRaLeadRaTypeAndTxnDescrs.length} filteredRaLeadRaTypeAndTxnDescrs `);
+        return [];
       }  
     } else {
       return [];

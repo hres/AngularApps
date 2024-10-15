@@ -1,0 +1,33 @@
+[
+    {
+        "raLeadId": "B14-20160301-09",
+        "raTypeId": "B02-20160301-001",
+        "txnDescrIds": [
+            "ADMINISTRATIVE",
+            "CANCEL_LETTER",
+            "COMMENTS_NOC",
+            "CONSENT_LTR"
+        ]
+    },
+    {
+        "raLeadId": "B14-20160301-09",
+        "raTypeId": "B02-20160301-018",
+        "txnDescrIds": [
+            "INITIAL",
+            "MEETING_MINUTES",
+            "NOTIFICATION_INTERRUPT_SALE",
+            "POST_CLEARANCE_DATA"
+        ]
+    },
+    {
+        "raLeadId": "B14-20160301-02",
+        "raTypeId": "B02-20160301-001",
+        "txnDescrIds": [
+            "INITIAL",
+            "MEETING_MINUTES",
+            "NOTIFICATION_INTERRUPT_SALE",
+            "POST_CLEARANCE_DATA",
+            "PRODUCT_LABELLING_POST_APPROVAL"
+        ]
+    }
+]
