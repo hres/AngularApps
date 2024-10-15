@@ -50,6 +50,8 @@ export interface FeeDetails {
 export interface IContactInformation {
   is_3rd_party_signed: string;
   company_name: string;
+  routing_id: string;
+  confirm_contact_valid: boolean;
 }
 
 export interface INameAddress {

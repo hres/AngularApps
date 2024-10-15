@@ -15,6 +15,11 @@ export class RegulatoryContactService {
         companyName: [
             null,
             [Validators.required]
+        ],
+        routingId: null,
+        confirmContactValid: [
+            null,
+            [Validators.required]
         ]
        })
     }
