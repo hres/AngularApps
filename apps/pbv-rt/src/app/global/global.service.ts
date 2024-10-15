@@ -28,6 +28,15 @@ export class GlobalService {
   private _stateList: ICode[];
   private _yesnoList: ICode[];
   private _dossierTypes: ICodeDefinition[] = [];
+  private _raLeads: ICodeDefinition[] = [];
+  private _raTypes: ICodeDefinition[] = [];
+  private _transactionDescriptions: ICodeDefinition[] = [];
+  private _dossierTypeAndRaLeadsRelationship: any[] = [];
+  private _raLeadAndRaTypesRelationship: any[] = [];
+  private _dossierTypeRaTypeAndTransactionDescriptionsRelationship: any[] = [];
+  private _dossierTypeRaLeads: IParentChildren[] = [];
+  private _adminSubTypes: ICode[];
+  private _submissionClasses: ICodeDefinition[];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -138,8 +147,73 @@ export class GlobalService {
   public get dossierTypes(): ICodeDefinition[] {
     return this._dossierTypes;
   }
-  
+
   public set dossierTypes(value: ICodeDefinition[]) {
     this._dossierTypes = value;
   }
+
+  public get raLeads(): ICodeDefinition[] {
+    return this._raLeads;
+  }
+
+  public set raLeads(value: ICodeDefinition[]) {
+    this._raLeads = value;
+  }
+
+  public get raTypes(): ICodeDefinition[] {
+    return this._raTypes;
+  }
+
+  public set raTypes(value: ICodeDefinition[]) {
+    this._raTypes = value;
+  }
+
+  public get transactionDescriptions(): ICodeDefinition[] {
+    return this._transactionDescriptions;
+  }
+
+  public set transactionDescriptions(value: ICodeDefinition[]) {
+    this._transactionDescriptions = value;
+  }
+
+  public get dossierTypeAndRaLeadsRelationship(): any[] {
+    return this._dossierTypeAndRaLeadsRelationship;
+  }
+
+  public set dossierTypeAndRaLeadsRelationship(value: any[]) {
+    this._dossierTypeAndRaLeadsRelationship = value;
+  }
+
+  public get raLeadAndRaTypesRelationship(): any[] {
+    return this._raLeadAndRaTypesRelationship;
+  }
+
+  public set raLeadAndRaTypesRelationship(value: any[]) {
+    this._raLeadAndRaTypesRelationship = value;
+  }
+
+  public get dossierTypeRaTypeAndTransactionDescriptionsRelationship(): any[] {
+    return this._dossierTypeRaTypeAndTransactionDescriptionsRelationship;
+  }
+
+  public set dossierTypeRaTypeAndTransactionDescriptionsRelationship(value: any[]) {
+    this._dossierTypeRaTypeAndTransactionDescriptionsRelationship = value;
+  }
+
+  public get adminSubTypes(): ICode[] {
+    return this._adminSubTypes;
+  }
+
+  public set adminSubTypes(value: ICode[]) {
+    this._adminSubTypes = value;
+  }
+
+  public get submissionClasses(): ICodeDefinition[] {
+    return this._submissionClasses;
+  }
+
+  public set submissionClasses(value: ICodeDefinition[]) {
+    this._submissionClasses = value;
+  } 
+
 }

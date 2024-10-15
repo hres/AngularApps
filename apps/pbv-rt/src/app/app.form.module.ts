@@ -13,6 +13,8 @@ import { RegulatoryInformationComponent } from './regulatory-information/regulat
 import { RegulatoryInformationService } from './regulatory-information/regulatory-information.service';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 import { TransactionDetailsService } from './transaction-details/transaction-details.service';
+import { FeesComponent } from './fees/fees.component';
+import { FeesService } from './fees/fees.service';
 import { RegulatoryContactComponent } from './regulatory-contact/regulatory-contact.component';
 import { RegulatoryContactService } from './regulatory-contact/regulatory-contact.service';
 
@@ -20,7 +22,8 @@ import { RegulatoryContactService } from './regulatory-contact/regulatory-contac
   declarations: [
     RegulatoryInformationComponent,
     RegulatoryContactComponent,
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    FeesComponent
   ],
   imports: [
     CommonModule,
@@ -36,12 +39,14 @@ import { RegulatoryContactService } from './regulatory-contact/regulatory-contac
   providers: [
     RegulatoryInformationService,
     RegulatoryContactService,
-    TransactionDetailsService
+    TransactionDetailsService,
+    FeesService
   ],
   exports: [CommonUiFeatureModule,
     RegulatoryInformationComponent,
     RegulatoryContactComponent,
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    FeesComponent
    ],
 })
 export class AppFormModule {}

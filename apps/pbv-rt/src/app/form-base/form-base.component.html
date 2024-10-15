@@ -27,14 +27,15 @@
       <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
         headingPreamble="errorSummary.form.name"></lib-error-summary>
     </div>
-    <!-- in base ==> <br />showErrors(): {{showErrors()}}<br />isVeterinary: {{isVeterinaryDossierType()}} <br />showFees(): {{showFees()}} -->
+    <!-- showErrors(): {{showErrors()}} <br />isVeterinary: {{isVeterinaryDossierType()}} <br />-->
+    in base ==> <br />selectedDossierType: {{selectedDossierType()}} <br />showFees(): {{showFees()}}
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'panel.title.regulatory.info'|translate}}</h2>
           </header>
           <div class="panel-body">
-            <app-regulatory-information [showErrors]="showErrors" [dataModel]="ectdModel"
+            <app-regulatory-information [showErrors]="showErrors" [dataModel]="transactionEnrollModel"
             (errorList)="processRegulatoryInfoErrors($event)"></app-regulatory-information>
           </div>
       </section>
@@ -44,7 +45,7 @@
           <h2 class="panel-title">{{'panel.title.fees'|translate}}</h2>
           </header>
           <div class="panel-body">
-            todo <!-- <app-fees [testinput]="isVeterinaryDossierType()"></app-fees> -->
+            <app-fees [showErrors]="showErrors" [dataModel]="transactionEnrollModel" (errorList)="processRegulatoryInfoErrors($event)"></app-fees>
           </div>
       </section>
 

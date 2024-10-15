@@ -12,6 +12,11 @@ export interface TransactionEnrol {
   check_sum?: string;
   ectd: Ectd;
   fee_details: FeeDetails;
+  is_priority: string;
+  is_noc: string;
+  is_admin_sub: string;
+  sub_type: IIdTextLabel;
+  is_fees: string
   contact_info: IContactInformation;
 }
 
@@ -45,6 +50,7 @@ export interface LifecycleRecord {
 }
 
 export interface FeeDetails {
+  submission_class: IIdTextLabel;
 }
 
 export interface IContactInformation {

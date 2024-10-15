@@ -37,10 +37,10 @@ export class FormBaseService {
     return enrollment;
   }
 
-  public getEmptyMasterFileFeeModel() : FeeDetails{
+  public getEmptyFeesModel() : FeeDetails{
     return (
       {
-//todo
+        submission_class: undefined
       }
     );
   }
@@ -84,7 +84,12 @@ export class FormBaseService {
       form_language: '',
       check_sum: '',
       ectd: this.getEmptyEctd(),
-      fee_details: this.getEmptyMasterFileFeeModel()
+      fee_details: this.getEmptyFeesModel(),
+      is_priority: '',
+      is_noc: '',
+      is_admin_sub: '',
+      sub_type: undefined,
+      is_fees: ''
     };
     
     return TransactionEnrol;
@@ -152,7 +157,7 @@ export class FormBaseService {
   // }
 
   public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any): void{
-    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd);
+    this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol);
   }
 
   // public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, 

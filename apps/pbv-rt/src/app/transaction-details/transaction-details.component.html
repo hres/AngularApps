@@ -1,19 +1,88 @@
-<div [formGroup]="transctionDetailsForm">
+<div [formGroup]="transctionDetailsForm"> 
     <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="controlNumber" class="required">
-                <span class="field-name">{{'company.id'|translate }}&nbsp;{{'5digits.only'|translate }}</span>
+                <span class="field-name">{{'ctrl.num'|translate }}&nbsp;{{'5digits.only'|translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                <sup id="tr3-rf">
-                    <a class="fn-lnk" href="#tr9"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['controlNumberIndx']}}</a>
+                <sup id="tr9-rf">
+                    <a class="fn-lnk" href="#tr9"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['ctrlNumIndx']}}</a>
                 </sup>
                 <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid"
-                    [showError]="showErrors()"
+                    [showError]="showErrors"
                     [control]="transctionDetailsForm.controls['controlNumber'] | formControl"
-                    controlId="controlNumber" label="controlNumber" parentId="regulatoryInfo"></control-messages>
-                <input id="company.id" name="controlNumber" class="form-control" 
+                    controlId="controlNumber" label="ctrl.num" parentId="regulatoryInfo"></control-messages>
+                <input id="controlNumber" name="controlNumber" class="form-control" 
                     [formControlName]="'controlNumber'" minlength="5" maxlength="5" size="6"/>
             </label>
         </div>
     </div>
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="activityLead" class="required">
+                <span class="field-name">{{ 'activity.lead' |translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <sup id="tr10-rf">
+                    <a class="fn-lnk" href="#tr10"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['regActIndx']}}</a>
+                </sup>
+                <control-messages *ngIf="transctionDetailsForm.controls['activityLead'].invalid"
+                    [showError]="showErrors"
+                    [control]="transctionDetailsForm.controls['activityLead'] | formControl"
+                    controlId="activityLead" label="activity.lead" parentId="regulatoryInfo"></control-messages>
+            </label>
+            <select id="activityLead" name="activityLead" required class="form-control full-width"
+                [formControlName]="'activityLead'" (change)="onRaLeadSelected($any($event.target).value)">
+                <option label=" " value=""></option>
+                <option *ngFor="let lead of raLeadList()" [value]="lead.id"> {{ lead| textTransform: lang }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedRaLeadDefinition()">
+        <div class="alert alert-info" role="alert">
+            <p aria-live="polite">{{selectedRaLeadDefinition()}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="activityType" class="required">
+                <span class="field-name">{{ 'reg.activity.type' |translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <control-messages *ngIf="transctionDetailsForm.controls['activityType'].invalid"
+                    [showError]="showErrors"
+                    [control]="transctionDetailsForm.controls['activityType'] | formControl"
+                    controlId="activityType" label="reg.activity.type" parentId="regulatoryInfo"></control-messages>
+            </label>
+            <select id="activityType" name="activityType" required class="form-control full-width"
+                [formControlName]="'activityType'" (change)="onRaTypeSelected($any($event.target).value)">
+                <option label=" " value=""></option>
+                <option *ngFor="let item of raTypeList()" [value]="item.id"> {{ item| textTransform: lang }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedRaTypeDefinition()">
+        <div class="alert alert-info" role="alert">
+            <p aria-live="polite">{{selectedRaTypeDefinition()}}</p>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="descriptionType" class="required">
+                <span class="field-name">{{ 'sequence.type' |translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <control-messages *ngIf="transctionDetailsForm.controls['descriptionType'].invalid"
+                    [showError]="showErrors"
+                    [control]="transctionDetailsForm.controls['descriptionType'] | formControl"
+                    controlId="descriptionType" label="sequence.type" parentId="regulatoryInfo"></control-messages>
+            </label>
+            <select id="descriptionType" name="descriptionType" required class="form-control full-width"
+                [formControlName]="'descriptionType'" (change)="onSequenceDescriptionSelected($any($event.target).value)">
+                <option label=" " value=""></option>
+                <option *ngFor="let item of transactionDescriptionList()" [value]="item.id"> {{ item| textTransform: lang }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedTxDescDefinition()">
+        <div class="alert alert-info" role="alert">
+            <p aria-live="polite">{{selectedTxDescDefinition()}}</p>
+        </div>
+    </div>   
 </div>

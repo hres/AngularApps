@@ -7,7 +7,7 @@
           {{'fee.warning3'|translate}}
           <strong>
           <sup id="tr6-rf">
-            <a class="fn-lnk" href="#tr6"><span
+            <a class="fn-lnk mrgn-tp-md" href="#tr6"><span
                 class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['feeNoteIndx']}}</a>
           </sup>
           </strong>
@@ -46,9 +46,9 @@
                             [showError]="showFieldErrors"
                             [control]="feeForm.controls['numOfAccessLetter'] | formControl"
                             controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"></control-messages>
-          <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3"
-                 [formControl]="feeForm.controls['numOfAccessLetter'] | formControl" data-only-digits/>
         </label>
+        <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3"
+                 [formControl]="feeForm.controls['numOfAccessLetter'] | formControl" data-only-digits/>
       </div>
   </div>
   <div class="row form-group">
@@ -82,9 +82,9 @@
                             [control]="feeForm.controls['accountNumber'] | formControl"
                             controlId="accountNumber" label="account.num" parentId="mfFees"
                             requiredLength="5"></control-messages>
-          <input id="accountNumber" class="form-control" name="accountNumber" data-only-digits
-                 [formControl]="feeForm.controls['accountNumber'] | formControl" maxlength="5"/>
         </label>
+        <input id="accountNumber" class="form-control" name="accountNumber" data-only-digits
+                 [formControl]="feeForm.controls['accountNumber'] | formControl" maxlength="5"/>
       </div><div class="form-group col-sm-6">
         <label for="businessNumber" class="full-width">
           <span class="field-name">{{'business.num'|translate}}</span>
@@ -93,9 +93,9 @@
                             [control]="feeForm.controls['businessNumber'] | formControl"
                             controlId="businessNumber" label="business.num" parentId="mfFees"
                             requiredLength="9"></control-messages>
-          <input id="businessNumber" class="form-control" name="businessNumber" data-only-digits
-            [formControl]="feeForm.controls['businessNumber'] | formControl" maxlength="9" />
         </label>
+        <input id="businessNumber" class="form-control" name="businessNumber" data-only-digits
+            [formControl]="feeForm.controls['businessNumber'] | formControl" maxlength="9" />
       </div>
     </div>
   </div>

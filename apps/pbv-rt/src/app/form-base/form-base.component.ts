@@ -11,6 +11,7 @@ import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol
 import { AppSignalService } from '../signal/app-signal.service';
 import { RegulatoryInformationComponent } from '../regulatory-information/regulatory-information.component';
 import { RegulatoryContactComponent } from '../regulatory-contact/regulatory-contact.component';
+import { FeesComponent } from '../fees/fees.component';
 
 @Component({
     selector: 'app-form-base',
@@ -31,6 +32,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
+  @ViewChild(FeesComponent) feesComponent: FeesComponent;
   @ViewChild(RegulatoryContactComponent) regulatoryContactComponent: RegulatoryContactComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
@@ -39,7 +41,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _regulatoryInfoErrors = [];
   private _regulatoryContactErrors = [];
-  // private _transFeeErrors = [];
+  private _FeesErrors = [];
   // private _addressErrors = [];
   // private _contactErrors = [];
   // private _agentAddressErrors = [];
@@ -180,10 +182,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   //   this.processErrors();
   // }
 
-  // processTransFeeErrors(errorList) {
-  //   this._transFeeErrors = errorList;
-  //   this.processErrors();
-  // }
+  processFeesErrors(errorList) {
+    this._FeesErrors = errorList;
+    this.processErrors();
+  }
 
   // processCertificationErrors(errorList) {
   //   this._certficationErrors = errorList;
