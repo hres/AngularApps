@@ -9,7 +9,10 @@ import { data } from 'jquery';
 @Component({
   selector: 'app-transaction-details',
   templateUrl: './transaction-details.component.html',
-  styles: [],
+  styles: [`.legend-rep{
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}`],
   encapsulation: ViewEncapsulation.None,
 })
 export class TransactionDetailsComponent extends BaseComponent implements OnInit {
@@ -155,4 +158,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     return this.transctionDetailsForm.value;
   }
 
+  checkDateValidity(event: any): void {
+    this._utilsService.checkInputValidity(event, this.transctionDetailsForm.get('requestDate'), 'invalidDate');
+  } 
 }
