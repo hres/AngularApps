@@ -37,7 +37,8 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.geRaLeadRaTypeAndTransactionDescriptions(),
     this._formDataLoader.getYesNoList(),
     this._formDataLoader.getAdminSubTypes(this._globalService.currLanguage),
-    this._formDataLoader.getSubmissionClasses()
+    this._formDataLoader.getSubmissionClasses(),
+    this._formDataLoader.getMitigationTypes()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -62,6 +63,7 @@ export class ContainerComponent implements OnInit {
       this._globalService.yesnoList = data[10];
       this._globalService.adminSubTypes = data[11];
       this._globalService.submissionClasses = data[12];
+      this._globalService.mitigationTypes = data[13];
 
       this.loadFormBaseComponent = true;
     });
