@@ -37,6 +37,7 @@ export class GlobalService {
   private _dossierTypeRaLeads: IParentChildren[] = [];
   private _adminSubTypes: ICode[];
   private _submissionClasses: ICodeDefinition[];
+  private _mitigationTypes: ICode[];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -216,4 +217,12 @@ export class GlobalService {
     this._submissionClasses = value;
   } 
 
+  
+  public get mitigationTypes(): ICode[] {
+    return this._mitigationTypes;
+  }
+
+  public set mitigationTypes(value: ICode[]) {
+    this._mitigationTypes = value;
+  }
 }

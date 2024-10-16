@@ -20,7 +20,14 @@ export class FeesService {
       return null;
    }
    return fb.group({
-     subClass: [null, [Validators.required]]
+     subClass: [null, [Validators.required]],
+     mitigationType:[null],
+     certifyGovOrg: [null, [Validators.required]],
+     certifyISAD: [null, [Validators.required]],
+     certifyFundedInstitution: [null, [Validators.required]],
+     certifySmallBusiness: [null, [Validators.required]],
+     smallBusinessFeeApp: [null, [Validators.required]],
+     certifyUrgentHealthNeed: [null, [Validators.required]]
    });
   }
 

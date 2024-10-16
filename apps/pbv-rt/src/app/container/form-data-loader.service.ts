@@ -17,6 +17,7 @@ export class FormDataLoaderService {
   private raLeadRaTypeAndTxnDescrJsonPath = DATA_PATH + 'raLeadRaTypeAndTxnDescrs.json';
   private adminSubTypesJsonPath = DATA_PATH + 'adminSubTypes.json';
   private submissionClassesJsonPath = DATA_PATH + 'submissionClasses.json';
+  private mitigationTypesJsonPath = DATA_PATH + 'mitigationTypes.json';
 
   cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
@@ -32,6 +33,7 @@ export class FormDataLoaderService {
   raLeadAndRaTypesRelationship$: Observable<any[]>;
   raLeadRaTypeAndTxnDescrs$: Observable<any[]>;
   submissionClasses$: Observable<ICodeDefinition[]>;
+  mitigationTypes$: Observable<ICode[]>;
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -183,5 +185,15 @@ export class FormDataLoaderService {
       shareReplay(1)
     );
     return this.submissionClasses$;
+  }
+
+  getMitigationTypes(): Observable<ICode[]> {
+    if (!this.mitigationTypes$) {
+      this.mitigationTypes$ = this._dataService.getData<ICode>(this.mitigationTypesJsonPath)
+        .pipe(
+          shareReplay(1)
+        );
+    }
+    return this.mitigationTypes$;
   }
 }

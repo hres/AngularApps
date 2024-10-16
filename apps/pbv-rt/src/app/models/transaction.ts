@@ -50,6 +50,7 @@ export interface LifecycleRecord {
 
 export interface FeeDetails {
   submission_class: IIdTextLabel;
+  mitigation_type: IIdTextLabel;
 }
 
 export interface INameAddress {

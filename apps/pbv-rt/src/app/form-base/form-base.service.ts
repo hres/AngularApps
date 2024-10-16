@@ -40,7 +40,8 @@ export class FormBaseService {
   public getEmptyFeesModel() : FeeDetails{
     return (
       {
-        submission_class: undefined
+        submission_class: undefined,
+        mitigation_type: undefined
       }
     );
   }
