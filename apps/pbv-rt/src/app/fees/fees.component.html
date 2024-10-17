@@ -1,7 +1,7 @@
 <div [formGroup]="feesForm">
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="alert alert-info" role="alert">
-            <p aria-live="polite">{{'fee.pay.notice' | translate}}&nbsp;<a href="{{'fees.and.funding.url'|translate}}">{{'fees.and.funding.rev'|translate}}</a></p>
+            <p aria-live="polite" [innerHTML]="'fee.pay.notice' | translate"></p>
         </div>
     </div>
     <div class="row">

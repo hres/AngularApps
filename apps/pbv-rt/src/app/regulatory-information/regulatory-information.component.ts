@@ -44,7 +44,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   // @Output() trDescUpdated = new EventEmitter();
 
   dossierTypeOptions: ICodeDefinition[] = [];
-  adminSubTypeOptions: ICode[] = [];
+  adminSubTypeOptions: ICodeDefinition[] = [];
   // mfTypeDescArray: IParentChildren[] = [];
   // mfRevisedTypeDescArray: IParentChildren[] = [];
   // mfUseOptions: ICode[] = [];
@@ -92,7 +92,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     return this.adminSubmissionSelected() === 'Y';
   });
 
-  selectedAdminSubType: string = '';
+  selectedAdminSubTypeDefinition: string = '';
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
@@ -169,11 +169,12 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     this.adminSubmissionSelected.set(this.regulartoryInfoForm.get("isAdminSubmission")?.value);
     const valuesToReset = ['adminSubType'];
     this._resetControlValues(valuesToReset);
-    this.selectedAdminSubType = '';
+    this.selectedAdminSubTypeDefinition = '';
   }
 
-  onAdminSubTypeSelected(e:any) {
-    this.selectedAdminSubType = this.regulartoryInfoForm.get("adminSubType").value;
+  onAdminSubTypeSelected(selectedAdminSubTypeId: string) {
+    const codeDefinition = this._utilsService.findCodeDefinitionById(this.adminSubTypeOptions,selectedAdminSubTypeId)
+    this.selectedAdminSubTypeDefinition = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
   }
 
   // onTxDescriptionSelected(e: any): void {

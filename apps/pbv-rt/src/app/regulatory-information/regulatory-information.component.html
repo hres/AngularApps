@@ -166,81 +166,13 @@
                             label="admin.sub.type" parentId="regulatoryInfo"></control-messages>
                     </label>
                     <select id="adminSubType" name="adminSubType" required class="form-control"
-                        [formControlName]="'adminSubType'" (change)="onAdminSubTypeSelected($event)">
+                        [formControlName]="'adminSubType'" (change)="onAdminSubTypeSelected($any($event.target).value)">
                         <option label=" " value=""></option>
                         <option *ngFor="let item of adminSubTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
                     </select>
                 </div>
               </div>
-            <div *ngIf="selectedAdminSubType ==='ADDITIONAL_PRODUCT_CHGE'">
-                <ul>
-                    <li>{{'addition.prod.name.note.1'| translate}}</li>
-                </ul>
-                <div role="alert" class="alert alert-info">
-                    <p>{{'addition.prod.name.note.2'| translate}}</p>
-                    <p>{{'addition.prod.name.note.3'| translate}}</p>
-                </div>
-            </div>
-            <div *ngIf="selectedAdminSubType ==='OWNERSHIP_CHGE'">
-                <ul>
-                    <li>{{'ownership.change.note.1'| translate}}</li>
-                </ul>
-                <div role="alert" class="alert alert-info">
-                    <p>{{'ownership.change.note.2'| translate}}</p>
-                    <p>{{'ownership.change.note.3'| translate}}</p>
-                </div>
-            </div>
-            <div *ngIf="selectedAdminSubType ==='POSTAUTH_CHEMISTRY_CHGE'">
-                <ul>
-                    <li>{{'chemistry.update.note'| translate}}</li>
-                </ul>
-                <div role="alert" class="alert alert-info">
-                    <p>{{'use.existing.ids.note'| translate}}</p>
-                </div>
-            </div>
-            <div *ngIf="selectedAdminSubType ==='POSTAUTH_LABEL_CHGE'">
-                <ul>
-                    <li>{{'label.update.note'| translate}}</li>
-                </ul>
-                <div role="alert" class="alert alert-info">
-                    <p>{{'use.existing.ids.note'| translate}}</p>
-                </div>
-            </div>
-            <div *ngIf="selectedAdminSubType ==='LICENGSING'">
-                <ul>
-                    <li>{{'licensing.agreements.note.1'| translate}}</li>
-                </ul>
-                <div role="alert" class="alert alert-info">
-                    <p>{{'licensing.agreements.note.2'| translate}}</p>
-                    <p>{{'licensing.agreements.note.3'| translate}}</p>
-                </div>
-            </div>
-            <div *ngIf="selectedAdminSubType ==='PRODUCT_MANUFACT_NAME_CHGE' || selectedAdminSubType==='MANUFACT_NAME_CHGE'">
-                <ul>
-                    <li>{{'manu.prod.name.change.note.1'| translate}}</li>
-                </ul>
-                <div role="alert" class="alert alert-info">
-                    <p>{{'manu.prod.name.change.note.2'| translate}}</p>
-                    <p>{{'manu.prod.name.change.note.3'| translate}}</p>
-                </div>
-            </div>
-            <div *ngIf="selectedAdminSubType ==='MERGER'">
-                <ul>
-                    <li>{{'merger.note.1'| translate}}</li>
-                </ul>
-                <div role="alert" class="alert alert-info">
-                    <p>{{'merger.note.2'| translate}}</p>
-                    <p>{{'merger.note.3'| translate}}</p>
-                </div>
-            </div>
-            <div *ngIf="selectedAdminSubType ==='PRODUCT_NAME_CHGE'">
-                <ul>
-                    <li>{{'prod.name.change.note'| translate}}</li>
-                </ul>
-                <div role="alert" class="alert alert-info">
-                    <p>{{'use.existing.ids.note'| translate}}</p>
-                </div>
-            </div>
+            <div [innerHTML]="selectedAdminSubTypeDefinition"></div>
         </ng-container>
           <section class="panel  panel-default">
             <header class="panel-heading clearfix group-beside">
