@@ -5,7 +5,7 @@ import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
+import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -219,7 +219,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (fileData.data !== null) {
       this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
       this._initModels(this.transactionEnrollModel);
-      // this.setSelectedTxDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
+      // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
       // this.agentInfoOnChange();
     }
@@ -242,8 +242,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log("Calling preload")
   }
 
-  // public setSelectedTxDesc(val: string) {
-  //   // console.log("setSelectedTxDesc==>", val);
+  // public setSelectedTxnDesc(val: string) {
+  //   // console.log("setSelectedTxnDesc==>", val);
   //   // set the value of selectedTxDescSignal and showContact/showFees will be computed
   //   this.selectedTxDescSignal.set(val);
 
@@ -277,7 +277,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       const result: Transaction = this._prepareForSaving(true);
       const fileName = this._generateFileName(result[ROOT_TAG]);
       const xsltVersion = this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.appVersion)
-      const xslName = FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
+      const xslName = XSLT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
 
       this.fileServices.saveXmlToFile(result, fileName, true, xslName);
       return;
@@ -291,7 +291,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
-    this._baseService.mapRequiredFormsToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue);
+    this._baseService.mapRegulatoryInfoFormToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue);
 
     // // contactInfo and fee are conditional rendered, do their mappings to output data only when applicable
     // if (this.showContact()) {
