@@ -5,13 +5,14 @@ import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
+import { TransactionDetailsService } from '../transaction-details/transaction-details.service';
 
 @Injectable()
 export class FormBaseService {
 
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,
-    private _regulatoryInfoService: RegulatoryInformationService) {
+    private _regulatoryInfoService: RegulatoryInformationService, private _transactionDetailsService: TransactionDetailsService) {
   }
 
   /**
@@ -98,9 +99,9 @@ export class FormBaseService {
 
   private getEmptyEctd(): Ectd {
     const ectd: Ectd = {
-      company_id: 'unassigned',
+      company_id: '',
       dossier_id: '',
-      dossier_type: { _id: 'D25' },
+      dossier_type: undefined,
       product_name: '',
       product_protocol: '',
       lifecycle_record: this.getEmptyLifecycleRecord(),
@@ -110,31 +111,25 @@ export class FormBaseService {
 
   private getEmptyLifecycleRecord(): LifecycleRecord {
     const lifecycleRecord: LifecycleRecord = {
-      control_number: '000000',
-      regulatory_activity_lead: {
-        _id: 'B14-20160301-07',
-      },
+      control_number: '',
+      regulatory_activity_lead: undefined,
       regulatory_activity_type: undefined,
       sequence_description_value: undefined,
-      sequence_from_date: undefined,
-      transaction_description: undefined,
+      sequence_date: '',
+      sequence_from_date: '',
+      sequence_to_date: '',
+      sequence_details: '',
+      sequence_details_change: '',
+      sequence_version: '',
+      sequence_year: '',
+      transaction_description: '',
+      requester_name: '',
+      requester_name2: '',
+      requester_name3: '',
       requester_of_solicited_information: '',
-      sequence_to_date: undefined,
-      sequence_details: undefined,
-      sequence_details_change: undefined,
-      sequence_version: undefined,
-      sequence_year: undefined,
-      requester_name: undefined,
-      requester_name2: undefined,
-      requester_name3: undefined,
-      from_time: undefined,
-      to_time: undefined,
+      from_time: '',
+      to_time: ''
     };
-
-    // console.log(
-    //   'getEmptyMasterFileDetailsModel ~ lifecycleRecord',
-    //   JSON.stringify(lifecycleRecord)
-    // );
 
     return lifecycleRecord;
   }
@@ -157,8 +152,9 @@ export class FormBaseService {
   //   // user needs to check contactInfoConfirm checkbox each time they submit the form, so no need to load it from the uploaded data file
   // }
 
-  public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any): void{
+  public mapRegulatoryInfoFormToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any): void{
     this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol);
+    //this._transactionDetailsService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd.lifecycle_record);
   }
 
   // public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, 

@@ -13,8 +13,6 @@ export class FeesService {
 
   constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService) {}
 
-  // showDateAndRequesterTxDescs: string[] = ['12','13', '14'];
-
   public static getFeesForm(fb:FormBuilder) {
     if (!fb) {
       return null;

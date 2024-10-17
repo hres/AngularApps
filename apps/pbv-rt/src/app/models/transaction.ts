@@ -33,6 +33,7 @@ export interface LifecycleRecord {
   regulatory_activity_lead: IIdText;
   regulatory_activity_type: IIdTextLabel;
   sequence_description_value: IIdTextLabel;
+  sequence_date: string;
   sequence_from_date: string;
   sequence_to_date: string;
   sequence_details: string;

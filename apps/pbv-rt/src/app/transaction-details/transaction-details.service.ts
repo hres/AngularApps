@@ -18,6 +18,11 @@ export class TransactionDetailsService {
     activityLead: [null, [Validators.required]],
     activityType: [null, Validators.required],
     descriptionType: [null, Validators.required],
+    requestDate: [null, Validators.required],
+    requester1: [null, Validators.required],
+    requester2: [null, Validators.required],
+    requester3: [null, Validators.required],
+    versionNumber: [null, Validators.required],
    });
   }
 }
