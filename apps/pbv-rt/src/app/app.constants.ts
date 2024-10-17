@@ -4,7 +4,8 @@ export const START_CHECKSUM_VERSION = 5;
 
 export const DATA_PATH: string = './assets/data/';
 
-export const FILE_OUTPUT_PREFIX = 'REP';
+export const FILE_OUTPUT_PREFIX = 'rt';
+export const XSLT_PREFIX = 'REP';
 
 export const helpInstructionHeadings = [
     'loadFileIndx',
@@ -81,10 +82,10 @@ export const TXN_DESC = {
   REQUEST_REVIEW_REPORT: 'REQUEST_REVIEW_REPORT', //Request for Review Report(s)
   WRITTEN_CONSULT_REQ: 'WRITTEN_CONSULT_REQ', //Request for Written Consultation
   BE_CLARIF_RESPONSE: 'BE_CLARIF_RESPONSE', //Response to BE Clarification Request
-  xy1: 'xy1', //Response to Clinical Clarification Request
+  xyz1: 'xy1', //Response to Clinical Clarification Request
   CLIN_CLARIF_RESPONSE: 'CLIN_CLARIF_RESPONSE', //Response to Clarification Request
   EMAIL_RQ_RESPONSE: 'EMAIL_RQ_RESPONSE', //Response to E-mail Request
-  xy2: 'xy2', //Response to Human Safety Clarification Request
+  xyz2: 'xy2', //Response to Human Safety Clarification Request
   LABEL_CLARIF_RESPONSE: 'LABEL_CLARIF_RESPONSE', //Response to Labelling Clarification Request
   MHPD_RQ_RESPONSE: 'MHPD_RQ_RESPONSE', //Response to MHPD Letter
   NOC_RESPONSE: 'NOC_RESPONSE', //Response to NOC/c-QN
