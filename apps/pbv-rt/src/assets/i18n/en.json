@@ -211,7 +211,7 @@
     "certify.funded.health.institution.b": "owned or operated by the Government of Canada or the government of a province and that provides health services.",
     "certify.isad": "We certify that we have filed an application for a designated COVID-19 drug under the Interim Order Respecting the Importation, Sale and Advertising of Drugs for Use in Relation to COVID-19 (ISAD), and that a submission has not previously been filed seeking approval for that same drug",
     "type.min": "End Date should not be earlier than Start Date.",
-    "fee.pay.notice": "Do not send fee payment with your submission, supplement or application. Health Canada will verify the fee and issue an invoice accordingly. For information on payment of invoices and current fees, please visit <a href='https://www.canada.ca/en/health-canada/services/drugs-health-products/funding-fees.html'>the Fees and Funding webpage</a>",
+    "fee.pay.notice": "Select the fee classification of your submission, supplement or application, if applicable. Do not send fee payment with your submission. Health Canada will verify the fee and issue an invoice. For information on payment of invoices and current fees, please visit the <a href='https://www.canada.ca/en/health-canada/services/drugs-health-products/funding-fees.html'>Funding and Fees webpage</a>.<br><br>If your submission does not incur fees, or you have not been requested by Health Canda to revise the fee class, please select ‘Not Applicable’.",
     "mitigation.measures": "Mitigation Measures",
     "prod.protocol": "Protocol Number",
     "cta.from": "From [time]",

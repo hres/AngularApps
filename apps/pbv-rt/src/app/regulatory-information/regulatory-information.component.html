@@ -183,29 +183,6 @@
                 [showErrors]="showErrors"(errorList)="processTransactionDetailsErrors($event)"></app-transaction-details>
             </div>
           </section>
-        <div class="row form-group">
-            <fieldset class="col-md-12 chkbxrdio-grp">
-              <legend class="required" id="isFees">
-                {{'is.fee.transaction' |translate}}
-                <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
-                <sup id="tr14-rf">
-                  <a class="fn-lnk" href="#tr14"><span
-                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['feeTransIndx']}}</a>
-                </sup>
-                <control-messages *ngIf="regulartoryInfoForm.controls['isFees'].invalid" [showError]="showFieldErrors"
-                  [control]="regulartoryInfoForm.controls['isFees'] | formControl" controlId="isFees"
-                  label="is.fee.transaction" parentId="regulatoryInfo"></control-messages>
-              </legend>
-              <ng-container *ngFor="let yesno of yesNoList; let i = index">
-                <label for="isFees{{i}}" class="radio-inline">
-                  <input type="radio"
-                    id="isFees{{i}}" name="isFees" [value]="yesno.id"
-                    [formControl]="regulartoryInfoForm.controls['isFees'] | formControl" required/>
-                  {{yesno | textTransform: lang }}
-                  </label>
-               </ng-container>
-            </fieldset>
-        </div>
                   <!--
         <div class="row" *ngIf="selectedMfTypeDefinition">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
