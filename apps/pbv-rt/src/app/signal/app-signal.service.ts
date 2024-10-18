@@ -1,12 +1,16 @@
-import { computed, Injectable, Signal, signal } from '@angular/core';
-import { DOSSIER_TYPE } from '../app.constants';
+import { Injectable, Signal, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppSignalService {
 
-  private readonly selectedDossierType = signal<string>(null)
+  constructor() { }
+
+  private readonly selectedDossierType = signal<string>(null);
+  private readonly selectedRaLead = signal<string>(null);
+  private readonly selectedRaType = signal<string>(null);
+  private readonly selectedTxnDesc = signal<string>(null);
 
   getSelectedDossierType(): Signal<string>{
     return this.selectedDossierType.asReadonly();
@@ -16,5 +20,27 @@ export class AppSignalService {
     this.selectedDossierType.set(selectedDossierType);
   }
 
-  constructor() { }
+  getSelectedRaLead(): Signal<string>{
+    return this.selectedRaLead.asReadonly();
+  }
+
+  setSelectedRaLead(selectedRaLead: string): void{
+    this.selectedRaLead.set(selectedRaLead);
+  }
+
+  getSelectedRaType(): Signal<string>{
+    return this.selectedRaType.asReadonly();
+  }
+
+  setSelectedRaType(selectedRaType: string): void{
+    this.selectedRaType.set(selectedRaType);
+  }
+
+  getSelectedTxnDesc(): Signal<string>{
+    return this.selectedTxnDesc.asReadonly();
+  }
+
+  setSelectedTxnDesc(selectedTxnDesc: string): void{
+    this.selectedTxnDesc.set(selectedTxnDesc);
+  }
 }

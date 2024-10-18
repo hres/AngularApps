@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,43 +7,30 @@ import {
 import { ConverterService, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { Ectd, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
+import { AppSignalService } from '../signal/app-signal.service';
+import { TransactionDetailsService } from '../transaction-details/transaction-details.service';
 
 @Injectable()
 export class RegulatoryInformationService {
 
-  constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService) {}
+  private _signalService = inject(AppSignalService)
 
-  // showDateAndRequesterTxDescs: string[] = ['12','13', '14'];
+  constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService) {}
 
   public static getRegularInfoForm(fb:FormBuilder) {
     if (!fb) {
       return null;
    }
    return fb.group({
-    dossierType: [
-      null,
-      [Validators.required],
-    ],
-     dossierId: [
-       null,
-       [Validators.required, this.pharmabioDossierIdValidator],
-     ],
-     companyId: [null, [Validators.required]],
-     productName: [null, [Validators.required]],
-     isPriority: [null, [Validators.required]],
-     isNOC: [null, [Validators.required]],
-     isAdminSubmission: [null, [Validators.required]],
-     adminSubType:[null, [Validators.required]],
-     isFees: [null, [Validators.required]]
-    //  masterFileName: [null, Validators.required],
-    //  masterFileNumber: [null, ValidationService.masterFileNumberValidator],
-    //  masterFileType: [null, Validators.required],
-    //  masterFileUse: [null, Validators.required],
-    //  descriptionType: [null, Validators.required],
-    //  requestDate: [null, Validators.required],
-    //  requester: [null, Validators.required],
-    //  reqRevision: [null, Validators.required],
-    //  revisedDescriptionType: [null, Validators.required],
+    dossierType: [null, [Validators.required]],
+    dossierId: [null, [Validators.required, this.pharmabioDossierIdValidator]],
+    companyId: [null, [Validators.required]],
+    productName: [null, [Validators.required]],
+    isPriority: [null, [Validators.required]],
+    isNOC: [null, [Validators.required]],
+    isAdminSubmission: [null, [Validators.required]],
+    adminSubType:[null, [Validators.required]],
+    isFees: [null, [Validators.required]]
    });
   }
 
@@ -59,43 +46,17 @@ export class RegulatoryInformationService {
     dataModel.is_admin_sub = formValue['isAdminSubmission'];
     dataModel.sub_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.adminSubTypes, formValue['adminSubType'], lang);
     dataModel.is_fees = formValue['isFees'];
-
-  //   dataModel.lifecycle_record.master_file_number = formValue['masterFileNumber'];
-  //   dataModel.lifecycle_record.regulatory_activity_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfTypes, formValue['masterFileType'], lang);
-  //   dataModel.lifecycle_record.master_file_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mfUses, formValue['masterFileUse'], lang);
-  //   dataModel.lifecycle_record.sequence_description_value = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.txDescs, formValue['descriptionType'], lang);
-  //   dataModel.lifecycle_record.sequence_from_date = formValue['requestDate'];
-  //   dataModel.lifecycle_record.requester_of_solicited_information = formValue['requester'];
-  //   dataModel.lifecycle_record.revise_trans_desc_request = formValue['reqRevision'];
-  //   dataModel.lifecycle_record.revised_trans_desc = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.txDescs, formValue['revisedDescriptionType'], lang);
-
-  //   // save concatenated data to the dataModel
-  //   // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
-  //   if (dataModel.lifecycle_record.sequence_description_value?._id) {
-  //     console.log(dataModel.lifecycle_record.sequence_description_value._id, typeof dataModel.lifecycle_record.sequence_description_value._id)
-  //     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
-  //       dataModel.lifecycle_record.transaction_description = {
-  //         '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, "dated", dataModel.lifecycle_record.sequence_from_date),
-  //         '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, "daté du", dataModel.lifecycle_record.sequence_from_date)
-  //       }
-  //     } else {
-  //       dataModel.lifecycle_record.transaction_description = {
-  //         '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
-  //         '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
-  //       }
-  //     }
-  //     if (this._utilsService.isFrench(lang)) {
-  //       dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_fr;
-  //     }else{
-  //       dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_en;
-  //     }
-  //   }
-
-  //   // HPFBFORMS-192, Master File Name, allow any case in form but when saving to XML put in upper case
-  //   dataModel.product_name = dataModel.product_name?.toUpperCase();
   }
 
   public mapDataModelToFormModel(dataModel: TransactionEnrol, formRecord: FormGroup): void {
+    if(dataModel.ectd.dossier_type?._id){
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.ectd.dossier_type);
+      formRecord.controls['dossierType'].setValue(id? id : null);
+    } else {
+      formRecord.controls['dossierType'].setValue(null);
+    }
+    this._signalService.setSelectedDossierType(formRecord.controls['dossierType'].value)
+
     formRecord.controls['companyId'].setValue(dataModel.ectd.company_id);
     formRecord.controls['dossierId'].setValue(dataModel.ectd.dossier_id);
     formRecord.controls['productName'].setValue(dataModel.ectd.product_name);

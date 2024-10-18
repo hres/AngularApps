@@ -6,7 +6,8 @@
             "ADMINISTRATIVE",
             "CANCEL_LETTER",
             "COMMENTS_NOC",
-            "CONSENT_LTR"
+            "CONSENT_LTR",
+            "COMMENTS_SUMMARY_BASIS"
         ]
     },
     {

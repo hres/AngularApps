@@ -247,7 +247,8 @@
               <h3 class="panel-title">{{'heading.transaction.details'|translate}}</h3>
             </header>
             <div class="panel-body">
-              <app-transaction-details #transactionDetailsChild [showErrors]="showErrors"(errorList)="processTransactionDetailsErrors($event)"></app-transaction-details>
+              <app-transaction-details #transactionDetailsChild [dataModel]="lifecycleRecordModel"
+                [showErrors]="showErrors"(errorList)="processTransactionDetailsErrors($event)"></app-transaction-details>
             </div>
           </section>
         <div class="row form-group">
@@ -326,16 +327,16 @@
         </div>
         <div class="row" *ngIf="showDateAndRequester()">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <label for="requestDate" class="required">
+                <label for="dated" class="required">
                     <span class="field-name">{{ 'request.date' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['requestDate'].invalid"
+                    <control-messages *ngIf="regulartoryInfoForm.controls['dated'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryInfoForm.controls['requestDate'] | formControl" controlId="requestDate"
+                        [control]="regulartoryInfoForm.controls['dated'] | formControl" controlId="dated"
                         label="request.date" parentId="regulatoryInfo"></control-messages>
-                    <input id="requestDate" name="requestDate" type="date" class="form-control"
+                    <input id="dated" name="dated" type="date" class="form-control"
                          (input)="checkDateValidity($event)"
-                        [formControlName]="'requestDate'" />
+                        [formControlName]="'dated'" />
                 </label>
             </div>
 

@@ -154,7 +154,7 @@ export class FormBaseService {
 
   public mapRegulatoryInfoFormToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any): void{
     this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol);
-    //this._transactionDetailsService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd.lifecycle_record);
+    this._transactionDetailsService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd.lifecycle_record);
   }
 
   // public mapAddressFormContactFormToOutput(contactInfo: ContactInfo, 
