@@ -19,7 +19,7 @@
     <Strong> {{importedFileName}}</Strong>
   </div>
 </div>
-<div [ngClass]="status == 'msg.success.load' ? 'alert alert-success' : 'alert alert-danger'" *ngIf="displayAlert">
+<div id="displayAlert" [ngClass]="status == 'msg.success.load' ? 'alert alert-success' : 'alert alert-danger'" *ngIf="displayAlert">
   <span role="alert">{{status | translate}}</span>
 </div>
 
