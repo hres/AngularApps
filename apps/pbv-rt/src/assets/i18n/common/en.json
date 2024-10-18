@@ -6,7 +6,6 @@
     "top.instruction": "Instructions",
     "toc.form": "Form",
     "instruction.help": "Instructions for completing sections on form",
-    "load.file": "Load a Regulatory Transaction File",
     "select.file": "Select a file to load",
     "choose.file": "Choose File",
     "no.file.chosen": "No file chosen",
