@@ -22,7 +22,7 @@ export interface TransactionEnrol {
 export interface Ectd {
   company_id: string;
   dossier_id: string;
-  dossier_type: IIdText;
+  dossier_type: IIdTextLabel;
   product_name: string;
   product_protocol: string;
   lifecycle_record: LifecycleRecord;
@@ -30,7 +30,7 @@ export interface Ectd {
 
 export interface LifecycleRecord {
   control_number: string;
-  regulatory_activity_lead: IIdText;
+  regulatory_activity_lead: IIdTextLabel;
   regulatory_activity_type: IIdTextLabel;
   sequence_description_value: IIdTextLabel;
   sequence_date: string;
