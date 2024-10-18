@@ -3,7 +3,7 @@ import { UtilsService, ConverterService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LifecycleRecord } from '../models/transaction';
-import { TXN_DESC } from '../app.constants';
+import { TXN_DESC, TXN_DESC_ACTION } from '../app.constants';
 import { AppSignalService } from '../signal/app-signal.service';
 
 @Injectable()
@@ -166,16 +166,16 @@ export class TransactionDetailsService {
   actionFieldsArray: string[] = ['dated', 'startDate', 'endDate', 'yearsOfChange', 'year', 'requester1', 'requester2', 'requester3', 'versionNumber', 'briefDescription', 'briefDescriptionOfChange'];
 
   // key is the boolean flag, values are the rendered field(s) asscociated with the flag
-  // make sure the boolean flag and fields name are exact same spellings as the variables defined
+  // make sure the fields' name are exact same spellings as defined in getTransctionDetailsForm()
   actionFlagFieldsMap: { [key: string]: string[] } = {
-    'showDated': ['dated'],
-    'showStartEndDate': ['startDate', 'endDate'],
-    'showRequesters': ['requester1', 'requester2', 'requester3'],
-    'showYearsOfChange': ['yearsOfChange'],
-    'showYear': ['year'],
-    'showVersionNum': ['versionNumber'],
-    'showBriefDescription': ['briefDescription'],
-    'showBriefDescriptionOfChange': ['briefDescriptionOfChange']
+    [TXN_DESC_ACTION.SHOW_DATE]: ['dated'],
+    [TXN_DESC_ACTION.SHOW_STARTENDDATE]: ['startDate', 'endDate'],
+    [TXN_DESC_ACTION.SHOW_REQUESTERS]: ['requester1', 'requester2', 'requester3'],
+    [TXN_DESC_ACTION.SHOW_YEARSOFCHANGE]: ['yearsOfChange'],
+    [TXN_DESC_ACTION.SHOW_YEAR]: ['year'],
+    [TXN_DESC_ACTION.SHOW_VERSIONNUM]: ['versionNumber'],
+    [TXN_DESC_ACTION.SHOW_BRIEFDESCRIPTION]: ['briefDescription'],
+    [TXN_DESC_ACTION.SHOW_BRIEFDESCRIPTIONOFCHANGE]: ['briefDescriptionOfChange']
   };
 
   public mapFormModelToDataModel(formValue: any, dataModel: LifecycleRecord): void {

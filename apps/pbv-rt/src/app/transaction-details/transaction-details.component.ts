@@ -5,6 +5,7 @@ import { TransactionDetailsService } from './transaction-details.service';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
 import { LifecycleRecord } from '../models/transaction';
+import { TXN_DESC_ACTION } from '../app.constants';
 
 @Component({
   selector: 'app-transaction-details',
@@ -321,21 +322,21 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   private _resetActionsValues() {
     let keysToKeep: string[] = [];
     if (this.showDated()) {
-      keysToKeep.push("showDated");
+      keysToKeep.push(TXN_DESC_ACTION.SHOW_DATE);
     } else if (this.showStartEndDate()) {
-      keysToKeep.push("showStartEndDate");
+      keysToKeep.push(TXN_DESC_ACTION.SHOW_STARTENDDATE);
     } else if (this.showRequesters()) {
-      keysToKeep.push("showRequesters");
+      keysToKeep.push(TXN_DESC_ACTION.SHOW_REQUESTERS);
     } else if (this.showYearsOfChange()) {
-      keysToKeep.push("showYearsOfChange");
+      keysToKeep.push(TXN_DESC_ACTION.SHOW_YEARSOFCHANGE);
     } else if (this.showYear()) {
-      keysToKeep.push("showYear");
+      keysToKeep.push(TXN_DESC_ACTION.SHOW_YEAR);
     } else if (this.showVersionNum()) {
-      keysToKeep.push("showVersionNum");
+      keysToKeep.push(TXN_DESC_ACTION.SHOW_VERSIONNUM);
     } else if (this.showBriefDescription()) {
-      keysToKeep.push("showBriefDescription");
+      keysToKeep.push(TXN_DESC_ACTION.SHOW_BRIEFDESCRIPTION);
     } else if (this.showBriefDescriptionOfChange()) {
-      keysToKeep.push("showBriefDescriptionOfChange");
+      keysToKeep.push(TXN_DESC_ACTION.SHOW_BRIEFDESCRIPTIONOFCHANGE);
     }
 
     // Collect all the values to remove from actionFlagFieldsMap based on these keys
@@ -347,7 +348,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
     // Filter out the fields that exist in valuesToKeep
     const valuesToReset = this._transactionDetailsService.actionFieldsArray.filter(field => !valuesToKeep.includes(field));
-    console.log(valuesToReset); 
+    console.log(`txn desc onchange, valuesToReset: ${valuesToReset}`); 
     this._resetControlValues(valuesToReset);
   }
 
