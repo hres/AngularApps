@@ -35,7 +35,7 @@ export class GlobalService {
   private _raLeadAndRaTypesRelationship: any[] = [];
   private _raLeadRaTypeAndTxnDescrs: any[] = [];
   private _dossierTypeRaLeads: IParentChildren[] = [];
-  private _adminSubTypes: ICode[];
+  private _adminSubTypes: ICodeDefinition[];
   private _submissionClasses: ICodeDefinition[];
   private _mitigationTypes: ICode[];
 
@@ -201,11 +201,11 @@ export class GlobalService {
     this._raLeadRaTypeAndTxnDescrs = value;
   }
 
-  public get adminSubTypes(): ICode[] {
+  public get adminSubTypes(): ICodeDefinition[] {
     return this._adminSubTypes;
   }
 
-  public set adminSubTypes(value: ICode[]) {
+  public set adminSubTypes(value: ICodeDefinition[]) {
     this._adminSubTypes = value;
   }
 
