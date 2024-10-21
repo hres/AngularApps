@@ -1,6 +1,6 @@
 <div [formGroup]="transctionDetailsForm">
     <div class="row">
-        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="controlNumber" class="required">
                 <span class="field-name">{{'ctrl.num'|translate }}&nbsp;{{'5digits.only'|translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -8,12 +8,12 @@
                     <a class="fn-lnk" href="#tr9"><span
                             class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['ctrlNumIndx']}}</a>
                 </sup>
+                <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid" [showError]="showErrors"
+                    [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
+                    label="ctrl.num" parentId="regulatoryInfo"></control-messages>
             </label>
-            <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid" [showError]="showErrors"
-                [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
-                label="ctrl.num" parentId="regulatoryInfo"></control-messages>
             <input id="controlNumber" name="controlNumber" class="form-control" [formControlName]="'controlNumber'"
-                minlength="5" maxlength="5" size="6" />
+                minlength="5" maxlength="5" size="6" data-only-digits/>
         </div>
     </div>
     <div class="row">
@@ -59,7 +59,7 @@
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedRaTypeDefinition()">
         <div class="alert alert-info" role="alert">
-            <p aria-live="polite">{{selectedRaTypeDefinition()}}</p>
+            <p aria-live="polite" [innerHTML]="selectedRaTypeDefinition() | translate"></p>
         </div>
     </div>
     <div class="row">
@@ -82,7 +82,7 @@
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedTxDescDefinition()">
         <div class="alert alert-info" role="alert">
-            <p aria-live="polite">{{selectedTxDescDefinition()}}</p>
+            <p aria-live="polite" [innerHTML]="selectedTxDescDefinition() | translate"></p>
         </div>
     </div>
 
