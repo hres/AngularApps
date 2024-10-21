@@ -49,7 +49,7 @@
     },
     {
         "id": "B02-20160301-031",
-        "en": "EU NDS (Extraordinary Use New Drug Submission)",
+        "en": "EUNDS (Extraordinary Use New Drug Submission)",
         "fr": "PDN-UE (Présentation de drogue nouvelle pour usage exceptionnel)",
         "defEn": "Health Canada will not invoice fees for Extraordinary Use New Drugs filed under C.08.002.1 of the Food and Drug Regulations (FDR), however please ensure the applicable submission class is selected in the fee section below.",
         "defFr": "Santé Canada ne facturera pas de frais pour les drogues nouvelles à usage extraordinaire déposées en vertu de l'article C.08.002.1 du Règlement sur les aliments et drogues (RAD). Cependant, veuillez vous assurer que la classe de présentation applicable est sélectionnée dans la section des frais ci-dessous."
@@ -247,7 +247,7 @@
         "id": "B02-20160301-088",
         "en": "UDRA (Undefined Regulatory Activity)",
         "fr": "ARND (Activité réglementaire non définie)",
-        "defEn": "If your transaction description does not fit any category of listed transaction descriptions, contact the appropriate directorate at Health Canada via email:<br />For biologics and radiopharmaceuticals for human use :  brdd.ora@hc-sc.gc.ca <br />For pharmaceuticals for human use : rpmd-dgpr@hc-sc.gc.ca <br />For non-prescription and disinfectants: nded-demvso@hc-sc.gc.ca",
-        "defFr": "Si la description de votre description de la transaction de réglementationne correspond à aucune catégorie de description de la transaction de réglementation, contactez la direction appropriée de Santé Canada par courrier:<br />Pour les produits biologiques et radiopharmaceutiques à usage humain : brdd.ora@hc-sc.gc.ca<br />Pour les produits pharmaceutiques à usage humain : rpmd-dgpr@hc-sc.gc.ca<br />Pour les produits en vente libre et les désinfectants : nded-demvso@hc-sc.gc.ca"
+        "defEn": "If your transaction description does not fit any category of listed transaction descriptions, contact the appropriate directorate at Health Canada via email:<br />For biologics and radiopharmaceuticals for human use :  <a href='mailto:brdd.ora@hc-sc.gc.ca'>brdd.ora@hc-sc.gc.ca</a> <br />For pharmaceuticals for human use : <a href='mailto:rpmd-dgpr@hc-sc.gc.ca'>rpmd-dgpr@hc-sc.gc.ca</a> <br />For non-prescription and disinfectants: <a href='mailto:nded-demvso@hc-sc.gc.ca'>nded-demvso@hc-sc.gc.ca</a>",
+        "defFr": "Si la description de votre description de la transaction de réglementationne correspond à aucune catégorie de description de la transaction de réglementation, contactez la direction appropriée de Santé Canada par courrier:<br />Pour les produits biologiques et radiopharmaceutiques à usage humain : <a href='mailto:brdd.ora@hc-sc.gc.ca'>brdd.ora@hc-sc.gc.ca</a><br />Pour les produits pharmaceutiques à usage humain : <a href='mailto:rpmd-dgpr@hc-sc.gc.ca'>rpmd-dgpr@hc-sc.gc.ca</a><br />Pour les produits en vente libre et les désinfectants : <a href='mailto:nded-demvso@hc-sc.gc.ca'>nded-demvso@hc-sc.gc.ca</a>"
     }
 ]

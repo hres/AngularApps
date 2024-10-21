@@ -59,7 +59,7 @@
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedRaTypeDefinition()">
         <div class="alert alert-info" role="alert">
-            <p aria-live="polite">{{selectedRaTypeDefinition()}}</p>
+            <p aria-live="polite" [innerHTML]="selectedRaTypeDefinition() | translate"></p>
         </div>
     </div>
     <div class="row">
@@ -82,7 +82,7 @@
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedTxDescDefinition()">
         <div class="alert alert-info" role="alert">
-            <p aria-live="polite">{{selectedTxDescDefinition()}}</p>
+            <p aria-live="polite" [innerHTML]="selectedTxDescDefinition() | translate"></p>
         </div>
     </div>
 
