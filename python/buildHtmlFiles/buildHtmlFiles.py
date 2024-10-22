@@ -39,7 +39,7 @@ def generate_files(option):
 
     # Load server config 
     server_file_path = os.path.join(curr_path, f'appEnvConfigs/{app}.json')
-    with open(f"{server_file_path}", "r") as f1:
+    with open(f"{server_file_path}", "r", encoding="utf-8") as f1:
         f1_data = json.load(f1)
 
         html_file_dict = f1_data[appEnvConfigHtmlKey]

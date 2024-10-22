@@ -12,7 +12,7 @@
     },
     "version_history_html_name": {
         "en": "version_history",
-        "fr": "historique_revisions"
+        "fr": "historique_révisions"
     },
     "template_paths": {
         "dev": {
@@ -26,7 +26,7 @@
             },
             "rt": {
                 "en": "prod_v44/transaction/regulatory-transaction.html",
-                "fr": "prod_v44/transaction/r&eacute;glementaire-transaction.html"
+                "fr": "prod_v44/transaction/réglementaire-transaction.html"
             },
             "pi": {
                 "en": "prod_v44/product/product.html",
