@@ -45,8 +45,6 @@ export interface LifecycleRecord {
   requester_name2: string;
   requester_name3: string;
   requester_of_solicited_information: string;
-  from_time: string;
-  to_time: string;
 }
 
 export interface FeeDetails {
