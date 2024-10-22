@@ -79,9 +79,11 @@ export class FilereaderComponent implements OnInit {
         self.displayAlert = true;
       }, 10);
 
-      const alertElement = document.getElementById('displayAlert');
-      alertElement.textContent = self.status;
-     
+      setTimeout(() => {
+
+      }, 100);
+
+
       self.complete.emit(convertResult);
     };
     if (file && file.name) {

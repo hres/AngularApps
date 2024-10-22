@@ -191,7 +191,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * Saves the record to the list. If new adds to the end of the list. Does no error Checking
    * @param record
    */
-  public saveContactRecord(record: FormGroup) {
+  public saveContactRecord(contactRecord) {
+    const record = contactRecord.recModel;
+    const status = contactRecord.status;
     const recordId = this.saveRecord(record, this._listService, this.lang, this.languageList, this.contactStatusList);
     // console.log(`recordId ${recordId} was saved`)
 
@@ -210,16 +212,18 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
 
     this._expandNextInvalidRecord();
 
-    if (this.lang == "en") {
-      this.statusMessage = "Contact record " + (recordId + 1) + " has been saved."
-    } else {
-      this.statusMessage = "CEnregistrement du contact " + (recordId + 1) + " a été sauvegardé."
-    }
-
     this.showErrors = true;
-    if (!this.isInternal) {
-      document.location.href = '#addContactBtn';
+    if (status) {
+      this.statusChange(recordId + 1, status);
+    } else {
+      if (this.lang == "en") {
+        this.statusMessage = "Contact record " + (recordId + 1) + " has been saved."
+      } else {
+        this.statusMessage = "Enregistrement du contact " + (recordId + 1) + " a été sauvegardé."
+      }
     }
+    
+    document.location.href = '#addContactBtn';
     this.contactsUpdated.emit(this.contactModel);
   }
 
@@ -330,10 +334,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     this.contactsUpdated.emit(this.contactModel);
   }
 
-  public statusChange(idAndStatus): void {
-    const id = idAndStatus.id + 1;
-    const status = idAndStatus.status;
-    console.log("id and status", id, status);
+  public statusChange(id, status): void {
+    // const id = idAndStatus.id + 1;
+    // const status = idAndStatus.status;
 
     if (this.lang == "en") {
       switch (status) {
