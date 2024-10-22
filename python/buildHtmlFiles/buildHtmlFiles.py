@@ -73,10 +73,14 @@ def generate_files(option):
                 if appContentConfigSubfolder=='index':
                     # generate files for each environment and each site
                     sites = ["internal", "external"]
-                    for env, serverBaseUrl in environments.items():
+                    for env, base_url_setting in environments.items():
                         print(f'...... {env}')
                         for site in sites:
-                            print(f'........ {site}')
+                            if (env == "prod"):
+                                serverBaseUrl = base_url_setting[site]
+                            else:
+                                serverBaseUrl = base_url_setting
+                            print(f'........ {site}, base_url={serverBaseUrl}') 
                             # get CO/RT/AI application path from the environment cofig file (appEnvConfigs\md.json)
                             template_paths = f1_data["template_paths"][env]
                             target_dir = f'{app}/{appContentConfigSubfolder}/{env}/{site}'
@@ -117,7 +121,7 @@ def generate_files(option):
                                                                     template_file_name=jinja_html_template_name, 
                                                                     output_dir=dist_dir, 
                                                                     output_file_name=final_file_name, 
-                                                                    env=env, data=f2_data, lngHref=lngHref, dateModified=modification_date)
+                                                                    env=env, data=f2_data, lngHref=lngHref, dateModified=modification_date) 
                     print(f'...... {final_file_path} is generated successfully.')     
                     
                     
