@@ -198,10 +198,7 @@ export class TransactionDetailsService {
     dataModel.requester_name = formValue['requester1'];
     dataModel.requester_name2 = formValue['requester2'];
     dataModel.requester_name3 = formValue['requester3'];
-    dataModel.requester_of_solicited_information = "todo concat"
-    // ???? do these two fields required??
-    // dataModel.from_time
-    // dataModel.to_time
+    dataModel.requester_of_solicited_information = this._utilsService.concat(formValue['requester1'], formValue['requester2'], formValue['requester3']);
   }
 
   public mapDataModelToFormModel(dataModel: LifecycleRecord, formRecord: FormGroup): void {

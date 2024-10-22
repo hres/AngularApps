@@ -126,9 +126,7 @@ export class FormBaseService {
       requester_name: '',
       requester_name2: '',
       requester_name3: '',
-      requester_of_solicited_information: '',
-      from_time: '',
-      to_time: ''
+      requester_of_solicited_information: ''
     };
 
     return lifecycleRecord;
