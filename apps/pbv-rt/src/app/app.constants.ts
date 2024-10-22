@@ -21,7 +21,6 @@ export const helpInstructionHeadings = [
     'yearChangeIndx',
     'briefDescIndx',
     'requestSoliIndx',
-    'feeTransIndx',
     'feesIndx',
     'regContactIndx',
     'routeIdIndx',
@@ -144,4 +143,12 @@ export const TXN_DESC_ACTION = {
   SHOW_VERSIONNUM: '6',
   SHOW_BRIEFDESCRIPTION: '7',
   SHOW_BRIEFDESCRIPTIONOFCHANGE: '8'
+}
+
+export const RA_LEAD = {
+  PHARMACEUTICAL: 'B14-20160301-09',
+  BIOLOGICAL: 'B14-20160301-02',
+  POST_MARKET_VIGILANCE: 'B14-20160301-10',
+  CONSUMER_HEALTH_PRODUCT: 'B14-20160301-06',
+  VETERINARY: 'B14-20160301-11'
 };

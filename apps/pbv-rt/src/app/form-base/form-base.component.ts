@@ -5,7 +5,7 @@ import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
+import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -78,10 +78,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   readonly selectedDossierType: Signal<string> = this._signalService.getSelectedDossierType();
   isVeterinaryDossierType: Signal<boolean> =  computed(() => this.selectedDossierType() === DOSSIER_TYPE.VETERINARY);
   isPharmaOrBioDossierType: Signal<boolean> = computed(() => this.selectedDossierType() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.selectedDossierType() === DOSSIER_TYPE.BIOLOGIC_HUMAN);
+  
+  // RA Lead signal
+  readonly selectedRALead: Signal<string> = this._signalService.getSelectedRaLead();
+  isRALeadPostMarket: Signal<boolean> = computed(() => this.selectedRALead() === RA_LEAD.POST_MARKET_VIGILANCE);
 
   // computed signal for rendering "Fees" section
   showFees: Signal<boolean> = computed(() => {
-    return this._utilsService.isEmpty(this.selectedDossierType()) ? true : this.isPharmaOrBioDossierType();
+    if (this._utilsService.isEmpty(this.selectedDossierType()) || this.isPharmaOrBioDossierType()) {
+      return this.isRALeadPostMarket()? false: true;
+    } else {
+      return false;
+    }
   });
 
   constructor(
