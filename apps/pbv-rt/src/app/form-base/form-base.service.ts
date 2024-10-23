@@ -122,11 +122,11 @@ export class FormBaseService {
       sequence_details_change: '',
       sequence_version: '',
       sequence_year: '',
-      transaction_description: '',
+      transaction_description: undefined,
       requester_name: '',
       requester_name2: '',
       requester_name3: '',
-      requester_of_solicited_information: ''
+      requester_of_solicited_information: undefined
     };
 
     return lifecycleRecord;

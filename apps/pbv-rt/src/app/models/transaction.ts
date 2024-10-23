@@ -40,11 +40,11 @@ export interface LifecycleRecord {
   sequence_details_change: string;
   sequence_version: string;
   sequence_year: string;
-  transaction_description: string;
+  transaction_description: ITextLabel;
   requester_name: string;
   requester_name2: string;
   requester_name3: string;
-  requester_of_solicited_information: string;
+  requester_of_solicited_information: ITextLabel;
 }
 
 export interface FeeDetails {
