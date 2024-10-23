@@ -11,10 +11,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CertSuppProtectComponent } from './cert-supp-protect/cert-supp-protect.component';
 import { CertSuppProtectService } from './cert-supp-protect/cert-supp-protect.service';
+import {PatentComponent } from './patent/patent.component';
+import { PatentService } from './patent/patent-service.service';
+
 
 @NgModule({
   declarations: [
-    CertSuppProtectComponent
+    CertSuppProtectComponent,PatentComponent
   ],
   imports: [
     CommonModule,
@@ -28,10 +31,10 @@ import { CertSuppProtectService } from './cert-supp-protect/cert-supp-protect.se
     NumbersOnlyDirective
   ],
   providers: [
-    CertSuppProtectService,DatePipe
+    CertSuppProtectService, DatePipe, PatentService
   ],
   exports: [CommonUiFeatureModule,
-    CertSuppProtectComponent
+    CertSuppProtectComponent,PatentComponent
    ],
 })
 export class AppFormModule {}
