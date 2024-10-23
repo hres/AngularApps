@@ -177,7 +177,12 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
 
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
 
-    document.location.href = '#fullName' + newIndex;
+    if (this.isInternal) {
+      document.location.href = '#contactId';
+    } else {
+      document.location.href = '#fullName' + newIndex;
+    }
+
     this.showErrors = false;
   }
 
@@ -280,7 +285,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
         emitErrors.push(this.errorSummaryChild);
       }
     }
-    console.log(emitErrors);
+    //console.log(emitErrors);
     this.errors.emit(emitErrors);
   }
 
@@ -289,6 +294,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * @param record
    */
   public revertContact(record): void {
+    let discardMsg = "";
     let recordId = record.controls.id.value;
 
     let modelRecord = this._listService.getModelRecord(recordId);
@@ -304,10 +310,21 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       console.warn('ContactList:rec is null');
     }
     if (this.lang == "en") {
-      this.statusMessage = "Contact record " + (recordId + 1) + "  changes have been discarded."
+      discardMsg = "Contact record " + (recordId + 1) + "  changes have been discarded."
     } else {
-      this.statusMessage = "Les modifications du contact " + (recordId + 1) + " ont été annulées."
+      discardMsg = "Les modifications du contact " + (recordId + 1) + " ont été annulées."
     }
+
+    this.statusMessage = discardMsg;
+
+    // Screen reader will announce message again after the first time Discard Changes button has been clicked
+    setTimeout(() => {
+      this.statusMessage = ''; // Temporarily clear the message
+      setTimeout(() => {
+          this.statusMessage = discardMsg; // Restore the message
+      }, 50); // Small delay before restoring
+    }, 50);
+
     if (this.isInternal) {
       document.location.href = '#contactId';
     } else {
