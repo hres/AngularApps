@@ -221,7 +221,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
             });
             
             this._patchMaterialInfoValue(group.get('lastSavedState'), material);
-            this._patchMaterialInfoValue(group.controls['deviceInfo'], material);
+            this._patchMaterialInfoValue(group.controls['materialInfo'], material);
 
             this.materialsFormArr.push(group);
           });

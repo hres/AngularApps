@@ -228,7 +228,10 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       }
     }
     
-    document.location.href = '#addContactBtn';
+    if (!this.isInternal) {
+      document.location.href = '#addContactBtn';
+    }
+
     this.contactsUpdated.emit(this.contactModel);
   }
 
