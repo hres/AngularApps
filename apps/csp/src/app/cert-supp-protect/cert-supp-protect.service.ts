@@ -9,7 +9,7 @@ import { Ectd } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 
 @Injectable()
-export class RegulatoryInformationService {
+export class CertSuppProtectService {
 
   constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService) {}
 
@@ -25,7 +25,9 @@ export class RegulatoryInformationService {
        [Validators.required],
      ],
      companyId: [null, [Validators.required]],
-     productName: [null, [Validators.required]]
+     productName: [null, [Validators.required]],
+     enrollVersion: [''],
+     dateLastSaved: [''],
     //  masterFileName: [null, Validators.required],
     //  masterFileNumber: [null, ValidationService.masterFileNumberValidator],
     //  masterFileType: [null, Validators.required],
@@ -51,21 +53,21 @@ export class RegulatoryInformationService {
   //   dataModel.lifecycle_record.requester_of_solicited_information = formValue['requester'];
   //   dataModel.lifecycle_record.revise_trans_desc_request = formValue['reqRevision'];
   //   dataModel.lifecycle_record.revised_trans_desc = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.txDescs, formValue['revisedDescriptionType'], lang);
-    
+
   //   // save concatenated data to the dataModel
   //   // transaction_description: include display value Transaction description with additional details summarized added (date, etc)
-  //   if (dataModel.lifecycle_record.sequence_description_value?._id) {    
+  //   if (dataModel.lifecycle_record.sequence_description_value?._id) {
   //     console.log(dataModel.lifecycle_record.sequence_description_value._id, typeof dataModel.lifecycle_record.sequence_description_value._id)
-  //     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {    
+  //     if (this.showDateAndRequesterTxDescs.includes(dataModel.lifecycle_record.sequence_description_value._id)) {
   //       dataModel.lifecycle_record.transaction_description = {
   //         '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, "dated", dataModel.lifecycle_record.sequence_from_date),
   //         '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, "daté du", dataModel.lifecycle_record.sequence_from_date)
-  //       }      
+  //       }
   //     } else {
   //       dataModel.lifecycle_record.transaction_description = {
   //         '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
   //         '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
-  //       }  
+  //       }
   //     }
   //     if (this._utilsService.isFrench(lang)) {
   //       dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_fr;
@@ -114,7 +116,19 @@ export class RegulatoryInformationService {
   //   } else {
   //     formRecord.controls['revisedDescriptionType'].setValue(null);
   //   }
-    
+
   // }
+
+  getUpdateEnrolmentVersion(currentEnrolmentVersion: string) {
+    let newEnrolmentVersion;
+    if (!currentEnrolmentVersion) {
+      newEnrolmentVersion = "0.1";
+    } else {
+        var parts = currentEnrolmentVersion.split('.');
+        var dec = parseInt(parts[1]);
+        newEnrolmentVersion = parts[0] + "." + (dec + 1);
+    }
+    return newEnrolmentVersion;
+};
 
 }

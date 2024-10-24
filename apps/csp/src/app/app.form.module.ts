@@ -6,15 +6,18 @@ import {
   CommonUiFeatureModule,
   NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CSPComponent } from './cert-supp-protect/cert-supp-protect.component';
-import { CSPService } from './cert-supp-protect/cert-supp-protect.service';
+import { CertSuppProtectComponent } from './cert-supp-protect/cert-supp-protect.component';
+import { CertSuppProtectService } from './cert-supp-protect/cert-supp-protect.service';
+import {PatentComponent } from './patent/patent.component';
+import { PatentService } from './patent/patent-service.service';
+
 
 @NgModule({
   declarations: [
-    CertSuppProtectComponent
+    CertSuppProtectComponent,PatentComponent
   ],
   imports: [
     CommonModule,
@@ -28,10 +31,10 @@ import { CSPService } from './cert-supp-protect/cert-supp-protect.service';
     NumbersOnlyDirective
   ],
   providers: [
-    CertSuppProtectService
+    CertSuppProtectService, DatePipe, PatentService
   ],
   exports: [CommonUiFeatureModule,
-    CertSuppProtectComponent
+    CertSuppProtectComponent,PatentComponent
    ],
 })
 export class AppFormModule {}

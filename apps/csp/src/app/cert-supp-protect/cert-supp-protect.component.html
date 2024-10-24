@@ -1,5 +1,5 @@
 <div>
-    <div [formGroup]="regulartoryInfoForm">
+    <div [formGroup]="certSuppProtectForm" >
         <!-- <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="dossierId" class="required">
@@ -14,12 +14,40 @@
                         [control]="regulartoryInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
                         label="dossier.id" parentId="regulatoryInfo"></control-messages>
                     <span class="rep-input-group">
-                        <input id="dossierId" name="dossierId" class="form-control" 
+                        <input id="dossierId" name="dossierId" class="form-control"
                             [formControlName]="'dossierId'" maxlength="8" />
                     </span>
                 </label>
             </div>
         </div> -->
+
+      <div class="row">
+        <div class="form-group col-sm-6 col-xs-12" >
+            <label for="enrollVersion" >
+                <span class="field-name">{{ 'csp.enrollVersion'|translate }}</span>
+                <control-messages
+                    [showError]="showFieldErrors"
+                    [control]="certSuppProtectForm.controls['enrollVersion'] | formControl"
+                    controlId="enrollVersion" label="csp.enrollVersion" parentId="certSuppProtect"></control-messages>
+                <input id="enrollVersion" name="enrollVersion" class="form-control "
+                    [formControlName]="'enrollVersion'" maxlength="256"    readonly/>
+            </label>
+        </div>
+
+        <div class="form-group col-sm-6 col-xs-12" >
+            <label for="dateLastSaved">
+              <span class="field-name">{{ 'csp.dateLastSaved'|translate }}</span>
+                <control-messages
+                    [showError]="showFieldErrors"
+                    [control]="certSuppProtectForm.controls['dateLastSaved'] | formControl"
+                    controlId="dateLastSaved" label="csp.dateLastSaved" parentId="certSuppProtect"></control-messages>
+                <input id="dateLastSaved" name="dateLastSaved" class="form-control full-width" readonly
+                    [formControlName]="'dateLastSaved'" />
+            </label>
+            </div>
+    </div>
+
+
         <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="companyId" class="required">
@@ -28,11 +56,11 @@
                     <sup id="tr3-rf">
                         <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['companyIdIndx']}}</a>
                     </sup>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['companyId'].invalid"
+                    <control-messages *ngIf="certSuppProtectForm.controls['companyId'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryInfoForm.controls['companyId'] | formControl"
-                        controlId="companyId" label="companyId" parentId="regulatoryInfo"></control-messages>
-                    <input id="company.id" name="companyId" class="form-control" 
+                        [control]="certSuppProtectForm.controls['companyId'] | formControl"
+                        controlId="companyId" label="companyId" parentId="certSuppProtect"></control-messages>
+                    <input id="company.id" name="companyId" class="form-control"
                         [formControlName]="'companyId'" minlength="5" maxlength="5" size="6"/>
                 </label>
             </div>
@@ -45,11 +73,11 @@
                     <sup id="tr4-rf">
                         <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierIdIndx']}}</a>
                     </sup>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['dossierId'].invalid"
+                    <control-messages *ngIf="certSuppProtectForm.controls['dossierId'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
-                        label="dossier.id" parentId="regulatoryInfo"></control-messages>
-                        <input id="dossierId" name="dossierId" class="form-control" 
+                        [control]="certSuppProtectForm.controls['dossierId'] | formControl" controlId="dossierId"
+                        label="dossier.id" parentId="certSuppProtect"></control-messages>
+                        <input id="dossierId" name="dossierId" class="form-control"
                             [formControlName]="'dossierId'" maxlength="8" size="7" />
                 </label>
             </div>
@@ -63,16 +91,16 @@
                         <a class="fn-lnk" href="#tr5"><span
                                 class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['productNameIndx']}}</a>
                     </sup>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['productName'].invalid"
+                    <control-messages *ngIf="certSuppProtectForm.controls['productName'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulartoryInfoForm.controls['productName'] | formControl" controlId="productName"
-                        label="product.name" parentId="regulatoryInfo"></control-messages>
+                        [control]="certSuppProtectForm.controls['productName'] | formControl" controlId="productName"
+                        label="product.name" parentId="certSuppProtect"></control-messages>
                         <textarea id="productName" name="productName" class="form-control full-width"
                             [formControlName]="'productName'" maxlength="400" ></textarea>
                 </label>
             </div>
-          </div>   
-                  <!--        
+          </div>
+                  <!--
         <div class="row" *ngIf="selectedMfTypeDefinition">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="alert alert-info" role="alert">
@@ -147,7 +175,7 @@
                         [control]="regulartoryInfoForm.controls['requester'] | formControl" controlId="requester"
                         label="requester.title" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="requester" name="requester" type="text" class="form-control full-width" 
+                <input id="requester" name="requester" type="text" class="form-control full-width"
                     [formControlName]="'requester'">
             </div>
         </div>
@@ -165,7 +193,7 @@
                 <ul class="form-group form-inline list-unstyled">
                     <li class="label-inline" *ngFor="let yesno of yesNoList; let i = index">
                         <label for="reqRevision{{i}}">
-                        <input type="radio" name="reqRevision" id="reqRevision{{i}}" [value]="yesno.id" 
+                        <input type="radio" name="reqRevision" id="reqRevision{{i}}" [value]="yesno.id"
                             (change)="reqRevisionChanged($event)"
                             [formControlName]="'reqRevision'" required />
                         {{ yesno | textTransform: lang }}</label>

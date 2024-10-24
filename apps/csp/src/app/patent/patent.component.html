@@ -1,0 +1,128 @@
+<div>
+  <div [formGroup]="patentInformationForm">
+    <div class="row">
+      <div class="col-sm-6">
+        <label for="patentNumber" class="required">
+          <span
+            ><b>{{ "patent.Id" | translate }}</b></span
+          >
+          <strong class="required">{{
+            "commmon.required.bracket" | translate
+          }}</strong>
+          <control-messages
+            *ngIf="patentInformationForm.controls['patentNumber'].invalid"
+            [showError]="showErrors"
+            parentId="cspCertif"
+            [control]="
+              patentInformationForm.controls['patentNumber'] | formControl
+            "
+            controlId="patentNumber"
+            label="patentNumber"
+          ></control-messages>
+          <input
+            name="patentNumber"
+            class="form-control"
+            id="patentNumber"
+            type="number"
+            [formControlName]="'patentNumber'"
+          />
+        </label>
+      </div>
+
+      <div class="col-sm-6">
+        <label for="patentFillingDate" class="required">
+          <span
+            ><b>{{ "filling.date" | translate }}</b></span
+          >
+          <strong class="required">{{
+            "commmon.required.bracket" | translate
+          }}</strong>
+          <control-messages
+            *ngIf="patentInformationForm.controls['patentFillingDate'].invalid"
+            [showError]="showErrors"
+            parentId="cspCertif"
+            [control]="
+              patentInformationForm.controls['patentFillingDate'] | formControl
+            "
+            controlId="patentFillingDate"
+            label="patentFillingDate"
+          ></control-messages>
+          <input
+            name="patentFillingDate"
+            class="form-control"
+            id="patentFillingDate"
+            type="date"
+            [formControlName]="'patentFillingDate'"
+            (input)="checkDateValidity($event)"
+          />
+        </label>
+      </div>
+
+      <div class="col-sm-6">
+        <label for="patentGrandDate" class="required">
+          <span
+            ><b>{{ "grand.date" | translate }}</b></span
+          >
+          <strong class="required">{{
+            "commmon.required.bracket" | translate
+          }}</strong>
+          <control-messages
+            *ngIf="patentInformationForm.controls['patentGrandDate'].invalid"
+            [showError]="showErrors"
+            parentId="cspCertif"
+            [control]="
+              patentInformationForm.controls['patentGrandDate'] | formControl
+            "
+            controlId="patentGrandDate"
+            label="patentGrandDate"
+          ></control-messages>
+          <input
+            name="patentGrandDate"
+            class="form-control"
+            id="patentGrandDate"
+            type="date"
+            [formControlName]="'patentGrandDate'"
+            (input)="checkDateValidity($event)"
+          />
+        </label>
+      </div>
+
+      <div class="col-sm-6">
+        <label for="patendExpirationDate" class="required">
+          <span
+            ><b>{{ "expiration.date" | translate }}</b></span
+          >
+          <strong class="required">{{
+            "commmon.required.bracket" | translate
+          }}</strong>
+          <control-messages
+            *ngIf="
+              patentInformationForm.controls['patendExpirationDate'].invalid
+            "
+            [showError]="showErrors"
+            parentId="cspCertif"
+            [control]="
+              patentInformationForm.controls['patendExpirationDate']
+                | formControl
+            "
+            controlId="patendExpirationDate"
+            label="patendExpirationDate"
+          ></control-messages>
+          <input
+            name="patendExpirationDate"
+            class="form-control"
+            id="patendExpirationDate"
+            type="date"
+            [formControlName]="'patendExpirationDate'"
+            (input)="checkDateValidity($event)"
+          />
+        </label>
+      </div>
+      <div  *ngIf="  patentInformationForm.controls['patendExpirationDate'].valid && patentInformationForm.controls['patentGrandDate'].valid && patentInformationForm.controls['patentGrandDate'].valid">
+         <div  *ngIf=" patentInformationForm.errors?.['identityRevealed'] "  class="cross-validation-error-message alert alert-danger">
+          {{"commmon.cross.validation.bracket" | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

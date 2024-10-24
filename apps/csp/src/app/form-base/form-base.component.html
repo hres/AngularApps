@@ -17,7 +17,7 @@
           </h2>
         </header>
         <div class="panel-body">
-          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath" 
+          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath"
             [startCheckSumVersion]="startCheckSumVersionNum" [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
           </lib-file-reader>
         </div>
@@ -33,7 +33,18 @@
           <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
           </header>
           <div class="panel-body">
-            <app-regulatory-information></app-regulatory-information>
+            <app-cert-supp-protect  [saveWorkCopyTime]="saveWorkCopyTime"></app-cert-supp-protect>
+          </div>
+      </section>
+    </div>
+
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <app-patent></app-patent>
           </div>
       </section>
     </div>
