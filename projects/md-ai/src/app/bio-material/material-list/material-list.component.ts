@@ -174,6 +174,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   revertMaterial(event: any) {  
+    let discardMsg = "";
     const index = event.index;
     const id : string = (index + 1).toString();
 
@@ -185,10 +186,20 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     materialInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Biological material record " + id + " changes have been discarded.";        
+      discardMsg = "Biological material record " + id + " changes have been discarded.";        
     } else {
-      this.statusMessage = "Les modification du matériel biologique " + id + " ont été annulées.";
+      discardMsg = "Les modification du matériel biologique " + id + " ont été annulées.";
     }
+
+    this.statusMessage = discardMsg;
+
+    // Screen reader will announce message again after the first time Discard Changes button has been clicked
+    setTimeout(() => {
+      this.statusMessage = ''; // Temporarily clear the message
+      setTimeout(() => {
+          this.statusMessage = discardMsg; // Restore the message
+      }, 50); // Small delay before restoring
+    }, 50);
   }
 
   
@@ -210,7 +221,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
             });
             
             this._patchMaterialInfoValue(group.get('lastSavedState'), material);
-            this._patchMaterialInfoValue(group.controls['deviceInfo'], material);
+            this._patchMaterialInfoValue(group.controls['materialInfo'], material);
 
             this.materialsFormArr.push(group);
           });

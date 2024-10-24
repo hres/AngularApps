@@ -30,7 +30,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() showErrors: boolean;
   @Input() lang;
   @Input() helpTextSequences;
-  @Output() saveRecord = new EventEmitter();
+  @Output() saveRecord = new EventEmitter<{recModel:FormGroup, status:string}>;
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
   @Output() errors = new EventEmitter();
@@ -160,12 +160,12 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
  
   public setStatusToRevise(): void {
     this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Revise, this.contactStatusList, this.lang, true);
-    this.saveContactRecord();
+    this.saveContactRecord(ContactStatus.Revise);
   }
 
   public setStatusToRemove(): void {
     this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Remove, this.contactStatusList, this.lang, true);
-    this.saveContactRecord();
+    this.saveContactRecord(ContactStatus.Remove);
   }
 
   public activeContactRecord(): void {
@@ -179,7 +179,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       if (contactStatus) {
         this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
       }
-      this.saveRecord.emit((this.contactRecordModel));
+      this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
       this.contactRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved
@@ -187,7 +187,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       this.contactRecordModel.controls['id'].setValue(1);
       if (this.contactRecordModel.valid) {
         this.contactRecordModel.controls['id'].setValue(temp);
-        this.saveRecord.emit((this.contactRecordModel));
+        this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
       } else {
         this.contactRecordModel.controls['id'].setValue(temp);
         this.showErrSummary = true;

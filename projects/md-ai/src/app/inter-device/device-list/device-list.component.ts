@@ -162,6 +162,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   revertDevice(event: any) {  
+    let discardMsg = "";
     const index = event.index;
     const id : string = (index + 1).toString();
 
@@ -173,10 +174,20 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     deviceInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Device record " + id + " changes have been discarded.";    
+      discardMsg = "Device record " + id + " changes have been discarded.";    
     } else {
-      this.statusMessage = "Les modifications d’enregistrement d’intrument " + id + " ont été annulées.";
+      discardMsg = "Les modifications d’enregistrement d’intrument " + id + " ont été annulées.";
     }
+
+    this.statusMessage = discardMsg;
+
+    // Screen reader will announce message again after the first time Discard Changes button has been clicked
+    setTimeout(() => {
+      this.statusMessage = ''; // Temporarily clear the message
+      setTimeout(() => {
+          this.statusMessage = discardMsg; // Restore the message
+      }, 50); // Small delay before restoring
+    }, 50);
   }
 
   
