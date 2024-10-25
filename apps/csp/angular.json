@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "apps",
   "projects": {
-    "pbv-rt": {
+    "csp": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "../../dist/pbv-rt",
+            "outputPath": "../../dist/csp",
             "index": "node_modules/@hpfb/sdk/src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -57,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "pbv-rt:build:production"
+              "buildTarget": "csp:build:production"
             },
             "development": {
-              "buildTarget": "pbv-rt:build:development"
+              "buildTarget": "csp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "pbv-rt:build"
+            "buildTarget": "csp:build"
           }
         },
         "test": {
