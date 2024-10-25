@@ -55,9 +55,38 @@ export class PatentComponent  extends BaseComponent implements OnInit {
     checkDateValidity(event: any ): void {
       let inputName = event.target.attributes.getNamedItem('ng-reflect-name').value;
       this._utilsService.checkInputValidity(event, this.patentInformationForm.get(inputName), 'invalidDate');
+      if(this.patentInformationForm != undefined ){
+        let patendExpirationDate = this.patentInformationForm.get("patendExpirationDate");
+        let patentGrandDate = this.patentInformationForm.get("patentGrandDate");
+        let patentFillingDate = this.patentInformationForm.get("patentFillingDate");
+
+        if( patendExpirationDate.valid &&  patentGrandDate.valid && patentFillingDate.valid)
+
+        if  (  patendExpirationDate.value <=  patentGrandDate.value || patendExpirationDate.value <=  patentFillingDate.value || patentGrandDate.value < patentFillingDate.value)
+            {
+               //  const temp = [];
+                 this.patentInformationForm.get(inputName).setErrors({ 'error.msg.invalidDate': true });
+                //  this.emitErrors(temp);
+             }
+       }
     }
 
     getFormValue() {
       return this.patentInformationForm.value;
     }
+
+  //   ngOnChanges(changes: SimpleChanges) {
+  //     if(this.patentInformationForm != undefined ){
+  //       let patendExpirationDate = this.patentInformationForm.get("patendExpirationDate").value;
+  //       let patentGrandDate = this.patentInformationForm.get("patentGrandDate").value;
+  //       let patentFillingDate = this.patentInformationForm.get("patentFillingDate").value;
+
+
+  //       if  ( patendExpirationDate.value <=  patentGrandDate.value || patendExpirationDate.value <=  patentFillingDate.value || patentGrandDate.value < patentFillingDate.value)
+  //           {
+  //                const temp = [];
+  //                 this.emitErrors(temp);
+  //            }
+  //      }
+  // }
 }
