@@ -71,7 +71,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   private _signalService = inject(AppSignalService)
 
-  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder,
+  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
