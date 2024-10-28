@@ -38,7 +38,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
   private _regulatoryInfoErrors = [];
-  private _FeesErrors = [];
+  private _feesErrors = [];
   // private _addressErrors = [];
   // private _contactErrors = [];
   // private _agentAddressErrors = [];
@@ -62,7 +62,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact; 
   // public agentContactModel: IContact;
-  public transFeeModel: FeeDetails;
+  public feesModel: FeeDetails;
 
   // public notApplicable: boolean = false;
   // public holder: string = ADDR_CONT_TYPE.HOLDER;
@@ -162,9 +162,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.errorList = this.errorList.concat(this._contactConfirmError);
     // }
 
-    // if (this.showFees()) {
-    //   this.errorList = this.errorList.concat(this._transFeeErrors);
-    // }
+    if (this.showFees()) {
+      this.errorList = this.errorList.concat(this._feesErrors);
+    }
 
     // this.errorList = this.errorList.concat(this._certficationErrors);
 
@@ -182,7 +182,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // }
 
   processFeesErrors(errorList) {
-    this._FeesErrors = errorList;
+    this._feesErrors = errorList;
     this.processErrors();
   }
 
@@ -242,7 +242,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.agentContactModel = trans.contact_info.agent_contact;
     // }
     if (trans.fee_details != null) {
-      this.transFeeModel = trans.fee_details;
+      this.feesModel = trans.fee_details;
     }
   }
 
@@ -322,12 +322,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   newTransactionEnrol.contact_info = null;
     // }
 
-    // if (this.showFees()) {
-    //   const feeFormGroupValue = this.feeComponent.getFormValue();
-    //   this._baseService.mapFeeFormToOutput(newTransactionEnrol.fee_details, feeFormGroupValue);
-    // } else {
-    //   newTransactionEnrol.fee_details = null;
-    // }
+    if (this.showFees()) {
+      const feeFormGroupValue = this.feesComponent.getFormValue();
+      this._baseService.mapFeesFormToOutput(newTransactionEnrol.fee_details, feeFormGroupValue);
+    } else {
+      newTransactionEnrol.fee_details = null;
+    }
 
     newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     newTransactionEnrol.software_version = this._globalService.appVersion;
