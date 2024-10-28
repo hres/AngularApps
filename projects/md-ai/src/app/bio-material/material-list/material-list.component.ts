@@ -244,8 +244,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       materialName: material.material_name,
       deviceName: material.device_name,
       originCountry: material.origin_country? material.origin_country._id : '',
-      specFamily: material.family_of_species._id,
-      tissueType: material.tissue_substance_type._id? material.tissue_substance_type._id : '',
+      specFamily: material.family_of_species? material.family_of_species._id : '',
+      tissueType: material.tissue_substance_type? material.tissue_substance_type._id : '',
       tissueTypeOtherDetails: material.tissue_type_other_details,
       derivative: material.derivative? material.derivative._id : '',
       derivativeOtherDetails: material.derivative_other_details

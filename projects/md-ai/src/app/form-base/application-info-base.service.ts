@@ -180,12 +180,12 @@ export class ApplicationInfoBaseService {
     }
     
     if (priorityReviewForm) {
-      let priorityRevModel: PriorityReview = this.getEmptyPriorityReviewModel();
+      priorityRevModel = this.getEmptyPriorityReviewModel();
       this._priorityReviewService.mapFormModelToDataModel(priorityReviewForm, priorityRevModel, this._globalService.lang());
     }
 
     if (declarationConFrom) {
-      let declarationConModel: DeclarationComformity = this.getEmptyDeclarationConModel();
+      declarationConModel = this.getEmptyDeclarationConModel();
       this._declarationConService.mapFormModelToDataModel(declarationConFrom, declarationConModel);
     }
 

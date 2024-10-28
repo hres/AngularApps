@@ -27,6 +27,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   @Input() loadFileIndicator;
   @Output() detailErrorList = new EventEmitter(true); // For processing app info details errors
   @Output() resetMaterialErrorList = new EventEmitter(true); // To reset material errors 
+  @Output() resetDeclarationError = new EventEmitter(true); // Reset declaration error
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   // Lists for dropdowns
@@ -123,6 +124,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       !this.isDeviceIV()) {
       this._detailsService.deviceClassIV.set(false);
       this.resetMaterialErrorList.emit(true);
+      this.resetDeclarationError.emit(true);
     } 
 
     if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
@@ -133,6 +135,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
       !this.isDeviceIII()) {
       this._detailsService.deviceClassIII.set(false);
+      this.resetDeclarationError.emit(true);
     } 
 
     if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
@@ -309,6 +312,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     if (!this.appInfoFormLocalModel.controls['activityType'].value ||
       !this.isActivityTypeLicence()) {
       this._detailsService.raTypeLicence.set(false);
+      this.resetDeclarationError.emit(true);
     }
 
     if (this.appInfoFormLocalModel.controls['activityType'].value &&
@@ -319,6 +323,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     if (!this.appInfoFormLocalModel.controls['activityType'].value ||
       !this.isActivityTypeLicenceAmend()) {
       this._detailsService.raTypeLicenceAmend.set(false);
+      this.resetDeclarationError.emit(true);
     }
   }
 

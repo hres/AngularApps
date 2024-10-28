@@ -82,6 +82,10 @@ export class PriorityReviewComponent {
         this.priorityReviewLocalModel = this._priorityRevService.getReactiveModel(this._fb);
         this.priorityReviewLocalModel.markAsPristine();
       }
+      // Initialize this.diagnosisReasonCodeList & this.seriousDiagnosisReasonOptionList;
+      this.diagnosisReasonCodeList = this._globalService.$diagnosisReasonList;
+      this._updateDiagnosisReasonArray();
+      //
       this._priorityRevService.mapDataModelToFormModel(dataModel, this.priorityReviewLocalModel, this.diagnosisReasonCodeList,  this.seriousDiagnosisReasonOptionList, this.lang);
     }
   }
