@@ -44,7 +44,7 @@ export interface LifecycleRecord {
   requester_name: string;
   requester_name2: string;
   requester_name3: string;
-  requester_of_solicited_information: ITextLabel;
+  requester_of_solicited_information: string;
 }
 
 export interface FeeDetails {
