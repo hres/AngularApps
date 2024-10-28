@@ -81,4 +81,5 @@ export interface Mitigation {
   certify_urgent_health_need: string;
   certify_funded_health_institution: string;
   certify_government_organization: string;
+  certify_isad: string;
 }
