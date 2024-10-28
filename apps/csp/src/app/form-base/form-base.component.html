@@ -1,12 +1,6 @@
 <div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
   <form name="transactionForm" [formGroup]="rtForm" novalidate>
-    <div class="row mrgn-tp-md">
-      <div class="col-md-12">
-        <div class="text-right">
-          <span id="securityInfo" class="fa fa-shield fa-sm"><strong>&nbsp;{{'PROTECTED_B'|translate}}</strong></span>
-        </div>
-      </div>
-    </div>
+
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
         <header class="panel-heading clearfix">
@@ -30,7 +24,7 @@
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
         <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
+          <h2 class="panel-title">{{'panel.title.csp'|translate}}</h2>
           </header>
           <div class="panel-body">
             <app-cert-supp-protect  [saveWorkCopyTime]="saveWorkCopyTime"></app-cert-supp-protect>
@@ -41,7 +35,7 @@
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
         <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'panel.title.regulatoryInfo'|translate}}</h2>
+          <h2 class="panel-title">{{'panel.title.patent'|translate}}</h2>
           </header>
           <div class="panel-body">
             <app-patent  [showErrors]="showErrors"
