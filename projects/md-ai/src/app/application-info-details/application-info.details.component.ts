@@ -126,7 +126,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       this._detailsService.deviceClassIV.set(false);
       this.resetMaterialErrorList.emit(true);
       this.resetDeclarationError.emit(true);
-      this.resetPriorityRevError.emit(true);
     } 
 
     if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
@@ -138,14 +137,17 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       !this.isDeviceIII()) {
       this._detailsService.deviceClassIII.set(false);
       this.resetDeclarationError.emit(true);
-      this.resetPriorityRevError.emit(true);
-
     } 
 
     if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
       this.isDeviceIII()) {
         this._detailsService.deviceClassIII.set(true);
     }
+
+    if (!this.appInfoFormLocalModel.controls['deviceClass'].value || (!this.isDeviceIII() && !this.isDeviceIV())){
+      this.resetPriorityRevError.emit(true);
+    }
+
   }
 
   private _resetControlValues(listOfValues : any[]) {
@@ -317,7 +319,6 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       !this.isActivityTypeLicence()) {
       this._detailsService.raTypeLicence.set(false);
       this.resetDeclarationError.emit(true);
-      this.resetPriorityRevError.emit(true);
     }
 
     if (this.appInfoFormLocalModel.controls['activityType'].value &&
@@ -329,6 +330,9 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       !this.isActivityTypeLicenceAmend()) {
       this._detailsService.raTypeLicenceAmend.set(false);
       this.resetDeclarationError.emit(true);
+    }
+
+    if (!this.appInfoFormLocalModel.controls['activityType'].value || (!this.isActivityTypeLicenceAmend() && !this.isActivityTypeLicence())) {
       this.resetPriorityRevError.emit(true);
     }
   }
