@@ -13,7 +13,12 @@
                     label="ctrl.num" parentId="regulatoryInfo"></control-messages>
             </label>
             <input id="controlNumber" name="controlNumber" class="form-control" [formControlName]="'controlNumber'"
-                minlength="5" maxlength="5" size="6" data-only-digits/>
+                minlength="5" maxlength="5" size="5" data-only-digits/>
+        </div>
+    </div>
+    <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="alert alert-info" role="alert">
+            <div aria-live="polite"><app-control-number-helptext [lang]="lang" /></div> 
         </div>
     </div>
     <div class="row">
@@ -137,7 +142,7 @@
                         controlId="yearsOfChange" label="year.change" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <textarea id="yearsOfChange" name="yearsOfChange" class="form-control full-width"
-                    [formControlName]="'yearsOfChange'" maxlength="400"></textarea>
+                    [formControlName]="'yearsOfChange'" maxlength="800"></textarea>
             </div>
         </div>
 
@@ -151,8 +156,8 @@
                         [control]="transctionDetailsForm.controls['year'] | formControl"
                         controlId="year" label="year.change" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <textarea id="year" name="year" class="form-control full-width"
-                    [formControlName]="'year'" maxlength="400"></textarea>
+                <input id="year" name="year" class="form-control full-width"
+                    [formControlName]="'year'" minlength="4" maxlength="4" size="4" data-only-digits/>
             </div>
         </div>
         
@@ -166,8 +171,8 @@
                         [control]="transctionDetailsForm.controls['versionNumber'] | formControl"
                         controlId="versionNumber" label="version.no" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="versionNumber" name="versionNumber" type="text" class="form-control full-width"
-                    [formControlName]="'versionNumber'">
+                <textarea id="versionNumber" name="versionNumber" type="text" class="form-control full-width"
+                    [formControlName]="'versionNumber'"></textarea>
             </div>
         </div>
 
@@ -182,7 +187,7 @@
                         controlId="briefDescription" label="brief.desc" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <textarea id="briefDescription" name="briefDescription" class="form-control full-width"
-                    [formControlName]="'briefDescription'" maxlength="400"></textarea>
+                    [formControlName]="'briefDescription'" maxlength="200"></textarea>
             </div>
         </div>
 
@@ -202,7 +207,7 @@
                         parentId="regulatoryInfo"></control-messages>
                 </label>
                 <textarea id="briefDescriptionOfChange" name="briefDescriptionOfChange" class="form-control full-width"
-                    [formControlName]="'briefDescriptionOfChange'" maxlength="400"></textarea>
+                    [formControlName]="'briefDescriptionOfChange'" maxlength="200"></textarea>
             </div>
         </div>
 

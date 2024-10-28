@@ -194,11 +194,11 @@ export class TransactionDetailsService {
     dataModel.sequence_version = formValue['versionNumber'];
 // todo yearsOfChange or year
     dataModel.sequence_year = formValue['yearsOfChange'];
-    dataModel.transaction_description = "todo concat"
+    // dataModel.transaction_description = "todo concat"
     dataModel.requester_name = formValue['requester1'];
     dataModel.requester_name2 = formValue['requester2'];
     dataModel.requester_name3 = formValue['requester3'];
-    dataModel.requester_of_solicited_information = this._utilsService.concat(formValue['requester1'], formValue['requester2'], formValue['requester3']);
+    // dataModel.requester_of_solicited_information = this._utilsService.concat(formValue['requester1'], formValue['requester2'], formValue['requester3']);
   }
 
   public mapDataModelToFormModel(dataModel: LifecycleRecord, formRecord: FormGroup): void {

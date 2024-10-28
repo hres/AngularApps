@@ -15,6 +15,7 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
 import { TransactionDetailsService } from './transaction-details/transaction-details.service';
 import { FeesComponent } from './fees/fees.component';
 import { FeesService } from './fees/fees.service';
+import { HelpTextModuleModule } from "./instruction/help-text-module.module";
 
 @NgModule({
   declarations: [
@@ -31,8 +32,9 @@ import { FeesService } from './fees/fees.service';
     ExpanderModule,
     ReactiveFormsModule,
     TranslateModule,
-    NumbersOnlyDirective
-  ],
+    NumbersOnlyDirective,
+    HelpTextModuleModule
+],
   providers: [
     RegulatoryInformationService,
     TransactionDetailsService,
