@@ -118,14 +118,7 @@
         <dd id="tr9">
             <div class="fn-rep">
                 <p>{{'ctrl.num' |translate}}</p>
-                <ul>
-                    <li>{{'ht.ctrl.num.1'|translate}}</li>
-                    <li>{{'ht.ctrl.num.2'|translate}}</li>
-                    <li>{{'ht.ctrl.num.3'|translate}}</li>
-                    <li>{{'ht.ctrl.num.4'|translate}}</li>
-                    <li>{{'ht.ctrl.num.5'|translate}}</li>
-                </ul>
-
+                <app-control-number-helptext [lang]="lang" />
                 <p class="fn-rtn"><a href="#tr9-rf"><span class="wb-inv">{{'return.instruction'|translate}}</span>
                         {{helpTextSequences.ctrlNumIndx}}
                         <span class="wb-inv"> referrer</span></a></p>
