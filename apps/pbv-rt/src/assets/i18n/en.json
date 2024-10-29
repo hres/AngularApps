@@ -9,6 +9,7 @@
     "is.actchanges": "Same as Regulatory Activity Contact for this Submission?",
     "company.id": "Company Identifier",
     "dossier.id": "Dossier Identifier",
+    "dossier.id.format": "(a lowercase letter followed by 6 numbers)",
     "dossier.name": "Dossier Name",
     "product.name": "Product name",
     "ctrl.num": "Control Number",
@@ -18,7 +19,7 @@
     "solicited.rq": "Requester of Solicited Information",
     "solicited.rq.other": "Other Requester Details",
     "rep.contact.info": "Main Contact Information",
-    "dated": "Date of Request",
+    "date.of.request": "Date of Request",
     "start.date": "Start Date",
     "end.date": "End Date",
     "reg.activity": "Regulatory Activity",
@@ -207,7 +208,7 @@
     "rq.review.report": "Request Review Report(s)",
     "help.email": "ESGHelpDesk@fda.hhs.gov",
     "5digits.only": " (5 digits only)",
-    "dossier.id.format": "(a lowercase letter followed by 6 numbers)",
-    "error.msg.minlength": "Less than minimum length",
+
+    "error.msg.minlength": "Invalid entry - must be {{ requiredLength }} numbers",
     "error.mgs.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product."
 }

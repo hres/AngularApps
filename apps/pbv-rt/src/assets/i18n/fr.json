@@ -9,6 +9,7 @@
     "is.actchanges": "Même que la personne-ressource de l'activité réglementaire pour cette soumission?",
     "company.id": "Numéro de la compagnie",
     "dossier.id": "Numéro de dossier",
+    "dossier.id.format": "(composé d’une lettre minuscule suivie de six chiffres)",
     "dossier.name": "Nom du dossier",
     "product.name": "Nom du produit",
     "ctrl.num": "Numéro de contrôle",
@@ -18,7 +19,7 @@
     "solicited.rq": "Demandeur d’information sollicitée",
     "solicited.rq.other": "Autres détails du demandeur",
     "rep.contact.info": "Coordonnées principales",
-    "dated": "Date de la demande",
+    "date.of.request": "Date de la demande",
     "start.date": "Date de début",
     "end.date": "Date de fin",
     "reg.activity": "Activité réglemetaire",
@@ -208,7 +209,6 @@
     "help.email": "ESGHelpDesk@fda.hhs.gov",
     "5digits.only": " (5 chiffres seulement)",
 
-    "dossier.id.format": "(composé d’une lettre minuscule suivie de six chiffres)",
-    "error.msg.minlength": "Veuillez fournir au moins {{ requiredLength }} chiffres.",
+    "error.msg.minlength": "Entrée non valide - doit contenir {{ requiredLength }} chiffres",
     "error.mgs.dossier.id": "Format incorrect. - Le numéro de dossier est incorrect pour ce type de dossier. Veuillez vérifier le numéro de dossier et le type de dossier pour votre produit."
 }
