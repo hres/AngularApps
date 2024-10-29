@@ -25,7 +25,7 @@
             <label for="subDescription">
                 <span class="field-name">{{'fee.description'|translate }}</span>
             </label>
-            <textarea id="subDescription" class="form-control full-width" rows="7" readonly>{{selectedSubmissionClassDescription}}</textarea>
+            <textarea id="subDescription" class="form-control full-width" rows="7" [formControlName]="'subDescription'" readonly></textarea>
         </div>
     </div>
     <section class="panel panel-default">

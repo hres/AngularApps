@@ -11,6 +11,7 @@ export class AppSignalService {
   private readonly selectedRaLead = signal<string>(null);
   private readonly selectedRaType = signal<string>(null);
   private readonly selectedTxnDesc = signal<string>(null);
+  private readonly mitigationType = signal<string>(null);
 
   getSelectedDossierType(): Signal<string>{
     return this.selectedDossierType.asReadonly();
@@ -42,5 +43,13 @@ export class AppSignalService {
 
   setSelectedTxnDesc(selectedTxnDesc: string): void{
     this.selectedTxnDesc.set(selectedTxnDesc);
+  }
+
+  getMitigationType(): Signal<string>{
+    return this.mitigationType.asReadonly();
+  }
+
+  setMitigationType(mitigationType: string): void{
+    this.mitigationType.set(mitigationType);
   }
 }
