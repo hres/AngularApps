@@ -1,10 +1,11 @@
-import { Component, computed, EventEmitter, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, ControlMessagesComponent, ICode, ICodeDefinition, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FeesService } from './fees.service';
 import { FeeDetails, TransactionEnrol } from '../models/transaction';
 import { MITIGATION_TYPE } from '../app.constants';
+import { AppSignalService } from '../signal/app-signal.service';
 
 @Component({
   selector: 'app-fees',
@@ -22,19 +23,19 @@ export class FeesComponent extends BaseComponent implements OnInit{
   @Output() errorList = new EventEmitter(true);
 
   submissionClassOptions: ICodeDefinition[] = [];
-  selectedSubmissionClassDescription: string;
   yesNoList: ICode[] = [];
 
   mitigationTypeOptions: ICode[] = [];
 
-  mitigationTypeSignal = signal<string>('');
+  private _signalService = inject(AppSignalService)
+  mitigationTypeSignal = this._signalService.getMitigationType();
   showGovOrg: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.GOVERMENT_ORGANIZATION;});
   showISAD: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.ISAD;});
   showFundedInstitution: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.FUNDED_INSTITUTION;});
   showSmallBusiness: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.SMALL_BUSINESS;});
   showUrgentHealthNeed: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.URGENT_HEALTH_NEED;});
 
-  constructor(private __feesService: FeesService, private _fb: FormBuilder, 
+  constructor(private _feesService: FeesService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -62,21 +63,23 @@ export class FeesComponent extends BaseComponent implements OnInit{
       if (changes['dataModel']) {
         const dataModelCurrentValue = changes['dataModel'].currentValue as FeeDetails;
         this.dataModel = dataModelCurrentValue;
-        this.__feesService.mapDataModelToFormModel(
+        this._feesService.mapDataModelToFormModel(
           dataModelCurrentValue,
           <FormGroup>this.feesForm);
+          // const codeDefinition = this._utilsService.findCodeDefinitionById(this.submissionClassOptions, dataModelCurrentValue.submission_class._id);
+          // this.selectedSubmissionClassDescription = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
       }
     }
   }
 
   onSubmissionClassSelected(selectedSubmissionClass: string){
     const codeDefinition = this._utilsService.findCodeDefinitionById(this.submissionClassOptions, selectedSubmissionClass);
-    this.selectedSubmissionClassDescription = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
+    this.feesForm.controls['subDescription'].setValue(this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang));
   }
 
   onMitigationTypeSelected(selectedMitigationType: string) {
-    this.mitigationTypeSignal.set(selectedMitigationType);
-    const valuesToReset = ['certifyFundedInstitution','certifyGovOrg','certifySmallBusiness','certifyUrgentHealthNeed','certifyIsad','small_business_fee_application'];
+    this._signalService.setMitigationType(selectedMitigationType);
+    const valuesToReset = ['certifyFundedInstitution','certifyGovOrg','certifySmallBusiness','certifyUrgentHealthNeed','certifyISAD','small_business_fee_application'];
     this._resetControlValues(valuesToReset);
   }
 

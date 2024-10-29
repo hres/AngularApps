@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,9 +8,12 @@ import { ConverterService, ENGLISH, FRENCH, ITextLabel, UtilsService, Validation
 import { Ectd, FeeDetails, Mitigation, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { data } from 'jquery';
+import { AppSignalService } from '../signal/app-signal.service';
 
 @Injectable()
 export class FeesService {
+
+  private _signalService = inject(AppSignalService);
 
   constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService) {}
 
@@ -20,6 +23,7 @@ export class FeesService {
    }
    return fb.group({
      subClass: [null, [Validators.required]],
+     subDescription: [null],
      mitigationType:[null],
      certifyGovOrg: [null, [Validators.required]],
      certifyISAD: [null, [Validators.required]],
@@ -51,25 +55,28 @@ export class FeesService {
   }
 
   public mapDataModelToFormModel(dataModel: FeeDetails, formRecord: FormGroup): void {
-    formRecord.controls['subClass'].setValue(dataModel.submission_class);
-    // formRecord.controls['dossierId'].setValue(dataModel.ectd.dossier_id);
-    // formRecord.controls['productName'].setValue(dataModel.ectd.product_name);
-    // formRecord.controls['isPriority'].setValue(dataModel.is_priority);
-    // formRecord.controls['isNOC'].setValue(dataModel.is_noc);
-    // formRecord.controls['isAdminSubmission'].setValue(dataModel.is_admin_sub);
-    // if(dataModel.sub_type?._id){
-    //   const id = this._utilsService.getIdFromIdTextLabel(dataModel.sub_type);
-    //   formRecord.controls['adminSubType'].setValue(id? id : null);
-    // } else {
-    //   formRecord.controls['adminSubType'].setValue(null);
-    // }
-    // formRecord.controls['isFees'].setValue(dataModel.is_fees);
+    if (dataModel.submission_class?._id) {
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.submission_class);
+      formRecord.controls['subClass'].setValue(id? id: null);
+      const codeDefinition = this._utilsService.findCodeDefinitionById(this._globalService.submissionClasses, id);
+      formRecord.controls['subDescription'].setValue(this._utilsService.getCodeDefinitionByLang(codeDefinition, this._globalService.currLanguage));
+    }
+    if (dataModel.mitigation?.mitigation_type?._id) {
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.mitigation.mitigation_type);
+      this._signalService.setMitigationType(id);
+      formRecord.controls['mitigationType'].setValue(id? id: null);
+      formRecord.controls['certifyGovOrg'].setValue(dataModel.mitigation.certify_government_organization=='Y'?true:false);
+      formRecord.controls['certifyISAD'].setValue(dataModel.mitigation.certify_isad=='Y'?true:false);
+      formRecord.controls['certifyFundedInstitution'].setValue(dataModel.mitigation.certify_funded_health_institution=='Y'?true:false);
+      formRecord.controls['certifySmallBusiness'].setValue(dataModel.mitigation.certify_organization=='Y'?true:false);
+      formRecord.controls['certifyUrgentHealthNeed'].setValue(dataModel.mitigation.certify_urgent_health_need=='Y'?true:false);
+      formRecord.controls['smallBusinessFeeApp'].setValue(dataModel.mitigation.small_business_fee_application);
+    }
   }
 
   private mapSubmissionDescriptionToDataModel(submissionClassId: string, submissionDescription: ITextLabel, lang: string) {
     submissionDescription.__text = this._utilsService.getCodeDefinitionByIdByLang(submissionClassId, this._globalService.submissionClasses, lang);
     submissionDescription._label_en = this._utilsService.getCodeDefinitionByIdByLang(submissionClassId, this._globalService.submissionClasses, ENGLISH);
     submissionDescription._label_fr = this._utilsService.getCodeDefinitionByIdByLang(submissionClassId, this._globalService.submissionClasses, FRENCH);
-
   }
 }
