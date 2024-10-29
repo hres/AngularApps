@@ -24,7 +24,7 @@ export class RegulatoryInformationService {
    return fb.group({
     dossierType: [null, [Validators.required]],
     dossierId: [null, [Validators.required, this.pharmabioDossierIdValidator]],
-    companyId: [null, [Validators.required]],
+    companyId: [null, [Validators.required, Validators.minLength(5)]],
     productName: [null, [Validators.required]],
     isPriority: [null, [Validators.required]],
     isNOC: [null, [Validators.required]],
