@@ -9,3 +9,8 @@ aside#no-border {
 .wb-fnote .fn-rep p{
     margin: 0 0 11.5px;
 }
+
+.legend-rep {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}

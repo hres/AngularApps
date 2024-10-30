@@ -16,6 +16,7 @@ import { TransactionDetailsService } from './transaction-details/transaction-det
 import { FeesComponent } from './fees/fees.component';
 import { FeesService } from './fees/fees.service';
 import { HelpTextModuleModule } from "./instruction/help-text-module.module";
+import { AppSignalService } from './signal/app-signal.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { HelpTextModuleModule } from "./instruction/help-text-module.module";
     HelpTextModuleModule
 ],
   providers: [
+    AppSignalService,
     RegulatoryInformationService,
     TransactionDetailsService,
     FeesService
