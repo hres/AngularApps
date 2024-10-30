@@ -16,6 +16,7 @@ import { Transaction } from '../models/transaction';
 })
 export class GlobalService {
   private _devEnv: boolean = false;
+  private _debugEnabled: boolean = false;
   private _appVersion: string = '0.0.0';
   private _helpIndex: HelpIndex;
   private _currLanguage: string = ENGLISH;
@@ -55,6 +56,10 @@ export class GlobalService {
    */
   public set devEnv(value: boolean) {
     this._devEnv = value;
+  }
+
+  public get debugEnabled(): boolean {
+    return this._debugEnabled;
   }
 
   /**
