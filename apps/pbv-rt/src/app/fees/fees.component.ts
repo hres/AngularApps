@@ -73,8 +73,7 @@ export class FeesComponent extends BaseComponent implements OnInit{
   }
 
   onSubmissionClassSelected(selectedSubmissionClass: string){
-    const codeDefinition = this._utilsService.findCodeDefinitionById(this.submissionClassOptions, selectedSubmissionClass);
-    this.feesForm.controls['subDescription'].setValue(this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang));
+    this.feesForm.controls['subDescription'].setValue(this._utilsService.getCodeDefinitionByIdByLang(selectedSubmissionClass, this.submissionClassOptions, this.lang));
   }
 
   onMitigationTypeSelected(selectedMitigationType: string) {
