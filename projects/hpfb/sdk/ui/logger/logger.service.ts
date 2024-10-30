@@ -2,16 +2,28 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class LoggerService {
-  
-  log(className: string, methodName: string, ...messages: any[]) {
-    console.log(className + '-> ' + methodName + '->', messages.join(', '));
+
+  log(debugEnabled: boolean, className: string, methodName: string, ...messages: any[]) {
+    if (debugEnabled) {
+      console.log(`${className} -> ${methodName} ->`, ...this.formatMessages(messages));
+    }
   }
 
-  error(className: string, methodName: string, ...messages: any[]) {
-    console.error(className + '-> ' + methodName + '->', messages.join(', '));
+  error(debugEnabled: boolean, className: string, methodName: string, ...messages: any[]) {
+    if (debugEnabled) {
+      console.error(`${className} -> ${methodName} ->`, ...this.formatMessages(messages));
+    }
   }
 
-  warn(className: string, methodName: string, ...messages: any[]) {
-    console.warn(className + '-> ' + methodName + '->', messages.join(', '));
+  warn(debugEnabled: boolean, className: string, methodName: string, ...messages: any[]) {
+    if (debugEnabled) {
+      console.warn(`${className} -> ${methodName} ->`, ...this.formatMessages(messages));
+    }
+  }
+
+  private formatMessages(messages: any[]): any[] {
+    return messages.map(msg => 
+      typeof msg === 'object' ? JSON.stringify(msg, null, 2) : msg
+    );
   }
 }
