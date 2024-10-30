@@ -4,7 +4,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ConverterService, ENGLISH, FRENCH, ITextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { ConverterService, ENGLISH, FRENCH, ITextLabel, UtilsService, ValidationService, YES } from '@hpfb/sdk/ui';
 import { Ectd, FeeDetails, Mitigation, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { data } from 'jquery';
@@ -50,7 +50,7 @@ export class FeesService {
       dataModel.mitigation.certify_organization = formValue['certifySmallBusiness'] == true ? 'Y': undefined;
       dataModel.mitigation.certify_urgent_health_need = formValue['certifyUrgentHealthNeed'] == true ? 'Y': undefined;
       dataModel.mitigation.certify_isad = formValue['certifyISAD'] == true ? 'Y': undefined;
-      dataModel.mitigation.small_business_fee_application = formValue['smallBusinessFeeApp'];
+      dataModel.mitigation.small_business_fee_application = formValue['smallBusinessFeeApp'] == 'Y'? 'Y':undefined;
     }
   }
 
