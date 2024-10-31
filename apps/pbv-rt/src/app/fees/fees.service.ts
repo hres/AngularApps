@@ -4,7 +4,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ConverterService, ENGLISH, FRENCH, ITextLabel, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { ConverterService, ENGLISH, FRENCH, ITextLabel, UtilsService, ValidationService, YES } from '@hpfb/sdk/ui';
 import { Ectd, FeeDetails, Mitigation, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { data } from 'jquery';
@@ -45,12 +45,12 @@ export class FeesService {
     if (formValue['mitigationType']) {
       dataModel.mitigation = {} as Mitigation;
       dataModel.mitigation.mitigation_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mitigationTypes, formValue['mitigationType'], lang);
-      dataModel.mitigation.certify_funded_health_institution = formValue['certifyFundedInstitution'] == true ? 'Y': 'N';
-      dataModel.mitigation.certify_government_organization = formValue['certifyGovOrg'] == true ? 'Y': 'N';
-      dataModel.mitigation.certify_organization = formValue['certifySmallBusiness'] == true ? 'Y': 'N';
-      dataModel.mitigation.certify_urgent_health_need = formValue['certifyUrgentHealthNeed'] == true ? 'Y': 'N';
-      dataModel.mitigation.certify_isad = formValue['certifyISAD'] == true ? 'Y': 'N';
-      dataModel.mitigation.small_business_fee_application = formValue['smallBusinessFeeApp'];
+      dataModel.mitigation.certify_funded_health_institution = formValue['certifyFundedInstitution'] == true ? 'Y': undefined;
+      dataModel.mitigation.certify_government_organization = formValue['certifyGovOrg'] == true ? 'Y': undefined;
+      dataModel.mitigation.certify_organization = formValue['certifySmallBusiness'] == true ? 'Y': undefined;
+      dataModel.mitigation.certify_urgent_health_need = formValue['certifyUrgentHealthNeed'] == true ? 'Y': undefined;
+      dataModel.mitigation.certify_isad = formValue['certifyISAD'] == true ? 'Y': undefined;
+      dataModel.mitigation.small_business_fee_application = formValue['smallBusinessFeeApp'] == 'Y'? 'Y':undefined;
     }
   }
 
