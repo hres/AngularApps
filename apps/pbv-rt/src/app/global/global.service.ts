@@ -16,6 +16,7 @@ import { Transaction } from '../models/transaction';
 })
 export class GlobalService {
   private _devEnv: boolean = false;
+  private _debugEnabled: boolean = false;
   private _appVersion: string = '0.0.0';
   private _helpIndex: HelpIndex;
   private _currLanguage: string = ENGLISH;
@@ -33,10 +34,11 @@ export class GlobalService {
   private _transactionDescriptions: ICodeDefinition[] = [];
   private _dossierTypeAndRaLeadsRelationship: any[] = [];
   private _raLeadAndRaTypesRelationship: any[] = [];
-  private _dossierTypeRaTypeAndTransactionDescriptionsRelationship: any[] = [];
+  private _raLeadRaTypeAndTxnDescrs: any[] = [];
   private _dossierTypeRaLeads: IParentChildren[] = [];
-  private _adminSubTypes: ICode[];
+  private _adminSubTypes: ICodeDefinition[];
   private _submissionClasses: ICodeDefinition[];
+  private _mitigationTypes: ICode[];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -54,6 +56,10 @@ export class GlobalService {
    */
   public set devEnv(value: boolean) {
     this._devEnv = value;
+  }
+
+  public get debugEnabled(): boolean {
+    return this._debugEnabled;
   }
 
   /**
@@ -192,19 +198,19 @@ export class GlobalService {
     this._raLeadAndRaTypesRelationship = value;
   }
 
-  public get dossierTypeRaTypeAndTransactionDescriptionsRelationship(): any[] {
-    return this._dossierTypeRaTypeAndTransactionDescriptionsRelationship;
+  public get raLeadRaTypeAndTxnDescrs(): any[] {
+    return this._raLeadRaTypeAndTxnDescrs;
   }
 
-  public set dossierTypeRaTypeAndTransactionDescriptionsRelationship(value: any[]) {
-    this._dossierTypeRaTypeAndTransactionDescriptionsRelationship = value;
+  public set raLeadRaTypeAndTxnDescrs(value: any[]) {
+    this._raLeadRaTypeAndTxnDescrs = value;
   }
 
-  public get adminSubTypes(): ICode[] {
+  public get adminSubTypes(): ICodeDefinition[] {
     return this._adminSubTypes;
   }
 
-  public set adminSubTypes(value: ICode[]) {
+  public set adminSubTypes(value: ICodeDefinition[]) {
     this._adminSubTypes = value;
   }
 
@@ -216,4 +222,12 @@ export class GlobalService {
     this._submissionClasses = value;
   } 
 
+  
+  public get mitigationTypes(): ICode[] {
+    return this._mitigationTypes;
+  }
+
+  public set mitigationTypes(value: ICode[]) {
+    this._mitigationTypes = value;
+  }
 }

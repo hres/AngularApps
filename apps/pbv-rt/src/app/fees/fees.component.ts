@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, ControlMessagesComponent, ICodeDefinition, UtilsService } from '@hpfb/sdk/ui';
+import { Component, computed, EventEmitter, inject, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { BaseComponent, ControlMessagesComponent, ICode, ICodeDefinition, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FeesService } from './fees.service';
-import { TransactionEnrol } from '../models/transaction';
+import { FeeDetails, TransactionEnrol } from '../models/transaction';
+import { MITIGATION_TYPE } from '../app.constants';
+import { AppSignalService } from '../signal/app-signal.service';
 
 @Component({
   selector: 'app-fees',
@@ -17,12 +19,23 @@ export class FeesComponent extends BaseComponent implements OnInit{
   public feesForm: FormGroup;
 
   @Input() showErrors: boolean;
-  @Input() dataModel: TransactionEnrol;
+  @Input() dataModel: FeeDetails;
   @Output() errorList = new EventEmitter(true);
 
   submissionClassOptions: ICodeDefinition[] = [];
+  yesNoList: ICode[] = [];
 
-  constructor(private __feesService: FeesService, private _fb: FormBuilder, 
+  mitigationTypeOptions: ICode[] = [];
+
+  private _signalService = inject(AppSignalService)
+  mitigationTypeSignal = this._signalService.getMitigationType();
+  showGovOrg: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.GOVERMENT_ORGANIZATION;});
+  showISAD: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.ISAD;});
+  showFundedInstitution: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.FUNDED_INSTITUTION;});
+  showSmallBusiness: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.SMALL_BUSINESS;});
+  showUrgentHealthNeed: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.URGENT_HEALTH_NEED;});
+
+  constructor(private _feesService: FeesService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -35,19 +48,51 @@ export class FeesComponent extends BaseComponent implements OnInit{
       this.feesForm = FeesService.getFeesForm(this._fb);
     }
 
-    // // this.descriptionTypeList = this._globalService.txDescs;
     this.submissionClassOptions = this._globalService.submissionClasses;
-    // // this.mfTypeDescArray = this._globalService.mfTypeTxDescs;
-    // // this.mfRevisedTypeDescArray = this._globalService.mfRevisedTypeDescs;
-    // // this.mfUseOptions = this._globalService.mfUses;
-    // this.yesNoList = this._globalService.yesnoList;
-    // this.adminSubTypeOptions = this._globalService.adminSubTypes;
+    this.mitigationTypeOptions = this._globalService.mitigationTypes;
+    this.yesNoList = this._globalService.yesnoList;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const isFirstChange = this._utilsService.isFirstChange(changes);
+    // Ignore first trigger of ngOnChanges
+    if (!isFirstChange) {
+      if (changes['showErrors']) {
+        this.showFieldErrors = changes['showErrors'].currentValue;
+      }
+      if (changes['dataModel']) {
+        const dataModelCurrentValue = changes['dataModel'].currentValue as FeeDetails;
+        this.dataModel = dataModelCurrentValue;
+        this._feesService.mapDataModelToFormModel(
+          dataModelCurrentValue,
+          <FormGroup>this.feesForm);
+          // const codeDefinition = this._utilsService.findCodeDefinitionById(this.submissionClassOptions, dataModelCurrentValue.submission_class._id);
+          // this.selectedSubmissionClassDescription = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
+      }
+    }
+  }
+
+  onSubmissionClassSelected(selectedSubmissionClass: string){
+    this.feesForm.controls['subDescription'].setValue(this._utilsService.getCodeDefinitionByIdByLang(selectedSubmissionClass, this.submissionClassOptions, this.lang));
+  }
+
+  onMitigationTypeSelected(selectedMitigationType: string) {
+    this._signalService.setMitigationType(selectedMitigationType);
+    const valuesToReset = ['certifyFundedInstitution','certifyGovOrg','certifySmallBusiness','certifyUrgentHealthNeed','certifyISAD','small_business_fee_application'];
+    this._resetControlValues(valuesToReset);
   }
 
   protected override emitErrors(errors: ControlMessagesComponent[]): void {
-    // the combined list of errors from both "regulatory information" and "transaction details"
-    // console.log('Combined Errors List: ', errors);
     this.errorList.emit(errors);
   }
 
+  getFormValue() {
+    return this.feesForm.value;
+  }
+
+  private _resetControlValues(controlNames: string[]) {
+    for (let i = 0; i < controlNames.length; i++) {
+      this._utilsService.resetControlsValues(this.feesForm.controls[controlNames[i]]);
+    }
+  }
 }

@@ -23,7 +23,7 @@ export interface TransactionEnrol {
 export interface Ectd {
   company_id: string;
   dossier_id: string;
-  dossier_type: IIdText;
+  dossier_type: IIdTextLabel;
   product_name: string;
   product_protocol: string;
   lifecycle_record: LifecycleRecord;
@@ -31,26 +31,27 @@ export interface Ectd {
 
 export interface LifecycleRecord {
   control_number: string;
-  regulatory_activity_lead: IIdText;
+  regulatory_activity_lead: IIdTextLabel;
   regulatory_activity_type: IIdTextLabel;
   sequence_description_value: IIdTextLabel;
+  sequence_date: string;
   sequence_from_date: string;
   sequence_to_date: string;
   sequence_details: string;
   sequence_details_change: string;
   sequence_version: string;
   sequence_year: string;
-  transaction_description: string;
+  transaction_description: ITextLabel;
   requester_name: string;
   requester_name2: string;
   requester_name3: string;
   requester_of_solicited_information: string;
-  from_time: string;
-  to_time: string;
 }
 
 export interface FeeDetails {
   submission_class: IIdTextLabel;
+  submission_description: ITextLabel;
+  mitigation: Mitigation;
 }
 
 export interface IContactInformation {
@@ -78,4 +79,14 @@ export interface IContact {
   phone_ext: string;
   fax_num: string;
   email: string;
+}
+
+export interface Mitigation {
+  mitigation_type: IIdTextLabel;
+  small_business_fee_application: string;
+  certify_organization: string;
+  certify_urgent_health_need: string;
+  certify_funded_health_institution: string;
+  certify_government_organization: string;
+  certify_isad: string;
 }

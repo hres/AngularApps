@@ -20,7 +20,7 @@ import {
 import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent, ControlMessagesComponent } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
-import { Ectd, TransactionEnrol } from '../models/transaction';
+import { LifecycleRecord, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
 import { TransactionDetailsComponent } from '../transaction-details/transaction-details.component';
@@ -43,8 +43,10 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   @Output() errorList = new EventEmitter(true);
   // @Output() trDescUpdated = new EventEmitter();
 
+  public lifecycleRecordModel: LifecycleRecord;
+
   dossierTypeOptions: ICodeDefinition[] = [];
-  adminSubTypeOptions: ICode[] = [];
+  adminSubTypeOptions: ICodeDefinition[] = [];
   // mfTypeDescArray: IParentChildren[] = [];
   // mfRevisedTypeDescArray: IParentChildren[] = [];
   // mfUseOptions: ICode[] = [];
@@ -62,10 +64,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   // // writable signal for the answer of "Transaction Description" field
   // readonly selectedTxDescSignal = signal<string>('');
-  // // computed signal for rendering of the "Date of Request" and "Requester of solicited information" fields
-  // showDateAndRequester = computed(() => {
-  //   return this._regulatoryInfoService.showDateAndRequesterTxDescs.includes(this.selectedTxDescSignal());
-  // });
+
   // // computed signal for rendering of the "Did the Clarification Request require you to revise the Transaction Description?" field
   // showReqRevisedTxDesc = computed(() => {
   //   return this.txDescRquireRevise === this.selectedTxDescSignal();
@@ -92,7 +91,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     return this.adminSubmissionSelected() === 'Y';
   });
 
-  selectedAdminSubType: string = '';
+  selectedAdminSubTypeDefinition: string = '';
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
@@ -137,6 +136,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
       }
       if (changes['dataModel']) {
         const dataModelCurrentValue = changes['dataModel'].currentValue as TransactionEnrol;
+        this.lifecycleRecordModel = dataModelCurrentValue.ectd.lifecycle_record;
         this._regulatoryInfoService.mapDataModelToFormModel(
           dataModelCurrentValue,
           <FormGroup>this.regulartoryInfoForm);
@@ -169,11 +169,12 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     this.adminSubmissionSelected.set(this.regulartoryInfoForm.get("isAdminSubmission")?.value);
     const valuesToReset = ['adminSubType'];
     this._resetControlValues(valuesToReset);
-    this.selectedAdminSubType = '';
+    this.selectedAdminSubTypeDefinition = '';
   }
 
-  onAdminSubTypeSelected(e:any) {
-    this.selectedAdminSubType = this.regulartoryInfoForm.get("adminSubType").value;
+  onAdminSubTypeSelected(selectedAdminSubTypeId: string) {
+    const codeDefinition = this._utilsService.findCodeDefinitionById(this.adminSubTypeOptions,selectedAdminSubTypeId)
+    this.selectedAdminSubTypeDefinition = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
   }
 
   // onTxDescriptionSelected(e: any): void {
@@ -223,10 +224,6 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   // private _getRevisedTransactionDescriptions(mfTypeId: string): void {
   //   this.revTxDescOptions = this._utilsService.filterParentChildrenArray(this.mfRevisedTypeDescArray, mfTypeId);
-  // }
-
-  // checkDateValidity(event: any): void {
-  //   this._utilsService.checkInputValidity(event, this.regulartoryInfoForm.get('requestDate'), 'invalidDate');
   // }
 
   // get reqRevision() {

@@ -17,6 +17,8 @@ import { FeesComponent } from './fees/fees.component';
 import { FeesService } from './fees/fees.service';
 import { RegulatoryContactComponent } from './regulatory-contact/regulatory-contact.component';
 import { RegulatoryContactService } from './regulatory-contact/regulatory-contact.service';
+import { HelpTextModuleModule } from "./instruction/help-text-module.module";
+import { AppSignalService } from './signal/app-signal.service';
 
 @NgModule({
   declarations: [
@@ -34,9 +36,11 @@ import { RegulatoryContactService } from './regulatory-contact/regulatory-contac
     ExpanderModule,
     ReactiveFormsModule,
     TranslateModule,
-    NumbersOnlyDirective
-  ],
+    NumbersOnlyDirective,
+    HelpTextModuleModule
+],
   providers: [
+    AppSignalService,
     RegulatoryInformationService,
     RegulatoryContactService,
     TransactionDetailsService,
