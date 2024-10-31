@@ -147,12 +147,7 @@
                </ng-container>
             </fieldset>
         </div>
-        <div role="alert" class="alert alert-info" *ngIf="isAdminSubmission()">
-            <p>{{'refer.to.guide.doc'|translate}}
-                <a href="{{'admin.guide.doc.url'|translate}}">{{'admin.guide.doc'|translate}}</a>
-            </p>
-            <p>{{'admin.guide.doc.note'|translate}}</p>
-            <p>{{'admin.guide.doc.note2'|translate}}</p>
+        <div role="alert" class="alert alert-info" *ngIf="isAdminSubmission()" [innerHTML]="'admin.guide.doc.note'|translate">
         </div>
         <ng-container *ngIf="isAdminSubmission()">
             <div class="row">
