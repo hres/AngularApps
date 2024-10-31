@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BaseComponent, ICode, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, HelpIndex, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { RegulatoryContactService } from './regulatory-contact.service';
 import { IContactInformation } from '../models/transaction';
@@ -13,6 +13,7 @@ import { IContactInformation } from '../models/transaction';
 })
 export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   lang:string;
+  helpIndex: HelpIndex;
   
   public regulatoryContactForm: FormGroup;
   @Input() showErrors: boolean;
@@ -32,6 +33,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
 
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
+    this.helpIndex = this._globalService.helpIndex;
     if (!this.regulatoryContactForm) {
       this.regulatoryContactForm = RegulatoryContactService.getContactForm(this._fb);
     }

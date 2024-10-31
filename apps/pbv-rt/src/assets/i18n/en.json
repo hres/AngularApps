@@ -39,6 +39,7 @@
     "company.info": "A. Company Information",
     "address.info": "B. Address Information",
     "company.representative": "C. Company Representative",
+    "routing.id":"Routing Identifier",
     "company.rep.this": "Company Representative",
     "generate.final": "Generate Final XML",
     "confirm.contact.valid": "I confirm that the above regulatory activity contact information is valid.",
@@ -86,6 +87,7 @@
     "saveliferec": "One transaction details record is required to save.",
     "lifecyclectrl.lifecycledetailsform": "with a Transaction Details Record",
     "is.new.activity": "Is this transaction for a new or existing regulatory activity?",
+    "panel.title.reg.contact": "Contact for THIS Regulatory Activity",
     "is.signed.3rd.party": "Is the contact for this regulatory activity a third party corresponding on behalf of the manufacturer/sponsor?",
     "aut.letter.note": "A signed third party authorization form is required for regulatory activities listed on the form. Refer to the list in the notes/requirements section of the form posted on Health Canada's website.",
     "company.name":"Company Name (Full Legal Name)",
@@ -192,7 +194,6 @@
     "ht.contact.4": "Please note that it is up to the discretion of Health Canada to decide the method of correspondence.",
     "ht.contact.6": "Sponsors should update this information if required; otherwise confirm that the information is still valid.",
     "ht.contact.7": "Enter the name of the company to which the regulatory activity contact belongs. If the contact does not belong to a company, enter the name of the contact.",
-    
     "ht.xml.1": "A final regulatory transaction XML file must be included in section 1.2.1 for each of your REP transactions.",
     "ht.xml.2": "Refer to the REP guidance document for detailed information.",
     "ht.xml.3": "A final regulatory transaction XML file must be included in: ",

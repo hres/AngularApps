@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord, Mitigation} from '../models/transaction';
+import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord, Mitigation, IContactInformation} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
@@ -50,11 +50,21 @@ export class FormBaseService {
     );
   }
 
+  public getEmptyContactInfoModel() : IContactInformation {
+    return (
+      {
+        is_3rd_party_signed: '',
+        company_name: '',
+        routing_id: '',
+        confirm_contact_valid: null
+      }
+    );
+  }
+
   public getEmptyAddressDetailsModel() : INameAddress{
 
     return (
       {
-	      company_name: '',
 	      street_address: '',
 	      city: '',
 	      country: undefined,
@@ -94,7 +104,8 @@ export class FormBaseService {
       is_noc: '',
       is_admin_sub: '',
       sub_type: undefined,
-      is_fees: ''
+      is_fees: '',
+      contact_info: this.getEmptyContactInfoModel()
     };
     
     return TransactionEnrol;

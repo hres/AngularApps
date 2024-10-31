@@ -23,7 +23,6 @@ export const helpInstructionHeadings = [
     'requestSoliIndx',
     'feesIndx',
     'regContactIndx',
-    'routeIdIndx',
     'genFinalIndx'
   ];
 
