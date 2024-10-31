@@ -4,3 +4,5 @@
 
 export * from './lib/pbv.service';
 export * from './lib/pbv.component';
+
+export * from './privacy-statement/privacy-statement.component'

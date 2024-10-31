@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GlobalService } from '../global/global.service';
-import { HelpIndex, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent } from '@hpfb/sdk/ui';
+import { HelpIndex, LayoutComponent, SecurityDisclaimerComponent } from '@hpfb/sdk/ui';
+import { PrivacyStatementComponent } from '@hpfb/pbv';
 import { TranslateModule } from '@ngx-translate/core';
 import { InstructionComponent } from '../instruction/instruction.component';
 import { FormBaseComponent } from '../form-base/form-base.component';

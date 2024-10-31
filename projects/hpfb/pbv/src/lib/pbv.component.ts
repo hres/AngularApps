@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'group-pbv',
+  selector: 'pb-lib-pbv',
   standalone: true,
   imports: [],
   template: `

@@ -40,7 +40,7 @@
       "projectType": "library",
       "root": "projects/hpfb/pbv",
       "sourceRoot": "projects/hpfb/pbv",
-      "prefix": "group",
+      "prefix": "pb-lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
