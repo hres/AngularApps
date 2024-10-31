@@ -437,5 +437,15 @@
     "5digits.only": " (5 digits only)",
     "commmon.required.bracket": " (required)",
     "dossier.id.format": "(a lowercase letter followed by 6 numbers)",
-    "product.name": "Product Name"
+    "product.name": "Product Name",
+    "enrolVersion":"Enrolment Version",
+    "dateLastSaved":"Date Last Saved",
+    "patent.Id":"Canadian Patent Number",
+    "filling.date":"Patent Filing Date",
+    "grand.date":"Patent Date Granted",
+    "expiration.date":"Patent Expiration Date",
+    "panel.title.csp":"Certificate of Supplementary Protection (CSP) Information",
+    "panel.title.patent":"Patent Information"
+
+
 }

@@ -43,6 +43,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _agentContactErrors = [];
   // private _contactConfirmError = [];
   // private _certficationErrors = [];
+  private _patentInformationErrors = [];
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -157,9 +158,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.errorList = this.errorList.concat(this._transFeeErrors);
     // }
 
-    // this.errorList = this.errorList.concat(this._certficationErrors);
+    this.errorList = this.errorList.concat(this._patentInformationErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
+  }
+
+
+    processPatentInfoErrors(errorList) {
+    this._patentInformationErrors = errorList;
+    this.processErrors();
   }
 
   // processRegulatoryInfoErrors(errorList) {

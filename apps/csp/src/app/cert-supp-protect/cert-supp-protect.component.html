@@ -24,11 +24,11 @@
       <div class="row">
         <div class="form-group col-sm-6 col-xs-12" >
             <label for="enrollVersion" >
-                <span class="field-name">{{ 'csp.enrollVersion'|translate }}</span>
+                <span class="field-name">{{ 'enrolVersion'|translate }}</span>
                 <control-messages
                     [showError]="showFieldErrors"
                     [control]="certSuppProtectForm.controls['enrollVersion'] | formControl"
-                    controlId="enrollVersion" label="csp.enrollVersion" parentId="certSuppProtect"></control-messages>
+                    controlId="enrollVersion" label="enrollVersion" parentId="certSuppProtect"></control-messages>
                 <input id="enrollVersion" name="enrollVersion" class="form-control "
                     [formControlName]="'enrollVersion'" maxlength="256"    readonly/>
             </label>
@@ -36,11 +36,11 @@
 
         <div class="form-group col-sm-6 col-xs-12" >
             <label for="dateLastSaved">
-              <span class="field-name">{{ 'csp.dateLastSaved'|translate }}</span>
+              <span class="field-name">{{ 'dateLastSaved'|translate }}</span>
                 <control-messages
                     [showError]="showFieldErrors"
                     [control]="certSuppProtectForm.controls['dateLastSaved'] | formControl"
-                    controlId="dateLastSaved" label="csp.dateLastSaved" parentId="certSuppProtect"></control-messages>
+                    controlId="dateLastSaved" label="dateLastSaved" parentId="certSuppProtect"></control-messages>
                 <input id="dateLastSaved" name="dateLastSaved" class="form-control full-width" readonly
                     [formControlName]="'dateLastSaved'" />
             </label>
