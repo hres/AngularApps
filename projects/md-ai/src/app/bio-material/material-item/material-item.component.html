@@ -1,5 +1,5 @@
 <div [formGroup]="cRRow">
-  <div id="materialErrorSummary">
+  <div id="materialErrorSummary{{j}}">
     <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
     [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
     [headingLevel]="headingLevel" label="error.msg.bioMaterials" compId="materialListTable"></lib-error-summary> 

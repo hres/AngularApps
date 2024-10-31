@@ -44,6 +44,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   private contactModelChangesSubscription: Subscription;
 
   popupId='contactPopup';
+
+  statusMessage : string = '';
   
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService, 
     private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService) {
@@ -169,6 +171,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * Adds an contact UI record to the contact List
    */
   public addContact(): void {
+    const newIndex = this.contactList.length;
 
     this._createFormContact();
 
@@ -177,8 +180,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (this.isInternal) {
       document.location.href = '#contactId';
     } else {
-      document.location.href = '#status';
+      document.location.href = '#fullName' + newIndex;
     }
+
     this.showErrors = false;
   }
 
@@ -192,7 +196,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * Saves the record to the list. If new adds to the end of the list. Does no error Checking
    * @param record
    */
-  public saveContactRecord(record: FormGroup) {
+  public saveContactRecord(contactRecord) {
+    const record = contactRecord.recModel;
+    const status = contactRecord.status;
     const recordId = this.saveRecord(record, this._listService, this.lang, this.languageList, this.contactStatusList);
     // console.log(`recordId ${recordId} was saved`)
 
@@ -212,9 +218,20 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     this._expandNextInvalidRecord();
 
     this.showErrors = true;
+    if (status) {
+      this.statusChange(recordId + 1, status);
+    } else {
+      if (this.lang == "en") {
+        this.statusMessage = "Contact record " + (recordId + 1) + " has been saved."
+      } else {
+        this.statusMessage = "Enregistrement du contact " + (recordId + 1) + " a été sauvegardé."
+      }
+    }
+    
     if (!this.isInternal) {
       document.location.href = '#addContactBtn';
     }
+
     this.contactsUpdated.emit(this.contactModel);
   }
 
@@ -259,9 +276,6 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     //     emitErrors.push(error);
     //   });
     // }
-    if (checkErrorSummary && this.errorSummaryChild) {
-      emitErrors.push(this.errorSummaryChild);
-    }
     if (!this.isInternal && this._noNonRemoveRecords(this.contactModel)) {
       const oerr: ErrorSummaryObject = getEmptyErrorSummaryObj();
       oerr.index = 0;
@@ -269,7 +283,12 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       oerr.type = ERR_TYPE_LEAST_ONE_REC;
       oerr.label = 'error.msg.contact.one.record';
       emitErrors.push(oerr);
+    } else {
+      if (checkErrorSummary && this.errorSummaryChild) {
+        emitErrors.push(this.errorSummaryChild);
+      }
     }
+    //console.log(emitErrors);
     this.errors.emit(emitErrors);
   }
 
@@ -278,6 +297,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * @param record
    */
   public revertContact(record): void {
+    let discardMsg = "";
     let recordId = record.controls.id.value;
 
     let modelRecord = this._listService.getModelRecord(recordId);
@@ -292,6 +312,22 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       // should never happen, there should always be a UI record
       console.warn('ContactList:rec is null');
     }
+    if (this.lang == "en") {
+      discardMsg = "Contact record " + (recordId + 1) + "  changes have been discarded."
+    } else {
+      discardMsg = "Les modifications du contact " + (recordId + 1) + " ont été annulées."
+    }
+
+    this.statusMessage = discardMsg;
+
+    // Screen reader will announce message again after the first time Discard Changes button has been clicked
+    setTimeout(() => {
+      this.statusMessage = ''; // Temporarily clear the message
+      setTimeout(() => {
+          this.statusMessage = discardMsg; // Restore the message
+      }, 50); // Small delay before restoring
+    }, 50);
+
     if (this.isInternal) {
       document.location.href = '#contactId';
     } else {
@@ -309,8 +345,44 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     this._errorNotificationService.removeErrorSummary(id);
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
     this._expandNextInvalidRecord();
+    if (this.lang == "en") {
+      this.statusMessage = "Contact record " + (id + 1) + " has been deleted."
+    } else {
+      this.statusMessage = "Enregistrement du contact  " + (id + 1) + " a été supprimé."
+    }
     document.location.href = '#contactListTable';
     this.contactsUpdated.emit(this.contactModel);
+  }
+
+  public statusChange(id, status): void {
+    // const id = idAndStatus.id + 1;
+    // const status = idAndStatus.status;
+
+    if (this.lang == "en") {
+      switch (status) {
+        case ContactStatus.Active:
+          this.statusMessage = "Contact record " + id + " status is now active.";
+          break;
+        case ContactStatus.Remove:
+          this.statusMessage = "Contact record " + id + " status has been changed to remove.";
+          break;
+        case ContactStatus.Revise:
+          this.statusMessage = "Contact record " + id + " status has been changed to revise.";
+          break;
+      }
+    } else {
+      switch (status) {
+        case ContactStatus.Active:
+          this.statusMessage = " Le statut d’enregistrement de contact " + id + " est maintenant actif.";
+          break;
+        case ContactStatus.Remove:
+          this.statusMessage = "Le statut d’enregistrement de contact " + id + " a été modifié pour être supprimé.";
+          break;
+        case ContactStatus.Revise:
+          this.statusMessage = "Le statut d’enregistrement de contact " + id + " a été modifié pour être révisé.";
+          break;
+      }
+    }
   }
 
   /**

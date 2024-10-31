@@ -128,7 +128,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   public deleteMaterialRecord(index: number): void {
-    this.errorSummaryChild = null;
+    //this.errorSummaryChild = null;
+    this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, null);
     this.deleteRecord.emit(index);
     this.cRRow.markAsPristine();
     this._updateErrorList([]);

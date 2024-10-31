@@ -168,6 +168,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._declarationErrors = errorList;
     this.processErrors();
   }
+  
 
   /**
    * Resets material errors when device class is changed from Class IV
@@ -181,6 +182,20 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
+  resetDeclarationError(reset : boolean) {
+    if (reset) {
+      this._declarationErrors = [];
+    }
+    this.processErrors();
+  }
+
+  resetPriorityRevError(reset : boolean) {
+    if (reset) {
+      this._priorityRevErrors = [];
+    }
+    this.processErrors();
+  }
+  
   public hideErrorSummary() {
     return (this.showErrors && this.errorList && this.errorList.length > 0);
   }
@@ -397,8 +412,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       || this._appInfoService.deviceClassIV())) {
       return true;
     } else {
-      // Signal to decl. component to reset its value
-
     }
     return false;
 
