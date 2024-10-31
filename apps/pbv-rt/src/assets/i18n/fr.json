@@ -197,11 +197,7 @@
     "covir-19": "Demande d'ordonnance provisoire COVID-19",
     "covir-19amd": "Demande d'ordonnance provisoire COVID-19 - Modification",
     
-    "refer.to.guide.doc": "Veuillez consulter la Ligne directrice : ",
-    "admin.guide.doc": "Traitement administratif des présentations et des demandes concernant les médicaments destinés aux humains ou les désinfectants",
-    "admin.guide.doc.url": "https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/demandes-presentations/lignes-directrices/traitement-administratif-humains-desinfectants-medicaments-2019/document.html",
-    "admin.guide.doc.note": "Remarque : La catégorie de frais administratifs doit être sélectionnée.",
-    "admin.guide.doc.note2": "La description de la transaction « Administratif » doit être utilisée pour la première transaction pour cette activité de réglementation.",
+    "admin.guide.doc.note":"<p>Pour les médicaments biologiques, radiopharmaceutiques et pharmaceutique à usage humain, veuillez consulter la ligne directrice : <a target='_blank' href='https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/demandes-presentations/lignes-directrices/traitement-administratif-humains-desinfectants-medicaments-2019/document.html'>Traitement administratif des présentations et des demandes concernant les médicaments destinés aux humains ou les désinfectants</a>.</p><p>Remarque : La catégorie de frais administratifs doit être sélectionnée. La description de la transaction « Administratif » doit être utilisée pour la première transaction pour cette activité de réglementation.</p><br><p>Pour les médicaments vétérinaires, veuillez consulter la ligne directrice : <a target='_blank' href='https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments-veterinaires/legislation-lignes-directrices/lignes-directrices/gestion-presentations-reglementaires.html'>Lignes directrices sur la gestion des présentations réglementaires des médicaments vétérinaires</a> ou veuillez communiquer avec vdd.skmd.so-dgps.dmv.cp@hc-sc.gc.ca.</p><p>Remarque : La description de la transaction « Administratif » doit être utilisée pour la première transaction pour cette activité de réglementation.</p>",
     
     "rq.review.report": "Demande de rapport(s) d’examen",
     "top.instruction": "Instructions pour compléter les sections du formulaire",
