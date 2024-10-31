@@ -19,7 +19,7 @@
     </div>
     <div id="topErrorSummaryId">
       <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
-        headingPreamble="errorSummary.masterfile"></lib-error-summary>
+        headingPreamble="errorSummary.cspfile"></lib-error-summary>
     </div>
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
@@ -52,7 +52,7 @@
           </header>
           <div class="panel-body">
             <app-drug-use  [showErrors]="showErrors"
-            (errorList)="processPatentInfoErrors($event)"
+            (errorList)="processDrugUseErrors($event)"
             ></app-drug-use>
           </div>
       </section>

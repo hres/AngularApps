@@ -8,7 +8,10 @@
                 <control-messages *ngIf="drugUseForm.controls['drugUse'].invalid"
                     [showError]="showFieldErrors"
                     [control]="drugUseForm.controls['drugUse'] | formControl"
-                    controlId="drugUse" label="drugUse.use" parentId="drugUse"></control-messages>
+                    controlId="drugUse"
+                    label="drugUse.use"
+                    parentId="cspCertif">
+                </control-messages>
             </label>
             <select id="drugUse" name="drugUse" required class="form-control full-width"
                 [formControlName]="'drugUse'">

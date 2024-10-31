@@ -33,7 +33,6 @@ export class DrugUseComponent  extends BaseComponent implements OnInit {
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   drugUseOptions: ICode[] = [];
-  dostypes: ICode[] = [];
 
   public drugUseForm: FormGroup;
 
@@ -52,8 +51,6 @@ export class DrugUseComponent  extends BaseComponent implements OnInit {
     }
 
     this.drugUseOptions = this._globalService.drugUses;
-    this.dostypes = this._globalService.dossierTypes;
-
     }
 
     protected override emitErrors(errors: any[]): void {

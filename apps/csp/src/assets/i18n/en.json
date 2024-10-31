@@ -447,6 +447,12 @@
     "panel.title.csp":"Certificate of Supplementary Protection (CSP) Information",
     "panel.title.patent":"Patent Information",
     "panel.title.druguse":"Drug Use",
-     "drug.use":"Drug Use"
+     "drug.use":"Drug Use",
+     "required": "This field is required",
+     "error": "Error {{number}}:",
+     "errorSummary.cspfile": "Certificate of Supplementary Protection (CSP) Application Form",
+     "error.found.because": " could not be saved because ",
+     "error.found.plural": " errors were found",
+     "error.found.singular": " error was found"
 
 }
