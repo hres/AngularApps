@@ -7,7 +7,10 @@ export const DATA_PATH: string = './assets/data/';
 export const FILE_OUTPUT_PREFIX = 'rt';
 export const XSLT_PREFIX = 'REP';
 
-export const helpInstructionHeadings = [
+export const HELP_FOOTNOTE_PREFIX = 'tr';
+export const HELP_FOOTNOTE_SUFFIX = '-rf';
+
+export const HELP_TEXT_SEQUENCE = [
     'loadFileIndx',
     'dossierTypeIndx',
     'compIdIndx',
@@ -16,14 +19,13 @@ export const helpInstructionHeadings = [
     'prioRevIndx',
     'nocRevIndx',
     'adminSubIndx',
-    'ctrlNumIndx',
     'regActIndx',
+    'ctrlNumIndx',
     'yearChangeIndx',
     'briefDescIndx',
     'requestSoliIndx',
     'feesIndx',
     'regContactIndx',
-    'routeIdIndx',
     'genFinalIndx'
   ];
 

@@ -17,7 +17,7 @@ import {
   viewChild,
   effect
 } from '@angular/core';
-import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent, ControlMessagesComponent } from '@hpfb/sdk/ui';
+import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent, ControlMessagesComponent, HelpSequence } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
 import { LifecycleRecord, TransactionEnrol } from '../models/transaction';
@@ -34,7 +34,7 @@ import { DOSSIER_TYPE } from '../app.constants';
 })
 export class RegulatoryInformationComponent extends BaseComponent implements OnInit {
   lang: string;
-  helpIndex: HelpIndex; 
+  helpIndex: HelpSequence; 
 
   public regulartoryInfoForm: FormGroup;
   // @Input() detailsChanged: number;

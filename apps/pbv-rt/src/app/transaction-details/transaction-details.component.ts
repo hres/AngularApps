@@ -1,6 +1,6 @@
 import { Component, computed, EventEmitter, inject, Input, input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BaseComponent, ControlMessagesComponent, HelpIndex, ICodeDefinition, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, ControlMessagesComponent, HelpIndex, HelpSequence, ICodeDefinition, UtilsService } from '@hpfb/sdk/ui';
 import { TransactionDetailsService } from './transaction-details.service';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -23,7 +23,7 @@ import { TXN_DESC_ACTION } from '../app.constants';
 export class TransactionDetailsComponent extends BaseComponent implements OnInit {
 
   lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
 
   // showErrors = input.required<boolean>();
   @Input() showErrors: boolean;
