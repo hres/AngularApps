@@ -13,11 +13,13 @@ import { CertSuppProtectComponent } from './cert-supp-protect/cert-supp-protect.
 import { CertSuppProtectService } from './cert-supp-protect/cert-supp-protect.service';
 import {PatentComponent } from './patent/patent.component';
 import { PatentService } from './patent/patent-service.service';
+import { DrugUseComponent } from './drug-use/drug-use.component';
+import { DrugUseService } from './drug-use/drug-use.service';
 
 
 @NgModule({
   declarations: [
-    CertSuppProtectComponent,PatentComponent
+    CertSuppProtectComponent, PatentComponent, DrugUseComponent
   ],
   imports: [
     CommonModule,
@@ -31,10 +33,10 @@ import { PatentService } from './patent/patent-service.service';
     NumbersOnlyDirective
   ],
   providers: [
-    CertSuppProtectService, DatePipe, PatentService
+    CertSuppProtectService, DatePipe, PatentService, DrugUseService
   ],
   exports: [CommonUiFeatureModule,
-    CertSuppProtectComponent,PatentComponent
+    CertSuppProtectComponent, PatentComponent, DrugUseComponent
    ],
 })
 export class AppFormModule {}
