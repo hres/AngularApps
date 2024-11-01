@@ -27,10 +27,10 @@ export class TransactionDetailsService {
     TXN_DESC.MEETING_MINUTES,
     TXN_DESC.PATIENT_SAFETY_INFO,
     TXN_DESC.BE_CLARIF_RESPONSE,
-    TXN_DESC.xyz1,
+    TXN_DESC.CLIN_CLARIF_RESPONSE,
     TXN_DESC.CHSC_RQ_RESPONSE,
     TXN_DESC.EMAIL_RQ_RESPONSE,
-    TXN_DESC.xyz2,
+    TXN_DESC.HSC_RQ_RESPONSE,
     TXN_DESC.LABEL_CLARIF_RESPONSE,
     TXN_DESC.MHPD_RQ_RESPONSE,
     TXN_DESC.NOC_RESPONSE,
@@ -71,10 +71,10 @@ export class TransactionDetailsService {
   showRequesterTxnDescs: string[] = [
     TXN_DESC.COMMENTS_SUMMARY_BASIS,
     TXN_DESC.BE_CLARIF_RESPONSE,
-    TXN_DESC.xyz1,
+    TXN_DESC.CLIN_CLARIF_RESPONSE,
     TXN_DESC.CHSC_RQ_RESPONSE,
     TXN_DESC.EMAIL_RQ_RESPONSE,
-    TXN_DESC.xyz2,
+    TXN_DESC.HSC_RQ_RESPONSE,
     TXN_DESC.LABEL_CLARIF_RESPONSE,
     TXN_DESC.NONCLIN_CLARIF_RESPONSE,
     TXN_DESC.PROCESSING_CLARIF_RESPONSE,
@@ -194,14 +194,11 @@ export class TransactionDetailsService {
     dataModel.sequence_version = formValue['versionNumber'];
 // todo yearsOfChange or year
     dataModel.sequence_year = formValue['yearsOfChange'];
-    dataModel.transaction_description = "todo concat"
+    // dataModel.transaction_description = "todo concat"
     dataModel.requester_name = formValue['requester1'];
     dataModel.requester_name2 = formValue['requester2'];
     dataModel.requester_name3 = formValue['requester3'];
-    dataModel.requester_of_solicited_information = "todo concat"
-    // ???? do these two fields required??
-    // dataModel.from_time
-    // dataModel.to_time
+    // dataModel.requester_of_solicited_information = this._utilsService.concat(formValue['requester1'], formValue['requester2'], formValue['requester3']);
   }
 
   public mapDataModelToFormModel(dataModel: LifecycleRecord, formRecord: FormGroup): void {

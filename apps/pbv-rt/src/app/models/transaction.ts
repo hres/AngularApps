@@ -40,18 +40,17 @@ export interface LifecycleRecord {
   sequence_details_change: string;
   sequence_version: string;
   sequence_year: string;
-  transaction_description: string;
+  transaction_description: ITextLabel;
   requester_name: string;
   requester_name2: string;
   requester_name3: string;
   requester_of_solicited_information: string;
-  from_time: string;
-  to_time: string;
 }
 
 export interface FeeDetails {
   submission_class: IIdTextLabel;
-  mitigation_type: IIdTextLabel;
+  submission_description: ITextLabel;
+  mitigation: Mitigation;
 }
 
 export interface INameAddress {
@@ -73,4 +72,14 @@ export interface IContact {
   phone_ext: string;
   fax_num: string;
   email: string;
+}
+
+export interface Mitigation {
+  mitigation_type: IIdTextLabel;
+  small_business_fee_application: string;
+  certify_organization: string;
+  certify_urgent_health_need: string;
+  certify_funded_health_institution: string;
+  certify_government_organization: string;
+  certify_isad: string;
 }

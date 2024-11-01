@@ -118,43 +118,44 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   // Regulatory Transaction Description drodropdown list is computed based on the selected Regulatory Activity Lead and the selected Regulatory Activity Type
   transactionDescriptionList: Signal<ICodeDefinition[]> = computed(() => {
     if (this.selectedRaLeadId() && this.selectedRaTypeId()) {
-      // filter the raLeadRaTypeAndTxnDescrs dataset by raLeadId and raTypeId
-      const filteredRaLeadRaTypeAndTxnDescrs =
+      console.log(
+        'updating transactionDescriptionList => this.selectedRaLeadId()',this.selectedRaLeadId(), 'this.selectedRaTypeId()', this.selectedRaTypeId());
+      // filter the raLeadRaTypeAndTxnDescrs dataset by raLeadId 
+      const filteredRaLeadRaTypeAndTxnDescps =
         this._globalService.raLeadRaTypeAndTxnDescrs.filter(
           (item) =>
-            item.raLeadId === this.selectedRaLeadId() &&
-            item.raTypeId === this.selectedRaTypeId()
-        );
-      console.log(
-        'updating transactionDescriptionList => this.selectedRaLeadId()',
-        this.selectedRaLeadId(),
-        'this.selectedRaTypeId()',
-        this.selectedRaTypeId(),
-        'filteredRaLeadRaTypeAndTxnDescrs ',
-        filteredRaLeadRaTypeAndTxnDescrs
-      );
+            item.raLeadId === this.selectedRaLeadId());
 
-      if (filteredRaLeadRaTypeAndTxnDescrs.length === 1) {
-        // get the txnDescrIds for this raLeadId and raTypeId combination
-        const transactionDescriptionIds =
-          filteredRaLeadRaTypeAndTxnDescrs[0].txnDescrIds;
-        console.log(
-          'updating transactionDescriptionList => transactionDescriptionIds',
-          transactionDescriptionIds
-        );
-        // filter the transactionDescriptions dataset based on the transactionDescriptionIds
-        const filtereTransactionDescriptions =
-          this._globalService.transactionDescriptions.filter((item) =>
-            transactionDescriptionIds.includes(item.id)
+      if (filteredRaLeadRaTypeAndTxnDescps.length === 1) {
+        const matrix = filteredRaLeadRaTypeAndTxnDescps[0].matrix;
+        console.log('updating transactionDescriptionList => filteredRaLeadRaTypeAndTxnDescps[0].matrix', matrix);
+        // filter matrix by raTypeId 
+        const filteredMatrix = matrix.filter(
+            (item) =>
+              item.raTypeId === this.selectedRaTypeId());
+        console.log( 'updating transactionDescriptionList => filteredMatrix', filteredMatrix);
+
+        if (filteredMatrix.length === 1) {
+          const txnDescpIds = filteredMatrix[0].txnDescpIds;
+          // get the transaction description ICodeDefinitions by txnDescpIds
+          const filtereTransactionDescriptions =
+            this._globalService.transactionDescriptions.filter((item) =>
+              txnDescpIds.includes(item.id)
+            );
+          console.log(
+            'updating transactionDescriptionList => filtereTransactionDescriptions',
+            filtereTransactionDescriptions
           );
-        console.log(
-          'updating transactionDescriptionList => filtereTransactionDescriptions',
-          filtereTransactionDescriptions
-        );
-        return filtereTransactionDescriptions;
+          return filtereTransactionDescriptions;
+        } else {
+          console.error(
+            `updating transactionDescriptionList => found ${filteredMatrix.length} filteredMatrix `
+          );
+          return [];
+        }
       } else {
         console.error(
-          `updating transactionDescriptionList => found ${filteredRaLeadRaTypeAndTxnDescrs.length} filteredRaLeadRaTypeAndTxnDescrs `
+          `updating transactionDescriptionList => found ${filteredRaLeadRaTypeAndTxnDescps.length} filteredRaLeadRaTypeAndTxnDescps `
         );
         return [];
       }
@@ -323,19 +324,26 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     let keysToKeep: string[] = [];
     if (this.showDated()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_DATE);
-    } else if (this.showStartEndDate()) {
+    } 
+    if (this.showStartEndDate()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_STARTENDDATE);
-    } else if (this.showRequesters()) {
+    } 
+    if (this.showRequesters()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_REQUESTERS);
-    } else if (this.showYearsOfChange()) {
+    } 
+    if (this.showYearsOfChange()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_YEARSOFCHANGE);
-    } else if (this.showYear()) {
+    } 
+    if (this.showYear()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_YEAR);
-    } else if (this.showVersionNum()) {
+    } 
+    if (this.showVersionNum()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_VERSIONNUM);
-    } else if (this.showBriefDescription()) {
+    } 
+    if (this.showBriefDescription()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_BRIEFDESCRIPTION);
-    } else if (this.showBriefDescriptionOfChange()) {
+    } 
+    if (this.showBriefDescriptionOfChange()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_BRIEFDESCRIPTIONOFCHANGE);
     }
 

@@ -5,7 +5,7 @@ import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
+import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -38,7 +38,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
   private _regulatoryInfoErrors = [];
-  private _FeesErrors = [];
+  private _feesErrors = [];
   // private _addressErrors = [];
   // private _contactErrors = [];
   // private _agentAddressErrors = [];
@@ -62,7 +62,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact; 
   // public agentContactModel: IContact;
-  public transFeeModel: FeeDetails;
+  public feesModel: FeeDetails;
 
   // public notApplicable: boolean = false;
   // public holder: string = ADDR_CONT_TYPE.HOLDER;
@@ -78,10 +78,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   readonly selectedDossierType: Signal<string> = this._signalService.getSelectedDossierType();
   isVeterinaryDossierType: Signal<boolean> =  computed(() => this.selectedDossierType() === DOSSIER_TYPE.VETERINARY);
   isPharmaOrBioDossierType: Signal<boolean> = computed(() => this.selectedDossierType() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.selectedDossierType() === DOSSIER_TYPE.BIOLOGIC_HUMAN);
+  
+  // RA Lead signal
+  readonly selectedRALead: Signal<string> = this._signalService.getSelectedRaLead();
+  isRALeadPostMarket: Signal<boolean> = computed(() => this.selectedRALead() === RA_LEAD.POST_MARKET_VIGILANCE);
 
   // computed signal for rendering "Fees" section
   showFees: Signal<boolean> = computed(() => {
-    return this._utilsService.isEmpty(this.selectedDossierType()) ? true : this.isPharmaOrBioDossierType();
+    if (this._utilsService.isEmpty(this.selectedDossierType()) || this.isPharmaOrBioDossierType()) {
+      return this.isRALeadPostMarket()? false: true;
+    } else {
+      return false;
+    }
   });
 
   constructor(
@@ -154,9 +162,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.errorList = this.errorList.concat(this._contactConfirmError);
     // }
 
-    // if (this.showFees()) {
-    //   this.errorList = this.errorList.concat(this._transFeeErrors);
-    // }
+    if (this.showFees()) {
+      this.errorList = this.errorList.concat(this._feesErrors);
+    }
 
     // this.errorList = this.errorList.concat(this._certficationErrors);
 
@@ -174,7 +182,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // }
 
   processFeesErrors(errorList) {
-    this._FeesErrors = errorList;
+    this._feesErrors = errorList;
     this.processErrors();
   }
 
@@ -234,7 +242,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.agentContactModel = trans.contact_info.agent_contact;
     // }
     if (trans.fee_details != null) {
-      this.transFeeModel = trans.fee_details;
+      this.feesModel = trans.fee_details;
     }
   }
 
@@ -314,12 +322,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   newTransactionEnrol.contact_info = null;
     // }
 
-    // if (this.showFees()) {
-    //   const feeFormGroupValue = this.feeComponent.getFormValue();
-    //   this._baseService.mapFeeFormToOutput(newTransactionEnrol.fee_details, feeFormGroupValue);
-    // } else {
-    //   newTransactionEnrol.fee_details = null;
-    // }
+    if (this.showFees()) {
+      const feeFormGroupValue = this.feesComponent.getFormValue();
+      this._baseService.mapFeesFormToOutput(newTransactionEnrol.fee_details, feeFormGroupValue);
+    } else {
+      newTransactionEnrol.fee_details = null;
+    }
 
     newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     newTransactionEnrol.software_version = this._globalService.appVersion;

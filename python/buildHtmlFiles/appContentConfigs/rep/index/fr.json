@@ -11,7 +11,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"{{ base_url }}/historique_révisions.html\">Historique des versions du modèle (22/10/2024)</a>"
+                        "<a href=\"{{ base_url }}historique_révisions.html\">Historique des versions du modèle (22/10/2024)</a>"
                     ]
                 }
             ]

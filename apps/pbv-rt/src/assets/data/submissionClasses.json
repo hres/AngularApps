@@ -7,7 +7,7 @@
         "defFr": "Présentations à l’appui d’un médicament, à l’exclusion d’un désinfectant, contenant un ingrédient médicinal jamais approuvé dans un médicament pour la vente au Canada et ne constituant pas une variante d’un ingrédient médicinal déjà approuvé tel un sel, un ester, un énantiomère, un solvate ou un polymorphe."
     },
     {
-        "id": "`",
+        "id": "FC2",
         "en": "Clinical or non-clinical data and chemistry and manufacturing data",
         "fr": "Données cliniques ou non cliniques et données sur la chimie et la fabrication",
         "defEn": "Submissions based on clinical or non-clinical data and chemistry and manufacturing data that does not include a new active substance.\nThis fee applies to the following submission types: NDS, SNDS, DINA, DINB",
@@ -42,7 +42,7 @@
         "defFr": "Présentations fondées seulement sur des données cliniques ou non cliniques à l’appui de mises à jour de l’innocuité sur l’étiquetage à l’égard d’un nouveau médicament exempt de nouvelle substance active.\nCes frais s'appliquent aux types de présentation suivants : SPDN et SPADN"
     },
     {
-        "id": "FC7 ",
+        "id": "FC7",
         "en": "Labelling only",
         "fr": "Étiquetage seulement",
         "defEn": "Submissions of labelling material, that include data in support of the following: brand name assessment, standardized or published test methods, in vitro or in vivo photostability or applications for a drug identification number in support of changes to brand names of non-prescription drugs (but not including examination of other supporting clinical or non-clinical data, comparative data, or chemistry and manufacturing data).\nThis fee applies to the following submission types: NDS, SNDS, ANDS, SANDS, DINA, DINB",
@@ -89,5 +89,12 @@
         "fr": "Demande d’une identification numérique — norme d’étiquetage",
         "defEn": "Applications, including those that pertain to changes to brand names for non-prescription drugs, that include an attestation of compliance  with a labelling standard or Category IV Monograph for a drug and that do not include clinical or non-clinical data or chemistry and manufacturing data.\nThis fee applies to the following submission types: DINA, DINB, DIND, DINF",
         "defFr": "Demandes, y compris les demandes relatives à des changements de nom de marque pour des médicaments sans ordonnance, qui comprennent une attestation de conformité à une norme d’étiquetage ou à une monographie de catégorie IV pour un médicament et qui ne comportent pas de données cliniques ou non cliniques ou de données sur la chimie ou la fabrication.\nCes frais s'appliquent aux types de présentation suivants : DDIN, DDINB, DDIND, DDINF"
+    },
+    {
+        "id": "FC13",
+        "en": "Not applicable",
+        "fr": "Non applicable",
+        "defEn": "Fees do not apply to this submission type / regulatory activity (i.e. YBPR, UDRA, PDC, PDC-B, NC, Post-DIN notification, Level 3 change, PR(S)NDS, MP(S)NDS/MPNC/MPDIN) or to this follow-up Regulatory Transaction (such as Response to Clarification Request, Response to SDN/NON/NOD, Product Labelling – Post Approval, Drug Notification Form, Cancellation Letter, Meeting Minutes, etc.), unless requested otherwise by Health Canada.",
+        "defFr": "Les frais ne s'applique pas à ce type de présentation / activité de réglementation (c.-à-d. RAPB, ARND, CPA, CPA-B, PM, notification post-DIN, changement de niveau III, EP(S)PDN, MP(S)PDN/MPPM,MPDIN) ou à cette transaction réglementaire de suivi (tel que réponse à une demande de clarification, réponse à un AIEP/ANC/AI, étiquetage de produit - post-approbation, formulaire de déclaration de médicament, lettre d'annulation, les procès-verbal de la réunion, etc.), sauf demande contraire de Santé Canada."
     }
 ]

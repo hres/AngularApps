@@ -1,0 +1,15 @@
+{
+  "name": "csp",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --port 6201 -o",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "dependencies": {
+    "@hpfb/sdk": "file:../../libs/hpfb-sdk-1.1.0.tgz",
+    "csp": "file:"
+  },
+  "private": true
+}

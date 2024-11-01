@@ -1,18 +1,20 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord} from '../models/transaction';
+import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord, Mitigation} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 import { TransactionDetailsService } from '../transaction-details/transaction-details.service';
+import { FeesService } from '../fees/fees.service';
 
 @Injectable()
 export class FormBaseService {
 
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,
-    private _regulatoryInfoService: RegulatoryInformationService, private _transactionDetailsService: TransactionDetailsService) {
+    private _regulatoryInfoService: RegulatoryInformationService, private _transactionDetailsService: TransactionDetailsService,
+    private _feesService: FeesService) {
   }
 
   /**
@@ -42,7 +44,8 @@ export class FormBaseService {
     return (
       {
         submission_class: undefined,
-        mitigation_type: undefined
+        submission_description: undefined,
+        mitigation: this.getEmptyMitigation()
       }
     );
   }
@@ -122,16 +125,28 @@ export class FormBaseService {
       sequence_details_change: '',
       sequence_version: '',
       sequence_year: '',
-      transaction_description: '',
+      transaction_description: undefined,
       requester_name: '',
       requester_name2: '',
       requester_name3: '',
-      requester_of_solicited_information: '',
-      from_time: '',
-      to_time: ''
+      requester_of_solicited_information: ''
     };
 
     return lifecycleRecord;
+  }
+
+  private getEmptyMitigation(): Mitigation {
+    const mitigation: Mitigation = {
+    certify_funded_health_institution: '',
+    certify_government_organization: '',
+    certify_organization: '',
+    certify_urgent_health_need: '',
+    certify_isad: '',
+    mitigation_type: undefined,
+    small_business_fee_application: ''
+    };
+
+    return mitigation;
   }
 
   // public getEmptyContactInfo() : ContactInfo {
@@ -195,7 +210,7 @@ export class FormBaseService {
   //   }
   // }
 
-  // public mapFeeFormToOutput(feeDetail: FeeDetails, feeFormGroupValue: any): void{
-  //   this._feeService.mapFormModelToDataModel(feeFormGroupValue, feeDetail);    
-  // }
+  public mapFeesFormToOutput(feeDetail: FeeDetails, feeFormGroupValue: any): void{
+    this._feesService.mapFormModelToDataModel(feeFormGroupValue, feeDetail);    
+  }
 }
