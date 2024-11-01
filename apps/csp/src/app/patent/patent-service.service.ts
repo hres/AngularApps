@@ -13,13 +13,13 @@ export class PatentService {
     if (!fb) {
       return null;
    }
-   const heroForm = fb.nonNullable.group({
+   const patentForm = fb.nonNullable.group({
      patentNumber: new FormControl(null, Validators.required),
      patentFillingDate: new FormControl(null, Validators.required),
      patentGrandDate: new FormControl(null, Validators.required),
      patendExpirationDate: new FormControl(null, Validators.required),
     },{ validators: identityRevealedValidator });
-    return heroForm;
+    return patentForm;
 
   }
 
