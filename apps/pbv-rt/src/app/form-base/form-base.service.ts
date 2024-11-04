@@ -27,8 +27,7 @@ export class FormBaseService {
       return null;
     }
     return fb.group({
-      // notApplicable: [false, []],
-      // contactInfoConfirm: [false, Validators.requiredTrue],
+      certifyPrivacy: [false, Validators.required],
     });
   }
 

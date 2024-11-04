@@ -206,5 +206,7 @@
     "5digits.only": " (5 digits only)",
 
     "error.msg.minlength": "Invalid entry - must be {{ requiredLength }} numbers",
-    "error.mgs.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product."
+    "error.mgs.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product.",
+    "consent.privacy": "By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the Privacy Notice Statement."
+
 }
