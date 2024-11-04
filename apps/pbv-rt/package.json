@@ -8,7 +8,7 @@
     "test": "ng test"
   },
   "dependencies": {
-    "@hpfb/pbv": "file:../../libs/hpfb-pbv-0.0.1.tgz",
+    "@hpfb/pbv": "file:../../libs/hpfb-pbv-1.0.0.tgz",
     "@hpfb/sdk": "file:../../libs/hpfb-sdk-1.1.0.tgz"
   },
   "private": true

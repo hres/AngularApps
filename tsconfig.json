@@ -15,11 +15,6 @@
     "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "paths": {
-      "pbv": [
-        "./dist/hpfb/pbv"
-      ]
-    },
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
