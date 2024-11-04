@@ -1,0 +1,28 @@
+<div>
+  <div [formGroup]="drugUseForm">
+     <div class="row">
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <label for="drugUse" class="required full-width">
+                <span class="field-name">{{ 'drug.use' |translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <control-messages *ngIf="drugUseForm.controls['drugUse'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="drugUseForm.controls['drugUse'] | formControl"
+                    controlId="drugUse"
+                    label="drugUse.use"
+                    parentId="cspCertif">
+                </control-messages>
+            </label>
+            <select id="drugUse" name="drugUse" required class="form-control full-width"
+                [formControlName]="'drugUse'">
+                <option label=" " value=""></option>
+                <option *ngFor="let drugUse of drugUseOptions" [value]="drugUse.id"> {{ drugUse| textTransform: lang }}</option>
+            </select>
+        </div>
+    </div>
+
+
+
+
+  </div>
+</div>

@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 
 import {
   ENGLISH,
-  HelpIndex,
+  HelpSequence,
   ICode,
-  ICodeAria,
   ICodeDefinition,
   IParentChildren,
-  InstructionService,
 } from '@hpfb/sdk/ui';
 import { Transaction } from '../models/transaction';
 
@@ -18,7 +16,7 @@ export class GlobalService {
   private _devEnv: boolean = false;
   private _debugEnabled: boolean = false;
   private _appVersion: string = '0.0.0';
-  private _helpIndex: HelpIndex;
+  private _helpIndex: HelpSequence;
   private _currLanguage: string = ENGLISH;
   private _enrollment: Transaction;
   private _byPassChecksum: boolean = false;
@@ -40,7 +38,7 @@ export class GlobalService {
   private _submissionClasses: ICodeDefinition[];
   private _mitigationTypes: ICode[];
 
-  constructor(private instructionService: InstructionService) {}
+  constructor() {}
 
   /**
    * Getter devEnv
@@ -78,11 +76,11 @@ export class GlobalService {
     this._appVersion = value;
   }
 
-  public set helpIndex(helpIndex: string[]) {
-    this._helpIndex = this.instructionService.getHelpTextIndex(helpIndex);
+  public set helpIndex(helpIndex: HelpSequence) {
+    this._helpIndex = helpIndex;
   }
 
-  public get helpIndex(): HelpIndex {
+  public get helpIndex(): HelpSequence {
     return this._helpIndex;
   }
 

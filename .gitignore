@@ -6,7 +6,7 @@
 /out-tsc
 /bazel-out
 /python/buildHtmlFiles/dist
-
+/python/utils/_pycache_
 # Node
 /node_modules
 /apps/*/node_modules

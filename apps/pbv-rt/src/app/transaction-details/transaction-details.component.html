@@ -1,34 +1,12 @@
 <div [formGroup]="transctionDetailsForm">
     <div class="row">
-        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <label for="controlNumber" class="required">
-                <span class="field-name">{{'ctrl.num'|translate }}&nbsp;{{'5digits.only'|translate }}</span>
-                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                <sup id="tr9-rf">
-                    <a class="fn-lnk" href="#tr9"><span
-                            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['ctrlNumIndx']}}</a>
-                </sup>
-                <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid" [showError]="showErrors"
-                    [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
-                    label="ctrl.num" parentId="regulatoryInfo"></control-messages>
-            </label>
-            <input id="controlNumber" name="controlNumber" class="form-control" [formControlName]="'controlNumber'"
-                minlength="5" maxlength="5" size="5" data-only-digits/>
-        </div>
-    </div>
-    <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="alert alert-info" role="alert">
-            <div aria-live="polite"><app-control-number-helptext [lang]="lang" /></div> 
-        </div>
-    </div>
-    <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="activityLead" class="required">
                 <span class="field-name">{{ 'activity.lead' |translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                <sup id="tr10-rf">
-                    <a class="fn-lnk" href="#tr10"><span
-                            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['regActIndx']}}</a>
+                <sup [id]="helpIndex['regActIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['regActIndx'][1]"><span
+                            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['regActIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="transctionDetailsForm.controls['activityLead'].invalid"
                     [showError]="showErrors" [control]="transctionDetailsForm.controls['activityLead'] | formControl"
@@ -196,9 +174,9 @@
                 <label for="briefDescriptionOfChange" class="required">
                     <span class="field-name">{{ 'brief.desc.change'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <sup id="tr12-rf">
-                        <a class="fn-lnk" href="#tr12"><span
-                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodNameIndx']}}</a>
+                    <sup [id]="helpIndex['prodNameIndx'][2]">
+						<a class="fn-lnk" [href]="'#' + helpIndex['prodNameIndx'][1]"><span
+                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodNameIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="transctionDetailsForm.controls['briefDescriptionOfChange'].invalid"
                         [showError]="showErrors"
@@ -218,9 +196,9 @@
                 <label for="requester1" class="required full-width">
                     <span class="field-name">{{'requester.name'|translate}}</span>
                     <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-                    <sup id="tr13-rf">
-                        <a class="fn-lnk" href="#tr13"><span
-                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['requestSoliIndx']}}</a>
+                    <sup [id]="helpIndex['requestSoliIndx'][2]">
+						<a class="fn-lnk" [href]="'#' + helpIndex['requestSoliIndx'][1]"><span
+                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['requestSoliIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="transctionDetailsForm.controls['requester1'].invalid"
                         [showError]="showErrors" [control]="transctionDetailsForm.controls['requester1'] | formControl"
@@ -252,4 +230,27 @@
         </fieldset>
 
     </ng-container>
+
+    <div class="row">
+        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <label for="controlNumber" class="required">
+                <span class="field-name">{{'ctrl.num'|translate }}&nbsp;{{'5digits.only'|translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <sup [id]="helpIndex['ctrlNumIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['ctrlNumIndx'][1]"><span
+                            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['ctrlNumIndx'][0]}}</a>
+                </sup>
+                <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid" [showError]="showErrors"
+                    [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
+                    label="ctrl.num" parentId="regulatoryInfo"></control-messages>
+            </label>
+            <input id="controlNumber" name="controlNumber" class="form-control" [formControlName]="'controlNumber'"
+                minlength="5" maxlength="5" size="5" data-only-digits/>
+        </div>
+    </div>
+    <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="alert alert-info" role="alert">
+            <div aria-live="polite"><app-control-number-helptext [lang]="lang" /></div> 
+        </div>
+    </div>    
 </div>

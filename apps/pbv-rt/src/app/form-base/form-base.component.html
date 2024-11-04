@@ -11,8 +11,8 @@
       <section class="panel panel-primary mrgn-tp-lg">
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'load.file'|translate}}
-            <sup id="tr1-rf">
-              <a class="fn-lnk mrgn-tp-md" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileIndx']}}</a>
+            <sup [id]="helpIndex['loadFileIndx'][2]">
+              <a class="fn-lnk mrgn-tp-md" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileIndx'][0]}}</a>
             </sup>
           </h2>
         </header>
@@ -43,8 +43,8 @@
       <section class="panel panel-primary mrgn-tp-lg" *ngIf="showFees()">
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'panel.title.fees'|translate}}
-            <sup id="tr14-rf">
-              <a class="fn-lnk mrgn-tp-md" href="#tr14"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['feesIndx']}}</a>
+            <sup [id]="helpIndex['feesIndx'][2]">
+              <a class="fn-lnk mrgn-tp-md" href="#tr14"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['feesIndx'][0]}}</a>
             </sup>
           </h2>
           </header>
@@ -64,6 +64,10 @@
         <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
           {{'generate.final'|translate}}
         </button>
+        <sup [id]="helpIndex['genFinalIndx'][2]">
+          <a class="fn-lnk" [href]="'#' + helpIndex['genFinalIndx'][1]"><span
+              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['genFinalIndx'][0]}}</a>
+        </sup>
       </div>
     </div>
   </form>
