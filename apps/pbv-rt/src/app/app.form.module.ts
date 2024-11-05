@@ -19,13 +19,19 @@ import { RegulatoryContactComponent } from './regulatory-contact/regulatory-cont
 import { RegulatoryContactService } from './regulatory-contact/regulatory-contact.service';
 import { HelpTextModuleModule } from "./instruction/help-text-module.module";
 import { AppSignalService } from './signal/app-signal.service';
+import { AddressDetailsComponent } from './address/address.details/address.details.component';
+import { AddressDetailsService } from './address/address.details/address.details.service';
+import { ContactDetailsComponent } from './contact/contact.details/contact.details.component';
+import { ContactDetailsService } from './contact/contact.details/contact.details.service';
 
 @NgModule({
   declarations: [
     RegulatoryInformationComponent,
     RegulatoryContactComponent,
     TransactionDetailsComponent,
-    FeesComponent
+    FeesComponent,
+    AddressDetailsComponent,
+    ContactDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -44,13 +50,17 @@ import { AppSignalService } from './signal/app-signal.service';
     RegulatoryInformationService,
     RegulatoryContactService,
     TransactionDetailsService,
-    FeesService
+    FeesService,
+    AddressDetailsService,
+    ContactDetailsService
   ],
   exports: [CommonUiFeatureModule,
     RegulatoryInformationComponent,
     RegulatoryContactComponent,
     TransactionDetailsComponent,
-    FeesComponent
+    FeesComponent,
+    AddressDetailsComponent,
+    ContactDetailsComponent
    ],
 })
 export class AppFormModule {}

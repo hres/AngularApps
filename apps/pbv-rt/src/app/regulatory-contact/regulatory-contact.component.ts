@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BaseComponent, HelpIndex, ICode, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, HelpIndex, ICode, NO, UtilsService, YES } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { RegulatoryContactService } from './regulatory-contact.service';
-import { IContactInformation } from '../models/transaction';
+import { IContact, IContactInformation, INameAddress } from '../models/transaction';
 
 @Component({
   selector: 'app-regulatory-contact',
@@ -15,10 +15,14 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   lang:string;
   helpIndex: HelpIndex;
   
-  public regulatoryContactForm: FormGroup;
+  public regulatoryContactInfoForm: FormGroup;
   @Input() showErrors: boolean;
   @Input() dataModel: IContactInformation;
+  @Input() addressModel: INameAddress;
+  @Input() contactModel: IContact;
   @Output() errorList = new EventEmitter(true);
+  @Output() contactErrorList = new EventEmitter(true);
+  @Output() addressErrorList = new EventEmitter(true);
 
   public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
@@ -34,14 +38,14 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-    if (!this.regulatoryContactForm) {
-      this.regulatoryContactForm = RegulatoryContactService.getContactForm(this._fb);
+    if (!this.regulatoryContactInfoForm) {
+      this.regulatoryContactInfoForm = RegulatoryContactService.getContactForm(this._fb);
     }
     this.yesNoList = this._globalService.yesnoList;
   }
 
   protected override emitErrors(errors: any[]): void {
-    // this.errorList.emit(errors);
+    this.errorList.emit(errors);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -56,7 +60,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
         const dataModelCurrentValue = changes['dataModel'].currentValue as IContactInformation;
         this._regulatoryContactService.mapDataModelToFormModel(
           dataModelCurrentValue,
-          <FormGroup>this.regulatoryContactForm);
+          <FormGroup>this.regulatoryContactInfoForm);
 
         // this.onMfTypeSelected(null);
         // this.onTxDescriptionSelected(null);
@@ -65,16 +69,25 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
     }
   }
 
-  isSigned3rdPartyChanged() {
-
-  }
-
-  showCompanyNameField() {
-
+  showCompanyNameFieldAndAddressDetails() {
+    if (this.regulatoryContactInfoForm['isSigned3rdParty']) {
+      if (this.regulatoryContactInfoForm['isSigned3rdParty'].value == NO) {
+        return false;
+      }
+      return true;
+    }
+    return true;
   }
 
   getFormValue() {
-    return this.regulatoryContactForm.value;
+    return this.regulatoryContactInfoForm.value;
   }
 
+  processAddressErrors(errorList) {
+    this.addressErrorList.emit(errorList);
+  }
+
+  processContactErrors(errorList) {
+    this.contactErrorList.emit(errorList);
+  }
 }

@@ -1,21 +1,20 @@
 <div>
-    <div [formGroup]="regulatoryContactForm">
+    <div [formGroup]="regulatoryContactInfoForm">
         <h3 class="mrgn-tp-sm">{{ 'company.info' | translate }}</h3>
         <div class="row form-group">
             <fieldset class="col-md-12 chkbxrdio-grp">
                 <legend class="required" id="thirdPartyId">
                     {{ 'is.signed.3rd.party' | translate}}
                     <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
-                    <control-messages *ngIf="regulatoryContactForm.controls['isSigned3rdParty'].invalid" [showError]="showFieldErrors"
-                    [control]="regulatoryContactForm.controls['isSigned3rdParty'] | formControl" controlId="thirdPartyId"
+                    <control-messages *ngIf="regulatoryContactInfoForm.controls['isSigned3rdParty'].invalid" [showError]="showFieldErrors"
+                    [control]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl" controlId="thirdPartyId"
                     label="is.signed.3rd.party" parentId="pbvContact"></control-messages>
                 </legend>
                 <ng-container *ngFor="let yesno of yesNoList; let i = index">
                     <label for="isSigned3rdParty{{i}}" class="radio-inline">
                         <input type="radio"
                         id="isSigned3rdParty{{i}}" name="isSigned3rdParty" [value]="yesno.id"
-                        (change)="isSigned3rdPartyChanged()"
-                        [formControl]="regulatoryContactForm.controls['isSigned3rdParty'] | formControl" required/>
+                        [formControl]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl" required/>
                         {{yesno | textTransform: lang}}
                     </label>
                 </ng-container>
@@ -26,27 +25,34 @@
                 <p aria-live="polite">{{ 'aut.letter.note' | translate}}</p>
             </div>
         </div>
-        <div class="row" *ngIf="showCompanyNameField()">
+        <div class="row" *ngIf="showCompanyNameFieldAndAddressDetails()">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="companyName" class="required">
                     <span class="field-name">{{ 'company.name'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="regulatoryContactForm.controls['companyName'].invalid"
+                    <control-messages *ngIf="regulatoryContactInfoForm.controls['companyName'].invalid"
                         [showError]="showFieldErrors"
-                        [control]="regulatoryContactForm.controls['companyName'] | formControl" controlId="companyName"
+                        [control]="regulatoryContactInfoForm.controls['companyName'] | formControl" controlId="companyName"
                         label="company.name" parentId="pbvContact"></control-messages>
                     <input maxlength="100" id="companyName" class="form-control"
-                        name="companyName" [formControl]="regulatoryContactForm.controls['companyName'] | formControl" />
+                        name="companyName" [formControl]="regulatoryContactInfoForm.controls['companyName'] | formControl" />
                 </label>
             </div>
         </div>
-        <h3 class="mrgn-tp-sm">{{ 'address.info' | translate }}</h3>
+        <div *ngIf="showCompanyNameFieldAndAddressDetails()">
+            <h3 class="mrgn-tp-sm">{{ 'address.info' | translate }}</h3>
         <div>
-            <!-- <pbv-address></pbv-address> TODO --> 
+            <app-address-details [showErrors]="showErrors" 
+                    [addressModel]="addressModel" [addrGroupLabelKey]="'label.holder'"
+                    (errorList)="processAddressErrors($event)">
+            </app-address-details>
+        </div>
         </div>
         <h3 class="mrgn-tp-sm">{{ 'company.representative' | translate }}</h3>
         <div>
-            <!-- <pbv-contact></pbv-contact> TODO -->
+            <app-contact-details [showErrors]="showErrors" [contactDetailsModel]="contactModel"
+                    (errorList)="processContactErrors($event)" [contactGroupLabelKey]="'label.holder'">
+            </app-contact-details> 
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkbox required">
@@ -55,8 +61,8 @@
                 [formControlName]="'confirmContactValid'" />
                 <span><b>{{'confirm.contact.valid'|translate}}</b></span>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                <control-messages *ngIf="regulatoryContactForm.controls['confirmContactValid'].invalid" [showError]="showErrors"
-                    parentId="pbvContact" [control]="regulatoryContactForm.controls['confirmContactValid'] | formControl"
+                <control-messages *ngIf="regulatoryContactInfoForm.controls['confirmContactValid'].invalid" [showError]="showErrors"
+                    parentId="pbvContact" [control]="regulatoryContactInfoForm.controls['confirmContactValid'] | formControl"
                     controlId="confirmContactValid" label="confirm.contact.valid"></control-messages>
                 </label>
             </div>

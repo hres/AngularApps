@@ -13,5 +13,20 @@
                 "fr": "Non"
             }
         ]
+    },
+    {
+        "name": "languages",
+        "data": [
+            {
+                "id": "EN",
+                "en": "English",
+                "fr": "Anglais"
+            },
+            {
+                "id": "FR",
+                "en": "French",
+                "fr": "Français"
+            }
+        ]
     }
 ]

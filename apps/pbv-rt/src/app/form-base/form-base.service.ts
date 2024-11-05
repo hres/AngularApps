@@ -80,6 +80,7 @@ export class FormBaseService {
     return (
       {
         given_name: '',
+        initials:'',
         surname: '',
         language_correspondance: undefined,
         job_title: '',

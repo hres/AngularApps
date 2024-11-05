@@ -21,6 +21,7 @@ export class FormDataLoaderService {
 
   cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
+  cachedLanguageList$:Observable<ICode[]>;
   cachedCountries$:Observable<ICode[]>;
   cachedProvinces$:Observable<ICode[]>;
   cachedStates$:Observable<ICode[]>;
@@ -169,6 +170,20 @@ export class FormDataLoaderService {
         );
     }
     return this.cachedYesNo$;
+  }
+
+  getLanguageList(): Observable<ICode[]> {
+    if (!this.cachedLanguageList$) {
+      this.cachedLanguageList$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          map(keywords => {
+            return keywords.find(keyword => keyword.name === 'languages')?.data || [];
+          }),
+          // tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    }
+    return this.cachedLanguageList$;
   }
 
   getAdminSubTypes(lang: string): Observable<ICode[]> {

@@ -42,6 +42,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _regulatoryInfoErrors = [];
   private _regulatoryContactErrors = [];
   private _feesErrors = [];
+  private _contactDetailErrors = [];
+  private _addressDetailErrors = [];
   // private _addressErrors = [];
   // private _contactErrors = [];
   // private _agentAddressErrors = [];
@@ -182,6 +184,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processContactInfoErrors(errorList) {
     this._regulatoryContactErrors = errorList;
+    this.processErrors();
+  }
+
+  processContactDetailErrors(errorList) {
+    this._contactDetailErrors = errorList;
+    this.processErrors();
+  }
+
+  processAddressDetailErrors(errorList) {
+    this._addressDetailErrors = errorList;
     this.processErrors();
   }
 
