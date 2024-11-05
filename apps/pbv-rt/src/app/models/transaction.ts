@@ -16,7 +16,6 @@ export interface TransactionEnrol {
   is_noc: string;
   is_admin_sub: string;
   sub_type: IIdTextLabel;
-  is_fees: string
 }
 
 export interface Ectd {
