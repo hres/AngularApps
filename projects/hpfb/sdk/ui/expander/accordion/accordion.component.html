@@ -6,7 +6,7 @@
         {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }}
       </h4>
       } @else {
-      <div role="button">
+      <div role="button"  [attr.aria-expanded]="recordRow.get('expandFlag').value ? 'true' : 'false'">
         <h4 class="panel-title" tabindex="0"
           (keydown.enter)="toggleExpand(i, recordRow.get('expandFlag').value)"
           (keydown.space)="$event.preventDefault(); toggleExpand(i, recordRow.get('expandFlag').value)"
