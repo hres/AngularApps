@@ -45,7 +45,7 @@ export class RegulatoryInformationService {
     dataModel.is_noc = formValue['isNOC'];
     dataModel.is_admin_sub = formValue['isAdminSubmission'];
     dataModel.sub_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.adminSubTypes, formValue['adminSubType'], lang);
-    dataModel.is_fees = formValue['isFees'];
+
   }
 
   public mapDataModelToFormModel(dataModel: TransactionEnrol, formRecord: FormGroup): void {
@@ -69,7 +69,7 @@ export class RegulatoryInformationService {
     } else {
       formRecord.controls['adminSubType'].setValue(null);
     }
-    formRecord.controls['isFees'].setValue(dataModel.is_fees);
+    
   //   formRecord.controls['masterFileNumber'].setValue(dataModel.lifecycle_record.master_file_number);
 
   //   if(dataModel.lifecycle_record.regulatory_activity_type?._id){

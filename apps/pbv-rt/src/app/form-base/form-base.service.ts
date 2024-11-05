@@ -93,7 +93,6 @@ export class FormBaseService {
       is_noc: '',
       is_admin_sub: '',
       sub_type: undefined,
-      is_fees: ''
     };
     
     return TransactionEnrol;
