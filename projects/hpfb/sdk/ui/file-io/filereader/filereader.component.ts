@@ -26,7 +26,7 @@ export class FilereaderComponent implements OnInit {
   public status = IMPORT_SUCCESS;
   public importSuccess = false;
   public importedFileName = "";
-  public showFileLoadStatus = false;
+  public displayAlert = false;   // reloads the role=alert each message
   private rootId = '';
   public fileImported = false;
   
@@ -77,8 +77,17 @@ export class FilereaderComponent implements OnInit {
         self.importSuccess = true;
       }
       self.importedFileName = file.name;
-      self.showFileLoadStatus = true;
-     
+
+      self.displayAlert = false;
+      setTimeout(() => { // this reloads the message
+        self.displayAlert = true;
+      }, 10);
+
+      setTimeout(() => {
+
+      }, 100);
+
+
       self.complete.emit(convertResult);
     };
     if (file && file.name) {
@@ -106,10 +115,8 @@ export class FilereaderComponent implements OnInit {
         conversion.convertXMLToJSONObjects(result, convertResult);
       }
       // console.log(convertResult.data);
-      if (convertResult.messages.length === 0) {
-        FilereaderComponent.checkRootTagMatch(convertResult, rootId);
-      }
-      // MF-RT will start to use the strict checksum while other apps still keep their current behaviour
+      FilereaderComponent.checkRootTagMatch(convertResult, rootId);
+      
       if(fileType.toLowerCase() === FINAL_FILE_TYPE && convertResult.messages.length === 0){
         if (this.doCheckSumCheck(convertResult, versionTagPath, startCheckSumVersion, devEnv, byPass))
           if (versionTagPath ==null && startCheckSumVersion == null) {

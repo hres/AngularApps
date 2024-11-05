@@ -52,6 +52,9 @@
 				}, {
 					"title": "Santé Canada",
 					"href": "https://www.canada.ca/fr/sante-canada.html"
+				}, {
+					"title": "Processus d’inscription réglementaire (PIR) - Canada.ca",
+					"href": "https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/demandes-presentations/lignes-directrices/processus-inscription-reglementaire.html"
 				}], 
 				"cdnEnv": "{{env}}"
 			});
@@ -69,7 +72,7 @@
 					{# Display all sections when site is "internal" #}
 					<h2>{{section.header}}</h2>
 					{% if section.alert %}
-						<div class="alert alert-info" style="text-decoration: underline">{{section.alert}}</div>
+						<div class="alert alert-info"><p>{{section.alert}}</p></div>
 					{% endif %}
 					{%- for group in section.groups %}
 					<h3>{{group.header}}</h3>
@@ -86,7 +89,7 @@
 					{% if section.internal_only != true %}
 						<h2>{{ section.header }}</h2>
 						{% if section.alert %}
-							<div class="alert alert-info" style="text-decoration: underline">{{section.alert}}</div>
+							<div class="alert alert-info"><p>{{section.alert}}</p></div>
 						{% endif %}
 						{% for group in section.groups %}
 							<h3>{{ group.header }}</h3>
