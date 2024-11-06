@@ -20,6 +20,7 @@ export class ContactDetailsService {
     if (!fb) {return null; }
     return fb.group({
         firstName: [null, Validators.required],
+        initials: [null],
         lastName: [null, Validators.required],
         language: [null, Validators.required],
         jobTitle: [null, Validators.required],

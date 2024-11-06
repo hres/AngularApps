@@ -42,8 +42,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _regulatoryInfoErrors = [];
   private _regulatoryContactErrors = [];
   private _feesErrors = [];
-  private _contactDetailErrors = [];
-  private _addressDetailErrors = [];
   // private _addressErrors = [];
   // private _contactErrors = [];
   // private _agentAddressErrors = [];
@@ -155,7 +153,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log('@@@@@@@@@@@@ processErrors');
     this.errorList = [];
     // concat the error arrays
-    this.errorList = this.errorList.concat(this._regulatoryInfoErrors.concat(this._regulatoryContactErrors));
+    this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
 
     // if (this.showContact()) {
     //   this.errorList = this.errorList.concat(
@@ -172,8 +170,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.errorList = this.errorList.concat(this._feesErrors);
     }
 
+    this.errorList = this.errorList.concat(this._regulatoryContactErrors);
     // this.errorList = this.errorList.concat(this._certficationErrors);
 
+    console.log(this.errorList);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -184,16 +184,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processContactInfoErrors(errorList) {
     this._regulatoryContactErrors = errorList;
-    this.processErrors();
-  }
-
-  processContactDetailErrors(errorList) {
-    this._contactDetailErrors = errorList;
-    this.processErrors();
-  }
-
-  processAddressDetailErrors(errorList) {
-    this._addressDetailErrors = errorList;
     this.processErrors();
   }
 

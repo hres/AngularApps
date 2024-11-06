@@ -69,6 +69,8 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   }
 
   protected override emitErrors(errors: any[]): void {
+    console.log("emitting address erorrs");
+    console.log(errors);
     this.errorList.emit(errors);
   }
 

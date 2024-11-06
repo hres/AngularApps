@@ -14,6 +14,7 @@
                     <label for="isSigned3rdParty{{i}}" class="radio-inline">
                         <input type="radio"
                         id="isSigned3rdParty{{i}}" name="isSigned3rdParty" [value]="yesno.id"
+                        (change)="isSigned3rdPartyOnChange()"
                         [formControl]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl" required/>
                         {{yesno | textTransform: lang}}
                     </label>
@@ -25,7 +26,7 @@
                 <p aria-live="polite">{{ 'aut.letter.note' | translate}}</p>
             </div>
         </div>
-        <div class="row" *ngIf="showCompanyNameFieldAndAddressDetails()">
+        <div class="row" *ngIf="showCompanyAndAddress">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="companyName" class="required">
                     <span class="field-name">{{ 'company.name'|translate }}</span>
@@ -39,11 +40,11 @@
                 </label>
             </div>
         </div>
-        <div *ngIf="showCompanyNameFieldAndAddressDetails()">
+        <div *ngIf="showCompanyAndAddress">
             <h3 class="mrgn-tp-sm">{{ 'address.info' | translate }}</h3>
         <div>
             <app-address-details [showErrors]="showErrors" 
-                    [addressModel]="addressModel" [addrGroupLabelKey]="'label.holder'"
+                    [addressModel]="addressModel" [addrGroupLabelKey]="'reg.contact.this'"
                     (errorList)="processAddressErrors($event)">
             </app-address-details>
         </div>
@@ -51,7 +52,7 @@
         <h3 class="mrgn-tp-sm">{{ 'company.representative' | translate }}</h3>
         <div>
             <app-contact-details [showErrors]="showErrors" [contactDetailsModel]="contactModel"
-                    (errorList)="processContactErrors($event)" [contactGroupLabelKey]="'label.holder'">
+                    (errorList)="processContactErrors($event)" [contactGroupLabelKey]="'reg.contact.this'">
             </app-contact-details> 
         </div>
         <div class="row">
@@ -62,7 +63,7 @@
                 <span><b>{{'confirm.contact.valid'|translate}}</b></span>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="regulatoryContactInfoForm.controls['confirmContactValid'].invalid" [showError]="showErrors"
-                    parentId="pbvContact" [control]="regulatoryContactInfoForm.controls['confirmContactValid'] | formControl"
+                    parentId="pbvContactConfirm" [control]="regulatoryContactInfoForm.controls['confirmContactValid'] | formControl"
                     controlId="confirmContactValid" label="confirm.contact.valid"></control-messages>
                 </label>
             </div>

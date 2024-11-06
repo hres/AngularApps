@@ -37,6 +37,7 @@
     "reg.contact.this": "Personne-ressource pour cette activité réglementaire",
     "reg.act.contact": "Personne-ressource pour cette activité réglementaire",
     "company.info": "A. Information sur la compagnie",
+    "company.name":"Nom de la compagnie (nom légal complet)",
     "address.info": "B. Adresse",
     "addressDetails.street": "Adresse",
     "addressDetails.city": "Ville",

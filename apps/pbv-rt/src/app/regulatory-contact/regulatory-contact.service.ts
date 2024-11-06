@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { IContactInformation } from "../models/transaction";
 
 @Injectable()
 export class RegulatoryContactService {
@@ -16,7 +17,6 @@ export class RegulatoryContactService {
             null,
             [Validators.required]
         ],
-        routingId: null,
         confirmContactValid: [
             null,
             [Validators.required]
@@ -24,12 +24,15 @@ export class RegulatoryContactService {
        })
     }
 
-    public mapFormModelToDataModel() {
-
+    public mapFormModelToDataModel(formValue : any, dataModel : IContactInformation) {
+        dataModel.is_3rd_party_signed = formValue['isSigned3rdParty'];
+        dataModel.company_name = formValue['companyName'];
+        dataModel.confirm_contact_valid = formValue['confirmContactValid'];
     }
 
-    public mapDataModelToFormModel(dataModel, formRecord: FormGroup): void {
-
+    public mapDataModelToFormModel(dataModel : IContactInformation, formRecord: FormGroup): void {
+        formRecord.controls['isSigned3rdParty'].setValue(dataModel.is_3rd_party_signed);
+        formRecord.controls['companyName'].setValue(dataModel.company_name);
     }
  
 }
