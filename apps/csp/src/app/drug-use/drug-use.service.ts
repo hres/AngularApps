@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { IDrugUse, TransactionEnrol } from '../models/transaction';
+import { ConverterService, ENGLISH, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { GlobalService } from '../global/global.service';
 @Injectable({
   providedIn: 'root'
 })
 export class DrugUseService {
 
-  constructor() {}
+  private drugUseList: ICode[] = [];
+  private _currLanguage: string = ENGLISH;
+
+  constructor(private _utilsService: UtilsService, private _converterService: ConverterService, private _globalService: GlobalService) {
+
+    this.drugUseList = this._globalService.drugUses;
+    this._currLanguage = this._globalService.currLanguage;
+  }
 
   public getDrugUseForm(fb:FormBuilder) {
     if (!fb) {
@@ -18,4 +27,16 @@ export class DrugUseService {
     return drugUseForm;
 
   }
+
+
+  public mapFormModelToDataModel(formValue: any, transactionEnrol: TransactionEnrol) {
+    const usageModelReturn = formValue['drugUse']? this._converterService.findAndConverCodeToIdTextLabel(this.drugUseList, formValue['drugUse'], this._currLanguage) : null;
+    transactionEnrol.drugUse = usageModelReturn.__text;
+  }
+
+  public mapDataModelToFormModel(drugUseModel: IDrugUse, formRecord: FormGroup) {
+
+    formRecord.controls['drugUse'].setValue(drugUseModel.usage);
+   }
+
 }

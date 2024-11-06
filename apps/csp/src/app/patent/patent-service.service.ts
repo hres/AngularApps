@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { identityRevealedValidator } from '../crossFieldValidator';
+import { IPatent } from '../models/transaction';
+import { GlobalService } from '../global/global.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatentService {
 
-  constructor() {}
+  constructor( private _globalService: GlobalService ) {}
 
   public static getPatentInformationForm(fb:FormBuilder) {
     if (!fb) {
@@ -22,6 +24,24 @@ export class PatentService {
     return patentForm;
 
   }
+
+
+
+  public mapFormModelToDataModel(formValue: any, patentModel: IPatent) {
+
+    patentModel.patentNumber = formValue['patentNumber'];
+    patentModel.patentFillingDate = formValue['patentFillingDate'];
+    patentModel.patentGrandDate = formValue['patentGrandDate'];
+    patentModel.patendExpirationDate = formValue['patendExpirationDate'];
+  }
+
+  public mapDataModelToFormModel(patentModel: IPatent, formRecord: FormGroup) {
+
+    formRecord.controls['patentNumber'].setValue(patentModel.patentNumber);
+    formRecord.controls['patentFillingDate'].setValue(patentModel.patentFillingDate);
+    formRecord.controls['patentGrandDate'].setValue(patentModel.patentGrandDate);
+    formRecord.controls['patendExpirationDate'].setValue(patentModel.patendExpirationDate);
+   }
 
 
 }
