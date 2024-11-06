@@ -106,8 +106,8 @@
               <legend class="required" id="isPriority">
                 {{'is.noc' |translate}}
                 <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
-                <sup id="tr7-rf">
-                  <a class="fn-lnk" href="#tr7"><span
+                <sup [id]="helpIndex['nocRevIndx'][2]">
+                  <a class="fn-lnk" [href]="'#' + helpIndex['nocRevIndx'][1]"><span
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['nocRevIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isNOC'].invalid" [showError]="showFieldErrors"
