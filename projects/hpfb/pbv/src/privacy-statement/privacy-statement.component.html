@@ -8,15 +8,10 @@
     </p>
     <p>
         <b>Purpose of collection</b>: 
-        <ng-template [ngIf]="purposeOfCollection && purposeOfCollection !== 'purpose.of.collection'" [ngIfElse]="defaultPurpose">
-            {{ purposeOfCollection }}
-        </ng-template>
-        <ng-template #defaultPurpose>
             Health Canada requires the personal information to process regulatory application forms related to human and veterinary 
             drug products under the Regulatory Enrolment Process (REP) within the Canadian drug registration framework. The information 
             you provide may be used to contact you to verify provided information, to assess the feasibility of enrolling companies, 
             dossiers, and track regulatory activities and transactions.
-        </ng-template> 
     </p>
     
     <p>
@@ -48,17 +43,12 @@
     </p>
     <p>
         <b>But de la collecte </b>:
-        <ng-template [ngIf]="purposeOfCollection && purposeOfCollection !== 'purpose.of.collection'" [ngIfElse]="defaultPurpose">
-            {{ purposeOfCollection }}
-        </ng-template>
-        <ng-template #defaultPurpose>
             Santé Canada a besoin des renseignements personnels pour traiter les formulaires 
             de demande réglementaire liés aux médicaments à usage humain et vétérinaire dans le cadre du processus 
             d'inscription réglementaire (PIR) dans le cadre canadien d'enregistrement des médicaments. Les informations 
             que vous fournissez peuvent être utilisées pour vous contacter afin de vérifier les informations fournies, 
             d'évaluer la faisabilité de l'inscription d'entreprises, de dossiers et de suivre les activités et transactions 
             réglementaires.
-        </ng-template> 
     </p>
     <p>
         <b>Pour de plus amples renseignements </b>: La catégorie de documents est décrite sous HC HP 005 sur le site web
