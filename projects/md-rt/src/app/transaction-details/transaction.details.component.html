@@ -287,9 +287,13 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="showDeviceNameChangeInfo()">
-      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-info" role="alert">
-        <p aria-live="polite">{{ 'include.ddt'|translate }}</p>
+    <div *ngIf="showDeviceNameChangeInfo()">
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div role="alert" class="alert alert-info">
+          <p aria-live="polite">
+            {{ 'include.ddt'|translate }}
+          </p>
+        </div>
       </div>
     </div>
     <div class="row" *ngIf="showBriefDesc()">

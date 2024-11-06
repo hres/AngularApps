@@ -115,7 +115,7 @@
     "enrol.version": "fr_Enrolment Version",
     "date.saved": "fr_Date Last Saved",
     "save.working.copy": "Enregistrer la copie de travail",
-    "generate.final": "Générer le XML final",
+    "generate.final": "Générer le XML",
     "msg.success.load": "Le fichier a été chargé avec succès",
     "msg.err.parse.fail": "Erreur: il y a eu une erreur en analysant le fichier.",
     "msg.err.file.load": "Il y a eu un problème lors du chargement du fichier.",
