@@ -12,6 +12,8 @@ export interface TransactionEnrol {
   check_sum?: string;
   ectd: Ectd;
   fee_details: FeeDetails;
+  patent: IPatent;
+  drugUse: string;
 }
 
 export interface Ectd {
@@ -57,4 +59,16 @@ export interface IContact {
   phone_ext: string;
   fax_num: string;
   email: string;
+}
+
+export interface IPatent {
+  patentNumber: string;
+  patentFillingDate: string;
+  patendExpirationDate: string;
+  patentGrandDate: string;
+}
+
+export interface IDrugUse {
+  usage: IIdText
+
 }

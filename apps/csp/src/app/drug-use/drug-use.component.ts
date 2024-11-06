@@ -60,4 +60,9 @@ export class DrugUseComponent  extends BaseComponent implements OnInit {
     getFormValue() {
       return this.drugUseForm.value;
     }
+
+    ngOnChanges(changes: SimpleChanges) {
+      this.showFieldErrors = this.showErrors || this.showFieldErrors;
+      const isFirstChange = this._utilsService.isFirstChange(changes);
+    }
 }
