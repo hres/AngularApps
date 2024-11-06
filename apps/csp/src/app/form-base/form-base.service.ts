@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord} from '../models/transaction';
+import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord, IPatent, IDrugUse} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
 import { BehaviorSubject } from 'rxjs';
+import { PatentService } from '../patent/patent-service.service';
+import { DrugUseService } from '../drug-use/drug-use.service';
 
 @Injectable()
 export class FormBaseService {
@@ -13,7 +15,7 @@ export class FormBaseService {
   private messageSource = new BehaviorSubject('');
   currentMessage = this.messageSource.asObservable();
   constructor(
-    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService) {
   }
 
   /**
@@ -86,7 +88,9 @@ export class FormBaseService {
       form_language: '',
       check_sum: '',
       ectd: this.getEmptyEctd(),
-      fee_details: this.getEmptyMasterFileFeeModel()
+      fee_details: this.getEmptyMasterFileFeeModel(),
+      patent: this.getEmptyPatent(),
+      drugUse: ''
     };
 
     return TransactionEnrol;
@@ -193,4 +197,23 @@ export class FormBaseService {
   // }
 
 
+  private getEmptyPatent(): IPatent {
+    const patent: IPatent = {
+      patentNumber: '',
+      patentFillingDate: '',
+      patendExpirationDate: '',
+      patentGrandDate: ''
+    };
+    return patent;
+  }
+
+   public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
+    this._patentService.mapFormModelToDataModel(patentInforationForm, outputTransactionEnrol.patent);
+
+  }
+
+  public mapDrugUseFormsToOutput(outputTransactionEnrol: TransactionEnrol, drugUseForm: any): void{
+    this._drugUseService.mapFormModelToDataModel(drugUseForm, outputTransactionEnrol);
+
+  }
 }
