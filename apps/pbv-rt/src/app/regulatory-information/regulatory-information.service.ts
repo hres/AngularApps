@@ -5,15 +5,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { ConverterService, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { Ectd, TransactionEnrol } from '../models/transaction';
+import { TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
-import { AppSignalService } from '../signal/app-signal.service';
-import { TransactionDetailsService } from '../transaction-details/transaction-details.service';
 
 @Injectable()
 export class RegulatoryInformationService {
-
-  private _signalService = inject(AppSignalService)
 
   constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService) {}
 
@@ -55,8 +51,6 @@ export class RegulatoryInformationService {
     } else {
       formRecord.controls['dossierType'].setValue(null);
     }
-    this._signalService.setSelectedDossierType(formRecord.controls['dossierType'].value)
-
     formRecord.controls['companyId'].setValue(dataModel.ectd.company_id);
     formRecord.controls['dossierId'].setValue(dataModel.ectd.dossier_id);
     formRecord.controls['productName'].setValue(dataModel.ectd.product_name);
@@ -69,40 +63,6 @@ export class RegulatoryInformationService {
     } else {
       formRecord.controls['adminSubType'].setValue(null);
     }
-    
-  //   formRecord.controls['masterFileNumber'].setValue(dataModel.lifecycle_record.master_file_number);
-
-  //   if(dataModel.lifecycle_record.regulatory_activity_type?._id){
-  //     const id = this._utilsService.getIdFromIdTextLabel(dataModel.lifecycle_record.regulatory_activity_type);
-  //     formRecord.controls['masterFileType'].setValue(id? id : null);
-  //   } else {
-  //     formRecord.controls['masterFileType'].setValue(null);
-  //   }
-
-  //   if(dataModel.lifecycle_record.master_file_use?._id){
-  //     const id = this._utilsService.getIdFromIdTextLabel(dataModel.lifecycle_record.master_file_use);
-  //     formRecord.controls['masterFileUse'].setValue(id? id : null);
-  //   } else {
-  //     formRecord.controls['masterFileUse'].setValue(null);
-  //   }
-
-  //   if(dataModel.lifecycle_record.sequence_description_value?._id){
-  //     const id = this._utilsService.getIdFromIdTextLabel(dataModel.lifecycle_record.sequence_description_value);
-  //     formRecord.controls['descriptionType'].setValue(id? id : null);
-  //   } else {
-  //     formRecord.controls['descriptionType'].setValue(null);
-  //   }
-
-  //   formRecord.controls['requestDate'].setValue(dataModel.lifecycle_record.sequence_from_date);
-  //   formRecord.controls['requester'].setValue(dataModel.lifecycle_record.requester_of_solicited_information);
-  //   formRecord.controls['reqRevision'].setValue(dataModel.lifecycle_record.revise_trans_desc_request);
-
-  //   if (dataModel.lifecycle_record.revised_trans_desc?._id) {
-  //     const id = this._utilsService.getIdFromIdTextLabel(dataModel.lifecycle_record.revised_trans_desc);
-  //     formRecord.controls['revisedDescriptionType'].setValue(id? id : null);
-  //   } else {
-  //     formRecord.controls['revisedDescriptionType'].setValue(null);
-    // }
 
   }
 

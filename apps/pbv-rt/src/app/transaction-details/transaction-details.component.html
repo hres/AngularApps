@@ -42,7 +42,7 @@
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedRaTypeDefinition()">
         <div class="alert alert-info" role="alert">
-            <p aria-live="polite" [innerHTML]="selectedRaTypeDefinition() | translate"></p>
+            <p aria-live="polite" [innerHTML]="selectedRaTypeDefinition()"></p>
         </div>
     </div>
     <div class="row">
@@ -56,7 +56,7 @@
             </label>
             <select id="descriptionType" name="descriptionType" required class="form-control full-width"
                 [formControlName]="'descriptionType'"
-                (change)="onSequenceDescriptionSelected($any($event.target).value)">
+                (change)="onTransactionDescriptionSelected($any($event.target).value)">
                 <option label=" " value=""></option>
                 <option *ngFor="let item of transactionDescriptionList()" [value]="item.id"> {{ item| textTransform:
                     lang }}</option>
@@ -65,22 +65,22 @@
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedTxDescDefinition()">
         <div class="alert alert-info" role="alert">
-            <p aria-live="polite" [innerHTML]="selectedTxDescDefinition() | translate"></p>
+            <p aria-live="polite" [innerHTML]="selectedTxDescDefinition()"></p>
         </div>
     </div>
 
     <ng-container>
-        <div class="row" *ngIf="showDated()">
+        <div class="row" *ngIf="showDateOfRequest()">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <label for="dated" class="required">
-                    <span class="field-name">{{ 'dated' |translate }}</span>
+                <label for="dateOfRequest" class="required">
+                    <span class="field-name">{{ 'date.of.request' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="transctionDetailsForm.controls['dated'].invalid" [showError]="showErrors"
-                        [control]="transctionDetailsForm.controls['dated'] | formControl" controlId="dated"
-                        label="dated" parentId="regulatoryInfo"></control-messages>
+                    <control-messages *ngIf="transctionDetailsForm.controls['dateOfRequest'].invalid" [showError]="showErrors"
+                        [control]="transctionDetailsForm.controls['dateOfRequest'] | formControl" controlId="dateOfRequest"
+                        label="date.of.request" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="dated" name="dated" type="date" class="form-control" (input)="checkDateValidity($event)"
-                    [formControlName]="'dated'" />
+                <input id="dateOfRequest" name="dateOfRequest" type="date" class="form-control" (input)="checkDateValidity($event)"
+                    [formControlName]="'dateOfRequest'" />
             </div>
         </div>
 
@@ -134,8 +134,8 @@
                         [control]="transctionDetailsForm.controls['year'] | formControl"
                         controlId="year" label="year.change" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="year" name="year" class="form-control full-width"
-                    [formControlName]="'year'" minlength="4" maxlength="4" size="4" data-only-digits/>
+                <input id="year" name="year" class="form-control" data-only-digits 
+                    [formControlName]="'year'" minlength="4" maxlength="4" size="4" />
             </div>
         </div>
         
@@ -234,7 +234,7 @@
     <div class="row">
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="controlNumber" class="required">
-                <span class="field-name">{{'ctrl.num'|translate }}&nbsp;{{'5digits.only'|translate }}</span>
+                <span class="field-name">{{'ctrl.num'|translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                 <sup [id]="helpIndex['ctrlNumIndx'][2]">
                     <a class="fn-lnk" [href]="'#' + helpIndex['ctrlNumIndx'][1]"><span
@@ -245,7 +245,7 @@
                     label="ctrl.num" parentId="regulatoryInfo"></control-messages>
             </label>
             <input id="controlNumber" name="controlNumber" class="form-control" [formControlName]="'controlNumber'"
-                minlength="5" maxlength="5" size="5" data-only-digits/>
+                minlength="6" maxlength="6" size="6" data-only-digits/>
         </div>
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">

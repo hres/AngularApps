@@ -21,10 +21,10 @@
                 </select>
             </div>
         </div>
-        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedDossierTypeDefinition">
-            <div class="alert alert-info" role="alert">
-                <p aria-live="polite">{{selectedDossierTypeDefinition}}</p>
-            </div>
+        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedDossierTypeDefinition()">
+          <div class="alert alert-info" role="alert">
+              <p aria-live="polite">{{selectedDossierTypeDefinition()}}</p>
+          </div>
         </div>
         <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -40,7 +40,7 @@
                         controlId="companyId" label="company.id" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="companyId" name="companyId" class="form-control" data-only-digits
-                        [formControlName]="'companyId'" minlength="5" maxlength="5" size="6"/>
+                        [formControlName]="'companyId'" minlength="5" maxlength="5" size="5"/>
             </div>
         </div>
         <div class="row">
@@ -124,7 +124,7 @@
                </ng-container>
             </fieldset>
         </div>
-        <div class="row form-group" *ngIf="dossierTypeSelected()">
+        <div class="row form-group" *ngIf="isPharmaBioVet()">
             <fieldset class="col-md-12 chkbxrdio-grp">
               <legend class="required" id="isPriority">
                 {{'is.admin.submission' |translate}}
@@ -174,8 +174,8 @@
               <h3 class="panel-title">{{'heading.transaction.details'|translate}}</h3>
             </header>
             <div class="panel-body">
-              <app-transaction-details #transactionDetailsChild [dataModel]="lifecycleRecordModel"
-                [showErrors]="showErrors"(errorList)="processTransactionDetailsErrors($event)"></app-transaction-details>
+              <app-transaction-details #transactionDetailsChild [dataModel]="lifecycleRecordModel" [newlySelDossierType]="this.selectedDossierTypeSignal()"
+                [showErrors]="showErrors" (errorList)="processTransactionDetailsErrors($event)"></app-transaction-details>
             </div>
           </section>
     </div>
