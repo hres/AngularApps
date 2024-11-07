@@ -53,6 +53,9 @@
 				}, {
 					"title": "Health Canada",
 					"href": "https://www.canada.ca/en/health-canada.html"
+				}, {
+					"title": "Regulatory enrolment process (REP) - Canada.ca",
+					"href": "https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/applications-submissions/guidance-documents/regulatory-enrolment-process.html"
 				}],
 				"cdnEnv": "{{env}}"
 			});
@@ -70,7 +73,7 @@
 					{# Display all sections when site is "internal" #}
 					<h2>{{section.header}}</h2>
 					{% if section.alert %}
-						<div class="alert alert-info" style="text-decoration: underline">{{section.alert}}</div>
+						<div class="alert alert-info"><p>{{section.alert}}<p></div>
 					{% endif %}
 					{%- for group in section.groups %}
 					<h3>{{group.header}}</h3>
@@ -87,7 +90,7 @@
 					{% if section.internal_only != true %}
 						<h2>{{ section.header }}</h2>
 						{% if section.alert %}
-					    	<div class="alert alert-info" style="text-decoration: underline">{{section.alert}}</div>
+					    	<div class="alert alert-info"><p>{{section.alert}}</p></div>
 						{% endif %}
 						{% for group in section.groups %}
 							<h3>{{ group.header }}</h3>

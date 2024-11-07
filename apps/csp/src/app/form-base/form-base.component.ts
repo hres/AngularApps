@@ -8,6 +8,8 @@ import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
+import { PatentComponent } from '../patent/patent.component';
+import { DrugUseComponent } from '../drug-use/drug-use.component';
 
 @Component({
     selector: 'app-form-base',
@@ -29,6 +31,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
+
+    @ViewChild(PatentComponent) patentComponent: PatentComponent;
+    @ViewChild(DrugUseComponent) drugUseComponent: DrugUseComponent;
   // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
@@ -43,6 +48,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _agentContactErrors = [];
   // private _contactConfirmError = [];
   // private _certficationErrors = [];
+  private _patentInformationErrors = [];
+  private _drugUseErrors = [];
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -157,9 +164,20 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.errorList = this.errorList.concat(this._transFeeErrors);
     // }
 
-    // this.errorList = this.errorList.concat(this._certficationErrors);
-
+    this.errorList = this.errorList.concat(this._patentInformationErrors);
+    this.errorList = this.errorList.concat(this._drugUseErrors);
     this.cdr.detectChanges(); // doing our own change detection
+  }
+
+
+    processPatentInfoErrors(errorList) {
+    this._patentInformationErrors = errorList;
+    this.processErrors();
+  }
+
+  processDrugUseErrors(errorList) {
+    this._drugUseErrors = errorList;
+    this.processErrors();
   }
 
   // processRegulatoryInfoErrors(errorList) {
@@ -288,6 +306,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _prepareForSaving(xmlFile: boolean): Transaction {
 
     const newTransactionEnrol: TransactionEnrol = this._baseService.getEmptyTransactionEnrol();
+
+
+    //get Patent information data
+
+    const patentInformation = this.patentComponent.getFormValue();
+    this._baseService.mapPatentFormsToOutput(newTransactionEnrol, patentInformation);
+
+    const drugUseFormInfor = this.drugUseComponent.getFormValue();
+    this._baseService.mapDrugUseFormsToOutput(newTransactionEnrol, drugUseFormInfor);
 
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();

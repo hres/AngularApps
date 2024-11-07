@@ -48,7 +48,7 @@
                     "bullets": [
                         "Envoyé par le PCDE dans le cadre de la transaction réglementaire (demande). ",
                         "Obligatoire pour toutes les nouvelles demandes d’homologation, ainsi que pour toute demande de modification susceptible d’avoir des répercussions sur le répertoire des fabricants.  ",
-                        "<a href=\"./mds-test/Device Details - FR.xlsx\" download=\"\">Télécharger détails de l’instrument xlsx fichier</a>"
+                        "<a href=\"./mds-test/Détails de l’instrument.xlsx\" download=\"\">Télécharger détails de l’instrument xlsx fichier</a>"
                     ]
                 },
                 {
@@ -68,7 +68,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"{{ base_url }}{{ template_paths.co_internal.fr }}\">Enregistrement de compagnie – interne version 4.0.0</a>"
+                        "<a href=\"{{ template_paths.co_internal.fr }}\">Enregistrement de compagnie – interne version 4.0.0</a>"
                     ]
                 }
             ]

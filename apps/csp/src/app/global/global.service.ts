@@ -28,7 +28,7 @@ export class GlobalService {
   private _stateList: ICode[];
   private _yesnoList: ICode[];
   private _dossierTypes: ICodeDefinition[] = [];
-
+  private _drugUses: ICode[] = [];;
   constructor(private instructionService: InstructionService) {}
 
   /**
@@ -138,8 +138,18 @@ export class GlobalService {
   public get dossierTypes(): ICodeDefinition[] {
     return this._dossierTypes;
   }
-  
+
   public set dossierTypes(value: ICodeDefinition[]) {
     this._dossierTypes = value;
   }
+
+     // Getter for _drugUses
+     public get drugUses(): ICode[] {
+      return this._drugUses;
+    }
+
+    // Setter for _mfUses
+    public set drugUses(value: ICode[]) {
+      this._drugUses = value;
+    }
 }

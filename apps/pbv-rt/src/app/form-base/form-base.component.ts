@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed, inject, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
+import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST, HelpSequence } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,7 +25,7 @@ import { FeesComponent } from '../fees/fees.component';
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
   lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   devEnv: boolean;
   byPassCheckSum: boolean;
 
@@ -46,7 +46,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _contactErrors = [];
   // private _agentAddressErrors = [];
   // private _agentContactErrors = [];
-  // private _contactConfirmError = [];
+  private _consertPrivacyError = [];
   // private _certficationErrors = [];
   public rtForm: FormGroup; 
   public errorList = [];
@@ -146,7 +146,19 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _updateErrorList(errorObjs) {
+    let consentPrivacyTempError = [];
+    if (errorObjs) {
+      errorObjs.forEach(
+        error => {
+          // console.log(error);
+          if (error.label === 'consent.privacy') {
+            consentPrivacyTempError.push(error);
+          }
+        }
+      );
+    }
 
+    this._consertPrivacyError = consentPrivacyTempError;
   }
 
   processErrors() {
@@ -169,9 +181,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.showFees()) {
       this.errorList = this.errorList.concat(this._feesErrors);
     }
-
-    this.errorList = this.errorList.concat(this._regulatoryContactErrors);
-    // this.errorList = this.errorList.concat(this._certficationErrors);
+    this.errorList = this.errorList.concat(this._consertPrivacyError);
 
     console.log(this.errorList);
     this.cdr.detectChanges(); // doing our own change detection

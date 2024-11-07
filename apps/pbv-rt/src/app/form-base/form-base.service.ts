@@ -27,8 +27,7 @@ export class FormBaseService {
       return null;
     }
     return fb.group({
-      // notApplicable: [false, []],
-      // contactInfoConfirm: [false, Validators.requiredTrue],
+      certifyPrivacy: [false, Validators.required],
     });
   }
 
@@ -104,8 +103,6 @@ export class FormBaseService {
       is_noc: '',
       is_admin_sub: '',
       sub_type: undefined,
-      is_fees: '',
-      contact_info: this.getEmptyContactInfoModel()
     };
     
     return TransactionEnrol;

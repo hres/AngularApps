@@ -426,5 +426,21 @@
     "5digits.only": " (5 chiffres seulement)",
     "commmon.required.bracket": " (obligatoire)",
     "dossier.id.format": "(composé d’une lettre minuscule suivie de six chiffres)",
-    "product.name": "Nom du produit"
+    "product.name": "Nom du produit",
+
+    "enrolVersion":"Enrolment Version(fr)",
+    "dateLastSaved":"Date Last Saved(fr)",
+    "patent.Id":"Canadian Patent Number(fr)",
+    "filling.date":"Patent Filing Date(fr)",
+    "grand.date":"Patent Date Granted(fr)",
+    "expiration.date":"Patent Expiration Date(fr)",
+    "panel.title.csp":"Certificate of Supplementary Protection (CSP) Information(fr)",
+    "panel.title.patent":"Patent Information(fr)",
+    "panel.title.druguse":"Drug Use(fr)",
+     "drug.use":"Drug Use(fr)",
+     "required": "This field is required(fr)",
+     "errorSummary.cspfile": "Certificate of Supplementary Protection (CSP) Application Form(fr)",
+    "error.found.because": " n’a pas pu être sauvegardé car ",
+     "error.found.plural": " erreurs ont été trouvées ",
+     "error.found.singular": " erreur a été trouvée "
 }

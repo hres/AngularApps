@@ -11,7 +11,8 @@ export class FormDataLoaderService {
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
   private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
-  
+  private drugUseJsonPath = DATA_PATH + 'druguses.json';
+
   cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
   cachedWhoResponsible$:Observable<ICode[]>;
@@ -19,6 +20,7 @@ export class FormDataLoaderService {
   cachedProvinces$:Observable<ICode[]>;
   cachedStates$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
+  drugUseOptions$: Observable<ICode[]>;
   // mfUseOptions$: Observable<ICode[]>;
   // txDescs$: Observable<ICodeDefinition[]>;
   // mfTypeTxDescOptions$: Observable<IParentChildren[]>;
@@ -33,7 +35,7 @@ export class FormDataLoaderService {
           // tap(()=>console.log('getCountryList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedCountries$;
   }
 
@@ -44,7 +46,7 @@ export class FormDataLoaderService {
           // tap(()=>console.log('getProvinceList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedProvinces$;
   }
 
@@ -55,7 +57,7 @@ export class FormDataLoaderService {
           // tap(()=>console.log('getStateList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedStates$;
   }
 
@@ -67,6 +69,18 @@ export class FormDataLoaderService {
         shareReplay(1)
       );
     return this.dossierTypes$;
+  }
+
+  getDrugUesOptions(lang: string): Observable<ICode[]> {
+
+
+    this.drugUseOptions$ = this._dataService
+      .getData<ICodeAria>(this.drugUseJsonPath)
+      .pipe(
+        //tap((_) => console.log('getMasterFileTypeOptions is executed')),
+        shareReplay(1)
+      );
+    return this.drugUseOptions$;
   }
 
 }

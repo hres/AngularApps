@@ -69,7 +69,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"{{ base_url }}{{ template_paths.co_internal.en }}\">Company Enrolment - Internal version 4.0.0</a>"
+                        "<a href=\"{{ template_paths.co_internal.en }}\">Company Enrolment - Internal version 4.0.0</a>"
                     ]
                 }
             ]

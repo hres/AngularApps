@@ -5,9 +5,9 @@
                 <label for="dossierType" class="required">
                     <span class="field-name">{{ 'dossier.type'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <sup id="tr2-rf">
-                        <a class="fn-lnk" href="#tr2"><span
-                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierTypeIndx']}}</a>
+                    <sup [id]="helpIndex['dossierTypeIndx'][2]">
+                        <a class="fn-lnk" [href]="'#' + helpIndex['dossierTypeIndx'][1]"><span
+                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierTypeIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="regulartoryInfoForm.controls['dossierType'].invalid"
                         [showError]="showFieldErrors"
@@ -21,18 +21,18 @@
                 </select>
             </div>
         </div>
-        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedDossierTypeDefinition">
-            <div class="alert alert-info" role="alert">
-                <p aria-live="polite">{{selectedDossierTypeDefinition}}</p>
-            </div>
+        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedDossierTypeDefinition()">
+          <div class="alert alert-info" role="alert">
+              <p aria-live="polite">{{selectedDossierTypeDefinition()}}</p>
+          </div>
         </div>
         <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="companyId" class="required">
                     <span class="field-name">{{'company.id'|translate }}&nbsp;{{'5digits.only'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <sup id="tr3-rf">
-                        <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['compIdIndx']}}</a>
+                    <sup [id]="helpIndex['compIdIndx'][2]">
+						<a class="fn-lnk" [href]="'#' + helpIndex['compIdIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['compIdIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="regulartoryInfoForm.controls['companyId'].invalid"
                         [showError]="showFieldErrors"
@@ -40,7 +40,7 @@
                         controlId="companyId" label="company.id" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="companyId" name="companyId" class="form-control" data-only-digits
-                        [formControlName]="'companyId'" minlength="5" maxlength="5" size="6"/>
+                        [formControlName]="'companyId'" minlength="5" maxlength="5" size="5"/>
             </div>
         </div>
         <div class="row">
@@ -48,8 +48,8 @@
                 <label for="dossierId" class="required">
                     <span class="field-name">{{ 'dossier.id'|translate }} {{ 'dossier.id.format'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <sup id="tr4-rf">
-                        <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierIdIndx']}}</a>
+                    <sup [id]="helpIndex['dossierIdIndx'][2]">
+						<a class="fn-lnk" [href]="'#' + helpIndex['dossierIdIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierIdIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="regulartoryInfoForm.controls['dossierId'].invalid"
                         [showError]="showFieldErrors"
@@ -65,9 +65,9 @@
                 <label for="productName" class="required">
                     <span class="field-name">{{ 'product.name'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <sup id="tr5-rf">
-                        <a class="fn-lnk" href="#tr5"><span
-                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodNameIndx']}}</a>
+                    <sup [id]="helpIndex['prodNameIndx'][2]">
+						<a class="fn-lnk" [href]="'#' + helpIndex['prodNameIndx'][1]"><span
+                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodNameIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="regulartoryInfoForm.controls['productName'].invalid"
                         [showError]="showFieldErrors"
@@ -83,9 +83,9 @@
               <legend class="required" id="isPriority">
                 {{'is.priority' |translate}}
                 <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
-                <sup id="tr6-rf">
-                  <a class="fn-lnk" href="#tr6"><span
-                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prioRevIndx']}}</a>
+                <sup [id]="helpIndex['prioRevIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['prioRevIndx'][1]"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prioRevIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isPriority'].invalid" [showError]="showFieldErrors"
                   [control]="regulartoryInfoForm.controls['isPriority'] | formControl" controlId="isPriority"
@@ -106,9 +106,9 @@
               <legend class="required" id="isPriority">
                 {{'is.noc' |translate}}
                 <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
-                <sup id="tr7-rf">
-                  <a class="fn-lnk" href="#tr7"><span
-                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['nocRevIndx']}}</a>
+                <sup [id]="helpIndex['nocRevIndx'][2]">
+                  <a class="fn-lnk" [href]="'#' + helpIndex['nocRevIndx'][1]"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['nocRevIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isNOC'].invalid" [showError]="showFieldErrors"
                   [control]="regulartoryInfoForm.controls['isNOC'] | formControl" controlId="isNOC"
@@ -124,14 +124,14 @@
                </ng-container>
             </fieldset>
         </div>
-        <div class="row form-group" *ngIf="dossierTypeSelected()">
+        <div class="row form-group" *ngIf="isPharmaBioVet()">
             <fieldset class="col-md-12 chkbxrdio-grp">
               <legend class="required" id="isPriority">
                 {{'is.admin.submission' |translate}}
                 <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
-                <sup id="tr8-rf">
-                  <a class="fn-lnk" href="#tr8"><span
-                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminSubIndx']}}</a>
+                <sup [id]="helpIndex['adminSubIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['adminSubIndx'][1]"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminSubIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isAdminSubmission'].invalid" [showError]="showFieldErrors"
                   [control]="regulartoryInfoForm.controls['isAdminSubmission'] | formControl" controlId="isAdminSubmission"
@@ -147,12 +147,7 @@
                </ng-container>
             </fieldset>
         </div>
-        <div role="alert" class="alert alert-info" *ngIf="isAdminSubmission()">
-            <p>{{'refer.to.guide.doc'|translate}}
-                <a href="{{'admin.guide.doc.url'|translate}}">{{'admin.guide.doc'|translate}}</a>
-            </p>
-            <p>{{'admin.guide.doc.note'|translate}}</p>
-            <p>{{'admin.guide.doc.note2'|translate}}</p>
+        <div role="alert" class="alert alert-info" *ngIf="isAdminSubmission()" [innerHTML]="'admin.guide.doc.note'|translate">
         </div>
         <ng-container *ngIf="isAdminSubmission()">
             <div class="row">
@@ -179,8 +174,8 @@
               <h3 class="panel-title">{{'heading.transaction.details'|translate}}</h3>
             </header>
             <div class="panel-body">
-              <app-transaction-details #transactionDetailsChild [dataModel]="lifecycleRecordModel"
-                [showErrors]="showErrors"(errorList)="processTransactionDetailsErrors($event)"></app-transaction-details>
+              <app-transaction-details #transactionDetailsChild [dataModel]="lifecycleRecordModel" [newlySelDossierType]="this.selectedDossierTypeSignal()"
+                [showErrors]="showErrors" (errorList)="processTransactionDetailsErrors($event)"></app-transaction-details>
             </div>
           </section>
     </div>

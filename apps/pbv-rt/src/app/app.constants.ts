@@ -10,7 +10,12 @@ export const XSLT_PREFIX = 'REP';
 export const YES = 'Y';
 export const NO = 'N';
 
-export const helpInstructionHeadings = [
+export const LINE_BREAK = '\r\n';
+
+export const HELP_FOOTNOTE_PREFIX = 'tr';
+export const HELP_FOOTNOTE_SUFFIX = '-rf';
+
+export const HELP_TEXT_SEQUENCE = [
     'loadFileIndx',
     'dossierTypeIndx',
     'compIdIndx',
@@ -19,8 +24,8 @@ export const helpInstructionHeadings = [
     'prioRevIndx',
     'nocRevIndx',
     'adminSubIndx',
-    'ctrlNumIndx',
     'regActIndx',
+    'ctrlNumIndx',
     'yearChangeIndx',
     'briefDescIndx',
     'requestSoliIndx',
@@ -137,7 +142,7 @@ export const MITIGATION_TYPE = {
 }
 
 export const TXN_DESC_ACTION = {
-  SHOW_DATE: '1',
+  SHOW_DATEOFREQUEST: '1',
   SHOW_STARTENDDATE: '2',
   SHOW_REQUESTERS: '3',
   SHOW_YEARSOFCHANGE: '4',
