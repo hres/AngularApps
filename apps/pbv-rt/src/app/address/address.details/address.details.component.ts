@@ -19,7 +19,6 @@ import { INameAddress } from '../../models/transaction';
 
 export class AddressDetailsComponent extends BaseComponent implements OnInit, OnChanges {
   lang: string;
-  helpTextSequences: HelpIndex; 
   countryList: ICode[] = [];
   provinceList: ICode[] = [];
   stateList: ICode[] = [];
@@ -58,7 +57,6 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
 
   ngOnInit() {
     this.lang = this._globalService.currLanguage;
-    this.helpTextSequences = this._globalService.helpIndex;
     this.countryList = this._globalService.countryList;
     this.provinceList = this._globalService.provinceList;
     this.stateList = this._globalService.stateList; 

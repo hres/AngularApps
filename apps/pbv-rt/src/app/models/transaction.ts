@@ -12,6 +12,7 @@ export interface TransactionEnrol {
   check_sum?: string;
   ectd: Ectd;
   fee_details: FeeDetails;
+  contact_info: IContactInformation;
   is_priority: string;
   is_noc: string;
   is_admin_sub: string;

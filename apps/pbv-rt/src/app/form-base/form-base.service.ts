@@ -99,6 +99,7 @@ export class FormBaseService {
       check_sum: '',
       ectd: this.getEmptyEctd(),
       fee_details: this.getEmptyFeesModel(),
+      contact_info: this.getEmptyContactInfoModel(),
       is_priority: '',
       is_noc: '',
       is_admin_sub: '',

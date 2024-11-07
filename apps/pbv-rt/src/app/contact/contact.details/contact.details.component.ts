@@ -13,7 +13,6 @@ import { GlobalService } from '../../global/global.service';
 })
 export class ContactDetailsComponent extends BaseComponent implements OnInit{
   lang: string;
-  helpIndex: HelpIndex; 
   public showFieldErrors: boolean = false;
   public contactDetailsForm: FormGroup;
   public languageList: ICode[] = [];
@@ -38,7 +37,6 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
     
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
-    this.helpIndex = this._globalService.helpIndex;
   }
 
   ngOnChanges(changes: SimpleChanges) {

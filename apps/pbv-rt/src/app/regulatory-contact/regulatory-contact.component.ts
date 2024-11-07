@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BaseComponent, HelpIndex, ICode, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, HelpIndex, ICode, UtilsService, HelpSequence } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { NO } from '../app.constants';
 import { RegulatoryContactService } from './regulatory-contact.service';
@@ -14,7 +14,7 @@ import { IContact, IContactInformation, INameAddress } from '../models/transacti
 })
 export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   lang:string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   
   public regulatoryContactInfoForm: FormGroup;
   @Input() showErrors: boolean;
