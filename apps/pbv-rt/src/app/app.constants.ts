@@ -22,10 +22,10 @@ export const HELP_TEXT_SEQUENCE = [
     'nocRevIndx',
     'adminSubIndx',
     'regActIndx',
-    'ctrlNumIndx',
     'yearChangeIndx',
     'briefDescIndx',
     'requestSoliIndx',
+    'ctrlNumIndx',
     'feesIndx',
     'regContactIndx',
     'genFinalIndx'
