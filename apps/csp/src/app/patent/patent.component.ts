@@ -26,7 +26,6 @@ import {
   BaseComponent,
 } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Ectd } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { FormBaseService } from '../form-base/form-base.service';
 import { PatentService } from './patent-service.service';
