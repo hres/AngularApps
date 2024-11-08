@@ -12,7 +12,7 @@
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'load.file'|translate}}
             <sup [id]="helpIndex['loadFileIndx'][2]">
-              <a class="fn-lnk mrgn-tp-md" href="#tr1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileIndx'][0]}}</a>
+              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['loadFileIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileIndx'][0]}}</a>
             </sup>
           </h2>
         </header>
@@ -44,7 +44,7 @@
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'panel.title.fees'|translate}}
             <sup [id]="helpIndex['feesIndx'][2]">
-              <a class="fn-lnk mrgn-tp-md" href="#tr14"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['feesIndx'][0]}}</a>
+              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['feesIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['feesIndx'][0]}}</a>
             </sup>
           </h2>
           </header>

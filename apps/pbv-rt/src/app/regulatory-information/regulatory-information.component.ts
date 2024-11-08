@@ -1,24 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  OnDestroy,
-  Output,
-  QueryList,
-  SimpleChanges,
-  ViewChildren, ViewEncapsulation,
-  computed,
-  signal,
-  inject,
-  Signal,
-  input,
-  viewChild,
-  effect
-} from '@angular/core';
-import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent, ControlMessagesComponent, HelpSequence } from '@hpfb/sdk/ui';
-import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation, computed, signal, inject, viewChild} from '@angular/core';
+import { ICodeDefinition, ICode, UtilsService, BaseComponent, ControlMessagesComponent, HelpSequence, LoggerService } from '@hpfb/sdk/ui';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
 import { LifecycleRecord, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
@@ -36,25 +18,15 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   lang: string;
   helpIndex: HelpSequence; 
 
-  public regulartoryInfoForm: FormGroup;
-  // @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() dataModel: TransactionEnrol;
   @Output() errorList = new EventEmitter(true);
-  // @Output() trDescUpdated = new EventEmitter();
 
+  public regulartoryInfoForm: FormGroup;
   public lifecycleRecordModel: LifecycleRecord;
 
   dossierTypeOptions: ICodeDefinition[] = [];
   adminSubTypeOptions: ICodeDefinition[] = [];
-  // mfTypeDescArray: IParentChildren[] = [];
-  // mfRevisedTypeDescArray: IParentChildren[] = [];
-  // mfUseOptions: ICode[] = [];
-  // txDescOptions: ICode[];
-  // revTxDescOptions: ICode[];
-  // descriptionTypeList: ICodeDefinition[];
-  selectedDossierTypeDefinition: string;
-  // selectedTxDescDefinition: string;
   public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
 
@@ -62,27 +34,20 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     read: TransactionDetailsComponent
   });
 
-  // // writable signal for the answer of "Transaction Description" field
-  // readonly selectedTxDescSignal = signal<string>('');
-
-  // // computed signal for rendering of the "Did the Clarification Request require you to revise the Transaction Description?" field
-  // showReqRevisedTxDesc = computed(() => {
-  //   return this.txDescRquireRevise === this.selectedTxDescSignal();
-  // });
-  // // writable signal for the answer of "Did the Clarification Request require you to revise the Transaction Description?" field
-  // selectedReqRevisionSignal = signal('');
-  // // computed signal for rendering of the "Revised Transaction Description" fields
-  // showRevisedTxDesc = computed(() => {
-  //   return this.showReqRevisedTxDesc() && this.selectedReqRevisionSignal() === 'Y'
-  // });
-
   private _signalService = inject(AppSignalService)
+  private _logger = inject(LoggerService)
 
   readonly selectedDossierTypeSignal = this._signalService.getSelectedDossierType();
+
+  readonly selectedDossierTypeDefinition = computed(() => {
+    return this._getCodeDefinition(this._globalService.dossierTypes, this.selectedDossierTypeSignal());
+  });
+
   isPharmaBio = computed(() => {
     return this.selectedDossierTypeSignal() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.selectedDossierTypeSignal() === DOSSIER_TYPE.BIOLOGIC_HUMAN;
   });
-  dossierTypeSelected = computed(() => {
+
+  isPharmaBioVet = computed(() => {
     return this.selectedDossierTypeSignal() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.selectedDossierTypeSignal() === DOSSIER_TYPE.BIOLOGIC_HUMAN || this.selectedDossierTypeSignal() === DOSSIER_TYPE.VETERINARY;
   });
 
@@ -107,11 +72,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
       this.regulartoryInfoForm = RegulatoryInformationService.getRegularInfoForm(this._fb);
     }
 
-    // this.descriptionTypeList = this._globalService.txDescs;
     this.dossierTypeOptions = this._globalService.dossierTypes;
-    // this.mfTypeDescArray = this._globalService.mfTypeTxDescs;
-    // this.mfRevisedTypeDescArray = this._globalService.mfRevisedTypeDescs;
-    // this.mfUseOptions = this._globalService.mfUses;
     this.yesNoList = this._globalService.yesnoList;
     this.adminSubTypeOptions = this._globalService.adminSubTypes;
   }
@@ -128,7 +89,6 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   ngOnChanges(changes: SimpleChanges) {
     const isFirstChange = this._utilsService.isFirstChange(changes);
-    // console.log("RegulatoryInformationComponent ~ ngOnChanges ~ isFirstChange:", isFirstChange);
     // Ignore first trigger of ngOnChanges
     if (!isFirstChange) {
       if (changes['showErrors']) {
@@ -141,28 +101,14 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
           dataModelCurrentValue,
           <FormGroup>this.regulartoryInfoForm);
 
-        // this.onMfTypeSelected(null);
-        // this.onTxDescriptionSelected(null);
-        // this.reqRevisionChanged(null);
+        this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value);
       }
     }
   }
 
   onDossierTypeSelected(selectedDossierTypeId: string) {
-    // console.log('Selected dossier type id:', selectedDossierTypeId);
+    this._logger.log(this._globalService.debugEnabled, 'RegulatoryInformationComponent', 'onDossierTypeSelected',  `dossier type id: ${selectedDossierTypeId}`);
     this._signalService.setSelectedDossierType(selectedDossierTypeId)
-    const codeDefinition = this._utilsService.findCodeDefinitionById(this.dossierTypeOptions, selectedDossierTypeId);
-    this.selectedDossierTypeDefinition = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
-
-  //   // get the transaction description dropdown list
-  //   this._getTransactionDescriptions(this.selectedMfTypeId);
-
-  //   if (this.showRevisedTxDesc()) {
-  //     this._getRevisedTransactionDescriptions(this.selectedMfTypeId);
-  //   } else {
-  //     const valuesToReset = ['revisedDescriptionType'];
-  //     this._resetControlValues(valuesToReset);
-  //   }
   }
 
   onAdminSubmissionSelected(e:any) {
@@ -173,72 +119,18 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   }
 
   onAdminSubTypeSelected(selectedAdminSubTypeId: string) {
-    const codeDefinition = this._utilsService.findCodeDefinitionById(this.adminSubTypeOptions,selectedAdminSubTypeId)
-    this.selectedAdminSubTypeDefinition = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
+    this.selectedAdminSubTypeDefinition = this._getCodeDefinition(this.adminSubTypeOptions, selectedAdminSubTypeId);
   }
-
-  // onTxDescriptionSelected(e: any): void {
-  //   const selectedTxDescId = this.regulartoryInfoForm.get('descriptionType').value;
-  //   this.selectedTxDescDefinition = this._utilsService.getCodeDefinitionByIdByLang(selectedTxDescId, this.descriptionTypeList, this.lang);
-  //   // console.log(this.selectedTxDescDefinition);
-  //   this.selectedTxDescSignal.set(selectedTxDescId);
-
-  //   if (!this.showDateAndRequester()) {
-  //     // console.log('reset request date and requester fields when transaction description does not require them');
-  //     const valuesToReset = ['requestDate', 'requester'];
-  //     this._resetControlValues(valuesToReset);
-  //   }
-
-  //   if (!this.showReqRevisedTxDesc()) {
-  //     // console.log('reset reqRevision and revised transaction description fields if transaction description is not 13');
-  //     const valuesToReset = ['reqRevision', 'revisedDescriptionType'];
-  //     this._resetControlValues(valuesToReset);
-  //   }
-
-  //   if (!this.showReqRevisedTxDesc()) {
-  //     // console.log('reset revised transaction description if reqRevision is No');
-  //     const valuesToReset = ['revisedDescriptionType'];
-  //     this._resetControlValues(valuesToReset);
-  //   }
-
-  //   if (e) {
-  //     // when the action is triggered from the UI
-  //     this.trDescUpdated.emit(selectedTxDescId);
-  //   }
-  // }
-
-  // reqRevisionChanged(e:any):void {
-  //   this.selectedReqRevisionSignal.set(this.reqRevision?.value);
-  //   if (this.showRevisedTxDesc()) {
-  //     this._getRevisedTransactionDescriptions(this.selectedMfTypeId);
-  //   } else {
-  //     const valuesToReset = ['revisedDescriptionType'];
-  //     this._resetControlValues(valuesToReset);
-  //   }
-  // }
-
-  // // dynamically load the transaction description dropdowns according to the master type value
-  // private _getTransactionDescriptions(mfTypeId: string): void {
-  //   this.txDescOptions = this._utilsService.filterParentChildrenArray(this.mfTypeDescArray, mfTypeId);
-  // }
-
-  // private _getRevisedTransactionDescriptions(mfTypeId: string): void {
-  //   this.revTxDescOptions = this._utilsService.filterParentChildrenArray(this.mfRevisedTypeDescArray, mfTypeId);
-  // }
-
-  // get reqRevision() {
-  //   return this.regulartoryInfoForm.get("reqRevision") as FormGroup;
-  // }
-
-  // get selectedMfTypeId() {
-  //   return this.regulartoryInfoForm.get('masterFileType').value;
-  // }
 
   getFormValue() {
     const regInfoFormValues = this.regulartoryInfoForm.value;
     const tranDetailsFormValues = this.tranDetailsChild().getFormValue();
 
     return { ...regInfoFormValues, ...tranDetailsFormValues };
+  }
+
+  private _getCodeDefinition(codeDefinitionList: ICodeDefinition[], id: string){
+    return this._utilsService.getCodeDefinitionByIdByLang(id, codeDefinitionList, this.lang)
   }
 
   private _resetControlValues(controlNames: string[]) {
