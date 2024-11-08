@@ -3,7 +3,7 @@
 	<xsl:param name="language" select="'eng'"/>
 	<xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'"/>
 	<xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
-	<xsl:decimal-format name="FrenchDecimalFormat" decimal-separator="," grouping-separator="&#160;"/>
+	<xsl:decimal-format name="FrenchDecimalFormat" decimal-separator="," grouping-separator=""/>
 	<xsl:template match="/">
 		<html>
 			<head>
@@ -412,18 +412,18 @@ span.normalWeight {
 	
 	<!-- Transaction Enrolment -->
 	<xsl:template match="TRANSACTION_ENROL">
-		<h1>Mod&#232;le de transaction r&#233;glementaire: Processus d'inscription r&#233;glementaire (PIR)<xsl:if test="software_version != ''"> (Version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
+		<h1>Modèle de transaction réglementaire: Processus d'inscription réglementaire (PIR)<xsl:if test="software_version != ''"> (Version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
 					<div class="well well-sm" >
 						<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 							<tr>
 								<th style="text-align: center;font-weight:bold;">Numéro de la compagnie</th>
 								<th style="text-align: center;font-weight:bold;">Type de dossier</th>
 								<th style="text-align: center;font-weight:bold;">Numéro de dossier</th>
-								<th style="text-align: center;font-weight:bold;">Date de la derni&#232;re enregistrement</th>
+								<th style="text-align: center;font-weight:bold;">Date de la dernière enregistrement</th>
 							</tr>
 							<tr>
 								<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="ectd/company_id" /></span> </td>
-								<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="ectd/dossier_type" /></span> </td>
+								<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="ectd/dossier_type/@label_fr" /></span> </td>
 								<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="ectd/dossier_id" /></span> </td>
 								<td style="text-align: center;"> <span class="mouseHover"><xsl:apply-templates select="date_saved" /></span> </td>
 							</tr>
@@ -432,49 +432,37 @@ span.normalWeight {
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h2 class="panel-title">Information r&#233;glementaire</h2>
+					<h2 class="panel-title">Information réglementaire</h2>
 				</div>
 				<div class="panel-body">										
 					<div class="well well-sm" >
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Nom du produit:&#160; </strong>
+								<strong> Nom du produit: </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="ectd/product_name"/>
 								</span>
 							</div>
 						</div>
-						<!--<div class="row">-->
-							<!--<div class="col-xs-12">-->
-								<!--<strong> La pr&#233;sentation sera-t-elle sign&#233;e ou d&#233;pos&#233;e par un tiers au nom du fabricant ou du promoteur?&#160; </strong>-->
-								<!--<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_third_party"/></xsl:call-template>-->
-								<!--</span>-->
-							<!--</div>-->
-							<!--<xsl:if test="is_third_party = 'Y'">-->
-							<!--<div class="col-xs-11">-->
-								<!--<div class="alert alert-info">-->
-									<!--Une lettre d’autorisation signée par le fabricant ou le promoteur doit être fournie dans la section 1.2.1 de la transaction réglementaire.-->
-								<!--</div>-->
-							<!--</div>-->
-							<!--</xsl:if>-->
-						<!--</div>-->
-						<div class="row">
-							<div class="col-xs-12">
-								<strong> Cette activit&#233; de r&#233;glementation a-t-elle &#233;t&#233; approuv&#233;e aux fins d’examen prioritaire?&#160; </strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_priority"/></xsl:call-template>
-								</span>
+						<xsl:if test="ectd/dossier_type/@id = 'D21' or ectd/dossier_type/@id = 'D22'">
+							<div class="row">
+								<div class="col-xs-12">
+									<strong> Cette activité de réglementation a-t-elle été approuvée aux fins d’examen prioritaire? </strong>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_priority"/></xsl:call-template>
+									</span>
+								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-12">
-								<strong> Cette activité de réglementation a-t-elle été approuvée aux fins d’examen pour un AC-C?&#160; </strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_noc"/></xsl:call-template>
-								</span>
+							<div class="row">
+								<div class="col-xs-12">
+									<strong> Cette activité de réglementation a-t-elle été approuvée aux fins d’examen pour un AC-C?  </strong>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_noc"/></xsl:call-template>
+									</span>
+								</div>
 							</div>
-						</div>
+						</xsl:if>
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> S'agit-il d'une demande administrative ou d'une pr&#233;sentation?&#160; </strong>
+								<strong> S'agit-il d'une demande administrative ou d'une présentation? </strong>
 								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_admin_sub"/></xsl:call-template>
 								</span>
 							</div>
@@ -482,15 +470,12 @@ span.normalWeight {
 						<xsl:if test="is_admin_sub = 'Y'">
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Raison de la demande administrative ou de la pr&#233;sentation&#160; </strong>
+								<strong> Raison de la demande administrative ou de la présentation: </strong>
 								<span class="mouseHover"><xsl:value-of select="sub_type"/>
 								</span>
 							</div>
 						</div>
 						<div class="row">
-							<!--<div class="col-xs-12">-->
-								<!--<strong> Description de la présentation administrative ou de la composante administrative&#160; </strong>-->
-							<!--</div>-->
 								<xsl:call-template name="converter"><xsl:with-param name="value" select="sub_type/@id"/></xsl:call-template>
 						</div>
 						</xsl:if>
@@ -498,85 +483,36 @@ span.normalWeight {
 
 					<div class="well well-sm" >
 								<header class="panel-heading" >
-									<h4 class="panel-title" >D&#233;tails de la transaction</h4>
+									<h4 class="panel-title" >Détails de la transaction</h4>
 								</header>								
-							<div class="row">
-								
+							<div class="row">								
 								<div class="panel-body" >
 										<xsl:for-each select="ectd/lifecycle_record">
 													<fieldset>
-														<legend>Enregistrement des d&#233;tails de la transaction</legend>
+														<legend>Enregistrement des détails de la transaction</legend>
 														<div class="row">
 															<div class="form-group col-md-6">
-															<strong class="padLeft3">Num&#233;ro de contrôle:&#160;</strong><span class="mouseHover"><xsl:value-of select="control_number"/></span>
+															<strong class="padLeft3">Numéro de contrôle: </strong><span class="mouseHover"><xsl:value-of select="control_number"/></span>
 															</div>
 														</div>
 														<div class="row">
 														</div>
 														<div class="row">
 															<div class="col-xs-12">
-															<strong class="padLeft3">Responsable de l’activit&#233; r&#233;glementaire:&#160;</strong><span class="mouseHover"><xsl:value-of select="regulatory_activity_lead"/></span>
+															<strong class="padLeft3">Responsable de l’activité réglementaire: </strong><span class="mouseHover"><xsl:value-of select="regulatory_activity_lead"/></span>
 															</div>
                                                         </div>
-                                                         <div class="row">
-                                                              <div class="col-md-12">
-                                                                <xsl:if test="regulatory_activity_lead !=''">
-                                                                  <strong class="padLeft3">Description du responsable de l'activit&#233; de r&#233;glementation :&#160;</strong>
-                                                                    <div class="col-md-11">
-                                                                        <xsl:if test="regulatory_activity_lead/@id = 'B14-20160301-02'"><!--Bio-->
-                                                                         <span class="mouseHover">
-                                                                             Biologique: Comprend toutes les activités et transactions de r&#233;glementation relevant du
-                                                                             mandat de la Direction des produits biologiques et des m&#233;dicaments radiopharmaceutiques (DMBR)
-                                                                             (produits biologiques / radiopharmaceutiques).
-                                                                         </span>
-                                                                        </xsl:if>
-
-                                                                        <xsl:if test="regulatory_activity_lead/@id = 'B14-20160301-06'">
-                                                                            <span class="mouseHover">
-                                                                                Produit de sant&#233; destin&#233;s aux consommateurs: Comprend toutes les activit&#233;s et transactions r&#233;glementaires
-                                                                                concernant les produits pharmaceutiques et d&#233;sinfectants sans ordonnance sous le mandat de la Direction
-                                                                                des produits de sant&#233; naturels et sans ordonnance (DPSNSO).
-                                                                            </span>
-                                                                        </xsl:if>
-
-                                                                        <xsl:if test="regulatory_activity_lead/@id = 'B14-20160301-09'">
-                                                                            <span class="mouseHover">
-                                                                                Pharmaceutique: comprend toutes les activit&#233;s et transactions r&#233;glementaires relatives aux produits
-                                                                                pharmaceutiques sur ordonnance et aux produits &#233;thiques sous le mandat de la direction des m&#233;dicaments pharmaceutiques (DMP).
-                                                                                Cette piste ne s'applique pas aux produits pharmaceutiques ou d&#233;sinfectants sans ordonnance ni aux
-                                                                                activit&#233;s de r&#233;glementation de la vigilance post-commercialisation.
-                                                                            </span>
-                                                                        </xsl:if>
-
-                                                                        <xsl:if test="regulatory_activity_lead/@id = 'B14-20160301-10'">
-                                                                            <span class="mouseHover">
-                                                                                Vigilance post-commercialisation: Comprend toutes les activit&#233;s et transactions r&#233;glementaires relevant
-                                                                                du mandat de la Direction des produits de sant&#233; commercialis&#233;s (DPSC) (produits pharmaceutiques sur
-                                                                                ordonnance et sans ordonnance à usage humain, produits biologiques, radiopharmaceutiques)
-                                                                            </span>
-                                                                        </xsl:if>
-
-                                                                        <xsl:if test="regulatory_activity_lead/@id = 'B14-20160301-11'">
-                                                                            <span class="mouseHover">
-                                                                                V&#233;t&#233;rinaire: Comprend toutes les activit&#233;s et transactions r&#233;glementaires relatives aux produits
-                                                                                pharmaceutiques sur ordonnance et en vente libre sous le mandat de la Direction des m&#233;dicaments
-                                                                                v&#233;t&#233;rinaires (DMV).
-                                                                            </span>
-                                                                        </xsl:if>
-                                                                    </div>
-                                                                </xsl:if>
-                                                              </div>
-
+														<div class="row">
 															<div class="col-xs-12">
-															<strong class="padLeft3">Type d'activit&#233; r&#233;glementaire:&#160;</strong><span class="mouseHover"><xsl:value-of select="regulatory_activity_type"/></span>
+															<strong class="padLeft3">Type d'activité réglementaire: </strong><span class="mouseHover"><xsl:value-of select="regulatory_activity_type"/></span>
 															</div>
 														</div>
 														<div class="row">
 															<div class="form-group col-md-12">
-															<strong class="padLeft3">Description de transaction de r&#233;glementation :&#160;</strong><span class="mouseHover">
+															<strong class="padLeft3">Description de transaction de réglementation : </strong><span class="mouseHover">
 															<xsl:choose>
 															<xsl:when test="sequence_description_value/@id = 'YEAR'">
-																<xsl:value-of select="sequence_description_value"/>:&#160;<xsl:value-of select="transaction_description"/>
+																<xsl:value-of select="sequence_description_value"/>:<xsl:value-of select="transaction_description"/>
 															</xsl:when>
 															<xsl:when test="sequence_description_value/@id = 'YEAR_LIST_OF_CHANGE'">
 																<div class="col-md-12"><xsl:value-of select="sequence_description_value"/>:</div>
@@ -595,22 +531,22 @@ span.normalWeight {
 														<xsl:if test="requester_name != ''">
 														<div class="row">
 															<div class="col-md-12">
-															<strong class="padLeft3">Demandeur d’information sollicit&#233;e:&#160;</strong>
+															<strong class="padLeft3">Demandeur d’information sollicitée:</strong>
 															</div>
 
 															<div class="col-md-12">
-																<span class="col-xs-2">Demandeur 1:&#160;</span>
+																<span class="col-xs-2">Demandeur 1:</span>
 																<span class="col-xs-3 mouseHover"><xsl:value-of select="requester_name"/></span>
 															</div>
 															<xsl:if test="requester_name2 != ''">
 															<div class="col-md-12">
-																<span class="col-xs-2">Demandeur 2:&#160;</span>
+																<span class="col-xs-2">Demandeur 2:</span>
 																<span class="col-xs-3 mouseHover"><xsl:value-of select="requester_name2"/></span>
 															</div>
 															</xsl:if>
 															<xsl:if test="requester_name3 != ''">
 															<div class="col-md-12">
-																<span class="col-xs-2">Demandeur 3:&#160;</span>
+																<span class="col-xs-2">Demandeur 3:</span>
 																<span class="col-xs-3 mouseHover"><xsl:value-of select="requester_name3"/></span>
 															</div>
 															</xsl:if>
@@ -621,36 +557,9 @@ span.normalWeight {
 								</div>
 							</div>
 						</div>
-
-					<!--<xsl:if test="regulatory_project_manager1 != '' or regulartory_project_manager2 != ''">-->
-					<!--<h4>Responsable de projet r&#233;glementaire, si connu: &#160;</h4>-->
-					<!---->
-					<!--<div class="well well-sm" >-->
-						<!--<div class="row">-->
-							<!--<div class="col-xs-12">-->
-								<!--<span class="mouseHover"> <xsl:apply-templates select="regulatory_project_manager1" /> </span>-->
-							<!--</div>-->
-						<!--</div>-->
-						<!--<div class="row">-->
-							<!--<div class="col-xs-12">-->
-								<!--<span class="mouseHover"> <xsl:apply-templates select="regulatory_project_manager2" /> </span>-->
-							<!--</div>-->
-						<!--</div>-->
-					<!--</div>-->
-					<!--</xsl:if>-->
-					<div class="well well-sm" >
-						<div class="row">
-							<div class="col-xs-12">
-								<strong> Est-ce que des frais nouveaux ou r&#233;vis&#233;s sont associ&#233;s &#224; cette transaction? Veuillez identifier les frais lors de la demande de remise.&#160; </strong>
-								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_fees"/></xsl:call-template>
-								</span>
-							</div>
-						</div>
-					</div>
-
 				</div>		
 			</div>
-			<xsl:if test="is_fees = 'Y'">
+			<xsl:if test="ectd/dossier_type/@id != 'D24' and ectd/lifecycle_record/regulatory_activity_lead != 'B14-20160301-10'">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h2 class="panel-title">Frais</h2>
@@ -659,13 +568,13 @@ span.normalWeight {
 					<div class="well well-sm" >
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Cat&#233;gorie de la pr&#233;sentation:&#160; </strong>
+								<strong> Catégorie de la présentation: </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="fee_details/submission_class"/>
 								</span>
 							</div>
 							<div class="col-xs-12">
-								<strong>Description de la pr&#233;sentation:&#160;</strong>
+								<strong>Description de la présentation:</strong>
 								<div class="col-xs-12">
 								<span class="mouseHover">
 								<xsl:call-template name="break"><xsl:with-param name="text" select="fee_details/submission_description"/></xsl:call-template>
@@ -695,7 +604,7 @@ span.normalWeight {
 								
 								<div class="col-xs-12">
 								<strong>Nous n'avons pas encore déposé de demande d'un médicament auprès de Santé Canada. Nous sommes en train de déposer notre première demande de traitement de médicaments.</strong>
-								&#160;&#160;<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="fee_details/mitigation/small_business_fee_application"/></xsl:call-template></span>
+								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="fee_details/mitigation/small_business_fee_application"/></xsl:call-template></span>
 								</div>
 							</xsl:if>
 							<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'URGENT_HEALTH_NEED'">
@@ -711,14 +620,14 @@ span.normalWeight {
 							</xsl:if>
 							<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'FUNDED_INSTITUTION'">
 								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_funded_health_institution"/></xsl:call-template>
-								<strong>Nous certifions que notre établissement est financé par le gouvernement du Canada ou le gouvernement d’une province ou d’un territoire et que cet établissement:</strong>
+								<strong>Nous certifions que notre établissement est financé par le gouvernement du Canada ou le gouvernement d’une province ou d’un territoire et que cet établissement est:</strong>
 								<ol class="lst-lwr-alph">
-									<li>est autorisé, approuvé ou désigné par une province en conformité avec les lois de cette province pour fournir des soins ou des traitements à des personnes ou à des animaux souffrant de quelque maladie que ce soit ou</li>
-									<li>est la propriété du gouvernement du Canada ou est exploité par ce dernier ou par le gouvernement d’une province et fournit des soins de santé.</li>
+									<li>autorisé, approuvé ou désigné par une province en conformité avec les lois de cette province pour fournir des soins ou des traitements à des personnes ou à des animaux souffrant de quelque maladie que ce soit ou</li>
+									<li>la propriété du gouvernement du Canada ou est exploité par ce dernier ou par le gouvernement d’une province et fournit des soins de santé.</li>
 								</ol>
 							</xsl:if>
 							<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'GOVERMENT_ORGANIZATION'">
-								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_goverment_organization"/></xsl:call-template>
+								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_government_organization"/></xsl:call-template>
 								<strong>Nous certifions que notre organisation est une Direction générale ou une agence du gouvernement du Canada ou d’une province ou d’un territoire.</strong>
 							</xsl:if>
                             <xsl:if test="fee_details/mitigation/mitigation_type/@id = 'ISAD'">
@@ -734,40 +643,27 @@ span.normalWeight {
 			
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h2 class="panel-title">Personne-ressource pour cette activit&#233; r&#233;glementaire</h2>
+					<h2 class="panel-title">Personne-ressource pour cette activité réglementaire</h2>
 				</div>
 				<div class="panel-body">
-					<!--<h4>Personne-ressource pour cette activit&#233; r&#233;glementaire</h4>-->
-					<strong>A. Information sur l'entreprise: </strong>
+					<strong>Information sur l'entreprise: </strong>
                     <div class="well well-sm" >
                         <div class="row">
                             <div class="col-xs-12">
-                                <strong>Le contact pour cette activité de réglementation est-il un tiers correspondant au nom du fabricant / sponsor?&#160;</strong>
-                                <span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_third_party"/></xsl:call-template>
+                                <strong>Le contact pour cette activité de réglementation est-il un tiers correspondant au nom du fabricant / sponsor? </strong>
+                                <span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_activity_changes"/></xsl:call-template>
                                 </span>
                             </div>
-                            <xsl:if test="is_third_party = 'Y'">
-                            <div class="col-xs-11 alert alert-info">
-                                    <ul>
-                                        <li>Si le type d'activité réglementaire est NDS, SNDS, ANDS, SANDS, SNDS-C, SANDS-C, NC, EUNDS, EUSNDS, EUANDS,
-                                            EUSANDS, DINA, DINB, DIND, DINF, PDC, PDC-B , une lettre d'autorisation de tiers est requise dans le cadre de la transaction
-                                            initiale de  cette activité de réglementation.
-                                        </li>
-                                        <li>Si le contact a changé, une nouvelle lettre d'autorisation est requise.</li>
-                                        <li>Si le contact n'a pas changé, une autre lettre d'autorisation de tiers n'est pas requise sous le même numéro de contrôle.</li>
-                                    </ul>
-                            </div>
-							<div class="col-xs-12">
-								<strong>Nom de l'entreprise(nom légal complet)</strong>
-							</div>
-							<div class="col-xs-12">
-								<span class="mouseHover"><xsl:apply-templates select="company_name" /> </span>
-							</div>
+                            <xsl:if test="is_activity_changes = 'Y'">
+								<div class="col-xs-12">
+									<strong>Nom de la compagnie (nom légal complet): </strong>
+									<span class="mouseHover"><xsl:apply-templates select="company_name" /> </span>
+								</div>
                             </xsl:if>
 						</div>
 					</div>
-                    <xsl:if test="is_third_party = 'Y'">
-					<strong>B. Adresse: </strong>
+                    <xsl:if test="is_activity_changes = 'Y'">
+					<strong>Information d'adresse: </strong>
 					<div class="well well-sm" >
 						<div class="row">
 							<div class="col-xs-12">
@@ -777,8 +673,8 @@ span.normalWeight {
 						<div class="row">
 							<div class="col-xs-12">
 								<span class="mouseHover"> <xsl:apply-templates select="regulatory_activity_address/city" /> </span>
-								<strong>, &#160;&#160; </strong>
-								<span class="mouseHover"> <xsl:choose><xsl:when test="(regulatory_activity_address/country/@id = 'CAN') or (regulatory_activity_address/country/@id = 'USA')"><xsl:value-of select="regulatory_activity_address/province_lov" /><strong>, &#160;&#160;</strong></xsl:when><xsl:otherwise><xsl:if test="regulatory_activity_address/province_text != ''"><xsl:value-of select="regulatory_activity_address/province_text" /><strong>, &#160;&#160;</strong></xsl:if></xsl:otherwise></xsl:choose> </span>
+								<strong>,  </strong>
+								<span class="mouseHover"> <xsl:choose><xsl:when test="(regulatory_activity_address/country/@id = 'CAN') or (regulatory_activity_address/country/@id = 'USA')"><xsl:value-of select="regulatory_activity_address/province_lov" /><strong>, </strong></xsl:when><xsl:otherwise><xsl:if test="regulatory_activity_address/province_text != ''"><xsl:value-of select="regulatory_activity_address/province_text" /><strong>, </strong></xsl:if></xsl:otherwise></xsl:choose> </span>
 								<span class="mouseHover"> <xsl:value-of select="regulatory_activity_address/country"/></span>
 							</div>
 							<div class="col-xs-12">
@@ -787,45 +683,62 @@ span.normalWeight {
 						</div>
 					</div>
                     </xsl:if>
-                    <xsl:if test="is_third_party = 'N'"><h4>B. Repr&#233;sentative de l'entrepise: </h4></xsl:if>
-                    <xsl:if test="is_third_party = 'Y'"><h4>C. Repr&#233;sentative de l'entrepise: </h4></xsl:if>
-					<div class="well well-sm" >
+                    <h4>Représentative de l'entrepise: </h4>
+					<div class="well well-sm">
 						<div class="row">
-							<div class="col-xs-12">
-								<strong class="col-xs-3 minWidth150"> Titre&#160;&#160; 
-								<span class="mouseHover normalWeight"> <xsl:apply-templates select="regulatory_activity_contact/job_title" /> </span></strong>
-								<strong class="col-xs-3">&#160;</strong>
-								<strong class="col-xs-4 minWidth150"> Langue de correspondance&#160;&#160; 
-								<span class="mouseHover normalWeight"><xsl:value-of select="regulatory_activity_contact/language_correspondance"/></span></strong>
-							</div>
-							<div class="col-xs-12">
-								<strong class="col-xs-3 minWidth300">Pr&#233;nom&#160;&#160;
-								<span class="mouseHover normalWeight"> <xsl:value-of select="regulatory_activity_contact/given_name" /> </span> </strong>
-								<strong class="col-xs-3 minWidth300"> Initials&#160;&#160;
-								<span class="mouseHover normalWeight"> <xsl:value-of select="regulatory_activity_contact/initials" /> </span> </strong>
-								<strong class="col-xs-3 minWidth300"> Nom de famille&#160;&#160;
-								<span class="mouseHover normalWeight"> <xsl:value-of select="regulatory_activity_contact/surname" /> </span> </strong>
-							</div>
+								<strong class="col-xs-4">Prénom: <span
+										class="mouseHover normalWeight">
+										<xsl:value-of
+											select="regulatory_activity_contact/given_name" />
+									</span>
+								</strong>
+								<strong class="col-xs-4">Initiales: <span
+										class="mouseHover normalWeight">
+										<xsl:value-of select="regulatory_activity_contact/initials" />
+									</span>
+								</strong>
+								<strong class="col-xs-4">Nom de famille: <span
+										class="mouseHover normalWeight">
+										<xsl:value-of select="regulatory_activity_contact/surname" />
+									</span>
+								</strong>
 						</div>
 						<div class="row">
-							<div class="col-xs-12">
-								<strong class="col-xs-7 minWidth300">T&#233;l&#233;phone&#160;&#160;
-								<span class="mouseHover normalWeight"> <xsl:value-of select="regulatory_activity_contact/phone_num" /> </span>&#160;&#160;
-								Numéro de l'extension &#160;&#160;
-								<span class="mouseHover normalWeight"> <xsl:value-of select="regulatory_activity_contact/phone_ext" /> </span> </strong>
-								<strong class="col-xs-4  minWidth300">No. de fax&#160;&#160; 
-								<span class="mouseHover normalWeight"> <xsl:value-of select="regulatory_activity_contact/fax_num" /> </span></strong>
-							</div>
-							<div class="col-xs-12">
-								<strong class="col-xs-12">Courriel&#160;&#160;
-								<span class="mouseHover normalWeight"> <xsl:value-of select="regulatory_activity_contact/email" /> </span></strong>
-							</div>
+							<strong class="col-xs-4">Langue de correspondance: <span
+									class="mouseHover normalWeight">
+									<xsl:value-of
+										select="regulatory_activity_contact/language_correspondance" />
+								</span>
+							</strong>
+							<strong class="col-xs-8">Titre: <span
+								class="mouseHover normalWeight">
+								<xsl:apply-templates
+									select="regulatory_activity_contact/job_title" />
+							</span>
+							</strong>
 						</div>
 						<div class="row">
-							<div class="col-xs-12">
-								<strong class="col-xs-12">Identificateur  d'acheminement&#160;&#160;
-								<span class="mouseHover normalWeight"> <xsl:value-of select="regulatory_activity_contact/RoutingID" /></span></strong>
-							</div>
+							<strong class="col-xs-12">Numéro de téléphone (y compris indicatif régional): 
+								<span class="mouseHover normalWeight">
+									<xsl:value-of select="regulatory_activity_contact/phone_num" />
+								</span> Numéro de l'extension: <span class="mouseHover normalWeight">
+									<xsl:value-of select="regulatory_activity_contact/phone_ext" />
+								</span>
+							</strong>
+						</div>
+						<div class="row">
+							<strong class="col-xs-12">Numéro de télécopieur  (y compris indicatif régional): <span
+									class="mouseHover normalWeight">
+									<xsl:value-of select="regulatory_activity_contact/fax_num" />
+								</span>
+							</strong>
+						</div>
+						<div class="row">
+							<strong class="col-xs-12">Courriel: <span
+									class="mouseHover normalWeight" style="font-weight:normal; ">
+									<xsl:value-of select="regulatory_activity_contact/email" />
+								</span>
+							</strong>
 						</div>
 					</div>
 					<div class="well well-sm" >
@@ -880,7 +793,7 @@ span.normalWeight {
 				X
 			</xsl:when>
 			<xsl:otherwise>
-				&#160;&#160;
+				
 			</xsl:otherwise>
 		</xsl:choose>
 		</span>
@@ -893,90 +806,9 @@ span.normalWeight {
 	<xsl:template name="converter">
 		<xsl:param name="value" select="/.."/>
 		<xsl:choose>
-			<xsl:when test=" 'en' = $value">
-				<xsl:value-of select="'English'"/>
-			</xsl:when>
-			<xsl:when test=" 'fr' = $value">
-				<xsl:value-of select="'French'"/>
-			</xsl:when>
-			<xsl:when test=" 'SALUT_MR' = $value">
-				<xsl:value-of select="'Mr.'"/>
-			</xsl:when>
-			<xsl:when test=" 'SALUT_MS' = $value">
-				<xsl:value-of select="'Ms.'"/>
-			</xsl:when>
-			<xsl:when test=" 'SALUT_DR' = $value">
-				<xsl:value-of select="'Dr.'"/>
-			</xsl:when>
-			<xsl:when test=" 'SALUT_MRS' = $value">
-				<xsl:value-of select="'Mrs.'"/>
-			</xsl:when>
-			<xsl:when test=" 'AB' = $value"><xsl:value-of select="'Alberta'"/></xsl:when>
-			<xsl:when test=" 'BC' = $value"><xsl:value-of select="'Columbie Britannique'"/></xsl:when>
-			<xsl:when test=" 'MB' = $value"><xsl:value-of select="'Manitoba'"/></xsl:when>
-			<xsl:when test=" 'NB' = $value"><xsl:value-of select="'Nouveau Brunswick'"/></xsl:when>
-			<xsl:when test=" 'NL' = $value"><xsl:value-of select="'Terre Neuve et Labrador'"/></xsl:when>
-			<xsl:when test=" 'NT' = $value"><xsl:value-of select="'Territoires du Nord-Ouest'"/></xsl:when>
-			<xsl:when test=" 'NS' = $value"><xsl:value-of select="'Nouvelle &#201;cosse'"/></xsl:when>
-			<xsl:when test=" 'NU' = $value"><xsl:value-of select="'Nunavut'"/></xsl:when>
-			<xsl:when test=" 'ON' = $value"><xsl:value-of select="'Ontario'"/></xsl:when>
-			<xsl:when test=" 'PE' = $value"><xsl:value-of select="'Isle du Prince &#201;douard'"/></xsl:when>
-			<xsl:when test=" 'QC' = $value"><xsl:value-of select="'Qu&#233;bec'"/></xsl:when>
-			<xsl:when test=" 'SK' = $value"><xsl:value-of select="'Saskatchewan'"/></xsl:when>
-			<xsl:when test=" 'YT' = $value"><xsl:value-of select="'Yukon'"/></xsl:when>
-			<xsl:when test=" 'AL' = $value"><xsl:value-of select="'Alabama'"/></xsl:when>
-			<xsl:when test=" 'AK' = $value"><xsl:value-of select="'Alaska'"/></xsl:when>
-			<xsl:when test=" 'AZ' = $value"><xsl:value-of select="'Arizona'"/></xsl:when>
-			<xsl:when test=" 'AR' = $value"><xsl:value-of select="'Arkansas'"/></xsl:when>
-			<xsl:when test=" 'CA' = $value"><xsl:value-of select="'California'"/></xsl:when>
-			<xsl:when test=" 'CO' = $value"><xsl:value-of select="'Colorado'"/></xsl:when>
-			<xsl:when test=" 'CT' = $value"><xsl:value-of select="'Connecticut'"/></xsl:when>
-			<xsl:when test=" 'DE' = $value"><xsl:value-of select="'Delaware'"/></xsl:when>
-			<xsl:when test=" 'FL' = $value"><xsl:value-of select="'Florida'"/></xsl:when>
-			<xsl:when test=" 'GA' = $value"><xsl:value-of select="'Georgia'"/></xsl:when>
-			<xsl:when test=" 'HI' = $value"><xsl:value-of select="'Hawaii'"/></xsl:when>
-			<xsl:when test=" 'ID' = $value"><xsl:value-of select="'Idaho'"/></xsl:when>
-			<xsl:when test=" 'IL' = $value"><xsl:value-of select="'Illinois'"/></xsl:when>
-			<xsl:when test=" 'IN' = $value"><xsl:value-of select="'Indiana'"/></xsl:when>
-			<xsl:when test=" 'IA' = $value"><xsl:value-of select="'Iowa'"/></xsl:when>
-			<xsl:when test=" 'KS' = $value"><xsl:value-of select="'Kansas'"/></xsl:when>
-			<xsl:when test=" 'KY' = $value"><xsl:value-of select="'Kentucky'"/></xsl:when>
-			<xsl:when test=" 'LA' = $value"><xsl:value-of select="'Louisiana'"/></xsl:when>
-			<xsl:when test=" 'ME' = $value"><xsl:value-of select="'Maine'"/></xsl:when>
-			<xsl:when test=" 'MD' = $value"><xsl:value-of select="'Maryland'"/></xsl:when>
-			<xsl:when test=" 'MA' = $value"><xsl:value-of select="'Massachusetts'"/></xsl:when>
-			<xsl:when test=" 'MI' = $value"><xsl:value-of select="'Michigan'"/></xsl:when>
-			<xsl:when test=" 'MN' = $value"><xsl:value-of select="'Minnesota'"/></xsl:when>
-			<xsl:when test=" 'MS' = $value"><xsl:value-of select="'Mississippi'"/></xsl:when>
-			<xsl:when test=" 'MO' = $value"><xsl:value-of select="'Missouri'"/></xsl:when>
-			<xsl:when test=" 'MT' = $value"><xsl:value-of select="'Montana'"/></xsl:when>
-			<xsl:when test=" 'NE' = $value"><xsl:value-of select="'Nebraska'"/></xsl:when>
-			<xsl:when test=" 'NV' = $value"><xsl:value-of select="'Nevada'"/></xsl:when>
-			<xsl:when test=" 'NH' = $value"><xsl:value-of select="'New Hampshire'"/></xsl:when>
-			<xsl:when test=" 'NJ' = $value"><xsl:value-of select="'New Jersey'"/></xsl:when>
-			<xsl:when test=" 'NM' = $value"><xsl:value-of select="'New Mexico'"/></xsl:when>
-			<xsl:when test=" 'NY' = $value"><xsl:value-of select="'New York'"/></xsl:when>
-			<xsl:when test=" 'NC' = $value"><xsl:value-of select="'North Carolina'"/></xsl:when>
-			<xsl:when test=" 'ND' = $value"><xsl:value-of select="'North Dakota'"/></xsl:when>
-			<xsl:when test=" 'OH' = $value"><xsl:value-of select="'Ohio'"/></xsl:when>
-			<xsl:when test=" 'OK' = $value"><xsl:value-of select="'Oklahoma'"/></xsl:when>
-			<xsl:when test=" 'OR' = $value"><xsl:value-of select="'Oregon'"/></xsl:when>
-			<xsl:when test=" 'PA' = $value"><xsl:value-of select="'Pennsylvania'"/></xsl:when>
-			<xsl:when test=" 'RI' = $value"><xsl:value-of select="'Rhode Island'"/></xsl:when>
-			<xsl:when test=" 'SC' = $value"><xsl:value-of select="'South Carolina'"/></xsl:when>
-			<xsl:when test=" 'SD' = $value"><xsl:value-of select="'South Dakota'"/></xsl:when>
-			<xsl:when test=" 'TN' = $value"><xsl:value-of select="'Tennessee'"/></xsl:when>
-			<xsl:when test=" 'TX' = $value"><xsl:value-of select="'Texas'"/></xsl:when>
-			<xsl:when test=" 'UT' = $value"><xsl:value-of select="'Utah'"/></xsl:when>
-			<xsl:when test=" 'VT' = $value"><xsl:value-of select="'Vermont'"/></xsl:when>
-			<xsl:when test=" 'VA' = $value"><xsl:value-of select="'Virginia'"/></xsl:when>
-			<xsl:when test=" 'WA' = $value"><xsl:value-of select="'Washington'"/></xsl:when>
-			<xsl:when test=" 'WV' = $value"><xsl:value-of select="'West Virginia'"/></xsl:when>
-			<xsl:when test=" 'WI' = $value"><xsl:value-of select="'Wisconsin'"/></xsl:when>
-			<xsl:when test=" 'WY' = $value"><xsl:value-of select="'Wyoming'"/></xsl:when>
 			<xsl:when test="'ADDITIONAL_PRODUCT_CHGE' = $value">
 					<div class="col-xs-12">
-					<ul><li><span class="mouseHover">Les demandes concernant l’ajout d’un nom de produit, pour un produit pr&#233;c&#233;demment approuv&#233;, n’exigent pas une marque de commerce ou une &#233;valuation &#224; pr&#233;sentation et &#224; consonance semblables.  (Un nouveau DIN est d&#233;livr&#233;).</span></li></ul>
+					<ul><li><span class="mouseHover">Les demandes concernant l’ajout d’un nom de produit, pour un produit précédemment approuvé, n’exigent pas une marque de commerce ou une évaluation à présentation et à consonance semblables.  (Un nouveau DIN est délivré).</span></li></ul>
 					</div>
 					<div class="col-xs-12">
 					<div class="alert alert-info">
@@ -986,7 +818,7 @@ span.normalWeight {
 			</xsl:when>
 			<xsl:when test="'PRODUCT_NAME_CHGE' = $value">
 					<div class="col-xs-12">
-					<ul><li><span class="mouseHover">Modification du nom d’un produit existant, pour un produit pr&#233;c&#233;demment approuv&#233;, qui n’exige pas une marque de commerce ou une &#233;valuation &#224; pr&#233;sentation et &#224; consonance semblables.</span></li></ul>
+					<ul><li><span class="mouseHover">Modification du nom d’un produit existant, pour un produit précédemment approuvé, qui n’exige pas une marque de commerce ou une évaluation à présentation et à consonance semblables.</span></li></ul>
 					</div>
 					<div class="col-xs-12">
 					<div class="alert alert-info">
@@ -995,7 +827,7 @@ span.normalWeight {
 			</xsl:when>
 			<xsl:when test="'OWNERSHIP_CHGE' = $value">
 					<div class="col-xs-12">
-					<ul><li><span class="mouseHover">Transfert du titre de propri&#233;t&#233; et de la responsabilit&#233; du produit d'un fabricant &#224; un autre (DIN ne change pas).</span></li></ul>
+					<ul><li><span class="mouseHover">Transfert du titre de propriété et de la responsabilité du produit d'un fabricant à un autre (DIN ne change pas).</span></li></ul>
 					</div>
 					<div class="col-xs-12">
 					<div class="alert alert-info">
@@ -1005,7 +837,7 @@ span.normalWeight {
 			</xsl:when>
 			<xsl:when test="'LICENGSING' = $value">
 					<div class="col-xs-12">
-					<ul><li><span class="mouseHover">Contrat en vertu duquel un fabricant (le conc&#233;dant de licence) fournit un produit pharmaceutique &#224; un autre fabricant (le titulaire de licence) afin qu'il soit vendu sous le nom du second fabricant.</span></li></ul>
+					<ul><li><span class="mouseHover">Contrat en vertu duquel un fabricant (le concédant de licence) fournit un produit pharmaceutique à un autre fabricant (le titulaire de licence) afin qu'il soit vendu sous le nom du second fabricant.</span></li></ul>
 					</div>
 					<div class="col-xs-12">
 					<div class="alert alert-info">
@@ -1035,7 +867,7 @@ span.normalWeight {
 			</xsl:when>
 			<xsl:when test="'MERGER' = $value">
 					<div class="col-xs-12">
-					<ul><li><span class="mouseHover">La combinaison de deux ou plusieurs entit&#233;s pour en constituer une seule par un achat, une acquisition, une mise en commun d'int&#233;rêts ou l'achat de la participation conf&#233;rant le contrôle d'un fabricant par un autre en vue d'une reprise de biens ou d'activit&#233;s.</span></li></ul>
+					<ul><li><span class="mouseHover">La combinaison de deux ou plusieurs entités pour en constituer une seule par un achat, une acquisition, une mise en commun d'intérêts ou l'achat de la participation conférant le contrôle d'un fabricant par un autre en vue d'une reprise de biens ou d'activités.</span></li></ul>
 					</div>
 					<div class="col-xs-12">
 					<div class="alert alert-info">
@@ -1045,7 +877,7 @@ span.normalWeight {
 			</xsl:when>
 			<xsl:when test="'POSTAUTH_CHEMISTRY_CHGE' = $value">
 					<div class="col-xs-12">
-					<ul><li><span class="mouseHover">Pour les produits vis&#233;s par les annexes C et D : Mises &#224; jour des renseignements sur la composition chimique et la fabrication pour correspondre aux mises &#224; jour de la composition chimique du conc&#233;dant.</span></li></ul>
+					<ul><li><span class="mouseHover">Pour les produits visés par les annexes C et D : Mises à jour des renseignements sur la composition chimique et la fabrication pour correspondre aux mises à jour de la composition chimique du concédant.</span></li></ul>
 					</div>
 					<div class="col-xs-12">
 					<div class="alert alert-info">
@@ -1054,7 +886,7 @@ span.normalWeight {
 			</xsl:when>
 			<xsl:when test="'POSTAUTH_LABEL_CHGE' = $value">
 					<div class="col-xs-12">
-					<ul><li><span class="mouseHover">Mise &#224; jour des &#233;tiquettes (y compris, sans toutefois s’y limiter, la mise &#224; jour de la monographie du produit et l’&#233;tiquette int&#233;rieure et ext&#233;rieure) pour correspondre aux mises &#224; jour de l’&#233;tiquette du conc&#233;dant.</span></li></ul>
+					<ul><li><span class="mouseHover">Mise à jour des étiquettes (y compris, sans toutefois s’y limiter, la mise à jour de la monographie du produit et l’étiquette intérieure et extérieure) pour correspondre aux mises à jour de l’étiquette du concédant.</span></li></ul>
 					</div>
 					<div class="col-xs-12">
 					<div class="alert alert-info">
