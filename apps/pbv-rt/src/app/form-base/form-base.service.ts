@@ -116,7 +116,6 @@ export class FormBaseService {
       regulatory_activity_lead: undefined,
       regulatory_activity_type: undefined,
       sequence_description_value: undefined,
-      sequence_date: '',
       sequence_from_date: '',
       sequence_to_date: '',
       sequence_details: '',
