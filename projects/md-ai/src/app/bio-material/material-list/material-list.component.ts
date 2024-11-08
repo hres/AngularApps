@@ -82,7 +82,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     // console.log('...._processErrorSummaries:', errSummaryEntries);
     // get the first entry where the errSummaryMessage property is not empty 
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
-    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId !== "deviceListTable");
+    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && !summary.errSummaryMessage.componentId.startsWith("deviceListTable"));
     if (filteredErrSummaryEntry) {
       this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
     } else {

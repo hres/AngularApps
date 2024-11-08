@@ -75,7 +75,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     // get the first entry where the errSummaryMessage property is not empty 
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
     // console.log("processing error summary in contact list component...", errSummaryEntries);
-    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId !== "materialListTable");
+    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && !summary.errSummaryMessage.componentId.startsWith("materialListTable"));
     // console.log('....', filteredErrSummaryEntry);
     if (filteredErrSummaryEntry) {
       this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;

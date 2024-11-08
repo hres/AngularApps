@@ -2,7 +2,7 @@
   <div id="deviceErrorSummary{{j}}">
     <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
     [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
-    [headingLevel]="headingLevel" label="error.msg.deviceDetails" compId="deviceListTable"></lib-error-summary> 
+    [headingLevel]="headingLevel" label="error.msg.deviceDetails" compId="deviceListTable{{j}}"></lib-error-summary> 
   </div>
     <div [formGroupName]="'deviceInfo'">
         <div class="row">
