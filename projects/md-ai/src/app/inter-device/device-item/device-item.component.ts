@@ -149,7 +149,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     } else {
       this.showErrSummary = true;
       this.showErrors = true;
-      document.location.href = '#deviceErrorSummary'
+      document.location.href = '#deviceErrorSummary' + this.j;
     }
   } 
 
