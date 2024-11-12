@@ -110,14 +110,9 @@
 								<div class="col-xs-12">
 									<strong> Reason for administrative submission or application: </strong>
 									<span class="mouseHover">
-										<xsl:value-of select="sub_type" />
+										<xsl:value-of select="sub_type/@label_en" />
 									</span>
 								</div>
-							</div>
-						<div class="row">
-								<xsl:call-template name="converter">
-									<xsl:with-param name="value" select="sub_type/@id" />
-								</xsl:call-template>
 							</div>
 						</xsl:if>
 					</div>
@@ -128,34 +123,24 @@
 						<div class="row">
 							<div class="panel-body">
 								<xsl:for-each select="ectd/lifecycle_record">
-									<fieldset>
-										<legend>Transaction Details Record</legend>
-										<div class="row">
-											<div class="col-md-12">
-												<strong class="padLeft3">Control Number: </strong>
-												<span class="mouseHover">
-													<xsl:value-of select="control_number" />
-												</span>
-											</div>
+									<div class="row">
+										<div class="col-md-12">
+											<strong class="padLeft3">Regulatory Activity Lead: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="regulatory_activity_lead/@label_en" />
+											</span>
 										</div>
-										<div class="row">
-											<div class="col-md-12">
-												<strong class="padLeft3">Regulatory Activity Lead: </strong>
-												<span class="mouseHover">
-													<xsl:value-of select="regulatory_activity_lead" />
-												</span>
-											</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<strong class="padLeft3">Regulatory Activity Type: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="regulatory_activity_type/@label_en" />
+											</span>
 										</div>
-										<div class="row">
-											<div class="col-md-12">
-												<strong class="padLeft3">Regulatory Activity Type: </strong>
-												<span class="mouseHover">
-													<xsl:value-of select="regulatory_activity_type" />
-												</span>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-12">
+									</div>
+									<div class="row">
+										<div class="col-md-12">
 												<strong class="padLeft3">Regulatory Transaction	Description: </strong>
 												<span class="mouseHover">
 													<xsl:choose>
@@ -180,7 +165,7 @@
 														</xsl:when>
 														<xsl:otherwise>
 															<xsl:value-of
-																select="transaction_description" />
+																select="transaction_description/@label_en" />
 														</xsl:otherwise>
 													</xsl:choose>
 												</span>
@@ -191,31 +176,40 @@
 												<div class="col-md-12">
 													<strong class="padLeft3">Requester of solicited	information: </strong>
 												</div>
-												<div class="col-md-12">
-													<span class="col-xs-2">Requester 1: </span>
-													<span class="col-xs-3 mouseHover">
+											</div>
+											<div class="row">
+												<div class="col-md-4">
+													<strong class="padLeft3">Name of requester 1: </strong>
+													<span class="mouseHover">
 														<xsl:value-of select="requester_name" />
 													</span>
 												</div>
 												<xsl:if test="requester_name2 != ''">
-													<div class="col-md-12">
-														<span class="col-xs-2">Requester 2: </span>
-														<span class="col-xs-3 mouseHover">
+													<div class="col-md-4">
+														<strong>Name of requester 2: </strong>
+														<span class="mouseHover">
 															<xsl:value-of select="requester_name2" />
 														</span>
 													</div>
 												</xsl:if>
 												<xsl:if test="requester_name3 != ''">
-													<div class="col-md-12">
-														<span class="col-xs-2">Requester 3: </span>
-														<span class="col-xs-3 mouseHover">
+													<div class="col-md-4">
+														<strong>Name of requester 3: </strong>
+														<span class="mouseHover">
 															<xsl:value-of select="requester_name3" />
 														</span>
 													</div>
 												</xsl:if>
 											</div>
 										</xsl:if>
-									</fieldset>
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Control Number: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="control_number" />
+												</span>
+											</div>
+										</div>
 								</xsl:for-each>
 							</div>
 						</div>
@@ -254,14 +248,14 @@
 								<div class="col-xs-12">
 									<strong> Submission class: </strong>
 									<span class="mouseHover">
-										<xsl:value-of select="fee_details/submission_class" />
+										<xsl:value-of select="fee_details/submission_class/@label_en" />
 									</span>
 								</div>
 								<div class="col-xs-12">
 									<strong>Submission description: </strong>
 									<div class="col-xs-12">
 										<span class="mouseHover">
-											<xsl:value-of select="fee_details/submission_description" />
+											<xsl:value-of select="fee_details/submission_description/@label_en" />
 										</span>
 									</div>
 								</div>
@@ -272,11 +266,6 @@
 								<div class="form-group col-xs-12 h3 text-info">Mitigation measures</div>
 								<xsl:if test="fee_details/mitigation/mitigation_type !=''">
 									<div class="col-xs-12">
-										<strong>The following mitigation measures are available
-		(select one). Sponsors must certify that they meet the criteria as outlined in the Food and
-		Drug Regulations.</strong>
-									</div>
-<div class="col-xs-12">
 										<div class="col-xs-12">
 											<span class="mouseHover">
 												<xsl:value-of
@@ -357,7 +346,6 @@
 					<h2 class="panel-title">Contact for this regulatory activity</h2>
 				</div>
 				<div class="panel-body">
-					<h4>Regulatory Activity Contact for THIS transaction</h4>
 					<strong>Company information: </strong>
 					<div class="well well-sm">
 						<div class="row">
@@ -534,188 +522,11 @@
 	</xsl:template>
 	<xsl:template name="hp-checkbox">
 		<xsl:param name="value" select="/.." />
-<span class="c-checkbox">
+		<span class="c-checkbox">
 			<xsl:choose>
 				<xsl:when test="$value = 'Y'"> X </xsl:when>
 				<xsl:otherwise> </xsl:otherwise>
 			</xsl:choose>
 		</span>
-	</xsl:template>
-	<xsl:template name="CapitalFirstLetter">
-		<xsl:param name="value" select="/.." />
-<xsl:value-of
-			select="translate(substring($value,1,1), $smallcase, $uppercase)" />
-<xsl:value-of
-			select="translate(substring($value,2), $uppercase, $smallcase)" />
-	</xsl:template>
-	<xsl:template name="converter">
-		<xsl:param name="value" select="/.." />
-<xsl:choose>
-			<xsl:when test="'ADDITIONAL_PRODUCT_CHGE' = $value">
-				<div class="col-xs-12">
-					<ul>
-						<li>
-							<span class="mouseHover">When the manufacturer wants to request an
-		additional product name, for a previously approved product, that does not require a brand
-		name or Look-Alike-Sound-Alike assessment. (New DIN is issued)</span>
-						</li>
-					</ul>
-				</div>
-<div
-					class="col-xs-12">
-					<div class="alert alert-info"> Note: A new dossier identifier maybe required.
-		Contact Health Canada for more information (hc.eReview.sc@canada.ca). <p>On this form: Use
-		existing company identifier and dossier identifier, unless a new dossier identifier was
-		assigned by Health Canada.</p>
-					</div>
-				</div>
-			</xsl:when>
-			<xsl:when test="'PRODUCT_NAME_CHGE' = $value">
-				<div class="col-xs-12">
-					<ul>
-						<li>
-							<span class="mouseHover">A change to an existing product name, for a
-		previously approved product, that does not require a brand name or Look-Alike-Sound-Alike
-		assessment.</span>
-						</li>
-					</ul>
-				</div>
-<div
-					class="col-xs-12">
-					<div class="alert alert-info"> On this form: Use existing company identifier and
-		dossier identifier. </div>
-				</div>
-			</xsl:when>
-			<xsl:when test="'OWNERSHIP_CHGE' = $value">
-				<div class="col-xs-12">
-					<ul>
-						<li>
-							<span class="mouseHover">When a manufacturer transfers the possession
-		and responsibility for a product to another manufacturer. (DIN stays the same)</span>
-						</li>
-					</ul>
-				</div>
-<div
-					class="col-xs-12">
-					<div class="alert alert-info"> Note: Dossier identifier will be transferred from
-		the previous owner if all DINs within the dossier are being transferred. Alternatively,
-		contact Health Canada for more information: eReview@hc-sc.gc.ca for drugs for human use and
-		vdd.skmd.so-dgps.dmv.cp@hc-sc.gc.ca for drugs for veterinary use. <p>On this form: Use
-		company identifier for new owner and use existing dossier identifier, unless a new dossier
-		identifier was assigned by Health Canada.</p>
-					</div>
-				</div>
-			</xsl:when>
-			<xsl:when test="'LICENGSING' = $value">
-				<div class="col-xs-12">
-					<ul>
-						<li>
-							<span class="mouseHover">An agreement between two manufacturers whereby
-		one manufacturer (licensor) supplies a drug product to another manufacturer (licensee) for
-		sale under the second manufacturer's name.</span>
-						</li>
-					</ul>
-				</div>
-<div
-					class="col-xs-12">
-					<div class="alert alert-info"> Note: A new Dossier identifier is required if the
-		proposed product(s) were not previously authorized (dossier identifier does not exists),
-		except if you are entering in new licensing agreement (i.e., change of licensor or change of
-		source). You may contact Health Canada for more information: hc.eReview.sc@canada.ca for
-		drugs for human use and clinical trials, and hc.vdd.skmd.so-dgps.dmv.cp.sc@canada.ca for
-		drugs for veterinary use. <p>On this form: Use the company identifier for new owner
-		(licensee) and use existing dossier identifier, unless a new dossier identifier was assigned
-		by Health Canada.</p>
-					</div>
-				</div>
-			</xsl:when>
-			<xsl:when test="'PRODUCT_MANUFACT_NAME_CHGE' = $value">
-				<div class="col-xs-12">
-					<ul>
-						<li>
-							<span class="mouseHover">A change to the manufacturer's name and the
-		product name.</span>
-						</li>
-					</ul>
-				</div>
-<div
-					class="col-xs-12">
-					<div class="alert alert-info"> Note: An amended company enrolment is required. A
-		new company identifier will be issued for the substantive name change. <p>On this form: Use
-		new company identifier (associated with new manufacturer’s name) and existing dossier
-		identifier.</p>
-					</div>
-				</div>
-			</xsl:when>
-			<xsl:when test="'MANUFACT_NAME_CHGE' = $value">
-				<div class="col-xs-12">
-					<ul>
-						<li>
-							<span class="mouseHover">A change to the manufacturer's name.</span>
-						</li>
-					</ul>
-				</div>
-<div
-					class="col-xs-12">
-					<div class="alert alert-info"> Note: An amended company enrolment is required. A
-		new company identifier will be issued for the substantive name change. <p>On this form: Use
-		new company identifier (associated with new manufacturer’s name) and existing dossier
-		identifier.</p>
-					</div>
-				</div>
-			</xsl:when>
-			<xsl:when test="'MERGER' = $value">
-				<div class="col-xs-12">
-					<ul>
-						<li>
-							<span class="mouseHover">The combining of two or more manufacturers into
-		one, through a purchase, acquisition, a pooling of interests, or purchase of controlling
-		interest in one manufacturer by another manufacturer, in order to take over assets and/or
-		operations.</span>
-						</li>
-					</ul>
-				</div>
-<div
-					class="col-xs-12">
-					<div class="alert alert-info"> Note: If merger/buyout resulted in a change in
-		company name, an amended company enrolment is required. A new company identifier will be
-		issued. Dossier identifier will remain the same as the dossier will be transferred from the
-		previous owner to the new owner. <p>On this form: Use company identifier for new owner and
-		existing dossier identifier.</p>
-					</div>
-				</div>
-			</xsl:when>
-			<xsl:when test="'POSTAUTH_CHEMISTRY_CHGE' = $value">
-				<div class="col-xs-12">
-					<ul>
-						<li>
-							<span class="mouseHover">For schedule C and D products. Chemistry and
-		Manufacturing information updates to match the Chemistry updates of the licensor.</span>
-						</li>
-					</ul>
-				</div>
-<div
-					class="col-xs-12">
-					<div class="alert alert-info"> On this form: Use existing company identifier and
-		dossier identifier. </div>
-				</div>
-			</xsl:when>
-			<xsl:when test="'POSTAUTH_LABEL_CHGE' = $value">
-				<div class="col-xs-12">
-					<ul>
-						<li>
-							<span class="mouseHover">Label update (including but not limited to
-		Product Monograph update, inner and outer label update) to match label updates of the
-		licensor.</span>
-						</li>
-					</ul>
-				</div>
-<div
-					class="col-xs-12">
-					<div class="alert alert-info"> On this form: Use existing company identifier and
-		dossier identifier. </div>
-				</div>
-			</xsl:when>
-		</xsl:choose>
 	</xsl:template>
 </xsl:transform>
