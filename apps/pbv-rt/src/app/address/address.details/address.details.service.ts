@@ -27,47 +27,50 @@ export class AddressDetailsService {
   }
 
   public mapFormModelToDataModel(formValue: any, addressModel: INameAddress) {
+    if (formValue) {
+      const lang = this._globalService.currLanguage;
+      const countryList: ICode[] = this._globalService.countryList;
+      const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
 
-    const lang = this._globalService.currLanguage;
-    const countryList: ICode[] = this._globalService.countryList;
-    const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
+      addressModel.street_address = formValue['address'];
+      addressModel.city = formValue['city'];
 
-    addressModel.street_address = formValue['address'];
-    addressModel.city = formValue['city'];
+      addressModel.country = formValue['country'] ? 
+          this._converterService.findAndConverCodeToIdTextLabel(countryList, formValue['country'], lang) : null;
 
-    addressModel.country = formValue['country'] ? 
-        this._converterService.findAndConverCodeToIdTextLabel(countryList, formValue['country'], lang) : null;
-
-    if (addressModel.country) {
-      if (this._utilsService.isCanadaOrUSA(addressModel.country._id)) {
-        addressModel.province_text = '';
-        addressModel.province_lov = formValue['provState'] ? 
-          this._converterService.findAndConverCodeToIdTextLabel(combinedProvStatList, formValue['provState'], lang) : null;
-        }else {
-          addressModel.province_text = formValue['provText'];
-          addressModel.province_lov = null;
-        } 
-    } else {
-      addressModel.province_text = formValue['provText'];
+      if (addressModel.country) {
+        if (this._utilsService.isCanadaOrUSA(addressModel.country._id)) {
+          addressModel.province_text = '';
+          addressModel.province_lov = formValue['provState'] ? 
+            this._converterService.findAndConverCodeToIdTextLabel(combinedProvStatList, formValue['provState'], lang) : null;
+          }else {
+            addressModel.province_text = formValue['provText'];
+            addressModel.province_lov = null;
+          } 
+      } else {
+        addressModel.province_text = formValue['provText'];
+      }
+      addressModel.postal_code = formValue['postal'];
     }
-    addressModel.postal_code = formValue['postal'];
   }
 
   public mapDataModelToFormModel(addressModel, formRecord: FormGroup) {
-    formRecord.controls['address'].setValue(addressModel.street_address);
-    formRecord.controls['city'].setValue(addressModel.city);
-    formRecord.controls['postal'].setValue(addressModel.postal_code);
+    if (addressModel) {
+      formRecord.controls['address'].setValue(addressModel.street_address);
+      formRecord.controls['city'].setValue(addressModel.city);
+      formRecord.controls['postal'].setValue(addressModel.postal_code);
 
-    if (addressModel.country) {
-      formRecord.controls['country'].setValue(addressModel.country._id);
+      if (addressModel.country) {
+        formRecord.controls['country'].setValue(addressModel.country._id);
 
-      if (this._utilsService.isCanadaOrUSA(addressModel.country._id)) {
-        formRecord.controls['provState'].setValue(addressModel.province_lov._id);
+        if (this._utilsService.isCanadaOrUSA(addressModel.country._id)) {
+          formRecord.controls['provState'].setValue(addressModel.province_lov._id);
+        } else {
+          formRecord.controls['provText'].setValue(addressModel.province_text);
+        }
       } else {
-        formRecord.controls['provText'].setValue(addressModel.province_text);
+        formRecord.controls['country'].setValue(null);
       }
-    } else {
-      formRecord.controls['country'].setValue(null);
     }
   }
 

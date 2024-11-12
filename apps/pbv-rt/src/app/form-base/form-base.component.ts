@@ -5,7 +5,7 @@ import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
+import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, NO, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol, IContactInformation} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -61,7 +61,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
-  public contactModel: IContactInformation;
+  public contactInfoModel: IContactInformation;
+  public addressModel: INameAddress;
+  public contactModel: IContact;
   // public holderAddressModel: INameAddress;
   // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact; 
@@ -87,8 +89,19 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   readonly selectedRALead: Signal<string> = this._signalService.getSelectedRaLead();
   isRALeadPostMarket: Signal<boolean> = computed(() => this.selectedRALead() === RA_LEAD.POST_MARKET_VIGILANCE);
 
+  readonly signed3rdParty: Signal<string> = this._signalService.getSigned3rdParty();
+  isSigned3rdParty: Signal<boolean> = computed(() => this.signed3rdParty() === YES);
+
   // computed signal for rendering "Fees" section
   showFees: Signal<boolean> = computed(() => {
+    if (this._utilsService.isEmpty(this.selectedDossierType()) || this.isPharmaOrBioDossierType()) {
+      return this.isRALeadPostMarket()? false: true;
+    } else {
+      return false;
+    }
+  });
+
+  showAddress: Signal<boolean> = computed(() => {
     if (this._utilsService.isEmpty(this.selectedDossierType()) || this.isPharmaOrBioDossierType()) {
       return this.isRALeadPostMarket()? false: true;
     } else {
@@ -181,6 +194,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.showFees()) {
       this.errorList = this.errorList.concat(this._feesErrors);
     }
+    this.errorList = this.errorList.concat(this._regulatoryContactErrors);
     this.errorList = this.errorList.concat(this._consertPrivacyError);
 
     console.log(this.errorList);
@@ -265,7 +279,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (trans.fee_details != null) {
       this.feesModel = trans.fee_details;
     }
-    this.contactModel = trans.contact_info;
+    this.contactInfoModel = trans.contact_info;
+    this.addressModel = trans.contact_info.address_info;
+    this.contactModel = trans.contact_info.contact_rep;
   }
 
   public preload() {
@@ -350,6 +366,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     } else {
       newTransactionEnrol.fee_details = null;
     }
+
+    const contactInfoFormGroupValue = this.regulatoryContactComponent.getFormValue();
+    let addressFormGroupValue = null;
+    if (this.isSigned3rdParty()) {
+      addressFormGroupValue = this.regulatoryContactComponent.getAddressFormValue();
+    }
+    const contactFormGroupValue = this.regulatoryContactComponent.getContactFormValue();
+    this._baseService.mapRegContactInfoToOutput(newTransactionEnrol.contact_info, contactInfoFormGroupValue, addressFormGroupValue, contactFormGroupValue);
 
     newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     newTransactionEnrol.software_version = this._globalService.appVersion;

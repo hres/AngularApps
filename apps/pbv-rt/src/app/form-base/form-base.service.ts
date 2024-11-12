@@ -7,6 +7,9 @@ import { ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 import { TransactionDetailsService } from '../transaction-details/transaction-details.service';
 import { FeesService } from '../fees/fees.service';
+import { RegulatoryContactService } from '../regulatory-contact/regulatory-contact.service';
+import { AddressDetailsService } from '../address/address.details/address.details.service';
+import { ContactDetailsService } from '../contact/contact.details/contact.details.service';
 
 @Injectable()
 export class FormBaseService {
@@ -14,7 +17,10 @@ export class FormBaseService {
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,
     private _regulatoryInfoService: RegulatoryInformationService, private _transactionDetailsService: TransactionDetailsService,
-    private _feesService: FeesService) {
+    private _feesService: FeesService,
+    private _regulatoryContactService: RegulatoryContactService,
+    private _addressDetailsService: AddressDetailsService,
+    private _contactDetailsService: ContactDetailsService) {
   }
 
   /**
@@ -54,6 +60,8 @@ export class FormBaseService {
       {
         is_3rd_party_signed: '',
         company_name: '',
+        address_info: this.getEmptyAddressDetailsModel(),
+        contact_rep: this.getEmptyContactModel(),
         confirm_contact_valid: null
       }
     );
@@ -221,5 +229,11 @@ export class FormBaseService {
 
   public mapFeesFormToOutput(feeDetail: FeeDetails, feeFormGroupValue: any): void{
     this._feesService.mapFormModelToDataModel(feeFormGroupValue, feeDetail);    
+  }
+
+  public mapRegContactInfoToOutput(contactInfo: IContactInformation, contactInfoFormGroupValue: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
+    this._regulatoryContactService.mapFormModelToDataModel(contactInfoFormGroupValue, contactInfo);
+    this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, contactInfo.address_info);
+    this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, contactInfo.contact_rep);
   }
 }

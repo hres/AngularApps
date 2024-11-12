@@ -56,6 +56,8 @@ export interface FeeDetails {
 export interface IContactInformation {
   is_3rd_party_signed: string;
   company_name: string;
+  address_info: INameAddress;
+  contact_rep: IContact;
   confirm_contact_valid: boolean;
 }
 

@@ -15,6 +15,7 @@ export class AppSignalService {
   private readonly selectedRaType = signal<string>(null);
   private readonly selectedTxnDesc = signal<string>(null);
   private readonly mitigationType = signal<string>(null);
+  private readonly isSigned3rdParty = signal<string>(null);
 
   getSelectedDossierType(): Signal<string>{
     return this.selectedDossierType.asReadonly();
@@ -58,5 +59,13 @@ export class AppSignalService {
 
   setMitigationType(mitigationType: string): void{
     this.mitigationType.set(mitigationType);
+  }
+
+  getSigned3rdParty(): Signal<string>{
+    return this.isSigned3rdParty.asReadonly();
+  }
+
+  setSigned3rdParty(signed: string): void{
+    this.isSigned3rdParty.set(signed);
   }
 }

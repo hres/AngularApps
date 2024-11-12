@@ -62,7 +62,8 @@
           </h2> 
           </header>
           <div class="panel-body">
-            <app-regulatory-contact [showErrors]="showErrors" [dataModel]="contactModel"
+            <app-regulatory-contact [showErrors]="showErrors" [dataModel]="contactInfoModel"
+            [addressModel]="addressModel" [contactModel]="contactModel"
             (errorList)="processContactInfoErrors($event)"></app-regulatory-contact>
           </div>
       </section>

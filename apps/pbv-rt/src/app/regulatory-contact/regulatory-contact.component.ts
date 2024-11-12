@@ -1,10 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BaseComponent, HelpIndex, ICode, UtilsService, HelpSequence } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { NO } from '../app.constants';
 import { RegulatoryContactService } from './regulatory-contact.service';
 import { IContact, IContactInformation, INameAddress } from '../models/transaction';
+import { AddressDetailsComponent } from '../address/address.details/address.details.component';
+import { ContactDetailsComponent } from '../contact/contact.details/contact.details.component';
+import { AppSignalService } from '../signal/app-signal.service';
 
 @Component({
   selector: 'app-regulatory-contact',
@@ -23,6 +26,9 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   @Input() contactModel: IContact;
   @Output() errorList = new EventEmitter(true);
 
+  @ViewChild(AddressDetailsComponent) addressDetailsComponent: AddressDetailsComponent;
+  @ViewChild(ContactDetailsComponent) contactDetailsComponent: ContactDetailsComponent;
+
   public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
   private _addressErrorList: any[];
@@ -35,7 +41,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   private _signed3rdPartyChanged : boolean = false;
 
   constructor(private _regulatoryContactService: RegulatoryContactService, private _fb: FormBuilder, 
-    private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _utilsService: UtilsService, private _globalService: GlobalService, private _signalService:AppSignalService) {
     super();
     this.showFieldErrors = false;
   }
@@ -86,7 +92,8 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   }
 
   isSigned3rdPartyOnChange() {
-    if (this.regulatoryContactInfoForm.get('isSigned3rdParty').value == NO) {
+    const isSigned = this.regulatoryContactInfoForm.get('isSigned3rdParty').value;
+    if (isSigned == NO) {
       this.showCompanyAndAddress = false;
       this._addressErrorList = [];
       this._signed3rdPartyChanged = false;
@@ -94,10 +101,19 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
       this.showCompanyAndAddress = true;
       this._signed3rdPartyChanged = true;
     }
+    this._signalService.setSigned3rdParty(isSigned);
   }
 
   getFormValue() {
     return this.regulatoryContactInfoForm.value;
+  }
+
+  getAddressFormValue() {
+    return this.addressDetailsComponent.getFormValue();
+  }
+
+  getContactFormValue() {
+    return this.contactDetailsComponent.getFormValue();
   }
 
   processAddressErrors(childErrors:any[]) {
