@@ -92,8 +92,10 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     this.devicesFormArr.push(group);
     if (this.devicesFormArr.length > 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(false);
-    }    
-    document.location.href = '#deviceName' + newIndex;
+      document.location.href = '#deviceName' + newIndex;
+    } else {
+      document.location.href = '#deviceName' + 0;
+    }
   }
 
   saveDeviceRecord(event: any) {  
@@ -159,6 +161,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.statusMessage = "Enregistrement d’intrument " + id + " a été supprimé.";
     }
+    document.location.href = '#addDeviceBtn';
   }
 
   revertDevice(event: any) {  
