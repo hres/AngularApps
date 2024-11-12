@@ -8,7 +8,7 @@
   "load.file": "Charger un fichier d'inscription de transaction réglementaire",
   "select.file": "Sélectionnez un fichier à charger",
   "refresh.file.input": "Actualisez cette page",
-  "choose.file":"Choisir le fichier",
+  "choose.file":"Choisir un fichier",
   "no.file.chosen": "Aucun fichier choisi",
   "error":"Erreur {{number}}:",
   "heading.transaction": "Inscription à la transaction réglementaire",
