@@ -448,6 +448,8 @@
     "panel.title.patent":"Patent Information",
     "panel.title.druguse":"Drug Use",
      "drug.use":"Drug Use",
+     "panel.title.noticeofcompliance":"Notice of Compliance (NOC) Date",
+     "noc.date":"NOC Date",
      "required": "This field is required",
      "error": "Error {{number}}:",
      "errorSummary.cspfile": "Certificate of Supplementary Protection (CSP) Application Form",
