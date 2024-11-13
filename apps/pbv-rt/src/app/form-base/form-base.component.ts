@@ -280,8 +280,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.feesModel = trans.fee_details;
     }
     this.contactInfoModel = trans.contact_info;
-    this.addressModel = trans.contact_info.address_info;
-    this.contactModel = trans.contact_info.contact_rep;
+    this.addressModel = trans.contact_info.regulatory_activity_address;
+    this.contactModel = trans.contact_info.regulatory_activity_contact;
   }
 
   public preload() {

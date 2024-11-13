@@ -58,11 +58,11 @@ export class FormBaseService {
   public getEmptyContactInfoModel() : IContactInformation {
     return (
       {
-        is_3rd_party_signed: '',
+        is_activity_changes: '',
         company_name: '',
-        address_info: this.getEmptyAddressDetailsModel(),
-        contact_rep: this.getEmptyContactModel(),
-        confirm_contact_valid: null
+        regulatory_activity_address: this.getEmptyAddressDetailsModel(),
+        regulatory_activity_contact: this.getEmptyContactModel(),
+        confirm_regulatory_contact: null
       }
     );
   }
@@ -233,7 +233,7 @@ export class FormBaseService {
 
   public mapRegContactInfoToOutput(contactInfo: IContactInformation, contactInfoFormGroupValue: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
     this._regulatoryContactService.mapFormModelToDataModel(contactInfoFormGroupValue, contactInfo);
-    this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, contactInfo.address_info);
-    this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, contactInfo.contact_rep);
+    this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, contactInfo.regulatory_activity_address);
+    this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, contactInfo.regulatory_activity_contact);
   }
 }

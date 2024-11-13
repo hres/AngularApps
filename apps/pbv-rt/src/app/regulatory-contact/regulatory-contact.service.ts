@@ -32,13 +32,13 @@ export class RegulatoryContactService {
     }
 
     public mapFormModelToDataModel(formValue : any, dataModel : IContactInformation) {
-        dataModel.is_3rd_party_signed = formValue['isSigned3rdParty'];
+        dataModel.is_activity_changes = formValue['isSigned3rdParty'];
         dataModel.company_name = formValue['companyName'];
-        dataModel.confirm_contact_valid = formValue['confirmContactValid'];
+        dataModel.confirm_regulatory_contact = formValue['confirmContactValid'];
     }
 
     public mapDataModelToFormModel(dataModel : IContactInformation, formRecord: FormGroup): void {
-        formRecord.controls['isSigned3rdParty'].setValue(dataModel.is_3rd_party_signed);
+        formRecord.controls['isSigned3rdParty'].setValue(dataModel.is_activity_changes);
         formRecord.controls['companyName'].setValue(dataModel.company_name);
     }
  

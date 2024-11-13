@@ -54,11 +54,11 @@ export interface FeeDetails {
 }
 
 export interface IContactInformation {
-  is_3rd_party_signed: string;
+  is_activity_changes: string;
   company_name: string;
-  address_info: INameAddress;
-  contact_rep: IContact;
-  confirm_contact_valid: boolean;
+  regulatory_activity_address: INameAddress;
+  regulatory_activity_contact: IContact;
+  confirm_regulatory_contact: boolean;
 }
 
 export interface INameAddress {
