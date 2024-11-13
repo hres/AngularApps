@@ -95,7 +95,7 @@
                 <label for="isPriority{{i}}" class="radio-inline">
                   <input type="radio"
                     id="isPriority{{i}}" name="isPriority" [value]="yesno.id"
-                    [formControl]="regulartoryInfoForm.controls['isPriority'] | formControl" required/>
+                    [formControlName]="'isPriority'" required/>
                   {{yesno | textTransform: lang }}
                   </label>
                </ng-container>
@@ -118,7 +118,7 @@
                 <label for="isNOC{{i}}" class="radio-inline">
                   <input type="radio"
                     id="isNOC{{i}}" name="isNOC" [value]="yesno.id"
-                    [formControl]="regulartoryInfoForm.controls['isNOC'] | formControl" required/>
+                    [formControlName]="'isNOC'" required/>
                   {{yesno | textTransform: lang }}
                   </label>
                </ng-container>
@@ -139,9 +139,9 @@
               </legend>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
                 <label for="isAdminSubmission{{i}}" class="radio-inline">
-                  <input type="radio" (change)="onAdminSubmissionSelected($event)"
+                  <input type="radio" (change)="onAdminSubmissionSelected(yesno.id, false)"
                     id="isAdminSubmission{{i}}" name="isAdminSubmission" [value]="yesno.id"
-                    [formControl]="regulartoryInfoForm.controls['isAdminSubmission'] | formControl" required/>
+                    [formControlName]="'isAdminSubmission'" required/>
                   {{yesno | textTransform: lang }}
                   </label>
                </ng-container>
