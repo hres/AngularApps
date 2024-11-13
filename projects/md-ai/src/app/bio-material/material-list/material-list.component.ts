@@ -102,7 +102,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.materialsFormArr.length > 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(false);
     }
-    if (this.materialsFormArr.length > 1) {
+    if (this.materialsFormArr.length >= 1) {
       document.location.href = '#materialName' + newIndex;
     } else {
       document.location.href = '#materialName' + 0;
@@ -175,7 +175,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.statusMessage = "Enregistrement du matériel biologique " + id + " a été supprimé.";
     }
-    document.location.href = '#addDeviceBtn';
+    document.location.href = '#addMaterialBtn';
   }
 
   revertMaterial(event: any) {  
