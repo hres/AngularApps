@@ -11,6 +11,8 @@ import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol
 import { PatentComponent } from '../patent/patent.component';
 import { DrugUseComponent } from '../drug-use/drug-use.component';
 import { NoticeOfComplianceComponent } from '../notice-of-compliance/notice-of-compliance.component';
+import { environment } from '../../environments/environment';
+
 
 @Component({
     selector: 'app-form-base',
@@ -28,6 +30,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   devEnv: boolean;
   byPassCheckSum: boolean;
   saveWorkCopyTime: number;
+  isInternal: boolean;
 
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
@@ -100,6 +103,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private datepipe: DatePipe
   ) {
     this.showErrors = false;
+
   }
 
   ngOnInit() {
@@ -126,6 +130,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.helpIndex = this._globalService.helpIndex;
       this.devEnv = this._globalService.devEnv;
       this.byPassCheckSum = this._globalService.byPassChecksum;
+      this.isInternal = environment.isInternal;
     } catch (e) {
       console.error(e);
     }
