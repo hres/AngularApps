@@ -1,0 +1,35 @@
+<div>
+  <div [formGroup]="noticeOfComplianceForm">
+    <div class="row">
+        <div class="col-sm-6">
+        <label for="nocDate" class="required">
+          <span
+            ><b>{{ "noc.date" | translate }}</b></span
+          >
+          <strong class="required">{{
+            "commmon.required.bracket" | translate
+          }}</strong>
+          <control-messages
+            *ngIf="noticeOfComplianceForm.controls['nocDate'].invalid"
+            [showError]="showErrors"
+            parentId="cspNocDate"
+            [control]="
+              noticeOfComplianceForm.controls['nocDate'] | formControl
+            "
+            controlId="nocDate"
+            label="nocDate"
+          ></control-messages>
+          <input
+            name="nocDate"
+            class="form-control"
+            id="nocDate"
+            type="date"
+            [formControlName]="'nocDate'"
+            (input)="checkDateValidity($event)"
+          />
+        </label>
+      </div>
+
+  </div>
+</div>
+

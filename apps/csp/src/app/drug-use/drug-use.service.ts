@@ -34,9 +34,9 @@ export class DrugUseService {
     transactionEnrol.drugUse = usageModelReturn.__text;
   }
 
-  public mapDataModelToFormModel(drugUseModel: IDrugUse, formRecord: FormGroup) {
+  public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
 
-    formRecord.controls['drugUse'].setValue(drugUseModel.usage);
+    formRecord.controls['drugUse'].setValue(transactionEnrol.drugUse);
    }
 
 }
