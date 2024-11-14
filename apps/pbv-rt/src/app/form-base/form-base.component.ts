@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed, inject, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST, HelpSequence } from '@hpfb/sdk/ui';
+import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST, HelpSequence } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
+import { FILE_OUTPUT_PREFIX, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
 import { RegulatoryInformationComponent } from '../regulatory-information/regulatory-information.component';
 import { FeesComponent } from '../fees/fees.component';
@@ -32,19 +32,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   @ViewChild(FeesComponent) feesComponent: FeesComponent;
-  // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
-  // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
   // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
-  // @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
   private _regulatoryInfoErrors = [];
   private _feesErrors = [];
-  // private _addressErrors = [];
   // private _contactErrors = [];
-  // private _agentAddressErrors = [];
-  // private _agentContactErrors = [];
   private _consertPrivacyError = [];
-  // private _certficationErrors = [];
+
   public rtForm: FormGroup; 
   public errorList = [];
   public showErrors: boolean;
@@ -58,38 +52,22 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
-  // public holderAddressModel: INameAddress;
-  // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact; 
   // public agentContactModel: IContact;
   public feesModel: FeeDetails;
 
-  // public notApplicable: boolean = false;
-  // public holder: string = ADDR_CONT_TYPE.HOLDER;
-  // public agent: string = ADDR_CONT_TYPE.AGENT;
+  private noFeeRALeads: string[] = [RA_LEAD.POST_MARKET_VIGILANCE]; 
 
-  // noContactTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions
-  // noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20']; //Fee section is not shown for these Transaction Descriptions
- 
-  
   private _signalService = inject(AppSignalService)
 
-  // dossier type related signals
-  readonly selectedDossierType: Signal<string> = this._signalService.getSelectedDossierType();
-  isVeterinaryDossierType: Signal<boolean> =  computed(() => this.selectedDossierType() === DOSSIER_TYPE.VETERINARY);
-  isPharmaOrBioDossierType: Signal<boolean> = computed(() => this.selectedDossierType() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.selectedDossierType() === DOSSIER_TYPE.BIOLOGIC_HUMAN);
-  
+  // dossier type related signal
+  private selectedDossierType: Signal<string> = this._signalService.getSelectedDossierType();
+  isPharmaBio: Signal<boolean> = this._signalService.isPharmaBio();
   // RA Lead signal
   readonly selectedRALead: Signal<string> = this._signalService.getSelectedRaLead();
-  isRALeadPostMarket: Signal<boolean> = computed(() => this.selectedRALead() === RA_LEAD.POST_MARKET_VIGILANCE);
-
   // computed signal for rendering "Fees" section
   showFees: Signal<boolean> = computed(() => {
-    if (this._utilsService.isEmpty(this.selectedDossierType()) || this.isPharmaOrBioDossierType()) {
-      return this.isRALeadPostMarket()? false: true;
-    } else {
-      return false;
-    }
+    return this._utilsService.isEmpty(this.selectedDossierType()) || (this.isPharmaBio() && !this.noFeeRALeads.includes(this.selectedRALead())) ?  true : false;
   });
 
   constructor(
@@ -197,26 +175,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  // processCertificationErrors(errorList) {
-  //   this._certficationErrors = errorList;
-  //   this.processErrors();
-  // }
-
-  // processAddressErrors(errorList) {
-  //   this._addressErrors = errorList;
-  //   this.processErrors();
-  // }
-
-  // processAgentAddressErrors(errorList) {
-  //   this._agentAddressErrors = errorList;
-  //   this.processErrors();
-  // }
-
-  // processAgentContactErrors(errorList) {
-  //   this._agentContactErrors = errorList;
-  //   this.processErrors();
-  // }
-
   public hideErrorSummary() {
     return this.showErrors && this.errorList && this.errorList.length > 0;
   }
@@ -261,31 +219,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log("Calling preload")
   }
 
-  // public setSelectedTxnDesc(val: string) {
-  //   // console.log("setSelectedTxnDesc==>", val);
-  //   // set the value of selectedTxDescSignal and showContact/showFees will be computed
-  //   this.selectedTxDescSignal.set(val);
-
-  //   if (!this.showContact()) {
-  //     this.holderAddressModel = this._baseService.getEmptyAddressDetailsModel();
-  //     this.holderContactModel = this._baseService.getEmptyContactModel();
-  //     this.agentAddressModel = this._baseService.getEmptyAddressDetailsModel();
-  //     this.agentContactModel = this._baseService.getEmptyContactModel();
-  //     this._addressErrors = [];
-  //     this._agentAddressErrors = [];
-  //     this._contactErrors = [];
-  //     this._agentContactErrors = [];
-  //   }
-
-  //   if (!this.showFees()) {
-  //     this.transFeeModel = this._baseService.getEmptyMasterFileFeeModel();
-  //     this._transFeeErrors = [];
-  //   }
-    
-  //   this.processErrors();
-  // }
-
-
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     $event.returnValue = true;
@@ -308,7 +241,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const newTransactionEnrol: TransactionEnrol = this._baseService.getEmptyTransactionEnrol();
 
-    // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
+    // regulatoryInfo and ??? are always rendered, their mappings to output data should always be executed
     const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
     this._baseService.mapRegulatoryInfoFormToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue);
 
@@ -367,20 +300,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       transactionEnrol.date_saved;
     return fileName;
   }
-
-  // public agentInfoOnChange() {
-  //   this.notApplicable = this.rtForm.controls['notApplicable'].value;
-  //   // console.log ("this.notApplicable=",this.notApplicable, typeof this.notApplicable);
-
-  //   if (this.notApplicable) {
-  //     this.agentAddressModel = this._baseService.getEmptyAddressDetailsModel();
-  //     this.agentContactModel = this._baseService.getEmptyContactModel();
-  //     this._agentAddressErrors = null;
-  //     this._agentContactErrors = null;
-  //   }
-
-  //   this.processErrors();
-  // }
 
   public onChanged(e, controlName) {
     if (e?.target?.checked === false) {

@@ -1,6 +1,7 @@
-import { inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { LoggerService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
+import { DOSSIER_TYPE } from '../app.constants';
 
 @Injectable()
 export class AppSignalService {
@@ -16,6 +17,18 @@ export class AppSignalService {
   private readonly selectedTxnDesc = signal<string>(null);
   private readonly mitigationType = signal<string>(null);
 
+  isPharmaBio(): Signal<boolean>{
+    return computed(() => {
+      return this.getSelectedDossierType()() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.getSelectedDossierType()() === DOSSIER_TYPE.BIOLOGIC_HUMAN;
+    });
+  }
+
+  isPharmaBioVet(): Signal<boolean>{
+    return computed(() => {
+      return this.getSelectedDossierType()() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.getSelectedDossierType()() === DOSSIER_TYPE.BIOLOGIC_HUMAN || this.getSelectedDossierType()() === DOSSIER_TYPE.VETERINARY;
+    });
+  }
+
   getSelectedDossierType(): Signal<string>{
     return this.selectedDossierType.asReadonly();
   }
@@ -25,7 +38,7 @@ export class AppSignalService {
     this.selectedDossierType.set(selectedDossierType);
   }
 
-  getSelectedRaLead(): Signal<string>{
+  getSelectedRaLead(): Signal<string>{ 
     return this.selectedRaLead.asReadonly();
   }
 
