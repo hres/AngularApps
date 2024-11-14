@@ -2,7 +2,7 @@
   <div id="materialErrorSummary{{j}}">
     <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
     [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
-    [headingLevel]="headingLevel" label="error.msg.bioMaterials" compId="materialListTable"></lib-error-summary> 
+    [headingLevel]="headingLevel" label="error.msg.bioMaterials" compId="materialListTable{{j}}"></lib-error-summary> 
   </div>
     <div [formGroupName]="'materialInfo'">
       <div class="row">

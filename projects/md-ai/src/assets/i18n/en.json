@@ -115,7 +115,7 @@
     "enrol.version": "Enrolment Version",
     "date.saved": "Date Last Saved",
     "save.working.copy": "Save Working Copy",
-    "generate.final": "Generate Final XML",
+    "generate.final": "Generate XML",
     "msg.success.load": "The file was loaded successfully",
     "msg.err.parse.fail": "Error: there was an error parsing the file.",
     "msg.err.file.load": "There was a problem loading the file.",

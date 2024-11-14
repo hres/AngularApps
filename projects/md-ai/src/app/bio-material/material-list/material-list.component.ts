@@ -82,7 +82,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     // console.log('...._processErrorSummaries:', errSummaryEntries);
     // get the first entry where the errSummaryMessage property is not empty 
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
-    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId !== "deviceListTable");
+    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && !summary.errSummaryMessage.componentId.startsWith("deviceListTable"));
     if (filteredErrSummaryEntry) {
       this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
     } else {
@@ -102,7 +102,11 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.materialsFormArr.length > 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(false);
     }
-    document.location.href = '#materialName' + newIndex;
+    if (this.materialsFormArr.length >= 1) {
+      document.location.href = '#materialName' + newIndex;
+    } else {
+      document.location.href = '#materialName' + 0;
+    }
   }
 
   saveMaterialRecord(event: any) {  
@@ -171,6 +175,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.statusMessage = "Enregistrement du matériel biologique " + id + " a été supprimé.";
     }
+    document.location.href = '#addMaterialBtn';
   }
 
   revertMaterial(event: any) {  

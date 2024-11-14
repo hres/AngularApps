@@ -75,7 +75,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     // get the first entry where the errSummaryMessage property is not empty 
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
     // console.log("processing error summary in contact list component...", errSummaryEntries);
-    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId !== "materialListTable");
+    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && !summary.errSummaryMessage.componentId.startsWith("materialListTable"));
     // console.log('....', filteredErrSummaryEntry);
     if (filteredErrSummaryEntry) {
       this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
@@ -90,10 +90,12 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     const newIndex = this.devicesFormArr.length;
     const group = this.deviceService.createDeviceFormGroup(this.fb);
     this.devicesFormArr.push(group);
-    if (this.devicesFormArr.length > 1) {
+    if (this.devicesFormArr.length >= 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(false);
-    }    
-    document.location.href = '#deviceName' + newIndex;
+      document.location.href = '#deviceName' + newIndex;
+    } else {
+      document.location.href = '#deviceName' + 0;
+    }
   }
 
   saveDeviceRecord(event: any) {  
@@ -159,6 +161,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.statusMessage = "Enregistrement d’intrument " + id + " a été supprimé.";
     }
+    document.location.href = '#addDeviceBtn';
   }
 
   revertDevice(event: any) {  
