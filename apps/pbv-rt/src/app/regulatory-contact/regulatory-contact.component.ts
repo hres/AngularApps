@@ -20,7 +20,6 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   helpIndex: HelpSequence;
   
   public regulatoryContactInfoForm: FormGroup;
-  @Input() showCompanyAndAddress: boolean;
   @Input() showErrors: boolean;
   @Input() dataModel: IContactInformation;
   @Input() addressModel: INameAddress;
@@ -38,6 +37,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
 
   showThirdPartyNote : boolean = false;
   placeErrorLast = "confirmContactValid";
+  showCompanyAndAddress : boolean = true;
   private _signed3rdPartyChanged : boolean = false;
 
   constructor(private _regulatoryContactService: RegulatoryContactService, private _fb: FormBuilder, 
@@ -84,6 +84,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
           dataModelCurrentValue,
           <FormGroup>this.regulatoryContactInfoForm);
 
+          this.isSigned3rdPartyOnChange();
         // this.onMfTypeSelected(null);
         // this.onTxDescriptionSelected(null);
         // this.reqRevisionChanged(null);
