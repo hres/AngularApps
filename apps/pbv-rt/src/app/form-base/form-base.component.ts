@@ -261,7 +261,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log(fileData);
     if (fileData.data !== null) {
       this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
-      console.log(this.transactionEnrollModel);
       this._initModels(this.transactionEnrollModel);
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
@@ -281,7 +280,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.feesModel = trans.fee_details;
     }
     this.contactInfoModel = trans.contact_info;
-
     this.addressModel = trans.contact_info.address_info;
     this.contactModel = trans.contact_info.contact_rep;
   }
