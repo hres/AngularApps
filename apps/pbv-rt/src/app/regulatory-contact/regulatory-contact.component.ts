@@ -84,6 +84,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
           dataModelCurrentValue,
           <FormGroup>this.regulatoryContactInfoForm);
 
+          this.isSigned3rdPartyOnChange();
         // this.onMfTypeSelected(null);
         // this.onTxDescriptionSelected(null);
         // this.reqRevisionChanged(null);
