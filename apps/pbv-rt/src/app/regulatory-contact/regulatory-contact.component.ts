@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChil
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BaseComponent, HelpIndex, ICode, UtilsService, HelpSequence } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
-import { NO } from '../app.constants';
+import { NO, YES } from '../app.constants';
 import { RegulatoryContactService } from './regulatory-contact.service';
 import { IContact, IContactInformation, INameAddress } from '../models/transaction';
 import { AddressDetailsComponent } from '../address/address.details/address.details.component';
@@ -103,6 +103,17 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
       this._signed3rdPartyChanged = true;
     }
     this._signalService.setSigned3rdParty(isSigned);
+  }
+
+  showAutLetterNote() {
+    const isSigned = this.regulatoryContactInfoForm.get('isSigned3rdParty');
+
+    if (isSigned.value) {
+      if (isSigned.value == YES) {
+        return true;
+      }
+    }
+    return false;
   }
 
   getFormValue() {
