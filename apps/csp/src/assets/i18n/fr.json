@@ -444,5 +444,7 @@
      "errorSummary.cspfile": "Certificate of Supplementary Protection (CSP) Application Form(fr)",
     "error.found.because": " n’a pas pu être sauvegardé car ",
      "error.found.plural": " erreurs ont été trouvées ",
-     "error.found.singular": " erreur a été trouvée "
+     "error.found.singular": " erreur a été trouvée ",
+      "new.drug.submission.info.nds.number": "NDS Number(fr)",
+     "panel.title.new.drug.submission.info": "New Drug Submission (NDS) Information(fr)"
 }

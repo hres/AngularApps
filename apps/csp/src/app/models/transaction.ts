@@ -15,6 +15,7 @@ export interface TransactionEnrol {
   patent: IPatent;
   drugUse: string;
   nocDate: string;
+  ndsNumber: string;
 }
 
 export interface Ectd {
