@@ -5,9 +5,9 @@ import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { FILE_OUTPUT_PREFIX, NO, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES } from '../app.constants';
+import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, NO, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, Transaction, TransactionEnrol, IContactInformation} from '../models/transaction';
+import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol, IContactInformation} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
 import { RegulatoryInformationComponent } from '../regulatory-information/regulatory-information.component';
 import { RegulatoryContactComponent } from '../regulatory-contact/regulatory-contact.component';
@@ -33,6 +33,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   @ViewChild(FeesComponent) feesComponent: FeesComponent;
+  @ViewChild(RegulatoryContactComponent) regulatoryContactComponent: RegulatoryContactComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
   // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
@@ -56,6 +57,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
+  public contactInfoModel: IContactInformation;
+  public addressModel: INameAddress;
+  public contactModel: IContact;
   // public holderAddressModel: INameAddress;
   // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact; 
@@ -73,17 +77,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   readonly selectedRALead: Signal<string> = this._signalService.getSelectedRaLead();
   isRALeadPostMarket: Signal<boolean> = computed(() => this.selectedRALead() === RA_LEAD.POST_MARKET_VIGILANCE);
 
+  readonly signed3rdParty: Signal<string> = this._signalService.getSigned3rdParty();
+  isSigned3rdParty: Signal<boolean> = computed(() => this.signed3rdParty() === YES);
+
   // computed signal for rendering "Fees" section
   showFees: Signal<boolean> = computed(() => {
     return this._utilsService.isEmpty(this.selectedDossierType()) || (this.isPharmaBio() && !this.noFeeRALeads.includes(this.selectedRALead())) ?  true : false;
-  });
-
-  showAddress: Signal<boolean> = computed(() => {
-    if (this._utilsService.isEmpty(this.selectedDossierType()) || this.isPharmaOrBioDossierType()) {
-      return this.isRALeadPostMarket()? false: true;
-    } else {
-      return false;
-    }
   });
 
   constructor(
