@@ -179,7 +179,13 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
         this.deviceNotAuthorized = true;
         this._utilsService.resetControlsValues(licenceNum);
       }
-    }
+    } else {
+      this.deviceAppSubmitted = false;
+      this.deviceAppNotSubmitted = false; 
+      this.deviceAuthorized = false;
+      this.deviceNotAuthorized = false;
+      this._utilsService.resetControlsValues(licenceNum, deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
+  }
   }
 
   onDeviceAppChange(e: any) {
@@ -204,6 +210,10 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
         this.deviceAppNotSubmitted = true;
         this._utilsService.resetControlsValues(deviceApplicationNumber);
       }
+    } else {
+      this.deviceAppSubmitted = false;
+      this.deviceAppNotSubmitted = false;
+      this._utilsService.resetControlsValues(deviceApplicationNumber, deviceExplain);
     }
   }
 
