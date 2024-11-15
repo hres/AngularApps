@@ -34,8 +34,7 @@
     "requester.name2": "Name of requester 2",
     "requester.name3": "Name of requester 3",
 
-    "reg.contact.this": "Contact for this regulatory activity",
-    "reg.act.contact": "Regulatory Activity Contact",
+    "panel.title.reg.contact": "Contact for this regulatory activity",
     "company.info": "Company information",
     "is.signed.3rd.party":"Is the contact for this regulatory activity a third party corresponding on behalf of the manufacturer/sponsor?",
     "aut.letter.note":"A signed third party authorization form is required for regulatory activities listed on the form. Refer to the list in the notes/requirements section of the form posted on Health Canada's website.",

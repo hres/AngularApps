@@ -20,8 +20,7 @@
           <control-messages *ngIf="addressForm.controls['address'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressForm.controls['address'] | formControl"
-                            controlId="address" label="addressDetails.street" parentId="Info"
-                            translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
+                            controlId="address" label="addressDetails.street" parentId="addressInfo"></control-messages>
           <input name="address" id="address" class="form-control full-width" 
             [formControlName]="'address'" maxlength="250"/>
         </label>
@@ -35,8 +34,7 @@
           <control-messages *ngIf="addressForm.controls['city'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressForm.controls['city'] | formControl"
-                            controlId="city" label="addressDetails.city" parentId="Info"
-                            translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
+                            controlId="city" label="addressDetails.city" parentId="addressInfo"></control-messages>
           <input name="city" id="city" class="form-control full-width"  
                  [formControlName]="'city'" maxlength="60"/>
         </label>
@@ -48,8 +46,7 @@
           <control-messages *ngIf="addressForm.controls['country'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressForm.controls['country'] | formControl"
-                            controlId="country" label="addressDetails.country" parentId="Info"
-                            translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
+                            controlId="country" label="addressDetails.country" parentId="addressInfo"></control-messages>
           <select id="country" required [formControlName]="'country'" class="required form-control"                      
                   (change)="onCountryChange($event)">
             <option label=" " value=""></option>
@@ -66,8 +63,8 @@
           <control-messages *ngIf="addressForm.controls['provState'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressForm.controls['provState'] | formControl"
-                            controlId="provState" label="{{provinceLabel}}" parentId="Info"
-                            translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
+                            controlId="provState" label="{{provinceLabel}}" parentId="addressInfo"
+                            ></control-messages>
           <select id="provState" required class="form-control full-width"  [formControlName]="'provState'">
             <option label=" " value=""></option>
             <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov | textTransform: lang}}</option>
@@ -88,8 +85,7 @@
           <control-messages *ngIf="addressForm.controls['postal'].invalid"
                             [showError]="showFieldErrors"
                             [control]="addressForm.controls['postal'] | formControl"
-                            controlId="postal" label="{{postalLabel}}" parentId="Info"
-                            translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages> 
+                            controlId="postal" label="{{postalLabel}}" parentId="addressInfo"></control-messages> 
           <input *ngIf="!isCanadaOrUSA()" name="postal" id="postal" class="form-control" [formControlName]="'postal'"  
                  maxlength="20" />
           <input *ngIf="isCanada()" name="postal" id="postal" class="form-control" [formControlName]="'postal'"  

@@ -20,7 +20,6 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   @Input() showErrors: boolean;
   @Input() contactDetailsModel: IContact;
   @Output() errorList = new EventEmitter(true);
-  @Input() contactGroupLabelKey;
 
   constructor(private _contactDetailsService: ContactDetailsService, private _fb: FormBuilder, private _utilsService: UtilsService,
     private _globalService: GlobalService) {

@@ -8,8 +8,7 @@
           <control-messages *ngIf="contactDetailsForm.controls['firstName'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactDetailsForm.controls['firstName'] | formControl"
-                            controlId="firstName" label="first.name" parentId="Info"
-                            translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
+                            controlId="firstName" label="first.name" parentId="contactInfo"></control-messages>
           <input name="firstName" id="firstName" class="form-control full-width" maxlength="60" 
             [formControlName]="'firstName'"/>
         </label>
@@ -21,6 +20,8 @@
             [formControlName]="'initials'"/>
         </label>
       </div>
+    </div>
+    <div class="row">
       <div class="form-group col-sm-6" >
         <label for="lastName" class="required full-width">
           <span class="field-name">{{'last.name'|translate}}</span>
@@ -28,8 +29,7 @@
           <control-messages *ngIf="contactDetailsForm.controls['lastName'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactDetailsForm.controls['lastName'] | formControl"
-                            controlId="lastName" label="last.name" parentId="Info"
-                            translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
+                            controlId="lastName" label="last.name" parentId="contactInfo"></control-messages>
           <input name="lastName" id="lastName" class="form-control full-width" maxlength="60" 
             [formControlName]="'lastName'"/>
         </label>
@@ -43,8 +43,7 @@
           <control-messages *ngIf="contactDetailsForm.controls['language'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactDetailsForm.controls['language'] | formControl"
-                            controlId="language" label="lang.correspond" parentId="Info"
-                            translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
+                            controlId="language" label="lang.correspond" parentId="contactInfo"></control-messages>
           <select id="language" required class="form-control" [formControlName]="'language'">
             <option label=" " value=""></option>
             <option *ngFor="let langOption of languageList" [value]="langOption.id">{{langOption | textTransform: lang }}</option>
@@ -58,8 +57,7 @@
           <control-messages *ngIf="contactDetailsForm.controls['jobTitle'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactDetailsForm.controls['jobTitle'] | formControl"
-                            controlId="jobTitle" label="job.title" parentId="Info"
-                            translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
+                            controlId="jobTitle" label="job.title" parentId="contactInfo"></control-messages>
           <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="60" [formControlName]="'jobTitle'"/>
         </label>
       </div>
@@ -72,8 +70,7 @@
           <control-messages *ngIf="contactDetailsForm.controls['phoneNumber'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactDetailsForm.controls['phoneNumber'] | formControl"
-                            controlId="phoneNumber" label="phone.number" parentId="Info"
-                            translatedParentLabel="{{contactGroupLabelKey|translate}}"
+                            controlId="phoneNumber" label="phone.number" parentId="contactInfo"
                             requiredLength="10"></control-messages>
           <input name="phoneNumber" id="phoneNumber" class="form-control full-width" data-only-digits
             [formControlName]="'phoneNumber'" maxlength="25"/>
@@ -94,8 +91,7 @@
           <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="contactDetailsForm.controls['faxNumber'].invalid" [showError]="showFieldErrors"
             [control]="contactDetailsForm.controls['faxNumber'] | formControl" controlId="faxNumber" label="fax.number"
-            parentId="Info" requiredLength="10"
-            translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
+            parentId="contactInfo" requiredLength="10"></control-messages>
           <input name="faxNumber" id="faxNumber" class="form-control full-width" data-only-digits maxlength="25"
                  [formControlName]="'faxNumber'"/>
                  <span class="field-name small">{{'fax.number.nofaxnum' |translate }}</span>
@@ -110,8 +106,7 @@
           <control-messages *ngIf="contactDetailsForm.controls['email'].invalid"
                             [showError]="showFieldErrors"
                             [control]="contactDetailsForm.controls['email'] | formControl"
-                            controlId="email" label="contact.email" parentId="Info"
-                            translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
+                            controlId="email" label="contact.email" parentId="contactInfo"></control-messages>
           <input name="email" id="email" class="form-control full-width" maxlength="80" [formControlName]="'email'" />
         </label>
       </div>

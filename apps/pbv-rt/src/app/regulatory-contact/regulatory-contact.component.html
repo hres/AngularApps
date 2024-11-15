@@ -44,7 +44,7 @@
             <h3 class="mrgn-tp-sm">{{ 'address.info' | translate }}</h3>
         <div>
             <app-address-details [showErrors]="showErrors" 
-                    [addressModel]="addressModel" [addrGroupLabelKey]="'reg.contact.this'"
+                    [addressModel]="addressModel"
                     (errorList)="processAddressErrors($event)">
             </app-address-details>
         </div>
@@ -52,7 +52,7 @@
         <h3 class="mrgn-tp-sm">{{ 'company.representative' | translate }}</h3>
         <div>
             <app-contact-details [showErrors]="showErrors" [contactDetailsModel]="contactModel"
-                    (errorList)="processContactErrors($event)" [contactGroupLabelKey]="'reg.contact.this'">
+                    (errorList)="processContactErrors($event)">
             </app-contact-details> 
         </div>
         <div class="row">
