@@ -438,6 +438,8 @@
     "panel.title.patent":"Patent Information(fr)",
     "panel.title.druguse":"Drug Use(fr)",
      "drug.use":"Drug Use(fr)",
+     "panel.title.noticeofcompliance":"Notice of Compliance (NOC) Date(fr)",
+     "noc.date":"NOC Date(fR)",
      "required": "This field is required(fr)",
      "errorSummary.cspfile": "Certificate of Supplementary Protection (CSP) Application Form(fr)",
     "error.found.because": " n’a pas pu être sauvegardé car ",

@@ -10,6 +10,9 @@ import { FormBaseService } from './form-base.service';
 import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { PatentComponent } from '../patent/patent.component';
 import { DrugUseComponent } from '../drug-use/drug-use.component';
+import { NoticeOfComplianceComponent } from '../notice-of-compliance/notice-of-compliance.component';
+import { environment } from '../../environments/environment';
+
 
 @Component({
     selector: 'app-form-base',
@@ -27,6 +30,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   devEnv: boolean;
   byPassCheckSum: boolean;
   saveWorkCopyTime: number;
+  isInternal: boolean;
 
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
@@ -34,6 +38,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     @ViewChild(PatentComponent) patentComponent: PatentComponent;
     @ViewChild(DrugUseComponent) drugUseComponent: DrugUseComponent;
+    @ViewChild(NoticeOfComplianceComponent) noticeOfComplianceComponent: NoticeOfComplianceComponent;
   // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
@@ -50,6 +55,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _certficationErrors = [];
   private _patentInformationErrors = [];
   private _drugUseErrors = [];
+  private _noticeOfComplianceErrors = [];
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -97,6 +103,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private datepipe: DatePipe
   ) {
     this.showErrors = false;
+
   }
 
   ngOnInit() {
@@ -123,6 +130,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.helpIndex = this._globalService.helpIndex;
       this.devEnv = this._globalService.devEnv;
       this.byPassCheckSum = this._globalService.byPassChecksum;
+      this.isInternal = environment.isInternal;
     } catch (e) {
       console.error(e);
     }
@@ -166,6 +174,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     this.errorList = this.errorList.concat(this._patentInformationErrors);
     this.errorList = this.errorList.concat(this._drugUseErrors);
+    this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -177,6 +186,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processDrugUseErrors(errorList) {
     this._drugUseErrors = errorList;
+    this.processErrors();
+  }
+
+  processNoticeOfComplianceErrors(errorList) {
+    this._noticeOfComplianceErrors = errorList;
     this.processErrors();
   }
 
@@ -315,6 +329,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const drugUseFormInfor = this.drugUseComponent.getFormValue();
     this._baseService.mapDrugUseFormsToOutput(newTransactionEnrol, drugUseFormInfor);
+
+
+    const noticeOfComplianceFormInfo = this.noticeOfComplianceComponent.getFormValue();
+    this._baseService.mapNOCFormsToOutput(newTransactionEnrol, noticeOfComplianceFormInfo);
 
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();

@@ -14,6 +14,7 @@ export interface TransactionEnrol {
   fee_details: FeeDetails;
   patent: IPatent;
   drugUse: string;
+  nocDate: string;
 }
 
 export interface Ectd {

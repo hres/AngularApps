@@ -113,8 +113,9 @@
                 <p>{{'section.show.option' |translate}}{{'is.admin.submission' |translate}}</p>
                 <p>{{'ht.refer.to'|translate}}
                     <a href="{{'ht.admin.sub.url'|translate}}" target="_blank">{{'ht.admin.sub'|translate}}</a>
+                    {{'ht.admin.sub.1'|translate}}
+                    <a href="{{'ht.admin.sub.2.url'|translate}}" target="_blank">{{'ht.admin.sub.2'|translate}}</a>
                 </p>
-                <p>{{'ht.admin.sub.1'|translate}}</p>
 
                 <p class="fn-rtn"><a [href]="'#' + helpTextSequences['adminSubIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
                         {{helpTextSequences.adminSubIndx[0]}}
@@ -137,16 +138,6 @@
                 <p class="fn-rtn"><a [href]="'#' + helpTextSequences['regActIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
                         {{helpTextSequences.regActIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
-            </div>
-        </dd>
-
-        <dt>{{'Instruction'|translate}}  {{helpTextSequences['ctrlNumIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['ctrlNumIndx'][1]">
-            <div class="fn-rep">
-                <p>{{'ctrl.num' |translate}}</p>
-                <app-control-number-helptext [lang]="lang" />
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['ctrlNumIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                    {{helpTextSequences['ctrlNumIndx'][0]}} <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
 
@@ -211,8 +202,18 @@
             </div>
         </dd>
         
+        <dt>{{'Instruction'|translate}}  {{helpTextSequences['ctrlNumIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['ctrlNumIndx'][1]">
+            <div class="fn-rep">
+                <p>{{'ctrl.num' |translate}}</p>
+                <app-control-number-helptext [lang]="lang" />
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['ctrlNumIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                    {{helpTextSequences['ctrlNumIndx'][0]}} <span class="wb-inv"> referrer</span></a></p>
+            </div>
+        </dd>
+
         <dt>{{'Instruction'|translate}} {{helpTextSequences['feesIndx'][0]}}</dt>
-       <dd [id]="helpTextSequences['feesIndx'][1]">
+        <dd [id]="helpTextSequences['feesIndx'][1]">
             <div class="fn-rep">
                 <p>{{'section.show.option' |translate}}{{'regulatory.fees' |translate}}</p>
                 <p>{{'ht.fees.1'|translate}}</p>

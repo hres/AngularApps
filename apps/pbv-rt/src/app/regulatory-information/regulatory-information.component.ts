@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation, computed, signal, inject, viewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation, computed, signal, inject, viewChild, Signal} from '@angular/core';
 import { ICodeDefinition, ICode, UtilsService, BaseComponent, ControlMessagesComponent, HelpSequence, LoggerService } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
@@ -43,16 +43,11 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     return this._getCodeDefinition(this._globalService.dossierTypes, this.selectedDossierTypeSignal());
   });
 
-  isPharmaBio = computed(() => {
-    return this.selectedDossierTypeSignal() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.selectedDossierTypeSignal() === DOSSIER_TYPE.BIOLOGIC_HUMAN;
-  });
-
-  isPharmaBioVet = computed(() => {
-    return this.selectedDossierTypeSignal() === DOSSIER_TYPE.PHARMACEUTICAL_HUMAN || this.selectedDossierTypeSignal() === DOSSIER_TYPE.BIOLOGIC_HUMAN || this.selectedDossierTypeSignal() === DOSSIER_TYPE.VETERINARY;
-  });
+  isPharmaBio: Signal<boolean> = this._signalService.isPharmaBio();
+  isPharmaBioVet: Signal<boolean> = this._signalService.isPharmaBioVet();
 
   adminSubmissionSelected = signal('');
-  isAdminSubmission = computed(() => {
+  isAdminSubmission: Signal<boolean> = computed(() => {
     return this.adminSubmissionSelected() === 'Y';
   });
 
@@ -101,7 +96,9 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
           dataModelCurrentValue,
           <FormGroup>this.regulartoryInfoForm);
 
-        this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value);
+        this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value); 
+        this.onAdminSubmissionSelected(this.regulartoryInfoForm.controls['isAdminSubmission'].value, true);
+        this.onAdminSubTypeSelected(this.regulartoryInfoForm.controls['adminSubType'].value);
       }
     }
   }
@@ -111,11 +108,13 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     this._signalService.setSelectedDossierType(selectedDossierTypeId)
   }
 
-  onAdminSubmissionSelected(e:any) {
-    this.adminSubmissionSelected.set(this.regulartoryInfoForm.get("isAdminSubmission")?.value);
-    const valuesToReset = ['adminSubType'];
-    this._resetControlValues(valuesToReset);
-    this.selectedAdminSubTypeDefinition = '';
+  onAdminSubmissionSelected(selectedAdminSubmissionId: string, isProgrammaticUpdate: boolean) {
+    this.adminSubmissionSelected.set( selectedAdminSubmissionId );
+    if (!isProgrammaticUpdate){ // if the event is triggered from the UI
+      const valuesToReset = ['adminSubType'];
+      this._resetControlValues(valuesToReset);
+      this.selectedAdminSubTypeDefinition = '';
+    }
   }
 
   onAdminSubTypeSelected(selectedAdminSubTypeId: string) {

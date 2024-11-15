@@ -43,33 +43,31 @@ export class FeesComponent extends BaseComponent implements OnInit{
   
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
-    
-    if (!this.feesForm) {
-      this.feesForm = FeesService.getFeesForm(this._fb);
-    }
-
     this.submissionClassOptions = this._globalService.submissionClasses;
     this.mitigationTypeOptions = this._globalService.mitigationTypes;
     this.yesNoList = this._globalService.yesnoList;
+
+    this._getFeesForm()
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const isFirstChange = this._utilsService.isFirstChange(changes);
-    // Ignore first trigger of ngOnChanges
-    if (!isFirstChange) {
-      if (changes['showErrors']) {
-        this.showFieldErrors = changes['showErrors'].currentValue;
-      }
-      if (changes['dataModel']) {
-        const dataModelCurrentValue = changes['dataModel'].currentValue as FeeDetails;
-        this.dataModel = dataModelCurrentValue;
-        this._feesService.mapDataModelToFormModel(
-          dataModelCurrentValue,
-          <FormGroup>this.feesForm);
-          // const codeDefinition = this._utilsService.findCodeDefinitionById(this.submissionClassOptions, dataModelCurrentValue.submission_class._id);
-          // this.selectedSubmissionClassDescription = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
-      }
+    if (changes['showErrors']) {
+      this.showFieldErrors = changes['showErrors'].currentValue;
     }
+    if (changes['dataModel']) {
+      const dataModelCurrentValue = changes['dataModel'].currentValue as FeeDetails;
+      this.dataModel = dataModelCurrentValue;
+      this._feesService.mapDataModelToFormModel(
+        dataModelCurrentValue,
+        <FormGroup>this._getFeesForm());
+    }
+  }
+
+  private _getFeesForm(){
+    if (!this.feesForm) {
+      this.feesForm = FeesService.getFeesForm(this._fb);
+    }
+    return this.feesForm;
   }
 
   onSubmissionClassSelected(selectedSubmissionClass: string){

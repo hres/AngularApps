@@ -26,7 +26,6 @@ export class RegulatoryInformationService {
     isNOC: [null, [Validators.required]],
     isAdminSubmission: [null, [Validators.required]],
     adminSubType:[null, [Validators.required]],
-    isFees: [null, [Validators.required]]
    });
   }
 
