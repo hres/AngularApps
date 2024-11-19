@@ -141,75 +141,71 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-												<strong class="padLeft3">Regulatory Transaction	Description: </strong>
-												<span class="mouseHover">
-													<xsl:choose>
-														<xsl:when
-															test="sequence_description_value/@id = 'YEAR'">
-															<xsl:value-of
-																select="sequence_description_value" />
-		: <xsl:value-of select="transaction_description" />
-														</xsl:when>
-														<xsl:when
-															test="sequence_description_value/@id = 'YEAR_LIST_OF_CHANGE'">
-															<div class="col-md-12">
-																<xsl:value-of
-																	select="sequence_description_value" />
-		: </div>
-<div class="col-md-12">
-																<xsl:call-template name="break">
-																	<xsl:with-param name="text"
-																		select="sequence_year" />
-																</xsl:call-template>
-															</div>
-														</xsl:when>
-														<xsl:otherwise>
-															<xsl:value-of
-																select="transaction_description/@label_en" />
-														</xsl:otherwise>
-													</xsl:choose>
-												</span>
-											</div>
+											<strong class="padLeft3">Regulatory Transaction	Description: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="transaction_description/@label_en" />
+											</span>
 										</div>
-										<xsl:if test="requester_name != ''">
-											<div class="row">
-												<div class="col-md-12">
-													<strong class="padLeft3">Requester of solicited	information: </strong>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-4">
-													<strong class="padLeft3">Name of requester 1: </strong>
-													<span class="mouseHover">
-														<xsl:value-of select="requester_name" />
-													</span>
-												</div>
-												<xsl:if test="requester_name2 != ''">
-													<div class="col-md-4">
-														<strong>Name of requester 2: </strong>
-														<span class="mouseHover">
-															<xsl:value-of select="requester_name2" />
-														</span>
-													</div>
-												</xsl:if>
-												<xsl:if test="requester_name3 != ''">
-													<div class="col-md-4">
-														<strong>Name of requester 3: </strong>
-														<span class="mouseHover">
-															<xsl:value-of select="requester_name3" />
-														</span>
-													</div>
-												</xsl:if>
-											</div>
-										</xsl:if>
+									</div>
+									<xsl:if test="sequence_from_date !=''">
 										<div class="row">
 											<div class="col-md-12">
-												<strong class="padLeft3">Control Number: </strong>
+												<strong class="padLeft3">Date of Request: </strong>
 												<span class="mouseHover">
-													<xsl:value-of select="control_number" />
+													<xsl:value-of select="sequence_from_date" />
 												</span>
 											</div>
 										</div>
+									</xsl:if>
+									<xsl:if test="requester_name != ''">
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Requester of solicited	information: </strong>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4">
+												<strong class="padLeft3">Name of requester 1: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="requester_name" />
+												</span>
+											</div>
+											<xsl:if test="requester_name2 != ''">
+												<div class="col-md-4">
+													<strong>Name of requester 2: </strong>
+													<span class="mouseHover">
+														<xsl:value-of select="requester_name2" />
+													</span>
+												</div>
+											</xsl:if>
+											<xsl:if test="requester_name3 != ''">
+												<div class="col-md-4">
+													<strong>Name of requester 3: </strong>
+													<span class="mouseHover">
+														<xsl:value-of select="requester_name3" />
+													</span>
+												</div>
+											</xsl:if>
+										</div>
+									</xsl:if>
+									<xsl:if test="sequence_details != ''">
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Brief description: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_details" />
+												</span>
+											</div>
+										</div>
+									</xsl:if>
+									<div class="row">
+										<div class="col-md-12">
+											<strong class="padLeft3">Control Number: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="control_number" />
+											</span>
+										</div>
+									</div>
 								</xsl:for-each>
 							</div>
 						</div>

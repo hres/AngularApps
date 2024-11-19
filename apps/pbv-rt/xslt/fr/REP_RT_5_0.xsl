@@ -496,51 +496,57 @@ span.normalWeight {
 												</div>
 											</div>
 											<div class="row">
-												<div class="form-group col-md-12">
-												<strong class="padLeft3">Description de transaction de réglementation : </strong>
-												<span class="mouseHover">
-												<xsl:choose>
-												<xsl:when test="sequence_description_value/@id = 'YEAR'">
-													<xsl:value-of select="sequence_description_value"/>:<xsl:value-of select="transaction_description/@label_fr"/>
-												</xsl:when>
-												<xsl:when test="sequence_description_value/@id = 'YEAR_LIST_OF_CHANGE'">
-													<div class="col-md-12"><xsl:value-of select="sequence_description_value"/>:</div>
-													<div class="col-md-12">
-													<xsl:call-template name="break"><xsl:with-param name="text" select="sequence_year"/></xsl:call-template>
-													</div>
-
-												</xsl:when>
-												<xsl:otherwise>
-													<xsl:value-of select="transaction_description/@label_fr"/>
-												</xsl:otherwise>
-												</xsl:choose>
-												</span>
-												</div>
-											</div>
-											<xsl:if test="requester_name != ''">
-											<div class="row">
 												<div class="col-md-12">
-												<strong class="padLeft3">Demandeur d’information sollicitée:</strong>
+													<strong class="padLeft3">Description de la transaction de réglementation: </strong>
+													<span class="mouseHover">
+														<xsl:value-of select="transaction_description/@label_fr" />
+													</span>
 												</div>
 											</div>
-											<div class="row">
-												<div class="col-md-4">
-													<strong class="padLeft3">Nom du demandeur 1: </strong>
-													<span class="mouseHover"><xsl:value-of select="requester_name"/></span>
+											<xsl:if test="sequence_from_date !=''">
+												<div class="row">
+													<div class="col-md-12">
+														<strong class="padLeft3">Date de la demande: </strong>
+														<span class="mouseHover">
+															<xsl:value-of select="sequence_from_date" />
+														</span>
+													</div>
 												</div>
-												<xsl:if test="requester_name2 != ''">
-												<div class="col-md-4">
-													<strong>Nom du demandeur 2: </strong>
-													<span class="mouseHover"><xsl:value-of select="requester_name2"/></span>
+											</xsl:if>
+											<xsl:if test="requester_name != ''">
+												<div class="row">
+													<div class="col-md-12">
+													<strong class="padLeft3">Demandeur d’information sollicitée:</strong>
+													</div>
 												</div>
-												</xsl:if>
-												<xsl:if test="requester_name3 != ''">
-												<div class="col-md-4">
-													<strong>Nom du demandeur 3: </strong>
-													<span class="mouseHover"><xsl:value-of select="requester_name3"/></span>
+												<div class="row">
+													<div class="col-md-4">
+														<strong class="padLeft3">Nom du demandeur 1: </strong>
+														<span class="mouseHover"><xsl:value-of select="requester_name"/></span>
+													</div>
+													<xsl:if test="requester_name2 != ''">
+													<div class="col-md-4">
+														<strong>Nom du demandeur 2: </strong>
+														<span class="mouseHover"><xsl:value-of select="requester_name2"/></span>
+													</div>
+													</xsl:if>
+													<xsl:if test="requester_name3 != ''">
+													<div class="col-md-4">
+														<strong>Nom du demandeur 3: </strong>
+														<span class="mouseHover"><xsl:value-of select="requester_name3"/></span>
+													</div>
+													</xsl:if>
 												</div>
-												</xsl:if>
-											</div>
+											</xsl:if>
+											<xsl:if test="sequence_details != ''">
+												<div class="row">
+													<div class="col-md-12">
+														<strong class="padLeft3">Description brève: </strong>
+														<span class="mouseHover">
+															<xsl:value-of select="sequence_details" />
+														</span>
+													</div>
+												</div>
 											</xsl:if>
 											<div class="row">
 												<div class="form-group col-md-6">
