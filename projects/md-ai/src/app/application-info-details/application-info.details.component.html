@@ -11,7 +11,7 @@
                               controlId="companyId" label="company.id" parentId="appInfoDetails">
             </control-messages>
             <input id="companyId" name="companyId" class="form-control"
-                   [formControl]="appInfoFormLocalModel.controls['companyId'] | formControl" maxlength="6" data-only-digits/>
+                   [formControl]="appInfoFormLocalModel.controls['companyId'] | formControl" data-only-digits [maxLength]="6"/>
           </label>
         </div>
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
@@ -241,7 +241,7 @@
                                     controlId="din" label="din" parentId="appInfoDetails">
                   </control-messages>
                   <input id="din" name="din"  class="form-control"
-                         [formControl]="appInfoFormLocalModel.controls['din'] | formControl" maxlength="8" data-only-digits/>
+                         [formControl]="appInfoFormLocalModel.controls['din'] | formControl" data-only-digits [maxLength]="8"/>
                 </label>
               </div>
               <div  *ngIf="hasNpn()" class="form-group col-xs-12" >
@@ -254,7 +254,7 @@
                                     controlId="npn" label="npn" parentId="appInfoDetails">
                   </control-messages>
                   <input id="npn" name="npn" class="form-control"
-                         [formControl]="appInfoFormLocalModel.controls['npn'] | formControl" maxlength="8" data-only-digits/>
+                         [formControl]="appInfoFormLocalModel.controls['npn'] | formControl" data-only-digits [maxLength]="8"/>
                 </label>
               </div>
             </div>
@@ -389,7 +389,7 @@
                                         controlId="applicationNum" label="application.number" parentId="appInfoDetails">
                       </control-messages>
                       <input id="applicationNum" name="applicationNum" class="form-control full-width" 
-                             [formControl]="appInfoFormLocalModel.controls['applicationNum'] | formControl" data-only-digits maxlength="6" data-only-digits/>
+                             [formControl]="appInfoFormLocalModel.controls['applicationNum'] | formControl" data-only-digits [maxLength]="6"/>
                     </label>
                   </div>
                 </div>
@@ -431,7 +431,7 @@
                       [control]="appInfoFormLocalModel.controls['authNum'] | formControl"
                       controlId="authNum" label="auth.id" parentId="appInfoDetails"> </control-messages>
                       <input id="authNum" name="authNum" class="form-control full-width" 
-                            [formControl]="appInfoFormLocalModel.controls['authNum'] | formControl" maxlength="6" data-only-digits/>
+                            [formControl]="appInfoFormLocalModel.controls['authNum'] | formControl"data-only-digits [maxLength]="6"/>
                     </label>
                   </div>
                 </div>
