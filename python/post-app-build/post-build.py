@@ -44,7 +44,7 @@ if __name__ == "__main__":
     # Load build config file
     build_config_file_path = os.path.join(f'{temporary_files_dir}configs.json')
     print(f" build_config_file_path: {build_config_file_path}\n")
-    with open(f"{build_config_file_path}", "r") as f1:
+    with open(f"{build_config_file_path}", "r", encoding="utf-8") as f1:
         f1_data = json.load(f1)
 
         date_issued = f1_data["date_issued"]
