@@ -3,17 +3,18 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output
+  Output,
+  ViewEncapsulation
 } from '@angular/core';
 import {  UtilsService,  HelpIndex,  BaseComponent,} from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
-import { FormBaseService } from '../form-base/form-base.service';
 import { PatentService } from './patent-service.service';
 @Component({
   selector: 'app-patent',
   templateUrl: './patent.component.html',
   styleUrl: './patent.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class PatentComponent extends BaseComponent implements OnInit {
   public showFieldErrors: boolean = false;

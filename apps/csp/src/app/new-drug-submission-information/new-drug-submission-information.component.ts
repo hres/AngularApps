@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UtilsService, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
@@ -15,7 +16,8 @@ import { NewDrugSubmissionInformationService } from './new-drug-submission-infor
 @Component({
   selector: 'app-new-drug-submission-information',
   templateUrl: './new-drug-submission-information.component.html',
-  styleUrl: './new-drug-submission-information.component.css'
+  styleUrl: './new-drug-submission-information.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class NewDrugSubmissionInformationComponent extends BaseComponent implements OnInit {
 
