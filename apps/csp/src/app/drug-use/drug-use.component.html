@@ -13,7 +13,7 @@
                     parentId="cspCertif">
                 </control-messages>
             </label>
-            <select id="drugUse" name="drugUse" required class="form-control full-width"
+            <select id="drugUse" required class="form-control full-width"
                 [formControlName]="'drugUse'">
                 <option label=" " value=""></option>
                 <option *ngFor="let drugUse of drugUseOptions" [value]="drugUse.id"> {{ drugUse| textTransform: lang }}</option>

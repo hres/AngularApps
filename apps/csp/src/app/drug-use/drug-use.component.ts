@@ -4,7 +4,8 @@ import {
   Input,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  ViewEncapsulation
 } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -16,7 +17,8 @@ import { GlobalService } from '../global/global.service';
   selector: 'app-drug-use',
   templateUrl: './drug-use.component.html',
   styleUrl: './drug-use.component.css',
-  providers:  [ DrugUseService ]
+  providers:  [ DrugUseService ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DrugUseComponent  extends BaseComponent implements OnInit {
 
