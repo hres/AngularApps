@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output, OnInit, QueryList, ViewChildren, effect, ViewEncapsulation, SimpleChange, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output, OnInit, QueryList, ViewChildren, effect, ViewEncapsulation, SimpleChange, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ICode, PipesModule, UtilsService } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
@@ -52,7 +52,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
               private _translateService: TranslateService, 
               private _materialListComponent : MaterialListComponent,
               private _errNotifService : ErrorNotificationService,
-              private _materialService : MaterialService){
+              private _materialService : MaterialService,
+              private cdref: ChangeDetectorRef){
 
     effect(() => {
       //this._materialService.showMaterialErrorSummary() && 
@@ -81,6 +82,10 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
 
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+
+    this.materialInfo.valueChanges.subscribe(() => {
+      this.checkFormDirtyStatus();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -94,6 +99,10 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
       //console.log("error summary child change,", list);
       this.processSummaries(list);
     });
+  }
+
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
   }
 
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
@@ -118,6 +127,18 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     }
     this.errorList = temp;
     this.error.emit(temp);
+  }
+
+  // This is for when error summary is generated, and to show record has errors
+  // when it has been dirtied
+  checkFormDirtyStatus() {
+    // Check if any form control has become dirty
+    if (this.materialInfo.dirty) {
+      if (this._globalService.showErrors()) {
+        this.showErrSummary = true;
+        this.showErrors = true;
+      }
+    }
   }
 
   public revertMaterialRecord(index: number, recordId: number): void {
@@ -224,6 +245,10 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
 
   public showErrorSummary(): boolean {
     return (this.showErrSummary && this.errorList.length > 0);
+  }
+
+  get materialInfo() : FormGroup{
+    return this.cRRow.get('materialInfo') as FormGroup;
   }
  
 }

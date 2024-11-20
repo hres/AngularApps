@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren, ViewEncapsulation, effect, inject, signal } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ExpanderModule, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { FormGroup, FormBuilder, FormArray, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
+import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ExpanderModule, UtilsService, ValidationService, YES } from '@hpfb/sdk/ui';
 import { TranslateModule } from '@ngx-translate/core';
 import { GlobalService } from '../../global/global.service';
 import { Device } from '../../models/Enrollment';
@@ -138,6 +138,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
      const group: FormGroup = this.devicesFormArr.controls[index] as FormGroup;
      if (group.invalid) {
       group.controls['expandFlag'].setValue(true);
+      this.deviceListForm.markAsDirty();
        break;
      } 
    }     
@@ -214,8 +215,11 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
           this._patchDeviceInfoValue(group.get('lastSavedState'), device);
           this._patchDeviceInfoValue(group.controls['deviceInfo'], device);
 
-          this._deviceService.setDeviceDetailsErrorsToNull(group.controls['deviceInfo']);
+          //this._deviceService.setDeviceDetailsErrorsToNull(group.controls['deviceInfo']);
+          this._setDeviceInfoErrorsToNull(group.controls['deviceInfo'], device);
           this.devicesFormArr.push(group);
+
+          this._expandNextInvalidRecord();
         });
       }
     } else {
@@ -241,6 +245,32 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       deviceApplicationNumber: device.device_application_number,
       deviceExplain: device.device_explain
     });
+  }
+
+  // Remove the errors on the controls that are not shown on the form
+  private _setDeviceInfoErrorsToNull(form, device) {
+    const deviceAuth = device.device_authorized;
+    const deviceAppSubmitted = device.device_application_submitted;
+    let controls = [];
+    if (deviceAuth) {
+      if (deviceAuth == YES) {
+        controls = ['deviceApplicationSubmitted', 'deviceApplicationNumber', 'deviceExplain'];
+      } else {
+        if (deviceAppSubmitted) {
+          if (deviceAppSubmitted == YES) {
+            controls = ['deviceExplain', 'licenceNum'];
+          } else {
+            controls = ['deviceApplicationNumber', 'licenceNum'];
+          }
+        } else {
+          controls = ['deviceApplicationNumber', 'deviceExplain', 'licenceNum'];
+        }
+      }
+    } else {
+      controls = ['licenceNum', 'deviceApplicationSubmitted', 'deviceApplicationNumber', 'deviceExplain'];
+    }
+    this._deviceService.setFormControlErrorsToNull(controls, form);
+
   }
 
   handleRowClick(event: any) {  

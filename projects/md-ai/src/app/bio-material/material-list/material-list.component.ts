@@ -148,6 +148,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
      const group: FormGroup = this.materialsFormArr.controls[index] as FormGroup;
      if (group.invalid) {
       group.controls['expandFlag'].setValue(true);
+      this.materialListForm.markAsDirty();
        break;
      } 
    }     
@@ -229,6 +230,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
             this._patchMaterialInfoValue(group.controls['materialInfo'], material);
 
             this.materialsFormArr.push(group);
+
+            this._expandNextInvalidRecord();
           });
         }
     } else {

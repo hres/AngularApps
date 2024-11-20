@@ -21,14 +21,14 @@ export class DeviceService {
       expandFlag: true,
       lastSavedState: null, // store the last saved state of the contactInfo for reverting function
       deviceInfo: fb.group({
-        deviceName: [null, Validators.required],
+        deviceName: ['', Validators.required],
         deviceAuthorized: [null, Validators.required],
-        licenceNum: [null, [Validators.required, ValidationService.numeric6Validator]],
+        licenceNum: ['', [Validators.required, ValidationService.numeric6Validator]],
         deviceApplicationSubmitted: [null, Validators.required],
         //deviceApplicationNumber: [null, [Validators.required, ValidationService.appNumValidator ]],
-        deviceApplicationNumber: [null, [Validators.required, ValidationService.numeric6Validator]],
-        deviceExplain: [null, Validators.required]
-      }, { updateOn: 'blur' }
+        deviceApplicationNumber: ['', [Validators.required, ValidationService.numeric6Validator]],
+        deviceExplain: ['', Validators.required]
+      }, { updateOn: 'change' }
       )
     });
   }
@@ -69,6 +69,15 @@ export class DeviceService {
     // console.log("setting device details errors to null...", formGroup);
     Object.keys(formGroup.controls).forEach((key) => {
       formGroup.get(key).setErrors(null);
+    });
+  }
+
+  public setFormControlErrorsToNull(formControlNames : string[], formGroup) {
+    formControlNames.forEach(controlName => {
+      const formControl = formGroup.get(controlName);
+      if (formControl) {
+        formControl.setErrors(null);
+      }
     });
   }
 }
