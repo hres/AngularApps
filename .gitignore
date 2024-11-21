@@ -39,7 +39,7 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
-/python/buildHtmlFiles/__*
+/python/*/__*
 
 # System files
 .DS_Store
