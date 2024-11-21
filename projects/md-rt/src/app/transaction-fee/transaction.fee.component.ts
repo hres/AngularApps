@@ -72,7 +72,13 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
         this.transFeeForm.controls['billContactId'].setValue(null);
         this.transFeeForm.controls['billContactId'].markAsUntouched();
       }
-    }
+    } else {
+      this.hasFeeYes = false;
+      this.transFeeForm.controls['billCompanyId'].setValue(null);
+      this.transFeeForm.controls['billCompanyId'].markAsUntouched();
+      this.transFeeForm.controls['billContactId'].setValue(null);
+      this.transFeeForm.controls['billContactId'].markAsUntouched();
+    } 
   }
   
 }

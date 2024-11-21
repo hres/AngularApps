@@ -63,7 +63,7 @@ export class MaterialService {
         tissueTypeOtherDetails: ['', []],
         derivative: [null, []],
         derivativeOtherDetails: ['', []],
-      }, { updateOn: 'blur' }
+      }, { updateOn: 'change' }
       )
     });
   }

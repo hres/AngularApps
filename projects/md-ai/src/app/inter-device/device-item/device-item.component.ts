@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output, OnInit, QueryList, ViewChildren, effect, ViewEncapsulation, SimpleChange, SimpleChanges } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output, OnInit, QueryList, ViewChildren, effect, ViewEncapsulation, SimpleChange, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ControlMessagesComponent, ErrorModule, ErrorSummaryComponent, ICode, NO, PipesModule, UtilsService, YES } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalService } from '../../global/global.service';
@@ -51,7 +51,8 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
               private _utilsService: UtilsService, 
               private _translateService: TranslateService,
               private _errorNotificationService : ErrorNotificationService,
-              private _deviceService : DeviceService){
+              private _deviceService : DeviceService,
+              private cdref:ChangeDetectorRef){
     //this.isInternal = this._globalService.$isInternal;
 
     effect(() => {
@@ -78,6 +79,10 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+
+    this.deviceInfo.valueChanges.subscribe(() => {
+      this.checkFormDirtyStatus();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -91,6 +96,10 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
       //console.log("error summary child change,", list);
       this.processSummaries(list);
     });
+  }
+
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
   }
 
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
@@ -115,6 +124,18 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     }
     this.errorList = temp;
     this.error.emit(temp);
+  }
+
+  // This is for when error summary is generated, and to show record has errors
+  // when it has been dirtied
+  checkFormDirtyStatus() {
+    // Check if any form control has become dirty
+    if (this.deviceInfo.dirty) {
+      if (this._globalService.showErrors()) {
+        this.showErrSummary = true;
+        this.showErrors = true;
+      }
+    }
   }
 
   public revertDeviceRecord(index: number, recordId: number): void {
@@ -179,7 +200,13 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
         this.deviceNotAuthorized = true;
         this._utilsService.resetControlsValues(licenceNum);
       }
-    }
+    } else {
+      this.deviceAppSubmitted = false;
+      this.deviceAppNotSubmitted = false; 
+      this.deviceAuthorized = false;
+      this.deviceNotAuthorized = false;
+      this._utilsService.resetControlsValues(licenceNum, deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
+  }
   }
 
   onDeviceAppChange(e: any) {
@@ -204,6 +231,10 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
         this.deviceAppNotSubmitted = true;
         this._utilsService.resetControlsValues(deviceApplicationNumber);
       }
+    } else {
+      this.deviceAppSubmitted = false;
+      this.deviceAppNotSubmitted = false;
+      this._utilsService.resetControlsValues(deviceApplicationNumber, deviceExplain);
     }
   }
 
@@ -223,5 +254,8 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   //   return (!this.isContactStatus(ContactStatus.Remove));
   // }
 
+  get deviceInfo() : FormGroup{
+    return this.cRRow.get('deviceInfo') as FormGroup;
+  }
  
 }
