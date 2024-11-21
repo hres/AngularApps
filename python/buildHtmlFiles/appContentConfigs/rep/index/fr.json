@@ -9,7 +9,6 @@
             "header": "Modèles PIR et liens de formulaire",
             "groups": [
                 {
-                    "header": "",
                     "bullets": [
                         "<a href=\"{{ base_url }}historique_révisions.html\">Historique des révisions du modèle (2024-10-28)</a>"
                     ]
@@ -66,7 +65,6 @@
             "header": "Liens de téléchargement de feuilles de style",
             "groups": [
                 {
-                    "header": "",
                     "bullets": [
                         "<a href=\"{{ base_url }}{{ template_paths.stylesheets.fr }}\">Télécharger le fichier zip des feuilles de style (2023-02-28)</a>"                    ]
                 }
@@ -77,7 +75,6 @@
             "header": "Liens internes de l'utilisateur",
             "groups": [
                 {
-                    "header": "",
                     "bullets": [
                         "<a href=\"{{ base_url }}prod_v42_wcag/company/companyINT-fr.html\">Modèle de compagnie - version interne 4.2.4</a>",
                         "<a href=\"https://lam-dev.hres.ca/REP-Form-Internal/PROD/repDiff/diffForm-en.html\">Comparison tool (2020)</a>"                       ]
