@@ -455,6 +455,7 @@
      "errorSummary.cspfile": "Certificate of Supplementary Protection (CSP) Application Form",
      "error.found.because": " could not be saved because ",
      "error.found.plural": " errors were found",
-     "error.found.singular": " error was found"
-
+     "error.found.singular": " error was found",
+     "new.drug.submission.info.nds.number": "NDS Number",
+     "panel.title.new.drug.submission.info": "New Drug Submission (NDS) Information"
 }

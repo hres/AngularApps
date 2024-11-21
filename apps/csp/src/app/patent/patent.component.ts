@@ -2,37 +2,19 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
-  OnDestroy,
   Output,
-  QueryList,
-  SimpleChanges,
-  ViewChildren,
-  ViewEncapsulation,
-  computed,
-  signal,
+  ViewEncapsulation
 } from '@angular/core';
-import {
-  ICodeDefinition,
-  ICodeAria,
-  ICode,
-  IParentChildren,
-  EntityBaseService,
-  UtilsService,
-  ErrorModule,
-  PipesModule,
-  HelpIndex,
-  BaseComponent,
-} from '@hpfb/sdk/ui';
+import {  UtilsService,  HelpIndex,  BaseComponent,} from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
-import { FormBaseService } from '../form-base/form-base.service';
 import { PatentService } from './patent-service.service';
 @Component({
   selector: 'app-patent',
   templateUrl: './patent.component.html',
   styleUrl: './patent.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class PatentComponent extends BaseComponent implements OnInit {
   public showFieldErrors: boolean = false;
@@ -43,11 +25,9 @@ export class PatentComponent extends BaseComponent implements OnInit {
   public patentInformationForm: FormGroup;
 
   constructor(
-    private patentService: PatentService,
     private _fb: FormBuilder,
     private _globalService: GlobalService,
-    private formBaseService: FormBaseService,
-    private _utilsService: UtilsService
+       private _utilsService: UtilsService
   ) {
     super();
     this.showFieldErrors = false;
