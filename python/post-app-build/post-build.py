@@ -34,17 +34,17 @@ if __name__ == "__main__":
     temporary_files_dir = os.path.join(f'{browser_dir}temp/') 
     temporary_jinja_template_name = f"index-{language}-temp.j2"
 
-    print(f" root_folder: {root_folder}")
-    print(f" dist_dir: {dist_dir}")
-    print(f" browser_dir: {browser_dir}")
-    print(f" jinja_template_file_name: {jinja_template_file_name}")
-    print(f" temporary_files_dir: {temporary_files_dir}")
-    print(f" temporary_jinja_template_name: {temporary_jinja_template_name}")
+    # print(f" root_folder: {root_folder}")
+    # print(f" dist_dir: {dist_dir}")
+    # print(f" browser_dir: {browser_dir}")
+    # print(f" jinja_template_file_name: {jinja_template_file_name}")
+    # print(f" temporary_files_dir: {temporary_files_dir}")
+    # print(f" temporary_jinja_template_name: {temporary_jinja_template_name}")
 
     # Load build config file
     build_config_file_path = os.path.join(f'{temporary_files_dir}configs.json')
-    print(f" build_config_file_path: {build_config_file_path}\n")
-    with open(f"{build_config_file_path}", "r") as f1:
+    # print(f" build_config_file_path: {build_config_file_path}\n")
+    with open(f"{build_config_file_path}", "r", encoding="utf-8") as f1:
         f1_data = json.load(f1)
 
         date_issued = f1_data["date_issued"]
@@ -66,7 +66,7 @@ if __name__ == "__main__":
             
         modification_date = commonUtils.get_todays_date()
         
-        print(f"\n Date Issued: {date_issued}\n server_base_url: {server_base_url}\n lngHref: {lngHref}\n final_file_name: {final_file_name}")
+        # print(f"\n Date Issued: {date_issued}\n server_base_url: {server_base_url}\n lngHref: {lngHref}\n final_file_name: {final_file_name}")
 
         final_file_path = buildUtils.generate_from_jinja_template(template_dirs=[browser_dir, temporary_files_dir],
                                                                 template_file_name=jinja_template_file_name, 

@@ -2,20 +2,14 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
-  OnDestroy,
   Output,
-  QueryList,
   SimpleChanges,
-  ViewChildren, ViewEncapsulation,
-  computed,
-  signal
+  ViewEncapsulation
 } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
-import { FormBaseService } from '../form-base/form-base.service';
+import { ICode, UtilsService, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
 import { DrugUseService } from './drug-use.service';
 import { GlobalService } from '../global/global.service';
 
@@ -23,7 +17,8 @@ import { GlobalService } from '../global/global.service';
   selector: 'app-drug-use',
   templateUrl: './drug-use.component.html',
   styleUrl: './drug-use.component.css',
-  providers:  [ DrugUseService ]
+  providers:  [ DrugUseService ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DrugUseComponent  extends BaseComponent implements OnInit {
 
@@ -37,7 +32,7 @@ export class DrugUseComponent  extends BaseComponent implements OnInit {
   public drugUseForm: FormGroup;
 
   constructor(private drugUseService: DrugUseService, private _fb: FormBuilder, private _globalService: GlobalService,
-     private formBaseService: FormBaseService, private _utilsService: UtilsService ) {
+     private _utilsService: UtilsService ) {
     super();
     this.showFieldErrors = false;
   }

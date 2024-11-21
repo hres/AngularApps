@@ -4,4 +4,5 @@ export const environment = {
   ...base,
   production: true,
   lang: 'fr',
+  isInternal: true
 };

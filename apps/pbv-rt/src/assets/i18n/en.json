@@ -152,7 +152,7 @@
     "ht.xml.1": "A final regulatory transaction XML file must be included in section 1.2.1 for each of your REP transactions.",
     "ht.xml.2": "Refer to the REP guidance document for detailed information.",
     "ht.xml.3": "A final regulatory transaction XML file must be included in: ",
-    "ht.xml.4": "Human Drugs - :section 1.2.1 of the transaction using REP",
+    "ht.xml.4": "Human Drugs - section 1.2.1 of the transaction using REP",
     "ht.xml.5": "Veterinary Drugs - section 1.5 of the transaction using REP",
     
     "admin.guide.doc.note":"<p>For biologics, radiopharmaceuticals and pharmaceuticals for human use, refer to the Guidance document: <a target='_blank' href='https://www.canada.ca/en/health-canada/services/drugs-health-products/drug-products/applications-submissions/guidance-documents/administrative-processing-human-disinfectant-drugs-2019/document.html'>Administrative Processing of Submissions and Applications Involving Human or Disinfectant Drugs</a>.</p><p>Note: The administrative fee class should be selected. The transaction description “Administrative” should be used for the first transaction for this regulatory activity.</p><br><p>For veterinary drugs, refer to the Guidance document: <a target='_blank' href='https://www.canada.ca/en/health-canada/services/drugs-health-products/veterinary-drugs/legislation-guidelines/guidance-documents/management-regulatory-submissions.html'>Veterinary Drugs – Management of Regulatory Submissions</a> or contact vdd.skmd.so-dgps.dmv.cp@hc-sc.gc.ca.</p><p>Note: The transaction description “Administrative” should be used for the first transaction for this regulatory activity.</p>",

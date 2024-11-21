@@ -150,7 +150,7 @@
     "ht.contact.7": "Entrez le nom de la compagnie à laquelle appartient la personne-ressource associée à l’ cette activité. Si la personne-ressource n’est pas associée à cette compagnie, entrez son nom.",
     
     "ht.xml.1": "Chaque transaction du PIR doit contenir une version finale du fichier de transaction réglementaire (en format XML) dans la section 1.2.1.",
-    "ht.xml.2": "Reportez-vous au document d'orientation du RIP pour des informations détaillées.",
+    "ht.xml.2": "Reportez-vous au document d'orientation du PIR pour des informations détaillées.",
     "ht.xml.3": "Un fichier XML de transaction réglementaire (RT) final doit être inclus dans",
     "ht.xml.4": "Drogues humaines - section 1.2.1 de la transaction utilisant le PIR.",
     "ht.xml.5": "Médicaments vétérinaires - section 1.5 de la transaction utilisant le PIR.",

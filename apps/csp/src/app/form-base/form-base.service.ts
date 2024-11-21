@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { PatentService } from '../patent/patent-service.service';
 import { DrugUseService } from '../drug-use/drug-use.service';
 import { NoticeOfComplianceService } from '../notice-of-compliance/notice-of-compliance.service';
+import { NewDrugSubmissionInformationService } from '../new-drug-submission-information/new-drug-submission-information.service';
 
 @Injectable()
 export class FormBaseService {
@@ -16,7 +17,7 @@ export class FormBaseService {
   private messageSource = new BehaviorSubject('');
   currentMessage = this.messageSource.asObservable();
   constructor(
-    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService) {
+    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService) {
   }
 
   /**
@@ -92,7 +93,8 @@ export class FormBaseService {
       fee_details: this.getEmptyMasterFileFeeModel(),
       patent: this.getEmptyPatent(),
       drugUse: '',
-      nocDate:''
+      nocDate: '',
+      ndsNumber:''
     };
 
     return TransactionEnrol;
@@ -221,6 +223,10 @@ export class FormBaseService {
 
   public mapNOCFormsToOutput(outputTransactionEnrol: TransactionEnrol,nocDateForm: any): void{
     this._nocService.mapFormModelToDataModel(nocDateForm, outputTransactionEnrol);
+  }
+
+  public mapNewDrugSubmissionInformationFormsToOutput(outputTransactionEnrol: TransactionEnrol,newDrugSubmissionInformationForm: any): void{
+    this._newDrugSubmissionService.mapFormModelToDataModel(newDrugSubmissionInformationForm, outputTransactionEnrol);
 
   }
 }

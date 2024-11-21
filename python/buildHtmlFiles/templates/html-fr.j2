@@ -75,7 +75,9 @@
 						<div class="alert alert-info"><p>{{section.alert}}</p></div>
 					{% endif %}
 					{%- for group in section.groups %}
-					<h3>{{group.header}}</h3>
+						{% if group.header %}
+							<h3>{{group.header}}</h3>
+						{% endif %}
 					<ul>
 						{%- for bullet in group.bullets %}
 						<li>
@@ -92,7 +94,9 @@
 							<div class="alert alert-info"><p>{{section.alert}}</p></div>
 						{% endif %}
 						{% for group in section.groups %}
-							<h3>{{ group.header }}</h3>
+							{% if group.header %}
+								<h3>{{ group.header }}</h3>
+							{% endif %}
 							<ul>
 							{% for bullet in group.bullets %}
 								<li>{{ bullet }}</li>
