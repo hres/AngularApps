@@ -143,16 +143,60 @@
 										<div class="col-md-12">
 											<strong class="padLeft3">Regulatory Transaction	Description: </strong>
 											<span class="mouseHover">
-												<xsl:value-of select="transaction_description/@label_en" />
+												<xsl:value-of select="sequence_description_value/@label_en" />
 											</span>
 										</div>
 									</div>
-									<xsl:if test="sequence_from_date !=''">
+									<xsl:if test="sequence_from_date !='' and sequence_to_date ='' and sequence_version=''">
 										<div class="row">
 											<div class="col-md-12">
 												<strong class="padLeft3">Date of Request: </strong>
 												<span class="mouseHover">
 													<xsl:value-of select="sequence_from_date" />
+												</span>
+											</div>
+										</div>
+									</xsl:if>
+									<xsl:if test="sequence_from_date !='' and sequence_to_date !=''">
+										<div class="row">
+											<div class="col-md-4">
+												<strong class="padLeft3">Start Date: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_from_date" />
+												</span>
+											</div>
+											<div class="col-md-4">
+												<strong class="padLeft3">End Date: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_to_date" />
+												</span>
+											</div>
+										</div>
+									</xsl:if>
+									<xsl:if test="sequence_description_value/@id = 'YEAR_LIST_OF_CHANGE' or sequence_description_value/@id = 'YEAR'">
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3"><xsl:value-of select="sequence_description_value/@label_en" />: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_year" />
+												</span>
+											</div>
+										</div>
+									</xsl:if>
+									<xsl:if test="sequence_description_value/@id = 'CSO_RMP'">
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Date of Request: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_from_date" />
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Version number: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_version" />
 												</span>
 											</div>
 										</div>
@@ -194,6 +238,16 @@
 												<strong class="padLeft3">Brief description: </strong>
 												<span class="mouseHover">
 													<xsl:value-of select="sequence_details" />
+												</span>
+											</div>
+										</div>
+									</xsl:if>
+									<xsl:if test="sequence_details_change != ''">
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Brief description of change: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_details_change" />
 												</span>
 											</div>
 										</div>
