@@ -32,6 +32,14 @@
                 "en": "mds/applicationInfo/en/md-application-information.html",
                 "fr": "mds/applicationInfo/fr/im-information-demande-homologation.html"
             },
+            "dd":{
+                "en": "mds-test/Device_Details.xlsx",
+                "fr": "mds-test/Détails de l’instrument.xlsx"
+            },
+            "aaf": {
+                "en": "mds-test/Application_Attestation_Form.pdf",
+                "fr": "mds-test/Formulaire d'attestation de demande.pdf"
+            },
             "stylesheets": {
                 "en": "mds/stylesheet/medicaldevice_stylesheets_en.zip",
                 "fr": "mds/stylesheet/medicaldevice_stylesheets_fr.zip"
@@ -53,6 +61,14 @@
             "ai": {
                 "en": "mds/applicationInfo/en/md-application-information.html",
                 "fr": "mds/applicationInfo/fr/im-information-demande-homologation.html"
+            },
+            "dd":{
+                "en": "mds-test/Device_Details.xlsx",
+                "fr": "mds-test/Détails de l’instrument.xlsx"
+            },
+            "aaf": {
+                "en": "mds-test/Application_Attestation_Form.pdf",
+                "fr": "mds-test/Formulaire d'attestation de demande.pdf"
             },
             "stylesheets": {
                 "en": "mds/stylesheet/medicaldevice_stylesheets_en.zip",
