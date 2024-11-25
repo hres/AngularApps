@@ -6,12 +6,11 @@
         {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }}
       </h4>
       } @else {
-      <div role="button"  [attr.aria-expanded]="recordRow.get('expandFlag').value ? 'true' : 'false'">
-        <h4 class="panel-title" tabindex="0"
+      <div role="button" tabindex="0" [attr.aria-expanded]="recordRow.get('expandFlag').value ? 'true' : 'false'"
           (keydown.enter)="toggleExpand(i, recordRow.get('expandFlag').value)"
           (keydown.space)="$event.preventDefault(); toggleExpand(i, recordRow.get('expandFlag').value)"
           (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
-
+        <h4 class="panel-title">
           <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'"
             aria-hidden="true"></i>
           @if (accordionHeadingSupp!=null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) != null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) != '') 
