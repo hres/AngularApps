@@ -9,7 +9,6 @@
             "header": "REP Templates & Form Links",
             "groups": [
                 {
-                    "header": "",
                     "bullets": [
                         "<a href=\"{{ base_url }}version_history.html\">Template revision history (2024-10-28)</a>"
                     ]
@@ -66,7 +65,6 @@
             "header": "Stylesheet Download Links",
             "groups": [
                 {
-                    "header": "",
                     "bullets": [
                         "<a href=\"{{ base_url }}{{ template_paths.stylesheets.en }}\">Download stylesheet zip file (2023-02-28)</a>"                    ]
                 }
@@ -77,7 +75,6 @@
             "header": "Internal User Links",
             "groups": [
                 {
-                    "header": "",
                     "bullets": [
                         "<a href=\"{{ base_url }}prod_v42_wcag/company/companyINT-en.html\">Company Enrolment - Internal version 4.2.4</a>",
                         "<a href=\"https://lam-dev.hres.ca/REP-Form-Internal/PROD/repDiff/diffForm-en.html\">Comparison tool (2020)</a>"                       ]

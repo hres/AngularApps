@@ -51,7 +51,7 @@
 					</td>
 					<td style="text-align: center;">
 						<span class="mouseHover">
-							<xsl:apply-templates select="date_saved" />
+							<xsl:value-of select="substring(date_saved,1,10)" />
 						</span>
 					</td>
 				</tr>
@@ -141,75 +141,125 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-												<strong class="padLeft3">Regulatory Transaction	Description: </strong>
-												<span class="mouseHover">
-													<xsl:choose>
-														<xsl:when
-															test="sequence_description_value/@id = 'YEAR'">
-															<xsl:value-of
-																select="sequence_description_value" />
-		: <xsl:value-of select="transaction_description" />
-														</xsl:when>
-														<xsl:when
-															test="sequence_description_value/@id = 'YEAR_LIST_OF_CHANGE'">
-															<div class="col-md-12">
-																<xsl:value-of
-																	select="sequence_description_value" />
-		: </div>
-<div class="col-md-12">
-																<xsl:call-template name="break">
-																	<xsl:with-param name="text"
-																		select="sequence_year" />
-																</xsl:call-template>
-															</div>
-														</xsl:when>
-														<xsl:otherwise>
-															<xsl:value-of
-																select="transaction_description/@label_en" />
-														</xsl:otherwise>
-													</xsl:choose>
-												</span>
-											</div>
+											<strong class="padLeft3">Regulatory Transaction	Description: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="sequence_description_value/@label_en" />
+											</span>
 										</div>
-										<xsl:if test="requester_name != ''">
-											<div class="row">
-												<div class="col-md-12">
-													<strong class="padLeft3">Requester of solicited	information: </strong>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-4">
-													<strong class="padLeft3">Name of requester 1: </strong>
-													<span class="mouseHover">
-														<xsl:value-of select="requester_name" />
-													</span>
-												</div>
-												<xsl:if test="requester_name2 != ''">
-													<div class="col-md-4">
-														<strong>Name of requester 2: </strong>
-														<span class="mouseHover">
-															<xsl:value-of select="requester_name2" />
-														</span>
-													</div>
-												</xsl:if>
-												<xsl:if test="requester_name3 != ''">
-													<div class="col-md-4">
-														<strong>Name of requester 3: </strong>
-														<span class="mouseHover">
-															<xsl:value-of select="requester_name3" />
-														</span>
-													</div>
-												</xsl:if>
-											</div>
-										</xsl:if>
+									</div>
+									<xsl:if test="sequence_from_date !='' and sequence_to_date ='' and sequence_version=''">
 										<div class="row">
 											<div class="col-md-12">
-												<strong class="padLeft3">Control Number: </strong>
+												<strong class="padLeft3">Date of Request: </strong>
 												<span class="mouseHover">
-													<xsl:value-of select="control_number" />
+													<xsl:value-of select="sequence_from_date" />
 												</span>
 											</div>
 										</div>
+									</xsl:if>
+									<xsl:if test="sequence_from_date !='' and sequence_to_date !=''">
+										<div class="row">
+											<div class="col-md-4">
+												<strong class="padLeft3">Start Date: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_from_date" />
+												</span>
+											</div>
+											<div class="col-md-4">
+												<strong class="padLeft3">End Date: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_to_date" />
+												</span>
+											</div>
+										</div>
+									</xsl:if>
+									<xsl:if test="sequence_description_value/@id = 'YEAR_LIST_OF_CHANGE' or sequence_description_value/@id = 'YEAR'">
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3"><xsl:value-of select="sequence_description_value/@label_en" />: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_year" />
+												</span>
+											</div>
+										</div>
+									</xsl:if>
+									<xsl:if test="sequence_description_value/@id = 'CSO_RMP'">
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Date of Request: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_from_date" />
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Version number: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_version" />
+												</span>
+											</div>
+										</div>
+									</xsl:if>
+									<xsl:if test="requester_name != ''">
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Requester of solicited	information: </strong>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4">
+												<strong class="padLeft3">Name of requester 1: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="requester_name" />
+												</span>
+											</div>
+											<xsl:if test="requester_name2 != ''">
+												<div class="col-md-4">
+													<strong>Name of requester 2: </strong>
+													<span class="mouseHover">
+														<xsl:value-of select="requester_name2" />
+													</span>
+												</div>
+											</xsl:if>
+											<xsl:if test="requester_name3 != ''">
+												<div class="col-md-4">
+													<strong>Name of requester 3: </strong>
+													<span class="mouseHover">
+														<xsl:value-of select="requester_name3" />
+													</span>
+												</div>
+											</xsl:if>
+										</div>
+									</xsl:if>
+									<xsl:if test="sequence_details != ''">
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Brief description: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_details" />
+												</span>
+											</div>
+										</div>
+									</xsl:if>
+									<xsl:if test="sequence_details_change != ''">
+										<div class="row">
+											<div class="col-md-12">
+												<strong class="padLeft3">Brief description of change: </strong>
+												<span class="mouseHover">
+													<xsl:value-of select="sequence_details_change" />
+												</span>
+											</div>
+										</div>
+									</xsl:if>
+									<div class="row">
+										<div class="col-md-12">
+											<strong class="padLeft3">Control Number: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="control_number" />
+											</span>
+										</div>
+									</div>
 								</xsl:for-each>
 							</div>
 						</div>
@@ -362,7 +412,7 @@
 								<div class="col-xs-12">
 									<strong>Company name (full legal name): </strong>
 									<span class="mouseHover">
-										<xsl:apply-templates select="company_name" />
+										<xsl:value-of select="company_name" />
 									</span>
 								</div>
 							</xsl:if>
@@ -373,47 +423,71 @@
 						<div class="well well-sm">
 							<div class="row">
 								<div class="col-xs-12">
-									<span class="mouseHover normalWeight">
-										<xsl:apply-templates
-											select="regulatory_activity_address/street_address" />
+									<strong>Street address: </strong>
+									<span class="mouseHover">
+										<xsl:value-of select="regulatory_activity_address/street_address" />
 									</span>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-12">
-									<span class="mouseHover normalWeight">
-										<xsl:apply-templates
-											select="regulatory_activity_address/city" />
+								<div class="col-xs-4">
+									<strong>City or town: </strong>
+									<span class="mouseHover">
+										<xsl:value-of select="regulatory_activity_address/city" />
 									</span>
-									<strong>, </strong>
-									<span class="mouseHover normalWeight">
-										<xsl:choose>
-											<xsl:when
-												test="(regulatory_activity_address/country/@id = 'CAN') or (regulatory_activity_address/country/@id = 'USA')">
-												<xsl:value-of
-													select="regulatory_activity_address/province_lov" />
-												<strong>,   </strong>
-											</xsl:when>
-											<xsl:otherwise>
-												<xsl:if
-													test="regulatory_activity_address/province_text != ''">
-													<xsl:value-of
-														select="regulatory_activity_address/province_text" />
-													<strong>,   </strong>
-												</xsl:if>
-											</xsl:otherwise>
-										</xsl:choose>
-									</span>
-									<span class="mouseHover normalWeight">
+								</div>
+								<div class="col-xs-4">
+									<strong>Country: </strong>
+									<span class="mouseHover">
 										<xsl:value-of select="regulatory_activity_address/country" />
 									</span>
 								</div>
-								<div class="col-xs-12">
-									<span class="mouseHover normalWeight">
-										<xsl:apply-templates
-											select="regulatory_activity_address/postal_code" />
-									</span>
-								</div>
+							</div>
+							<div class="row">
+								<xsl:choose>
+									<xsl:when test="regulatory_activity_address/country/@id = 'CAN'">
+										<div class="col-xs-4">
+											<strong>Province: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="regulatory_activity_address/province_lov" />
+											</span>
+										</div>
+										<div class="col-xs-4">
+											<strong>Postal code: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="regulatory_activity_address/postal_code" />
+											</span>
+										</div>
+									</xsl:when>
+									<xsl:when test="regulatory_activity_address/country/@id = 'US'">
+										<div class="col-xs-4">
+											<strong>State: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="regulatory_activity_address/province_lov" />
+											</span>
+										</div>
+										<div class="col-xs-4">
+											<strong>Zip code: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="regulatory_activity_address/postal_code" />
+											</span>
+										</div>
+									</xsl:when>
+									<xsl:otherwise>
+										<div class="col-xs-4">
+											<strong>Province or state: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="regulatory_activity_address/province_lov" />
+											</span>
+										</div>
+										<div class="col-xs-4">
+											<strong>Postal/ZIP code: </strong>
+											<span class="mouseHover">
+												<xsl:value-of select="regulatory_activity_address/postal_code" />
+											</span>
+										</div>
+									</xsl:otherwise>
+								</xsl:choose>
 							</div>
 						</div>
 					</xsl:if>
@@ -446,19 +520,24 @@
 							</strong>
 							<strong class="col-xs-8"> Job title: <span
 								class="mouseHover normalWeight">
-								<xsl:apply-templates
+								<xsl:value-of
 									select="regulatory_activity_contact/job_title" />
 							</span>
 							</strong>
 						</div>
 						<div class="row">
-							<strong class="col-xs-12"> Phone number (including area code): 
-								<span class="mouseHover normalWeight">
+							<div class="col-xs-4">
+								<strong>Phone number (including area code): </strong>
+								<span class="mouseHover">
 									<xsl:value-of select="regulatory_activity_contact/phone_num" />
-								</span> Ext <span class="mouseHover normalWeight">
+								</span>
+							</div>
+							<div class="col-xs-4">
+								<strong>Phone extension: </strong>
+								<span class="mouseHover">
 									<xsl:value-of select="regulatory_activity_contact/phone_ext" />
 								</span>
-							</strong>
+							</div>
 						</div>
 						<div class="row">
 							<strong class="col-xs-12"> Fax number (including area code): <span
@@ -490,25 +569,10 @@
 			</div>
 		</section>
 	</xsl:template>
-	<xsl:template name="break">
-		<xsl:param name="text" select="string(.)" />
-<xsl:choose>
-			<xsl:when test="contains($text, ' ')">
-				<xsl:value-of select="substring-before($text, ' ')" />
-<br />
-<xsl:call-template
-					name="break">
-					<xsl:with-param name="text" select="substring-after($text, ' ')" />
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="$text" />
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
+
 	<xsl:template name="YesNoUnknow">
 		<xsl:param name="value" select="/.." />
-<xsl:choose>
+		<xsl:choose>
 			<xsl:when test="$value = 'Y'">
 				<xsl:value-of select="'Yes'" />
 			</xsl:when>
