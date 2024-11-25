@@ -10,7 +10,7 @@
             "groups": [
                 {
                     "bullets": [
-                        "<a href=\"{{ base_url }}version_history.html\">Historique des révisions du modèle (2024-12-11)</a>"
+                        "<a href=\"{{ base_url }}mds-historique_révisions.html\">Historique des révisions du modèle (2024-12-11)</a>"
                     ]
                 }
             ]
