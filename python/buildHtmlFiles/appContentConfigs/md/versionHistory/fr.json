@@ -1,38 +1,35 @@
 {
-    "title": "fr_Template Revision History",
-    "h1_header": "fr_Template Revision History",
+    "title": "Historique des révisions des modèles du processus d’inscription réglementaire (PIR) pour les instruments médicaux ",
+    "h1_header": "Historique des révisions des modèles du processus d’inscription réglementaire (PIR) pour les instruments médicaux ",
     "paragraphs": [
-        "fr_line1",
-        "fr_line2",
-        "fr_line3"
+        "Cette page décrit les changements liés à les modèles du processus d’inscription réglementaire (PIR). Si vous avez des questions concernant le contenu de cette page, veuillez communiquer avec <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"fr\">ereview@hc-sc.gc.ca</a>.",
+        "<div class=\"alert alert-info\"><p>Afin d’accéder à la version la plus récente du modèle, n’oubliez pas de supprimer fréquemment votre mémoire cache et d’« actualiser » les liens du modèle sur votre navigateur Web avant chaque utilisation.</p></div>"
     ],
     "releases": [
         {
-            "header": "fr_February 28, 2023 Release",
+            "header": "Publication du 11 décembre 2024",
             "details": [
                 {
-                    "template": "fr_Regulatory Transaction (RT) Template",
+                    "template": "Modèle de compagnie Version 4.0.1",
                     "changes": [
-                        "change1",
-                        "change2"
+                        "Traduction du bouton « Choisir un fichier » sur le modèle français",
+                        "Correction d'erreurs grammaticales mineures"
                     ]
                 },
                 {
-                    "template": "fr_Stylesheet Package",
+                    "template": "Modèle de transaction réglementaire Version 3.0.1",
                     "changes": [
-                        "change5"
+                        "Traduction du bouton « Choisir un fichier » sur le modèle français",
+                        "Correction d'erreurs grammaticales mineures"
                     ]
-                }
-            ]
-        },
-        {
-            "header": "fr_January 4, 2023 Release",
-            "details": [
+                },
                 {
-                    "template": "fr_Company (CO) Template",
+                    "template": "Modèle d’information sur les demandes d’homologation Version 3.0.1",
                     "changes": [
-                        "change3",
-                        "change4"
+                        "Traduction du bouton « Choisir un fichier » sur le modèle français",
+                        "Mise à jour de l’ordre des messages d’erreurs pour « l'enregistrement d'instruments interdépendants » et « le formulaire de déclaration de conformité »",
+                        "Mise à jour de la section « Examen prioritaire » pour qu’elle n’apparaisse que lorsque « Type d’activité réglementaire » est « Homologation » ou « Modification d’homologation » et que « Catégorie d'instrument » est « Classe III » ou « Classe IV »",
+                        "Correction d'erreurs grammaticales mineures"
                     ]
                 }
             ]
