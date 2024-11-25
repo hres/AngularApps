@@ -4,7 +4,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ConverterService, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { ConverterService, UtilsService} from '@hpfb/sdk/ui';
+import { PbvService} from '@hpfb/pbv';
 import { TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 
@@ -19,7 +20,7 @@ export class RegulatoryInformationService {
    }
    return fb.group({
     dossierType: [null, [Validators.required]],
-    dossierId: [null, [Validators.required, this.pharmabioDossierIdValidator]],
+    dossierId: [null, [Validators.required, PbvService.pharmabioDossierIdValidator]],
     companyId: [null, [Validators.required, Validators.minLength(5)]],
     productName: [null, [Validators.required]],
     isPriority: [null, [Validators.required]],
@@ -63,18 +64,6 @@ export class RegulatoryInformationService {
       formRecord.controls['adminSubType'].setValue(null);
     }
 
-  }
-
-  //TODO: to move to pharmabio library
-  static pharmabioDossierIdValidator(control) {
-    if (!control.value) {
-      return null;
-    }
-    if (control.value.match(/^[a-z]{1}[0-9]{6}$/)) {
-      return null;
-    } else {
-      return {'error.mgs.dossier.id': true};
-    }
   }
 
 }
