@@ -1466,6 +1466,7 @@
                     "ADV_COMP_REQ",
                     "CANCEL_LETTER",
                     "PATIENT_SAFETY_INFO",
+                    "RQ_REVIEW_REPORT",
                     "EMAIL_RQ_RESPONSE",
                     "MHPD_RQ_RESPONSE",
                     "PROCESSING_CLARIF_RESPONSE"
@@ -1478,6 +1479,7 @@
                     "CANCEL_LETTER",
                     "MEETING_MINUTES",
                     "NOTIFICATION_CHANGE",
+                    "RQ_REVIEW_REPORT",
                     "EMAIL_RQ_RESPONSE",
                     "MHPD_RQ_RESPONSE",
                     "PROCESSING_CLARIF_RESPONSE",
@@ -1491,6 +1493,7 @@
                     "CANCEL_LETTER",
                     "ISSUE_SAFETY_REQUEST",
                     "MEETING_MINUTES",
+                    "RQ_REVIEW_REPORT",
                     "EMAIL_RQ_RESPONSE",
                     "PROCESSING_CLARIF_RESPONSE",
                     "PRESUB_MEETING_RQ"
@@ -1501,6 +1504,7 @@
                 "txnDescIds": [
                     "CANCEL_LETTER",
                     "FOREIGN_SAFETY_NOTIFICATION",
+                    "RQ_REVIEW_REPORT",
                     "EMAIL_RQ_RESPONSE",
                     "PROCESSING_CLARIF_RESPONSE"
                 ]
@@ -1511,6 +1515,7 @@
                     "CANCEL_LETTER",
                     "MEETING_MINUTES",
                     "POST_MARKET_SURV",
+                    "RQ_REVIEW_REPORT",
                     "EMAIL_RQ_RESPONSE",
                     "MHPD_RQ_RESPONSE",
                     "PROCESSING_CLARIF_RESPONSE",
@@ -1523,6 +1528,7 @@
                     "CANCEL_LETTER",
                     "FOR_PERIOD",
                     "MEETING_MINUTES",
+                    "RQ_REVIEW_REPORT",
                     "EMAIL_RQ_RESPONSE",
                     "MHPD_RQ_RESPONSE",
                     "PROCESSING_CLARIF_RESPONSE"
@@ -1534,6 +1540,7 @@
                     "CANCEL_LETTER",
                     "FOR_PERIOD",
                     "MEETING_MINUTES",
+                    "RQ_REVIEW_REPORT",
                     "EMAIL_RQ_RESPONSE",
                     "MHPD_RQ_RESPONSE",
                     "PROCESSING_CLARIF_RESPONSE"
@@ -1545,6 +1552,7 @@
                     "CANCEL_LETTER",
                     "FOR_PERIOD",
                     "MEETING_MINUTES",
+                    "RQ_REVIEW_REPORT",
                     "EMAIL_RQ_RESPONSE",
                     "MHPD_RQ_RESPONSE",
                     "PROCESSING_CLARIF_RESPONSE"
@@ -1556,6 +1564,7 @@
                     "CANCEL_LETTER",
                     "FOR_PERIOD",
                     "MEETING_MINUTES",
+                    "RQ_REVIEW_REPORT",
                     "EMAIL_RQ_RESPONSE",
                     "MHPD_RQ_RESPONSE",
                     "PROCESSING_CLARIF_RESPONSE"
@@ -1567,6 +1576,7 @@
                     "CANCEL_LETTER",
                     "DISSEM_LIST",
                     "FINAL_RISK_COM",
+                    "RQ_REVIEW_REPORT",
                     "PROCESSING_CLARIF_RESPONSE",
                     "RISK_COMMUN_DOC"
                 ]
@@ -1579,6 +1589,7 @@
                     "MEETING_MINUTES",
                     "EMAIL_RQ_RESPONSE",
                     "MHPD_RQ_RESPONSE",
+                    "RQ_REVIEW_REPORT",
                     "PROCESSING_CLARIF_RESPONSE",
                     "RMP_VERSION_DATE",
                     "PRESUB_MEETING_RQ"
