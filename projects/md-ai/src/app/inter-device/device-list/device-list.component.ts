@@ -89,13 +89,18 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     this._deviceService.showDeviceErrorSummaryOneRec.set(false);
     const newIndex = this.devicesFormArr.length;
     const group = this.deviceService.createDeviceFormGroup(this.fb);
+    let deviceFocus = "";
     this.devicesFormArr.push(group);
+    console.log("Device list", newIndex);
     if (this.devicesFormArr.length >= 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(false);
-      document.location.href = '#deviceName' + newIndex;
+      deviceFocus = "deviceName" + newIndex;
     } else {
-      document.location.href = '#deviceName' + 0;
+      deviceFocus = "deviceName" + 0;
     }
+    setTimeout(() => {
+      document.getElementById(deviceFocus).focus()  
+    }, 0);
   }
 
   saveDeviceRecord(event: any) {  
