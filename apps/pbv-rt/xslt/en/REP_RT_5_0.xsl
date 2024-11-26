@@ -349,7 +349,7 @@
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_urgent_health_need" />
 										</xsl:call-template>
-										<strong>We certify that the drug in our submission/application is on the List of Drugs for an Urgent Public Health Need as per the Access to Drugs in Exceptional Circumstances Regulations and</strong>
+										<strong>We certify that the drug in our submission/application is on the List of Drugs for an Urgent Public Health Need as per the Access to Drugs in Exceptional Circumstances Regulations and:</strong>
 										<div class="col-xs-12">
 											<ol class="lst-lwr-alph">
 												<li>the drug has the same medicinal ingredient,	strength and route of administration, and is in a comparable dosage form, as a drug that may be imported under subsection C.10.001(2) of those Regulations;</li>
