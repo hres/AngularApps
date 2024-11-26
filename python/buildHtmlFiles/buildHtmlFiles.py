@@ -58,6 +58,7 @@ def generate_files(option):
             # print('jinja_html_template_name=', jinja_html_template_name)
 
             # Get today's date
+            # Also language toggle
             if lang=="fr":
                 modification_date = datetime.datetime.now().strftime("%Y-%m-%d")
                 lngHref = f'{html_file_dict["en"]}.html'
