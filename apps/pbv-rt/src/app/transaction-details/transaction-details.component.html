@@ -174,9 +174,9 @@
                 <label for="briefDescriptionOfChange" class="required">
                     <span class="field-name">{{ 'brief.desc.change'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <sup [id]="helpIndex['prodNameIndx'][2]">
-						<a class="fn-lnk" [href]="'#' + helpIndex['prodNameIndx'][1]"><span
-                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodNameIndx'][0]}}</a>
+                    <sup [id]="helpIndex['briefDescIndx'][2]">
+						<a class="fn-lnk" [href]="'#' + helpIndex['briefDescIndx'][1]"><span
+                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['briefDescIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="transctionDetailsForm.controls['briefDescriptionOfChange'].invalid"
                         [showError]="showErrors"
