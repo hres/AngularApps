@@ -13,6 +13,7 @@ import { DrugUseComponent } from '../drug-use/drug-use.component';
 import { NoticeOfComplianceComponent } from '../notice-of-compliance/notice-of-compliance.component';
 import { environment } from '../../environments/environment';
 import { NewDrugSubmissionInformationComponent } from '../new-drug-submission-information/new-drug-submission-information.component';
+import { MedicinalIngredientsComponent } from '../medicinal-ingredients/medicinal-ingredients.component';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     @ViewChild(DrugUseComponent) drugUseComponent: DrugUseComponent;
     @ViewChild(NoticeOfComplianceComponent) noticeOfComplianceComponent: NoticeOfComplianceComponent;
     @ViewChild(NewDrugSubmissionInformationComponent) newDrugSubmissionInformationComponent: NewDrugSubmissionInformationComponent;
+    @ViewChild(MedicinalIngredientsComponent) medicinalIngredientsComponent: MedicinalIngredientsComponent;
   // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
@@ -59,6 +61,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _drugUseErrors = [];
   private _noticeOfComplianceErrors = [];
   private _newDrugSubmissionInfoErrors = [];
+  private _medicinalIngredientsForErrors = [];
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -179,6 +182,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._drugUseErrors);
     this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
+    this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -202,6 +206,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processNewDrugSubmissionInfoErrors(errorList) {
     this._newDrugSubmissionInfoErrors = errorList;
+    this.processErrors();
+  }
+
+
+  processMedicinalIngredientsErrors(errorList){
+    this._medicinalIngredientsForErrors = errorList;
     this.processErrors();
   }
 
@@ -347,6 +357,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const newDrugSubmissionINfo = this.newDrugSubmissionInformationComponent.getFormValue();
     this._baseService.mapNewDrugSubmissionInformationFormsToOutput(newTransactionEnrol, newDrugSubmissionINfo);
+
+    const medicinalIngredients = this.medicinalIngredientsComponent.getFormValue();
+    this._baseService.mapMedicinalIngredientsFormsToOutput(newTransactionEnrol, medicinalIngredients);
 
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
