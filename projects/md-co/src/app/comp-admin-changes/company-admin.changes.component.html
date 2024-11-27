@@ -78,7 +78,7 @@
                               controlId="newCompanyId" label="new.company.id" parentId="adminChangesDetails"
                               parentLabel="Admin Changes"></control-messages>
             <input name="newCompanyId" id="newCompanyId" class="form-control full-width" (blur)="onblur()"
-                   [formControl]="adminChangesFormLocalModel.controls['newCompanyId'] | formControl" [maxlength]="6" data-only-digits/>
+                   [formControl]="adminChangesFormLocalModel.controls['newCompanyId'] | formControl" [maxLength]="6" data-only-digits/>
           </label>
         </div>
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
@@ -90,7 +90,7 @@
                               controlId="newContactId" label="new.contact.id" parentId="adminChangesDetails"
                               parentLabel="Admin Changes"></control-messages>
             <input name="newContactId" id="newContactId" class="form-control full-width"  (blur)="onblur()"
-                   [formControl]="adminChangesFormLocalModel.controls['newContactId'] | formControl" [maxlength]="5" data-only-digits/>
+                   [formControl]="adminChangesFormLocalModel.controls['newContactId'] | formControl" [maxLength]="5" data-only-digits/>
           </label>
         </div>
       </div>
