@@ -1,0 +1,30 @@
+<div>
+  <div [formGroup]="newDrugSubmissionInfoForm">
+    <div class="row">
+        <div class="col-sm-6">
+        <label for="ndsNumber" class="required">
+          <span
+            ><b>{{ "new.drug.submission.info.nds.number" | translate }}</b></span>
+          <strong class="required">{{
+            "commmon.required.bracket" | translate
+          }}</strong>
+          <control-messages
+            *ngIf="newDrugSubmissionInfoForm.controls['ndsNumber'].invalid"
+            [showError]="showErrors"
+            parentId="cspNocDate"
+            [control]="newDrugSubmissionInfoForm.controls['ndsNumber'] | formControl"
+            controlId="ndsNumber"
+            label="ndsNumber"
+          ></control-messages>
+          <input
+            class="form-control"
+            id="ndsNumber"
+            type="number"
+            [formControlName]="'ndsNumber'"
+           />
+        </label>
+      </div>
+
+  </div>
+</div>
+

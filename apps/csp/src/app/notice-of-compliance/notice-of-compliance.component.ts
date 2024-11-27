@@ -2,27 +2,14 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
-  OnDestroy,
   Output,
-  QueryList,
   SimpleChanges,
-  ViewChildren,
   ViewEncapsulation,
-  computed,
-  signal,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
-  ICodeDefinition,
-  ICodeAria,
-  ICode,
-  IParentChildren,
-  EntityBaseService,
   UtilsService,
-  ErrorModule,
-  PipesModule,
   HelpIndex,
   BaseComponent,
 } from '@hpfb/sdk/ui';
@@ -34,7 +21,8 @@ import { GlobalService } from '../global/global.service';
 @Component({
   selector: 'app-notice-of-compliance',
   templateUrl: './notice-of-compliance.component.html',
-  styleUrl: './notice-of-compliance.component.css'
+  styleUrl: './notice-of-compliance.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class NoticeOfComplianceComponent extends BaseComponent implements OnInit {
 

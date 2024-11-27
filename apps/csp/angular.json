@@ -21,8 +21,21 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "build-content-configs",
+                "output": "/temp"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@hpfb/sdk/src/assets/static",
+                "output": "/temp"
+              }
             ],
             "styles": [
               "src/styles.css"
@@ -30,6 +43,71 @@
             "scripts": []
           },
           "configurations": {
+
+            "production-en": {
+              "outputPath": "../../dist/csp/prod/en",
+              "index": "node_modules/@hpfb/sdk/src/index-en.j2",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod-en.ts"
+                }
+              ]
+            },
+            "production-fr": {
+              "outputPath": "../../dist/csp/prod/fr",
+              "index": "node_modules/@hpfb/sdk/src/index-fr.j2",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod-fr.ts"
+                }
+              ]
+            },
+            "development-en": {
+              "outputPath": "../../dist/csp/dev/en",
+              "index": "node_modules/@hpfb/sdk/src/index-en.j2",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev-en.ts"
+                }
+              ]
+            },
+            "development-fr": {
+              "outputPath": "../../dist/csp/dev/fr",
+              "index": "node_modules/@hpfb/sdk/src/index-fr.j2",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev-fr.ts"
+                }
+              ]
+            },
             "production": {
               "budgets": [
                 {
@@ -80,7 +158,7 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              "src/favicon.ico",
+                "src/favicon.ico",
               "src/assets"
             ],
             "styles": [

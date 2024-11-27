@@ -12,6 +12,7 @@ import { AppSignalService } from '../signal/app-signal.service';
 import { RegulatoryInformationComponent } from '../regulatory-information/regulatory-information.component';
 import { RegulatoryContactComponent } from '../regulatory-contact/regulatory-contact.component';
 import { FeesComponent } from '../fees/fees.component';
+import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 
 @Component({
     selector: 'app-form-base',
@@ -20,7 +21,7 @@ import { FeesComponent } from '../fees/fees.component';
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
     providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
