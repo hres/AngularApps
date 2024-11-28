@@ -104,7 +104,6 @@ export class FormBaseService {
       dossier_id: '',
       dossier_type: undefined,
       product_name: '',
-      product_protocol: '',
       lifecycle_record: this.getEmptyLifecycleRecord(),
     };
     return ectd;

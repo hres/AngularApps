@@ -446,5 +446,7 @@
      "error.found.plural": " erreurs ont été trouvées ",
      "error.found.singular": " erreur a été trouvée ",
       "new.drug.submission.info.nds.number": "Numéro de PDN",
-     "panel.title.new.drug.submission.info": "Renseignements sur la présentation de drogue nouvelle (PDN)"
+     "panel.title.new.drug.submission.info": "Renseignements sur la présentation de drogue nouvelle (PDN)",
+      "medicinal.ingredients": "Ingrédient(s) médicinal(aux)(conformément à ce qui est indiqué sur l’AC pour la PDN susmentionnée)",
+     "panel.title.medicinal.ingredients": "Ingrédient(s) médicinal(aux)"
 }

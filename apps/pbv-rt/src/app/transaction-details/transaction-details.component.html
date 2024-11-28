@@ -174,9 +174,9 @@
                 <label for="briefDescriptionOfChange" class="required">
                     <span class="field-name">{{ 'brief.desc.change'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <sup [id]="helpIndex['prodNameIndx'][2]">
-						<a class="fn-lnk" [href]="'#' + helpIndex['prodNameIndx'][1]"><span
-                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodNameIndx'][0]}}</a>
+                    <sup [id]="helpIndex['briefDescIndx'][2]">
+						<a class="fn-lnk" [href]="'#' + helpIndex['briefDescIndx'][1]"><span
+                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['briefDescIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="transctionDetailsForm.controls['briefDescriptionOfChange'].invalid"
                         [showError]="showErrors"
@@ -210,9 +210,6 @@
             <div class="form-group col-md-4">
                 <label for="requester2" class="full-width">
                     <span class="field-name">{{'requester.name2'|translate}}</span>
-                    <control-messages *ngIf="transctionDetailsForm.controls['requester2'].invalid"
-                        [showError]="showErrors" [control]="transctionDetailsForm.controls['requester2'] | formControl"
-                        controlId="requester2" label="requester.name2" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="requester2" name="requester2" type="text" class="form-control full-width"
                     [formControlName]="'requester2'">
@@ -220,9 +217,6 @@
             <div class="form-group col-md-4">
                 <label for="requester3" class="full-width">
                     <span class="field-name">{{'requester.name3'|translate}}</span>
-                    <control-messages *ngIf="transctionDetailsForm.controls['requester3'].invalid"
-                        [showError]="showErrors" [control]="transctionDetailsForm.controls['requester3'] | formControl"
-                        controlId="requester3" label="requester.name3" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="requester3" name="requester3" type="text" class="form-control full-width"
                     [formControlName]="'requester3'">
