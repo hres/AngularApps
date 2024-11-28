@@ -98,15 +98,20 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   addMaterial() {
     const newIndex = this.materialsFormArr.length;
     const group = this.materialService.createMaterialFormGroup(this.fb);
+    let materialFocus = "";
+
     this.materialsFormArr.push(group);
     if (this.materialsFormArr.length > 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(false);
     }
     if (this.materialsFormArr.length >= 1) {
-      document.location.href = '#materialName' + newIndex;
+      materialFocus = "materialName" + newIndex;
     } else {
-      document.location.href = '#materialName' + 0;
+      materialFocus = "materialName" + 0;
     }
+    setTimeout(() => {
+      document.getElementById(materialFocus).focus()  
+    }, 0);
   }
 
   saveMaterialRecord(event: any) {  
@@ -138,8 +143,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.statusMessage = "Enregistrement du matériel biologique " + id + " a été sauvegardé.";
     }
-
-    document.location.href = '#addMaterialBtn';
+    setTimeout(() => {
+      document.getElementById('addMaterialBtn').focus()  
+    }, 0);
   }
 
   private _expandNextInvalidRecord(){
@@ -176,7 +182,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.statusMessage = "Enregistrement du matériel biologique " + id + " a été supprimé.";
     }
-    document.location.href = '#addMaterialBtn';
+    document.getElementById('addMaterialBtn').focus();
   }
 
   revertMaterial(event: any) {  

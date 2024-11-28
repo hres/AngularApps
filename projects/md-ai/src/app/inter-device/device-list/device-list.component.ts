@@ -91,7 +91,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     const group = this.deviceService.createDeviceFormGroup(this.fb);
     let deviceFocus = "";
     this.devicesFormArr.push(group);
-    console.log("Device list", newIndex);
     if (this.devicesFormArr.length >= 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(false);
       deviceFocus = "deviceName" + newIndex;
@@ -134,7 +133,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.statusMessage = "Enregistrement d’intrument " + id + " a été sauvegardé.";
     }
-    document.location.href = '#addDeviceBtn';
+    setTimeout(() => {
+      document.getElementById('addDeviceBtn').focus()  
+    }, 0);
   }
 
   private _expandNextInvalidRecord(){
@@ -167,7 +168,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.statusMessage = "Enregistrement d’intrument " + id + " a été supprimé.";
     }
-    document.location.href = '#addDeviceBtn';
+    document.getElementById('addDeviceBtn').focus();
   }
 
   revertDevice(event: any) {  

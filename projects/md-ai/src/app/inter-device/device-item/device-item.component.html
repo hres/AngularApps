@@ -15,7 +15,7 @@
                                   [control]="cRRow.get('deviceInfo.deviceName') | formControl"
                                   controlId="deviceName{{j}}" label="device.name" parentId="deviceDetails"
                                   translatedParentLabel="{{translatedParentLabel}}"></control-messages>
-                <textarea tabindex="0" id="deviceName{{j}}" name="deviceName" class="form-control full-width"
+                <textarea id="deviceName{{j}}" name="deviceName" class="form-control full-width"
                        [formControlName]="'deviceName'" maxlength="150"></textarea>
               </label>
             </div>
