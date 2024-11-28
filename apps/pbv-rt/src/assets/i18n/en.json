@@ -4,7 +4,7 @@
     "errorSummary.form.name": "The form",	
     "panel.title.regulatory.info": "Regulatory information",
     "heading.transaction.details": "Transaction details",
-    "dossier.type": "Dossier Type",
+    "dossier.type": "Dossier type",
     "sequence.descript": "Regulatory Transaction Description",
     "is.actchanges": "Same as Regulatory Activity Contact for this Submission?",
     "company.id": "Company Identifier",
