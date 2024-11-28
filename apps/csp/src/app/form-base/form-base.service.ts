@@ -9,6 +9,7 @@ import { PatentService } from '../patent/patent-service.service';
 import { DrugUseService } from '../drug-use/drug-use.service';
 import { NoticeOfComplianceService } from '../notice-of-compliance/notice-of-compliance.service';
 import { NewDrugSubmissionInformationService } from '../new-drug-submission-information/new-drug-submission-information.service';
+import { MedicinalIngredientsService } from '../medicinal-ingredients/medicinal-ingredients.service';
 
 @Injectable()
 export class FormBaseService {
@@ -17,7 +18,8 @@ export class FormBaseService {
   private messageSource = new BehaviorSubject('');
   currentMessage = this.messageSource.asObservable();
   constructor(
-    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService) {
+    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService,
+   private medicinalIngredientService: MedicinalIngredientsService) {
   }
 
   /**
@@ -94,7 +96,8 @@ export class FormBaseService {
       patent: this.getEmptyPatent(),
       drugUse: '',
       nocDate: '',
-      ndsNumber:''
+      ndsNumber:'',
+      medicinalIngredients:'',
     };
 
     return TransactionEnrol;
@@ -227,6 +230,11 @@ export class FormBaseService {
 
   public mapNewDrugSubmissionInformationFormsToOutput(outputTransactionEnrol: TransactionEnrol,newDrugSubmissionInformationForm: any): void{
     this._newDrugSubmissionService.mapFormModelToDataModel(newDrugSubmissionInformationForm, outputTransactionEnrol);
+
+  }
+
+  public mapMedicinalIngredientsFormsToOutput(outputTransactionEnrol: TransactionEnrol,medicinalIngredientsForm: any): void{
+    this.medicinalIngredientService.mapFormModelToDataModel(medicinalIngredientsForm, outputTransactionEnrol);
 
   }
 }

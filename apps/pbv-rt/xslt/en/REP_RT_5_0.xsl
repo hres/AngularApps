@@ -29,7 +29,7 @@
 				style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
 					<th style="text-align: center;font-weight:bold;">Company Identifier </th>
-					<th style="text-align: center;font-weight:bold;">Dossier Type</th>
+					<th style="text-align: center;font-weight:bold;">Dossier type</th>
 					<th style="text-align: center;font-weight:bold;">Dossier Identifier </th>
 					<th style="text-align: center;font-weight:bold;">Date Last Saved</th>
 				</tr>
@@ -60,7 +60,7 @@
 <section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h2 class="panel-title">Regulatory Information</h2>
+					<h2 class="panel-title">Regulatory information</h2>
 				</div>
 				<div class="panel-body">
 					<div class="well well-sm">
@@ -349,7 +349,7 @@
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_urgent_health_need" />
 										</xsl:call-template>
-										<strong>We certify that the drug in our submission/application is on the List of Drugs for an Urgent Public Health Need as per the Access to Drugs in Exceptional Circumstances Regulations and</strong>
+										<strong>We certify that the drug in our submission/application is on the List of Drugs for an Urgent Public Health Need as per the Access to Drugs in Exceptional Circumstances Regulations and:</strong>
 										<div class="col-xs-12">
 											<ol class="lst-lwr-alph">
 												<li>the drug has the same medicinal ingredient,	strength and route of administration, and is in a comparable dosage form, as a drug that may be imported under subsection C.10.001(2) of those Regulations;</li>

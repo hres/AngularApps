@@ -210,9 +210,6 @@
             <div class="form-group col-md-4">
                 <label for="requester2" class="full-width">
                     <span class="field-name">{{'requester.name2'|translate}}</span>
-                    <control-messages *ngIf="transctionDetailsForm.controls['requester2'].invalid"
-                        [showError]="showErrors" [control]="transctionDetailsForm.controls['requester2'] | formControl"
-                        controlId="requester2" label="requester.name2" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="requester2" name="requester2" type="text" class="form-control full-width"
                     [formControlName]="'requester2'">
@@ -220,9 +217,6 @@
             <div class="form-group col-md-4">
                 <label for="requester3" class="full-width">
                     <span class="field-name">{{'requester.name3'|translate}}</span>
-                    <control-messages *ngIf="transctionDetailsForm.controls['requester3'].invalid"
-                        [showError]="showErrors" [control]="transctionDetailsForm.controls['requester3'] | formControl"
-                        controlId="requester3" label="requester.name3" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="requester3" name="requester3" type="text" class="form-control full-width"
                     [formControlName]="'requester3'">
