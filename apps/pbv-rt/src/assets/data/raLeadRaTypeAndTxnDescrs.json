@@ -2148,6 +2148,7 @@
                     "MEETING_MINUTES",
                     "ALLEGATION_NOTICE",
                     "POST_CLEARANCE_DATA",
+                    "POST_NOC_CHANGE",
                     "PUB_RELEASE_INFO",
                     "PRODUCT_LABELLING_POST_APPROVAL",
                     "RECON_DECIS_LTR_INTENT",
