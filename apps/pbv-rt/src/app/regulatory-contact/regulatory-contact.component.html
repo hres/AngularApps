@@ -53,7 +53,8 @@
             </pbv-address-details>
         </div>
         </div>
-        <h3 class="mrgn-tp-sm">{{ 'company.representative' | translate }}</h3>
+        <h3 *ngIf="!showCompanyAndAddress" class="mrgn-tp-sm">{{ 'company.representative.b' | translate }}</h3>
+        <h3 *ngIf="showCompanyAndAddress" class="mrgn-tp-sm">{{ 'company.representative.c' | translate }}</h3>
         <div>
             <pbv-contact-details [showErrors]="showErrors" [contactDetailsModel]="contactModel"
                     [lang]="lang"
