@@ -7,10 +7,10 @@ import {
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {AddressDetailsService} from './address.details.service';
 import { BaseComponent, HelpIndex, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { INameAddress } from '../../model/form-model';
+import { INameAddress } from '../../model/entity-base';
 
 @Component({
-  selector: 'app-address-details',
+  selector: 'pbv-address-details',
   templateUrl: 'address.details.component.html',
   //styleUrls: ['address.details.component.css'],
   encapsulation: ViewEncapsulation.None

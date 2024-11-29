@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, HelpIndex, ICode, UtilsService } from '@hpfb/sdk/ui';
-import { IContact } from '../../model/form-model';
+import { IContact } from '../../model/entity-base';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ContactDetailsService } from './contact.details.service';
 
 @Component({
-  selector: 'app-contact-details',
+  selector: 'pbv-contact-details',
   templateUrl: './contact.details.component.html',
   //styleUrl: './contact-details.component.css',
   encapsulation: ViewEncapsulation.None,

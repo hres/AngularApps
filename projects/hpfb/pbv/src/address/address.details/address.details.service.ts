@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ConverterService, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
-import { INameAddress } from '../../model/form-model';
+import { INameAddress } from '../../model/entity-base';
 
 @Injectable()
 export class AddressDetailsService {

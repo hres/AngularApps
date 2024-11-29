@@ -2,14 +2,13 @@ import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord, Mitigation, IContactInformation} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
-import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
+import { EntityBaseService, UtilsService, ICode } from '@hpfb/sdk/ui';
+import { AddressDetailsService, ContactDetailsService } from '@hpfb/pbv';
 import { ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 import { TransactionDetailsService } from '../transaction-details/transaction-details.service';
 import { FeesService } from '../fees/fees.service';
 import { RegulatoryContactService } from '../regulatory-contact/regulatory-contact.service';
-import { AddressDetailsService } from '../address/address.details/address.details.service';
-import { ContactDetailsService } from '../contact/contact.details/contact.details.service';
 
 @Injectable()
 export class FormBaseService {
@@ -231,8 +230,13 @@ export class FormBaseService {
   }
 
   public mapRegContactInfoToOutput(contactInfo: IContactInformation, contactInfoFormGroupValue: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
+    const lang = this._globalService.currLanguage;
+    const languageList: ICode[] = this._globalService.languageList;
+    const countryList: ICode[] = this._globalService.countryList;
+    const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
+
     this._regulatoryContactService.mapFormModelToDataModel(contactInfoFormGroupValue, contactInfo);
-    this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, contactInfo.regulatory_activity_address);
-    this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, contactInfo.regulatory_activity_contact);
+    this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, contactInfo.regulatory_activity_address, lang, countryList, combinedProvStatList);
+    this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, contactInfo.regulatory_activity_contact, lang, languageList);
   }
 }

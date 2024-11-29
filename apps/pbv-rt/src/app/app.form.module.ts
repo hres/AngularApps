@@ -6,6 +6,7 @@ import {
   CommonUiFeatureModule,
   NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
+import { AddressModule, ContactModule } from '@hpfb/pbv';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,10 +20,6 @@ import { RegulatoryContactComponent } from './regulatory-contact/regulatory-cont
 import { RegulatoryContactService } from './regulatory-contact/regulatory-contact.service';
 import { HelpTextModuleModule } from "./instruction/help-text-module.module";
 import { AppSignalService } from './signal/app-signal.service';
-import { AddressDetailsComponent } from './address/address.details/address.details.component';
-import { AddressDetailsService } from './address/address.details/address.details.service';
-import { ContactDetailsComponent } from './contact/contact.details/contact.details.component';
-import { ContactDetailsService } from './contact/contact.details/contact.details.service';
 
 @NgModule({
   declarations: [
@@ -30,8 +27,6 @@ import { ContactDetailsService } from './contact/contact.details/contact.details
     RegulatoryContactComponent,
     TransactionDetailsComponent,
     FeesComponent,
-    AddressDetailsComponent,
-    ContactDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -43,24 +38,22 @@ import { ContactDetailsService } from './contact/contact.details/contact.details
     ReactiveFormsModule,
     TranslateModule,
     NumbersOnlyDirective,
-    HelpTextModuleModule
+    HelpTextModuleModule,
+    AddressModule,
+    ContactModule
 ],
   providers: [
     AppSignalService,
     RegulatoryInformationService,
     RegulatoryContactService,
     TransactionDetailsService,
-    FeesService,
-    AddressDetailsService,
-    ContactDetailsService
+    FeesService
   ],
   exports: [CommonUiFeatureModule,
     RegulatoryInformationComponent,
     RegulatoryContactComponent,
     TransactionDetailsComponent,
-    FeesComponent,
-    AddressDetailsComponent,
-    ContactDetailsComponent
+    FeesComponent
    ],
 })
 export class AppFormModule {}

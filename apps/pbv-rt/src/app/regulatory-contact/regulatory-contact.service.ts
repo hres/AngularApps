@@ -1,14 +1,11 @@
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IContactInformation } from "../models/transaction";
-import { AddressDetailsService } from "../address/address.details/address.details.service";
-import { ContactDetailsService } from "../contact/contact.details/contact.details.service";
 
 @Injectable()
 export class RegulatoryContactService {
 
-    constructor(private _addressDetailsService: AddressDetailsService,
-                private _contactDetailsService: ContactDetailsService) {
+    constructor() {
 
     }
     public static getContactForm(fb:FormBuilder) {

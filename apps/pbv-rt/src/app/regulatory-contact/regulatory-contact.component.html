@@ -43,17 +43,23 @@
         <div *ngIf="showCompanyAndAddress">
             <h3 class="mrgn-tp-sm">{{ 'address.info' | translate }}</h3>
         <div>
-            <app-address-details [showErrors]="showErrors" 
+            <pbv-address-details [showErrors]="showErrors" 
                     [addressModel]="addressModel"
+                    [lang]="lang"
+                    [countryList]="countryList"
+                    [provinceList]="provinceList"
+                    [stateList]="stateList"
                     (errorList)="processAddressErrors($event)">
-            </app-address-details>
+            </pbv-address-details>
         </div>
         </div>
         <h3 class="mrgn-tp-sm">{{ 'company.representative' | translate }}</h3>
         <div>
-            <app-contact-details [showErrors]="showErrors" [contactDetailsModel]="contactModel"
+            <pbv-contact-details [showErrors]="showErrors" [contactDetailsModel]="contactModel"
+                    [lang]="lang"
+                    [languageList]="languageList"
                     (errorList)="processContactErrors($event)">
-            </app-contact-details> 
+            </pbv-contact-details>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkbox required">

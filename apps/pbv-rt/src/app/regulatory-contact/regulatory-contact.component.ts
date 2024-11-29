@@ -5,9 +5,8 @@ import { GlobalService } from '../global/global.service';
 import { NO, YES } from '../app.constants';
 import { RegulatoryContactService } from './regulatory-contact.service';
 import { IContact, IContactInformation, INameAddress } from '../models/transaction';
-import { AddressDetailsComponent } from '../address/address.details/address.details.component';
-import { ContactDetailsComponent } from '../contact/contact.details/contact.details.component';
 import { AppSignalService } from '../signal/app-signal.service';
+import { AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
 
 @Component({
   selector: 'app-regulatory-contact',
@@ -17,6 +16,10 @@ import { AppSignalService } from '../signal/app-signal.service';
 })
 export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   lang:string;
+  languageList: ICode[] = [];
+  countryList: ICode[] = [];
+  provinceList: ICode[] = [];
+  stateList: ICode[] = [];
   helpIndex: HelpSequence;
   
   public regulatoryContactInfoForm: FormGroup;
@@ -52,6 +55,12 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
     if (!this.regulatoryContactInfoForm) {
       this.regulatoryContactInfoForm = RegulatoryContactService.getContactForm(this._fb);
     }
+    this.lang = this._globalService.currLanguage;
+    this.languageList = this._globalService.languageList;
+    this.countryList = this._globalService.countryList;
+    this.provinceList = this._globalService.provinceList;
+    this.stateList = this._globalService.stateList; 
+
     this.yesNoList = this._globalService.yesnoList;
   }
 
