@@ -1,4 +1,5 @@
 import { IIdText, IIdTextLabel, ITextLabel } from "@hpfb/sdk/ui";
+import { INameAddress, IContact } from "@hpfb/pbv";
 
 export interface Transaction {
   TRANSACTION_ENROL: TransactionEnrol;
@@ -12,6 +13,7 @@ export interface TransactionEnrol {
   check_sum?: string;
   ectd: Ectd;
   fee_details: FeeDetails;
+  contact_info: IContactInformation;
   is_priority: string;
   is_noc: string;
   is_admin_sub: string;
@@ -50,25 +52,12 @@ export interface FeeDetails {
   mitigation: Mitigation;
 }
 
-export interface INameAddress {
+export interface IContactInformation {
+  is_activity_changes: string;
   company_name: string;
-  street_address: string;
-  city: string;
-  province_lov: IIdText;
-  province_text: string;
-  country: IIdTextLabel;
-  postal_code: string;
-}
-
-export interface IContact {
-  given_name: string;
-  surname: string;
-  job_title: string;
-  language_correspondance: IIdTextLabel;
-  phone_num: string;
-  phone_ext: string;
-  fax_num: string;
-  email: string;
+  regulatory_activity_address: INameAddress;
+  regulatory_activity_contact: IContact;
+  confirm_regulatory_contact: boolean;
 }
 
 export interface Mitigation {

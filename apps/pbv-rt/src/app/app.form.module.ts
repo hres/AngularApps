@@ -6,6 +6,10 @@ import {
   CommonUiFeatureModule,
   NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
+import {
+  CommonPbvModule
+} from '@hpfb/pbv'
+import { AddressModule, ContactModule } from '@hpfb/pbv';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,12 +19,15 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
 import { TransactionDetailsService } from './transaction-details/transaction-details.service';
 import { FeesComponent } from './fees/fees.component';
 import { FeesService } from './fees/fees.service';
+import { RegulatoryContactComponent } from './regulatory-contact/regulatory-contact.component';
+import { RegulatoryContactService } from './regulatory-contact/regulatory-contact.service';
 import { HelpTextModuleModule } from "./instruction/help-text-module.module";
 import { AppSignalService } from './signal/app-signal.service';
 
 @NgModule({
   declarations: [
     RegulatoryInformationComponent,
+    RegulatoryContactComponent,
     TransactionDetailsComponent,
     FeesComponent
   ],
@@ -34,16 +41,21 @@ import { AppSignalService } from './signal/app-signal.service';
     ReactiveFormsModule,
     TranslateModule,
     NumbersOnlyDirective,
-    HelpTextModuleModule
+    HelpTextModuleModule,
+    AddressModule,
+    ContactModule,
+    CommonPbvModule
 ],
   providers: [
     AppSignalService,
     RegulatoryInformationService,
+    RegulatoryContactService,
     TransactionDetailsService,
     FeesService
   ],
   exports: [CommonUiFeatureModule,
     RegulatoryInformationComponent,
+    RegulatoryContactComponent,
     TransactionDetailsComponent,
     FeesComponent
    ],
