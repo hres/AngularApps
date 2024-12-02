@@ -29,7 +29,7 @@
 				style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
 					<th style="text-align: center;font-weight:bold;">Company Identifier </th>
-					<th style="text-align: center;font-weight:bold;">Dossier Type</th>
+					<th style="text-align: center;font-weight:bold;">Dossier type</th>
 					<th style="text-align: center;font-weight:bold;">Dossier Identifier </th>
 					<th style="text-align: center;font-weight:bold;">Date Last Saved</th>
 				</tr>
@@ -60,7 +60,7 @@
 <section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h2 class="panel-title">Regulatory Information</h2>
+					<h2 class="panel-title">Regulatory information</h2>
 				</div>
 				<div class="panel-body">
 					<div class="well well-sm">

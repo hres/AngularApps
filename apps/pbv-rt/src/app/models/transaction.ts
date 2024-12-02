@@ -20,11 +20,10 @@ export interface TransactionEnrol {
 }
 
 export interface Ectd {
+  dossier_type: IIdTextLabel;
   company_id: string;
   dossier_id: string;
-  dossier_type: IIdTextLabel;
   product_name: string;
-  product_protocol: string;
   lifecycle_record: LifecycleRecord;
 }
 
