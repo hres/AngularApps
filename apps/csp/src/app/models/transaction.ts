@@ -71,6 +71,13 @@ export interface IPatent {
   patentGrandDate: string;
 }
 
+export interface IApplicant {
+  applicantName: string;
+  craBusinessNumber: string;
+  cspNumber: string;
+  agentName: string;
+}
+
 export interface IDrugUse {
   usage: IIdText
 
