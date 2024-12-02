@@ -10,21 +10,21 @@
             "header": "Publication du 11 décembre 2024",
             "details": [
                 {
-                    "template": "Modèle de compagnie Version 4.0.1",
+                    "template": "Modèle de compagnie <br>Version 4.0.1",
                     "changes": [
                         "Traduction du bouton « Choisir un fichier » sur le modèle français",
                         "Correction d'erreurs grammaticales mineures"
                     ]
                 },
                 {
-                    "template": "Modèle de transaction réglementaire Version 3.0.1",
+                    "template": "Modèle de transaction réglementaire <br>Version 3.0.1",
                     "changes": [
                         "Traduction du bouton « Choisir un fichier » sur le modèle français",
                         "Correction d'erreurs grammaticales mineures"
                     ]
                 },
                 {
-                    "template": "Modèle d’information sur les demandes d’homologation Version 3.0.1",
+                    "template": "Modèle d’information sur les demandes d’homologation <br>Version 3.0.1",
                     "changes": [
                         "Traduction du bouton « Choisir un fichier » sur le modèle français",
                         "Mise à jour de l’ordre des messages d’erreurs pour « l'enregistrement d'instruments interdépendants » et « le formulaire de déclaration de conformité »",
