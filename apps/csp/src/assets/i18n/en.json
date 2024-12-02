@@ -445,6 +445,7 @@
     "grand.date":"Patent Date Granted",
     "expiration.date":"Patent Expiration Date",
     "panel.title.csp":"Certificate of Supplementary Protection (CSP) Information",
+    "panel.title.applicant":"Applicant Information",
     "panel.title.patent":"Patent Information",
     "panel.title.druguse":"Drug Use",
      "drug.use":"Drug Use",
@@ -459,5 +460,9 @@
      "new.drug.submission.info.nds.number": "NDS Number",
      "panel.title.new.drug.submission.info": "New Drug Submission (NDS) Information",
      "medicinal.ingredients": "Medicinal ingredient(s) (as provided on the NOC for the NDS provided in Section 3)",
-     "panel.title.medicinal.ingredients": " Medicinal Ingredient(s)"
+     "panel.title.medicinal.ingredients": " Medicinal Ingredient(s)",
+     "applicant.name":"Applicant Name",
+     "cra.business.number":"CRA Business Number",
+     "csp.customer.number":"CSP Customer Number",
+     "agent.name":"Agent Name (Full legal Name - no abbreviations)"
 }

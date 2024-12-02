@@ -435,6 +435,7 @@
     "grand.date":"Date d’octroi du brevet",
     "expiration.date":"Date d'expiration du brevet",
     "panel.title.csp":"Formulaire de la demande de certificat de protection supplémentaire (CPS)",
+    "panel.title.applicant":"/frApplicant Information",
     "panel.title.patent":"Renseignements sur le brevet",
     "panel.title.druguse":"Usage de la drogue",
      "drug.use":"Usage de la drogue",
@@ -448,5 +449,9 @@
       "new.drug.submission.info.nds.number": "Numéro de PDN",
      "panel.title.new.drug.submission.info": "Renseignements sur la présentation de drogue nouvelle (PDN)",
       "medicinal.ingredients": "Ingrédient(s) médicinal(aux)(conformément à ce qui est indiqué sur l’AC pour la PDN susmentionnée)",
-     "panel.title.medicinal.ingredients": "Ingrédient(s) médicinal(aux)"
+     "panel.title.medicinal.ingredients": "Ingrédient(s) médicinal(aux)",
+     "applicant.name":"Nom du demandeur",
+     "cra.business.number":"Numéro d’entreprise d’ARC",
+     "csp.customer.number":"Numéro de client de CPS",
+     "agent.name":"Nom de l’agent (dénomination sociale complète – ne pas utiliser d’abréviations)"
 }
