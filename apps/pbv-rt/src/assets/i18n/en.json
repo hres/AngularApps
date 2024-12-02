@@ -187,10 +187,7 @@
     "5digits.only": " (5-digit)",
 
     "error.msg.minlength": "Invalid entry - must be {{ requiredLength }} numbers",
-    "error.msg.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product.",
-    "error.msg.zip":"Invalid entry - must be 5 numbers",
-    "error.msg.postal":"Invalid format - must be X#X#X#",
-    "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
+    "error.mgs.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product.",
     "consent.privacy": "By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the Privacy Notice Statement."
 
 }

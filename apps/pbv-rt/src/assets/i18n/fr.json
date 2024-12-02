@@ -45,8 +45,8 @@
     "addressDetails.country": "Pays",
     "addressDetails.province": "Province",
     "addressDetails.state": "État",
-    "addressDetails.postalZipCode":"Code Postal/ZIP (Si pas disponible, utilisez « sans objet »)",
-    "addressDetails.postalCode": "Code postal",
+    "addressDetails.postalZipCode":"Code Postal/ZIP",
+    "addressDetails.postalCode": "Code Postal",
     "addressDetails.zipCode": "Code ZIP",
     "addressDetails.provState": "Province ou état",
     "company.representative.b": "B. Représentant de la compagnie",
@@ -187,10 +187,7 @@
     "5digits.only": " (5 chiffres)",
 
     "error.msg.minlength": "Entrée non valide - doit contenir {{ requiredLength }} chiffres",
-    "error.msg.dossier.id": "Format incorrect. - Le numéro de dossier est incorrect pour ce type de dossier. Veuillez vérifier le numéro de dossier et le type de dossier pour votre produit.",
-    "error.msg.zip":"Entrée non valide - doit contenir 5 chiffres",
-    "error.msg.postal":"Format non valide - doit être X#X#X#",
-    "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
+    "error.mgs.dossier.id": "Format incorrect. - Le numéro de dossier est incorrect pour ce type de dossier. Veuillez vérifier le numéro de dossier et le type de dossier pour votre produit.",
     "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité."
 
 }
