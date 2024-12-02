@@ -147,7 +147,8 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   }
 
   public deleteDeviceRecord(index: number): void {
-    this.errorSummaryChild = null;
+    // this.errorSummaryChild = null;
+    this._errorNotificationService.updateErrorSummary(DEVICE_ERROR_PREFIX + this.cRRow.get('id').value, null);
     this.deleteRecord.emit(index);
     this.cRRow.markAsPristine();
     this._updateErrorList([]);
