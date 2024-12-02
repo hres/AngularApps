@@ -1,7 +1,7 @@
 /*
  * Public API Surface of pbv
  */
-
+export * from './common.pbv.module'
 export * from './lib/pbv.service';
 export * from './lib/pbv.component';
 

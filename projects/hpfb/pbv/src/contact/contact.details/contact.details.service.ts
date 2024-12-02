@@ -32,6 +32,7 @@ export class ContactDetailsService {
 
   public mapFormModelToDataModel(formValue: any, contactModel: IContact, lang, languageList) {
     contactModel.given_name = formValue['firstName'];
+    contactModel.initials = formValue['initials'];
     // contactModel.initials = formRecord.controls['initials.value;
     contactModel.surname = formValue['lastName'];
     contactModel.language_correspondance = formValue['language']? this._converterService.findAndConverCodeToIdTextLabel(languageList, formValue['language'], lang) : null;
@@ -45,6 +46,7 @@ export class ContactDetailsService {
   public mapDataModelToFormModel(contactModel: IContact, formRecord: FormGroup) {
 
     formRecord.controls['firstName'].setValue(contactModel.given_name);
+    formRecord.controls['initials'].setValue(contactModel.initials);
     formRecord.controls['lastName'].setValue(contactModel.surname);
     if (contactModel.language_correspondance) {
         formRecord.controls['language'].setValue(contactModel.language_correspondance._id);

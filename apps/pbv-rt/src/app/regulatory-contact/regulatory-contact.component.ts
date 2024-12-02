@@ -4,9 +4,9 @@ import { BaseComponent, HelpIndex, ICode, UtilsService, HelpSequence } from '@hp
 import { GlobalService } from '../global/global.service';
 import { NO, YES } from '../app.constants';
 import { RegulatoryContactService } from './regulatory-contact.service';
-import { IContact, IContactInformation, INameAddress } from '../models/transaction';
+import { IContactInformation } from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
-import { AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
+import { AddressDetailsComponent, ContactDetailsComponent, IContact, INameAddress } from '@hpfb/pbv';
 
 @Component({
   selector: 'app-regulatory-contact',

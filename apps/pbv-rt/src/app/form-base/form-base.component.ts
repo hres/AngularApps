@@ -1,13 +1,14 @@
 import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed, inject, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST, HelpSequence } from '@hpfb/sdk/ui';
+import { INameAddress, IContact } from '@hpfb/pbv';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, NO, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol, IContactInformation} from '../models/transaction';
+import { Ectd, FeeDetails, Transaction, TransactionEnrol, IContactInformation} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
 import { RegulatoryInformationComponent } from '../regulatory-information/regulatory-information.component';
 import { RegulatoryContactComponent } from '../regulatory-contact/regulatory-contact.component';

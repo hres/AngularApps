@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord, Mitigation, IContactInformation} from '../models/transaction';
+import {Ectd, TransactionEnrol, Transaction, FeeDetails, LifecycleRecord, Mitigation, IContactInformation} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService, ICode } from '@hpfb/sdk/ui';
-import { AddressDetailsService, ContactDetailsService } from '@hpfb/pbv';
+import { AddressDetailsService, ContactDetailsService, EntityBasePbvService } from '@hpfb/pbv';
 import { ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 import { TransactionDetailsService } from '../transaction-details/transaction-details.service';
@@ -19,7 +19,8 @@ export class FormBaseService {
     private _feesService: FeesService,
     private _regulatoryContactService: RegulatoryContactService,
     private _addressDetailsService: AddressDetailsService,
-    private _contactDetailsService: ContactDetailsService) {
+    private _contactDetailsService: ContactDetailsService,
+    private _entityBasePbvService: EntityBasePbvService) {
   }
 
   /**
@@ -59,40 +60,9 @@ export class FormBaseService {
       {
         is_activity_changes: '',
         company_name: '',
-        regulatory_activity_address: this.getEmptyAddressDetailsModel(),
-        regulatory_activity_contact: this.getEmptyContactModel(),
+        regulatory_activity_address: this._entityBasePbvService.getEmptyAddressDetailsModel(),
+        regulatory_activity_contact: this._entityBasePbvService.getEmptyContactModel(),
         confirm_regulatory_contact: null
-      }
-    );
-  }
-
-  public getEmptyAddressDetailsModel() : INameAddress{
-
-    return (
-      {
-	      street_address: '',
-	      city: '',
-	      country: undefined,
-	      province_lov: undefined,
-	      province_text: '',
-	      postal_code: ''
-      }
-    );
-  }
-
-  public getEmptyContactModel() : IContact{
-
-    return (
-      {
-        given_name: '',
-        initials:'',
-        surname: '',
-        language_correspondance: undefined,
-        job_title: '',
-        phone_num: '',
-        phone_ext: '',
-        fax_num: '',
-        email: ''
       }
     );
   }

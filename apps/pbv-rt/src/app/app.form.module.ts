@@ -6,6 +6,9 @@ import {
   CommonUiFeatureModule,
   NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
+import {
+  CommonPbvModule
+} from '@hpfb/pbv'
 import { AddressModule, ContactModule } from '@hpfb/pbv';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -40,7 +43,8 @@ import { AppSignalService } from './signal/app-signal.service';
     NumbersOnlyDirective,
     HelpTextModuleModule,
     AddressModule,
-    ContactModule
+    ContactModule,
+    CommonPbvModule
 ],
   providers: [
     AppSignalService,

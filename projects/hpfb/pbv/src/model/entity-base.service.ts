@@ -4,7 +4,7 @@ import { IContact, INameAddress } from "./entity-base";
 
 
 @Injectable()
-export class EntityBaseService {
+export class EntityBasePbvService {
 
 public getEmptyAddressDetailsModel() : INameAddress{
 
