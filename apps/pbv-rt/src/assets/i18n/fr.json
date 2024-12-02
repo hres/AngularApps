@@ -188,6 +188,9 @@
 
     "error.msg.minlength": "Entrée non valide - doit contenir {{ requiredLength }} chiffres",
     "error.mgs.dossier.id": "Format incorrect. - Le numéro de dossier est incorrect pour ce type de dossier. Veuillez vérifier le numéro de dossier et le type de dossier pour votre produit.",
+    "error.msg.zip":"Entrée non valide - doit contenir 5 chiffres",
+    "error.msg.postal":"Format non valide - doit être X#X#X#",
+    "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
     "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité."
 
 }
