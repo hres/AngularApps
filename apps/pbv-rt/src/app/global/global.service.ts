@@ -37,6 +37,7 @@ export class GlobalService {
   private _adminSubTypes: ICodeDefinition[];
   private _submissionClasses: ICodeDefinition[];
   private _mitigationTypes: ICode[];
+  private _languageList: ICode[];
 
   constructor() {}
 
@@ -227,5 +228,13 @@ export class GlobalService {
 
   public set mitigationTypes(value: ICode[]) {
     this._mitigationTypes = value;
+  }
+
+  public get languageList(): ICode[] {
+    return this._languageList;
+  }
+
+  public set languageList(value: ICode[]) {
+    this._languageList = value;
   }
 }

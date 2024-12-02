@@ -1,15 +1,17 @@
 import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed, inject, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST, HelpSequence } from '@hpfb/sdk/ui';
+import { INameAddress, IContact } from '@hpfb/pbv';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { FILE_OUTPUT_PREFIX, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
+import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, NO, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, FeeDetails, Transaction, TransactionEnrol, IContactInformation} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
 import { RegulatoryInformationComponent } from '../regulatory-information/regulatory-information.component';
+import { RegulatoryContactComponent } from '../regulatory-contact/regulatory-contact.component';
 import { FeesComponent } from '../fees/fees.component';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 
@@ -33,9 +35,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   @ViewChild(FeesComponent) feesComponent: FeesComponent;
+  @ViewChild(RegulatoryContactComponent) regulatoryContactComponent: RegulatoryContactComponent;
+  // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
+  // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
   // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
 
   private _regulatoryInfoErrors = [];
+  private _regulatoryContactErrors = [];
   private _feesErrors = [];
   // private _contactErrors = [];
   private _consertPrivacyError = [];
@@ -53,6 +59,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
+  public contactInfoModel: IContactInformation;
+  public addressModel: INameAddress;
+  public contactModel: IContact;
+  // public holderAddressModel: INameAddress;
+  // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact; 
   // public agentContactModel: IContact;
   public feesModel: FeeDetails;
@@ -66,6 +77,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   isPharmaBio: Signal<boolean> = this._signalService.isPharmaBio();
   // RA Lead signal
   readonly selectedRALead: Signal<string> = this._signalService.getSelectedRaLead();
+  isRALeadPostMarket: Signal<boolean> = computed(() => this.selectedRALead() === RA_LEAD.POST_MARKET_VIGILANCE);
+
+  readonly signed3rdParty: Signal<string> = this._signalService.getSigned3rdParty();
+  isSigned3rdParty: Signal<boolean> = computed(() => this.signed3rdParty() === YES);
+
   // computed signal for rendering "Fees" section
   showFees: Signal<boolean> = computed(() => {
     return this._utilsService.isEmpty(this.selectedDossierType()) || (this.isPharmaBio() && !this.noFeeRALeads.includes(this.selectedRALead())) ?  true : false;
@@ -156,13 +172,20 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.showFees()) {
       this.errorList = this.errorList.concat(this._feesErrors);
     }
+    this.errorList = this.errorList.concat(this._regulatoryContactErrors);
     this.errorList = this.errorList.concat(this._consertPrivacyError);
 
+    console.log(this.errorList);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
   processRegulatoryInfoErrors(errorList) {
     this._regulatoryInfoErrors = errorList;
+    this.processErrors();
+  }
+
+  processContactInfoErrors(errorList) {
+    this._regulatoryContactErrors = errorList;
     this.processErrors();
   }
 
@@ -214,6 +237,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (trans.fee_details != null) {
       this.feesModel = trans.fee_details;
     }
+    this.contactInfoModel = trans.contact_info;
+    this.addressModel = trans.contact_info.regulatory_activity_address;
+    this.contactModel = trans.contact_info.regulatory_activity_contact;
   }
 
   public preload() {
@@ -273,6 +299,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     } else {
       newTransactionEnrol.fee_details = null;
     }
+
+    const contactInfoFormGroupValue = this.regulatoryContactComponent.getFormValue();
+    let addressFormGroupValue = null;
+    if (this.isSigned3rdParty()) {
+      addressFormGroupValue = this.regulatoryContactComponent.getAddressFormValue();
+    }
+    const contactFormGroupValue = this.regulatoryContactComponent.getContactFormValue();
+    this._baseService.mapRegContactInfoToOutput(newTransactionEnrol.contact_info, contactInfoFormGroupValue, addressFormGroupValue, contactFormGroupValue);
 
     newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     newTransactionEnrol.software_version = this._globalService.appVersion;

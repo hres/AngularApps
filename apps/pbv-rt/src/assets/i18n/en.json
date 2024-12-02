@@ -34,11 +34,36 @@
     "requester.name2": "2. Name of requester",
     "requester.name3": "3. Name of requester",
 
-    "reg.contact.this": "Contact for this regulatory activity",
-    "reg.act.contact": "Regulatory Activity Contact",
+    "panel.title.reg.contact": "Contact for this regulatory activity",
     "company.info": "A. Company information",
+    "is.signed.3rd.party":"Is the contact for this regulatory activity a third party corresponding on behalf of the manufacturer/sponsor?",
+    "aut.letter.note":"A signed third party authorization form is required for regulatory activities listed on the form. Refer to the list in the notes/requirements section of the form posted on Health Canada's website.",
+    "company.name":"Company name (full legal name)",
     "address.info": "B. Address information",
-    "company.rep.this": "C. Company representative",
+    "addressDetails.street": "Street address",
+    "addressDetails.city": "City or town",
+    "addressDetails.country": "Country",
+    "addressDetails.province": "Province",
+    "addressDetails.state": "State",
+    "addressDetails.postalZipCode":"Postal/ZIP code (Use \"not applicable\" if not available)",
+    "addressDetails.postalCode": "Postal code",
+    "addressDetails.zipCode": "Zip code",
+    "addressDetails.provState": "Province or state",
+    "company.representative.b": "B. Company representative",
+    "company.representative.c": "C. Company representative",
+    "first.name":"First name",
+    "initials":"Initials",
+    "last.name":"Last name",
+    "lang.correspond":"Language of correspondence",
+    "job.title":"Job title",
+    "phone.number":"Phone number (including area code)",
+    "phone.extension":"Phone extension",
+    "fax.number":"Fax number (including area code)",
+    "fax.number.nofaxnum": "(Use 0000000000 if not available)",
+    "contact.email":"Email",
+
+    "routing.id":"Routing Identifier",
+    "company.rep.this": "Company Representative",
     "confirm.contact.valid": "I confirm that the above regulatory activity contact information is valid.",
 
     "defer.fees": " A deferral of payment is requested with this transaction.",
@@ -148,7 +173,6 @@
     "ht.contact.4": "Please note that it is up to the discretion of Health Canada to decide the method of correspondence.",
     "ht.contact.6": "Sponsors should update this information if required; otherwise confirm that the information is still valid.",
     "ht.contact.7": "Enter the name of the company to which the regulatory activity contact belongs. If the contact does not belong to a company, enter the name of the contact.",
-    
     "ht.xml.1": "A final regulatory transaction XML file must be included in section 1.2.1 for each of your REP transactions.",
     "ht.xml.2": "Refer to the REP guidance document for detailed information.",
     "ht.xml.3": "A final regulatory transaction XML file must be included in: ",
@@ -164,6 +188,9 @@
 
     "error.msg.minlength": "Invalid entry - must be {{ requiredLength }} numbers",
     "error.mgs.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product.",
+    "error.msg.zip":"Invalid entry - must be 5 numbers",
+    "error.msg.postal":"Invalid format - must be X#X#X#",
+    "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
     "consent.privacy": "By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the Privacy Notice Statement."
 
 }

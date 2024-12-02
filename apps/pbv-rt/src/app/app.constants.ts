@@ -7,6 +7,9 @@ export const DATA_PATH: string = './assets/data/';
 export const FILE_OUTPUT_PREFIX = 'rt';
 export const XSLT_PREFIX = 'REP';
 
+export const YES = 'Y';
+export const NO = 'N';
+
 export const LINE_BREAK = '\r\n';
 
 export const HELP_FOOTNOTE_PREFIX = 'tr';

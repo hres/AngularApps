@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord, Mitigation} from '../models/transaction';
+import {Ectd, TransactionEnrol, Transaction, FeeDetails, LifecycleRecord, Mitigation, IContactInformation} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
-import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
+import { EntityBaseService, UtilsService, ICode } from '@hpfb/sdk/ui';
+import { AddressDetailsService, ContactDetailsService, EntityBasePbvService } from '@hpfb/pbv';
 import { ROOT_TAG } from '../app.constants';
 import { RegulatoryInformationService } from '../regulatory-information/regulatory-information.service';
 import { TransactionDetailsService } from '../transaction-details/transaction-details.service';
 import { FeesService } from '../fees/fees.service';
+import { RegulatoryContactService } from '../regulatory-contact/regulatory-contact.service';
 
 @Injectable()
 export class FormBaseService {
@@ -14,7 +16,11 @@ export class FormBaseService {
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,
     private _regulatoryInfoService: RegulatoryInformationService, private _transactionDetailsService: TransactionDetailsService,
-    private _feesService: FeesService) {
+    private _feesService: FeesService,
+    private _regulatoryContactService: RegulatoryContactService,
+    private _addressDetailsService: AddressDetailsService,
+    private _contactDetailsService: ContactDetailsService,
+    private _entityBasePbvService: EntityBasePbvService) {
   }
 
   /**
@@ -49,33 +55,14 @@ export class FormBaseService {
     );
   }
 
-  public getEmptyAddressDetailsModel() : INameAddress{
-
+  public getEmptyContactInfoModel() : IContactInformation {
     return (
       {
-	      company_name: '',
-	      street_address: '',
-	      city: '',
-	      country: undefined,
-	      province_lov: undefined,
-	      province_text: '',
-	      postal_code: ''
-      }
-    );
-  }
-
-  public getEmptyContactModel() : IContact{
-
-    return (
-      {
-        given_name: '',
-        surname: '',
-        language_correspondance: undefined,
-        job_title: '',
-        phone_num: '',
-        phone_ext: '',
-        fax_num: '',
-        email: ''
+        is_activity_changes: '',
+        company_name: '',
+        regulatory_activity_address: this._entityBasePbvService.getEmptyAddressDetailsModel(),
+        regulatory_activity_contact: this._entityBasePbvService.getEmptyContactModel(),
+        confirm_regulatory_contact: null
       }
     );
   }
@@ -89,6 +76,7 @@ export class FormBaseService {
       check_sum: '',
       ectd: this.getEmptyEctd(),
       fee_details: this.getEmptyFeesModel(),
+      contact_info: this.getEmptyContactInfoModel(),
       is_priority: '',
       is_noc: '',
       is_admin_sub: '',
@@ -208,5 +196,16 @@ export class FormBaseService {
 
   public mapFeesFormToOutput(feeDetail: FeeDetails, feeFormGroupValue: any): void{
     this._feesService.mapFormModelToDataModel(feeFormGroupValue, feeDetail);    
+  }
+
+  public mapRegContactInfoToOutput(contactInfo: IContactInformation, contactInfoFormGroupValue: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
+    const lang = this._globalService.currLanguage;
+    const languageList: ICode[] = this._globalService.languageList;
+    const countryList: ICode[] = this._globalService.countryList;
+    const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
+
+    this._regulatoryContactService.mapFormModelToDataModel(contactInfoFormGroupValue, contactInfo);
+    this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, contactInfo.regulatory_activity_address, lang, countryList, combinedProvStatList);
+    this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, contactInfo.regulatory_activity_contact, lang, languageList);
   }
 }

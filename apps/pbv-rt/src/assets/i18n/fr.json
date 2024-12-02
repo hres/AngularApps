@@ -34,11 +34,35 @@
     "requester.name2": "2. Nom du demandeur",
     "requester.name3": "3. Nom du demandeur",
 
-    "reg.contact.this": "Personne-ressource pour cette activité réglementaire",
-    "reg.act.contact": "Personne-ressource pour cette activité réglementaire",
+    "panel.title.reg.contact": "Personne-ressource pour cette activité réglementaire",
     "company.info": "A. Information sur la compagnie",
+    "is.signed.3rd.party":"Le contact pour cette activité de réglementation est-il un tiers correspondant au nom du fabricant / sponsor?",
+    "aut.letter.note":"Un formulaire d’autorisation signé par le tiers est requis pour les activités réglementaires énumérées sur le formulaire. Reportez-vous à la liste figurant dans la section des notes/exigences du formulaire publiée sur le site Web de Santé Canada.",
+    "company.name":"Nom de la compagnie (nom légal complet)",
     "address.info": "B. Information d'adresse",
-    "company.rep.this": "C. Représentant de la compagnie",
+    "addressDetails.street": "Adresse",
+    "addressDetails.city": "Ville",
+    "addressDetails.country": "Pays",
+    "addressDetails.province": "Province",
+    "addressDetails.state": "État",
+    "addressDetails.postalZipCode":"Code Postal/ZIP",
+    "addressDetails.postalCode": "Code Postal",
+    "addressDetails.zipCode": "Code ZIP",
+    "addressDetails.provState": "Province ou état",
+    "company.representative.b": "B. Représentant de la compagnie",
+    "company.representative.c": "C. Représentant de la compagnie",
+    "first.name":"Prénom",
+    "initials":"Initiales",
+    "last.name":"Nom de famille",
+    "lang.correspond":"Langue de correspondance",
+    "job.title":"Titre",
+    "phone.number":"Numéro de téléphone (y compris indicatif régional)",
+    "phone.extension":"Extension de téléphone",
+    "fax.number":"Numéro de télécopieur (y compris indicatif régional)",
+    "fax.number.nofaxnum": "(Si pas disponible, utilisez 0000000000)",
+    "contact.email":"Courriel",
+
+    "company.rep.this": "Représentant de la compagnie",
     "confirm.contact.valid": "Je confirme que l'information de la personne-ressource de l’activité réglementaire ci-dessus est valide.",
 
     "defer.fees": " Un paiement différé est demandé avec cette transaction",
@@ -148,7 +172,6 @@
     "ht.contact.4": "Veuillez noter que le choix du mode de correspondance revient à Santé Canada.",
     "ht.contact.6": "Les promoteurs doivent mettre à jour ces renseignements au besoin ou confirmer que l’information est toujours valide.",
     "ht.contact.7": "Entrez le nom de la compagnie à laquelle appartient la personne-ressource associée à l’ cette activité. Si la personne-ressource n’est pas associée à cette compagnie, entrez son nom.",
-    
     "ht.xml.1": "Chaque transaction du PIR doit contenir une version finale du fichier de transaction réglementaire (en format XML) dans la section 1.2.1.",
     "ht.xml.2": "Reportez-vous au document d'orientation du PIR pour des informations détaillées.",
     "ht.xml.3": "Un fichier XML de transaction réglementaire (RT) final doit être inclus dans",
@@ -165,6 +188,9 @@
 
     "error.msg.minlength": "Entrée non valide - doit contenir {{ requiredLength }} chiffres",
     "error.mgs.dossier.id": "Format incorrect. - Le numéro de dossier est incorrect pour ce type de dossier. Veuillez vérifier le numéro de dossier et le type de dossier pour votre produit.",
+    "error.msg.zip":"Entrée non valide - doit contenir 5 chiffres",
+    "error.msg.postal":"Format non valide - doit être X#X#X#",
+    "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
     "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité."
 
 }

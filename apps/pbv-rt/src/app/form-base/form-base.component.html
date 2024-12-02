@@ -52,6 +52,21 @@
             <app-fees [showErrors]="showErrors" [dataModel]="feesModel" (errorList)="processFeesErrors($event)"></app-fees>
           </div>
       </section>
+
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.reg.contact'|translate}}
+            <sup [id]="helpIndex['regContactIndx'][2]">
+              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['regContactIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['regContactIndx'][0]}}</a>
+            </sup>
+          </h2> 
+          </header>
+          <div class="panel-body">
+            <app-regulatory-contact [showErrors]="showErrors" [dataModel]="contactInfoModel"
+            [addressModel]="addressModel" [contactModel]="contactModel"
+            (errorList)="processContactInfoErrors($event)"></app-regulatory-contact>
+          </div>
+      </section>
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
