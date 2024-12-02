@@ -26,7 +26,7 @@ import { AppSignalService } from './signal/app-signal.service';
     RegulatoryInformationComponent,
     RegulatoryContactComponent,
     TransactionDetailsComponent,
-    FeesComponent,
+    FeesComponent
   ],
   imports: [
     CommonModule,
