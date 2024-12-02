@@ -172,17 +172,28 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    */
   public addContact(): void {
     const newIndex = this.contactList.length;
+    let contactFocus = "";
 
     this._createFormContact();
 
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
 
     if (this.isInternal) {
-      document.location.href = '#contactId';
+      if (this.contactList.length >= 1) {
+        contactFocus = "contactId" + newIndex;
+      } else {
+        contactFocus = "contactId" + 0;
+      }
     } else {
-      document.location.href = '#fullName' + newIndex;
+      if (this.contactList.length >= 1) {
+        contactFocus = "fullName" + newIndex;
+      } else {
+        contactFocus = "fullName" + 0;
+      }
     }
-
+    setTimeout(() => {
+      document.getElementById(contactFocus).focus()  
+    }, 0);
     this.showErrors = false;
   }
 
@@ -228,9 +239,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       }
     }
     
-    if (!this.isInternal) {
-      document.location.href = '#addContactBtn';
-    }
+    setTimeout(() => {
+      document.getElementById('addContactBtn').focus()  
+    }, 0);
 
     this.contactsUpdated.emit(this.contactModel);
   }

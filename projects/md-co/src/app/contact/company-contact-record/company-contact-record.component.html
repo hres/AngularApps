@@ -1,9 +1,9 @@
 <div class="container-fluid" [formGroup]="contactRecordModel" *ngIf="contactRecordModel">
- 
+  <div id="contactErrorSummary{{contactRecordModel.get('id').value}}">
   <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
                  [headingLevel]="headingLevel" label="error.msg.contactDetails" compId="contactListTable"></lib-error-summary> 
-
+  </div>
   <app-contact-details [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang"
                    [languageList]="languageList" [contactStatusList]="contactStatusList"
                    [recordId]="contactRecordModel.get('id').value" [group]="contactDetailsForm"

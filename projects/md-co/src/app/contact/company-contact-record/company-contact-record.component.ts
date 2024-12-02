@@ -192,6 +192,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
         this.contactRecordModel.controls['id'].setValue(temp);
         this.showErrSummary = true;
         this.showErrors = true;
+        document.location.href = '#contactErrorSummary' + temp;
       }
     }
   }

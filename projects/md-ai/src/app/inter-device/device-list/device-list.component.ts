@@ -89,13 +89,17 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     this._deviceService.showDeviceErrorSummaryOneRec.set(false);
     const newIndex = this.devicesFormArr.length;
     const group = this.deviceService.createDeviceFormGroup(this.fb);
+    let deviceFocus = "";
     this.devicesFormArr.push(group);
     if (this.devicesFormArr.length >= 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(false);
-      document.location.href = '#deviceName' + newIndex;
+      deviceFocus = "deviceName" + newIndex;
     } else {
-      document.location.href = '#deviceName' + 0;
+      deviceFocus = "deviceName" + 0;
     }
+    setTimeout(() => {
+      document.getElementById(deviceFocus).focus()  
+    }, 0);
   }
 
   saveDeviceRecord(event: any) {  
@@ -129,7 +133,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.statusMessage = "Enregistrement d’intrument " + id + " a été sauvegardé.";
     }
-    document.location.href = '#addDeviceBtn';
+    setTimeout(() => {
+      document.getElementById('addDeviceBtn').focus()  
+    }, 0);
   }
 
   private _expandNextInvalidRecord(){
@@ -162,7 +168,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.statusMessage = "Enregistrement d’intrument " + id + " a été supprimé.";
     }
-    document.location.href = '#addDeviceBtn';
+    document.getElementById('addDeviceBtn').focus();
   }
 
   revertDevice(event: any) {  
