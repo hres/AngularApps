@@ -30,7 +30,7 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getStateList(this._globalService.currLanguage),
     this._formDataLoader.getDossierTypes(),
     this._formDataLoader.getDrugUesOptions(this._globalService.currLanguage),
-    this._formDataLoader.getTimmingOfApplicantTypes(),
+    this._formDataLoader.getTimingOfApplicantTypes(),
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -47,7 +47,7 @@ export class ContainerComponent implements OnInit {
       this._globalService.stateList = data[2];
       this._globalService.dossierTypes = data[3];
       this._globalService.drugUses = data[4];
-      this._globalService.timmingOfApplicant = data[5];
+      this._globalService.timingOfApplicant = data[5];
       this.loadFormBaseComponent = true;
 
     });

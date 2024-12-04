@@ -240,7 +240,7 @@ export class FormBaseService {
 
   }
 
-  public mapTimmingOfApplicantFormsToOutput(outputTransactionEnrol: TransactionEnrol,timeOfApplicationForm: any): void{
+  public mapTimingOfApplicantFormsToOutput(outputTransactionEnrol: TransactionEnrol,timeOfApplicationForm: any): void{
     this.timmingOfApplicantService.mapFormModelToDataModel(timeOfApplicationForm, outputTransactionEnrol);
 
   }

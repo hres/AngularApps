@@ -19,18 +19,18 @@ export class TimeOfApplicationService {
       return null;
    }
    const timeOfApplicationForm = fb.nonNullable.group({
-     timmingOfApplicant: new FormControl(null, Validators.required)
+     timingOfApplicant: new FormControl(null, Validators.required)
      });
     return timeOfApplicationForm;
   }
 
   public mapFormModelToDataModel(formValue: any, transactionEnrol: TransactionEnrol) {
 
-    transactionEnrol.timmingOfApplicant = formValue['timmingOfApplicant'];
+    transactionEnrol.timingOfApplicant = formValue['timingOfApplicant'];
     }
 
   public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
 
-    formRecord.controls['timmingOfApplicant'].setValue(transactionEnrol.timmingOfApplicant);
+    formRecord.controls['timingOfApplicant'].setValue(transactionEnrol.timingOfApplicant);
    }
 }
