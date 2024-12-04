@@ -127,12 +127,12 @@
         <div class="row" *ngIf="showYear()">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="year" class="required">
-                    <span class="field-name">{{ 'year.change'|translate }}</span>
+                    <span class="field-name">{{ 'year'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="transctionDetailsForm.controls['year'].invalid"
                         [showError]="showErrors"
                         [control]="transctionDetailsForm.controls['year'] | formControl"
-                        controlId="year" label="year.change" parentId="regulatoryInfo"></control-messages>
+                        controlId="year" label="year" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="year" name="year" class="form-control" data-only-digits 
                     [formControlName]="'year'" minlength="4" maxlength="4" size="4" />
