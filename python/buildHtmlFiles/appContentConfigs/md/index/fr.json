@@ -6,7 +6,7 @@
     ],
     "sections": [
         {
-            "header": "Modèle PIR et liens de formulaire ",        
+            "header": "Modèle PIR et liens de formulaire",        
             "groups": [
                 {
                     "bullets": [
@@ -53,7 +53,7 @@
                 {
                     "header": "Détails de l’instrument (2024-04-02)",
                     "bullets": [
-                        "Obligatoire pour toutes les nouvelles demandes d’homologation, ainsi que pour toute demande de modification susceptible d’avoir des répercussions sur le répertoire des fabricants.  ",
+                        "Obligatoire pour toutes les nouvelles demandes d’homologation, ainsi que pour toute demande de modification susceptible d’avoir des répercussions sur le répertoire des fabricants.",
                         "<a href=\"{{ base_url }}{{ template_paths.dd.fr }}\" download=\"\">Télécharger détails de l’instrument xlsx fichier</a>"
                     ]
                 },
