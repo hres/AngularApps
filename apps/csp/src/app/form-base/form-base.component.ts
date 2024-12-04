@@ -366,8 +366,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._baseService.mapMedicinalIngredientsFormsToOutput(newTransactionEnrol, medicinalIngredients);
 
 
-    const timmingOfApplicant = this.timeOfApplicationComponent.getFormValue();
-    this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timmingOfApplicant);
+    const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
+    this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
     // const certificationFormGroupValue = this.certificationComponent.getFormValue();

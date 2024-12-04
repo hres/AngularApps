@@ -10,7 +10,7 @@ import { DrugUseService } from '../drug-use/drug-use.service';
 import { NoticeOfComplianceService } from '../notice-of-compliance/notice-of-compliance.service';
 import { NewDrugSubmissionInformationService } from '../new-drug-submission-information/new-drug-submission-information.service';
 import { MedicinalIngredientsService } from '../medicinal-ingredients/medicinal-ingredients.service';
-import { TimeOfApplicationService } from '../time-of-application/time-of-application.service';
+import { TimingOfApplicationService } from '../time-of-application/time-of-application.service';
 
 @Injectable()
 export class FormBaseService {
@@ -20,7 +20,7 @@ export class FormBaseService {
   currentMessage = this.messageSource.asObservable();
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService,
-   private medicinalIngredientService: MedicinalIngredientsService, private timmingOfApplicantService: TimeOfApplicationService) {
+    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService) {
   }
 
   /**
@@ -99,7 +99,7 @@ export class FormBaseService {
       nocDate: '',
       ndsNumber:'',
       medicinalIngredients:'',
-      timmingOfApplicant:'',
+      timingOfApplicant:'',
     };
 
     return TransactionEnrol;
@@ -240,8 +240,8 @@ export class FormBaseService {
 
   }
 
-  public mapTimingOfApplicantFormsToOutput(outputTransactionEnrol: TransactionEnrol,timeOfApplicationForm: any): void{
-    this.timmingOfApplicantService.mapFormModelToDataModel(timeOfApplicationForm, outputTransactionEnrol);
+  public mapTimingOfApplicantFormsToOutput(outputTransactionEnrol: TransactionEnrol,timingOfApplicationForm: any): void{
+    this.timingOfApplicantService.mapFormModelToDataModel(timingOfApplicationForm, outputTransactionEnrol);
 
   }
 }

@@ -155,12 +155,12 @@ export class GlobalService {
       this._drugUses = value;
     }
 
-         // Getter for timming of Applicant
+         // Getter for timing of Applicant
   public get timingOfApplicant(): ICodeAria[] {
     return this._timingOfApplicant;
    }
 
-     // Setter for timming of Applicant
+     // Setter for timing of Applicant
   public set timingOfApplicant(value: ICodeAria[]) {
     this._timingOfApplicant = value;
   }

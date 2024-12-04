@@ -22,7 +22,7 @@ import { NewDrugSubmissionInformationService } from './new-drug-submission-infor
 import {MedicinalIngredientsComponent} from './medicinal-ingredients/medicinal-ingredients.component';
 import { MedicinalIngredientsService } from './medicinal-ingredients/medicinal-ingredients.service';
 import { TimeOfApplicationComponent } from './time-of-application/time-of-application.component';
-import { TimeOfApplicationService } from './time-of-application/time-of-application.service';
+import { TimingOfApplicationService } from './time-of-application/time-of-application.service';
 
 
 @NgModule({
@@ -42,7 +42,7 @@ import { TimeOfApplicationService } from './time-of-application/time-of-applicat
   ],
   providers: [
     CertSuppProtectService, DatePipe, PatentService, DrugUseService, NoticeOfComplianceService, NewDrugSubmissionInformationService,
-    MedicinalIngredientsService, TimeOfApplicationService ],
+    MedicinalIngredientsService, TimingOfApplicationService ],
   exports: [CommonUiFeatureModule,
     CertSuppProtectComponent, PatentComponent, DrugUseComponent, NoticeOfComplianceComponent, NewDrugSubmissionInformationComponent, MedicinalIngredientsComponent, TimeOfApplicationComponent]
 })
