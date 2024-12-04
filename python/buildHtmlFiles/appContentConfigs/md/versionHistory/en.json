@@ -10,24 +10,24 @@
             "header": "December 11, 2024 Release",
             "details": [
                 {
-                    "template": "Company Template <br>Version 4.0.1",
+                    "template": "Company Template<br>Version 4.0.1",
                     "changes": [
                         "Translated \"Choose file\" button on the French template",
                         "Corrected minor grammatical errors"
                     ]
                 },
                 {
-                    "template": "Regulatory Transaction Template <br>Version 3.0.1",
+                    "template": "Regulatory Transaction Template<br>Version 3.0.1",
                     "changes": [
                         "Translated \"Choose file\" button on the French template",
                         "Corrected minor grammatical errors"
                     ]
                 },
                 {
-                    "template": "Application Information Template <br>Version 3.0.1",
+                    "template": "Application Information Template<br>Version 3.0.1",
                     "changes": [
                         "Translated \"Choose file\" button on the French template",
-                        "Updated the order of error messages for \"Interdependent Device Record\" and \"Declaration of Conformity form\" ",
+                        "Updated the order of error messages for \"Interdependent Device Record\" and \"Declaration of Conformity form\"",
                         "Updated the \"Priority Review\" section to only appear when \"Regulatory Activity Type\" is \"Licence\" or \"Licence amendment\" and \"Device Class\" is \"III\" or \"IV\"",
                         "Corrected minor grammatical errors"
                     ]
