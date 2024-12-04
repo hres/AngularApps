@@ -66,6 +66,30 @@
 					<div class="well well-sm">
 						<div class="row">
 							<div class="col-xs-12">
+								<strong> Dossier type: </strong>
+								<span class="mouseHover">
+									<xsl:value-of select="ectd/dossier_type/@label_en" />
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<strong> Company Identifier: </strong>
+								<span class="mouseHover">
+									<xsl:value-of select="ectd/company_id" />
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<strong> Dossier Identifier: </strong>
+								<span class="mouseHover">
+									<xsl:value-of select="ectd/dossier_id" />
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
 								<strong> Product name: </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="ectd/product_name" />
@@ -396,7 +420,7 @@
 					<h2 class="panel-title">Contact for this regulatory activity</h2>
 				</div>
 				<div class="panel-body">
-					<strong>Company information: </strong>
+					<strong>A. Company information: </strong>
 					<div class="well well-sm">
 						<div class="row">
 							<div class="col-xs-12">
@@ -419,7 +443,7 @@
 						</div>
 					</div>
 					<xsl:if test="is_activity_changes = 'Y'">
-						<strong>Address information: </strong>
+						<strong>B. Address information: </strong>
 						<div class="well well-sm">
 							<div class="row">
 								<div class="col-xs-12">
@@ -491,7 +515,7 @@
 							</div>
 						</div>
 					</xsl:if>
-					<h4>Company Representative: </h4>
+					<h4>C. Company Representative: </h4>
 					<div class="well well-sm">
 						<div class="row">
 								<strong class="col-xs-4">First name: <span
