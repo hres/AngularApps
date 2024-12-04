@@ -28,7 +28,9 @@ export class GlobalService {
   private _stateList: ICode[];
   private _yesnoList: ICode[];
   private _dossierTypes: ICodeDefinition[] = [];
-  private _drugUses: ICode[] = [];;
+  private _drugUses: ICode[] = [];
+  private _timmingOfApplicant: ICodeAria[] = [];
+
   constructor(private instructionService: InstructionService) {}
 
   /**
@@ -152,4 +154,14 @@ export class GlobalService {
     public set drugUses(value: ICode[]) {
       this._drugUses = value;
     }
+
+         // Getter for timming of Applicant
+  public get timmingOfApplicant(): ICodeAria[] {
+    return this._timmingOfApplicant;
+   }
+
+     // Setter for timming of Applicant
+  public set timmingOfApplicant(value: ICodeAria[]) {
+    this._timmingOfApplicant = value;
+  }
 }
