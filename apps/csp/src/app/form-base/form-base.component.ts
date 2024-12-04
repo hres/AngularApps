@@ -14,6 +14,7 @@ import { NoticeOfComplianceComponent } from '../notice-of-compliance/notice-of-c
 import { environment } from '../../environments/environment';
 import { NewDrugSubmissionInformationComponent } from '../new-drug-submission-information/new-drug-submission-information.component';
 import { MedicinalIngredientsComponent } from '../medicinal-ingredients/medicinal-ingredients.component';
+import { TimeOfApplicationComponent } from '../time-of-application/time-of-application.component';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     @ViewChild(NoticeOfComplianceComponent) noticeOfComplianceComponent: NoticeOfComplianceComponent;
     @ViewChild(NewDrugSubmissionInformationComponent) newDrugSubmissionInformationComponent: NewDrugSubmissionInformationComponent;
     @ViewChild(MedicinalIngredientsComponent) medicinalIngredientsComponent: MedicinalIngredientsComponent;
+    @ViewChild(TimeOfApplicationComponent) timeOfApplicationComponent: TimeOfApplicationComponent;
   // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
@@ -62,6 +64,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _noticeOfComplianceErrors = [];
   private _newDrugSubmissionInfoErrors = [];
   private _medicinalIngredientsForErrors = [];
+  private _timmingOfApplicantForErrors = [];
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -183,6 +186,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
+    this.errorList = this.errorList.concat(this._timmingOfApplicantForErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -215,10 +219,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  // processRegulatoryInfoErrors(errorList) {
-  //   this._regulatoryInfoErrors = errorList;
-  //   this.processErrors();
-  // }
+  processTimmingOfApplicantErrors(errorList) {
+    this._timmingOfApplicantForErrors = errorList;
+    this.processErrors();
+  }
 
   // processContactErrors(errorList) {
   //   this._contactErrors = errorList;
@@ -361,6 +365,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const medicinalIngredients = this.medicinalIngredientsComponent.getFormValue();
     this._baseService.mapMedicinalIngredientsFormsToOutput(newTransactionEnrol, medicinalIngredients);
 
+
+    const timmingOfApplicant = this.timeOfApplicationComponent.getFormValue();
+    this._baseService.mapTimmingOfApplicantFormsToOutput(newTransactionEnrol, timmingOfApplicant);
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
     // const certificationFormGroupValue = this.certificationComponent.getFormValue();
