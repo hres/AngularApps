@@ -60,7 +60,7 @@
                 {
                     "header": "Formulaire d'attestation de demande (2024-04-02)",
                     "bullets": [
-                        "Obligatoire pour la première transaction d’une nouvelle activité réglementaire. ",
+                        "Obligatoire pour la première transaction d’une nouvelle activité réglementaire.",
                         "<a href=\"{{ base_url }}{{ template_paths.aaf.fr }}\" download=\"\">Télécharger formulaire pdf d'attestation de demande</a>"
                     ]
                 }
