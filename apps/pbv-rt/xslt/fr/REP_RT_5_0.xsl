@@ -440,7 +440,7 @@ span.normalWeight {
 							<div class="col-xs-12">
 								<strong> Type de dossier: </strong>
 								<span class="mouseHover">
-									<xsl:value-of select="ectd/dossier_type/@label_en" />
+									<xsl:value-of select="ectd/dossier_type/@label_fr" />
 								</span>
 							</div>
 						</div>
