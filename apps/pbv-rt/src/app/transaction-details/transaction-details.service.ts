@@ -120,7 +120,6 @@ export class TransactionDetailsService {
   });
 
   showBriefDescriptionnTxnDescs: string[] = [
-    TXN_DESC.POST_NOC_CHANGE,
     TXN_DESC.ROLLING_INFO,
     TXN_DESC.UNSOLICITED_DATA
   ]

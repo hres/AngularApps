@@ -21,12 +21,14 @@ import { NewDrugSubmissionInformationComponent } from './new-drug-submission-inf
 import { NewDrugSubmissionInformationService } from './new-drug-submission-information/new-drug-submission-information.service';
 import {MedicinalIngredientsComponent} from './medicinal-ingredients/medicinal-ingredients.component';
 import { MedicinalIngredientsService } from './medicinal-ingredients/medicinal-ingredients.service';
+import { TimeOfApplicationComponent } from './time-of-application/time-of-application.component';
+import { TimingOfApplicationService } from './time-of-application/time-of-application.service';
 
 
 @NgModule({
   declarations: [
     CertSuppProtectComponent, PatentComponent, DrugUseComponent, NoticeOfComplianceComponent, NewDrugSubmissionInformationComponent, MedicinalIngredientsComponent
-  ],
+  ,TimeOfApplicationComponent],
   imports: [
     CommonModule,
     TranslateModule,
@@ -40,8 +42,8 @@ import { MedicinalIngredientsService } from './medicinal-ingredients/medicinal-i
   ],
   providers: [
     CertSuppProtectService, DatePipe, PatentService, DrugUseService, NoticeOfComplianceService, NewDrugSubmissionInformationService,
-    MedicinalIngredientsService ],
+    MedicinalIngredientsService, TimingOfApplicationService ],
   exports: [CommonUiFeatureModule,
-    CertSuppProtectComponent, PatentComponent, DrugUseComponent, NoticeOfComplianceComponent, NewDrugSubmissionInformationComponent, MedicinalIngredientsComponent]
+    CertSuppProtectComponent, PatentComponent, DrugUseComponent, NoticeOfComplianceComponent, NewDrugSubmissionInformationComponent, MedicinalIngredientsComponent, TimeOfApplicationComponent]
 })
 export class AppFormModule {}
