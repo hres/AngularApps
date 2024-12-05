@@ -64,7 +64,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _noticeOfComplianceErrors = [];
   private _newDrugSubmissionInfoErrors = [];
   private _medicinalIngredientsForErrors = [];
-  private _timmingOfApplicantForErrors = [];
+  private _timingOfApplicantForErrors = [];
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -186,7 +186,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
-    this.errorList = this.errorList.concat(this._timmingOfApplicantForErrors);
+    this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -219,8 +219,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processTimmingOfApplicantErrors(errorList) {
-    this._timmingOfApplicantForErrors = errorList;
+  processTimingOfApplicantErrors(errorList) {
+    this._timingOfApplicantForErrors = errorList;
     this.processErrors();
   }
 
@@ -366,8 +366,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._baseService.mapMedicinalIngredientsFormsToOutput(newTransactionEnrol, medicinalIngredients);
 
 
-    const timmingOfApplicant = this.timeOfApplicationComponent.getFormValue();
-    this._baseService.mapTimmingOfApplicantFormsToOutput(newTransactionEnrol, timmingOfApplicant);
+    const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
+    this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
     // const certificationFormGroupValue = this.certificationComponent.getFormValue();

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, HelpIndex, ICodeAria, UtilsService } from '@hpfb/sdk/ui';
-import { TimeOfApplicationService } from './time-of-application.service';
+import { TimingOfApplicationService } from './time-of-application.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { Ectd } from '../models/transaction';
@@ -18,16 +18,16 @@ export class TimeOfApplicationComponent extends BaseComponent implements OnInit{
   helpIndex: HelpIndex;
   showFieldsErrors: boolean = false;
 
-  public timeOfApplicationForm: FormGroup;
+  public timingOfApplicationForm: FormGroup;
   @Input() showErrors: boolean = false;
   public showFieldErrors: boolean = false;
   @Output() errorlis = new EventEmitter(true);
-  selectedTimmingOfApplicant: string;
-  timmingOfApplicantOptions: ICodeAria[] = [];
+  selectedTimingOfApplicant: string;
+  timingOfApplicantOptions: ICodeAria[] = [];
   @Output() errorList = new EventEmitter(true);
   @Input() dataModel: Ectd;
 
-  constructor(private _timeOfApplicationService: TimeOfApplicationService, private _fb: FormBuilder, private _globalService: GlobalService, private _utilsService: UtilsService){
+  constructor(private _timingOfApplicationService: TimingOfApplicationService, private _fb: FormBuilder, private _globalService: GlobalService, private _utilsService: UtilsService){
 
   super();
   this.showFieldsErrors = false;
@@ -43,16 +43,16 @@ export class TimeOfApplicationComponent extends BaseComponent implements OnInit{
   ngOnInit(): void {
    this.lang = this._globalService.currLanguage;
    this.helpIndex = this._globalService.helpIndex;
-   if(!this.timeOfApplicationForm){
-   this.timeOfApplicationForm = this._timeOfApplicationService.getTimeOfApplicationForm(this._fb);
+   if(!this.timingOfApplicationForm){
+   this.timingOfApplicationForm = this._timingOfApplicationService.getTimingOfApplicationForm(this._fb);
    }
 
-   this.timmingOfApplicantOptions = this._globalService.timmingOfApplicant;
+   this.timingOfApplicantOptions = this._globalService.timingOfApplicant;
   }
 
-  onTimmingSelected(e: any): void {
-    const codeDefinition = this._utilsService.findCodeDefinitionById(this.timmingOfApplicantOptions, this.timeOfApplicationForm.get('timmingOfApplicant').value);
-    this.selectedTimmingOfApplicant = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
+  onTimingSelected(e: any): void {
+    const codeDefinition = this._utilsService.findCodeDefinitionById(this.timingOfApplicantOptions, this.timingOfApplicationForm.get('timingOfApplicant').value);
+    this.selectedTimingOfApplicant = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -61,7 +61,7 @@ export class TimeOfApplicationComponent extends BaseComponent implements OnInit{
     }
 
   getFormValue() {
-    return this.timeOfApplicationForm.value;
+    return this.timingOfApplicationForm.value;
   }
 
 }

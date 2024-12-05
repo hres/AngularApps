@@ -29,7 +29,7 @@ export class GlobalService {
   private _yesnoList: ICode[];
   private _dossierTypes: ICodeDefinition[] = [];
   private _drugUses: ICode[] = [];
-  private _timmingOfApplicant: ICodeAria[] = [];
+  private _timingOfApplicant: ICodeAria[] = [];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -155,13 +155,13 @@ export class GlobalService {
       this._drugUses = value;
     }
 
-         // Getter for timming of Applicant
-  public get timmingOfApplicant(): ICodeAria[] {
-    return this._timmingOfApplicant;
+         // Getter for timing of Applicant
+  public get timingOfApplicant(): ICodeAria[] {
+    return this._timingOfApplicant;
    }
 
-     // Setter for timming of Applicant
-  public set timmingOfApplicant(value: ICodeAria[]) {
-    this._timmingOfApplicant = value;
+     // Setter for timing of Applicant
+  public set timingOfApplicant(value: ICodeAria[]) {
+    this._timingOfApplicant = value;
   }
 }

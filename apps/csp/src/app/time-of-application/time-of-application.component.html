@@ -1,23 +1,23 @@
 <div>
-  <div [formGroup]="timeOfApplicationForm">
+  <div [formGroup]="timingOfApplicationForm">
     <div class="row">
       <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" >
             <legend class="required"><span class="field-name">{{'application.is.applying'|translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="timeOfApplicationForm.controls['timmingOfApplicant'].invalid"
+                <control-messages *ngIf="timingOfApplicationForm.controls['timingOfApplicant'].invalid"
                     [showError]="showFieldErrors"
-                    [control]="timeOfApplicationForm.controls['timmingOfApplicant'] | formControl"
-                    controlId="masterFileType0" label="application.is.applying" parentId="timmingOfApplicant"></control-messages>
+                    [control]="timingOfApplicationForm.controls['timingOfApplicant'] | formControl"
+                    controlId="timingOfApplicantType0" label="application.is.applying" parentId="timingOfApplicant"></control-messages>
             </legend>
             <ul class="form-group list-unstyled">
-              <li class="radio" *ngFor="let timming of timmingOfApplicantOptions; let i = index">
-                <label aria-hidden="true" for="timming{{i}}">
-                  <input attr.aria-label="{{timming | ariaTransform: lang}}" type="radio" attr.aria-label="{{timming | ariaTransform: lang}}"
-                      id="timmingOfApplicant{{i}}" name="timmingOfApplicant" value="{{timming | ariaTransform: lang}}"
-                    (change)="onTimmingSelected($event)"
-                    [formControlName]="'timmingOfApplicant'" required/>
-                    {{timming | textTransform: lang }}
+              <li class="radio" *ngFor="let timing of timingOfApplicantOptions; let i = index">
+                <label aria-hidden="true" for="timing{{i}}">
+                  <input attr.aria-label="{{timing | ariaTransform: lang}}" type="radio" attr.aria-label="{{timing | ariaTransform: lang}}"
+                      id="timingOfApplicant{{i}}" name="timingOfApplicant" value="{{timing | ariaTransform: lang}}"
+                    (change)="onTimingSelected($event)"
+                    [formControlName]="'timingOfApplicant'" required/>
+                    {{timing | textTransform: lang }}
                 </label>
               </li>
             </ul>

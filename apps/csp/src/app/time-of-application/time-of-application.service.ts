@@ -6,7 +6,7 @@ import { Ectd, TransactionEnrol } from '../models/transaction';
 @Injectable({
   providedIn: 'root'
 })
-export class TimeOfApplicationService {
+export class TimingOfApplicationService {
 
   private _currLanguage: string = ENGLISH;
 
@@ -14,23 +14,23 @@ export class TimeOfApplicationService {
 
 
 
-  getTimeOfApplicationForm(fb: FormBuilder) {
+  getTimingOfApplicationForm(fb: FormBuilder) {
     if (!fb) {
       return null;
    }
-   const timeOfApplicationForm = fb.nonNullable.group({
-     timmingOfApplicant: new FormControl(null, Validators.required)
+   const timingOfApplicationForm = fb.nonNullable.group({
+     timingOfApplicant: new FormControl(null, Validators.required)
      });
-    return timeOfApplicationForm;
+    return timingOfApplicationForm;
   }
 
   public mapFormModelToDataModel(formValue: any, transactionEnrol: TransactionEnrol) {
 
-    transactionEnrol.timmingOfApplicant = formValue['timmingOfApplicant'];
+    transactionEnrol.timingOfApplicant = formValue['timingOfApplicant'];
     }
 
   public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
 
-    formRecord.controls['timmingOfApplicant'].setValue(transactionEnrol.timmingOfApplicant);
+    formRecord.controls['timingOfApplicant'].setValue(transactionEnrol.timingOfApplicant);
    }
 }
