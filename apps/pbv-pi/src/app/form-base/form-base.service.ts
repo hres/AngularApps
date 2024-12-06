@@ -40,7 +40,18 @@ export class FormBaseService {
       date_saved: undefined,
       software_version: '',
       form_language: '',
-      check_sum: ''
+      check_sum: '',
+      company_id: '',
+      dossier_id: '',
+      dossier_type: undefined,
+      product_name: '',
+      proper_name: '',
+      is_admin_sub: '',
+      sub_type: undefined,
+      manufacturer: '',
+      mailing: '',
+      this_activity: '',
+      importer: ''
     };
     
     return drugProductEnrol;

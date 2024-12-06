@@ -14,20 +14,13 @@ export const HELP_FOOTNOTE_SUFFIX = '-rf';
 
 export const HELP_TEXT_SEQUENCE = [
     'loadFileIndx',
-    'dossierTypeIndx',
+    'productInfoIndx',
     'compIdIndx',
-    'dossierIdIndx',
+    'dossierTypeIndx',
     'prodNameIndx',
-    'prioRevIndx',
-    'nocRevIndx',
+    'properNameIndx',
     'adminSubIndx',
-    'regActIndx',
-    'yearChangeIndx',
-    'briefDescIndx',
-    'requestSoliIndx',
-    'ctrlNumIndx',
-    'feesIndx',
-    'regContactIndx',
+    'addrToSendIndx',
     'genFinalIndx'
   ];
 

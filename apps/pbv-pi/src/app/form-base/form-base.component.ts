@@ -10,6 +10,7 @@ import { FormBaseService } from './form-base.service';
 import { DrugProductEnrol, ProductInformation} from '../models/ProductInformation';
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
+import { ProductInformationComponent } from '../product-information/product-information.component';
 
 @Component({
     selector: 'app-form-base',
@@ -28,14 +29,19 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   byPassCheckSum: boolean;
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  @ViewChildren(ProductInformationComponent) productInfoComponent: ProductInformation;
   
   private _consertPrivacyError = [];
 
-  public rtForm: FormGroup; 
+  public piForm: FormGroup; 
   public errorList = [];
   public showErrors: boolean;
+
+  private _productInfoErrors = [];
   
   public headingLevel = 'h2';
+
+  public productEnrollModel: ProductInformation;
 
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
@@ -53,8 +59,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    if (!this.rtForm) {
-      this.rtForm = this._baseService.getReactiveModel(this._fb);
+    if (!this.piForm) {
+      this.piForm = this._baseService.getReactiveModel(this._fb);
     }
     try {
 
@@ -133,10 +139,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.cdr.detectChanges(); // doing our own change detection
   }
 
-  // processRegulatoryInfoErrors(errorList) {
-  //   this._regulatoryInfoErrors = errorList;
-  //   this.processErrors();
-  // }
+  processProductInfoErrors(errorList) {
+    this._productInfoErrors = errorList;
+    this.processErrors();
+  }
 
   // // processContactErrors(errorList) {
   // //   this._contactErrors = errorList;
@@ -276,7 +282,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public onChanged(e, controlName) {
     if (e?.target?.checked === false) {
-      this.rtForm.controls[controlName].reset();
+      this.piForm.controls[controlName].reset();
     }
   }
 

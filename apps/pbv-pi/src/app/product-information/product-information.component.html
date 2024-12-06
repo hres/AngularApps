@@ -1,0 +1,152 @@
+<div [formGroup]="productInfoForm">
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="companyId" class="required">
+                <span class="field-name">1. {{'company.id'|translate }} {{'5digits.only'|translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <sup [id]="helpIndex['compIdIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['compIdIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['compIdIndx'][0]}}</a>
+                </sup>
+                <control-messages *ngIf="productInfoForm.controls['companyId'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="productInfoForm.controls['companyId'] | formControl"
+                    controlId="companyId" label="company.id" parentId="productInfo"></control-messages>
+            </label>
+            <input id="companyId" name="companyId" class="form-control" data-only-digits
+                    [formControlName]="'companyId'" minlength="5" maxlength="5" size="5"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="dossierId" class="required">
+                <span class="field-name">2. {{ 'dossier.id'|translate }} {{ 'dossier.id.format'|translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <control-messages *ngIf="productInfoForm.controls['dossierId'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="productInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
+                    label="dossier.id" parentId="productInfo"></control-messages>
+            </label>
+            <input id="dossierId" name="dossierId" class="form-control"
+                        [formControlName]="'dossierId'" maxlength="7" size="7" /> 
+        </div>
+      </div>
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="dossierType" class="required">
+                <span class="field-name">3. {{ 'dossier.type'|translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <sup [id]="helpIndex['dossierTypeIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['dossierTypeIndx'][1]"><span
+                            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierTypeIndx'][0]}}</a>
+                </sup>
+                <control-messages *ngIf="productInfoForm.controls['dossierType'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="productInfoForm.controls['dossierType'] | formControl" controlId="dossierType"
+                    label="dossier.type" parentId="productInfo"></control-messages>
+            </label>
+            <select id="dossierType" name="dossierType" required class="form-control"
+                [formControlName]="'dossierType'">
+                <option label=" " value=""></option>
+                <option *ngFor="let item of dossierTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="productName" class="required">
+                <span class="field-name">4. {{ 'product.name'|translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <sup [id]="helpIndex['prodNameIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['prodNameIndx'][1]"><span
+                            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodNameIndx'][0]}}</a>
+                </sup>
+                <control-messages *ngIf="productInfoForm.controls['productName'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="productInfoForm.controls['productName'] | formControl" controlId="productName"
+                    label="product.name" parentId="productInfo"></control-messages>
+            </label>
+            <textarea id="productName" name="productName" class="form-control full-width"
+                        [formControlName]="'productName'" maxlength="400" ></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="properName" class="required">
+                <span class="field-name">5. {{ 'proper.name'|translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <sup [id]="helpIndex['properNameIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['properNameIndx'][1]"><span
+                            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['properNameIndx'][0]}}</a>
+                </sup>
+                <control-messages *ngIf="productInfoForm.controls['properName'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="productInfoForm.controls['properName'] | formControl" controlId="properName"
+                    label="proper.name" parentId="productInfo"></control-messages>
+            </label>
+            <textarea id="properName" name="properName" class="form-control full-width"
+                        [formControlName]="'properName'" maxlength="400" ></textarea>
+        </div>
+    </div>
+    <div class="row form-group">
+        <fieldset class="col-md-12 chkbxrdio-grp">
+          <legend class="required">
+            6. {{'is.admin.submission' |translate}}
+            <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+            <sup [id]="helpIndex['adminSubIndx'][2]">
+                <a class="fn-lnk" [href]="'#' + helpIndex['adminSubIndx'][1]"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminSubIndx'][0]}}</a>
+            </sup>
+            <control-messages *ngIf="productInfoForm.controls['isAdminSub'].invalid" [showError]="showFieldErrors"
+              [control]="productInfoForm.controls['isAdminSub'] | formControl" controlId="isAdminSub"
+              label="is.admin.submission" parentId="productInfo"></control-messages>
+          </legend>
+          <ng-container *ngFor="let yesno of yesNoList; let i = index">
+            <label for="isAdminSub{{i}}" class="radio-inline">
+              <input type="radio"
+                id="isAdminSub{{i}}" name="isAdminSub" [value]="yesno.id"
+                [formControlName]="'isAdminSub'" required/>
+              {{yesno | textTransform: lang }}
+              </label>
+           </ng-container>
+        </fieldset>
+    </div>
+    <div class="row form-group">
+        <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chkbxrdio-grp form-inline">
+            <legend>
+                7. {{'address.to.send' |translate}}
+                <sup [id]="helpIndex['addrToSendIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['addrToSendIndx'][1]"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['addrToSendIndx'][0]}}</a>
+                </sup>
+              </legend>
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="checkbox label-inline">
+                        <input type="checkbox" id="manufacturer" [formControlName]="'manufacturer'" />
+                        <label for="manufacturer">{{'manufacturer'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="checkbox label-inline">
+                        <input type="checkbox" id="mailing" [formControlName]="'mailing'" />
+                        <label for="mailing">{{'mailing'|translate}}</label>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="checkbox label-inline">
+                            <input type="checkbox" id="this.activity" [formControlName]="'this_activity'" />
+                            <label for="this.activity">{{'this.activity'|translate}}</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="checkbox label-inline">
+                            <input type="checkbox" id="importer" [formControlName]="'importer'" />
+                            <label for="importer">{{'importer'|translate}}</label>
+                        </div>
+                    </div>
+              </div>
+        </fieldset>
+    </div>
+</div>
