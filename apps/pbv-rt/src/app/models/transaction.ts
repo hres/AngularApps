@@ -13,7 +13,11 @@ export interface TransactionEnrol {
   check_sum?: string;
   ectd: Ectd;
   fee_details: FeeDetails;
-  contact_info: IContactInformation;
+  is_activity_changes: string;
+  company_name: string;
+  regulatory_activity_address: INameAddress;
+  regulatory_activity_contact: IContact;
+  confirm_regulatory_contact: boolean;
   is_priority: string;
   is_noc: string;
   is_admin_sub: string;
@@ -50,14 +54,6 @@ export interface FeeDetails {
   submission_class: IIdTextLabel;
   submission_description: ITextLabel;
   mitigation: Mitigation;
-}
-
-export interface IContactInformation {
-  is_activity_changes: string;
-  company_name: string;
-  regulatory_activity_address: INameAddress;
-  regulatory_activity_contact: IContact;
-  confirm_regulatory_contact: boolean;
 }
 
 export interface Mitigation {

@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, NO, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, Transaction, TransactionEnrol, IContactInformation} from '../models/transaction';
+import { Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
 import { RegulatoryInformationComponent } from '../regulatory-information/regulatory-information.component';
 import { RegulatoryContactComponent } from '../regulatory-contact/regulatory-contact.component';
@@ -59,7 +59,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
-  public contactInfoModel: IContactInformation;
   public addressModel: INameAddress;
   public contactModel: IContact;
   // public holderAddressModel: INameAddress;
@@ -237,9 +236,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (trans.fee_details != null) {
       this.feesModel = trans.fee_details;
     }
-    this.contactInfoModel = trans.contact_info;
-    this.addressModel = trans.contact_info.regulatory_activity_address;
-    this.contactModel = trans.contact_info.regulatory_activity_contact;
+    this.addressModel = trans.regulatory_activity_address;
+    this.contactModel = trans.regulatory_activity_contact;
   }
 
   public preload() {
@@ -306,7 +304,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       addressFormGroupValue = this.regulatoryContactComponent.getAddressFormValue();
     }
     const contactFormGroupValue = this.regulatoryContactComponent.getContactFormValue();
-    this._baseService.mapRegContactInfoToOutput(newTransactionEnrol.contact_info, contactInfoFormGroupValue, addressFormGroupValue, contactFormGroupValue);
+    this._baseService.mapRegContactInfoToOutput(newTransactionEnrol, contactInfoFormGroupValue, addressFormGroupValue, contactFormGroupValue);
 
     newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     newTransactionEnrol.software_version = this._globalService.appVersion;
