@@ -91,25 +91,41 @@
         <fieldset class="col-md-12 chkbxrdio-grp">
           <legend class="required">
             6. {{'is.admin.submission' |translate}}
-            <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
             <sup [id]="helpIndex['adminSubIndx'][2]">
                 <a class="fn-lnk" [href]="'#' + helpIndex['adminSubIndx'][1]"><span
                   class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminSubIndx'][0]}}</a>
             </sup>
-            <control-messages *ngIf="productInfoForm.controls['isAdminSub'].invalid" [showError]="showFieldErrors"
-              [control]="productInfoForm.controls['isAdminSub'] | formControl" controlId="isAdminSub"
-              label="is.admin.submission" parentId="productInfo"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
             <label for="isAdminSub{{i}}" class="radio-inline">
               <input type="radio"
-                id="isAdminSub{{i}}" name="isAdminSub" [value]="yesno.id"
+                id="isAdminSub{{i}}" name="isAdminSub" [value]="yesno.id" (change)="onAdminSubSelected(yesno.id, false)"
                 [formControlName]="'isAdminSub'" required/>
               {{yesno | textTransform: lang }}
               </label>
            </ng-container>
         </fieldset>
     </div>
+    <ng-container *ngIf="isAdminSub()">
+        <div class="row">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="subType" class="required">
+                    <span class="field-name">{{'sub.type'|translate }}</span>
+                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <control-messages *ngIf="productInfoForm.controls['subType'].invalid"
+                        [showError]="showFieldErrors"
+                        [control]="productInfoForm.controls['subType'] | formControl" controlId="subType"
+                        label="sub.type" parentId="productInfo"></control-messages>
+                </label>
+                <select id="subType" name="subType" required class="form-control"
+                    [formControlName]="'subType'" (change)="onSubTypeSelected($any($event.target).value)">
+                    <option label=" " value=""></option>
+                    <option *ngFor="let item of subTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
+                </select>
+            </div>
+          </div>
+        <div [innerHTML]="selectedAdminSubTypeDefinition"></div>
+    </ng-container>
     <div class="row form-group">
         <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chkbxrdio-grp form-inline">
             <legend>
@@ -136,7 +152,7 @@
               <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="checkbox label-inline">
-                            <input type="checkbox" id="this.activity" [formControlName]="'this_activity'" />
+                            <input type="checkbox" id="this.activity" [formControlName]="'thisActivity'" />
                             <label for="this.activity">{{'this.activity'|translate}}</label>
                         </div>
                     </div>

@@ -25,6 +25,7 @@ export class GlobalService {
   private _dossierTypes: ICodeDefinition[] = [];
   private _countryList: ICode[];
   private _yesnoList: ICode[];
+  private _subTypeList: ICodeDefinition[];
 
   constructor() {}
 
@@ -126,5 +127,13 @@ export class GlobalService {
 
   public set yesnoList(value: ICode[]) {
     this._yesnoList = value;
+  }
+
+  public get subTypeList(): ICodeDefinition[] {
+    return this._subTypeList;
+  }
+
+  public set subTypeList(value: ICodeDefinition[]) {
+    this._subTypeList = value;
   }
 }

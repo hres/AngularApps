@@ -15,5 +15,6 @@
     "manufacturer": "Fabricant ou promoteur",
     "mailing": "Courrier réglementaire / contact annuel",
     "this.activity": "Personne-ressource pour cette activité réglementaire",
-    "importer": "Importateur canadien"
+    "importer": "Importateur canadien",
+    "sub.type": "Raison justifiant la composante administrative"
 }

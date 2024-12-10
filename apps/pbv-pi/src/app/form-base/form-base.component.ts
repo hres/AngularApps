@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, HelpSequence } from '@hpfb/sdk/ui';
+import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, HelpSequence, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -29,7 +29,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   byPassCheckSum: boolean;
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-  @ViewChildren(ProductInformationComponent) productInfoComponent: ProductInformation;
+
+  @ViewChild(ProductInformationComponent) productInfoComponent: ProductInformationComponent;
   
   private _consertPrivacyError = [];
 
@@ -41,7 +42,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   
   public headingLevel = 'h2';
 
-  public productEnrollModel: ProductInformation;
+  public enrollModel: ProductInformation;
+  public productEnrollModel: DrugProductEnrol;
 
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
@@ -64,19 +66,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
     try {
 
-      // if (!this._globalService.enrollment) {
-      //   // console.log("onInit", "enrollement doesn't exist, create a new one");
-      //   this.enrollModel = this._baseService.getEmptyEnrol();
-      //   this._globalService.enrollment = this.enrollModel;
-      // } else {
-      //   this.enrollModel = this._globalService.enrollment;
-      //   // console.log("onInit", "get enrollement from globalservice");
-      // }
+      if (!this._globalService.enrollment) {
+        // console.log("onInit", "enrollement doesn't exist, create a new one");
+        this.enrollModel = this._baseService.getEmptyEnrol();
+        this._globalService.enrollment = this.enrollModel;
+      } else {
+        this.enrollModel = this._globalService.enrollment;
+      }
 
-      // this.transactionEnrollModel = this.enrollModel[this.rootTagText];
-      // // console.log('oninit', JSON.stringify(this.transactionEnrollModel, null, 2));
+      this.productEnrollModel = this.enrollModel[this.rootTagText];
 
-      // this._initModels(this.transactionEnrollModel);
+      // this._initModels(this.productEnrollModel);
 
       this.lang = this._globalService.currLanguage;
       this.helpIndex = this._globalService.helpIndex;
@@ -99,26 +99,23 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _updateErrorList(errorObjs) {
-    let consentPrivacyTempError = [];
-    if (errorObjs) {
-      errorObjs.forEach(
-        error => {
-          // console.log(error);
-          if (error.label === 'consent.privacy') {
-            consentPrivacyTempError.push(error);
-          }
-        }
-      );
-    }
+    // let consentPrivacyTempError = [];
+    // if (errorObjs) {
+    //   errorObjs.forEach(
+    //     error => {
+    //       if (error.label === 'consent.privacy') {
+    //         consentPrivacyTempError.push(error);
+    //       }
+    //     }
+    //   );
+    // }
 
-    this._consertPrivacyError = consentPrivacyTempError;
+    // this._consertPrivacyError = consentPrivacyTempError;
   }
 
   processErrors() {
-    // console.log('@@@@@@@@@@@@ processErrors');
     this.errorList = [];
-    // concat the error arrays
-    // this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
+    this.errorList = this.errorList.concat(this._productInfoErrors);
 
     // if (this.showContact()) {
     //   this.errorList = this.errorList.concat(
@@ -173,7 +170,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public processFile(fileData: ConvertResults) {
     // console.log(fileData);
     if (fileData.data !== null) {
-      // this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
+      this.productEnrollModel = fileData.data.DRUG_PRODUCT_ENROL;
       // this._initModels(this.transactionEnrollModel);
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
@@ -181,21 +178,19 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
   }
   
-  private _initModels(trans: DrugProductEnrol) {
+  private _initModels(drugProduct: DrugProductEnrol) {
     // this.ectdModel = trans.ectd;
-    // if (trans.contact_info != null) {
-    //   this.holderAddressModel = trans.contact_info.holder_name_address;
-    //   this.holderContactModel = trans.contact_info.holder_contact;
-    //   this.agentAddressModel = trans.contact_info.agent_name_address;
-    //   this.agentContactModel = trans.contact_info.agent_contact;
-    // }
+    // // if (trans.contact_info != null) {
+    // //   this.holderAddressModel = trans.contact_info.holder_name_address;
+    // //   this.holderContactModel = trans.contact_info.holder_contact;
+    // //   this.agentAddressModel = trans.contact_info.agent_name_address;
+    // //   this.agentContactModel = trans.contact_info.agent_contact;
+    // // }
     // if (trans.fee_details != null) {
     //   this.feesModel = trans.fee_details;
     // }
-  }
-
-  public preload() {
-    // console.log("Calling preload")
+    // this.addressModel = trans.regulatory_activity_address;
+    // this.contactModel = trans.regulatory_activity_contact;
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -208,7 +203,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       const result: ProductInformation = this._prepareForSaving(true);
       const fileName = this._generateFileName(result[ROOT_TAG]);
       const xsltVersion = this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.appVersion)
-      const xslName = XSLT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
+      const xslName = XSLT_PREFIX.toUpperCase() + '_PI_' + xsltVersion + '.xsl';
 
       this.fileServices.saveXmlToFile(result, fileName, true, xslName);
       return;
@@ -220,63 +215,34 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const newDrugProductEnrol: DrugProductEnrol = this._baseService.getEmptyDrugProductEnrol();
 
-    // regulatoryInfo and ??? are always rendered, their mappings to output data should always be executed
-    // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
-    // this._baseService.mapRegulatoryInfoFormToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue);
+    const productInfoFormGroupValue = this.productInfoComponent.getFormValue();
+    this._baseService.mapProductInfoFormToOutput(newDrugProductEnrol, productInfoFormGroupValue);
 
-    // // contactInfo and fee are conditional rendered, do their mappings to output data only when applicable
-    // if (this.showContact()) {
-    //   newTransactionEnrol.contact_info.agent_not_applicable = this.rtForm.controls['notApplicable'].value;
-    //   newTransactionEnrol.contact_info.contact_info_confirm = this.rtForm.controls['contactInfoConfirm'].value;
-    //   console.log(newTransactionEnrol.contact_info.agent_not_applicable, newTransactionEnrol.contact_info.contact_info_confirm);
-
-    //   const addressesFormGroupValue = this.addressComponents.map((comp: AddressDetailsComponent) => ({
-    //     addrType: comp.addrType,
-    //     value: comp.getFormValue()
-    //   })); 
-    //   const contactsFormGroupValue = this.contactDetailsComponents.map((comp: ContactDetailsComponent) => ({
-    //     contactType: comp.contactType,
-    //     value: comp.getFormValue()
-    //   })); 
-
-    //   this._baseService.mapAddressFormContactFormToOutput(newTransactionEnrol.contact_info, addressesFormGroupValue, contactsFormGroupValue);
-
-    // } else {
-    //   newTransactionEnrol.contact_info = null;
-    // }
-
-    // if (this.showFees()) {
-    //   const feeFormGroupValue = this.feesComponent.getFormValue();
-    //   this._baseService.mapFeesFormToOutput(newTransactionEnrol.fee_details, feeFormGroupValue);
-    // } else {
-    //   newTransactionEnrol.fee_details = null;
-    // }
-
-    // newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
-    // newTransactionEnrol.software_version = this._globalService.appVersion;
-    // newTransactionEnrol.form_language = this._globalService.currLanguage;
+    newDrugProductEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    newDrugProductEnrol.software_version = this._globalService.appVersion;
+    newDrugProductEnrol.form_language = this._globalService.currLanguage;
 
     const output: ProductInformation = {
       DRUG_PRODUCT_ENROL: newDrugProductEnrol
     };
 
-    // if (xmlFile) {
-    //   // add and calculate check_sum if it is xml
-    //   output.TRANSACTION_ENROL[CHECK_SUM_CONST]  = "";   // this is needed for generating the checksum value
-    //   output.TRANSACTION_ENROL[CHECK_SUM_CONST]  = this._checkSumService.createHash(output);
-    // }
+    if (xmlFile) {
+      // add and calculate check_sum if it is xml
+      output.DRUG_PRODUCT_ENROL[CHECK_SUM_CONST]  = "";   // this is needed for generating the checksum value
+      output.DRUG_PRODUCT_ENROL[CHECK_SUM_CONST]  = this._checkSumService.createHash(output);
+    }
 
-    // console.log('_prepareForSaving ~ output', JSON.stringify(output, null, 2));
+    console.log('_prepareForSaving ~ output', JSON.stringify(output, null, 2));
 
     return output;
   }
 
-  private _generateFileName(transactionEnrol: DrugProductEnrol): string {
+  private _generateFileName(drugProductEnrol: DrugProductEnrol): string {
     let fileName =
       FILE_OUTPUT_PREFIX + "-" +
-      //transactionEnrol.ectd.dossier_id +
+      drugProductEnrol.dossier_id +
       '-' +
-      transactionEnrol.date_saved;
+      drugProductEnrol.date_saved;
     return fileName;
   }
 

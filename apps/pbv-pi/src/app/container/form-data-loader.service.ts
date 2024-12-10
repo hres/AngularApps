@@ -9,10 +9,12 @@ export class FormDataLoaderService {
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
   private countriesJsonPath = DATA_PATH + 'countries.json';
+  private subTypesJsonPath = DATA_PATH + 'subTypes.json';
   
   cachedYesNo$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
   cachedCountries$:Observable<ICode[]>;
+  subTypes$:Observable<ICode[]>;
   
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -49,5 +51,14 @@ export class FormDataLoaderService {
         );
     }
     return this.cachedYesNo$;
+  }
+
+  
+  getSubTypes(lang: string): Observable<ICode[]> {
+    this.subTypes$ = this._dataService.getSortedDataAccents<ICode>(this.subTypesJsonPath, this._utilsService.getCompareFields(false, lang))
+    .pipe(
+      shareReplay(1)
+    );
+    return this.subTypes$;
   }
 }

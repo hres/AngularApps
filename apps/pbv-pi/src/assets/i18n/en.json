@@ -15,5 +15,6 @@
     "manufacturer": "Manufacturer/Sponsor",
     "mailing": "Regulatory Mailing/Annual Contact",
     "this.activity": "Contact for this Regulatory Activity",
-    "importer": "Canadian Importer"
+    "importer": "Canadian Importer",
+    "sub.type": "Reason for administrative component"
 }
