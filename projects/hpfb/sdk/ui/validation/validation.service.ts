@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import { IValidationService } from './validation-service.interface';
 
 @Injectable()
-export class ValidationService {
+export class ValidationService implements IValidationService {
 
   constructor() {
     // private translate: TranslateService
@@ -10,8 +11,7 @@ export class ValidationService {
 
   }
 
-
-  static getValidatorErrorMessage(validatorName: string) {
+  getValidatorErrorMessage(validatorName: string): string | null {
     // TODO sucky need to make the keys the same as the translation for the error summary
     const config = {
       'required': 'required',

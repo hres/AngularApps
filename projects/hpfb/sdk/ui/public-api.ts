@@ -30,7 +30,10 @@ export * from './common.constants';
 export * from './check-sum/check-sum-constants';
 
 export * from './utils/utils.service';
+
 export * from './validation/validation.service';
+export * from './validation/validation-service.interface';
+export * from './validation/validation-service.token';
 
 export * from './check-sum/check-sum.service'
 
