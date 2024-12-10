@@ -4,8 +4,8 @@ import { BaseComponent, HelpIndex, ICode, UtilsService, HelpSequence } from '@hp
 import { GlobalService } from '../global/global.service';
 import { NO, YES } from '../app.constants';
 import { RegulatoryContactService } from './regulatory-contact.service';
-import { IContactInformation } from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
+import { TransactionEnrol } from '../models/transaction';
 import { AddressDetailsComponent, ContactDetailsComponent, IContact, INameAddress } from '@hpfb/pbv';
 
 @Component({
@@ -24,7 +24,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   
   public regulatoryContactInfoForm: FormGroup;
   @Input() showErrors: boolean;
-  @Input() dataModel: IContactInformation;
+  @Input() dataModel: TransactionEnrol;
   @Input() addressModel: INameAddress;
   @Input() contactModel: IContact;
   @Output() errorList = new EventEmitter(true);
@@ -88,7 +88,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
         this.showFieldErrors = changes['showErrors'].currentValue;
       }
       if (changes['dataModel']) {
-        const dataModelCurrentValue = changes['dataModel'].currentValue as IContactInformation;
+        const dataModelCurrentValue = changes['dataModel'].currentValue as TransactionEnrol;
         this._regulatoryContactService.mapDataModelToFormModel(
           dataModelCurrentValue,
           <FormGroup>this.regulatoryContactInfoForm);
