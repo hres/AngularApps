@@ -191,13 +191,6 @@ export class FormBaseService {
   }
 
   public mapRegContactInfoToOutput(outputTransactionEnrol: TransactionEnrol, contactInfoFormGroupValue: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
-    const lang = this._globalService.currLanguage;
-    const languageList: ICode[] = this._globalService.languageList;
-    const countryList: ICode[] = this._globalService.countryList;
-    const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
-
-    this._regulatoryContactService.mapFormModelToDataModel(contactInfoFormGroupValue, outputTransactionEnrol);
-    this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, outputTransactionEnrol.regulatory_activity_address, lang, countryList, combinedProvStatList);
-    this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, outputTransactionEnrol.regulatory_activity_contact, lang, languageList);
+    this._regulatoryContactService.mapFormModelToDataModel(contactInfoFormGroupValue, outputTransactionEnrol, addressFormGroupValue, contactFormGroupValue);
   }
 }
