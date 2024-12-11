@@ -1,5 +1,5 @@
 <div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
-  <form name="transactionForm" [formGroup]="rtForm" novalidate>
+  <form name="transactionForm" [formGroup]="piForm" novalidate>
     <div class="row mrgn-tp-md">
       <div class="col-md-12">
         <div class="text-right">
@@ -27,6 +27,21 @@
     <div id="topErrorSummaryId">
       <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
         headingPreamble="errorSummary.form.name"></lib-error-summary>
+    </div>
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.product.info'|translate}}
+            <sup [id]="helpIndex['productInfoIndx'][2]">
+              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['productInfoIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['productInfoIndx'][0]}}</a>
+            </sup>
+          </h2>
+          </header>
+          <div class="panel-body">
+            <app-product-information [showErrors]="showErrors" [dataModel]="productEnrollModel"
+            (errorList)="processProductInfoErrors($event)"></app-product-information>
+          </div>
+      </section>
     </div>
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">

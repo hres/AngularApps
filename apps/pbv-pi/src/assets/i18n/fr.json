@@ -1,5 +1,20 @@
 {
     "form.title": "Modèle d'information sur le produit: Processus d'inscription réglementaire",
     "load.file": "Charger un fichier d’informations sur le produit",
-    "errorSummary.form.name": "Le formulaire"
+    "errorSummary.form.name": "Le formulaire",
+    "panel.title.product.info": "Information sur le produit",
+    "company.id": "Numéro de la compagnie",
+    "5digits.only": "(5 chiffres seulement)",
+    "dossier.id": "Numéro de dossier",
+    "dossier.id.format": "(composé d’une lettre minuscule suivie de six chiffres)",
+    "dossier.type": "Type de dossier",
+    "product.name": "Nom du produit",
+    "proper.name": "Nom propre, nom usuel ou nom générique",
+    "is.admin.submission": "Comprend-t-elle une composante administrative?",
+    "address.to.send": "Adresse où le formulaire de déclaration de médicament (FDM)/l’avis de conformité (AC) doivent être envoyés (lorsque nécessaire):",
+    "manufacturer": "Fabricant ou promoteur",
+    "mailing": "Courrier réglementaire / contact annuel",
+    "this.activity": "Personne-ressource pour cette activité réglementaire",
+    "importer": "Importateur canadien",
+    "sub.type": "Raison justifiant la composante administrative"
 }

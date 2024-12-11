@@ -1,6 +1,20 @@
 {
     "form.title": "Product Information Template: Regulatory Enrolment Process (REP)",
     "load.file": "Load Product Information XML File",
-    "errorSummary.form.name": "The form"
-
+    "errorSummary.form.name": "The form",
+    "panel.title.product.info": "Product Information",
+    "company.id": "Company Identifier",
+    "5digits.only": "(5 digits only)",
+    "dossier.id": "Dossier Identifier",
+    "dossier.id.format": "(a lowercase letter followed by 6 numbers)",
+    "dossier.type": "Dossier Type",
+    "product.name": "Product Name",
+    "proper.name": "Proper, Common or Non-Proprietary Name",
+    "is.admin.submission": "Does this regulatory activity contain an administrative component",
+    "address.to.send": "Address to which the Drug Notification Form (DNF)/Notice of Compliance (NOC) are to be sent (when required):",
+    "manufacturer": "Manufacturer/Sponsor",
+    "mailing": "Regulatory Mailing/Annual Contact",
+    "this.activity": "Contact for this Regulatory Activity",
+    "importer": "Canadian Importer",
+    "sub.type": "Reason for administrative component"
 }
