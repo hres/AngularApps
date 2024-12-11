@@ -58,31 +58,6 @@
       </section>
     </div>
 
-    <div>
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'panel.title.druguse'|translate}}</h2>
-          </header>
-          <div class="panel-body">
-            <app-drug-use  [showErrors]="showErrors"
-            (errorList)="processDrugUseErrors($event)"
-            ></app-drug-use>
-          </div>
-      </section>
-    </div>
-
-    <div *ngIf="isInternal">
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'panel.title.noticeofcompliance'|translate}}</h2>
-          </header>
-          <div class="panel-body">
-            <app-notice-of-compliance [showErrors]="showErrors"
-            (errorList)="processNoticeOfComplianceErrors($event)"
-            ></app-notice-of-compliance>
-          </div>
-      </section>
-    </div>
 
     <div >
       <section class="panel panel-primary mrgn-tp-lg">
@@ -97,25 +72,66 @@
       </section>
     </div>
 
+
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.druguse'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <app-drug-use  [showErrors]="showErrors"
+            (errorList)="processDrugUseErrors($event)"
+            ></app-drug-use>
+          </div>
+      </section>
+    </div>
+
     <div>
       <section class ="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix">
-            <h2 class="panel-title">{{'panel.title.medicinal.ingredients'|translate}}</h2>
+            <h2 class="panel-title">{{'panel.title.timing.of.application'|translate}}</h2>
           </header>
           <div class="panel-body">
-            <app-medicinal-ingredients [showErrors]="showErrors"
-            (errorList)="processMedicinalIngredientsErrors($event)"
-            ></app-medicinal-ingredients>
-
-
+            <app-time-of-application [showErrors]="showErrors" [dataModel]="ectdModel"
+            (errorList)="processTimingOfApplicantErrors($event)"
+            ></app-time-of-application>
           </div>
-
-
-
       </section>
+   </div>
 
 
+   <div>
+    <section class ="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.medicinal.ingredients'|translate}}</h2>
+        </header>
+        <div class="panel-body">
+          <app-medicinal-ingredients [showErrors]="showErrors"
+          (errorList)="processMedicinalIngredientsErrors($event)"
+          ></app-medicinal-ingredients>
+        </div>
+    </section>
+ </div>
+
+
+
+    <div *ngIf="isInternal">
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{'panel.title.noticeofcompliance'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <app-notice-of-compliance [showErrors]="showErrors"
+            (errorList)="processNoticeOfComplianceErrors($event)"
+            ></app-notice-of-compliance>
+          </div>
+      </section>
     </div>
+
+
+
+
+
 
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">

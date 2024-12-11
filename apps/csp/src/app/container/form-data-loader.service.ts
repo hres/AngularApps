@@ -12,6 +12,7 @@ export class FormDataLoaderService {
   private statesJsonPath = DATA_PATH + 'states.json';
   private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
   private drugUseJsonPath = DATA_PATH + 'druguses.json';
+  private timingOfApplicantPath = DATA_PATH + 'timingOfApplicant.json'
 
   cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
@@ -21,6 +22,7 @@ export class FormDataLoaderService {
   cachedStates$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
   drugUseOptions$: Observable<ICode[]>;
+  timingOfApplicantTypes$: Observable<ICodeAria[]>;
   // mfUseOptions$: Observable<ICode[]>;
   // txDescs$: Observable<ICodeDefinition[]>;
   // mfTypeTxDescOptions$: Observable<IParentChildren[]>;
@@ -81,6 +83,16 @@ export class FormDataLoaderService {
         shareReplay(1)
       );
     return this.drugUseOptions$;
+  }
+
+  getTimingOfApplicantTypes(): Observable<ICodeAria[]> {
+    this.timingOfApplicantTypes$ = this._dataService
+      .getData<ICodeAria>(this.timingOfApplicantPath)
+      .pipe(
+        //tap((_) => console.log('getMasterFileTypeOptions is executed')),
+        shareReplay(1)
+      );
+    return this.timingOfApplicantTypes$;
   }
 
 }

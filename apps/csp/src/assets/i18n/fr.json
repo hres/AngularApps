@@ -453,5 +453,7 @@
      "applicant.name":"Nom du demandeur",
      "cra.business.number":"Numéro d’entreprise d’ARC",
      "csp.customer.number":"Numéro de client de CPS",
-     "agent.name":"Nom de l’agent (dénomination sociale complète – ne pas utiliser d’abréviations)"
-}
+     "agent.name":"Nom de l’agent (dénomination sociale complète – ne pas utiliser d’abréviations)",
+     "panel.title.timing.of.application": "Moment du dépot de la demande",
+     "application.is.applying":"Le demandeur dépose une demande (sélectionner une seule réponse)"
+  }

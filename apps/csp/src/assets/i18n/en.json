@@ -460,9 +460,12 @@
      "new.drug.submission.info.nds.number": "NDS Number",
      "panel.title.new.drug.submission.info": "New Drug Submission (NDS) Information",
      "medicinal.ingredients": "Medicinal ingredient(s) (as provided on the NOC for the NDS provided in Section 3)",
-     "panel.title.medicinal.ingredients": " Medicinal Ingredient(s)",
+     "panel.title.medicinal.ingredients": "Medicinal Ingredient(s)",
      "applicant.name":"Applicant Name",
      "cra.business.number":"CRA Business Number",
      "csp.customer.number":"CSP Customer Number",
-     "agent.name":"Agent Name (Full legal Name - no abbreviations)"
+     "agent.name":"Agent Name (Full legal Name - no abbreviations)",
+     "panel.title.timing.of.application": "Timing of Application",
+     "application.is.applying":"Application is applying(select one only)"
+
 }

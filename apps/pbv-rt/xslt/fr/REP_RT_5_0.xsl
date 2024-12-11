@@ -438,6 +438,30 @@ span.normalWeight {
 					<div class="well well-sm" >
 						<div class="row">
 							<div class="col-xs-12">
+								<strong> Type de dossier: </strong>
+								<span class="mouseHover">
+									<xsl:value-of select="ectd/dossier_type/@label_fr" />
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<strong> Numéro de la compagnie: </strong>
+								<span class="mouseHover">
+									<xsl:value-of select="ectd/company_id" />
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<strong> Numéro de dossier: </strong>
+								<span class="mouseHover">
+									<xsl:value-of select="ectd/dossier_id" />
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
 								<strong> Nom du produit: </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="ectd/product_name"/>
@@ -697,7 +721,7 @@ span.normalWeight {
 					<h2 class="panel-title">Personne-ressource pour cette activité réglementaire</h2>
 				</div>
 				<div class="panel-body">
-					<strong>Information sur l'entreprise: </strong>
+					<strong>A. Information sur l'entreprise: </strong>
                     <div class="well well-sm" >
                         <div class="row">
                             <div class="col-xs-12">
@@ -714,7 +738,7 @@ span.normalWeight {
 						</div>
 					</div>
 					<xsl:if test="is_activity_changes = 'Y'">
-						<strong>Information d'adresse : </strong>
+						<strong>B. Information d'adresse : </strong>
 						<div class="well well-sm">
 							<div class="row">
 								<div class="col-xs-12">
@@ -786,7 +810,7 @@ span.normalWeight {
 							</div>
 						</div>
 					</xsl:if>
-                    <h4>Représentative de l'entrepise: </h4>
+                    <h4>C. Représentative de l'entrepise: </h4>
 					<div class="well well-sm">
 						<div class="row">
 								<strong class="col-xs-4">Prénom: <span

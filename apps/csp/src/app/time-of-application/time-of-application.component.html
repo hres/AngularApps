@@ -1,0 +1,28 @@
+<div>
+  <div [formGroup]="timingOfApplicationForm">
+    <div class="row">
+      <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <fieldset class="chkbxrdio-grp" >
+            <legend class="required"><span class="field-name">{{'application.is.applying'|translate}}</span>
+                <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+                <control-messages *ngIf="timingOfApplicationForm.controls['timingOfApplicant'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="timingOfApplicationForm.controls['timingOfApplicant'] | formControl"
+                    controlId="timingOfApplicantType0" label="application.is.applying" parentId="timingOfApplicant"></control-messages>
+            </legend>
+            <ul class="form-group list-unstyled">
+              <li class="radio" *ngFor="let timing of timingOfApplicantOptions; let i = index">
+                <label aria-hidden="true" for="timing{{i}}">
+                  <input attr.aria-label="{{timing | ariaTransform: lang}}" type="radio" attr.aria-label="{{timing | ariaTransform: lang}}"
+                      id="timing{{i}}" name="timingOfApplicant" value="{{timing | ariaTransform: lang}}"
+                    (change)="onTimingSelected($event)"
+                    [formControlName]="'timingOfApplicant'" required/>
+                    {{timing | textTransform: lang }}
+                </label>
+              </li>
+            </ul>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
