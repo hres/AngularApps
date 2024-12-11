@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@hpfb/sdk": "file:../../libs/hpfb-sdk-1.1.0.tgz",
+    "@hpfb/pbv": "file:../../libs/hpfb-pbv-1.0.0.tgz",
     "csp": "file:"
   },
   "private": true

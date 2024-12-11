@@ -6,6 +6,10 @@ import {
   CommonUiFeatureModule,
   NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
+import {
+  AddressModule,
+  ContactModule
+} from '@hpfb/pbv';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,8 +33,15 @@ import { TimingOfApplicationService } from './time-of-application/time-of-applic
 
 @NgModule({
   declarations: [
-    CertSuppProtectComponent, PatentComponent, DrugUseComponent, NoticeOfComplianceComponent, NewDrugSubmissionInformationComponent, MedicinalIngredientsComponent, ApplicantComponent
-  ,TimeOfApplicationComponent],
+    CertSuppProtectComponent, 
+    PatentComponent, 
+    DrugUseComponent, 
+    NoticeOfComplianceComponent, 
+    NewDrugSubmissionInformationComponent, 
+    MedicinalIngredientsComponent, 
+    ApplicantComponent, 
+    TimeOfApplicationComponent
+    ],
   imports: [
     CommonModule,
     TranslateModule,
@@ -40,12 +51,21 @@ import { TimingOfApplicationService } from './time-of-application/time-of-applic
     ExpanderModule,
     ReactiveFormsModule,
     TranslateModule,
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    AddressModule,
+    ContactModule
   ],
   providers: [
     CertSuppProtectService, DatePipe, PatentService, DrugUseService, NoticeOfComplianceService, NewDrugSubmissionInformationService,
     MedicinalIngredientsService, TimingOfApplicationService, ApplicantService ],
   exports: [CommonUiFeatureModule,
-    CertSuppProtectComponent, PatentComponent, DrugUseComponent, NoticeOfComplianceComponent, NewDrugSubmissionInformationComponent, MedicinalIngredientsComponent, TimeOfApplicationComponent, ApplicantComponent]
+    CertSuppProtectComponent, 
+    PatentComponent, 
+    DrugUseComponent, 
+    NoticeOfComplianceComponent, 
+    NewDrugSubmissionInformationComponent, 
+    MedicinalIngredientsComponent, 
+    TimeOfApplicationComponent, 
+    ApplicantComponent]
 })
 export class AppFormModule {}

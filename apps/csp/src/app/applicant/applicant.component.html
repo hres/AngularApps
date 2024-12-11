@@ -1,7 +1,7 @@
 <div>
     <div [formGroup]="applicantInformationForm">
         <div class="row">
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group col-xs-8 ">
                 <label for="applicantName" class="required">
                     <span class="field-name">{{ 'applicant.name'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -9,20 +9,20 @@
                         [showError]="showFieldErrors"
                         [control]="applicantInformationForm.controls['applicantName'] | formControl" controlId="companyName"
                         label="applicant.name" parentId="cspApplicant"></control-messages>
-                    <input maxlength="100" id="applicantName" class="form-control"
+                    <input maxlength="80" id="applicantName" class="form-control" size="80"
                         name="applicantName" [formControl]="applicantInformationForm.controls['applicantName'] | formControl" />
                 </label>
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 required">
+            <div class="form-group col-xs-4">
                 <label for="craBusinessNumber" class="required">
                     <span class="field-name">{{ 'cra.business.number'|translate }}</span>
-                    <input maxlength="100" id="craBusinessNumber" class="form-control"
+                    <input maxlength="9" minlength="9" id="craBusinessNumber" class="form-control"
                         name="craBusinessNumber" [formControl]="applicantInformationForm.controls['craBusinessNumber'] | formControl" />
                 </label>
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group col-sm-6">
                 <label for="cspNumber" class="required">
                     <span class="field-name">{{ 'csp.customer.number'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -30,36 +30,39 @@
                         [showError]="showFieldErrors"
                         [control]="applicantInformationForm.controls['cspNumber'] | formControl" controlId="companyName"
                         label="csp.customer.number" parentId="cspApplicant"></control-messages>
-                    <input maxlength="100" id="cspNumber" class="form-control"
+                    <input maxlength="5" size="5" id="cspNumber" class="form-control"
                         name="cspNumber" [formControl]="applicantInformationForm.controls['cspNumber'] | formControl" />
                 </label>
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group col-xs-8">
                 <label for="agentName" class="required">
                     <span class="field-name">{{ 'agent.name'|translate }}</span>
-                    <input maxlength="100" id="agentName" class="form-control"
+                    <input maxlength="80" size="80" id="agentName" class="form-control"
                         name="agentName" [formControl]="applicantInformationForm.controls['agentName'] | formControl" />
                 </label>
             </div>
         </div>
-        <!-- <div>
-            <pbv-contact-details [showErrors]="showErrors" [contactDetailsModel]="contactModel"
-                    [lang]="lang"
-                    [languageList]="languageList"
-                    (errorList)="processContactErrors($event)">
-            </pbv-contact-details>
-        </div> -->
-        <!-- <div>
-            <pbv-address-details [showErrors]="showErrors" 
-                    [addressModel]="addressModel"
-                    [lang]="lang"
-                    [countryList]="countryList"
-                    [provinceList]="provinceList"
-                    [stateList]="stateList"
-                    (errorList)="processAddressErrors($event)">
-            </pbv-address-details>
-        </div> -->
+        
+        <legend class="ng-binding">
+            {{"applicant.contact.info" | translate}}
+        </legend>
+
+        <pbv-contact-details [showErrors]="showErrors" [contactDetailsModel]="contactModel"
+                [lang]="lang"
+                [languageList]="languageList"
+                (errorList)="processContactErrors($event)">
+        </pbv-contact-details>
+
+        <pbv-address-details [showErrors]="showErrors" 
+                [addressModel]="addressModel"
+                [lang]="lang"
+                [provinceList]="provinceList"
+                [countryList]="countryList"
+                (errorList)="processAddressErrors($event)">
+        </pbv-address-details>
+
+        
     </div>
 </div>
