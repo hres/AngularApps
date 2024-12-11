@@ -17,7 +17,7 @@ export interface TransactionEnrol {
   company_name: string;
   regulatory_activity_address: INameAddress;
   regulatory_activity_contact: IContact;
-  confirm_regulatory_contact: boolean;
+  confirm_regulatory_contact: string;
   is_priority: string;
   is_noc: string;
   is_admin_sub: string;

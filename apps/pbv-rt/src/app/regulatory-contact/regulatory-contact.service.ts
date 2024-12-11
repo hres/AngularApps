@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AddressDetailsService, ContactDetailsService } from "@hpfb/pbv";
 import { ICode } from "@hpfb/sdk/ui";
+import { NO, YES } from "../app.constants";
 import { GlobalService } from "../global/global.service";
 import { TransactionEnrol } from "../models/transaction";
 
@@ -41,7 +42,7 @@ export class RegulatoryContactService {
         
         dataModel.is_activity_changes = formValue['isSigned3rdParty'];
         dataModel.company_name = formValue['companyName'];
-        dataModel.confirm_regulatory_contact = formValue['confirmContactValid'];
+        dataModel.confirm_regulatory_contact = formValue['confirmContactValid']? YES : NO;
 
         this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, dataModel.regulatory_activity_address, lang, countryList, combinedProvStatList);
         this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, dataModel.regulatory_activity_contact, lang, languageList);

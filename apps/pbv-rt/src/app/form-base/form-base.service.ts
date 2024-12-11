@@ -68,7 +68,7 @@ export class FormBaseService {
       company_name: '',
       regulatory_activity_address: this._entityBasePbvService.getEmptyAddressDetailsModel(),
       regulatory_activity_contact: this._entityBasePbvService.getEmptyContactModel(),
-      confirm_regulatory_contact: null,
+      confirm_regulatory_contact: '',
       is_priority: '',
       is_noc: '',
       is_admin_sub: '',
