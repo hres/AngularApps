@@ -5,7 +5,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ConverterService, UtilsService} from '@hpfb/sdk/ui';
-import { PbvService} from '@hpfb/pbv';
+import { PbvValidationService} from '@hpfb/pbv';
 import { TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 
@@ -20,7 +20,7 @@ export class RegulatoryInformationService {
    }
    return fb.group({
     dossierType: [null, [Validators.required]],
-    dossierId: [null, [Validators.required, PbvService.pharmabioDossierIdValidator]],
+    dossierId: [null, [Validators.required, PbvValidationService.pharmabioDossierIdValidator]],
     companyId: [null, [Validators.required, Validators.minLength(5)]],
     productName: [null, [Validators.required]],
     isPriority: [null, [Validators.required]],
