@@ -6,11 +6,27 @@ import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParent
 @Injectable()
 export class FormDataLoaderService {
 
+  private keywordsJsonPath = DATA_PATH + 'keywords.json';
+  private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
   private countriesJsonPath = DATA_PATH + 'countries.json';
+  private subTypesJsonPath = DATA_PATH + 'subTypes.json';
   
+  cachedYesNo$:Observable<ICode[]>;
+  dossierTypes$: Observable<ICodeDefinition[]>;
   cachedCountries$:Observable<ICode[]>;
+  subTypes$:Observable<ICode[]>;
   
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
+
+  getDossierTypes(): Observable<ICodeDefinition[]> {
+    this.dossierTypes$ = this._dataService
+      .getData<ICodeAria>(this.dossierTypesJsonPath)
+      .pipe(
+        //tap((_) => console.log('getDossierTypes is executed')),
+        shareReplay(1)
+      );
+    return this.dossierTypes$;
+  }
 
   getCountryList(lang: string): Observable<ICode[]> {
     if (!this.cachedCountries$) {
@@ -23,4 +39,26 @@ export class FormDataLoaderService {
     return this.cachedCountries$;
   }
 
+  getYesNoList(): Observable<ICode[]> {
+    if (!this.cachedYesNo$) {
+      this.cachedYesNo$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          map(keywords => {
+            return keywords.find(keyword => keyword.name === 'yesno')?.data || [];
+          }),
+          // tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    }
+    return this.cachedYesNo$;
+  }
+
+  
+  getSubTypes(lang: string): Observable<ICode[]> {
+    this.subTypes$ = this._dataService.getSortedDataAccents<ICode>(this.subTypesJsonPath, this._utilsService.getCompareFields(false, lang))
+    .pipe(
+      shareReplay(1)
+    );
+    return this.subTypes$;
+  }
 }

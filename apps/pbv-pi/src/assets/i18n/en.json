@@ -5,6 +5,11 @@
 
     "product.info": "Product Information",
     "company.id": "Company Identifier",
+    "panel.title.product.info": "Product Information",
+    "company.id": "Company Identifier",
+    "5digits.only": "(5 digits only)",
+    "dossier.id": "Dossier Identifier",
+    "dossier.id.format": "(a lowercase letter followed by 6 numbers)",
     "dossier.type": "Dossier Type",
     "product.name": "Product Name",
     "proper.name": "Proper, Common or Non-Proprietary Name",
@@ -156,4 +161,10 @@
     "ht.clinical.race.3": "This question is asking whether efficacy data can be disaggregated by racial and/or ethnic subpopulations. Note: this question is not asking if statistically significant findings are available for efficacy when analysed by race/ethnicity.",
     "ht.clinical.race.4": "This question is asking whether safety data can be disaggregated by racial and/or ethnic subpopulations. Note: this question is not asking if statistically significant findings are available for safety when analysed by race/ethnicity.",
     "ht.clinical.pedi.2": "This question is asking if pediatric populations (i.e. under the age of 18) were included in any of the clinical trial data you are submitting."
+
+    "manufacturer": "Manufacturer/Sponsor",
+    "mailing": "Regulatory Mailing/Annual Contact",
+    "this.activity": "Contact for this Regulatory Activity",
+    "importer": "Canadian Importer",
+    "sub.type": "Reason for administrative component"
 }

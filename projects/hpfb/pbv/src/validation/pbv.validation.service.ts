@@ -1,0 +1,28 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PbvValidationService {
+
+  constructor() { }
+
+  getValidatorErrorMessage(validatorName: string): string | null {
+    const config = {
+      'error.mgs.pbv.dossier.id': 'error.mgs.dossier.id',
+    };
+
+    return config[validatorName];
+  }
+
+  static pharmabioDossierIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[a-z]{1}[0-9]{6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.pbv.dossier.id': true};
+    }
+  }
+}

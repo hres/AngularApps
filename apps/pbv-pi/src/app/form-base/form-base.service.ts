@@ -4,12 +4,14 @@ import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
 import { DrugProductEnrol, ProductInformation } from '../models/ProductInformation';
+import { ProductInformationService } from '../product-information/product-information.service';
 
 @Injectable()
 export class FormBaseService {
 
   constructor(
-    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,
+    private _productInfoService: ProductInformationService) {
   }
 
   /**
@@ -40,9 +42,24 @@ export class FormBaseService {
       date_saved: undefined,
       software_version: '',
       form_language: '',
-      check_sum: ''
+      check_sum: '',
+      company_id: '',
+      dossier_id: '',
+      dossier_type: undefined,
+      product_name: '',
+      proper_name: '',
+      is_admin_sub: '',
+      sub_type: undefined,
+      manufacturer: '',
+      mailing: '',
+      this_activity: '',
+      importer: ''
     };
     
     return drugProductEnrol;
+  }
+
+  public mapProductInfoFormToOutput(outputDrugProductEnrol: DrugProductEnrol, productInfoFormGroupValue: any): void{
+    this._productInfoService.mapFormModelToDataModel(productInfoFormGroupValue, outputDrugProductEnrol);
   }
 }

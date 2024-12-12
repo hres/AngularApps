@@ -11,9 +11,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HelpTextModuleModule } from "./instruction/help-text-module.module";
 import { AppSignalService } from './signal/app-signal.service';
+import { ProductInformationComponent } from './product-information/product-information.component';
+import { ProductInformationService } from './product-information/product-information.service';
 
 @NgModule({
   declarations: [
+    ProductInformationComponent
   ],
   imports: [
     CommonModule,
@@ -28,9 +31,12 @@ import { AppSignalService } from './signal/app-signal.service';
     HelpTextModuleModule
 ],
   providers: [
-    AppSignalService
+    AppSignalService,
+    ProductInformationComponent,
+    ProductInformationService
   ],
   exports: [CommonUiFeatureModule,
+    ProductInformationComponent
    ],
 })
 export class AppFormModule {}

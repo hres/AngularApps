@@ -22,7 +22,10 @@ export class GlobalService {
   private _byPassChecksum: boolean = false;
 
   // data loaded from json files
+  private _dossierTypes: ICodeDefinition[] = [];
   private _countryList: ICode[];
+  private _yesnoList: ICode[];
+  private _subTypeList: ICodeDefinition[];
 
   constructor() {}
 
@@ -102,11 +105,35 @@ export class GlobalService {
     this._enrollment = value;
   }
 
+  public get dossierTypes(): ICodeDefinition[] {
+    return this._dossierTypes;
+  }
+
+  public set dossierTypes(value: ICodeDefinition[]) {
+    this._dossierTypes = value;
+  }
+
   public get countryList(): ICode[] {
     return this._countryList;
   }
 
   public set countryList(value: ICode[]) {
     this._countryList = value;
+  }
+
+  public get yesnoList(): ICode[] {
+    return this._yesnoList;
+  }
+
+  public set yesnoList(value: ICode[]) {
+    this._yesnoList = value;
+  }
+
+  public get subTypeList(): ICodeDefinition[] {
+    return this._subTypeList;
+  }
+
+  public set subTypeList(value: ICodeDefinition[]) {
+    this._subTypeList = value;
   }
 }

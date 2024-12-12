@@ -5,6 +5,11 @@
 
     "product.info": "Information sur le produit",
     "company.id": "Numéro de la compagnie",
+    "panel.title.product.info": "Information sur le produit",
+    "company.id": "Numéro de la compagnie",
+    "5digits.only": "(5 chiffres seulement)",
+    "dossier.id": "Numéro de dossier",
+    "dossier.id.format": "(composé d’une lettre minuscule suivie de six chiffres)",
     "dossier.type": "Type de dossier",
     "product.name": "Nom du produit",
     "proper.name": "Nom propre, nom usuel ou nom générique",
@@ -156,4 +161,10 @@
     "ht.clinical.race.3": "Cette question demande si les données sur l'efficacité peuvent être ventilées par sous-populations raciales et/ou ethniques. Remarque : cette question ne demande pas si des résultats statistiquement significatifs sont disponibles pour l'efficacité lorsqu'ils sont analysés par race/ethnie.",
     "ht.clinical.race.4": "Cette question demande si les données sur l'innocuité peuvent être ventilées par sous-populations raciales et/ou ethniques. Remarque : cette question ne demande pas si des résultats statistiquement significatifs sont disponibles pour l'innocuité lorsqu'ils sont analysés par race/ethnie.",
     "ht.clinical.pedi.2": "Cette question vise à savoir si des populations pédiatriques (c'est-à-dire âgées de moins de 18 ans) ont été incluses dans l'une des données d'essai clinique que vous soumettez."
+
+    "manufacturer": "Fabricant ou promoteur",
+    "mailing": "Courrier réglementaire / contact annuel",
+    "this.activity": "Personne-ressource pour cette activité réglementaire",
+    "importer": "Importateur canadien",
+    "sub.type": "Raison justifiant la composante administrative"
 }
