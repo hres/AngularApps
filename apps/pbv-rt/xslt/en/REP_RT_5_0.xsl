@@ -311,7 +311,7 @@
 					</xsl:if>
 				</div>
 			</div>
-			<xsl:if test="ectd/dossier_type/@id != 'D24' and ectd/lifecycle_record/regulatory_activity_lead != 'B14-20160301-10'">
+			<xsl:if test="fee_details !=''">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h2 class="panel-title">Fees</h2>
@@ -463,7 +463,7 @@
 								<div class="col-xs-4">
 									<strong>Country: </strong>
 									<span class="mouseHover">
-										<xsl:value-of select="regulatory_activity_address/country" />
+										<xsl:value-of select="regulatory_activity_address/country/@label_en" />
 									</span>
 								</div>
 							</div>
@@ -473,7 +473,7 @@
 										<div class="col-xs-4">
 											<strong>Province: </strong>
 											<span class="mouseHover">
-												<xsl:value-of select="regulatory_activity_address/province_lov" />
+												<xsl:value-of select="regulatory_activity_address/province_lov/@label_en" />
 											</span>
 										</div>
 										<div class="col-xs-4">
@@ -487,7 +487,7 @@
 										<div class="col-xs-4">
 											<strong>State: </strong>
 											<span class="mouseHover">
-												<xsl:value-of select="regulatory_activity_address/province_lov" />
+												<xsl:value-of select="regulatory_activity_address/province_lov/@label_en" />
 											</span>
 										</div>
 										<div class="col-xs-4">
@@ -501,7 +501,7 @@
 										<div class="col-xs-4">
 											<strong>Province or state: </strong>
 											<span class="mouseHover">
-												<xsl:value-of select="regulatory_activity_address/province_lov" />
+												<xsl:value-of select="regulatory_activity_address/province_text" />
 											</span>
 										</div>
 										<div class="col-xs-4">
@@ -539,7 +539,7 @@
 							<strong class="col-xs-4"> Language of correspondence: <span
 									class="mouseHover normalWeight">
 									<xsl:value-of
-										select="regulatory_activity_contact/language_correspondance" />
+										select="regulatory_activity_contact/language_correspondance/@label_en" />
 								</span>
 							</strong>
 							<strong class="col-xs-8"> Job title: <span
