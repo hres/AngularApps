@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<!-- ****************************** -->
+<!-- Transaction Enrolment version 5.0 -->
+<!-- ****************************** -->
+<hpfb:schema xmlns:hpfb="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<hpfb:include schemaLocation="./common/data_types.xsd"/>
+	<hpfb:include schemaLocation="./common/contact.xsd"/>
+	<hpfb:include schemaLocation="./common/address.xsd"/>
+	<hpfb:include schemaLocation="./common/sequence_descriptions.xsd"/>
+	<!-- ****************************** -->
+	<!-- ELEMENT DECLARATIONS -->
+	<!-- ****************************** -->
+	<!-- TRANSACTION_ENROL is the root element-->
+	<hpfb:element name="TRANSACTION_ENROL" type="transaction_enrol_content"/>
+	<hpfb:element name="template_type" type="hpfb:string"/>
+	<hpfb:element name="date_saved" type="yyyymmdd_date_content"/>
+	<hpfb:element name="software_version" type="hpfb:string"/>
+	<hpfb:element name="data_checksum" type="hpfb:string"/>
+	<!--<hpfb:element name="transaction_type" type="hpfb:string"/>-->
+	<hpfb:element name="is_third_party" type="required_yes_no_content"/>
+	<hpfb:element name="is_priority" type="required_yes_no_content" default="N"/>
+	<hpfb:element name="is_noc" type="required_yes_no_content" default="N"/>
+	<hpfb:element name="is_admin_sub" type="required_yes_no_content"/>
+	<hpfb:element name="sub_type" type="sub_type_content"/>
+	<!--<hpfb:element name="is_ectd" type="required_yes_no_content"/>-->
+	<hpfb:element name="ectd" type="ectd_content"/>
+	<hpfb:element name="company_id" type="char_0_6_content"/>
+	<hpfb:element name="dossier_id" type="char_0_20_content"/>
+	<hpfb:element name="dossier_type">
+		<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="id" type="char_0_20_content"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	<hpfb:element name="product_name" type="char_0_256_content"/>
+	<hpfb:element name="product_protocol" type="char_0_256_content"/>
+	<!--<hpfb:element name="date_filed" type="yyyymmdd_date_content"/>-->
+	<hpfb:element name="control_number" type="control_number_content" nillable="true"/>
+	<hpfb:element name="regulatory_activity_lead">
+		<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="id" type="hpfb:string"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	<hpfb:element name="regulatory_activity_type">
+		<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="id" type="hpfb:string"/>
+					<hpfb:attribute name="label_en" type="hpfb:string"/>
+					<hpfb:attribute name="label_fr" type="hpfb:string"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	<hpfb:element name="sequence_description_value">
+		<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="id" type="hpfb:string"/>
+					<hpfb:attribute name="label_en" type="hpfb:string"/>
+					<hpfb:attribute name="label_fr" type="hpfb:string"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	<hpfb:element name="sequence_from_date" type="optional_yyyymmdd_date_content"/>
+	<hpfb:element name="sequence_to_date" type="optional_yyyymmdd_date_content"/>
+	<hpfb:element name="sequence_details" type="char_0_256_content"/>
+	<hpfb:element name="sequence_details_change" type="char_0_256_content"/>
+	<hpfb:element name="sequence_version" type="char_0_1024_content"/>
+	<hpfb:element name="sequence_year" type="char_0_1024_content"/>
+	<hpfb:element name="transaction_description" type="char_0_1024_content"/>
+	<hpfb:element name="requester_name">
+		<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="id" type="char_0_256_content"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	<hpfb:element name="requester_name2">
+		<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="id" type="char_0_256_content"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	<hpfb:element name="requester_name3">
+		<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="id" type="char_0_256_content"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	<hpfb:element name="requester_of_solicited_information" type="char_0_256_content"/>
+	<hpfb:element name="from_time" type="optional_yyyymmdd_date_content"/> 
+	<hpfb:element name="to_time" type="optional_yyyymmdd_date_content"/>
+	<!--<hpfb:element name="sequence_concat" type="hpfb:string"/> -->
+
+	<hpfb:element name="lifecycle_record" type="lifecycle_record_content"/>
+	<hpfb:element name="is_solicited" type="required_yes_no_content"/>
+    <hpfb:element name="solicited_requester_sequence" type="sequence_content"/>
+    <hpfb:element name="solicited_requester" type="char_0_256_content"/>
+	<hpfb:element name="solicited_requester_record" type="solicited_requester_record_content"/>
+	<hpfb:element name="regulatory_project_manager1" type="char_0_256_content"/>
+	<hpfb:element name="regulatory_project_manager2" type="char_0_256_content"/>
+	<hpfb:element name="regulatory_project_manager3" type="char_0_256_content"/>
+	<hpfb:element name="is_fees" type="required_yes_no_content" default="N"/>
+	<hpfb:element name="fee_details" type="fee_details_content"/>
+	<hpfb:element name="fee" type="hpfb:decimal" default="0.00"/>
+	
+	<hpfb:element name="is_activity_changes" type="char_0_256_content"/>
+	<!--<hpfb:element name="same_regulatory_company" type="required_yes_no_content"/>-->
+	<hpfb:element name="company_name" type="char_0_80_content"/>
+	<!--<hpfb:element name="same_regulatory_address" type="required_yes_no_content"/>-->
+	<hpfb:element name="regulatory_activity_address" type="international_address_content"/>
+	<hpfb:element name="confirm_regulatory_contact" type="required_yes_no_content"/>
+	<hpfb:element name="regulatory_activity_contact" type="contact_content"/>
+	<hpfb:element name="rep_submission_contact_role" type="rep_contact_role_list"/>
+	<hpfb:element name="rep_submission_contact" type="contact_content"/>
+	<hpfb:element name="rep_submission_contact_record" type="rep_submission_contact_record_content"/>
+
+	<hpfb:element name="submission_class" type="submission_class_content"/>
+	<hpfb:element name="submission_description">
+		<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="label_en" type="hpfb:string"/>
+					<hpfb:attribute name="label_fr" type="hpfb:string"/>
+					<hpfb:attribute name="description_en" type="char_0_256_content"/>
+					<hpfb:attribute name="description_fr" type="char_0_256_content"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	<hpfb:element name="mitigation" type="mitigation_content"/>
+	<hpfb:element name="mitigation_type" type="mitigation_type_content"/>
+	<hpfb:element name="certify_organization" type="yes_no_content"/>
+	<hpfb:element name="small_business_fee_application" type="yes_no_content"/>
+	<!--<hpfb:element name="first_submission" type="yes_no_content"/>-->
+	<hpfb:element name="certify_goverment_organization" type="yes_no_content"/>
+	<hpfb:element name="certify_urgent_health_need" type="yes_no_content"/>
+	<hpfb:element name="certify_funded_health_institution" type="yes_no_content"/>
+	<hpfb:element name="certify_isad" type="yes_no_content"/>
+
+	<hpfb:complexType name="transaction_enrol_content">
+		<hpfb:sequence>
+			<hpfb:element ref="template_type"/>
+			<hpfb:element ref="date_saved"/>
+			<hpfb:element ref="software_version"/>
+			<hpfb:element ref="data_checksum"/>
+			<!--<hpfb:element ref="transaction_type"/> -->
+			<hpfb:element ref="is_third_party"/>
+			<hpfb:element ref="is_priority"/>
+			<hpfb:element ref="is_noc"/>
+			<hpfb:element ref="is_admin_sub"/>
+			<hpfb:element ref="sub_type"/>
+			<!--<hpfb:element ref="is_ectd"/> -->
+			<hpfb:element ref="ectd"/>
+			<hpfb:element ref="is_fees"/>
+			<hpfb:element ref="fee_details" minOccurs="0" maxOccurs="1"/>
+			<hpfb:element ref="is_activity_changes"/>
+			<!--<hpfb:element ref="same_regulatory_company"/>-->
+			<hpfb:element ref="company_name"/>
+			<!--<hpfb:element ref="same_regulatory_address"/>-->
+			<hpfb:element ref="regulatory_activity_address"/>
+			<hpfb:element ref="regulatory_activity_contact"/>
+			<hpfb:element ref="confirm_regulatory_contact"/>
+			
+			<hpfb:element ref="is_solicited" minOccurs="0"/>
+			<hpfb:element ref="solicited_requester" minOccurs="0"/>
+			<hpfb:element ref="regulatory_project_manager1" minOccurs="0"/>
+			<hpfb:element ref="regulatory_project_manager2" minOccurs="0"/>
+			<hpfb:element ref="regulatory_project_manager3" minOccurs="0"/>
+			
+		</hpfb:sequence>
+	</hpfb:complexType>
+
+	<hpfb:complexType name="sub_type_content">
+		<hpfb:simpleContent>
+			<hpfb:extension base="hpfb:string">
+				<hpfb:attribute name="id" type="hpfb:string"/>
+				<hpfb:attribute name="label_en" type="hpfb:string"/>
+				<hpfb:attribute name="label_fr" type="hpfb:string"/>
+			</hpfb:extension>
+		</hpfb:simpleContent>
+	</hpfb:complexType>
+
+	<hpfb:complexType name="ectd_content">
+		<hpfb:sequence>
+			<hpfb:element ref="company_id"/>
+			<hpfb:element ref="dossier_id"/>
+			<hpfb:element ref="dossier_type"/>
+			<hpfb:element ref="product_name"/>
+			<hpfb:element ref="product_protocol"/>
+			<hpfb:element ref="lifecycle_record" minOccurs="1" maxOccurs="unbounded"/>
+		</hpfb:sequence>
+	</hpfb:complexType>
+
+	<hpfb:complexType name="lifecycle_record_content">
+		<hpfb:sequence>
+			<!--<hpfb:element ref="sequence_number"/>
+			<hpfb:element ref="date_filed"/> -->
+			<hpfb:element ref="control_number"/>
+			<hpfb:element ref="regulatory_activity_lead"/>
+			<hpfb:element ref="regulatory_activity_type"/>
+			<hpfb:element ref="sequence_description_value"/>
+			<hpfb:element ref="sequence_from_date"/>
+			<hpfb:element ref="sequence_to_date"/>
+			<hpfb:element ref="sequence_details"/>
+			<hpfb:element ref="sequence_details_change"/>
+			<hpfb:element ref="sequence_version"/>
+			<hpfb:element ref="sequence_year"/>
+			<hpfb:element ref="transaction_description"/>
+			<hpfb:element ref="requester_name"/>
+			<hpfb:element ref="requester_name2"/>
+			<hpfb:element ref="requester_name3"/>
+			<hpfb:element ref="requester_of_solicited_information"/>
+			<hpfb:element ref="from_time"/>
+			<hpfb:element ref="to_time"/>
+			<!--<hpfb:element ref="sequence_concat"/> CHECK IF NEEDED -->
+		</hpfb:sequence>
+	</hpfb:complexType>
+
+	<hpfb:complexType name="solicited_requester_record_content">
+		<hpfb:sequence>
+			<hpfb:element ref="solicited_requester_sequence"/>
+			<hpfb:element ref="solicited_requester"/>
+		</hpfb:sequence>
+	</hpfb:complexType>
+
+	<hpfb:complexType name="rep_submission_contact_record_content">
+		<hpfb:sequence>
+			<hpfb:element ref="rep_submission_contact_role"/>
+			<hpfb:element ref="rep_submission_contact"/>
+		</hpfb:sequence>
+	</hpfb:complexType>
+	
+	<hpfb:complexType name="fee_details_content">
+		<hpfb:sequence>
+			<hpfb:element ref="submission_class" minOccurs="0"/>
+			<hpfb:element ref="submission_description" minOccurs="0"/>
+			<hpfb:element ref ="fee" minOccurs="0"/>
+			<hpfb:element ref="mitigation" minOccurs="0"/>
+		</hpfb:sequence>
+	</hpfb:complexType>
+	
+	<hpfb:complexType name="submission_class_content">
+		<hpfb:simpleContent>
+			<hpfb:extension base="hpfb:string">
+				<hpfb:attribute name="id" type="hpfb:string"/>
+				<hpfb:attribute name="label_en" type="hpfb:string"/>
+				<hpfb:attribute name="label_fr" type="hpfb:string"/>
+			</hpfb:extension>
+		</hpfb:simpleContent>
+	</hpfb:complexType>
+
+	<hpfb:complexType name="mitigation_content">
+		<hpfb:sequence>
+			<hpfb:element ref="mitigation_type"/>
+			<hpfb:element ref="certify_organization"/>
+			<hpfb:element ref="small_business_fee_application"/>
+			<!--<hpfb:element ref="first_submission"/>-->
+			<hpfb:element ref="certify_goverment_organization"/>
+			<hpfb:element ref="certify_urgent_health_need"/>
+			<hpfb:element ref="certify_funded_health_institution"/>
+			<hpfb:element ref="certify_isad"/>
+		</hpfb:sequence>
+	</hpfb:complexType>
+
+	<hpfb:complexType name="mitigation_type_content">
+		<hpfb:simpleContent>
+			<hpfb:extension base="hpfb:string">
+				<hpfb:attribute name="id" type="hpfb:string"/>
+				<hpfb:attribute name="label_en" type="hpfb:string"/>
+				<hpfb:attribute name="label_fr" type="hpfb:string"/>
+			</hpfb:extension>
+		</hpfb:simpleContent>
+	</hpfb:complexType>
+
+</hpfb:schema>
