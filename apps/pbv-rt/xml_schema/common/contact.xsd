@@ -14,6 +14,8 @@
 			<hpfb:simpleContent>
 				<hpfb:extension base="hpfb:string">
 					<hpfb:attribute name="id" type="language"/>
+					<hpfb:attribute name="label_en" type="hpfb:string"/>
+					<hpfb:attribute name="label_fr" type="hpfb:string"/>
 				</hpfb:extension>
 			</hpfb:simpleContent>
 		</hpfb:complexType>
@@ -37,7 +39,7 @@
 			<hpfb:element ref="phone_ext"/>
 			<hpfb:element ref="fax_num"/>
 			<hpfb:element ref="email"/>
-			<hpfb:element ref="RoutingID"/>
+			<!-- <hpfb:element ref="RoutingID"/> -->
 		</hpfb:all>
 	</hpfb:complexType>
 

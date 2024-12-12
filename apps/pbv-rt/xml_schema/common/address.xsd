@@ -10,14 +10,16 @@
 	<!-- ****************************** -->
 	<!-- ELEMENT DECLARATIONS -->
 	<!-- ****************************** -->
-	<hpfb:element name="street_address" type="char_1_100_content"/>
-	<hpfb:element name="city" type="char_1_60_content"/>
+	<hpfb:element name="street_address" type="char_0_100_content"/>
+	<hpfb:element name="city" type="char_0_60_content"/>
 	<!-- <hpfb:element name="province_lov" type="prov_state_list" nillable="true"/> -->
 	<hpfb:element name="province_lov">
 		<hpfb:complexType>
 			<hpfb:simpleContent>
 				<hpfb:extension base="hpfb:string">
 					<hpfb:attribute name="id" type="hpfb:string"/>
+					<hpfb:attribute name="label_en" type="hpfb:string"/>
+					<hpfb:attribute name="label_fr" type="hpfb:string"/>
 				</hpfb:extension>
 			</hpfb:simpleContent>
 		</hpfb:complexType>
@@ -44,9 +46,9 @@
 		<hpfb:sequence>
 			<hpfb:element ref="street_address"/>
 			<hpfb:element ref="city"/>
+			<hpfb:element ref="country"/>
 			<hpfb:element ref="province_lov"/>
 			<hpfb:element ref="province_text"/>
-			<hpfb:element ref="country"/>
 			<hpfb:element ref="postal_code"/>
 		</hpfb:sequence>
 	</hpfb:complexType>
