@@ -31,7 +31,7 @@ export class RegulatoryContactService {
     public mapFormModelToDataModel(formValue : any, dataModel : TransactionEnrol) {
         dataModel.is_activity_changes = formValue['isSigned3rdParty'];
         dataModel.company_name = formValue['companyName'];
-        dataModel.confirm_regulatory_contact = formValue['confirmContactValid'];
+        dataModel.confirm_regulatory_contact = formValue['confirmContactValid'] == true ? 'Y': undefined;;
     }
 
     public mapDataModelToFormModel(dataModel : TransactionEnrol, formRecord: FormGroup): void {
