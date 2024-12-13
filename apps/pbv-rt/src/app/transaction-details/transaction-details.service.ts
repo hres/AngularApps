@@ -151,7 +151,7 @@ export class TransactionDetailsService {
     startDate: [null, Validators.required],
     endDate: [null, Validators.required],
     yearsOfChange: [null, Validators.required],
-    year: [null, Validators.required, Validators.minLength(4)],
+    year: [null, [Validators.required, Validators.minLength(4)]],
     requester1: [null, Validators.required],
     requester2: [null],
     requester3: [null],
@@ -272,6 +272,13 @@ export class TransactionDetailsService {
   }
 
   public mapDataModelToFormModel(dataModel: LifecycleRecord, formRecord: FormGroup): void {
+
+    console.log('dataModel:', dataModel);
+    console.log('regulatory_activity_lead:', dataModel.regulatory_activity_lead?._id);
+    console.log('regulatory_activity_type:', dataModel.regulatory_activity_type?._id);
+    console.log('sequence_description_value:', dataModel.sequence_description_value?._id);
+
+
     formRecord.controls['controlNumber'].setValue(dataModel.control_number);
 
     if(dataModel.regulatory_activity_lead?._id){
