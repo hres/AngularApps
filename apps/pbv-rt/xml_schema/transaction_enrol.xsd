@@ -18,7 +18,7 @@
 	<hpfb:element name="form_language" type="hpfb:string"/>
 	<hpfb:element name="check_sum" type="hpfb:string"/>
 	<!--<hpfb:element name="transaction_type" type="hpfb:string"/>-->
-	<hpfb:element name="is_third_party" type="required_yes_no_content"/>
+	<!--<hpfb:element name="is_third_party" type="required_yes_no_content"/>-->
 	<hpfb:element name="is_priority" type="required_yes_no_content" default="N"/>
 	<hpfb:element name="is_noc" type="required_yes_no_content" default="N"/>
 	<hpfb:element name="is_admin_sub" type="required_yes_no_content"/>
@@ -39,7 +39,7 @@
 		</hpfb:complexType>
 	</hpfb:element>
 	<hpfb:element name="product_name" type="char_0_256_content"/>
-	<hpfb:element name="product_protocol" type="char_0_256_content"/>
+	<!--<hpfb:element name="product_protocol" type="char_0_256_content"/>-->
 	<!--<hpfb:element name="date_filed" type="yyyymmdd_date_content"/>-->
 	<hpfb:element name="control_number" type="control_number_content" nillable="true"/>
 	<hpfb:element name="regulatory_activity_lead">
@@ -119,19 +119,19 @@
 		</hpfb:complexType>
 	</hpfb:element>
 	<hpfb:element name="requester_of_solicited_information" type="char_0_256_content"/>
-	<hpfb:element name="from_time" type="optional_yyyymmdd_date_content"/> 
-	<hpfb:element name="to_time" type="optional_yyyymmdd_date_content"/>
+	<!--<hpfb:element name="from_time" type="optional_yyyymmdd_date_content"/> 
+	<hpfb:element name="to_time" type="optional_yyyymmdd_date_content"/>-->
 	<!--<hpfb:element name="sequence_concat" type="hpfb:string"/> -->
 
 	<hpfb:element name="lifecycle_record" type="lifecycle_record_content"/>
-	<hpfb:element name="is_solicited" type="required_yes_no_content"/>
+	<!--<hpfb:element name="is_solicited" type="required_yes_no_content"/>-->
     <hpfb:element name="solicited_requester_sequence" type="sequence_content"/>
     <hpfb:element name="solicited_requester" type="char_0_256_content"/>
 	<hpfb:element name="solicited_requester_record" type="solicited_requester_record_content"/>
-	<hpfb:element name="regulatory_project_manager1" type="char_0_256_content"/>
+	<!--<hpfb:element name="regulatory_project_manager1" type="char_0_256_content"/>
 	<hpfb:element name="regulatory_project_manager2" type="char_0_256_content"/>
-	<hpfb:element name="regulatory_project_manager3" type="char_0_256_content"/>
-	<hpfb:element name="is_fees" type="required_yes_no_content" default="N"/>
+	<hpfb:element name="regulatory_project_manager3" type="char_0_256_content"/>-->
+	<!--<hpfb:element name="is_fees" type="required_yes_no_content" default="N"/>-->
 	<hpfb:element name="fee_details" type="fee_details_content"/>
 	<hpfb:element name="fee" type="hpfb:decimal" default="0.00"/>
 	
@@ -194,7 +194,6 @@
 			<hpfb:element ref="sub_type"/>
 			
 			<!--<hpfb:element ref="is_solicited" minOccurs="0"/>
-			<hpfb:element ref="solicited_requester" minOccurs="0"/>
 			<hpfb:element ref="regulatory_project_manager1" minOccurs="0"/>
 			<hpfb:element ref="regulatory_project_manager2" minOccurs="0"/>
 			<hpfb:element ref="regulatory_project_manager3" minOccurs="0"/>
@@ -245,7 +244,7 @@
 			<hpfb:element ref="requester_of_solicited_information"/>
 			<!--<hpfb:element ref="from_time"/>-->
 			<!--<hpfb:element ref="to_time"/>-->
-			<!--<hpfb:element ref="sequence_concat"/> CHECK IF NEEDED -->
+			<!--<hpfb:element ref="sequence_concat"/>-->
 		</hpfb:sequence>
 	</hpfb:complexType>
 
@@ -284,12 +283,12 @@
 
 	<hpfb:complexType name="mitigation_content">
 		<hpfb:sequence>
-			<hpfb:element ref="mitigation_type"/>
 			<hpfb:element ref="certify_funded_health_institution"/>
 			<hpfb:element ref="certify_government_organization"/>
 			<hpfb:element ref="certify_organization"/>
 			<hpfb:element ref="certify_urgent_health_need"/>
 			<hpfb:element ref="certify_isad"/>
+			<hpfb:element ref="mitigation_type"/>
 			<hpfb:element ref="small_business_fee_application"/>
 			<!--<hpfb:element ref="first_submission"/>-->
 		</hpfb:sequence>
