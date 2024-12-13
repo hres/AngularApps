@@ -18,4 +18,4 @@ export * from './contact/contact.details/contact.details.service';
 export * from './model/entity-base';
 export * from './model/entity-base.service';
 
-
+export * from './validation/pbv.validation.service';

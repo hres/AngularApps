@@ -36,14 +36,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   @ViewChild(FeesComponent) feesComponent: FeesComponent;
   @ViewChild(RegulatoryContactComponent) regulatoryContactComponent: RegulatoryContactComponent;
-  // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
-  // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
-  // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
 
   private _regulatoryInfoErrors = [];
   private _regulatoryContactErrors = [];
   private _feesErrors = [];
-  // private _contactErrors = [];
   private _consertPrivacyError = [];
 
   public rtForm: FormGroup; 
@@ -61,10 +57,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public ectdModel: Ectd;
   public addressModel: INameAddress;
   public contactModel: IContact;
-  // public holderAddressModel: INameAddress;
-  // public agentAddressModel: INameAddress;
-  // public holderContactModel: IContact; 
-  // public agentContactModel: IContact;
   public feesModel: FeeDetails;
 
   private noFeeRALeads: string[] = [RA_LEAD.POST_MARKET_VIGILANCE]; 
@@ -156,18 +148,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = [];
     // concat the error arrays
     this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
-
-    // if (this.showContact()) {
-    //   this.errorList = this.errorList.concat(
-    //     this._addressErrors.concat(this._contactErrors)
-    //   );
-    //   if(!this.notApplicable)
-    //     this.errorList = this.errorList.concat(
-    //       this._agentAddressErrors.concat(this._agentContactErrors)
-    //     );
-    //   this.errorList = this.errorList.concat(this._contactConfirmError);
-    // }
-
     if (this.showFees()) {
       this.errorList = this.errorList.concat(this._feesErrors);
     }
@@ -187,11 +167,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._regulatoryContactErrors = errorList;
     this.processErrors();
   }
-
-  // processContactErrors(errorList) {
-  //   this._contactErrors = errorList;
-  //   this.processErrors();
-  // }
 
   processFeesErrors(errorList) {
     this._feesErrors = errorList;
@@ -219,20 +194,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (fileData.data !== null) {
       this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
       this._initModels(this.transactionEnrollModel);
-      // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
-      // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
-      // this.agentInfoOnChange();
     }
   }
   
   private _initModels(trans: TransactionEnrol) {
     this.ectdModel = trans.ectd;
-    // if (trans.contact_info != null) {
-    //   this.holderAddressModel = trans.contact_info.holder_name_address;
-    //   this.holderContactModel = trans.contact_info.holder_contact;
-    //   this.agentAddressModel = trans.contact_info.agent_name_address;
-    //   this.agentContactModel = trans.contact_info.agent_contact;
-    // }
     if (trans.fee_details != null) {
       this.feesModel = trans.fee_details;
     }
@@ -266,30 +232,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const newTransactionEnrol: TransactionEnrol = this._baseService.getEmptyTransactionEnrol();
 
-    // regulatoryInfo and ??? are always rendered, their mappings to output data should always be executed
     const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
     this._baseService.mapRegulatoryInfoFormToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue);
-
-    // // contactInfo and fee are conditional rendered, do their mappings to output data only when applicable
-    // if (this.showContact()) {
-    //   newTransactionEnrol.contact_info.agent_not_applicable = this.rtForm.controls['notApplicable'].value;
-    //   newTransactionEnrol.contact_info.contact_info_confirm = this.rtForm.controls['contactInfoConfirm'].value;
-    //   console.log(newTransactionEnrol.contact_info.agent_not_applicable, newTransactionEnrol.contact_info.contact_info_confirm);
-
-    //   const addressesFormGroupValue = this.addressComponents.map((comp: AddressDetailsComponent) => ({
-    //     addrType: comp.addrType,
-    //     value: comp.getFormValue()
-    //   })); 
-    //   const contactsFormGroupValue = this.contactDetailsComponents.map((comp: ContactDetailsComponent) => ({
-    //     contactType: comp.contactType,
-    //     value: comp.getFormValue()
-    //   })); 
-
-    //   this._baseService.mapAddressFormContactFormToOutput(newTransactionEnrol.contact_info, addressesFormGroupValue, contactsFormGroupValue);
-
-    // } else {
-    //   newTransactionEnrol.contact_info = null;
-    // }
 
     if (this.showFees()) {
       const feeFormGroupValue = this.feesComponent.getFormValue();
@@ -326,9 +270,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _generateFileName(transactionEnrol: TransactionEnrol): string {
+    let dossierId = transactionEnrol.ectd.dossier_id? transactionEnrol.ectd.dossier_id:'';
     let fileName =
       FILE_OUTPUT_PREFIX + "-" +
-      transactionEnrol.ectd.dossier_id +
+      dossierId +
       '-' +
       transactionEnrol.date_saved;
     return fileName;
