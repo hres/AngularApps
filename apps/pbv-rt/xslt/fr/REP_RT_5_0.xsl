@@ -726,10 +726,10 @@ span.normalWeight {
                         <div class="row">
                             <div class="col-xs-12">
                                 <strong>Le contact pour cette activité de réglementation est-il un tiers correspondant au nom du fabricant / sponsor? </strong>
-                                <span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_activity_changes"/></xsl:call-template>
+                                <span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_third_party"/></xsl:call-template>
                                 </span>
                             </div>
-                            <xsl:if test="is_activity_changes = 'Y'">
+                            <xsl:if test="is_third_party = 'Y'">
 								<div class="col-xs-12">
 									<strong>Nom de la compagnie (nom légal complet): </strong>
 									<span class="mouseHover"><xsl:value-of select="company_name" /> </span>
@@ -737,7 +737,7 @@ span.normalWeight {
                             </xsl:if>
 						</div>
 					</div>
-					<xsl:if test="is_activity_changes = 'Y'">
+					<xsl:if test="is_third_party = 'Y'">
 						<strong>B. Information d'adresse : </strong>
 						<div class="well well-sm">
 							<div class="row">

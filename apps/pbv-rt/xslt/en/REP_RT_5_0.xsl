@@ -428,11 +428,11 @@
 		corresponding on behalf of the manufacturer/sponsor? </strong>
 								<span class="mouseHover">
 									<xsl:call-template name="YesNoUnknow">
-										<xsl:with-param name="value" select="is_activity_changes" />
+										<xsl:with-param name="value" select="is_third_party" />
 									</xsl:call-template>
 								</span>
 							</div>
-							<xsl:if test="is_activity_changes = 'Y'">
+							<xsl:if test="is_third_party = 'Y'">
 								<div class="col-xs-12">
 									<strong>Company name (full legal name): </strong>
 									<span class="mouseHover">
@@ -442,7 +442,7 @@
 							</xsl:if>
 						</div>
 					</div>
-					<xsl:if test="is_activity_changes = 'Y'">
+					<xsl:if test="is_third_party = 'Y'">
 						<strong>B. Address information: </strong>
 						<div class="well well-sm">
 							<div class="row">
