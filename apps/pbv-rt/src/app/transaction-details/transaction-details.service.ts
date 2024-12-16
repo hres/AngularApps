@@ -151,7 +151,7 @@ export class TransactionDetailsService {
     startDate: [null, Validators.required],
     endDate: [null, Validators.required],
     yearsOfChange: [null, Validators.required],
-    year: [null, Validators.required, Validators.minLength(4)],
+    year: [null, [Validators.required, Validators.minLength(4)]],
     requester1: [null, Validators.required],
     requester2: [null],
     requester3: [null],

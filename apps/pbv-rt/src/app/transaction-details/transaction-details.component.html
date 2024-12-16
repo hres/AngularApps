@@ -134,8 +134,8 @@
                         [control]="transctionDetailsForm.controls['year'] | formControl"
                         controlId="year" label="year" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="year" name="year" class="form-control" data-only-digits 
-                    [formControlName]="'year'" minlength="4" maxlength="4" size="4" />
+                <input id="year" name="year" class="form-control" [formControlName]="'year'" 
+                    minlength="4" maxlength="4" size="4" data-only-digits/>
             </div>
         </div>
         

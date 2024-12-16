@@ -64,7 +64,7 @@ export class FormBaseService {
       check_sum: '',
       ectd: this.getEmptyEctd(),
       fee_details: this.getEmptyFeesModel(),
-      is_activity_changes: '',
+      is_third_party: '',
       company_name: '',
       regulatory_activity_address: this._entityBasePbvService.getEmptyAddressDetailsModel(),
       regulatory_activity_contact: this._entityBasePbvService.getEmptyContactModel(),

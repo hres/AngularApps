@@ -40,7 +40,7 @@ export class RegulatoryContactService {
         const countryList: ICode[] = this._globalService.countryList;
         const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
         
-        dataModel.is_activity_changes = formValue['isSigned3rdParty'];
+        dataModel.is_third_party = formValue['isSigned3rdParty'];
         dataModel.company_name = formValue['companyName'];
         dataModel.confirm_regulatory_contact = formValue['confirmContactValid']? YES : NO;
 
@@ -49,7 +49,7 @@ export class RegulatoryContactService {
     }
 
     public mapDataModelToFormModel(dataModel : TransactionEnrol, formRecord: FormGroup): void {
-        formRecord.controls['isSigned3rdParty'].setValue(dataModel.is_activity_changes);
+        formRecord.controls['isSigned3rdParty'].setValue(dataModel.is_third_party);
         formRecord.controls['companyName'].setValue(dataModel.company_name);
     }
  
