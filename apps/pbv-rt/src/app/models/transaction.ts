@@ -13,7 +13,7 @@ export interface TransactionEnrol {
   check_sum?: string;
   ectd: Ectd;
   fee_details: FeeDetails;
-  is_activity_changes: string;
+  is_third_party: string;
   company_name: string;
   regulatory_activity_address: INameAddress;
   regulatory_activity_contact: IContact;
