@@ -210,10 +210,8 @@ export class TransactionDetailsService {
   // compares if it has __text from 4.4.3 json
   private _compareRequesterText(requester: any): string {
     if (requester && requester.__text) {
-      console.log(requester)
       return requester.__text;
     }
-    console.log(requester)
     return requester;
   }
 
