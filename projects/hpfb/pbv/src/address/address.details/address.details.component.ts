@@ -138,6 +138,8 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     if (this.defaultCountry) {
       this.addressForm.controls['country'].setValue('CA');
       this.addressForm.controls['country'].disable();
+      this.selectedCountrySignal.set('CA');
+      this.onCountryChange(null);
     }
   }
 

@@ -4,13 +4,15 @@ import {
   Input,
   OnInit,
   Output,
+  SimpleChanges,
+  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import {  UtilsService,  HelpIndex,  BaseComponent, ICode,} from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { ApplicantService } from './applicant-service';
-import { IContact, INameAddress } from '@hpfb/pbv';
+import { IContact, INameAddress, AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
 
 @Component({
   selector: 'app-applicant',
@@ -35,6 +37,9 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
   private _contactErrorList: any[];
   private _childrenErrors: any[] = [];
 
+  @ViewChild(AddressDetailsComponent) addressDetailsComponent: AddressDetailsComponent;
+  @ViewChild(ContactDetailsComponent) contactDetailsComponent: ContactDetailsComponent;
+
   constructor(
     private _fb: FormBuilder,
     private _globalService: GlobalService,
@@ -55,6 +60,11 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
         this._fb
       );
     }
+  }
+
+  ngOnChange(changes: SimpleChanges){
+    this.showFieldErrors = this.showErrors || this.showFieldErrors;
+    const isFirstChange = this._utilsService.isFirstChange(changes);
   }
 
   protected override emitErrors(errors: any[]): void {
@@ -85,5 +95,13 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
 
   getFormValue() {
     return this.applicantInformationForm.value;
+  }
+
+  getAddressFormValue() {
+    return this.addressDetailsComponent.getFormValue();
+  }
+
+  getContactFormValue() {
+    return this.contactDetailsComponent.getFormValue();
   }
 }

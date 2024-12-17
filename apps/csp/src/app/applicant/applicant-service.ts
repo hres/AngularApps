@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AddressDetailsService, ContactDetailsService } from '@hpfb/pbv';
+import { ICode } from '@hpfb/sdk/ui';
 import { identityRevealedValidator } from '../crossFieldValidator';
-import { IApplicant } from '../models/transaction';
+import { GlobalService } from '../global/global.service';
+import { IApplicant, TransactionEnrol } from '../models/transaction';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplicantService {
 
-  constructor() {}
+  constructor(private _addressDetailsService: AddressDetailsService,
+              private _contactDetailsService: ContactDetailsService,
+              private _globalService: GlobalService) {}
 
   public static getApplicantInformationForm(fb:FormBuilder) {
     if (!fb) {
@@ -26,21 +31,27 @@ export class ApplicantService {
 
 
 
-  public mapFormModelToDataModel(formValue: any, applicantModel: IApplicant) {
+  public mapFormModelToDataModel(formValue: any, model: TransactionEnrol,  addressFormGroupValue, contactFormGroupValue) {
+    const lang = this._globalService.currLanguage;
+    const languageList: ICode[] = this._globalService.languageList;
+    const countryList: ICode[] = this._globalService.countryList;
+    const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
 
+    model.applicant.applicant_name = formValue['applicantName'];
+    model.applicant.cra_business_number = formValue['craBusinessNumber'];
+    model.applicant.csp_customer_number = formValue['cspNumber'];
+    model.applicant.agent_name = formValue['agentName'];
 
-    applicantModel.applicantName = formValue['applicantName'];
-    applicantModel.craBusinessNumber = formValue['craBusinessNumber'];
-    applicantModel.cspNumber = formValue['cspNumber'];
-    applicantModel.agentName = formValue['agentName'];
+    this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, model.applicant.address, lang, countryList, combinedProvStatList);
+    this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, model.applicant.contact, lang, languageList);
   }
 
   public mapDataModelToFormModel(applicantModel: IApplicant, formRecord: FormGroup) {
 
-    formRecord.controls['applicantName'].setValue(applicantModel.applicantName);
-    formRecord.controls['craBusinessNumber'].setValue(applicantModel.craBusinessNumber);
-    formRecord.controls['cspNumber'].setValue(applicantModel.cspNumber);
-    formRecord.controls['agentName'].setValue(applicantModel.agentName);
+    formRecord.controls['applicantName'].setValue(applicantModel.applicant_name);
+    formRecord.controls['craBusinessNumber'].setValue(applicantModel.cra_business_number);
+    formRecord.controls['cspNumber'].setValue(applicantModel.csp_customer_number);
+    formRecord.controls['agentName'].setValue(applicantModel.agent_name);
    }
 
 

@@ -486,6 +486,11 @@
     "phone.extension":"Phone extension",
     "fax.number":"Fax number (including area code)",
     "fax.number.nofaxnum": "(Use 0000000000 if not available)",
-    "contact.email":"Email"
+    "contact.email":"Email",
+    "error.msg.minlength": "Invalid entry - must be {{ requiredLength }} numbers",
+    "error.mgs.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product.",
+    "error.msg.zip":"Invalid entry - must be 5 numbers",
+    "error.msg.postal":"Invalid format - must be X#X#X#",
+    "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx"
 
 }
