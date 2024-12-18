@@ -83,7 +83,7 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
 
   private _appendChildAndParentErrors() {
     this._childrenErrors = [];
-    this._childrenErrors = this._childrenErrors.concat(this._addressErrorList.concat(this._contactErrorList));
+    this._childrenErrors = this._childrenErrors.concat(this._contactErrorList.concat(this._addressErrorList));
     const parentErrors = this.msgList.toArray();
     const combinedErrors = [...parentErrors, ...this._childrenErrors];
     this._emitCombinedErrors(combinedErrors);  // Call the abstract method
