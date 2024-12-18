@@ -194,6 +194,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (fileData.data !== null) {
       this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
       this._initModels(this.transactionEnrollModel);
+      //Needs to update country code from version 4.4.3 to 5.0.0, shall be removed in later release
+      if (this._versionService.getMajorVersion(this.transactionEnrollModel.software_version) < START_CHECKSUM_VERSION && this.addressModel.country._id !=''){
+        let newCountry = this._globalService.countryIdMappingList.find(
+          (item) => item.id === this.addressModel.country._id);
+        if (newCountry != null){
+          this.addressModel.country._id = newCountry.newid;
+        }
+      }
     }
   }
   
