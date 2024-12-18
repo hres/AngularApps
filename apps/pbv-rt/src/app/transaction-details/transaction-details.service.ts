@@ -198,12 +198,21 @@ export class TransactionDetailsService {
     } else if (this.showYear()) {
       dataModel.sequence_year = formValue['year'];
     }
-    dataModel.requester_name = formValue['requester1'];
-    dataModel.requester_name2 = formValue['requester2'];
-    dataModel.requester_name3 = formValue['requester3'];
+    dataModel.requester_name = this._compareRequesterText(formValue['requester1']);
+    dataModel.requester_name2 = this._compareRequesterText(formValue['requester2']);
+    dataModel.requester_name3 = this._compareRequesterText(formValue['requester3']);
+
     dataModel.requester_of_solicited_information = this._concatRequesterDetails(dataModel.requester_name, dataModel.requester_name2, dataModel.requester_name3);
 
     dataModel.transaction_description = this._concatTransactionDescriptionDetails(dataModel, lang);
+  }
+
+  // compares if it has __text from 4.4.3 json
+  private _compareRequesterText(requester: any): string {
+    if (requester && requester.__text) {
+      return requester.__text;
+    }
+    return requester;
   }
 
   private _concatTransactionDescriptionDetails(dataModel: LifecycleRecord, lang: string): ITextLabel{
@@ -306,8 +315,8 @@ export class TransactionDetailsService {
     // it will be reset based on computed showYearsOfChange()/showYear() flags in TransactionDetailsComponent.onSequenceDescriptionSelected method
     formRecord.controls['yearsOfChange'].setValue(dataModel.sequence_year);
     formRecord.controls['year'].setValue(dataModel.sequence_year);
-    formRecord.controls['requester1'].setValue(dataModel.requester_name);
-    formRecord.controls['requester2'].setValue(dataModel.requester_name2);
-    formRecord.controls['requester3'].setValue(dataModel.requester_name3);    
+    formRecord.controls['requester1'].setValue(this._compareRequesterText(dataModel.requester_name));
+    formRecord.controls['requester2'].setValue(this._compareRequesterText(dataModel.requester_name2));
+    formRecord.controls['requester3'].setValue(this._compareRequesterText(dataModel.requester_name3));
   }  
 }
