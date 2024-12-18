@@ -24,7 +24,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   @Input() countryList;
   @Input() provinceList;
   @Input() stateList;
-  @Input() defaultCountry;
+  @Input() canadaDefault;
   @Output() errorList = new EventEmitter(true);
 
   public addressForm: FormGroup;
@@ -135,9 +135,10 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   }
 
   defaultToCanada() {
-    if (this.defaultCountry) {
+    if (this.canadaDefault) {
       this.addressForm.controls['country'].setValue('CA');
-      this.addressForm.controls['country'].disable();
+      this.addressForm.controls['country'].disable(); // Method to grey out/disable the country dropdown
+      this._detailsService.setIsDefaultCountryCanada(this.canadaDefault);
       this.selectedCountrySignal.set('CA');
       this.onCountryChange(null);
     }
