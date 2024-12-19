@@ -42,6 +42,8 @@ export interface LifecycleRecord {
 }
 
 export interface FeeDetails {
+  fee_amount: string;
+  pay_method: string;
 }
 
 export interface INameAddress {

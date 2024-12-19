@@ -46,10 +46,11 @@ export class FormBaseService {
     return enrollment;
   }
 
-  public getEmptyMasterFileFeeModel() : FeeDetails{
+  public getEmptyFeesModel() : FeeDetails{
     return (
       {
-//todo
+        fee_amount: '',
+        pay_method: ''
       }
     );
   }
@@ -93,7 +94,7 @@ export class FormBaseService {
       form_language: '',
       check_sum: '',
       ectd: this.getEmptyEctd(),
-      fee_details: this.getEmptyMasterFileFeeModel(),
+      fee_details: this.getEmptyFeesModel(),
       patent: this.getEmptyPatent(),
       drugUse: '',
       nocDate: '',
