@@ -461,6 +461,10 @@
      "medicinal.ingredients": "Medicinal ingredient(s) (as provided on the NOC for the NDS provided in Section 3)",
      "panel.title.medicinal.ingredients": "Medicinal Ingredient(s)",
      "panel.title.timing.of.application": "Timing of Application",
-     "application.is.applying":"Application is applying(select one only)"
+     "application.is.applying":"Application is applying(select one only)",
+
+
+
+    "panel.title.certification": "Certification"
 
 }

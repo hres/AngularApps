@@ -17,6 +17,7 @@ export interface TransactionEnrol {
   nocDate: string;
   ndsNumber: string;
   medicinalIngredients: string;
+  certification: string;
   timingOfApplicant: string;
 }
 

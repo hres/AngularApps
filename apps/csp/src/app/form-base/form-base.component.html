@@ -115,6 +115,22 @@
       </section>
     </div>
 
+    <div>
+      <section class ="panel panel-primary mrgn-tp-lg">
+          <header class="panel-heading clearfix">
+            <h2 class="panel-title">{{'panel.title.certification'|translate}}</h2>
+          </header>
+          <div class="panel-body">
+            <app-certification [showErrors]="showErrors"
+            (errorList)="processCertificationErrors($event)"
+            ></app-certification>
+          </div>
+      </section>
+   </div>
+
+
+    
+
 
 
 

@@ -14,6 +14,7 @@ import { NoticeOfComplianceComponent } from '../notice-of-compliance/notice-of-c
 import { environment } from '../../environments/environment';
 import { NewDrugSubmissionInformationComponent } from '../new-drug-submission-information/new-drug-submission-information.component';
 import { MedicinalIngredientsComponent } from '../medicinal-ingredients/medicinal-ingredients.component';
+import { CertificationComponent } from '../certification/certification.component';
 import { TimeOfApplicationComponent } from '../time-of-application/time-of-application.component';
 
 
@@ -49,7 +50,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
   // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
-  // @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
+    @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
   // private _regulatoryInfoErrors = [];
   // private _transFeeErrors = [];
@@ -58,7 +59,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _agentAddressErrors = [];
   // private _agentContactErrors = [];
   // private _contactConfirmError = [];
-  // private _certficationErrors = [];
+  private _certficationErrors = [];
   private _patentInformationErrors = [];
   private _drugUseErrors = [];
   private _noticeOfComplianceErrors = [];
@@ -187,6 +188,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
     this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
+    this.errorList = this.errorList.concat(this._certficationErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -224,6 +226,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
+  processCertificationErrors(errorList) {
+    this._certficationErrors = errorList;
+    this.processErrors();
+  }
+
   // processContactErrors(errorList) {
   //   this._contactErrors = errorList;
   //   this.processErrors();
@@ -231,11 +238,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   // processTransFeeErrors(errorList) {
   //   this._transFeeErrors = errorList;
-  //   this.processErrors();
-  // }
-
-  // processCertificationErrors(errorList) {
-  //   this._certficationErrors = errorList;
   //   this.processErrors();
   // }
 
