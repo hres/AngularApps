@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <hpfb:schema xmlns:hpfb="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 	<!-- ****************************** -->
-	<!-- data types version 5.0 -->
+	<!-- data types version 1.0 -->
 	<!-- ****************************** -->
 	<hpfb:simpleType name="yyyymmdd_time_content">
 		<hpfb:restriction base="hpfb:string">

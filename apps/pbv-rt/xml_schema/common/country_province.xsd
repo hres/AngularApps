@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <hpfb:schema xmlns:hpfb="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
 	<!-- ****************************** -->
-	<!-- country provinces version 5.0 -->
+	<!-- country provinces version 1.0 -->
 	<!-- ****************************** -->
 	<hpfb:simpleType name="country_list">
 		<hpfb:annotation>
