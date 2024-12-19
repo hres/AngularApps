@@ -14,9 +14,7 @@ export class CertificationService {
     if(!fb){
       return null;
     }
-
     const certificationForm  = fb.nonNullable.group({
-
       certification: new FormControl(null,Validators.required)
 
     })

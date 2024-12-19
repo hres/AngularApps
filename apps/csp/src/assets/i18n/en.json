@@ -465,6 +465,7 @@
 
 
 
-    "panel.title.certification": "Certification"
-
+    "panel.title.certification": "Certification",
+    "cert.name": "Name of Authorized Official",
+    "cert.date": "Date"
 }

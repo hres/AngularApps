@@ -450,5 +450,9 @@
       "medicinal.ingredients": "Ingrédient(s) médicinal(aux)(conformément à ce qui est indiqué sur l’AC pour la PDN susmentionnée)",
      "panel.title.medicinal.ingredients": "Ingrédient(s) médicinal(aux)",
      "panel.title.timing.of.application": "Moment du dépot de la demande",
-     "application.is.applying":"Le demandeur dépose une demande (sélectionner une seule réponse)"
+     "application.is.applying":"Le demandeur dépose une demande (sélectionner une seule réponse)",
+
+     "panel.title.certification": "Attestation",
+     "cert.name": "Agent autorisé",
+     "cert.date": "Date"
   }

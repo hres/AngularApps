@@ -2,24 +2,10 @@
   <div [formGroup]="certificationForm">
      <div class="row">
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <span class="field-name">{{ 'cert.name' |translate }}</span>
             <label for="certification" class="required full-width">
-                <span class="field-name">{{ 'medicinal.ingredients' |translate }}</span>
-                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                <control-messages
-                 *ngIf="certificationForm.controls['certification'].invalid"
-                    [showError]="showErrors"
-                    [control]="certificationForm.controls['certification'] | formControl"
-                    controlId="certification"
-                    label="medicinalIngrents"
-                    parentId="cspcertification">
-                </control-messages>
-
-            <input
-            class="form-control"
-            id="certification"
-            type="text"
-            [formControlName]="'certification'"
-           />
+              <span class="field-name">{{ 'cert.date' |translate }}</span>
+              <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>          
           </label>
         </div>
     </div>
