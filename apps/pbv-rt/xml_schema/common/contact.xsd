@@ -22,7 +22,7 @@
 	</hpfb:element>
 	<hpfb:element name="phone_num" type="char_1_25_content"/>
 	<hpfb:element name="phone_ext" type="char_0_10_content"/>
-	<hpfb:element name="fax_num" type="char_0_20_content"/>
+	<hpfb:element name="fax_num" type="char_0_25_content"/>
 	<hpfb:element name="email" type="char_1_50_content"/>
 	<hpfb:element name="RoutingID" type="char_0_100_content"/>
 

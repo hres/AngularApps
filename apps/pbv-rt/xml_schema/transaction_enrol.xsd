@@ -18,7 +18,7 @@
 	<hpfb:element name="form_language" type="hpfb:string"/>
 	<hpfb:element name="check_sum" type="hpfb:string"/>
 	<!--<hpfb:element name="transaction_type" type="hpfb:string"/>-->
-	<!--<hpfb:element name="is_third_party" type="required_yes_no_content"/>-->
+	<hpfb:element name="is_third_party" type="required_yes_no_content"/>
 	<hpfb:element name="is_priority" type="required_yes_no_content" default="N"/>
 	<hpfb:element name="is_noc" type="required_yes_no_content" default="N"/>
 	<hpfb:element name="is_admin_sub" type="required_yes_no_content"/>
@@ -135,7 +135,7 @@
 	<hpfb:element name="fee_details" type="fee_details_content"/>
 	<hpfb:element name="fee" type="hpfb:decimal" default="0.00"/>
 	
-	<hpfb:element name="is_activity_changes" type="char_0_256_content"/>
+	<!--<hpfb:element name="is_activity_changes" type="char_0_256_content"/>-->
 	<!--<hpfb:element name="same_regulatory_company" type="required_yes_no_content"/>-->
 	<hpfb:element name="company_name" type="char_0_80_content"/>
 	<!--<hpfb:element name="same_regulatory_address" type="required_yes_no_content"/>-->
@@ -181,7 +181,7 @@
 			<hpfb:element ref="ectd"/>
 			<!--<hpfb:element ref="is_fees"/>-->
 			<hpfb:element ref="fee_details" minOccurs="0" maxOccurs="1"/>
-			<hpfb:element ref="is_activity_changes"/>
+			<hpfb:element ref="is_third_party"/>
 			<!--<hpfb:element ref="same_regulatory_company"/>-->
 			<hpfb:element ref="company_name"/>
 			<!--<hpfb:element ref="same_regulatory_address"/>-->
@@ -197,7 +197,7 @@
 			<hpfb:element ref="regulatory_project_manager1" minOccurs="0"/>
 			<hpfb:element ref="regulatory_project_manager2" minOccurs="0"/>
 			<hpfb:element ref="regulatory_project_manager3" minOccurs="0"/>
-			<hpfb:element ref="is_third_party"/>-->
+			<hpfb:element ref="is_activity_changes"/>-->
 			
 		</hpfb:sequence>
 	</hpfb:complexType>
@@ -283,12 +283,12 @@
 
 	<hpfb:complexType name="mitigation_content">
 		<hpfb:sequence>
+			<hpfb:element ref="mitigation_type"/>
 			<hpfb:element ref="certify_funded_health_institution"/>
 			<hpfb:element ref="certify_government_organization"/>
 			<hpfb:element ref="certify_organization"/>
 			<hpfb:element ref="certify_urgent_health_need"/>
 			<hpfb:element ref="certify_isad"/>
-			<hpfb:element ref="mitigation_type"/>
 			<hpfb:element ref="small_business_fee_application"/>
 			<!--<hpfb:element ref="first_submission"/>-->
 		</hpfb:sequence>
