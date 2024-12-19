@@ -1,11 +1,13 @@
 <div>
   <div [formGroup]="feesForm">
      <div class="row">
-        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <label for="fees" class="required full-width">
-              <span class="field-name">{{ 'medicinal.ingredients' |translate }}</span>
-              <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-          </label>
+      <div>
+        <span class="field-name col-lg-12 col-md-12 col-sm-12 col-xs-12">{{ 'fees.text' |translate }}</span>
+      </div>
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <label for="fees" class="required full-width">
+          <span class="field-name">{{ 'fees.paid' |translate }}</span>
+          <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>          </label>
         </div>
     </div>
   </div>
