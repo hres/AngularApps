@@ -1,0 +1,23 @@
+{
+  "name": "pbv-co",
+  "version": "5.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --port 8201 -o",
+    "build": "npm run build-prod & npm run build-dev",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "build-prod": "npm run build-prod-en & npm run build-prod-fr",
+    "build-prod-en": "ng build --configuration=production-en && npm run post-build -- --template=pbv-pi --env=prod --language=en ",
+    "build-prod-fr": "ng build --configuration=production-fr && npm run post-build -- --template=pbv-pi --env=prod --language=fr ",
+    "build-dev": "npm run build-dev-en & npm run build-dev-fr",
+    "build-dev-en": "ng build --configuration=development-en && npm run post-build -- --template=pbv-pi --env=dev --language=en ",
+    "build-dev-fr": "ng build --configuration=development-fr && npm run post-build -- --template=pbv-pi --env=dev --language=fr ",
+    "post-build": "python ../../python/post-app-build/post-build.py"
+  },
+  "dependencies": {
+    "@hpfb/pbv": "file:../../libs/hpfb-pbv-1.0.0.tgz",
+    "@hpfb/sdk": "file:../../libs/hpfb-sdk-1.2.0.tgz"
+  },
+  "private": true
+}
