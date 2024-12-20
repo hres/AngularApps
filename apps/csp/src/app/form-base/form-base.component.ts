@@ -423,8 +423,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _generateFileName(transactionEnrol: TransactionEnrol): string {
     let fileName =
       FILE_OUTPUT_PREFIX + "-" +
-      transactionEnrol.ectd.dossier_id +
-      '-' +
       transactionEnrol.date_saved;
     return fileName;
   }

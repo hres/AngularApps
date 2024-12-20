@@ -24,19 +24,8 @@ export class CertSuppProtectService {
        null,
        [Validators.required],
      ],
-     companyId: [null, [Validators.required]],
-     productName: [null, [Validators.required]],
      enrollVersion: [''],
      dateLastSaved: [''],
-    //  masterFileName: [null, Validators.required],
-    //  masterFileNumber: [null, ValidationService.masterFileNumberValidator],
-    //  masterFileType: [null, Validators.required],
-    //  masterFileUse: [null, Validators.required],
-    //  descriptionType: [null, Validators.required],
-    //  requestDate: [null, Validators.required],
-    //  requester: [null, Validators.required],
-    //  reqRevision: [null, Validators.required],
-    //  revisedDescriptionType: [null, Validators.required],
    });
   }
 
