@@ -1,9 +1,9 @@
 {
-  "name": "pbv-pi",
-  "version": "0.0.0",
+  "name": "pbv-co",
+  "version": "5.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 7201 -o",
+    "start": "ng serve --port 8201 -o",
     "build": "npm run build-prod & npm run build-dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

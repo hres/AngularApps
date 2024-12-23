@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
-import { InstructionService, NoCacheHeadersInterceptor, ValidationService, VersionService,VALIDATION_SERVICES } from '@hpfb/sdk/ui';
+import { InstructionService, NoCacheHeadersInterceptor, ValidationService, VALIDATION_SERVICES, VersionService } from '@hpfb/sdk/ui';
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClient, provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { Title } from '@angular/platform-browser';
