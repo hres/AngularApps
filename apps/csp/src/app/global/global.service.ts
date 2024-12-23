@@ -29,6 +29,7 @@ export class GlobalService {
   private _yesnoList: ICode[];
   private _drugUses: ICode[] = [];
   private _timingOfApplicant: ICodeAria[] = [];
+  private _languageList: ICode[];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -154,5 +155,13 @@ export class GlobalService {
      // Setter for timing of Applicant
   public set timingOfApplicant(value: ICodeAria[]) {
     this._timingOfApplicant = value;
+  }
+
+  public get languageList(): ICode[] {
+    return this._languageList;
+  }
+
+  public set languageList(value: ICode[]) {
+    this._languageList = value;
   }
 }

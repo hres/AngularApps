@@ -12,8 +12,9 @@ export class FormDataLoaderService {
   private statesJsonPath = DATA_PATH + 'states.json';
   private drugUseJsonPath = DATA_PATH + 'druguses.json';
   private timingOfApplicantPath = DATA_PATH + 'timingOfApplicant.json'
+  private keywordsJsonPath = DATA_PATH + 'keywords.json';
 
-  cashedLanguages$:Observable<ICode[]>;
+  cachedLanguageList$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
   cachedWhoResponsible$:Observable<ICode[]>;
   cachedCountries$:Observable<ICode[]>;
@@ -81,6 +82,20 @@ export class FormDataLoaderService {
         shareReplay(1)
       );
     return this.timingOfApplicantTypes$;
+  }
+
+  getLanguageList(): Observable<ICode[]> {
+    if (!this.cachedLanguageList$) {
+      this.cachedLanguageList$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          map(keywords => {
+            return keywords.find(keyword => keyword.name === 'languages')?.data || [];
+          }),
+          // tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    }
+    return this.cachedLanguageList$;
   }
 
 }
