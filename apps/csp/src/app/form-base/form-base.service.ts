@@ -80,10 +80,6 @@ export class FormBaseService {
 
   private getEmptyEctd(): Ectd {
     const ectd: Ectd = {
-      company_id: 'unassigned',
-      dossier_id: '',
-      dossier_type: { _id: 'D25' },
-      product_name: '',
       product_protocol: '',
       lifecycle_record: this.getEmptyLifecycleRecord(),
     };
