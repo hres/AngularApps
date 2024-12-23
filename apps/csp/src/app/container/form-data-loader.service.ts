@@ -10,7 +10,6 @@ export class FormDataLoaderService {
   private countriesJsonPath = DATA_PATH + 'countries.json';
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
-  private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
   private drugUseJsonPath = DATA_PATH + 'druguses.json';
   private timingOfApplicantPath = DATA_PATH + 'timingOfApplicant.json'
 
@@ -20,7 +19,6 @@ export class FormDataLoaderService {
   cachedCountries$:Observable<ICode[]>;
   cachedProvinces$:Observable<ICode[]>;
   cachedStates$:Observable<ICode[]>;
-  dossierTypes$: Observable<ICodeDefinition[]>;
   drugUseOptions$: Observable<ICode[]>;
   timingOfApplicantTypes$: Observable<ICodeAria[]>;
   // mfUseOptions$: Observable<ICode[]>;
@@ -61,16 +59,6 @@ export class FormDataLoaderService {
         );
     }
     return this.cachedStates$;
-  }
-
-  getDossierTypes(): Observable<ICodeDefinition[]> {
-    this.dossierTypes$ = this._dataService
-      .getData<ICodeAria>(this.dossierTypesJsonPath)
-      .pipe(
-        //tap((_) => console.log('getMasterFileTypeOptions is executed')),
-        shareReplay(1)
-      );
-    return this.dossierTypes$;
   }
 
   getDrugUesOptions(lang: string): Observable<ICode[]> {
