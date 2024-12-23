@@ -17,8 +17,8 @@ export class FeesService {
     }
 
     const feesForm  = fb.nonNullable.group({
-      fee_amount: new FormControl(null, Validators.required),
-      pay_method: new FormControl(null, Validators.required),
+      feeAmount: new FormControl(null, Validators.required),
+      payMethod: new FormControl(null, Validators.required),
 
     })
     return feesForm;
@@ -26,12 +26,12 @@ export class FeesService {
 
 
   public mapFormModelToDataModel(formValue: any, feeModel: FeeDetails) {
-    feeModel.fee_amount = formValue['feeAmount'];
-    feeModel.pay_method = formValue['payMethod'];
+    feeModel.feeAmount = formValue['feeAmount'];
+    feeModel.payMethod = formValue['payMethod'];
     }
 
   public mapDataModelToFormModel(feeModel: FeeDetails, formRecord: FormGroup) {
-    formRecord.controls['fee_amount'].setValue(feeModel.fee_amount);
-    formRecord.controls['fee_amount'].setValue(feeModel.fee_amount);
+    formRecord.controls['feeAmount'].setValue(feeModel.feeAmount);
+    formRecord.controls['payMethod'].setValue(feeModel.payMethod);
    }
 }

@@ -30,6 +30,7 @@ export class GlobalService {
   private _dossierTypes: ICodeDefinition[] = [];
   private _drugUses: ICode[] = [];
   private _timingOfApplicant: ICodeAria[] = [];
+  private _payMethod: ICode[] = [];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -163,5 +164,15 @@ export class GlobalService {
      // Setter for timing of Applicant
   public set timingOfApplicant(value: ICodeAria[]) {
     this._timingOfApplicant = value;
+  }
+
+  // Getter for pay method
+  public get payMethod(): ICode[] {
+    return this._payMethod;
+  }
+
+  // Setter for pay method
+  public set payMethod(value: ICode[]) {
+    this._payMethod = value;
   }
 }

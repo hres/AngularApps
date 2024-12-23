@@ -49,8 +49,8 @@ export class FormBaseService {
   public getEmptyFeesModel() : FeeDetails{
     return (
       {
-        fee_amount: '',
-        pay_method: ''
+        feeAmount: '',
+        payMethod: ''
       }
     );
   }

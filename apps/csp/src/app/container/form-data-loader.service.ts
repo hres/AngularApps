@@ -13,6 +13,7 @@ export class FormDataLoaderService {
   private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
   private drugUseJsonPath = DATA_PATH + 'druguses.json';
   private timingOfApplicantPath = DATA_PATH + 'timingOfApplicant.json'
+  private payMethodJsonPath = DATA_PATH + 'methodOfPayment.json';
 
   cashedLanguages$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
@@ -23,6 +24,7 @@ export class FormDataLoaderService {
   dossierTypes$: Observable<ICodeDefinition[]>;
   drugUseOptions$: Observable<ICode[]>;
   timingOfApplicantTypes$: Observable<ICodeAria[]>;
+  payMethodOptions$: Observable<ICode[]>;
   // mfUseOptions$: Observable<ICode[]>;
   // txDescs$: Observable<ICodeDefinition[]>;
   // mfTypeTxDescOptions$: Observable<IParentChildren[]>;
@@ -95,4 +97,15 @@ export class FormDataLoaderService {
     return this.timingOfApplicantTypes$;
   }
 
+  getPayMethodOptions(lang: string): Observable<ICode[]> {
+    this.payMethodOptions$ = this._dataService
+      .getData<ICodeAria>(this.payMethodJsonPath)
+      .pipe(
+        //tap((_) => console.log('getMasterFileTypeOptions is executed')),
+        shareReplay(1)
+      );
+    return this.payMethodOptions$;
+  }
 }
+
+

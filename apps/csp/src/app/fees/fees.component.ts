@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BaseComponent, HelpIndex, UtilsService } from '@hpfb/sdk/ui';
+import { ICode, BaseComponent, HelpIndex, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FeesService } from './fees.service';
 
@@ -27,13 +27,13 @@ export class FeesComponent  extends BaseComponent implements OnInit {
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   feesForm: FormGroup;
+  payMethodOptions: ICode[] = [];
 
   constructor(private feesService: FeesService, private _fb: FormBuilder, private _globalService: GlobalService,
     private _utilsService: UtilsService) {
    super();
    this.showFieldErrors = false;
  }
-
 
  ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
@@ -42,9 +42,8 @@ export class FeesComponent  extends BaseComponent implements OnInit {
     if (!this.feesForm) {
       this.feesForm = this.feesService.getFeesForm(this._fb);
     }
-
+    this.payMethodOptions = this._globalService.payMethod;
   }
-
 
   getFormValue(){
     return this.feesForm.value;
@@ -52,7 +51,6 @@ export class FeesComponent  extends BaseComponent implements OnInit {
 
   protected override emitErrors(errors: any[]){
     this.errorList.emit(errors);
-
   }
 
   ngOnChange(changes: SimpleChanges){
