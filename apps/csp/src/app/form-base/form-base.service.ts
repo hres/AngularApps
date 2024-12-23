@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord, IPatent, IDrugUse} from '../models/transaction';
+import { Injectable} from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, CertDetails, LifecycleRecord, IPatent, IDrugUse} from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
@@ -54,6 +54,18 @@ export class FormBaseService {
     );
   }
 
+  public getEmptyCertModel() : CertDetails{
+    return (
+      {
+        firstName: '',
+        initials: '',
+        lastName: '',
+        jobTitle: '',
+        date: ''
+      }
+    );
+  }
+
   public getEmptyAddressDetailsModel() : INameAddress{
 
     return (
@@ -99,7 +111,7 @@ export class FormBaseService {
       nocDate: '',
       ndsNumber:'',
       medicinalIngredients:'',
-      certification: '',
+      certification: this.getEmptyCertModel(),
       timingOfApplicant:'',
     };
 

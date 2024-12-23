@@ -467,5 +467,9 @@
 
     "panel.title.certification": "Certification",
     "cert.name": "Name of Authorized Official",
+    "cert.first": "Fist Name",
+    "cert.initials": "Initials",
+    "cert.last": "Last Name",
+    "cert.job": "Job Title",
     "cert.date": "Date"
 }

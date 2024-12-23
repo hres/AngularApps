@@ -54,6 +54,21 @@ export class CertificationComponent  extends BaseComponent implements OnInit {
 
   }
 
+  checkDateValidity(event: any): void {
+    let inputName =
+      event.target.attributes.getNamedItem('ng-reflect-name').value;
+    this._utilsService.checkInputValidity(
+      event,
+      this.certificationForm.get(inputName),
+      'invalidDate'
+    );
+    // if (this.certificationForm != undefined) {
+    //   let patendExpirationDate = this.certificationForm.get(
+    //     'patendExpirationDate'
+    //   );
+    // }
+  }
+
   ngOnChange(changes: SimpleChanges){
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);

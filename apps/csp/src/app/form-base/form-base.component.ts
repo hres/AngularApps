@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, FeeDetails, CertDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
 import { PatentComponent } from '../patent/patent.component';
 import { DrugUseComponent } from '../drug-use/drug-use.component';
 import { NoticeOfComplianceComponent } from '../notice-of-compliance/notice-of-compliance.component';
@@ -59,13 +59,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _agentAddressErrors = [];
   // private _agentContactErrors = [];
   // private _contactConfirmError = [];
-  private _certficationErrors = [];
   private _patentInformationErrors = [];
   private _drugUseErrors = [];
   private _noticeOfComplianceErrors = [];
   private _newDrugSubmissionInfoErrors = [];
   private _medicinalIngredientsForErrors = [];
   private _timingOfApplicantForErrors = [];
+  private _certificationForErrors = [];
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -78,6 +78,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
+  public certModel: CertDetails;
   public ectdModel: Ectd;
   // public holderAddressModel: INameAddress;
   // public agentAddressModel: INameAddress;
@@ -188,7 +189,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
     this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
-    this.errorList = this.errorList.concat(this._certficationErrors);
+    this.errorList = this.errorList.concat(this._certificationForErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -208,13 +209,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-
-
   processNewDrugSubmissionInfoErrors(errorList) {
     this._newDrugSubmissionInfoErrors = errorList;
     this.processErrors();
   }
-
 
   processMedicinalIngredientsErrors(errorList){
     this._medicinalIngredientsForErrors = errorList;
@@ -227,7 +225,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processCertificationErrors(errorList) {
-    this._certficationErrors = errorList;
+    this._certificationForErrors = errorList;
     this.processErrors();
   }
 

@@ -17,7 +17,7 @@ export interface TransactionEnrol {
   nocDate: string;
   ndsNumber: string;
   medicinalIngredients: string;
-  certification: string;
+  certification: CertDetails;
   timingOfApplicant: string;
 }
 
@@ -43,6 +43,14 @@ export interface LifecycleRecord {
 }
 
 export interface FeeDetails {
+}
+
+export interface CertDetails {
+  firstName: string;
+  initials: string;
+  lastName: string;
+  jobTitle: string;
+  date: string;
 }
 
 export interface INameAddress {
