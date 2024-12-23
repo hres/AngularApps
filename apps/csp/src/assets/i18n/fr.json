@@ -452,7 +452,11 @@
      "panel.title.timing.of.application": "Moment du dépot de la demande",
      "application.is.applying":"Le demandeur dépose une demande (sélectionner une seule réponse)",
 
-     "panel.title.certification": "Attestation",
-     "cert.name": "Agent autorisé",
-     "cert.date": "Date"
+    "panel.title.certification": "Attestation",
+    "cert.name": "Agent autorisé",
+    "cert.first": "Prénom",
+    "cert.initials": "Initiales",
+    "cert.last": "Nom",
+    "cert.job": "Titre de poste",
+    "cert.date": "Date"
   }
