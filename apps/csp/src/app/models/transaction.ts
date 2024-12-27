@@ -12,6 +12,7 @@ export interface TransactionEnrol {
   form_language: string;
   check_sum?: string;
   ectd: Ectd;
+  hcUse: HcUse;
   applicant: IApplicant;
   fee_details: FeeDetails;
   patent: IPatent;
@@ -20,6 +21,13 @@ export interface TransactionEnrol {
   ndsNumber: string;
   medicinalIngredients: string;
   timingOfApplicant: string;
+}
+
+export interface HcUse {
+  appReceived: string;
+  custNum: string;
+  appNum: string;
+  notes: string;
 }
 
 export interface Ectd {

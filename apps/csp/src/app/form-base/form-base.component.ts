@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, HcUse, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
 import { INameAddress, IContact, EntityBasePbvService } from '@hpfb/pbv';
 import { PatentComponent } from '../patent/patent.component';
 import { DrugUseComponent } from '../drug-use/drug-use.component';
@@ -17,6 +17,7 @@ import { NewDrugSubmissionInformationComponent } from '../new-drug-submission-in
 import { MedicinalIngredientsComponent } from '../medicinal-ingredients/medicinal-ingredients.component';
 import { TimeOfApplicationComponent } from '../time-of-application/time-of-application.component';
 import { ApplicantComponent } from '../applicant/applicant.component';
+import { HcUseOnlyComponent } from '../health-canada-only/health-canada-only.component';
 
 
 @Component({
@@ -48,6 +49,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     @ViewChild(MedicinalIngredientsComponent) medicinalIngredientsComponent: MedicinalIngredientsComponent;
     @ViewChild(TimeOfApplicationComponent) timeOfApplicationComponent: TimeOfApplicationComponent;
     @ViewChild(ApplicantComponent) applicantComponent: ApplicantComponent;
+    @ViewChild(HcUseOnlyComponent) healthCanadaComponent: HcUseOnlyComponent;
+
   // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
@@ -69,6 +72,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _medicinalIngredientsForErrors = [];
   private _timingOfApplicantForErrors = [];
   private _applicantForErrors = [];
+  private _healthCanadaOnlyErrors = [];
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -82,6 +86,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
+  public hcOnlyModel: HcUse;
   // public holderAddressModel: INameAddress;
   // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact;
@@ -193,11 +198,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
     this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
+    this.errorList = this.errorList.concat(this._healthCanadaOnlyErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
+  processHealthCanadaOnlyErrors(errorList) {
+    this._healthCanadaOnlyErrors = errorList;
+    this.processErrors();
+  }
 
-    processPatentInfoErrors(errorList) {
+
+  processPatentInfoErrors(errorList) {
     this._patentInformationErrors = errorList;
     this.processErrors();
   }
@@ -212,13 +223,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-
-
   processNewDrugSubmissionInfoErrors(errorList) {
     this._newDrugSubmissionInfoErrors = errorList;
     this.processErrors();
   }
-
 
   processMedicinalIngredientsErrors(errorList){
     this._medicinalIngredientsForErrors = errorList;

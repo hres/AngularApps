@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, TransactionEnrol, Transaction, FeeDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant} from '../models/transaction';
+import {Ectd, HcUse, TransactionEnrol, Transaction, FeeDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant} from '../models/transaction';
 import { INameAddress, IContact } from '@hpfb/pbv';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
@@ -65,6 +65,7 @@ export class FormBaseService {
       form_language: '',
       check_sum: '',
       ectd: this.getEmptyEctd(),
+      hcUse: this.getEmptyHcUse(),
       applicant: this.getEmptyApplicant(),
       fee_details: this.getEmptyMasterFileFeeModel(),
       patent: this.getEmptyPatent(),
@@ -84,6 +85,16 @@ export class FormBaseService {
       lifecycle_record: this.getEmptyLifecycleRecord(),
     };
     return ectd;
+  }
+
+  private getEmptyHcUse(): HcUse {
+    const hcUse: HcUse = {
+      appReceived: '',
+      custNum: '',
+      appNum: '',
+      notes: '',
+    };
+    return hcUse;
   }
 
   private getEmptyLifecycleRecord(): LifecycleRecord {

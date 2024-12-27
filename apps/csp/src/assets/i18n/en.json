@@ -466,6 +466,12 @@
     "error.mgs.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product.",
     "error.msg.zip":"Invalid entry - must be 5 numbers",
     "error.msg.postal":"Invalid format - must be X#X#X#",
-    "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx"
+    "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
+
+    "panel.title.hc.only": "Health Canada Use Only",
+    "hco.app.received": "Date Application Received",
+    "hco.cust.num": "CSP Customer Number",
+    "hco.app.num": "CSP Application Number",
+    "hco.notes": "Notes"
 
 }
