@@ -13,6 +13,8 @@
     "build-pbv-rt": "npm run clean-dist && pnpm --filter pbv-rt build",
     "========== comment line, PharmaBio REP PI ==========": "",
     "start-pbv:pi": "pnpm --filter pbv-pi start",
+    "========== comment line, PharmaBio REP CO ==========": "",
+    "start-pbv:co": "pnpm --filter pbv-co start",
     "========== comment line, Certificate of Supplementary Protection ==========": "",
     "start-csp:rt": "pnpm --filter csp start",
     "build-csp-rt": "npm run clean-dist && pnpm --filter csp build",

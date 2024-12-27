@@ -7,15 +7,5 @@ export const DATA_PATH: string = './assets/data/';
 export const FILE_OUTPUT_PREFIX = 'CSP';
 
 export const helpInstructionHeadings = [
-    'loadFileIndx',
-    'dossierTypeIndx',
-    'companyIdIndx',
-    'dossierIdIndx',
-    'productNameIndx'
+    'loadFileIndx'
   ];
-
-export const DOSSIER_TYPE = {
-  PHARMACEUTICAL_HUMAN: "D22",
-  BIOLOGIC_HUMAN: "D21",
-  VETERINARY: "D24"
-}; 

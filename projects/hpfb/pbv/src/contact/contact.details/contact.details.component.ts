@@ -48,8 +48,6 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   }
 
   protected override emitErrors(errors: any[]): void {
-    console.log("emitting contact errors");
-    console.log(errors);
     this.errorList.emit(errors);
   }
 

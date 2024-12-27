@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ConverterService, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { INameAddress } from '../../model/entity-base';
@@ -7,6 +7,16 @@ import { INameAddress } from '../../model/entity-base';
 export class AddressDetailsService {
 
   constructor(private _utilsService: UtilsService, private _converterService: ConverterService) { }
+  
+  private isDefaultCountryCanada = signal<boolean>(false);
+
+  getIsDefaultCountryCanada(): Signal<boolean>{
+    return this.isDefaultCountryCanada.asReadonly();
+  }
+
+  setIsDefaultCountryCanada(deault: boolean): void{
+    this.isDefaultCountryCanada.set(deault);
+  }
 
   /**
    * Gets the reactive forms Model for address details
@@ -30,8 +40,14 @@ export class AddressDetailsService {
       addressModel.street_address = formValue['address'];
       addressModel.city = formValue['city'];
 
-      addressModel.country = formValue['country'] ? 
+      if (this.getIsDefaultCountryCanada()) {
+        // Since the country has been disabled, it was removed from the form group.
+        // Manually map the country field
+        addressModel.country = this._converterService.findAndConverCodeToIdTextLabel(countryList, 'CA', lang);
+      } else {
+        addressModel.country = formValue['country'] ? 
           this._converterService.findAndConverCodeToIdTextLabel(countryList, formValue['country'], lang) : null;
+      }
 
       if (addressModel.country) {
         if (this._utilsService.isCanadaOrUSA(addressModel.country._id)) {
