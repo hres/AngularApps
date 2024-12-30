@@ -15,7 +15,7 @@
               label="firstName"
               parentId="cspCertification">
             </control-messages>
-            <input class="form-control" size="30" id="firstName" type="text" [formControlName]="'firstName'"/>
+            <input class="form-control" maxlength="60" size="30" id="firstName" type="text" [formControlName]="'firstName'"/>
           </label>
         </div>
 
@@ -29,7 +29,7 @@
             label="initials"
             parentId="cspCertification">
           </control-messages>
-          <input class="form-control" size="12" id="initials" type="text" [formControlName]="'initials'"/>
+          <input class="form-control" size="10" maxlength="10" id="initials" type="text" [formControlName]="'initials'"/>
         </label>
       </div>
 
@@ -44,7 +44,7 @@
             label="lastName"
             parentId="cspCertification">
           </control-messages>
-          <input class="form-control" size="30" id="lastName" type="text" [formControlName]="'lastName'"/>
+          <input class="form-control" size="30" maxlength="60" id="lastName" type="text" [formControlName]="'lastName'"/>
         </label>
       </div>
 
@@ -63,7 +63,7 @@
             label="jobTitle"
             parentId="cspCertification">
           </control-messages>
-          <input class="form-control" size="30" id="jobTitle" type="text" [formControlName]="'jobTitle'"/>
+          <input class="form-control" maxlength="40" size="30" id="jobTitle" type="text" [formControlName]="'jobTitle'"/>
         </label>
       </div>
 
