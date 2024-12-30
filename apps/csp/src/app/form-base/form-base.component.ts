@@ -86,7 +86,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public ectdModel: Ectd;
-  public hcOnlyModel: HcUse;
+  public hcUseModel: HcUse;
   // public holderAddressModel: INameAddress;
   // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact;
