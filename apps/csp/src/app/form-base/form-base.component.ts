@@ -7,7 +7,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, CertDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, FeeDetails, CertDetails, Transaction, TransactionEnrol} from '../models/transaction';
+import { INameAddress, IContact, EntityBasePbvService } from '@hpfb/pbv';
 import { PatentComponent } from '../patent/patent.component';
 import { DrugUseComponent } from '../drug-use/drug-use.component';
 import { NoticeOfComplianceComponent } from '../notice-of-compliance/notice-of-compliance.component';
@@ -16,6 +17,7 @@ import { NewDrugSubmissionInformationComponent } from '../new-drug-submission-in
 import { MedicinalIngredientsComponent } from '../medicinal-ingredients/medicinal-ingredients.component';
 import { CertificationComponent } from '../certification/certification.component';
 import { TimeOfApplicationComponent } from '../time-of-application/time-of-application.component';
+import { ApplicantComponent } from '../applicant/applicant.component';
 
 
 @Component({
@@ -24,7 +26,7 @@ import { TimeOfApplicationComponent } from '../time-of-application/time-of-appli
     templateUrl: './form-base.component.html',
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
-    providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService],
+    providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService, EntityBasePbvService],
     imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, AppFormModule]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
@@ -46,6 +48,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     @ViewChild(NewDrugSubmissionInformationComponent) newDrugSubmissionInformationComponent: NewDrugSubmissionInformationComponent;
     @ViewChild(MedicinalIngredientsComponent) medicinalIngredientsComponent: MedicinalIngredientsComponent;
     @ViewChild(TimeOfApplicationComponent) timeOfApplicationComponent: TimeOfApplicationComponent;
+    @ViewChild(ApplicantComponent) applicantComponent: ApplicantComponent;
   // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
@@ -66,6 +69,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _medicinalIngredientsForErrors = [];
   private _timingOfApplicantForErrors = [];
   private _certificationForErrors = [];
+  private _applicantForErrors = [];
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -85,6 +89,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // public holderContactModel: IContact;
   // public agentContactModel: IContact;
   public transFeeModel: FeeDetails;
+  public addressModel: INameAddress;
+  public contactModel: IContact;
 
   // public notApplicable: boolean = false;
   // public holder: string = ADDR_CONT_TYPE.HOLDER;
@@ -229,6 +235,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
+  processApplicantErrors(errorList) {
+    this._applicantForErrors = errorList;
+    this.processErrors();
+  }
+
   // processContactErrors(errorList) {
   //   this._contactErrors = errorList;
   //   this.processErrors();
@@ -293,6 +304,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (trans.fee_details != null) {
       this.transFeeModel = trans.fee_details;
     }
+    this.addressModel = trans.applicant.address;
+    this.contactModel = trans.applicant.contact;
   }
 
   public preload() {
@@ -368,6 +381,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
     this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
+
+    const applicantInfo = this.applicantComponent.getFormValue();
+    const addressFormGroupValue = this.applicantComponent.getAddressFormValue();
+    const contactFormGroupValue = this.applicantComponent.getContactFormValue();
+
+    this._baseService.mapApplicantInfoToOutput(newTransactionEnrol, applicantInfo, addressFormGroupValue, contactFormGroupValue);
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
     // const certificationFormGroupValue = this.certificationComponent.getFormValue();
@@ -423,8 +442,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _generateFileName(transactionEnrol: TransactionEnrol): string {
     let fileName =
       FILE_OUTPUT_PREFIX + "-" +
-      transactionEnrol.ectd.dossier_id +
-      '-' +
       transactionEnrol.date_saved;
     return fileName;
   }

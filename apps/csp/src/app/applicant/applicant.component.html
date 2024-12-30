@@ -1,0 +1,69 @@
+<div>
+    <div [formGroup]="applicantInformationForm">
+        <div class="row">
+            <div class="form-group col-xs-8 ">
+                <label for="applicantName" class="required">
+                    <span class="field-name">{{ 'applicant.name'|translate }}</span>
+                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <control-messages *ngIf="applicantInformationForm.controls['applicantName'].invalid"
+                        [showError]="showErrors"
+                        [control]="applicantInformationForm.controls['applicantName'] | formControl" controlId="applicantName"
+                        label="applicant.name" parentId="cspApplicant"></control-messages>
+                    <input maxlength="80" id="applicantName" class="form-control" size="80"
+                        name="applicantName" [formControl]="applicantInformationForm.controls['applicantName'] | formControl" />
+                </label>
+            </div>
+            <div class="form-group col-xs-4">
+                <label for="craBusinessNumber">
+                    <span class="field-name">{{ 'cra.business.number'|translate }}</span>
+                    <input maxlength="9" minlength="9" id="craBusinessNumber" class="form-control"
+                        name="craBusinessNumber" [formControl]="applicantInformationForm.controls['craBusinessNumber'] | formControl" />
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label for="cspNumber" class="required">
+                    <span class="field-name">{{ 'csp.customer.number'|translate }}</span>
+                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <control-messages *ngIf="applicantInformationForm.controls['cspNumber'].invalid"
+                        [showError]="showErrors"
+                        [control]="applicantInformationForm.controls['cspNumber'] | formControl" controlId="cspNumber"
+                        label="csp.customer.number" parentId="cspApplicant"></control-messages>
+                    <input maxlength="5" size="5" id="cspNumber" class="form-control"
+                        name="cspNumber" [formControl]="applicantInformationForm.controls['cspNumber'] | formControl" />
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-8">
+                <label for="agentName">
+                    <span class="field-name">{{ 'agent.name'|translate }}</span>
+                    <input maxlength="80" size="80" id="agentName" class="form-control"
+                        name="agentName" [formControl]="applicantInformationForm.controls['agentName'] | formControl" />
+                </label>
+            </div>
+        </div>
+        
+        <legend class="ng-binding">
+            {{"applicant.contact.info" | translate}}
+        </legend>
+
+        <pbv-contact-details [showErrors]="showErrors" [contactDetailsModel]="contactModel"
+                [lang]="lang"
+                [languageList]="languageList"
+                (errorList)="processContactErrors($event)">
+        </pbv-contact-details>
+
+        <pbv-address-details [showErrors]="showErrors" 
+                [addressModel]="addressModel"
+                [lang]="lang"
+                [provinceList]="provinceList"
+                [countryList]="countryList"
+                [canadaDefault]="true"
+                (errorList)="processAddressErrors($event)">
+        </pbv-address-details>
+
+        
+    </div>
+</div>

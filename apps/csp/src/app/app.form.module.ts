@@ -6,6 +6,10 @@ import {
   CommonUiFeatureModule,
   NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
+import {
+  AddressModule,
+  ContactModule
+} from '@hpfb/pbv';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,14 +27,24 @@ import { MedicinalIngredientsComponent} from './medicinal-ingredients/medicinal-
 import { MedicinalIngredientsService } from './medicinal-ingredients/medicinal-ingredients.service';
 import { CertificationComponent} from './certification/certification.component';
 import { CertificationService } from './certification/certification.service';
+import { ApplicantComponent } from './applicant/applicant.component';
+import { ApplicantService } from './applicant/applicant-service';
 import { TimeOfApplicationComponent } from './time-of-application/time-of-application.component';
 import { TimingOfApplicationService } from './time-of-application/time-of-application.service';
 
 
 @NgModule({
   declarations: [
-    CertSuppProtectComponent, PatentComponent, DrugUseComponent, NoticeOfComplianceComponent, NewDrugSubmissionInformationComponent, MedicinalIngredientsComponent
-  ,TimeOfApplicationComponent, CertificationComponent],
+    CertSuppProtectComponent, 
+    PatentComponent, 
+    DrugUseComponent, 
+    NoticeOfComplianceComponent, 
+    NewDrugSubmissionInformationComponent, 
+    MedicinalIngredientsComponent, 
+    ApplicantComponent, 
+    TimeOfApplicationComponent,
+    CertificationComponent
+    ],
   imports: [
     CommonModule,
     TranslateModule,
@@ -40,12 +54,32 @@ import { TimingOfApplicationService } from './time-of-application/time-of-applic
     ExpanderModule,
     ReactiveFormsModule,
     TranslateModule,
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    AddressModule,
+    ContactModule
   ],
   providers: [
-    CertSuppProtectService, DatePipe, PatentService, DrugUseService, NoticeOfComplianceService, NewDrugSubmissionInformationService,
-    MedicinalIngredientsService, TimingOfApplicationService,CertificationService ],
+    CertSuppProtectService, 
+    DatePipe, 
+    PatentService, 
+    DrugUseService, 
+    NoticeOfComplianceService, 
+    NewDrugSubmissionInformationService, 
+    MedicinalIngredientsService, 
+    TimingOfApplicationService, 
+    CertificationService, 
+    ApplicantService 
+  ],
   exports: [CommonUiFeatureModule,
-    CertSuppProtectComponent, PatentComponent, DrugUseComponent, NoticeOfComplianceComponent, NewDrugSubmissionInformationComponent, MedicinalIngredientsComponent, TimeOfApplicationComponent, CertificationComponent]
+    CertSuppProtectComponent, 
+    PatentComponent, 
+    DrugUseComponent, 
+    NoticeOfComplianceComponent, 
+    NewDrugSubmissionInformationComponent, 
+    MedicinalIngredientsComponent, 
+    TimeOfApplicationComponent, 
+    ApplicantComponent, 
+    CertificationComponent
+   ]
 })
 export class AppFormModule {}
