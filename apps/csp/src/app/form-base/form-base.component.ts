@@ -390,6 +390,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
     this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
 
+    const healthCanadaOnly = this. healthCanadaComponent.getFormValue();
+    this._baseService.mapHealthCanadaOnlyFormsToOutput(newTransactionEnrol, healthCanadaOnly);
+
     const applicantInfo = this.applicantComponent.getFormValue();
     const addressFormGroupValue = this.applicantComponent.getAddressFormValue();
     const contactFormGroupValue = this.applicantComponent.getContactFormValue();

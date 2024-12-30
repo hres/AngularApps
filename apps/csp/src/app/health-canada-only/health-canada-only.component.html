@@ -11,13 +11,8 @@
             [control]="hcUseOnlyForm.controls['appReceived'] | formControl"
             controlId="appReceived"
             label="appReceived"
-            ></control-messages>
-            <input
-              class="form-control"
-              id="appReceived"
-              type="date"
-              [formControlName]="'appReceived'"
-            />
+          ></control-messages>
+          <input class="form-control" id="appReceived" type="date" [formControlName]="'appReceived'"/>
         </label>
       </div>
 
@@ -31,13 +26,9 @@
             [control]="hcUseOnlyForm.controls['custNum'] | formControl"
             controlId="custNum"
             label="custNum"
-            ></control-messages>
-            <input
-              class="form-control"
-              id="custNum"
-              type="number"
-              [formControlName]="'custNum'"
-            />
+          ></control-messages>
+          <input maxlength="5" id="custNum" class="form-control"
+                 name="cspNumber" [formControl]="hcUseOnlyForm.controls['custNum'] | formControl" />
         </label>
       </div>
 
@@ -51,13 +42,9 @@
             [control]="hcUseOnlyForm.controls['appNum'] | formControl"
             controlId="appNum"
             label="appNum"
-            ></control-messages>
-            <input
-              class="form-control"
-              id="appNum"
-              type="number"
-              [formControlName]="'appNum'"
-            />
+          ></control-messages>
+          <input maxlength="6" id="appNum" class="form-control"
+                 name="cspNumber" [formControl]="hcUseOnlyForm.controls['appNum'] | formControl" />
         </label>
       </div>
     </div>
@@ -72,13 +59,14 @@
           [control]="hcUseOnlyForm.controls['notes'] | formControl"
           controlId="notes"
           label="notes"
-          ></control-messages>
-          <textarea
-              class="form-control full-width"
-              id="notes"
-              [formControlName]="'notes'"
-              rows="4"
-              maxlength="256"></textarea>
+        ></control-messages>
+        <textarea
+          class="form-control full-width"            
+          id="notes"
+          [formControlName]="'notes'"
+          rows="4"
+          maxlength="256"
+        ></textarea>
       </div>
     </div>
   </div>

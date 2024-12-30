@@ -14,6 +14,7 @@ import { MedicinalIngredientsService } from '../medicinal-ingredients/medicinal-
 import { TimingOfApplicationService } from '../time-of-application/time-of-application.service';
 import { EntityBasePbvService } from '@hpfb/pbv';
 import { ApplicantService } from '../applicant/applicant-service';
+import { HcUseOnlyService } from '../health-canada-only/health-canada-only.service';
 
 @Injectable()
 export class FormBaseService {
@@ -23,7 +24,7 @@ export class FormBaseService {
   currentMessage = this.messageSource.asObservable();
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService,
-    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService) {
+    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService, private hcUseOnlySerive: HcUseOnlyService) {
   }
 
   /**
@@ -236,6 +237,11 @@ export class FormBaseService {
 
   public mapTimingOfApplicantFormsToOutput(outputTransactionEnrol: TransactionEnrol,timingOfApplicationForm: any): void{
     this.timingOfApplicantService.mapFormModelToDataModel(timingOfApplicationForm, outputTransactionEnrol);
+
+  }
+
+  public mapHealthCanadaOnlyFormsToOutput(outputTransactionEnrol: TransactionEnrol,hcUseOnlyForm: any): void{
+    this.timingOfApplicantService.mapFormModelToDataModel(hcUseOnlyForm, outputTransactionEnrol);
 
   }
 
