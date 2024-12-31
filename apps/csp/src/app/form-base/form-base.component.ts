@@ -367,6 +367,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const newDrugSubmissionINfo = this.newDrugSubmissionInformationComponent.getFormValue();
     this._baseService.mapNewDrugSubmissionInformationFormsToOutput(newTransactionEnrol, newDrugSubmissionINfo);
 
+    const fees = this.feesComponent.getFormValue();
+    this._baseService.mapFeesFormsToOutput(newTransactionEnrol, fees);
+
     const medicinalIngredients = this.medicinalIngredientsComponent.getFormValue();
     this._baseService.mapMedicinalIngredientsFormsToOutput(newTransactionEnrol, medicinalIngredients);
 

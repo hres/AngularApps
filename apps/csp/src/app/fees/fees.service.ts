@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ConverterService, ENGLISH, ICode} from '@hpfb/sdk/ui';
 import { FeeDetails } from '../models/transaction';
-import { TransactionEnrol } from '../models/transaction';
+import { GlobalService } from '../global/global.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FeesService {
 
-  constructor() { }
+  private methodList: ICode[] = [];
+  private _currLanguage: string = ENGLISH;
+
+  constructor( private _converterService: ConverterService, private _globalService: GlobalService) {
+    this.methodList = this._globalService.payMethod;
+    this._currLanguage = this._globalService.currLanguage;
+  }
 
   public  getFeesForm(fb: FormBuilder){
 
@@ -27,7 +34,9 @@ export class FeesService {
 
   public mapFormModelToDataModel(formValue: any, feeModel: FeeDetails) {
     feeModel.feeAmount = formValue['feeAmount'];
-    feeModel.payMethod = formValue['payMethod'];
+    // feeModel.payMethod = formValue['payMethod'];
+    const feeModelReturn = formValue['payMethod']? this._converterService.findAndConverCodeToIdTextLabel(this.methodList, formValue['payMethod'], this._currLanguage) : null;
+    feeModel.payMethod = feeModelReturn.__text;
     }
 
   public mapDataModelToFormModel(feeModel: FeeDetails, formRecord: FormGroup) {

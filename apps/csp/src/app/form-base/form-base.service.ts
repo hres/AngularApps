@@ -11,6 +11,7 @@ import { NoticeOfComplianceService } from '../notice-of-compliance/notice-of-com
 import { NewDrugSubmissionInformationService } from '../new-drug-submission-information/new-drug-submission-information.service';
 import { MedicinalIngredientsService } from '../medicinal-ingredients/medicinal-ingredients.service';
 import { TimingOfApplicationService } from '../time-of-application/time-of-application.service';
+import { FeesService } from '../fees/fees.service';
 
 @Injectable()
 export class FormBaseService {
@@ -20,7 +21,7 @@ export class FormBaseService {
   currentMessage = this.messageSource.asObservable();
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService,
-    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService) {
+    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private feesService: FeesService) {
   }
 
   /**
@@ -217,14 +218,12 @@ export class FormBaseService {
     return patent;
   }
 
-   public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
+  public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
     this._patentService.mapFormModelToDataModel(patentInforationForm, outputTransactionEnrol.patent);
-
   }
 
   public mapDrugUseFormsToOutput(outputTransactionEnrol: TransactionEnrol, drugUseForm: any): void{
     this._drugUseService.mapFormModelToDataModel(drugUseForm, outputTransactionEnrol);
-
   }
 
   public mapNOCFormsToOutput(outputTransactionEnrol: TransactionEnrol,nocDateForm: any): void{
@@ -233,16 +232,17 @@ export class FormBaseService {
 
   public mapNewDrugSubmissionInformationFormsToOutput(outputTransactionEnrol: TransactionEnrol,newDrugSubmissionInformationForm: any): void{
     this._newDrugSubmissionService.mapFormModelToDataModel(newDrugSubmissionInformationForm, outputTransactionEnrol);
-
   }
 
   public mapMedicinalIngredientsFormsToOutput(outputTransactionEnrol: TransactionEnrol,medicinalIngredientsForm: any): void{
     this.medicinalIngredientService.mapFormModelToDataModel(medicinalIngredientsForm, outputTransactionEnrol);
-
   }
 
   public mapTimingOfApplicantFormsToOutput(outputTransactionEnrol: TransactionEnrol,timingOfApplicationForm: any): void{
     this.timingOfApplicantService.mapFormModelToDataModel(timingOfApplicationForm, outputTransactionEnrol);
+  }
 
+  public mapFeesFormsToOutput(outputTransactionEnrol: TransactionEnrol,feesForm: any): void{
+    this.feesService.mapFormModelToDataModel(feesForm, outputTransactionEnrol.fee_details);
   }
 }
