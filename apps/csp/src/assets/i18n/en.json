@@ -442,6 +442,7 @@
      "agent.name":"Agent Name (Full legal Name - no abbreviations)",
      "panel.title.timing.of.application": "Timing of Application",
      "application.is.applying":"Application is applying(select one only)",
+
      "applicant.contact.info":"Applicant Contact Information (where all communications regarding the CSP will be sent)",
      "addressDetails.street": "Street address",
     "addressDetails.city": "City or town",
@@ -468,4 +469,11 @@
     "error.msg.postal":"Invalid format - must be X#X#X#",
     "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx"
 
+    "panel.title.certification": "Certification",
+    "cert.name": "Name of Authorized Official",
+    "cert.first": "Fist Name",
+    "cert.initials": "Initials",
+    "cert.last": "Last Name",
+    "cert.job": "Job Title",
+    "cert.date": "Date"
 }

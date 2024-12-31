@@ -430,6 +430,15 @@
      "agent.name":"Nom de l’agent (dénomination sociale complète – ne pas utiliser d’abréviations)",
      "panel.title.timing.of.application": "Moment du dépot de la demande",
      "application.is.applying":"Le demandeur dépose une demande (sélectionner une seule réponse)",
+
+    "panel.title.certification": "Attestation",
+    "cert.name": "Agent autorisé",
+    "cert.first": "Prénom",
+    "cert.initials": "Initiales",
+    "cert.last": "Nom",
+    "cert.job": "Titre de poste",
+    "cert.date": "Date"
+
      "applicant.contact.info":"Coordonnées du demandeur (où seront envoyées toutes les communications concernant le CPS)",
      "addressDetails.street": "Rue",
      "addressDetails.city": "Ville",

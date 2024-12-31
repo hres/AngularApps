@@ -19,6 +19,7 @@ export interface TransactionEnrol {
   nocDate: string;
   ndsNumber: string;
   medicinalIngredients: string;
+  certification: CertDetails;
   timingOfApplicant: string;
 }
 
@@ -40,6 +41,35 @@ export interface LifecycleRecord {
 }
 
 export interface FeeDetails {
+}
+
+export interface CertDetails {
+  firstName: string;
+  initials: string;
+  lastName: string;
+  jobTitle: string;
+  date: string;
+}
+
+export interface INameAddress {
+  company_name: string;
+  street_address: string;
+  city: string;
+  province_lov: IIdText;
+  province_text: string;
+  country: IIdTextLabel;
+  postal_code: string;
+}
+
+export interface IContact {
+  given_name: string;
+  surname: string;
+  job_title: string;
+  language_correspondance: IIdTextLabel;
+  phone_num: string;
+  phone_ext: string;
+  fax_num: string;
+  email: string;
 }
 
 export interface IPatent {
