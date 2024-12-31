@@ -28,10 +28,10 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getCountryList(this._globalService.currLanguage),
     this._formDataLoader.getProvinceList(this._globalService.currLanguage),
     this._formDataLoader.getStateList(this._globalService.currLanguage),
-    this._formDataLoader.getDossierTypes(),
     this._formDataLoader.getDrugUesOptions(this._globalService.currLanguage),
     this._formDataLoader.getTimingOfApplicantTypes(),
     this._formDataLoader.getPayMethodOptions(this._globalService.currLanguage),
+    this._formDataLoader.getLanguageList()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -50,6 +50,8 @@ export class ContainerComponent implements OnInit {
       this._globalService.drugUses = data[4];
       this._globalService.timingOfApplicant = data[5];
       this._globalService.payMethod = data[6];
+      this._globalService.drugUses = data[3];
+      this._globalService.timingOfApplicant = data[4];
       this.loadFormBaseComponent = true;
 
     });

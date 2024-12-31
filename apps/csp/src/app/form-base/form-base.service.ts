@@ -1,6 +1,7 @@
-import {Injectable} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, TransactionEnrol, Transaction, IContact, INameAddress, FeeDetails, LifecycleRecord, IPatent, IDrugUse} from '../models/transaction';
+import { Injectable} from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Ectd, TransactionEnrol, Transaction, FeeDetails, CertDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant} from '../models/transaction';
+import { INameAddress, IContact } from '@hpfb/pbv';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
@@ -12,6 +13,9 @@ import { NewDrugSubmissionInformationService } from '../new-drug-submission-info
 import { MedicinalIngredientsService } from '../medicinal-ingredients/medicinal-ingredients.service';
 import { TimingOfApplicationService } from '../time-of-application/time-of-application.service';
 import { FeesService } from '../fees/fees.service';
+import { EntityBasePbvService } from '@hpfb/pbv';
+import { ApplicantService } from '../applicant/applicant-service';
+import { CertificationService } from '../certification/certification.service';
 
 @Injectable()
 export class FormBaseService {
@@ -21,7 +25,7 @@ export class FormBaseService {
   currentMessage = this.messageSource.asObservable();
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService,
-    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private feesService: FeesService) {
+    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService, private certificationService: CertificationService, private feesService: FeesService) {
   }
 
   /**
@@ -52,6 +56,18 @@ export class FormBaseService {
       {
         feeAmount: '',
         payMethod: ''
+      }
+    );
+  }
+
+  public getEmptyCertModel() : CertDetails{
+    return (
+      {
+        firstName: '',
+        initials: '',
+        lastName: '',
+        jobTitle: '',
+        date: ''
       }
     );
   }
@@ -96,11 +112,14 @@ export class FormBaseService {
       check_sum: '',
       ectd: this.getEmptyEctd(),
       fee_details: this.getEmptyFeesModel(),
+      applicant: this.getEmptyApplicant(),
+      fee_details: this.getEmptyMasterFileFeeModel(),
       patent: this.getEmptyPatent(),
       drugUse: '',
       nocDate: '',
       ndsNumber:'',
       medicinalIngredients:'',
+      certification: this.getEmptyCertModel(),
       timingOfApplicant:'',
     };
 
@@ -109,10 +128,6 @@ export class FormBaseService {
 
   private getEmptyEctd(): Ectd {
     const ectd: Ectd = {
-      company_id: 'unassigned',
-      dossier_id: '',
-      dossier_type: { _id: 'D25' },
-      product_name: '',
       product_protocol: '',
       lifecycle_record: this.getEmptyLifecycleRecord(),
     };
@@ -218,6 +233,20 @@ export class FormBaseService {
     return patent;
   }
 
+  private getEmptyApplicant() : IApplicant {
+    const applicant: IApplicant = {
+      billing_role: '',
+      applicant_role: '',
+      applicant_name: '',
+      cra_business_number: '',
+      csp_customer_number: '',
+      agent_name: '',
+      contact: this._entityBasePbvService.getEmptyContactModel(),
+      address: this._entityBasePbvService.getEmptyAddressDetailsModel()
+    }
+    return applicant;
+  }
+
   public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
     this._patentService.mapFormModelToDataModel(patentInforationForm, outputTransactionEnrol.patent);
   }
@@ -234,6 +263,10 @@ export class FormBaseService {
     this._newDrugSubmissionService.mapFormModelToDataModel(newDrugSubmissionInformationForm, outputTransactionEnrol);
   }
 
+  public mapCertificationFormsToOutput(outputTransactionEnrol: TransactionEnrol,certificationForm: any): void{
+    this.certificationService.mapFormModelToDataModel(certificationForm, outputTransactionEnrol.certification);
+  }
+
   public mapMedicinalIngredientsFormsToOutput(outputTransactionEnrol: TransactionEnrol,medicinalIngredientsForm: any): void{
     this.medicinalIngredientService.mapFormModelToDataModel(medicinalIngredientsForm, outputTransactionEnrol);
   }
@@ -244,5 +277,9 @@ export class FormBaseService {
 
   public mapFeesFormsToOutput(outputTransactionEnrol: TransactionEnrol,feesForm: any): void{
     this.feesService.mapFormModelToDataModel(feesForm, outputTransactionEnrol.fee_details);
+  }
+  
+  public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
+    this.applicantService.mapFormModelToDataModel(applicantForm, outputTransactionEnrol, addressFormGroupValue, contactFormGroupValue )
   }
 }
