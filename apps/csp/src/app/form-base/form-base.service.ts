@@ -14,6 +14,7 @@ import { MedicinalIngredientsService } from '../medicinal-ingredients/medicinal-
 import { TimingOfApplicationService } from '../time-of-application/time-of-application.service';
 import { EntityBasePbvService } from '@hpfb/pbv';
 import { ApplicantService } from '../applicant/applicant-service';
+import { CertificationService } from '../certification/certification.service';
 
 @Injectable()
 export class FormBaseService {
@@ -23,7 +24,7 @@ export class FormBaseService {
   currentMessage = this.messageSource.asObservable();
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService,
-    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService) {
+    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService, private certificationService: CertificationService) {
   }
 
   /**
@@ -243,14 +244,12 @@ export class FormBaseService {
     return applicant;
   }
 
-   public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
+  public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
     this._patentService.mapFormModelToDataModel(patentInforationForm, outputTransactionEnrol.patent);
-
   }
 
   public mapDrugUseFormsToOutput(outputTransactionEnrol: TransactionEnrol, drugUseForm: any): void{
     this._drugUseService.mapFormModelToDataModel(drugUseForm, outputTransactionEnrol);
-
   }
 
   public mapNOCFormsToOutput(outputTransactionEnrol: TransactionEnrol,nocDateForm: any): void{
@@ -259,17 +258,18 @@ export class FormBaseService {
 
   public mapNewDrugSubmissionInformationFormsToOutput(outputTransactionEnrol: TransactionEnrol,newDrugSubmissionInformationForm: any): void{
     this._newDrugSubmissionService.mapFormModelToDataModel(newDrugSubmissionInformationForm, outputTransactionEnrol);
+  }
 
+  public mapCertificationFormsToOutput(outputTransactionEnrol: TransactionEnrol,certificationForm: any): void{
+    this.certificationService.mapFormModelToDataModel(certificationForm, outputTransactionEnrol.certification);
   }
 
   public mapMedicinalIngredientsFormsToOutput(outputTransactionEnrol: TransactionEnrol,medicinalIngredientsForm: any): void{
     this.medicinalIngredientService.mapFormModelToDataModel(medicinalIngredientsForm, outputTransactionEnrol);
-
   }
 
   public mapTimingOfApplicantFormsToOutput(outputTransactionEnrol: TransactionEnrol,timingOfApplicationForm: any): void{
     this.timingOfApplicantService.mapFormModelToDataModel(timingOfApplicationForm, outputTransactionEnrol);
-
   }
 
   public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, addressFormGroupValue : any, contactFormGroupValue : any): void {

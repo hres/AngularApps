@@ -368,7 +368,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const drugUseFormInfor = this.drugUseComponent.getFormValue();
     this._baseService.mapDrugUseFormsToOutput(newTransactionEnrol, drugUseFormInfor);
 
-
     const noticeOfComplianceFormInfo = this.noticeOfComplianceComponent.getFormValue();
     this._baseService.mapNOCFormsToOutput(newTransactionEnrol, noticeOfComplianceFormInfo);
 
@@ -378,9 +377,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const medicinalIngredients = this.medicinalIngredientsComponent.getFormValue();
     this._baseService.mapMedicinalIngredientsFormsToOutput(newTransactionEnrol, medicinalIngredients);
 
-
     const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
     this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
+
+    const certification = this.certificationComponent.getFormValue();
+    this._baseService.mapCertificationFormsToOutput(newTransactionEnrol, certification);
 
     const applicantInfo = this.applicantComponent.getFormValue();
     const addressFormGroupValue = this.applicantComponent.getAddressFormValue();
