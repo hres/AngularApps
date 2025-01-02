@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Ectd, HcUse, TransactionEnrol, Transaction, FeeDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant} from '../models/transaction';
+import { Injectable} from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Ectd, HcUse, TransactionEnrol, Transaction, FeeDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant} from '../models/transaction';
 import { INameAddress, IContact } from '@hpfb/pbv';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
@@ -211,7 +211,7 @@ export class FormBaseService {
     return applicant;
   }
 
-   public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
+  public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
     this._patentService.mapFormModelToDataModel(patentInforationForm, outputTransactionEnrol.patent);
 
   }
@@ -241,7 +241,7 @@ export class FormBaseService {
   }
 
   public mapHealthCanadaOnlyFormsToOutput(outputTransactionEnrol: TransactionEnrol,hcUseOnlyForm: any): void{
-    this.timingOfApplicantService.mapFormModelToDataModel(hcUseOnlyForm, outputTransactionEnrol);
+    this.hcUseOnlySerive.mapFormModelToDataModel(hcUseOnlyForm, outputTransactionEnrol.hcUse);
 
   }
 
