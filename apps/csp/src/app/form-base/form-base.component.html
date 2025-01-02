@@ -147,6 +147,19 @@
     
 
 
+  <div>
+    <section class ="panel panel-primary mrgn-tp-lg">
+      <header class="panel-heading clearfix">            
+        <h2 class="panel-title">{{'panel.title.fees'|translate}}</h2>
+      </header>
+      <div class="panel-body">
+        <app-fees [showErrors]="showErrors"
+          (errorList)="processFeesErrors($event)"
+          ></app-fees>
+      </div>
+    </section>
+  </div>
+
 
 
 
