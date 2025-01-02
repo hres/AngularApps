@@ -443,11 +443,6 @@
      "panel.title.timing.of.application": "Timing of Application",
      "application.is.applying":"Application is applying(select one only)",
 
-    "panel.title.fees": "Fee Payment",
-    "fees.text": "This electronic form should not include payment information (e.g. credit card number), as the information included within an electronic form cannot be deleted and will remain a part of the CSP application on record.",
-    "fees.paid": "The fee has been paid in the amount of (please enter the fee amount)",
-    "pay.method": "Method of Payment"
-
      "applicant.contact.info":"Applicant Contact Information (where all communications regarding the CSP will be sent)",
      "addressDetails.street": "Street address",
     "addressDetails.city": "City or town",

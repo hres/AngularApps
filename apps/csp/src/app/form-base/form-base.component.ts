@@ -15,7 +15,6 @@ import { NoticeOfComplianceComponent } from '../notice-of-compliance/notice-of-c
 import { environment } from '../../environments/environment';
 import { NewDrugSubmissionInformationComponent } from '../new-drug-submission-information/new-drug-submission-information.component';
 import { MedicinalIngredientsComponent } from '../medicinal-ingredients/medicinal-ingredients.component';
-import { FeesComponent } from '../fees/fees.component';
 import { CertificationComponent } from '../certification/certification.component';
 import { TimeOfApplicationComponent } from '../time-of-application/time-of-application.component';
 import { ApplicantComponent } from '../applicant/applicant.component';
@@ -49,10 +48,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     @ViewChild(NewDrugSubmissionInformationComponent) newDrugSubmissionInformationComponent: NewDrugSubmissionInformationComponent;
     @ViewChild(MedicinalIngredientsComponent) medicinalIngredientsComponent: MedicinalIngredientsComponent;
     @ViewChild(TimeOfApplicationComponent) timeOfApplicationComponent: TimeOfApplicationComponent;
-    @ViewChild(FeesComponent) feesComponent: FeesComponent;
     @ViewChild(ApplicantComponent) applicantComponent: ApplicantComponent;
   // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
+  // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
   // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
     @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
@@ -69,10 +68,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _newDrugSubmissionInfoErrors = [];
   private _medicinalIngredientsForErrors = [];
   private _timingOfApplicantForErrors = [];
-  private _feesForErrors = [];
   private _certificationForErrors = [];
   private _applicantForErrors = [];
-  
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -197,14 +194,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
-    this.errorList = this.errorList.concat(this._feesForErrors);
     this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
     this.errorList = this.errorList.concat(this._certificationForErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
 
-  processPatentInfoErrors(errorList) {
+    processPatentInfoErrors(errorList) {
     this._patentInformationErrors = errorList;
     this.processErrors();
   }
@@ -226,11 +222,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processMedicinalIngredientsErrors(errorList){
     this._medicinalIngredientsForErrors = errorList;
-    this.processErrors();
-  }
-
-  processFeesErrors(errorList) {
-    this._feesForErrors = errorList;
     this.processErrors();
   }
 
@@ -382,9 +373,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const newDrugSubmissionINfo = this.newDrugSubmissionInformationComponent.getFormValue();
     this._baseService.mapNewDrugSubmissionInformationFormsToOutput(newTransactionEnrol, newDrugSubmissionINfo);
-
-    const fees = this.feesComponent.getFormValue();
-    this._baseService.mapFeesFormsToOutput(newTransactionEnrol, fees);
 
     const medicinalIngredients = this.medicinalIngredientsComponent.getFormValue();
     this._baseService.mapMedicinalIngredientsFormsToOutput(newTransactionEnrol, medicinalIngredients);

@@ -431,11 +431,6 @@
      "panel.title.timing.of.application": "Moment du dépot de la demande",
      "application.is.applying":"Le demandeur dépose une demande (sélectionner une seule réponse)",
 
-    "panel.title.fees": "Paiement de la taxe",
-    "fees.text": "Ce formulaire électronique ne doit pas inclure de renseignements sur le paiement (par ex. numéro de carte de crédit), puisque les renseignements inclus dans un formulaire électronique ne peuvent pas être supprimés et continueront de faire partie de la demande de CPS en dossier.",
-    "fees.paid": "La taxe a été payée (saisir le montant de la taxe)",
-    "pay.method": "Mode de paiement"
-
     "panel.title.certification": "Attestation",
     "cert.name": "Agent autorisé",
     "cert.first": "Prénom",

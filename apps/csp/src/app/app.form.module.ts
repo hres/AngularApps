@@ -25,8 +25,6 @@ import { NewDrugSubmissionInformationComponent } from './new-drug-submission-inf
 import { NewDrugSubmissionInformationService } from './new-drug-submission-information/new-drug-submission-information.service';
 import { MedicinalIngredientsComponent} from './medicinal-ingredients/medicinal-ingredients.component';
 import { MedicinalIngredientsService } from './medicinal-ingredients/medicinal-ingredients.service';
-import { FeesComponent} from './fees/fees.component';
-import { FeesService } from './fees/fees.service';
 import { CertificationComponent} from './certification/certification.component';
 import { CertificationService } from './certification/certification.service';
 import { ApplicantComponent } from './applicant/applicant.component';
@@ -45,8 +43,7 @@ import { TimingOfApplicationService } from './time-of-application/time-of-applic
     MedicinalIngredientsComponent, 
     ApplicantComponent, 
     TimeOfApplicationComponent,
-    CertificationComponent, 
-    FeesComponent
+    CertificationComponent
     ],
   imports: [
     CommonModule,
@@ -71,8 +68,7 @@ import { TimingOfApplicationService } from './time-of-application/time-of-applic
     MedicinalIngredientsService, 
     TimingOfApplicationService, 
     CertificationService, 
-    ApplicantService,
-    FeesService
+    ApplicantService 
   ],
   exports: [CommonUiFeatureModule,
     CertSuppProtectComponent, 
@@ -83,8 +79,7 @@ import { TimingOfApplicationService } from './time-of-application/time-of-applic
     MedicinalIngredientsComponent, 
     TimeOfApplicationComponent, 
     ApplicantComponent, 
-    CertificationComponent,
-    FeesComponent
+    CertificationComponent
    ]
 })
 export class AppFormModule {}

@@ -41,8 +41,6 @@ export interface LifecycleRecord {
 }
 
 export interface FeeDetails {
-  feeAmount: string;
-  payMethod: string;
 }
 
 export interface CertDetails {
