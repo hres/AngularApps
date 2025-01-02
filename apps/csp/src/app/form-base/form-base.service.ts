@@ -12,6 +12,7 @@ import { NoticeOfComplianceService } from '../notice-of-compliance/notice-of-com
 import { NewDrugSubmissionInformationService } from '../new-drug-submission-information/new-drug-submission-information.service';
 import { MedicinalIngredientsService } from '../medicinal-ingredients/medicinal-ingredients.service';
 import { TimingOfApplicationService } from '../time-of-application/time-of-application.service';
+import { FeesService } from '../fees/fees.service';
 import { EntityBasePbvService } from '@hpfb/pbv';
 import { ApplicantService } from '../applicant/applicant-service';
 import { CertificationService } from '../certification/certification.service';
@@ -24,7 +25,7 @@ export class FormBaseService {
   currentMessage = this.messageSource.asObservable();
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService,
-    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService, private certificationService: CertificationService) {
+    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService, private certificationService: CertificationService, private feesService: FeesService) {
   }
 
   /**
@@ -50,10 +51,11 @@ export class FormBaseService {
     return enrollment;
   }
 
-  public getEmptyMasterFileFeeModel() : FeeDetails{
+  public getEmptyFeesModel() : FeeDetails{
     return (
       {
-//todo
+        feeAmount: '',
+        payMethod: ''
       }
     );
   }
@@ -109,6 +111,7 @@ export class FormBaseService {
       form_language: '',
       check_sum: '',
       ectd: this.getEmptyEctd(),
+      fee_details: this.getEmptyFeesModel(),
       applicant: this.getEmptyApplicant(),
       fee_details: this.getEmptyMasterFileFeeModel(),
       patent: this.getEmptyPatent(),
@@ -272,6 +275,10 @@ export class FormBaseService {
     this.timingOfApplicantService.mapFormModelToDataModel(timingOfApplicationForm, outputTransactionEnrol);
   }
 
+  public mapFeesFormsToOutput(outputTransactionEnrol: TransactionEnrol,feesForm: any): void{
+    this.feesService.mapFormModelToDataModel(feesForm, outputTransactionEnrol.fee_details);
+  }
+  
   public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
     this.applicantService.mapFormModelToDataModel(applicantForm, outputTransactionEnrol, addressFormGroupValue, contactFormGroupValue )
   }
