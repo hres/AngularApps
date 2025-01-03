@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, CertDetails, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, HcUse, FeeDetails, CertDetails, Transaction, TransactionEnrol} from '../models/transaction';
 import { INameAddress, IContact, EntityBasePbvService } from '@hpfb/pbv';
 import { PatentComponent } from '../patent/patent.component';
 import { DrugUseComponent } from '../drug-use/drug-use.component';
@@ -19,6 +19,7 @@ import { FeesComponent } from '../fees/fees.component';
 import { CertificationComponent } from '../certification/certification.component';
 import { TimeOfApplicationComponent } from '../time-of-application/time-of-application.component';
 import { ApplicantComponent } from '../applicant/applicant.component';
+import { HcUseOnlyComponent } from '../health-canada-only/health-canada-only.component';
 
 
 @Component({
@@ -51,6 +52,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     @ViewChild(TimeOfApplicationComponent) timeOfApplicationComponent: TimeOfApplicationComponent;
     @ViewChild(FeesComponent) feesComponent: FeesComponent;
     @ViewChild(ApplicantComponent) applicantComponent: ApplicantComponent;
+    @ViewChild(HcUseOnlyComponent) healthCanadaComponent: HcUseOnlyComponent;
+
   // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
@@ -72,7 +75,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _feesForErrors = [];
   private _certificationForErrors = [];
   private _applicantForErrors = [];
-  
+  private _healthCanadaOnlyErrors = [];
+
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -87,6 +91,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public transactionEnrollModel: TransactionEnrol;
   public certModel: CertDetails;
   public ectdModel: Ectd;
+  public hcUseModel: HcUse;
   // public holderAddressModel: INameAddress;
   // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact;
@@ -199,8 +204,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
     this.errorList = this.errorList.concat(this._feesForErrors);
     this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
+    this.errorList = this.errorList.concat(this._healthCanadaOnlyErrors);
     this.errorList = this.errorList.concat(this._certificationForErrors);
     this.cdr.detectChanges(); // doing our own change detection
+  }
+
+  processHealthCanadaOnlyErrors(errorList) {
+    this._healthCanadaOnlyErrors = errorList;
+    this.processErrors();
   }
 
 
@@ -391,6 +402,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
     this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
+    
+    const healthCanadaOnly = this. healthCanadaComponent.getFormValue();
+    this._baseService.mapHealthCanadaOnlyFormsToOutput(newTransactionEnrol, healthCanadaOnly);
 
     const certification = this.certificationComponent.getFormValue();
     this._baseService.mapCertificationFormsToOutput(newTransactionEnrol, certification);

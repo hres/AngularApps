@@ -1,0 +1,74 @@
+<div>
+  <div [formGroup]="hcUseOnlyForm">
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <label for="appReceived">
+          <span><b>{{ "hco.app.received" | translate }}</b></span>
+          <control-messages
+            *ngIf="hcUseOnlyForm.controls['appReceived'].invalid"
+            [showError]="showErrors"
+            parentId="cspHealthCanada"
+            [control]="hcUseOnlyForm.controls['appReceived'] | formControl"
+            controlId="appReceived"
+            label="appReceived"
+          ></control-messages>
+          <input class="form-control" id="appReceived" type="date" [formControlName]="'appReceived'"/>
+        </label>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <label for="CustNum">
+          <span><b>{{ "hco.cust.num" | translate }}</b></span>
+          <control-messages
+            *ngIf="hcUseOnlyForm.controls['custNum'].invalid"
+            [showError]="showErrors"
+            parentId="cspHealthCanada"
+            [control]="hcUseOnlyForm.controls['custNum'] | formControl"
+            controlId="custNum"
+            label="custNum"
+          ></control-messages>
+          <input maxlength="5" id="custNum" class="form-control"
+                 name="cspNumber" [formControl]="hcUseOnlyForm.controls['custNum'] | formControl" />
+        </label>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <label for="appNum">
+          <span><b>{{ "hco.app.num" | translate }}</b></span>
+          <control-messages
+            *ngIf="hcUseOnlyForm.controls['appNum'].invalid"
+            [showError]="showErrors"
+            parentId="cspHealthCanada"
+            [control]="hcUseOnlyForm.controls['appNum'] | formControl"
+            controlId="appNum"
+            label="appNum"
+          ></control-messages>
+          <input maxlength="6" id="appNum" class="form-control"
+                 name="cspNumber" [formControl]="hcUseOnlyForm.controls['appNum'] | formControl" />
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-sm-12">
+        <span><b>{{ "hco.notes" | translate }}</b></span>
+        <control-messages
+          *ngIf="hcUseOnlyForm.controls['notes'].invalid"
+          [showError]="showErrors"
+          parentId="cspHealthCanada"
+          [control]="hcUseOnlyForm.controls['notes'] | formControl"
+          controlId="notes"
+          label="notes"
+        ></control-messages>
+        <textarea
+          class="form-control full-width"            
+          id="notes"
+          [formControlName]="'notes'"
+          rows="4"
+          maxlength="256"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -434,7 +434,7 @@
     "panel.title.fees": "Paiement de la taxe",
     "fees.text": "Ce formulaire électronique ne doit pas inclure de renseignements sur le paiement (par ex. numéro de carte de crédit), puisque les renseignements inclus dans un formulaire électronique ne peuvent pas être supprimés et continueront de faire partie de la demande de CPS en dossier.",
     "fees.paid": "La taxe a été payée (saisir le montant de la taxe)",
-    "pay.method": "Mode de paiement"
+    "pay.method": "Mode de paiement",
 
     "panel.title.certification": "Attestation",
     "cert.name": "Agent autorisé",
@@ -442,7 +442,7 @@
     "cert.initials": "Initiales",
     "cert.last": "Nom",
     "cert.job": "Titre de poste",
-    "cert.date": "Date"
+    "cert.date": "Date",
 
      "applicant.contact.info":"Coordonnées du demandeur (où seront envoyées toutes les communications concernant le CPS)",
      "addressDetails.street": "Rue",
@@ -468,5 +468,11 @@
     "error.mgs.dossier.id": "Format incorrect. - Le numéro de dossier est incorrect pour ce type de dossier. Veuillez vérifier le numéro de dossier et le type de dossier pour votre produit.",
     "error.msg.zip":"Entrée non valide - doit contenir 5 chiffres",
     "error.msg.postal":"Format non valide - doit être X#X#X#",
-    "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx"
+    "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
+
+    "panel.title.hc.only": "Á l'usage de Santé Canada",
+    "hco.app.received": "Date de réception de la demande",
+    "hco.cust.num": "Numéro de client de CPS",
+    "hco.app.num": "Numéro de demande de CPS",
+    "hco.notes": "Remarques"
   }

@@ -33,10 +33,13 @@ import { ApplicantComponent } from './applicant/applicant.component';
 import { ApplicantService } from './applicant/applicant-service';
 import { TimeOfApplicationComponent } from './time-of-application/time-of-application.component';
 import { TimingOfApplicationService } from './time-of-application/time-of-application.service';
+import { HcUseOnlyComponent } from './health-canada-only/health-canada-only.component';
+import { HcUseOnlyService } from './health-canada-only/health-canada-only.service';
 
 
 @NgModule({
   declarations: [
+    HcUseOnlyComponent,
     CertSuppProtectComponent, 
     PatentComponent, 
     DrugUseComponent, 
@@ -62,19 +65,21 @@ import { TimingOfApplicationService } from './time-of-application/time-of-applic
     ContactModule
   ],
   providers: [
+    HcUseOnlyService,
     CertSuppProtectService, 
     DatePipe, 
     PatentService, 
     DrugUseService, 
     NoticeOfComplianceService, 
-    NewDrugSubmissionInformationService, 
+    NewDrugSubmissionInformationService,
     MedicinalIngredientsService, 
     TimingOfApplicationService, 
-    CertificationService, 
     ApplicantService,
     FeesService
   ],
-  exports: [CommonUiFeatureModule,
+  exports: [
+    CommonUiFeatureModule,
+    HcUseOnlyComponent,
     CertSuppProtectComponent, 
     PatentComponent, 
     DrugUseComponent, 

@@ -446,7 +446,7 @@
     "panel.title.fees": "Fee Payment",
     "fees.text": "This electronic form should not include payment information (e.g. credit card number), as the information included within an electronic form cannot be deleted and will remain a part of the CSP application on record.",
     "fees.paid": "The fee has been paid in the amount of (please enter the fee amount)",
-    "pay.method": "Method of Payment"
+    "pay.method": "Method of Payment",
 
      "applicant.contact.info":"Applicant Contact Information (where all communications regarding the CSP will be sent)",
      "addressDetails.street": "Street address",
@@ -472,7 +472,13 @@
     "error.mgs.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product.",
     "error.msg.zip":"Invalid entry - must be 5 numbers",
     "error.msg.postal":"Invalid format - must be X#X#X#",
-    "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx"
+    "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
+
+    "panel.title.hc.only": "Health Canada Use Only",
+    "hco.app.received": "Date Application Received",
+    "hco.cust.num": "CSP Customer Number",
+    "hco.app.num": "CSP Application Number",
+    "hco.notes": "Notes",
 
     "panel.title.certification": "Certification",
     "cert.name": "Name of Authorized Official",

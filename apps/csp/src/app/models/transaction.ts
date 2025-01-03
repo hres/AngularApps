@@ -12,6 +12,7 @@ export interface TransactionEnrol {
   form_language: string;
   check_sum?: string;
   ectd: Ectd;
+  hcUse: HcUse;
   applicant: IApplicant;
   fee_details: FeeDetails;
   patent: IPatent;
@@ -21,6 +22,13 @@ export interface TransactionEnrol {
   medicinalIngredients: string;
   certification: CertDetails;
   timingOfApplicant: string;
+}
+
+export interface HcUse {
+  appReceived: string;
+  custNum: string;
+  appNum: string;
+  notes: string;
 }
 
 export interface Ectd {
@@ -53,7 +61,7 @@ export interface CertDetails {
   date: string;
 }
 
-export interface INameAddress {
+export interface INameAddressCSP {
   company_name: string;
   street_address: string;
   city: string;
@@ -63,8 +71,9 @@ export interface INameAddress {
   postal_code: string;
 }
 
-export interface IContact {
+export interface IContactCSP {
   given_name: string;
+  initials: string;
   surname: string;
   job_title: string;
   language_correspondance: IIdTextLabel;

@@ -1,6 +1,6 @@
 import { Injectable} from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Ectd, TransactionEnrol, Transaction, FeeDetails, CertDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant} from '../models/transaction';
+import { Ectd, HcUse, TransactionEnrol, Transaction, FeeDetails, CertDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant} from '../models/transaction';
 import { INameAddress, IContact } from '@hpfb/pbv';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
@@ -15,6 +15,7 @@ import { TimingOfApplicationService } from '../time-of-application/time-of-appli
 import { FeesService } from '../fees/fees.service';
 import { EntityBasePbvService } from '@hpfb/pbv';
 import { ApplicantService } from '../applicant/applicant-service';
+import { HcUseOnlyService } from '../health-canada-only/health-canada-only.service';
 import { CertificationService } from '../certification/certification.service';
 
 @Injectable()
@@ -25,7 +26,7 @@ export class FormBaseService {
   currentMessage = this.messageSource.asObservable();
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService,
-    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService, private certificationService: CertificationService, private feesService: FeesService) {
+    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService, private certificationService: CertificationService, private feesService: FeesService, private hcUseOnlySerive: HcUseOnlyService) {
   }
 
   /**
@@ -76,7 +77,6 @@ export class FormBaseService {
 
     return (
       {
-	      company_name: '',
 	      street_address: '',
 	      city: '',
 	      country: undefined,
@@ -92,6 +92,7 @@ export class FormBaseService {
     return (
       {
         given_name: '',
+        initials:'',
         surname: '',
         language_correspondance: undefined,
         job_title: '',
@@ -111,9 +112,9 @@ export class FormBaseService {
       form_language: '',
       check_sum: '',
       ectd: this.getEmptyEctd(),
+      hcUse: this.getEmptyHcUse(),
       fee_details: this.getEmptyFeesModel(),
       applicant: this.getEmptyApplicant(),
-      fee_details: this.getEmptyMasterFileFeeModel(),
       patent: this.getEmptyPatent(),
       drugUse: '',
       nocDate: '',
@@ -132,6 +133,16 @@ export class FormBaseService {
       lifecycle_record: this.getEmptyLifecycleRecord(),
     };
     return ectd;
+  }
+
+  private getEmptyHcUse(): HcUse {
+    const hcUse: HcUse = {
+      appReceived: '',
+      custNum: '',
+      appNum: '',
+      notes: '',
+    };
+    return hcUse;
   }
 
   private getEmptyLifecycleRecord(): LifecycleRecord {
@@ -273,6 +284,10 @@ export class FormBaseService {
 
   public mapTimingOfApplicantFormsToOutput(outputTransactionEnrol: TransactionEnrol,timingOfApplicationForm: any): void{
     this.timingOfApplicantService.mapFormModelToDataModel(timingOfApplicationForm, outputTransactionEnrol);
+  }
+
+  public mapHealthCanadaOnlyFormsToOutput(outputTransactionEnrol: TransactionEnrol,hcUseOnlyForm: any): void{
+    this.hcUseOnlySerive.mapFormModelToDataModel(hcUseOnlyForm, outputTransactionEnrol.hcUse);
   }
 
   public mapFeesFormsToOutput(outputTransactionEnrol: TransactionEnrol,feesForm: any): void{

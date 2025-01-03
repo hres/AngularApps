@@ -166,7 +166,8 @@ export class GlobalService {
   // Setter for pay method
   public set payMethod(value: ICode[]) {
     this._payMethod = value;
-
+  }
+  
   public get languageList(): ICode[] {
     return this._languageList;
   }
