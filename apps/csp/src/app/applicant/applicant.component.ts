@@ -12,7 +12,8 @@ import {  UtilsService,  HelpIndex,  BaseComponent, ICode,} from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { ApplicantService } from './applicant-service';
-import { IContact, INameAddress, AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
+import { AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
+import { IContactCSP, INameAddressCSP } from '../models/transaction';
 
 @Component({
   selector: 'app-applicant',
@@ -28,8 +29,8 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
   countryList: ICode[] = [];
 
   @Input() showErrors: boolean;
-  @Input() addressModel: INameAddress;
-  @Input() contactModel: IContact;
+  @Input() addressModel: INameAddressCSP;
+  @Input() contactModel: IContactCSP;
   @Output() errorList = new EventEmitter(true);
   public applicantInformationForm: FormGroup;
 

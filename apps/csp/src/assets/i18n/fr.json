@@ -434,7 +434,7 @@
     "panel.title.fees": "Paiement de la taxe",
     "fees.text": "Ce formulaire électronique ne doit pas inclure de renseignements sur le paiement (par ex. numéro de carte de crédit), puisque les renseignements inclus dans un formulaire électronique ne peuvent pas être supprimés et continueront de faire partie de la demande de CPS en dossier.",
     "fees.paid": "La taxe a été payée (saisir le montant de la taxe)",
-    "pay.method": "Mode de paiement"
+    "pay.method": "Mode de paiement",
 
     "panel.title.certification": "Attestation",
     "cert.name": "Agent autorisé",
@@ -442,7 +442,7 @@
     "cert.initials": "Initiales",
     "cert.last": "Nom",
     "cert.job": "Titre de poste",
-    "cert.date": "Date"
+    "cert.date": "Date",
 
      "applicant.contact.info":"Coordonnées du demandeur (où seront envoyées toutes les communications concernant le CPS)",
      "addressDetails.street": "Rue",

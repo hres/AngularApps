@@ -61,7 +61,7 @@ export interface CertDetails {
   date: string;
 }
 
-export interface INameAddress {
+export interface INameAddressCSP {
   company_name: string;
   street_address: string;
   city: string;
@@ -71,8 +71,9 @@ export interface INameAddress {
   postal_code: string;
 }
 
-export interface IContact {
+export interface IContactCSP {
   given_name: string;
+  initials: string;
   surname: string;
   job_title: string;
   language_correspondance: IIdTextLabel;

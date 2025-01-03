@@ -77,7 +77,6 @@ export class FormBaseService {
 
     return (
       {
-	      company_name: '',
 	      street_address: '',
 	      city: '',
 	      country: undefined,
@@ -93,6 +92,7 @@ export class FormBaseService {
     return (
       {
         given_name: '',
+        initials:'',
         surname: '',
         language_correspondance: undefined,
         job_title: '',
