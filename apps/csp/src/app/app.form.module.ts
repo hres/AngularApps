@@ -25,6 +25,10 @@ import { NewDrugSubmissionInformationComponent } from './new-drug-submission-inf
 import { NewDrugSubmissionInformationService } from './new-drug-submission-information/new-drug-submission-information.service';
 import { MedicinalIngredientsComponent} from './medicinal-ingredients/medicinal-ingredients.component';
 import { MedicinalIngredientsService } from './medicinal-ingredients/medicinal-ingredients.service';
+import { FeesComponent} from './fees/fees.component';
+import { FeesService } from './fees/fees.service';
+import { CertificationComponent} from './certification/certification.component';
+import { CertificationService } from './certification/certification.service';
 import { ApplicantComponent } from './applicant/applicant.component';
 import { ApplicantService } from './applicant/applicant-service';
 import { TimeOfApplicationComponent } from './time-of-application/time-of-application.component';
@@ -43,7 +47,9 @@ import { HcUseOnlyService } from './health-canada-only/health-canada-only.servic
     NewDrugSubmissionInformationComponent, 
     MedicinalIngredientsComponent, 
     ApplicantComponent, 
-    TimeOfApplicationComponent
+    TimeOfApplicationComponent,
+    CertificationComponent, 
+    FeesComponent
     ],
   imports: [
     CommonModule,
@@ -68,7 +74,9 @@ import { HcUseOnlyService } from './health-canada-only/health-canada-only.servic
     NewDrugSubmissionInformationService,
     MedicinalIngredientsService, 
     TimingOfApplicationService, 
-    ApplicantService ],
+    ApplicantService,
+    FeesService
+  ],
   exports: [
     CommonUiFeatureModule,
     HcUseOnlyComponent,
@@ -79,6 +87,9 @@ import { HcUseOnlyService } from './health-canada-only/health-canada-only.servic
     NewDrugSubmissionInformationComponent, 
     MedicinalIngredientsComponent, 
     TimeOfApplicationComponent, 
-    ApplicantComponent]
+    ApplicantComponent, 
+    CertificationComponent,
+    FeesComponent
+   ]
 })
 export class AppFormModule {}
