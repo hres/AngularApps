@@ -46,11 +46,10 @@ export class ContainerComponent implements OnInit {
       this._globalService.countryList = data[0];
       this._globalService.provinceList = data[1];
       this._globalService.stateList = data[2];
-      this._globalService.drugUses = data[4];
-      this._globalService.timingOfApplicant = data[5];
-      this._globalService.payMethod = data[6];
       this._globalService.drugUses = data[3];
       this._globalService.timingOfApplicant = data[4];
+      this._globalService.payMethod = data[5];
+      this._globalService.languageList = data[6];
       this.loadFormBaseComponent = true;
 
     });
