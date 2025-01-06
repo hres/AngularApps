@@ -469,6 +469,7 @@
     "error.msg.zip":"Entrée non valide - doit contenir 5 chiffres",
     "error.msg.postal":"Format non valide - doit être X#X#X#",
     "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
+    "error.msg.invalidDate": "Cette date n'est pas valide",
 
     "panel.title.hc.only": "Á l'usage de Santé Canada",
     "hco.app.received": "Date de réception de la demande",
