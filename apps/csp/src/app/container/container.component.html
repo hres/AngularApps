@@ -1,4 +1,13 @@
 <lib-layout>
+    <ng-container header>
+        <section class="module-attention">
+            <details>
+                <summary class="background-medium">{{ "top.instruction" | translate }}</summary>
+                <app-instruction [helpTextSequences]="helpIndex" [lang]="language"></app-instruction>
+            </details>
+        </section>
+    </ng-container>
+
     <ng-container body>
         @defer (when loadFormBaseComponent) {
             <app-form-base></app-form-base>

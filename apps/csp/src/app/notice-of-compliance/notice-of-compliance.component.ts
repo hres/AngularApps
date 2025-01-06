@@ -10,7 +10,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   UtilsService,
-  HelpIndex,
+  HelpSequence,
   BaseComponent,
 } from '@hpfb/sdk/ui';
 import { FormBaseService } from '../form-base/form-base.service';
@@ -27,7 +27,7 @@ import { GlobalService } from '../global/global.service';
 export class NoticeOfComplianceComponent extends BaseComponent implements OnInit {
 
   public showFieldErrors: boolean = false;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   public noticeOfComplianceForm: FormGroup;

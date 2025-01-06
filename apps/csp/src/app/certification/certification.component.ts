@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BaseComponent, HelpIndex, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, HelpSequence, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CertificationService } from './certification.service';
 
@@ -24,7 +24,7 @@ export class CertificationComponent  extends BaseComponent implements OnInit {
 
   public showFieldErrors: boolean = false;
   lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   certificationForm: FormGroup;

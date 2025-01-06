@@ -6,6 +6,20 @@ export const DATA_PATH: string = './assets/data/';
 
 export const FILE_OUTPUT_PREFIX = 'CSP';
 
+export const HELP_FOOTNOTE_PREFIX = 'tr';
+export const HELP_FOOTNOTE_SUFFIX = '-rf';
+
 export const helpInstructionHeadings = [
-    'loadFileIndx'
+    'loadFileIndx',
+    'dateLastIndx',
+    'appContactIndx',
+    'patentInfoIndx',
+    'newDrugIndx',
+    'nocDateIndx',
+    'drugUseIndx',
+    'medicIngrIndx',
+    'attestationIndx',
+    'feePayIndx',
+    'methodPayIndx',
+    'certificationIndx'
   ];
