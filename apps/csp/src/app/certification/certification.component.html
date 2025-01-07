@@ -78,7 +78,7 @@
             label="date"
             parentId="cspCertification">
           </control-messages>
-          <input class="form-control" id="date" type="date" [formControlName]="'date'" (input)="checkDateValidity($event)"/>
+          <input class="form-control" id="date" type="date" [formControlName]="'date'" (blur)="checkDateValidity($event)"/>
         </label>
       </div>
 

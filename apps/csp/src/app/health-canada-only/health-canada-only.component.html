@@ -12,7 +12,7 @@
             controlId="appReceived"
             label="appReceived"
           ></control-messages>
-          <input class="form-control" id="appReceived" type="date" [formControlName]="'appReceived'"/>
+          <input class="form-control" id="appReceived" type="date" [formControlName]="'appReceived'" (blur)="checkDateValidity($event)"/>
         </label>
       </div>
 

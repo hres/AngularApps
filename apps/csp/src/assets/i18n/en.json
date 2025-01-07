@@ -473,6 +473,7 @@
     "error.msg.zip":"Invalid entry - must be 5 numbers",
     "error.msg.postal":"Invalid format - must be X#X#X#",
     "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
+    "error.msg.invalidDate": "The date is not valid",
 
     "panel.title.hc.only": "Health Canada Use Only",
     "hco.app.received": "Date Application Received",
