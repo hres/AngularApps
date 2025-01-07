@@ -5,11 +5,13 @@
             <p class="fn-rtn"><a [href]="'#' + helpTextSequences['loadFileIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences['loadFileIndx'][0]}}
 				<span class="wb-inv"> referrer</span></a></p>
             <div class="fn-rep">
-                <p>{{'load.file'|translate}}</p>
+                <p>{{'ht.load.1'|translate}}</p>
                 <ul>
-                    <li>{{'ht.load.file.2'|translate}}</li>
-                    <li>{{'ht.load.file.3'|translate}}</li>
+                    <li>{{'ht.load.2'|translate}}</li>
+                    <li>{{'ht.load.3'|translate}}</li>
+                    <li>{{'ht.load.4'|translate}}</li>
                 </ul>
+
 
                 <p class="fn-rtn"><a [href]="'#' + helpTextSequences['loadFileIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
                     {{helpTextSequences.loadFileIndx[0]}}
@@ -17,235 +19,155 @@
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['dossierTypeIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['dossierTypeIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['dateLastIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['dateLastIndx'][1]">
             <div class="fn-rep">
-                <p>{{'dossier.type'|translate}}</p>
-                <ul>
-                    <li>{{'ht.dossier.type.1'|translate}}</li>
-                    <li>{{'ht.dossier.type.2'|translate}}</li>
-                    <li>{{'ht.dossier.type.4'|translate}}</li>
-                </ul>
+                <p>{{'ht.date.1'|translate}}</p>
+                <p [innerHTML]="'ht.date.2'|translate"></p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['dossierTypeIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                    {{helpTextSequences.dossierTypeIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['dateLastIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                    {{helpTextSequences.dateLastIndx[0]}}
                     <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['compIdIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['compIdIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['appContactIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['appContactIndx'][1]">
             <div class="fn-rep">
-                <p>{{'company.id'|translate}}</p>
-                <p>{{'ht.comp.id.1' | translate}}</p>
-                <p>{{'ht.comp.id.2' | translate}}</p>
+                <p>{{'ht.app.1'|translate}}</p>
+                <ul>
+                    <li [innerHTML]="'ht.app.2'|translate"></li>
+                    <li [innerHTML]="'ht.app.3'|translate"></li>
+                    <li [innerHTML]="'ht.app.4'|translate"></li>
+                    <li [innerHTML]="'ht.app.5'|translate"></li>
+                    <li [innerHTML]="'ht.app.6'|translate"></li>
+                    <li [innerHTML]="'ht.app.7'|translate"></li>
+                    <li [innerHTML]="'ht.app.8'|translate"></li>
+                    <li [innerHTML]="'ht.app.9'|translate"></li>
+                </ul>
                 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['compIdIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.compIdIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['appContactIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.appContactIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['dossierIdIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['dossierIdIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['patentInfoIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['patentInfoIndx'][1]">
             <div class="fn-rep">
-                <p>{{'dossier.id' |translate}}</p>
-                <p>{{'ht.dossier.id' | translate}}</p>
-                <p>{{'ht.dossier.id.0' | translate}}</p>
+                <p>{{'ht.patent.1' |translate}}</p>
                 <ul>
-                    <li>{{'ht.dossier.id.1'|translate}}</li>
-                    <li>{{'ht.dossier.id.2'|translate}}</li>
-                    <li>{{'ht.dossier.id.3'|translate}}</li>
-                    <li>{{'ht.dossier.id.5'|translate}}</li>
+                    <li [innerHTML]="'ht.patent.2'|translate"></li>
+                    <li [innerHTML]="'ht.patent.3'|translate"></li>
+                    <li [innerHTML]="'ht.patent.4'|translate"></li>
+                    <li [innerHTML]="'ht.patent.5'|translate"></li>
                 </ul>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['dossierIdIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.dossierIdIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['patentInfoIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.patentInfoIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['prodNameIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['prodNameIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['newDrugIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['newDrugIndx'][1]">
             <div class="fn-rep">
-                <p>{{'product.name' |translate}}</p>
-                <p>{{'ht.prod.name.1' | translate}}</p>
-                <p>{{'ht.prod.name.2' | translate}}</p>
-                <p>{{'ht.prod.name.3' | translate}}</p>
+                <p>{{'ht.drug.1' |translate}}</p>
+                <p [innerHTML]="'ht.drug.2'|translate"></p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['prodNameIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.prodNameIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['newDrugIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.newDrugIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['prioRevIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['prioRevIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['nocDateIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['nocDateIndx'][1]">
             <div class="fn-rep">
-                <p>{{'section.show.option' |translate}}{{'is.priority' |translate}}</p>
-                <p>{{'ht.refer.to'|translate}}
-                    <a href="{{'ht.prio.rev.url'|translate}}" target="_blank">{{'ht.prio.rev'|translate}}</a>
-                </p>
+                <p>{{'ht.noc.1' |translate}}</p>
+                <p [innerHTML]="'ht.noc.2'|translate"></p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['prioRevIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.prioRevIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['nocDateIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.nocDateIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['nocRevIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['nocRevIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['drugUseIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['drugUseIndx'][1]">
             <div class="fn-rep">
-                <p>{{'section.show.option' |translate}}{{'is.noc' |translate}}</p>
-                <p>{{'ht.refer.to'|translate}}
-                    <a href="{{'ht.noc.rev.url'|translate}}" target="_blank">{{'ht.noc.rev'|translate}}</a>
-                </p>
+                <p>{{'ht.drug.use.1' |translate}}</p>
+                <p [innerHTML]="'ht.drug.use.2'|translate"></p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['nocRevIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.nocRevIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['drugUseIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.drugUseIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['adminSubIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['adminSubIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['medicIngrIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['medicIngrIndx'][1]">
             <div class="fn-rep">
-                <p>{{'section.show.option' |translate}}{{'is.admin.submission' |translate}}</p>
-                <p>{{'ht.refer.to'|translate}}
-                    <a href="{{'ht.admin.sub.url'|translate}}" target="_blank">{{'ht.admin.sub'|translate}}</a>
-                    {{'ht.admin.sub.1'|translate}}
-                    <a href="{{'ht.admin.sub.2.url'|translate}}" target="_blank">{{'ht.admin.sub.2'|translate}}</a>
-                </p>
+                <p>{{'ht.medic.1' |translate}}</p>
+                <p [innerHTML]="'ht.medic.2'|translate"></p>
+                <p [innerHTML]="'ht.medic.3'|translate"></p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['adminSubIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.adminSubIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['medicIngrIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.medicIngrIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['regActIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['regActIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['attestationIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['attestationIndx'][1]">
             <div class="fn-rep">
-                <p>{{'activity.lead' |translate}}</p>
-                <ul>
-                    <li>{{'ht.act.lead.1'|translate}}</li>
-                    <li>{{'ht.act.lead.4'|translate}}</li>
-                    <li>{{'ht.act.lead.5'|translate}}</li>
-                    <li>{{'ht.act.lead.6'|translate}}</li>
-                    <li>{{'ht.act.lead.7'|translate}}</li>
-                </ul>
+                <p>{{'ht.attes.1' |translate}}</p>
+                <p>{{'ht.attes.2' |translate}}</p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['regActIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.regActIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['attestationIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.attestationIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['yearChangeIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['yearChangeIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['feePayIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['feePayIndx'][1]">
             <div class="fn-rep">
-                <p>{{'section.show.option' |translate}}{{'year.change' |translate}}</p>
-                <p>{{'ht.year.change.1' |translate}}</p>
-                <ul>
-                    <li>{{'ht.year.change.2'|translate}}
-                        <a href="{{'ht.year.change.url.1'|translate}}" target="_blank">{{'ht.year.change.3'|translate}}</a>
-                    </li>
-                    <li>{{'ht.year.change.2'|translate}}
-                        <a href="{{'ht.year.change.url.2'|translate}}" target="_blank">{{'ht.year.change.4'|translate}}</a>
-                    </li>
-                </ul>
-                <p>{{'ht.year.change.5' |translate}}</p>
-                <ul>
-                    <li>
-                        <a href="{{'ht.year.change.url.3'|translate}}" target="_blank">{{'ht.year.change.6'|translate}}</a>
-                    </li>
-                    <li>
-                        <a href="{{'ht.year.change.url.4'|translate}}" target="_blank">{{'ht.year.change.7'|translate}}</a>
-                    </li>
-                </ul>
-                <p>{{'ht.year.change.8' |translate}}</p>
-                <p>{{'ht.year.change.13' |translate}}</p>
-                <ul>
-                    <li>{{'ht.year.change.9' |translate}}</li>
-                </ul>
+                <p>{{'ht.fee.1' |translate}}</p>
+                <p [innerHTML]="'ht.fee.2'|translate"></p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['yearChangeIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.yearChangeIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['feePayIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.feePayIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
         
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['briefDescIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['briefDescIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['methodPayIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['methodPayIndx'][1]">
             <div class="fn-rep">
-                <p>{{'section.show.option' |translate}}{{'brief.desc.change' |translate}}</p>
-                <p>{{'ht.desc.change.1'|translate}}</p>
-                <p>{{'ht.desc.change.2'|translate}}</p>
-                <p>{{'ht.desc.change.3'|translate}}</p>
-                <p>{{'ht.desc.change.4'|translate}}</p>
+                <p>{{'ht.fee.meth.1' |translate}}</p>
+                <p>{{'ht.fee.meth.2'|translate}}</p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['briefDescIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.briefDescIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['methodPayIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.methodPayIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['requestSoliIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['requestSoliIndx'][1]">
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['certificationIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['certificationIndx'][1]">
             <div class="fn-rep">
-                <p>{{'section.show.option' |translate}}{{'solicited.rq' |translate}}</p>
-                <p>{{'ht.req.sol'|translate}}</p>
-
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['requestSoliIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.requestSoliIndx[0]}}
-                        <span class="wb-inv"> referrer</span></a></p>
-            </div>
-        </dd>
-        
-
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['feesIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['feesIndx'][1]">
-            <div class="fn-rep">
-                <p>{{'section.show.option' |translate}}{{'regulatory.fees' |translate}}</p>
-                <p>{{'ht.fees.1'|translate}}</p>
-                <p [innerHTML]="'ht.fees.2' | translate"></p>
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['feesIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.feesIndx[0]}}
-                        <span class="wb-inv"> referrer</span></a></p>
-            </div>
-        </dd>
-        
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['regContactIndx'][0]}}</dt>
-       <dd [id]="helpTextSequences['regContactIndx'][1]">
-            <div class="fn-rep">
-                <p>{{'panel.title.reg.contact' |translate}}</p>
-                <p>{{'ht.contact.1'|translate}}</p>
-                <p>{{'ht.contact.4'|translate}}</p>
-                <p>{{'ht.contact.6'|translate}}</p>
-                <p>{{'ht.contact.7'|translate}}</p>
-
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['regContactIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.regContactIndx[0]}}
-                        <span class="wb-inv"> referrer</span></a></p>
-            </div>
-        </dd>
-        
-       <dt>{{'Instruction'|translate}} {{helpTextSequences['genFinalIndx'][0]}}</dt>
-       <dd [id]="helpTextSequences['genFinalIndx'][1]">
-            <div class="fn-rep">
-                <p>{{'generate.final' |translate}}</p>
-                <p>{{'ht.xml.3'|translate}}</p>
+                <p>{{'ht.cert.1' |translate}}</p>
                 <ul>
-                    <li>{{'ht.xml.4'|translate}}</li>
-                    <li>{{'ht.xml.5'|translate}}</li>
+                    <li [innerHTML]="'ht.cert.2'|translate"></li>
+                    <li [innerHTML]="'ht.cert.3'|translate"></li>
+                    <li [innerHTML]="'ht.cert.4'|translate"></li>
                 </ul>
-                <p>{{'ht.xml.2'|translate}}</p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['genFinalIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.genFinalIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['certificationIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.certificationIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>
     </dl>
-  </aside>
-  
+</aside>
