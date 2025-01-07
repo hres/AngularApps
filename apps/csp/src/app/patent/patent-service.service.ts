@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { identityRevealedValidator } from '../crossFieldValidator';
 import { IPatent } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
+import { ValidationService } from '@hpfb/sdk/ui';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class PatentService {
       return null;
    }
    const patentForm = fb.nonNullable.group({
-     patentNumber: new FormControl(null, Validators.required),
+     patentNumber: new FormControl( '', [Validators.required, Validators.minLength(7)]),
      patentFillingDate: new FormControl(null, Validators.required),
      patentGrandDate: new FormControl(null, Validators.required),
      patendExpirationDate: new FormControl(null, Validators.required),
