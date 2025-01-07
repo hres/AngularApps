@@ -16,7 +16,7 @@ export class NewDrugSubmissionInformationService {
     }
 
     const newDrugSubmissionInfoForm = fb.nonNullable.group({
-     ndsNumber: new FormControl(null, Validators.required)
+     ndsNumber: new FormControl(null, [Validators.required, Validators.minLength(6)])
          });
      return newDrugSubmissionInfoForm
 
