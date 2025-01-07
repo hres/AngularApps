@@ -39,6 +39,7 @@ export class ValidationService implements IValidationService {
       'error.msg.revise.contact' : 'error.msg.revise.contact',
       'error.mgs.incorrectFormat': 'error.mgs.incorrectFormat',
       'error.msg.invalidDate': 'error.msg.invalidDate',
+      'error.msg.endDate':'error.msg.endDate',
     };
 
     return config[validatorName];
