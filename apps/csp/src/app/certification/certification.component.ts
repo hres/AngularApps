@@ -61,15 +61,23 @@ export class CertificationComponent  extends BaseComponent implements OnInit {
     const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
 
     if (!isValidFormat) {
-      this.certificationForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-    } else {
-      if (dateControl.errors?.['invalidDate']) {
         this.certificationForm
             .get(inputName)
             .setErrors({ 'error.msg.invalidDate': true });
-      }
+    } else {
+        const year = parseInt(dateValue.substring(0, 4), 10);
+        if (year < 1900 || year > 3000) {
+            this.certificationForm
+                .get(inputName)
+                .setErrors({ 'error.msg.invalidDate': true });
+        } else {
+            if (dateControl.errors?.['error.msg.invalidDate']) {
+                delete dateControl.errors['error.msg.invalidDate'];
+                if (Object.keys(dateControl.errors).length === 0) {
+                    dateControl.setErrors(null);
+                }
+            }
+        }
     }
   }
 

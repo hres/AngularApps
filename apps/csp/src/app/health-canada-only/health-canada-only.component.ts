@@ -46,17 +46,26 @@ export class HcUseOnlyComponent  extends BaseComponent implements OnInit {
     const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
 
     if (!isValidFormat) {
-      this.hcUseOnlyForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-    } else {
-      if (dateControl.errors?.['invalidDate']) {
         this.hcUseOnlyForm
             .get(inputName)
             .setErrors({ 'error.msg.invalidDate': true });
-      }
+    } else {
+        const year = parseInt(dateValue.substring(0, 4), 10);
+        if (year < 1900 || year > 3000) {
+            this.hcUseOnlyForm
+                .get(inputName)
+                .setErrors({ 'error.msg.invalidDate': true });
+        } else {
+            if (dateControl.errors?.['error.msg.invalidDate']) {
+                delete dateControl.errors['error.msg.invalidDate'];
+                if (Object.keys(dateControl.errors).length === 0) {
+                    dateControl.setErrors(null);
+                }
+            }
+        }
     }
-  }
+}
+
   
   protected override emitErrors(errors: any[]){
     this.errorList.emit(errors);
