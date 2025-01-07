@@ -55,6 +55,23 @@ export class PatentComponent extends BaseComponent implements OnInit {
       this.patentInformationForm.get(inputName),
       'invalidDate'
     );
+
+    const dateControl = this.patentInformationForm.get(inputName);
+    const dateValue = dateControl.value;
+    const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
+
+    if (!isValidFormat) {
+      this.patentInformationForm
+            .get(inputName)
+            .setErrors({ 'error.msg.invalidDate': true });
+    } else {
+      if (dateControl.errors?.['invalidDate']) {
+        this.patentInformationForm
+            .get(inputName)
+            .setErrors({ 'error.msg.invalidDate': true });
+      }
+    }
+
     if (this.patentInformationForm != undefined) {
       let patendExpirationDate = this.patentInformationForm.get(
         'patendExpirationDate'
