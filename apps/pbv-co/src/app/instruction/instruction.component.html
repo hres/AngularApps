@@ -42,8 +42,6 @@
                 <ul>
                     <li>{{'ht.reason.filing.1'|translate}}</li>
                     <li>{{'ht.reason.filing.2'|translate}}</li>
-                    <li>{{'ht.reason.filing.3'|translate}}</li>
-                    <li>{{'ht.reason.filing.4'|translate}}</li>
                 </ul>
 
                 <p class="fn-rtn"><a [href]="'#' + helpTextSequences['reasonIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
@@ -105,6 +103,17 @@
 
                 <p class="fn-rtn"><a [href]="'#' + helpTextSequences['companyRepIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
                         {{helpTextSequences.companyRepIndx[0]}}
+                        <span class="wb-inv"> referrer</span></a></p>
+            </div>
+        </dd>
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['prodLineIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['prodLineIndx'][1]">
+            <div class="fn-rep">
+                <p>{{'prod.line' |translate}}</p>
+                <p>{{'ht.prod.line' | translate}}</p>
+
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['prodLineIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.prodLineIndx[0]}}
                         <span class="wb-inv"> referrer</span></a></p>
             </div>
         </dd>

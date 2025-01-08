@@ -19,7 +19,8 @@ export const HELP_TEXT_SEQUENCE = [
     'addressInfoIndx',
     'businessNumIndx',
     'selectRolesIndx',
-    'companyRepIndx'
+    'companyRepIndx',
+    'prodLineIndx'
   ];
 
 export const DOSSIER_TYPE = {
