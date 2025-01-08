@@ -183,7 +183,7 @@
 
     "rq.review.report": "Request Review Report(s)",
     "help.email": "ESGHelpDesk@fda.hhs.gov",
-    "5digits.only": " (5-digit)",
+    "5digits.only": " (5 digits)",
 
     "error.msg.minlength": "Invalid entry - must be {{ requiredLength }} numbers",
     "error.mgs.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product.",
