@@ -18,12 +18,15 @@
             "
             controlId="patentNumber"
             label="patentNumber"
+
           ></control-messages>
           <input
             class="form-control"
             id="patentNumber"
-            type="number"
-            [formControlName]="'patentNumber'"
+            data-only-digits
+            [formControlName]="'patentNumber'" maxlength="7"
+
+
           />
         </label>
       </div>
