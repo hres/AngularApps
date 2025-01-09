@@ -47,6 +47,10 @@ export class PatentComponent extends BaseComponent implements OnInit {
     this.errorList.emit(errors);
   }
 
+  onDateInput(event: any): void {
+    this._globalService.isDateValid(event, this.patentInformationForm);
+  }
+
   checkDateValidity(event: any): void {
     let inputName =
       event.target.attributes.getNamedItem('ng-reflect-name').value;
@@ -55,30 +59,6 @@ export class PatentComponent extends BaseComponent implements OnInit {
       this.patentInformationForm.get(inputName),
       'invalidDate'
     );
-
-    const dateControl = this.patentInformationForm.get(inputName);
-    const dateValue = dateControl.value;
-    const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
-
-    if (!isValidFormat) {
-        this.patentInformationForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-    } else {
-        const year = parseInt(dateValue.substring(0, 4), 10);
-        if (year < 1900 || year > 3000) {
-            this.patentInformationForm
-                .get(inputName)
-                .setErrors({ 'error.msg.invalidDate': true });
-        } else {
-            if (dateControl.errors?.['error.msg.invalidDate']) {
-                delete dateControl.errors['error.msg.invalidDate'];
-                if (Object.keys(dateControl.errors).length === 0) {
-                    dateControl.setErrors(null);
-                }
-            }
-        }
-    }
 
     if (this.patentInformationForm != undefined) {
       let patendExpirationDate = this.patentInformationForm.get(

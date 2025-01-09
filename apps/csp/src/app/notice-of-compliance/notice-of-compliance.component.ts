@@ -60,6 +60,10 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
     this.errorList.emit(errors);
   }
 
+  onDateInput(event: any): void {
+    this._globalService.isDateValid(event, this.noticeOfComplianceForm);
+  }
+
   checkDateValidity(event: any): void {
     let inputName =
       event.target.attributes.getNamedItem('ng-reflect-name').value;
@@ -73,31 +77,6 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
         'patendExpirationDate'
       );
     }
-
-    const dateControl = this.noticeOfComplianceForm.get(inputName);
-    const dateValue = dateControl.value;
-    const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
-
-    if (!isValidFormat) {
-        this.noticeOfComplianceForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-    } else {
-        const year = parseInt(dateValue.substring(0, 4), 10);
-        if (year < 1900 || year > 3000) {
-            this.noticeOfComplianceForm
-                .get(inputName)
-                .setErrors({ 'error.msg.invalidDate': true });
-        } else {
-            if (dateControl.errors?.['error.msg.invalidDate']) {
-                delete dateControl.errors['error.msg.invalidDate'];
-                if (Object.keys(dateControl.errors).length === 0) {
-                    dateControl.setErrors(null);
-                }
-            }
-        }
-    }
-
   }
 
   getFormValue() {

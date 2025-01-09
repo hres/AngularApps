@@ -39,33 +39,9 @@ export class HcUseOnlyComponent  extends BaseComponent implements OnInit {
     return this.hcUseOnlyForm.value;
   }
 
-  checkDateValidity(event: any): void {
-    const inputName = event.target.attributes.getNamedItem('ng-reflect-name')?.value;
-    const dateControl = this.hcUseOnlyForm.get(inputName);
-    const dateValue = dateControl.value;
-    const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
-
-    if (!isValidFormat) {
-        this.hcUseOnlyForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-    } else {
-        const year = parseInt(dateValue.substring(0, 4), 10);
-        if (year < 1900 || year > 3000) {
-            this.hcUseOnlyForm
-                .get(inputName)
-                .setErrors({ 'error.msg.invalidDate': true });
-        } else {
-            if (dateControl.errors?.['error.msg.invalidDate']) {
-                delete dateControl.errors['error.msg.invalidDate'];
-                if (Object.keys(dateControl.errors).length === 0) {
-                    dateControl.setErrors(null);
-                }
-            }
-        }
-    }
-}
-
+  onDateInput(event: any): void {
+    this._globalService.isDateValid(event, this.hcUseOnlyForm);
+  }
   
   protected override emitErrors(errors: any[]){
     this.errorList.emit(errors);
