@@ -13,7 +13,7 @@
     "reason.filing": "Raison de déposer",
     "example": "Exemple:",
     "ht.reason.filing.1": "Nouvel enregistrement de compagnie pour obtenir le numéro de la compagnie pour la première fois.",
-    "ht.reason.filing.2": "Modification des informations sur la compagnie: changement de nom / fusion / changement de nom / rachat / identifier le changement significatif des informations sur la compagnie.",
+    "ht.reason.filing.2": "Modification des informations sur la compagnie: changement de nom / fusion / rachat / identifier le changement significatif des informations sur la compagnie.",
     "address.info": "Information d'adresse",
     "ht.address.info.1": "Le modèle de compagnie doit contenir au moins une adresse.",
     "ht.address.info.2": "Les rôles suivants doivent être associés : « Adresse postale du fabricant ou promoteur », « Adresse de facturation » et « Contact pour l'adresse courrier réglementaire / adresse pour l'annuelle ».",
