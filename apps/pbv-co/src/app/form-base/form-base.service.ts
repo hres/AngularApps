@@ -40,7 +40,8 @@ export class FormBaseService {
       date_saved: undefined,
       software_version: '',
       form_language: '',
-      check_sum: ''
+      check_sum: '',
+      application_type: ''
     };
     
     return companyEnrol;
