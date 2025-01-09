@@ -191,6 +191,7 @@
     "error.msg.zip":"Entrée non valide - doit contenir 5 chiffres",
     "error.msg.postal":"Format non valide - doit être X#X#X#",
     "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
+    "error.msg.invalidDate": "Cette date n'est pas valide",
     "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité."
 
 }
