@@ -6,6 +6,7 @@
     "ht.load.file.1": "A file should not be loaded if this is the first time enrolling the company.",
     "ht.load.file.2": "When continuing with a working copy, the format of the file to load should be .hcsc.",
     "ht.load.file.3": "When viewing/updating a final XML file, the format of the file to load should be .xml.",
+    "amend.alert": "The \"Amend enrolment\" button must be selected when amending a Final Company XML.",
     "company.enrolment": "Regulatory Company Enrolment",
     "ht.company.enrolment.1": "The \"Enrolment status\", \"Enrolment version\", and \"Date last saved\" fields are automatically filled by the form upon selecting \"Save working copy\" or \"Save draft XML\" in the bottom of the template.",
     "ht.company.enrolment.2": "The \"Company Identifier\" field will be filled by Health Canada when they generate the final company XML file.",

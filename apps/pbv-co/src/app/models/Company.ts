@@ -10,4 +10,5 @@ export interface CompanyEnrol {
   software_version: string;
   form_language: string;
   check_sum?: string;
+  application_type: string;
 }
