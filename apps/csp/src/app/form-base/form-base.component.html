@@ -21,20 +21,6 @@
       <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
         headingPreamble="errorSummary.cspfile"></lib-error-summary>
     </div>
-
-    <div *ngIf="isInternal">
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'panel.title.hc.only'|translate}}</h2>
-          </header>
-          <div class="panel-body">
-            <app-health-canada-only [showErrors]="showErrors"
-            (errorList)="processHealthCanadaOnlyErrors($event)"
-            ></app-health-canada-only>
-          </div>
-      </section>
-    </div>
-
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
         <header class="panel-heading clearfix">
@@ -42,21 +28,6 @@
           </header>
           <div class="panel-body">
             <app-cert-supp-protect  [saveWorkCopyTime]="saveWorkCopyTime"></app-cert-supp-protect>
-          </div>
-      </section>
-    </div>
-
-    <div>
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'panel.title.applicant'|translate}}</h2>
-          </header>
-          <div class="panel-body">
-            <app-applicant [showErrors]="showErrors"
-            [addressModel]=""
-            [contactModel]=""
-            (errorList)="processPatentInfoErrors($event)">
-            </app-applicant>
           </div>
       </section>
     </div>
@@ -144,31 +115,10 @@
       </section>
     </div>
 
-    <div>
-      <section class ="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">            
-          <h2 class="panel-title">{{'panel.title.fees'|translate}}</h2>
-        </header>
-        <div class="panel-body">
-          <app-fees [showErrors]="showErrors"
-            (errorList)="processFeesErrors($event)"
-            ></app-fees>
-        </div>
-      </section>
-    </div>
 
-    <div>
-      <section class ="panel panel-primary mrgn-tp-lg">
-          <header class="panel-heading clearfix">
-            <h2 class="panel-title">{{'panel.title.certification'|translate}}</h2>
-          </header>
-          <div class="panel-body">
-            <app-certification [showErrors]="showErrors"
-            (errorList)="processCertificationErrors($event)"
-            ></app-certification>
-          </div>
-      </section>
-   </div>
+
+
+
 
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">

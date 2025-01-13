@@ -40,8 +40,7 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getAdminSubTypes(this._globalService.currLanguage),
     this._formDataLoader.getSubmissionClasses(),
     this._formDataLoader.getMitigationTypes(),
-    this._formDataLoader.getLanguageList(),
-    this._formDataLoader.getCountryIdMapping()
+    this._formDataLoader.getLanguageList()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -68,7 +67,6 @@ export class ContainerComponent implements OnInit {
       this._globalService.submissionClasses = data[12];
       this._globalService.mitigationTypes = data[13];
       this._globalService.languageList = data[14];
-      this._globalService.countryIdMappingList = data[15];
 
       this.loadFormBaseComponent = true;
     });

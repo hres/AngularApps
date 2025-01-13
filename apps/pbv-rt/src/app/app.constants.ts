@@ -28,6 +28,7 @@ export const HELP_TEXT_SEQUENCE = [
     'yearChangeIndx',
     'briefDescIndx',
     'requestSoliIndx',
+    'ctrlNumIndx',
     'feesIndx',
     'regContactIndx',
     'genFinalIndx'

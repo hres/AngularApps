@@ -25,8 +25,8 @@
                 "fr": "prod_v42_wcag/company/companyINT-fr.html"
             },
             "rt": {
-                "en": "transaction/en/regulatory-transaction.html",
-                "fr": "transaction/fr/réglementaire-transaction.html"
+                "en": "prod_v44/transaction/regulatory-transaction.html",
+                "fr": "prod_v44/transaction/réglementaire-transaction.html"
             },
             "pi": {
                 "en": "prod_v44/product/product.html",

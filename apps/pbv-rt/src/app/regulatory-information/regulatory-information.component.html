@@ -88,7 +88,7 @@
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prioRevIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isPriority'].invalid" [showError]="showFieldErrors"
-                  [control]="regulartoryInfoForm.controls['isPriority'] | formControl" controlId="isPriority0"
+                  [control]="regulartoryInfoForm.controls['isPriority'] | formControl" controlId="isPriority"
                   label="is.priority" parentId="regulatoryInfo"></control-messages>
               </legend>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -111,7 +111,7 @@
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['nocRevIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isNOC'].invalid" [showError]="showFieldErrors"
-                  [control]="regulartoryInfoForm.controls['isNOC'] | formControl" controlId="isNOC0"
+                  [control]="regulartoryInfoForm.controls['isNOC'] | formControl" controlId="isNOC"
                   label="is.noc" parentId="regulatoryInfo"></control-messages>
               </legend>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -134,7 +134,7 @@
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminSubIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isAdminSubmission'].invalid" [showError]="showFieldErrors"
-                  [control]="regulartoryInfoForm.controls['isAdminSubmission'] | formControl" controlId="isAdminSubmission0"
+                  [control]="regulartoryInfoForm.controls['isAdminSubmission'] | formControl" controlId="isAdminSubmission"
                   label="is.admin.submission" parentId="regulatoryInfo"></control-messages>
               </legend>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">

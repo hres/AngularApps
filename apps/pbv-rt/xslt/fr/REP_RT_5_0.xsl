@@ -764,7 +764,7 @@ span.normalWeight {
 							</div>
 							<div class="row">
 								<xsl:choose>
-									<xsl:when test="regulatory_activity_address/country/@id = 'CA'">
+									<xsl:when test="regulatory_activity_address/country/@id = 'CAN'">
 										<div class="col-xs-4">
 											<strong>Province: </strong>
 											<span class="mouseHover">

@@ -24,7 +24,6 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   @Input() countryList;
   @Input() provinceList;
   @Input() stateList;
-  @Input() canadaDefault;
   @Output() errorList = new EventEmitter(true);
 
   public addressForm: FormGroup;
@@ -58,10 +57,11 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     if (!this.addressForm) {
       this.addressForm = this._detailsService.getReactiveModel(this._fb);
     }
-    this.defaultToCanada();
   }
 
   protected override emitErrors(errors: any[]): void {
+    console.log("emitting address erorrs");
+    console.log(errors);
     this.errorList.emit(errors);
   }
 
@@ -131,16 +131,6 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   private _resetControlValues(controlNames: string[]) {
     for (let i = 0; i < controlNames.length; i++) {
       this._utilsService.resetControlsValues(this.addressForm.controls[controlNames[i]]);
-    }
-  }
-
-  defaultToCanada() {
-    if (this.canadaDefault) {
-      this.addressForm.controls['country'].setValue('CA');
-      this.addressForm.controls['country'].disable(); // Method to grey out/disable the country dropdown
-      this._detailsService.setIsDefaultCountryCanada(this.canadaDefault);
-      this.selectedCountrySignal.set('CA');
-      this.onCountryChange(null);
     }
   }
 

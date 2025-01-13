@@ -72,24 +72,10 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
       let patendExpirationDate = this.noticeOfComplianceForm.get(
         'patendExpirationDate'
       );
+
+
+
     }
-
-    const dateControl = this.noticeOfComplianceForm.get(inputName);
-    const dateValue = dateControl.value;
-    const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
-
-    if (!isValidFormat) {
-      this.noticeOfComplianceForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-    } else {
-      if (dateControl.errors?.['invalidDate']) {
-        this.noticeOfComplianceForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-      }
-    }
-
   }
 
   getFormValue() {

@@ -37,18 +37,14 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   private _signalService = inject(AppSignalService)
   private _logger = inject(LoggerService)
 
-  isPharmaBio: Signal<boolean> = this._signalService.isPharmaBio();
-  isPharmaBioVet: Signal<boolean> = this._signalService.isPharmaBioVet();
-
   readonly selectedDossierTypeSignal = this._signalService.getSelectedDossierType();
 
   readonly selectedDossierTypeDefinition = computed(() => {
-    if (!this.isPharmaBio()) {
-      const valuesToReset = ['isPriority', 'isNOC'];
-      this._resetControlValues(valuesToReset);
-    }
     return this._getCodeDefinition(this._globalService.dossierTypes, this.selectedDossierTypeSignal());
   });
+
+  isPharmaBio: Signal<boolean> = this._signalService.isPharmaBio();
+  isPharmaBioVet: Signal<boolean> = this._signalService.isPharmaBioVet();
 
   adminSubmissionSelected = signal('');
   isAdminSubmission: Signal<boolean> = computed(() => {
