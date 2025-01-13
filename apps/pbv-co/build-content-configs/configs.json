@@ -5,7 +5,7 @@
         "prod": "https://health-products.canada.ca/rep-pir"
     },
     "index_file_name": {
-        "en": "regulatory-transaction.html",
-        "fr": "réglementaire-transaction.html"
+        "en": "company.html",
+        "fr": "entreprise.html"
     }
 }
