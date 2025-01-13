@@ -271,7 +271,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     return this.transctionDetailsForm.value;
   }
 
-  checkDateValidity(event: any): void {
+  checkDateValidity(inputName : string, event: any): void {
     const startDate = this.transctionDetailsForm.controls['startDate'].value;
     const endDate = this.transctionDetailsForm.controls['endDate'].value;
     const sD: Date = new Date(startDate);
@@ -281,7 +281,6 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       console.log("here");
       this.transctionDetailsForm.controls['endDate'].setErrors({'error.msg.endDate' : true});
     } else {
-      let inputName = event.target.attributes.getNamedItem('ng-reflect-name').value;
       this._utilsService.checkInputValidity(event, this.transctionDetailsForm.get(inputName),'invalidDate');    
     }
   } 
