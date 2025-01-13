@@ -38,6 +38,7 @@ export class GlobalService {
   private _submissionClasses: ICodeDefinition[];
   private _mitigationTypes: ICode[];
   private _languageList: ICode[];
+  private _countryIdMappingList: any[] = [];
 
   constructor() {}
 
@@ -236,5 +237,14 @@ export class GlobalService {
 
   public set languageList(value: ICode[]) {
     this._languageList = value;
+  }
+
+  //Temoporary use to update country code from 4.4.3 to 5.0.0, Shall be removed in later release
+  public get countryIdMappingList(): any[] {
+    return this._countryIdMappingList;
+  }
+
+  public set countryIdMappingList(value: any[]) {
+    this._countryIdMappingList = value;
   }
 }

@@ -1,14 +1,14 @@
 {
   "name": "@hpfb/pbv",
   "version": "1.0.0",
-  "buildNumber": 6,
+  "buildNumber": 10,
   "peerDependencies": {
     "@angular/common": "^18.2.0",
     "@angular/core": "^18.2.0"
   },
   "dependencies": {
     "tslib": "^2.3.0",
-    "@hpfb/sdk": "file:../../../libs/hpfb-sdk-1.1.0.tgz"
+    "@hpfb/sdk": "file:../../../libs/hpfb-sdk-1.2.0.tgz"
   },
   "sideEffects": false
 }

@@ -1,4 +1,5 @@
 import { IIdText, IIdTextLabel, ITextLabel } from "@hpfb/sdk/ui";
+import { INameAddress, IContact } from "@hpfb/pbv";
 
 export interface Transaction {
   TRANSACTION_ENROL: TransactionEnrol;
@@ -11,20 +12,26 @@ export interface TransactionEnrol {
   form_language: string;
   check_sum?: string;
   ectd: Ectd;
+  hcUse: HcUse;
+  applicant: IApplicant;
   fee_details: FeeDetails;
   patent: IPatent;
   drugUse: string;
   nocDate: string;
   ndsNumber: string;
   medicinalIngredients: string;
+  certification: CertDetails;
   timingOfApplicant: string;
 }
 
+export interface HcUse {
+  appReceived: string;
+  custNum: string;
+  appNum: string;
+  notes: string;
+}
+
 export interface Ectd {
-  company_id: string;
-  dossier_id: string;
-  dossier_type: IIdText;
-  product_name: string;
   product_protocol: string;
   lifecycle_record: LifecycleRecord;
 }
@@ -42,9 +49,19 @@ export interface LifecycleRecord {
 }
 
 export interface FeeDetails {
+  feeAmount: string;
+  payMethod: string;
 }
 
-export interface INameAddress {
+export interface CertDetails {
+  firstName: string;
+  initials: string;
+  lastName: string;
+  jobTitle: string;
+  date: string;
+}
+
+export interface INameAddressCSP {
   company_name: string;
   street_address: string;
   city: string;
@@ -54,8 +71,9 @@ export interface INameAddress {
   postal_code: string;
 }
 
-export interface IContact {
+export interface IContactCSP {
   given_name: string;
+  initials: string;
   surname: string;
   job_title: string;
   language_correspondance: IIdTextLabel;
@@ -70,6 +88,17 @@ export interface IPatent {
   patentFillingDate: string;
   patendExpirationDate: string;
   patentGrandDate: string;
+}
+
+export interface IApplicant {
+  billing_role: string;
+  applicant_role: string;
+  applicant_name: string;
+  cra_business_number: string;
+  csp_customer_number: string;
+  agent_name: string;
+  contact: IContact;
+  address: INameAddress
 }
 
 export interface IDrugUse {

@@ -35,6 +35,8 @@ export class FormDataLoaderService {
   raLeadRaTypeAndTxnDescrs$: Observable<any[]>;
   submissionClasses$: Observable<ICodeDefinition[]>;
   mitigationTypes$: Observable<ICode[]>;
+  //Temporary mapping for country code update from version 4.4.3 to 5.0.0, shall be removed in later releases
+  countryIdMapping$: Observable<any[]>;
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -210,5 +212,17 @@ export class FormDataLoaderService {
         );
     }
     return this.mitigationTypes$;
+  }
+
+  //Temporary mapping for country code update from version 4.4.3 to 5.0.0, shall be removed in later releases
+  getCountryIdMapping(): Observable<any[]> {
+    if (!this.countryIdMapping$) {
+      this.countryIdMapping$ = this._dataService
+        .getData<any>(DATA_PATH + 'countryIdMapping.json')
+        .pipe(
+          shareReplay(1)
+        );
+    }
+    return this.countryIdMapping$;
   }
 }

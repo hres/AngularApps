@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpIndex, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -7,14 +7,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, FeeDetails, INameAddress, IContact, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, HcUse, FeeDetails, CertDetails, Transaction, TransactionEnrol} from '../models/transaction';
+import { INameAddress, IContact, EntityBasePbvService } from '@hpfb/pbv';
 import { PatentComponent } from '../patent/patent.component';
 import { DrugUseComponent } from '../drug-use/drug-use.component';
 import { NoticeOfComplianceComponent } from '../notice-of-compliance/notice-of-compliance.component';
 import { environment } from '../../environments/environment';
 import { NewDrugSubmissionInformationComponent } from '../new-drug-submission-information/new-drug-submission-information.component';
 import { MedicinalIngredientsComponent } from '../medicinal-ingredients/medicinal-ingredients.component';
+import { FeesComponent } from '../fees/fees.component';
+import { CertificationComponent } from '../certification/certification.component';
 import { TimeOfApplicationComponent } from '../time-of-application/time-of-application.component';
+import { ApplicantComponent } from '../applicant/applicant.component';
+import { HcUseOnlyComponent } from '../health-canada-only/health-canada-only.component';
 
 
 @Component({
@@ -23,7 +28,7 @@ import { TimeOfApplicationComponent } from '../time-of-application/time-of-appli
     templateUrl: './form-base.component.html',
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
-    providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService],
+    providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService, EntityBasePbvService],
     imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, AppFormModule]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
@@ -45,11 +50,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     @ViewChild(NewDrugSubmissionInformationComponent) newDrugSubmissionInformationComponent: NewDrugSubmissionInformationComponent;
     @ViewChild(MedicinalIngredientsComponent) medicinalIngredientsComponent: MedicinalIngredientsComponent;
     @ViewChild(TimeOfApplicationComponent) timeOfApplicationComponent: TimeOfApplicationComponent;
+    @ViewChild(FeesComponent) feesComponent: FeesComponent;
+    @ViewChild(ApplicantComponent) applicantComponent: ApplicantComponent;
+    @ViewChild(HcUseOnlyComponent) healthCanadaComponent: HcUseOnlyComponent;
+
   // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
-  // @ViewChild(MasterFileFeeComponent) feeComponent: MasterFileFeeComponent;
   // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
-  // @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
+    @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
 
   // private _regulatoryInfoErrors = [];
   // private _transFeeErrors = [];
@@ -58,13 +66,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _agentAddressErrors = [];
   // private _agentContactErrors = [];
   // private _contactConfirmError = [];
-  // private _certficationErrors = [];
   private _patentInformationErrors = [];
   private _drugUseErrors = [];
   private _noticeOfComplianceErrors = [];
   private _newDrugSubmissionInfoErrors = [];
   private _medicinalIngredientsForErrors = [];
   private _timingOfApplicantForErrors = [];
+  private _feesForErrors = [];
+  private _certificationForErrors = [];
+  private _applicantForErrors = [];
+  private _healthCanadaOnlyErrors = [];
+
   public rtForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
@@ -77,12 +89,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public enrollModel : Transaction;
   public transactionEnrollModel: TransactionEnrol;
+  public certModel: CertDetails;
   public ectdModel: Ectd;
+  public hcUseModel: HcUse;
   // public holderAddressModel: INameAddress;
   // public agentAddressModel: INameAddress;
   // public holderContactModel: IContact;
   // public agentContactModel: IContact;
   public transFeeModel: FeeDetails;
+  public addressModel: INameAddress;
+  public contactModel: IContact;
 
   // public notApplicable: boolean = false;
   // public holder: string = ADDR_CONT_TYPE.HOLDER;
@@ -186,12 +202,20 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
+    this.errorList = this.errorList.concat(this._feesForErrors);
     this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
+    this.errorList = this.errorList.concat(this._healthCanadaOnlyErrors);
+    this.errorList = this.errorList.concat(this._certificationForErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
+  processHealthCanadaOnlyErrors(errorList) {
+    this._healthCanadaOnlyErrors = errorList;
+    this.processErrors();
+  }
 
-    processPatentInfoErrors(errorList) {
+
+  processPatentInfoErrors(errorList) {
     this._patentInformationErrors = errorList;
     this.processErrors();
   }
@@ -206,21 +230,33 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-
-
   processNewDrugSubmissionInfoErrors(errorList) {
     this._newDrugSubmissionInfoErrors = errorList;
     this.processErrors();
   }
-
 
   processMedicinalIngredientsErrors(errorList){
     this._medicinalIngredientsForErrors = errorList;
     this.processErrors();
   }
 
+  processFeesErrors(errorList) {
+    this._feesForErrors = errorList;
+    this.processErrors();
+  }
+
   processTimingOfApplicantErrors(errorList) {
     this._timingOfApplicantForErrors = errorList;
+    this.processErrors();
+  }
+
+  processCertificationErrors(errorList) {
+    this._certificationForErrors = errorList;
+    this.processErrors();
+  }
+
+  processApplicantErrors(errorList) {
+    this._applicantForErrors = errorList;
     this.processErrors();
   }
 
@@ -231,11 +267,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   // processTransFeeErrors(errorList) {
   //   this._transFeeErrors = errorList;
-  //   this.processErrors();
-  // }
-
-  // processCertificationErrors(errorList) {
-  //   this._certficationErrors = errorList;
   //   this.processErrors();
   // }
 
@@ -293,6 +324,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (trans.fee_details != null) {
       this.transFeeModel = trans.fee_details;
     }
+    this.addressModel = trans.applicant.address;
+    this.contactModel = trans.applicant.contact;
   }
 
   public preload() {
@@ -355,19 +388,32 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const drugUseFormInfor = this.drugUseComponent.getFormValue();
     this._baseService.mapDrugUseFormsToOutput(newTransactionEnrol, drugUseFormInfor);
 
-
     const noticeOfComplianceFormInfo = this.noticeOfComplianceComponent.getFormValue();
     this._baseService.mapNOCFormsToOutput(newTransactionEnrol, noticeOfComplianceFormInfo);
 
     const newDrugSubmissionINfo = this.newDrugSubmissionInformationComponent.getFormValue();
     this._baseService.mapNewDrugSubmissionInformationFormsToOutput(newTransactionEnrol, newDrugSubmissionINfo);
 
+    const fees = this.feesComponent.getFormValue();
+    this._baseService.mapFeesFormsToOutput(newTransactionEnrol, fees);
+
     const medicinalIngredients = this.medicinalIngredientsComponent.getFormValue();
     this._baseService.mapMedicinalIngredientsFormsToOutput(newTransactionEnrol, medicinalIngredients);
 
-
     const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
     this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
+    
+    const healthCanadaOnly = this. healthCanadaComponent.getFormValue();
+    this._baseService.mapHealthCanadaOnlyFormsToOutput(newTransactionEnrol, healthCanadaOnly);
+
+    const certification = this.certificationComponent.getFormValue();
+    this._baseService.mapCertificationFormsToOutput(newTransactionEnrol, certification);
+
+    const applicantInfo = this.applicantComponent.getFormValue();
+    const addressFormGroupValue = this.applicantComponent.getAddressFormValue();
+    const contactFormGroupValue = this.applicantComponent.getContactFormValue();
+
+    this._baseService.mapApplicantInfoToOutput(newTransactionEnrol, applicantInfo, addressFormGroupValue, contactFormGroupValue);
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
     // const certificationFormGroupValue = this.certificationComponent.getFormValue();
@@ -423,8 +469,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _generateFileName(transactionEnrol: TransactionEnrol): string {
     let fileName =
       FILE_OUTPUT_PREFIX + "-" +
-      transactionEnrol.ectd.dossier_id +
-      '-' +
       transactionEnrol.date_saved;
     return fileName;
   }
