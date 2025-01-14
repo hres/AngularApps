@@ -20,9 +20,12 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
 
   @Input() showErrors: boolean;
   @Input() dataModel: CompanyEnrol;
+  @Input() isInternal: boolean;
   @Output() errorList = new EventEmitter(true);
 
   private _signalService = inject(AppSignalService)
+
+  public disableAmendButton: boolean = true;
 
   constructor(private _regulatoryEnrolmentService: RegulatoryEnrolmentService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
@@ -32,6 +35,7 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
   
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
+    this.helpIndex = this._globalService.helpIndex;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -54,9 +58,12 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
     return this.regulatoryEnrolmentForm;
   }
 
-
   protected override emitErrors(errors: ControlMessagesComponent[]): void {
     this.errorList.emit(errors);
+  }
+
+  setAmendState() {
+
   }
 
   getFormValue() {

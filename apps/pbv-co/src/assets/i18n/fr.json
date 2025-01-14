@@ -15,6 +15,8 @@
     "enrolment.version": "Version de l'inscription",
     "date.last.saved": "Date du dernier enregistrement",
     "company.id": "Identifiant de la compagnie (5 chiffres)",
+    "amend.enrol": "Modifier l'inscription",
+    "records.amended.info": "Changer les enregistrements à modifier ci-dessous.",
     "reason.filing": "Motif du dépôt",
     "example": "Exemple:",
     "ht.reason.filing.1": "Nouvel enregistrement de compagnie pour obtenir le numéro de la compagnie pour la première fois.",

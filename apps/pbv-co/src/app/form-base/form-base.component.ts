@@ -30,7 +30,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   
-  private _consertPrivacyError = [];
+  private _regulatoryEnrolmentErrors = [];
 
   public coForm: FormGroup; 
   public errorList = [];
@@ -40,7 +40,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public headingLevel = 'h2';
 
   public enrollModel: Company;
-  public companyEnrollModel: CompanyEnrol;
+  public companyEnrolModel: CompanyEnrol;
 
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
@@ -73,7 +73,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this.enrollModel = this._globalService.enrollment;
       }
 
-      this.companyEnrollModel = this.enrollModel[this.rootTagText];
+      this.companyEnrolModel = this.enrollModel[this.rootTagText];
 
       // this._initModels(this.productEnrollModel);
 
@@ -150,6 +150,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   //   this.processErrors();
   // }
 
+  processRegulatoryEnrolmentErrors(errorList) {
+    this._regulatoryEnrolmentErrors = errorList;
+    this.processErrors();
+  }
+
   public hideErrorSummary() {
     return this.showErrors && this.errorList && this.errorList.length > 0;
   }
@@ -169,9 +174,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public processFile(fileData: ConvertResults) {
     // console.log(fileData);
     if (fileData.data !== null) {
-      this.companyEnrollModel = fileData.data.COMPANY_ENROL;
-      this._initModels(this.companyEnrollModel);
-      this.isStatusFinal = this.companyEnrollModel.application_type == ENROLMENT_STATUS.FINAL;
+      this.companyEnrolModel = fileData.data.COMPANY_ENROL;
+      this._initModels(this.companyEnrolModel);
+      this.isStatusFinal = this.companyEnrolModel.application_type == ENROLMENT_STATUS.FINAL;
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
       // this.agentInfoOnChange();

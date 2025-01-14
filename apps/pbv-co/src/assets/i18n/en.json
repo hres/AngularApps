@@ -15,6 +15,8 @@
     "enrolment.version": "Enrolment version",
     "date.last.saved": "Date last saved",
     "company.id": "Company Identifier (5 numbers)",
+    "amend.enrol": "Amend enrolment",
+    "records.amended.info": "Edit records to be amended below.",
     "reason.filing": "Reason for filing",
     "example": "Example:",
     "ht.reason.filing.1": "New company registration to obtain company ID for the first time.",
