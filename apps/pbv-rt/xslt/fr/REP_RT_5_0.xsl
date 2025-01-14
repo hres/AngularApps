@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:transform version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xsl:param name="language" select="'eng'"/>
-	<xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'"/>
-	<xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
-	<xsl:decimal-format name="FrenchDecimalFormat" decimal-separator="," grouping-separator=""/>
 	<xsl:template match="/">
 		<html>
 			<head>
@@ -846,7 +842,7 @@ span.normalWeight {
 						</div>
 						<div class="row">
 							<div class="col-xs-4">
-								<strong>Numéro de téléphone (y compris indicatif régional): </strong>
+								<strong>Numéro de téléphone: </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="regulatory_activity_contact/phone_num" />
 								</span>
@@ -859,7 +855,7 @@ span.normalWeight {
 							</div>
 						</div>
 						<div class="row">
-							<strong class="col-xs-12">Numéro de télécopieur  (y compris indicatif régional): <span
+							<strong class="col-xs-12">Numéro de télécopieur: <span
 									class="mouseHover normalWeight">
 									<xsl:value-of select="regulatory_activity_contact/fax_num" />
 								</span>
