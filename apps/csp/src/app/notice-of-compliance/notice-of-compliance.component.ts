@@ -10,7 +10,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   UtilsService,
-  HelpIndex,
+  HelpSequence,
   BaseComponent,
 } from '@hpfb/sdk/ui';
 import { FormBaseService } from '../form-base/form-base.service';
@@ -27,7 +27,7 @@ import { GlobalService } from '../global/global.service';
 export class NoticeOfComplianceComponent extends BaseComponent implements OnInit {
 
   public showFieldErrors: boolean = false;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   public noticeOfComplianceForm: FormGroup;
@@ -60,6 +60,10 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
     this.errorList.emit(errors);
   }
 
+  onDateInput(event: any): void {
+    this._globalService.isDateValid(event, this.noticeOfComplianceForm);
+  }
+
   checkDateValidity(event: any): void {
     let inputName =
       event.target.attributes.getNamedItem('ng-reflect-name').value;
@@ -73,23 +77,6 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
         'patendExpirationDate'
       );
     }
-
-    const dateControl = this.noticeOfComplianceForm.get(inputName);
-    const dateValue = dateControl.value;
-    const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
-
-    if (!isValidFormat) {
-      this.noticeOfComplianceForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-    } else {
-      if (dateControl.errors?.['invalidDate']) {
-        this.noticeOfComplianceForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-      }
-    }
-
   }
 
   getFormValue() {

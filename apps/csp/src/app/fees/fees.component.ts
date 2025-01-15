@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ICode, BaseComponent, HelpIndex, UtilsService } from '@hpfb/sdk/ui';
+import { ICode, BaseComponent, HelpSequence, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FeesService } from './fees.service';
 
@@ -23,7 +23,7 @@ export class FeesComponent  extends BaseComponent implements OnInit {
 
   public showFieldErrors: boolean = false;
   lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   feesForm: FormGroup;

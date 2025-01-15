@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BaseComponent, HelpIndex, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, HelpSequence, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { HcUseOnlyService } from './health-canada-only.service';
 
@@ -15,7 +15,7 @@ export class HcUseOnlyComponent  extends BaseComponent implements OnInit {
 
   public showFieldErrors: boolean = false;
   lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   hcUseOnlyForm: FormGroup;
@@ -39,23 +39,8 @@ export class HcUseOnlyComponent  extends BaseComponent implements OnInit {
     return this.hcUseOnlyForm.value;
   }
 
-  checkDateValidity(event: any): void {
-    const inputName = event.target.attributes.getNamedItem('ng-reflect-name')?.value;
-    const dateControl = this.hcUseOnlyForm.get(inputName);
-    const dateValue = dateControl.value;
-    const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
-
-    if (!isValidFormat) {
-      this.hcUseOnlyForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-    } else {
-      if (dateControl.errors?.['invalidDate']) {
-        this.hcUseOnlyForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-      }
-    }
+  onDateInput(event: any): void {
+    this._globalService.isDateValid(event, this.hcUseOnlyForm);
   }
   
   protected override emitErrors(errors: any[]){

@@ -12,7 +12,7 @@ import {
   computed,
   signal
 } from '@angular/core';
-import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
+import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, BaseComponent, HelpSequence } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CertSuppProtectService } from './cert-supp-protect.service';
 import { Ectd } from '../models/transaction';
@@ -29,7 +29,7 @@ import { DatePipe } from '@angular/common';
 })
 export class CertSuppProtectComponent extends BaseComponent implements OnInit {
   lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence
   @Input() saveWorkCopyTime: number;
 
   public certSuppProtectForm: FormGroup;

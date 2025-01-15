@@ -6,7 +6,7 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import {  UtilsService,  HelpIndex,  BaseComponent,} from '@hpfb/sdk/ui';
+import {  UtilsService,  HelpSequence,  BaseComponent,} from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { PatentService } from './patent-service.service';
@@ -19,7 +19,7 @@ import { PatentService } from './patent-service.service';
 export class PatentComponent extends BaseComponent implements OnInit {
   public showFieldErrors: boolean = false;
   lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   public patentInformationForm: FormGroup;
@@ -47,6 +47,10 @@ export class PatentComponent extends BaseComponent implements OnInit {
     this.errorList.emit(errors);
   }
 
+  onDateInput(event: any): void {
+    this._globalService.isDateValid(event, this.patentInformationForm);
+  }
+
   checkDateValidity(event: any): void {
     let inputName =
       event.target.attributes.getNamedItem('ng-reflect-name').value;
@@ -55,22 +59,6 @@ export class PatentComponent extends BaseComponent implements OnInit {
       this.patentInformationForm.get(inputName),
       'invalidDate'
     );
-
-    const dateControl = this.patentInformationForm.get(inputName);
-    const dateValue = dateControl.value;
-    const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
-
-    if (!isValidFormat) {
-      this.patentInformationForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-    } else {
-      if (dateControl.errors?.['invalidDate']) {
-        this.patentInformationForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-      }
-    }
 
     if (this.patentInformationForm != undefined) {
       let patendExpirationDate = this.patentInformationForm.get(

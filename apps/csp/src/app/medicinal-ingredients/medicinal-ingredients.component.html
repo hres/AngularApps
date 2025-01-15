@@ -1,7 +1,7 @@
 <div>
   <div [formGroup]="medicinalIngredientForm">
      <div class="row">
-        <div class="form-group  col-sm-8">
+        <div class="form-group  col-sm-10">
             <label for="medicinalIngredients" class="required">
                 <span class="field-name">{{ 'medicinal.ingredients' |translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -22,6 +22,29 @@
            />
           </label>
         </div>
+
+        <div class="form-group  col-sm-8">
+          <label for="productname" class="required">
+              <span class="field-name">{{ 'product.name' |translate }}</span>
+              <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+              <control-messages
+               *ngIf="medicinalIngredientForm.controls['productName'].invalid"
+                  [showError]="showErrors"
+                  [control]="medicinalIngredientForm.controls['productName'] | formControl"
+                  controlId="productname"
+                  label="productname"
+                  parentId="cspMedicinalIngredients">
+              </control-messages>
+
+          <input
+          class="form-control"
+          id="productname"
+          type="text"
+          [formControlName]="'productName'"
+         />
+        </label>
+      </div>
+
     </div>
   </div>
 

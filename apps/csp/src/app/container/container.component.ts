@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GlobalService } from '../global/global.service';
-import { HelpIndex, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent } from '@hpfb/sdk/ui';
+import { HelpSequence, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent } from '@hpfb/sdk/ui';
 import { TranslateModule } from '@ngx-translate/core';
 import { InstructionComponent } from '../instruction/instruction.component';
 import { FormBaseComponent } from '../form-base/form-base.component';
@@ -20,7 +20,7 @@ import { AppFormModule } from '../app.form.module';
 export class ContainerComponent implements OnInit {
 
   language: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   devEnv: boolean = false;
   loadFormBaseComponent: boolean = false;
 

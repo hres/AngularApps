@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
 	<xsl:param name="language" select="'eng'" />
@@ -551,7 +552,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-4">
-								<strong>Phone number (including area code): </strong>
+								<strong>Phone number: </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="regulatory_activity_contact/phone_num" />
 								</span>
@@ -564,7 +565,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<strong class="col-xs-12"> Fax number (including area code): <span
+							<strong class="col-xs-12"> Fax number: <span
 									class="mouseHover normalWeight">
 									<xsl:value-of select="regulatory_activity_contact/fax_num" />
 								</span>

@@ -4,9 +4,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { Title } from '@angular/platform-browser';
-import { ENGLISH, VersionService } from '@hpfb/sdk/ui';
+import { ENGLISH, VersionService, InstructionService } from '@hpfb/sdk/ui';
 import { GlobalService } from './global/global.service';
-import { helpInstructionHeadings } from './app.constants';
+import { HELP_FOOTNOTE_PREFIX, HELP_FOOTNOTE_SUFFIX, helpInstructionHeadings } from './app.constants';
 import { ContainerComponent } from './container/container.component';
 
 @Component({
@@ -25,7 +25,7 @@ export class AppComponent {
   constructor(
     private translate: TranslateService,
     private _versionService: VersionService,
-    public titleService: Title, private _globalService: GlobalService
+    public titleService: Title, private _globalService: GlobalService, private _instructionService: InstructionService
   ) {
 
     translate.setDefaultLang(this.language);
@@ -33,7 +33,7 @@ export class AppComponent {
     this.language = environment.lang;
     translate.use(this.language)
     this._globalService.currLanguage = this.language;
-    this._globalService.helpIndex = helpInstructionHeadings;
+    this._globalService.helpIndex = this._instructionService.createHelpSequence(HELP_FOOTNOTE_PREFIX, HELP_FOOTNOTE_SUFFIX, helpInstructionHeadings);
     this._globalService.appVersion = this._versionService.getApplicationVersion(environment);
     this._globalService.devEnv = !environment.production;
     this._globalService.byPassChecksum = environment.byPassCheckSum;

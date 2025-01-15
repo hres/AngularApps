@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import {
   ENGLISH,
-  HelpIndex,
+  HelpSequence,
   ICode,
   ICodeAria,
   ICodeDefinition,
@@ -10,6 +10,8 @@ import {
   InstructionService,
 } from '@hpfb/sdk/ui';
 import { Transaction } from '../models/transaction';
+import { FormGroup } from '@angular/forms';
+
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +19,7 @@ import { Transaction } from '../models/transaction';
 export class GlobalService {
   private _devEnv: boolean = false;
   private _appVersion: string = '0.0.0';
-  private _helpIndex: HelpIndex;
+  private _helpIndex: HelpSequence;
   private _currLanguage: string = ENGLISH;
   private _enrollment: Transaction;
   private _byPassChecksum: boolean = false;
@@ -66,11 +68,11 @@ export class GlobalService {
     this._appVersion = value;
   }
 
-  public set helpIndex(helpIndex: string[]) {
-    this._helpIndex = this.instructionService.getHelpTextIndex(helpIndex);
+  public set helpIndex(helpIndex: HelpSequence) {
+    this._helpIndex = helpIndex;
   }
 
-  public get helpIndex(): HelpIndex {
+  public get helpIndex(): HelpSequence {
     return this._helpIndex;
   }
 
@@ -176,4 +178,34 @@ export class GlobalService {
     this._languageList = value;
 
   }
+
+
+  /** Checking is date is fully filled out and between the years 1900 - 3000
+   * @param event
+   * @param form
+   */
+  public isDateValid(event: any, form: FormGroup): void {
+    const inputName = event.target.attributes.getNamedItem('ng-reflect-name')?.value;
+    const dateControl = form.get(inputName);
+    const dateValue = dateControl?.value;
+    const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
+
+    if (!isValidFormat) {
+      dateControl?.setErrors({ 'error.msg.invalidDate': true });
+    } else {
+      const year = parseInt(dateValue.substring(0, 4), 10);
+      if (year < 1900 || year > 3000) {
+        dateControl?.setErrors({ 'error.msg.invalidDate': true });
+      } else {
+        if (dateControl?.errors?.['error.msg.invalidDate']) {
+          delete dateControl.errors['error.msg.invalidDate'];
+          if (Object.keys(dateControl.errors).length === 0) {
+            dateControl.setErrors(null);
+          }
+        }
+      }
+    }
+  }
+
+  
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, HelpIndex, ICodeAria, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, HelpSequence, ICodeAria, UtilsService } from '@hpfb/sdk/ui';
 import { TimingOfApplicationService } from './time-of-application.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
@@ -15,7 +15,7 @@ export class TimeOfApplicationComponent extends BaseComponent implements OnInit{
 
 
   public lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   showFieldsErrors: boolean = false;
 
   public timingOfApplicationForm: FormGroup;

@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UtilsService, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
+import { UtilsService, HelpSequence, BaseComponent } from '@hpfb/sdk/ui';
 import { FormBaseService } from '../form-base/form-base.service';
 import { GlobalService } from '../global/global.service';
 import { NewDrugSubmissionInformationService } from './new-drug-submission-information.service';
@@ -24,7 +24,7 @@ export class NewDrugSubmissionInformationComponent extends BaseComponent impleme
 
 
   public showFieldErrors: boolean = false;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   public newDrugSubmissionInfoForm: FormGroup;

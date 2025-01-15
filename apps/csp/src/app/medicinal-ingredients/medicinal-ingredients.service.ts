@@ -16,21 +16,20 @@ export class MedicinalIngredientsService {
     }
 
     const medicinalIngredientsForm  = fb.nonNullable.group({
-
-      medicinalIngredients: new FormControl(null,Validators.required)
-
+      medicinalIngredients: new FormControl('',Validators.required),
+      productName: new FormControl('',Validators.required)
     })
     return medicinalIngredientsForm;
   }
 
 
   public mapFormModelToDataModel(formValue: any, transactionEnrol: TransactionEnrol) {
-
-    transactionEnrol.medicinalIngredients = formValue['medicinalIngredients'];
+    transactionEnrol.medicinalIngredients.medicinalIngredient = formValue['medicinalIngredients'];
+    transactionEnrol.medicinalIngredients.productName = formValue['productName'];
     }
 
   public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
-
-    formRecord.controls['medicinalIngredients'].setValue(transactionEnrol.medicinalIngredients);
+    formRecord.controls['medicinalIngredients'].setValue(transactionEnrol.medicinalIngredients.medicinalIngredient);
+    formRecord.controls['productName'].setValue(transactionEnrol.medicinalIngredients.productName);
    }
 }
