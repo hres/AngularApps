@@ -10,6 +10,7 @@ import { FormBaseService } from './form-base.service';
 import { CompanyEnrol, Company} from '../models/Company';
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
+import { RegulatoryEnrolmentComponent } from '../regulatory-enrolment/regulatory-enrolment.component';
 
 @Component({
     selector: 'app-form-base',
@@ -28,6 +29,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   byPassCheckSum: boolean;
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+
+  @ViewChild(RegulatoryEnrolmentComponent) regulatoryEnrolmentComponent: RegulatoryEnrolmentComponent;
 
   
   private _regulatoryEnrolmentErrors = [];
@@ -75,12 +78,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
       this.companyEnrolModel = this.enrollModel[this.rootTagText];
 
-      // this._initModels(this.productEnrollModel);
+      this._initModels(this.companyEnrolModel);
 
       this.lang = this._globalService.currLanguage;
       this.helpIndex = this._globalService.helpIndex;
       this.devEnv = this._globalService.devEnv;
       this.byPassCheckSum = this._globalService.byPassChecksum;
+      this._signalService.setIsInternal(this._globalService.isInternal);
     } catch (e) {
       console.error(e);
     }
@@ -226,6 +230,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     newcompanyEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     newcompanyEnrol.software_version = this._globalService.appVersion;
     newcompanyEnrol.form_language = this._globalService.currLanguage;
+
+    const regulatoryEnrolmentFormGroupValue = this.regulatoryEnrolmentComponent.getFormValue();
+    this._baseService.mapRegulatoryEnrolmentToOutput(newcompanyEnrol, regulatoryEnrolmentFormGroupValue);
 
     const output: Company = {
       COMPANY_ENROL: newcompanyEnrol

@@ -49,7 +49,7 @@
         </div>
     </div>
     <!-- TODO: Show if amend enrol button is clicked -->
-    <div class="row">
+    <div class="row" *ngIf="showAmendNote">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="alert alert-info" role="alert">
                 <p aria-live="polite">{{'records.amended.info' | translate}}</p>

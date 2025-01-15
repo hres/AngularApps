@@ -4,12 +4,16 @@ import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
 import { AddressRecord, Company, CompanyEnrol, ContactRecord } from '../models/Company';
+import { RegulatoryEnrolmentService } from '../regulatory-enrolment/regulatory-enrolment.service';
 
 @Injectable()
 export class FormBaseService {
 
   constructor(
-    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _entityBaseService: EntityBaseService, 
+    private _utilsService: UtilsService, 
+    private _globalService: GlobalService,
+    private _regulatoryEnrolmentService: RegulatoryEnrolmentService) {
   }
 
   /**
@@ -58,5 +62,9 @@ export class FormBaseService {
 
   public getEmptyContactRecord(): ContactRecord[] {
     return null;
+  }
+
+  public mapRegulatoryEnrolmentToOutput(outputCompanyEnrol: CompanyEnrol, regulatoryEnrolmentGroupValue: any): void{
+    this._regulatoryEnrolmentService.mapFormModelToDataModel(outputCompanyEnrol, regulatoryEnrolmentGroupValue);
   }
 }

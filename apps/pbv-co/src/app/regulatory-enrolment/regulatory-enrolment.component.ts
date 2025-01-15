@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppSignalService } from '../signal/app-signal.service';
 import { RegulatoryEnrolmentService } from './regulatory-enrolment.service';
 import { CompanyEnrol } from '../models/Company';
+import { ENROLMENT_STATUS } from '../app.constants';
 
 @Component({
   selector: 'app-regulatory-enrolment',
@@ -26,6 +27,7 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
   private _signalService = inject(AppSignalService)
 
   public disableAmendButton: boolean = true;
+  public showAmendNote: boolean = false;
 
   constructor(private _regulatoryEnrolmentService: RegulatoryEnrolmentService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
@@ -36,6 +38,7 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -48,6 +51,7 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
       this._regulatoryEnrolmentService.mapDataModelToFormModel(
         dataModelCurrentValue,
         <FormGroup>this._getRegulatoryEnrolmentForm());
+      this.activateAmendButton();
     }
   }
 
@@ -62,8 +66,16 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
     this.errorList.emit(errors);
   }
 
-  setAmendState() {
+  activateAmendButton() {
+    if (!this.isInternal && this._signalService.isFINAL()) {
+      this.disableAmendButton = false;
+    } 
+    this.disableAmendButton = true;
+  }
 
+  setAmendState() {
+    this.showAmendNote = true;
+    this._signalService.setEnrolmentStatus(ENROLMENT_STATUS.AMEND);
   }
 
   getFormValue() {
