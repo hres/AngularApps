@@ -7,8 +7,10 @@ import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParent
 export class FormDataLoaderService {
 
   private countriesJsonPath = DATA_PATH + 'countries.json';
+  private enrolmentStatusesPath = DATA_PATH + 'enrolmentStatuses.json'
   
   cachedCountries$:Observable<ICode[]>;
+  cachedEnrolmentStatuses$:Observable<ICode[]>;
   
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -21,6 +23,17 @@ export class FormDataLoaderService {
         );
     }
     return this.cachedCountries$;
+  }
+
+  getEnrolmentStatusesList(): Observable<ICode[]> {
+    if (!this.cachedEnrolmentStatuses$) {
+      this.cachedEnrolmentStatuses$ = this._dataService.getData<ICode>(this.enrolmentStatusesPath)
+        .pipe(
+          // tap(()=>console.log('getEnrollmentStatusesList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedEnrolmentStatuses$;
   }
 
   // getYesNoList(): Observable<ICode[]> {

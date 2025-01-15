@@ -45,7 +45,7 @@ export class FormBaseService {
       software_version: '',
       form_language: '',
       check_sum: '',
-      application_type: '',
+      application_type: this._entityBaseService.getEmptyIdTextLabel(),
       enrolment_version: '',
       company_id: '',
       reason_amend: '',

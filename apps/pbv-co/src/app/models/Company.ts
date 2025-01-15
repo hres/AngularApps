@@ -11,7 +11,7 @@ export interface CompanyEnrol {
   software_version: string;
   form_language: string;
   check_sum?: string;
-  application_type: string;
+  application_type: IIdTextLabel;
   enrolment_version: string;
   company_id: string;
   reason_amend: string;
