@@ -30,10 +30,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  @ViewChild(CompanyEnrolmentComponent) regulatoryEnrolmentComponent: CompanyEnrolmentComponent;
+  @ViewChild(CompanyEnrolmentComponent) companyEnrolmentComponent: CompanyEnrolmentComponent;
 
   
-  private _regulatoryEnrolmentErrors = [];
+  private _companyEnrolmentErrors = [];
 
   public coForm: FormGroup; 
   public errorList = [];
@@ -118,7 +118,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processErrors() {
     this.errorList = [];
-    this.errorList = this.errorList.concat(this._regulatoryEnrolmentErrors);
+    this.errorList = this.errorList.concat(this._companyEnrolmentErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -138,8 +138,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   //   this.processErrors();
   // }
 
-  processRegulatoryEnrolmentErrors(errorList) {
-    this._regulatoryEnrolmentErrors = errorList;
+  processCompanyEnrolmentErrors(errorList) {
+    this._companyEnrolmentErrors = errorList;
     this.processErrors();
   }
 
@@ -215,8 +215,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     newcompanyEnrol.software_version = this._globalService.appVersion;
     newcompanyEnrol.form_language = this._globalService.currLanguage;
 
-    const regulatoryEnrolmentFormGroupValue = this.regulatoryEnrolmentComponent.getFormValue();
-    this._baseService.mapRegulatoryEnrolmentToOutput(newcompanyEnrol, regulatoryEnrolmentFormGroupValue);
+    const companyEnrolmentFormGroupValue = this.companyEnrolmentComponent.getFormValue();
+    this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue);
 
     const output: Company = {
       COMPANY_ENROL: newcompanyEnrol

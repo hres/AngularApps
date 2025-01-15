@@ -8,7 +8,7 @@ import { CompanyEnrol } from '../models/Company';
 import { ENROLMENT_STATUS } from '../app.constants';
 
 @Component({
-  selector: 'app-regulatory-enrolment',
+  selector: 'app-comapany-enrolment',
   templateUrl: './company-enrolment.component.html',
   encapsulation: ViewEncapsulation.None,
 })
@@ -39,7 +39,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
 
-    this._getRegulatoryEnrolmentForm();
+    this._getCompanyEnrolmentForm();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -55,14 +55,14 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       if (!isFirstChange) {
         this._companyEnrolmentService.mapDataModelToFormModel(
           dataModelCurrentValue,
-          <FormGroup>this._getRegulatoryEnrolmentForm());
+          <FormGroup>this._getCompanyEnrolmentForm());
       }
       
       this.activateAmendButton();
     }
   }
 
-  private _getRegulatoryEnrolmentForm(){
+  private _getCompanyEnrolmentForm(){
     if (!this.companyEnrolmentForm) {
       this.companyEnrolmentForm = CompanyEnrolmentService.getEnrolmentForm(this._fb);
     }
