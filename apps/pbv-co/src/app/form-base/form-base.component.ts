@@ -118,23 +118,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processErrors() {
     this.errorList = [];
-    // this.errorList = this.errorList.concat(this._productInfoErrors);
-
-    // if (this.showContact()) {
-    //   this.errorList = this.errorList.concat(
-    //     this._addressErrors.concat(this._contactErrors)
-    //   );
-    //   if(!this.notApplicable)
-    //     this.errorList = this.errorList.concat(
-    //       this._agentAddressErrors.concat(this._agentContactErrors)
-    //     );
-    //   this.errorList = this.errorList.concat(this._contactConfirmError);
-    // }
-
-    // if (this.showFees()) {
-    //   this.errorList = this.errorList.concat(this._feesErrors);
-    // }
-    // this.errorList = this.errorList.concat(this._consertPrivacyError);
+    this.errorList = this.errorList.concat(this._regulatoryEnrolmentErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
   }
