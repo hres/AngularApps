@@ -3,16 +3,16 @@ import { BaseComponent, ControlMessagesComponent, ICode, ICodeDefinition, UtilsS
 import { GlobalService } from '../global/global.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppSignalService } from '../signal/app-signal.service';
-import { RegulatoryEnrolmentService } from './regulatory-enrolment.service';
+import { CompanyEnrolmentService } from './company-enrolment.service';
 import { CompanyEnrol } from '../models/Company';
 import { ENROLMENT_STATUS } from '../app.constants';
 
 @Component({
   selector: 'app-regulatory-enrolment',
-  templateUrl: './regulatory-enrolment.component.html',
+  templateUrl: './company-enrolment.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class RegulatoryEnrolmentComponent extends BaseComponent implements OnInit{
+export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
   lang: string;
   helpIndex: HelpSequence; 
@@ -29,7 +29,7 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
   public disableAmendButton: boolean = true;
   public showAmendNote: boolean = false;
 
-  constructor(private _regulatoryEnrolmentService: RegulatoryEnrolmentService, private _fb: FormBuilder, 
+  constructor(private _companyEnrolmentService: CompanyEnrolmentService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -53,7 +53,7 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
       const dataModelCurrentValue = changes['dataModel'].currentValue as CompanyEnrol;
       this.dataModel = dataModelCurrentValue;
       if (!isFirstChange) {
-        this._regulatoryEnrolmentService.mapDataModelToFormModel(
+        this._companyEnrolmentService.mapDataModelToFormModel(
           dataModelCurrentValue,
           <FormGroup>this._getRegulatoryEnrolmentForm());
       }
@@ -64,7 +64,7 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
 
   private _getRegulatoryEnrolmentForm(){
     if (!this.regulatoryEnrolmentForm) {
-      this.regulatoryEnrolmentForm = RegulatoryEnrolmentService.getEnrolmentForm(this._fb);
+      this.regulatoryEnrolmentForm = CompanyEnrolmentService.getEnrolmentForm(this._fb);
     }
     return this.regulatoryEnrolmentForm;
   }

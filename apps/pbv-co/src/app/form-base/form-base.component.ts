@@ -10,7 +10,7 @@ import { FormBaseService } from './form-base.service';
 import { CompanyEnrol, Company} from '../models/Company';
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
-import { RegulatoryEnrolmentComponent } from '../regulatory-enrolment/regulatory-enrolment.component';
+import { CompanyEnrolmentComponent } from '../company-enrolment/company-enrolment.component';
 
 @Component({
     selector: 'app-form-base',
@@ -30,7 +30,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
-  @ViewChild(RegulatoryEnrolmentComponent) regulatoryEnrolmentComponent: RegulatoryEnrolmentComponent;
+  @ViewChild(CompanyEnrolmentComponent) regulatoryEnrolmentComponent: CompanyEnrolmentComponent;
 
   
   private _regulatoryEnrolmentErrors = [];

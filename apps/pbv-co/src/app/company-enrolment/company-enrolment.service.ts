@@ -6,7 +6,7 @@ import { CompanyEnrol } from "../models/Company";
 import { AppSignalService } from "../signal/app-signal.service";
 
 @Injectable()
-export class RegulatoryEnrolmentService {
+export class CompanyEnrolmentService {
   private _signalService = inject(AppSignalService);
   private _utilsService = inject(UtilsService);
 
@@ -29,7 +29,7 @@ export class RegulatoryEnrolmentService {
 
     dataModel.application_type = formModel['enrolmentStatus'];
     dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, formModel['enrolmentVersion']);
-    dataModel.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd');
+    dataModel.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     if (isInternal) {
       dataModel.company_id = formModel['companyId'];
     }
@@ -39,7 +39,7 @@ export class RegulatoryEnrolmentService {
   public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel) {
     formModel.controls['enrolmentStatus'].setValue(dataModel.application_type);
     formModel.controls['enrolmentVersion'].setValue(dataModel.enrolment_version);
-    formModel.controls['dateLastSaved'].setValue(dataModel.date_saved); 
+    formModel.controls['dateLastSaved'].setValue(dataModel.date_saved.substring(0, 10)); // Date is set to YYYY-MM-DD
     formModel.controls['companyId'].setValue(dataModel.company_id);
     formModel.controls['reasonForFiling'].setValue(dataModel.reason_amend);
   }

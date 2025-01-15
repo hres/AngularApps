@@ -4,7 +4,7 @@ import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
 import { AddressRecord, Company, CompanyEnrol, ContactRecord } from '../models/Company';
-import { RegulatoryEnrolmentService } from '../regulatory-enrolment/regulatory-enrolment.service';
+import { CompanyEnrolmentService } from '../company-enrolment/company-enrolment.service';
 
 @Injectable()
 export class FormBaseService {
@@ -13,7 +13,7 @@ export class FormBaseService {
     private _entityBaseService: EntityBaseService, 
     private _utilsService: UtilsService, 
     private _globalService: GlobalService,
-    private _regulatoryEnrolmentService: RegulatoryEnrolmentService) {
+    private _companyEnrolmentService: CompanyEnrolmentService) {
   }
 
   /**
@@ -65,6 +65,6 @@ export class FormBaseService {
   }
 
   public mapRegulatoryEnrolmentToOutput(outputCompanyEnrol: CompanyEnrol, regulatoryEnrolmentGroupValue: any): void{
-    this._regulatoryEnrolmentService.mapFormModelToDataModel(outputCompanyEnrol, regulatoryEnrolmentGroupValue);
+    this._companyEnrolmentService.mapFormModelToDataModel(outputCompanyEnrol, regulatoryEnrolmentGroupValue);
   }
 }
