@@ -36,8 +36,12 @@ export class RegulatoryEnrolmentService {
     dataModel.reason_amend = formModel['reasonForFiling'];
   }
 
-  public mapDataModelToFormModel(dataModel, formModel) {
-
+  public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel) {
+    formModel.controls['enrolmentStatus'].setValue(dataModel.application_type);
+    formModel.controls['enrolmentVersion'].setValue(dataModel.enrolment_version);
+    formModel.controls['dateLastSaved'].setValue(dataModel.date_saved); 
+    formModel.controls['companyId'].setValue(dataModel.company_id);
+    formModel.controls['reasonForFiling'].setValue(dataModel.reason_amend);
   }
 
   private _incrementEnrolmentVersion(isInternal : boolean, currentVersion) : string { 

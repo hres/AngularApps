@@ -39,18 +39,25 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
 
+    this._getRegulatoryEnrolmentForm();
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    const isFirstChange = this._utilsService.isFirstChange(changes);
+
     if (changes['showErrors']) {
       this.showFieldErrors = changes['showErrors'].currentValue;
     }
+  
     if (changes['dataModel']) {
       const dataModelCurrentValue = changes['dataModel'].currentValue as CompanyEnrol;
       this.dataModel = dataModelCurrentValue;
-      this._regulatoryEnrolmentService.mapDataModelToFormModel(
-        dataModelCurrentValue,
-        <FormGroup>this._getRegulatoryEnrolmentForm());
+      if (!isFirstChange) {
+        this._regulatoryEnrolmentService.mapDataModelToFormModel(
+          dataModelCurrentValue,
+          <FormGroup>this._getRegulatoryEnrolmentForm());
+      }
+      
       this.activateAmendButton();
     }
   }
