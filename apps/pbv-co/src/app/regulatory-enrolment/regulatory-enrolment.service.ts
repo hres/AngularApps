@@ -11,7 +11,7 @@ export class RegulatoryEnrolmentService {
   private _utilsService = inject(UtilsService);
 
 
-  public static getFeesForm(fb:FormBuilder) {
+  public static getEnrolmentForm(fb:FormBuilder) {
       if (!fb) {
         return null;
       }

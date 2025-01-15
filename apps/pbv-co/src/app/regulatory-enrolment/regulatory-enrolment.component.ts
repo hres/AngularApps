@@ -57,7 +57,7 @@ export class RegulatoryEnrolmentComponent extends BaseComponent implements OnIni
 
   private _getRegulatoryEnrolmentForm(){
     if (!this.regulatoryEnrolmentForm) {
-      this.regulatoryEnrolmentForm = RegulatoryEnrolmentService.getFeesForm(this._fb);
+      this.regulatoryEnrolmentForm = RegulatoryEnrolmentService.getEnrolmentForm(this._fb);
     }
     return this.regulatoryEnrolmentForm;
   }
