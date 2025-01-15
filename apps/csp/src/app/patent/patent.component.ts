@@ -6,7 +6,7 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import {  UtilsService,  HelpIndex,  BaseComponent,} from '@hpfb/sdk/ui';
+import {  UtilsService,  HelpSequence,  BaseComponent,} from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { PatentService } from './patent-service.service';
@@ -19,7 +19,7 @@ import { PatentService } from './patent-service.service';
 export class PatentComponent extends BaseComponent implements OnInit {
   public showFieldErrors: boolean = false;
   lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   public patentInformationForm: FormGroup;

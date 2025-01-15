@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import {
   ENGLISH,
-  HelpIndex,
+  HelpSequence,
   ICode,
   ICodeAria,
   ICodeDefinition,
@@ -19,7 +19,7 @@ import { FormGroup } from '@angular/forms';
 export class GlobalService {
   private _devEnv: boolean = false;
   private _appVersion: string = '0.0.0';
-  private _helpIndex: HelpIndex;
+  private _helpIndex: HelpSequence;
   private _currLanguage: string = ENGLISH;
   private _enrollment: Transaction;
   private _byPassChecksum: boolean = false;
@@ -68,11 +68,11 @@ export class GlobalService {
     this._appVersion = value;
   }
 
-  public set helpIndex(helpIndex: string[]) {
-    this._helpIndex = this.instructionService.getHelpTextIndex(helpIndex);
+  public set helpIndex(helpIndex: HelpSequence) {
+    this._helpIndex = helpIndex;
   }
 
-  public get helpIndex(): HelpIndex {
+  public get helpIndex(): HelpSequence {
     return this._helpIndex;
   }
 

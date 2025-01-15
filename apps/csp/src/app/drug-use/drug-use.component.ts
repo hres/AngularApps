@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ICode, UtilsService, HelpIndex, BaseComponent } from '@hpfb/sdk/ui';
+import { ICode, UtilsService, HelpSequence, BaseComponent } from '@hpfb/sdk/ui';
 import { DrugUseService } from './drug-use.service';
 import { GlobalService } from '../global/global.service';
 
@@ -24,7 +24,7 @@ export class DrugUseComponent  extends BaseComponent implements OnInit {
 
   public showFieldErrors: boolean = false;
   lang: string;
-  helpIndex: HelpIndex;
+  helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   drugUseOptions: ICode[] = [];
