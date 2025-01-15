@@ -60,6 +60,10 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
     this.errorList.emit(errors);
   }
 
+  onDateInput(event: any): void {
+    this._globalService.isDateValid(event, this.noticeOfComplianceForm);
+  }
+
   checkDateValidity(event: any): void {
     let inputName =
       event.target.attributes.getNamedItem('ng-reflect-name').value;
@@ -72,9 +76,6 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
       let patendExpirationDate = this.noticeOfComplianceForm.get(
         'patendExpirationDate'
       );
-
-
-
     }
   }
 

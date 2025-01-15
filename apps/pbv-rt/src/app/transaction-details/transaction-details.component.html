@@ -79,7 +79,7 @@
                         [control]="transctionDetailsForm.controls['dateOfRequest'] | formControl" controlId="dateOfRequest"
                         label="date.of.request" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="dateOfRequest" name="dateOfRequest" type="date" class="form-control" (input)="checkDateValidity($event)"
+                <input id="dateOfRequest" name="dateOfRequest" type="date" class="form-control" (input)="checkDateValidity('dateOfRequest', $event)"
                     [formControlName]="'dateOfRequest'" />
             </div>
         </div>
@@ -94,17 +94,17 @@
                         controlId="startDate" label="start.date" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="startDate" name="startDate" type="date" class="form-control"
-                    (input)="checkDateValidity($event)" [formControlName]="'startDate'" />
+                    (input)="checkDateValidity('startDate', $event)" [formControlName]="'startDate'" />
             </div>
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="startDate" class="required">
+                <label for="endDate" class="required">
                     <span class="field-name">{{ 'end.date' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="transctionDetailsForm.controls['endDate'].invalid" [showError]="showErrors"
                         [control]="transctionDetailsForm.controls['endDate'] | formControl" controlId="endDate"
                         label="end.date" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="endDate" name="endDate" type="date" class="form-control" (input)="checkDateValidity($event)"
+                <input id="endDate" name="endDate" type="date" class="form-control" (input)="checkDateValidity('endDate', $event)"
                     [formControlName]="'endDate'" />
             </div>
         </div>
@@ -228,12 +228,8 @@
     <div class="row">
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="controlNumber" class="required">
-                <span class="field-name">{{'ctrl.num'|translate }}</span>
+                <span class="field-name">{{'ctrl.num'|translate }} {{'six.digits' | translate}}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                <sup [id]="helpIndex['ctrlNumIndx'][2]">
-                    <a class="fn-lnk" [href]="'#' + helpIndex['ctrlNumIndx'][1]"><span
-                            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['ctrlNumIndx'][0]}}</a>
-                </sup>
                 <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid" [showError]="showErrors"
                     [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
                     label="ctrl.num" parentId="regulatoryInfo"></control-messages>

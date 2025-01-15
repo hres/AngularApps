@@ -12,7 +12,7 @@
             controlId="appReceived"
             label="appReceived"
           ></control-messages>
-          <input class="form-control" id="appReceived" type="date" [formControlName]="'appReceived'"/>
+          <input class="form-control" id="appReceived" type="date" [formControlName]="'appReceived'" (blur)="onDateInput($event)"/>
         </label>
       </div>
 
@@ -27,7 +27,7 @@
             controlId="custNum"
             label="custNum"
           ></control-messages>
-          <input maxlength="5" id="custNum" class="form-control"
+          <input data-only-digits maxlength="5" id="custNum" class="form-control"
                  name="cspNumber" [formControl]="hcUseOnlyForm.controls['custNum'] | formControl" />
         </label>
       </div>
@@ -43,7 +43,7 @@
             controlId="appNum"
             label="appNum"
           ></control-messages>
-          <input maxlength="6" id="appNum" class="form-control"
+          <input data-only-digits maxlength="6" id="appNum" class="form-control"
                  name="cspNumber" [formControl]="hcUseOnlyForm.controls['appNum'] | formControl" />
         </label>
       </div>

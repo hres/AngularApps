@@ -271,8 +271,18 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     return this.transctionDetailsForm.value;
   }
 
-  checkDateValidity(event: any): void {
-    this._utilsService.checkInputValidity(event, this.transctionDetailsForm.get('requestDate'), 'invalidDate');
+  checkDateValidity(inputName : string, event: any): void {
+    const startDate = this.transctionDetailsForm.controls['startDate'].value;
+    const endDate = this.transctionDetailsForm.controls['endDate'].value;
+    const sD: Date = new Date(startDate);
+    const eD: Date = new Date(endDate);
+
+    if (startDate && sD.getTime() > eD.getTime()) {
+      console.log("here");
+      this.transctionDetailsForm.controls['endDate'].setErrors({'error.msg.endDate' : true});
+    } else {
+      this._utilsService.checkInputValidity(event, this.transctionDetailsForm.get(inputName),'invalidDate');    
+    }
   } 
 
   private _getCodeDefinition(codeDefinitionList: ICodeDefinition[], id: string){
@@ -284,4 +294,5 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       this._utilsService.resetControlsValues(this.transctionDetailsForm.controls[controlNames[i]]);
     }
   }
+
 }

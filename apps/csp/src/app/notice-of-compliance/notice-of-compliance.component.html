@@ -25,6 +25,7 @@
             type="date"
             [formControlName]="'nocDate'"
             (input)="checkDateValidity($event)"
+            (blur)="onDateInput($event)"
           />
         </label>
       </div>

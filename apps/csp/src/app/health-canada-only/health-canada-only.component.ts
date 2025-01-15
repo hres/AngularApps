@@ -39,6 +39,10 @@ export class HcUseOnlyComponent  extends BaseComponent implements OnInit {
     return this.hcUseOnlyForm.value;
   }
 
+  onDateInput(event: any): void {
+    this._globalService.isDateValid(event, this.hcUseOnlyForm);
+  }
+  
   protected override emitErrors(errors: any[]){
     this.errorList.emit(errors);
   }

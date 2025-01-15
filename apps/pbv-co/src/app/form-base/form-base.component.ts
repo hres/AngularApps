@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild, signal, Signal, computed } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, HelpSequence, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
+import { FILE_OUTPUT_PREFIX, ENROLMENT_STATUS, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { CompanyEnrol, Company} from '../models/Company';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -45,6 +45,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
   public startCheckSumVersionNum = START_CHECKSUM_VERSION;
+
+  isStatusFinal: boolean;
 
   private _signalService = inject(AppSignalService)
 
@@ -168,14 +170,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log(fileData);
     if (fileData.data !== null) {
       this.companyEnrollModel = fileData.data.COMPANY_ENROL;
-      // this._initModels(this.transactionEnrollModel);
+      this._initModels(this.companyEnrollModel);
+      this.isStatusFinal = this.companyEnrollModel.application_type == ENROLMENT_STATUS.FINAL;
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
       // this.agentInfoOnChange();
     }
   }
   
-  private _initModels(drugProduct: CompanyEnrol) {
+  private _initModels(companyEnrol: CompanyEnrol) {
     // this.ectdModel = trans.ectd;
     // // if (trans.contact_info != null) {
     // //   this.holderAddressModel = trans.contact_info.holder_name_address;
@@ -220,7 +223,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     newcompanyEnrol.form_language = this._globalService.currLanguage;
 
     const output: Company = {
-      COMPANY_ENROL: this.companyEnrollModel
+      COMPANY_ENROL: newcompanyEnrol
     };
 
     if (xmlFile) {
