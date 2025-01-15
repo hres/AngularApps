@@ -10,6 +10,8 @@ import {
   InstructionService,
 } from '@hpfb/sdk/ui';
 import { Transaction } from '../models/transaction';
+import { FormGroup } from '@angular/forms';
+
 
 @Injectable({
   providedIn: 'root',
@@ -176,4 +178,34 @@ export class GlobalService {
     this._languageList = value;
 
   }
+
+
+  /** Checking is date is fully filled out and between the years 1900 - 3000
+   * @param event
+   * @param form
+   */
+  public isDateValid(event: any, form: FormGroup): void {
+    const inputName = event.target.attributes.getNamedItem('ng-reflect-name')?.value;
+    const dateControl = form.get(inputName);
+    const dateValue = dateControl?.value;
+    const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(dateValue);
+
+    if (!isValidFormat) {
+      dateControl?.setErrors({ 'error.msg.invalidDate': true });
+    } else {
+      const year = parseInt(dateValue.substring(0, 4), 10);
+      if (year < 1900 || year > 3000) {
+        dateControl?.setErrors({ 'error.msg.invalidDate': true });
+      } else {
+        if (dateControl?.errors?.['error.msg.invalidDate']) {
+          delete dateControl.errors['error.msg.invalidDate'];
+          if (Object.keys(dateControl.errors).length === 0) {
+            dateControl.setErrors(null);
+          }
+        }
+      }
+    }
+  }
+
+  
 }

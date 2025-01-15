@@ -55,7 +55,7 @@
             type="date"
             [formControlName]="'patentFillingDate'"
             (input)="checkDateValidity($event)"
-            (blur)="checkDateValidity($event)"
+            (blur)="onDateInput($event)"
           />
         </label>
       </div>
@@ -84,7 +84,7 @@
             type="date"
             [formControlName]="'patentGrandDate'"
             (input)="checkDateValidity($event)"
-            (blur)="checkDateValidity($event)"
+            (blur)="onDateInput($event)"
           />
         </label>
       </div>
@@ -116,7 +116,7 @@
             type="date"
             [formControlName]="'patendExpirationDate'"
             (input)="checkDateValidity($event)"
-            (blur)="checkDateValidity($event)"
+            (blur)="onDateInput($event)"
           />
         </label>
       </div>
