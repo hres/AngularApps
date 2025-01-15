@@ -423,6 +423,7 @@
       "new.drug.submission.info.nds.number": "Numéro de PDN",
      "panel.title.new.drug.submission.info": "Renseignements sur la présentation de drogue nouvelle (PDN)",
       "medicinal.ingredients": "Ingrédient(s) médicinal(aux)(conformément à ce qui est indiqué sur l’AC pour la PDN susmentionnée)",
+      "product.name": "Nom du produit (conformément à ce qui est indiqué sur l’AC pour la PDN susmentionnée)",
      "panel.title.medicinal.ingredients": "Ingrédient(s) médicinal(aux)",
      "applicant.name":"Nom du demandeur",
      "cra.business.number":"Numéro d’entreprise d’ARC",
