@@ -17,7 +17,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   lang: string;
   helpIndex: HelpSequence; 
   public showFieldErrors: boolean = false;
-  public regulatoryEnrolmentForm: FormGroup;
+  public companyEnrolmentForm: FormGroup;
 
   @Input() showErrors: boolean;
   @Input() dataModel: CompanyEnrol;
@@ -63,10 +63,10 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   }
 
   private _getRegulatoryEnrolmentForm(){
-    if (!this.regulatoryEnrolmentForm) {
-      this.regulatoryEnrolmentForm = CompanyEnrolmentService.getEnrolmentForm(this._fb);
+    if (!this.companyEnrolmentForm) {
+      this.companyEnrolmentForm = CompanyEnrolmentService.getEnrolmentForm(this._fb);
     }
-    return this.regulatoryEnrolmentForm;
+    return this.companyEnrolmentForm;
   }
 
   protected override emitErrors(errors: ControlMessagesComponent[]): void {
@@ -86,12 +86,12 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   }
 
   getFormValue() {
-    return this.regulatoryEnrolmentForm.value;
+    return this.companyEnrolmentForm.value;
   }
 
   private _resetControlValues(controlNames: string[]) {
     for (let i = 0; i < controlNames.length; i++) {
-      this._utilsService.resetControlsValues(this.regulatoryEnrolmentForm.controls[controlNames[i]]);
+      this._utilsService.resetControlsValues(this.companyEnrolmentForm.controls[controlNames[i]]);
     }
   }
 }
