@@ -1,5 +1,8 @@
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
+	<xsl:param name="language" select="'eng'" />
+	<xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
+	<xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 	<xsl:template match="/">
 		<html>
 			<head>
