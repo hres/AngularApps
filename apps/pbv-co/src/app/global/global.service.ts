@@ -21,6 +21,7 @@ export class GlobalService {
   private _currLanguage: string = ENGLISH;
   private _enrollment: Company;
   private _byPassChecksum: boolean = false;
+  private _isInternal: boolean = false;
 
   // data loaded from json files
   private _dossierTypes: ICodeDefinition[] = [];
@@ -88,6 +89,14 @@ export class GlobalService {
 
   public get byPassChecksum(): boolean {
     return this._byPassChecksum;
+  }
+
+  public set isInternal(value: boolean) {
+    this._isInternal = value;
+  }
+
+  public get isInternal(): boolean {
+    return this._isInternal;
   }
 
   /**

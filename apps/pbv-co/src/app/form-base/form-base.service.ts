@@ -3,13 +3,17 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
-import { Company, CompanyEnrol } from '../models/Company';
+import { AddressRecord, Company, CompanyEnrol, ContactRecord } from '../models/Company';
+import { CompanyEnrolmentService } from '../company-enrolment/company-enrolment.service';
 
 @Injectable()
 export class FormBaseService {
 
   constructor(
-    private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _entityBaseService: EntityBaseService, 
+    private _utilsService: UtilsService, 
+    private _globalService: GlobalService,
+    private _companyEnrolmentService: CompanyEnrolmentService) {
   }
 
   /**
@@ -41,9 +45,26 @@ export class FormBaseService {
       software_version: '',
       form_language: '',
       check_sum: '',
-      application_type: ''
+      application_type: '',
+      enrolment_version: '',
+      company_id: '',
+      reason_amend: '',
+      address_record: this.getEmptyAddressRecord(),
+      contact_record: this.getEmptyContactRecord()
     };
     
     return companyEnrol;
+  }
+
+  public getEmptyAddressRecord(): AddressRecord[] {
+    return null;
+  }
+
+  public getEmptyContactRecord(): ContactRecord[] {
+    return null;
+  }
+
+  public mapRegulatoryEnrolmentToOutput(outputCompanyEnrol: CompanyEnrol, regulatoryEnrolmentGroupValue: any): void{
+    this._companyEnrolmentService.mapFormModelToDataModel(outputCompanyEnrol, regulatoryEnrolmentGroupValue);
   }
 }

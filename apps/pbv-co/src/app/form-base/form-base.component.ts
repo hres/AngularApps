@@ -10,6 +10,7 @@ import { FormBaseService } from './form-base.service';
 import { CompanyEnrol, Company} from '../models/Company';
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
+import { CompanyEnrolmentComponent } from '../company-enrolment/company-enrolment.component';
 
 @Component({
     selector: 'app-form-base',
@@ -29,8 +30,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
+  @ViewChild(CompanyEnrolmentComponent) regulatoryEnrolmentComponent: CompanyEnrolmentComponent;
+
   
-  private _consertPrivacyError = [];
+  private _regulatoryEnrolmentErrors = [];
 
   public coForm: FormGroup; 
   public errorList = [];
@@ -40,7 +43,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public headingLevel = 'h2';
 
   public enrollModel: Company;
-  public companyEnrollModel: CompanyEnrol;
+  public companyEnrolModel: CompanyEnrol;
 
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
@@ -73,14 +76,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this.enrollModel = this._globalService.enrollment;
       }
 
-      this.companyEnrollModel = this.enrollModel[this.rootTagText];
+      this.companyEnrolModel = this.enrollModel[this.rootTagText];
 
-      // this._initModels(this.productEnrollModel);
+      this._initModels(this.companyEnrolModel);
 
       this.lang = this._globalService.currLanguage;
       this.helpIndex = this._globalService.helpIndex;
       this.devEnv = this._globalService.devEnv;
       this.byPassCheckSum = this._globalService.byPassChecksum;
+      this._signalService.setIsInternal(this._globalService.isInternal);
     } catch (e) {
       console.error(e);
     }
@@ -114,23 +118,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processErrors() {
     this.errorList = [];
-    // this.errorList = this.errorList.concat(this._productInfoErrors);
-
-    // if (this.showContact()) {
-    //   this.errorList = this.errorList.concat(
-    //     this._addressErrors.concat(this._contactErrors)
-    //   );
-    //   if(!this.notApplicable)
-    //     this.errorList = this.errorList.concat(
-    //       this._agentAddressErrors.concat(this._agentContactErrors)
-    //     );
-    //   this.errorList = this.errorList.concat(this._contactConfirmError);
-    // }
-
-    // if (this.showFees()) {
-    //   this.errorList = this.errorList.concat(this._feesErrors);
-    // }
-    // this.errorList = this.errorList.concat(this._consertPrivacyError);
+    this.errorList = this.errorList.concat(this._regulatoryEnrolmentErrors);
 
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -149,6 +137,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   //   this._feesErrors = errorList;
   //   this.processErrors();
   // }
+
+  processRegulatoryEnrolmentErrors(errorList) {
+    this._regulatoryEnrolmentErrors = errorList;
+    this.processErrors();
+  }
 
   public hideErrorSummary() {
     return this.showErrors && this.errorList && this.errorList.length > 0;
@@ -169,9 +162,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public processFile(fileData: ConvertResults) {
     // console.log(fileData);
     if (fileData.data !== null) {
-      this.companyEnrollModel = fileData.data.COMPANY_ENROL;
-      this._initModels(this.companyEnrollModel);
-      this.isStatusFinal = this.companyEnrollModel.application_type == ENROLMENT_STATUS.FINAL;
+      this.companyEnrolModel = fileData.data.COMPANY_ENROL;
+      this._initModels(this.companyEnrolModel);
+      this.isStatusFinal = this.companyEnrolModel.application_type == ENROLMENT_STATUS.FINAL;
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
       // this.agentInfoOnChange();
@@ -221,6 +214,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     newcompanyEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     newcompanyEnrol.software_version = this._globalService.appVersion;
     newcompanyEnrol.form_language = this._globalService.currLanguage;
+
+    const regulatoryEnrolmentFormGroupValue = this.regulatoryEnrolmentComponent.getFormValue();
+    this._baseService.mapRegulatoryEnrolmentToOutput(newcompanyEnrol, regulatoryEnrolmentFormGroupValue);
 
     const output: Company = {
       COMPANY_ENROL: newcompanyEnrol

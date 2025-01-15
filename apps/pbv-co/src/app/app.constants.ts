@@ -25,5 +25,7 @@ export const HELP_TEXT_SEQUENCE = [
 
 
 export const ENROLMENT_STATUS = {
+  NEW: 'NEW',
+  AMEND: 'AMEND',
   FINAL: 'FINAL'
 };

@@ -11,9 +11,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HelpTextModuleModule } from "./instruction/help-text-module.module";
 import { AppSignalService } from './signal/app-signal.service';
+import { CompanyEnrolmentComponent } from './company-enrolment/company-enrolment.component';
+import { CompanyEnrolmentService } from './company-enrolment/company-enrolment.service';
 
 @NgModule({
   declarations: [
+    CompanyEnrolmentComponent
   ],
   imports: [
     CommonModule,
@@ -28,9 +31,11 @@ import { AppSignalService } from './signal/app-signal.service';
     HelpTextModuleModule
 ],
   providers: [
-    AppSignalService
+    AppSignalService,
+    CompanyEnrolmentService
   ],
-  exports: [CommonUiFeatureModule
+  exports: [CommonUiFeatureModule,
+    CompanyEnrolmentComponent
    ],
 })
 export class AppFormModule {}

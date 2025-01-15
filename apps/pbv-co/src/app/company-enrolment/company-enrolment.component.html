@@ -1,0 +1,76 @@
+<div [formGroup]="regulatoryEnrolmentForm">
+    <div class="row">
+        <div class="form-group col-sm-6 col-xs-12">
+            <label for="statusText" class="full-width">
+                <span class="field-name">{{'enrolment.status' |translate}}</span>
+                <input name="statusText" id="statusText" class="form-control"
+                       [readonly]="true" [formControl]="regulatoryEnrolmentForm.controls['enrolmentStatus'] | formControl"/>
+                <input type="hidden" name="status" id="status" class="form-control"
+                       [formControl]="regulatoryEnrolmentForm.controls['enrolmentStatus'] | formControl"/>
+            </label>
+        </div>
+        <div class="form-group col-sm-6 col-xs-12">
+            <label for="enrolmentVersionText" class="full-width">
+                <span class="field-name">{{'enrolment.version' |translate}}</span>
+                <input name="enrolmentVersionText" id="enrolmentVersionText" class="form-control"
+                       [readonly]="true" [formControl]="regulatoryEnrolmentForm.controls['enrolmentVersion'] | formControl"/>
+                <input type="hidden" name="enrolmentVersion" id="enrolmentVersion" class="form-control"
+                       [formControl]="regulatoryEnrolmentForm.controls['enrolmentVersion'] | formControl"/>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6 col-xs-12">
+            <label for="dateLastSavedText" class="full-width">
+                <span class="field-name">{{'date.last.saved' |translate}}</span>
+                <input name="dateLastSavedText" id="dateLastSavedText" class="form-control"
+                       [readonly]="true" [formControl]="regulatoryEnrolmentForm.controls['dateLastSaved'] | formControl"/>
+                <input type="hidden" name="dateLastSaved" id="dateLastSaved" class="form-control"
+                       [formControl]="regulatoryEnrolmentForm.controls['dateLastSaved'] | formControl"/>
+            </label>
+        </div>
+        <div class="form-group col-sm-6 col-xs-12">
+            <label for="companyId" [ngClass]="{'required':isInternal}" class="full-width">
+            <span class="field-name" >{{'company.id'|translate}}</span>
+            <strong *ngIf="isInternal" class="required" >{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="isInternal && regulatoryEnrolmentForm.controls['companyId'].invalid"
+                                [showError]="showFieldErrors"
+                                [control]="regulatoryEnrolmentForm.controls['companyId'] | formControl"
+                                controlId="companyId" label="company.id" parentId="regulatoryEnrolment"></control-messages>
+            <input name="companyId" id="companyId" class="form-control" 
+                    [readonly]="!isInternal" [formControl]="regulatoryEnrolmentForm.controls['companyId'] | formControl" [maxLength]="5" data-only-digits/>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+          <button class="btn btn-primary" (click)="setAmendState()" [disabled]="disableAmendButton">
+            {{'amend.enrol'|translate}}</button>
+        </div>
+    </div>
+    <!-- TODO: Show if amend enrol button is clicked -->
+    <div class="row" *ngIf="showAmendNote">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="alert alert-info" role="alert">
+                <p aria-live="polite">{{'records.amended.info' | translate}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="filingReason" class="required">
+                <span class="field-name">{{ 'reason.filing'|translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <sup [id]="helpIndex['reasonIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['reasonIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['reasonIndx'][0]}}</a>
+                </sup>
+                <control-messages *ngIf="regulatoryEnrolmentForm.controls['reasonForFiling'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="regulatoryEnrolmentForm.controls['reasonForFiling'] | formControl" controlId="reasonForFiling"
+                    label="reason.filing" parentId="regulatoryEnrolment"></control-messages>
+            </label>
+            <textarea id="filingReason" name="filingReason" class="form-control full-width"
+                        [formControl]="regulatoryEnrolmentForm.controls['reasonForFiling'] | formControl" maxlength="400" ></textarea>
+        </div>
+    </div>
+</div>
