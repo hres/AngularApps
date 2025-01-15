@@ -1,7 +1,8 @@
 import { inject, Injectable } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { UtilsService } from "@hpfb/sdk/ui";
+import { ConverterService, ICode, UtilsService } from "@hpfb/sdk/ui";
 import { ENROLMENT_STATUS } from "../app.constants";
+import { GlobalService } from "../global/global.service";
 import { CompanyEnrol } from "../models/Company";
 import { AppSignalService } from "../signal/app-signal.service";
 
@@ -9,6 +10,8 @@ import { AppSignalService } from "../signal/app-signal.service";
 export class CompanyEnrolmentService {
   private _signalService = inject(AppSignalService);
   private _utilsService = inject(UtilsService);
+  private _converterService = inject(ConverterService);
+  private _globalService = inject(GlobalService);
 
 
   public static getEnrolmentForm(fb:FormBuilder) {
@@ -24,10 +27,12 @@ export class CompanyEnrolmentService {
       });
     }
 
-  public mapFormModelToDataModel(dataModel:CompanyEnrol, formModel) {
+  public mapFormModelToDataModel(dataModel:CompanyEnrol, formModel:any) {
     const isInternal = this._signalService.getIsInternal()();
+    const lang = this._globalService.currLanguage;
+    const enrolmentStatusesList = this._globalService.enrolmentStatusList;
 
-    dataModel.application_type = formModel['enrolmentStatus'];
+    dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, formModel.enrolmentStatus, lang);
     dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, formModel['enrolmentVersion']);
     dataModel.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     if (isInternal) {
@@ -36,8 +41,12 @@ export class CompanyEnrolmentService {
     dataModel.reason_amend = formModel['reasonForFiling'];
   }
 
-  public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel) {
-    formModel.controls['enrolmentStatus'].setValue(dataModel.application_type);
+  public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel:any) {
+    const lang = this._globalService.currLanguage;
+    const enrolmentStatusesList = this._globalService.enrolmentStatusList;
+
+    this._setEnrolmentStatus(formModel, dataModel.application_type._id, enrolmentStatusesList, lang); 
+
     formModel.controls['enrolmentVersion'].setValue(dataModel.enrolment_version);
     formModel.controls['dateLastSaved'].setValue(dataModel.date_saved.substring(0, 10)); // Date is set to YYYY-MM-DD
     formModel.controls['companyId'].setValue(dataModel.company_id);
@@ -46,6 +55,10 @@ export class CompanyEnrolmentService {
 
   private _incrementEnrolmentVersion(isInternal : boolean, currentVersion) : string { 
     return (parseFloat(currentVersion) + (isInternal ? 1.0 : 0.1)).toString();
+  }
+
+  private _setEnrolmentStatus(formRecord, statusId: string, enrollmentStatusList: ICode[], lang:string) {
+    formRecord.controls['enrolmentStatus'].setValue(this._utilsService.findAndTranslateCode(enrollmentStatusList, lang, statusId));
   }
 
 }

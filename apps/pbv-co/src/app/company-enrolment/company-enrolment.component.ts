@@ -8,7 +8,7 @@ import { CompanyEnrol } from '../models/Company';
 import { ENROLMENT_STATUS } from '../app.constants';
 
 @Component({
-  selector: 'app-regulatory-enrolment',
+  selector: 'app-comapany-enrolment',
   templateUrl: './company-enrolment.component.html',
   encapsulation: ViewEncapsulation.None,
 })
@@ -17,7 +17,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   lang: string;
   helpIndex: HelpSequence; 
   public showFieldErrors: boolean = false;
-  public regulatoryEnrolmentForm: FormGroup;
+  public companyEnrolmentForm: FormGroup;
 
   @Input() showErrors: boolean;
   @Input() dataModel: CompanyEnrol;
@@ -39,7 +39,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
 
-    this._getRegulatoryEnrolmentForm();
+    this._getCompanyEnrolmentForm();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -55,18 +55,18 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       if (!isFirstChange) {
         this._companyEnrolmentService.mapDataModelToFormModel(
           dataModelCurrentValue,
-          <FormGroup>this._getRegulatoryEnrolmentForm());
+          <FormGroup>this._getCompanyEnrolmentForm());
       }
       
       this.activateAmendButton();
     }
   }
 
-  private _getRegulatoryEnrolmentForm(){
-    if (!this.regulatoryEnrolmentForm) {
-      this.regulatoryEnrolmentForm = CompanyEnrolmentService.getEnrolmentForm(this._fb);
+  private _getCompanyEnrolmentForm(){
+    if (!this.companyEnrolmentForm) {
+      this.companyEnrolmentForm = CompanyEnrolmentService.getEnrolmentForm(this._fb);
     }
-    return this.regulatoryEnrolmentForm;
+    return this.companyEnrolmentForm;
   }
 
   protected override emitErrors(errors: ControlMessagesComponent[]): void {
@@ -86,12 +86,12 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   }
 
   getFormValue() {
-    return this.regulatoryEnrolmentForm.value;
+    return this.companyEnrolmentForm.value;
   }
 
   private _resetControlValues(controlNames: string[]) {
     for (let i = 0; i < controlNames.length; i++) {
-      this._utilsService.resetControlsValues(this.regulatoryEnrolmentForm.controls[controlNames[i]]);
+      this._utilsService.resetControlsValues(this.companyEnrolmentForm.controls[controlNames[i]]);
     }
   }
 }
