@@ -20,6 +20,7 @@ export class CompanyEnrolmentService {
       }
       return fb.group({
         enrolmentStatus: [ENROLMENT_STATUS.NEW],
+        enrolmentStatusText: '', // UI Display
         enrolmentVersion: ['0.0'],
         dateLastSaved: [null],
         companyId: [null],
@@ -45,7 +46,7 @@ export class CompanyEnrolmentService {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
 
-    this._setEnrolmentStatus(formModel, dataModel.application_type._id, enrolmentStatusesList, lang); 
+    this.setEnrolmentStatus(formModel, dataModel.application_type._id, enrolmentStatusesList, lang, true); 
 
     formModel.controls['enrolmentVersion'].setValue(dataModel.enrolment_version);
     formModel.controls['dateLastSaved'].setValue(dataModel.date_saved.substring(0, 10)); // Date is set to YYYY-MM-DD
@@ -57,8 +58,11 @@ export class CompanyEnrolmentService {
     return (parseFloat(currentVersion) + (isInternal ? 1.0 : 0.1)).toString();
   }
 
-  private _setEnrolmentStatus(formRecord, statusId: string, enrollmentStatusList: ICode[], lang:string) {
-    formRecord.controls['enrolmentStatus'].setValue(this._utilsService.findAndTranslateCode(enrollmentStatusList, lang, statusId));
+  public setEnrolmentStatus(formRecord, statusId: string, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {
+    if (setStatusAlso) {
+      formRecord.controls['enrolmentStatus'].setValue(statusId);  
+    }
+    formRecord.controls['enrolmentStatusText'].setValue(this._utilsService.findAndTranslateCode(enrollmentStatusList, lang, statusId));
   }
 
 }
