@@ -11,15 +11,4 @@ export class AppSignalService {
 
   constructor() { }
 
-  private readonly isInternal = signal<boolean>(null);
-
-  getIsInternal(): Signal<boolean>{
-    return this.isInternal.asReadonly();
-  }
-
-  setIsInternal(flag : boolean) {
-    this._logger.log(this._globalService.debugEnabled, 'AppSignalService', 'setIsInternal', `to ${flag}`)
-    this.isInternal.set(flag);
-  }
-
 }

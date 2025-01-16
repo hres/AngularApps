@@ -28,8 +28,7 @@ export class CompanyEnrolmentService {
       });
     }
 
-  public mapFormModelToDataModel(dataModel:CompanyEnrol, formModel:any) {
-    const isInternal = this._signalService.getIsInternal()();
+  public mapFormModelToDataModel(dataModel:CompanyEnrol, formModel:any, isInternal:boolean) {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
 
