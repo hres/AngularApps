@@ -516,5 +516,14 @@
     "ht.cert.1": "Attestation",
     "ht.cert.2": "<b>Nom de l’agent autorisé:</b> Fournir le nom d’une personne autorisée à présenter des attestations au nom du demandeur présentant la demande de CPS.",
     "ht.cert.3": "<b>Titre du poste:</b> Indiquer le titre du poste de la personne autorisée à présenter les attestations.",
-    "ht.cert.4": "<b>Date:</b> Fournir la date de prise d’effet des attestations."
+    "ht.cert.4": "<b>Date:</b> Fournir la date de prise d’effet des attestations.",
+
+    "msg.success.load": "Le fichier a été chargé avec succès",
+    "msg.err.parseFail": "Erreur: il y a eu une erreur en analysant le fichier de travail.",
+    "msg.err.jsonparse": "Il y a eu une erreur en analysant le fichier de travail.",
+    "msg.err.file.load": "Il y a eu un problème lors du chargement du fichier.",
+    "msg.err.file.type": "Erreur: Un type de fichier invalide a été sélectionné.",
+    "msg.err.form.type": "Erreur: le type de formulaire incorrect a été sélectionné pour ce formulaire.",
+    "msg.err.checksum": "Erreur: il y a eu une erreur en analysant le fichier."
+
   }

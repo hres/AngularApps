@@ -417,7 +417,7 @@
 
     "panel.title.certification": "Certification",
     "cert.name": "Name of Authorized Official",
-    "cert.first": "Fist Name",
+    "cert.first": "First Name",
     "cert.initials": "Initials",
     "cert.last": "Last Name",
     "cert.job": "Job Title",
@@ -461,5 +461,13 @@
     "ht.cert.1": "Certification",
     "ht.cert.2": "<b>Name of Authorized Official:</b> Provide the name of the person with the authority to make the attestations and certification on behalf of the applicant making the CSP application.",
     "ht.cert.3": "<b>Job Title:</b> Enter the job title of the person making the attestations and certification.",
-    "ht.cert.4": "<b>Date:</b> Provide the date of the attestations and certification."
+    "ht.cert.4": "<b>Date:</b> Provide the date of the attestations and certification.",
+
+    "msg.success.load": "The file was loaded successfully",
+    "msg.err.parseFail": "Error: there was an error parsing the working file.",
+    "msg.err.jsonparse": "There was an error parsing the working file.",
+    "msg.err.file.load": "There was a problem loading the file.",
+    "msg.err.file.type": "Error: An invalid file type was selected.",
+    "msg.err.form.type": "Error: the wrong form type was selected for this form.",
+    "msg.err.checksum": "Error: there was an error parsing the file."
 }
