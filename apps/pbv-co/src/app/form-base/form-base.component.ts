@@ -27,6 +27,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   helpIndex: HelpSequence;
   devEnv: boolean;
   byPassCheckSum: boolean;
+  isInternal: boolean;
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -84,7 +85,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.helpIndex = this._globalService.helpIndex;
       this.devEnv = this._globalService.devEnv;
       this.byPassCheckSum = this._globalService.byPassChecksum;
-      this._signalService.setIsInternal(this._globalService.isInternal);
+      this.isInternal = this._globalService.isInternal;
     } catch (e) {
       console.error(e);
     }
@@ -216,7 +217,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     newcompanyEnrol.form_language = this._globalService.currLanguage;
 
     const companyEnrolmentFormGroupValue = this.companyEnrolmentComponent.getFormValue();
-    this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue);
+    this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue, this.isInternal);
 
     const output: Company = {
       COMPANY_ENROL: newcompanyEnrol

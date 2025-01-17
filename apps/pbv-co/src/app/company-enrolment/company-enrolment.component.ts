@@ -38,8 +38,10 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
+    const enrolmentStatusesList = this._globalService.enrolmentStatusList;
 
     this._getCompanyEnrolmentForm();
+    this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, this.companyEnrolmentForm.controls['enrolmentStatus'].value, enrolmentStatusesList, this.lang, false);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -74,15 +76,18 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   }
 
   activateAmendButton() {
-    if (!this.isInternal && this._signalService.isFINAL()) {
-      this.disableAmendButton = false;
-    } 
+    if (this.companyEnrolmentForm) {
+      if (!this.isInternal && 
+        this.companyEnrolmentForm.controls['enrolmentStatus'].value == ENROLMENT_STATUS.FINAL) {
+        this.disableAmendButton = false;
+      } 
+    }
     this.disableAmendButton = true;
   }
 
   setAmendState() {
     this.showAmendNote = true;
-    this._signalService.setEnrolmentStatus(ENROLMENT_STATUS.AMEND);
+    this.companyEnrolmentForm.controls['enrolmentStatus'].setValue(ENROLMENT_STATUS.AMEND);
   }
 
   getFormValue() {
