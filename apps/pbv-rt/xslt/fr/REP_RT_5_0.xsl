@@ -330,7 +330,7 @@
 					<h2 class="panel-title">Personne-ressource pour cette activité réglementaire</h2>
 				</div>
 				<div class="panel-body">
-					<strong>A. Information sur l'entreprise: </strong>
+					<strong>A. Information sur la compagnie: </strong>
                     <div class="well well-sm" >
                         <div class="row">
                             <div class="col-xs-12">
@@ -358,95 +358,113 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-4">
+								<div class="col-xs-12">
 									<strong>Ville: </strong>
 									<span class="mouseHover">
 										<xsl:value-of select="regulatory_activity_address/city" />
 									</span>
 								</div>
-								<div class="col-xs-4">
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
 									<strong>Pays: </strong>
 									<span class="mouseHover">
 										<xsl:value-of select="regulatory_activity_address/country/@label_fr" />
 									</span>
 								</div>
 							</div>
-							<div class="row">
-								<xsl:choose>
-									<xsl:when test="regulatory_activity_address/country/@id = 'CA'">
-										<div class="col-xs-4">
+							<xsl:choose>
+								<xsl:when test="regulatory_activity_address/country/@id = 'CA'">
+									<div class="row">
+										<div class="col-xs-12">
 											<strong>Province: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/province_lov/@label_fr" />
 											</span>
 										</div>
-										<div class="col-xs-4">
+									</div>
+									<div class="row">
+										<div class="col-xs-12">
 											<strong>Code postal: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/postal_code" />
 											</span>
 										</div>
-									</xsl:when>
-									<xsl:when test="regulatory_activity_address/country/@id = 'US'">
-										<div class="col-xs-4">
+									</div>
+								</xsl:when>
+								<xsl:when test="regulatory_activity_address/country/@id = 'US'">
+									<div>
+										<div class="col-xs-12">
 											<strong>État: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/province_lov/@label_fr" />
 											</span>
 										</div>
-										<div class="col-xs-4">
+									</div>
+									<div class="row">
+										<div class="col-xs-12">
 											<strong>Code ZIP: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/postal_code" />
 											</span>
 										</div>
-									</xsl:when>
-									<xsl:otherwise>
-										<div class="col-xs-4">
+									</div>
+								</xsl:when>
+								<xsl:otherwise>
+									<div class="row">
+										<div class="col-xs-12">
 											<strong>Province ou état: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/province_text" />
 											</span>
 										</div>
-										<div class="col-xs-4">
+									</div>
+									<div class="row">
+										<div class="col-xs-12">
 											<strong>Code postal/ZIP: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/postal_code" />
 											</span>
 										</div>
-									</xsl:otherwise>
-								</xsl:choose>
-							</div>
+									</div>
+								</xsl:otherwise>
+							</xsl:choose>
 						</div>
 					</xsl:if>
-                    <h4>C. Représentative de l'entrepise: </h4>
+                    <h4>C. Représentant de la compagnie: </h4>
 					<div class="well well-sm">
 						<div class="row">
-								<strong class="col-xs-4">Prénom: <span
-										class="mouseHover normalWeight">
-										<xsl:value-of
-											select="regulatory_activity_contact/given_name" />
-									</span>
-								</strong>
-								<strong class="col-xs-4">Initiales: <span
-										class="mouseHover normalWeight">
-										<xsl:value-of select="regulatory_activity_contact/initials" />
-									</span>
-								</strong>
-								<strong class="col-xs-4">Nom de famille: <span
+							<strong class="col-xs-12">Prénom: <span
+									class="mouseHover normalWeight">
+									<xsl:value-of
+										select="regulatory_activity_contact/given_name" />
+								</span>
+							</strong>
+						</div>
+						<div class="row">
+								<strong class="col-xs-12">Nom de famille: <span
 										class="mouseHover normalWeight">
 										<xsl:value-of select="regulatory_activity_contact/surname" />
 									</span>
 								</strong>
 						</div>
 						<div class="row">
-							<strong class="col-xs-4">Langue de correspondance: <span
+								<strong class="col-xs-12">Initiales: <span
+										class="mouseHover normalWeight">
+										<xsl:value-of select="regulatory_activity_contact/initials" />
+									</span>
+								</strong>
+						</div>						
+						<div class="row">
+							<strong class="col-xs-12">Langue de correspondance: <span
 									class="mouseHover normalWeight">
 									<xsl:value-of
 										select="regulatory_activity_contact/language_correspondance/@label_fr" />
 								</span>
 							</strong>
-							<strong class="col-xs-8">Titre: <span
+						</div>
+						<div class="row">						
+							<strong class="col-xs-12">Titre: <span
 								class="mouseHover normalWeight">
 								<xsl:value-of
 									select="regulatory_activity_contact/job_title" />
@@ -454,13 +472,15 @@
 							</strong>
 						</div>
 						<div class="row">
-							<div class="col-xs-4">
+							<div class="col-xs-12">
 								<strong>Numéro de téléphone: </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="regulatory_activity_contact/phone_num" />
 								</span>
 							</div>
-							<div class="col-xs-4">
+						</div>
+						<div class="row">							
+							<div class="col-xs-12">
 								<strong>Numéro de l'extension: </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="regulatory_activity_contact/phone_ext" />
