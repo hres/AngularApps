@@ -42,6 +42,15 @@
           </header>
           <div class="panel-body">
             <app-comapany-enrolment [showErrors]="showErrors" [dataModel]="companyEnrolModel" (errorList)="processCompanyEnrolmentErrors($event)" [isInternal]="isInternal"></app-comapany-enrolment>
+
+            <section class="panel  panel-default">
+              <header class="panel-heading clearfix">
+                <h3 class="panel-title">{{'company.rep'|translate}}</h3>
+              </header>
+              <div class="panel-body">
+                <app-company-contact-list [recordList]="contactModel" [showErrors]="showErrors" (errorList)="processContactListErrors($event)"></app-company-contact-list>
+              </div>
+            </section>
           </div>
       </section>
       <!-- <section class="panel panel-primary mrgn-tp-lg">

@@ -36,5 +36,42 @@
     "ht.company.rep.2": "There must be a company representative associated with each of the following roles: \"Manufacturer / sponsor contact\", \"Billing contact\" and \"Regulatory mailing / annual contact\".",
     "ht.company.rep.3": "A single contact may be associated with multiple roles, however, each role may only have one contact.",
     "prod.line": "Select one or more of the following regulatory frameworks under which the manufacturer/sponsor company will be filing submissions/applications (check off all that apply):",
-    "ht.prod.line": "Note that there can still be only one address and only one company representative per role, even if the company files submissions or applications under both regulatory frameworks. There cannot be separate COs for the same company."
+    "ht.prod.line": "Note that there can still be only one address and only one company representative per role, even if the company files submissions or applications under both regulatory frameworks. There cannot be separate COs for the same company.",
+
+    "addressDetails.street": "Street address",
+    "addressDetails.city": "City or town",
+    "addressDetails.country": "Country",
+    "addressDetails.province": "Province",
+    "addressDetails.state": "State",
+    "addressDetails.postalZipCode":"Postal/ZIP code (Use \"not applicable\" if not available)",
+    "addressDetails.postalCode": "Postal code",
+    "addressDetails.zipCode": "Zip code",
+    "addressDetails.provState": "Province or state",
+
+    "manufacturer.address":"Manufacturer/sponsor mailing address",
+    "mailing.address": "Regulatory /annual contact address",
+    "billing.address": "Billing address",
+    
+    "heading.company.contact":"Company representative details {{seqnumber}}",
+    "first.name":"First name",
+    "initials":"Initials",
+    "last.name":"Last name",
+    "lang.correspond":"Language of correspondence",
+    "job.title":"Job title",
+    "phone.number":"Phone number (including area code)",
+    "phone.extension":"Phone extension",
+    "fax.number":"Fax number (including area code)",
+    "fax.number.nofaxnum": "(Use 0000000000 if not available)",
+    "contact.email":"Email",
+    "error.msg.zip":"Invalid entry - must be 5 numbers",
+    "error.msg.postal":"Invalid format - must be X#X#X#",
+    "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
+    "add.contact":"Add record",
+    "save.contact":"Save record",
+    "delete.contact":"Delete record",
+    "discard.changes":"Discard changes",
+
+    "manufacturer.contact":"Manufacturer/sponsor contact",
+    "mailing.contact": "Regulatory mailing/annual contact",
+    "billing.contact": "Billing contact"
 }

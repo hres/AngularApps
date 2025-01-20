@@ -36,5 +36,42 @@
     "ht.company.rep.2": "Le représentant de la compagnie doit être associé à chacun des rôles suivants : « Personne-ressource du fabricant ou promoteur », « Personne-ressource de facturation » et « Courrier réglementaire / adresse de personne-ressource pour l'annuelle ».",
     "ht.company.rep.3": "Une même personne-ressource peut être associée à plusieurs rôles, mais un rôle ne peut être associé qu'à une seule personne-ressource.",
     "prod.line": "Sélectionnez un ou plusieurs des cadres réglementaires suivants en vertu duquel/desquels le fabricant/promoteur pourrait déposer une présentation/demande (cochez toutes les cases qui s’appliquent) :",
-    "ht.prod.line": "Veuillez noter qu'il ne peut toujours y avoir qu'une seule adresse et un seul représentant de la compagnie par rôle, même si la compagnie dépose des présentations ou des demandes en vertu des deux cadres réglementaires. Il ne peut pas y avoir plus d'un CO distincts pour la même compagnie."
+    "ht.prod.line": "Veuillez noter qu'il ne peut toujours y avoir qu'une seule adresse et un seul représentant de la compagnie par rôle, même si la compagnie dépose des présentations ou des demandes en vertu des deux cadres réglementaires. Il ne peut pas y avoir plus d'un CO distincts pour la même compagnie.",
+
+    "addressDetails.street": "Rue",
+    "addressDetails.city": "Ville",
+    "addressDetails.country": "Pays",
+    "addressDetails.province": "Province",
+    "addressDetails.state": "État",
+    "addressDetails.postalZipCode":"Code postal/ZIP (Si pas disponible, utilisez « sans objet »)",
+    "addressDetails.postalCode": "Code postal",
+    "addressDetails.zipCode": "Code ZIP",
+    "addressDetails.provState": "Province ou état",
+
+    "manufacturer.address":"Adresse postale du fabricant / promoteur",
+    "mailing.address": "Contact pour l'adresse courrier réglementaire / adresse pour l'annuelle",
+    "billing.address": "Adresse de facturation",
+    
+    "heading.company.contact":"Détails du représentant de la compagnie {{seqnumber}}",
+    "first.name":"Prénom",
+    "initials":"Initiales",
+    "last.name":"Nom de famille",
+    "lang.correspond":"Langue de correspondance",
+    "job.title":"Titre",
+    "phone.number":"Numéro de téléphone (y compris indicatif régional)",
+    "phone.extension":"Numéro de l'extension",
+    "fax.number":"Numéro de télécopieur (y compris indicatif régional)",
+    "fax.number.nofaxnum": "(Si pas disponible, utilisez 0000000000)",
+    "contact.email":"Courriel",
+    "error.msg.zip":"Entrée non valide - doit contenir 5 chiffres",
+    "error.msg.postal":"Format non valide - doit être X#X#X#",
+    "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
+    "add.contact":"Ajouter un enregistrement",
+    "save.contact":"Enregistrer l'enregistrement",
+    "delete.contact":"Supprimer l'enregistrement",
+    "discard.changes":"Éliminer les modifications",
+
+    "manufacturer.contact":"Personne-ressource du fabricant / promoteur",
+    "mailing.contact": "Courrier réglementaire / adresse de personne-ressource pour l'annuelle",
+    "billing.contact": "Personne-ressource de facturation"
 }

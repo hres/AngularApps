@@ -7,10 +7,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ENROLMENT_STATUS, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { CompanyEnrol, Company} from '../models/Company';
+import { CompanyEnrol, Company, ContactRecord} from '../models/Company';
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { CompanyEnrolmentComponent } from '../company-enrolment/company-enrolment.component';
+import { CompanyContactModule } from "../company-contact/company-contact.module";
 
 @Component({
     selector: 'app-form-base',
@@ -19,7 +20,7 @@ import { CompanyEnrolmentComponent } from '../company-enrolment/company-enrolmen
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
     providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, CompanyContactModule]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -35,6 +36,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   
   private _companyEnrolmentErrors = [];
+  private _contactListErrors = [];
 
   public coForm: FormGroup; 
   public errorList = [];
@@ -45,6 +47,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public enrollModel: Company;
   public companyEnrolModel: CompanyEnrol;
+  public contactModel: ContactRecord[];
 
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
@@ -141,6 +144,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processCompanyEnrolmentErrors(errorList) {
     this._companyEnrolmentErrors = errorList;
+    this.processErrors();
+  }
+
+  processContactListErrors(errorList) {
+    this._contactListErrors = errorList;
     this.processErrors();
   }
 

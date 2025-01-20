@@ -1,0 +1,74 @@
+<div [formGroup]="cRRow">
+    <div id="coContactErrorSummary{{j}}">
+      <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
+      [errorList]="errors" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
+      [headingLevel]="headingLevel" label="error.msg.companyContacts" compId="contactListTable{{j}}"></lib-error-summary> 
+    </div>
+      <div [formGroupName]="'companyInfo'">
+
+        <pbv-contact-details [showErrors]="showErrors"
+        [contactDetailsModel]="contactModel"
+        [lang]="lang"
+        [languageList]="languageList"
+        (errorList)="processContactErrors($event)"> 
+        </pbv-contact-details>
+
+        <div class="row">
+          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <fieldset class="chkbxrdio-grp" id="companyRoles">
+              <legend class="required">
+                  <span class="field-name">{{'select.roles' | translate}}</span>
+                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+                  <control-messages *ngIf="companyRolesChkFormArray.invalid"
+                                  [showError]="showErrors"
+                                  [control]="companyRolesChkFormArray | formControl"
+                                  controlId="companyRoles" label="select.roles"
+                                  parentId="companyContact"></control-messages>
+              </legend>
+              <div class="col-sm-4">
+                <div class="checkbox">
+                  <label for="chk-mdr-it">
+                    <input type="checkbox" 
+                          [formControl]="this.cRRow.get('companyInfo.manufacturer') | formControl"
+                          id="chk-mdr-it" name="chk-mdr-it"
+                          (change)="companyRolesOnChange()"/>
+                    <span>{{'manufacturer.contact'|translate}}</span>
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="checkbox">
+                  <label for="chk-mdr-it">
+                    <input type="checkbox" 
+                      [formControl]="this.cRRow.get('companyInfo.mailing') | formControl"
+                      id="chk-mdr-it" name="chk-mdr-it" 
+                      (change)="companyRolesOnChange()"/>
+                    <span>{{'mailing.contact'|translate}}</span>
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="checkbox">
+                  <label for="chk-mdr-it">
+                    <input type="checkbox" 
+                      [formControl]="this.cRRow.get('companyInfo.billing') | formControl"
+                      id="chk-mdr-it" name="chk-mdr-it"
+                      (change)="companyRolesOnChange()"/>
+                    <span>{{'billing.contact'|translate}}</span>
+                  </label>
+                </div>
+              </div>
+          </fieldset>
+        </div>    
+      </div>
+
+        <div class="row">
+          <div class="btn-group-sm col-xs-12 text-left">          
+            <button id="saveCompanyRecord{{j}}" attr.aria-label="{{'save.contact' | translate}} {{'heading.company.contact' | translate: {seqnumber: j + 1} }}" class="btn btn-primary" style="margin: 3px" (click)="saveContactRecord(j)" >{{'save.contact'|translate}}</button>
+            <button id="deleteCompanyRecord{{j}}" attr.aria-label="{{'delete.contact' | translate}} {{ 'heading.company.contact' | translate: {seqnumber: j + 1} }}" class="btn btn-danger" style="margin: 3px"  (click)="deleteContactRecord(j)" >{{'delete.contact'|translate}}</button> <!--[disabled]="disableDeleteButton()"-->
+            <button id="revertCompanyRecord{{j}}" attr.aria-label="{{'discard.changes' | translate}} {{ 'heading.company.contact' | translate: {seqnumber: j + 1} }}" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()" (click)="revertContactRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>          
+          </div>
+        </div>
+    </div>
+</div>
+    

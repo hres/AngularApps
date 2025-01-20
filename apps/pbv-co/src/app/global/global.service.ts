@@ -29,6 +29,8 @@ export class GlobalService {
   private _yesnoList: ICode[];
   private _subTypeList: ICodeDefinition[];
   private _enrolmentStatusesList: ICode[];
+  private _languageList: ICode[];
+  private _companyRolesList: ICode[];
 
   constructor() {}
 
@@ -132,4 +134,19 @@ export class GlobalService {
     return this._enrolmentStatusesList;
   }
 
+  public get languageList(): ICode[] {
+    return this._languageList;
+  }
+
+  public set languageList(value: ICode[]) {
+    this._languageList = value;
+  }
+
+  public get companyRolesList(): ICode[] {
+    return this._companyRolesList;
+  }
+
+  public set companyRolesList(value: ICode[]) {
+    this._companyRolesList = value;
+  }
 }
