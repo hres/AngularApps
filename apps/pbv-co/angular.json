@@ -108,7 +108,7 @@
               ]
             },
             "development-en": {
-              "outputPath": "../../dist/pbv-co/dev/en",
+              "outputPath": "../../dist/pbv-co/dev/external/en",
               "index": "node_modules/@hpfb/sdk/src/index-en.j2",
               "optimization": true,
               "outputHashing": "all",
@@ -124,7 +124,7 @@
               ]
             },
             "development-fr": {
-              "outputPath": "../../dist/pbv-co/dev/fr",
+              "outputPath": "../../dist/pbv-co/dev/external/fr",
               "index": "node_modules/@hpfb/sdk/src/index-fr.j2",
               "optimization": true,
               "outputHashing": "all",
