@@ -12,6 +12,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some files.')
     parser.add_argument('--root_folder', type=str, help='The root folder path')
     parser.add_argument('--template', type=str, required=True, help='The application name')
+    parser.add_argument('--type', type=str, required=False, help='internal/external')
     parser.add_argument('--env', type=str, required=True, help='The environment to process for')
     parser.add_argument('--language', type=str, required=True, help='The language to process')
 
@@ -23,12 +24,16 @@ if __name__ == "__main__":
 
     root_folder = args.root_folder or input("Please enter the absolute path to the root folder: ").strip()
     template = args.template
+    type = args.type
     env = args.env
     language = args.language
     
     print(f'.. post build process for {template}, {env}, {language}')
 
-    dist_dir = os.path.join(f'{root_folder}/dist/{template}/{env}/{language}')
+    if (type is None):
+        dist_dir = os.path.join(f'{root_folder}/dist/{template}/{env}/{language}')
+    else:
+        dist_dir = os.path.join(f'{root_folder}/dist/{template}/{env}/{type}/{language}')
     browser_dir = os.path.join(f'{dist_dir}/browser/') 
     jinja_template_file_name = f"index-{language}.j2"
     temporary_files_dir = os.path.join(f'{browser_dir}temp/') 
@@ -51,19 +56,30 @@ if __name__ == "__main__":
         if date_issued is None:
             print(f"Error: 'date_issued' not found in {build_config_file_path}")
             sys.exit(1)
-            
-        server_base_url = f1_data["server_base_url"][env]
-        if server_base_url is None:
-            print(f"Error: 'serverBaseUrl' not found in {build_config_file_path}")
-            sys.exit(1)           
-         
-        if language=="fr":
-            final_file_name = f1_data["index_file_name"]["fr"]
-            lngHref = f'../en/{f1_data["index_file_name"]["en"]}'
+
+        if type is None:
+            server_base_url = f1_data["server_base_url"][env]
+            if server_base_url is None:
+                print(f"Error: 'serverBaseUrl' not found in {build_config_file_path}")
+                sys.exit(1)
+            if language=="fr":
+                final_file_name = f1_data["index_file_name"]["fr"]
+                lngHref = f'../en/{f1_data["index_file_name"]["en"]}'
+            else:
+                final_file_name = f1_data["index_file_name"]["en"]    
+                lngHref = f'../fr/{f1_data["index_file_name"]["fr"]}'
         else:
-            final_file_name = f1_data["index_file_name"]["en"]    
-            lngHref = f'../fr/{f1_data["index_file_name"]["fr"]}'
-            
+            server_base_url = f1_data["server_base_url"][type][env]
+            if server_base_url is None:
+                print(f"Error: 'serverBaseUrl' not found in {build_config_file_path}")
+                sys.exit(1)
+            if language=="fr":
+                final_file_name = f1_data["index_file_name"][type]["fr"]
+                lngHref = f'../en/{f1_data["index_file_name"][type]["en"]}'
+            else:
+                final_file_name = f1_data["index_file_name"][type]["en"]    
+                lngHref = f'../fr/{f1_data["index_file_name"][type]["fr"]}'
+
         modification_date = commonUtils.get_todays_date()
         
         # print(f"\n Date Issued: {date_issued}\n server_base_url: {server_base_url}\n lngHref: {lngHref}\n final_file_name: {final_file_name}")
