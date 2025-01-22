@@ -122,7 +122,7 @@
       </div>
       <div  *ngIf="  patentInformationForm.controls['patendExpirationDate'].valid && patentInformationForm.controls['patentGrandDate'].valid && patentInformationForm.controls['patentGrandDate'].valid">
          <div  *ngIf=" patentInformationForm.errors?.['identityRevealed'] "  class="cross-validation-error-message alert alert-danger">
-          {{"commmon.cross.validation.bracket" | translate }}
+          {{"err.patent.information.date.invalid" | translate }}
         </div>
       </div>
     </div>
