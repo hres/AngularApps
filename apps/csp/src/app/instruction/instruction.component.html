@@ -130,6 +130,18 @@
             </div>
         </dd>
 
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['approvalIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['approvalIndx'][1]">
+            <div class="fn-rep">
+                <p>{{'ht.mark.app.1' |translate}}</p>
+                <p [innerHTML]="'ht.mark.app.2'|translate"></p>
+
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['approvalIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.approvalIndx[0]}}
+                        <span class="wb-inv"> referrer</span></a></p>
+            </div>
+        </dd>
+
         <dt>{{'Instruction'|translate}} {{helpTextSequences['feePayIndx'][0]}}</dt>
         <dd [id]="helpTextSequences['feePayIndx'][1]">
             <div class="fn-rep">

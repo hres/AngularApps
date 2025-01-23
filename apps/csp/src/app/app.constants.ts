@@ -19,6 +19,7 @@ export const helpInstructionHeadings = [
     'drugUseIndx',
     'medicIngrIndx',
     'attestationIndx',
+    'approvalIndx',
     'feePayIndx',
     'methodPayIndx',
     'certificationIndx'
