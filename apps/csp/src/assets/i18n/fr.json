@@ -525,6 +525,10 @@
     "msg.err.file.type": "Erreur: Un type de fichier invalide a été sélectionné.",
     "msg.err.form.type": "Erreur: le type de formulaire incorrect a été sélectionné pour ce formulaire.",
     "msg.err.checksum": "Erreur: il y a eu une erreur en analysant le fichier.",
-    "err.patent.information.date.invalid":"Filling or Granted  or Expiration Date are invalid"
+    "err.patent.information.date.invalid":"Filling or Granted  or Expiration Date are invalid",
+    "DISCLAIMER":"Le contenu de ce formulaire peut être communiqué publiquement.",
+    "save.working.copy": "Enregistrer une copie de travail",
+    "generate.final.internal": "Approuver XML final",
+    "generate.final.external": "Enregistrer le brouillon"
 
   }
