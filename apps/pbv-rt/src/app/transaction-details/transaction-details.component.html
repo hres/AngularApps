@@ -1,5 +1,5 @@
 <div [formGroup]="transctionDetailsForm">
-    <div class="row">
+    <div class="row" [hidden]="isVet">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="activityLead" class="required">
                 <span class="field-name">{{ 'activity.lead' |translate }}</span>
