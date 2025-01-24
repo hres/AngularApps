@@ -122,7 +122,7 @@
 						</xsl:if>
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Is this an administrative submission or Application? </strong>
+								<strong> Is this an administrative submission or application? </strong>
 								<span class="mouseHover">
 									<xsl:call-template name="YesNoUnknow">
 										<xsl:with-param name="value" select="is_admin_sub" />

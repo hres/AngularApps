@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {AddressDetailsService} from './address.details.service';
-import { BaseComponent, HelpIndex, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
+import { BaseComponent, CANADA, HelpIndex, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { INameAddress } from '../../model/entity-base';
 
 @Component({
@@ -24,7 +24,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   @Input() countryList;
   @Input() provinceList;
   @Input() stateList;
-  @Input() canadaDefault;
+  @Input() canadaDefault: boolean;
   @Output() errorList = new EventEmitter(true);
 
   public addressForm: FormGroup;
@@ -58,7 +58,10 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     if (!this.addressForm) {
       this.addressForm = this._detailsService.getReactiveModel(this._fb);
     }
-    this.defaultToCanada();
+    if (this.canadaDefault) {
+      this.addressForm.controls['country'].setValue(CANADA);
+      this.addressForm.controls['country'].disable(); // Method to grey out/disable the country dropdown
+    }
   }
 
   protected override emitErrors(errors: any[]): void {
@@ -131,16 +134,6 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   private _resetControlValues(controlNames: string[]) {
     for (let i = 0; i < controlNames.length; i++) {
       this._utilsService.resetControlsValues(this.addressForm.controls[controlNames[i]]);
-    }
-  }
-
-  defaultToCanada() {
-    if (this.canadaDefault) {
-      this.addressForm.controls['country'].setValue('CA');
-      this.addressForm.controls['country'].disable(); // Method to grey out/disable the country dropdown
-      this._detailsService.setIsDefaultCountryCanada(this.canadaDefault);
-      this.selectedCountrySignal.set('CA');
-      this.onCountryChange(null);
     }
   }
 
