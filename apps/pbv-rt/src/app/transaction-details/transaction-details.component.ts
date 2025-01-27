@@ -5,7 +5,7 @@ import { TransactionDetailsService } from './transaction-details.service';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
 import { LifecycleRecord } from '../models/transaction';
-import { TXN_DESC_ACTION } from '../app.constants';
+import { DOSSIER_TYPE, RA_LEAD, TXN_DESC_ACTION } from '../app.constants';
 
 @Component({
   selector: 'app-transaction-details',
@@ -37,6 +37,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     super();
   }
 
+  isVet: boolean = false;
   readonly selectedDossierTypeId: Signal<string> = this._transactionDetailsService.selectedDossierTypeId;
   readonly selectedRaLeadId: Signal<string> = this._transactionDetailsService.selectedRaLeadId;
   readonly selectedRaTypeId: Signal<string> = this._transactionDetailsService.selectedRaTypeId;
@@ -197,9 +198,15 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
         const valuesToReset = ['activityLead', 'activityType', 'descriptionType'];
         this._resetControlValues(valuesToReset);
 
-        this.onRaLeadSelected(this.transctionDetailsForm.controls['activityLead'].value);
+        this.isVet = this.newlySelDossierType == DOSSIER_TYPE.VETERINARY;
+        if (this.isVet) {
+          this.onRaLeadSelected(RA_LEAD.VETERINARY);
+        } else {
+          this.onRaLeadSelected(this.transctionDetailsForm.controls['activityLead'].value);
+        }
         this.onRaTypeSelected(this.transctionDetailsForm.controls['activityType'].value);
         this.onTransactionDescriptionSelected(this.transctionDetailsForm.controls['descriptionType'].value);
+        this.isVet = this.newlySelDossierType == DOSSIER_TYPE.VETERINARY;
       }
     }
   }
