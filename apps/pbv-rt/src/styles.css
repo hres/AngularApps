@@ -10,3 +10,7 @@ label > input {
     margin-top: 5px;
     font-weight: normal;
 }
+
+.upperCase {
+    text-transform: uppercase;
+}

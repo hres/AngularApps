@@ -36,7 +36,7 @@ export class RegulatoryInformationService {
     dataModel.ectd.dossier_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.dossierTypes, formValue['dossierType'], lang);
     dataModel.ectd.company_id = formValue['companyId'];
     dataModel.ectd.dossier_id = formValue['dossierId'];
-    dataModel.ectd.product_name = formValue['productName'];
+    dataModel.ectd.product_name = formValue['productName'].toUpperCase();
     dataModel.is_priority = formValue['isPriority'];
     dataModel.is_noc = formValue['isNOC'];
     dataModel.is_admin_sub = formValue['isAdminSubmission'];
