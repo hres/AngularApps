@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation, computed, signal, inject, viewChild, Signal} from '@angular/core';
 import { ICodeDefinition, ICode, UtilsService, BaseComponent, ControlMessagesComponent, HelpSequence, LoggerService } from '@hpfb/sdk/ui';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
 import { LifecycleRecord, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
 import { TransactionDetailsComponent } from '../transaction-details/transaction-details.component';
-import { DOSSIER_TYPE } from '../app.constants';
+import { PbvValidationService } from '@hpfb/pbv';
 
 @Component({
   selector: 'app-regulatory-information',
@@ -110,6 +110,12 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   onDossierTypeSelected(selectedDossierTypeId: string) {
     this._logger.log(this._globalService.debugEnabled, 'RegulatoryInformationComponent', 'onDossierTypeSelected',  `dossier type id: ${selectedDossierTypeId}`);
     this._signalService.setSelectedDossierType(selectedDossierTypeId)
+    if (this.isPharmaBio()) {
+      this.regulartoryInfoForm.controls['dossierId'].setValidators([Validators.required,PbvValidationService.pharmabioDossierIdValidator]);
+    } else {
+      this.regulartoryInfoForm.controls['dossierId'].setValidators([Validators.required,PbvValidationService.vetDossierIdValidator]);
+    }
+    this.regulartoryInfoForm.controls['dossierId'].updateValueAndValidity();
   }
 
   onAdminSubmissionSelected(selectedAdminSubmissionId: string, isProgrammaticUpdate: boolean) {
@@ -141,5 +147,4 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
       this._utilsService.resetControlsValues(this.regulartoryInfoForm.controls[controlNames[i]]);
     }
   }
-
 }

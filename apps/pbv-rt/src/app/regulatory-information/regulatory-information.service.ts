@@ -1,11 +1,10 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { ConverterService, UtilsService} from '@hpfb/sdk/ui';
-import { PbvValidationService} from '@hpfb/pbv';
 import { TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 
@@ -20,7 +19,7 @@ export class RegulatoryInformationService {
    }
    return fb.group({
     dossierType: [null, [Validators.required]],
-    dossierId: [null, [Validators.required, PbvValidationService.pharmabioDossierIdValidator]],
+    dossierId: [null, [Validators.required]],
     companyId: [null, [Validators.required, Validators.minLength(5)]],
     productName: [null, [Validators.required]],
     isPriority: [null, [Validators.required]],
