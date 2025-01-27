@@ -370,6 +370,7 @@
      "medicinal.ingredients": "Medicinal ingredient(s) (as provided on the NOC for the NDS provided in Section 3)",
      "product.name": "Product Name (as provided on the NOC for the NDS provided in Section 3)",
      "panel.title.medicinal.ingredients": "Medicinal Ingredient(s)",
+     "panel.product.name": "Product Name",
      "applicant.name":"Applicant Name",
      "cra.business.number":"CRA Business Number",
      "csp.customer.number":"CSP Customer Number",

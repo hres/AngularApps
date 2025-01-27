@@ -12,7 +12,7 @@
               [showError]="showErrors"
               [control]="certificationForm.controls['firstName'] | formControl"
               controlId="firstName"
-              label="cert.first"
+              label="first.name"
               parentId="cspCertification">
             </control-messages>
             <input class="form-control" maxlength="60" size="30" id="firstName" type="text" [formControlName]="'firstName'"/>
@@ -41,7 +41,7 @@
             [showError]="showErrors"
             [control]="certificationForm.controls['lastName'] | formControl"
             controlId="lastName"
-            label="cert.last"
+            label="last.name"
             parentId="cspCertification">
           </control-messages>
           <input class="form-control" size="30" maxlength="60" id="lastName" type="text" [formControlName]="'lastName'"/>
@@ -60,7 +60,7 @@
             [showError]="showErrors"
             [control]="certificationForm.controls['jobTitle'] | formControl"
             controlId="jobTitle"
-            label="cert.job"
+            label="job.title"
             parentId="cspCertification">
           </control-messages>
           <input class="form-control" maxlength="40" size="30" id="jobTitle" type="text" [formControlName]="'jobTitle'"/>
