@@ -1,0 +1,70 @@
+<div [formGroup]="companyEnrolmentForm">
+    <div class="row">
+        <div class="form-group col-sm-6 col-xs-12">
+            <label for="enrolmentStatusText" class="full-width">
+                <span class="field-name">{{'enrolment.status' |translate}}</span>
+                <input name="enrolmentStatusText" id="enrolmentStatusText" class="form-control full-width" [readonly]="true"
+                 [formControl]="companyEnrolmentForm.controls['enrolmentStatusText'] | formControl" />
+            </label>
+        </div>
+        <div class="form-group col-sm-6 col-xs-12">
+            <label for="enrolmentVersion" class="full-width">
+                <span class="field-name">{{'enrolment.version' |translate}}</span>
+                <input name="enrolmentVersion" id="enrolmentVersion" class="form-control"
+                       [readonly]="true" [formControl]="companyEnrolmentForm.controls['enrolmentVersion'] | formControl"/>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6 col-xs-12">
+            <label for="dateLastSavedText" class="full-width">
+                <span class="field-name">{{'date.last.saved' |translate}}</span>
+                <input name="dateLastSaved" id="dateLastSaved" class="form-control"
+                       [readonly]="true" [formControl]="companyEnrolmentForm.controls['dateLastSaved'] | formControl"/>
+            </label>
+        </div>
+        <div class="form-group col-sm-6 col-xs-12">
+            <label for="companyId" [ngClass]="{'required':isInternal}" class="full-width">
+            <span class="field-name" >{{'company.id'|translate}}</span>
+            <strong *ngIf="isInternal" class="required" >{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="isInternal && companyEnrolmentForm.controls['companyId'].invalid"
+                                [showError]="showFieldErrors"
+                                [control]="companyEnrolmentForm.controls['companyId'] | formControl"
+                                controlId="companyId" label="company.id" parentId="companyEnrolment"></control-messages>
+            <input name="companyId" id="companyId" class="form-control" 
+                    [readonly]="!isInternal" [formControl]="companyEnrolmentForm.controls['companyId'] | formControl" [maxLength]="5" data-only-digits/>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+          <button class="btn btn-primary" (click)="setAmendState()" [disabled]="disableAmendButton">
+            {{'amend.enrol'|translate}}</button>
+        </div>
+    </div>
+    <!-- TODO: Show if amend enrol button is clicked -->
+    <div class="row" *ngIf="showAmendNote">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="alert alert-info" role="alert">
+                <p aria-live="polite">{{'records.amended.info' | translate}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label for="filingReason" class="required">
+                <span class="field-name">{{ 'reason.filing'|translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <sup [id]="helpIndex['reasonIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['reasonIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['reasonIndx'][0]}}</a>
+                </sup>
+                <control-messages *ngIf="companyEnrolmentForm.controls['reasonForFiling'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" controlId="reasonForFiling"
+                    label="reason.filing" parentId="companyEnrolment"></control-messages>
+            </label>
+            <textarea id="filingReason" name="filingReason" class="form-control full-width"
+                        [formControl]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" maxlength="400" ></textarea>
+        </div>
+    </div>
+</div>

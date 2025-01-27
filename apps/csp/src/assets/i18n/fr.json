@@ -409,13 +409,13 @@
     "grand.date":"Date d’octroi du brevet",
     "expiration.date":"Date d'expiration du brevet",
     "panel.title.csp":"Formulaire de la demande de certificat de protection supplémentaire (CPS)",
-    "panel.title.applicant":"/frApplicant Information",
+    "panel.title.applicant":"Renseignements sur le demandeur",
     "panel.title.patent":"Renseignements sur le brevet",
     "panel.title.druguse":"Usage de la drogue",
      "drug.use":"Usage de la drogue",
      "panel.title.noticeofcompliance":"Date de l’Avis de conformité (AC)",
      "noc.date":"Date de l’AC",
-     "required": "This field is required(fr)",
+     "required": "Ce champ est obligatoire",
      "errorSummary.cspfile": "Formulaire de la demande de certificat de protection supplémentaire (CPS)",
     "error.found.because": " n’a pas pu être sauvegardé car ",
      "error.found.plural": " erreurs ont été trouvées ",
@@ -423,7 +423,9 @@
       "new.drug.submission.info.nds.number": "Numéro de PDN",
      "panel.title.new.drug.submission.info": "Renseignements sur la présentation de drogue nouvelle (PDN)",
       "medicinal.ingredients": "Ingrédient(s) médicinal(aux)(conformément à ce qui est indiqué sur l’AC pour la PDN susmentionnée)",
+      "product.name": "Nom du produit (conformément à ce qui est indiqué sur l’AC pour la PDN susmentionnée)",
      "panel.title.medicinal.ingredients": "Ingrédient(s) médicinal(aux)",
+     "panel.product.name": "Nom du produit",
      "applicant.name":"Nom du demandeur",
      "cra.business.number":"Numéro d’entreprise d’ARC",
      "csp.customer.number":"Numéro de client de CPS",
@@ -470,6 +472,7 @@
     "error.msg.zip":"Entrée non valide - doit contenir 5 chiffres",
     "error.msg.postal":"Format non valide - doit être X#X#X#",
     "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
+    "error.msg.invalidDate": "Cette date n'est pas valide",
 
     "panel.title.hc.only": "Á l'usage de Santé Canada",
     "hco.app.received": "Date de réception de la demande",
@@ -526,4 +529,17 @@
     "ht.cert.4": "<b>Date:</b> Fournir la date de prise d’effet des attestations.",
 
     "billing.address": "Adresse de facturation"
+
+    "msg.success.load": "Le fichier a été chargé avec succès",
+    "msg.err.parseFail": "Erreur: il y a eu une erreur en analysant le fichier de travail.",
+    "msg.err.jsonparse": "Il y a eu une erreur en analysant le fichier de travail.",
+    "msg.err.file.load": "Il y a eu un problème lors du chargement du fichier.",
+    "msg.err.file.type": "Erreur: Un type de fichier invalide a été sélectionné.",
+    "msg.err.form.type": "Erreur: le type de formulaire incorrect a été sélectionné pour ce formulaire.",
+    "msg.err.checksum": "Erreur: il y a eu une erreur en analysant le fichier.",
+    "err.patent.information.date.invalid":"Filling or Granted  or Expiration Date are invalid",
+    "DISCLAIMER":"Le contenu de ce formulaire peut être communiqué publiquement.",
+    "save.working.copy": "Enregistrer une copie de travail",
+    "generate.final.internal": "Approuver XML final",
+    "generate.final.external": "Enregistrer le brouillon"
   }

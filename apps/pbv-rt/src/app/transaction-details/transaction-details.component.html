@@ -1,5 +1,5 @@
 <div [formGroup]="transctionDetailsForm">
-    <div class="row">
+    <div class="row" [hidden]="isVet">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="activityLead" class="required">
                 <span class="field-name">{{ 'activity.lead' |translate }}</span>
@@ -11,12 +11,12 @@
                 <control-messages *ngIf="transctionDetailsForm.controls['activityLead'].invalid"
                     [showError]="showErrors" [control]="transctionDetailsForm.controls['activityLead'] | formControl"
                     controlId="activityLead" label="activity.lead" parentId="regulatoryInfo"></control-messages>
+                <select id="activityLead" name="activityLead" required class="form-control full-width"
+                    [formControlName]="'activityLead'" (change)="onRaLeadSelected($any($event.target).value)">
+                    <option label=" " value=""></option>
+                    <option *ngFor="let lead of raLeadList()" [value]="lead.id"> {{ lead| textTransform: lang }}</option>
+                </select>
             </label>
-            <select id="activityLead" name="activityLead" required class="form-control full-width"
-                [formControlName]="'activityLead'" (change)="onRaLeadSelected($any($event.target).value)">
-                <option label=" " value=""></option>
-                <option *ngFor="let lead of raLeadList()" [value]="lead.id"> {{ lead| textTransform: lang }}</option>
-            </select>
         </div>
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedRaLeadDefinition()">
@@ -32,12 +32,13 @@
                 <control-messages *ngIf="transctionDetailsForm.controls['activityType'].invalid"
                     [showError]="showErrors" [control]="transctionDetailsForm.controls['activityType'] | formControl"
                     controlId="activityType" label="reg.activity.type" parentId="regulatoryInfo"></control-messages>
+            
+                <select id="activityType" name="activityType" required class="form-control full-width"
+                    [formControlName]="'activityType'" (change)="onRaTypeSelected($any($event.target).value)">
+                    <option label=" " value=""></option>
+                    <option *ngFor="let item of raTypeList()" [value]="item.id"> {{ item| textTransform: lang }}</option>
+                </select>
             </label>
-            <select id="activityType" name="activityType" required class="form-control full-width"
-                [formControlName]="'activityType'" (change)="onRaTypeSelected($any($event.target).value)">
-                <option label=" " value=""></option>
-                <option *ngFor="let item of raTypeList()" [value]="item.id"> {{ item| textTransform: lang }}</option>
-            </select>
         </div>
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedRaTypeDefinition()">
@@ -53,14 +54,14 @@
                 <control-messages *ngIf="transctionDetailsForm.controls['descriptionType'].invalid"
                     [showError]="showErrors" [control]="transctionDetailsForm.controls['descriptionType'] | formControl"
                     controlId="descriptionType" label="sequence.type" parentId="regulatoryInfo"></control-messages>
+                <select id="descriptionType" name="descriptionType" required class="form-control full-width"
+                    [formControlName]="'descriptionType'"
+                    (change)="onTransactionDescriptionSelected($any($event.target).value)">
+                    <option label=" " value=""></option>
+                    <option *ngFor="let item of transactionDescriptionList()" [value]="item.id"> {{ item| textTransform:
+                        lang }}</option>
+                </select>
             </label>
-            <select id="descriptionType" name="descriptionType" required class="form-control full-width"
-                [formControlName]="'descriptionType'"
-                (change)="onTransactionDescriptionSelected($any($event.target).value)">
-                <option label=" " value=""></option>
-                <option *ngFor="let item of transactionDescriptionList()" [value]="item.id"> {{ item| textTransform:
-                    lang }}</option>
-            </select>
         </div>
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedTxDescDefinition()">
@@ -79,7 +80,7 @@
                         [control]="transctionDetailsForm.controls['dateOfRequest'] | formControl" controlId="dateOfRequest"
                         label="date.of.request" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="dateOfRequest" name="dateOfRequest" type="date" class="form-control" (input)="checkDateValidity($event)"
+                <input id="dateOfRequest" name="dateOfRequest" type="date" class="form-control" (input)="checkDateValidity('dateOfRequest', $event)"
                     [formControlName]="'dateOfRequest'" />
             </div>
         </div>
@@ -94,17 +95,17 @@
                         controlId="startDate" label="start.date" parentId="regulatoryInfo"></control-messages>
                 </label>
                 <input id="startDate" name="startDate" type="date" class="form-control"
-                    (input)="checkDateValidity($event)" [formControlName]="'startDate'" />
+                    (input)="checkDateValidity('startDate', $event)" [formControlName]="'startDate'" />
             </div>
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="startDate" class="required">
+                <label for="endDate" class="required">
                     <span class="field-name">{{ 'end.date' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="transctionDetailsForm.controls['endDate'].invalid" [showError]="showErrors"
                         [control]="transctionDetailsForm.controls['endDate'] | formControl" controlId="endDate"
                         label="end.date" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="endDate" name="endDate" type="date" class="form-control" (input)="checkDateValidity($event)"
+                <input id="endDate" name="endDate" type="date" class="form-control" (input)="checkDateValidity('endDate', $event)"
                     [formControlName]="'endDate'" />
             </div>
         </div>
@@ -228,12 +229,8 @@
     <div class="row">
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="controlNumber" class="required">
-                <span class="field-name">{{'ctrl.num'|translate }}</span>
+                <span class="field-name">{{'ctrl.num'|translate }} {{'six.digits' | translate}}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-                <sup [id]="helpIndex['ctrlNumIndx'][2]">
-                    <a class="fn-lnk" [href]="'#' + helpIndex['ctrlNumIndx'][1]"><span
-                            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['ctrlNumIndx'][0]}}</a>
-                </sup>
                 <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid" [showError]="showErrors"
                     [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
                     label="ctrl.num" parentId="regulatoryInfo"></control-messages>

@@ -17,7 +17,7 @@
               noticeOfComplianceForm.controls['nocDate'] | formControl
             "
             controlId="nocDate"
-            label="nocDate"
+            label="noc.date"
           ></control-messages>
           <input
             class="form-control"
@@ -25,6 +25,7 @@
             type="date"
             [formControlName]="'nocDate'"
             (input)="checkDateValidity($event)"
+            (blur)="onDateInput($event)"
           />
         </label>
       </div>

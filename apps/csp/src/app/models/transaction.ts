@@ -19,7 +19,7 @@ export interface TransactionEnrol {
   drugUse: string;
   nocDate: string;
   ndsNumber: string;
-  medicinalIngredients: string;
+  medicinalIngredients: IMedicinalIngredients;
   certification: CertDetails;
   timingOfApplicant: string;
 }
@@ -104,4 +104,9 @@ export interface IApplicant {
 export interface IDrugUse {
   usage: IIdText
 
+}
+
+export interface IMedicinalIngredients {
+  medicinalIngredient: string;
+  productName: string;
 }

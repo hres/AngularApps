@@ -21,12 +21,14 @@ export class GlobalService {
   private _currLanguage: string = ENGLISH;
   private _enrollment: Company;
   private _byPassChecksum: boolean = false;
+  private _isInternal: boolean = false;
 
   // data loaded from json files
   private _dossierTypes: ICodeDefinition[] = [];
   private _countryList: ICode[];
   private _yesnoList: ICode[];
   private _subTypeList: ICodeDefinition[];
+  private _enrolmentStatusesList: ICode[];
 
   constructor() {}
 
@@ -90,6 +92,14 @@ export class GlobalService {
     return this._byPassChecksum;
   }
 
+  public set isInternal(value: boolean) {
+    this._isInternal = value;
+  }
+
+  public get isInternal(): boolean {
+    return this._isInternal;
+  }
+
   /**
    * Getter enrollment
    * @return {Company}
@@ -112,6 +122,14 @@ export class GlobalService {
 
   public set countryList(value: ICode[]) {
     this._countryList = value;
+  }
+
+  public set enrolmentStatusList(value: ICode[]) {
+    this._enrolmentStatusesList = value;
+  }
+
+  public get enrolmentStatusList() : ICode[] {
+    return this._enrolmentStatusesList;
   }
 
 }

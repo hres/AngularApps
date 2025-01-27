@@ -26,7 +26,8 @@ export class ContainerComponent implements OnInit {
   loadFormBaseComponent: boolean = false;
 
   dataSources: Observable<any>[] = [
-    this._formDataLoader.getCountryList(this._globalService.currLanguage)
+    this._formDataLoader.getCountryList(this._globalService.currLanguage),
+    this._formDataLoader.getEnrolmentStatusesList()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -39,6 +40,7 @@ export class ContainerComponent implements OnInit {
     forkJoin(this.dataSources).subscribe((data) => {
       // console.log(data);
       this._globalService.countryList = data[0];
+      this._globalService.enrolmentStatusList = data[1];
 
       this.loadFormBaseComponent = true;
     });

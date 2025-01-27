@@ -5,7 +5,7 @@ import { TransactionDetailsService } from './transaction-details.service';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
 import { LifecycleRecord } from '../models/transaction';
-import { TXN_DESC_ACTION } from '../app.constants';
+import { DOSSIER_TYPE, RA_LEAD, TXN_DESC_ACTION } from '../app.constants';
 
 @Component({
   selector: 'app-transaction-details',
@@ -37,6 +37,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     super();
   }
 
+  isVet: boolean = false;
   readonly selectedDossierTypeId: Signal<string> = this._transactionDetailsService.selectedDossierTypeId;
   readonly selectedRaLeadId: Signal<string> = this._transactionDetailsService.selectedRaLeadId;
   readonly selectedRaTypeId: Signal<string> = this._transactionDetailsService.selectedRaTypeId;
@@ -197,9 +198,15 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
         const valuesToReset = ['activityLead', 'activityType', 'descriptionType'];
         this._resetControlValues(valuesToReset);
 
-        this.onRaLeadSelected(this.transctionDetailsForm.controls['activityLead'].value);
+        this.isVet = this.newlySelDossierType == DOSSIER_TYPE.VETERINARY;
+        if (this.isVet) {
+          this.onRaLeadSelected(RA_LEAD.VETERINARY);
+        } else {
+          this.onRaLeadSelected(this.transctionDetailsForm.controls['activityLead'].value);
+        }
         this.onRaTypeSelected(this.transctionDetailsForm.controls['activityType'].value);
         this.onTransactionDescriptionSelected(this.transctionDetailsForm.controls['descriptionType'].value);
+        this.isVet = this.newlySelDossierType == DOSSIER_TYPE.VETERINARY;
       }
     }
   }
@@ -271,8 +278,18 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     return this.transctionDetailsForm.value;
   }
 
-  checkDateValidity(event: any): void {
-    this._utilsService.checkInputValidity(event, this.transctionDetailsForm.get('requestDate'), 'invalidDate');
+  checkDateValidity(inputName : string, event: any): void {
+    const startDate = this.transctionDetailsForm.controls['startDate'].value;
+    const endDate = this.transctionDetailsForm.controls['endDate'].value;
+    const sD: Date = new Date(startDate);
+    const eD: Date = new Date(endDate);
+
+    if (startDate && sD.getTime() > eD.getTime()) {
+      console.log("here");
+      this.transctionDetailsForm.controls['endDate'].setErrors({'error.msg.endDate' : true});
+    } else {
+      this._utilsService.checkInputValidity(event, this.transctionDetailsForm.get(inputName),'invalidDate');    
+    }
   } 
 
   private _getCodeDefinition(codeDefinitionList: ICodeDefinition[], id: string){
@@ -284,4 +301,5 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       this._utilsService.resetControlsValues(this.transctionDetailsForm.controls[controlNames[i]]);
     }
   }
+
 }

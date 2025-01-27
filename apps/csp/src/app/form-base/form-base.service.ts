@@ -1,6 +1,6 @@
 import { Injectable} from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Ectd, HcUse, TransactionEnrol, Transaction, FeeDetails, CertDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant} from '../models/transaction';
+import { Ectd, HcUse, TransactionEnrol, Transaction, FeeDetails, CertDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant, IMedicinalIngredients} from '../models/transaction';
 import { INameAddress, IContact } from '@hpfb/pbv';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
@@ -119,7 +119,7 @@ export class FormBaseService {
       drugUse: '',
       nocDate: '',
       ndsNumber:'',
-      medicinalIngredients:'',
+      medicinalIngredients:this.getEmptyMedicinalIngredients(),
       certification: this.getEmptyCertModel(),
       timingOfApplicant:'',
     };
@@ -258,6 +258,15 @@ export class FormBaseService {
     return applicant;
   }
 
+  private getEmptyMedicinalIngredients(): IMedicinalIngredients {
+    const medicinalIngredients: IMedicinalIngredients = {
+      productName: '',
+      medicinalIngredient: ''
+    };
+    return medicinalIngredients;
+  }
+
+
   public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
     this._patentService.mapFormModelToDataModel(patentInforationForm, outputTransactionEnrol.patent);
   }
@@ -293,7 +302,7 @@ export class FormBaseService {
   public mapFeesFormsToOutput(outputTransactionEnrol: TransactionEnrol,feesForm: any): void{
     this.feesService.mapFormModelToDataModel(feesForm, outputTransactionEnrol.fee_details);
   }
-  
+
   public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
     this.applicantService.mapFormModelToDataModel(applicantForm, outputTransactionEnrol, addressFormGroupValue, contactFormGroupValue )
   }

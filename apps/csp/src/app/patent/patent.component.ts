@@ -47,6 +47,10 @@ export class PatentComponent extends BaseComponent implements OnInit {
     this.errorList.emit(errors);
   }
 
+  onDateInput(event: any): void {
+    this._globalService.isDateValid(event, this.patentInformationForm);
+  }
+
   checkDateValidity(event: any): void {
     let inputName =
       event.target.attributes.getNamedItem('ng-reflect-name').value;
@@ -55,6 +59,7 @@ export class PatentComponent extends BaseComponent implements OnInit {
       this.patentInformationForm.get(inputName),
       'invalidDate'
     );
+
     if (this.patentInformationForm != undefined) {
       let patendExpirationDate = this.patentInformationForm.get(
         'patendExpirationDate'

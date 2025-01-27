@@ -173,7 +173,7 @@
 
     <div>
       <section class ="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">            
+        <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'panel.title.fees'|translate}}
             <sup [id]="helpIndex['feePayIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['feePayIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['feePayIndx'][0]}}</a>
@@ -207,13 +207,11 @@
 
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">
-        <button type="button" class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
-          {{'save.working.copy'|translate}}
+        <button *ngIf="isInternal" type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
+          {{'generate.final.internal'|translate}}
         </button>
-      </div>
-      <div class="form-group col-md-4">
-        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
-          {{'generate.final'|translate}}
+        <button *ngIf="!isInternal" type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
+          {{'generate.final.external'|translate}}
         </button>
       </div>
     </div>

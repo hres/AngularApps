@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
 	<xsl:param name="language" select="'eng'" />
@@ -121,7 +122,7 @@
 						</xsl:if>
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Is this an administrative submission or Application? </strong>
+								<strong> Is this an administrative submission or application? </strong>
 								<span class="mouseHover">
 									<xsl:call-template name="YesNoUnknow">
 										<xsl:with-param name="value" select="is_admin_sub" />
@@ -454,95 +455,113 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-4">
+								<div class="col-xs-12">
 									<strong>City or town: </strong>
 									<span class="mouseHover">
 										<xsl:value-of select="regulatory_activity_address/city" />
 									</span>
 								</div>
-								<div class="col-xs-4">
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
 									<strong>Country: </strong>
 									<span class="mouseHover">
 										<xsl:value-of select="regulatory_activity_address/country/@label_en" />
 									</span>
 								</div>
 							</div>
-							<div class="row">
-								<xsl:choose>
-									<xsl:when test="regulatory_activity_address/country/@id = 'CA'">
-										<div class="col-xs-4">
-											<strong>Province: </strong>
-											<span class="mouseHover">
-												<xsl:value-of select="regulatory_activity_address/province_lov/@label_en" />
-											</span>
-										</div>
-										<div class="col-xs-4">
-											<strong>Postal code: </strong>
-											<span class="mouseHover">
-												<xsl:value-of select="regulatory_activity_address/postal_code" />
-											</span>
-										</div>
-									</xsl:when>
-									<xsl:when test="regulatory_activity_address/country/@id = 'US'">
-										<div class="col-xs-4">
+							<xsl:choose>
+								<xsl:when test="regulatory_activity_address/country/@id = 'CA'">
+								<div class="row">
+									<div class="col-xs-12">
+										<strong>Province: </strong>
+										<span class="mouseHover">
+											<xsl:value-of select="regulatory_activity_address/province_lov/@label_en" />
+										</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<strong>Postal code: </strong>
+										<span class="mouseHover">
+											<xsl:value-of select="regulatory_activity_address/postal_code" />
+										</span>
+									</div>
+								</div>
+								</xsl:when>
+								<xsl:when test="regulatory_activity_address/country/@id = 'US'">
+									<div class="row">
+										<div class="col-xs-12">
 											<strong>State: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/province_lov/@label_en" />
 											</span>
 										</div>
-										<div class="col-xs-4">
+									</div>
+									<div class="row">
+										<div class="col-xs-12">
 											<strong>Zip code: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/postal_code" />
 											</span>
 										</div>
-									</xsl:when>
-									<xsl:otherwise>
-										<div class="col-xs-4">
+									</div>
+								</xsl:when>
+								<xsl:otherwise>
+									<div class="row">
+										<div class="col-xs-12">
 											<strong>Province or state: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/province_text" />
 											</span>
 										</div>
-										<div class="col-xs-4">
+									</div>
+									<div class="row">
+										<div class="col-xs-12">
 											<strong>Postal/ZIP code: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/postal_code" />
 											</span>
 										</div>
-									</xsl:otherwise>
-								</xsl:choose>
-							</div>
+									</div>
+								</xsl:otherwise>
+							</xsl:choose>
 						</div>
 					</xsl:if>
 					<h4>C. Company Representative: </h4>
 					<div class="well well-sm">
 						<div class="row">
-								<strong class="col-xs-4">First name: <span
-										class="mouseHover normalWeight">
-										<xsl:value-of
-											select="regulatory_activity_contact/given_name" />
-									</span>
-								</strong>
-								<strong class="col-xs-4">Initials: <span
-										class="mouseHover normalWeight">
-										<xsl:value-of select="regulatory_activity_contact/initials" />
-									</span>
-								</strong>
-								<strong class="col-xs-4">Last name: <span
+							<strong class="col-xs-12">First name: <span
+									class="mouseHover normalWeight">
+									<xsl:value-of
+										select="regulatory_activity_contact/given_name" />
+								</span>
+							</strong>
+						</div>
+						<div class="row">
+							<strong class="col-xs-12">Last name: <span
 										class="mouseHover normalWeight">
 										<xsl:value-of select="regulatory_activity_contact/surname" />
 									</span>
-								</strong>
+							</strong>
 						</div>
 						<div class="row">
-							<strong class="col-xs-4"> Language of correspondence: <span
+							<strong class="col-xs-12">Initials: <span
+									class="mouseHover normalWeight">
+									<xsl:value-of select="regulatory_activity_contact/initials" />
+								</span>
+							</strong>
+						</div>
+						<div class="row">
+							<strong class="col-xs-12"> Language of correspondence: <span
 									class="mouseHover normalWeight">
 									<xsl:value-of
 										select="regulatory_activity_contact/language_correspondance/@label_en" />
 								</span>
 							</strong>
-							<strong class="col-xs-8"> Job title: <span
+						</div>
+						<div class="row">
+							<strong class="col-xs-12"> Job title: <span
 								class="mouseHover normalWeight">
 								<xsl:value-of
 									select="regulatory_activity_contact/job_title" />
@@ -550,13 +569,15 @@
 							</strong>
 						</div>
 						<div class="row">
-							<div class="col-xs-4">
-								<strong>Phone number (including area code): </strong>
+							<div class="col-xs-12">
+								<strong>Phone number: </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="regulatory_activity_contact/phone_num" />
 								</span>
 							</div>
-							<div class="col-xs-4">
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
 								<strong>Phone extension: </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="regulatory_activity_contact/phone_ext" />
@@ -564,7 +585,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<strong class="col-xs-12"> Fax number (including area code): <span
+							<strong class="col-xs-12"> Fax number: <span
 									class="mouseHover normalWeight">
 									<xsl:value-of select="regulatory_activity_contact/fax_num" />
 								</span>
