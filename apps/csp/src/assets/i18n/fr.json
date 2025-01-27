@@ -435,6 +435,7 @@
     "fees.text": "Ce formulaire électronique ne doit pas inclure de renseignements sur le paiement (par ex. numéro de carte de crédit), puisque les renseignements inclus dans un formulaire électronique ne peuvent pas être supprimés et continueront de faire partie de la demande de CPS en dossier.",
     "fees.paid": "La taxe a été payée (saisir le montant de la taxe)",
     "pay.method": "Mode de paiement",
+    "section.show": " [ Cette section peut ne pas être visible. ]",
 
     "panel.title.certification": "Attestation",
     "cert.name": "Agent autorisé",
@@ -491,6 +492,12 @@
     "ht.app.7": "<b>Titre de poste:</b> Inscrire le titre du poste de la personne nommée.",
     "ht.app.8": "<b>Adresse (numéro, rue, ville, province et code postal):</b> Indiquer l’adresse au Canada où la personne nommée est située aux fins de l’entreprise du demandeur.",
     "ht.app.9": "<b>Numéro de téléphone, numéro de télécopieur et adresse électronique:</b> Indiquer les numéros de téléphone et de télécopieur et l’adresse électronique de la personne à qui Santé Canada peut s’adresser au sujet de la demande de CPS. Ces renseignements permettront de communiquer avec le demandeur concernant toute question concernant la demande de CPS. Santé Canada délivre les CPS en envoyant un certificat électronique par fax électronique au numéro de télécopieur fourni.",
+    "ht.bill.add.1": "<b>Adresse de facturation:</b> S’il y a lieu, cocher la case pour indiquer que l’adresse de facturation est différente. L’adresse de facturation sera communiqué avec seulement s’il y a des préoccupations en ce qui concerne le paiement de la taxe. Veuillez noter qu’un agent qui présente plusieurs demandes de CPS ne peut donner qu’une seule adresse de facturation en regard de toutes ses demandes de CPS en cours. Bien que l’adresse de facturation puisse être modifiée, il n’est pas permis d’avoir plusieurs adresses de facturation à la fois.",
+    "ht.bill.add.2": "<b>Nom de l'organisme:</b> Indiquer le nom de l'organisme autorisé à correspondre avec Santé Canada au sujet des questions de facturation relatives à la demande de CPS.",
+    "ht.bill.add.3": "<b>Noms:</b> Fournir le nom d’une personne autorisée à correspondre avec Santé Canada au nom du demandeur au sujet des questions de facturation relatives à la demande de CPS.",
+    "ht.bill.add.4": "<b>Titre de poste:</b> Inscrire le titre du poste de la personne nommée pour traiter des questions de facturation.",
+    "ht.bill.add.5": "<b>Adresse (numéro, rue, ville, province et code postal):</b> Indiquer l’adresse au Canada où la personne nommée est située aux fins de l’entreprise du demandeur pour toutes questions de facturation relatives à la demande de CPS.",
+    "ht.bill.add.6": "<b>Numéro de téléphone, numéro de télécopieur et adresse électronique:</b> Indiquer les numéros de téléphone et de télécopieur et l’adresse électronique de la personne à qui Santé Canada peut s’adresser au sujet de facturation relatives à la demande de CPS. Ces coordonnées seront utilisées pour toutes questions liées à la facturation concernant la demande de CPS.",
     "ht.patent.1": "Renseignements sur le brevet",
     "ht.patent.2": "<b>Numéro de brevet au Canada:</b> Indiquer le numéro de brevet canadien pour lequel un CPS est demandé. Une demande de CPS est requise pour chaque numéro de brevet.",
     "ht.patent.3": "<b>Date de dépôt du brevet:</b> Indiquer la date de dépôt du brevet canadien. La date du dépôt du brevet canadien doit être le 1er octobre 1989 ou postérieure à cette date, conformément à l’alinéa 106(1)(b) de la Loi sur les brevets.",
@@ -516,5 +523,7 @@
     "ht.cert.1": "Attestation",
     "ht.cert.2": "<b>Nom de l’agent autorisé:</b> Fournir le nom d’une personne autorisée à présenter des attestations au nom du demandeur présentant la demande de CPS.",
     "ht.cert.3": "<b>Titre du poste:</b> Indiquer le titre du poste de la personne autorisée à présenter les attestations.",
-    "ht.cert.4": "<b>Date:</b> Fournir la date de prise d’effet des attestations."
+    "ht.cert.4": "<b>Date:</b> Fournir la date de prise d’effet des attestations.",
+
+    "billing.address": "Adresse de facturation"
   }

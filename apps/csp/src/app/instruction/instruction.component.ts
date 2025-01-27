@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-instruction',
@@ -13,10 +14,13 @@ import { TranslateModule } from '@ngx-translate/core';
 export class InstructionComponent {
   @Input() helpTextSequences;
   @Input() lang;
+  isInternal: boolean;
+
   constructor() {
-    // console.log(
-    //   'InstructionComponent ~ helpTextSequences',
-    //   this.helpTextSequences
-    // );
   }
+
+  ngOnInit() {
+    this.isInternal = environment.isInternal;
+  }
+
 }

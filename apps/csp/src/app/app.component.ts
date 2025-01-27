@@ -6,7 +6,7 @@ import { environment } from '../environments/environment';
 import { Title } from '@angular/platform-browser';
 import { ENGLISH, VersionService, InstructionService } from '@hpfb/sdk/ui';
 import { GlobalService } from './global/global.service';
-import { HELP_FOOTNOTE_PREFIX, HELP_FOOTNOTE_SUFFIX, helpInstructionHeadings } from './app.constants';
+import { HELP_FOOTNOTE_PREFIX, HELP_FOOTNOTE_SUFFIX, helpInstructionHeadings, helpInstructionHeadingsInternal } from './app.constants';
 import { ContainerComponent } from './container/container.component';
 
 @Component({
@@ -21,6 +21,7 @@ import { ContainerComponent } from './container/container.component';
 export class AppComponent {
   language :string = ENGLISH;
   appVersion: string = '0.0.0'; 
+  isInternal: boolean;
   
   constructor(
     private translate: TranslateService,
@@ -33,7 +34,14 @@ export class AppComponent {
     this.language = environment.lang;
     translate.use(this.language)
     this._globalService.currLanguage = this.language;
-    this._globalService.helpIndex = this._instructionService.createHelpSequence(HELP_FOOTNOTE_PREFIX, HELP_FOOTNOTE_SUFFIX, helpInstructionHeadings);
+    this.isInternal = environment.isInternal;
+
+    if(this.isInternal === false){
+      this._globalService.helpIndex = this._instructionService.createHelpSequence(HELP_FOOTNOTE_PREFIX, HELP_FOOTNOTE_SUFFIX, helpInstructionHeadings);
+    } else if(this.isInternal === true){
+      this._globalService.helpIndex = this._instructionService.createHelpSequence(HELP_FOOTNOTE_PREFIX, HELP_FOOTNOTE_SUFFIX, helpInstructionHeadingsInternal);
+    }
+
     this._globalService.appVersion = this._versionService.getApplicationVersion(environment);
     this._globalService.devEnv = !environment.production;
     this._globalService.byPassChecksum = environment.byPassCheckSum;

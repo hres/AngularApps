@@ -380,6 +380,7 @@
     "fees.text": "This electronic form should not include payment information (e.g. credit card number), as the information included within an electronic form cannot be deleted and will remain a part of the CSP application on record.",
     "fees.paid": "The fee has been paid in the amount of (please enter the fee amount)",
     "pay.method": "Method of Payment",
+    "section.show": " [ This section may not be visible. ]",
 
      "applicant.contact.info":"Applicant Contact Information (where all communications regarding the CSP will be sent)",
      "addressDetails.street": "Street address",
@@ -436,6 +437,12 @@
     "ht.app.7": "<b>Job Title:</b> Enter the job title of the person named.",
     "ht.app.8": "<b>Address (Street/Suite, City, Province, and Postal Code):</b> Include the address in Canada at which the person named is located for purposes of the business of the applicant.",
     "ht.app.9": "<b>Telephone Number, Facsimile Number, and E-mail:</b> Provide the telephone and facsimile number and e-mail address of the person named whom may be contacted by Health Canada regarding the CSP application. This information will be used to contact the applicant regarding any issues with respect to the CSP application. Health Canada issues CSPs by sending an electronic certificate by e-fax to the facsimile number provided.",
+    "ht.bill.add.1": "<b>Billing Address:</b> Check the box, if applicable, to indicate that a different billing address will be used. The billing address will only be contacted should there be any issues with respect to the fee payment. Please note that an agent with multiple CSP applications may only have one billing address at any given time in respect of its CSP applications. The address may be updated, however multiple billing addresses are not permitted concurrently.",
+    "ht.bill.add.2": "<b>Organization Name:</b> Provide the name of the organization with the authority to correspond with Health Canada regarding billing matters in the CSP application.",
+    "ht.bill.add.3": "<b>Names:</b> Provide the name of the person with the authority to correspond with Health Canada on behalf of the applicant with respect to billing matters in the CSP application.",
+    "ht.bill.add.4": "<b>Job Title:</b> Enter the job title of the person named with respect to billing matters.",
+    "ht.bill.add.5": "<b>Address (Street / Suite, City, Province, Country, and Postal Code):</b> Include the address at which the person named is located for the purpose of addressing billing matters in the CSP application.",
+    "ht.bill.add.6": "<b>Telephone Number, Facsimile Number, and E-mail:</b> Provide the telephone and facsimile number and e-mail address, of the person named whom may be contacted by Health Canada regarding the billing matters for the CSP application. This contact information will be used to address any issues with the CSP application with respect to billing matters in the CSP application.",
     "ht.patent.1": "Patent Information",
     "ht.patent.2": "<b>Canadian Patent Number:</b> Provide the Canadian patent number in relation to which the certificate is sought. One CSP application is required for each patent number.",
     "ht.patent.3": "<b>Patent Filing Date:</b> Indicate the Canadian patent application filing date. The filing date of the patent must be on or after October 1, 1989 according to paragraph 106(1)(b) of the Patent Act.",
@@ -461,5 +468,7 @@
     "ht.cert.1": "Certification",
     "ht.cert.2": "<b>Name of Authorized Official:</b> Provide the name of the person with the authority to make the attestations and certification on behalf of the applicant making the CSP application.",
     "ht.cert.3": "<b>Job Title:</b> Enter the job title of the person making the attestations and certification.",
-    "ht.cert.4": "<b>Date:</b> Provide the date of the attestations and certification."
+    "ht.cert.4": "<b>Date:</b> Provide the date of the attestations and certification.",
+
+    "billing.address": "Billing Address"
 }

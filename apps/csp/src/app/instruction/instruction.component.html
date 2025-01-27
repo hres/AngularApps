@@ -2,8 +2,6 @@
     <dl>
         <dt>{{'Instruction'|translate}} {{helpTextSequences['loadFileIndx'][0]}}</dt>
         <dd [id]="helpTextSequences['loadFileIndx'][1]">
-            <p class="fn-rtn"><a [href]="'#' + helpTextSequences['loadFileIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span> {{helpTextSequences['loadFileIndx'][0]}}
-				<span class="wb-inv"> referrer</span></a></p>
             <div class="fn-rep">
                 <p>{{'ht.load.1'|translate}}</p>
                 <ul>
@@ -11,7 +9,6 @@
                     <li>{{'ht.load.3'|translate}}</li>
                     <li>{{'ht.load.4'|translate}}</li>
                 </ul>
-
 
                 <p class="fn-rtn"><a [href]="'#' + helpTextSequences['loadFileIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
                     {{helpTextSequences.loadFileIndx[0]}}
@@ -52,6 +49,25 @@
             </div>
         </dd>
 
+        <dt>{{'Instruction'|translate}} {{helpTextSequences['billAddIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['billAddIndx'][1]">
+            <div class="fn-rep">
+                <p>{{'billing.address'|translate}}{{'section.show' |translate}}</p>
+                <ul>
+                    <li [innerHTML]="'ht.bill.add.1'|translate"></li>
+                    <li [innerHTML]="'ht.bill.add.2'|translate"></li>
+                    <li [innerHTML]="'ht.bill.add.3'|translate"></li>
+                    <li [innerHTML]="'ht.bill.add.4'|translate"></li>
+                    <li [innerHTML]="'ht.bill.add.5'|translate"></li>
+                    <li [innerHTML]="'ht.bill.add.6'|translate"></li>
+                </ul>
+                
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['billAddIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                        {{helpTextSequences.billAddIndx[0]}}
+                        <span class="wb-inv"> referrer</span></a></p>
+            </div>
+        </dd>
+
         <dt>{{'Instruction'|translate}} {{helpTextSequences['patentInfoIndx'][0]}}</dt>
         <dd [id]="helpTextSequences['patentInfoIndx'][1]">
             <div class="fn-rep">
@@ -81,17 +97,19 @@
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences['nocDateIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['nocDateIndx'][1]">
-            <div class="fn-rep">
-                <p>{{'ht.noc.1' |translate}}</p>
-                <p [innerHTML]="'ht.noc.2'|translate"></p>
+        <ng-container *ngIf="isInternal">
+            <dt>{{'Instruction'|translate}} {{helpTextSequences['nocDateIndx'][0]}}</dt>
+            <dd [id]="helpTextSequences['nocDateIndx'][1]">
+                <div class="fn-rep">
+                    <p>{{'ht.noc.1' |translate}}</p>
+                    <p [innerHTML]="'ht.noc.2'|translate"></p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['nocDateIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
-                        {{helpTextSequences.nocDateIndx[0]}}
-                        <span class="wb-inv"> referrer</span></a></p>
-            </div>
-        </dd>
+                    <p class="fn-rtn"><a [href]="'#' + helpTextSequences['nocDateIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>
+                            {{helpTextSequences.nocDateIndx[0]}}
+                            <span class="wb-inv"> referrer</span></a></p>
+                </div>
+            </dd>
+        </ng-container>
 
         <dt>{{'Instruction'|translate}} {{helpTextSequences['drugUseIndx'][0]}}</dt>
         <dd [id]="helpTextSequences['drugUseIndx'][1]">
@@ -133,7 +151,7 @@
         <dt>{{'Instruction'|translate}} {{helpTextSequences['approvalIndx'][0]}}</dt>
         <dd [id]="helpTextSequences['approvalIndx'][1]">
             <div class="fn-rep">
-                <p>{{'ht.mark.app.1' |translate}}</p>
+                <p>{{'ht.mark.app.1' |translate}}{{'section.show' |translate}}</p>
                 <p [innerHTML]="'ht.mark.app.2'|translate"></p>
 
                 <p class="fn-rtn"><a [href]="'#' + helpTextSequences['approvalIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}</span>

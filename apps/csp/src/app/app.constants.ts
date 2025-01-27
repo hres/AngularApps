@@ -13,6 +13,23 @@ export const helpInstructionHeadings = [
     'loadFileIndx',
     'dateLastIndx',
     'appContactIndx',
+    'billAddIndx',
+    'patentInfoIndx',
+    'newDrugIndx',
+    'drugUseIndx',
+    'medicIngrIndx',
+    'attestationIndx',
+    'approvalIndx',
+    'feePayIndx',
+    'methodPayIndx',
+    'certificationIndx'
+  ];
+
+  export const helpInstructionHeadingsInternal = [
+    'loadFileIndx',
+    'dateLastIndx',
+    'appContactIndx',
+    'billAddIndx',
     'patentInfoIndx',
     'newDrugIndx',
     'nocDateIndx',
