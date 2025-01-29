@@ -65,19 +65,13 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   }
 
   protected override emitErrors(errors: any[]): void {
-    // Organize the error list
-    if (this._addressErrorList) {
-      errors = [...errors, ...this._addressErrorList];
-    }
-    errors = [...errors, ...this._contactErrorList];
+    errors = this.msgList.toArray();
+    errors = errors.concat(this._addressErrorList);
+    errors = errors.concat(this._contactErrorList)
     errors = this._placeErrorLast(errors, this.placeErrorLast);
     this.errorList.emit(errors);
   }
 
-  private _emitCombinedErrors(errors: any[]): void {
-    errors = this._placeErrorLast(errors, this.placeErrorLast);
-    this.errorList.emit(errors);
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     const isFirstChange = this._utilsService.isFirstChange(changes);
@@ -139,22 +133,12 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
 
   processAddressErrors(childErrors:any[]) {
     this._addressErrorList = childErrors;
-    if (this._signed3rdPartyChanged) {
-      this._appendChildAndParentErrors();
-    }
+    this._appendErrorsFromChild(childErrors);
   }
 
   processContactErrors(childErrors:any[]) {
     this._contactErrorList = childErrors;
-    this._appendChildAndParentErrors();
-  }
-
-  private _appendChildAndParentErrors() {
-    this._childrenErrors = [];
-    this._childrenErrors = this._childrenErrors.concat(this._addressErrorList.concat(this._contactErrorList));
-    const parentErrors = this.msgList.toArray();
-    const combinedErrors = [...parentErrors, ...this._childrenErrors];
-    this._emitCombinedErrors(combinedErrors);  // Call the abstract method
+    this._appendErrorsFromChild(childErrors);
   }
 
   private _placeErrorLast(errors, controlIdToMove) : any[] {
