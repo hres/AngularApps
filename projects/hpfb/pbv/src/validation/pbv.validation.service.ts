@@ -19,7 +19,18 @@ export class PbvValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[a-z]{1}[0-9]{6}$/)) {
+    if (control.value.match(/^['e','p','d']{1}[0-9]{6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.pbv.dossier.id': true};
+    }
+  }
+
+  static vetDossierIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^['v']{1}[0-9]{6}$/)) {
       return null;
     } else {
       return {'error.mgs.pbv.dossier.id': true};

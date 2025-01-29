@@ -48,7 +48,7 @@
     "addressDetails.state": "State",
     "addressDetails.postalZipCode":"Postal/ZIP code (use \"not applicable\" if not available)",
     "addressDetails.postalCode": "Postal code",
-    "addressDetails.zipCode": "Zip code",
+    "addressDetails.zipCode": "ZIP code",
     "addressDetails.provState": "Province or state",
     "company.representative": "C. Company representative",
     "first.name":"First name",

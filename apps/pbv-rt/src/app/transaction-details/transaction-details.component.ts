@@ -200,6 +200,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
         this.isVet = this.newlySelDossierType == DOSSIER_TYPE.VETERINARY;
         if (this.isVet) {
+          this.transctionDetailsForm.controls['activityLead'].setValue(RA_LEAD.VETERINARY);
           this.onRaLeadSelected(RA_LEAD.VETERINARY);
         } else {
           this.onRaLeadSelected(this.transctionDetailsForm.controls['activityLead'].value);

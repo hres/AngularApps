@@ -500,7 +500,7 @@
 									</div>
 									<div class="row">
 										<div class="col-xs-12">
-											<strong>Zip code: </strong>
+											<strong>ZIP code: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/postal_code" />
 											</span>

@@ -464,7 +464,7 @@
 							</strong>
 						</div>
 						<div class="row">						
-							<strong class="col-xs-12">Titre: <span
+							<strong class="col-xs-12">Titre du poste: <span
 								class="mouseHover normalWeight">
 								<xsl:value-of
 									select="regulatory_activity_contact/job_title" />
