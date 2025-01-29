@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation, computed, signal, inject, viewChild, Signal} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation, computed, signal, inject, viewChild, Signal, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import { ICodeDefinition, ICode, UtilsService, BaseComponent, ControlMessagesComponent, HelpSequence, LoggerService } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
@@ -30,9 +30,8 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
 
-  private tranDetailsChild = viewChild("transactionDetailsChild", {
-    read: TransactionDetailsComponent
-  });
+  @ViewChild(TransactionDetailsComponent) tranDetailsChild: TransactionDetailsComponent;
+  private transactionDetailsErrors = [];
 
   private _signalService = inject(AppSignalService)
   private _logger = inject(LoggerService)
@@ -79,10 +78,13 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   protected override emitErrors(errors: ControlMessagesComponent[]): void {
     // the combined list of errors from both "regulatory information" and "transaction details"
     // console.log('Combined Errors List: ', errors);
+    errors = this.msgList.toArray();
+    errors = errors.concat(this.transactionDetailsErrors)
     this.errorList.emit(errors);
   }
 
   processTransactionDetailsErrors(childErrors) {
+    this.transactionDetailsErrors = childErrors;
     this._appendErrorsFromChild(childErrors);
   }
 
@@ -133,7 +135,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   getFormValue() {
     const regInfoFormValues = this.regulartoryInfoForm.value;
-    const tranDetailsFormValues = this.tranDetailsChild().getFormValue();
+    const tranDetailsFormValues = this.tranDetailsChild.getFormValue();
 
     return { ...regInfoFormValues, ...tranDetailsFormValues };
   }
