@@ -473,7 +473,7 @@
     "ht.cert.3": "<b>Job Title:</b> Enter the job title of the person making the attestations and certification.",
     "ht.cert.4": "<b>Date:</b> Provide the date of the attestations and certification.",
 
-    "billing.address": "Billing Address"
+    "billing.address": "Billing Address",
 
     "msg.success.load": "The file was loaded successfully",
     "msg.err.parseFail": "Error: there was an error parsing the working file.",
@@ -482,7 +482,6 @@
     "msg.err.file.type": "Error: An invalid file type was selected.",
     "msg.err.form.type": "Error: the wrong form type was selected for this form.",
     "msg.err.checksum": "Error: there was an error parsing the file.",
-    "err.patent.information.date.invalid":"Filling or Granted  or Expiration Date are invalid",
     "DISCLAIMER":"The contents of this form may be publicly disclosed.",
     "save.working.copy": "Save Working Copy",
     "generate.final.internal": "Approve Final  XML",

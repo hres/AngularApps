@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   Output,
+  SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
 import {  UtilsService,  HelpSequence,  BaseComponent,} from '@hpfb/sdk/ui';
@@ -51,43 +52,15 @@ export class PatentComponent extends BaseComponent implements OnInit {
     this._globalService.isDateValid(event, this.patentInformationForm);
   }
 
-  checkDateValidity(event: any): void {
-    let inputName =
-      event.target.attributes.getNamedItem('ng-reflect-name').value;
-    this._utilsService.checkInputValidity(
-      event,
-      this.patentInformationForm.get(inputName),
-      'invalidDate'
-    );
 
-    if (this.patentInformationForm != undefined) {
-      let patendExpirationDate = this.patentInformationForm.get(
-        'patendExpirationDate'
-      );
-      let patentGrandDate = this.patentInformationForm.get('patentGrandDate');
-      let patentFillingDate =
-        this.patentInformationForm.get('patentFillingDate');
-
-      if (
-        patendExpirationDate.valid &&
-        patentGrandDate.valid &&
-        patentFillingDate.valid
-      )
-        if (
-          patendExpirationDate.value <= patentGrandDate.value ||
-          patendExpirationDate.value <= patentFillingDate.value ||
-          patentGrandDate.value < patentFillingDate.value
-        ) {
-          // const temp = [];
-          this.patentInformationForm
-            .get(inputName)
-            .setErrors({ 'error.msg.invalidDate': true });
-          //  this.emitErrors(temp);
-        }
-    }
-  }
 
   getFormValue() {
     return this.patentInformationForm.value;
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+      this.showFieldErrors = this.showErrors || this.showFieldErrors;
+    }
+
+
 }
