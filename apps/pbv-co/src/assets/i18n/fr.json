@@ -73,5 +73,10 @@
 
     "manufacturer.contact":"Personne-ressource du fabricant / promoteur",
     "mailing.contact": "Courrier réglementaire / adresse de personne-ressource pour l'annuelle",
-    "billing.contact": "Personne-ressource de facturation"
+    "billing.contact": "Personne-ressource de facturation",
+    "error.msg.roleSelected":  "Ce rôle a déjà été sélectionné.",
+    "error.msg.contactRolesMissing": "Pour le représentant de la compagnie, sélection des rôles: fabricant, de l'envoi et de la facturation",
+    "error.msg.companyContacts": "Company representative details has errors"
+
+
 }

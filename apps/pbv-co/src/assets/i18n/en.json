@@ -73,5 +73,8 @@
 
     "manufacturer.contact":"Manufacturer/sponsor contact",
     "mailing.contact": "Regulatory mailing/annual contact",
-    "billing.contact": "Billing contact"
+    "billing.contact": "Billing contact",
+    "error.msg.roleSelected":  "This role has already been selected.",
+    "error.msg.contactRolesMissing": "For Company representative, selection of all roles: manufacturer, mailing, and billing",
+    "error.msg.companyContacts": "Company representative details has errors"
 }

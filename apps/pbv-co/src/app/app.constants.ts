@@ -15,6 +15,9 @@ export const HELP_FOOTNOTE_SUFFIX = '-rf';
 export const CONTACT_ERROR_PREFIX = 'c';
 export const ADDRESS_ERROR_PREFIX = 'a';
 
+export const YES = "Y";
+export const NO = "N";
+
 export const HELP_TEXT_SEQUENCE = [
     'loadFileIndx',
     'companyEnrolmentIndx',

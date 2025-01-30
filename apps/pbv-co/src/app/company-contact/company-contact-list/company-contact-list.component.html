@@ -14,9 +14,9 @@
           [showErrors]="showErrors"
           [contactModel]=""
           (saveRecord)="saveRecord($event)"
-          (revertRecord)="deleteRecord($event)"
-          (deleteRecord)="revertRecord($event)"
-          (errorList)="processCompanyItemErrors($event)"></app-company-contact-item>
+          (deleteRecord)="deleteRecord($event)"
+          (revertRecord)="revertRecord($event)"
+          (rolesUpdated)="handleRolesUpdated($event)"></app-company-contact-item>
         </ng-template>
       
       </lib-accordion>

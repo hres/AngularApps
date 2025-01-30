@@ -10,10 +10,11 @@
         [contactDetailsModel]="contactModel"
         [lang]="lang"
         [languageList]="languageList"
+        [formGroup]="contactDetailsFormGroup"
         (errorList)="processContactErrors($event)"> 
         </pbv-contact-details>
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <fieldset class="chkbxrdio-grp" id="companyRoles">
               <legend class="required">
@@ -60,7 +61,30 @@
               </div>
           </fieldset>
         </div>    
-      </div>
+      </div> -->
+
+      <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <fieldset class="chkbxrdio-grp" id="companyRoles">
+          <legend class="required">
+            <span class="field-name">{{'select.roles' | translate}}</span>
+            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="companyRolesChkFormArray.invalid"
+                            [showError]="showErrors"
+                            [control]="companyRolesChkFormArray | formControl"
+                            controlId="companyRoles" label="select.roles"
+                            parentId="companyContact"></control-messages>
+        </legend>
+          <ul class="form-group list-unstyled">
+          <li class="checkbox" [formArrayName]="'companyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">
+              <label for={{companyRolesOptionList[i].value}}>
+              <input type="checkbox" id={{companyRolesOptionList[i].value}} [formControl]="reason | formControl" (change)="companyRolesOnChange($event, companyRolesOptionList[i].value)"/> {{companyRolesOptionList[i].label}}
+              </label>
+          </li>
+          </ul>
+        </fieldset>
+        </div>
+    </div>
 
         <div class="row">
           <div class="btn-group-sm col-xs-12 text-left">          

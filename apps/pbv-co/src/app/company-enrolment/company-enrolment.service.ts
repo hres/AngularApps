@@ -28,17 +28,17 @@ export class CompanyEnrolmentService {
       });
     }
 
-  public mapFormModelToDataModel(dataModel:CompanyEnrol, formModel:any, isInternal:boolean) {
+  public mapFormModelToDataModel(dataModel:CompanyEnrol, coEnrolFormModel:any, isInternal:boolean) {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
 
-    dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, formModel.enrolmentStatus, lang);
-    dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, formModel['enrolmentVersion']);
+    dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, coEnrolFormModel.enrolmentStatus, lang);
+    dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
     dataModel.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     if (isInternal) {
-      dataModel.company_id = formModel['companyId'];
+      dataModel.company_id = coEnrolFormModel['companyId'];
     }
-    dataModel.reason_amend = formModel['reasonForFiling'];
+    dataModel.reason_amend = coEnrolFormModel['reasonForFiling'];
   }
 
   public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel:any) {

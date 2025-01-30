@@ -16,6 +16,8 @@ import { CompanyEnrolmentService } from './company-enrolment/company-enrolment.s
 import { CompanyAddressModule } from './company-address/company-address.module';
 import { CompanyContactModule } from './company-contact/company-contact.module';
 import { ListService } from './record-base/list.service';
+import { FormBaseService } from './form-base/form-base.service';
+import { CommonPbvModule } from '@hpfb/pbv';
 
 @NgModule({
   declarations: [
@@ -33,12 +35,14 @@ import { ListService } from './record-base/list.service';
     NumbersOnlyDirective,
     HelpTextModuleModule,
     CompanyAddressModule,
-    CompanyContactModule
+    CompanyContactModule,
+    CommonPbvModule
 ],
   providers: [
     AppSignalService,
     CompanyEnrolmentService,
-    ListService
+    ListService,
+    FormBaseService
   ],
   exports: [CommonUiFeatureModule,
     CompanyEnrolmentComponent

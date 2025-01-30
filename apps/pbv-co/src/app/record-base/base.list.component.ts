@@ -35,7 +35,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         // Clear existing controls
       this.recordFormArray.clear();
   
-      if (recordData) {
+      if (recordData && recordData.length !== 0) {
           if (recordData.length > 0) {
             recordData.forEach(record => {
               const group = this.recordService.createRecordFormGroup(this._fb);
@@ -46,8 +46,9 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
                 isNew: false,
                 expandFlag: false,
               });
-  
+              
               this._patchRecordInfoValue(group, record);
+              this._patchLastSavedStateValue(group.controls['lastSavedState'], record);
   
               this.recordFormArray.push(group);
             });
@@ -63,11 +64,13 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
       // Set the list of form groups
       this._listService.setList(this.recordFormArray.controls as FormGroup[]);
     }
-    protected abstract _patchRecordInfoValue(group: FormGroup, outputModel);
+    protected abstract _patchRecordInfoValue(group, outputModel);
     // BaseComponent is missing error notification service 
     // ngAfterViewInit(): void {
     //     throw new Error("Method not implemented.");
     // }
+
+    protected abstract _patchLastSavedStateValue(lastSavedStateFormControl, outputModel);
     addRecord(): void {
         const group = this.recordService.createRecordFormGroup(this._fb);
         this.recordFormArray.push(group);    
@@ -94,7 +97,8 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
          const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
          if (group.invalid) {
           group.controls['expandFlag'].setValue(true);
-           break;
+          this.recordFormGroup.markAsDirty();
+            break;
          } 
        }     
      }

@@ -18,6 +18,7 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   @Input() contactDetailsModel: IContact;
   @Input() lang;
   @Input() languageList;
+  @Input() formGroup?: FormGroup;
   @Output() errorList = new EventEmitter(true);
 
   constructor(private _contactDetailsService: ContactDetailsService, private _fb: FormBuilder, private _utilsService: UtilsService) {
@@ -37,6 +38,9 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   ngOnChanges(changes: SimpleChanges) {
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
+    if (changes['formGroup']) {
+      this.contactDetailsForm = this.formGroup;
+    }
     if (!isFirstChange) {
       if (changes['contactDetailsModel']) {
         const dataModel = changes['contactDetailsModel'].currentValue as IContact;
