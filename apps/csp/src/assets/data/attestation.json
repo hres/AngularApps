@@ -1,0 +1,15 @@
+[
+  {
+    "ariaEn": "NOC",
+    "ariaFr": "NOC",
+     "en": " The Applicant is the patentee and is recorded as an owner of the above noted Canadian Patent at the Canadian Intellectual Property Office, or",
+     "fr": " en vertu d’un brevet délivré à la date ou avant la date où l’avis de conformité (AC) a été délivré pour la PDN susmentionnée (avant la fin de la période de 120 jours qui commence le jour où l’AC est délivré)"
+  },
+  {
+    "ariaEn": "GRANT",
+    "ariaFr": "GRANT",
+    "en": " the Applicant is a manufacturer who is authorized by the person recorded in the Canadian Intellectual Property Office as the owner of the above noted Canadian Patent to file this application on their behalf and the above noted NDS was issued to the Applicant.",
+    "fr": " en vertu d’un brevet délivré après que l’avis de conformité (AC) a été délivré pour la PDN susmentionnée (avant la fin de la période de 120 jours qui commence le jour où le brevet est délivré)."
+  }
+  ]
+ 
