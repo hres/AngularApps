@@ -35,6 +35,7 @@
       </section>
     </div>
 
+    <!-- START OF MAIN SECTION -->
     <div>
       <section class="panel panel-primary mrgn-tp-lg">
         <header class="panel-heading clearfix">
@@ -89,7 +90,6 @@
             ></app-new-drug-submission-information>
           </div>
 
-      <div *ngIf="isInternal">
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'panel.title.noticeofcompliance'|translate}}
             <sup [id]="helpIndex['nocDateIndx'][2]">
@@ -102,7 +102,6 @@
             (errorList)="processNoticeOfComplianceErrors($event)"
             ></app-notice-of-compliance>
           </div>
-      </div> 
 
         <header class="panel-body">
           <h2 class="panel-title">{{'panel.title.druguse'|translate}}
