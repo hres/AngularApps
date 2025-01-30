@@ -6,7 +6,7 @@ import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { DOSSIER_TYPE, FILE_OUTPUT_PREFIX, NO, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES } from '../app.constants';
+import { FILE_OUTPUT_PREFIX, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';

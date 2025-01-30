@@ -2,7 +2,7 @@ import {baseEnv as base} from './env';
 
 export const environment = {
   ...base,
-  production: false,
+  production: true,
   lang: 'fr',
-  isInternal: false
+  isInternal: true
 };

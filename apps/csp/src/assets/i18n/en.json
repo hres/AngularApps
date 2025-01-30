@@ -370,6 +370,7 @@
      "medicinal.ingredients": "Medicinal ingredient(s) (as provided on the NOC for the NDS provided in Section 3)",
      "product.name": "Product Name (as provided on the NOC for the NDS provided in Section 3)",
      "panel.title.medicinal.ingredients": "Medicinal Ingredient(s)",
+     "panel.product.name": "Product Name",
      "applicant.name":"Applicant Name",
      "cra.business.number":"CRA Business Number",
      "csp.customer.number":"CSP Customer Number",
@@ -381,6 +382,7 @@
     "fees.text": "This electronic form should not include payment information (e.g. credit card number), as the information included within an electronic form cannot be deleted and will remain a part of the CSP application on record.",
     "fees.paid": "The fee has been paid in the amount of (please enter the fee amount)",
     "pay.method": "Method of Payment",
+    "section.show": " [ This section may not be visible. ]",
 
      "applicant.contact.info":"Applicant Contact Information (where all communications regarding the CSP will be sent)",
      "addressDetails.street": "Street address",
@@ -417,7 +419,7 @@
 
     "panel.title.certification": "Certification",
     "cert.name": "Name of Authorized Official",
-    "cert.first": "Fist Name",
+    "cert.first": "First Name",
     "cert.initials": "Initials",
     "cert.last": "Last Name",
     "cert.job": "Job Title",
@@ -438,6 +440,12 @@
     "ht.app.7": "<b>Job Title:</b> Enter the job title of the person named.",
     "ht.app.8": "<b>Address (Street/Suite, City, Province, and Postal Code):</b> Include the address in Canada at which the person named is located for purposes of the business of the applicant.",
     "ht.app.9": "<b>Telephone Number, Facsimile Number, and E-mail:</b> Provide the telephone and facsimile number and e-mail address of the person named whom may be contacted by Health Canada regarding the CSP application. This information will be used to contact the applicant regarding any issues with respect to the CSP application. Health Canada issues CSPs by sending an electronic certificate by e-fax to the facsimile number provided.",
+    "ht.bill.add.1": "<b>Billing Address:</b> Check the box, if applicable, to indicate that a different billing address will be used. The billing address will only be contacted should there be any issues with respect to the fee payment. Please note that an agent with multiple CSP applications may only have one billing address at any given time in respect of its CSP applications. The address may be updated, however multiple billing addresses are not permitted concurrently.",
+    "ht.bill.add.2": "<b>Organization Name:</b> Provide the name of the organization with the authority to correspond with Health Canada regarding billing matters in the CSP application.",
+    "ht.bill.add.3": "<b>Names:</b> Provide the name of the person with the authority to correspond with Health Canada on behalf of the applicant with respect to billing matters in the CSP application.",
+    "ht.bill.add.4": "<b>Job Title:</b> Enter the job title of the person named with respect to billing matters.",
+    "ht.bill.add.5": "<b>Address (Street / Suite, City, Province, Country, and Postal Code):</b> Include the address at which the person named is located for the purpose of addressing billing matters in the CSP application.",
+    "ht.bill.add.6": "<b>Telephone Number, Facsimile Number, and E-mail:</b> Provide the telephone and facsimile number and e-mail address, of the person named whom may be contacted by Health Canada regarding the billing matters for the CSP application. This contact information will be used to address any issues with the CSP application with respect to billing matters in the CSP application.",
     "ht.patent.1": "Patent Information",
     "ht.patent.2": "<b>Canadian Patent Number:</b> Provide the Canadian patent number in relation to which the certificate is sought. One CSP application is required for each patent number.",
     "ht.patent.3": "<b>Patent Filing Date:</b> Indicate the Canadian patent application filing date. The filing date of the patent must be on or after October 1, 1989 according to paragraph 106(1)(b) of the Patent Act.",
@@ -454,6 +462,8 @@
     "ht.medic.3": "<b>Product Name:</b> Enter the product name (brand name) included in the NDS set out in the CSP application. Please enter the product name exactly as it appears on the NOC for that NDS. Applicants may view this information on Health Canada’s online NOC database, or they may request a copy of the NOC from Health Canada.",
     "ht.attes.1": "Attestations",
     "ht.attes.2": "See section 2.2.2 of the Guidance Document: Certificates of Supplementary Protection for additional details.",
+    "ht.mark.app.1": "Date of first marketing approval application",
+    "ht.mark.app.2": "<b>If applicable, please enter the date of submission of the first of those marketing approval applications and select the country of the first of those marketing approval applications. If the first of those marketing approval applications is a member of the European Union, please enter the name of the specific country.</b>",
     "ht.fee.1": "Fee Payment",
     "ht.fee.2": "<b>Fee payment and amount:</b> Please check the box and enter the fee amount. The fee must be paid in Canadian currency to the account of the Receiver General of Canada, according to section 9 of the Certificate of Supplementary Protection Regulations. Beginning April 1, 2018, the fee increases annually by an amount equal to 2% of the fee payable in the previous year, rounded up to the nearest dollar. Health Canada will publish the fee increase in the Canada Gazette Part I annually. An applicant may apply to the Minister for a CSP on the payment of the prescribed fee. One of the filing requirements for a CSP application is the receipt of a description of the method of payment used to pay the fee, which is provided to the Minister through the CSP application form. Anyone can pay the fee on behalf of the applicant. An agent must use the applicant’s CSP Customer Number when paying on behalf of the applicant.",
     "ht.fee.meth.1": "Method of Payment",
@@ -461,5 +471,20 @@
     "ht.cert.1": "Certification",
     "ht.cert.2": "<b>Name of Authorized Official:</b> Provide the name of the person with the authority to make the attestations and certification on behalf of the applicant making the CSP application.",
     "ht.cert.3": "<b>Job Title:</b> Enter the job title of the person making the attestations and certification.",
-    "ht.cert.4": "<b>Date:</b> Provide the date of the attestations and certification."
+    "ht.cert.4": "<b>Date:</b> Provide the date of the attestations and certification.",
+
+    "billing.address": "Billing Address"
+
+    "msg.success.load": "The file was loaded successfully",
+    "msg.err.parseFail": "Error: there was an error parsing the working file.",
+    "msg.err.jsonparse": "There was an error parsing the working file.",
+    "msg.err.file.load": "There was a problem loading the file.",
+    "msg.err.file.type": "Error: An invalid file type was selected.",
+    "msg.err.form.type": "Error: the wrong form type was selected for this form.",
+    "msg.err.checksum": "Error: there was an error parsing the file.",
+    "err.patent.information.date.invalid":"Filling or Granted  or Expiration Date are invalid",
+    "DISCLAIMER":"The contents of this form may be publicly disclosed.",
+    "save.working.copy": "Save Working Copy",
+    "generate.final.internal": "Approve Final  XML",
+    "generate.final.external": "Save Draft for Filling"
 }

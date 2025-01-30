@@ -16,7 +16,7 @@
             <div class="form-group col-xs-4">
                 <label for="craBusinessNumber">
                     <span class="field-name">{{ 'cra.business.number'|translate }}</span>
-                    <input maxlength="9" minlength="9" id="craBusinessNumber" class="form-control"
+                    <input data-only-digits maxlength="9" minlength="9" id="craBusinessNumber" class="form-control"
                         name="craBusinessNumber" [formControl]="applicantInformationForm.controls['craBusinessNumber'] | formControl" />
                 </label>
             </div>

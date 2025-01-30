@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation, computed, signal, inject, viewChild, Signal} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation, computed, signal, inject, viewChild, Signal, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import { ICodeDefinition, ICode, UtilsService, BaseComponent, ControlMessagesComponent, HelpSequence, LoggerService } from '@hpfb/sdk/ui';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegulatoryInformationService } from './regulatory-information.service';
 import { LifecycleRecord, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
 import { TransactionDetailsComponent } from '../transaction-details/transaction-details.component';
-import { DOSSIER_TYPE } from '../app.constants';
+import { PbvValidationService } from '@hpfb/pbv';
 
 @Component({
   selector: 'app-regulatory-information',
@@ -30,9 +30,8 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
 
-  private tranDetailsChild = viewChild("transactionDetailsChild", {
-    read: TransactionDetailsComponent
-  });
+  @ViewChild(TransactionDetailsComponent) tranDetailsChild: TransactionDetailsComponent;
+  private transactionDetailsErrors = [];
 
   private _signalService = inject(AppSignalService)
   private _logger = inject(LoggerService)
@@ -79,10 +78,13 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   protected override emitErrors(errors: ControlMessagesComponent[]): void {
     // the combined list of errors from both "regulatory information" and "transaction details"
     // console.log('Combined Errors List: ', errors);
+    errors = this.msgList.toArray();
+    errors = errors.concat(this.transactionDetailsErrors)
     this.errorList.emit(errors);
   }
 
   processTransactionDetailsErrors(childErrors) {
+    this.transactionDetailsErrors = childErrors;
     this._appendErrorsFromChild(childErrors);
   }
 
@@ -110,6 +112,12 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   onDossierTypeSelected(selectedDossierTypeId: string) {
     this._logger.log(this._globalService.debugEnabled, 'RegulatoryInformationComponent', 'onDossierTypeSelected',  `dossier type id: ${selectedDossierTypeId}`);
     this._signalService.setSelectedDossierType(selectedDossierTypeId)
+    if (this.isPharmaBio()) {
+      this.regulartoryInfoForm.controls['dossierId'].setValidators([Validators.required,PbvValidationService.pharmabioDossierIdValidator]);
+    } else {
+      this.regulartoryInfoForm.controls['dossierId'].setValidators([Validators.required,PbvValidationService.vetDossierIdValidator]);
+    }
+    this.regulartoryInfoForm.controls['dossierId'].updateValueAndValidity();
   }
 
   onAdminSubmissionSelected(selectedAdminSubmissionId: string, isProgrammaticUpdate: boolean) {
@@ -127,7 +135,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   getFormValue() {
     const regInfoFormValues = this.regulartoryInfoForm.value;
-    const tranDetailsFormValues = this.tranDetailsChild().getFormValue();
+    const tranDetailsFormValues = this.tranDetailsChild.getFormValue();
 
     return { ...regInfoFormValues, ...tranDetailsFormValues };
   }
@@ -141,5 +149,4 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
       this._utilsService.resetControlsValues(this.regulartoryInfoForm.controls[controlNames[i]]);
     }
   }
-
 }

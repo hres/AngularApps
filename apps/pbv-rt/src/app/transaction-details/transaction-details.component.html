@@ -1,5 +1,5 @@
 <div [formGroup]="transctionDetailsForm">
-    <div class="row">
+    <div class="row" [hidden]="isVet">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="activityLead" class="required">
                 <span class="field-name">{{ 'activity.lead' |translate }}</span>
@@ -11,12 +11,12 @@
                 <control-messages *ngIf="transctionDetailsForm.controls['activityLead'].invalid"
                     [showError]="showErrors" [control]="transctionDetailsForm.controls['activityLead'] | formControl"
                     controlId="activityLead" label="activity.lead" parentId="regulatoryInfo"></control-messages>
+                <select id="activityLead" name="activityLead" required class="form-control full-width"
+                    [formControlName]="'activityLead'" (change)="onRaLeadSelected($any($event.target).value)">
+                    <option label=" " value=""></option>
+                    <option *ngFor="let lead of raLeadList()" [value]="lead.id"> {{ lead| textTransform: lang }}</option>
+                </select>
             </label>
-            <select id="activityLead" name="activityLead" required class="form-control full-width"
-                [formControlName]="'activityLead'" (change)="onRaLeadSelected($any($event.target).value)">
-                <option label=" " value=""></option>
-                <option *ngFor="let lead of raLeadList()" [value]="lead.id"> {{ lead| textTransform: lang }}</option>
-            </select>
         </div>
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedRaLeadDefinition()">
@@ -32,12 +32,13 @@
                 <control-messages *ngIf="transctionDetailsForm.controls['activityType'].invalid"
                     [showError]="showErrors" [control]="transctionDetailsForm.controls['activityType'] | formControl"
                     controlId="activityType" label="reg.activity.type" parentId="regulatoryInfo"></control-messages>
+            
+                <select id="activityType" name="activityType" required class="form-control full-width"
+                    [formControlName]="'activityType'" (change)="onRaTypeSelected($any($event.target).value)">
+                    <option label=" " value=""></option>
+                    <option *ngFor="let item of raTypeList()" [value]="item.id"> {{ item| textTransform: lang }}</option>
+                </select>
             </label>
-            <select id="activityType" name="activityType" required class="form-control full-width"
-                [formControlName]="'activityType'" (change)="onRaTypeSelected($any($event.target).value)">
-                <option label=" " value=""></option>
-                <option *ngFor="let item of raTypeList()" [value]="item.id"> {{ item| textTransform: lang }}</option>
-            </select>
         </div>
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedRaTypeDefinition()">
@@ -53,14 +54,14 @@
                 <control-messages *ngIf="transctionDetailsForm.controls['descriptionType'].invalid"
                     [showError]="showErrors" [control]="transctionDetailsForm.controls['descriptionType'] | formControl"
                     controlId="descriptionType" label="sequence.type" parentId="regulatoryInfo"></control-messages>
+                <select id="descriptionType" name="descriptionType" required class="form-control full-width"
+                    [formControlName]="'descriptionType'"
+                    (change)="onTransactionDescriptionSelected($any($event.target).value)">
+                    <option label=" " value=""></option>
+                    <option *ngFor="let item of transactionDescriptionList()" [value]="item.id"> {{ item| textTransform:
+                        lang }}</option>
+                </select>
             </label>
-            <select id="descriptionType" name="descriptionType" required class="form-control full-width"
-                [formControlName]="'descriptionType'"
-                (change)="onTransactionDescriptionSelected($any($event.target).value)">
-                <option label=" " value=""></option>
-                <option *ngFor="let item of transactionDescriptionList()" [value]="item.id"> {{ item| textTransform:
-                    lang }}</option>
-            </select>
         </div>
     </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="selectedTxDescDefinition()">

@@ -74,8 +74,8 @@
                         [control]="regulartoryInfoForm.controls['productName'] | formControl" controlId="productName"
                         label="product.name" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <textarea id="productName" name="productName" class="form-control full-width"
-                            [formControlName]="'productName'" maxlength="400" ></textarea>
+                <textarea id="productName" name="productName" class="form-control full-width upperCase"
+                            [formControlName]="'productName'" maxlength="400"></textarea>
             </div>
           </div>
           <div class="row form-group" *ngIf="isPharmaBio()">

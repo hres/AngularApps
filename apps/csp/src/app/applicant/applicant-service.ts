@@ -42,7 +42,7 @@ export class ApplicantService {
     model.applicant.csp_customer_number = formValue['cspNumber'];
     model.applicant.agent_name = formValue['agentName'];
 
-    this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, model.applicant.address, lang, countryList, combinedProvStatList);
+    this._addressDetailsService.mapFormModelToDataModelCanadianAddress(addressFormGroupValue, model.applicant.address, lang, countryList, combinedProvStatList);
     this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, model.applicant.contact, lang, languageList);
   }
 
