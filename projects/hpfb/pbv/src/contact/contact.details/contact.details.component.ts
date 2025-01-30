@@ -18,6 +18,8 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   @Input() contactDetailsModel: IContact;
   @Input() lang;
   @Input() languageList;
+  @Input() contactType;
+  @Input() contactGroupLabelKey;
   @Output() errorList = new EventEmitter(true);
 
   constructor(private _contactDetailsService: ContactDetailsService, private _fb: FormBuilder, private _utilsService: UtilsService) {
