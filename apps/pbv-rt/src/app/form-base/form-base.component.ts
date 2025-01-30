@@ -252,7 +252,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const contactInfoFormGroupValue = this.regulatoryContactComponent.getFormValue();
     let addressFormGroupValue = null;
-    if (this.isSigned3rdParty()) {
+    if (!this.isSigned3rdParty()) {
       addressFormGroupValue = this.regulatoryContactComponent.getAddressFormValue();
     }
     const contactFormGroupValue = this.regulatoryContactComponent.getContactFormValue();
