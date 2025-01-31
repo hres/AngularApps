@@ -25,6 +25,8 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   @Input() provinceList;
   @Input() stateList;
   @Input() canadaDefault: boolean;
+  @Input() addrType;
+  @Input() addrGroupLabelKey;
   @Output() errorList = new EventEmitter(true);
 
   public addressForm: FormGroup;
