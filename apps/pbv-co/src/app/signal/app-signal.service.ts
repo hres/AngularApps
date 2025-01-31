@@ -11,4 +11,18 @@ export class AppSignalService {
 
   constructor() { }
 
+  private readonly companyRoles = signal<string[]>([]);
+
+  updateCompanyRoles(companyRole : string) : void {
+    this.companyRoles.update((arr) => [...arr, companyRole]);
+  }
+
+  removeCompanyRole(companyRole: string) {
+    this.companyRoles.update((arr) => arr.filter(item => item !== companyRole));
+  }
+
+  getSelectedCompanyRoles(): Signal<string[]> {
+    return this.companyRoles.asReadonly();
+  }
+
 }
