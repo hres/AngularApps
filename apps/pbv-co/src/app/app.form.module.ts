@@ -13,6 +13,11 @@ import { HelpTextModuleModule } from "./instruction/help-text-module.module";
 import { AppSignalService } from './signal/app-signal.service';
 import { CompanyEnrolmentComponent } from './company-enrolment/company-enrolment.component';
 import { CompanyEnrolmentService } from './company-enrolment/company-enrolment.service';
+import { CompanyAddressModule } from './company-address/company-address.module';
+import { CompanyContactModule } from './company-contact/company-contact.module';
+import { ListService } from './record-base/list.service';
+import { FormBaseService } from './form-base/form-base.service';
+import { CommonPbvModule } from '@hpfb/pbv';
 
 @NgModule({
   declarations: [
@@ -28,11 +33,16 @@ import { CompanyEnrolmentService } from './company-enrolment/company-enrolment.s
     ReactiveFormsModule,
     TranslateModule,
     NumbersOnlyDirective,
-    HelpTextModuleModule
+    HelpTextModuleModule,
+    CompanyAddressModule,
+    CompanyContactModule,
+    CommonPbvModule
 ],
   providers: [
     AppSignalService,
-    CompanyEnrolmentService
+    CompanyEnrolmentService,
+    ListService,
+    FormBaseService
   ],
   exports: [CommonUiFeatureModule,
     CompanyEnrolmentComponent

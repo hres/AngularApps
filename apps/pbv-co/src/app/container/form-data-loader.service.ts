@@ -8,9 +8,13 @@ export class FormDataLoaderService {
 
   private countriesJsonPath = DATA_PATH + 'countries.json';
   private enrolmentStatusesPath = DATA_PATH + 'enrolmentStatuses.json'
+  private keywordsJsonPath = DATA_PATH + 'keywords.json';
+  private companyRolesPath = DATA_PATH + 'companyRoles.json';
   
   cachedCountries$:Observable<ICode[]>;
   cachedEnrolmentStatuses$:Observable<ICode[]>;
+  cachedLanguageList$:Observable<ICode[]>;
+  cachedCompanyRolesList$:Observable<ICode[]>;
   
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -35,6 +39,32 @@ export class FormDataLoaderService {
     } 
     return this.cachedEnrolmentStatuses$;
   }
+
+  getLanguageList(): Observable<ICode[]> {
+    if (!this.cachedLanguageList$) {
+      this.cachedLanguageList$ = this._dataService.getData<IKeyword>(this.keywordsJsonPath)
+        .pipe(
+          map(keywords => {
+            return keywords.find(keyword => keyword.name === 'languages')?.data || [];
+          }),
+          // tap(()=>console.log('getKeywordList() is called')),
+          shareReplay(1)
+        );
+    }
+    return this.cachedLanguageList$;
+  }
+
+  getCompanyRolesList(): Observable<ICode[]> {
+    if (!this.cachedCompanyRolesList$) {
+      this.cachedCompanyRolesList$ = this._dataService.getData<ICode>(this.companyRolesPath)
+        .pipe(
+          // tap(()=>console.log('getEnrollmentStatusesList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedCompanyRolesList$;
+  }
+
 
   // getYesNoList(): Observable<ICode[]> {
   //   if (!this.cachedYesNo$) {
