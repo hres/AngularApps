@@ -1,0 +1,36 @@
+<div id="contactListTable" [formGroup]="recordFormGroup">
+    <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.data.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
+      <div [formArrayName]="'contacts'">
+  
+        <lib-accordion [rowsFormArray]="recordFormArray" [accordionHeadingMsgKey]="'heading.company.contact'" [accordionHeadingSupp]="['companyInfo', 'companyName']" 
+        (rowClicked)="handleRowClick($event)">
+      
+        <ng-template #tmpl let-recordRow let-idx="i">
+          <!-- ==={{recordRow.get('id').value}}===
+          === index = {{idx}} ,  === -->
+          <app-company-contact-item
+          [cRRow]="recordRow"
+          [j]="idx"
+          [showErrors]="showErrors"
+          [contactModel]=""
+          (saveRecord)="saveRecord($event)"
+          (deleteRecord)="deleteRecord($event)"
+          (revertRecord)="revertRecord($event)"
+          (rolesUpdated)="handleRolesUpdated($event)"></app-company-contact-item>
+        </ng-template>
+      
+      </lib-accordion>
+    
+      <div class="row mrgn-tp-md mrgn-bttm-lg">
+        <div class="btn-group-sm col-md-12 text-left">
+          <button class="btn btn-primary" (click)="addRecord()" id="addContactBtn" [disabled]="disableAddButton()"> <!--[disabled]="disableAddButton()"-->
+            {{'add.contact'|translate}}
+          </button>
+        </div>
+      </div>
+      <div class="sr-only" id="coContactStatus" aria-live="polite" role="status">{{ statusMessage }}</div>
+      
+      <!-- <button (click)="coaddNewContact(comp.get('projects'))">Add new Project</button> -->
+      <!-- <pre>{{companyContactListForm.value | json}}</pre> -->
+      </div>
+</div>

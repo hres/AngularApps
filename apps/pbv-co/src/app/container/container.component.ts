@@ -27,7 +27,9 @@ export class ContainerComponent implements OnInit {
 
   dataSources: Observable<any>[] = [
     this._formDataLoader.getCountryList(this._globalService.currLanguage),
-    this._formDataLoader.getEnrolmentStatusesList()
+    this._formDataLoader.getEnrolmentStatusesList(),
+    this._formDataLoader.getLanguageList(),
+    this._formDataLoader.getCompanyRolesList()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -41,6 +43,8 @@ export class ContainerComponent implements OnInit {
       // console.log(data);
       this._globalService.countryList = data[0];
       this._globalService.enrolmentStatusList = data[1];
+      this._globalService.languageList = data[2];
+      this._globalService.companyRolesList = data[3];
 
       this.loadFormBaseComponent = true;
     });

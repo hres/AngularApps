@@ -8,7 +8,7 @@ import { CompanyEnrol } from '../models/Company';
 import { ENROLMENT_STATUS } from '../app.constants';
 
 @Component({
-  selector: 'app-comapany-enrolment',
+  selector: 'app-company-enrolment',
   templateUrl: './company-enrolment.component.html',
   encapsulation: ViewEncapsulation.None,
 })

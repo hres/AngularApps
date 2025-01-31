@@ -7,10 +7,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ENROLMENT_STATUS, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { CompanyEnrol, Company} from '../models/Company';
+import { CompanyEnrol, Company, ContactRecord} from '../models/Company';
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { CompanyEnrolmentComponent } from '../company-enrolment/company-enrolment.component';
+import { CompanyContactModule } from "../company-contact/company-contact.module";
+import { CompanyContactListComponent } from '../company-contact/company-contact-list/company-contact-list.component';
 
 @Component({
     selector: 'app-form-base',
@@ -19,7 +21,7 @@ import { CompanyEnrolmentComponent } from '../company-enrolment/company-enrolmen
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
     providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, CompanyContactModule]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -32,9 +34,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   @ViewChild(CompanyEnrolmentComponent) companyEnrolmentComponent: CompanyEnrolmentComponent;
+  @ViewChild(CompanyContactListComponent) companyContactListComponent: CompanyContactListComponent;
 
   
   private _companyEnrolmentErrors = [];
+  private _contactListErrors = [];
 
   public coForm: FormGroup; 
   public errorList = [];
@@ -45,6 +49,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public enrollModel: Company;
   public companyEnrolModel: CompanyEnrol;
+  public contactListModel: ContactRecord[];
 
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
@@ -119,7 +124,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processErrors() {
     this.errorList = [];
-    this.errorList = this.errorList.concat(this._companyEnrolmentErrors);
+    this.errorList = this.errorList.concat(this._companyEnrolmentErrors.concat(this._contactListErrors));
 
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -141,6 +146,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processCompanyEnrolmentErrors(errorList) {
     this._companyEnrolmentErrors = errorList;
+    this.processErrors();
+  }
+
+  processContactListErrors(errorList) {
+    this._contactListErrors = errorList;
     this.processErrors();
   }
 
@@ -185,6 +195,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // }
     // this.addressModel = trans.regulatory_activity_address;
     // this.contactModel = trans.regulatory_activity_contact;
+    const tContacts = companyEnrol.contact_record;
+    this.contactListModel = Array.isArray(tContacts) ? tContacts : [tContacts];
+    if (this._utilsService.isEmpty(tContacts)) {
+      this.contactListModel = [];
+    }
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -206,18 +221,23 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _prepareForSaving(xmlFile: boolean): Company {
+    let contactsFormArrayValue = null;
 
     const newcompanyEnrol: CompanyEnrol = this._baseService.getEmptyCompanyEnrol();
-
-    // const productInfoFormGroupValue = this.productInfoComponent.getFormValue();
-    // this._baseService.mapProductInfoFormToOutput(newDrugProductEnrol, productInfoFormGroupValue);
 
     newcompanyEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     newcompanyEnrol.software_version = this._globalService.appVersion;
     newcompanyEnrol.form_language = this._globalService.currLanguage;
 
     const companyEnrolmentFormGroupValue = this.companyEnrolmentComponent.getFormValue();
+
+    if (this.companyContactListComponent.recordFormArray) {
+      contactsFormArrayValue = this.companyContactListComponent.recordFormArray.value;
+    }
+
     this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue, this.isInternal);
+    this._baseService.mapContactsFormToOutput(newcompanyEnrol, contactsFormArrayValue);
+
 
     const output: Company = {
       COMPANY_ENROL: newcompanyEnrol
