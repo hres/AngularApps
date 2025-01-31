@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild, signal, Signal, computed } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild, signal, Signal, computed, effect } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, HelpSequence, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -13,6 +13,7 @@ import { FilereaderInstructionComponent } from "../filereader-instruction/filere
 import { CompanyEnrolmentComponent } from '../company-enrolment/company-enrolment.component';
 import { CompanyContactModule } from "../company-contact/company-contact.module";
 import { CompanyContactListComponent } from '../company-contact/company-contact-list/company-contact-list.component';
+import { CompanyContactService } from '../company-contact/company-contact.service';
 
 @Component({
     selector: 'app-form-base',
@@ -39,6 +40,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   
   private _companyEnrolmentErrors = [];
   private _contactListErrors = [];
+  private _companyRoleErrors = [];
 
   public coForm: FormGroup; 
   public errorList = [];
@@ -59,13 +61,21 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _signalService = inject(AppSignalService)
 
+  private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedCompanyRoles();
+
+
   constructor(
     private _fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private  _baseService: FormBaseService, private _globalService: GlobalService, private _utilsService: UtilsService,
-    private fileServices: FileConversionService, private _versionService: VersionService, private _checkSumService: CheckSumService
+    private fileServices: FileConversionService, private _versionService: VersionService, private _checkSumService: CheckSumService,
+    private _companyContactService: CompanyContactService
   ) {
     this.showErrors = false;
+    effect(() => {
+      this.processCompanyRolesErrors(); // Listen to whenever the signal is changed, process and create errors based on contents of array
+    });
+ 
   }
 
   ngOnInit() {
@@ -124,7 +134,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processErrors() {
     this.errorList = [];
-    this.errorList = this.errorList.concat(this._companyEnrolmentErrors.concat(this._contactListErrors));
+    this.errorList = this.errorList.concat(this._companyEnrolmentErrors.concat(this._contactListErrors.concat(this._companyRoleErrors)));
 
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -151,6 +161,22 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processContactListErrors(errorList) {
     this._contactListErrors = errorList;
+    this.processErrors();
+  }
+
+  processCompanyRolesErrors() {
+    let errorList = [];
+    const selectedRoles = this.selectedCompanyRoles(); // ✅ Get the latest selected roles
+    const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // ✅ Required roles
+    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // ✅ Remove number prefixes
+    const missing = companyRolesList.some(role => !cleanSelectedRoles.includes(role));
+
+    if (missing) {
+      errorList.push(this._companyContactService.makeMissingRoleError());
+    } else {
+      errorList = [];
+    }
+    this._companyRoleErrors = errorList;
     this.processErrors();
   }
 

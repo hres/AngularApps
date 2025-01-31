@@ -1,6 +1,6 @@
 import { Component, computed, Signal, EventEmitter, Input, output, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray} from '@angular/forms';
-import { CheckboxOption, ControlMessagesComponent, ErrorNotificationService, ErrorSummaryComponent, ICode } from '@hpfb/sdk/ui';
+import { CheckboxOption, ControlMessagesComponent, ConverterService, ErrorNotificationService, ErrorSummaryComponent, ICode } from '@hpfb/sdk/ui';
 import { ContactRecord } from '../../models/Company';
 import { BaseListComponent } from '../../record-base/base.list.component';
 import { ListService } from '../../record-base/list.service';
@@ -32,15 +32,6 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   // Computed signal is used to determine if a role is not selected across the list 
   // of contact records. 
-  private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedCompanyRoles();
-  isRoleMissing: Signal<boolean> = computed(() => 
-  {
-    const companyRolesList = this._globalService.companyRolesList;
-    const selectedRoles = this.selectedCompanyRoles(); // Get the current value of selected roles
-    const requiredRoles = companyRolesList.map((role) => role.id); // Extract required role codes
-    return requiredRoles.some((role) => !selectedRoles.includes(role)); // Check if any required role is missing
-  });
-
   constructor(private fb: FormBuilder, 
               private _contactService: CompanyContactService,
               private _contactDetailsService: ContactDetailsService,
@@ -68,7 +59,6 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   protected _patchRecordInfoValue(form, outputModel: ContactRecord) {
     if (this.companyRolesOptionList) {
-      console.log("contact list: ", this.companyRolesOptionList, form);
       this._companyContactItemService.mapDataModelToFormModel(outputModel, form.controls['companyInfo'], this.companyRolesOptionList)
     }
     const contactDetailsFormGroup = form.controls['companyInfo'].controls['contactDetails'];
@@ -77,7 +67,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   protected _patchLastSavedStateValue(lastSavedStateFormControl, outputModel: ContactRecord) {
     lastSavedStateFormControl.patchValue({
-      manufacturer: null,
+      manufacturer: null, // Patch companyRoles (array of booleans, indeces corresponds to order of roles) and selectedCompanyRoles (array of selected roles' ids)
       billing: null,
       mailing: null,
       selectedCompanyRoles: "",
@@ -86,7 +76,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
         firstName: outputModel.company_contact_details.given_name,
         initials: outputModel.company_contact_details.initials,
         lastName: outputModel.company_contact_details.surname,
-        language: outputModel.company_contact_details.language_correspondance._id,
+        language: outputModel.company_contact_details.language_correspondance ?  outputModel.company_contact_details.language_correspondance : null,
         jobTitle: outputModel.company_contact_details.job_title,
         faxNumber: outputModel.company_contact_details.fax_num,
         phoneNumber: outputModel.company_contact_details.phone_num,
@@ -116,18 +106,19 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   protected emitErrors(): void {
     let errorsToEmit = [];
-    
     if (this.errorSummaryChild) {
       errorsToEmit.push(this.errorSummaryChild);
     }
-    
-    if (this.isRoleMissing) {
-      const errObj = this._makeMissingRoleError(); // Make an error summ object for missing role.
-      console.log("co role is missing: ", errObj) 
-      errorsToEmit.push(errObj);
-    }
 
     this.errorList.emit(errorsToEmit);
+  }
+
+  isRoleMissing(): boolean {
+    const selectedRoles = this._signalService.getSelectedCompanyRoles()(); // ✅ Get the latest selected roles
+    const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // ✅ Required roles
+    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // ✅ Remove number prefixes
+
+    return companyRolesList.some(role => !cleanSelectedRoles.includes(role));
   }
 
   /**
@@ -138,16 +129,5 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
    * requires the list of company roles from the Global Service. Global Service does not load before custom
    * validator, therefore signals + method ot make errobj are used.
    */
-  private _makeMissingRoleError() : ErrorSummaryObject{
-    let oerr : ErrorSummaryObject = null;
-
-    oerr = getEmptyErrorSummaryObj();
-    oerr.index = 0;
-    oerr.tableId = 'contactListTable';
-    oerr.type = ERR_TYPE_LEAST_ONE_REC;
-    oerr.label = 'error.msg.contactRolesMissing';
-  
-    return oerr;
-  }
 
 }

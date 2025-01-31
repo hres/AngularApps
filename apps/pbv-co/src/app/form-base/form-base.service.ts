@@ -109,7 +109,7 @@ export class FormBaseService {
         console.log(contactsFormArray[i]);
         let contactModel: ContactRecord = this.getEmptyContactRecord();
         // TODO: Call function to map company roles
-        this._companyContactItemService.mapFormModelToDataModel(contactsFormArray[i]['companyInfo'], contactModel);
+        this._companyContactItemService.mapFormModelToDataModel(contactsFormArray[i], contactModel);
         this._contactDetailsService.mapFormModelToDataModel(contactsFormArray[i]['companyInfo']['contactDetails'], contactModel.company_contact_details , lang, languageList);
         contactModelList.push(contactModel);
       }

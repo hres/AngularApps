@@ -64,6 +64,7 @@
     "fax.number.nofaxnum": "(Use 0000000000 if not available)",
     "contact.email":"Email",
     "error.msg.zip":"Invalid entry - must be 5 numbers",
+    "error.msg.minlength": "Invalid entry - must be {{ requiredLength }} numbers",
     "error.msg.postal":"Invalid format - must be X#X#X#",
     "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
     "add.contact":"Add record",

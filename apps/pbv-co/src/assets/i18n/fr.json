@@ -65,6 +65,7 @@
     "contact.email":"Courriel",
     "error.msg.zip":"Entrée non valide - doit contenir 5 chiffres",
     "error.msg.postal":"Format non valide - doit être X#X#X#",
+    "error.msg.minlength": "Entrée non valide - doit contenir {{ requiredLength }} chiffres",
     "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
     "add.contact":"Ajouter un enregistrement",
     "save.contact":"Enregistrer l'enregistrement",

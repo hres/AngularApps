@@ -7,7 +7,6 @@
       <div [formGroupName]="'companyInfo'">
 
         <pbv-contact-details [showErrors]="showErrors"
-        [contactDetailsModel]="contactModel"
         [lang]="lang"
         [languageList]="languageList"
         [formGroup]="contactDetailsFormGroup"
@@ -33,7 +32,7 @@
                           [formControl]="this.cRRow.get('companyInfo.manufacturer') | formControl"
                           id="chk-mdr-it" name="chk-mdr-it"
                           (change)="companyRolesOnChange()"/>
-                    <span>{{'manufacturer.contact'|translate}}</span>
+                          <span>{{'manufacturer.contact'|translate}}</span>
                   </label>
                 </div>
               </div>
@@ -69,7 +68,7 @@
           <legend class="required">
             <span class="field-name">{{'select.roles' | translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="companyRolesChkFormArray.invalid"
+            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
                             [showError]="showErrors"
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="companyRoles" label="select.roles"
@@ -78,8 +77,17 @@
           <ul class="form-group list-unstyled">
           <li class="checkbox" [formArrayName]="'companyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">
               <label for={{companyRolesOptionList[i].value}}>
-              <input type="checkbox" id={{companyRolesOptionList[i].value}} [formControl]="reason | formControl" (change)="companyRolesOnChange($event, companyRolesOptionList[i].value)"/> {{companyRolesOptionList[i].label}}
+              <input type="checkbox" id={{companyRolesOptionList[i].value}} [formControl]="reason | formControl" (change)="companyRolesOnChange($event, companyRolesOptionList[i].value, i)"/> {{companyRolesOptionList[i].label}}
               </label>
+              <div>
+                <control-messages *ngIf="reason.invalid"
+                [showError]="showErrors"
+                [control]="reason | formControl"
+                [controlId]="'role-' + i"
+                [label]="companyRolesOptionList[i].label"
+                parentId="role">
+                </control-messages>
+              </div>
           </li>
           </ul>
         </fieldset>

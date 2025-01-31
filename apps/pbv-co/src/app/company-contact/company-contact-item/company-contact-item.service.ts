@@ -38,11 +38,12 @@ export class CompanyContactItemService {
     }
 
     public mapFormModelToDataModel(contactFormGroup : FormGroup, contactOutput : ContactRecord)  
-    {
-      //console.log(contactFormGroup);
-
-      if (contactFormGroup['selectedCompanyRoles']) {
-        contactFormGroup['selectedCompanyRoles'].forEach((role: string) => {
+    { 
+      const companyInfoFormGroup = contactFormGroup['companyInfo'];
+      console.log(contactFormGroup);
+      contactOutput.id = contactFormGroup['id'];
+      if (companyInfoFormGroup['selectedCompanyRoles']) {
+        companyInfoFormGroup['selectedCompanyRoles'].forEach((role: string) => {
           const mappedProperty = this.ROLE_MAPPING[role];
           if (mappedProperty) {
             contactOutput[mappedProperty] = YES; // Assign a value as needed

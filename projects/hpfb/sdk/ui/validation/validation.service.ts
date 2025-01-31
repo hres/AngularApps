@@ -40,6 +40,7 @@ export class ValidationService implements IValidationService {
       'error.mgs.incorrectFormat': 'error.mgs.incorrectFormat',
       'error.msg.invalidDate': 'error.msg.invalidDate',
       'error.msg.endDate':'error.msg.endDate',
+      'error.msg.roleSelected':'error.msg.roleSelected'
     };
 
     return config[validatorName];

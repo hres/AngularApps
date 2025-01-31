@@ -5,7 +5,7 @@ import { Validators } from "@angular/forms";
 import { ContactDetailsService } from "@hpfb/pbv";
 import { inject, signal } from "@angular/core";
 import { ContactRecord } from "../models/Company";
-import { ValidationService } from "@hpfb/sdk/ui";
+import { ErrorSummaryObject, ERR_TYPE_LEAST_ONE_REC, getEmptyErrorSummaryObj, ValidationService } from "@hpfb/sdk/ui";
 
 @Injectable()
 export class CompanyContactService implements IRecordService{
@@ -38,5 +38,17 @@ export class CompanyContactService implements IRecordService{
     setRecordsFormArrValue(val: any[]): void {
         this.contactFormArrValue.set(val);
     }
+    
+    makeMissingRoleError() : ErrorSummaryObject{
+        let oerr : ErrorSummaryObject = null;
+    
+        oerr = getEmptyErrorSummaryObj();
+        oerr.index = 0;
+        oerr.tableId = 'contactListTable';
+        oerr.type = ERR_TYPE_LEAST_ONE_REC;
+        oerr.label = 'error.msg.contactRolesMissing';
+      
+        return oerr;
+      }
 
 }
