@@ -547,5 +547,6 @@
     "error.cert.first": "Attestation Prénom",
     "error.cert.last": "Attestation Nom",
     "error.cert.job": "Attestation Titre de poste",
-    "error.cert.date": "Attestation Date"
+    "error.cert.date": "Attestation Date",
+    "error": "Erreur {{number}}:"
   }
