@@ -49,21 +49,74 @@
             {{"applicant.contact.info" | translate}}
         </legend>
 
-        <pbv-contact-details [showErrors]="showErrors" [contactDetailsModel]="contactModel"
+        <pbv-contact-details [showErrors]="showErrors" 
+        [contactDetailsModel]="applicantContactModel"
                 [lang]="lang"
                 [languageList]="languageList"
-                (errorList)="processContactErrors($event)">
+                (errorList)="processContactErrors($event)"
+                [contactType]="applicant" 
+                [contactGroupLabelKey]="'Applicant'">
         </pbv-contact-details>
 
         <pbv-address-details [showErrors]="showErrors" 
-                [addressModel]="addressModel"
+                [addressModel]="applicantAddressModel"
                 [lang]="lang"
                 [provinceList]="provinceList"
                 [countryList]="countryList"
                 [canadaDefault]="true"
-                (errorList)="processAddressErrors($event)">
+                (errorList)="processAddressErrors($event)"
+                [addrType]="applicant"
+                [addrGroupLabelKey]="'Applicant'">
         </pbv-address-details>
 
-        
+        <div class="form-group row">
+            <div class="col-xs-12">
+                <label for="billingRole">
+                    <input type="checkbox" id="billingRole" formControlName="billingRole" [formControl]="applicantInformationForm.controls['billingRole'] | formControl"/>
+                    <span>{{ "bill.add.check" | translate }}</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group row" *ngIf="applicantInformationForm.controls['billingRole'].value">
+            <div class="col-xs-12">
+                <legend>
+                    {{"billing.address" | translate}}
+                    <sup [id]="helpIndex['billAddIndx'][2]">
+                        <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['billAddIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['billAddIndx'][0]}}</a>
+                    </sup>
+                </legend>
+
+                <div class="row">
+                    <div class="form-group col-xs-8">
+                        <label for="agentName">
+                            <span class="field-name">{{ 'bill.add.org'|translate }}</span>
+                            <input maxlength="80" size="80" id="agentName" class="form-control"
+                                name="agentName" [formControl]="applicantInformationForm.controls['agentName'] | formControl" />
+                        </label>
+                    </div>
+                </div>
+
+                <pbv-contact-details [showErrors]="showErrors" 
+                        [contactDetailsModel]="billingContactModel"
+                        [lang]="lang"
+                        [languageList]="languageList"
+                        (errorList)="processBillingContactErrors($event)"
+                        [contactType]="billing" [contactGroupLabelKey]="'Billing'">
+                </pbv-contact-details>
+
+                <pbv-address-details [showErrors]="showErrors" 
+                        [addressModel]="billingAddressModel"
+                        [lang]="lang"
+                        [provinceList]="provinceList"
+                        [countryList]="countryList"
+                        [canadaDefault]="false"
+                        (errorList)="processBillingAddressErrors($event)"
+                        [addrType]="billing" [addrGroupLabelKey]="'Billing'">
+                </pbv-address-details>
+
+            </div>
+        </div>
+
     </div>
 </div>

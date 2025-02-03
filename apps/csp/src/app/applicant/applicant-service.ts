@@ -20,10 +20,12 @@ export class ApplicantService {
       return null;
    }
    const applicantForm = fb.nonNullable.group({
-     applicantName: new FormControl(null, Validators.required),
-     craBusinessNumber: new FormControl(null),
-     cspNumber: new FormControl(null, Validators.required),
-     agentName: new FormControl(null),
+      applicantName: new FormControl(null, Validators.required),
+      craBusinessNumber: new FormControl(null),
+      cspNumber: new FormControl(null, Validators.required),
+      agentName: new FormControl(null),
+      billingRole: [false],
+      applicantRole: [true],
      
     },);
     return applicantForm;
@@ -37,6 +39,9 @@ export class ApplicantService {
     const countryList: ICode[] = this._globalService.countryList;
     const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
 
+    model.applicant.billing_role = formValue['billingRole'];
+    model.applicant.applicant_role = formValue['applicantRole'];
+
     model.applicant.applicant_name = formValue['applicantName'];
     model.applicant.cra_business_number = formValue['craBusinessNumber'];
     model.applicant.csp_customer_number = formValue['cspNumber'];
@@ -47,6 +52,8 @@ export class ApplicantService {
   }
 
   public mapDataModelToFormModel(applicantModel: IApplicant, formRecord: FormGroup) {
+    formRecord.controls['billingRole'].setValue(applicantModel.billing_role);
+    formRecord.controls['applicantRole'].setValue(applicantModel.billing_role);
 
     formRecord.controls['applicantName'].setValue(applicantModel.applicant_name);
     formRecord.controls['craBusinessNumber'].setValue(applicantModel.cra_business_number);

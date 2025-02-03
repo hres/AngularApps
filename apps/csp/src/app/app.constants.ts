@@ -41,3 +41,9 @@ export const helpInstructionHeadings = [
     'methodPayIndx',
     'certificationIndx'
   ];
+
+  // address/contact type
+  export const ADDR_CONT_TYPE = {
+    APPLICANT: 'applicant',
+    BILLING: 'billing'
+  };

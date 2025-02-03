@@ -99,6 +99,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public transFeeModel: FeeDetails;
   public addressModel: INameAddress;
   public contactModel: IContact;
+  public addressBillingModel: INameAddress;
+  public contactBillingModel: IContact;
 
   // public notApplicable: boolean = false;
   // public holder: string = ADDR_CONT_TYPE.HOLDER;
@@ -326,6 +328,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
     this.addressModel = trans.applicant.address;
     this.contactModel = trans.applicant.contact;
+
+    this.addressBillingModel = trans.applicant.address;
+    this.contactBillingModel = trans.applicant.contact;
   }
 
   public preload() {

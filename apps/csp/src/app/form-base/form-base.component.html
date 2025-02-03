@@ -57,8 +57,10 @@
           </header>
           <div class="panel-body">
             <app-applicant [showErrors]="showErrors"
-            [addressModel]=""
-            [contactModel]=""
+            [applicantAddressModel]=""
+            [applicantContactModel]=""
+            [billingAddressModel]=""
+            [billingContactModel]=""
             (errorList)="processHealthCanadaOnlyErrors($event)">
             </app-applicant>
           </div>
