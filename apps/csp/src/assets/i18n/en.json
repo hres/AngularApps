@@ -485,5 +485,12 @@
     "DISCLAIMER":"The contents of this form may be publicly disclosed.",
     "save.working.copy": "Save Working Copy",
     "generate.final.internal": "Approve Final  XML",
-    "generate.final.external": "Save Draft for Filling"
+    "generate.final.external": "Save Draft for Filling",
+
+    "error.medic": "Medicinal Ingredient(s)",
+    "error.fee": "Fee Payment",
+    "error.cert.first": "Certification First name",
+    "error.cert.last": "Certification Last name",
+    "error.cert.job": "Certification Job title",
+    "error.cert.date": "Certification Date"
 }
