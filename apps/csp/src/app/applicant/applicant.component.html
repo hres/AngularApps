@@ -55,7 +55,7 @@
                 [languageList]="languageList"
                 (errorList)="processContactErrors($event)"
                 [contactType]="applicant" 
-                [contactGroupLabelKey]="'Applicant'">
+                [contactGroupLabelKey]="'label.applicant'">
         </pbv-contact-details>
 
         <pbv-address-details [showErrors]="showErrors" 
@@ -66,7 +66,7 @@
                 [canadaDefault]="true"
                 (errorList)="processAddressErrors($event)"
                 [addrType]="applicant"
-                [addrGroupLabelKey]="'Applicant'">
+                [addrGroupLabelKey]="'label.applicant'">
         </pbv-address-details>
 
         <div class="form-group row">
@@ -102,7 +102,7 @@
                         [lang]="lang"
                         [languageList]="languageList"
                         (errorList)="processBillingContactErrors($event)"
-                        [contactType]="billing" [contactGroupLabelKey]="'Billing'">
+                        [contactType]="billing" [contactGroupLabelKey]="'label.billing'">
                 </pbv-contact-details>
 
                 <pbv-address-details [showErrors]="showErrors" 
@@ -112,7 +112,7 @@
                         [countryList]="countryList"
                         [canadaDefault]="false"
                         (errorList)="processBillingAddressErrors($event)"
-                        [addrType]="billing" [addrGroupLabelKey]="'Billing'">
+                        [addrType]="billing" [addrGroupLabelKey]="'label.billing'">
                 </pbv-address-details>
 
             </div>
