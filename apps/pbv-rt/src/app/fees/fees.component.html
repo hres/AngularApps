@@ -8,7 +8,7 @@
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="subClass" class="required">
                 <span class="field-name">{{'sub.class'|translate }}</span>
-                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['subClass'].invalid"
                     [showError]="showFieldErrors"
                     [control]="feesForm.controls['subClass'] | formControl"
@@ -46,7 +46,7 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showGovOrg()">
                 <label for="certifyGovOrg" class="required">
-                <input type="checkbox" id="certifyGovOrg" [formControlName]="'certifyGovOrg'" required/>
+                <input type="checkbox" id="certifyGovOrg" [formControlName]="'certifyGovOrg'"/>
                 <strong> {{'certify.goverment.organization'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['certifyGovOrg'].invalid" [showError]="showErrors"
@@ -56,7 +56,7 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showISAD()">
                 <label for="certifyISAD" class="required">
-                <input type="checkbox" id="certifyISAD" [formControlName]="'certifyISAD'" required/>
+                <input type="checkbox" id="certifyISAD" [formControlName]="'certifyISAD'"/>
                 <strong> {{'certify.isad'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['certifyISAD'].invalid" [showError]="showErrors"
@@ -66,7 +66,7 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showFundedInstitution()">
                 <label for="certifyFundedInstitution" class="required">
-                <input type="checkbox" id="certifyFundedInstitution" [formControlName]="'certifyFundedInstitution'" required/>
+                <input type="checkbox" id="certifyFundedInstitution" [formControlName]="'certifyFundedInstitution'"/>
                 <strong> {{'certify.funded.health.institution'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <ol class="lst-lwr-alph">
@@ -80,7 +80,7 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showSmallBusiness()">
                 <label for="certifySmallBusiness" class="required">
-                <input type="checkbox" id="certifySmallBusiness" [formControlName]="'certifySmallBusiness'" required/>
+                <input type="checkbox" id="certifySmallBusiness" [formControlName]="'certifySmallBusiness'"/>
                 <strong> {{'certify.organization'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['certifySmallBusiness'].invalid" [showError]="showErrors"
@@ -100,7 +100,7 @@
                         <label for="smallBusinessFeeApp{{i}}" class="radio-inline">
                           <input type="radio"
                             id="smallBusinessFeeApp{{i}}" name="smallBusinessFeeApp" [value]="yesno.id" 
-                            [formControl]="feesForm.controls['smallBusinessFeeApp'] | formControl" required/>
+                            [formControl]="feesForm.controls['smallBusinessFeeApp'] | formControl"/>
                           {{yesno | textTransform: lang }}
                           </label>
                        </ng-container>
@@ -108,7 +108,7 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showUrgentHealthNeed()">
                 <label for="certifyUrgentHealthNeed" class="required">
-                <input type="checkbox" id="certifyUrgentHealthNeed" [formControlName]="'certifyUrgentHealthNeed'" required/>
+                <input type="checkbox" id="certifyUrgentHealthNeed" [formControlName]="'certifyUrgentHealthNeed'"/>
                 <strong> {{'certify.urgent.health.need'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <ol class="lst-lwr-alph">

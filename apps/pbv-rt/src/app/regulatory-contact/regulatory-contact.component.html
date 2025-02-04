@@ -15,7 +15,7 @@
                         <input type="radio"
                         id="isSigned3rdParty{{i}}" name="isSigned3rdParty" [value]="yesno.id"
                         (change)="isSigned3rdPartyOnChange()"
-                        [formControl]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl" required/>
+                        [formControl]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl"/>
                         {{yesno | textTransform: lang}}
                     </label>
                 </ng-container>
