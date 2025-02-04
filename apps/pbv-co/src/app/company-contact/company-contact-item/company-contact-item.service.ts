@@ -40,7 +40,6 @@ export class CompanyContactItemService {
     public mapFormModelToDataModel(contactFormGroup : FormGroup, contactOutput : ContactRecord)  
     { 
       const companyInfoFormGroup = contactFormGroup['companyInfo'];
-      console.log(contactFormGroup);
       contactOutput.id = contactFormGroup['id'];
       if (companyInfoFormGroup['selectedCompanyRoles']) {
         companyInfoFormGroup['selectedCompanyRoles'].forEach((role: string) => {
@@ -70,7 +69,6 @@ export class CompanyContactItemService {
           const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
 
           this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang)
-          console.log(companyRolesList, companyRolesOptionList, companyRolesFormArray);
           this._converterService.checkCheckboxes(selectedRoles, companyRolesOptionList, companyRolesFormArray);
         } 
       }

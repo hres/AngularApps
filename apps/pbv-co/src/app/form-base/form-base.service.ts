@@ -106,7 +106,6 @@ export class FormBaseService {
     
     if (contactsFormArray) {
       for (let i = 0; i < contactsFormArray.length; i++) {
-        console.log(contactsFormArray[i]);
         let contactModel: ContactRecord = this.getEmptyContactRecord();
         // TODO: Call function to map company roles
         this._companyContactItemService.mapFormModelToDataModel(contactsFormArray[i], contactModel);

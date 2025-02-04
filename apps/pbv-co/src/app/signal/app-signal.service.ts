@@ -14,11 +14,9 @@ export class AppSignalService {
   private readonly companyRoles = signal<string[]>([]);
 
   updateCompanyRoles(companyRole: string): void {
-    console.log("✅ Updating role:", companyRole);
     this.companyRoles.update((arr) => {
       return [...arr, companyRole];
     });
-    console.log("Roles updated:", this.companyRoles());
   }
 
   removeCompanyRole(companyRole: string) {

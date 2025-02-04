@@ -76,8 +76,11 @@ export class CompanyContactItemComponent extends BaseComponent{
     this.msgList.notifyOnChanges();
     /** this is processsing the errorSummary that is a child in  Contact record **/
     this.errorSummaryChildList.changes.subscribe(list => {
-      this.processSummaries(list);
+      setTimeout(() => {
+        this.processSummaries(list);
+      });
     });
+    this.cdRef.detectChanges();
   }
 
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
@@ -137,16 +140,12 @@ export class CompanyContactItemComponent extends BaseComponent{
       this._signalService.removeCompanyRole(uniqueRole);
     }
   
-    console.log(this.selectedCompanyRoles());
-    console.log(this.companyRoles);
-  
     // Attach validation to the specific role
     if (this.isRoleAlreadySelected(selectedRole)) {
       roleControl.setErrors({ 'error.msg.roleSelected': true });
     } else {
       roleControl.setErrors(null); // Remove error if valid
     } 
-
     //this._appendErrorsFromChild(); // Update errors for company roles here
   }
 
@@ -213,8 +212,14 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   protected emitErrors(errors: any[]): void {
     // Not emitting any errors to parent, just setting the list of errors in contact-item
-    this.errors = errors;
-    this.cdRef.detectChanges() // Do change detection here to reactively update error summary
+    this.errors = [...errors];
+
+    // Process error summary component for when error summary list is shown and 1+ records are created
+    if (this.showErrors) {
+      this.processSummaries(this.errorSummaryChildList)
+    }
+
+    this.cdRef.detectChanges(); // Do change detection here to reactively update error summary
   }
 
 }
