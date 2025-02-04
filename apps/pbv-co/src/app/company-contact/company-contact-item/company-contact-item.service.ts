@@ -10,7 +10,6 @@ import { ContactRecord } from "../../models/Company";
 export class CompanyContactItemService {
 
     constructor(private _converterService: ConverterService,
-                private _utilsService: UtilsService,
                 private _globalService: GlobalService) {
 
     }
@@ -45,7 +44,7 @@ export class CompanyContactItemService {
         companyInfoFormGroup['selectedCompanyRoles'].forEach((role: string) => {
           const mappedProperty = this.ROLE_MAPPING[role];
           if (mappedProperty) {
-            contactOutput[mappedProperty] = YES; // Assign a value as needed
+            contactOutput[mappedProperty] = YES; // Assign a value as needed, assigns to "Y"
           } else {
             contactOutput[mappedProperty] = NO;
           }
@@ -60,7 +59,7 @@ export class CompanyContactItemService {
       if (companyContact) {
 
         const selectedRoles: string[] = Object.keys(this.REVERSE_ROLE_MAPPING)
-        .filter((key) => companyContact[key] === "Y") // Check for "Y"
+        .filter((key) => companyContact[key] === YES) // Check for "Y"
         .map((key) => this.REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
 
         // Update form model
