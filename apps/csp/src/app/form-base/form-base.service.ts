@@ -113,15 +113,15 @@ export class FormBaseService {
       check_sum: '',
       ectd: this.getEmptyEctd(),
       hcUse: this.getEmptyHcUse(),
-      fee_details: this.getEmptyFeesModel(),
       applicant: this.getEmptyApplicant(),
       patent: this.getEmptyPatent(),
-      drugUse: '',
-      nocDate: '',
       ndsNumber:'',
-      medicinalIngredients:this.getEmptyMedicinalIngredients(),
-      certification: this.getEmptyCertModel(),
+      nocDate: '',
+      drugUse: '',
       timingOfApplicant:'',
+      medicinalIngredients:this.getEmptyMedicinalIngredients(),
+      fee_details: this.getEmptyFeesModel(),
+      certification: this.getEmptyCertModel(),
     };
 
     return TransactionEnrol;
@@ -260,8 +260,8 @@ export class FormBaseService {
 
   private getEmptyMedicinalIngredients(): IMedicinalIngredients {
     const medicinalIngredients: IMedicinalIngredients = {
-      productName: '',
-      medicinalIngredient: ''
+      medicinalIngredient: '',
+      productName: ''
     };
     return medicinalIngredients;
   }

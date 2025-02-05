@@ -456,7 +456,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12">
-									<strong>City or town: </strong>
+									<strong>City: </strong>
 									<span class="mouseHover">
 										<xsl:value-of select="regulatory_activity_address/city" />
 									</span>
