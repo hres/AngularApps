@@ -42,7 +42,7 @@
     "company.name":"Company name (full legal name)",
     "address.info": "B. Address information",
     "addressDetails.street": "Street address",
-    "addressDetails.city": "City or town",
+    "addressDetails.city": "City",
     "addressDetails.country": "Country",
     "addressDetails.province": "Province",
     "addressDetails.state": "State",

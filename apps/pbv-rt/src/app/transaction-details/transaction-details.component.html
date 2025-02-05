@@ -3,7 +3,7 @@
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="activityLead" class="required">
                 <span class="field-name">{{ 'activity.lead' |translate }}</span>
-                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <sup [id]="helpIndex['regActIndx'][2]">
                     <a class="fn-lnk" [href]="'#' + helpIndex['regActIndx'][1]"><span
                             class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['regActIndx'][0]}}</a>
@@ -11,7 +11,7 @@
                 <control-messages *ngIf="transctionDetailsForm.controls['activityLead'].invalid"
                     [showError]="showErrors" [control]="transctionDetailsForm.controls['activityLead'] | formControl"
                     controlId="activityLead" label="activity.lead" parentId="regulatoryInfo"></control-messages>
-                <select id="activityLead" name="activityLead" required class="form-control full-width"
+                <select id="activityLead" name="activityLead" class="form-control full-width"
                     [formControlName]="'activityLead'" (change)="onRaLeadSelected($any($event.target).value)">
                     <option label=" " value=""></option>
                     <option *ngFor="let lead of raLeadList()" [value]="lead.id"> {{ lead| textTransform: lang }}</option>
@@ -28,12 +28,12 @@
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="activityType" class="required">
                 <span class="field-name">{{ 'reg.activity.type' |translate }}</span>
-                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="transctionDetailsForm.controls['activityType'].invalid"
                     [showError]="showErrors" [control]="transctionDetailsForm.controls['activityType'] | formControl"
                     controlId="activityType" label="reg.activity.type" parentId="regulatoryInfo"></control-messages>
             
-                <select id="activityType" name="activityType" required class="form-control full-width"
+                <select id="activityType" name="activityType" class="form-control full-width"
                     [formControlName]="'activityType'" (change)="onRaTypeSelected($any($event.target).value)">
                     <option label=" " value=""></option>
                     <option *ngFor="let item of raTypeList()" [value]="item.id"> {{ item| textTransform: lang }}</option>
@@ -50,11 +50,11 @@
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="descriptionType" class="required">
                 <span class="field-name">{{ 'sequence.type' |translate }}</span>
-                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="transctionDetailsForm.controls['descriptionType'].invalid"
                     [showError]="showErrors" [control]="transctionDetailsForm.controls['descriptionType'] | formControl"
                     controlId="descriptionType" label="sequence.type" parentId="regulatoryInfo"></control-messages>
-                <select id="descriptionType" name="descriptionType" required class="form-control full-width"
+                <select id="descriptionType" name="descriptionType" class="form-control full-width"
                     [formControlName]="'descriptionType'"
                     (change)="onTransactionDescriptionSelected($any($event.target).value)">
                     <option label=" " value=""></option>
@@ -75,7 +75,7 @@
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="dateOfRequest" class="required">
                     <span class="field-name">{{ 'date.of.request' |translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="transctionDetailsForm.controls['dateOfRequest'].invalid" [showError]="showErrors"
                         [control]="transctionDetailsForm.controls['dateOfRequest'] | formControl" controlId="dateOfRequest"
                         label="date.of.request" parentId="regulatoryInfo"></control-messages>
@@ -89,7 +89,7 @@
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="startDate" class="required">
                     <span class="field-name">{{ 'start.date' |translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="transctionDetailsForm.controls['startDate'].invalid"
                         [showError]="showErrors" [control]="transctionDetailsForm.controls['startDate'] | formControl"
                         controlId="startDate" label="start.date" parentId="regulatoryInfo"></control-messages>
@@ -100,7 +100,7 @@
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="endDate" class="required">
                     <span class="field-name">{{ 'end.date' |translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="transctionDetailsForm.controls['endDate'].invalid" [showError]="showErrors"
                         [control]="transctionDetailsForm.controls['endDate'] | formControl" controlId="endDate"
                         label="end.date" parentId="regulatoryInfo"></control-messages>
@@ -114,7 +114,7 @@
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="yearsOfChange" class="required">
                     <span class="field-name">{{ 'year.change'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="transctionDetailsForm.controls['yearsOfChange'].invalid"
                         [showError]="showErrors"
                         [control]="transctionDetailsForm.controls['yearsOfChange'] | formControl"
@@ -129,7 +129,7 @@
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="year" class="required">
                     <span class="field-name">{{ 'year'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="transctionDetailsForm.controls['year'].invalid"
                         [showError]="showErrors"
                         [control]="transctionDetailsForm.controls['year'] | formControl"
@@ -144,7 +144,7 @@
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="versionNumber" class="required full-width">
                     <span class="field-name">{{'version.no'|translate}}</span>
-                    <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+                    <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                     <control-messages *ngIf="transctionDetailsForm.controls['versionNumber'].invalid"
                         [showError]="showErrors"
                         [control]="transctionDetailsForm.controls['versionNumber'] | formControl"
@@ -159,7 +159,7 @@
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="briefDescription" class="required">
                     <span class="field-name">{{ 'brief.desc'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="transctionDetailsForm.controls['briefDescription'].invalid"
                         [showError]="showErrors"
                         [control]="transctionDetailsForm.controls['briefDescription'] | formControl"
@@ -174,7 +174,7 @@
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="briefDescriptionOfChange" class="required">
                     <span class="field-name">{{ 'brief.desc.change'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <sup [id]="helpIndex['briefDescIndx'][2]">
 						<a class="fn-lnk" [href]="'#' + helpIndex['briefDescIndx'][1]"><span
                                 class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['briefDescIndx'][0]}}</a>
@@ -196,7 +196,7 @@
             <div class="form-group col-md-4">
                 <label for="requester1" class="required full-width">
                     <span class="field-name">{{'requester.name'|translate}}</span>
-                    <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+                    <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
                     <sup [id]="helpIndex['requestSoliIndx'][2]">
 						<a class="fn-lnk" [href]="'#' + helpIndex['requestSoliIndx'][1]"><span
                                 class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['requestSoliIndx'][0]}}</a>
@@ -230,7 +230,7 @@
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="controlNumber" class="required">
                 <span class="field-name">{{'ctrl.num'|translate }} {{'six.digits' | translate}}</span>
-                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid" [showError]="showErrors"
                     [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
                     label="ctrl.num" parentId="regulatoryInfo"></control-messages>
