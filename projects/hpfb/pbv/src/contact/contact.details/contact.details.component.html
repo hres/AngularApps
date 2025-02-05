@@ -6,7 +6,7 @@
             <span class="field-name">{{'first.name'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['firstName'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="contactDetailsForm.controls['firstName'] | formControl"
                               controlId="firstName" label="first.name" parentId="contactInfo"></control-messages>
             <input name="firstName" id="firstName" class="form-control full-width" maxlength="60" 
@@ -27,7 +27,7 @@
             <span class="field-name">{{'last.name'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['lastName'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="contactDetailsForm.controls['lastName'] | formControl"
                               controlId="lastName" label="last.name" parentId="contactInfo"></control-messages>
             <input name="lastName" id="lastName" class="form-control full-width" maxlength="60" 
@@ -41,7 +41,7 @@
             <span class="field-name">{{'lang.correspond' |translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['language'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="contactDetailsForm.controls['language'] | formControl"
                               controlId="language" label="lang.correspond" parentId="contactInfo"></control-messages>
             <select id="language" required class="form-control" [formControlName]="'language'">
@@ -55,7 +55,7 @@
             <span class="field-name">{{'job.title'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['jobTitle'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="contactDetailsForm.controls['jobTitle'] | formControl"
                               controlId="jobTitle" label="job.title" parentId="contactInfo"></control-messages>
             <input name="jobTitle" id="jobTitle" class="form-control full-width" maxlength="60" [formControlName]="'jobTitle'"/>
@@ -68,7 +68,7 @@
             <span class="field-name">{{'phone.number'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['phoneNumber'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="contactDetailsForm.controls['phoneNumber'] | formControl"
                               controlId="phoneNumber" label="phone.number" parentId="contactInfo"
                               requiredLength="10"></control-messages>
@@ -89,7 +89,7 @@
           <label class="required full-width" for="faxNumber">
             <span class="field-name">{{'fax.number' |translate }}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="contactDetailsForm.controls['faxNumber'].invalid" [showError]="showFieldErrors"
+            <control-messages *ngIf="contactDetailsForm.controls['faxNumber'].invalid" [showError]="showFieldErrors" aria-live="assertive"
               [control]="contactDetailsForm.controls['faxNumber'] | formControl" controlId="faxNumber" label="fax.number"
               parentId="contactInfo" requiredLength="10"></control-messages>
             <input name="faxNumber" id="faxNumber" class="form-control full-width" data-only-digits maxlength="25"
@@ -104,7 +104,7 @@
             <span class="field-name">{{'contact.email'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['email'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="contactDetailsForm.controls['email'] | formControl"
                               controlId="email" label="contact.email" parentId="contactInfo"></control-messages>
             <input name="email" id="email" class="form-control full-width" maxlength="80" [formControlName]="'email'" />

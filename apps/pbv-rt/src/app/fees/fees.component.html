@@ -10,7 +10,7 @@
                 <span class="field-name">{{'sub.class'|translate }}</span>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['subClass'].invalid"
-                    [showError]="showFieldErrors"
+                    [showError]="showFieldErrors" aria-live="assertive"
                     [control]="feesForm.controls['subClass'] | formControl"
                     controlId="subClass" label="sub.class" ></control-messages>
             </label>
@@ -50,7 +50,7 @@
                 <strong> {{'certify.goverment.organization'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['certifyGovOrg'].invalid" [showError]="showErrors"
-                    parentId="feesForm" [control]="feesForm.controls['certifyGovOrg'] | formControl"
+                    parentId="feesForm" [control]="feesForm.controls['certifyGovOrg'] | formControl" aria-live="assertive"
                     controlId="certifyGovOrg" label="certify.goverment.organization"></control-messages>
                 </label>
             </div>
@@ -60,7 +60,7 @@
                 <strong> {{'certify.isad'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['certifyISAD'].invalid" [showError]="showErrors"
-                    parentId="feesForm" [control]="feesForm.controls['certifyISAD'] | formControl"
+                    parentId="feesForm" [control]="feesForm.controls['certifyISAD'] | formControl" aria-live="assertive"
                     controlId="certifyISAD" label="certify.isad"></control-messages>
                 </label>
             </div>
@@ -74,7 +74,7 @@
                     <li>{{'certify.funded.health.institution.b'|translate }}</li>
                 </ol>
                 <control-messages *ngIf="feesForm.controls['certifyFundedInstitution'].invalid" [showError]="showErrors"
-                    parentId="feesForm" [control]="feesForm.controls['certifyFundedInstitution'] | formControl"
+                    parentId="feesForm" [control]="feesForm.controls['certifyFundedInstitution'] | formControl" aria-live="assertive"
                     controlId="certifyFundedInstitution" label="certify.funded.health.institution"></control-messages>
                 </label>
             </div>
@@ -84,7 +84,7 @@
                 <strong> {{'certify.organization'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['certifySmallBusiness'].invalid" [showError]="showErrors"
-                    parentId="feesForm" [control]="feesForm.controls['certifySmallBusiness'] | formControl"
+                    parentId="feesForm" [control]="feesForm.controls['certifySmallBusiness'] | formControl" aria-live="assertive"
                     controlId="certifySmallBusiness" label="certify.organization"></control-messages>
                 </label>
             </div>
@@ -93,7 +93,7 @@
                     <legend class="required">{{'small.business.fee.application'|translate}}
                         <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                         <control-messages *ngIf="feesForm.controls['smallBusinessFeeApp'].invalid" [showError]="showErrors"
-                        parentId="feesForm" [control]="feesForm.controls['smallBusinessFeeApp'] | formControl"
+                        parentId="feesForm" [control]="feesForm.controls['smallBusinessFeeApp'] | formControl" aria-live="assertive"
                         controlId="smallBusinessFeeApp0" label="small.business.fee.application"></control-messages>
                     </legend>
                     <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -117,7 +117,7 @@
                     <li>{{'no.notice.compliance'|translate}}</li>
                 </ol>
                 <control-messages *ngIf="feesForm.controls['certifyUrgentHealthNeed'].invalid" [showError]="showErrors"
-                    parentId="feesForm" [control]="feesForm.controls['certifyUrgentHealthNeed'] | formControl"
+                    parentId="feesForm" [control]="feesForm.controls['certifyUrgentHealthNeed'] | formControl" aria-live="assertive"
                     controlId="certifyUrgentHealthNeed" label="certify.urgent.health.need"></control-messages>
                 </label>
             </div>

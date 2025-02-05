@@ -18,7 +18,7 @@
             <span class="field-name">{{'addressDetails.street'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="addressForm.controls['address'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="addressForm.controls['address'] | formControl"
                               controlId="address" label="addressDetails.street" parentId="addressInfo"></control-messages>
             <input name="address" id="address" class="form-control full-width" 
@@ -32,7 +32,7 @@
             <span class="field-name">{{'addressDetails.city'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="addressForm.controls['city'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="addressForm.controls['city'] | formControl"
                               controlId="city" label="addressDetails.city" parentId="addressInfo"></control-messages>
             <input name="city" id="city" class="form-control full-width"  
@@ -44,7 +44,7 @@
             <span class="field-name">{{'addressDetails.country'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="addressForm.controls['country'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="addressForm.controls['country'] | formControl"
                               controlId="country" label="addressDetails.country" parentId="addressInfo"></control-messages>
             <select id="country" required [formControlName]="'country'" class="required form-control"                      
@@ -61,7 +61,7 @@
             <span class="field-name">{{provinceLabel |translate}}</span>
             <strong *ngIf="isCanadaOrUSA()" class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="addressForm.controls['provState'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="addressForm.controls['provState'] | formControl"
                               controlId="provState" label="{{provinceLabel}}" parentId="addressInfo"
                               ></control-messages>
@@ -83,7 +83,7 @@
             <span class="field-name">{{ postalLabel |translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong><br/>
             <control-messages *ngIf="addressForm.controls['postal'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="addressForm.controls['postal'] | formControl"
                               controlId="postal" label="{{postalLabel}}" parentId="addressInfo"></control-messages> 
             <input *ngIf="!isCanadaOrUSA()" name="postal" id="postal" class="form-control" [formControlName]="'postal'"  
