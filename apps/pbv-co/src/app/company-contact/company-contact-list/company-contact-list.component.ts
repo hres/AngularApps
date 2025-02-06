@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, FormArray} from '@angular/forms';
 import { CheckboxOption, ControlMessagesComponent, ConverterService, ErrorNotificationService, ErrorSummaryComponent, ICode } from '@hpfb/sdk/ui';
 import { ContactRecord } from '../../models/Company';
 import { BaseListComponent } from '../../record-base/base.list.component';
-import { ListService } from '../../record-base/list.service';
 import { CompanyContactService } from '../company-contact.service';
 import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } from '@hpfb/sdk/ui';
 import { IRecordService } from '../../record-base/record.service.interface';
@@ -12,6 +11,7 @@ import { AppSignalService } from '../../signal/app-signal.service';
 import { GlobalService } from '../../global/global.service';
 import { FormDataLoaderService } from '../../container/form-data-loader.service';
 import { CompanyContactItemService } from '../company-contact-item/company-contact-item.service';
+import { CompanyContactListService } from './company-contact-list.service';
 
 @Component({
   selector: 'app-company-contact-list',
@@ -30,17 +30,13 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   @Output() errorList = new EventEmitter(true);
 
-  // Computed signal is used to determine if a role is not selected across the list 
-  // of contact records. 
   constructor(private fb: FormBuilder, 
               private _contactService: CompanyContactService,
               private _contactDetailsService: ContactDetailsService,
               private _errorNotifService: ErrorNotificationService,
-              private _signalService: AppSignalService,
-              private _globalService: GlobalService,
-              private _formDataLoaderService: FormDataLoaderService,
-              private _companyContactItemService: CompanyContactItemService) {
-    super(fb);
+              private _companyContactItemService: CompanyContactItemService,
+              companyContactListService: CompanyContactListService) {
+    super(fb, companyContactListService);
     this.recordService = this._contactService;
     this.recordFormGroup = this.fb.group({
       contacts: this.fb.array([])
@@ -94,7 +90,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     // console.log('...._processErrorSummaries:', errSummaryEntries);
     // get the first entry where the errSummaryMessage property is not empty 
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
-    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && !summary.errSummaryMessage.componentId.startsWith("deviceListTable"));
+    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId.startsWith("contactListTable"));
     if (filteredErrSummaryEntry) {
       this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
     } else {
@@ -109,16 +105,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     if (this.errorSummaryChild) {
       errorsToEmit.push(this.errorSummaryChild);
     }
-
     this.errorList.emit(errorsToEmit);
-  }
-
-  isRoleMissing(): boolean {
-    const selectedRoles = this._signalService.getSelectedCompanyRoles()(); // Get the latest selected roles
-    const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // Required roles
-    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
-
-    return companyRolesList.some(role => !cleanSelectedRoles.includes(role));
   }
 
 }

@@ -39,7 +39,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   private _coRolesErrors = [];
   errors = [];
 
-  private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedCompanyRoles();
+  private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedContactCompanyRoles();
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
@@ -105,7 +105,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     const prefixToDelete = index.toString();
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
-    rolesToRemove.forEach(role => this._signalService.removeCompanyRole(role));
+    rolesToRemove.forEach(role => this._signalService.removeContactCompanyRole(role));
     this.deleteRecord.emit(index);
     this.cRRow.markAsPristine();
   }
@@ -127,7 +127,7 @@ export class CompanyContactItemComponent extends BaseComponent{
 
  
   companyRolesOnChange(e: any, selectedRole: string, index: number) {
-    this.cRRow.get('companyInfo.selectedCompanyRoles').setValue(this.selectedDiagnosisCodes);
+    this.cRRow.get('companyInfo.selectedCompanyRoles').setValue(this.selectedCompanyRolesCodes);
     const isChecked = (e.target as HTMLInputElement).checked;
   
     // Get the specific form control using index
@@ -135,9 +135,9 @@ export class CompanyContactItemComponent extends BaseComponent{
     const uniqueRole = this.j + selectedRole;
     // Update signal array
     if (isChecked) {
-      this._signalService.updateCompanyRoles(uniqueRole);
+      this._signalService.updateContactCompanyRoles(uniqueRole);
     } else {
-      this._signalService.removeCompanyRole(uniqueRole);
+      this._signalService.removeContactCompanyRole(uniqueRole);
     }
   
     // Attach validation to the specific role
@@ -151,7 +151,6 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   isRoleAlreadySelected = (role: string): boolean => {
     const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, '')); // Remove the numeric prefix
-    console.log(roles);
     return roles.filter(r => r === role).length > 1; // Check if role appears more than once
   };
 
@@ -182,7 +181,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     return this.cRRow.get('companyInfo.companyRoles') as FormArray
   }
 
-  get selectedDiagnosisCodes(): string[] {
+  get selectedCompanyRolesCodes(): string[] {
     return this._companyContactItemService.getCompanyRolesCodes(this.companyRolesOptionList, this.companyRolesChkFormArray);
   }
 

@@ -10,11 +10,16 @@ export class FormDataLoaderService {
   private enrolmentStatusesPath = DATA_PATH + 'enrolmentStatuses.json'
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private companyRolesPath = DATA_PATH + 'companyRoles.json';
+  private provincesJsonPath = DATA_PATH + 'provinces.json';
+  private statesJsonPath = DATA_PATH + 'states.json';
   
   cachedCountries$:Observable<ICode[]>;
   cachedEnrolmentStatuses$:Observable<ICode[]>;
   cachedLanguageList$:Observable<ICode[]>;
   cachedCompanyRolesList$:Observable<ICode[]>;
+  cachedProvincesList$:Observable<ICode[]>;
+  cachedStatesList$:Observable<ICode[]>;
+
   
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -63,6 +68,28 @@ export class FormDataLoaderService {
         );
     } 
     return this.cachedCompanyRolesList$;
+  }
+
+  getProvinceList(lang: string): Observable<ICode[]> {
+    if (!this.cachedProvincesList$) {
+      this.cachedProvincesList$ = this._dataService.getSortedDataAccents<ICode>(this.provincesJsonPath, this._utilsService.getCompareFields(false, lang))
+        .pipe(
+          // tap(()=>console.log('getProvinceList() is called')),
+          shareReplay(1)
+        );
+    }
+    return this.cachedProvincesList$;
+  }
+
+  getStateList(lang: string): Observable<ICode[]> {
+    if (!this.cachedStatesList$) {
+      this.cachedStatesList$ = this._dataService.getSortedDataAccents<ICode>(this.statesJsonPath, this._utilsService.getCompareFields(false, lang))
+        .pipe(
+          // tap(()=>console.log('getStateList() is called')),
+          shareReplay(1)
+        );
+    }
+    return this.cachedStatesList$;
   }
 
 

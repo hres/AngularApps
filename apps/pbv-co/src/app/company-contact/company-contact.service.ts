@@ -55,6 +55,7 @@ export class CompanyContactService implements IRecordService{
         oerr.tableId = 'contactListTable';
         oerr.type = ERR_TYPE_LEAST_ONE_REC;
         oerr.label = 'error.msg.contactRolesMissing';
+        oerr.componentId = 'contact';
       
         return oerr;
       }

@@ -4,6 +4,7 @@ import { CheckboxOption, ConverterService, ICode, UtilsService, ValidationServic
 import { NO, YES } from "../../app.constants";
 import { GlobalService } from "../../global/global.service";
 import { ContactRecord } from "../../models/Company";
+import { ROLE_MAPPING, REVERSE_ROLE_MAPPING } from "../../app.constants";
 
 
 @Injectable()
@@ -42,7 +43,7 @@ export class CompanyContactItemService {
       contactOutput.id = contactFormGroup['id'];
       if (companyInfoFormGroup['selectedCompanyRoles']) {
         companyInfoFormGroup['selectedCompanyRoles'].forEach((role: string) => {
-          const mappedProperty = this.ROLE_MAPPING[role];
+          const mappedProperty = ROLE_MAPPING[role];
           if (mappedProperty) {
             contactOutput[mappedProperty] = YES; // Assign a value as needed, assigns to "Y"
           } else {
@@ -58,9 +59,9 @@ export class CompanyContactItemService {
       const lang = this._globalService.currLanguage;
       if (companyContact) {
 
-        const selectedRoles: string[] = Object.keys(this.REVERSE_ROLE_MAPPING)
+        const selectedRoles: string[] = Object.keys(REVERSE_ROLE_MAPPING)
         .filter((key) => companyContact[key] === YES) // Check for "Y"
-        .map((key) => this.REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
+        .map((key) => REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
 
         // Update form model
         formRecord.controls['selectedCompanyRoles'].setValue(selectedRoles);
@@ -72,17 +73,5 @@ export class CompanyContactItemService {
         } 
       }
     }
-
-    private readonly ROLE_MAPPING: { [key: string]: string } = {
-      MFR: "manufacturer",
-      BILL: "billing",
-      MAIL: "mailing",
-    };
-
-    private readonly REVERSE_ROLE_MAPPING: { [key: string]: string } = {
-      manufacturer: "MFR",
-      billing: "BILL",
-      mailing: "MAIL",
-    };
 
 }

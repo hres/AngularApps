@@ -25,6 +25,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   @Input() provinceList;
   @Input() stateList;
   @Input() canadaDefault: boolean;
+  @Input() formGroup?: FormGroup;
   @Output() errorList = new EventEmitter(true);
 
   public addressForm: FormGroup;
@@ -72,6 +73,9 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
     // console.log("isFirstChange:", isFirstChange);
+    if (changes['formGroup']) {
+      this.addressForm = this.formGroup;
+    }
     if (!isFirstChange) {
       if (changes['addressModel']) {
         const dataModel = changes['addressModel'].currentValue as INameAddress;

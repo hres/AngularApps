@@ -29,7 +29,9 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getCountryList(this._globalService.currLanguage),
     this._formDataLoader.getEnrolmentStatusesList(),
     this._formDataLoader.getLanguageList(),
-    this._formDataLoader.getCompanyRolesList()
+    this._formDataLoader.getCompanyRolesList(),
+    this._formDataLoader.getProvinceList(this._globalService.currLanguage),
+    this._formDataLoader.getStateList(this._globalService.currLanguage)
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -45,6 +47,8 @@ export class ContainerComponent implements OnInit {
       this._globalService.enrolmentStatusList = data[1];
       this._globalService.languageList = data[2];
       this._globalService.companyRolesList = data[3];
+      this._globalService.provinceList = data[4];
+      this._globalService.stateList = data[5];
 
       this.loadFormBaseComponent = true;
     });

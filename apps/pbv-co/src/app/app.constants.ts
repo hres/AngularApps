@@ -35,3 +35,15 @@ export const ENROLMENT_STATUS = {
   AMEND: 'AMEND',
   FINAL: 'FINAL'
 };
+
+export const ROLE_MAPPING: { [key: string]: string } = {
+  MFR: "manufacturer",
+  BILL: "billing",
+  MAIL: "mailing",
+};
+
+export const REVERSE_ROLE_MAPPING: { [key: string]: string } = {
+  manufacturer: "MFR",
+  billing: "BILL",
+  mailing: "MAIL",
+};

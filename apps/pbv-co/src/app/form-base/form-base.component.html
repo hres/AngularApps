@@ -45,7 +45,24 @@
 
             <section class="panel  panel-default">
               <header class="panel-heading clearfix">
-                <h3 class="panel-title">{{'company.rep'|translate}}</h3>
+                <h3 class="panel-title">{{'address.rep'|translate}}                
+                  <sup [id]="helpIndex['addressInfoIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['addressInfoIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['addressInfoIndx'][0]}}</a>
+                  </sup>
+                </h3>
+              </header>
+              <div class="panel-body">
+                <app-company-address-list [recordList]="addressListModel" [showErrors]="showErrors" (errorList)="processAddressListErrors($event)"></app-company-address-list>
+              </div>
+            </section>
+
+            <section class="panel  panel-default">
+              <header class="panel-heading clearfix">
+                <h3 class="panel-title">{{'company.rep'|translate}}
+                  <sup [id]="helpIndex['companyRepIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['companyRepIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['companyRepIndx'][0]}}</a>
+                  </sup>
+                </h3>
               </header>
               <div class="panel-body">
                 <app-company-contact-list [recordList]="contactListModel" [showErrors]="showErrors" (errorList)="processContactListErrors($event)"></app-company-contact-list>
@@ -53,19 +70,6 @@
             </section>
           </div>
       </section>
-      <!-- <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
-          <h2 class="panel-title">{{'panel.title.product.info'|translate}}
-            <sup [id]="helpIndex['productInfoIndx'][2]">
-              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['productInfoIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['productInfoIndx'][0]}}</a>
-            </sup>
-          </h2>
-          </header>
-          <div class="panel-body">
-            <app-product-information [showErrors]="showErrors" [dataModel]="productEnrollModel"
-            (errorList)="processProductInfoErrors($event)"></app-product-information>
-          </div>
-      </section> -->
     </div>
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">
@@ -78,6 +82,15 @@
           {{'generate.final'|translate}}
         </button>
       </div>
+      <div class="form-group col-md-4" *ngIf="!isInternal">
+        <a class="btn btn-primary btn-lg active" [href] = "mailToLink" (click)="mailto()"
+           [class.disabled]="disableMailto" >
+          {{'mailto.label'|translate}}
+        </a>
+      </div>
+    </div>
+    <div class="row" *ngIf="showMailToHelpText">
+      <app-mailto-help [email]="submitToEmail" [subject]="submitToSubject" [lang]="lang" ></app-mailto-help>
     </div>
   </form>
 </div>

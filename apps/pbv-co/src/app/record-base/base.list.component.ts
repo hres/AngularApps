@@ -4,7 +4,8 @@ import { FormGroup, FormArray, FormBuilder } from "@angular/forms";
 import { BaseComponent } from "@hpfb/sdk/ui";
 import { IRecordService } from "./record.service.interface";
 import { OutputRecord, RecordFormGroup } from "./record.model";
-import { ListService } from "./list.service";
+import { BaseListService } from "../../../../../projects/hpfb/sdk/ui/record-list/base.list.service";
+
 import $ from 'jquery';
 
 @Component({
@@ -23,9 +24,8 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     abstract recordService: IRecordService;
     abstract popupId: string;
 
-    private _listService = inject(ListService);
-
-    constructor(private _fb: FormBuilder) {
+    constructor(private _fb: FormBuilder, 
+        @Inject(BaseListService) protected listService: BaseListService) {
         super();
     }
 
@@ -66,7 +66,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
       this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
   
       // Set the list of form groups
-      this._listService.setList(this.recordFormArray.controls as FormGroup[]);
+      this.listService.setList(this.recordFormArray.controls as FormGroup[]);
     }
 
     protected abstract _patchRecordInfoValue(group, outputModel);
@@ -81,7 +81,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         const index = event.index;
         const group = this.recordFormArray.at(index) as RecordFormGroup;
         // if this is a new record, assign next available id, otherwise, use it's existing id
-        const id = group.get('isNew').value? this._listService.getNextId(): group.get('id').value
+        const id = group.get('isNew').value? this.listService.getNextId(): group.get('id').value
         group.patchValue({ 
         id: id,
         isNew: false,
