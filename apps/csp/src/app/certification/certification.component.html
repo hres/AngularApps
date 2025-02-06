@@ -12,7 +12,7 @@
               [showError]="showErrors"
               [control]="certificationForm.controls['firstName'] | formControl"
               controlId="firstName"
-              label="first.name"
+              label="error.cert.first"
               parentId="cspCertification">
             </control-messages>
             <input class="form-control" maxlength="60" size="30" id="firstName" type="text" [formControlName]="'firstName'"/>
@@ -41,7 +41,7 @@
             [showError]="showErrors"
             [control]="certificationForm.controls['lastName'] | formControl"
             controlId="lastName"
-            label="last.name"
+            label="error.cert.last"
             parentId="cspCertification">
           </control-messages>
           <input class="form-control" size="30" maxlength="60" id="lastName" type="text" [formControlName]="'lastName'"/>
@@ -60,7 +60,7 @@
             [showError]="showErrors"
             [control]="certificationForm.controls['jobTitle'] | formControl"
             controlId="jobTitle"
-            label="job.title"
+            label="error.cert.job"
             parentId="cspCertification">
           </control-messages>
           <input class="form-control" maxlength="40" size="30" id="jobTitle" type="text" [formControlName]="'jobTitle'"/>
@@ -75,7 +75,7 @@
             [showError]="showErrors"
             [control]="certificationForm.controls['date'] | formControl"
             controlId="date"
-            label="cert.date"
+            label="error.cert.date"
             parentId="cspCertification">
           </control-messages>
           <input class="form-control" id="date" type="date" [formControlName]="'date'" (blur)="onDateInput($event)"/>
