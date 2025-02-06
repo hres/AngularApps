@@ -1,4 +1,4 @@
-import { Component, computed, effect, EventEmitter, inject, Input, input, OnInit, Output, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Input, OnInit, Output, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BaseComponent, ControlMessagesComponent, HelpSequence, ICodeDefinition, LoggerService, UtilsService } from '@hpfb/sdk/ui';
 import { TransactionDetailsService } from './transaction-details.service';
@@ -188,9 +188,9 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
           activityType=${this.transctionDetailsForm.controls['activityType'].value}
           descriptionTyp=${this.transctionDetailsForm.controls['descriptionType'].value}`);
 
-        this.onRaLeadSelected(this.transctionDetailsForm.controls['activityLead'].value);
-        this.onRaTypeSelected(this.transctionDetailsForm.controls['activityType'].value);
-        this.onTransactionDescriptionSelected(this.transctionDetailsForm.controls['descriptionType'].value);
+          this._signalService.setSelectedRaLead(this.transctionDetailsForm.controls['activityLead'].value);
+          this._signalService.setSelectedRaType(this.transctionDetailsForm.controls['activityType'].value);
+          this._signalService.setSelectedTxnDesc(this.transctionDetailsForm.controls['descriptionType'].value);
 
       } else if (changes['newlySelDossierType']) {
 
@@ -205,8 +205,6 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
         } else {
           this.onRaLeadSelected(this.transctionDetailsForm.controls['activityLead'].value);
         }
-        this.onRaTypeSelected(this.transctionDetailsForm.controls['activityType'].value);
-        this.onTransactionDescriptionSelected(this.transctionDetailsForm.controls['descriptionType'].value);
         this.isVet = this.newlySelDossierType == DOSSIER_TYPE.VETERINARY;
       }
     }
@@ -220,12 +218,20 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
   onRaLeadSelected(raLeadId: string) {
     this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  'onRaLeadSelected activity lead id:', raLeadId);
-    this._signalService.setSelectedRaLead(raLeadId)
+    this._signalService.setSelectedRaLead(raLeadId);
+    // Clear RA Type and Transaction Description signals and form values
+    this._signalService.setSelectedRaType("");
+    this._signalService.setSelectedTxnDesc("");
+    this.transctionDetailsForm.controls['activityType'].setValue("");
+    this.transctionDetailsForm.controls['descriptionType'].setValue("");
   }
 
   onRaTypeSelected(raTypeId: string) {
     this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  'onRaTypeSelected activity type id:', raTypeId);
-    this._signalService.setSelectedRaType(raTypeId)
+    this._signalService.setSelectedRaType(raTypeId);
+    // Clear Transaction Description signals and form values
+    this._signalService.setSelectedTxnDesc(""); 
+    this.transctionDetailsForm.controls['descriptionType'].setValue(""); 
   }
 
   onTransactionDescriptionSelected(txDescId: string) {

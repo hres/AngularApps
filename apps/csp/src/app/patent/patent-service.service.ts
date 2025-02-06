@@ -21,7 +21,7 @@ export class PatentService {
      patentFillingDate: new FormControl(null, Validators.required),
      patentGrandDate: new FormControl(null, Validators.required),
      patendExpirationDate: new FormControl(null, Validators.required),
-    },{ validators: identityRevealedValidator });
+    });
     return patentForm;
 
   }

@@ -64,20 +64,7 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
     this._globalService.isDateValid(event, this.noticeOfComplianceForm);
   }
 
-  checkDateValidity(event: any): void {
-    let inputName =
-      event.target.attributes.getNamedItem('ng-reflect-name').value;
-    this._utilsService.checkInputValidity(
-      event,
-      this.noticeOfComplianceForm.get(inputName),
-      'invalidDate'
-    );
-    if (this.noticeOfComplianceForm != undefined) {
-      let patendExpirationDate = this.noticeOfComplianceForm.get(
-        'patendExpirationDate'
-      );
-    }
-  }
+
 
   getFormValue() {
     return this.noticeOfComplianceForm.value;
@@ -85,7 +72,6 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
 
   ngOnChanges(changes: SimpleChanges) {
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
-    const isFirstChange = this._utilsService.isFirstChange(changes);
   }
 }
 

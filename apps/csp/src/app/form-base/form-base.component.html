@@ -41,121 +41,90 @@
           <h2 class="panel-title">{{'panel.title.csp'|translate}}
             <sup [id]="helpIndex['dateLastIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['dateLastIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dateLastIndx'][0]}}</a>
-          </sup>
+            </sup>
           </h2>
-          </header>
-          <div class="panel-body">
-            <app-cert-supp-protect  [saveWorkCopyTime]="saveWorkCopyTime"></app-cert-supp-protect>
-          </div>
-      </section>
-    </div>
+        </header>
+        <div class="panel-body">
+          <app-cert-supp-protect  [saveWorkCopyTime]="saveWorkCopyTime"></app-cert-supp-protect>
+        </div>
 
-    <div>
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
+        <header class="panel-body">
           <h2 class="panel-title">{{'panel.title.applicant'|translate}}
             <sup [id]="helpIndex['appContactIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['appContactIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['appContactIndx'][0]}}</a>
             </sup>
           </h2>
-          </header>
-          <div class="panel-body">
-            <app-applicant [showErrors]="showErrors"
-            [addressModel]=""
-            [contactModel]=""
-            (errorList)="processPatentInfoErrors($event)">
-            </app-applicant>
-          </div>
-      </section>
-    </div>
+        </header>
+        <div class="panel-body">
+          <app-applicant [showErrors]="showErrors"
+          [addressModel]=""
+          [contactModel]=""
+          (errorList)="processApplicantErrors($event)">
+          </app-applicant>
+        </div>
 
-    <div>
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
+        <header class="panel-body">
           <h2 class="panel-title">{{'panel.title.patent'|translate}}
             <sup [id]="helpIndex['patentInfoIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['patentInfoIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['patentInfoIndx'][0]}}</a>
             </sup>
           </h2>
-          </header>
-          <div class="panel-body">
-            <app-patent  [showErrors]="showErrors"
-            (errorList)="processPatentInfoErrors($event)"
-            ></app-patent>
-          </div>
-      </section>
-    </div>
+        </header>
+        <div class="panel-body">
+          <app-patent  [showErrors]="showErrors"
+          (errorList)="processPatentInfoErrors($event)"
+          ></app-patent>
+        </div>
 
-
-    <div >
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
+        <header class="panel-body">
           <h2 class="panel-title">{{'panel.title.new.drug.submission.info'|translate}}
             <sup [id]="helpIndex['newDrugIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['newDrugIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['newDrugIndx'][0]}}</a>
             </sup>
           </h2>
-          </header>
-          <div class="panel-body">
-            <app-new-drug-submission-information [showErrors]="showErrors"
-            (errorList)="processNewDrugSubmissionInfoErrors($event)"
-            ></app-new-drug-submission-information>
-          </div>
-      </section>
-    </div>
+        </header>
+        <div class="panel-body">
+          <app-new-drug-submission-information [showErrors]="showErrors"
+          (errorList)="processNewDrugSubmissionInfoErrors($event)"
+          ></app-new-drug-submission-information>
+        </div>
 
-    <div *ngIf="isInternal">
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
+        <header class="panel-body">
           <h2 class="panel-title">{{'panel.title.noticeofcompliance'|translate}}
             <sup [id]="helpIndex['nocDateIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['nocDateIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['nocDateIndx'][0]}}</a>
             </sup>
           </h2>
-          </header>
-          <div class="panel-body">
-            <app-notice-of-compliance [showErrors]="showErrors"
-            (errorList)="processNoticeOfComplianceErrors($event)"
-            ></app-notice-of-compliance>
-          </div>
-      </section>
-    </div>
+        </header>
+        <div class="panel-body">
+          <app-notice-of-compliance [showErrors]="showErrors"
+          (errorList)="processNoticeOfComplianceErrors($event)"
+          ></app-notice-of-compliance>
+        </div>
 
-
-    <div>
-      <section class="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
+        <header class="panel-body">
           <h2 class="panel-title">{{'panel.title.druguse'|translate}}
             <sup [id]="helpIndex['drugUseIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['drugUseIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['drugUseIndx'][0]}}</a>
             </sup>
           </h2>
-          </header>
-          <div class="panel-body">
-            <app-drug-use  [showErrors]="showErrors"
+        </header>
+        <div class="panel-body">
+          <app-drug-use  [showErrors]="showErrors"
             (errorList)="processDrugUseErrors($event)"
-            ></app-drug-use>
-          </div>
-      </section>
-    </div>
+          ></app-drug-use>
+        </div>
 
-    <div>
-      <section class ="panel panel-primary mrgn-tp-lg">
-          <header class="panel-heading clearfix">
-            <h2 class="panel-title">{{'panel.title.timing.of.application'|translate}}</h2>
-          </header>
-          <div class="panel-body">
-            <app-time-of-application [showErrors]="showErrors" [dataModel]="ectdModel"
-            (errorList)="processTimingOfApplicantErrors($event)"
-            ></app-time-of-application>
-          </div>
-      </section>
-   </div>
+        <header class="panel-body">
+          <h2 class="panel-title">{{'panel.title.timing.of.application'|translate}}</h2>
+        </header>
+        <div class="panel-body">
+          <app-time-of-application [showErrors]="showErrors" [dataModel]="ectdModel"
+          (errorList)="processTimingOfApplicantErrors($event)"
+          ></app-time-of-application>
+        </div>
 
-
-   <div>
-    <section class ="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
+        <header class="panel-body">
           <h2 class="panel-title">{{'panel.title.medicinal.ingredients'|translate}}
             <sup [id]="helpIndex['medicIngrIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['medicIngrIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['medicIngrIndx'][0]}}</a>
@@ -167,13 +136,8 @@
           (errorList)="processMedicinalIngredientsErrors($event)"
           ></app-medicinal-ingredients>
         </div>
-    </section>
- </div>
 
-
-    <div>
-      <section class ="panel panel-primary mrgn-tp-lg">
-        <header class="panel-heading clearfix">
+        <header class="panel-body">
           <h2 class="panel-title">{{'panel.title.fees'|translate}}
             <sup [id]="helpIndex['feePayIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['feePayIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['feePayIndx'][0]}}</a>
@@ -183,27 +147,23 @@
         <div class="panel-body">
           <app-fees [showErrors]="showErrors"
             (errorList)="processFeesErrors($event)"
-            ></app-fees>
+          ></app-fees>
         </div>
-      </section>
-    </div>
 
-    <div>
-      <section class ="panel panel-primary mrgn-tp-lg">
-          <header class="panel-heading clearfix">
-            <h2 class="panel-title">{{'panel.title.certification'|translate}}
+        <header class="panel-body">
+          <h2 class="panel-title">{{'panel.title.certification'|translate}}
             <sup [id]="helpIndex['certificationIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['certificationIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['certificationIndx'][0]}}</a>
             </sup>
-            </h2>
-          </header>
-          <div class="panel-body">
-            <app-certification [showErrors]="showErrors"
-            (errorList)="processCertificationErrors($event)"
-            ></app-certification>
-          </div>
+          </h2>
+        </header>
+        <div class="panel-body">
+          <app-certification [showErrors]="showErrors"
+          (errorList)="processCertificationErrors($event)"
+          ></app-certification>
+        </div>
       </section>
-   </div>
+    </div>
 
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">

@@ -197,14 +197,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.errorList = this.errorList.concat(this._transFeeErrors);
     // }
 
+    this.errorList = this.errorList.concat(this._applicantForErrors);
     this.errorList = this.errorList.concat(this._patentInformationErrors);
-    this.errorList = this.errorList.concat(this._drugUseErrors);
-    this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
+    this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
+    this.errorList = this.errorList.concat(this._drugUseErrors);
+    this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
     this.errorList = this.errorList.concat(this._feesForErrors);
-    this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
-    this.errorList = this.errorList.concat(this._healthCanadaOnlyErrors);
     this.errorList = this.errorList.concat(this._certificationForErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -213,7 +213,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._healthCanadaOnlyErrors = errorList;
     this.processErrors();
   }
-
 
   processPatentInfoErrors(errorList) {
     this._patentInformationErrors = errorList;

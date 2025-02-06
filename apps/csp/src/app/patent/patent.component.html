@@ -17,16 +17,13 @@
               patentInformationForm.controls['patentNumber'] | formControl
             "
             controlId="patentNumber"
-            label="patentNumber"
-
+            label="patent.Id"
           ></control-messages>
           <input
             class="form-control"
             id="patentNumber"
             data-only-digits
             [formControlName]="'patentNumber'" maxlength="7"
-
-
           />
         </label>
       </div>
@@ -47,14 +44,13 @@
               patentInformationForm.controls['patentFillingDate'] | formControl
             "
             controlId="patentFillingDate"
-            label="patentFillingDate"
+            label="filling.date"
           ></control-messages>
           <input
             class="form-control"
             id="patentFillingDate"
             type="date"
             [formControlName]="'patentFillingDate'"
-            (input)="checkDateValidity($event)"
             (blur)="onDateInput($event)"
           />
         </label>
@@ -76,14 +72,13 @@
               patentInformationForm.controls['patentGrandDate'] | formControl
             "
             controlId="patentGrandDate"
-            label="patentGrandDate"
+            label="grand.date"
           ></control-messages>
           <input
             class="form-control"
             id="patentGrandDate"
             type="date"
             [formControlName]="'patentGrandDate'"
-            (input)="checkDateValidity($event)"
             (blur)="onDateInput($event)"
           />
         </label>
@@ -108,23 +103,18 @@
                 | formControl
             "
             controlId="patendExpirationDate"
-            label="patendExpirationDate"
+            label="expiration.date"
           ></control-messages>
           <input
             class="form-control"
             id="patendExpirationDate"
             type="date"
             [formControlName]="'patendExpirationDate'"
-            (input)="checkDateValidity($event)"
             (blur)="onDateInput($event)"
           />
         </label>
       </div>
-      <div  *ngIf="  patentInformationForm.controls['patendExpirationDate'].valid && patentInformationForm.controls['patentGrandDate'].valid && patentInformationForm.controls['patentGrandDate'].valid">
-         <div  *ngIf=" patentInformationForm.errors?.['identityRevealed'] "  class="cross-validation-error-message alert alert-danger">
-          {{"err.patent.information.date.invalid" | translate }}
-        </div>
-      </div>
+
     </div>
   </div>
 </div>

@@ -6,7 +6,7 @@ import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { FILE_OUTPUT_PREFIX, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES } from '../app.constants';
+import { FILE_OUTPUT_PREFIX, NO, RA_LEAD, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { Ectd, FeeDetails, Transaction, TransactionEnrol} from '../models/transaction';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -71,7 +71,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   isRALeadPostMarket: Signal<boolean> = computed(() => this.selectedRALead() === RA_LEAD.POST_MARKET_VIGILANCE);
 
   readonly signed3rdParty: Signal<string> = this._signalService.getSigned3rdParty();
-  isSigned3rdParty: Signal<boolean> = computed(() => this.signed3rdParty() === YES);
+  isNotSigned3rdParty: Signal<boolean> = computed(() => this.signed3rdParty() === NO);
 
   // computed signal for rendering "Fees" section
   showFees: Signal<boolean> = computed(() => {
@@ -252,7 +252,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const contactInfoFormGroupValue = this.regulatoryContactComponent.getFormValue();
     let addressFormGroupValue = null;
-    if (this.isSigned3rdParty()) {
+    if (!this.isNotSigned3rdParty()) {
       addressFormGroupValue = this.regulatoryContactComponent.getAddressFormValue();
     }
     const contactFormGroupValue = this.regulatoryContactComponent.getContactFormValue();
