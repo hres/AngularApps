@@ -93,7 +93,7 @@
     {
         "id": "FC13",
         "en": "Not applicable",
-        "fr": "Non applicable",
+        "fr": "Sans objet",
         "defEn": "Fees do not apply to this submission type / regulatory activity (i.e. YBPR, UDRA, PDC, PDC-B, NC, Post-DIN notification, Level 3 change, PR(S)NDS, MP(S)NDS/MPNC/MPDIN) or to this follow-up Regulatory Transaction (such as Response to Clarification Request, Response to SDN/NON/NOD, Product Labelling – Post Approval, Drug Notification Form, Cancellation Letter, Meeting Minutes, etc.), unless requested otherwise by Health Canada.",
         "defFr": "Les frais ne s'applique pas à ce type de présentation / activité de réglementation (c.-à-d. RAPB, ARND, CPA, CPA-B, PM, notification post-DIN, changement de niveau III, EP(S)PDN, MP(S)PDN/MPPM,MPDIN) ou à cette transaction réglementaire de suivi (tel que réponse à une demande de clarification, réponse à un AIEP/ANC/AI, étiquetage de produit - post-approbation, formulaire de déclaration de médicament, lettre d'annulation, les procès-verbal de la réunion, etc.), sauf demande contraire de Santé Canada."
     }
