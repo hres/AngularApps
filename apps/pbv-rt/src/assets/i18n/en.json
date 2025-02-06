@@ -192,6 +192,6 @@
     "error.msg.postal":"Invalid format - must be X#X#X#",
     "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
     "error.msg.invalidDate": "The date is not valid",
-    "consent.privacy": "By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the Privacy Notice Statement."
+    "consent.privacy": "By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the privacy notice statement."
 
 }
