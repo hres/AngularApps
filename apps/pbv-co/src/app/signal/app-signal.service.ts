@@ -25,4 +25,18 @@ export class AppSignalService {
     return this.companyRoles.asReadonly();
   }
 
+  private readonly productLines = signal<string[]>([]);
+
+  updateProductLine(productLine : string) : void {
+    this.productLines.update((arr) => [...arr, productLine]);
+  }
+
+  removeProductLine(productLine: string) {
+    this.productLines.update((arr) => arr.filter(item => item !== productLine));
+  }
+
+  getSelectedProductLines(): Signal<string[]> {
+    return this.productLines.asReadonly();
+  }
+
 }

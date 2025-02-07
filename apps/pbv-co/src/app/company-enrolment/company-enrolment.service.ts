@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { ConverterService, ICode, UtilsService } from "@hpfb/sdk/ui";
+import { FormBuilder, Validators, FormArray, FormGroup } from "@angular/forms";
+import { ConverterService, ICode, UtilsService, ValidationService, CheckboxOption } from "@hpfb/sdk/ui";
 import { ENROLMENT_STATUS } from "../app.constants";
 import { GlobalService } from "../global/global.service";
 import { CompanyEnrol } from "../models/Company";
@@ -24,7 +24,9 @@ export class CompanyEnrolmentService {
         enrolmentVersion: ['0.0'],
         dateLastSaved: [null],
         companyId: [null],
-        reasonForFiling: [null, [Validators.required]]
+        reasonForFiling: [null, [Validators.required]],
+        productLine: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
+        selectedProductLines: ['']
       });
     }
 
@@ -39,6 +41,7 @@ export class CompanyEnrolmentService {
       dataModel.company_id = coEnrolFormModel['companyId'];
     }
     dataModel.reason_amend = coEnrolFormModel['reasonForFiling'];
+    dataModel.product_line_checkbox = coEnrolFormModel['productLine'];
   }
 
   public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel:any) {
@@ -51,6 +54,7 @@ export class CompanyEnrolmentService {
     formModel.controls['dateLastSaved'].setValue(dataModel.date_saved.substring(0, 10)); // Date is set to YYYY-MM-DD
     formModel.controls['companyId'].setValue(dataModel.company_id);
     formModel.controls['reasonForFiling'].setValue(dataModel.reason_amend);
+    formModel.controls['productLine'].setValue(dataModel.product_line_checkbox);
   }
 
   private _incrementEnrolmentVersion(isInternal : boolean, currentVersion) : string { 
@@ -63,5 +67,13 @@ export class CompanyEnrolmentService {
     }
     formRecord.controls['enrolmentStatusText'].setValue(this._utilsService.findAndTranslateCode(enrollmentStatusList, lang, statusId));
   }
+
+  getProductLineCodes(productLineReasonList: CheckboxOption[], productLineChkFormArray: FormArray) : string[] {
+    return this._converterService.getCheckedCheckboxValues(productLineReasonList, productLineChkFormArray);
+  }
+
+  getProductLineChkboxFormArray(formRecord: FormGroup) {
+      return formRecord.controls['productLine'] as FormArray;
+  } 
 
 }

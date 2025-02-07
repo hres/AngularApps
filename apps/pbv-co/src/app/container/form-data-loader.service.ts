@@ -10,11 +10,13 @@ export class FormDataLoaderService {
   private enrolmentStatusesPath = DATA_PATH + 'enrolmentStatuses.json'
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private companyRolesPath = DATA_PATH + 'companyRoles.json';
+  private productLinePath = DATA_PATH + 'productLine.json';
   
   cachedCountries$:Observable<ICode[]>;
   cachedEnrolmentStatuses$:Observable<ICode[]>;
   cachedLanguageList$:Observable<ICode[]>;
   cachedCompanyRolesList$:Observable<ICode[]>;
+  cachedProductLineList$:Observable<ICode[]>;
   
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -63,6 +65,17 @@ export class FormDataLoaderService {
         );
     } 
     return this.cachedCompanyRolesList$;
+  }
+
+  getProductLineList(): Observable<ICode[]> {
+    if (!this.cachedProductLineList$) {
+      this.cachedProductLineList$ = this._dataService.getData<ICode>(this.productLinePath)
+        .pipe(
+          // tap(()=>console.log('getEnrollmentStatusesList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedProductLineList$;
   }
 
 

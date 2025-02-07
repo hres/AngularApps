@@ -67,4 +67,34 @@
                         [formControl]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" maxlength="400" ></textarea>
         </div>
     </div>
+
+
+    <!-- PRODUCT LINE -->
+        <div class="row">
+
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="required full-width">
+                        <span class="field-name">{{ 'prod.line' | translate }}</span>
+                        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket' | translate }}</strong>
+                        <control-messages *ngIf="companyEnrolmentForm.controls['productLine'].invalid"
+                            [showError]="showErrors"
+                            [control]="companyEnrolmentForm.controls['productLine'] | formControl"
+                            controlId="productLine"
+                            label="label.prod.line"
+                            parentId="companyEnrolment">
+                        </control-messages>
+                    </label>
+                  
+                    <div *ngFor="let productLine of productLineCodeList" class="checkbox">
+                        <label>
+                            <input type="checkbox"
+                               [value]="productLine.id"
+                               (change)="onCheckboxChange($event)"
+                               [checked]="companyEnrolmentForm.controls['productLine'].value?.includes(productLine.id)">
+                                {{ productLine | textTransform: lang }}
+                        </label>
+                    </div>
+                </div>
+        </div>
+
 </div>

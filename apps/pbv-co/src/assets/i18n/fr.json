@@ -37,6 +37,7 @@
     "ht.company.rep.3": "Une même personne-ressource peut être associée à plusieurs rôles, mais un rôle ne peut être associé qu'à une seule personne-ressource.",
     "prod.line": "Sélectionnez un ou plusieurs des cadres réglementaires suivants en vertu duquel/desquels le fabricant/promoteur pourrait déposer une présentation/demande (cochez toutes les cases qui s’appliquent) :",
     "ht.prod.line": "Veuillez noter qu'il ne peut toujours y avoir qu'une seule adresse et un seul représentant de la compagnie par rôle, même si la compagnie dépose des présentations ou des demandes en vertu des deux cadres réglementaires. Il ne peut pas y avoir plus d'un CO distincts pour la même compagnie.",
+    "label.prod.line": "Ligne de produits",
 
     "addressDetails.street": "Rue",
     "addressDetails.city": "Ville",

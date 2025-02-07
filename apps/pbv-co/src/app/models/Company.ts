@@ -18,6 +18,7 @@ export interface CompanyEnrol {
   reason_amend: string;
   address_record: AddressRecord[];
   contact_record: ContactRecord[];
+  product_line_checkbox: string;
 }
 
 export interface AddressRecord extends OutputRecord {
