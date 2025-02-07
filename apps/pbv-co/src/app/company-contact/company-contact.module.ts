@@ -11,6 +11,8 @@ import { CompanyContactListComponent } from './company-contact-list/company-cont
 import { CompanyContactService } from './company-contact.service';
 import { ContactModule } from '@hpfb/pbv';
 import { CompanyContactItemService } from './company-contact-item/company-contact-item.service';
+import { CompanyContactListService } from './company-contact-list/company-contact-list.service'
+
 
 @NgModule({
   imports: [
@@ -36,7 +38,8 @@ import { CompanyContactItemService } from './company-contact-item/company-contac
   ],
   providers: [
    CompanyContactService,
-   CompanyContactItemService
+   CompanyContactItemService,
+   CompanyContactListService
   ]
 })
 export class CompanyContactModule { }

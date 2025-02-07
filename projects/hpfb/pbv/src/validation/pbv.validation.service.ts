@@ -10,6 +10,7 @@ export class PbvValidationService {
   getValidatorErrorMessage(validatorName: string): string | null {
     const config = {
       'error.mgs.pbv.dossier.id': 'error.mgs.dossier.id',
+      'error.msg.roleSelected':'error.msg.roleSelected'
     };
 
     return config[validatorName];
