@@ -35,25 +35,3 @@ export interface ContactRecord extends OutputRecord {
   billing: string;
   company_contact_details: IContact;
 }
-
-export interface IAddressPBVCO {
-  company_name: string;
-  street_address: string;
-  city: string;
-  province_lov: IIdText;
-  province_text: string;
-  country: IIdTextLabel;
-  postal_code: string;
-}
-
-export interface IContactPBVCO {
-  given_name: string;
-  initials: string;
-  surname: string;
-  job_title: string;
-  language_correspondance: IIdTextLabel;
-  phone_num: string;
-  phone_ext: string;
-  fax_num: string;
-  email: string;
-}

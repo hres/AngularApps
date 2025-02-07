@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild, signal, Signal, computed } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild, signal, Signal, computed, effect, viewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, HelpSequence, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -7,12 +7,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ENROLMENT_STATUS, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { CompanyEnrol, Company, ContactRecord} from '../models/Company';
+import { CompanyEnrol, Company, ContactRecord, AddressRecord} from '../models/Company';
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { CompanyEnrolmentComponent } from '../company-enrolment/company-enrolment.component';
 import { CompanyContactModule } from "../company-contact/company-contact.module";
 import { CompanyContactListComponent } from '../company-contact/company-contact-list/company-contact-list.component';
+import { CompanyContactService } from '../company-contact/company-contact.service';
+import { CompanyAddressModule } from "../company-address/company-address.module";
+import { CompanyAddressListComponent } from '../company-address/company-address-list/company-address-list.component';
+import { CompanyAddressService } from '../company-address/company-address.service';
 
 @Component({
     selector: 'app-form-base',
@@ -21,7 +25,7 @@ import { CompanyContactListComponent } from '../company-contact/company-contact-
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
     providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, CompanyContactModule]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, CompanyContactModule, CompanyAddressModule]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -35,21 +39,25 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   @ViewChild(CompanyEnrolmentComponent) companyEnrolmentComponent: CompanyEnrolmentComponent;
   @ViewChild(CompanyContactListComponent) companyContactListComponent: CompanyContactListComponent;
+  @ViewChild(CompanyAddressListComponent) companyAddressListComponent: CompanyAddressListComponent;
 
   
   private _companyEnrolmentErrors = [];
   private _contactListErrors = [];
+  private _contactCompanyRoleErrors = [];
+  private _addressListErrors = [];
+  private _addressCompanyRoleErrors = [];
 
   public coForm: FormGroup; 
   public errorList = [];
   public showErrors: boolean;
 
- 
   public headingLevel = 'h2';
 
   public enrollModel: Company;
   public companyEnrolModel: CompanyEnrol;
   public contactListModel: ContactRecord[];
+  public addressListModel: AddressRecord[];
 
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
@@ -57,15 +65,33 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   isStatusFinal: boolean;
 
+  public mailToLabel = 'mailto.label';
+  public disableMailto: boolean = false;
+  public showMailToHelpText: boolean = false;;
+  public mailToLink = '';
+  public submitToEmail: string = '';
+  public submitToSubject: string = '';
+
   private _signalService = inject(AppSignalService)
+
+  private selectedContactCompanyRoles : Signal<string[]> = this._signalService.getSelectedContactCompanyRoles();
+  private selectedAddressCompanyRoles : Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
 
   constructor(
     private _fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private  _baseService: FormBaseService, private _globalService: GlobalService, private _utilsService: UtilsService,
-    private fileServices: FileConversionService, private _versionService: VersionService, private _checkSumService: CheckSumService
+    private fileServices: FileConversionService, private _versionService: VersionService, private _checkSumService: CheckSumService,
+    private _companyContactService: CompanyContactService, private _companyAddressService: CompanyAddressService
   ) {
     this.showErrors = false;
+    effect(() => {
+      this.processAddressCompanyRolesErrors();
+    });
+    effect(() => {
+      this.processContactCompanyRolesErrors();
+    })
+ 
   }
 
   ngOnInit() {
@@ -123,26 +149,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processErrors() {
-    this.errorList = [];
-    this.errorList = this.errorList.concat(this._companyEnrolmentErrors.concat(this._contactListErrors));
-
+    this.errorList = [].concat(
+      this._companyEnrolmentErrors,
+      this._addressCompanyRoleErrors, 
+      this._addressListErrors, 
+      this._contactCompanyRoleErrors, 
+      this._contactListErrors
+    );
+    
+    this.disableMailto = this.errorList.length > 0 || this.isInternal; // Add final condition
+    // this.showMailToHelpText = false;
     this.cdr.detectChanges(); // doing our own change detection
   }
-
-  // processProductInfoErrors(errorList) {
-  //   this._productInfoErrors = errorList;
-  //   this.processErrors();
-  // }
-
-  // // processContactErrors(errorList) {
-  // //   this._contactErrors = errorList;
-  // //   this.processErrors();
-  // // }
-
-  // processFeesErrors(errorList) {
-  //   this._feesErrors = errorList;
-  //   this.processErrors();
-  // }
 
   processCompanyEnrolmentErrors(errorList) {
     this._companyEnrolmentErrors = errorList;
@@ -152,6 +170,39 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processContactListErrors(errorList) {
     this._contactListErrors = errorList;
     this.processErrors();
+  }
+
+  processAddressListErrors(errorList) {
+    this._addressListErrors = errorList;
+    this.processErrors();
+  }
+
+  processContactCompanyRolesErrors() {
+    let errorList = [];
+
+    if (this.isRolesMissing(this.selectedContactCompanyRoles())) {
+      errorList.push(this._companyContactService.makeMissingRoleError());
+    }
+    
+    this._contactCompanyRoleErrors = errorList;
+    this.processErrors();
+  }
+
+  processAddressCompanyRolesErrors() {
+    let errorList = [];
+
+    if (this.isRolesMissing(this.selectedAddressCompanyRoles())) {
+      errorList.push(this._companyAddressService.makeMissingRoleError());
+    } 
+
+    this._addressCompanyRoleErrors = errorList;
+    this.processErrors();
+  }
+
+  isRolesMissing(selectedRoles : string[]) {
+    const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // Required roles
+    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
+    return companyRolesList.some(role => !cleanSelectedRoles.includes(role));
   }
 
   public hideErrorSummary() {
@@ -195,6 +246,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // }
     // this.addressModel = trans.regulatory_activity_address;
     // this.contactModel = trans.regulatory_activity_contact;
+    const tAddresses = companyEnrol.address_record;
+    this.addressListModel = Array.isArray(tAddresses) ? tAddresses : [tAddresses];
+    if (this._utilsService.isEmpty(tAddresses)) {
+      this.addressListModel = [];
+    }
     const tContacts = companyEnrol.contact_record;
     this.contactListModel = Array.isArray(tContacts) ? tContacts : [tContacts];
     if (this._utilsService.isEmpty(tContacts)) {
@@ -222,6 +278,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _prepareForSaving(xmlFile: boolean): Company {
     let contactsFormArrayValue = null;
+    let addressFormArrayValue = null;
 
     const newcompanyEnrol: CompanyEnrol = this._baseService.getEmptyCompanyEnrol();
 
@@ -230,6 +287,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     newcompanyEnrol.form_language = this._globalService.currLanguage;
 
     const companyEnrolmentFormGroupValue = this.companyEnrolmentComponent.getFormValue();
+    
+    if (this.companyAddressListComponent.recordFormArray) {
+      addressFormArrayValue = this.companyAddressListComponent.recordFormArray.value;
+    }
 
     if (this.companyContactListComponent.recordFormArray) {
       contactsFormArrayValue = this.companyContactListComponent.recordFormArray.value;
@@ -237,6 +298,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue, this.isInternal);
     this._baseService.mapContactsFormToOutput(newcompanyEnrol, contactsFormArrayValue);
+    this._baseService.mapAddressesFormToOutput(newcompanyEnrol, addressFormArrayValue)
 
 
     const output: Company = {
@@ -261,6 +323,46 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       '-' +
       companyEnrol.date_saved;
     return fileName;
+  }
+
+  public mailto() {
+    // this.showMailToHelpText = true;
+
+    // let emailSubject = '';
+    // let body = '';
+
+    // if (this.lang == 'en') {
+    //   emailSubject =
+    //     'Draft CO XML - ' +
+    //     ((this.addressModel.company_name === null || this.addressModel.company_name === '')
+    //       ? '[company name]'
+    //       : this.addressModel.company_name) +
+    //     ' ' +
+    //     ((this.genInfoModel.company_id === '')
+    //       ? ''
+    //       : this.genInfoModel.company_id);
+    //   body =
+    //     'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
+    // } 
+    // if (this.lang == 'fr') {
+    //   emailSubject =
+    //     ' Ébauche du fichier CO XML -  ' +
+    //     ((this.addressModel.company_name === null || this.addressModel.company_name === '')
+    //       ? '[insérer le nom de votre entreprise]'
+    //       : this.addressModel.company_name) +
+    //     ' ' +
+    //     ((this.genInfoModel.company_id === '')
+    //       ? ''
+    //       : this.genInfoModel.company_id);
+    //   body =
+    //     "NOTE: Le fichier XML de l'entreprise n'est pas automatiquement joint. VEUILLEZ JOINDRE LE BROUILLON XML DE L'ENTREPRISE AVANT DE LE SOUMETTRE.";
+    // }
+
+    // const email = this._utilsService.removeFirstAndLastChars(this.submitToEmail);
+
+    // this.mailToLink =
+    //     'mailto:' + email + '?subject=' + emailSubject + '&body=' + body;
+
   }
 
   public onChanged(e, controlName) {

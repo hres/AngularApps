@@ -1,16 +1,14 @@
-import { Component, computed, QueryList, SimpleChange, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, QueryList, SimpleChange, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { GlobalService } from '../../global/global.service';
 import { ICode, CheckboxOption, ErrorNotificationService, BaseComponent, ControlMessagesComponent, ConverterService, UtilsService, ErrorSummaryComponent } from '@hpfb/sdk/ui';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CONTACT_ERROR_PREFIX } from '../../app.constants';
-import { ContactRecord, IContactPBVCO } from '../../models/Company';
 import { TranslateService } from '@ngx-translate/core';
 import { FormArray } from '@angular/forms';
 import { CompanyContactItemService } from './company-contact-item.service';
 import { AppSignalService } from '../../signal/app-signal.service';
 import { Signal } from '@angular/core';
-import { CompanyContactService } from '../company-contact.service';
 
 @Component({
   selector: 'app-company-contact-item',
@@ -21,7 +19,6 @@ export class CompanyContactItemComponent extends BaseComponent{
   @Input() cRRow: FormGroup;
   @Input() j: number;
   @Input() showErrors: boolean;
-  @Input() contactModel: IContactPBVCO;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
@@ -39,17 +36,13 @@ export class CompanyContactItemComponent extends BaseComponent{
   translatedParentLabel: string;
 
   private _contactErrorList = [];
+  private _coRolesErrors = [];
   errors = [];
 
-  private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedCompanyRoles();
-  isRoleAlreadySelected: Signal<boolean> = computed(() => 
-  {
-    const roles = this.selectedCompanyRoles();
-    const roleSet = new Set(roles);
-    return roleSet.size !== roles.length
-  });
+  private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedContactCompanyRoles();
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
+  @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
 
   constructor(private _globalService: GlobalService,
               private _errNotifService : ErrorNotificationService,
@@ -57,8 +50,7 @@ export class CompanyContactItemComponent extends BaseComponent{
               private _companyContactItemService : CompanyContactItemService,
               private _converterService : ConverterService,
               private _signalService : AppSignalService,
-              private _utilService : UtilsService,
-              private _contactService: CompanyContactService) {
+              private cdRef: ChangeDetectorRef) {
     super();
   }
 
@@ -72,7 +64,6 @@ export class CompanyContactItemComponent extends BaseComponent{
   }
 
   ngOnChanges(changes: SimpleChanges) : void{
-    console.log('ngOnChanges triggered:', changes);
     if (changes['cRRow']) {
       this._updateCompanyRolesArray();
     }
@@ -80,15 +71,16 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   override ngAfterViewInit(): void {
     this.msgList.changes.subscribe(errorObjs => {
-      this._updateAndEmitErrors(errorObjs);
+      this._appendErrorsFromChild();
     });
     this.msgList.notifyOnChanges();
-
     /** this is processsing the errorSummary that is a child in  Contact record **/
     this.errorSummaryChildList.changes.subscribe(list => {
-      // console.log("error summary child change,", list);
-      this.processSummaries(list);
+      setTimeout(() => {
+        this.processSummaries(list);
+      });
     });
+    this.cdRef.detectChanges();
   }
 
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
@@ -109,6 +101,11 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   public deleteContactRecord(index: number): void {
     this._errNotifService.updateErrorSummary(CONTACT_ERROR_PREFIX + this.cRRow.get('id').value, null);
+    // Find roles that need to be removed
+    const prefixToDelete = index.toString();
+    const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
+    // Remove each matching role
+    rolesToRemove.forEach(role => this._signalService.removeContactCompanyRole(role));
     this.deleteRecord.emit(index);
     this.cRRow.markAsPristine();
   }
@@ -128,22 +125,34 @@ export class CompanyContactItemComponent extends BaseComponent{
     }
   } 
 
-  companyRolesOnChange(e: any, selectedRole : any) {
-    this.cRRow.get('companyInfo.selectedCompanyRoles').setValue(this.selectedDiagnosisCodes);
+ 
+  companyRolesOnChange(e: any, selectedRole: string, index: number) {
+    this.cRRow.get('companyInfo.selectedCompanyRoles').setValue(this.selectedCompanyRolesCodes);
     const isChecked = (e.target as HTMLInputElement).checked;
-
+  
+    // Get the specific form control using index
+    const roleControl = this.companyRolesChkFormArray.at(index);
+    const uniqueRole = this.j + selectedRole;
     // Update signal array
     if (isChecked) {
-      this._signalService.updateCompanyRoles(selectedRole);
+      this._signalService.updateContactCompanyRoles(uniqueRole);
     } else {
-      this._signalService.removeCompanyRole(selectedRole);
+      this._signalService.removeContactCompanyRole(uniqueRole);
     }
-
-    // Do validation here 
-    if (this.isRoleAlreadySelected()) {
-      this.companyRoles.setErrors({'error.msg.roleSelected' : true});
-    }
+  
+    // Attach validation to the specific role
+    if (this.isRoleAlreadySelected(selectedRole)) {
+      roleControl.setErrors({ 'error.msg.roleSelected': true });
+    } else {
+      roleControl.setErrors(null); // Remove error if valid
+    } 
+    //this._appendErrorsFromChild(); // Update errors for company roles here
   }
+
+  isRoleAlreadySelected = (role: string): boolean => {
+    const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, '')); // Remove the numeric prefix
+    return roles.filter(r => r === role).length > 1; // Check if role appears more than once
+  };
 
   public disabledDiscardButton() {
     if (this.cRRow.get('isNew').value) {
@@ -154,17 +163,14 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   processContactErrors(childErrors:any[]) {
     this._contactErrorList = childErrors;
-    this._appendChildAndParentErrors();
+    this._appendErrorsFromChild();
   }
 
-  private _appendChildAndParentErrors() {
-    const parentErrors = this.msgList.toArray();
-    const combinedErrors = [...this._contactErrorList, ...parentErrors];
-    this.emitErrors(combinedErrors);  // Call the abstract method
-  }
-
-  protected override emitErrors(errors: ControlMessagesComponent[]): void {
-    this.errors = errors;
+  protected override _appendErrorsFromChild() {
+    // Method is overriden to place company roles error last, since it is the last field in the record.
+    this._coRolesErrors = this.msgList.toArray();
+    const combinedErrors = [...this._contactErrorList, ...this._coRolesErrors]; 
+    this.emitErrors(combinedErrors);
   }
 
   public showErrorSummary(): boolean {
@@ -173,10 +179,9 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   get companyRolesChkFormArray() {
     return this.cRRow.get('companyInfo.companyRoles') as FormArray
-
   }
 
-  get selectedDiagnosisCodes(): string[] {
+  get selectedCompanyRolesCodes(): string[] {
     return this._companyContactItemService.getCompanyRolesCodes(this.companyRolesOptionList, this.companyRolesChkFormArray);
   }
 
@@ -190,7 +195,6 @@ export class CompanyContactItemComponent extends BaseComponent{
       return this._converterService.convertCodeToCheckboxOption(item, this.lang);
     });
 
-    console.log(this.companyRolesOptionList)
     if (this.companyRolesChkFormArray.length === 0) {
       // Create new form controls for the company roles
       this.companyRolesOptionList.forEach(() => {
@@ -205,5 +209,16 @@ export class CompanyContactItemComponent extends BaseComponent{
     return this.cRRow.get('companyInfo.companyRoles') as FormArray;
   }
 
-  
+  protected emitErrors(errors: any[]): void {
+    // Not emitting any errors to parent, just setting the list of errors in contact-item
+    this.errors = [...errors];
+
+    // Process error summary component for when error summary list is shown and 1+ records are created
+    if (this.showErrors) {
+      this.processSummaries(this.errorSummaryChildList)
+    }
+
+    this.cdRef.detectChanges(); // Do change detection here to reactively update error summary
+  }
+
 }
