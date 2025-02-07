@@ -49,7 +49,7 @@
     },
     {
         "id": "COMMENTS_REGULARTORY_DECISION",
-        "en": "Comments on Regulatory Decision Summary",
+        "en": "Comments on regulatory decision summary",
         "fr": "Commentaires sur le sommaire de décision réglementaire"
     },
     {
@@ -141,7 +141,7 @@
     },
     {
         "id": "ISSUE_SAFETY_REQUEST",
-        "en": "Issue Related Summary Report request",
+        "en": "Issue related summary report request",
         "fr": "Demande d'un rapport de synthèse relatif à un sujet de préoccupation",
         "defEn": "Response to Health Canada's request to submit an Issue-Related Summary Report under C.01.019 of the Food and Drug Regulations.",
         "defFr": "En réponse à une demande de Santé Canada de présenter un rapport de synthèse relatif à un sujet de préoccupation sous l'article C.01.019 du Règlement sur les aliments et drogues."
@@ -181,7 +181,7 @@
     },
     {
         "id": "POST_AUTH_DIV1_CHANGE",
-        "en": "Post-authorization division 1 Change",
+        "en": "Post-authorization division 1 change",
         "fr": "Modification en vertu de la Section 1 après l'autorisation",
         "defEn": "First transaction of a new regulatory activity",
         "defFr": "Première transaction d'une nouvelle activité réglementaire"
