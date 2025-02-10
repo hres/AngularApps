@@ -264,7 +264,7 @@
 								<strong>Description de la présentation:</strong>
 								<div class="col-xs-12">
 								<span class="mouseHover">
-								<xsl:value-of select="fee_details/submission_description/@label_fr"/>
+								<xsl:value-of select="fee_details/submission_description/@label_fr" disable-output-escaping="yes"/>
 								</span>
 								</div>
 							</div>
