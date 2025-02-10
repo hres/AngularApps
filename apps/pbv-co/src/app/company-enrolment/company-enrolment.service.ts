@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { FormBuilder, Validators, FormArray, FormGroup } from "@angular/forms";
-import { ConverterService, ICode, UtilsService, ValidationService, CheckboxOption } from "@hpfb/sdk/ui";
+import { ConverterService, ICode, ENGLISH, UtilsService, ValidationService, CheckboxOption } from "@hpfb/sdk/ui";
 import { ENROLMENT_STATUS } from "../app.constants";
 import { GlobalService } from "../global/global.service";
 import { CompanyEnrol } from "../models/Company";
@@ -10,9 +10,16 @@ import { AppSignalService } from "../signal/app-signal.service";
 export class CompanyEnrolmentService {
   private _signalService = inject(AppSignalService);
   private _utilsService = inject(UtilsService);
-  private _converterService = inject(ConverterService);
-  private _globalService = inject(GlobalService);
+  // private _converterService = inject(ConverterService);
+  // private _globalService = inject(GlobalService);
 
+  private productLineList: ICode[] = [];
+  private _currLanguage: string = ENGLISH;
+
+  constructor( private _converterService: ConverterService, private _globalService: GlobalService) {
+    this.productLineList = this._globalService.productLineList;
+    this._currLanguage = this._globalService.currLanguage;
+  }
 
   public static getEnrolmentForm(fb:FormBuilder) {
       if (!fb) {
@@ -35,6 +42,7 @@ export class CompanyEnrolmentService {
   public mapFormModelToDataModel(dataModel:CompanyEnrol, coEnrolFormModel:any, isInternal:boolean) {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
+    const productLineList = this._globalService.productLineList;
 
     dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, coEnrolFormModel.enrolmentStatus, lang);
     dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
@@ -44,6 +52,10 @@ export class CompanyEnrolmentService {
     }
     dataModel.reason_amend = coEnrolFormModel['reasonForFiling'];
     dataModel.product_line_checkbox = coEnrolFormModel['productLine'];
+
+    // const prodLineReturn = coEnrolFormModel['productLine']? this._converterService.findAndConverCodesToIdTextLabels(this.productLineList, coEnrolFormModel['productLine'], this._currLanguage) : null;
+    // console.log(prodLineReturn)
+    // dataModel.product_line_checkbox = prodLineReturn[1].__text;
   }
 
   public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel:any) {

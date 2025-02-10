@@ -1,5 +1,5 @@
 import { Component, computed, EventEmitter, inject, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, ControlMessagesComponent, ICode, CheckboxOption, ICodeDefinition, UtilsService, HelpSequence, ConverterService, ICodeAria } from '@hpfb/sdk/ui';
+import { BaseComponent, ControlMessagesComponent, ICode, CheckboxOption, ICodeDefinition, UtilsService, HelpSequence, ConverterService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -26,9 +26,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   @Output() errorList = new EventEmitter(true);
   @Output() productUpdated = new EventEmitter<CheckboxOption[]>();
 
-  // selectedProductLine: string;
-  // productLineOptions: ICodeAria[] = [];
-
   private _signalService = inject(AppSignalService)
 
   public disableAmendButton: boolean = true;
@@ -36,14 +33,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
   public productLineOptionList: CheckboxOption[] = [];
   public productLineCodeList: ICode[] = [];
-
-  // private selectedProductLine : Signal<string[]> = this._signalService.getSelectedProductLines();
-  // isProductAlreadySelected: Signal<boolean> = computed(() => 
-  // {
-  //   const products = this.selectedProductLine();
-  //   const prodSet = new Set(products);
-  //   return prodSet.size !== products.length
-  // });
 
   constructor(private _companyEnrolmentService: CompanyEnrolmentService, 
               private _fb: FormBuilder, 

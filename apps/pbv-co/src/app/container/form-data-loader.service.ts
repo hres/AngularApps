@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, combineLatest, map, shareReplay, tap} from 'rxjs';
 import { DATA_PATH } from '../app.constants';
-import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParentChildren, SortOn, UtilsService } from '@hpfb/sdk/ui';
+import { DataLoaderService, ICode, ICodeDefinition, IKeyword, IParentChildren, SortOn, UtilsService } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class FormDataLoaderService {
@@ -17,7 +17,6 @@ export class FormDataLoaderService {
   cachedLanguageList$:Observable<ICode[]>;
   cachedCompanyRolesList$:Observable<ICode[]>;
   cachedProductLineList$:Observable<ICode[]>;
-  // cachedProductLineList$:Observable<ICodeAria[]>;
   
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -78,17 +77,6 @@ export class FormDataLoaderService {
     } 
     return this.cachedProductLineList$;
   }
-
-  // getProductLineList(): Observable<ICodeAria[]> {
-  //   this.cachedProductLineList$ = this._dataService
-  //     .getData<ICodeAria>(this.productLinePath)
-  //     .pipe(
-  //       //tap((_) => console.log('getMasterFileTypeOptions is executed')),
-  //       shareReplay(1)
-  //     );
-  //   return this.cachedProductLineList$;
-  // }
-
 
   // getYesNoList(): Observable<ICode[]> {
   //   if (!this.cachedYesNo$) {

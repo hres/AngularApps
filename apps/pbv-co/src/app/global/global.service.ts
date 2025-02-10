@@ -4,7 +4,6 @@ import {
   ENGLISH,
   HelpSequence,
   ICode,
-  ICodeAria,
   ICodeDefinition,
   IParentChildren,
 } from '@hpfb/sdk/ui';
@@ -32,7 +31,6 @@ export class GlobalService {
   private _enrolmentStatusesList: ICode[];
   private _languageList: ICode[];
   private _companyRolesList: ICode[];
-  // private _productLineList: ICodeAria[] = [];
   private _productLineList: ICode[];
 
   constructor() {}
@@ -152,14 +150,6 @@ export class GlobalService {
   public set companyRolesList(value: ICode[]) {
     this._companyRolesList = value;
   }
-
-  // public get productLineList(): ICodeAria[] {
-  //   return this._productLineList;
-  // }
-
-  // public set productLineList(value: ICodeAria[]) {
-  //   this._productLineList = value;
-  // }
 
   public get productLineList(): ICode[] {
     return this._productLineList;
