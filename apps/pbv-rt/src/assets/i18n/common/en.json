@@ -9,7 +9,7 @@
     "select.file": "Select a file to load",
     "choose.file": "Choose file",
     "no.file.chosen": "No file chosen",
-    "refresh.file.input": "Refresh this page",
+    "refresh.file.input": "Refresh page to clear form",
     "other": "Other",
     "other.specify": "Other - specify",
     "required": "This field is required",
