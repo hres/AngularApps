@@ -1,5 +1,5 @@
 import { Component, computed, EventEmitter, inject, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, ControlMessagesComponent, ICode, CheckboxOption, ICodeDefinition, UtilsService, HelpSequence, ConverterService } from '@hpfb/sdk/ui';
+import { BaseComponent, ControlMessagesComponent, ICode, CheckboxOption, ICodeDefinition, UtilsService, HelpSequence, ConverterService, ICodeAria } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -15,16 +15,19 @@ import { FormArray } from '@angular/forms';
 })
 export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
-  lang: string;
+  public lang: string;
   helpIndex: HelpSequence; 
   public showFieldErrors: boolean = false;
 
-  @Input() companyEnrolmentForm: FormGroup;
+  public companyEnrolmentForm: FormGroup;
   @Input() showErrors: boolean;
   @Input() dataModel: CompanyEnrol;
   @Input() isInternal: boolean;
   @Output() errorList = new EventEmitter(true);
   @Output() productUpdated = new EventEmitter<CheckboxOption[]>();
+
+  // selectedProductLine: string;
+  // productLineOptions: ICodeAria[] = [];
 
   private _signalService = inject(AppSignalService)
 
@@ -34,13 +37,13 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   public productLineOptionList: CheckboxOption[] = [];
   public productLineCodeList: ICode[] = [];
 
-  private selectedProductLine : Signal<string[]> = this._signalService.getSelectedProductLines();
-  isProductAlreadySelected: Signal<boolean> = computed(() => 
-  {
-    const roles = this.selectedProductLine();
-    const roleSet = new Set(roles);
-    return roleSet.size !== roles.length
-  });
+  // private selectedProductLine : Signal<string[]> = this._signalService.getSelectedProductLines();
+  // isProductAlreadySelected: Signal<boolean> = computed(() => 
+  // {
+  //   const products = this.selectedProductLine();
+  //   const prodSet = new Set(products);
+  //   return prodSet.size !== products.length
+  // });
 
   constructor(private _companyEnrolmentService: CompanyEnrolmentService, 
               private _fb: FormBuilder, 
@@ -57,6 +60,8 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
     this.productLineCodeList = this._globalService.productLineList;
     console.log(this.productLineCodeList);
+    console.log(this.productLineOptionList);
+    // this.productLineOptions = this._globalService.productLineList;
 
     this._getCompanyEnrolmentForm();
     this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, this.companyEnrolmentForm.controls['enrolmentStatus'].value, enrolmentStatusesList, this.lang, false);
@@ -74,9 +79,8 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       const dataModelCurrentValue = changes['dataModel'].currentValue as CompanyEnrol;
       this.dataModel = dataModelCurrentValue;
 
-      // this._updateProductLineArray();
-
       if (!isFirstChange) {
+        this._updateProductLineArray();
         this._companyEnrolmentService.mapDataModelToFormModel(
           dataModelCurrentValue,
           <FormGroup>this._getCompanyEnrolmentForm());
@@ -122,66 +126,55 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     }
   }
 
-  onCheckboxChange(event: any) {
-    const productLineControl = this.companyEnrolmentForm.get('productLine');
-    const selectedValues = productLineControl?.value || [];
-  
-    if (event.target.checked) {
-      selectedValues.push(event.target.value);
-    } else {
-      const index = selectedValues.indexOf(event.target.value);
-      if (index > -1) {
-        selectedValues.splice(index, 1);
-      }
-    }
-  
-    productLineControl?.setValue(selectedValues);
+  // onProductSelected(e: any): void {
+  //   console.log(this.productLineOptions);
+  //   const codeDefinition = this._utilsService.findCodeDefinitionById(this.productLineOptions, this.companyEnrolmentForm.get('productLine').value);
+  //   this.selectedProductLine = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
+  // }
+
+
+  get productLineChkFormArray() {
+    return this.companyEnrolmentForm.get('ProductLine') as FormArray
   }
 
-  // get productLineChkFormArray() {
-  //   return this.companyEnrolmentForm.get('productLine') as FormArray;
-  // }
+  productLineOnChange(e: any, selectedProductLine : any) {
+    console.log(this.selectedDiagnosisCodes);
+    this.companyEnrolmentForm.controls['selectedProductLines'].setValue(this.selectedDiagnosisCodes);
+    const isChecked = (e.target as HTMLInputElement).checked;
 
-  // get productLine(): FormArray {
-  //   return this.companyEnrolmentForm.get('productLine') as FormArray;
-  // }
+    // Update signal array
+    if (isChecked) {
+      this._signalService.updateProductLine(selectedProductLine);
+    } else {
+      this._signalService.removeProductLine(selectedProductLine);
+    }
+  }
 
-  // private _updateProductLineArray() {
-  //   const productLineList = this._globalService.productLineList;
-  //   this.productLineOptionList = productLineList.map((item) => {
-  //     return this._converterService.convertCodeToCheckboxOption(item, this.lang);
-  //   });
+  get selectedDiagnosisCodes(): string[] {
+    console.log(this._companyEnrolmentService.getProductLineCodes(this.productLineOptionList, this.productLineChkFormArray));
+    return this._companyEnrolmentService.getProductLineCodes(this.productLineOptionList, this.productLineChkFormArray);
+  }
 
-  //   console.log(this.productLineOptionList)
-  //   if (this.productLineChkFormArray.length === 0) {
-  //     this.productLineOptionList.forEach(() => {
-  //       this.productLineChkFormArray.push(new FormControl(false));
-  //     });
-  //   }
+  private _updateProductLineArray() {
+    const productLineList = this._globalService.productLineList;
+    this.productLineOptionList = productLineList.map((item) => {
+      return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+    });
+
+    console.log(productLineList);
+    console.log(this.productLineOptionList);
+    if (this.productLineChkFormArray.length === 0) {
+      this.productLineOptionList.forEach(() => {
+        this.productLineChkFormArray.push(new FormControl(false));
+      });
+    }
     
-  //   this.productUpdated.emit(this.productLineOptionList);
-  // }
+    this.productUpdated.emit(this.productLineOptionList);
+  }
 
-  // productLineOnChange(e: any, ProductLine : any) {
-  //   this.companyEnrolmentForm.get('selectedProductLines').setValue(this.selectedDiagnosisCodes);
-  //   const isChecked = (e.target as HTMLInputElement).checked;
-
-  //   // Update signal array
-  //   if (isChecked) {
-  //     this._signalService.updateProductLine(ProductLine);
-  //   } else {
-  //     this._signalService.removeProductLine(ProductLine);
-  //   }
-
-  //   // Do validation here 
-  //   if (this.isProductAlreadySelected()) {
-  //     this.productLine.setErrors({'error.msg.roleSelected' : true});
-  //   }
-  // }
-
-  // get selectedDiagnosisCodes(): string[] {
-  //   return this._companyEnrolmentService.getProductLineCodes(this.productLineOptionList, this.productLineChkFormArray);
-  // }
-
+  get productLine(): FormArray {
+    const prodLine = this.companyEnrolmentForm.controls['productLine'];
+    return prodLine as FormArray;
+  }
 
 }

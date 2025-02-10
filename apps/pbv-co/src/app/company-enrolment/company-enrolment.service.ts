@@ -25,6 +25,8 @@ export class CompanyEnrolmentService {
         dateLastSaved: [null],
         companyId: [null],
         reasonForFiling: [null, [Validators.required]],
+        // productLine: [null, [Validators.required]]
+
         productLine: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
         selectedProductLines: ['']
       });

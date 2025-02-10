@@ -70,31 +70,53 @@
 
 
     <!-- PRODUCT LINE -->
-        <div class="row">
 
-                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <label class="required full-width">
-                        <span class="field-name">{{ 'prod.line' | translate }}</span>
-                        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket' | translate }}</strong>
-                        <control-messages *ngIf="companyEnrolmentForm.controls['productLine'].invalid"
-                            [showError]="showErrors"
-                            [control]="companyEnrolmentForm.controls['productLine'] | formControl"
-                            controlId="productLine"
-                            label="label.prod.line"
-                            parentId="companyEnrolment">
-                        </control-messages>
-                    </label>
-                  
-                    <div *ngFor="let productLine of productLineCodeList" class="checkbox">
-                        <label>
-                            <input type="checkbox"
-                               [value]="productLine.id"
-                               (change)="onCheckboxChange($event)"
-                               [checked]="companyEnrolmentForm.controls['productLine'].value?.includes(productLine.id)">
-                                {{ productLine | textTransform: lang }}
-                        </label>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <fieldset class="chkbxrdio-grp" id="companyEnrolmentForm">
+                    <legend class="required">
+                    <span class="field-name">{{'prod.line' | translate}}</span>
+                    <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+                    <control-messages *ngIf="productLineChkFormArray.invalid"
+                                [showError]="showErrors"
+                                [control]="productLineChkFormArray | formControl"
+                                controlId="ProductLine" label="label.prod.line"
+                                parentId="companyEnrolment"></control-messages>
+                    </legend>
+                    <ul class="form-group list-unstyled">
+                        <li class="checkbox" [formArrayName]="'ProductLine'" *ngFor="let product of productLineChkFormArray.controls; let i = index">
+                            <label for={{productLineOptionList[i].value}}>
+                                <input type="checkbox" id={{productLineOptionList[i].value}} [formControl]="product | formControl" (change)="productLineOnChange($event, productLineOptionList[i].value)"/> {{productLineOptionList[i].label}}
+                            </label>
+                        </li>
+                    </ul>
+                </fieldset>
+            </div>
         </div>
+<!-- 
+        <div class="row">
+            <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <fieldset class="chkbxrdio-grp" >
+                  <legend class="required"><span class="field-name">{{'prod.line'|translate}}</span>
+                      <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+                      <control-messages *ngIf="companyEnrolmentForm.controls['productLine'].invalid"
+                          [showError]="showFieldErrors"
+                          [control]="companyEnrolmentForm.controls['productLine'] | formControl"
+                          controlId="cachedProductLineList0" label="label.prod.line" parentId="companyEnrolment"></control-messages>
+                  </legend>
+                  <ul class="form-group list-unstyled">
+                    <li class="checkbox" *ngFor="let product of productLineOptions; let i = index">
+                      <label aria-hidden="true" for="product{{i}}">
+                        <input attr.aria-label="{{product | ariaTransform: lang}}" type="checkbox" attr.aria-label="{{product | ariaTransform: lang}}"
+                            id="product{{i}}" name="productLine" value="{{product | ariaTransform: lang}}"
+                          (change)="onProductSelected($event)"
+                          [formControlName]="'productLine'" required/>
+                          {{product | textTransform: lang }}
+                      </label>
+                    </li>
+                  </ul>
+              </fieldset>
+            </div>
+          </div> -->
 
 </div>
