@@ -83,6 +83,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       this.companyEnrolmentForm = CompanyEnrolmentService.getEnrolmentForm(this._fb);
     }
     this._updateProductLineArray();
+    
     return this.companyEnrolmentForm;
   }
 

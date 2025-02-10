@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { FormBuilder, Validators, FormArray, FormGroup } from "@angular/forms";
+import { FormBuilder, Validators, FormArray, FormGroup, FormControl } from "@angular/forms";
 import { ConverterService, ICode, ENGLISH, UtilsService, ValidationService, CheckboxOption } from "@hpfb/sdk/ui";
 import { ENROLMENT_STATUS } from "../app.constants";
 import { GlobalService } from "../global/global.service";
@@ -10,16 +10,8 @@ import { AppSignalService } from "../signal/app-signal.service";
 export class CompanyEnrolmentService {
   private _signalService = inject(AppSignalService);
   private _utilsService = inject(UtilsService);
-  // private _converterService = inject(ConverterService);
-  // private _globalService = inject(GlobalService);
-
-  private productLineList: ICode[] = [];
-  private _currLanguage: string = ENGLISH;
-
-  constructor( private _converterService: ConverterService, private _globalService: GlobalService) {
-    this.productLineList = this._globalService.productLineList;
-    this._currLanguage = this._globalService.currLanguage;
-  }
+  private _converterService = inject(ConverterService);
+  private _globalService = inject(GlobalService);
 
   public static getEnrolmentForm(fb:FormBuilder) {
       if (!fb) {
@@ -32,17 +24,14 @@ export class CompanyEnrolmentService {
         dateLastSaved: [null],
         companyId: [null],
         reasonForFiling: [null, [Validators.required]],
-        // productLine: [null, [Validators.required]]
-
         productLine: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
         selectedProductLines: ['']
       });
-    }
+  }
 
   public mapFormModelToDataModel(dataModel:CompanyEnrol, coEnrolFormModel:any, isInternal:boolean) {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
-    const productLineList = this._globalService.productLineList;
 
     dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, coEnrolFormModel.enrolmentStatus, lang);
     dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
@@ -51,11 +40,7 @@ export class CompanyEnrolmentService {
       dataModel.company_id = coEnrolFormModel['companyId'];
     }
     dataModel.reason_amend = coEnrolFormModel['reasonForFiling'];
-    dataModel.product_line_checkbox = coEnrolFormModel['productLine'];
-
-    // const prodLineReturn = coEnrolFormModel['productLine']? this._converterService.findAndConverCodesToIdTextLabels(this.productLineList, coEnrolFormModel['productLine'], this._currLanguage) : null;
-    // console.log(prodLineReturn)
-    // dataModel.product_line_checkbox = prodLineReturn[1].__text;
+    dataModel.product_line_checkbox = coEnrolFormModel['selectedProductLines'];
   }
 
   public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel:any) {
@@ -89,5 +74,17 @@ export class CompanyEnrolmentService {
   getProductLineChkboxFormArray(formRecord: FormGroup) {
       return formRecord.controls['productLine'] as FormArray;
   } 
+
+  // loadProductLineOptions(productLineList, productLineOptionList, productLineChkFormArray, lang) {
+  //   productLineOptionList.length = 0;
+  //   productLineChkFormArray.clear();
+
+  //   // Populate the array with new items
+  //   productLineList.forEach((item) => {
+  //     const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
+  //     productLineOptionList.push(checkboxOption);
+  //     productLineChkFormArray.push(new FormControl(false));
+  //   });  
+  // }
 
 }
