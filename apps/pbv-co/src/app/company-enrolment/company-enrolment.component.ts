@@ -80,7 +80,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       this.dataModel = dataModelCurrentValue;
 
       if (!isFirstChange) {
-        this._updateProductLineArray();
         this._companyEnrolmentService.mapDataModelToFormModel(
           dataModelCurrentValue,
           <FormGroup>this._getCompanyEnrolmentForm());
@@ -94,6 +93,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     if (!this.companyEnrolmentForm) {
       this.companyEnrolmentForm = CompanyEnrolmentService.getEnrolmentForm(this._fb);
     }
+    this._updateProductLineArray();
     return this.companyEnrolmentForm;
   }
 
@@ -126,15 +126,8 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     }
   }
 
-  // onProductSelected(e: any): void {
-  //   console.log(this.productLineOptions);
-  //   const codeDefinition = this._utilsService.findCodeDefinitionById(this.productLineOptions, this.companyEnrolmentForm.get('productLine').value);
-  //   this.selectedProductLine = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
-  // }
-
-
   get productLineChkFormArray() {
-    return this.companyEnrolmentForm.get('ProductLine') as FormArray
+    return this.companyEnrolmentForm.get('productLine') as FormArray
   }
 
   productLineOnChange(e: any, selectedProductLine : any) {
@@ -142,7 +135,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     this.companyEnrolmentForm.controls['selectedProductLines'].setValue(this.selectedDiagnosisCodes);
     const isChecked = (e.target as HTMLInputElement).checked;
 
-    // Update signal array
     if (isChecked) {
       this._signalService.updateProductLine(selectedProductLine);
     } else {
@@ -151,7 +143,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   }
 
   get selectedDiagnosisCodes(): string[] {
-    console.log(this._companyEnrolmentService.getProductLineCodes(this.productLineOptionList, this.productLineChkFormArray));
     return this._companyEnrolmentService.getProductLineCodes(this.productLineOptionList, this.productLineChkFormArray);
   }
 
@@ -161,8 +152,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       return this._converterService.convertCodeToCheckboxOption(item, this.lang);
     });
 
-    console.log(productLineList);
-    console.log(this.productLineOptionList);
     if (this.productLineChkFormArray.length === 0) {
       this.productLineOptionList.forEach(() => {
         this.productLineChkFormArray.push(new FormControl(false));
@@ -173,8 +162,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   }
 
   get productLine(): FormArray {
-    const prodLine = this.companyEnrolmentForm.controls['productLine'];
-    return prodLine as FormArray;
+    return this.companyEnrolmentForm.get('productLine') as FormArray;
   }
 
 }
