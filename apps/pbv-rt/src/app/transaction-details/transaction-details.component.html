@@ -115,6 +115,10 @@
                 <label for="yearsOfChange" class="required">
                     <span class="field-name">{{ 'year.change'|translate }}</span>
                     <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <sup [id]="helpIndex['yearChangeIndx'][2]">
+						<a class="fn-lnk" [href]="'#' + helpIndex['yearChangeIndx'][1]"><span
+                                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['yearChangeIndx'][0]}}</a>
+                    </sup>
                     <control-messages *ngIf="transctionDetailsForm.controls['yearsOfChange'].invalid"
                         [showError]="showErrors" aria-live="assertive"
                         [control]="transctionDetailsForm.controls['yearsOfChange'] | formControl"
