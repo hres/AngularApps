@@ -13,7 +13,7 @@
     "build-prod-external-fr": "ng build --configuration=production-external-fr && npm run post-build -- --template=csp --env=prod --language=fr --type=external",
     "build-prod-internal": "npm run build-prod-internal-en & npm run build-prod-internal-fr",
     "build-prod-internal-en": "ng build --configuration=production-internal-en && npm run post-build -- --template=csp --env=prod --language=en  --type=internal",
-    "build-prod-internal-fr": "ng build --configuration=production-internal-fr && npm run post-build -- --template=csp --env=prod --language=fr --type=internal ",
+    "build-prod-internal-fr": "ng build --configuration=production-internal-fr && npm run post-build -- --template=csp --env=prod --language=fr --type=internal",
     "build-dev": "npm run build-dev-en & npm run build-dev-fr",
     "build-dev-en": "ng build --configuration=development-en && npm run post-build -- --template=csp --env=dev --language=en --type=external",
     "build-dev-fr": "ng build --configuration=development-fr && npm run post-build -- --template=csp --env=dev --language=fr --type=external",
