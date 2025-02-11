@@ -40,7 +40,7 @@ export class CompanyEnrolmentService {
       dataModel.company_id = coEnrolFormModel['companyId'];
     }
     dataModel.reason_amend = coEnrolFormModel['reasonForFiling'];
-    dataModel.product_line_checkbox = coEnrolFormModel['selectedProductLines'];
+    dataModel.product_line_checkbox = this._converterService.findAndConverCodesToIdTextLabels(this._globalService.productLineList, coEnrolFormModel['selectedProductLines'], lang);
   }
 
   public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel:any) {
