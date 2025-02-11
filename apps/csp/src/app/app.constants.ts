@@ -22,7 +22,8 @@ export const helpInstructionHeadings = [
     'approvalIndx',
     'feePayIndx',
     'methodPayIndx',
-    'certificationIndx'
+    'certificationIndx',
+    'nocDateIndx'
   ];
 
   export const helpInstructionHeadingsInternal = [
