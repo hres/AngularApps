@@ -64,6 +64,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     if (this.canadaDefault) {
       this.addressForm.controls['country'].setValue(CANADA);
       this.addressForm.controls['country'].disable(); // Method to grey out/disable the country dropdown
+      this.onCountryChange(null); // Call onCountryChange to change Postal/ZIP code -> Postal Code, Province or state -> Province
     }
   }
 
