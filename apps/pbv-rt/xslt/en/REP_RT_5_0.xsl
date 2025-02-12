@@ -330,7 +330,7 @@
 									<strong>Submission description: </strong>
 									<div class="col-xs-12">
 										<span class="mouseHover">
-											<xsl:value-of select="fee_details/submission_description/@label_en" />
+											<xsl:value-of select="fee_details/submission_description/@label_en" disable-output-escaping="yes"/>
 										</span>
 									</div>
 								</div>
