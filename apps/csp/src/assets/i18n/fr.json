@@ -542,6 +542,7 @@
     "generate.final.internal": "Approuver XML final",
     "generate.final.external": "Enregistrer le brouillon",
     "load.file": "Charger un fichier enregistré de la demande de certificat de protection supplémentaire",
+    "select.file": "Sélectionnez un fichier à télécharger",
 
     "error.medic": "Ingrédient(s) médicinal(aux)",
     "error.fee": "Paiement de la taxe",
