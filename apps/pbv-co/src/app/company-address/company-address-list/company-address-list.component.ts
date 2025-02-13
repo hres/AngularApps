@@ -80,8 +80,6 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     })
   }
 
-  private _getSelectedCompanyR
-
   handleRolesUpdated(updatedRoles: CheckboxOption[]) {
     this.companyRolesOptionList = updatedRoles;
   }

@@ -62,12 +62,13 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   }
 
   protected _patchLastSavedStateValue(lastSavedStateFormControl, outputModel: ContactRecord) {
+    const [selectedRoles, companyRoles] = this._companyContactItemService.getSelectedCompanyRolesFromOutputModel(outputModel);
     lastSavedStateFormControl.patchValue({
       manufacturer: null, // Patch companyRoles (array of booleans, indeces corresponds to order of roles) and selectedCompanyRoles (array of selected roles' ids)
       billing: null,
       mailing: null,
-      selectedCompanyRoles: "",
-      companyRoles: [],
+      selectedCompanyRoles: selectedRoles,
+      companyRoles: companyRoles,
       contactDetails: {
         firstName: outputModel.company_contact_details.given_name,
         initials: outputModel.company_contact_details.initials,

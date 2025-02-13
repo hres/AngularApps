@@ -1,4 +1,4 @@
-import { Injectable, output } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
 import { CheckboxOption, ConverterService } from "@hpfb/sdk/ui";
 import { YES, NO } from "../../app.constants";
