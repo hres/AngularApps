@@ -87,6 +87,6 @@
     "error.msg.contactRolesMissing": "Pour le représentant de la compagnie, sélection des rôles: fabricant, de l'envoi et de la facturation",
     "error.msg.companyContacts": "Company representative details has errors",
     "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité.",
-    "label.consent.privacy": "Consentement de confidentialité",
+    "label.consent.privacy": "Consentement de confidentialité"
 
 }
