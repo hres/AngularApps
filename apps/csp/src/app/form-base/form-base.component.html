@@ -175,8 +175,7 @@
           <button *ngIf="isInternal" type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
             {{'generate.final.internal'|translate}}
           </button>
-        </div>
-        <div class="form-group col-md-4">
+
         <button *ngIf="!isInternal" type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
           {{'generate.final.external'|translate}}
         </button>
