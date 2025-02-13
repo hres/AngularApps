@@ -87,5 +87,7 @@
     "billing.contact": "Billing contact",
     "error.msg.roleSelected":  "This role has already been selected.",
     "error.msg.contactRolesMissing": "For Company representative, selection of all roles: manufacturer, mailing, and billing",
-    "error.msg.companyContacts": "There are errors in the company representative details"
+    "error.msg.companyContacts": "There are errors in the company representative details",
+    "consent.privacy": "By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the privacy notice statement.",
+    "label.consent.privacy": "Consent Privacy"
 }
