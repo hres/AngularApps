@@ -84,7 +84,15 @@
     "billing.contact": "Personne-ressource de facturation",
     "error.msg.roleSelected":  "Ce rôle a déjà été sélectionné.",
     "error.msg.contactRolesMissing": "Pour le représentant de la compagnie, sélection des rôles: fabricant, de l'envoi et de la facturation",
-    "error.msg.companyContacts": "Company representative details has errors"
+    "error.msg.companyContacts": "Company representative details has errors",
+
+    "mailto.01": "L’ébauche du fichier CO XML doit être envoyé par courriel.",
+    "mailto.02": "En cliquant sur ce bouton, vous générerez automatiquement un modèle de message électronique à l’aide de votre programme de messagerie par défaut. Avant de soumettre, veuillez joindre votre ébauche du fichier CO XML.",
+    "mailto.03": "Si le message électronique n’a pas été généré automatiquement, vous pouvez en créer un et y inclure les éléments suivants :",
+    "mailto.04": "À: {{subject}}  {{email}}",
+    "mailto.05": "Objet : Ébauche de fichier CO XML – [insérer le nom de votre entreprise] [insérer votre code d’entreprise, le cas échéant]",
+    "mailto.06": "Corps: Le fichier CO XML n’est pas joint automatiquement. ",
+    "mailto.07": "Pièce jointe : Ébauche du fichier CO XML."
 
 
 }

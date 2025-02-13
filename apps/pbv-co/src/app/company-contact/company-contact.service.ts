@@ -24,9 +24,6 @@ export class CompanyContactService implements IRecordService{
             expandFlag: true,
             lastSavedState: null, // store the last saved state of the contactInfo for reverting function
             companyInfo: fb.group({
-                manufacturer: [null],
-                mailing: [null],
-                billing: [null],
                 companyRoles: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
                 selectedCompanyRoles: [''],
                 contactDetails: this._contactDetailsService.getReactiveModel(fb)

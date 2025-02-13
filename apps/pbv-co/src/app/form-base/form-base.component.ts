@@ -5,7 +5,7 @@ import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { FILE_OUTPUT_PREFIX, ENROLMENT_STATUS, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
+import { FILE_OUTPUT_PREFIX, ENROLMENT_STATUS, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES, REVERSE_ROLE_MAPPING, ROLE_CODES } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { CompanyEnrol, Company, ContactRecord, AddressRecord} from '../models/Company';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -58,6 +58,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public companyEnrolModel: CompanyEnrol;
   public contactListModel: ContactRecord[];
   public addressListModel: AddressRecord[];
+
+  public outputModel: CompanyEnrol;
 
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
@@ -158,7 +160,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     );
     
     this.disableMailto = this.errorList.length > 0 || this.isInternal; // Add final condition
-    // this.showMailToHelpText = false;
+    this.showMailToHelpText = false;
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -300,6 +302,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._baseService.mapContactsFormToOutput(newcompanyEnrol, contactsFormArrayValue);
     this._baseService.mapAddressesFormToOutput(newcompanyEnrol, addressFormArrayValue)
 
+    this.outputModel = newcompanyEnrol;
 
     const output: Company = {
       COMPANY_ENROL: newcompanyEnrol
@@ -326,42 +329,61 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public mailto() {
-    // this.showMailToHelpText = true;
+    this.showMailToHelpText = true;
 
-    // let emailSubject = '';
-    // let body = '';
+    let emailSubject = '';
+    let body = ''; 
 
-    // if (this.lang == 'en') {
-    //   emailSubject =
-    //     'Draft CO XML - ' +
-    //     ((this.addressModel.company_name === null || this.addressModel.company_name === '')
-    //       ? '[company name]'
-    //       : this.addressModel.company_name) +
-    //     ' ' +
-    //     ((this.genInfoModel.company_id === '')
-    //       ? ''
-    //       : this.genInfoModel.company_id);
-    //   body =
-    //     'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
-    // } 
-    // if (this.lang == 'fr') {
-    //   emailSubject =
-    //     ' Ébauche du fichier CO XML -  ' +
-    //     ((this.addressModel.company_name === null || this.addressModel.company_name === '')
-    //       ? '[insérer le nom de votre entreprise]'
-    //       : this.addressModel.company_name) +
-    //     ' ' +
-    //     ((this.genInfoModel.company_id === '')
-    //       ? ''
-    //       : this.genInfoModel.company_id);
-    //   body =
-    //     "NOTE: Le fichier XML de l'entreprise n'est pas automatiquement joint. VEUILLEZ JOINDRE LE BROUILLON XML DE L'ENTREPRISE AVANT DE LE SOUMETTRE.";
-    // }
+    const companyEnrolmentFormGroupValue = this.companyEnrolmentComponent.getFormValue();
+    const companyId = companyEnrolmentFormGroupValue.companyId;
 
-    // const email = this._utilsService.removeFirstAndLastChars(this.submitToEmail);
+    let addressFormArrayValue = null;
+    if (this.companyAddressListComponent.recordFormArray) {
+      addressFormArrayValue = this.companyAddressListComponent.recordFormArray.value;
+    }
 
-    // this.mailToLink =
-    //     'mailto:' + email + '?subject=' + emailSubject + '&body=' + body;
+    const companyName = this._findCompanyNameMFRrole(addressFormArrayValue);
+
+
+    if (this.lang == 'en') {
+      this.submitToSubject = ' Client information';
+    } else {
+      this.submitToSubject = 'Unité des renseignements sur le client';
+    }
+    this.submitToEmail = '(client.information@hc-sc.gc.ca)';
+
+
+    if (this.lang == 'en') {
+      emailSubject =
+        'Draft CO XML - ' +
+        ((companyName === '')
+          ? ''
+          : companyName) + 
+          ' '  +
+        ((companyId === null || companyId === '')
+          ? '[insert your company ID, if available]'
+          : companyId);
+      body =
+        "The CO XML file is NOT automatically attached. Attach the draft CO XML file prior to sending.";
+    } 
+    if (this.lang == 'fr') {
+      emailSubject =
+        'Ébauche de fichier CO XML - ' +
+        ((companyName === '')
+          ? ''
+          : companyName) + 
+          ' '  +
+        ((companyId === null || companyId === '')
+          ? '[insérer votre code d’entreprise, le cas échéant]'
+          : companyId);
+      body =
+        "Le fichier CO XML n’est pas joint automatiquement. Joignez l’ébauche de fichier CO XML avant l’envoi.";
+    }
+
+    const email = this._utilsService.removeFirstAndLastChars(this.submitToEmail);
+
+    this.mailToLink =
+         'mailto:' + email + '?subject=' + emailSubject + '&body=' + body;
 
   }
 
@@ -369,6 +391,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (e?.target?.checked === false) {
       this.coForm.controls[controlName].reset();
     }
+  }
+
+  private _findCompanyNameMFRrole(addressFormArray) {
+    const manufacturerRecord = addressFormArray.find(
+        (record) => record.addressInfo.selectedAddressCompanyRoles.includes(ROLE_CODES.MFR)
+    );
+      
+    return manufacturerRecord ? manufacturerRecord.addressInfo.companyName : null;
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FormArray, FormGroup, FormControl } from '@angular/forms';
 import { CheckboxOption, ConverterService, ICode, UtilsService, ValidationService } from "@hpfb/sdk/ui";
-import { NO, YES } from "../../app.constants";
+import { YES, NO } from "../../app.constants";
 import { GlobalService } from "../../global/global.service";
 import { ContactRecord } from "../../models/Company";
 import { ROLE_MAPPING, REVERSE_ROLE_MAPPING } from "../../app.constants";

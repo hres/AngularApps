@@ -86,5 +86,13 @@
     "billing.contact": "Billing contact",
     "error.msg.roleSelected":  "This role has already been selected.",
     "error.msg.contactRolesMissing": "For Company representative, selection of all roles: manufacturer, mailing, and billing",
-    "error.msg.companyContacts": "There are errors in the company representative details"
+    "error.msg.companyContacts": "There are errors in the company representative details",
+
+    "mailto.01": "The draft CO XML must be sent via email.",
+    "mailto.02": "By clicking this button, a templated email message should be auto-created using your default email program. Before submitting, please attach your draft CO XML file.",
+    "mailto.03": "If an email was not automatically created, you can create an email and include the following:",
+    "mailto.04": "To: {{subject}}  {{email}}",
+    "mailto.05": "Subject:  Draft CO XML - [company name] - [company ID, if available]",
+    "mailto.06": "Body: The CO XML file is NOT automatically attached.",
+    "mailto.07": "Attachment: The draft CO XML."
 }
