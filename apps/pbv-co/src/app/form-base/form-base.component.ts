@@ -47,6 +47,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _contactCompanyRoleErrors = [];
   private _addressListErrors = [];
   private _addressCompanyRoleErrors = [];
+  private _consentPrivacyError = [];
 
   public coForm: FormGroup; 
   public errorList = [];
@@ -136,18 +137,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _updateErrorList(errorObjs) {
-    // let consentPrivacyTempError = [];
-    // if (errorObjs) {
-    //   errorObjs.forEach(
-    //     error => {
-    //       if (error.label === 'consent.privacy') {
-    //         consentPrivacyTempError.push(error);
-    //       }
-    //     }
-    //   );
-    // }
+    let consentPrivacyTempError = [];
+    if (errorObjs) {
+      errorObjs.forEach(
+        error => {
+          if (error.label === 'label.consent.privacy') {
+            consentPrivacyTempError.push(error);
+          }
+        }
+      );
+    }
 
-    // this._consertPrivacyError = consentPrivacyTempError;
+    this._consentPrivacyError = consentPrivacyTempError;
   }
 
   processErrors() {
@@ -156,7 +157,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this._addressCompanyRoleErrors, 
       this._addressListErrors, 
       this._contactCompanyRoleErrors, 
-      this._contactListErrors
+      this._contactListErrors,
+      this._consentPrivacyError
     );
     
     this.disableMailto = this.errorList.length > 0 || this.isInternal; // Add final condition

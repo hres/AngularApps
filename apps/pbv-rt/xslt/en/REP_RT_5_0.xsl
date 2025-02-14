@@ -143,14 +143,14 @@
 					</div>
 					<div class="well well-sm">
 						<header class="panel-heading">
-							<h4 class="panel-title">Transaction Details</h4>
+							<h4 class="panel-title">Transaction details</h4>
 						</header>
 						<div class="row">
 							<div class="panel-body">
 								<xsl:for-each select="ectd/lifecycle_record">
 									<div class="row">
 										<div class="col-md-12">
-											<strong class="padLeft3">Regulatory Activity Lead: </strong>
+											<strong class="padLeft3">Regulatory activity lead: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_lead/@label_en" />
 											</span>
@@ -158,7 +158,7 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-											<strong class="padLeft3">Regulatory Activity Type: </strong>
+											<strong class="padLeft3">Regulatory activity type: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_type/@label_en" />
 											</span>
@@ -166,7 +166,7 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-											<strong class="padLeft3">Regulatory Transaction	Description: </strong>
+											<strong class="padLeft3">Regulatory transaction description: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="sequence_description_value/@label_en" />
 											</span>
@@ -175,7 +175,7 @@
 									<xsl:if test="sequence_from_date !='' and sequence_to_date ='' and sequence_version=''">
 										<div class="row">
 											<div class="col-md-12">
-												<strong class="padLeft3">Date of Request: </strong>
+												<strong class="padLeft3">Date of request: </strong>
 												<span class="mouseHover">
 													<xsl:value-of select="sequence_from_date" />
 												</span>
@@ -185,13 +185,13 @@
 									<xsl:if test="sequence_from_date !='' and sequence_to_date !=''">
 										<div class="row">
 											<div class="col-md-4">
-												<strong class="padLeft3">Start Date: </strong>
+												<strong class="padLeft3">Start date: </strong>
 												<span class="mouseHover">
 													<xsl:value-of select="sequence_from_date" />
 												</span>
 											</div>
 											<div class="col-md-4">
-												<strong class="padLeft3">End Date: </strong>
+												<strong class="padLeft3">End date: </strong>
 												<span class="mouseHover">
 													<xsl:value-of select="sequence_to_date" />
 												</span>
@@ -330,7 +330,7 @@
 									<strong>Submission description: </strong>
 									<div class="col-xs-12">
 										<span class="mouseHover">
-											<xsl:value-of select="fee_details/submission_description/@label_en" />
+											<xsl:value-of select="fee_details/submission_description/@label_en" disable-output-escaping="yes"/>
 										</span>
 									</div>
 								</div>
