@@ -47,3 +47,9 @@ export const REVERSE_ROLE_MAPPING: { [key: string]: string } = {
   billing: "BILL",
   mailing: "MAIL",
 };
+
+export const ROLE_CODES = {
+  MFR: 'MFR',
+  BILL: 'BILL',
+  MAIL: 'MAIL'
+}

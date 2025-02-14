@@ -50,7 +50,7 @@ export class FeesService {
       dataModel.mitigation.certify_organization = formValue['certifySmallBusiness'] == true ? 'Y': undefined;
       dataModel.mitigation.certify_urgent_health_need = formValue['certifyUrgentHealthNeed'] == true ? 'Y': undefined;
       dataModel.mitigation.certify_isad = formValue['certifyISAD'] == true ? 'Y': undefined;
-      dataModel.mitigation.small_business_fee_application = formValue['smallBusinessFeeApp'] == 'Y'? 'Y':undefined;
+      dataModel.mitigation.small_business_fee_application = formValue['smallBusinessFeeApp'] == 'Y'? 'Y':'N';
     }
   }
 

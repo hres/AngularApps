@@ -62,18 +62,19 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   }
 
   protected _patchLastSavedStateValue(lastSavedStateFormControl: any, outputModel: AddressRecord) {
+    const [selectedRoles, companyRoles] = this._companyAddressItemService.getSelectedCompanyRolesFromOutputModel(outputModel);
     lastSavedStateFormControl.patchValue({
       manufacturer: null, // Patch companyRoles (array of booleans, indeces corresponds to order of roles) and selectedCompanyRoles (array of selected roles' ids)
       billing: null,
       mailing: null,
-      selectedCompanyRoles: "",
-      companyRoles: [],
+      selectedAddressCompanyRoles: selectedRoles,
+      addressCompanyRoles: companyRoles,
       addressDetails: {
         address: outputModel.company_address_details.street_address,
         city: outputModel.company_address_details.city,
-        provState: outputModel.company_address_details.province_lov,
+        provState: outputModel.company_address_details.province_lov ? outputModel.company_address_details.province_lov._id : null,
         provText: outputModel.company_address_details.province_text,
-        country: outputModel.company_address_details.country,
+        country: outputModel.company_address_details.country._id,
         postal: outputModel.company_address_details.postal_code
       }
     })
