@@ -60,7 +60,8 @@ export class FormBaseService {
       company_id: '',
       reason_amend: '',
       address_record: this.getEmptyAddressRecordList(),
-      contact_record: this.getEmptyContactRecordList()
+      contact_record: this.getEmptyContactRecordList(),
+      product_line_checkbox: null
     };
     
     return companyEnrol;

@@ -20,9 +20,6 @@ export class CompanyAddressService implements IRecordService{
             expandFlag: true,
             lastSavedState: null, // store the last saved state of the contactInfo for reverting function
             addressInfo: fb.group({
-                manufacturer: [null],
-                mailing: [null],
-                billing: [null],
                 companyName: [null, [Validators.required]],
                 businessNum: [null],
                 addressCompanyRoles: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),

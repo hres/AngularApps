@@ -78,7 +78,7 @@ export class FeesComponent extends BaseComponent implements OnInit{
 
   onMitigationTypeSelected(selectedMitigationType: string) {
     this._signalService.setMitigationType(selectedMitigationType);
-    const valuesToReset = ['certifyFundedInstitution','certifyGovOrg','certifySmallBusiness','certifyUrgentHealthNeed','certifyISAD','small_business_fee_application'];
+    const valuesToReset = ['certifyFundedInstitution','certifyGovOrg','certifySmallBusiness','certifyUrgentHealthNeed','certifyISAD','smallBusinessFeeApp'];
     this._resetControlValues(valuesToReset);
   }
 

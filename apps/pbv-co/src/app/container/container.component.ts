@@ -30,6 +30,7 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getEnrolmentStatusesList(),
     this._formDataLoader.getLanguageList(),
     this._formDataLoader.getCompanyRolesList(),
+    this._formDataLoader.getProductLineList(),
     this._formDataLoader.getProvinceList(this._globalService.currLanguage),
     this._formDataLoader.getStateList(this._globalService.currLanguage)
   ];
@@ -47,8 +48,9 @@ export class ContainerComponent implements OnInit {
       this._globalService.enrolmentStatusList = data[1];
       this._globalService.languageList = data[2];
       this._globalService.companyRolesList = data[3];
-      this._globalService.provinceList = data[4];
-      this._globalService.stateList = data[5];
+      this._globalService.productLineList = data[4];
+      this._globalService.provinceList = data[5];
+      this._globalService.stateList = data[6];
 
       this.loadFormBaseComponent = true;
     });

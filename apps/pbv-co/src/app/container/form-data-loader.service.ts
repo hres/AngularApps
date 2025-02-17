@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, combineLatest, map, shareReplay, tap} from 'rxjs';
 import { DATA_PATH } from '../app.constants';
-import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParentChildren, SortOn, UtilsService } from '@hpfb/sdk/ui';
+import { DataLoaderService, ICode, ICodeDefinition, IKeyword, IParentChildren, SortOn, UtilsService } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class FormDataLoaderService {
@@ -10,6 +10,7 @@ export class FormDataLoaderService {
   private enrolmentStatusesPath = DATA_PATH + 'enrolmentStatuses.json'
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private companyRolesPath = DATA_PATH + 'companyRoles.json';
+  private productLinePath = DATA_PATH + 'productLine.json';
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
   
@@ -17,9 +18,9 @@ export class FormDataLoaderService {
   cachedEnrolmentStatuses$:Observable<ICode[]>;
   cachedLanguageList$:Observable<ICode[]>;
   cachedCompanyRolesList$:Observable<ICode[]>;
+  cachedProductLineList$:Observable<ICode[]>;
   cachedProvincesList$:Observable<ICode[]>;
   cachedStatesList$:Observable<ICode[]>;
-
   
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -70,6 +71,17 @@ export class FormDataLoaderService {
     return this.cachedCompanyRolesList$;
   }
 
+  getProductLineList(): Observable<ICode[]> {
+    if (!this.cachedProductLineList$) {
+      this.cachedProductLineList$ = this._dataService.getData<ICode>(this.productLinePath)
+        .pipe(
+          // tap(()=>console.log('getEnrollmentStatusesList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedProductLineList$;
+  }
+
   getProvinceList(lang: string): Observable<ICode[]> {
     if (!this.cachedProvincesList$) {
       this.cachedProvincesList$ = this._dataService.getSortedDataAccents<ICode>(this.provincesJsonPath, this._utilsService.getCompareFields(false, lang))
@@ -91,7 +103,6 @@ export class FormDataLoaderService {
     }
     return this.cachedStatesList$;
   }
-
 
   // getYesNoList(): Observable<ICode[]> {
   //   if (!this.cachedYesNo$) {

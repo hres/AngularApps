@@ -67,4 +67,30 @@
                         [formControl]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" maxlength="400" ></textarea>
         </div>
     </div>
+
+
+    <!-- PRODUCT LINE -->
+
+        <div class="row">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <fieldset class="chkbxrdio-grp" id="companyEnrolmentForm">
+                    <legend class="required">
+                    <span class="field-name">{{'prod.line' | translate}}</span>
+                    <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+                    <control-messages *ngIf="productLineChkFormArray.invalid"
+                                [showError]="showErrors"
+                                [control]="productLineChkFormArray | formControl"
+                                controlId="productLine" label="label.prod.line"
+                                parentId="companyEnrolment"></control-messages>
+                    </legend>
+                    <ul class="form-group list-unstyled">
+                        <li class="checkbox" [formArrayName]="'productLine'" *ngFor="let product of productLineChkFormArray.controls; let i = index">
+                            <label for={{productLineOptionList[i].value}}>
+                                <input type="checkbox" id={{productLineOptionList[i].value}} [formControl]="product | formControl" (change)="productLineOnChange($event)"/> {{productLineOptionList[i].label}}
+                            </label>
+                        </li>
+                    </ul>
+                </fieldset>
+            </div>
+        </div>
 </div>

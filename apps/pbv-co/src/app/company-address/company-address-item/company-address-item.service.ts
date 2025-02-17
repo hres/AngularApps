@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
-import { CheckboxOption, ConverterService, YES } from "@hpfb/sdk/ui";
-import { NO } from "../../app.constants";
+import { CheckboxOption, ConverterService } from "@hpfb/sdk/ui";
+import { YES, NO } from "../../app.constants";
 import { GlobalService } from "../../global/global.service";
 import { AddressRecord } from "../../models/Company";
 import { ROLE_MAPPING, REVERSE_ROLE_MAPPING } from "../../app.constants";
@@ -36,6 +36,17 @@ export class CompanyAddressItemService {
 
     }
 
+    getSelectedCompanyRolesFromOutputModel(outputModel : AddressRecord) {
+      const selectedRoles = this.getSelectedAddressCompanyRoles(outputModel);
+      const rolesArray: boolean[] = [
+        outputModel.manufacturer === YES, // Index 0: manufacturer
+        outputModel.mailing === YES,      // Index 1: mailing
+        outputModel.billing === YES       // Index 2: billing
+      ];
+
+      return [selectedRoles, rolesArray];
+    }
+
     public mapFormModelToDataModel(contactFormGroup : FormGroup, addressOutput : AddressRecord)  
     {   
       addressOutput.id = contactFormGroup['id'];
@@ -65,11 +76,8 @@ export class CompanyAddressItemService {
       const lang = this._globalService.currLanguage;
       if (companyAddress) {
 
-        const selectedRoles: string[] = Object.keys(REVERSE_ROLE_MAPPING)
-        .filter((key) => companyAddress[key] === YES) // Check for "Y"
-        .map((key) => REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
-
         // Update form model
+        const selectedRoles = this.getSelectedAddressCompanyRoles(companyAddress);
         formRecord.controls['selectedAddressCompanyRoles'].setValue(selectedRoles);
         if (selectedRoles.length > 0) {
           const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
@@ -79,4 +87,14 @@ export class CompanyAddressItemService {
         } 
       }
     }
+
+    getSelectedAddressCompanyRoles(companyAddress : AddressRecord) {
+      const selectedRoles: string[] = Object.keys(REVERSE_ROLE_MAPPING)
+        .filter((key) => companyAddress[key] === YES) // Check for "Y"
+        .map((key) => REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
+
+      return selectedRoles;
+    }
+
+
 }

@@ -39,6 +39,7 @@
     "prod.line": "Select one or more of the following regulatory frameworks under which the manufacturer/sponsor company will be filing submissions/applications (check off all that apply):",
     "prod.line.title": "Select one or more of the following regulatory frameworks",
     "ht.prod.line": "Note that there can still be only one address and only one company representative per role, even if the company files submissions or applications under both regulatory frameworks. There cannot be separate COs for the same company.",
+    "label.prod.line": "Product line",
     "mailto.label": "Submit to Health Canada",
 
     "heading.company.address":"Address details {{seqnumber}}",
@@ -87,5 +88,15 @@
     "billing.contact": "Billing contact",
     "error.msg.roleSelected":  "This role has already been selected.",
     "error.msg.contactRolesMissing": "For Company representative, selection of all roles: manufacturer, mailing, and billing",
-    "error.msg.companyContacts": "There are errors in the company representative details"
+    "error.msg.companyContacts": "There are errors in the company representative details",
+
+    "mailto.01": "The draft CO XML must be sent via email.",
+    "mailto.02": "By clicking this button, a templated email message should be auto-created using your default email program. Before submitting, please attach your draft CO XML file.",
+    "mailto.03": "If an email was not automatically created, you can create an email and include the following:",
+    "mailto.04": "To: {{subject}}  {{email}}",
+    "mailto.05": "Subject:  Draft CO XML - [company name] - [company ID, if available]",
+    "mailto.06": "Body: The CO XML file is NOT automatically attached.",
+    "mailto.07": "Attachment: The draft CO XML.",
+    "consent.privacy": "By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the privacy notice statement.",
+    "label.consent.privacy": "Consent Privacy"
 }
