@@ -288,18 +288,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return this.showErrors && this.errorList && this.errorList.length > 0;
   }
 
-  public saveXmlFile() {
+  public savingFile() {
     this.showErrors = true;
     this.processErrors();
-    this._saveXML();
+    this._saveToJson();
   }
-
-  public saveWorkingCopyFile() {
-    const result: Transaction = this._prepareForSaving(false);
-    const fileName = this._generateFileName(result[ROOT_TAG]);
-    this.fileServices.saveJsonToFile(result, fileName, null);
-    this.saveWorkCopyTime = Date.now();
-   }
 
   public processFile(fileData: ConvertResults) {
     // console.log(fileData);
@@ -331,44 +324,20 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log("Calling preload")
   }
 
-  // public setSelectedTxDesc(val: string) {
-  //   // console.log("setSelectedTxDesc==>", val);
-  //   // set the value of selectedTxDescSignal and showContact/showFee will be computed
-  //   this.selectedTxDescSignal.set(val);
-
-  //   if (!this.showContact()) {
-  //     this.holderAddressModel = this._baseService.getEmptyAddressDetailsModel();
-  //     this.holderContactModel = this._baseService.getEmptyContactModel();
-  //     this.agentAddressModel = this._baseService.getEmptyAddressDetailsModel();
-  //     this.agentContactModel = this._baseService.getEmptyContactModel();
-  //     this._addressErrors = [];
-  //     this._agentAddressErrors = [];
-  //     this._contactErrors = [];
-  //     this._agentContactErrors = [];
-  //   }
-
-  //   if (!this.showFee()) {
-  //     this.transFeeModel = this._baseService.getEmptyMasterFileFeeModel();
-  //     this._transFeeErrors = [];
-  //   }
-
-  //   this.processErrors();
-  // }
-
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     $event.returnValue = true;
   }
 
-  _saveXML() {
+  _saveToJson() {
     if (this.errorList && this.errorList.length < 1) {
       const result: Transaction = this._prepareForSaving(true);
       const fileName = this._generateFileName(result[ROOT_TAG]);
       const xsltVersion = this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.appVersion)
       const xslName = FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
 
-      this.fileServices.saveXmlToFile(result, fileName, true, xslName);
+      this.fileServices.saveToJsonFile(result, fileName, true, xslName);
       return;
     }
     document.location.href = '#topErrorSummaryId';
@@ -401,7 +370,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
     this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
-    
+
     const healthCanadaOnly = this. healthCanadaComponent.getFormValue();
     this._baseService.mapHealthCanadaOnlyFormsToOutput(newTransactionEnrol, healthCanadaOnly);
 
