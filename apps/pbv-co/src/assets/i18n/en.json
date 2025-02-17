@@ -39,6 +39,7 @@
     "prod.line": "Select one or more of the following regulatory frameworks under which the manufacturer/sponsor company will be filing submissions/applications (check off all that apply):",
     "prod.line.title": "Select one or more of the following regulatory frameworks",
     "ht.prod.line": "Note that there can still be only one address and only one company representative per role, even if the company files submissions or applications under both regulatory frameworks. There cannot be separate COs for the same company.",
+    "label.prod.line": "Product line",
     "mailto.label": "Submit to Health Canada",
 
     "heading.company.address":"Address details {{seqnumber}}",
