@@ -48,8 +48,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     this.helpIndex = this._globalService.helpIndex;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
     this.productLineCodeList = this._globalService.productLineList;
-    console.log(this.productLineCodeList);
-    console.log(this.productLineOptionList);
 
     this._getCompanyEnrolmentForm();
     this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, this.companyEnrolmentForm.controls['enrolmentStatus'].value, enrolmentStatusesList, this.lang, false);
