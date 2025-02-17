@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormArray, FormGroup, FormControl } from "@ang
 import { ConverterService, ICode, ENGLISH, UtilsService, ValidationService, CheckboxOption } from "@hpfb/sdk/ui";
 import { ENROLMENT_STATUS } from "../app.constants";
 import { GlobalService } from "../global/global.service";
-import { CompanyEnrol } from "../models/Company";
+import { CompanyEnrol, ProductLine } from "../models/Company";
 import { AppSignalService } from "../signal/app-signal.service";
 
 @Injectable()
@@ -32,6 +32,10 @@ export class CompanyEnrolmentService {
   public mapFormModelToDataModel(dataModel:CompanyEnrol, coEnrolFormModel:any, isInternal:boolean) {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
+    const productLineList = this._globalService.productLineList;
+    const products: ProductLine = {
+      product_line: this._converterService.findAndConverCodesToIdTextLabels(productLineList, coEnrolFormModel.selectedProductLines, lang)
+    }
 
     dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, coEnrolFormModel.enrolmentStatus, lang);
     dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
@@ -40,7 +44,18 @@ export class CompanyEnrolmentService {
       dataModel.company_id = coEnrolFormModel['companyId'];
     }
     dataModel.reason_amend = coEnrolFormModel['reasonForFiling'];
-    dataModel.product_line_checkbox = this._converterService.findAndConverCodesToIdTextLabels(this._globalService.productLineList, coEnrolFormModel['selectedProductLines'], lang);
+    dataModel.product_line_checkbox = products;
+  }
+
+  // for product line checkbox
+  public mapProductModelToFormModel(dataModel: CompanyEnrol, formModel:any, productLineList: ICode[], productLineListOption: CheckboxOption[], lang){
+    const loadedProductLineCodes: string[] = this._utilsService.getIdsFromIdTextLabels(dataModel.product_line_checkbox.product_line);
+    if (loadedProductLineCodes.length > 0) {
+      const productLineChkFormArray = this.getProductLineChkboxFormArray(formModel);
+      this.loadProductLineOptions(productLineList, productLineListOption, productLineChkFormArray, lang)
+      this._converterService.checkCheckboxes(loadedProductLineCodes, productLineListOption, productLineChkFormArray);
+    }  
+    formModel.controls['selectedproductLines'].setValue(loadedProductLineCodes);
   }
 
   public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel:any) {
@@ -53,7 +68,6 @@ export class CompanyEnrolmentService {
     formModel.controls['dateLastSaved'].setValue(dataModel.date_saved.substring(0, 10)); // Date is set to YYYY-MM-DD
     formModel.controls['companyId'].setValue(dataModel.company_id);
     formModel.controls['reasonForFiling'].setValue(dataModel.reason_amend);
-    formModel.controls['productLine'].setValue(dataModel.product_line_checkbox);
   }
 
   private _incrementEnrolmentVersion(isInternal : boolean, currentVersion) : string { 
@@ -72,19 +86,17 @@ export class CompanyEnrolmentService {
   }
 
   getProductLineChkboxFormArray(formRecord: FormGroup) {
-      return formRecord.controls['productLine'] as FormArray;
+    return formRecord.controls['productLine'] as FormArray;
   } 
 
-  // loadProductLineOptions(productLineList, productLineOptionList, productLineChkFormArray, lang) {
-  //   productLineOptionList.length = 0;
-  //   productLineChkFormArray.clear();
+  loadProductLineOptions(productList, productLineListOptionList, productLineChkFormArray, lang) {
+    productLineListOptionList.length = 0;
+    productLineChkFormArray.clear();
 
-  //   // Populate the array with new items
-  //   productLineList.forEach((item) => {
-  //     const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
-  //     productLineOptionList.push(checkboxOption);
-  //     productLineChkFormArray.push(new FormControl(false));
-  //   });  
-  // }
-
+    productList.forEach((item) => {
+      const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
+      productLineListOptionList.push(checkboxOption);
+      productLineChkFormArray.push(new FormControl(false));
+    }); 
+  }
 }

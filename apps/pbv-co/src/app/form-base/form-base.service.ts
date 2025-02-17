@@ -57,7 +57,7 @@ export class FormBaseService {
       reason_amend: '',
       address_record: this.getEmptyAddressRecordList(),
       contact_record: this.getEmptyContactRecordList(),
-      product_line_checkbox: [this._entityBaseService.getEmptyIdTextLabel()]
+      product_line_checkbox: null
     };
     
     return companyEnrol;

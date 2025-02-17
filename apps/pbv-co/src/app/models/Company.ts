@@ -18,7 +18,11 @@ export interface CompanyEnrol {
   reason_amend: string;
   address_record: AddressRecord[];
   contact_record: ContactRecord[];
-  product_line_checkbox: IIdTextLabel[];
+  product_line_checkbox: ProductLine;
+}
+
+export interface ProductLine {
+  product_line : IIdTextLabel[];
 }
 
 export interface AddressRecord extends OutputRecord {

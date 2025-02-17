@@ -50,7 +50,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     this.productLineCodeList = this._globalService.productLineList;
     console.log(this.productLineCodeList);
     console.log(this.productLineOptionList);
-    // this.productLineOptions = this._globalService.productLineList;
 
     this._getCompanyEnrolmentForm();
     this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, this.companyEnrolmentForm.controls['enrolmentStatus'].value, enrolmentStatusesList, this.lang, false);
@@ -69,9 +68,8 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       this.dataModel = dataModelCurrentValue;
 
       if (!isFirstChange) {
-        this._companyEnrolmentService.mapDataModelToFormModel(
-          dataModelCurrentValue,
-          <FormGroup>this._getCompanyEnrolmentForm());
+        this._companyEnrolmentService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getCompanyEnrolmentForm());
+        this._companyEnrolmentService.mapProductModelToFormModel(dataModelCurrentValue, this.companyEnrolmentForm, this.productLineCodeList,  this.productLineOptionList, this.lang);
       }
       
       this.activateAmendButton();
@@ -120,9 +118,17 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     return this.companyEnrolmentForm.get('productLine') as FormArray
   }
 
+  get selectedProductLineCodes(): string[] {
+    return this._companyEnrolmentService.getProductLineCodes(this.productLineOptionList, this.productLineChkFormArray);
+  }
+
+  get productLine(): FormArray {
+    return this.companyEnrolmentForm.get('productLine') as FormArray;
+  }
+
   productLineOnChange(e: any, selectedProductLine : any) {
-    console.log(this.selectedDiagnosisCodes);
-    this.companyEnrolmentForm.controls['selectedProductLines'].setValue(this.selectedDiagnosisCodes);
+    // console.log(this.selectedProductLineCodes);
+    this.companyEnrolmentForm.controls['selectedProductLines'].setValue(this.selectedProductLineCodes);
     const isChecked = (e.target as HTMLInputElement).checked;
 
     if (isChecked) {
@@ -130,10 +136,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     } else {
       this._signalService.removeProductLine(selectedProductLine);
     }
-  }
-
-  get selectedDiagnosisCodes(): string[] {
-    return this._companyEnrolmentService.getProductLineCodes(this.productLineOptionList, this.productLineChkFormArray);
   }
 
   private _updateProductLineArray() {
@@ -150,9 +152,4 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     
     this.productUpdated.emit(this.productLineOptionList);
   }
-
-  get productLine(): FormArray {
-    return this.companyEnrolmentForm.get('productLine') as FormArray;
-  }
-
 }
