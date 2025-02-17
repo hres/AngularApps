@@ -68,8 +68,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       this.dataModel = dataModelCurrentValue;
 
       if (!isFirstChange) {
-        this._companyEnrolmentService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getCompanyEnrolmentForm());
-        this._companyEnrolmentService.mapProductModelToFormModel(dataModelCurrentValue, this.companyEnrolmentForm, this.productLineCodeList,  this.productLineOptionList, this.lang);
+        this._companyEnrolmentService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getCompanyEnrolmentForm(), this.productLineCodeList,  this.productLineOptionList);
       }
       
       this.activateAmendButton();
@@ -126,16 +125,8 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     return this.companyEnrolmentForm.get('productLine') as FormArray;
   }
 
-  productLineOnChange(e: any, selectedProductLine : any) {
-    // console.log(this.selectedProductLineCodes);
+  productLineOnChange(e: any) {
     this.companyEnrolmentForm.controls['selectedProductLines'].setValue(this.selectedProductLineCodes);
-    const isChecked = (e.target as HTMLInputElement).checked;
-
-    if (isChecked) {
-      this._signalService.updateProductLine(selectedProductLine);
-    } else {
-      this._signalService.removeProductLine(selectedProductLine);
-    }
   }
 
   private _updateProductLineArray() {
