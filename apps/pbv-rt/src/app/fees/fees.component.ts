@@ -35,6 +35,8 @@ export class FeesComponent extends BaseComponent implements OnInit{
   showSmallBusiness: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.SMALL_BUSINESS;});
   showUrgentHealthNeed: Signal<boolean> = computed(() => {return this.mitigationTypeSignal() === MITIGATION_TYPE.URGENT_HEALTH_NEED;});
 
+  submissionDescription: String = undefined;
+
   constructor(private _feesService: FeesService, private _fb: FormBuilder, 
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
@@ -71,12 +73,12 @@ export class FeesComponent extends BaseComponent implements OnInit{
   }
 
   onSubmissionClassSelected(selectedSubmissionClass: string){
-    this.feesForm.controls['subDescription'].setValue(this._utilsService.getCodeDefinitionByIdByLang(selectedSubmissionClass, this.submissionClassOptions, this.lang));
+    this.submissionDescription = this._utilsService.getCodeDefinitionByIdByLang(selectedSubmissionClass, this.submissionClassOptions, this.lang);
   }
 
   onMitigationTypeSelected(selectedMitigationType: string) {
     this._signalService.setMitigationType(selectedMitigationType);
-    const valuesToReset = ['certifyFundedInstitution','certifyGovOrg','certifySmallBusiness','certifyUrgentHealthNeed','certifyISAD','small_business_fee_application'];
+    const valuesToReset = ['certifyFundedInstitution','certifyGovOrg','certifySmallBusiness','certifyUrgentHealthNeed','certifyISAD','smallBusinessFeeApp'];
     this._resetControlValues(valuesToReset);
   }
 

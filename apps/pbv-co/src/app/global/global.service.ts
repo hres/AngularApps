@@ -26,6 +26,8 @@ export class GlobalService {
   // data loaded from json files
   private _dossierTypes: ICodeDefinition[] = [];
   private _countryList: ICode[];
+  private _provinceList: ICode[];
+  private _stateList: ICode[];
   private _yesnoList: ICode[];
   private _subTypeList: ICodeDefinition[];
   private _enrolmentStatusesList: ICode[];
@@ -125,6 +127,22 @@ export class GlobalService {
 
   public set countryList(value: ICode[]) {
     this._countryList = value;
+  }
+
+  public get provinceList(): ICode[] {
+    return this._provinceList;
+  }
+
+  public set provinceList(value: ICode[]) {
+    this._provinceList = value;
+  }
+
+  public get stateList(): ICode[] {
+    return this._stateList;
+  }
+
+  public set stateList(value: ICode[]) {
+    this._stateList = value;
   }
 
   public set enrolmentStatusList(value: ICode[]) {

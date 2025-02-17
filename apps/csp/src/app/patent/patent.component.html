@@ -17,7 +17,7 @@
               patentInformationForm.controls['patentNumber'] | formControl
             "
             controlId="patentNumber"
-            label="patentNumber"
+            label="patent.Id"
           ></control-messages>
           <input
             class="form-control"
@@ -27,8 +27,10 @@
           />
         </label>
       </div>
+</div>
 
-      <div class="col-sm-6">
+<div class="row">
+      <div class="col-sm-4">
         <label for="patentFillingDate" class="required">
           <span
             ><b>{{ "filling.date" | translate }}</b></span
@@ -44,7 +46,7 @@
               patentInformationForm.controls['patentFillingDate'] | formControl
             "
             controlId="patentFillingDate"
-            label="patentFillingDate"
+            label="filling.date"
           ></control-messages>
           <input
             class="form-control"
@@ -56,7 +58,7 @@
         </label>
       </div>
 
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <label for="patentGrandDate" class="required">
           <span
             ><b>{{ "grand.date" | translate }}</b></span
@@ -72,7 +74,7 @@
               patentInformationForm.controls['patentGrandDate'] | formControl
             "
             controlId="patentGrandDate"
-            label="patentGrandDate"
+            label="grand.date"
           ></control-messages>
           <input
             class="form-control"
@@ -84,7 +86,7 @@
         </label>
       </div>
 
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <label for="patendExpirationDate" class="required">
           <span
             ><b>{{ "expiration.date" | translate }}</b></span
@@ -103,7 +105,7 @@
                 | formControl
             "
             controlId="patendExpirationDate"
-            label="patendExpirationDate"
+            label="expiration.date"
           ></control-messages>
           <input
             class="form-control"

@@ -25,6 +25,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   @Input() provinceList;
   @Input() stateList;
   @Input() canadaDefault: boolean;
+  @Input() formGroup?: FormGroup;
   @Input() addrType;
   @Input() addrGroupLabelKey;
   @Output() errorList = new EventEmitter(true);
@@ -63,6 +64,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     if (this.canadaDefault) {
       this.addressForm.controls['country'].setValue(CANADA);
       this.addressForm.controls['country'].disable(); // Method to grey out/disable the country dropdown
+      this.onCountryChange(null); // Call onCountryChange to change Postal/ZIP code -> Postal Code, Province or state -> Province
     }
   }
 
@@ -74,6 +76,9 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
     // console.log("isFirstChange:", isFirstChange);
+    if (changes['formGroup']) {
+      this.addressForm = this.formGroup;
+    }
     if (!isFirstChange) {
       if (changes['addressModel']) {
         const dataModel = changes['addressModel'].currentValue as INameAddress;

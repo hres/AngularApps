@@ -40,7 +40,7 @@
             {{'error' | translate: {number:controlError.errorNumber} }}
             
               @if(controlError.compRef.translatedParentLabel) {
-                {{controlError.compRef.translatedParentLabel}}&nbsp;&#8208;&nbsp;
+                {{controlError.compRef.translatedParentLabel}}&nbsp;&#8208;
               }
             
             {{controlError.compRef.label | translate}}&nbsp;&#8208;&nbsp;{{ getValidatorErrorMessageKey(controlError.compRef.currentError) | translate: controlError.compRef.errorParams}}

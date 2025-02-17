@@ -18,7 +18,7 @@
             <span class="field-name">{{'addressDetails.street'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="addressForm.controls['address'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="addressForm.controls['address'] | formControl"
                               controlId="{{addrType}}address" label="addressDetails.street" parentId="{{addrType}}addressInfo"
                               translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
@@ -33,7 +33,7 @@
             <span class="field-name">{{'addressDetails.city'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="addressForm.controls['city'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="addressForm.controls['city'] | formControl"
                               controlId="{{addrType}}city" label="addressDetails.city" parentId="{{addrType}}addressInfo"
                               translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
@@ -46,7 +46,7 @@
             <span class="field-name">{{'addressDetails.country'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="addressForm.controls['country'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="addressForm.controls['country'] | formControl"
                               controlId="{{addrType}}country" label="addressDetails.country" parentId="{{addrType}}addressInfo"
                               translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
@@ -64,7 +64,7 @@
             <span class="field-name">{{provinceLabel |translate}}</span>
             <strong *ngIf="isCanadaOrUSA()" class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="addressForm.controls['provState'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="addressForm.controls['provState'] | formControl"
                               controlId="{{addrType}}provState" label="{{provinceLabel}}" parentId="{{addrType}}addressInfo"
                               translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
@@ -86,7 +86,7 @@
             <span class="field-name">{{ postalLabel |translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong><br/>
             <control-messages *ngIf="addressForm.controls['postal'].invalid"
-                              [showError]="showFieldErrors"
+                              [showError]="showFieldErrors" aria-live="assertive"
                               [control]="addressForm.controls['postal'] | formControl"
                               controlId="{{addrType}}postal" label="{{postalLabel}}" parentId="{{addrType}}addressInfo"
                               translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages> 

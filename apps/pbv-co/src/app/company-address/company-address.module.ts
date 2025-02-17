@@ -10,6 +10,8 @@ import { CompanyAddressItemComponent } from './company-address-item/company-addr
 import { CompanyAddressListComponent } from './company-address-list/company-address-list.component';
 import { CompanyAddressService } from './company-address.service';
 import { AddressModule } from '@hpfb/pbv';
+import { CompanyAddressItemService } from './company-address-item/company-address-item.service';
+import { CompanyAddressListService } from './company-address-list/company-address-list.service';
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import { AddressModule } from '@hpfb/pbv';
     CompanyAddressListComponent
   ],
   providers: [
-   CompanyAddressService
+   CompanyAddressService,
+   CompanyAddressItemService,
+   CompanyAddressListService
   ]
 })
 export class CompanyAddressModule { }
