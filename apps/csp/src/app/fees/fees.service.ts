@@ -35,9 +35,8 @@ export class FeesService {
   public mapFormModelToDataModel(formValue: any, feeModel: FeeDetails) {
     feeModel.feeAmount = formValue['feeAmount'];
     // feeModel.payMethod = formValue['payMethod'];
-    const feeModelReturn = formValue['payMethod']? this._converterService.findAndConverCodeToIdTextLabel(this.methodList, formValue['payMethod'], this._currLanguage) : null;
-    feeModel.payMethod = feeModelReturn.__text;
-    }
+    feeModel.payMethod = formValue['payMethod']? this._converterService.findAndConverCodeToIdTextLabel(this.methodList, formValue['payMethod'], this._currLanguage).__text : "";
+   }
 
   public mapDataModelToFormModel(feeModel: FeeDetails, formRecord: FormGroup) {
     formRecord.controls['feeAmount'].setValue(feeModel.feeAmount);

@@ -401,10 +401,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
     this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
-    
+
+    if(this.isInternal){
     const healthCanadaOnly = this. healthCanadaComponent.getFormValue();
     this._baseService.mapHealthCanadaOnlyFormsToOutput(newTransactionEnrol, healthCanadaOnly);
-
+    }
     const certification = this.certificationComponent.getFormValue();
     this._baseService.mapCertificationFormsToOutput(newTransactionEnrol, certification);
 
