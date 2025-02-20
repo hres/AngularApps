@@ -96,6 +96,13 @@
     "mailto.06": "Corps: Le fichier CO XML n’est pas joint automatiquement. ",
     "mailto.07": "Pièce jointe : Ébauche du fichier CO XML.",
     "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité.",
-    "label.consent.privacy": "Consentement de confidentialité"
+    "label.consent.privacy": "Consentement de confidentialité",
+
+    "email.subject": "Unité des renseignements sur le client",
+    "email.to": "(client.information@hc-sc.gc.ca)",
+    "email.draft": "Ébauche de fichier CO XML - ",
+    "email.company.id": "[insérer votre code d’entreprise, le cas échéant]",
+    "email.body": "Le fichier CO XML n’est pas joint automatiquement. Joignez l’ébauche de fichier CO XML avant l’envoi.",
+    "email.mail.to": "mailto:"
 
 }

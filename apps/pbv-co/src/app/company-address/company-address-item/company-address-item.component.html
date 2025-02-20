@@ -63,7 +63,7 @@
                             [showError]="showErrors"
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="companyRoles" label="select.roles"
-                            parentId="companyAddress"></control-messages>
+                            parentId="coAddress"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">
           <li class="checkbox" [formArrayName]="'addressCompanyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">
@@ -79,7 +79,7 @@
                 [control]="reason | formControl"
                 [controlId]="'addressRole-' + i"
                 [label]="companyRolesOptionList[i].label"
-                parentId="companyAddress">
+                parentId="coAddress">
                 </control-messages>
               </div>
           </li>

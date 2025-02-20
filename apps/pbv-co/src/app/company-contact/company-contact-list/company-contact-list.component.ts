@@ -55,7 +55,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   protected _patchRecordInfoValue(form, outputModel: ContactRecord) {
     if (this.companyRolesOptionList) {
-      this._companyContactItemService.mapDataModelToFormModel(outputModel, form.controls['companyInfo'], this.companyRolesOptionList)
+      this._companyContactItemService.mapDataModelToFormModel(outputModel, form.controls['companyInfo'], this.companyRolesOptionList, form.controls['id'].value)
     }
     const contactDetailsFormGroup = form.controls['companyInfo'].controls['contactDetails'];
     this._contactDetailsService.mapDataModelToFormModel(outputModel.company_contact_details, contactDetailsFormGroup);

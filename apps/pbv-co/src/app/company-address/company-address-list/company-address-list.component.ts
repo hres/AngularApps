@@ -55,7 +55,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
 
   protected _patchRecordInfoValue(form, outputModel: AddressRecord) {
     if (this.companyRolesOptionList) {
-      this._companyAddressItemService.mapDataModelToFormModel(outputModel, form.controls['addressInfo'], this.companyRolesOptionList)
+      this._companyAddressItemService.mapDataModelToFormModel(outputModel, form.controls['addressInfo'], this.companyRolesOptionList, form.controls['id'].value)
     }
     const addressDetailsFormGroup = form.controls['addressInfo'].controls['addressDetails'];
     this._addressDetailsService.mapDataModelToFormModel(outputModel.company_address_details, addressDetailsFormGroup);

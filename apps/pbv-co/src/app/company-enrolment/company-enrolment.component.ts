@@ -7,6 +7,7 @@ import { CompanyEnrolmentService } from './company-enrolment.service';
 import { CompanyEnrol } from '../models/Company';
 import { ENROLMENT_STATUS } from '../app.constants';
 import { FormArray } from '@angular/forms';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-company-enrolment',
@@ -25,8 +26,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   @Input() isInternal: boolean;
   @Output() errorList = new EventEmitter(true);
   @Output() productUpdated = new EventEmitter<CheckboxOption[]>();
-
-  private _signalService = inject(AppSignalService)
 
   public disableAmendButton: boolean = true;
   public showAmendNote: boolean = false;
@@ -60,16 +59,13 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       this.showFieldErrors = changes['showErrors'].currentValue;
     }
 
-    console.log('ngOnChanges triggered:', changes);  
     if (changes['dataModel']) {
       const dataModelCurrentValue = changes['dataModel'].currentValue as CompanyEnrol;
-      this.dataModel = dataModelCurrentValue;
 
       if (!isFirstChange) {
         this._companyEnrolmentService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getCompanyEnrolmentForm(), this.productLineCodeList,  this.productLineOptionList);
       }
-      
-      this.activateAmendButton();
+      this.activateAmendButton(dataModelCurrentValue);
     }
   }
 
@@ -86,19 +82,21 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     this.errorList.emit(errors);
   }
 
-  activateAmendButton() {
-    if (this.companyEnrolmentForm) {
+  activateAmendButton(dataModel : CompanyEnrol) {
+    if (dataModel) {
       if (!this.isInternal && 
-        this.companyEnrolmentForm.controls['enrolmentStatus'].value == ENROLMENT_STATUS.FINAL) {
+        dataModel.application_type._id == ENROLMENT_STATUS.FINAL) {
         this.disableAmendButton = false;
       } 
     }
-    this.disableAmendButton = true;
   }
 
   setAmendState() {
+    const enrolmentStatusesList = this._globalService.enrolmentStatusList;
+
+    this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, ENROLMENT_STATUS.AMEND, enrolmentStatusesList, this.lang, true)
     this.showAmendNote = true;
-    this.companyEnrolmentForm.controls['enrolmentStatus'].setValue(ENROLMENT_STATUS.AMEND);
+    this._resetControlValues(["reasonForFiling"]);
   }
 
   getFormValue() {
