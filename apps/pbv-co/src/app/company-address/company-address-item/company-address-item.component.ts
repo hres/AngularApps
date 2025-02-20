@@ -23,10 +23,10 @@ export class CompanyAddressItemComponent extends BaseComponent{
   
   helpIndex: HelpSequence;
 
-  lang: string;
   countryList: ICode[] = [];
   provinceList: ICode[] = [];
   stateList: ICode[] = [];
+  lang = this._globalService.currLanguage;
   
   public companyRolesOptionList: CheckboxOption[] = [];
   public companyRolesCodeList: ICode[] = [];
@@ -56,7 +56,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
   }
 
   ngOnInit(): void {
-    this.lang = this._globalService.currLanguage;
     this.countryList = this._globalService.countryList;
     this.provinceList = this._globalService.provinceList;
     this.stateList = this._globalService.stateList; 
@@ -148,13 +147,13 @@ export class CompanyAddressItemComponent extends BaseComponent{
     } else {
       this._signalService.removeAddressCompanyRole(uniqueRole);
     }
-  
+
     // Attach validation to the specific role
     if (this.isRoleAlreadySelected(selectedRole)) {
       roleControl.setErrors({ 'error.msg.roleSelected': true });
     } else {
       roleControl.setErrors(null); // Remove error if valid
-    } 
+    }
     //this._appendErrorsFromChild(); // Update errors for company roles here
   }
 
@@ -200,9 +199,24 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   protected override _appendErrorsFromChild() {
     // Method is overriden to place company roles error last, since it is the last field in the record.
-    this._coRolesErrors = this.msgList.toArray();
-    const combinedErrors = [...this._addressErrorList, ...this._coRolesErrors]; 
-    this.emitErrors(combinedErrors);
+    this._coRolesErrors = this.msgList.toArray(); // Includes: Company name and company roles
+
+    // Check if the company roles is in the list of errors, if so, extract it
+    let roleError = null;
+    const roleErrorIndex = this._coRolesErrors.findIndex(error => error.controlId === "companyRoles");
+    if (roleErrorIndex !== -1) {
+      // Extract the error
+      roleError = this._coRolesErrors[roleErrorIndex];
+  
+      // Remove the error from the list
+      this._coRolesErrors.splice(roleErrorIndex, 1);
+    }
+  
+    const combinedErrors = [...this._coRolesErrors, ...this._addressErrorList, roleError].filter(error => error !== null);    if (combinedErrors === null) {
+      this.emitErrors([]);
+    } else {
+      this.emitErrors(combinedErrors);
+    }
   }
 
   public showErrorSummary(): boolean {
