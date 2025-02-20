@@ -114,7 +114,7 @@ export class FormBaseService {
       ectd: this.getEmptyEctd(),
       hcUse: this.getEmptyHcUse(),
       applicant: this.getEmptyApplicant(),
-      patent: this.getEmptyPatent(),
+      patent_info: this.getEmptyPatent(),
       ndsNumber:'',
       nocDate: '',
       drugUse: '',
@@ -236,10 +236,10 @@ export class FormBaseService {
 
   private getEmptyPatent(): IPatent {
     const patent: IPatent = {
-      patentNumber: '',
-      patentFillingDate: '',
-      patendExpirationDate: '',
-      patentGrandDate: ''
+      patent_number: '',
+      filing_date: '',
+      expiry_date: '',
+      granted_date: ''
     };
     return patent;
   }
@@ -268,7 +268,7 @@ export class FormBaseService {
 
 
   public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
-    this._patentService.mapFormModelToDataModel(patentInforationForm, outputTransactionEnrol.patent);
+    this._patentService.mapFormModelToDataModel(patentInforationForm, outputTransactionEnrol.patent_info);
   }
 
   public mapDrugUseFormsToOutput(outputTransactionEnrol: TransactionEnrol, drugUseForm: any): void{

@@ -15,7 +15,7 @@ export interface TransactionEnrol {
   hcUse: HcUse;
   applicant: IApplicant;
   fee_details: FeeDetails;
-  patent: IPatent;
+  patent_info: IPatent;
   drugUse: string;
   nocDate: string;
   ndsNumber: string;
@@ -84,10 +84,10 @@ export interface IContactCSP {
 }
 
 export interface IPatent {
-  patentNumber: string;
-  patentFillingDate: string;
-  patendExpirationDate: string;
-  patentGrandDate: string;
+  patent_number: string;
+  filing_date: string;
+  granted_date: string;
+  expiry_date: string;
 }
 
 export interface IApplicant {
