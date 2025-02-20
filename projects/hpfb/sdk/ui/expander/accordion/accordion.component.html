@@ -3,32 +3,33 @@
     <header class="panel-heading">
       @if(recordRow.get('isNew').value){
       <h4 class="panel-title">
-        {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }}
+        {{ accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber') == null ? i + 1 : recordRow.get('seqNumber').value} }}
       </h4>
       } @else {
-      <div role="button"  [attr.aria-expanded]="recordRow.get('expandFlag').value ? 'true' : 'false'">
+      <div role="button" [attr.aria-expanded]="recordRow.get('expandFlag').value ? 'true' : 'false'">
         <h4 class="panel-title" tabindex="0"
           (keydown.enter)="toggleExpand(i, recordRow.get('expandFlag').value)"
           (keydown.space)="$event.preventDefault(); toggleExpand(i, recordRow.get('expandFlag').value)"
           (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
+          <i class="fa" [ngClass]="recordRow.get('expandFlag').value ? 'fa-caret-down' : 'fa-caret-right'" aria-hidden="true"></i>
 
-          <i class="fa" [ngClass]="recordRow.get('expandFlag').value? 'fa-caret-down' : 'fa-caret-right'"
-            aria-hidden="true"></i>
-          @if (accordionHeadingSupp!=null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) != null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) != '') 
-          {
-            {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }} -
-            {{recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value}}
+          @if (accordionHeadingSupp != null) {
+            @if (getNestedFormValue(recordRow, accordionHeadingSupp) != null && getNestedFormValue(recordRow, accordionHeadingSupp) != '') {
+              {{ accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber') == null ? i + 1 : recordRow.get('seqNumber').value} }} -
+              {{ getNestedFormValue(recordRow, accordionHeadingSupp) }}
+            }
+            @else {
+              {{ accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber') == null ? i + 1 : recordRow.get('seqNumber').value} }}
+            }
           } 
-          @else if (accordionHeadingSupp!=null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) != null && (recordRow.get(accordionHeadingSupp[0])?.get(accordionHeadingSupp[1])?.value) == '') {
-            {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }}
-          }
           @else {
-            {{accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber')==null? i+1 : recordRow.get('seqNumber').value} }}
+            {{ accordionHeadingMsgKey | translate: {seqnumber: recordRow.get('seqNumber') == null ? i + 1 : recordRow.get('seqNumber').value} }}
           }
         </h4>
       </div>
       }
     </header>
+    
     @if(recordRow.get('expandFlag').value){
     <div class="panel-body">
       <ng-container *ngTemplateOutlet="tmplRef; context: {$implicit: recordRow, i: i}"></ng-container>
@@ -36,5 +37,4 @@
     }
 
   </div>
-
 </ng-container>
