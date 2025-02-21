@@ -25,7 +25,7 @@ export class CompanyEnrolmentService {
         companyId: [null],
         reasonForFiling: [null, [Validators.required]],
         productLine: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
-        selectedProductLines: ['']
+        selectedProductLines: [null]
       });
   }
 
@@ -76,7 +76,7 @@ export class CompanyEnrolmentService {
       this.loadProductLineOptions(productLineList, productLineListOption, productLineChkFormArray, lang)
       this._converterService.checkCheckboxes(loadedProductLineCodes, productLineListOption, productLineChkFormArray);
     }  
-    formModel.controls['selectedproductLines'].setValue(loadedProductLineCodes);
+    formModel.controls['selectedProductLines'].setValue(loadedProductLineCodes);
   }
 
   public setEnrolmentStatus(formRecord, statusId: string, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {
