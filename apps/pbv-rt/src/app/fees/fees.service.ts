@@ -47,10 +47,10 @@ export class FeesService {
       dataModel.mitigation.mitigation_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mitigationTypes, formValue['mitigationType'], lang);
       dataModel.mitigation.certify_funded_health_institution = formValue['certifyFundedInstitution'] == true ? 'Y': undefined;
       dataModel.mitigation.certify_government_organization = formValue['certifyGovOrg'] == true ? 'Y': undefined;
-      dataModel.mitigation.certify_organization = formValue['certifySmallBusiness'] == true ? 'Y': undefined;
+      dataModel.mitigation.certify_small_business = formValue['certifySmallBusiness'] == true ? 'Y': undefined;
       dataModel.mitigation.certify_urgent_health_need = formValue['certifyUrgentHealthNeed'] == true ? 'Y': undefined;
       dataModel.mitigation.certify_isad = formValue['certifyISAD'] == true ? 'Y': undefined;
-      dataModel.mitigation.small_business_fee_application = formValue['smallBusinessFeeApp'] == 'Y'? 'Y':'N';
+      dataModel.mitigation.small_business_fee_application = !formValue['smallBusinessFeeApp'] ? undefined : formValue['smallBusinessFeeApp'] === 'Y' ? 'Y' : 'N';
     }
   }
 
@@ -68,7 +68,7 @@ export class FeesService {
       formRecord.controls['certifyGovOrg'].setValue(dataModel.mitigation.certify_government_organization=='Y'?true:false);
       formRecord.controls['certifyISAD'].setValue(dataModel.mitigation.certify_isad=='Y'?true:false);
       formRecord.controls['certifyFundedInstitution'].setValue(dataModel.mitigation.certify_funded_health_institution=='Y'?true:false);
-      formRecord.controls['certifySmallBusiness'].setValue(dataModel.mitigation.certify_organization=='Y'?true:false);
+      formRecord.controls['certifySmallBusiness'].setValue(dataModel.mitigation.certify_small_business=='Y'?true:false);
       formRecord.controls['certifyUrgentHealthNeed'].setValue(dataModel.mitigation.certify_urgent_health_need=='Y'?true:false);
       formRecord.controls['smallBusinessFeeApp'].setValue(dataModel.mitigation.small_business_fee_application);
     }

@@ -114,7 +114,7 @@ export class FormBaseService {
     const mitigation: Mitigation = {
     certify_funded_health_institution: '',
     certify_government_organization: '',
-    certify_organization: '',
+    certify_small_business: '',
     certify_urgent_health_need: '',
     certify_isad: '',
     mitigation_type: undefined,

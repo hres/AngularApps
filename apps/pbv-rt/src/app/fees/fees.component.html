@@ -46,7 +46,7 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showGovOrg()">
                 <label for="certifyGovOrg" class="required">
-                <input type="checkbox" id="certifyGovOrg" [formControlName]="'certifyGovOrg'"/>
+                <input type="checkbox" id="certifyGovOrg" [formControlName]="'certifyGovOrg'" required/>
                 <strong> {{'certify.goverment.organization'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['certifyGovOrg'].invalid" [showError]="showErrors"
@@ -56,7 +56,7 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showISAD()">
                 <label for="certifyISAD" class="required">
-                <input type="checkbox" id="certifyISAD" [formControlName]="'certifyISAD'"/>
+                <input type="checkbox" id="certifyISAD" [formControlName]="'certifyISAD'" required/>
                 <strong> {{'certify.isad'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['certifyISAD'].invalid" [showError]="showErrors"
@@ -66,7 +66,7 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showFundedInstitution()">
                 <label for="certifyFundedInstitution" class="required">
-                <input type="checkbox" id="certifyFundedInstitution" [formControlName]="'certifyFundedInstitution'"/>
+                <input type="checkbox" id="certifyFundedInstitution" [formControlName]="'certifyFundedInstitution'" required/>
                 <strong> {{'certify.funded.health.institution'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <ol class="lst-lwr-alph">
@@ -80,7 +80,7 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showSmallBusiness()">
                 <label for="certifySmallBusiness" class="required">
-                <input type="checkbox" id="certifySmallBusiness" [formControlName]="'certifySmallBusiness'"/>
+                <input type="checkbox" id="certifySmallBusiness" [formControlName]="'certifySmallBusiness'" required/>
                 <strong> {{'certify.organization'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="feesForm.controls['certifySmallBusiness'].invalid" [showError]="showErrors"
@@ -108,7 +108,7 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="showUrgentHealthNeed()">
                 <label for="certifyUrgentHealthNeed" class="required">
-                <input type="checkbox" id="certifyUrgentHealthNeed" [formControlName]="'certifyUrgentHealthNeed'"/>
+                <input type="checkbox" id="certifyUrgentHealthNeed" [formControlName]="'certifyUrgentHealthNeed'" required/>
                 <strong> {{'certify.urgent.health.need'|translate}}</strong>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                 <ol class="lst-lwr-alph">
