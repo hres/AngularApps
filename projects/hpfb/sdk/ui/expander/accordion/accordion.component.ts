@@ -24,4 +24,9 @@ export class AccordionComponent {
   }
 
   constructor() {}
+
+  getNestedFormValue(recordRow, keys: string[]): any {
+    return keys.reduce((acc, key) => acc?.get(key), recordRow)?.value ?? null;
+  }
+  
 }

@@ -98,5 +98,12 @@
     "mailto.06": "Body: The CO XML file is NOT automatically attached.",
     "mailto.07": "Attachment: The draft CO XML.",
     "consent.privacy": "By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the privacy notice statement.",
-    "label.consent.privacy": "Consent Privacy"
+    "label.consent.privacy": "Consent Privacy",
+
+    "email.subject": "Client information",
+    "email.to": "(client.information@hc-sc.gc.ca)",
+    "email.draft": "Draft CO XML - ",
+    "email.company.id": "[insert your company ID, if available]",
+    "email.body": "The CO XML file is NOT automatically attached. Attach the draft CO XML file prior to sending.",
+    "email.mail.to": "mailto:"
 }

@@ -25,7 +25,7 @@ export class CompanyEnrolmentService {
         companyId: [null],
         reasonForFiling: [null, [Validators.required]],
         productLine: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
-        selectedProductLines: ['']
+        selectedProductLines: [null]
       });
   }
 
@@ -37,7 +37,11 @@ export class CompanyEnrolmentService {
       product_line: this._converterService.findAndConverCodesToIdTextLabels(productLineList, coEnrolFormModel.selectedProductLines, lang)
     }
 
-    dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, coEnrolFormModel.enrolmentStatus, lang);
+    if (isInternal) {
+      dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, ENROLMENT_STATUS.FINAL, lang);
+    } else {
+      dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, coEnrolFormModel.enrolmentStatus, lang);
+    }
     dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
     dataModel.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     if (isInternal) {
@@ -58,7 +62,7 @@ export class CompanyEnrolmentService {
     formModel.controls['companyId'].setValue(dataModel.company_id);
     formModel.controls['reasonForFiling'].setValue(dataModel.reason_amend);
 
-    this.setProductLine(dataModel, formModel, productLineList, productLineListOption, lang); 
+    //this.setProductLine(dataModel, formModel, productLineList, productLineListOption, lang); 
   }
 
   private _incrementEnrolmentVersion(isInternal : boolean, currentVersion) : string { 
@@ -72,7 +76,7 @@ export class CompanyEnrolmentService {
       this.loadProductLineOptions(productLineList, productLineListOption, productLineChkFormArray, lang)
       this._converterService.checkCheckboxes(loadedProductLineCodes, productLineListOption, productLineChkFormArray);
     }  
-    formModel.controls['selectedproductLines'].setValue(loadedProductLineCodes);
+    formModel.controls['selectedProductLines'].setValue(loadedProductLineCodes);
   }
 
   public setEnrolmentStatus(formRecord, statusId: string, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {

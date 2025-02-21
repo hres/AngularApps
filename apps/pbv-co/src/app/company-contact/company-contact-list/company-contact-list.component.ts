@@ -25,10 +25,11 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   recordInfo: string = 'companyInfo';
   popupId: string = 'contactPopup';
   statusMessage : string = '';
+  errorList;
 
   companyRolesOptionList: CheckboxOption[] = []; // Store received data
 
-  @Output() errorList = new EventEmitter(true);
+  @Output() errorEmit = new EventEmitter(true);
 
   constructor(private fb: FormBuilder, 
               private _contactService: CompanyContactService,
@@ -55,7 +56,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   protected _patchRecordInfoValue(form, outputModel: ContactRecord) {
     if (this.companyRolesOptionList) {
-      this._companyContactItemService.mapDataModelToFormModel(outputModel, form.controls['companyInfo'], this.companyRolesOptionList)
+      this._companyContactItemService.mapDataModelToFormModel(outputModel, form.controls['companyInfo'], this.companyRolesOptionList, form.controls['id'].value)
     }
     const contactDetailsFormGroup = form.controls['companyInfo'].controls['contactDetails'];
     this._contactDetailsService.mapDataModelToFormModel(outputModel.company_contact_details, contactDetailsFormGroup);
@@ -106,7 +107,8 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     if (this.errorSummaryChild) {
       errorsToEmit.push(this.errorSummaryChild);
     }
-    this.errorList.emit(errorsToEmit);
+    this.errorList = errorsToEmit;
+    this.errorEmit.emit(errorsToEmit);
   }
 
 }

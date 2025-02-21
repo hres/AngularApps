@@ -23,6 +23,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     abstract recordInfo: string;
     abstract recordService: IRecordService;
     abstract popupId: string;
+    abstract errorList: [];
 
     constructor(private _fb: FormBuilder, 
         @Inject(BaseListService) protected listService: BaseListService) {
@@ -148,7 +149,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     }
     
     disableAddButton(): boolean {
-        return ( this.recordFormGroup.dirty );
+        return ( this.recordFormGroup.dirty || !this.recordFormGroup.valid  || this.errorList.length > 0);
     }
 
     openPopup(): void {

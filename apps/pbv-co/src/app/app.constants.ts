@@ -5,6 +5,8 @@ export const START_CHECKSUM_VERSION = 5;
 export const DATA_PATH: string = './assets/data/';
 
 export const FILE_OUTPUT_PREFIX = 'co';
+export const EXTERNAL_OUTPUT_PREFIX = 'draftrepo'
+export const INTERNAL_OUTPUT_PREFIX = 'hcrepo'
 export const XSLT_PREFIX = 'REP';
 
 export const LINE_BREAK = '\r\n';

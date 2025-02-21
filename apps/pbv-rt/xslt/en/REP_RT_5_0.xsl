@@ -22,7 +22,7 @@
 	<!--  Transaction Enrolment  -->
 	<xsl:template match="TRANSACTION_ENROL">
 		<h1> Regulatory Transaction Template: Regulatory Enrolment Process (REP) <xsl:if
-				test="software_version != ''"> (Version: <xsl:value-of select="software_version" />
+				test="software_version != ''"> (version: <xsl:value-of select="software_version" />
 		) </xsl:if>
 		</h1>
 <div class="well well-sm">
@@ -32,7 +32,7 @@
 					<th style="text-align: center;font-weight:bold;">Company Identifier </th>
 					<th style="text-align: center;font-weight:bold;">Dossier type</th>
 					<th style="text-align: center;font-weight:bold;">Dossier Identifier </th>
-					<th style="text-align: center;font-weight:bold;">Date Last Saved</th>
+					<th style="text-align: center;font-weight:bold;">Date last saved</th>
 				</tr>
 				<tr>
 					<td style="text-align: center;">
@@ -528,7 +528,7 @@
 							</xsl:choose>
 						</div>
 					</xsl:if>
-					<h4>C. Company Representative: </h4>
+					<h4>C. Company representative: </h4>
 					<div class="well well-sm">
 						<div class="row">
 							<strong class="col-xs-12">First name: <span

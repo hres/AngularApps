@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, HelpSequence, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { FILE_OUTPUT_PREFIX, ENROLMENT_STATUS, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES, REVERSE_ROLE_MAPPING, ROLE_CODES } from '../app.constants';
+import { FILE_OUTPUT_PREFIX, ENROLMENT_STATUS, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES, REVERSE_ROLE_MAPPING, ROLE_CODES, EXTERNAL_OUTPUT_PREFIX, INTERNAL_OUTPUT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
 import { CompanyEnrol, Company, ContactRecord, AddressRecord} from '../models/Company';
 import { AppSignalService } from '../signal/app-signal.service';
@@ -17,6 +17,7 @@ import { CompanyContactService } from '../company-contact/company-contact.servic
 import { CompanyAddressModule } from "../company-address/company-address.module";
 import { CompanyAddressListComponent } from '../company-address/company-address-list/company-address-list.component';
 import { CompanyAddressService } from '../company-address/company-address.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-form-base',
@@ -85,7 +86,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private  _baseService: FormBaseService, private _globalService: GlobalService, private _utilsService: UtilsService,
     private fileServices: FileConversionService, private _versionService: VersionService, private _checkSumService: CheckSumService,
-    private _companyContactService: CompanyContactService, private _companyAddressService: CompanyAddressService
+    private _companyContactService: CompanyContactService, private _companyAddressService: CompanyAddressService, private _translateService: TranslateService
   ) {
     this.showErrors = false;
     effect(() => {
@@ -208,7 +209,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
     return companyRolesList.some(role => !cleanSelectedRoles.includes(role));
   }
-
+  
   public hideErrorSummary() {
     return this.showErrors && this.errorList && this.errorList.length > 0;
   }
@@ -322,15 +323,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _generateFileName(companyEnrol: CompanyEnrol): string {
-    let fileName =
-      FILE_OUTPUT_PREFIX + "-" +
-      // companyEnrol.dossier_id +
-      '-' +
-      companyEnrol.date_saved;
-    return fileName;
+    const companyId = companyEnrol.company_id;
+    const formattedVersion = companyEnrol.enrolment_version.replace(/\./g, "-");
+
+    const prefix = this.isInternal ? INTERNAL_OUTPUT_PREFIX : EXTERNAL_OUTPUT_PREFIX;
+
+    return companyId 
+    ? `${prefix}-${companyId}-${formattedVersion}` 
+    : `${prefix}-${formattedVersion}`;
   }
 
-  public mailto() {
+  public async mailto() {
     this.showMailToHelpText = true;
 
     let emailSubject = '';
@@ -347,45 +350,21 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const companyName = this._findCompanyNameMFRrole(addressFormArrayValue);
 
 
-    if (this.lang == 'en') {
-      this.submitToSubject = ' Client information';
-    } else {
-      this.submitToSubject = 'Unité des renseignements sur le client';
-    }
-    this.submitToEmail = '(client.information@hc-sc.gc.ca)';
+    this.submitToSubject = await lastValueFrom(this._translateService.get('email.subject'));
+    this.submitToEmail = await lastValueFrom(this._translateService.get('email.to'));
+    const emailDraft = await lastValueFrom(this._translateService.get('email.draft'));
+    const emailCompanyId = await lastValueFrom(this._translateService.get('email.company.id'));
+    body = await lastValueFrom(this._translateService.get('email.body'));
 
+    emailSubject = `${emailDraft}${companyName ? companyName + ' ' : ''}${companyId ? companyId : emailCompanyId}`;
 
-    if (this.lang == 'en') {
-      emailSubject =
-        'Draft CO XML - ' +
-        ((companyName === '')
-          ? ''
-          : companyName) + 
-          ' '  +
-        ((companyId === null || companyId === '')
-          ? '[insert your company ID, if available]'
-          : companyId);
-      body =
-        "The CO XML file is NOT automatically attached. Attach the draft CO XML file prior to sending.";
-    } 
-    if (this.lang == 'fr') {
-      emailSubject =
-        'Ébauche de fichier CO XML - ' +
-        ((companyName === '')
-          ? ''
-          : companyName) + 
-          ' '  +
-        ((companyId === null || companyId === '')
-          ? '[insérer votre code d’entreprise, le cas échéant]'
-          : companyId);
-      body =
-        "Le fichier CO XML n’est pas joint automatiquement. Joignez l’ébauche de fichier CO XML avant l’envoi.";
-    }
+    let email = this.submitToEmail.replace(/[()]/g, '').trim();
 
-    const email = this._utilsService.removeFirstAndLastChars(this.submitToEmail);
+    // Encode mailto parameters
+    const encodedSubject = encodeURIComponent(emailSubject);
+    const encodedBody = encodeURIComponent(body);
 
-    this.mailToLink =
-         'mailto:' + email + '?subject=' + emailSubject + '&body=' + body;
+    this.mailToLink = `mailto:${email}?subject=${encodedSubject}&body=${encodedBody}`;
 
   }
 

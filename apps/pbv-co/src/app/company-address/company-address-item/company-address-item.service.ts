@@ -5,12 +5,14 @@ import { YES, NO } from "../../app.constants";
 import { GlobalService } from "../../global/global.service";
 import { AddressRecord } from "../../models/Company";
 import { ROLE_MAPPING, REVERSE_ROLE_MAPPING } from "../../app.constants";
+import { AppSignalService } from "../../signal/app-signal.service";
 
 @Injectable()
 export class CompanyAddressItemService {
     
     constructor(private _converterService: ConverterService,
-        private _globalService: GlobalService) {
+        private _globalService: GlobalService,
+        private _signalService: AppSignalService) {
 
     }
 
@@ -68,7 +70,7 @@ export class CompanyAddressItemService {
     }
     
   
-    public mapDataModelToFormModel(companyAddress : AddressRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[]) {
+    public mapDataModelToFormModel(companyAddress : AddressRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[], id) {
       formRecord.controls['companyName'].setValue(companyAddress.company_name);
       formRecord.controls['businessNum'].setValue(companyAddress.business_number);
 
@@ -78,6 +80,7 @@ export class CompanyAddressItemService {
 
         // Update form model
         const selectedRoles = this.getSelectedAddressCompanyRoles(companyAddress);
+        this._mapCompanyRolesToSignal(selectedRoles, id);
         formRecord.controls['selectedAddressCompanyRoles'].setValue(selectedRoles);
         if (selectedRoles.length > 0) {
           const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
@@ -86,6 +89,16 @@ export class CompanyAddressItemService {
           this._converterService.checkCheckboxes(selectedRoles, companyRolesOptionList, companyRolesFormArray);
         } 
       }
+    }
+
+    private _mapCompanyRolesToSignal(selectedCompanyRoles : string[], id) {
+      if (this._signalService.getSelectedAddressCompanyRoles().length > 0) {
+        this._signalService.resetAddressCompanyRoles();
+      }
+
+      selectedCompanyRoles.forEach(role => {
+        this._signalService.updateAddressCompanyRoles(`${id - 1}${role}`);
+      });    
     }
 
     getSelectedAddressCompanyRoles(companyAddress : AddressRecord) {
