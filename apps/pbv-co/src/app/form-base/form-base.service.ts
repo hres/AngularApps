@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
-import { AddressRecord, Company, CompanyEnrol, ContactRecord } from '../models/Company';
+import { AddressRecord, Company, CompanyEnrol, ContactRecord, ProductLine } from '../models/Company';
 import { CompanyEnrolmentService } from '../company-enrolment/company-enrolment.service';
 import { AddressDetailsService, ContactDetailsService } from '@hpfb/pbv';
 import { EntityBasePbvService } from '@hpfb/pbv';
@@ -61,10 +61,17 @@ export class FormBaseService {
       reason_amend: '',
       address_record: this.getEmptyAddressRecordList(),
       contact_record: this.getEmptyContactRecordList(),
-      product_line_checkbox: null
+      product_line_checkbox: this.getEmptyProductLine()
     };
     
     return companyEnrol;
+  }
+
+  public getEmptyProductLine(): ProductLine {
+    const prodLine : ProductLine = {
+      product_line: null
+    }
+    return prodLine;
   }
 
   public getEmptyAddressRecordList(): AddressRecord[] {
