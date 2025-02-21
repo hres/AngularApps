@@ -30,7 +30,7 @@
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="companyName" class="required full-width">
                     <span class="field-name">{{ 'company.name'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="regulatoryContactInfoForm.controls['companyName'].invalid"
                         [showError]="showFieldErrors" aria-live="assertive"
                         [control]="regulatoryContactInfoForm.controls['companyName'] | formControl" controlId="companyName"

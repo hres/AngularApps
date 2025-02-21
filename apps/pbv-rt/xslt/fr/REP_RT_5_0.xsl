@@ -21,7 +21,7 @@
 	</xsl:template>
 	<!-- Transaction Enrolment -->
 	<xsl:template match="TRANSACTION_ENROL">
-		<h1>Modèle de transaction réglementaire: Processus d'inscription réglementaire (PIR)<xsl:if test="software_version != ''"> (Version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
+		<h1>Modèle de transaction réglementaire: Processus d'inscription réglementaire (PIR)<xsl:if test="software_version != ''"> (version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
 					<div class="well well-sm" >
 						<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 							<tr>
@@ -393,7 +393,7 @@
 									</div>
 								</xsl:when>
 								<xsl:when test="regulatory_activity_address/country/@id = 'US'">
-									<div>
+									<div class="row">
 										<div class="col-xs-12">
 											<strong>État: </strong>
 											<span class="mouseHover">
