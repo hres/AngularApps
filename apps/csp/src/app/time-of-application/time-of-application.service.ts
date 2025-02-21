@@ -26,11 +26,11 @@ export class TimingOfApplicationService {
 
   public mapFormModelToDataModel(formValue: any, transactionEnrol: TransactionEnrol) {
 
-    transactionEnrol.timingOfApplicant = formValue['timingOfApplicant'];
+    transactionEnrol.application_info.time_application = formValue['timingOfApplicant'];
     }
 
   public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
 
-    formRecord.controls['timingOfApplicant'].setValue(transactionEnrol.timingOfApplicant);
+    formRecord.controls['timingOfApplicant'].setValue(transactionEnrol.application_info.time_application);
    }
 }

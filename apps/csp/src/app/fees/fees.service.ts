@@ -33,13 +33,12 @@ export class FeesService {
 
 
   public mapFormModelToDataModel(formValue: any, feeModel: FeeDetails) {
-    feeModel.feeAmount = formValue['feeAmount'];
-    // feeModel.payMethod = formValue['payMethod'];
-    feeModel.payMethod = formValue['payMethod']? this._converterService.findAndConverCodeToIdTextLabel(this.methodList, formValue['payMethod'], this._currLanguage).__text : "";
+    feeModel.advanced_payment_fee = formValue['feeAmount'];
+    feeModel.advanced_payment_type = formValue['payMethod']? this._converterService.findAndConverCodeToIdTextLabel(this.methodList, formValue['payMethod'], this._currLanguage).__text : "";
    }
 
   public mapDataModelToFormModel(feeModel: FeeDetails, formRecord: FormGroup) {
-    formRecord.controls['feeAmount'].setValue(feeModel.feeAmount);
-    formRecord.controls['payMethod'].setValue(feeModel.payMethod);
+    formRecord.controls['feeAmount'].setValue(feeModel.advanced_payment_fee);
+    formRecord.controls['payMethod'].setValue(feeModel.advanced_payment_type);
    }
 }

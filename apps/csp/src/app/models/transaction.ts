@@ -12,23 +12,31 @@ export interface TransactionEnrol {
   form_language: string;
   check_sum?: string;
   ectd: Ectd;
-  hcUse: HcUse;
+  health_canada_only: HcUse;
   applicant: IApplicant;
-  fee_details: FeeDetails;
-  patent_info: IPatent;
-  drugUse: string;
-  nocDate: string;
-  ndsNumber: string;
-  medicinalIngredients: IMedicinalIngredients;
+  advanced_payment: FeeDetails;
+  application_info: IApplicationInformation;
   certification: CertDetails;
-  timingOfApplicant: string;
+
+}
+
+export interface IApplicationInformation {
+
+  patent_info: IPatent;
+  drug_use: string;
+  noc_date: string;
+  control_number: string;
+  medicinal_ingredient: string
+  product_name: string;
+  time_application: string;
+
 }
 
 export interface HcUse {
-  appReceived: string;
-  custNum: string;
-  appNum: string;
-  notes: string;
+  company_id: string;
+  date_received: string;
+  application_id: string;
+  hc_notes: string;
 }
 
 export interface Ectd {
@@ -49,16 +57,16 @@ export interface LifecycleRecord {
 }
 
 export interface FeeDetails {
-  feeAmount: string;
-  payMethod: string;
+  advanced_payment_fee: string;
+  advanced_payment_type: string;
 }
 
 export interface CertDetails {
-  firstName: string;
+  given_name: string;
   initials: string;
-  lastName: string;
-  jobTitle: string;
-  date: string;
+  surname: string;
+  job_title: string;
+  date_signed: string;
 }
 
 export interface INameAddressCSP {
@@ -106,7 +114,7 @@ export interface IDrugUse {
 
 }
 
-export interface IMedicinalIngredients {
-  medicinalIngredient: string;
-  productName: string;
-}
+// export interface IMedicinalIngredients {
+//   medicinalIngredient: string;
+//   productName: string;
+// }

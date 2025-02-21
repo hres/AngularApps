@@ -24,12 +24,12 @@ export class NewDrugSubmissionInformationService {
 
     public mapFormModelToDataModel(formValue: any, transactionEnrol: TransactionEnrol) {
 
-      transactionEnrol.ndsNumber = formValue['ndsNumber'];
+      transactionEnrol.application_info.control_number = formValue['ndsNumber'];
       }
 
     public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
 
-      formRecord.controls['ndsNumber'].setValue(transactionEnrol.ndsNumber);
+      formRecord.controls['ndsNumber'].setValue(transactionEnrol.application_info.control_number);
      }
 
 
