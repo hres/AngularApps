@@ -15,6 +15,8 @@ import { CompanyEnrolmentComponent } from './company-enrolment/company-enrolment
 import { CompanyEnrolmentService } from './company-enrolment/company-enrolment.service';
 import { CompanyAddressModule } from './company-address/company-address.module';
 import { CompanyContactModule } from './company-contact/company-contact.module';
+import { ProductLineComponent } from './product-line/product-line.component';
+import { ProductLineService } from './product-line/product-line.service';
 import { FormBaseService } from './form-base/form-base.service';
 import { CommonPbvModule } from '@hpfb/pbv';
 import { MailtoHelpComponent } from './mailto-help/mailto.help.component'
@@ -22,6 +24,7 @@ import { MailtoHelpComponent } from './mailto-help/mailto.help.component'
 @NgModule({
   declarations: [
     CompanyEnrolmentComponent,
+    ProductLineComponent,
     MailtoHelpComponent
   ],
   imports: [
@@ -42,10 +45,12 @@ import { MailtoHelpComponent } from './mailto-help/mailto.help.component'
   providers: [
     AppSignalService,
     CompanyEnrolmentService,
+    ProductLineService,
     FormBaseService
   ],
   exports: [CommonUiFeatureModule,
     CompanyEnrolmentComponent,
+    ProductLineComponent,
     MailtoHelpComponent
    ],
 })

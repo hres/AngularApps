@@ -11,6 +11,7 @@ import { CompanyEnrol, Company, ContactRecord, AddressRecord} from '../models/Co
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { CompanyEnrolmentComponent } from '../company-enrolment/company-enrolment.component';
+import { ProductLineComponent } from '../product-line/product-line.component';
 import { CompanyContactModule } from "../company-contact/company-contact.module";
 import { CompanyContactListComponent } from '../company-contact/company-contact-list/company-contact-list.component';
 import { CompanyContactService } from '../company-contact/company-contact.service';
@@ -41,6 +42,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(CompanyEnrolmentComponent) companyEnrolmentComponent: CompanyEnrolmentComponent;
   @ViewChild(CompanyContactListComponent) companyContactListComponent: CompanyContactListComponent;
   @ViewChild(CompanyAddressListComponent) companyAddressListComponent: CompanyAddressListComponent;
+  @ViewChild(ProductLineComponent) productLineComponent: ProductLineComponent;
 
   
   private _companyEnrolmentErrors = [];
@@ -48,6 +50,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _contactCompanyRoleErrors = [];
   private _addressListErrors = [];
   private _addressCompanyRoleErrors = [];
+  private _productLineErrors = [];
   private _consentPrivacyError = [];
 
   public coForm: FormGroup; 
@@ -159,6 +162,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this._addressListErrors, 
       this._contactCompanyRoleErrors, 
       this._contactListErrors,
+      this._productLineErrors,
       this._consentPrivacyError
     );
     
@@ -169,6 +173,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processCompanyEnrolmentErrors(errorList) {
     this._companyEnrolmentErrors = errorList;
+    this.processErrors();
+  }
+
+  processProductLineErrors(errorList) {
+    this._productLineErrors = errorList;
     this.processErrors();
   }
 
@@ -292,6 +301,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     newcompanyEnrol.form_language = this._globalService.currLanguage;
 
     const companyEnrolmentFormGroupValue = this.companyEnrolmentComponent.getFormValue();
+    const productLineValue = this.productLineComponent.getFormValue();
     
     if (this.companyAddressListComponent.recordFormArray) {
       addressFormArrayValue = this.companyAddressListComponent.recordFormArray.value;
@@ -302,6 +312,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
 
     this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue, this.isInternal);
+    this._baseService.mapProductLineToOutput(newcompanyEnrol, productLineValue);
     this._baseService.mapContactsFormToOutput(newcompanyEnrol, contactsFormArrayValue);
     this._baseService.mapAddressesFormToOutput(newcompanyEnrol, addressFormArrayValue)
 
