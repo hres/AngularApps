@@ -56,9 +56,12 @@ export class CompanyEnrolmentService {
     formModel.controls['reasonForFiling'].setValue(dataModel.reason_amend);
   }
 
-  private _incrementEnrolmentVersion(isInternal : boolean, currentVersion) : string { 
-    return (parseFloat(currentVersion) + (isInternal ? 1.0 : 0.1)).toString();
-  }
+  private _incrementEnrolmentVersion(isInternal: boolean, currentVersion: string): string {
+    const parts = currentVersion.split('.').map(Number);
+    isInternal ? parts[0] += 1 : parts[1] += 1 // If internal page -> increment by 1.0, if external -> increment by 0.1
+
+    return parts.join('.');
+}
 
   public setEnrolmentStatus(formRecord, statusId: string, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {
     if (setStatusAlso) {
