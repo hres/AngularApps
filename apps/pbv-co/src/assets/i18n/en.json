@@ -87,7 +87,7 @@
     "mailing.contact": "Regulatory mailing/annual contact",
     "billing.contact": "Billing contact",
     "error.msg.roleSelected":  "This role has already been selected.",
-    "error.msg.contactRolesMissing": "For Company representative, selection of all roles: manufacturer, mailing, and billing",
+    "error.msg.contactRolesMissing": "For company representative, selection of all roles: manufacturer, mailing, and billing",
     "error.msg.companyContacts": "There are errors in the company representative details",
 
     "mailto.01": "The draft CO XML must be sent via email.",

@@ -83,6 +83,7 @@ export class FeesComponent extends BaseComponent implements OnInit{
   }
 
   protected override emitErrors(errors: ControlMessagesComponent[]): void {
+    console.log(errors);
     this.errorList.emit(errors);
   }
 
