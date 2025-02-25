@@ -632,7 +632,7 @@
 		<xsl:param name="value" select="/.." />
 		<span class="c-checkbox">
 			<xsl:choose>
-				<xsl:when test="$value = 'true'"> X </xsl:when>
+				<xsl:when test="$value = 'true' or $value = 'Y'"> X </xsl:when>
 				<xsl:otherwise> </xsl:otherwise>
 			</xsl:choose>
 		</span>

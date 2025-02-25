@@ -65,11 +65,11 @@ export class FeesService {
       const id = this._utilsService.getIdFromIdTextLabel(dataModel.mitigation.mitigation_type);
       this._signalService.setMitigationType(id);
       formRecord.controls['mitigationType'].setValue(id? id: null);
-      formRecord.controls['certifyGovOrg'].setValue(dataModel.mitigation.certify_government_organization=='Y'?true:false);
-      formRecord.controls['certifyISAD'].setValue(dataModel.mitigation.certify_isad=='Y'?true:false);
-      formRecord.controls['certifyFundedInstitution'].setValue(dataModel.mitigation.certify_funded_health_institution=='Y'?true:false);
-      formRecord.controls['certifySmallBusiness'].setValue(dataModel.mitigation.certify_small_business=='Y'?true:false);
-      formRecord.controls['certifyUrgentHealthNeed'].setValue(dataModel.mitigation.certify_urgent_health_need=='Y'?true:false);
+      formRecord.controls['certifyGovOrg'].setValue(dataModel.mitigation.certify_government_organization=='Y' || dataModel.mitigation.certify_government_organization=='true'? true:false);
+      formRecord.controls['certifyISAD'].setValue(dataModel.mitigation.certify_isad=='Y' || dataModel.mitigation.certify_isad=='true' ? true:false);
+      formRecord.controls['certifyFundedInstitution'].setValue(dataModel.mitigation.certify_funded_health_institution=='Y' || dataModel.mitigation.certify_funded_health_institution=='true' ? true:false);
+      formRecord.controls['certifySmallBusiness'].setValue(dataModel.mitigation.certify_small_business=='Y' || dataModel.mitigation.certify_small_business=='true' ? true:false);
+      formRecord.controls['certifyUrgentHealthNeed'].setValue(dataModel.mitigation.certify_urgent_health_need=='Y' || dataModel.mitigation.certify_urgent_health_need=='true'? true:false);
       formRecord.controls['smallBusinessFeeApp'].setValue(dataModel.mitigation.small_business_fee_application);
     }
   }
