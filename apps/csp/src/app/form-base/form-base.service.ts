@@ -1,6 +1,6 @@
 import { Injectable} from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Ectd, HcUse, TransactionEnrol, Transaction, FeeDetails, CertDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant, IMedicinalIngredients} from '../models/transaction';
+import { Ectd, HcUse, TransactionEnrol, Transaction, FeeDetails, CertDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant, IApplicationInformation} from '../models/transaction';
 import { INameAddress, IContact } from '@hpfb/pbv';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
@@ -55,8 +55,8 @@ export class FormBaseService {
   public getEmptyFeesModel() : FeeDetails{
     return (
       {
-        feeAmount: '',
-        payMethod: ''
+        advanced_payment_fee: '',
+        advanced_payment_type: ''
       }
     );
   }
@@ -64,11 +64,11 @@ export class FormBaseService {
   public getEmptyCertModel() : CertDetails{
     return (
       {
-        firstName: '',
+        given_name: '',
         initials: '',
-        lastName: '',
-        jobTitle: '',
-        date: ''
+        surname: '',
+        job_title: '',
+        date_signed: ''
       }
     );
   }
@@ -112,16 +112,12 @@ export class FormBaseService {
       form_language: '',
       check_sum: '',
       ectd: this.getEmptyEctd(),
-      hcUse: this.getEmptyHcUse(),
+      health_canada_only: this.getEmptyHcUse(),
       applicant: this.getEmptyApplicant(),
-      patent: this.getEmptyPatent(),
-      ndsNumber:'',
-      nocDate: '',
-      drugUse: '',
-      timingOfApplicant:'',
-      medicinalIngredients:this.getEmptyMedicinalIngredients(),
-      fee_details: this.getEmptyFeesModel(),
-      certification: this.getEmptyCertModel(),
+      application_info: this.getApplicationInformation(),
+      advanced_payment: this.getEmptyFeesModel(),
+      certification: this.getEmptyCertModel()
+
     };
 
     return TransactionEnrol;
@@ -137,10 +133,10 @@ export class FormBaseService {
 
   private getEmptyHcUse(): HcUse {
     const hcUse: HcUse = {
-      appReceived: '',
-      custNum: '',
-      appNum: '',
-      notes: '',
+      company_id: '',
+      application_id: '',
+      date_received: '',
+      hc_notes: '',
     };
     return hcUse;
   }
@@ -236,10 +232,10 @@ export class FormBaseService {
 
   private getEmptyPatent(): IPatent {
     const patent: IPatent = {
-      patentNumber: '',
-      patentFillingDate: '',
-      patendExpirationDate: '',
-      patentGrandDate: ''
+      patent_number: '',
+      filing_date: '',
+      expiry_date: '',
+      granted_date: ''
     };
     return patent;
   }
@@ -258,17 +254,30 @@ export class FormBaseService {
     return applicant;
   }
 
-  private getEmptyMedicinalIngredients(): IMedicinalIngredients {
-    const medicinalIngredients: IMedicinalIngredients = {
-      medicinalIngredient: '',
-      productName: ''
-    };
-    return medicinalIngredients;
+  private getApplicationInformation() : IApplicationInformation {
+    const applicantInfo: IApplicationInformation = {
+      patent_info: this.getEmptyPatent(),
+      control_number:'',
+      noc_date: '',
+      drug_use: '',
+      medicinal_ingredient:'',
+      product_name:'',
+      time_application: ''
+    }
+    return applicantInfo;
   }
+
+  // private getEmptyMedicinalIngredients(): IMedicinalIngredients {
+  //   const medicinalIngredients: IMedicinalIngredients = {
+  //     medicinalIngredient: '',
+  //     productName: ''
+  //   };
+  //   return medicinalIngredients;
+  // }
 
 
   public mapPatentFormsToOutput(outputTransactionEnrol: TransactionEnrol, patentInforationForm: any): void{
-    this._patentService.mapFormModelToDataModel(patentInforationForm, outputTransactionEnrol.patent);
+    this._patentService.mapFormModelToDataModel(patentInforationForm, outputTransactionEnrol.application_info.patent_info);
   }
 
   public mapDrugUseFormsToOutput(outputTransactionEnrol: TransactionEnrol, drugUseForm: any): void{
@@ -296,11 +305,11 @@ export class FormBaseService {
   }
 
   public mapHealthCanadaOnlyFormsToOutput(outputTransactionEnrol: TransactionEnrol,hcUseOnlyForm: any): void{
-    this.hcUseOnlySerive.mapFormModelToDataModel(hcUseOnlyForm, outputTransactionEnrol.hcUse);
+    this.hcUseOnlySerive.mapFormModelToDataModel(hcUseOnlyForm, outputTransactionEnrol.health_canada_only);
   }
 
   public mapFeesFormsToOutput(outputTransactionEnrol: TransactionEnrol,feesForm: any): void{
-    this.feesService.mapFormModelToDataModel(feesForm, outputTransactionEnrol.fee_details);
+    this.feesService.mapFormModelToDataModel(feesForm, outputTransactionEnrol.advanced_payment);
   }
 
   public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, addressFormGroupValue : any, contactFormGroupValue : any): void {

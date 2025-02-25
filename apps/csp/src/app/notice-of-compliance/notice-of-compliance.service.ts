@@ -25,12 +25,12 @@ export class NoticeOfComplianceService {
 
   public mapFormModelToDataModel(formValue: any, transactionEnrol: TransactionEnrol) {
 
-    transactionEnrol.nocDate = formValue['nocDate'];
+    transactionEnrol.application_info.noc_date = formValue['nocDate'];
     }
 
   public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
 
-    formRecord.controls['nocDate'].setValue(transactionEnrol.nocDate);
+    formRecord.controls['nocDate'].setValue(transactionEnrol.application_info.noc_date);
    }
 
 

@@ -25,16 +25,16 @@ export class HcUseOnlyService {
   }
 
   public mapFormModelToDataModel(formValue: any, hcUseModel: HcUse) {
-    hcUseModel.appReceived = formValue['appReceived'];
-    hcUseModel.custNum = formValue['custNum'];
-    hcUseModel.appNum = formValue['appNum'];
-    hcUseModel.notes = formValue['notes'];
+    hcUseModel.date_received = formValue['appReceived'];
+    hcUseModel.company_id = formValue['custNum'];
+    hcUseModel.application_id = formValue['appNum'];
+    hcUseModel.hc_notes = formValue['notes'];
   }
 
   public mapDataModelToFormModel(hcUseModel: HcUse, formRecord: FormGroup) {
-    formRecord.controls['appReceived'].setValue(hcUseModel.appReceived);
-    formRecord.controls['custNum'].setValue(hcUseModel.custNum);
-    formRecord.controls['appNum'].setValue(hcUseModel.appNum);
-    formRecord.controls['notes'].setValue(hcUseModel.notes);
+    formRecord.controls['appReceived'].setValue(hcUseModel.date_received);
+    formRecord.controls['custNum'].setValue(hcUseModel.company_id);
+    formRecord.controls['appNum'].setValue(hcUseModel.application_id);
+    formRecord.controls['notes'].setValue(hcUseModel.hc_notes);
   }
 }
