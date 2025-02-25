@@ -22,8 +22,7 @@
 	<!--  Transaction Enrolment  -->
 	<xsl:template match="TRANSACTION_ENROL">
 		<h1> Regulatory Transaction Template: Regulatory Enrolment Process (REP) <xsl:if
-				test="software_version != ''"> (version: <xsl:value-of select="software_version" />
-		) </xsl:if>
+				test="software_version != ''"> (version: <xsl:value-of select="software_version" />) </xsl:if>
 		</h1>
 <div class="well well-sm">
 			<table border="1" cellspacing="2" cellpadding="2"
@@ -329,7 +328,7 @@
 								<div class="col-xs-12">
 									<strong>Submission description: </strong>
 									<div class="col-xs-12">
-										<span class="mouseHover">
+										<span>
 											<xsl:value-of select="fee_details/submission_description/@label_en" disable-output-escaping="yes"/>
 										</span>
 									</div>
