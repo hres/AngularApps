@@ -10,6 +10,7 @@ import { EntityBasePbvService } from '@hpfb/pbv';
 import { CompanyContactItemService } from '../company-contact/company-contact-item/company-contact-item.service';
 import { CompanyAddressItemService } from '../company-address/company-address-item/company-address-item.service';
 import { count } from 'rxjs';
+import { ProductLineService } from '../product-line/product-line.service';
 
 @Injectable()
 export class FormBaseService {
@@ -19,6 +20,7 @@ export class FormBaseService {
     private _utilsService: UtilsService, 
     private _globalService: GlobalService,
     private _companyEnrolmentService: CompanyEnrolmentService,
+    private _productLineService: ProductLineService,
     private _entityBasePbvService: EntityBasePbvService,
     private _contactDetailsService: ContactDetailsService,
     private _companyContactItemService: CompanyContactItemService,
@@ -108,6 +110,10 @@ export class FormBaseService {
 
   public mapCompanyEnrolmentToOutput(outputCompanyEnrol: CompanyEnrol, companyEnrolmentGroupValue: any, isInternal:boolean): void{
     this._companyEnrolmentService.mapFormModelToDataModel(outputCompanyEnrol, companyEnrolmentGroupValue, isInternal);
+  }
+
+  public mapProductLineToOutput(outputCompanyEnrol: CompanyEnrol, productLineValue: any): void{
+    this._productLineService.mapFormModelToDataModel(outputCompanyEnrol, productLineValue);
   }
 
   public mapAddressesFormToOutput(companyEnrol: CompanyEnrol, addressFormArray) {

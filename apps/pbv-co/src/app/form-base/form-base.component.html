@@ -68,6 +68,7 @@
                 <app-company-contact-list [recordList]="contactListModel" [showErrors]="showErrors" [isInternal]="isInternal" (errorEmit)="processContactListErrors($event)"></app-company-contact-list>
               </div>
             </section>
+            <app-product-line [showErrors]="showErrors" [dataModel]="companyEnrolModel" (errorList)="processProductLineErrors($event)"></app-product-line>
           </div>
       </section>
     </div>
