@@ -42,7 +42,7 @@ export class RegulatoryContactService {
         
         dataModel.is_third_party = formValue['isSigned3rdParty'];
         dataModel.company_name = formValue['companyName'];
-        dataModel.confirm_regulatory_contact = formValue['confirmContactValid']? YES : NO;
+        dataModel.confirm_regulatory_contact = formValue['confirmContactValid'];
 
         this._addressDetailsService.mapFormModelToDataModel(addressFormGroupValue, dataModel.regulatory_activity_address, lang, countryList, combinedProvStatList);
         this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, dataModel.regulatory_activity_contact, lang, languageList);

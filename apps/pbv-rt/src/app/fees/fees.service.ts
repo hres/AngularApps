@@ -45,11 +45,11 @@ export class FeesService {
     if (formValue['mitigationType']) {
       dataModel.mitigation = {} as Mitigation;
       dataModel.mitigation.mitigation_type = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.mitigationTypes, formValue['mitigationType'], lang);
-      dataModel.mitigation.certify_funded_health_institution = formValue['certifyFundedInstitution'] == true ? 'Y': undefined;
-      dataModel.mitigation.certify_government_organization = formValue['certifyGovOrg'] == true ? 'Y': undefined;
-      dataModel.mitigation.certify_small_business = formValue['certifySmallBusiness'] == true ? 'Y': undefined;
-      dataModel.mitigation.certify_urgent_health_need = formValue['certifyUrgentHealthNeed'] == true ? 'Y': undefined;
-      dataModel.mitigation.certify_isad = formValue['certifyISAD'] == true ? 'Y': undefined;
+      dataModel.mitigation.certify_funded_health_institution = formValue['certifyFundedInstitution'];
+      dataModel.mitigation.certify_government_organization = formValue['certifyGovOrg'];
+      dataModel.mitigation.certify_small_business = formValue['certifySmallBusiness'];
+      dataModel.mitigation.certify_urgent_health_need = formValue['certifyUrgentHealthNeed'];
+      dataModel.mitigation.certify_isad = formValue['certifyISAD'];
       dataModel.mitigation.small_business_fee_application = !formValue['smallBusinessFeeApp'] ? undefined : formValue['smallBusinessFeeApp'] === 'Y' ? 'Y' : 'N';
     }
   }
