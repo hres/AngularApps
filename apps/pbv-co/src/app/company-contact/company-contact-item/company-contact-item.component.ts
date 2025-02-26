@@ -24,7 +24,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   @Output() deleteRecord = new EventEmitter();
   @Output() rolesUpdated = new EventEmitter<CheckboxOption[]>();
 
-  lang: string;
+  lang = this._globalService.currLanguage;
   languageList: ICode[] = [];
   
   public companyRolesOptionList: CheckboxOption[] = [];

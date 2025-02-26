@@ -97,6 +97,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
         if (err.tableId) { // replace componentId with table ID
           controlError.tableId = err.tableId;
         }
+        controlError.error = err.error;
         let parentError = {parentLabel: '', index: -1, controls: []};
         parentError.parentLabel = err.componentId;
         parentError.index = err.index;
@@ -118,7 +119,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
 
     }
     this.resetErrorCount();
-    //console.log(this.errors);
+    console.log(this.errors);
   }
 
   /**

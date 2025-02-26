@@ -168,6 +168,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     
     this.disableMailto = this.errorList.length > 0 || this.isInternal; // Add final condition
     this.showMailToHelpText = false;
+    console.log(this.errorList);
     this.cdr.detectChanges(); // doing our own change detection
   }
 

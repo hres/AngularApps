@@ -22,7 +22,7 @@ export class CompanyEnrolmentService {
         enrolmentStatusText: '', // UI Display
         enrolmentVersion: ['0.0'],
         dateLastSaved: [null],
-        companyId: [null],
+        companyId: [null, [Validators.required, ValidationService.companyIdValidator]],
         reasonForFiling: [null, [Validators.required]],
       });
   }
@@ -58,10 +58,18 @@ export class CompanyEnrolmentService {
 
   private _incrementEnrolmentVersion(isInternal: boolean, currentVersion: string): string {
     const parts = currentVersion.split('.').map(Number);
-    isInternal ? parts[0] += 1 : parts[1] += 1 // If internal page -> increment by 1.0, if external -> increment by 0.1
 
-    return parts.join('.');
-}
+    if (isInternal) {
+        // Internal: Round up to the nearest whole number (X.0)
+        parts[0] = Math.ceil(parts[0] + 1);
+        parts[1] = 0;
+    } else {
+        // External: Increment decimal by 0.1
+        parts[1] += 1;
+    }
+
+    return `${parts[0]}.${parts[1]}`;
+  }
 
   public setEnrolmentStatus(formRecord, statusId: string, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {
     if (setStatusAlso) {

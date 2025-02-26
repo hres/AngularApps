@@ -28,15 +28,18 @@
           <ul class="form-group list-unstyled">
           <li class="checkbox" [formArrayName]="'companyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">
               <label [for]="'contactRole' + j + '-' + i">
-              <input type="checkbox" [id]="'contactRole' + j + '-' + i" [formControl]="reason | formControl" (change)="companyRolesOnChange($event, companyRolesOptionList[i].value, i)"/> {{companyRolesOptionList[i].label}}
+              <input type="checkbox" [id]="'contactRole' + j + '-' + i" 
+              [formControl]="reason | formControl" 
+              (change)="companyRolesOnChange($event, companyRolesOptionList[i].value, i)"/> 
+              {{companyRolesOptionList[i].label}}
               </label>
               <div>
                 <control-messages *ngIf="reason.invalid"
                 [showError]="showErrors"
                 [control]="reason | formControl"
-                [controlId]="'role-' + i"
+                [controlId]="'contactRole-' + i"
                 [label]="companyRolesOptionList[i].label"
-                parentId="role">
+                parentId="coContact">
                 </control-messages>
               </div>
           </li>
