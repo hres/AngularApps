@@ -29,7 +29,7 @@ export class RegulatoryContactService {
         ],
         confirmContactValid: [
             null,
-            [Validators.required]
+            [Validators.requiredTrue]
         ]
        })
     }
