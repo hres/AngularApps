@@ -37,4 +37,15 @@ export class PbvValidationService {
       return {'error.mgs.pbv.dossier.id': true};
     }
   }
+
+  static dossierIdValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^['e','p','d','v']{1}[0-9]{6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.pbv.dossier.id': true};
+    }
+  }
 }
