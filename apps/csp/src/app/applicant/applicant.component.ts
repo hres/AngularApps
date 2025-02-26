@@ -46,8 +46,10 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
   private _billingContactErrorList: any[] = [];
   private _childrenErrors: any[] = [];
 
-  @ViewChild(AddressDetailsComponent) addressDetailsComponent: AddressDetailsComponent;
-  @ViewChild(ContactDetailsComponent) contactDetailsComponent: ContactDetailsComponent;
+  @ViewChild(AddressDetailsComponent) applicantAddressDetailsComponent: AddressDetailsComponent;
+  @ViewChild(ContactDetailsComponent) applicantContactDetailsComponent: ContactDetailsComponent;
+  @ViewChild(AddressDetailsComponent) billingAddressDetailsComponent: AddressDetailsComponent;
+  @ViewChild(ContactDetailsComponent) billingContactDetailsComponent: ContactDetailsComponent;
 
   constructor(
     private _fb: FormBuilder,
@@ -124,11 +126,19 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
     return this.applicantInformationForm.value;
   }
 
-  getAddressFormValue() {
-    return this.addressDetailsComponent.getFormValue();
+  getApplicantAddressFormValue() {
+    return this.applicantAddressDetailsComponent.getFormValue();
   }
 
-  getContactFormValue() {
-    return this.contactDetailsComponent.getFormValue();
+  getApplicantContactFormValue() {
+    return this.applicantContactDetailsComponent.getFormValue();
+  }
+
+  getBillingAddressFormValue() {
+    return this.billingAddressDetailsComponent.getFormValue();
+  }
+
+  getBillingContactFormValue() {
+    return this.billingContactDetailsComponent.getFormValue();
   }
 }

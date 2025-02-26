@@ -24,8 +24,10 @@ export class ApplicantService {
       craBusinessNumber: new FormControl(null),
       cspNumber: new FormControl(null, Validators.required),
       agentName: new FormControl(null),
+      orgName: new FormControl(null),
       billingRole: [false],
       applicantRole: [true],
+      isBillingDifferent: [false]
      
     },);
     return applicantForm;
@@ -33,7 +35,7 @@ export class ApplicantService {
 
 
 
-  public mapFormModelToDataModel(formValue: any, model: TransactionEnrol,  addressFormGroupValue, contactFormGroupValue) {
+  public mapFormModelToDataModel(formValue: any, model: TransactionEnrol,  applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue) {
     const lang = this._globalService.currLanguage;
     const languageList: ICode[] = this._globalService.languageList;
     const countryList: ICode[] = this._globalService.countryList;
@@ -47,8 +49,15 @@ export class ApplicantService {
     model.applicant.csp_customer_number = formValue['cspNumber'];
     model.applicant.agent_name = formValue['agentName'];
 
-    this._addressDetailsService.mapFormModelToDataModelCanadianAddress(addressFormGroupValue, model.applicant.address, lang, countryList, combinedProvStatList);
-    this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, model.applicant.contact, lang, languageList);
+    this._addressDetailsService.mapFormModelToDataModelCanadianAddress(applicantAddressFormGroupValue, model.applicant.address, lang, countryList, combinedProvStatList);
+    this._contactDetailsService.mapFormModelToDataModel(applicantContactFormGroupValue, model.applicant.contact, lang, languageList);
+
+    if(formValue['isBillingDifferent']){
+      console.log("BILLING");
+      model.applicant.agent_name = formValue['orgName'];
+      this._addressDetailsService.mapFormModelToDataModelCanadianAddress(billingAddressFormGroupValue, model.applicant.address, lang, countryList, combinedProvStatList);
+      this._contactDetailsService.mapFormModelToDataModel(billingContactFormGroupValue, model.applicant.contact, lang, languageList);
+    }
   }
 
   public mapDataModelToFormModel(applicantModel: IApplicant, formRecord: FormGroup) {

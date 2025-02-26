@@ -415,10 +415,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._baseService.mapCertificationFormsToOutput(newTransactionEnrol, certification);
 
     const applicantInfo = this.applicantComponent.getFormValue();
-    const addressFormGroupValue = this.applicantComponent.getAddressFormValue();
-    const contactFormGroupValue = this.applicantComponent.getContactFormValue();
+    const applicantAddressFormGroupValue = this.applicantComponent.getApplicantAddressFormValue();
+    const applicantContactFormGroupValue = this.applicantComponent.getApplicantContactFormValue();
+    const billingAddressFormGroupValue = this.applicantComponent.getBillingAddressFormValue();
+    const billingContactFormGroupValue = this.applicantComponent.getBillingContactFormValue();
 
-    this._baseService.mapApplicantInfoToOutput(newTransactionEnrol, applicantInfo, addressFormGroupValue, contactFormGroupValue);
+    this._baseService.mapApplicantInfoToOutput(newTransactionEnrol, applicantInfo, applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue);
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
     // const certificationFormGroupValue = this.certificationComponent.getFormValue();

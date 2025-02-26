@@ -303,7 +303,7 @@ export class FormBaseService {
     this.feesService.mapFormModelToDataModel(feesForm, outputTransactionEnrol.fee_details);
   }
 
-  public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
-    this.applicantService.mapFormModelToDataModel(applicantForm, outputTransactionEnrol, addressFormGroupValue, contactFormGroupValue )
+  public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, applicantAddressFormGroupValue : any, applicantContactFormGroupValue : any, billingAddressFormGroupValue : any, billingContactFormGroupValue : any): void {
+    this.applicantService.mapFormModelToDataModel(applicantForm, outputTransactionEnrol, applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue )
   }
 }
