@@ -350,11 +350,11 @@
 								</xsl:if>
 								<div class="col-xs-12">
 									<xsl:if	test="fee_details/mitigation/mitigation_type/@id = 'SMALL_BUSINESS'">
-										<xsl:call-template name="hp-checkbox">
+										<strong><xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_small_business" />
 										</xsl:call-template>
-										<strong>We certify that we meet the definition of small business and have registered our company with
+										We certify that we meet the definition of small business and have registered our company with
 												Health Canada prior to submitting this submission/application. We understand that failure to
 												register as a small business prior to submitting this submission/application will result in
 												the full fee being charged.</strong>
@@ -369,11 +369,11 @@
 										</div>
 									</xsl:if>
 									<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'URGENT_HEALTH_NEED'">
-										<xsl:call-template name="hp-checkbox">
+										<strong><xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_urgent_health_need" />
 										</xsl:call-template>
-										<strong>We certify that the drug in our submission/application is on the List of Drugs for an Urgent Public Health Need as per the Access to Drugs in Exceptional Circumstances Regulations and:</strong>
+										We certify that the drug in our submission/application is on the List of Drugs for an Urgent Public Health Need as per the Access to Drugs in Exceptional Circumstances Regulations and:</strong>
 										<div class="col-xs-12">
 											<ol class="lst-lwr-alph">
 												<li>the drug has the same medicinal ingredient,	strength and route of administration, and is in a comparable dosage form, as a drug that may be imported under subsection C.10.001(2) of those Regulations;</li>
@@ -383,11 +383,11 @@
 										</div>
 									</xsl:if>
 									<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'FUNDED_INSTITUTION'">
-										<xsl:call-template name="hp-checkbox">
+										<strong><xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_funded_health_institution" />
 										</xsl:call-template>
-										<strong>We certify that our institution is funded by the Government of Canada or the government of a province or territory and that it is</strong>
+										We certify that our institution is funded by the Government of Canada or the government of a province or territory and that it is</strong>
 										<div class="col-xs-12">
 											<ol class="lst-lwr-alph">
 												<li>licensed, approved or designated by a province in accordance with the laws of the province to provide care or treatment to persons or animals suffering from any form of disease or illness; or</li>
@@ -396,18 +396,18 @@
 										</div>
 									</xsl:if>
 									<xsl:if	test="fee_details/mitigation/mitigation_type/@id = 'GOVERMENT_ORGANIZATION'">
-										<xsl:call-template name="hp-checkbox">
+										<strong><xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_government_organization" />
 										</xsl:call-template>
-										<strong>We certify that our organization is a branch or agency of the Government of Canada or of a province or territory</strong>
+										We certify that our organization is a branch or agency of the Government of Canada or of a province or territory</strong>
 									</xsl:if>
 									<xsl:if	test="fee_details/mitigation/mitigation_type/@id = 'ISAD'">
-										<xsl:call-template name="hp-checkbox">
+										<strong><xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_isad" />
 										</xsl:call-template>
-										<strong>We certify that we have filed an application for a designated COVID-19 drug under the Interim Order Respecting the Importation, Sale and Advertising of Drugs for Use in Relation to COVID-19 (ISAD), and that a submission has not previously been filed seeking approval for that same drug</strong>
+										We certify that we have filed an application for a designated COVID-19 drug under the Interim Order Respecting the Importation, Sale and Advertising of Drugs for Use in Relation to COVID-19 (ISAD), and that a submission has not previously been filed seeking approval for that same drug</strong>
 									</xsl:if>
 								</div>
 							</div>
@@ -527,7 +527,7 @@
 							</xsl:choose>
 						</div>
 					</xsl:if>
-					<h4>C. Company representative: </h4>
+					<strong>C. Company representative: </strong>
 					<div class="well well-sm">
 						<div class="row">
 							<strong class="col-xs-12">First name: <span
