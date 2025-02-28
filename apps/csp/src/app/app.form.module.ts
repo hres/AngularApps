@@ -35,6 +35,8 @@ import { TimeOfApplicationComponent } from './time-of-application/time-of-applic
 import { TimingOfApplicationService } from './time-of-application/time-of-application.service';
 import { HcUseOnlyComponent } from './health-canada-only/health-canada-only.component';
 import { HcUseOnlyService } from './health-canada-only/health-canada-only.service';
+import { AttestationComponent } from './attestation/attestation.component';
+import { AttestationService } from './attestation/attestation.service';
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import { HcUseOnlyService } from './health-canada-only/health-canada-only.servic
     ApplicantComponent, 
     TimeOfApplicationComponent,
     CertificationComponent, 
-    FeesComponent
+    FeesComponent,
+    AttestationComponent
     ],
   imports: [
     CommonModule,
@@ -75,7 +78,8 @@ import { HcUseOnlyService } from './health-canada-only/health-canada-only.servic
     MedicinalIngredientsService, 
     TimingOfApplicationService, 
     ApplicantService,
-    FeesService
+    FeesService,
+    AttestationService
   ],
   exports: [
     CommonUiFeatureModule,
@@ -89,7 +93,8 @@ import { HcUseOnlyService } from './health-canada-only/health-canada-only.servic
     TimeOfApplicationComponent, 
     ApplicantComponent, 
     CertificationComponent,
-    FeesComponent
+    FeesComponent,
+    AttestationComponent
    ]
 })
 export class AppFormModule {}

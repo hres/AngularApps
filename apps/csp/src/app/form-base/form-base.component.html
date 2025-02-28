@@ -138,6 +138,14 @@
         </div>
 
         <header class="panel-body">
+          <h2 class="panel-title">{{'panel.title.attestations'|translate}}</h2>
+        </header>
+        <div class="panel-body">
+          <app-attestation [showErrors]="showErrors" [dataModel]="ectdModel">
+          </app-attestation>
+        </div>
+
+        <header class="panel-body">
           <h2 class="panel-title">{{'panel.title.fees'|translate}}
             <sup [id]="helpIndex['feePayIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['feePayIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['feePayIndx'][0]}}</a>

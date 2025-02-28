@@ -1,0 +1,29 @@
+<div>
+    <div>
+      <div class="row">
+        <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <fieldset class="chkbxrdio-grp" >
+              <legend class="required"><span class="field-name">{{'attestation.as.applicant' |translate }}</span>
+                <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
+                <control-messages *ngIf="AttestationForm.controls['attestation'].invalid"
+                [showError]="showFieldErrors"
+                [control]="AttestationForm.controls['attestation'] | formControl"
+                controlId="attestationType0" label="attestation.as.applicant" parentId="attestation"></control-messages>
+            </legend>
+              <ul class="form-group list-unstyled">
+                <li class="radio" *ngFor="let attest of attestationAsApplicantOptions; let i = index">
+                  <label aria-hidden="true" for="attest{{i}}">
+                    <input attr.aria-label="{{attest | ariaTransform: lang}}" type="radio" attr.aria-label="{{attest | ariaTransform: lang}}"
+                        id="attest{{i}}" name="attestationAsApplicantOptions" value="{{attest | ariaTransform: lang}}"
+                      (change)="onAttestationSelected($event)"
+                      [formControlName]="'attestation'" required/>
+                      {{attest | textTransform: lang }}
+                  </label>
+                </li>
+              </ul>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+  

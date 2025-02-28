@@ -14,6 +14,7 @@ export class FormDataLoaderService {
   private timingOfApplicantPath = DATA_PATH + 'timingOfApplicant.json'
   private payMethodJsonPath = DATA_PATH + 'methodOfPayment.json';
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
+  private AttestationJsonPath = DATA_PATH + 'attestation.json';
 
   cachedLanguageList$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
@@ -24,6 +25,7 @@ export class FormDataLoaderService {
   drugUseOptions$: Observable<ICode[]>;
   timingOfApplicantTypes$: Observable<ICodeAria[]>;
   payMethodOptions$: Observable<ICode[]>;
+  attestationAsApplicantOptions$: Observable<ICode[]>;
   // mfUseOptions$: Observable<ICode[]>;
   // txDescs$: Observable<ICodeDefinition[]>;
   // mfTypeTxDescOptions$: Observable<IParentChildren[]>;
@@ -108,6 +110,16 @@ export class FormDataLoaderService {
         );
     }
     return this.cachedLanguageList$;
+  }
+
+  getAttestationAsApplicant(lang: string): Observable<ICode[]> {
+    this.attestationAsApplicantOptions$ = this._dataService
+      .getData<ICodeAria>(this.AttestationJsonPath)
+      .pipe(
+        //tap((_) => console.log('getMasterFileTypeOptions is executed')),
+        shareReplay(1)
+      );
+    return this.attestationAsApplicantOptions$;
   }
 
 }
