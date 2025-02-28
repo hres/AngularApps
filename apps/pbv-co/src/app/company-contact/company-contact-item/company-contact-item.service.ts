@@ -5,13 +5,15 @@ import { YES, NO } from "../../app.constants";
 import { GlobalService } from "../../global/global.service";
 import { ContactRecord } from "../../models/Company";
 import { ROLE_MAPPING, REVERSE_ROLE_MAPPING } from "../../app.constants";
+import { AppSignalService } from "../../signal/app-signal.service";
 
 
 @Injectable()
 export class CompanyContactItemService {
 
     constructor(private _converterService: ConverterService,
-                private _globalService: GlobalService) {
+                private _globalService: GlobalService,
+                private _signalService: AppSignalService) {
 
     }
 
@@ -65,12 +67,13 @@ export class CompanyContactItemService {
     }
     
   
-    public mapDataModelToFormModel(companyContact : ContactRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[]) {
+    public mapDataModelToFormModel(companyContact : ContactRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[], id) {
       const companyRolesList = this._globalService.companyRolesList;
       const lang = this._globalService.currLanguage;
       if (companyContact) {
 
         const selectedRoles = this.getSelectedContactCompanyRoles(companyContact);
+        this._mapCompanyRolesToSignal(selectedRoles, id);
         // Update form model
         formRecord.controls['selectedCompanyRoles'].setValue(selectedRoles);
         if (selectedRoles.length > 0) {
@@ -80,6 +83,16 @@ export class CompanyContactItemService {
           this._converterService.checkCheckboxes(selectedRoles, companyRolesOptionList, companyRolesFormArray);
         } 
       }
+    }
+
+    private _mapCompanyRolesToSignal(selectedCompanyRoles : string[], id) {
+      if (this._signalService.getSelectedContactCompanyRoles().length > 0) {
+        this._signalService.resetContactCompanyRoles();
+      }
+
+      selectedCompanyRoles.forEach(role => {
+        this._signalService.updateContactCompanyRoles(`${id - 1}${role}`);
+      });    
     }
 
     

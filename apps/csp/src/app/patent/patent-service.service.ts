@@ -30,18 +30,18 @@ export class PatentService {
 
   public mapFormModelToDataModel(formValue: any, patentModel: IPatent) {
 
-    patentModel.patentNumber = formValue['patentNumber'];
-    patentModel.patentFillingDate = formValue['patentFillingDate'];
-    patentModel.patentGrandDate = formValue['patentGrandDate'];
-    patentModel.patendExpirationDate = formValue['patendExpirationDate'];
+    patentModel.patent_number = formValue['patentNumber'];
+    patentModel.filing_date = formValue['patentFillingDate'];
+    patentModel.granted_date = formValue['patentGrandDate'];
+    patentModel.expiry_date = formValue['patendExpirationDate'];
   }
 
   public mapDataModelToFormModel(patentModel: IPatent, formRecord: FormGroup) {
 
-    formRecord.controls['patentNumber'].setValue(patentModel.patentNumber);
-    formRecord.controls['patentFillingDate'].setValue(patentModel.patentFillingDate);
-    formRecord.controls['patentGrandDate'].setValue(patentModel.patentGrandDate);
-    formRecord.controls['patendExpirationDate'].setValue(patentModel.patendExpirationDate);
+    formRecord.controls['patentNumber'].setValue(patentModel.patent_number);
+    formRecord.controls['patentFillingDate'].setValue(patentModel.filing_date);
+    formRecord.controls['patentGrandDate'].setValue(patentModel.granted_date);
+    formRecord.controls['patendExpirationDate'].setValue(patentModel.expiry_date);
    }
 
 

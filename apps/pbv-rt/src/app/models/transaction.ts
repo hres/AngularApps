@@ -59,7 +59,7 @@ export interface FeeDetails {
 export interface Mitigation {
   mitigation_type: IIdTextLabel;
   small_business_fee_application: string;
-  certify_organization: string;
+  certify_small_business: string;
   certify_urgent_health_need: string;
   certify_funded_health_institution: string;
   certify_government_organization: string;

@@ -14,6 +14,7 @@ import $ from 'jquery';
 export abstract class BaseListComponent<T extends OutputRecord> extends BaseComponent implements IBaseList<T>, AfterViewInit {
     @Input() recordList: T[];
     @Input() showErrors: boolean;
+    @Input() isInternal?: boolean;
 
     recordFormGroup: FormGroup;
     errorSummaryChild: any;
@@ -23,6 +24,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     abstract recordInfo: string;
     abstract recordService: IRecordService;
     abstract popupId: string;
+    abstract errorList: [];
 
     constructor(private _fb: FormBuilder, 
         @Inject(BaseListService) protected listService: BaseListService) {
@@ -58,10 +60,12 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
             });
           }
       } else {
-        const group = this.recordService.createRecordFormGroup(this._fb);
-        this.recordFormArray.push(group);
-        const firstFormRecord = this.recordFormArray.at(0) as FormGroup;
-        firstFormRecord.controls['expandFlag'].setValue(true);
+        if (!this.isInternal) {
+            const group = this.recordService.createRecordFormGroup(this._fb);
+            this.recordFormArray.push(group);
+            const firstFormRecord = this.recordFormArray.at(0) as FormGroup;
+            firstFormRecord.controls['expandFlag'].setValue(true);
+        }
       }
       this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
   
@@ -148,7 +152,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     }
     
     disableAddButton(): boolean {
-        return ( this.recordFormGroup.dirty );
+        return ( this.recordFormGroup.dirty || !this.recordFormGroup.valid  || this.errorList?.length > 0);
     }
 
     openPopup(): void {

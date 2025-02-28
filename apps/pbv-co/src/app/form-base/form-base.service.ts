@@ -3,13 +3,14 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
-import { AddressRecord, Company, CompanyEnrol, ContactRecord } from '../models/Company';
+import { AddressRecord, Company, CompanyEnrol, ContactRecord, ProductLine } from '../models/Company';
 import { CompanyEnrolmentService } from '../company-enrolment/company-enrolment.service';
 import { AddressDetailsService, ContactDetailsService } from '@hpfb/pbv';
 import { EntityBasePbvService } from '@hpfb/pbv';
 import { CompanyContactItemService } from '../company-contact/company-contact-item/company-contact-item.service';
 import { CompanyAddressItemService } from '../company-address/company-address-item/company-address-item.service';
 import { count } from 'rxjs';
+import { ProductLineService } from '../product-line/product-line.service';
 
 @Injectable()
 export class FormBaseService {
@@ -19,6 +20,7 @@ export class FormBaseService {
     private _utilsService: UtilsService, 
     private _globalService: GlobalService,
     private _companyEnrolmentService: CompanyEnrolmentService,
+    private _productLineService: ProductLineService,
     private _entityBasePbvService: EntityBasePbvService,
     private _contactDetailsService: ContactDetailsService,
     private _companyContactItemService: CompanyContactItemService,
@@ -61,10 +63,17 @@ export class FormBaseService {
       reason_amend: '',
       address_record: this.getEmptyAddressRecordList(),
       contact_record: this.getEmptyContactRecordList(),
-      product_line_checkbox: null
+      product_line_checkbox: this.getEmptyProductLine()
     };
     
     return companyEnrol;
+  }
+
+  public getEmptyProductLine(): ProductLine {
+    const prodLine : ProductLine = {
+      product_line: null
+    }
+    return prodLine;
   }
 
   public getEmptyAddressRecordList(): AddressRecord[] {
@@ -101,6 +110,10 @@ export class FormBaseService {
 
   public mapCompanyEnrolmentToOutput(outputCompanyEnrol: CompanyEnrol, companyEnrolmentGroupValue: any, isInternal:boolean): void{
     this._companyEnrolmentService.mapFormModelToDataModel(outputCompanyEnrol, companyEnrolmentGroupValue, isInternal);
+  }
+
+  public mapProductLineToOutput(outputCompanyEnrol: CompanyEnrol, productLineValue: any): void{
+    this._productLineService.mapFormModelToDataModel(outputCompanyEnrol, productLineValue);
   }
 
   public mapAddressesFormToOutput(companyEnrol: CompanyEnrol, addressFormArray) {

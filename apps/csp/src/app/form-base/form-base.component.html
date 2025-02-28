@@ -167,9 +167,15 @@
 
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">
+        <button  type="button" class="btn btn-primary btn-lg active" (click)="saveWorkingCopyFile()">
+          {{'save.working.copy'|translate}}
+        </button>
+      </div>
+      <div class="form-group col-md-4">
         <button *ngIf="isInternal" type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
           {{'generate.final.internal'|translate}}
         </button>
+
         <button *ngIf="!isInternal" type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
           {{'generate.final.external'|translate}}
         </button>

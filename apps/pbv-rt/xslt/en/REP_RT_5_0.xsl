@@ -352,7 +352,7 @@
 									<xsl:if	test="fee_details/mitigation/mitigation_type/@id = 'SMALL_BUSINESS'">
 										<xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
-												select="fee_details/mitigation/certify_organization" />
+												select="fee_details/mitigation/certify_small_business" />
 										</xsl:call-template>
 										<strong>We certify that we meet the definition of small business and have registered our company with
 												Health Canada prior to submitting this submission/application. We understand that failure to
@@ -632,7 +632,7 @@
 		<xsl:param name="value" select="/.." />
 		<span class="c-checkbox">
 			<xsl:choose>
-				<xsl:when test="$value = 'Y'"> X </xsl:when>
+				<xsl:when test="$value = 'true' or $value = 'Y'"> X </xsl:when>
 				<xsl:otherwise> </xsl:otherwise>
 			</xsl:choose>
 		</span>

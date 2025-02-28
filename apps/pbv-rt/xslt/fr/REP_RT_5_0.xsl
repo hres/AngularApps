@@ -283,7 +283,7 @@
 							</xsl:if>
 							<div class="col-xs-12">
 							<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'SMALL_BUSINESS'">
-								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_organization"/></xsl:call-template>
+								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_small_business"/></xsl:call-template>
 								<strong>Nous certifions que nous répondons à la définition de petites entreprises et que nous avons enregistré notre entreprise auprès de Santé Canada avant de soumettre cette soumission ou demande. Nous comprenons que le fait de ne pas s'inscrire en tant que petite entreprise avant de soumettre cette soumission ou demande entraînera l'inscription intégrale à la totalité des frais.</strong>
 								
 								<div class="col-xs-12">
@@ -535,12 +535,8 @@
 		<xsl:param name="value" select="/.."/>
 		<span class="c-checkbox">
 		<xsl:choose>
-			<xsl:when test="$value = 'Y'">
-				X
-			</xsl:when>
-			<xsl:otherwise>
-				
-			</xsl:otherwise>
+			<xsl:when test="$value = 'true' or $value = 'Y'"> X </xsl:when>
+			<xsl:otherwise> </xsl:otherwise>
 		</xsl:choose>
 		</span>
 	</xsl:template>

@@ -320,8 +320,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.agentAddressModel = trans.contact_info.agent_name_address;
     //   this.agentContactModel = trans.contact_info.agent_contact;
     // }
-    if (trans.fee_details != null) {
-      this.transFeeModel = trans.fee_details;
+    if (trans.advanced_payment != null) {
+      this.transFeeModel = trans.advanced_payment;
     }
     this.addressModel = trans.applicant.address;
     this.contactModel = trans.applicant.contact;
@@ -401,10 +401,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
     this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
-    
+
+    if(this.isInternal){
     const healthCanadaOnly = this. healthCanadaComponent.getFormValue();
     this._baseService.mapHealthCanadaOnlyFormsToOutput(newTransactionEnrol, healthCanadaOnly);
-
+    }
     const certification = this.certificationComponent.getFormValue();
     this._baseService.mapCertificationFormsToOutput(newTransactionEnrol, certification);
 

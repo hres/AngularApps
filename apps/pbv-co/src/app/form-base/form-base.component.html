@@ -52,7 +52,7 @@
                 </h3>
               </header>
               <div class="panel-body">
-                <app-company-address-list [recordList]="addressListModel" [showErrors]="showErrors" (errorList)="processAddressListErrors($event)"></app-company-address-list>
+                <app-company-address-list [recordList]="addressListModel" [showErrors]="showErrors" [isInternal]="isInternal" (errorEmit)="processAddressListErrors($event)"></app-company-address-list>
               </div>
             </section>
 
@@ -65,14 +65,15 @@
                 </h3>
               </header>
               <div class="panel-body">
-                <app-company-contact-list [recordList]="contactListModel" [showErrors]="showErrors" (errorList)="processContactListErrors($event)"></app-company-contact-list>
+                <app-company-contact-list [recordList]="contactListModel" [showErrors]="showErrors" [isInternal]="isInternal" (errorEmit)="processContactListErrors($event)"></app-company-contact-list>
               </div>
             </section>
+            <app-product-line [showErrors]="showErrors" [dataModel]="companyEnrolModel" (errorList)="processProductLineErrors($event)"></app-product-line>
           </div>
       </section>
     </div>
 
-    <div class="row">
+    <div *ngIf="!isInternal" class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <label for="certifyPrivacy" class="required">
           <input type="checkbox" id="certifyPrivacy" [formControlName]="'certifyPrivacy'" (blur)="processErrors()" required/>

@@ -24,30 +24,27 @@ export class CompanyEnrolmentService {
         dateLastSaved: [null],
         companyId: [null],
         reasonForFiling: [null, [Validators.required]],
-        productLine: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
-        selectedProductLines: ['']
       });
   }
 
   public mapFormModelToDataModel(dataModel:CompanyEnrol, coEnrolFormModel:any, isInternal:boolean) {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
-    const productLineList = this._globalService.productLineList;
-    const products: ProductLine = {
-      product_line: this._converterService.findAndConverCodesToIdTextLabels(productLineList, coEnrolFormModel.selectedProductLines, lang)
-    }
 
-    dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, coEnrolFormModel.enrolmentStatus, lang);
+    if (isInternal) {
+      dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, ENROLMENT_STATUS.FINAL, lang);
+    } else {
+      dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, coEnrolFormModel.enrolmentStatus, lang);
+    }
     dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
     dataModel.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     if (isInternal) {
       dataModel.company_id = coEnrolFormModel['companyId'];
     }
     dataModel.reason_amend = coEnrolFormModel['reasonForFiling'];
-    dataModel.product_line_checkbox = products;
   }
 
-  public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel:any, productLineList: ICode[], productLineListOption: CheckboxOption[]) {
+  public mapDataModelToFormModel(dataModel : CompanyEnrol, formModel:any) {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
 
@@ -57,47 +54,19 @@ export class CompanyEnrolmentService {
     formModel.controls['dateLastSaved'].setValue(dataModel.date_saved.substring(0, 10)); // Date is set to YYYY-MM-DD
     formModel.controls['companyId'].setValue(dataModel.company_id);
     formModel.controls['reasonForFiling'].setValue(dataModel.reason_amend);
-
-    this.setProductLine(dataModel, formModel, productLineList, productLineListOption, lang); 
   }
 
-  private _incrementEnrolmentVersion(isInternal : boolean, currentVersion) : string { 
-    return (parseFloat(currentVersion) + (isInternal ? 1.0 : 0.1)).toString();
-  }
+  private _incrementEnrolmentVersion(isInternal: boolean, currentVersion: string): string {
+    const parts = currentVersion.split('.').map(Number);
+    isInternal ? parts[0] += 1 : parts[1] += 1 // If internal page -> increment by 1.0, if external -> increment by 0.1
 
-  public setProductLine(dataModel: CompanyEnrol, formModel:any, productLineList: ICode[], productLineListOption: CheckboxOption[], lang){
-    const loadedProductLineCodes: string[] = this._utilsService.getIdsFromIdTextLabels(dataModel.product_line_checkbox.product_line);
-    if (loadedProductLineCodes.length > 0) {
-      const productLineChkFormArray = this.getProductLineChkboxFormArray(formModel);
-      this.loadProductLineOptions(productLineList, productLineListOption, productLineChkFormArray, lang)
-      this._converterService.checkCheckboxes(loadedProductLineCodes, productLineListOption, productLineChkFormArray);
-    }  
-    formModel.controls['selectedproductLines'].setValue(loadedProductLineCodes);
-  }
+    return parts.join('.');
+}
 
   public setEnrolmentStatus(formRecord, statusId: string, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {
     if (setStatusAlso) {
       formRecord.controls['enrolmentStatus'].setValue(statusId);  
     }
     formRecord.controls['enrolmentStatusText'].setValue(this._utilsService.findAndTranslateCode(enrollmentStatusList, lang, statusId));
-  }
-
-  getProductLineCodes(productLineReasonList: CheckboxOption[], productLineChkFormArray: FormArray) : string[] {
-    return this._converterService.getCheckedCheckboxValues(productLineReasonList, productLineChkFormArray);
-  }
-
-  getProductLineChkboxFormArray(formRecord: FormGroup) {
-    return formRecord.controls['productLine'] as FormArray;
-  } 
-
-  loadProductLineOptions(productList, productLineListOptionList, productLineChkFormArray, lang) {
-    productLineListOptionList.length = 0;
-    productLineChkFormArray.clear();
-
-    productList.forEach((item) => {
-      const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
-      productLineListOptionList.push(checkboxOption);
-      productLineChkFormArray.push(new FormControl(false));
-    }); 
   }
 }

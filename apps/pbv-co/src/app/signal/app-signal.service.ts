@@ -32,14 +32,22 @@ export class AppSignalService {
     this.addressCompanyRoles.update((arr) => {
       return [...arr, companyRole];
     });
-  }
+ }
 
   removeAddressCompanyRole(companyRole: string) {
     this.addressCompanyRoles.update((arr) => arr.filter(item => item !== companyRole));
   }
 
   getSelectedAddressCompanyRoles(): Signal<string[]> {
-    return this.addressCompanyRoles.asReadonly();
-  }
+   return this.addressCompanyRoles.asReadonly();
+ }
+
+ resetAddressCompanyRoles(): void{
+   this.addressCompanyRoles.set([]);
+ }
+
+ resetContactCompanyRoles(): void{
+  this.contactCompanyRoles.set([]);
+}
 
 }

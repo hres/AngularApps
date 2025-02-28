@@ -24,12 +24,12 @@ export class MedicinalIngredientsService {
 
 
   public mapFormModelToDataModel(formValue: any, transactionEnrol: TransactionEnrol) {
-    transactionEnrol.medicinalIngredients.medicinalIngredient = formValue['medicinalIngredients'];
-    transactionEnrol.medicinalIngredients.productName = formValue['productName'];
+    transactionEnrol.application_info.medicinal_ingredient = formValue['medicinalIngredients'];
+    transactionEnrol.application_info.product_name = formValue['productName'];
     }
 
   public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
-    formRecord.controls['medicinalIngredients'].setValue(transactionEnrol.medicinalIngredients.medicinalIngredient);
-    formRecord.controls['productName'].setValue(transactionEnrol.medicinalIngredients.productName);
+    formRecord.controls['medicinalIngredients'].setValue(transactionEnrol.application_info.medicinal_ingredient);
+    formRecord.controls['productName'].setValue(transactionEnrol.application_info.product_name);
    }
 }
