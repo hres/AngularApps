@@ -48,7 +48,12 @@ export class CompanyEnrolmentService {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
 
-    this.setEnrolmentStatus(formModel, dataModel.application_type._id, enrolmentStatusesList, lang, true); 
+    if (dataModel.application_type._id) {
+      this.setEnrolmentStatus(formModel, dataModel.application_type._id, enrolmentStatusesList, lang, true); 
+    } else {
+      const status = dataModel.application_type
+      this.setEnrolmentStatus(formModel, status, enrolmentStatusesList, lang, true); 
+    }
 
     formModel.controls['enrolmentVersion'].setValue(dataModel.enrolment_version);
     formModel.controls['dateLastSaved'].setValue(dataModel.date_saved.substring(0, 10)); // Date is set to YYYY-MM-DD
@@ -71,7 +76,7 @@ export class CompanyEnrolmentService {
     return `${parts[0]}.${parts[1]}`;
   }
 
-  public setEnrolmentStatus(formRecord, statusId: string, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {
+  public setEnrolmentStatus(formRecord, statusId, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {
     if (setStatusAlso) {
       formRecord.controls['enrolmentStatus'].setValue(statusId);  
     }

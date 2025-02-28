@@ -1,4 +1,4 @@
-import { Component, computed, Signal, EventEmitter, Input, output, Output, SimpleChanges } from '@angular/core';
+import { Component, computed, Signal, EventEmitter, Input, output, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray} from '@angular/forms';
 import { CheckboxOption, ControlMessagesComponent, ConverterService, ErrorNotificationService, ErrorSummaryComponent, ICode } from '@hpfb/sdk/ui';
 import { ContactRecord } from '../../models/Company';
@@ -16,7 +16,8 @@ import { CompanyContactListService } from './company-contact-list.service';
 @Component({
   selector: 'app-company-contact-list',
   templateUrl: './company-contact-list.component.html',
-  styleUrl: './company-contact-list.component.css'
+  styleUrl: './company-contact-list.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class CompanyContactListComponent extends BaseListComponent<ContactRecord>{
   recordService: IRecordService;

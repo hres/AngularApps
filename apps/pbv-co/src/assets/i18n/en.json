@@ -105,5 +105,10 @@
     "email.draft": "Draft CO XML - ",
     "email.company.id": "[insert your company ID, if available]",
     "email.body": "The CO XML file is NOT automatically attached. Attach the draft CO XML file prior to sending.",
-    "email.mail.to": "mailto:"
+    "email.mail.to": "mailto:",
+
+    "msg.save.xml.popup": "Please save the unsaved input data before generating XML file.",
+    "msg.save.data.popup": "Please save the unsaved input data.",
+    "popup.title":"Company Template",
+    "popup.close": "Close"
 }

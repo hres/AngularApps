@@ -394,4 +394,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return manufacturerRecord ? manufacturerRecord.addressInfo.companyName : null;
   }
 
+  isEarlyVersion() : boolean{
+    return this._versionService.getMajorVersion(this.companyEnrolModel.software_version) < START_CHECKSUM_VERSION
+  }
+
 }
