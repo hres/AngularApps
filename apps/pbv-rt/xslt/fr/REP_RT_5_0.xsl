@@ -535,12 +535,8 @@
 		<xsl:param name="value" select="/.."/>
 		<span class="c-checkbox">
 		<xsl:choose>
-			<xsl:when test="$value = 'Y'">
-				X
-			</xsl:when>
-			<xsl:otherwise>
-				
-			</xsl:otherwise>
+			<xsl:when test="$value = 'true' or $value = 'Y'"> X </xsl:when>
+			<xsl:otherwise> </xsl:otherwise>
 		</xsl:choose>
 		</span>
 	</xsl:template>
