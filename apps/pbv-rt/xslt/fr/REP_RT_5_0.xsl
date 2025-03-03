@@ -270,17 +270,15 @@
 							</div>
 						</div>
 					</div>
+					<xsl:if test="fee_details/mitigation/mitigation_type !=''">
 					<div class="well well-sm" >
 						<div class="row">
 							<div class="form-group col-xs-12 h3 text-info">Mesures d'atténuation</div>
-
-							<xsl:if test="fee_details/mitigation/mitigation_type !=''">
 							<div class="col-xs-12">
 								<div class="col-xs-12">
 									<span class="mouseHover"><xsl:value-of select="fee_details/mitigation/mitigation_type/@label_fr"/></span>
 								</div>
 							</div>
-							</xsl:if>
 							<div class="col-xs-12">
 							<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'SMALL_BUSINESS'">
 								<strong><xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_small_business"/></xsl:call-template>
@@ -321,6 +319,7 @@
 							</div>
 						</div>
 					</div>
+					</xsl:if>
 				</div>
 			</div>
 			</xsl:if>
