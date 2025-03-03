@@ -62,7 +62,7 @@
                 {
                     "header": "<a href=\"{{ base_url }}{{ template_paths.pi.en }}\">Product Information (PI) Template (2024-02-12)</a>",
                     "bullets": [
-                        "Required for only a subset of transactions. Refer to section “2.5.2 Product information (PI) Template and Process” of the REP Guidance Document for list of subset transaction.",
+                        "Required for only a subset of transactions. Refer to section “2.5.2 Product information (PI) Template and Process” of the REP Guidance Document for list of subset transactions.",
                         "For detailed description of the requirements for the PI template, refer to section “2.5 Regulatory Transaction Filing Process” of the REP guidance document."
                     ]
                 }

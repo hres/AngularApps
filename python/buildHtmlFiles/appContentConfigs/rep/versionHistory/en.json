@@ -10,7 +10,7 @@
             "header": "March 26, 2025 Release",
             "details": [
                 {
-                    "template": "Regulatory Transaction (RT) Template<br>Version 5.0.0",
+                    "template": "Regulatory Transaction (RT) Template<br>Version 5.0.0<br><br><br>Stylesheet package*",
                     "changes": [
                         "Added instructions regarding the “Load a regulatory transaction enrolment file” section",
                         "Reordered “Transaction details” section",
@@ -19,13 +19,8 @@
                         "Added regulatory transaction description: Request for review report(s) to lead: Post-market vigilance (for Marketed Health Products Directorate (MHPD))",
                         "Removed the question “Are there new or revised fees associated with this transactions?”",
                         "Added submission class: Not applicable", 
-                        "Removed routing identifier"
-                    ]
-                },                
-                {
-                    "template": "Stylesheet Package",
-                    "changes": [
-                        "New RT stylesheet to match changes on this template"  
+                        "Removed routing identifier<br><br><br>",
+                        "*New RT stylesheet to match changes on this template"
                     ]
                 }
             ]
