@@ -52,7 +52,7 @@
                 </h3>
               </header>
               <div class="panel-body">
-                <app-company-address-list [recordList]="addressListModel" [showErrors]="showErrors" [isInternal]="isInternal" (errorEmit)="processAddressListErrors($event)"></app-company-address-list>
+                <app-company-address-list [recordList]="addressListModel" [showErrors]="showErrors" [isInternal]="isInternal" [earlyVersion]="isEarlyVersion()" (errorEmit)="processAddressListErrors($event)"></app-company-address-list>
               </div>
             </section>
 
@@ -92,9 +92,14 @@
           {{'save.working.copy'|translate}}
         </button>
       </div>
-      <div class="form-group col-md-4">
+      <div *ngIf="isInternal" class="form-group col-md-4">
         <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
           {{'generate.final'|translate}}
+        </button>
+      </div>
+      <div *ngIf="!isInternal" class="form-group col-md-4">
+        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
+          {{'draft.xml'|translate}}
         </button>
       </div>
       <div class="form-group col-md-4" *ngIf="!isInternal">

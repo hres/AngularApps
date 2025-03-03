@@ -1,5 +1,5 @@
 import { FormArray, FormGroup } from "@angular/forms";
-import { IListService } from "./record.list.service.interface";
+import { IListService } from "./base.list.service.interface";
 
 
 export abstract class BaseListService implements IListService {

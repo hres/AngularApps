@@ -1,13 +1,10 @@
-import { Component, EventEmitter, output, Output } from '@angular/core';
+import { Component, EventEmitter, Input, output, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { AddressDetailsService } from '@hpfb/pbv';
-import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent } from '@hpfb/sdk/ui';
-import { BaseListService } from '../../../../../../projects/hpfb/sdk/ui/record-list/base.list.service';
+import { AddressDetailsService, INameAddress } from '@hpfb/pbv';
+import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService } from '@hpfb/sdk/ui';
 import { FormDataLoaderService } from '../../container/form-data-loader.service';
 import { GlobalService } from '../../global/global.service';
 import { AddressRecord } from '../../models/Company';
-import { BaseListComponent } from '../../record-base/base.list.component';
-import { IRecordService } from '../../record-base/record.service.interface';
 import { AppSignalService } from '../../signal/app-signal.service';
 import { CompanyAddressItemService } from '../company-address-item/company-address-item.service';
 import { CompanyAddressService } from '../company-address.service';
@@ -17,6 +14,7 @@ import { CompanyAddressListService } from './company-address-list.service';
   selector: 'app-company-address-list',
   templateUrl: './company-address-list.component.html',
   styleUrl: './company-address-list.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class CompanyAddressListComponent extends BaseListComponent<AddressRecord>{
   recordService: IRecordService;
@@ -29,6 +27,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
 
   companyRolesOptionList: CheckboxOption[] = []; // Store received data
 
+  @Input() earlyVersion;
   @Output() errorEmit = new EventEmitter(true);
 
   constructor(private fb: FormBuilder, 
@@ -36,6 +35,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     private _addressDetailsService: AddressDetailsService,
     private _errorNotifService: ErrorNotificationService,
     private _companyAddressItemService: CompanyAddressItemService,
+    private _globalService: GlobalService,
     companyAddressListService: CompanyAddressListService) {
       super(fb, companyAddressListService);
       this.recordService = this._addressService;
@@ -59,6 +59,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
       this._companyAddressItemService.mapDataModelToFormModel(outputModel, form.controls['addressInfo'], this.companyRolesOptionList, form.controls['id'].value)
     }
     const addressDetailsFormGroup = form.controls['addressInfo'].controls['addressDetails'];
+    this._mapEarlyVersionCountryCodes(outputModel.company_address_details)
     this._addressDetailsService.mapDataModelToFormModel(outputModel.company_address_details, addressDetailsFormGroup);
   }
 
@@ -105,5 +106,16 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     }
     this.errorList = errorsToEmit;
     this.errorEmit.emit(errorsToEmit);
+  }
+
+  private _mapEarlyVersionCountryCodes(addressModel : INameAddress) {
+    //Needs to update country code from version 4.4.3 to 5.0.0, shall be removed in later release
+    if (this.earlyVersion && addressModel.country._id !=''){
+      let newCountry = this._globalService.countryIdMappingList.find(
+        (item) => item.id === addressModel.country._id);
+      if (newCountry != null){
+        addressModel.country._id = newCountry.newid;
+      }
+    }
   }
 } 

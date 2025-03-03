@@ -22,12 +22,12 @@ export class CompanyEnrolmentService {
         enrolmentStatusText: '', // UI Display
         enrolmentVersion: ['0.0'],
         dateLastSaved: [null],
-        companyId: [null],
+        companyId: [null, [Validators.required, ValidationService.numeric5Validator]],
         reasonForFiling: [null, [Validators.required]],
       });
   }
 
-  public mapFormModelToDataModel(dataModel:CompanyEnrol, coEnrolFormModel:any, isInternal:boolean) {
+  public mapFormModelToDataModel(dataModel:CompanyEnrol, coEnrolFormModel:any, isInternal:boolean, isXmlFile:boolean) {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
 
@@ -36,7 +36,12 @@ export class CompanyEnrolmentService {
     } else {
       dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, coEnrolFormModel.enrolmentStatus, lang);
     }
-    dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
+
+    if (!isXmlFile && isInternal) {
+      dataModel.enrolment_version = coEnrolFormModel['enrolmentVersion']
+    } else {
+      dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
+    }
     dataModel.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     if (isInternal) {
       dataModel.company_id = coEnrolFormModel['companyId'];
@@ -48,7 +53,12 @@ export class CompanyEnrolmentService {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
 
-    this.setEnrolmentStatus(formModel, dataModel.application_type._id, enrolmentStatusesList, lang, true); 
+    if (dataModel.application_type._id) {
+      this.setEnrolmentStatus(formModel, dataModel.application_type._id, enrolmentStatusesList, lang, true); 
+    } else {
+      const status = dataModel.application_type
+      this.setEnrolmentStatus(formModel, status, enrolmentStatusesList, lang, true); 
+    }
 
     formModel.controls['enrolmentVersion'].setValue(dataModel.enrolment_version);
     formModel.controls['dateLastSaved'].setValue(dataModel.date_saved.substring(0, 10)); // Date is set to YYYY-MM-DD
@@ -58,12 +68,20 @@ export class CompanyEnrolmentService {
 
   private _incrementEnrolmentVersion(isInternal: boolean, currentVersion: string): string {
     const parts = currentVersion.split('.').map(Number);
-    isInternal ? parts[0] += 1 : parts[1] += 1 // If internal page -> increment by 1.0, if external -> increment by 0.1
 
-    return parts.join('.');
-}
+    if (isInternal) {
+        // Internal: Round up to the nearest whole number (X.0)
+        parts[0] = Math.ceil(parts[0] + 1);
+        parts[1] = 0;
+    } else {
+        // External: Increment decimal by 0.1
+        parts[1] += 1;
+    }
 
-  public setEnrolmentStatus(formRecord, statusId: string, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {
+    return `${parts[0]}.${parts[1]}`;
+  }
+
+  public setEnrolmentStatus(formRecord, statusId, enrollmentStatusList: ICode[], lang:string, setStatusAlso:boolean) {
     if (setStatusAlso) {
       formRecord.controls['enrolmentStatus'].setValue(statusId);  
     }

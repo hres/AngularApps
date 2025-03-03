@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, computed, QueryList, SimpleChange, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, QueryList, SimpleChange, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { GlobalService } from '../../global/global.service';
 import { ICode, CheckboxOption, ErrorNotificationService, BaseComponent, ControlMessagesComponent, ConverterService, UtilsService, ErrorSummaryComponent } from '@hpfb/sdk/ui';
 import { Input, Output, EventEmitter } from '@angular/core';
@@ -13,7 +13,8 @@ import { Signal } from '@angular/core';
 @Component({
   selector: 'app-company-contact-item',
   templateUrl: './company-contact-item.component.html',
-  styleUrl: './company-contact-item.component.css'
+  styleUrl: './company-contact-item.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class CompanyContactItemComponent extends BaseComponent{
   @Input() cRRow: FormGroup;
@@ -24,7 +25,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   @Output() deleteRecord = new EventEmitter();
   @Output() rolesUpdated = new EventEmitter<CheckboxOption[]>();
 
-  lang: string;
+  lang = this._globalService.currLanguage;
   languageList: ICode[] = [];
   
   public companyRolesOptionList: CheckboxOption[] = [];

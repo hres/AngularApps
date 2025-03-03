@@ -106,6 +106,13 @@
     "email.draft": "Ébauche de fichier CO XML - ",
     "email.company.id": "[insérer votre code d’entreprise, le cas échéant]",
     "email.body": "Le fichier CO XML n’est pas joint automatiquement. Joignez l’ébauche de fichier CO XML avant l’envoi.",
-    "email.mail.to": "mailto:"
+    "email.mail.to": "mailto:",
+
+    "msg.save.xml.popup": "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML.",
+    "msg.save.data.popup": "Veuillez sauvegarder les données d'entrée non enregistrées.",
+    "popup.title":"Modèle de compagnie",
+    "popup.close": "Fermer",
+
+    "error.mgs.5.numeric": "Veuillez fournir 5 chiffres."
 
 }
