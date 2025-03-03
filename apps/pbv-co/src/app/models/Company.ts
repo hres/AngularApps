@@ -1,6 +1,5 @@
 import { IContact, INameAddress } from "@hpfb/pbv";
-import { ICode, IIdText, IIdTextLabel, ITextLabel } from "@hpfb/sdk/ui";
-import { OutputRecord } from "../record-base/record.model";
+import { ICode, IIdText, IIdTextLabel, ITextLabel, OutputRecord } from "@hpfb/sdk/ui";
 
 export interface Company {
   COMPANY_ENROL: CompanyEnrol;

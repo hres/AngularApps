@@ -1,6 +1,6 @@
 import { SimpleChanges } from "@angular/core";
 import { FormArray, FormGroup } from "@angular/forms";
-import { OutputRecord } from "./record.model";
+import { OutputRecord } from "../record-model/record.model";
 export interface IBaseList<T extends OutputRecord> {
     recordList : T[];
     recordFormGroup : FormGroup;

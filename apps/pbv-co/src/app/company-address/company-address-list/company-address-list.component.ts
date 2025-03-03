@@ -1,13 +1,10 @@
 import { Component, EventEmitter, Input, output, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AddressDetailsService, INameAddress } from '@hpfb/pbv';
-import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent } from '@hpfb/sdk/ui';
-import { BaseListService } from '../../../../../../projects/hpfb/sdk/ui/record-list/base.list.service';
+import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService } from '@hpfb/sdk/ui';
 import { FormDataLoaderService } from '../../container/form-data-loader.service';
 import { GlobalService } from '../../global/global.service';
 import { AddressRecord } from '../../models/Company';
-import { BaseListComponent } from '../../record-base/base.list.component';
-import { IRecordService } from '../../record-base/record.service.interface';
 import { AppSignalService } from '../../signal/app-signal.service';
 import { CompanyAddressItemService } from '../company-address-item/company-address-item.service';
 import { CompanyAddressService } from '../company-address.service';

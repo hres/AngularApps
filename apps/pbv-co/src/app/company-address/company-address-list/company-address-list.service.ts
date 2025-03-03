@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseListService } from "../../../../../../projects/hpfb/sdk/ui/record-list/base.list.service";
+import { BaseListService } from '@hpfb/sdk/ui';
 
 @Injectable()
 export class CompanyAddressListService extends BaseListService{

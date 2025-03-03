@@ -119,7 +119,7 @@ export class ErrorSummaryComponent implements AfterViewInit {
 
     }
     this.resetErrorCount();
-    console.log(this.errors);
+    //console.log(this.errors);
   }
 
   /**

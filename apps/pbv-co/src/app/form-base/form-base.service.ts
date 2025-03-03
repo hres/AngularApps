@@ -108,8 +108,8 @@ export class FormBaseService {
     return addressRecord;
   }
 
-  public mapCompanyEnrolmentToOutput(outputCompanyEnrol: CompanyEnrol, companyEnrolmentGroupValue: any, isInternal:boolean): void{
-    this._companyEnrolmentService.mapFormModelToDataModel(outputCompanyEnrol, companyEnrolmentGroupValue, isInternal);
+  public mapCompanyEnrolmentToOutput(outputCompanyEnrol: CompanyEnrol, companyEnrolmentGroupValue: any, isInternal:boolean, isXmlFile: boolean): void{
+    this._companyEnrolmentService.mapFormModelToDataModel(outputCompanyEnrol, companyEnrolmentGroupValue, isInternal, isXmlFile);
   }
 
   public mapProductLineToOutput(outputCompanyEnrol: CompanyEnrol, productLineValue: any): void{

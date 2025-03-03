@@ -168,7 +168,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     
     this.disableMailto = this.errorList.length > 0 || this.isInternal; // Add final condition
     this.showMailToHelpText = false;
-    console.log(this.errorList);
     this.cdr.detectChanges(); // doing our own change detection
   }
 
@@ -312,7 +311,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       contactsFormArrayValue = this.companyContactListComponent.recordFormArray.value;
     }
 
-    this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue, this.isInternal);
+    this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue, this.isInternal, xmlFile);
     this._baseService.mapProductLineToOutput(newcompanyEnrol, productLineValue);
     this._baseService.mapContactsFormToOutput(newcompanyEnrol, contactsFormArrayValue);
     this._baseService.mapAddressesFormToOutput(newcompanyEnrol, addressFormArrayValue)

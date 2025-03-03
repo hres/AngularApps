@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, inject, Inject, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import { IBaseList } from "./base.list.interface";
 import { FormGroup, FormArray, FormBuilder } from "@angular/forms";
-import { BaseComponent } from "@hpfb/sdk/ui";
-import { IRecordService } from "./record.service.interface";
-import { OutputRecord, RecordFormGroup } from "./record.model";
-import { BaseListService } from "../../../../../projects/hpfb/sdk/ui/record-list/base.list.service";
+import { IRecordService } from "../record-service/record.service.interface";
+import { OutputRecord, RecordFormGroup } from "../record-model/record.model";
+import { BaseListService } from "../base-list-service/base.list.service";
+import { BaseComponent } from "../../component-base/base.component"
 
 import $ from 'jquery';
 

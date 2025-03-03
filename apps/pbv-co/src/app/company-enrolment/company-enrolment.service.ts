@@ -27,7 +27,7 @@ export class CompanyEnrolmentService {
       });
   }
 
-  public mapFormModelToDataModel(dataModel:CompanyEnrol, coEnrolFormModel:any, isInternal:boolean) {
+  public mapFormModelToDataModel(dataModel:CompanyEnrol, coEnrolFormModel:any, isInternal:boolean, isXmlFile:boolean) {
     const lang = this._globalService.currLanguage;
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
 
@@ -36,7 +36,12 @@ export class CompanyEnrolmentService {
     } else {
       dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, coEnrolFormModel.enrolmentStatus, lang);
     }
-    dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
+
+    if (!isXmlFile && isInternal) {
+      dataModel.enrolment_version = coEnrolFormModel['enrolmentVersion']
+    } else {
+      dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
+    }
     dataModel.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     if (isInternal) {
       dataModel.company_id = coEnrolFormModel['companyId'];
