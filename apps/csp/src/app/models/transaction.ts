@@ -29,6 +29,7 @@ export interface IApplicationInformation {
   medicinal_ingredient: string
   product_name: string;
   time_application: string;
+  attestation_applicant: string;
 
 }
 

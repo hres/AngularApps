@@ -17,6 +17,7 @@ import { EntityBasePbvService } from '@hpfb/pbv';
 import { ApplicantService } from '../applicant/applicant-service';
 import { HcUseOnlyService } from '../health-canada-only/health-canada-only.service';
 import { CertificationService } from '../certification/certification.service';
+import { AttestationService } from '../attestation/attestation.service';
 
 @Injectable()
 export class FormBaseService {
@@ -26,7 +27,7 @@ export class FormBaseService {
   currentMessage = this.messageSource.asObservable();
   constructor(
     private _entityBaseService: EntityBaseService, private _utilsService: UtilsService, private _globalService: GlobalService,private _patentService: PatentService, private _drugUseService: DrugUseService, private _nocService: NoticeOfComplianceService, private _newDrugSubmissionService: NewDrugSubmissionInformationService,
-    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService, private certificationService: CertificationService, private feesService: FeesService, private hcUseOnlySerive: HcUseOnlyService) {
+    private medicinalIngredientService: MedicinalIngredientsService, private timingOfApplicantService: TimingOfApplicationService, private applicantService: ApplicantService,private _entityBasePbvService: EntityBasePbvService, private certificationService: CertificationService, private feesService: FeesService, private hcUseOnlySerive: HcUseOnlyService, private attestationService: AttestationService) {
   }
 
   /**
@@ -262,7 +263,8 @@ export class FormBaseService {
       drug_use: '',
       medicinal_ingredient:'',
       product_name:'',
-      time_application: ''
+      time_application: '',
+      attestation_applicant: ''
     }
     return applicantInfo;
   }
@@ -298,6 +300,10 @@ export class FormBaseService {
 
   public mapMedicinalIngredientsFormsToOutput(outputTransactionEnrol: TransactionEnrol,medicinalIngredientsForm: any): void{
     this.medicinalIngredientService.mapFormModelToDataModel(medicinalIngredientsForm, outputTransactionEnrol);
+  }
+
+  public mapAttestationFormsToOutput(outputTransactionEnrol: TransactionEnrol, AttestationForm: any): void{
+    this.attestationService.mapFormModelToDataModel(AttestationForm, outputTransactionEnrol);
   }
 
   public mapTimingOfApplicantFormsToOutput(outputTransactionEnrol: TransactionEnrol,timingOfApplicationForm: any): void{

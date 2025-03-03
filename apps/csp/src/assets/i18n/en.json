@@ -378,6 +378,10 @@
     "panel.title.timing.of.application": "6. Timing of Application",
     "application.is.applying":"Application is applying(select one only)",
 
+    "panel.title.attestations": "8. Attestations",
+    "attestation.as.applicant": "Attestation as to Applicant",
+    "attestation.timely.submission": "Attestation as to Timely Submission",
+
     "panel.title.fees": "9. Fee Payment",
     "fees.text": "This electronic form should not include payment information (e.g. credit card number), as the information included within an electronic form cannot be deleted and will remain a part of the CSP application on record.",
     "fees.paid": "The fee has been paid in the amount of (please enter the fee amount)",

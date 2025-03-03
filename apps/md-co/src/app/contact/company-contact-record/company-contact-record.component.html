@@ -1,0 +1,81 @@
+<div class="container-fluid" [formGroup]="contactRecordModel" *ngIf="contactRecordModel">
+  <div id="contactErrorSummary{{contactRecordModel.get('id').value}}">
+  <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
+                 [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
+                 [headingLevel]="headingLevel" label="error.msg.contactDetails" compId="contactListTable"></lib-error-summary> 
+  </div>
+  <app-contact-details [showErrors]="showErrors" [isInternal]="isInternal" [lang]="lang"
+                   [languageList]="languageList" [contactStatusList]="contactStatusList"
+                   [recordId]="contactRecordModel.get('id').value" [group]="contactDetailsForm"
+                   [helpTextSequences]="helpTextSequences" [translatedParentLabel]="translatedParentLabel"
+                   (errorList)="updateErrorList($event)"></app-contact-details>
+
+                   <div class="row">
+                    <div class="btn-group-sm col-xs-12 text-left">
+                      <ul class="list-inline lst-spcd ">
+
+                        <ng-container *ngIf="!isInternal && !isContactSetToRemove()">
+                          <li *ngIf="isExternalNewContact()">
+                            <button id="saveRecord{{contactRecordModel.get('id').value}}" 
+                                attr.aria-label="{{'save.contact' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}" 
+                                class="btn btn-primary" (click)="saveContactRecord()">{{'save.contact'|translate}}</button>
+                          </li>
+                          <li *ngIf="isExternalNotNewContact()">
+                            <button id="reviseRecord{{contactRecordModel.get('id').value}}" 
+                            attr.aria-label="{{'set.revise.status' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}" 
+                            class="btn btn-default" (click)="setStatusToRevise()" [disabled]="this.contactRecordModel.pristine || showErrorSummary()">{{'set.revise.status'|translate}}</button>
+                          </li>
+                          <li *ngIf="isExternalNotNewContact()">
+                            <button id="removeRecord{{contactRecordModel.get('id').value}}" 
+                            attr.aria-label="{{'set.remove.status' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}" 
+                            class="btn btn-danger" (click)="setStatusToRemove()" [disabled]="showErrorSummary()">{{'set.remove.status'|translate}}</button>
+                          </li>
+                          <li *ngIf="isNewContact()">
+                            <button id="deleteRecord{{contactRecordModel.get('id').value}}" 
+                            attr.aria-label="{{'discard.record' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}" 
+                            class="btn btn-danger" (click)="deleteContactRecord()">{{'discard.record'|translate}}</button>
+                          </li>
+                          <li>
+                            <button id="revertRecord{{contactRecordModel.get('id').value}}" 
+                            attr.aria-label="{{'discard.changes' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}" 
+                            class="btn btn-default" (click)="revertContactRecord()">{{'discard.changes'|translate}}</button>
+                          </li>                                              
+                        </ng-container>
+
+                        <ng-container *ngIf="isInternal">
+                          <li *ngIf="isInternalActiveContact()">
+                            <button id="activeRecord{{contactRecordModel.get('id').value}}" 
+                            attr.aria-label="{{'set.active.status' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}" 
+                            class="btn btn-default" (click)="activeContactRecord()">{{'set.active.status'|translate}}</button>
+                          </li>
+                          <li *ngIf="isInternalDeleteContact()">
+                            <button id="internalRemoveRecord{{contactRecordModel.get('id').value}}" 
+                            attr.aria-label="{{'remove.contact' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}" 
+                            class="btn btn-danger" (click)="deleteContactRecord()">{{'remove.contact'|translate}}</button>
+                          </li> 
+                          <li *ngIf="isNewContact()">
+                            <button id="internalDeleteRecord{{contactRecordModel.get('id').value}}" 
+                            attr.aria-label="{{'discard.record' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}" 
+                            class="btn btn-danger" (click)="deleteContactRecord()">{{'discard.record'|translate}}</button>
+                          </li>
+                          <li>
+                            <button id="internalRevertRecord{{contactRecordModel.get('id').value}}" 
+                            attr.aria-label="{{'discard.changes' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}" 
+                            class="btn btn-default" (click)="revertContactRecord()">{{'discard.changes'|translate}}</button>
+                          </li>                                                   
+                        </ng-container>
+
+                      </ul>
+                    </div>
+                  </div>
+
+  <!--<div class="row" *ngIf="contactRecordModel.dirty">-->
+    <!--<div class="col-xs-7 form-group">-->
+      <!--<div class="alert alert-info" role="alert"-->
+           <!--aria-live="polite">-->
+        <!--<span>{{'common.saveRevert'|translate}}</span>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!-- <pre>{{contactRecordModel.get('id').value |json}}</pre> -->
+</div>

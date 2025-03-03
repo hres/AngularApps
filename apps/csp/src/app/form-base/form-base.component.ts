@@ -20,6 +20,7 @@ import { CertificationComponent } from '../certification/certification.component
 import { TimeOfApplicationComponent } from '../time-of-application/time-of-application.component';
 import { ApplicantComponent } from '../applicant/applicant.component';
 import { HcUseOnlyComponent } from '../health-canada-only/health-canada-only.component';
+import { AttestationComponent } from '../attestation/attestation.component';
 
 
 @Component({
@@ -72,6 +73,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _newDrugSubmissionInfoErrors = [];
   private _medicinalIngredientsForErrors = [];
   private _timingOfApplicantForErrors = [];
+  private _attestationsForErrors = [];
   private _feesForErrors = [];
   private _certificationForErrors = [];
   private _applicantForErrors = [];
@@ -238,6 +240,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._medicinalIngredientsForErrors = errorList;
     this.processErrors();
   }
+
+  processAttestationsErrors(errorList) {
+    this._attestationsForErrors = errorList;
+    this.processErrors();
+  }
+
 
   processFeesErrors(errorList) {
     this._feesForErrors = errorList;

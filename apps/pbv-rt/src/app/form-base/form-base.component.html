@@ -73,7 +73,7 @@
           <input type="checkbox" id="certifyPrivacy" [formControlName]="'certifyPrivacy'" (blur)="processErrors()" required/>
           <strong> {{'consent.privacy'|translate}}</strong>
           <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="rtForm.controls['certifyPrivacy'].invalid" [showError]="showErrors" aria-live="assertive"
+          <control-messages *ngIf="rtForm.controls['certifyPrivacy'].invalid" [showError]="showErrors" 
               parentId="transactionForm" [control]="rtForm.controls['certifyPrivacy'] | formControl"
               controlId="certifyPrivacy" label="consent.privacy"></control-messages>
           </label>

@@ -10,7 +10,7 @@
                                 class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierTypeIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="regulartoryInfoForm.controls['dossierType'].invalid"
-                        [showError]="showFieldErrors" aria-live="assertive"
+                        [showError]="showFieldErrors" 
                         [control]="regulartoryInfoForm.controls['dossierType'] | formControl" controlId="dossierType"
                         label="dossier.type" parentId="regulatoryInfo"></control-messages>
                 </label>
@@ -35,7 +35,7 @@
 						<a class="fn-lnk" [href]="'#' + helpIndex['compIdIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['compIdIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="regulartoryInfoForm.controls['companyId'].invalid"
-                        [showError]="showFieldErrors" aria-live="assertive"
+                        [showError]="showFieldErrors"
                         [control]="regulartoryInfoForm.controls['companyId'] | formControl"
                         controlId="companyId" label="company.id" parentId="regulatoryInfo"></control-messages>
                 </label>
@@ -52,7 +52,7 @@
 						<a class="fn-lnk" [href]="'#' + helpIndex['dossierIdIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierIdIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="regulartoryInfoForm.controls['dossierId'].invalid"
-                        [showError]="showFieldErrors" aria-live="assertive"
+                        [showError]="showFieldErrors"
                         [control]="regulartoryInfoForm.controls['dossierId'] | formControl" controlId="dossierId"
                         label="dossier.id" parentId="regulatoryInfo"></control-messages>
                 </label>
@@ -70,7 +70,7 @@
                                 class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodNameIndx'][0]}}</a>
                     </sup>
                     <control-messages *ngIf="regulartoryInfoForm.controls['productName'].invalid"
-                        [showError]="showFieldErrors" aria-live="assertive"
+                        [showError]="showFieldErrors" 
                         [control]="regulartoryInfoForm.controls['productName'] | formControl" controlId="productName"
                         label="product.name" parentId="regulatoryInfo"></control-messages>
                 </label>
@@ -88,7 +88,7 @@
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prioRevIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isPriority'].invalid" [showError]="showFieldErrors"
-                  [control]="regulartoryInfoForm.controls['isPriority'] | formControl" controlId="isPriority0" aria-live="assertive"
+                  [control]="regulartoryInfoForm.controls['isPriority'] | formControl" controlId="isPriority0" 
                   label="is.priority" parentId="regulatoryInfo"></control-messages>
               </legend>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -111,7 +111,7 @@
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['nocRevIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isNOC'].invalid" [showError]="showFieldErrors"
-                  [control]="regulartoryInfoForm.controls['isNOC'] | formControl" controlId="isNOC0" aria-live="assertive"
+                  [control]="regulartoryInfoForm.controls['isNOC'] | formControl" controlId="isNOC0" 
                   label="is.noc" parentId="regulatoryInfo"></control-messages>
               </legend>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -134,7 +134,7 @@
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminSubIndx'][0]}}</a>
                 </sup>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isAdminSubmission'].invalid" [showError]="showFieldErrors"
-                  [control]="regulartoryInfoForm.controls['isAdminSubmission'] | formControl" controlId="isAdminSubmission0" aria-live="assertive"
+                  [control]="regulartoryInfoForm.controls['isAdminSubmission'] | formControl" controlId="isAdminSubmission0" 
                   label="is.admin.submission" parentId="regulatoryInfo"></control-messages>
               </legend>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -157,7 +157,7 @@
                         <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                         <control-messages *ngIf="regulartoryInfoForm.controls['adminSubType'].invalid"
                             [showError]="showFieldErrors"
-                            [control]="regulartoryInfoForm.controls['adminSubType'] | formControl" controlId="adminSubType" aria-live="assertive"
+                            [control]="regulartoryInfoForm.controls['adminSubType'] | formControl" controlId="adminSubType" 
                             label="admin.sub.type" parentId="regulatoryInfo"></control-messages>
                     </label>
                     <select id="adminSubType" name="adminSubType" class="form-control"

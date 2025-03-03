@@ -51,7 +51,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   adminSubmissionSelected = signal('');
   isAdminSubmission: Signal<boolean> = computed(() => {
-    return this.adminSubmissionSelected() === 'Y';
+    return this.isPharmaBioVet() && this.adminSubmissionSelected() === 'Y';
   });
 
   selectedAdminSubTypeDefinition: string = '';
