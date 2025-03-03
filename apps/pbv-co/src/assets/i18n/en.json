@@ -112,5 +112,7 @@
     "msg.save.xml.popup": "Please save the unsaved input data before generating XML file.",
     "msg.save.data.popup": "Please save the unsaved input data.",
     "popup.title":"Company Template",
-    "popup.close": "Close"
+    "popup.close": "Close",
+
+    "error.mgs.5.numeric": "Must be five numbers."
 }

@@ -22,7 +22,7 @@ export class CompanyEnrolmentService {
         enrolmentStatusText: '', // UI Display
         enrolmentVersion: ['0.0'],
         dateLastSaved: [null],
-        companyId: [null, [Validators.required, ValidationService.companyIdValidator]],
+        companyId: [null, [Validators.required, ValidationService.numeric5Validator]],
         reasonForFiling: [null, [Validators.required]],
       });
   }
