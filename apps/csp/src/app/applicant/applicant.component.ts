@@ -1,11 +1,14 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
+  QueryList,
   SimpleChanges,
   ViewChild,
+  ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
 import {  UtilsService,  HelpSequence,  BaseComponent, ICode,} from '@hpfb/sdk/ui';
@@ -13,7 +16,7 @@ import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { ApplicantService } from './applicant-service';
 import { AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
-import { IContactCSP, INameAddressCSP } from '../models/transaction';
+import { IContact, INameAddress } from '@hpfb/pbv'
 import { ADDR_CONT_TYPE } from '../app.constants';
 
 @Component({
@@ -31,10 +34,10 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
 
   helpIndex: HelpSequence;
   @Input() showErrors: boolean;
-  @Input() applicantAddressModel: INameAddressCSP;
-  @Input() applicantContactModel: IContactCSP;
-  @Input() billingAddressModel: INameAddressCSP;
-  @Input() billingContactModel: IContactCSP;
+  @Input() applicantAddressModel: INameAddress;
+  @Input() applicantContactModel: IContact;
+  @Input() billingAddressModel: INameAddress;
+  @Input() billingContactModel: IContact;
   @Output() errorList = new EventEmitter(true);
   public applicantInformationForm: FormGroup;
   public applicant: string = ADDR_CONT_TYPE.APPLICANT;
@@ -46,10 +49,14 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
   private _billingContactErrorList: any[] = [];
   private _childrenErrors: any[] = [];
 
-  @ViewChild(AddressDetailsComponent) applicantAddressDetailsComponent: AddressDetailsComponent;
-  @ViewChild(ContactDetailsComponent) applicantContactDetailsComponent: ContactDetailsComponent;
-  @ViewChild(AddressDetailsComponent) billingAddressDetailsComponent: AddressDetailsComponent;
-  @ViewChild(ContactDetailsComponent) billingContactDetailsComponent: ContactDetailsComponent;
+  @ViewChildren(ContactDetailsComponent) contactComponents: QueryList<ContactDetailsComponent>;
+  @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
+
+  // Fields to store individual component instances
+  applicantContact: ContactDetailsComponent;
+  billingContact: ContactDetailsComponent;
+  applicantAddress: AddressDetailsComponent;
+  billingAddress: AddressDetailsComponent;
 
   constructor(
     private _fb: FormBuilder,
@@ -71,6 +78,25 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
       this.applicantInformationForm = ApplicantService.getApplicantInformationForm(
         this._fb
       );
+    }
+  }
+
+  ngAfterViewChecked() {
+    // Trigger change detection to ensure @ViewChildren is populated after view initialization
+    if (this.contactComponents && this.contactComponents.length > 0) {
+      const contactArray = this.contactComponents.toArray();
+      this.applicantContact = contactArray[0];
+      if (contactArray.length > 1) {
+        this.billingContact = contactArray[1];
+      }
+    }
+
+    if (this.addressComponents && this.addressComponents.length > 0) {
+      const addressArray = this.addressComponents.toArray();
+      this.applicantAddress = addressArray[0];
+      if (addressArray.length > 1) {
+        this.billingAddress = addressArray[1];
+      }
     }
   }
 
@@ -127,18 +153,18 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
   }
 
   getApplicantAddressFormValue() {
-    return this.applicantAddressDetailsComponent.getFormValue();
+    return this.applicantAddress.getFormValue();
   }
 
   getApplicantContactFormValue() {
-    return this.applicantContactDetailsComponent.getFormValue();
+    return this.applicantContact.getFormValue();
   }
 
   getBillingAddressFormValue() {
-    return this.billingAddressDetailsComponent.getFormValue();
+    return this.billingAddress? this.billingAddress.getFormValue() : null;
   }
 
   getBillingContactFormValue() {
-    return this.billingContactDetailsComponent.getFormValue();
+    return this.billingContact? this.billingContact.getFormValue() : null;
   }
 }

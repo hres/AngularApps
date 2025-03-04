@@ -333,11 +333,35 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (trans.advanced_payment != null) {
       this.transFeeModel = trans.advanced_payment;
     }
-    this.addressModel = trans.applicant.address;
-    this.contactModel = trans.applicant.contact;
+    // Initialize the address and contact models
+    this.addressModel = null;
+    this.contactModel = null;
 
-    this.addressBillingModel = trans.applicant.address;
-    this.contactBillingModel = trans.applicant.contact;
+    // Clear the billing address and contact models
+    this.addressBillingModel = null;
+    this.contactBillingModel = null;
+
+    // Initialize the applicant's contact and address models
+    if (trans.applicant && trans.applicant.length > 0) {
+      const applicant = trans.applicant[0]; // Assuming the first applicant is the main applicant
+      if (applicant.contact) {
+        this.contactModel = applicant.contact;
+      }
+      if (applicant.address) {
+        this.addressModel = applicant.address;
+      }
+
+      // Initialize the billing contact and address models if available
+      if (trans.applicant.length > 1) {
+        const billingApplicant = trans.applicant[1]; // Assuming the second applicant is the billing applicant
+        if (billingApplicant.contact) {
+          this.contactBillingModel = billingApplicant.contact;
+        }
+        if (billingApplicant.address) {
+          this.addressBillingModel = billingApplicant.address;
+        }
+      }
+    }
   }
 
   public preload() {

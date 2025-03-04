@@ -3,8 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AddressDetailsService, ContactDetailsService } from '@hpfb/pbv';
 import { ICode } from '@hpfb/sdk/ui';
 import { identityRevealedValidator } from '../crossFieldValidator';
+import { FormBaseService } from '../form-base/form-base.service';
 import { GlobalService } from '../global/global.service';
 import { IApplicant, TransactionEnrol } from '../models/transaction';
+import { YES, NO } from '../app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -35,29 +37,44 @@ export class ApplicantService {
 
 
 
-  public mapFormModelToDataModel(formValue: any, model: TransactionEnrol,  applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue) {
+  public mapFormModelToDataModel(formValue: any, model: TransactionEnrol,  applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue, applicantModel, billingModel) {
     const lang = this._globalService.currLanguage;
     const languageList: ICode[] = this._globalService.languageList;
     const countryList: ICode[] = this._globalService.countryList;
     const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
+    let applicants = []
 
-    model.applicant.billing_role = formValue['billingRole'];
-    model.applicant.applicant_role = formValue['applicantRole'];
+    const applicant = applicantModel;
+    
+    applicant.billing_role = NO;
+    applicant.applicant_role = YES;
 
-    model.applicant.applicant_name = formValue['applicantName'];
-    model.applicant.cra_business_number = formValue['craBusinessNumber'];
-    model.applicant.csp_customer_number = formValue['cspNumber'];
-    model.applicant.agent_name = formValue['agentName'];
+    applicant.applicant_name = formValue['applicantName'];
+    applicant.cra_business_number = formValue['craBusinessNumber'];
+    applicant.csp_customer_number = formValue['cspNumber'];
+    applicant.agent_name = formValue['agentName'];
 
-    this._addressDetailsService.mapFormModelToDataModelCanadianAddress(applicantAddressFormGroupValue, model.applicant.address, lang, countryList, combinedProvStatList);
-    this._contactDetailsService.mapFormModelToDataModel(applicantContactFormGroupValue, model.applicant.contact, lang, languageList);
+    this._addressDetailsService.mapFormModelToDataModelCanadianAddress(applicantAddressFormGroupValue, applicant.address, lang, countryList, combinedProvStatList);
+    this._contactDetailsService.mapFormModelToDataModel(applicantContactFormGroupValue, applicant.contact, lang, languageList);
 
+    applicants.push(applicant)
+    
     if(formValue['isBillingDifferent']){
       console.log("BILLING");
-      model.applicant.agent_name = formValue['orgName'];
-      this._addressDetailsService.mapFormModelToDataModelCanadianAddress(billingAddressFormGroupValue, model.applicant.address, lang, countryList, combinedProvStatList);
-      this._contactDetailsService.mapFormModelToDataModel(billingContactFormGroupValue, model.applicant.contact, lang, languageList);
+      const billing = billingModel;
+      console.log(billing)
+
+      billing.billing_role = YES;
+      billing.applicant_role = NO;
+
+      billing.agent_name = formValue['orgName'];
+      this._addressDetailsService.mapFormModelToDataModel(billingAddressFormGroupValue, billing.address, lang, countryList, combinedProvStatList);
+      this._contactDetailsService.mapFormModelToDataModel(billingContactFormGroupValue, billing.contact, lang, languageList);
+
+      applicants.push(billing);
     }
+
+    model.applicant = applicants
   }
 
   public mapDataModelToFormModel(applicantModel: IApplicant, formRecord: FormGroup) {
@@ -69,6 +86,5 @@ export class ApplicantService {
     formRecord.controls['cspNumber'].setValue(applicantModel.csp_customer_number);
     formRecord.controls['agentName'].setValue(applicantModel.agent_name);
    }
-
 
 }
