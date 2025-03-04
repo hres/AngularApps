@@ -1,13 +1,16 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { GlobalService } from '../global/global.service';
-import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
+import { EntityBaseService, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
-import { AddressRecord, Company, CompanyEnrol, ContactRecord } from '../models/Company';
+import { AddressRecord, Company, CompanyEnrol, ContactRecord, ProductLine } from '../models/Company';
 import { CompanyEnrolmentService } from '../company-enrolment/company-enrolment.service';
-import { ContactDetailsService } from '@hpfb/pbv';
+import { AddressDetailsService, ContactDetailsService } from '@hpfb/pbv';
 import { EntityBasePbvService } from '@hpfb/pbv';
 import { CompanyContactItemService } from '../company-contact/company-contact-item/company-contact-item.service';
+import { CompanyAddressItemService } from '../company-address/company-address-item/company-address-item.service';
+import { count } from 'rxjs';
+import { ProductLineService } from '../product-line/product-line.service';
 
 @Injectable()
 export class FormBaseService {
@@ -17,9 +20,12 @@ export class FormBaseService {
     private _utilsService: UtilsService, 
     private _globalService: GlobalService,
     private _companyEnrolmentService: CompanyEnrolmentService,
+    private _productLineService: ProductLineService,
     private _entityBasePbvService: EntityBasePbvService,
     private _contactDetailsService: ContactDetailsService,
-    private _companyContactItemService: CompanyContactItemService) {
+    private _companyContactItemService: CompanyContactItemService,
+    private _addressDetailsService: AddressDetailsService,
+    private _companyAddressItemService: CompanyAddressItemService) {
   }
 
   /**
@@ -56,10 +62,18 @@ export class FormBaseService {
       company_id: '',
       reason_amend: '',
       address_record: this.getEmptyAddressRecordList(),
-      contact_record: this.getEmptyContactRecordList()
+      contact_record: this.getEmptyContactRecordList(),
+      product_line_checkbox: this.getEmptyProductLine()
     };
     
     return companyEnrol;
+  }
+
+  public getEmptyProductLine(): ProductLine {
+    const prodLine : ProductLine = {
+      product_line: null
+    }
+    return prodLine;
   }
 
   public getEmptyAddressRecordList(): AddressRecord[] {
@@ -94,8 +108,33 @@ export class FormBaseService {
     return addressRecord;
   }
 
-  public mapCompanyEnrolmentToOutput(outputCompanyEnrol: CompanyEnrol, companyEnrolmentGroupValue: any, isInternal:boolean): void{
-    this._companyEnrolmentService.mapFormModelToDataModel(outputCompanyEnrol, companyEnrolmentGroupValue, isInternal);
+  public mapCompanyEnrolmentToOutput(outputCompanyEnrol: CompanyEnrol, companyEnrolmentGroupValue: any, isInternal:boolean, isXmlFile: boolean): void{
+    this._companyEnrolmentService.mapFormModelToDataModel(outputCompanyEnrol, companyEnrolmentGroupValue, isInternal, isXmlFile);
+  }
+
+  public mapProductLineToOutput(outputCompanyEnrol: CompanyEnrol, productLineValue: any): void{
+    this._productLineService.mapFormModelToDataModel(outputCompanyEnrol, productLineValue);
+  }
+
+  public mapAddressesFormToOutput(companyEnrol: CompanyEnrol, addressFormArray) {
+    const lang = this._globalService.currLanguage;
+    const countryList = this._globalService.countryList;
+    const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
+
+
+    let addressModelList = [];
+    
+    if (addressFormArray) {
+      for (let i = 0; i < addressFormArray.length; i++) {
+        let addressModel: AddressRecord = this.getEmptyAddressRecord();
+        // TODO: Call function to map company roles
+        this._companyAddressItemService.mapFormModelToDataModel(addressFormArray[i], addressModel);
+        this._addressDetailsService.mapFormModelToDataModel(addressFormArray[i]['addressInfo']['addressDetails'], addressModel.company_address_details , lang, countryList, combinedProvStatList);
+        addressModelList.push(addressModel);
+      }
+    }
+
+    companyEnrol.address_record = addressModelList;
   }
   
   public mapContactsFormToOutput(companyEnrol: CompanyEnrol, contactsFormArray) {
@@ -106,10 +145,9 @@ export class FormBaseService {
     
     if (contactsFormArray) {
       for (let i = 0; i < contactsFormArray.length; i++) {
-        console.log(contactsFormArray[i]);
         let contactModel: ContactRecord = this.getEmptyContactRecord();
         // TODO: Call function to map company roles
-        this._companyContactItemService.mapFormModelToDataModel(contactsFormArray[i]['companyInfo'], contactModel);
+        this._companyContactItemService.mapFormModelToDataModel(contactsFormArray[i], contactModel);
         this._contactDetailsService.mapFormModelToDataModel(contactsFormArray[i]['companyInfo']['contactDetails'], contactModel.company_contact_details , lang, languageList);
         contactModelList.push(contactModel);
       }

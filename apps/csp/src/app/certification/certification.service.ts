@@ -8,7 +8,7 @@ import { CertDetails } from '../models/transaction';
 export class CertificationService {
 
   constructor() { }
-  
+
   public  getCertificationForm(fb: FormBuilder){
 
     if(!fb){
@@ -28,18 +28,18 @@ export class CertificationService {
 
 
   public mapFormModelToDataModel(formValue: any, certModel: CertDetails) {
-    certModel.firstName = formValue['firstName'];
+    certModel.given_name = formValue['firstName'];
     certModel.initials = formValue['initials'];
-    certModel.lastName = formValue['lastName'];
-    certModel.jobTitle = formValue['jobTitle'];
-    certModel.date = formValue['date'];
+    certModel.surname = formValue['lastName'];
+    certModel.job_title = formValue['jobTitle'];
+    certModel.date_signed = formValue['date'];
   }
 
   public mapDataModelToFormModel(certModel: CertDetails, formRecord: FormGroup) {
-    formRecord.controls['firstName'].setValue(certModel.firstName);
+    formRecord.controls['firstName'].setValue(certModel.given_name);
     formRecord.controls['initials'].setValue(certModel.initials);
-    formRecord.controls['lastName'].setValue(certModel.lastName);
-    formRecord.controls['jobTitle'].setValue(certModel.jobTitle);
-    formRecord.controls['date'].setValue(certModel.date);
+    formRecord.controls['lastName'].setValue(certModel.surname);
+    formRecord.controls['jobTitle'].setValue(certModel.job_title);
+    formRecord.controls['date'].setValue(certModel.date_signed);
   }
 }

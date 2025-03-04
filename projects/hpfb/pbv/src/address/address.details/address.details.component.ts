@@ -1,18 +1,15 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation,
-  signal,
-  computed
+  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {AddressDetailsService} from './address.details.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AddressDetailsService } from './address.details.service';
 import { BaseComponent, CANADA, HelpIndex, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { INameAddress } from '../../model/entity-base';
 
 @Component({
   selector: 'pbv-address-details',
   templateUrl: 'address.details.component.html',
-  //styleUrls: ['address.details.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 
@@ -25,31 +22,17 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   @Input() provinceList;
   @Input() stateList;
   @Input() canadaDefault: boolean;
+  @Input() formGroup?: FormGroup;
   @Input() addrType;
   @Input() addrGroupLabelKey;
   @Output() errorList = new EventEmitter(true);
 
   public addressForm: FormGroup;
-  public provStateList: ICode[] = [];
-  public provinceLabel = 'addressDetails.province';
-  public postalLabel = 'addressDetails.postalZipCode';
-  
+  // public provinceLabel = 'addressDetails.province';
+  // public postalLabel = 'addressDetails.postalZipCode';
   public showFieldErrors = false;
 
- // writable signal for the answer of "Country" field
-  readonly selectedCountrySignal = signal<string>('');
-  // computed signal for rendering of different "Postal/Zipcode"field
-  isCanada = computed(() => {
-    return this._utilsService.isCanada(this.selectedCountrySignal());
-  });
-  isUsa = computed(() => {
-    return this._utilsService.isUsa(this.selectedCountrySignal());
-  });
-  isCanadaOrUSA = computed(() => {
-    return this._utilsService.isCanadaOrUSA(this.selectedCountrySignal());
-  });
-
-  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private _detailsService: AddressDetailsService, 
+  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private _detailsService: AddressDetailsService,
     private _utilsService: UtilsService) {
     super();
     this.showFieldErrors = false;
@@ -63,6 +46,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     if (this.canadaDefault) {
       this.addressForm.controls['country'].setValue(CANADA);
       this.addressForm.controls['country'].disable(); // Method to grey out/disable the country dropdown
+      this.onCountryChange(null); // Call onCountryChange to change Postal/ZIP code -> Postal Code, Province or state -> Province
     }
   }
 
@@ -73,7 +57,9 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   ngOnChanges(changes: SimpleChanges) {
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
-    // console.log("isFirstChange:", isFirstChange);
+    if (changes['formGroup']) {
+      this.addressForm = this.formGroup;
+    }
     if (!isFirstChange) {
       if (changes['addressModel']) {
         const dataModel = changes['addressModel'].currentValue as INameAddress;
@@ -86,8 +72,6 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   }
 
   onCountryChange(e: any): void {
-    const selectedCountryId = this.addressForm.controls['country'].value;
-    this.selectedCountrySignal.set(selectedCountryId);
 
     if (e) {
       // reset provText etc fields when the action is triggered from the UI
@@ -96,36 +80,24 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     }
 
     if (this.isCanadaOrUSA()) {
-      // updte provState and postal fields' validator and refresh the provStateList based on country
+      // update provState and postal fields' validator
       this.addressForm.controls['provState'].setValidators([Validators.required]);
       this.addressForm.controls['provState'].updateValueAndValidity();
 
       if (this.isCanada()) {
         this.addressForm.controls['postal'].setValidators([Validators.required, ValidationService.canadaPostalValidator]);
-        this.provStateList = this.provinceList;
-
-        this.postalLabel = 'addressDetails.postalCode';
-        this.provinceLabel = 'addressDetails.province';
-
       } else {
         this.addressForm.controls['postal'].setValidators([Validators.required, ValidationService.usaPostalValidator]);
-        this.provStateList = this.stateList;
-
-        this.postalLabel = 'addressDetails.zipCode';
-        this.provinceLabel = 'addressDetails.state';
       }
       this.addressForm.controls['postal'].updateValueAndValidity();
 
     } else {
-      // updte provState and postal fields' validator
+      // update provState and postal fields' validator
       this.addressForm.controls['provState'].setValidators([]);
       this.addressForm.controls['provState'].updateValueAndValidity();
 
       this.addressForm.controls['postal'].setValidators([Validators.required]);     
       this.addressForm.controls['postal'].updateValueAndValidity();
-
-      this.postalLabel = 'addressDetails.postalZipCode';
-      this.provinceLabel = '';
     }
   }
 
@@ -136,6 +108,63 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   private _resetControlValues(controlNames: string[]) {
     for (let i = 0; i < controlNames.length; i++) {
       this._utilsService.resetControlsValues(this.addressForm.controls[controlNames[i]]);
+    }
+  }
+
+  isCanadaOrUSA() {
+    return this._utilsService.isCanadaOrUSA(this.getCountryValue());
+  }
+
+  isCanada() {
+    return this._utilsService.isCanada(this.getCountryValue());
+  }
+
+  isUsa() {
+    return this._utilsService.isUsa(this.getCountryValue());
+  }
+
+  getCountryValue() {
+    return this.addressForm.controls['country'].value
+  }
+
+  /**
+   * Reactive funtion to return the provStateList based on selected country
+   * 
+   * @returns ICode[] of either states or provinces or empty if neither Canada or USA is selected
+   */
+  provStateList() : ICode[]{
+    if (this.isCanada()) {
+      return this.provinceList;
+    } else if (this.isUsa()) {
+      return this.stateList;
+    } else {
+      return [];
+    }
+  }
+
+  /**
+   * Reactive function to return province label if country is Canada or USA
+   * @returns Either "Province" or "State"
+   */
+  provinceLabel() : string {
+    if (this.isCanada()) {
+      return 'addressDetails.province'
+    } else {
+      return 'addressDetails.state';
+    }
+  }
+
+  /**
+   * Reactive function to return postal code label if country is Canada/USA/neither
+   * @returns Either "Postal code"/"ZIP code"/"Postal/ZIP code"
+   */
+  postalLabel(): string {
+    if (this.isCanada()) {
+      return 'addressDetails.postalCode'
+    } else if (this.isUsa()) {
+      return 'addressDetails.zipCode';
+    } else {
+      return 'addressDetails.postalZipCode';
     }
   }
 

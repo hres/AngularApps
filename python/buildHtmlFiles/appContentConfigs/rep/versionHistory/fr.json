@@ -7,8 +7,26 @@
     ],
     "releases": [
         {
-            
-            "header": "Publication du 22 octobre 2024",
+            "header": "Publication du 26 mars 2025",
+            "details": [
+                {
+                    "template": "Le modèle de transaction réglementaire (TR)<br>Version 5.0.0<br><br><br>Ensemble de feuilles de style*",
+                    "changes": [
+                        "Ajout d'instructions concernant la section « Charger un fichier d’inscription de transaction réglementaire »",
+                        "Réorganiser la section « Détails de la transaction »",
+                        "Ajout de la bulle d’information pour numéro de contrôle",
+                        "Suppression du type d'activité réglementaire : PDN CV",
+                        "Ajout d’une description de transaction réglementaire : Demande de rapport(s) d'examen à responsable : Vigilance post-commercialisation (pour la Direction des produits de santé commercialisés (DPSC))",
+                        "Suppression de la question « Les frais nouveaux ou révisés sont-ils associés à ces transactions ? » ",
+                        "Ajout catégorie de la présentation – Sans objet ",
+                        "Suppression de l'identificateur d'acheminement<br><br><br>",
+                        "*Nouvelle feuille de style TR pour correspondre aux modifications apportées à ce modèle"
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "Publication du 28 octobre 2024",
             "details": [
                 {
                     "template": "Le modèle de transaction réglementaire (TR)<br>Version 4.4.3",
@@ -28,7 +46,6 @@
             ]
         },
         {
-            
             "header": "Publication du 1 mai 2024",
             "details": [
                 {

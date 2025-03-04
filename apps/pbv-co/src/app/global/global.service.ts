@@ -26,11 +26,15 @@ export class GlobalService {
   // data loaded from json files
   private _dossierTypes: ICodeDefinition[] = [];
   private _countryList: ICode[];
+  private _provinceList: ICode[];
+  private _stateList: ICode[];
   private _yesnoList: ICode[];
   private _subTypeList: ICodeDefinition[];
   private _enrolmentStatusesList: ICode[];
   private _languageList: ICode[];
   private _companyRolesList: ICode[];
+  private _productLineList: ICode[];
+  private _countryIdMappingList: any[] = [];
 
   constructor() {}
 
@@ -126,6 +130,22 @@ export class GlobalService {
     this._countryList = value;
   }
 
+  public get provinceList(): ICode[] {
+    return this._provinceList;
+  }
+
+  public set provinceList(value: ICode[]) {
+    this._provinceList = value;
+  }
+
+  public get stateList(): ICode[] {
+    return this._stateList;
+  }
+
+  public set stateList(value: ICode[]) {
+    this._stateList = value;
+  }
+
   public set enrolmentStatusList(value: ICode[]) {
     this._enrolmentStatusesList = value;
   }
@@ -148,5 +168,22 @@ export class GlobalService {
 
   public set companyRolesList(value: ICode[]) {
     this._companyRolesList = value;
+  }
+
+  public get productLineList(): ICode[] {
+    return this._productLineList;
+  }
+
+  public set productLineList(value: ICode[]) {
+    this._productLineList = value;
+  }
+
+  //Temporary use to update country code from 4.4.3 to 5.0.0, Shall be removed in later release
+  public get countryIdMappingList(): any[] {
+    return this._countryIdMappingList;
+  }
+
+  public set countryIdMappingList(value: any[]) {
+    this._countryIdMappingList = value;
   }
 }

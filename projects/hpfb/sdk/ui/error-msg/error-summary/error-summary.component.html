@@ -32,15 +32,18 @@
         <li *ngIf="controlError.type==='component_error'">
           <a href="#{{controlError.componentId}}" target="_self" (click)="processEvents(controlError)">{{'error' | translate: {number:controlError.errorNumber} }}&nbsp;{{controlError.label|translate}}</a>
         </li>
-        <li *ngIf="controlError.type==='least_one_rec_error'">
+        <li *ngIf="controlError.type==='least_one_rec_error' && !controlError.error">
           <a href="#{{controlError.tableId}}" target="_self" (click)="processEvents(controlError)">{{'error' | translate: {number:controlError.errorNumber} }}&nbsp;{{controlError.label|translate}}</a>
+        </li>
+        <li *ngIf="controlError.type==='least_one_rec_error' && controlError.error">
+          <a href="#{{controlError.tableId}}" target="_self" (click)="processEvents(controlError)">{{'error' | translate: {number:controlError.errorNumber} }}&nbsp;{{controlError.label|translate}}&nbsp;&#8208;&nbsp;{{ getValidatorErrorMessageKey(controlError.error) | translate: controlError.compRef.errorParams}}</a>
         </li>
         <li *ngIf="controlError.type!=='component_error' && controlError.type!='least_one_rec_error'">
           <a href="#{{controlError.controlId}}" target="_self" (click)="processEvents(controlError)">
             {{'error' | translate: {number:controlError.errorNumber} }}
             
               @if(controlError.compRef.translatedParentLabel) {
-                {{controlError.compRef.translatedParentLabel}}&nbsp;&#8208;&nbsp;
+                {{controlError.compRef.translatedParentLabel}}&nbsp;&#8208;
               }
             
             {{controlError.compRef.label | translate}}&nbsp;&#8208;&nbsp;{{ getValidatorErrorMessageKey(controlError.compRef.currentError) | translate: controlError.compRef.errorParams}}

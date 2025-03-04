@@ -1,1 +1,100 @@
-<p>company-address-item works!</p>
+<div [formGroup]="cRRow">
+    <div id="coAddressErrorSummary{{j}}">
+      <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
+      [errorList]="errors" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
+      [headingLevel]="headingLevel" label="error.msg.companyAddress" compId="addressListTable{{j}}"></lib-error-summary> 
+    </div>
+      <div [formGroupName]="'addressInfo'">
+        <div class="row">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="companyName{{j}}" class="required full-width">
+                    <span class="field-name">{{ 'company.name'|translate }}</span>
+                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <control-messages *ngIf="cRRow.get('addressInfo.companyName').invalid"
+                        [showError]="showErrors"
+                        [control]="cRRow.get('addressInfo.companyName') | formControl" controlId="companyName{{j}}"
+                        label="company.name" parentId="companyAddress"></control-messages>
+                    <input maxlength="100" id="companyName{{j}}" class="form-control full-width"
+                        name="companyName" [formControlName]="'companyName'" />
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="businessNum{{j}}">
+                    <span class="field-name">{{ 'business.number'|translate }}                   
+                      <sup [id]="helpIndex['businessNumIndx'][2]">
+                        <a class="fn-lnk" [href]="'#' + helpIndex['businessNumIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['businessNumIndx'][0]}}</a>
+                      </sup>
+                    </span>
+                    <control-messages *ngIf="cRRow.get('addressInfo.businessNum').invalid"
+                        [showError]="showErrors"
+                        [control]="cRRow.get('addressInfo.businessNum') | formControl" controlId="businessNum{{j}}"
+                        label="business.number" parentId="companyAddress"></control-messages>
+                    <input id="businessNum{{j}}" class="form-control full-width"
+                        data-only-digits name="businessNum" [formControlName]="'businessNum'" maxlength="9" />
+                </label>
+            </div>
+        </div>
+
+        <pbv-address-details [showErrors]="showErrors" 
+                    [lang]="lang"
+                    [countryList]="countryList"
+                    [provinceList]="provinceList"
+                    [stateList]="stateList"
+                    [canadaDefault]="false"
+                    [formGroup]="addressDetailsFormGroup"
+                    (errorList)="processAddressErrors($event)">
+        </pbv-address-details>
+
+      <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <fieldset class="chkbxrdio-grp" id="addressCompanyRoles{{j}}">
+          <legend class="required">
+            <span class="field-name">{{'select.roles' | translate}}
+            </span>
+            <strong class="required">{{'commmon.required.bracket'|translate}} 
+              <sup [id]="helpIndex['selectRolesIndx'][2]">
+                <a class="fn-lnk" [href]="'#' + helpIndex['selectRolesIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['selectRolesIndx'][0]}}</a>
+              </sup>
+            </strong>
+            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
+                            [showError]="showErrors"
+                            [control]="companyRolesChkFormArray | formControl"
+                            controlId="companyRoles" label="select.roles"
+                            parentId="coAddress"></control-messages>
+        </legend>
+          <ul class="form-group list-unstyled">
+          <li class="checkbox" [formArrayName]="'addressCompanyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">
+              <label [for]="'addressRole' + j + '-' + i">
+                <input type="checkbox" [id]="'addressRole' + j + '-' + i"
+                [formControl]="reason | formControl" 
+                (change)="companyRolesOnChange($event, companyRolesOptionList[i].value, i)" />
+                {{companyRolesOptionList[i].label}}
+              </label>
+              <div>
+                <control-messages *ngIf="reason.invalid"
+                [showError]="showErrors"
+                [control]="reason | formControl"
+                [controlId]="'addressRole-' + i"
+                [label]="companyRolesOptionList[i].label"
+                parentId="coAddress">
+                </control-messages>
+              </div>
+          </li>
+          </ul>
+        </fieldset>
+        </div>
+    </div>
+
+        <div class="row">
+          <div class="btn-group-sm col-xs-12 text-left">          
+            <button id="saveCompanyAddressRecord{{j}}" attr.aria-label="{{'save.address' | translate}} {{'heading.company.address' | translate: {seqnumber: j + 1} }}" class="btn btn-primary" style="margin: 3px" (click)="saveAddressRecord(j)" >{{'save.address'|translate}}</button>
+            <button id="deleteCompanyAddressRecord{{j}}" attr.aria-label="{{'delete.address' | translate}} {{ 'heading.company.address' | translate: {seqnumber: j + 1} }}" class="btn btn-danger" style="margin: 3px"  (click)="deleteAddressRecord(j)" >{{'delete.address'|translate}}</button> <!--[disabled]="disableDeleteButton()"-->
+            <button id="revertCompanyAddressRecord{{j}}" attr.aria-label="{{'discard.changes' | translate}} {{ 'heading.company.address' | translate: {seqnumber: j + 1} }}" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()" (click)="revertAddressRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>          
+          </div>
+        </div>
+    </div>
+</div>
+    

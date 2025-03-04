@@ -1,0 +1,27 @@
+<div [formGroup]="productLineForm">
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <fieldset class="chkbxrdio-grp" id="productLineForm">
+                <legend class="required">
+                    <span class="field-name">{{'prod.line' | translate}}</span>
+                    <strong class="required">{{'commmon.required.bracket'|translate}} </strong>
+                    <sup [id]="helpIndex['prodLineIndx'][2]">
+                        <a class="fn-lnk" [href]="'#' + helpIndex['prodLineIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodLineIndx'][0]}}</a>
+                    </sup>
+                    <control-messages *ngIf="productLineChkFormArray.invalid"
+                            [showError]="showErrors"
+                            [control]="productLineChkFormArray | formControl"
+                            controlId="productLine" label="label.prod.line"
+                            parentId="productLine"></control-messages>
+                </legend>
+                <ul class="form-group list-unstyled">
+                    <li class="checkbox" [formArrayName]="'productLine'" *ngFor="let product of productLineChkFormArray.controls; let i = index">
+                        <label for={{productLineOptionList[i].value}}>
+                            <input type="checkbox" id={{productLineOptionList[i].value}} [formControl]="product | formControl" (change)="productLineOnChange($event)"/> {{productLineOptionList[i].label}}
+                        </label>
+                    </li>
+                </ul>
+            </fieldset>
+        </div>
+    </div>
+</div>

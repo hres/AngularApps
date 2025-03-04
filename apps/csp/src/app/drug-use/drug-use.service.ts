@@ -30,13 +30,11 @@ export class DrugUseService {
 
 
   public mapFormModelToDataModel(formValue: any, transactionEnrol: TransactionEnrol) {
-    const usageModelReturn = formValue['drugUse']? this._converterService.findAndConverCodeToIdTextLabel(this.drugUseList, formValue['drugUse'], this._currLanguage) : null;
-    transactionEnrol.drugUse = usageModelReturn.__text;
+    transactionEnrol.application_info.drug_use = formValue['drugUse']? this._converterService.findAndConverCodeToIdTextLabel(this.drugUseList, formValue['drugUse'], this._currLanguage).__text : "";
   }
 
   public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
-
-    formRecord.controls['drugUse'].setValue(transactionEnrol.drugUse);
+    formRecord.controls['drugUse'].setValue(transactionEnrol.application_info.drug_use);
    }
 
 }

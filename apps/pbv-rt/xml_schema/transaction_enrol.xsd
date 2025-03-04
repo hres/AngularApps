@@ -161,7 +161,7 @@
 	</hpfb:element>
 	<hpfb:element name="mitigation" type="mitigation_content"/>
 	<hpfb:element name="mitigation_type" type="mitigation_type_content"/>
-	<hpfb:element name="certify_organization" type="yes_no_content"/>
+	<hpfb:element name="certify_small_business" type="yes_no_content"/>
 	<hpfb:element name="small_business_fee_application" type="yes_no_content"/>
 	<!--<hpfb:element name="first_submission" type="yes_no_content"/>-->
 	<hpfb:element name="certify_government_organization" type="yes_no_content"/>
@@ -286,7 +286,7 @@
 			<hpfb:element ref="mitigation_type"/>
 			<hpfb:element ref="certify_funded_health_institution"/>
 			<hpfb:element ref="certify_government_organization"/>
-			<hpfb:element ref="certify_organization"/>
+			<hpfb:element ref="certify_small_business"/>
 			<hpfb:element ref="certify_urgent_health_need"/>
 			<hpfb:element ref="certify_isad"/>
 			<hpfb:element ref="small_business_fee_application"/>

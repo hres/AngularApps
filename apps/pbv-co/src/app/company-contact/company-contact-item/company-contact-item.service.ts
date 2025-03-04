@@ -1,17 +1,19 @@
 import { Injectable } from "@angular/core";
 import { FormArray, FormGroup, FormControl } from '@angular/forms';
 import { CheckboxOption, ConverterService, ICode, UtilsService, ValidationService } from "@hpfb/sdk/ui";
-import { NO, YES } from "../../app.constants";
+import { YES, NO } from "../../app.constants";
 import { GlobalService } from "../../global/global.service";
 import { ContactRecord } from "../../models/Company";
+import { ROLE_MAPPING, REVERSE_ROLE_MAPPING } from "../../app.constants";
+import { AppSignalService } from "../../signal/app-signal.service";
 
 
 @Injectable()
 export class CompanyContactItemService {
 
     constructor(private _converterService: ConverterService,
-                private _utilsService: UtilsService,
-                private _globalService: GlobalService) {
+                private _globalService: GlobalService,
+                private _signalService: AppSignalService) {
 
     }
 
@@ -37,15 +39,26 @@ export class CompanyContactItemService {
         
     }
 
-    public mapFormModelToDataModel(contactFormGroup : FormGroup, contactOutput : ContactRecord)  
-    {
-      //console.log(contactFormGroup);
+    getSelectedCompanyRolesFromOutputModel(outputModel : ContactRecord) {
+      const selectedRoles = this.getSelectedContactCompanyRoles(outputModel);
+      const rolesArray: boolean[] = [
+        outputModel.manufacturer === YES, // Index 0: manufacturer
+        outputModel.mailing === YES,      // Index 1: mailing
+        outputModel.billing === YES       // Index 2: billing
+      ];
 
-      if (contactFormGroup['selectedCompanyRoles']) {
-        contactFormGroup['selectedCompanyRoles'].forEach((role: string) => {
-          const mappedProperty = this.ROLE_MAPPING[role];
+      return [selectedRoles, rolesArray];
+    }
+
+    public mapFormModelToDataModel(contactFormGroup : FormGroup, contactOutput : ContactRecord)  
+    { 
+      const companyInfoFormGroup = contactFormGroup['companyInfo'];
+      contactOutput.id = contactFormGroup['id'];
+      if (companyInfoFormGroup['selectedCompanyRoles']) {
+        companyInfoFormGroup['selectedCompanyRoles'].forEach((role: string) => {
+          const mappedProperty = ROLE_MAPPING[role];
           if (mappedProperty) {
-            contactOutput[mappedProperty] = YES; // Assign a value as needed
+            contactOutput[mappedProperty] = YES; // Assign a value as needed, assigns to "Y"
           } else {
             contactOutput[mappedProperty] = NO;
           }
@@ -54,37 +67,41 @@ export class CompanyContactItemService {
     }
     
   
-    public mapDataModelToFormModel(companyContact : ContactRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[]) {
+    public mapDataModelToFormModel(companyContact : ContactRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[], id) {
       const companyRolesList = this._globalService.companyRolesList;
       const lang = this._globalService.currLanguage;
       if (companyContact) {
 
-        const selectedRoles: string[] = Object.keys(this.REVERSE_ROLE_MAPPING)
-        .filter((key) => companyContact[key] === "Y") // Check for "Y"
-        .map((key) => this.REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
-
+        const selectedRoles = this.getSelectedContactCompanyRoles(companyContact);
+        this._mapCompanyRolesToSignal(selectedRoles, id);
         // Update form model
         formRecord.controls['selectedCompanyRoles'].setValue(selectedRoles);
         if (selectedRoles.length > 0) {
           const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
 
           this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang)
-          console.log(companyRolesList, companyRolesOptionList, companyRolesFormArray);
           this._converterService.checkCheckboxes(selectedRoles, companyRolesOptionList, companyRolesFormArray);
         } 
       }
     }
 
-    private readonly ROLE_MAPPING: { [key: string]: string } = {
-      MFR: "manufacturer",
-      BILL: "billing",
-      MAIL: "mailing",
-    };
+    private _mapCompanyRolesToSignal(selectedCompanyRoles : string[], id) {
+      if (this._signalService.getSelectedContactCompanyRoles().length > 0) {
+        this._signalService.resetContactCompanyRoles();
+      }
 
-    private readonly REVERSE_ROLE_MAPPING: { [key: string]: string } = {
-      manufacturer: "MFR",
-      billing: "BILL",
-      mailing: "MAIL",
-    };
+      selectedCompanyRoles.forEach(role => {
+        this._signalService.updateContactCompanyRoles(`${id - 1}${role}`);
+      });    
+    }
+
+    
+    getSelectedContactCompanyRoles(companyAddress : ContactRecord) {
+      const selectedRoles: string[] = Object.keys(REVERSE_ROLE_MAPPING)
+        .filter((key) => companyAddress[key] === YES) // Check for "Y"
+        .map((key) => REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
+
+      return selectedRoles;
+    }
 
 }

@@ -33,6 +33,7 @@ export class GlobalService {
   private _timingOfApplicant: ICodeAria[] = [];
   private _payMethod: ICode[] = [];
   private _languageList: ICode[];
+  private _attestationAsApplicant: ICodeAria[] = [];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -177,6 +178,16 @@ export class GlobalService {
   public set languageList(value: ICode[]) {
     this._languageList = value;
 
+  }
+
+  // Getter for pay method
+  public get attestationAsApplicant(): ICodeAria[] {
+    return this._attestationAsApplicant;
+  }
+
+  // Setter for pay method
+  public set attestationAsApplicant(value: ICodeAria[]) {
+    this._attestationAsApplicant = value;
   }
 
 

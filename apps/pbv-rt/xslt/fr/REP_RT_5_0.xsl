@@ -21,7 +21,7 @@
 	</xsl:template>
 	<!-- Transaction Enrolment -->
 	<xsl:template match="TRANSACTION_ENROL">
-		<h1>Modèle de transaction réglementaire: Processus d'inscription réglementaire (PIR)<xsl:if test="software_version != ''"> (Version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
+		<h1>Modèle de transaction réglementaire: Processus d'inscription réglementaire (PIR)<xsl:if test="software_version != ''"> (version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
 					<div class="well well-sm" >
 						<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 							<tr>
@@ -263,28 +263,26 @@
 							<div class="col-xs-12">
 								<strong>Description de la présentation:</strong>
 								<div class="col-xs-12">
-								<span class="mouseHover">
-								<xsl:value-of select="fee_details/submission_description/@label_fr"/>
+								<span>
+								<xsl:value-of select="fee_details/submission_description/@label_fr" disable-output-escaping="yes"/>
 								</span>
 								</div>
 							</div>
 						</div>
 					</div>
+					<xsl:if test="fee_details/mitigation/mitigation_type !=''">
 					<div class="well well-sm" >
 						<div class="row">
 							<div class="form-group col-xs-12 h3 text-info">Mesures d'atténuation</div>
-
-							<xsl:if test="fee_details/mitigation/mitigation_type !=''">
 							<div class="col-xs-12">
 								<div class="col-xs-12">
 									<span class="mouseHover"><xsl:value-of select="fee_details/mitigation/mitigation_type/@label_fr"/></span>
 								</div>
 							</div>
-							</xsl:if>
 							<div class="col-xs-12">
 							<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'SMALL_BUSINESS'">
-								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_organization"/></xsl:call-template>
-								<strong>Nous certifions que nous répondons à la définition de petites entreprises et que nous avons enregistré notre entreprise auprès de Santé Canada avant de soumettre cette soumission ou demande. Nous comprenons que le fait de ne pas s'inscrire en tant que petite entreprise avant de soumettre cette soumission ou demande entraînera l'inscription intégrale à la totalité des frais.</strong>
+								<strong><xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_small_business"/></xsl:call-template>
+								Nous certifions que nous répondons à la définition de petites entreprises et que nous avons enregistré notre entreprise auprès de Santé Canada avant de soumettre cette soumission ou demande. Nous comprenons que le fait de ne pas s'inscrire en tant que petite entreprise avant de soumettre cette soumission ou demande entraînera l'inscription intégrale à la totalité des frais.</strong>
 								
 								<div class="col-xs-12">
 								<strong>Nous n'avons pas encore déposé de demande d'un médicament auprès de Santé Canada. Nous sommes en train de déposer notre première demande de traitement de médicaments.</strong>
@@ -292,8 +290,8 @@
 								</div>
 							</xsl:if>
 							<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'URGENT_HEALTH_NEED'">
-								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_urgent_health_need"/></xsl:call-template>
-								<strong>Nous certifions que le médicament faisant l’objet de la présentation ou de la demande se trouve dans la liste des médicaments utilisés pour des besoins urgents en matière de santé publique conformément au Règlement sur l’accès aux médicaments dans des circonstances exceptionnelles, et que :</strong>
+								<strong><xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_urgent_health_need"/></xsl:call-template>
+								Nous certifions que le médicament faisant l’objet de la présentation ou de la demande se trouve dans la liste des médicaments utilisés pour des besoins urgents en matière de santé publique conformément au Règlement sur l’accès aux médicaments dans des circonstances exceptionnelles, et que :</strong>
 								<div class="col-xs-12">
 								<ol class="lst-lwr-alph">
 									<li>Le médicament comporte le même ingrédient médicinal, la même concentration et la même voie d’administration, ainsi qu’une forme dosifiée comparable, qu’un médicament qui pourrait être importé en vertu du paragraphe C.10.001(2) de ce règlement;</li>
@@ -303,24 +301,25 @@
 								</div>
 							</xsl:if>
 							<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'FUNDED_INSTITUTION'">
-								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_funded_health_institution"/></xsl:call-template>
-								<strong>Nous certifions que notre établissement est financé par le gouvernement du Canada ou le gouvernement d’une province ou d’un territoire et que cet établissement est :</strong>
+								<strong><xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_funded_health_institution"/></xsl:call-template>
+								Nous certifions que notre établissement est financé par le gouvernement du Canada ou le gouvernement d’une province ou d’un territoire et que cet établissement est :</strong>
 								<ol class="lst-lwr-alph">
 									<li>est autorisé, approuvé ou désigné par une province en conformité avec les lois de cette province pour fournir des soins ou des traitements à des personnes ou à des animaux souffrant de quelque maladie que ce soit ou</li>
 									<li>est la propriété du gouvernement du Canada ou est exploité par ce dernier ou par le gouvernement d’une province et fournit des soins de santé.</li>
 								</ol>
 							</xsl:if>
 							<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'GOVERMENT_ORGANIZATION'">
-								<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_government_organization"/></xsl:call-template>
-								<strong>Nous certifions que notre organisation est une Direction générale ou une agence du gouvernement du Canada ou d’une province ou d’un territoire.</strong>
+								<strong><xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_government_organization"/></xsl:call-template>
+								Nous certifions que notre organisation est une Direction générale ou une agence du gouvernement du Canada ou d’une province ou d’un territoire.</strong>
 							</xsl:if>
                             <xsl:if test="fee_details/mitigation/mitigation_type/@id = 'ISAD'">
-                                <xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_isad"/></xsl:call-template>
-                                <strong>Nous certifions que nous avons déposé une demande pour un médicament COVID-19 désigné en vertu de l'ordonnance provisoire concernant l'importation, la vente et la publicité de médicaments à utiliser en relation avec le COVID-19 (ISAD), et qu'une soumission n'a pas été déposée auparavant pour approbation pour ce même médicament.</strong>
+                                <strong><xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_isad"/></xsl:call-template>
+                                Nous certifions que nous avons déposé une demande pour un médicament COVID-19 désigné en vertu de l'ordonnance provisoire concernant l'importation, la vente et la publicité de médicaments à utiliser en relation avec le COVID-19 (ISAD), et qu'une soumission n'a pas été déposée auparavant pour approbation pour ce même médicament.</strong>
                             </xsl:if>
 							</div>
 						</div>
 					</div>
+					</xsl:if>
 				</div>
 			</div>
 			</xsl:if>
@@ -393,7 +392,7 @@
 									</div>
 								</xsl:when>
 								<xsl:when test="regulatory_activity_address/country/@id = 'US'">
-									<div>
+									<div class="row">
 										<div class="col-xs-12">
 											<strong>État: </strong>
 											<span class="mouseHover">
@@ -431,7 +430,7 @@
 							</xsl:choose>
 						</div>
 					</xsl:if>
-                    <h4>C. Représentant de la compagnie: </h4>
+                    <strong>C. Représentant de la compagnie: </strong>
 					<div class="well well-sm">
 						<div class="row">
 							<strong class="col-xs-12">Prénom: <span
@@ -535,12 +534,8 @@
 		<xsl:param name="value" select="/.."/>
 		<span class="c-checkbox">
 		<xsl:choose>
-			<xsl:when test="$value = 'Y'">
-				X
-			</xsl:when>
-			<xsl:otherwise>
-				
-			</xsl:otherwise>
+			<xsl:when test="$value = 'true' or $value = 'Y'"> X </xsl:when>
+			<xsl:otherwise> </xsl:otherwise>
 		</xsl:choose>
 		</span>
 	</xsl:template>

@@ -79,9 +79,9 @@ export class FormBaseService {
 
   private getEmptyEctd(): Ectd {
     const ectd: Ectd = {
+      dossier_type: undefined,
       company_id: '',
       dossier_id: '',
-      dossier_type: undefined,
       product_name: '',
       lifecycle_record: this.getEmptyLifecycleRecord(),
     };
@@ -90,7 +90,6 @@ export class FormBaseService {
 
   private getEmptyLifecycleRecord(): LifecycleRecord {
     const lifecycleRecord: LifecycleRecord = {
-      control_number: '',
       regulatory_activity_lead: undefined,
       regulatory_activity_type: undefined,
       sequence_description_value: undefined,
@@ -104,7 +103,8 @@ export class FormBaseService {
       requester_name: '',
       requester_name2: '',
       requester_name3: '',
-      requester_of_solicited_information: ''
+      requester_of_solicited_information: '',
+      control_number: ''
     };
 
     return lifecycleRecord;
@@ -114,7 +114,7 @@ export class FormBaseService {
     const mitigation: Mitigation = {
     certify_funded_health_institution: '',
     certify_government_organization: '',
-    certify_organization: '',
+    certify_small_business: '',
     certify_urgent_health_need: '',
     certify_isad: '',
     mitigation_type: undefined,

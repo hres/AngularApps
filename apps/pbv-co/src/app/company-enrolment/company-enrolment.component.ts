@@ -1,11 +1,12 @@
 import { Component, computed, EventEmitter, inject, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, ControlMessagesComponent, ICode, ICodeDefinition, UtilsService, HelpSequence } from '@hpfb/sdk/ui';
+import { BaseComponent, ControlMessagesComponent, ICode, CheckboxOption, ICodeDefinition, UtilsService, HelpSequence, ConverterService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AppSignalService } from '../signal/app-signal.service';
 import { CompanyEnrolmentService } from './company-enrolment.service';
 import { CompanyEnrol } from '../models/Company';
 import { ENROLMENT_STATUS } from '../app.constants';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-company-enrolment',
@@ -14,23 +15,24 @@ import { ENROLMENT_STATUS } from '../app.constants';
 })
 export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
-  lang: string;
+  public lang: string;
   helpIndex: HelpSequence; 
   public showFieldErrors: boolean = false;
-  public companyEnrolmentForm: FormGroup;
 
+  public companyEnrolmentForm: FormGroup;
   @Input() showErrors: boolean;
   @Input() dataModel: CompanyEnrol;
   @Input() isInternal: boolean;
   @Output() errorList = new EventEmitter(true);
 
-  private _signalService = inject(AppSignalService)
-
   public disableAmendButton: boolean = true;
   public showAmendNote: boolean = false;
 
-  constructor(private _companyEnrolmentService: CompanyEnrolmentService, private _fb: FormBuilder, 
-    private _utilsService: UtilsService, private _globalService: GlobalService) {
+  constructor(private _companyEnrolmentService: CompanyEnrolmentService, 
+              private _fb: FormBuilder, 
+              private _utilsService: UtilsService, 
+              private _globalService: GlobalService,
+              private _converterService : ConverterService) {
     super();
     this.showFieldErrors = false;
   }
@@ -50,17 +52,14 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     if (changes['showErrors']) {
       this.showFieldErrors = changes['showErrors'].currentValue;
     }
-  
+
     if (changes['dataModel']) {
       const dataModelCurrentValue = changes['dataModel'].currentValue as CompanyEnrol;
-      this.dataModel = dataModelCurrentValue;
+
       if (!isFirstChange) {
-        this._companyEnrolmentService.mapDataModelToFormModel(
-          dataModelCurrentValue,
-          <FormGroup>this._getCompanyEnrolmentForm());
+        this._companyEnrolmentService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getCompanyEnrolmentForm());
       }
-      
-      this.activateAmendButton();
+      this.activateAmendButton(dataModelCurrentValue);
     }
   }
 
@@ -68,6 +67,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     if (!this.companyEnrolmentForm) {
       this.companyEnrolmentForm = CompanyEnrolmentService.getEnrolmentForm(this._fb);
     }
+    
     return this.companyEnrolmentForm;
   }
 
@@ -75,19 +75,21 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     this.errorList.emit(errors);
   }
 
-  activateAmendButton() {
-    if (this.companyEnrolmentForm) {
+  activateAmendButton(dataModel : CompanyEnrol) {
+    if (dataModel) {
       if (!this.isInternal && 
-        this.companyEnrolmentForm.controls['enrolmentStatus'].value == ENROLMENT_STATUS.FINAL) {
+        dataModel.application_type._id == ENROLMENT_STATUS.FINAL) {
         this.disableAmendButton = false;
       } 
     }
-    this.disableAmendButton = true;
   }
 
   setAmendState() {
+    const enrolmentStatusesList = this._globalService.enrolmentStatusList;
+
+    this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, ENROLMENT_STATUS.AMEND, enrolmentStatusesList, this.lang, true)
     this.showAmendNote = true;
-    this.companyEnrolmentForm.controls['enrolmentStatus'].setValue(ENROLMENT_STATUS.AMEND);
+    this._resetControlValues(["reasonForFiling"]);
   }
 
   getFormValue() {

@@ -1,6 +1,5 @@
 import { IContact, INameAddress } from "@hpfb/pbv";
-import { ICode, IIdText, IIdTextLabel, ITextLabel } from "@hpfb/sdk/ui";
-import { OutputRecord } from "../record-base/record.model";
+import { ICode, IIdText, IIdTextLabel, ITextLabel, OutputRecord } from "@hpfb/sdk/ui";
 
 export interface Company {
   COMPANY_ENROL: CompanyEnrol;
@@ -18,6 +17,11 @@ export interface CompanyEnrol {
   reason_amend: string;
   address_record: AddressRecord[];
   contact_record: ContactRecord[];
+  product_line_checkbox: ProductLine;
+}
+
+export interface ProductLine {
+  product_line : IIdTextLabel[];
 }
 
 export interface AddressRecord extends OutputRecord {
@@ -34,26 +38,4 @@ export interface ContactRecord extends OutputRecord {
   mailing: string;
   billing: string;
   company_contact_details: IContact;
-}
-
-export interface IAddressPBVCO {
-  company_name: string;
-  street_address: string;
-  city: string;
-  province_lov: IIdText;
-  province_text: string;
-  country: IIdTextLabel;
-  postal_code: string;
-}
-
-export interface IContactPBVCO {
-  given_name: string;
-  initials: string;
-  surname: string;
-  job_title: string;
-  language_correspondance: IIdTextLabel;
-  phone_num: string;
-  phone_ext: string;
-  fax_num: string;
-  email: string;
 }

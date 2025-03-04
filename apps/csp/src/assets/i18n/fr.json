@@ -433,6 +433,10 @@
     "panel.title.timing.of.application": "6. Moment du dépot de la demande",
     "application.is.applying":"Le demandeur dépose une demande (sélectionner une seule réponse)",
 
+    "panel.title.attestations": "8. Attestations",
+    "attestation.as.applicant": "Attestation du demandeur",
+    "attestation.timely.submission": "Attestation de présentation en temps opportun",
+
     "panel.title.fees": "9. Paiement de la taxe",
     "fees.text": "Ce formulaire électronique ne doit pas inclure de renseignements sur le paiement (par ex. numéro de carte de crédit), puisque les renseignements inclus dans un formulaire électronique ne peuvent pas être supprimés et continueront de faire partie de la demande de CPS en dossier.",
     "fees.paid": "La taxe a été payée (saisir le montant de la taxe)",
@@ -544,5 +548,17 @@
     "DISCLAIMER":"Le contenu de ce formulaire peut être communiqué publiquement.",
     "save.working.copy": "Enregistrer une copie de travail",
     "generate.final.internal": "Approuver XML final",
-    "generate.final.external": "Enregistrer le brouillon"
+    "generate.final.external": "Enregistrer le brouillon",
+    "load.file": "Charger un fichier enregistré de la demande de certificat de protection supplémentaire",
+    "select.file": "Sélectionnez un fichier à télécharger",
+    "choose.file":"Choisir un fichier",
+    "no.file.chosen": "Aucun fichier choisi",
+
+    "error.medic": "Ingrédient(s) médicinal(aux)",
+    "error.fee": "Paiement de la taxe",
+    "error.cert.first": "Attestation - Prénom",
+    "error.cert.last": "Attestation - Nom",
+    "error.cert.job": "Attestation - Titre de poste",
+    "error.cert.date": "Attestation - Date",
+    "error": "Erreur {{number}}:"
   }

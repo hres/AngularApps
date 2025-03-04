@@ -20,6 +20,7 @@ import { CertificationComponent } from '../certification/certification.component
 import { TimeOfApplicationComponent } from '../time-of-application/time-of-application.component';
 import { ApplicantComponent } from '../applicant/applicant.component';
 import { HcUseOnlyComponent } from '../health-canada-only/health-canada-only.component';
+import { AttestationComponent } from '../attestation/attestation.component';
 
 
 @Component({
@@ -72,6 +73,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _newDrugSubmissionInfoErrors = [];
   private _medicinalIngredientsForErrors = [];
   private _timingOfApplicantForErrors = [];
+  private _attestationsForErrors = [];
   private _feesForErrors = [];
   private _certificationForErrors = [];
   private _applicantForErrors = [];
@@ -199,14 +201,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.errorList = this.errorList.concat(this._transFeeErrors);
     // }
 
+    this.errorList = this.errorList.concat(this._applicantForErrors);
     this.errorList = this.errorList.concat(this._patentInformationErrors);
-    this.errorList = this.errorList.concat(this._drugUseErrors);
-    this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
+    this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
+    this.errorList = this.errorList.concat(this._drugUseErrors);
+    this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
     this.errorList = this.errorList.concat(this._feesForErrors);
-    this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
-    this.errorList = this.errorList.concat(this._healthCanadaOnlyErrors);
     this.errorList = this.errorList.concat(this._certificationForErrors);
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -215,7 +217,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._healthCanadaOnlyErrors = errorList;
     this.processErrors();
   }
-
 
   processPatentInfoErrors(errorList) {
     this._patentInformationErrors = errorList;
@@ -241,6 +242,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._medicinalIngredientsForErrors = errorList;
     this.processErrors();
   }
+
+  processAttestationsErrors(errorList) {
+    this._attestationsForErrors = errorList;
+    this.processErrors();
+  }
+
 
   processFeesErrors(errorList) {
     this._feesForErrors = errorList;
@@ -323,8 +330,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.agentAddressModel = trans.contact_info.agent_name_address;
     //   this.agentContactModel = trans.contact_info.agent_contact;
     // }
-    if (trans.fee_details != null) {
-      this.transFeeModel = trans.fee_details;
+    if (trans.advanced_payment != null) {
+      this.transFeeModel = trans.advanced_payment;
     }
     this.addressModel = trans.applicant.address;
     this.contactModel = trans.applicant.contact;
@@ -407,10 +414,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
     this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
-    
+
+    if(this.isInternal){
     const healthCanadaOnly = this. healthCanadaComponent.getFormValue();
     this._baseService.mapHealthCanadaOnlyFormsToOutput(newTransactionEnrol, healthCanadaOnly);
-
+    }
     const certification = this.certificationComponent.getFormValue();
     this._baseService.mapCertificationFormsToOutput(newTransactionEnrol, certification);
 

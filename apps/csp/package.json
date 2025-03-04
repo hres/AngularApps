@@ -7,17 +7,22 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build": "npm run build-prod & npm run build-dev",
-    "build-prod": "npm run build-prod-en & npm run build-prod-fr",
-    "build-prod-en": "ng build --configuration=production-en && npm run post-build -- --template=csp --env=prod --language=en ",
-    "build-prod-fr": "ng build --configuration=production-fr && npm run post-build -- --template=csp --env=prod --language=fr ",
+    "build-prod": "npm run build-prod-external & npm run build-prod-internal",
+    "build-prod-external": "npm run build-prod-external-en & npm run build-prod-external-fr",
+    "build-prod-external-en": "ng build --configuration=production-external-en && npm run post-build -- --template=csp --env=prod --language=en  --type=external",
+    "build-prod-external-fr": "ng build --configuration=production-external-fr && npm run post-build -- --template=csp --env=prod --language=fr --type=external",
+    "build-prod-internal": "npm run build-prod-internal-en & npm run build-prod-internal-fr",
+    "build-prod-internal-en": "ng build --configuration=production-internal-en && npm run post-build -- --template=csp --env=prod --language=en  --type=internal",
+    "build-prod-internal-fr": "ng build --configuration=production-internal-fr && npm run post-build -- --template=csp --env=prod --language=fr --type=internal",
     "build-dev": "npm run build-dev-en & npm run build-dev-fr",
-    "build-dev-en": "ng build --configuration=development-en && npm run post-build -- --template=csp --env=dev --language=en ",
-    "build-dev-fr": "ng build --configuration=development-fr && npm run post-build -- --template=csp --env=dev --language=fr ",
+    "build-dev-en": "ng build --configuration=development-en && npm run post-build -- --template=csp --env=dev --language=en --type=external",
+    "build-dev-fr": "ng build --configuration=development-fr && npm run post-build -- --template=csp --env=dev --language=fr --type=external",
     "post-build": "python ../../python/post-app-build/post-build.py"
   },
   "dependencies": {
+    "@hpfb/pbv": "file:../../libs/hpfb-pbv-1.0.0.tgz",
     "@hpfb/sdk": "file:../../libs/hpfb-sdk-1.2.0.tgz",
-    "@hpfb/pbv": "file:../../libs/hpfb-pbv-1.0.0.tgz"
+    "csp": "file:"
   },
   "private": true
 }

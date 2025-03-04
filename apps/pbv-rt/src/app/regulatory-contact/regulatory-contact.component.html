@@ -7,7 +7,7 @@
                     {{ 'is.signed.3rd.party' | translate}}
                     <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
                     <control-messages *ngIf="regulatoryContactInfoForm.controls['isSigned3rdParty'].invalid" [showError]="showFieldErrors"
-                    [control]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl" controlId="thirdPartyId"
+                    [control]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl" controlId="thirdPartyId" 
                     label="is.signed.3rd.party" parentId="pbvContact"></control-messages>
                 </legend>
                 <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -15,7 +15,7 @@
                         <input type="radio"
                         id="isSigned3rdParty{{i}}" name="isSigned3rdParty" [value]="yesno.id"
                         (change)="isSigned3rdPartyOnChange()"
-                        [formControl]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl" required/>
+                        [formControl]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl"/>
                         {{yesno | textTransform: lang}}
                     </label>
                 </ng-container>
@@ -30,9 +30,9 @@
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="companyName" class="required full-width">
                     <span class="field-name">{{ 'company.name'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="regulatoryContactInfoForm.controls['companyName'].invalid"
-                        [showError]="showFieldErrors"
+                        [showError]="showFieldErrors" 
                         [control]="regulatoryContactInfoForm.controls['companyName'] | formControl" controlId="companyName"
                         label="company.name" parentId="pbvContact"></control-messages>
                     <input maxlength="100" id="companyName" class="form-control full-width"
@@ -66,10 +66,10 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkbox required">
                 <label for="confirmContactValid">
                 <input type="checkbox" id="confirmContactValid" 
-                [formControlName]="'confirmContactValid'" />
+                [formControlName]="'confirmContactValid'" required/>
                 <span><b>{{'confirm.contact.valid'|translate}}</b></span>
                 <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                <control-messages *ngIf="regulatoryContactInfoForm.controls['confirmContactValid'].invalid" [showError]="showErrors"
+                <control-messages *ngIf="regulatoryContactInfoForm.controls['confirmContactValid'].invalid" [showError]="showErrors" 
                     parentId="pbvContactConfirm" [control]="regulatoryContactInfoForm.controls['confirmContactValid'] | formControl"
                     controlId="confirmContactValid" label="confirm.contact.valid"></control-messages>
                 </label>

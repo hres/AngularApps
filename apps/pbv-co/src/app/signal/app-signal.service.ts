@@ -11,18 +11,43 @@ export class AppSignalService {
 
   constructor() { }
 
-  private readonly companyRoles = signal<string[]>([]);
+  private readonly contactCompanyRoles = signal<string[]>([]);
+  private readonly addressCompanyRoles = signal<string[]>([]);
 
-  updateCompanyRoles(companyRole : string) : void {
-    this.companyRoles.update((arr) => [...arr, companyRole]);
+  updateContactCompanyRoles(companyRole: string): void {
+    this.contactCompanyRoles.update((arr) => {
+      return [...arr, companyRole];
+    });
   }
 
-  removeCompanyRole(companyRole: string) {
-    this.companyRoles.update((arr) => arr.filter(item => item !== companyRole));
+  removeContactCompanyRole(companyRole: string) {
+    this.contactCompanyRoles.update((arr) => arr.filter(item => item !== companyRole));
   }
 
-  getSelectedCompanyRoles(): Signal<string[]> {
-    return this.companyRoles.asReadonly();
+  getSelectedContactCompanyRoles(): Signal<string[]> {
+    return this.contactCompanyRoles.asReadonly();
   }
+
+  updateAddressCompanyRoles(companyRole: string): void {
+    this.addressCompanyRoles.update((arr) => {
+      return [...arr, companyRole];
+    });
+ }
+
+  removeAddressCompanyRole(companyRole: string) {
+    this.addressCompanyRoles.update((arr) => arr.filter(item => item !== companyRole));
+  }
+
+  getSelectedAddressCompanyRoles(): Signal<string[]> {
+   return this.addressCompanyRoles.asReadonly();
+ }
+
+ resetAddressCompanyRoles(): void{
+   this.addressCompanyRoles.set([]);
+ }
+
+ resetContactCompanyRoles(): void{
+  this.contactCompanyRoles.set([]);
+}
 
 }

@@ -5,6 +5,8 @@ export const START_CHECKSUM_VERSION = 5;
 export const DATA_PATH: string = './assets/data/';
 
 export const FILE_OUTPUT_PREFIX = 'co';
+export const EXTERNAL_OUTPUT_PREFIX = 'draftrepco'
+export const INTERNAL_OUTPUT_PREFIX = 'hcrepco'
 export const XSLT_PREFIX = 'REP';
 
 export const LINE_BREAK = '\r\n';
@@ -35,3 +37,21 @@ export const ENROLMENT_STATUS = {
   AMEND: 'AMEND',
   FINAL: 'FINAL'
 };
+
+export const ROLE_MAPPING: { [key: string]: string } = {
+  MFR: "manufacturer",
+  BILL: "billing",
+  MAIL: "mailing",
+};
+
+export const REVERSE_ROLE_MAPPING: { [key: string]: string } = {
+  manufacturer: "MFR",
+  billing: "BILL",
+  mailing: "MAIL",
+};
+
+export const ROLE_CODES = {
+  MFR: 'MFR',
+  BILL: 'BILL',
+  MAIL: 'MAIL'
+}

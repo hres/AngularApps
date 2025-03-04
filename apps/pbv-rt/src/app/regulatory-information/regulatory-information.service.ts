@@ -7,6 +7,7 @@ import {
 import { ConverterService, UtilsService} from '@hpfb/sdk/ui';
 import { TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
+import { PbvValidationService } from '@hpfb/pbv';
 
 @Injectable()
 export class RegulatoryInformationService {
@@ -19,7 +20,7 @@ export class RegulatoryInformationService {
    }
    return fb.group({
     dossierType: [null, [Validators.required]],
-    dossierId: [null, [Validators.required]],
+    dossierId: [null, [Validators.required, PbvValidationService.dossierIdValidator]],
     companyId: [null, [Validators.required, Validators.minLength(5)]],
     productName: [null, [Validators.required]],
     isPriority: [null, [Validators.required]],

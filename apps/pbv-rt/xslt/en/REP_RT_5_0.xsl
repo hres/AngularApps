@@ -22,8 +22,7 @@
 	<!--  Transaction Enrolment  -->
 	<xsl:template match="TRANSACTION_ENROL">
 		<h1> Regulatory Transaction Template: Regulatory Enrolment Process (REP) <xsl:if
-				test="software_version != ''"> (Version: <xsl:value-of select="software_version" />
-		) </xsl:if>
+				test="software_version != ''"> (version: <xsl:value-of select="software_version" />) </xsl:if>
 		</h1>
 <div class="well well-sm">
 			<table border="1" cellspacing="2" cellpadding="2"
@@ -32,7 +31,7 @@
 					<th style="text-align: center;font-weight:bold;">Company Identifier </th>
 					<th style="text-align: center;font-weight:bold;">Dossier type</th>
 					<th style="text-align: center;font-weight:bold;">Dossier Identifier </th>
-					<th style="text-align: center;font-weight:bold;">Date Last Saved</th>
+					<th style="text-align: center;font-weight:bold;">Date last saved</th>
 				</tr>
 				<tr>
 					<td style="text-align: center;">
@@ -143,14 +142,14 @@
 					</div>
 					<div class="well well-sm">
 						<header class="panel-heading">
-							<h4 class="panel-title">Transaction Details</h4>
+							<h4 class="panel-title">Transaction details</h4>
 						</header>
 						<div class="row">
 							<div class="panel-body">
 								<xsl:for-each select="ectd/lifecycle_record">
 									<div class="row">
 										<div class="col-md-12">
-											<strong class="padLeft3">Regulatory Activity Lead: </strong>
+											<strong class="padLeft3">Regulatory activity lead: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_lead/@label_en" />
 											</span>
@@ -158,7 +157,7 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-											<strong class="padLeft3">Regulatory Activity Type: </strong>
+											<strong class="padLeft3">Regulatory activity type: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_type/@label_en" />
 											</span>
@@ -166,7 +165,7 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-											<strong class="padLeft3">Regulatory Transaction	Description: </strong>
+											<strong class="padLeft3">Regulatory transaction description: </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="sequence_description_value/@label_en" />
 											</span>
@@ -175,7 +174,7 @@
 									<xsl:if test="sequence_from_date !='' and sequence_to_date ='' and sequence_version=''">
 										<div class="row">
 											<div class="col-md-12">
-												<strong class="padLeft3">Date of Request: </strong>
+												<strong class="padLeft3">Date of request: </strong>
 												<span class="mouseHover">
 													<xsl:value-of select="sequence_from_date" />
 												</span>
@@ -185,13 +184,13 @@
 									<xsl:if test="sequence_from_date !='' and sequence_to_date !=''">
 										<div class="row">
 											<div class="col-md-4">
-												<strong class="padLeft3">Start Date: </strong>
+												<strong class="padLeft3">Start date: </strong>
 												<span class="mouseHover">
 													<xsl:value-of select="sequence_from_date" />
 												</span>
 											</div>
 											<div class="col-md-4">
-												<strong class="padLeft3">End Date: </strong>
+												<strong class="padLeft3">End date: </strong>
 												<span class="mouseHover">
 													<xsl:value-of select="sequence_to_date" />
 												</span>
@@ -329,17 +328,18 @@
 								<div class="col-xs-12">
 									<strong>Submission description: </strong>
 									<div class="col-xs-12">
-										<span class="mouseHover">
-											<xsl:value-of select="fee_details/submission_description/@label_en" />
+										<span>
+											<xsl:value-of select="fee_details/submission_description/@label_en" disable-output-escaping="yes"/>
 										</span>
 									</div>
 								</div>
 							</div>
 						</div>
+						<xsl:if test="fee_details/mitigation/mitigation_type !=''">
 						<div class="well well-sm">
 							<div class="row">
 								<div class="form-group col-xs-12 h3 text-info">Mitigation measures</div>
-								<xsl:if test="fee_details/mitigation/mitigation_type !=''">
+	
 									<div class="col-xs-12">
 										<div class="col-xs-12">
 											<span class="mouseHover">
@@ -347,15 +347,13 @@
 													select="fee_details/mitigation/mitigation_type/@label_en" />
 											</span>
 										</div>
-									</div>
-								</xsl:if>
 								<div class="col-xs-12">
 									<xsl:if	test="fee_details/mitigation/mitigation_type/@id = 'SMALL_BUSINESS'">
-										<xsl:call-template name="hp-checkbox">
+										<strong><xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
-												select="fee_details/mitigation/certify_organization" />
+												select="fee_details/mitigation/certify_small_business" />
 										</xsl:call-template>
-										<strong>We certify that we meet the definition of small business and have registered our company with
+										We certify that we meet the definition of small business and have registered our company with
 												Health Canada prior to submitting this submission/application. We understand that failure to
 												register as a small business prior to submitting this submission/application will result in
 												the full fee being charged.</strong>
@@ -370,11 +368,11 @@
 										</div>
 									</xsl:if>
 									<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'URGENT_HEALTH_NEED'">
-										<xsl:call-template name="hp-checkbox">
+										<strong><xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_urgent_health_need" />
 										</xsl:call-template>
-										<strong>We certify that the drug in our submission/application is on the List of Drugs for an Urgent Public Health Need as per the Access to Drugs in Exceptional Circumstances Regulations and:</strong>
+										We certify that the drug in our submission/application is on the List of Drugs for an Urgent Public Health Need as per the Access to Drugs in Exceptional Circumstances Regulations and:</strong>
 										<div class="col-xs-12">
 											<ol class="lst-lwr-alph">
 												<li>the drug has the same medicinal ingredient,	strength and route of administration, and is in a comparable dosage form, as a drug that may be imported under subsection C.10.001(2) of those Regulations;</li>
@@ -384,11 +382,11 @@
 										</div>
 									</xsl:if>
 									<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'FUNDED_INSTITUTION'">
-										<xsl:call-template name="hp-checkbox">
+										<strong><xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_funded_health_institution" />
 										</xsl:call-template>
-										<strong>We certify that our institution is funded by the Government of Canada or the government of a province or territory and that it is</strong>
+										We certify that our institution is funded by the Government of Canada or the government of a province or territory and that it is</strong>
 										<div class="col-xs-12">
 											<ol class="lst-lwr-alph">
 												<li>licensed, approved or designated by a province in accordance with the laws of the province to provide care or treatment to persons or animals suffering from any form of disease or illness; or</li>
@@ -397,22 +395,24 @@
 										</div>
 									</xsl:if>
 									<xsl:if	test="fee_details/mitigation/mitigation_type/@id = 'GOVERMENT_ORGANIZATION'">
-										<xsl:call-template name="hp-checkbox">
+										<strong><xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_government_organization" />
 										</xsl:call-template>
-										<strong>We certify that our organization is a branch or agency of the Government of Canada or of a province or territory</strong>
+										We certify that our organization is a branch or agency of the Government of Canada or of a province or territory</strong>
 									</xsl:if>
 									<xsl:if	test="fee_details/mitigation/mitigation_type/@id = 'ISAD'">
-										<xsl:call-template name="hp-checkbox">
+										<strong><xsl:call-template name="hp-checkbox">
 											<xsl:with-param name="value"
 												select="fee_details/mitigation/certify_isad" />
 										</xsl:call-template>
-										<strong>We certify that we have filed an application for a designated COVID-19 drug under the Interim Order Respecting the Importation, Sale and Advertising of Drugs for Use in Relation to COVID-19 (ISAD), and that a submission has not previously been filed seeking approval for that same drug</strong>
+										We certify that we have filed an application for a designated COVID-19 drug under the Interim Order Respecting the Importation, Sale and Advertising of Drugs for Use in Relation to COVID-19 (ISAD), and that a submission has not previously been filed seeking approval for that same drug</strong>
 									</xsl:if>
 								</div>
 							</div>
 						</div>
+						</div>
+						</xsl:if>
 					</div>
 				</div>
 			</xsl:if>
@@ -456,7 +456,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12">
-									<strong>City or town: </strong>
+									<strong>City: </strong>
 									<span class="mouseHover">
 										<xsl:value-of select="regulatory_activity_address/city" />
 									</span>
@@ -528,7 +528,7 @@
 							</xsl:choose>
 						</div>
 					</xsl:if>
-					<h4>C. Company Representative: </h4>
+					<strong>C. Company representative: </strong>
 					<div class="well well-sm">
 						<div class="row">
 							<strong class="col-xs-12">First name: <span
@@ -633,7 +633,7 @@
 		<xsl:param name="value" select="/.." />
 		<span class="c-checkbox">
 			<xsl:choose>
-				<xsl:when test="$value = 'Y'"> X </xsl:when>
+				<xsl:when test="$value = 'true' or $value = 'Y'"> X </xsl:when>
 				<xsl:otherwise> </xsl:otherwise>
 			</xsl:choose>
 		</span>

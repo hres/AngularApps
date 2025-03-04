@@ -7,61 +7,11 @@
       <div [formGroupName]="'companyInfo'">
 
         <pbv-contact-details [showErrors]="showErrors"
-        [contactDetailsModel]="contactModel"
         [lang]="lang"
         [languageList]="languageList"
         [formGroup]="contactDetailsFormGroup"
         (errorList)="processContactErrors($event)"> 
         </pbv-contact-details>
-
-        <!-- <div class="row">
-          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <fieldset class="chkbxrdio-grp" id="companyRoles">
-              <legend class="required">
-                  <span class="field-name">{{'select.roles' | translate}}</span>
-                  <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-                  <control-messages *ngIf="companyRolesChkFormArray.invalid"
-                                  [showError]="showErrors"
-                                  [control]="companyRolesChkFormArray | formControl"
-                                  controlId="companyRoles" label="select.roles"
-                                  parentId="companyContact"></control-messages>
-              </legend>
-              <div class="col-sm-4">
-                <div class="checkbox">
-                  <label for="chk-mdr-it">
-                    <input type="checkbox" 
-                          [formControl]="this.cRRow.get('companyInfo.manufacturer') | formControl"
-                          id="chk-mdr-it" name="chk-mdr-it"
-                          (change)="companyRolesOnChange()"/>
-                    <span>{{'manufacturer.contact'|translate}}</span>
-                  </label>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="checkbox">
-                  <label for="chk-mdr-it">
-                    <input type="checkbox" 
-                      [formControl]="this.cRRow.get('companyInfo.mailing') | formControl"
-                      id="chk-mdr-it" name="chk-mdr-it" 
-                      (change)="companyRolesOnChange()"/>
-                    <span>{{'mailing.contact'|translate}}</span>
-                  </label>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="checkbox">
-                  <label for="chk-mdr-it">
-                    <input type="checkbox" 
-                      [formControl]="this.cRRow.get('companyInfo.billing') | formControl"
-                      id="chk-mdr-it" name="chk-mdr-it"
-                      (change)="companyRolesOnChange()"/>
-                    <span>{{'billing.contact'|translate}}</span>
-                  </label>
-                </div>
-              </div>
-          </fieldset>
-        </div>    
-      </div> -->
 
       <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -69,7 +19,7 @@
           <legend class="required">
             <span class="field-name">{{'select.roles' | translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="companyRolesChkFormArray.invalid"
+            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
                             [showError]="showErrors"
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="companyRoles" label="select.roles"
@@ -77,9 +27,21 @@
         </legend>
           <ul class="form-group list-unstyled">
           <li class="checkbox" [formArrayName]="'companyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">
-              <label for={{companyRolesOptionList[i].value}}>
-              <input type="checkbox" id={{companyRolesOptionList[i].value}} [formControl]="reason | formControl" (change)="companyRolesOnChange($event, companyRolesOptionList[i].value)"/> {{companyRolesOptionList[i].label}}
+              <label [for]="'contactRole' + j + '-' + i">
+              <input type="checkbox" [id]="'contactRole' + j + '-' + i" 
+              [formControl]="reason | formControl" 
+              (change)="companyRolesOnChange($event, companyRolesOptionList[i].value, i)"/> 
+              {{companyRolesOptionList[i].label}}
               </label>
+              <div>
+                <control-messages *ngIf="reason.invalid"
+                [showError]="showErrors"
+                [control]="reason | formControl"
+                [controlId]="'contactRole-' + i"
+                [label]="companyRolesOptionList[i].label"
+                parentId="coContact">
+                </control-messages>
+              </div>
           </li>
           </ul>
         </fieldset>
