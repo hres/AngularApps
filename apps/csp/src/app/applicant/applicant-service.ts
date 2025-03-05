@@ -27,8 +27,6 @@ export class ApplicantService {
       cspNumber: new FormControl(null, Validators.required),
       agentName: new FormControl(null),
       orgName: new FormControl(null),
-      billingRole: [false],
-      applicantRole: [true],
       isBillingDifferent: [false]
      
     },);
@@ -77,14 +75,18 @@ export class ApplicantService {
     model.applicant = applicants
   }
 
-  public mapDataModelToFormModel(applicantModel: IApplicant, formRecord: FormGroup) {
-    formRecord.controls['billingRole'].setValue(applicantModel.billing_role);
-    formRecord.controls['applicantRole'].setValue(applicantModel.billing_role);
-
+  public mapDataModelToFormModel(applicantModel: IApplicant, billingModel: IApplicant, formRecord: FormGroup) {
     formRecord.controls['applicantName'].setValue(applicantModel.applicant_name);
     formRecord.controls['craBusinessNumber'].setValue(applicantModel.cra_business_number);
     formRecord.controls['cspNumber'].setValue(applicantModel.csp_customer_number);
-    formRecord.controls['agentName'].setValue(applicantModel.agent_name);
+    formRecord.controls['isBillingDifferent'].setValue(false);
+
+    if (billingModel.billing_role == YES) {
+      formRecord.controls['isBillingDifferent'].setValue(true);
+      formRecord.controls['orgName'].setValue(billingModel.agent_name);
+    } else {
+      formRecord.controls['agentName'].setValue(applicantModel.agent_name);
+    }
    }
 
 }

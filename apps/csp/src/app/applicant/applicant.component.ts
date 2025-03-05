@@ -18,6 +18,7 @@ import { ApplicantService } from './applicant-service';
 import { AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
 import { IContact, INameAddress } from '@hpfb/pbv'
 import { ADDR_CONT_TYPE } from '../app.constants';
+import { IApplicant } from '../models/transaction';
 
 @Component({
   selector: 'app-applicant',
@@ -34,6 +35,8 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
 
   helpIndex: HelpSequence;
   @Input() showErrors: boolean;
+  @Input() applicantModel: IApplicant;
+  @Input() billingModel: IApplicant;
   @Input() applicantAddressModel: INameAddress;
   @Input() applicantContactModel: IContact;
   @Input() billingAddressModel: INameAddress;
@@ -61,7 +64,8 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _globalService: GlobalService,
-       private _utilsService: UtilsService
+    private _utilsService: UtilsService,
+    private _applicantService: ApplicantService
   ) {
     super();
     this.showFieldErrors = false;
@@ -100,9 +104,24 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
     }
   }
 
-  ngOnChange(changes: SimpleChanges){
+  ngOnChanges(changes: SimpleChanges){
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
+
+    if (!isFirstChange) {
+      if (changes['applicantModel']) {
+        const applicantModel = changes['applicantModel'].currentValue as IApplicant;
+        const billingModel = changes['billingModel'].currentValue as IApplicant;
+
+        console.log(applicantModel, billingModel)
+
+        this._applicantService.mapDataModelToFormModel(applicantModel, billingModel, (<FormGroup>this.applicantInformationForm))
+      }
+    }
+  }
+
+  showBilling() {
+    return this.applicantInformationForm.controls['isBillingDifferent'].value == true;
   }
 
   protected override emitErrors(errors: any[]): void {
