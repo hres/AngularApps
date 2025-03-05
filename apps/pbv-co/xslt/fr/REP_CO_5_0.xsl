@@ -262,58 +262,274 @@ span.mouseHover:hover {
 	<!-- Company Enrolment -->
 	<xsl:template match="COMPANY_ENROL">
 		<h1>Modéle de compagnie: Processus d'Inscription Réglementaire (PIR) pour les produits pharmaceutiques humain et vétérinaire et biocides <xsl:if test="software_version != ''">(Version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
-		<div class="well well-sm" >
-			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
-				<tr>
-					<th style="text-align: center;font-weight:bold;">Statut de l'inscription</th>
-					<th style="text-align: center;font-weight:bold;">Version de l'inscription</th>
-					<th style="text-align: center;font-weight:bold;">Date du dernier enregistrement</th>
-					<th style="text-align: center;font-weight:bold;">Identifiant de la compagnie</th>
-				</tr>
-				<tr>
-					<td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="application_type"/></span> </td>
-					<td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="enrolment_version" /></span> </td>
-					<td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="substring(date_saved,0,11)" /></span> </td>
-					<td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="company_id" /></span> </td>
-				</tr>
-			</table>
-		</div>
-		<section>
+        <section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h2 class="panel-title">Inscription d'une compagnie réglemetaire</h2>
+					<h2 class="panel-title">Inscription d'une compagnie réglementaire</h2>
 				</div>
-				<div class="panel-body">
-					<xsl:if test="reason_amend != ''">
-						<div class="row">
-							<div class="col-xs-12">
-								<strong>Raison de déposer :</strong>
-							</div>
-							<div class="col-xs-12" style="padding-left: 28px;">
-								<xsl:value-of select="reason_amend"/>
-							</div>
+								<div class="panel-body">
+                    <div class="well well-sm" >
+			            <table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
+                            <tr>
+                                <th style="text-align: center;font-weight:bold;">Statut de l'inscription</th>
+                                <th style="text-align: center;font-weight:bold;">Version de l'inscription</th>
+                                <th style="text-align: center;font-weight:bold;">Date du dernier enregistrement</th>
+                                <th style="text-align: center;font-weight:bold;">Identifiant de la compagnie</th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="application_type"/></span> </td>
+                                <td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="enrolment_version" /></span> </td>
+                                <td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="substring(date_saved,0,11)" /></span> </td>
+                                <td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="company_id" /></span> </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="panel-body">
+                            <strong>Motif du dépôt: </strong>
+                            <span class="mouseHover">
+                                <xsl:value-of select="reason_amend" />
+                            </span>
+                        </div>
+                    </div>
+					<section class="panel panel-default" >
+						<div class="panel-heading">
+							<h2 class="panel-title">Information d'adresse</h2>
 						</div>
-					</xsl:if>
+						<div class="panel-body">
+                            <xsl:for-each select="address_record">
+                                <section class="panel panel-default" >
+                                    <div class="panel-heading">
+                                        <h2 class="panel-title">Détails d'adresse <xsl:value-of select="id" /></h2>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Nom de la compagnie: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_name" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Numéro d’entreprise de l'Agence du revenu du Canada : </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="business_number" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Rue: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_address_details/street_address" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Ville: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_address_details/city" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Pays: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_address_details/country/@label_fr" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <xsl:choose>
+                                            <xsl:when test="company_address_details/country/@id = 'CA'">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong>Province: </strong>
+                                                        <span class="mouseHover">
+                                                            <xsl:value-of select="company_address_details/province_lov/@label_fr" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong>Code postal: </strong>
+                                                        <span class="mouseHover">
+                                                            <xsl:value-of select="company_address_details/postal_code" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </xsl:when>
+                                            <xsl:when test="company_address_details/country/@id = 'US'">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong>État: </strong>
+                                                        <span class="mouseHover">
+                                                            <xsl:value-of select="company_address_details/province_lov/@label_fr" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong>Code ZIP: </strong>
+                                                        <span class="mouseHover">
+                                                            <xsl:value-of select="company_address_details/postal_code" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong>Province ou état: </strong>
+                                                        <span class="mouseHover">
+                                                            <xsl:value-of select="company_address_details/province_text" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong>Code postal/ZIP: </strong>
+                                                        <span class="mouseHover">
+                                                            <xsl:value-of select="company_address_details/postal_code" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Rôles: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:call-template name="addressRoles"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </section>    
+                            </xsl:for-each> 
+					    </div>
+				    </section>
 					<section class="panel panel-default" >
-							<div class="panel-heading">
-								<h2 class="panel-title">Information d'adresses</h2>
-							</div>
-							<div class="panel-body">
-						
-							</div>
+						<div class="panel-heading">
+							<h2 class="panel-title">Information sur les représentants de la compagnie</h2>
+						</div>
+						<div class="panel-body">
+                            <xsl:for-each select="contact_record">
+                               <section class="panel panel-default" >
+                                    <div class="panel-heading">
+                                        <h2 class="panel-title">Détails du représentant de la compagnie <xsl:value-of select="id" /></h2>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Prénom: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_contact_details/given_name" />
+                                                </span>
+                                            </div>
+						                </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Initiales: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_contact_details/initials" />
+                                                </span>
+                                            </div>
+						                </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Nom de famille: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_contact_details/surname" />
+                                                </span>
+                                            </div>
+						                </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Langue de correspondance: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_contact_details/language_correspondance/@label_fr" />
+                                                </span>
+                                            </div>
+						                </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Titre de poste: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_contact_details/job_title" />
+                                                </span>
+                                            </div>
+						                </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Numéro de téléphone: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_contact_details/phone_num" />
+                                                </span>
+                                            </div>
+						                </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Extension de téléphone: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_contact_details/phone_ext" />
+                                                </span>
+                                            </div>
+						                </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Numéro de télécopieur: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_contact_details/fax_num" />
+                                                </span>
+                                            </div>
+						                </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Courriel: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:value-of select="company_contact_details/email" />
+                                                </span>
+                                            </div>
+						                </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>Rôles: </strong>
+                                                <span class="mouseHover">
+                                                    <xsl:call-template name="contactRoles"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section> 
+                            </xsl:for-each> 
+						</div>
 					</section>
-					<section class="panel panel-default" >
-							<div class="panel-heading">
-								<h2 class="panel-title">Renseignements sur le représentant de la copmpagnie</h2>
-							</div>
-							<div class="panel-body">
-							
-							</div>
-					</section>
+                    <section class="panel panel-default" >
+                        <div class="panel-heading">
+							<h2 class="panel-title">Cadres réglementaires</h2>
+						</div>
+						<div class="panel-body">
+                            <xsl:for-each select="product_line_checkbox/product_line">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span class="mouseHover">
+                                            <span class="c-checkbox">X </span>
+                                            <xsl:value-of select="@label_fr" />
+                                        </span>
+                                    </div>
+						        </div>
+                            </xsl:for-each>
+                        </div>
+                    </section>
 				</div>		
 			</div>
 		</section>
 	</xsl:template>
+
 	<xsl:template name="hp-checkbox">
 		<xsl:param name="value" select="/.."/>
 		<span class="c-checkbox">
@@ -326,5 +542,51 @@ span.mouseHover:hover {
 			</xsl:otherwise>
 		</xsl:choose>
 		</span>
+	</xsl:template>
+
+    <xsl:template name="addressRoles">
+		<dl>
+		<xsl:if test="manufacturer = 'Y'">
+		<dt class="mgtTop2">
+			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="manufacturer"/></xsl:call-template>
+			<span class="normalWeight mouseHover" style="font-weight:100;">Adresse postale du fabricant / promoteur</span>
+		</dt>
+		</xsl:if>
+		<xsl:if test="mailing = 'Y'">
+		<dt class="mgtTop2">
+			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="mailing"/></xsl:call-template>
+			<span class="normalWeight mouseHover" style="font-weight:100;">Contact pour l'adresse courrier réglementaire / adresse pour l'annuelle</span>
+		</dt>
+		</xsl:if>
+		<xsl:if test="billing = 'Y'">
+		<dt class="mgtTop2">
+			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="billing"/></xsl:call-template>
+			<span class="normalWeight mouseHover" style="font-weight:100;">Adresse de facturation</span>
+		</dt>
+		</xsl:if>
+		</dl>
+	</xsl:template>
+
+    <xsl:template name="contactRoles">
+		<dl>
+		<xsl:if test="manufacturer = 'Y'">
+		<dt class="mgtTop2">
+			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="manufacturer"/></xsl:call-template>
+			<span class="normalWeight mouseHover" style="font-weight:100;">Personne-ressource du fabricant / promoteur</span>
+		</dt>
+		</xsl:if>
+		<xsl:if test="mailing = 'Y'">
+		<dt class="mgtTop2">
+			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="mailing"/></xsl:call-template>
+			<span class="normalWeight mouseHover" style="font-weight:100;">Courrier réglementaire / adresse de personne-ressource pour l'annuelle</span>
+		</dt>
+		</xsl:if>
+		<xsl:if test="billing = 'Y'">
+		<dt class="mgtTop2">
+			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="billing"/></xsl:call-template>
+			<span class="normalWeight mouseHover" style="font-weight:100;">Personne-ressource de facturation</span>
+		</dt>
+		</xsl:if>
+		</dl>
 	</xsl:template>
 </xsl:transform>
