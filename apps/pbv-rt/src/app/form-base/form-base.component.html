@@ -89,9 +89,8 @@
         <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
           {{'generate.final'|translate}}
         </button>
-        <sup [id]="helpIndex['genFinalIndx'][2]">
-          <a class="fn-lnk" [href]="'#' + helpIndex['genFinalIndx'][1]"><span
-              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['genFinalIndx'][0]}}</a>
+        <sup [id]="helpIndex['genFinalIndx'][2]" style="font-weight: 700;">
+            <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['genFinalIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['genFinalIndx'][0]}}</a>
         </sup>
       </div>
     </div>
