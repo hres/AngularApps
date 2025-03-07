@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, QueryList, Signal, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, QueryList, Signal, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent, CheckboxOption, ConverterService, ErrorNotificationService, ErrorSummaryComponent, HelpSequence, ICode } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,7 +10,8 @@ import { CompanyAddressItemService } from './company-address-item.service';
 @Component({
   selector: 'app-company-address-item',
   templateUrl: './company-address-item.component.html',
-  styleUrl: './company-address-item.component.css'
+  styleUrl: './company-address-item.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class CompanyAddressItemComponent extends BaseComponent{
   @Input() cRRow: FormGroup;

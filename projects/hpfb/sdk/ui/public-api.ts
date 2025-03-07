@@ -60,8 +60,9 @@ export * from './logger/logger.service'
 
 export * from './routing/routing.service'
 
-export * from './record-list/record.list.base.component';
-export * from './record-list/record.list.base.service';
-export * from './record-list/record.list.service.interface';
+export * from './record/base-list-component/base.list.component';
+export * from './record/base-list-service/base.list.service';
+export * from './record/record-service/record.service.interface';
+export * from './record/record-model/record.model';
 
 export * from './popup/popup.component';

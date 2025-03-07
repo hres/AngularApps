@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { IRecordService } from "../record-base/record.service.interface";
+import { IRecordService } from "@hpfb/sdk/ui";
 import { Validators } from "@angular/forms";
 import { ContactDetailsService } from "@hpfb/pbv";
 import { inject, signal } from "@angular/core";
@@ -53,6 +53,7 @@ export class CompanyContactService implements IRecordService{
         oerr.type = ERR_TYPE_LEAST_ONE_REC;
         oerr.label = 'error.msg.contactRolesMissing';
         oerr.componentId = 'contact';
+        oerr.error = 'required';
       
         return oerr;
       }

@@ -311,7 +311,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       contactsFormArrayValue = this.companyContactListComponent.recordFormArray.value;
     }
 
-    this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue, this.isInternal);
+    this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue, this.isInternal, xmlFile);
     this._baseService.mapProductLineToOutput(newcompanyEnrol, productLineValue);
     this._baseService.mapContactsFormToOutput(newcompanyEnrol, contactsFormArrayValue);
     this._baseService.mapAddressesFormToOutput(newcompanyEnrol, addressFormArrayValue)
@@ -391,6 +391,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     );
       
     return manufacturerRecord ? manufacturerRecord.addressInfo.companyName : null;
+  }
+
+  isEarlyVersion() : boolean{
+    return this._versionService.getMajorVersion(this.companyEnrolModel.software_version) < START_CHECKSUM_VERSION
   }
 
 }

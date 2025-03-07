@@ -1,8 +1,7 @@
 import { inject, Injectable, signal } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AddressDetailsService } from "@hpfb/pbv";
-import { ErrorSummaryObject, ERR_TYPE_LEAST_ONE_REC, getEmptyErrorSummaryObj, ValidationService } from "@hpfb/sdk/ui";
-import { IRecordService } from "../record-base/record.service.interface";
+import { ErrorSummaryObject, ERR_TYPE_LEAST_ONE_REC, getEmptyErrorSummaryObj, ValidationService, IRecordService } from "@hpfb/sdk/ui";
 
 @Injectable()
 export class CompanyAddressService implements IRecordService{
@@ -50,7 +49,9 @@ export class CompanyAddressService implements IRecordService{
         oerr.tableId = 'addressListTable';
         oerr.type = ERR_TYPE_LEAST_ONE_REC;
         oerr.label = 'error.msg.addressRolesMissing';
-        oerr.componentId = 'addresss';
+        oerr.componentId = 'address';
+        oerr.error = 'required';
+
         
         return oerr;
     }

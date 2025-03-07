@@ -13,6 +13,7 @@ export class FormDataLoaderService {
   private productLinePath = DATA_PATH + 'productLine.json';
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
+  private countryIdMappingJsonPath = DATA_PATH + 'countryIdMapping.json';
   
   cachedCountries$:Observable<ICode[]>;
   cachedEnrolmentStatuses$:Observable<ICode[]>;
@@ -21,6 +22,7 @@ export class FormDataLoaderService {
   cachedProductLineList$:Observable<ICode[]>;
   cachedProvincesList$:Observable<ICode[]>;
   cachedStatesList$:Observable<ICode[]>;
+  countryIdMapping$: Observable<any[]>;
   
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -102,6 +104,18 @@ export class FormDataLoaderService {
         );
     }
     return this.cachedStatesList$;
+  }
+
+  //Temporary mapping for country code update from version 4.4.3 to 5.0.0, shall be removed in later releases
+  getCountryIdMapping(): Observable<any[]> {
+    if (!this.countryIdMapping$) {
+      this.countryIdMapping$ = this._dataService
+        .getData<any>(this.countryIdMappingJsonPath)
+        .pipe(
+          shareReplay(1)
+        );
+    }
+    return this.countryIdMapping$;
   }
 
   // getYesNoList(): Observable<ICode[]> {
