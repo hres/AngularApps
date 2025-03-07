@@ -112,9 +112,6 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
       if (changes['applicantModel']) {
         const applicantModel = changes['applicantModel'].currentValue as IApplicant;
         const billingModel = changes['billingModel'].currentValue as IApplicant;
-
-        console.log(applicantModel, billingModel)
-
         this._applicantService.mapDataModelToFormModel(applicantModel, billingModel, (<FormGroup>this.applicantInformationForm))
       }
     }
