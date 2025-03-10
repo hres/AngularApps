@@ -5,7 +5,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -17,11 +17,10 @@ import { GlobalService } from '../global/global.service';
   selector: 'app-drug-use',
   templateUrl: './drug-use.component.html',
   styleUrl: './drug-use.component.css',
-  providers:  [ DrugUseService ],
+  providers: [DrugUseService],
   encapsulation: ViewEncapsulation.None,
 })
-export class DrugUseComponent  extends BaseComponent implements OnInit {
-
+export class DrugUseComponent extends BaseComponent implements OnInit {
   public showFieldErrors: boolean = false;
   lang: string;
   helpIndex: HelpSequence;
@@ -31,13 +30,16 @@ export class DrugUseComponent  extends BaseComponent implements OnInit {
 
   public drugUseForm: FormGroup;
 
-  constructor(private drugUseService: DrugUseService, private _fb: FormBuilder, private _globalService: GlobalService,
-     private _utilsService: UtilsService ) {
+  constructor(
+    private drugUseService: DrugUseService,
+    private _fb: FormBuilder,
+    private _globalService: GlobalService,
+    private _utilsService: UtilsService
+  ) {
     super();
     this.showFieldErrors = false;
   }
   ngOnInit(): void {
-
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
 
@@ -46,18 +48,18 @@ export class DrugUseComponent  extends BaseComponent implements OnInit {
     }
 
     this.drugUseOptions = this._globalService.drugUses;
-    }
+  }
 
-    protected override emitErrors(errors: any[]): void {
-       this.errorList.emit(errors);
-    }
+  protected override emitErrors(errors: any[]): void {
+    this.errorList.emit(errors);
+  }
 
-    getFormValue() {
-      return this.drugUseForm.value;
-    }
+  getFormValue() {
+    return this.drugUseForm.value;
+  }
 
-    ngOnChanges(changes: SimpleChanges) {
-      this.showFieldErrors = this.showErrors || this.showFieldErrors;
-      const isFirstChange = this._utilsService.isFirstChange(changes);
-    }
+  ngOnChanges(changes: SimpleChanges) {
+    this.showFieldErrors = this.showErrors || this.showFieldErrors;
+    const isFirstChange = this._utilsService.isFirstChange(changes);
+  }
 }
