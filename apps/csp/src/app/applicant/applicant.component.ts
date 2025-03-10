@@ -145,16 +145,29 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
     this._appendChildAndParentErrors();
   }
 
+  onBillingClick(event:any) {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox) {
+      this._appendChildAndParentErrors();
+    }
+  }
+
   private _appendChildAndParentErrors() {
     this._childrenErrors = [];
     this._childrenErrors = this._childrenErrors.concat(
       (this._contactErrorList ?? []).concat(
-        (this._addressErrorList ?? []).concat(
-          (this._billingContactErrorList ?? []).concat(this._billingAddressErrorList ?? [])
-        )
+        (this._addressErrorList ?? [])
       )
     );
-  
+
+    if (this.showBilling()) {  
+      this._childrenErrors = this._childrenErrors.concat(
+        (this._billingContactErrorList ?? []).concat(
+          this._billingAddressErrorList ?? []
+        )
+      );
+    }
+
     const parentErrors = this.msgList?.toArray() ?? [];
     const combinedErrors = [...parentErrors, ...this._childrenErrors];
     this._emitCombinedErrors(combinedErrors); 
