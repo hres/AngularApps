@@ -34,6 +34,7 @@ export class GlobalService {
   private _payMethod: ICode[] = [];
   private _languageList: ICode[];
   private _attestationAsApplicant: ICodeAria[] = [];
+  private _attestationAsSubmission: ICodeAria[] = [];
 
   constructor(private instructionService: InstructionService) {}
 
@@ -170,7 +171,7 @@ export class GlobalService {
   public set payMethod(value: ICode[]) {
     this._payMethod = value;
   }
-  
+
   public get languageList(): ICode[] {
     return this._languageList;
   }
@@ -189,6 +190,19 @@ export class GlobalService {
   public set attestationAsApplicant(value: ICodeAria[]) {
     this._attestationAsApplicant = value;
   }
+
+
+    // Getter for pay method
+    public get attestationAsSubmission(): ICodeAria[] {
+      return this._attestationAsSubmission;
+    }
+
+    // Setter for pay method
+    public set attestationAsSubmission(value: ICodeAria[]) {
+     this._attestationAsSubmission = value;
+    }
+
+
 
 
   /** Checking is date is fully filled out and between the years 1900 - 3000
@@ -218,5 +232,5 @@ export class GlobalService {
     }
   }
 
-  
+
 }

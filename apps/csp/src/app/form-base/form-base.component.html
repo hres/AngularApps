@@ -145,7 +145,8 @@
           <h3 class="panel-title">{{'panel.title.attestations'|translate}}</h3>
         </header>
         <div class="panel-body">
-          <app-attestation [showErrors]="showErrors" [dataModel]="ectdModel">
+          <app-attestation [showErrors]="showErrors" [dataModel]="ectdModel"
+           (errorList)="processAttestationsErrors($event)">
           </app-attestation>
         </div>
 

@@ -15,6 +15,7 @@ export class FormDataLoaderService {
   private payMethodJsonPath = DATA_PATH + 'methodOfPayment.json';
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private AttestationJsonPath = DATA_PATH + 'attestation.json';
+  private AttestationForSubmissionJsonPath = DATA_PATH + 'attestationASSubmission.json';
 
   cachedLanguageList$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
@@ -26,6 +27,7 @@ export class FormDataLoaderService {
   timingOfApplicantTypes$: Observable<ICodeAria[]>;
   payMethodOptions$: Observable<ICode[]>;
   attestationAsApplicantOptions$: Observable<ICode[]>;
+  attestationAsSubmissionOptions$: Observable<ICode[]>;
   // mfUseOptions$: Observable<ICode[]>;
   // txDescs$: Observable<ICodeDefinition[]>;
   // mfTypeTxDescOptions$: Observable<IParentChildren[]>;
@@ -120,6 +122,16 @@ export class FormDataLoaderService {
         shareReplay(1)
       );
     return this.attestationAsApplicantOptions$;
+  }
+
+  getAttestationAsSubmission(lang: string): Observable<ICode[]> {
+    this.attestationAsSubmissionOptions$ = this._dataService
+      .getData<ICodeAria>(this.AttestationForSubmissionJsonPath)
+      .pipe(
+        //tap((_) => console.log('getMasterFileTypeOptions is executed')),
+        shareReplay(1)
+      );
+    return this.attestationAsSubmissionOptions$;
   }
 
 }

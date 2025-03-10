@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpSequence, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
+import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpSequence, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST, ICode } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -51,6 +51,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     @ViewChild(NewDrugSubmissionInformationComponent) newDrugSubmissionInformationComponent: NewDrugSubmissionInformationComponent;
     @ViewChild(MedicinalIngredientsComponent) medicinalIngredientsComponent: MedicinalIngredientsComponent;
     @ViewChild(TimeOfApplicationComponent) timeOfApplicationComponent: TimeOfApplicationComponent;
+
     @ViewChild(FeesComponent) feesComponent: FeesComponent;
     @ViewChild(ApplicantComponent) applicantComponent: ApplicantComponent;
     @ViewChild(HcUseOnlyComponent) healthCanadaComponent: HcUseOnlyComponent;
@@ -59,6 +60,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
   // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
     @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
+    @ViewChild(AttestationComponent) attestationComponent: AttestationComponent;
 
   // private _regulatoryInfoErrors = [];
   // private _transFeeErrors = [];
@@ -99,6 +101,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public billingModel: IApplicant
   public addressModel: INameAddress;
   public contactModel: IContact;
+
+  countryOptions: ICode[] = [];
   public addressBillingModel: INameAddress;
   public contactBillingModel: IContact;
 
@@ -134,6 +138,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this._initModels(this.transactionEnrollModel);
 
       this.lang = this._globalService.currLanguage;
+      this.countryOptions = this._globalService.countryList;
       this.helpIndex = this._globalService.helpIndex;
       this.devEnv = this._globalService.devEnv;
       this.byPassCheckSum = this._globalService.byPassChecksum;
@@ -186,9 +191,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.errorList = this.errorList.concat(this._drugUseErrors);
     this.errorList = this.errorList.concat(this._timingOfApplicantForErrors);
     this.errorList = this.errorList.concat(this._medicinalIngredientsForErrors);
+
+    this.errorList = this.errorList.concat(this._attestationsForErrors);
+
     this.errorList = this.errorList.concat(this._feesForErrors);
     this.errorList = this.errorList.concat(this._certificationForErrors);
-    this.cdr.detectChanges(); // doing our own change detection
+     this.cdr.detectChanges(); // doing our own change detection
   }
 
   processHealthCanadaOnlyErrors(errorList) {
@@ -215,6 +223,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._newDrugSubmissionInfoErrors = errorList;
     this.processErrors();
   }
+
 
   processMedicinalIngredientsErrors(errorList){
     this._medicinalIngredientsForErrors = errorList;
@@ -427,8 +436,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const applicantContactFormGroupValue = this.applicantComponent.getApplicantContactFormValue();
     const billingAddressFormGroupValue = this.applicantComponent.getBillingAddressFormValue();
     const billingContactFormGroupValue = this.applicantComponent.getBillingContactFormValue();
-
     this._baseService.mapApplicantInfoToOutput(newTransactionEnrol, applicantInfo, applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue);
+
+
+    const attestationInfo = this.attestationComponent.getFormValue();
+    this._baseService.mapAttestationFormsToOutput(newTransactionEnrol, attestationInfo, this.lang, this.countryOptions);
+
+
     // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
     // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
     // const certificationFormGroupValue = this.certificationComponent.getFormValue();

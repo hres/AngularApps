@@ -16,6 +16,7 @@ export interface TransactionEnrol {
   applicant: IApplicant[];
   advanced_payment: FeeDetails;
   application_info: IApplicationInformation;
+  timely_submission_info: ITimelySubmissionInformation;
   certification: CertDetails;
 }
 
@@ -28,8 +29,7 @@ export interface IApplicationInformation {
   medicinal_ingredient: string
   product_name: string;
   time_application: string;
-  attestation_applicant: string;
-
+  applicant_statement: string;
 }
 
 export interface HcUse {
@@ -92,7 +92,9 @@ export interface IDrugUse {
 
 }
 
-// export interface IMedicinalIngredients {
-//   medicinalIngredient: string;
-//   productName: string;
-// }
+
+export interface ITimelySubmissionInformation {
+  timely_submission_statement: string;
+  marketing_application_date: string;
+  marketing_country: IIdTextLabel;
+}
