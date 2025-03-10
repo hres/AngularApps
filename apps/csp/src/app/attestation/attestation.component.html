@@ -1,29 +1,104 @@
 <div>
-    <div>
-      <div class="row">
+  <div [formGroup]="attestationForm">
+    <div class="row">
         <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <fieldset class="chkbxrdio-grp" >
-              <legend class="required"><span class="field-name">{{'attestation.as.applicant' |translate }}</span>
+              <legend id="attestationType0" class="required"><span class="field-name">{{'attestation.as.applicant' |translate }}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
-                <control-messages *ngIf="AttestationForm.controls['attestation'].invalid"
+                <control-messages *ngIf="attestationForm.controls['attestationAsApplicant'].invalid"
                 [showError]="showFieldErrors"
-                [control]="AttestationForm.controls['attestation'] | formControl"
+
+                [control]="attestationForm.controls['attestationAsApplicant'] | formControl"
                 controlId="attestationType0" label="attestation.as.applicant" parentId="attestation"></control-messages>
             </legend>
               <ul class="form-group list-unstyled">
                 <li class="radio" *ngFor="let attest of attestationAsApplicantOptions; let i = index">
                   <label aria-hidden="true" for="attest{{i}}">
                     <input attr.aria-label="{{attest | ariaTransform: lang}}" type="radio" attr.aria-label="{{attest | ariaTransform: lang}}"
-                        id="attest{{i}}" name="attestationAsApplicantOptions" value="{{attest | ariaTransform: lang}}"
-                      (change)="onAttestationSelected($event)"
-                      [formControlName]="'attestation'" required/>
+                        id="attest{{i}}" value="{{attest | ariaTransform: lang}}"
+                         (change)="onAttestationAsApplicantSelected($event)"
+                        [formControlName]="'attestationAsApplicant'" />
                       {{attest | textTransform: lang }}
                   </label>
                 </li>
               </ul>
           </fieldset>
+
+
+
+          <fieldset class="chkbxrdio-grp" >
+              <legend id="attestationType2" class="required"><span class="field-name">{{'attestation.timely.submission' |translate }}</span>
+                <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
+                <control-messages *ngIf="attestationForm.controls['attestationAsSubmission'].invalid"
+                [showError]="showFieldErrors"
+
+                [control]="attestationForm.controls['attestationAsSubmission'] | formControl"
+                controlId="attestationType2" label="attestation.timely.submission" parentId="attestation"></control-messages>
+            </legend>
+              <ul class="form-group list-unstyled">
+                <li class="radio" *ngFor="let attest of attestationAsSubmissionOptions; let i = index">
+                  <label aria-hidden="true" for="attest{{i}}">
+                    <input attr.aria-label="{{attest | ariaTransform: lang}}" type="radio" attr.aria-label="{{attest | ariaTransform: lang}}"
+                        id="attest{{i}}"  value="{{attest | ariaTransform: lang}}"
+                      (change)="onAttestationASSubmissionSelected($event)"
+                      [formControlName]="'attestationAsSubmission'"  />
+                      {{attest | textTransform: lang }}
+                  </label>
+                </li>
+              </ul>
+          </fieldset>
+
+          <div *ngIf="openother" >
+            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="firstApprovalDate" class="required">
+              <span>
+                <b>{{ "attestation.date.of.first.marketing.approval.application" | translate }}</b>
+              </span>
+              <strong class="required">{{"commmon.required.bracket" | translate}}
+                <sup [id]="helpIndex['approvalIndx'][2]">
+                  <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['approvalIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['approvalIndx'][0]}}</a>
+                </sup>
+              </strong>
+              <control-messages
+                *ngIf="attestationForm.controls['marketing_application_date'].invalid"
+                [showError]="showErrors"
+                parentId="cspAttestation"
+                [control]="attestationForm.controls['marketing_application_date'] | formControl"
+                controlId="firstApprovalDate"
+                label="attestation.date.of.first.marketing.approval.application"
+              ></control-messages>
+              <input
+                class="form-control"
+                id="firstApprovalDate"
+                type="date" required
+                [formControlName]="'marketing_application_date'"
+                (blur)="onDateInput($event)"
+              />
+            </label>
+
+            <label for="country" class="required full-width">
+                <span class="field-name">{{ 'attestation.country.of.first.marketing.approval.application' |translate }}</span>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                <control-messages *ngIf="attestationForm.controls['marketing_country'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="attestationForm.controls['marketing_country'] | formControl"
+                    controlId="country"
+                    label="marketing_country"
+                    parentId="cspAttestation">
+                </control-messages>
+            </label>
+            <select id="country" required class="form-control full-width"
+                [formControlName]="'marketing_country'">
+                <option label=" " value=""></option>
+                <option *ngFor="let country of countryOptions" [value]="country.id"> {{ country| textTransform: lang }}</option>
+            </select>
+          </div>
+       </div>
+
+
+
         </div>
+
       </div>
     </div>
   </div>
-  

@@ -111,13 +111,20 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   onDossierTypeSelected(selectedDossierTypeId: string) {
     this._logger.log(this._globalService.debugEnabled, 'RegulatoryInformationComponent', 'onDossierTypeSelected',  `dossier type id: ${selectedDossierTypeId}`);
-    this._signalService.setSelectedDossierType(selectedDossierTypeId)
-    if (this.isPharmaBio()) {
-      this.regulartoryInfoForm.controls['dossierId'].setValidators([Validators.required,PbvValidationService.pharmabioDossierIdValidator]);
+
+    if (!selectedDossierTypeId) {
+      this.adminSubmissionSelected.set(null);
+      const valuesToReset = ['isAdminSubmission', 'adminSubType'];
+      this._resetControlValues(valuesToReset);
     } else {
-      this.regulartoryInfoForm.controls['dossierId'].setValidators([Validators.required,PbvValidationService.vetDossierIdValidator]);
+        this._signalService.setSelectedDossierType(selectedDossierTypeId)
+        if (this.isPharmaBio()) {
+          this.regulartoryInfoForm.controls['dossierId'].setValidators([Validators.required,PbvValidationService.pharmabioDossierIdValidator]);
+        } else {
+          this.regulartoryInfoForm.controls['dossierId'].setValidators([Validators.required,PbvValidationService.vetDossierIdValidator]);
+        }
+        this.regulartoryInfoForm.controls['dossierId'].updateValueAndValidity();
     }
-    this.regulartoryInfoForm.controls['dossierId'].updateValueAndValidity();
   }
 
   onAdminSubmissionSelected(selectedAdminSubmissionId: string, isProgrammaticUpdate: boolean) {
@@ -133,6 +140,13 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     this.selectedAdminSubTypeDefinition = this._getCodeDefinition(this.adminSubTypeOptions, selectedAdminSubTypeId);
   }
 
+  restrictInput(event: KeyboardEvent) {
+    const allowedPattern = /^[a-z0-9]$/; // Only lowercase letters and numbers are allowed
+    if (!allowedPattern.test(event.key)) {
+      event.preventDefault(); // Block invalid input
+    }
+  }
+  
   getFormValue() {
     const regInfoFormValues = this.regulartoryInfoForm.value;
     const tranDetailsFormValues = this.tranDetailsChild.getFormValue();
