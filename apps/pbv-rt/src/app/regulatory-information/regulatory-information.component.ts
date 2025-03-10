@@ -141,7 +141,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   }
 
   restrictInput(event: KeyboardEvent) {
-    const allowedPattern = /^[a-zA-Z0-9]$/;
+    const allowedPattern = /^[a-z0-9]$/; // Only lowercase letters and numbers are allowed
     if (!allowedPattern.test(event.key)) {
       event.preventDefault(); // Block invalid input
     }
