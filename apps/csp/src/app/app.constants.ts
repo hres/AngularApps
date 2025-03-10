@@ -9,6 +9,9 @@ export const FILE_OUTPUT_PREFIX = 'CSP';
 export const HELP_FOOTNOTE_PREFIX = 'tr';
 export const HELP_FOOTNOTE_SUFFIX = '-rf';
 
+export const YES = "Y";
+export const NO = "N";
+
 export const helpInstructionHeadings = [
     'loadFileIndx',
     'dateLastIndx',
@@ -25,3 +28,9 @@ export const helpInstructionHeadings = [
     'methodPayIndx',
     'certificationIndx'
   ];
+
+  // address/contact type
+  export const ADDR_CONT_TYPE = {
+    APPLICANT: 'applicant',
+    BILLING: 'billing'
+  };

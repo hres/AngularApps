@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, HcUse, FeeDetails, CertDetails, Transaction, TransactionEnrol} from '../models/transaction';
+import { Ectd, HcUse, FeeDetails, CertDetails, Transaction, TransactionEnrol, IApplicant} from '../models/transaction';
 import { INameAddress, IContact, EntityBasePbvService } from '@hpfb/pbv';
 import { PatentComponent } from '../patent/patent.component';
 import { DrugUseComponent } from '../drug-use/drug-use.component';
@@ -78,7 +78,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _attestationsForErrors = [];
   private _feesForErrors = [];
   private _certificationForErrors = [];
-  private _applicantForErrors = [];
+  private _applicantErrors = [];
   private _healthCanadaOnlyErrors = [];
 
   public rtForm: FormGroup;
@@ -96,35 +96,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public certModel: CertDetails;
   public ectdModel: Ectd;
   public hcUseModel: HcUse;
-  // public holderAddressModel: INameAddress;
-  // public agentAddressModel: INameAddress;
-  // public holderContactModel: IContact;
-  // public agentContactModel: IContact;
   public transFeeModel: FeeDetails;
+  public applicantModel: IApplicant;
+  public billingModel: IApplicant
   public addressModel: INameAddress;
   public contactModel: IContact;
 
   countryOptions: ICode[] = [];
-
-  // public notApplicable: boolean = false;
-  // public holder: string = ADDR_CONT_TYPE.HOLDER;
-  // public agent: string = ADDR_CONT_TYPE.AGENT;
-
-  // noContactTxDescs: string[] = ['12', '14']; //Contact Information section is not shown for these Transaction Descriptions
-  // noFeeTxDescs: string[] = ['1', '3', '5', '8', '9', '12', '14', '20']; //Fee section is not shown for these Transaction Descriptions
-
-  // writable signal for the answer of "Transaction Description" field
-  // readonly selectedTxDescSignal = signal<string>('');
-  // // computed signal for rendering of the "Contact" and "Fees" sections
-  // showContact = computed(() => {
-  //   return this.selectedTxDescSignal()==='' ? true : !this.noContactTxDescs.includes(this.selectedTxDescSignal());
-  // });
-  // showFee = computed(() => {
-  //   return this.selectedTxDescSignal()==='' ? true : !this.noFeeTxDescs.includes(this.selectedTxDescSignal());
-  // });
-
-  // showContactFlag: boolean = true;
-  // showFeeFlag: boolean = true;
+  public addressBillingModel: INameAddress;
+  public contactBillingModel: IContact;
 
   constructor(
     private _fb: FormBuilder,
@@ -204,7 +184,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     //   this.errorList = this.errorList.concat(this._transFeeErrors);
     // }
 
-    this.errorList = this.errorList.concat(this._applicantForErrors);
+    this.errorList = this.errorList.concat(this._applicantErrors);
     this.errorList = this.errorList.concat(this._patentInformationErrors);
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
     this.errorList = this.errorList.concat(this._noticeOfComplianceErrors);
@@ -272,7 +252,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processApplicantErrors(errorList) {
-    this._applicantForErrors = errorList;
+    this._applicantErrors = errorList;
     this.processErrors();
   }
 
@@ -340,8 +320,33 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (trans.advanced_payment != null) {
       this.transFeeModel = trans.advanced_payment;
     }
-    this.addressModel = trans.applicant.address;
-    this.contactModel = trans.applicant.contact;
+
+    this.applicantModel = null;
+    this.billingModel = null;
+
+    // Initialize the applicant's contact and address models
+    if (trans.applicant && trans.applicant.length > 0) {
+      const applicant = trans.applicant[0]; // Assuming the first applicant is the main applicant
+      this.applicantModel = applicant;
+      if (applicant.contact) {
+        this.contactModel = applicant.contact;
+      }
+      if (applicant.address) {
+        this.addressModel = applicant.address;
+      }
+
+      // Initialize the billing contact and address models if available
+      if (trans.applicant.length > 1) {
+        const billingApplicant = trans.applicant[1]; // Assuming the second applicant is the billing applicant
+        this.billingModel = billingApplicant;
+        if (billingApplicant.contact) {
+          this.contactBillingModel = billingApplicant.contact;
+        }
+        if (billingApplicant.address) {
+          this.addressBillingModel = billingApplicant.address;
+        }
+      }
+    }
   }
 
   public preload() {
@@ -427,9 +432,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._baseService.mapCertificationFormsToOutput(newTransactionEnrol, certification);
 
     const applicantInfo = this.applicantComponent.getFormValue();
-    const addressFormGroupValue = this.applicantComponent.getAddressFormValue();
-    const contactFormGroupValue = this.applicantComponent.getContactFormValue();
-    this._baseService.mapApplicantInfoToOutput(newTransactionEnrol, applicantInfo, addressFormGroupValue, contactFormGroupValue);
+    const applicantAddressFormGroupValue = this.applicantComponent.getApplicantAddressFormValue();
+    const applicantContactFormGroupValue = this.applicantComponent.getApplicantContactFormValue();
+    const billingAddressFormGroupValue = this.applicantComponent.getBillingAddressFormValue();
+    const billingContactFormGroupValue = this.applicantComponent.getBillingContactFormValue();
+    this._baseService.mapApplicantInfoToOutput(newTransactionEnrol, applicantInfo, applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue);
 
 
     const attestationInfo = this.attestationComponent.getFormValue();

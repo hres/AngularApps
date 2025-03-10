@@ -478,6 +478,10 @@
     "ht.cert.4": "<b>Date:</b> Provide the date of the attestations and certification.",
 
     "billing.address": "Billing Address",
+    "bill.add.check": " Select to enter a billing address that is different from the Applicant's Contact Information",
+    "bill.add.org": "Organization Name (Full legal Name - no abbreviations)",
+    "label.applicant": "Applicant",
+    "label.billing": "Billing",
 
     "msg.success.load": "The file was loaded successfully",
     "msg.err.parseFail": "Error: there was an error parsing the working file.",

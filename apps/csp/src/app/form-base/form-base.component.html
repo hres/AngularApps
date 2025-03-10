@@ -54,14 +54,18 @@
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['appContactIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['appContactIndx'][0]}}</a>
             </sup>
           </h3>
-        </header>
-        <div class="panel-body">
-          <app-applicant [showErrors]="showErrors"
-          [addressModel]=""
-          [contactModel]=""
-          (errorList)="processApplicantErrors($event)">
-          </app-applicant>
-        </div>
+          </header>
+          <div class="panel-body">
+            <app-applicant [showErrors]="showErrors"
+            [applicantAddressModel]="addressModel"
+            [applicantContactModel]="contactModel"
+            [billingAddressModel]="addressBillingModel"
+            [billingContactModel]="contactBillingModel"
+            [applicantModel]="applicantModel"
+            [billingModel]="billingModel"
+            (errorList)="processApplicantErrors($event)">
+            </app-applicant>
+          </div>
 
         <header class="panel-body">
           <h3 class="panel-title">{{'panel.title.patent'|translate}}

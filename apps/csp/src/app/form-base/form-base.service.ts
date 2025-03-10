@@ -114,7 +114,7 @@ export class FormBaseService {
       check_sum: '',
       ectd: this.getEmptyEctd(),
       health_canada_only: this.getEmptyHcUse(),
-      applicant: this.getEmptyApplicant(),
+      applicant: this.getEmptyArrayOfApplicants(),
       application_info: this.getApplicationInformation(),
       timely_submission_info: this.getAttestationOFSubmission(),
       advanced_payment: this.getEmptyFeesModel(),
@@ -242,6 +242,11 @@ export class FormBaseService {
     return patent;
   }
 
+  private getEmptyArrayOfApplicants(): IApplicant[]  {
+    return [];
+  }
+  
+
   private getEmptyApplicant() : IApplicant {
     const applicant: IApplicant = {
       billing_role: '',
@@ -328,7 +333,7 @@ export class FormBaseService {
     this.feesService.mapFormModelToDataModel(feesForm, outputTransactionEnrol.advanced_payment);
   }
 
-  public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
-    this.applicantService.mapFormModelToDataModel(applicantForm, outputTransactionEnrol, addressFormGroupValue, contactFormGroupValue )
+  public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, applicantAddressFormGroupValue : any, applicantContactFormGroupValue : any, billingAddressFormGroupValue : any, billingContactFormGroupValue : any): void {
+    this.applicantService.mapFormModelToDataModel(applicantForm, outputTransactionEnrol, applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue, this.getEmptyApplicant(), this.getEmptyApplicant())
   }
 }
