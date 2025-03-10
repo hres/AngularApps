@@ -118,7 +118,7 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
   }
 
   showBilling() {
-    return this.applicantInformationForm.controls['isBillingDifferent'].value == true;
+    return this.billingModel || this.applicantInformationForm.controls['isBillingDifferent'].value == true;
   }
 
   protected override emitErrors(errors: any[]): void {

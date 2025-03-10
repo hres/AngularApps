@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class="form-group row" *ngIf="showBilling()">
+        <div class="form-group row" [hidden]="!showBilling()">
             <div class="col-xs-12">
                 <legend>
                     {{"billing.address" | translate}}
