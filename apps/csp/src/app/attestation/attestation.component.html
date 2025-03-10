@@ -50,13 +50,15 @@
 
           <div *ngIf="openother" >
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-               <label for="firstApprovalDate" class="required">
-              <span
-                ><b>{{ "attestation.date.of.first.marketing.approval.application" | translate }}</b></span
-              >
-              <strong class="required">{{
-                "commmon.required.bracket" | translate
-              }}</strong>
+                <label for="firstApprovalDate" class="required">
+              <span>
+                <b>{{ "attestation.date.of.first.marketing.approval.application" | translate }}</b>
+              </span>
+              <strong class="required">{{"commmon.required.bracket" | translate}}
+                <sup [id]="helpIndex['approvalIndx'][2]">
+                  <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['approvalIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['approvalIndx'][0]}}</a>
+                </sup>
+              </strong>
               <control-messages
                 *ngIf="attestationForm.controls['marketing_application_date'].invalid"
                 [showError]="showErrors"
