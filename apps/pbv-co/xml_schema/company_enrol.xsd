@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+	<!-- ****************************** -->
+	<!-- Company Enrolment version 5.0 -->
+	<!-- ****************************** -->
+<hpfb:schema xmlns:hpfb="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<hpfb:include schemaLocation="./common/data_types.xsd"/>
+	<hpfb:include schemaLocation="./common/contact.xsd"/>
+	<hpfb:include schemaLocation="./common/address.xsd"/>
+
+	<!-- ****************************** -->
+	<!-- ELEMENT DECLARATIONS -->
+	<!-- ****************************** -->
+	<!-- COMPANY_ENROL = root element-->
+	<hpfb:element name="COMPANY_ENROL" type="company_enrol_content" />
+	<hpfb:element name="template_type" type="hpfb:string"/>	
+	<hpfb:element name="enrolment_version" type="hpfb:decimal"/>
+	<hpfb:element name="date_saved" type="yyyymmdd_time_content"/>
+	<hpfb:element name="application_type">
+		<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="id" type="char_0_20_content"/>
+					<hpfb:attribute name="label_en" type="hpfb:string"/>
+					<hpfb:attribute name="label_fr" type="hpfb:string"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	<hpfb:element name="software_version" type="char_0_40_content"/>
+	<hpfb:element name="company_id" type="char_0_6_content" />
+	<hpfb:element name="form_language" type="language" />
+	<hpfb:element name="check_sum" type="hpfb:string"/>
+	<hpfb:element name="manufacturer" type="yes_no_content"/>
+	<hpfb:element name="mailing" type="yes_no_content"/>
+	<hpfb:element name="billing" type="yes_no_content"/>
+	<hpfb:element name="business_number" type="integer_1_9_content"/>
+	<hpfb:element name="company_name" type="char_1_80_content"/>
+	<hpfb:element name="company_contact_details" type="contact_content"/>
+	<hpfb:element name="contact_record" type="contact_record_content" />
+	<hpfb:element name="company_address_details" type="international_address_content"/>
+	<hpfb:element name="address_record" type="address_record_content"/>
+	<hpfb:element name="selected_products" type="hpfb:string"/>
+	<hpfb:element name="dossier_id" type="char_7_content" />
+	<hpfb:element name="reason_amend" type="hpfb:string"/>
+	<hpfb:element name="id" type="char_0_6_content"/>
+	<hpfb:element name="product_line_checkbox" type="product_line_content"/>
+	<hpfb:element name="product_line">
+		<hpfb:complexType>
+			<hpfb:simpleContent>
+				<hpfb:extension base="hpfb:string">
+					<hpfb:attribute name="id" type="char_0_20_content"/>
+					<hpfb:attribute name="label_en" type="hpfb:string"/>
+					<hpfb:attribute name="label_fr" type="hpfb:string"/>
+				</hpfb:extension>
+			</hpfb:simpleContent>
+		</hpfb:complexType>
+	</hpfb:element>
+	
+
+	<hpfb:complexType name="company_enrol_content" >
+		<hpfb:sequence>
+			<hpfb:element ref="template_type"/>
+			<hpfb:element ref="date_saved"/>
+			<hpfb:element ref="software_version"/>
+			<hpfb:element ref="form_language"/>
+			<hpfb:element ref="check_sum"/>
+			<hpfb:element ref="application_type"/>
+			<hpfb:element ref="enrolment_version"/>
+			<hpfb:element ref="company_id"/>
+			<hpfb:element ref="reason_amend"/>
+			<hpfb:element ref="address_record" minOccurs="1" maxOccurs="4"/>
+			<hpfb:element ref="contact_record" minOccurs="1" maxOccurs="6"/>
+			<hpfb:element ref="product_line_checkbox"/>
+		</hpfb:sequence>
+	</hpfb:complexType>
+
+	<hpfb:complexType name="contact_record_content">
+		<hpfb:all>
+			<hpfb:element ref="manufacturer"/>
+			<hpfb:element ref="mailing"/>
+			<hpfb:element ref="billing"/>
+			<hpfb:element ref="company_contact_details"/>
+			<hpfb:element ref="id"/>
+		</hpfb:all>
+	</hpfb:complexType>
+
+	<hpfb:complexType name="address_record_content">
+		<hpfb:all>
+			<hpfb:element ref="manufacturer"/>
+			<hpfb:element ref="mailing"/>
+			<hpfb:element ref="billing"/>
+			<hpfb:element ref="business_number"/>
+			<hpfb:element ref="company_name"/>
+			<hpfb:element ref="company_address_details"/>
+			<hpfb:element ref="id"/>
+		</hpfb:all>
+	</hpfb:complexType>	
+	
+	<hpfb:complexType name="product_line_content">
+		<hpfb:sequence>
+			<hpfb:element ref="product_line" minOccurs="1" maxOccurs="2"/>
+		</hpfb:sequence>
+	</hpfb:complexType>
+
+
+</hpfb:schema>
+
+
