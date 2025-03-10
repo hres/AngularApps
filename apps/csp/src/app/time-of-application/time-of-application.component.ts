@@ -28,9 +28,8 @@ export class TimeOfApplicationComponent extends BaseComponent implements OnInit{
   @Input() dataModel: Ectd;
 
   constructor(private _timingOfApplicationService: TimingOfApplicationService, private _fb: FormBuilder, private _globalService: GlobalService, private _utilsService: UtilsService){
-
-  super();
-  this.showFieldsErrors = false;
+    super();
+    this.showFieldsErrors = false;
 
   }
   protected override emitErrors(errors: any[]): void {
