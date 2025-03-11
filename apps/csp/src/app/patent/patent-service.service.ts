@@ -20,7 +20,7 @@ export class PatentService {
      patentNumber: new FormControl( '', [Validators.required, Validators.minLength(7)]),
      patentFillingDate: new FormControl(null, Validators.required),
      patentGrandDate: new FormControl(null, Validators.required),
-     patendExpirationDate: new FormControl(null, Validators.required),
+     patentExpirationDate: new FormControl(null, Validators.required),
     });
     return patentForm;
 
@@ -33,7 +33,7 @@ export class PatentService {
     patentModel.patent_number = formValue['patentNumber'];
     patentModel.filing_date = formValue['patentFillingDate'];
     patentModel.granted_date = formValue['patentGrandDate'];
-    patentModel.expiry_date = formValue['patendExpirationDate'];
+    patentModel.expiry_date = formValue['patentExpirationDate'];
   }
 
   public mapDataModelToFormModel(patentModel: IPatent, formRecord: FormGroup) {
@@ -41,7 +41,7 @@ export class PatentService {
     formRecord.controls['patentNumber'].setValue(patentModel.patent_number);
     formRecord.controls['patentFillingDate'].setValue(patentModel.filing_date);
     formRecord.controls['patentGrandDate'].setValue(patentModel.granted_date);
-    formRecord.controls['patendExpirationDate'].setValue(patentModel.expiry_date);
+    formRecord.controls['patentExpirationDate'].setValue(patentModel.expiry_date);
    }
 
 
