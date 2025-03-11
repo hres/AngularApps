@@ -79,14 +79,15 @@ export class ApplicantService {
     formRecord.controls['applicantName'].setValue(applicantModel.applicant_name);
     formRecord.controls['craBusinessNumber'].setValue(applicantModel.cra_business_number);
     formRecord.controls['cspNumber'].setValue(applicantModel.csp_customer_number);
+    formRecord.controls['agentName'].setValue(applicantModel.agent_name);
     formRecord.controls['isBillingDifferent'].setValue(false);
 
     if (billingModel.billing_role == YES) {
       formRecord.controls['isBillingDifferent'].setValue(true);
       formRecord.controls['orgName'].setValue(billingModel.agent_name);
-    } else {
-      formRecord.controls['agentName'].setValue(applicantModel.agent_name);
-    }
+    } //else {
+      //formRecord.controls['agentName'].setValue(applicantModel.agent_name);
+    //}
    }
 
 }
