@@ -438,7 +438,7 @@
     "attestation.timely.submission": "Attestation de présentation en temps opportun",
 
     "panel.title.fees": "9. Paiement de la taxe",
-    "fees.text": "Ce formulaire électronique ne doit pas inclure de renseignements sur le paiement (par ex. numéro de carte de crédit), puisque les renseignements inclus dans un formulaire électronique ne peuvent pas être supprimés et continueront de faire partie de la demande de CPS en dossier.",
+    "fees.text": "Ce formulaire électronique <b>ne doit pas</b> inclure de renseignements sur le paiement (par ex. numéro de carte de crédit), puisque les renseignements inclus dans un formulaire électronique ne peuvent pas être supprimés et continueront de faire partie de la demande de CPS en dossier.",
     "fees.paid": "La taxe a été payée (saisir le montant de la taxe)",
     "pay.method": "Mode de paiement",
     "section.show": " [ Cette section peut ne pas être visible. ]",
@@ -562,5 +562,6 @@
     "error.cert.last": "Attestation - Nom",
     "error.cert.job": "Attestation - Titre de poste",
     "error.cert.date": "Attestation - Date",
-    "error": "Erreur {{number}}:"
+    "error": "Erreur {{number}}:",
+    "public.disc": "Le contenu de ce formulaire peut être communiqué publiquement."
   }
