@@ -54,14 +54,18 @@
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['appContactIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['appContactIndx'][0]}}</a>
             </sup>
           </h3>
-        </header>
-        <div class="panel-body">
-          <app-applicant [showErrors]="showErrors"
-          [addressModel]=""
-          [contactModel]=""
-          (errorList)="processApplicantErrors($event)">
-          </app-applicant>
-        </div>
+          </header>
+          <div class="panel-body">
+            <app-applicant [showErrors]="showErrors"
+            [applicantAddressModel]="addressModel"
+            [applicantContactModel]="contactModel"
+            [billingAddressModel]="addressBillingModel"
+            [billingContactModel]="contactBillingModel"
+            [applicantModel]="applicantModel"
+            [billingModel]="billingModel"
+            (errorList)="processApplicantErrors($event)">
+            </app-applicant>
+          </div>
 
         <header class="panel-body">
           <h3 class="panel-title">{{'panel.title.patent'|translate}}
@@ -138,10 +142,15 @@
         </div>
 
         <header class="panel-body">
-          <h3 class="panel-title">{{'panel.title.attestations'|translate}}</h3>
+          <h3 class="panel-title">{{'panel.title.attestations'|translate}}
+            <sup [id]="helpIndex['attestationIndx'][2]">
+              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['attestationIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['attestationIndx'][0]}}</a>
+            </sup>
+          </h3>
         </header>
         <div class="panel-body">
-          <app-attestation [showErrors]="showErrors" [dataModel]="ectdModel">
+          <app-attestation [showErrors]="showErrors" [dataModel]="ectdModel"
+           (errorList)="processAttestationsErrors($event)">
           </app-attestation>
         </div>
 
@@ -189,5 +198,10 @@
         </button>
       </div>
     </div>
+
+    <div class="mrgn-tp-lg">
+      <span>{{'public.disc'|translate}}</span>
+    </div>
+
   </form>
 </div>

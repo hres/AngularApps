@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, HelpSequence, ICodeAria, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, ENGLISH, FRENCH, HelpSequence, ICode, ICodeAria, UtilsService } from '@hpfb/sdk/ui';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { AttestationService } from './attestation.service';
 import { Ectd } from '../models/transaction';
+import { AttestationTypeForSubmission } from './AttestationEnum';
 
 @Component({
   selector: 'app-attestation',
@@ -14,57 +15,73 @@ import { Ectd } from '../models/transaction';
 })
 
 export class AttestationComponent extends BaseComponent implements OnInit{
-  
+
 
 
   public lang: string;
+  public openother: boolean ;
   helpIndex: HelpSequence;
   showFieldsErrors: boolean = false;
 
-  public AttestationForm: FormGroup;
+  public attestationForm: FormGroup;
   @Input() showErrors: boolean = false;
   public showFieldErrors: boolean = false;
   @Output() errorlis = new EventEmitter(true);
-  selectedAttestationAsApplicant: string;
   @Output() errorList = new EventEmitter(true);
   @Input() dataModel: Ectd;
   attestationAsApplicantOptions: ICodeAria[] = [];
+  attestationAsSubmissionOptions: ICodeAria[] = [];
 
-  //constructor(private _fb: FormBuilder, private _globalService: GlobalService, private _utilsService: UtilsService){
+  countryOptions: ICode[] = [];
+
   constructor(private _attestationService: AttestationService, private _fb: FormBuilder, private _globalService: GlobalService, private _utilsService: UtilsService){
-
     super();
     this.showFieldsErrors = false;
-  
     }
-    protected override emitErrors(errors: any[]): void {
+
+
+  protected override emitErrors(errors: any[]): void {
       this.errorList.emit(errors);
     }
 
 
 
   ngOnInit(): void {
+    this.openother = false;
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-    if(!this.AttestationForm){
-    this.AttestationForm = this._attestationService.getAttestationForm(this._fb);
+    if(!this.attestationForm){
+    this.attestationForm = this._attestationService.getAttestationForm(this._fb);
     }
- 
+
     this.attestationAsApplicantOptions = this._globalService.attestationAsApplicant;
+    this.attestationAsSubmissionOptions = this._globalService.attestationAsSubmission;
+    this.countryOptions = this._globalService.countryList;
    }
-    
-   onAttestationSelected(e: any): void {
-    const codeDefinition = this._utilsService.findCodeDefinitionById(this.attestationAsApplicantOptions, this.AttestationForm.get('attestationAsApplicant').value);
-    this.selectedAttestationAsApplicant = this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
+
+   onAttestationAsApplicantSelected(e: any): void {
+    this.openother = false;
   }
- 
+
+  onAttestationASSubmissionSelected(e: any): void {
+    if(this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandEn || this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandFr ){
+        this.openother = true;
+    }else{
+        this.openother = false;
+    }
+   }
+
    ngOnChanges(changes: SimpleChanges) {
        this.showFieldErrors = this.showErrors || this.showFieldErrors;
        const isFirstChange = this._utilsService.isFirstChange(changes);
      }
- 
+
    getFormValue() {
-     return this.AttestationForm.value;
+     return this.attestationForm.value;
    }
+
+   onDateInput(event: any): void {
+    this._globalService.isDateValid(event, this.attestationForm);
+  }
 }
 

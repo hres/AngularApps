@@ -14,7 +14,7 @@
                         [showError]="showErrors"
                         [control]="cRRow.get('addressInfo.companyName') | formControl" controlId="companyName{{j}}"
                         label="company.name" parentId="companyAddress"></control-messages>
-                    <input maxlength="100" id="companyName{{j}}" class="form-control full-width"
+                    <input maxlength="80" id="companyName{{j}}" class="form-control full-width"
                         name="companyName" [formControlName]="'companyName'" />
                 </label>
             </div>

@@ -3,8 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AddressDetailsService, ContactDetailsService } from '@hpfb/pbv';
 import { ICode } from '@hpfb/sdk/ui';
 import { identityRevealedValidator } from '../crossFieldValidator';
+import { FormBaseService } from '../form-base/form-base.service';
 import { GlobalService } from '../global/global.service';
 import { IApplicant, TransactionEnrol } from '../models/transaction';
+import { YES, NO } from '../app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +22,12 @@ export class ApplicantService {
       return null;
    }
    const applicantForm = fb.nonNullable.group({
-     applicantName: new FormControl(null, Validators.required),
-     craBusinessNumber: new FormControl(null),
-     cspNumber: new FormControl(null, Validators.required),
-     agentName: new FormControl(null),
+      applicantName: new FormControl(null, Validators.required),
+      craBusinessNumber: new FormControl(null),
+      cspNumber: new FormControl(null, Validators.required),
+      agentName: new FormControl(null),
+      orgName: new FormControl(null),
+      isBillingDifferent: [false]
      
     },);
     return applicantForm;
@@ -31,28 +35,59 @@ export class ApplicantService {
 
 
 
-  public mapFormModelToDataModel(formValue: any, model: TransactionEnrol,  addressFormGroupValue, contactFormGroupValue) {
+  public mapFormModelToDataModel(formValue: any, model: TransactionEnrol,  applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue, applicantModel, billingModel) {
     const lang = this._globalService.currLanguage;
     const languageList: ICode[] = this._globalService.languageList;
     const countryList: ICode[] = this._globalService.countryList;
     const combinedProvStatList: ICode[] = this._globalService.provinceList.concat(this._globalService.stateList);
+    let applicants = []
 
-    model.applicant.applicant_name = formValue['applicantName'];
-    model.applicant.cra_business_number = formValue['craBusinessNumber'];
-    model.applicant.csp_customer_number = formValue['cspNumber'];
-    model.applicant.agent_name = formValue['agentName'];
+    const applicant = applicantModel;
+    
+    applicant.billing_role = NO;
+    applicant.applicant_role = YES;
 
-    this._addressDetailsService.mapFormModelToDataModelCanadianAddress(addressFormGroupValue, model.applicant.address, lang, countryList, combinedProvStatList);
-    this._contactDetailsService.mapFormModelToDataModel(contactFormGroupValue, model.applicant.contact, lang, languageList);
+    applicant.applicant_name = formValue['applicantName'];
+    applicant.cra_business_number = formValue['craBusinessNumber'];
+    applicant.csp_customer_number = formValue['cspNumber'];
+    applicant.agent_name = formValue['agentName'];
+
+    this._addressDetailsService.mapFormModelToDataModelCanadianAddress(applicantAddressFormGroupValue, applicant.address, lang, countryList, combinedProvStatList);
+    this._contactDetailsService.mapFormModelToDataModel(applicantContactFormGroupValue, applicant.contact, lang, languageList);
+
+    applicants.push(applicant)
+    
+    if(formValue['isBillingDifferent']){
+      console.log("BILLING");
+      const billing = billingModel;
+      console.log(billing)
+
+      billing.billing_role = YES;
+      billing.applicant_role = NO;
+
+      billing.agent_name = formValue['orgName'];
+      this._addressDetailsService.mapFormModelToDataModel(billingAddressFormGroupValue, billing.address, lang, countryList, combinedProvStatList);
+      this._contactDetailsService.mapFormModelToDataModel(billingContactFormGroupValue, billing.contact, lang, languageList);
+
+      applicants.push(billing);
+    }
+
+    model.applicant = applicants
   }
 
-  public mapDataModelToFormModel(applicantModel: IApplicant, formRecord: FormGroup) {
-
+  public mapDataModelToFormModel(applicantModel: IApplicant, billingModel: IApplicant, formRecord: FormGroup) {
     formRecord.controls['applicantName'].setValue(applicantModel.applicant_name);
     formRecord.controls['craBusinessNumber'].setValue(applicantModel.cra_business_number);
     formRecord.controls['cspNumber'].setValue(applicantModel.csp_customer_number);
     formRecord.controls['agentName'].setValue(applicantModel.agent_name);
-   }
+    formRecord.controls['isBillingDifferent'].setValue(false);
 
+    if (billingModel.billing_role == YES) {
+      formRecord.controls['isBillingDifferent'].setValue(true);
+      formRecord.controls['orgName'].setValue(billingModel.agent_name);
+    } //else {
+      //formRecord.controls['agentName'].setValue(applicantModel.agent_name);
+    //}
+   }
 
 }

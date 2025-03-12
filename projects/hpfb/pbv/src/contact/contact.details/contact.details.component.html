@@ -62,7 +62,7 @@
                               [control]="contactDetailsForm.controls['jobTitle'] | formControl"
                               controlId="{{contactType}}jobTitle" label="job.title" parentId="{{contactType}}contactInfo"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-            <input name="jobTitle" id="{{contactType}}jobTitle" class="form-control full-width" maxlength="60" [formControlName]="'jobTitle'"/>
+            <input name="jobTitle" id="{{contactType}}jobTitle" class="form-control full-width" maxlength="40" [formControlName]="'jobTitle'"/>
           </label>
         </div>
       </div>

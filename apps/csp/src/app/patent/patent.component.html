@@ -87,7 +87,7 @@
       </div>
 
       <div class="col-sm-4">
-        <label for="patendExpirationDate" class="required">
+        <label for="patentExpirationDate" class="required">
           <span
             ><b>{{ "expiration.date" | translate }}</b></span
           >
@@ -96,22 +96,22 @@
           }}</strong>
           <control-messages
             *ngIf="
-              patentInformationForm.controls['patendExpirationDate'].invalid
+              patentInformationForm.controls['patentExpirationDate'].invalid
             "
             [showError]="showErrors"
             parentId="cspCertif"
             [control]="
-              patentInformationForm.controls['patendExpirationDate']
+              patentInformationForm.controls['patentExpirationDate']
                 | formControl
             "
-            controlId="patendExpirationDate"
+            controlId="patentExpirationDate"
             label="expiration.date"
           ></control-messages>
           <input
             class="form-control"
-            id="patendExpirationDate"
+            id="patentExpirationDate"
             type="date"
-            [formControlName]="'patendExpirationDate'"
+            [formControlName]="'patentExpirationDate'"
             (blur)="onDateInput($event)"
           />
         </label>

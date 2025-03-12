@@ -1,6 +1,6 @@
 import { Injectable} from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Ectd, HcUse, TransactionEnrol, Transaction, FeeDetails, CertDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant, IApplicationInformation} from '../models/transaction';
+import { Ectd, HcUse, TransactionEnrol, Transaction, FeeDetails, CertDetails, LifecycleRecord, IPatent, IDrugUse, IApplicant, IApplicationInformation, ITimelySubmissionInformation} from '../models/transaction';
 import { INameAddress, IContact } from '@hpfb/pbv';
 import { GlobalService } from '../global/global.service';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
@@ -114,8 +114,9 @@ export class FormBaseService {
       check_sum: '',
       ectd: this.getEmptyEctd(),
       health_canada_only: this.getEmptyHcUse(),
-      applicant: this.getEmptyApplicant(),
+      applicant: this.getEmptyArrayOfApplicants(),
       application_info: this.getApplicationInformation(),
+      timely_submission_info: this.getAttestationOFSubmission(),
       advanced_payment: this.getEmptyFeesModel(),
       certification: this.getEmptyCertModel()
 
@@ -241,6 +242,11 @@ export class FormBaseService {
     return patent;
   }
 
+  private getEmptyArrayOfApplicants(): IApplicant[]  {
+    return [];
+  }
+  
+
   private getEmptyApplicant() : IApplicant {
     const applicant: IApplicant = {
       billing_role: '',
@@ -264,9 +270,18 @@ export class FormBaseService {
       medicinal_ingredient:'',
       product_name:'',
       time_application: '',
-      attestation_applicant: ''
+      applicant_statement: ''
     }
     return applicantInfo;
+  }
+
+  private getAttestationOFSubmission() : ITimelySubmissionInformation {
+    const timelySubmissionInformation: ITimelySubmissionInformation = {
+      timely_submission_statement: '',
+      marketing_application_date: '',
+      marketing_country: undefined
+     }
+    return timelySubmissionInformation;
   }
 
   // private getEmptyMedicinalIngredients(): IMedicinalIngredients {
@@ -302,8 +317,8 @@ export class FormBaseService {
     this.medicinalIngredientService.mapFormModelToDataModel(medicinalIngredientsForm, outputTransactionEnrol);
   }
 
-  public mapAttestationFormsToOutput(outputTransactionEnrol: TransactionEnrol, AttestationForm: any): void{
-    this.attestationService.mapFormModelToDataModel(AttestationForm, outputTransactionEnrol);
+  public mapAttestationFormsToOutput(outputTransactionEnrol: TransactionEnrol, AttestationForm: any, lang, languageList): void{
+    this.attestationService.mapFormModelToDataModel(AttestationForm, outputTransactionEnrol,lang, languageList);
   }
 
   public mapTimingOfApplicantFormsToOutput(outputTransactionEnrol: TransactionEnrol,timingOfApplicationForm: any): void{
@@ -318,7 +333,7 @@ export class FormBaseService {
     this.feesService.mapFormModelToDataModel(feesForm, outputTransactionEnrol.advanced_payment);
   }
 
-  public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, addressFormGroupValue : any, contactFormGroupValue : any): void {
-    this.applicantService.mapFormModelToDataModel(applicantForm, outputTransactionEnrol, addressFormGroupValue, contactFormGroupValue )
+  public mapApplicantInfoToOutput(outputTransactionEnrol: TransactionEnrol, applicantForm: any, applicantAddressFormGroupValue : any, applicantContactFormGroupValue : any, billingAddressFormGroupValue : any, billingContactFormGroupValue : any): void {
+    this.applicantService.mapFormModelToDataModel(applicantForm, outputTransactionEnrol, applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue, this.getEmptyApplicant(), this.getEmptyApplicant())
   }
 }

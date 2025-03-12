@@ -2,7 +2,7 @@
   <div [formGroup]="feesForm">
       <div class="row">
         <div>
-          <span class="field-name col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">{{ 'fees.text' |translate }}</span>
+          <span class="field-name col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;" [innerHTML]="'fees.text'|translate"></span>
         </div>
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <label for="fees" class="required full-width">
