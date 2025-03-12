@@ -383,7 +383,7 @@
     "attestation.timely.submission": "Attestation as to Timely Submission",
 
     "panel.title.fees": "9. Fee Payment",
-    "fees.text": "This electronic form should not include payment information (e.g. credit card number), as the information included within an electronic form cannot be deleted and will remain a part of the CSP application on record.",
+    "fees.text": "This electronic form <b>should not</b> include payment information (e.g. credit card number), as the information included within an electronic form cannot be deleted and will remain a part of the CSP application on record.",
     "fees.paid": "The fee has been paid in the amount of (please enter the fee amount)",
     "pay.method": "Method of Payment",
     "section.show": " [ This section may not be visible. ]",
@@ -501,5 +501,6 @@
     "error.cert.first": "Certification - First name",
     "error.cert.last": "Certification - Last name",
     "error.cert.job": "Certification - Job title",
-    "error.cert.date": "Certification - Date"
+    "error.cert.date": "Certification - Date",
+    "public.disc": "The contents of this form may be publicly disclosed."
 }
