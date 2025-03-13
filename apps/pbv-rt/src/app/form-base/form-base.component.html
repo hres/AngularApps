@@ -48,7 +48,7 @@
           </h2>
           </header>
           <div class="panel-body">
-            <app-fees [showErrors]="showErrors" [dataModel]="feesModel" (errorList)="processFeesErrors($event)"></app-fees>
+            <app-fees [resetForm]="showFees()" [showErrors]="showErrors" [dataModel]="feesModel" (errorList)="processFeesErrors($event)"></app-fees>
           </div>
       </section>
 
