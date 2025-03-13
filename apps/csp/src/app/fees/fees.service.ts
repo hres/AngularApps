@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ConverterService, ENGLISH, ICode} from '@hpfb/sdk/ui';
+import { ConverterService, ENGLISH, ICode, ValidationService} from '@hpfb/sdk/ui';
 import { FeeDetails } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 
@@ -24,7 +24,7 @@ export class FeesService {
     }
 
     const feesForm  = fb.nonNullable.group({
-      feeAmount: new FormControl(null, Validators.required),
+      feeAmount: new FormControl(null, [Validators.required, ValidationService.limitValidation]),
       payMethod: new FormControl(null, Validators.required),
 
     })

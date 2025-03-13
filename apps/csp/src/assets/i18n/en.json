@@ -502,5 +502,6 @@
     "error.cert.last": "Certification - Last name",
     "error.cert.job": "Certification - Job title",
     "error.cert.date": "Certification - Date",
-    "public.disc": "The contents of this form may be publicly disclosed."
+    "public.disc": "The contents of this form may be publicly disclosed.",
+    "error.msg.amount.limit":  "Must be less than 10,000,000"
 }
