@@ -563,5 +563,6 @@
     "error.cert.job": "Attestation - Titre de poste",
     "error.cert.date": "Attestation - Date",
     "error": "Erreur {{number}}:",
-    "public.disc": "Le contenu de ce formulaire peut être communiqué publiquement."
+    "public.disc": "Le contenu de ce formulaire peut être communiqué publiquement.",
+    "error.msg.amount.limit": "Doit être inférieur à 10 000 000"
   }

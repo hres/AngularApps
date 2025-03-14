@@ -40,6 +40,7 @@ export class ValidationService implements IValidationService {
       'error.mgs.incorrectFormat': 'error.mgs.incorrectFormat',
       'error.msg.invalidDate': 'error.msg.invalidDate',
       'error.msg.endDate':'error.msg.endDate',
+      'error.msg.amount.limit':'error.msg.amount.limit',
     };
 
     return config[validatorName];
@@ -290,10 +291,10 @@ export class ValidationService implements IValidationService {
   static atLeastOneCheckboxSelected(formArray: FormArray) {
     // return (): { [key: string]: boolean } | null => {
       const controls = formArray.controls;
-  
+
       // Check if at least one checkbox is selected
       const isAtLeastOneSelected = controls.some((control: AbstractControl) => control.value === true);
-  
+
       // Return validation error if none are selected
       return isAtLeastOneSelected ? null : { 'required': true };
     // };
@@ -307,7 +308,7 @@ export class ValidationService implements IValidationService {
     if (control.value.match(/^[0-9]{4}-[0-9]{3}$/)) {
       return null;
     } else {
-      return { 'error.mgs.incorrectFormat': true }; 
+      return { 'error.mgs.incorrectFormat': true };
     }
   }
 
@@ -346,6 +347,18 @@ export class ValidationService implements IValidationService {
       return null;
     } else {
       return {'error.msg.business': true};
+    }
+  }
+
+
+  static limitValidation(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value > 10000000) {
+      return {'error.msg.amount.limit': true};
+    } else {
+      return null;
     }
   }
 }
