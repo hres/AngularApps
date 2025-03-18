@@ -6,18 +6,18 @@
             "prod": "https://health-products.canada.ca/rep-pir"
         },
         "internal": {
-            "dev": "https://lam-dev.hres.ca/rep-dev/mds/internal",
+            "dev": "https://lam-dev.hres.ca/rep-dev",
             "prod": "https://lam-dev.hres.ca/REP-Form-Internal"
         }
     },
     "index_file_name": {
         "external":{
-            "en": "mds-index.html",
-            "fr": "index-internal.html"
-        },
-        "internal":{
             "en": "md-company.html",
             "fr": "im-compagnie.html"
+        },
+        "internal":{
+            "en": "index-internal.html",
+            "fr": "index-internal.html"
         }
     }
 }
