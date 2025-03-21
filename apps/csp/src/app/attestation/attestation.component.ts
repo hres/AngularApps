@@ -64,7 +64,7 @@ export class AttestationComponent extends BaseComponent implements OnInit, OnCha
     this.openother = false;
   }
 
-  onAttestationASSubmissionSelected(e: any): void {
+  onAttestationAsSubmissionSelected(e: any): void {
     if(this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandEn || this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandFr ){
         this.openother = true;
     }else{
