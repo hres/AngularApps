@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, ENGLISH, FRENCH, HelpSequence, ICode, ICodeAria, UtilsService } from '@hpfb/sdk/ui';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { AttestationService } from './attestation.service';
-import { Ectd } from '../models/transaction';
+import { Ectd, IAttestationInfomation } from '../models/transaction';
 import { AttestationTypeForSubmission } from './AttestationEnum';
 
 @Component({
@@ -14,7 +14,7 @@ import { AttestationTypeForSubmission } from './AttestationEnum';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class AttestationComponent extends BaseComponent implements OnInit{
+export class AttestationComponent extends BaseComponent implements OnInit, OnChanges {
 
 
 
@@ -28,9 +28,10 @@ export class AttestationComponent extends BaseComponent implements OnInit{
   public showFieldErrors: boolean = false;
   @Output() errorlis = new EventEmitter(true);
   @Output() errorList = new EventEmitter(true);
-  @Input() dataModel: Ectd;
+  @Input() attestationModel: IAttestationInfomation;
   attestationAsApplicantOptions: ICodeAria[] = [];
   attestationAsSubmissionOptions: ICodeAria[] = [];
+
 
   countryOptions: ICode[] = [];
 
@@ -73,7 +74,14 @@ export class AttestationComponent extends BaseComponent implements OnInit{
 
    ngOnChanges(changes: SimpleChanges) {
        this.showFieldErrors = this.showErrors || this.showFieldErrors;
-       const isFirstChange = this._utilsService.isFirstChange(changes);
+       if (!this._utilsService.isFirstChange(changes)) {
+        if (changes['attestationModel']) {
+          this._attestationService.mapDataModelToFormModel(
+            changes['attestationModel'].currentValue,
+            <FormGroup>this.attestationForm, this.countryOptions
+          );
+        }
+      }
      }
 
    getFormValue() {

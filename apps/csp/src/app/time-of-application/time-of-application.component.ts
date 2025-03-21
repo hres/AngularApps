@@ -25,7 +25,9 @@ export class TimeOfApplicationComponent extends BaseComponent implements OnInit{
   selectedTimingOfApplicant: string;
   timingOfApplicantOptions: ICodeAria[] = [];
   @Output() errorList = new EventEmitter(true);
-  @Input() dataModel: Ectd;
+  @Input() timingOfApplicantModel: string;
+
+
 
   constructor(private _timingOfApplicationService: TimingOfApplicationService, private _fb: FormBuilder, private _globalService: GlobalService, private _utilsService: UtilsService){
     super();
@@ -57,6 +59,12 @@ export class TimeOfApplicationComponent extends BaseComponent implements OnInit{
   ngOnChanges(changes: SimpleChanges) {
       this.showFieldErrors = this.showErrors || this.showFieldErrors;
       const isFirstChange = this._utilsService.isFirstChange(changes);
+      if (!isFirstChange) {
+        if (changes['timingOfApplicantModel'] )  {
+          const timingOfApplicantModel = changes['timingOfApplicantModel'].currentValue
+          this._timingOfApplicationService.mapDataModelToFormModel(timingOfApplicantModel, (<FormGroup>this.timingOfApplicationForm))
+        }
+      }
     }
 
   getFormValue() {

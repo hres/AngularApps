@@ -27,9 +27,8 @@ export class NewDrugSubmissionInformationService {
       transactionEnrol.application_info.control_number = formValue['ndsNumber'];
       }
 
-    public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
-
-      formRecord.controls['ndsNumber'].setValue(transactionEnrol.application_info.control_number);
+    public mapDataModelToFormModel(controlNumber: string, formRecord: FormGroup) {
+      formRecord.controls['ndsNumber'].setValue(controlNumber);
      }
 
 

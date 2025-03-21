@@ -1,13 +1,57 @@
-import { Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, ViewChild, HostListener, ViewChildren, QueryList, signal, computed } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  AfterViewInit,
+  ChangeDetectorRef,
+  ViewChild,
+  HostListener,
+  ViewChildren,
+  QueryList,
+  signal,
+  computed,
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, HelpSequence, ControlMessagesComponent, ConvertResults, CHECK_SUM_CONST, ICode } from '@hpfb/sdk/ui';
+import {
+  FileConversionService,
+  CheckSumService,
+  UtilsService,
+  ConverterService,
+  VersionService,
+  FileIoModule,
+  ErrorModule,
+  PipesModule,
+  EntityBaseService,
+  HelpSequence,
+  ControlMessagesComponent,
+  ConvertResults,
+  CHECK_SUM_CONST,
+  ICode,
+} from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
-import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH } from '../app.constants';
+import {
+  FILE_OUTPUT_PREFIX,
+  ROOT_TAG,
+  START_CHECKSUM_VERSION,
+  VERSION_TAG_PATH,
+} from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { Ectd, HcUse, FeeDetails, CertDetails, Transaction, TransactionEnrol, IApplicant} from '../models/transaction';
+import {
+  Ectd,
+  HcUse,
+  FeeDetails,
+  CertDetails,
+  Transaction,
+  TransactionEnrol,
+  IApplicant,
+  IPatent,
+  IMedicalInformation,
+  IAttestationInfomation,
+  ICspInfomation,
+} from '../models/transaction';
 import { INameAddress, IContact, EntityBasePbvService } from '@hpfb/pbv';
 import { PatentComponent } from '../patent/patent.component';
 import { DrugUseComponent } from '../drug-use/drug-use.component';
@@ -21,16 +65,32 @@ import { TimeOfApplicationComponent } from '../time-of-application/time-of-appli
 import { ApplicantComponent } from '../applicant/applicant.component';
 import { HcUseOnlyComponent } from '../health-canada-only/health-canada-only.component';
 import { AttestationComponent } from '../attestation/attestation.component';
-
+import { CertSuppProtectComponent } from '../cert-supp-protect/cert-supp-protect.component';
 
 @Component({
-    selector: 'app-form-base',
-    standalone: true,
-    templateUrl: './form-base.component.html',
-    styleUrls: ['./form-base.component.css'],
-    encapsulation: ViewEncapsulation.None,
-    providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService, EntityBasePbvService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, AppFormModule]
+  selector: 'app-form-base',
+  standalone: true,
+  templateUrl: './form-base.component.html',
+  styleUrls: ['./form-base.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    FileConversionService,
+    UtilsService,
+    VersionService,
+    CheckSumService,
+    ConverterService,
+    EntityBaseService,
+    FormBaseService,
+    EntityBasePbvService,
+  ],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    FileIoModule,
+    ErrorModule,
+    AppFormModule,
+  ],
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -41,34 +101,29 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   saveWorkCopyTime: number;
   isInternal: boolean;
 
+  @ViewChildren(ControlMessagesComponent)
+  msgList: QueryList<ControlMessagesComponent>;
 
-  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  @ViewChild(PatentComponent) patentComponent: PatentComponent;
+  @ViewChild(DrugUseComponent) drugUseComponent: DrugUseComponent;
+  @ViewChild(NoticeOfComplianceComponent)
+  noticeOfComplianceComponent: NoticeOfComplianceComponent;
+  @ViewChild(NewDrugSubmissionInformationComponent)
+  newDrugSubmissionInformationComponent: NewDrugSubmissionInformationComponent;
+  @ViewChild(MedicinalIngredientsComponent)
+  medicinalIngredientsComponent: MedicinalIngredientsComponent;
+  @ViewChild(TimeOfApplicationComponent)
+  timeOfApplicationComponent: TimeOfApplicationComponent;
 
+  @ViewChild(FeesComponent) feesComponent: FeesComponent;
+  @ViewChild(ApplicantComponent) applicantComponent: ApplicantComponent;
+  @ViewChild(HcUseOnlyComponent) healthCanadaComponent: HcUseOnlyComponent;
 
-    @ViewChild(PatentComponent) patentComponent: PatentComponent;
-    @ViewChild(DrugUseComponent) drugUseComponent: DrugUseComponent;
-    @ViewChild(NoticeOfComplianceComponent) noticeOfComplianceComponent: NoticeOfComplianceComponent;
-    @ViewChild(NewDrugSubmissionInformationComponent) newDrugSubmissionInformationComponent: NewDrugSubmissionInformationComponent;
-    @ViewChild(MedicinalIngredientsComponent) medicinalIngredientsComponent: MedicinalIngredientsComponent;
-    @ViewChild(TimeOfApplicationComponent) timeOfApplicationComponent: TimeOfApplicationComponent;
+  @ViewChild(CertificationComponent)
+  certificationComponent: CertificationComponent;
+  @ViewChild(AttestationComponent) attestationComponent: AttestationComponent;
+  @ViewChild(CertSuppProtectComponent) certSuppProtectComponent: CertSuppProtectComponent;
 
-    @ViewChild(FeesComponent) feesComponent: FeesComponent;
-    @ViewChild(ApplicantComponent) applicantComponent: ApplicantComponent;
-    @ViewChild(HcUseOnlyComponent) healthCanadaComponent: HcUseOnlyComponent;
-
-  // @ViewChild(RegulatoryInformationComponent) regulatoryInfoComponent: RegulatoryInformationComponent;
-  // @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
-  // @ViewChildren(ContactDetailsComponent) contactDetailsComponents: QueryList<ContactDetailsComponent>;
-    @ViewChild(CertificationComponent) certificationComponent: CertificationComponent;
-    @ViewChild(AttestationComponent) attestationComponent: AttestationComponent;
-
-  // private _regulatoryInfoErrors = [];
-  // private _transFeeErrors = [];
-  // private _addressErrors = [];
-  // private _contactErrors = [];
-  // private _agentAddressErrors = [];
-  // private _agentContactErrors = [];
-  // private _contactConfirmError = [];
   private _patentInformationErrors = [];
   private _drugUseErrors = [];
   private _noticeOfComplianceErrors = [];
@@ -91,14 +146,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public versionTagPath = VERSION_TAG_PATH;
   public startCheckSumVersionNum = START_CHECKSUM_VERSION;
 
-  public enrollModel : Transaction;
+  public enrollModel: Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public certModel: CertDetails;
   public ectdModel: Ectd;
   public hcUseModel: HcUse;
   public transFeeModel: FeeDetails;
   public applicantModel: IApplicant;
-  public billingModel: IApplicant
+  public billingModel: IApplicant;
   public addressModel: INameAddress;
   public contactModel: IContact;
 
@@ -106,15 +161,30 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public addressBillingModel: INameAddress;
   public contactBillingModel: IContact;
 
+  public drugUseModel: string;
+  public medicinalIngredient: string;
+  public productName: string;
+  public patentModel: IPatent;
+  public timingOfApplicantModel: string;
+  public nocModel: string;
+  public newDrugSubmissionModel: string;
+  public hcuseOnlyModel: HcUse;
+  public feePaymentModel: FeeDetails;
+  public attestationModel: IAttestationInfomation;
+  public cspiModel: ICspInfomation;
+
   constructor(
     private _fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private  _baseService: FormBaseService, private _globalService: GlobalService, private _utilsService: UtilsService,
-    private fileServices: FileConversionService, private _versionService: VersionService, private _checkSumService: CheckSumService,
+    private _baseService: FormBaseService,
+    private _globalService: GlobalService,
+    private _utilsService: UtilsService,
+    private fileServices: FileConversionService,
+    private _versionService: VersionService,
+    private _checkSumService: CheckSumService,
     private datepipe: DatePipe
   ) {
     this.showErrors = false;
-
   }
 
   ngOnInit() {
@@ -122,7 +192,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.rtForm = this._baseService.getReactiveModel(this._fb);
     }
     try {
-
       if (!this._globalService.enrollment) {
         // console.log("onInit", "enrollement doesn't exist, create a new one");
         this.enrollModel = this._baseService.getEmptyEnrol();
@@ -133,6 +202,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
 
       this.transactionEnrollModel = this.enrollModel[this.rootTagText];
+      // this.transactionEnrollModel.applicant[0] = this._baseService.getEmptyApplicant();
+      // this.transactionEnrollModel.applicant[1] = this._baseService.getEmptyApplicant();
       // console.log('oninit', JSON.stringify(this.transactionEnrollModel, null, 2));
 
       this._initModels(this.transactionEnrollModel);
@@ -151,7 +222,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     document.location.href = '#def-top';
 
-    this.msgList.changes.subscribe(errorObjs => {
+    this.msgList.changes.subscribe((errorObjs) => {
       let temp = [];
       this._updateErrorList(errorObjs);
       this.processErrors();
@@ -159,9 +230,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.msgList.notifyOnChanges();
   }
 
-  private _updateErrorList(errorObjs) {
-
-  }
+  private _updateErrorList(errorObjs) {}
 
   processErrors() {
     // console.log('@@@@@@@@@@@@ processErrors');
@@ -196,7 +265,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     this.errorList = this.errorList.concat(this._feesForErrors);
     this.errorList = this.errorList.concat(this._certificationForErrors);
-     this.cdr.detectChanges(); // doing our own change detection
+    this.cdr.detectChanges(); // doing our own change detection
   }
 
   processHealthCanadaOnlyErrors(errorList) {
@@ -224,8 +293,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-
-  processMedicinalIngredientsErrors(errorList){
+  processMedicinalIngredientsErrors(errorList) {
     this._medicinalIngredientsForErrors = errorList;
     this.processErrors();
   }
@@ -234,7 +302,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._attestationsForErrors = errorList;
     this.processErrors();
   }
-
 
   processFeesErrors(errorList) {
     this._feesForErrors = errorList;
@@ -296,7 +363,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const fileName = this._generateFileName(result[ROOT_TAG]);
     this.fileServices.saveJsonToFile(result, fileName, null);
     this.saveWorkCopyTime = Date.now();
-   }
+  }
 
   public processFile(fileData: ConvertResults) {
     // console.log(fileData);
@@ -311,44 +378,131 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _initModels(trans: TransactionEnrol) {
     this.ectdModel = trans.ectd;
-    // if (trans.contact_info != null) {
-    //   this.holderAddressModel = trans.contact_info.holder_name_address;
-    //   this.holderContactModel = trans.contact_info.holder_contact;
-    //   this.agentAddressModel = trans.contact_info.agent_name_address;
-    //   this.agentContactModel = trans.contact_info.agent_contact;
-    // }
+    this.cspiModel= this._baseService.getCerSuppProtect();
+  this.cspiModel.dateLastSaved = trans.date_saved;
+  this.cspiModel.enrollVersion = trans.enrolment_version;
+
+    if (trans.application_info != null) {
+      this.attestationModel = this._baseService.getAttestation();
+      this.drugUseModel = trans.application_info.drug_use;
+       this.patentModel = trans.application_info.patent_info;
+      this.timingOfApplicantModel = trans.application_info.time_application;
+      this.nocModel = trans.application_info.noc_date;
+      this.newDrugSubmissionModel = trans.application_info.control_number;
+      this.attestationModel.attestationAsApplicant =
+        trans.application_info.applicant_statement;
+      this.attestationModel.attestationAsSubmission.timely_submission_statement =
+        trans.timely_submission_info.timely_submission_statement;
+      this.attestationModel.attestationAsSubmission.marketing_application_date =
+        trans.timely_submission_info.marketing_application_date;
+      this.attestationModel.attestationAsSubmission.marketing_country =
+        trans.timely_submission_info.marketing_country;
+    }
+
+    this.hcuseOnlyModel = trans.health_canada_only;
+    this.feePaymentModel = trans.advanced_payment;
+    this.certModel = trans.certification;
+
+
     if (trans.advanced_payment != null) {
       this.transFeeModel = trans.advanced_payment;
     }
 
-    this.applicantModel = null;
-    this.billingModel = null;
+    // this.applicantModel = null;
+    // this.billingModel = null;
+
+    this.applicantModel = this._baseService.getEmptyApplicant();
 
     // Initialize the applicant's contact and address models
-    if (trans.applicant && trans.applicant.length > 0) {
-      const applicant = trans.applicant[0]; // Assuming the first applicant is the main applicant
-      this.applicantModel = applicant;
-      if (applicant.contact) {
-        this.contactModel = applicant.contact;
-      }
-      if (applicant.address) {
-        this.addressModel = applicant.address;
-      }
+    //  for( let applicant of trans.applicant){
+    //   console.log(applicant.applicant_name);
+    //  }
 
-      // Initialize the billing contact and address models if available
-      if (trans.applicant.length > 1) {
-        const billingApplicant = trans.applicant[1]; // Assuming the second applicant is the billing applicant
-        this.billingModel = billingApplicant;
-        if (billingApplicant.contact) {
-          this.contactBillingModel = billingApplicant.contact;
-        }
-        if (billingApplicant.address) {
-          this.addressBillingModel = billingApplicant.address;
-        }
-      }
+    const singleApplicant = trans.applicant;
+    console.log(Array.isArray(trans.applicant));
+    if (!Array.isArray(trans.applicant)) {
+      const singleApplicant:IApplicant[]=[];
+      const objs = Object.entries(trans.applicant);
+      singleApplicant.push(trans.applicant);
+      trans.applicant = singleApplicant;
+
     }
-  }
+      if (trans.applicant && trans.applicant.length > 0) {
+        const applicant = trans.applicant[0]; // Assuming the first applicant is the main applicant
+        this.applicantModel = applicant;
+        if (trans.applicant[0].contact) {
+          this.contactModel = trans.applicant[0].contact;
+        }
+        if (trans.applicant[0].address) {
+          this.addressModel = trans.applicant[0].address;
+        }
 
+        // Initialize the billing contact and address models if available
+        if (trans.applicant.length > 1) {
+          const billingApplicant = trans.applicant[1]; // Assuming the second applicant is the billing applicant
+          this.billingModel = billingApplicant;
+          if (billingApplicant.contact) {
+            this.contactBillingModel = billingApplicant.contact;
+          }
+          if (billingApplicant.address) {
+            this.addressBillingModel = billingApplicant.address;
+          }
+        }
+      }
+   // }
+    //  else {
+    //   const singleApplicant:IApplicant[]=[];
+    //   const objs = Object.entries(trans.applicant);
+    //   singleApplicant.push(trans.applicant);
+    //   trans.applicant = singleApplicant;
+      // Object.keys(objs).forEach((key) => {
+      //   const keyvalue = key;
+
+      //   console.log(keyvalue);
+      //   const valuev = objs[key];
+      //   console.log(valuev);
+      //   switch (valuev[0]) {
+      //     case 'applicant_name':
+      //       this.applicantModel.applicant_name = valuev[1];
+      //       break;
+      //     case 'csp_customer_number':
+      //       this.applicantModel.csp_customer_number = valuev[1];
+      //       break;
+      //     case 'billing_role':
+      //       this.applicantModel.billing_role = valuev[1];
+      //       break;
+      //     case 'applicant_role':
+      //       this.applicantModel.applicant_role = valuev[1];
+      //       break;
+      //     case 'csp_customer_number':
+      //       this.applicantModel.cra_business_number = valuev[1];
+      //       break;
+      //     case 'agent_name':
+      //       this.applicantModel.agent_name = valuev[1];
+      //       break;
+      //   }
+      // });
+    //  console.log(this.applicantModel);
+      // for(let obbjelement of objs){
+      //   let key= obbjelement.keys;
+      //   if(obbjelement[0]='agent_name'){
+      //   let applicant_name = obbjelement[1];
+      //   }
+      //   console.log(obbjelement[0]);
+      //   console.log(obbjelement[1]);
+      //     if (obj[7] != null) {
+      //       const address = Object.entries(obj[7]);
+      //       console.log(address);
+      //     }
+      //     if (obj[6]) {
+      //       const contract = Object.entries(obj[6]);
+      //       console.log(contract);
+      //     }
+      //   }
+  //  }
+
+
+  }
   public preload() {
     // console.log("Calling preload")
   }
@@ -377,7 +531,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   //   this.processErrors();
   // }
 
-
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     $event.returnValue = true;
@@ -387,8 +540,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length < 1) {
       const result: Transaction = this._prepareForSaving(true);
       const fileName = this._generateFileName(result[ROOT_TAG]);
-      const xsltVersion = this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.appVersion)
-      const xslName = FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
+      const xsltVersion =
+        this._versionService.getApplicationMajorVersionWithUnderscore(
+          this._globalService.appVersion
+        );
+      const xslName =
+        FILE_OUTPUT_PREFIX.toUpperCase() + '_RT_' + xsltVersion + '.xsl';
 
       this.fileServices.saveXmlToFile(result, fileName, true, xslName);
       return;
@@ -397,97 +554,106 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _prepareForSaving(xmlFile: boolean): Transaction {
+    const newTransactionEnrol: TransactionEnrol =
+      this._baseService.getEmptyTransactionEnrol();
 
-    const newTransactionEnrol: TransactionEnrol = this._baseService.getEmptyTransactionEnrol();
 
 
     //get Patent information data
 
     const patentInformation = this.patentComponent.getFormValue();
-    this._baseService.mapPatentFormsToOutput(newTransactionEnrol, patentInformation);
+    this._baseService.mapPatentFormsToOutput(
+      newTransactionEnrol,
+      patentInformation
+    );
 
     const drugUseFormInfor = this.drugUseComponent.getFormValue();
-    this._baseService.mapDrugUseFormsToOutput(newTransactionEnrol, drugUseFormInfor);
+    this._baseService.mapDrugUseFormsToOutput(
+      newTransactionEnrol,
+      drugUseFormInfor
+    );
 
-    const noticeOfComplianceFormInfo = this.noticeOfComplianceComponent.getFormValue();
-    this._baseService.mapNOCFormsToOutput(newTransactionEnrol, noticeOfComplianceFormInfo);
+    const noticeOfComplianceFormInfo =
+      this.noticeOfComplianceComponent.getFormValue();
+    this._baseService.mapNOCFormsToOutput(
+      newTransactionEnrol,
+      noticeOfComplianceFormInfo
+    );
 
-    const newDrugSubmissionINfo = this.newDrugSubmissionInformationComponent.getFormValue();
-    this._baseService.mapNewDrugSubmissionInformationFormsToOutput(newTransactionEnrol, newDrugSubmissionINfo);
+    const newDrugSubmissionINfo =
+      this.newDrugSubmissionInformationComponent.getFormValue();
+    this._baseService.mapNewDrugSubmissionInformationFormsToOutput(
+      newTransactionEnrol,
+      newDrugSubmissionINfo
+    );
 
     const fees = this.feesComponent.getFormValue();
     this._baseService.mapFeesFormsToOutput(newTransactionEnrol, fees);
 
-    const medicinalIngredients = this.medicinalIngredientsComponent.getFormValue();
-    this._baseService.mapMedicinalIngredientsFormsToOutput(newTransactionEnrol, medicinalIngredients);
+    const medicinalIngredients =
+      this.medicinalIngredientsComponent.getFormValue();
+    this._baseService.mapMedicinalIngredientsFormsToOutput(
+      newTransactionEnrol,
+      medicinalIngredients
+    );
 
     const timingOfApplicant = this.timeOfApplicationComponent.getFormValue();
-    this._baseService.mapTimingOfApplicantFormsToOutput(newTransactionEnrol, timingOfApplicant);
+    this._baseService.mapTimingOfApplicantFormsToOutput(
+      newTransactionEnrol,
+      timingOfApplicant
+    );
 
-    if(this.isInternal){
-    const healthCanadaOnly = this. healthCanadaComponent.getFormValue();
-    this._baseService.mapHealthCanadaOnlyFormsToOutput(newTransactionEnrol, healthCanadaOnly);
+    if (this.isInternal) {
+      const healthCanadaOnly = this.healthCanadaComponent.getFormValue();
+      this._baseService.mapHealthCanadaOnlyFormsToOutput(
+        newTransactionEnrol,
+        healthCanadaOnly
+      );
     }
     const certification = this.certificationComponent.getFormValue();
-    this._baseService.mapCertificationFormsToOutput(newTransactionEnrol, certification);
+    this._baseService.mapCertificationFormsToOutput(
+      newTransactionEnrol,
+      certification
+    );
 
     const applicantInfo = this.applicantComponent.getFormValue();
     const applicantAddressFormGroupValue = this.applicantComponent.getApplicantAddressFormValue();
     const applicantContactFormGroupValue = this.applicantComponent.getApplicantContactFormValue();
-    const billingAddressFormGroupValue = this.applicantComponent.getBillingAddressFormValue();
-    const billingContactFormGroupValue = this.applicantComponent.getBillingContactFormValue();
-    this._baseService.mapApplicantInfoToOutput(newTransactionEnrol, applicantInfo, applicantAddressFormGroupValue, applicantContactFormGroupValue, billingAddressFormGroupValue, billingContactFormGroupValue);
-
+    const billingAddressFormGroupValue =  this.applicantComponent.getBillingAddressFormValue();
+    const billingContactFormGroupValue =  this.applicantComponent.getBillingContactFormValue();
+    this._baseService.mapApplicantInfoToOutput(
+      newTransactionEnrol,
+      applicantInfo,
+      applicantAddressFormGroupValue,
+      applicantContactFormGroupValue,
+      billingAddressFormGroupValue,
+      billingContactFormGroupValue
+    );
 
     const attestationInfo = this.attestationComponent.getFormValue();
-    this._baseService.mapAttestationFormsToOutput(newTransactionEnrol, attestationInfo, this.lang, this.countryOptions);
+    this._baseService.mapAttestationFormsToOutput(
+      newTransactionEnrol,
+      attestationInfo,
+      this.lang,
+      this.countryOptions
+    );
 
+    this._baseService.mapCertificateOfSupplementaryProtectionFormsToOutput(newTransactionEnrol, this.cspiModel,this._baseService.certSuppProtectForm  );
 
-    // regulatoryInfo and certification are always rendered, their mappings to output data should always be executed
-    // const regulatoryInfoFormGroupValue = this.regulatoryInfoComponent.getFormValue();
-    // const certificationFormGroupValue = this.certificationComponent.getFormValue();
-    // this._baseService.mapRequiredFormsToOutput(newTransactionEnrol, regulatoryInfoFormGroupValue, certificationFormGroupValue);
-
-    // // contactInfo and fee are conditional rendered, do their mappings to output data only when applicable
-    // if (this.showContact()) {
-    //   newTransactionEnrol.contact_info.agent_not_applicable = this.rtForm.controls['notApplicable'].value;
-    //   newTransactionEnrol.contact_info.contact_info_confirm = this.rtForm.controls['contactInfoConfirm'].value;
-    //   console.log(newTransactionEnrol.contact_info.agent_not_applicable, newTransactionEnrol.contact_info.contact_info_confirm);
-
-    //   const addressesFormGroupValue = this.addressComponents.map((comp: AddressDetailsComponent) => ({
-    //     addrType: comp.addrType,
-    //     value: comp.getFormValue()
-    //   }));
-    //   const contactsFormGroupValue = this.contactDetailsComponents.map((comp: ContactDetailsComponent) => ({
-    //     contactType: comp.contactType,
-    //     value: comp.getFormValue()
-    //   }));
-
-    //   this._baseService.mapAddressFormContactFormToOutput(newTransactionEnrol.contact_info, addressesFormGroupValue, contactsFormGroupValue);
-
-    // } else {
-    //   newTransactionEnrol.contact_info = null;
-    // }
-
-    // if (this.showFee()) {
-    //   const feeFormGroupValue = this.feeComponent.getFormValue();
-    //   this._baseService.mapFeeFormToOutput(newTransactionEnrol.fee_details, feeFormGroupValue);
-    // } else {
-    //   newTransactionEnrol.fee_details = null;
-    // }
-
-    newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+     newTransactionEnrol.date_saved =
+      this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     newTransactionEnrol.software_version = this._globalService.appVersion;
     newTransactionEnrol.form_language = this._globalService.currLanguage;
 
     const output: Transaction = {
-      TRANSACTION_ENROL: newTransactionEnrol
+      TRANSACTION_ENROL: newTransactionEnrol,
     };
 
     if (xmlFile) {
       // add and calculate check_sum if it is xml
-      output.TRANSACTION_ENROL[CHECK_SUM_CONST]  = "";   // this is needed for generating the checksum value
-      output.TRANSACTION_ENROL[CHECK_SUM_CONST]  = this._checkSumService.createHash(output);
+      output.TRANSACTION_ENROL[CHECK_SUM_CONST] = ''; // this is needed for generating the checksum value
+      output.TRANSACTION_ENROL[CHECK_SUM_CONST] =
+        this._checkSumService.createHash(output);
     }
 
     console.log('_prepareForSaving ~ output', JSON.stringify(output, null, 2));
@@ -496,30 +662,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _generateFileName(transactionEnrol: TransactionEnrol): string {
-    let fileName =
-      FILE_OUTPUT_PREFIX + "-" +
-      transactionEnrol.date_saved;
+    let fileName = FILE_OUTPUT_PREFIX + '-' + transactionEnrol.date_saved;
     return fileName;
   }
-
-  // public agentInfoOnChange() {
-  //   this.notApplicable = this.rtForm.controls['notApplicable'].value;
-  //   // console.log ("this.notApplicable=",this.notApplicable, typeof this.notApplicable);
-
-  //   if (this.notApplicable) {
-  //     this.agentAddressModel = this._baseService.getEmptyAddressDetailsModel();
-  //     this.agentContactModel = this._baseService.getEmptyContactModel();
-  //     this._agentAddressErrors = null;
-  //     this._agentContactErrors = null;
-  //   }
-
-  //   this.processErrors();
-  // }
 
   public onChanged(e, controlName) {
     if (e?.target?.checked === false) {
       this.rtForm.controls[controlName].reset();
     }
   }
-
 }

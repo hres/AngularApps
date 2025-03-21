@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ConverterService, ENGLISH, UtilsService } from '@hpfb/sdk/ui';
-import { Ectd, TransactionEnrol } from '../models/transaction';
+import { ConverterService, ENGLISH, ICode, UtilsService } from '@hpfb/sdk/ui';
+import { Ectd, IAttestationInfomation, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
 
 @Injectable({
@@ -35,10 +35,25 @@ export class AttestationService {
     transactionEnrol.timely_submission_info.marketing_application_date = formValue['marketing_application_date'];
    }
 
-  public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
-    formRecord.controls['attestationAsApplicant'].setValue(transactionEnrol.application_info.applicant_statement);
-    formRecord.controls['attestationAsSubmission'].setValue(transactionEnrol.timely_submission_info.timely_submission_statement );
-    formRecord.controls['marketing_country'].setValue(transactionEnrol.timely_submission_info.marketing_country);
-    formRecord.controls['marketing_application_date'].setValue(transactionEnrol.timely_submission_info.marketing_application_date);
+  public mapDataModelToFormModel(attestationModel: IAttestationInfomation, formRecord: FormGroup, countryOptions: ICode[] ) {
+    formRecord.controls['attestationAsApplicant'].setValue(attestationModel.attestationAsApplicant);
+    formRecord.controls['attestationAsSubmission'].setValue(attestationModel.attestationAsSubmission.timely_submission_statement);
+    if('GRANT' == attestationModel.attestationAsSubmission.timely_submission_statement){
+    formRecord.controls['marketing_country'].setValue(this.findIdOfDrugUse(attestationModel.attestationAsSubmission.marketing_country._label_en, countryOptions));
+    formRecord.controls['marketing_application_date'].setValue(attestationModel.attestationAsSubmission.marketing_application_date);
+    }
    }
+
+   private findIdOfDrugUse(label: string,  countryOptions: ICode[] ): string {
+    let id: string = null;
+    if (countryOptions != null && countryOptions.length > 0) {
+      for (let country of countryOptions) {
+        if (label === country.en || label === country.fr) {
+          id = country.id;
+          break;
+        }
+      }
+    }
+    return id;
+  }
 }

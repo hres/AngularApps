@@ -30,6 +30,7 @@
           <div class="panel-body">
             <app-health-canada-only [showErrors]="showErrors"
             (errorList)="processHealthCanadaOnlyErrors($event)"
+            [hcuseOnlyModel] = "hcuseOnlyModel"
             ></app-health-canada-only>
           </div>
       </section>
@@ -45,7 +46,9 @@
           </h2>
         </header>
         <div class="panel-body">
-          <app-cert-supp-protect  [saveWorkCopyTime]="saveWorkCopyTime"></app-cert-supp-protect>
+          <app-cert-supp-protect  [saveWorkCopyTime]="saveWorkCopyTime" [cspiModel] ="cspiModel"
+
+          ></app-cert-supp-protect>
         </div>
 
         <header class="panel-body">
@@ -77,6 +80,7 @@
         <div class="panel-body">
           <app-patent  [showErrors]="showErrors"
           (errorList)="processPatentInfoErrors($event)"
+          [patentModel] = "patentModel"
           ></app-patent>
         </div>
 
@@ -90,6 +94,7 @@
         <div class="panel-body">
           <app-new-drug-submission-information [showErrors]="showErrors"
           (errorList)="processNewDrugSubmissionInfoErrors($event)"
+          [newDrugSubmissionModel] ="newDrugSubmissionModel"
           ></app-new-drug-submission-information>
         </div>
 
@@ -103,6 +108,7 @@
         <div class="panel-body">
           <app-notice-of-compliance [showErrors]="showErrors"
           (errorList)="processNoticeOfComplianceErrors($event)"
+          [nocModel] = "nocModel"
           ></app-notice-of-compliance>
         </div>
 
@@ -116,6 +122,7 @@
         <div class="panel-body">
           <app-drug-use  [showErrors]="showErrors"
             (errorList)="processDrugUseErrors($event)"
+              [drugUseModel]="drugUseModel"
           ></app-drug-use>
         </div>
 
@@ -123,7 +130,7 @@
           <h3 class="panel-title">{{'panel.title.timing.of.application'|translate}}</h3>
         </header>
         <div class="panel-body">
-          <app-time-of-application [showErrors]="showErrors" [dataModel]="ectdModel"
+          <app-time-of-application [showErrors]="showErrors" [timingOfApplicantModel]="timingOfApplicantModel"
           (errorList)="processTimingOfApplicantErrors($event)"
           ></app-time-of-application>
         </div>
@@ -137,6 +144,8 @@
         </header>
         <div class="panel-body">
           <app-medicinal-ingredients [showErrors]="showErrors"
+
+           [transactionEnrollModel] = "transactionEnrollModel"
           (errorList)="processMedicinalIngredientsErrors($event)"
           ></app-medicinal-ingredients>
         </div>
@@ -149,7 +158,7 @@
           </h3>
         </header>
         <div class="panel-body">
-          <app-attestation [showErrors]="showErrors" [dataModel]="ectdModel"
+          <app-attestation [showErrors]="showErrors" [attestationModel]="attestationModel"
            (errorList)="processAttestationsErrors($event)">
           </app-attestation>
         </div>
@@ -164,6 +173,7 @@
         <div class="panel-body">
           <app-fees [showErrors]="showErrors"
             (errorList)="processFeesErrors($event)"
+            [feePaymentModel] = "feePaymentModel"
           ></app-fees>
         </div>
 
@@ -177,6 +187,7 @@
         <div class="panel-body">
           <app-certification [showErrors]="showErrors"
           (errorList)="processCertificationErrors($event)"
+          [certModel] = "certModel"
           ></app-certification>
         </div>
       </section>

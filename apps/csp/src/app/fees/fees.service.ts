@@ -39,6 +39,20 @@ export class FeesService {
 
   public mapDataModelToFormModel(feeModel: FeeDetails, formRecord: FormGroup) {
     formRecord.controls['feeAmount'].setValue(feeModel.advanced_payment_fee);
-    formRecord.controls['payMethod'].setValue(feeModel.advanced_payment_type);
+    formRecord.controls['payMethod'].setValue(this.findIdOfPaymentMethod(feeModel.advanced_payment_type));
    }
+
+
+   private findIdOfPaymentMethod(label: string): string {
+    let id: string = null;
+    if (this.methodList != null && this.methodList.length > 0) {
+      for (var paymentElement of this.methodList) {
+        if (label === paymentElement.en || label === paymentElement.fr) {
+          id = paymentElement.id;
+          break;
+        }
+      }
+    }
+    return id;
+  }
 }

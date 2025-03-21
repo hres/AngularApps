@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
   SimpleChanges,
@@ -11,6 +12,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { BaseComponent, HelpSequence, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CertificationService } from './certification.service';
+import { CertDetails } from '../models/transaction';
 
 @Component({
   selector: 'app-certification',
@@ -20,7 +22,7 @@ import { CertificationService } from './certification.service';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class CertificationComponent  extends BaseComponent implements OnInit {
+export class CertificationComponent  extends BaseComponent implements OnInit, OnChanges {
 
   public showFieldErrors: boolean = false;
   lang: string;
@@ -28,6 +30,7 @@ export class CertificationComponent  extends BaseComponent implements OnInit {
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   certificationForm: FormGroup;
+  @Input() certModel: CertDetails;
 
   constructor(private certificationService: CertificationService, private _fb: FormBuilder, private _globalService: GlobalService,
     private _utilsService: UtilsService) {
@@ -58,8 +61,15 @@ export class CertificationComponent  extends BaseComponent implements OnInit {
     this._globalService.isDateValid(event, this.certificationForm);
   }
 
-  ngOnChange(changes: SimpleChanges){
+  ngOnChanges(changes: SimpleChanges){
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
-    const isFirstChange = this._utilsService.isFirstChange(changes);
+    if (!this._utilsService.isFirstChange(changes)) {
+      if (changes['certModel']) {
+        this.certificationService.mapDataModelToFormModel(
+          changes['certModel'].currentValue as CertDetails,
+          <FormGroup>this.certificationForm
+        );
+      }
+    }
   }
 }
