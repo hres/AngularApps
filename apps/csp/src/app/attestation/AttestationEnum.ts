@@ -1,5 +1,5 @@
 export enum AttestationTypeForSubmission {
 
   grandEn = 'GRANT',
-  grandFr = 'GRANT(FR)',
+  grandFr = 'GRANT(fr)',
 }
