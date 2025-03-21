@@ -6,7 +6,7 @@
         </div>
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <label for="fees" class="required full-width">
-            <span class="field-name">{{ 'fees.paid' |translate }}</span>
+            <span class="field-name fees">{{ 'fees.paid' |translate }}</span>
             <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong> 
             <control-messages *ngIf="feesForm.controls['feeAmount'].invalid"
               [showError]="showErrors"
