@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "apps",
   "projects": {
-    "pbv-rt": {
+    "md-ai": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "../../dist/pbv-rt",
+            "outputPath": "../../dist/md-ai",
             "index": "node_modules/@hpfb/sdk/src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -44,7 +44,7 @@
           },
           "configurations": {
             "production-en": {
-              "outputPath": "../../dist/pbv-rt/prod/en",
+              "outputPath": "../../dist/md-ai/prod/en",
               "index": "node_modules/@hpfb/sdk/src/index-en.j2",
               "optimization": true,
               "outputHashing": "all",
@@ -60,7 +60,7 @@
               ]
             },
             "production-fr": {
-              "outputPath": "../../dist/pbv-rt/prod/fr",
+              "outputPath": "../../dist/md-ai/prod/fr",
               "index": "node_modules/@hpfb/sdk/src/index-fr.j2",
               "optimization": true,
               "outputHashing": "all",
@@ -76,7 +76,7 @@
               ]
             },
             "development-en": {
-              "outputPath": "../../dist/pbv-rt/dev/en",
+              "outputPath": "../../dist/md-ai/dev/en",
               "index": "node_modules/@hpfb/sdk/src/index-en.j2",
               "optimization": true,
               "outputHashing": "all",
@@ -92,7 +92,7 @@
               ]
             },
             "development-fr": {
-              "outputPath": "../../dist/pbv-rt/dev/fr",
+              "outputPath": "../../dist/md-ai/dev/fr",
               "index": "node_modules/@hpfb/sdk/src/index-fr.j2",
               "optimization": true,
               "outputHashing": "all",
@@ -134,10 +134,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "pbv-rt:build:production"
+              "buildTarget": "md-ai:build:production"
             },
             "development": {
-              "buildTarget": "pbv-rt:build:development"
+              "buildTarget": "md-ai:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -145,7 +145,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "pbv-rt:build"
+            "buildTarget": "md-ai:build"
           }
         },
         "test": {
