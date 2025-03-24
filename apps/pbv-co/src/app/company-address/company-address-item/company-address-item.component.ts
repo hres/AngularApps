@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output, QueryList, Signal, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent, CheckboxOption, ConverterService, ErrorNotificationService, ErrorSummaryComponent, HelpSequence, ICode } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
 import { ADDRESS_ERROR_PREFIX } from '../../app.constants';
@@ -85,6 +85,13 @@ export class CompanyAddressItemComponent extends BaseComponent{
       });
     });
     this.cdRef.detectChanges();
+
+    setTimeout(() => {
+      const inputElement = document.querySelector('pbv-address-details input[name="address"]');
+      if (inputElement) {
+        inputElement.setAttribute('maxlength', '120');
+      }
+    }, 0);
   }
 
   
@@ -219,6 +226,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
       this.emitErrors(combinedErrors);
     }
   }
+  
 
   public showErrorSummary(): boolean {
     return (this.showErrors && this.errors.length > 0);
