@@ -52,7 +52,7 @@
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" id="addressCompanyRoles{{j}}">
           <legend class="required">
-            <span class="field-name">{{'select.roles' | translate}}
+            <span class="field-name">{{'select.roles.comp' | translate}}
             </span>
             <strong class="required">{{'commmon.required.bracket'|translate}} 
               <sup [id]="helpIndex['selectRolesIndx'][2]">
@@ -62,7 +62,7 @@
             <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
                             [showError]="showErrors"
                             [control]="companyRolesChkFormArray | formControl"
-                            controlId="companyRoles" label="select.roles"
+                            controlId="companyRoles" label="select.roles.comp"
                             parentId="coAddress"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">

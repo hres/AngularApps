@@ -33,6 +33,7 @@ export class GlobalService {
   private _enrolmentStatusesList: ICode[];
   private _languageList: ICode[];
   private _companyRolesList: ICode[];
+  private _representativeRolesList: ICode[];
   private _productLineList: ICode[];
   private _countryIdMappingList: any[] = [];
 
@@ -168,6 +169,14 @@ export class GlobalService {
 
   public set companyRolesList(value: ICode[]) {
     this._companyRolesList = value;
+  }
+
+  public get representativeRolesList(): ICode[] {
+    return this._representativeRolesList;
+  }
+
+  public set representativeRolesList(value: ICode[]) {
+    this._representativeRolesList = value;
   }
 
   public get productLineList(): ICode[] {

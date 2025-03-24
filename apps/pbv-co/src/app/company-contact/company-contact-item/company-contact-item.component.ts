@@ -28,8 +28,8 @@ export class CompanyContactItemComponent extends BaseComponent{
   lang = this._globalService.currLanguage;
   languageList: ICode[] = [];
   
-  public companyRolesOptionList: CheckboxOption[] = [];
-  public companyRolesCodeList: ICode[] = [];
+  public representativeRolesOptionList: CheckboxOption[] = [];
+  public representativeRolesCodeList: ICode[] = [];
 
   public headingLevel = 'h4';
   headingPreamble: string = "heading.company.contact";
@@ -58,7 +58,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   ngOnInit() : void{
     this.lang = this._globalService.currLanguage;
     this.languageList = this._globalService.languageList;
-    this.companyRolesCodeList = this._globalService.companyRolesList;
+    this.representativeRolesCodeList = this._globalService.representativeRolesList;
 
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
@@ -183,7 +183,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   }
 
   get selectedCompanyRolesCodes(): string[] {
-    return this._companyContactItemService.getCompanyRolesCodes(this.companyRolesOptionList, this.companyRolesChkFormArray);
+    return this._companyContactItemService.getCompanyRolesCodes(this.representativeRolesOptionList, this.companyRolesChkFormArray);
   }
 
   get contactDetailsFormGroup(): FormGroup {
@@ -191,19 +191,19 @@ export class CompanyContactItemComponent extends BaseComponent{
   }
 
   private _updateCompanyRolesArray() {
-    const companyRolesList = this._globalService.companyRolesList;
-    this.companyRolesOptionList = companyRolesList.map((item) => {
+    const representativeRolesList = this._globalService.representativeRolesList;
+    this.representativeRolesOptionList = representativeRolesList.map((item) => {
       return this._converterService.convertCodeToCheckboxOption(item, this.lang);
     });
 
     if (this.companyRolesChkFormArray.length === 0) {
       // Create new form controls for the company roles
-      this.companyRolesOptionList.forEach(() => {
+      this.representativeRolesOptionList.forEach(() => {
         this.companyRolesChkFormArray.push(new FormControl(false));
       });
     }
     
-    this.rolesUpdated.emit(this.companyRolesOptionList);
+    this.rolesUpdated.emit(this.representativeRolesOptionList);
   }
 
   get companyRoles(): FormArray {
