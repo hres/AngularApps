@@ -38,39 +38,31 @@ export class AttestationComponent extends BaseComponent implements OnInit, OnCha
   constructor(private _attestationService: AttestationService, private _fb: FormBuilder, private _globalService: GlobalService, private _utilsService: UtilsService){
     super();
     this.showFieldsErrors = false;
-    }
-
+  }
 
   protected override emitErrors(errors: any[]): void {
-      this.errorList.emit(errors);
-    }
-
-
+    this.errorList.emit(errors);
+  }
 
   ngOnInit(): void {
     this.openother = false;
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
     if(!this.attestationForm){
-    this.attestationForm = this._attestationService.getAttestationForm(this._fb);
+      this.attestationForm = this._attestationService.getAttestationForm(this._fb);
     }
 
     this.attestationAsApplicantOptions = this._globalService.attestationAsApplicant;
     this.attestationAsSubmissionOptions = this._globalService.attestationAsSubmission;
     this.countryOptions = this._globalService.countryList;
-   }
+ }
 
-   onAttestationAsApplicantSelected(e: any): void {
+  onAttestationSelected(e: any): void {
     this.openother = false;
-  }
-
-  onAttestationAsSubmissionSelected(e: any): void {
     if(this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandEn || this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandFr ){
-        this.openother = true;
-    }else{
-        this.openother = false;
+      this.openother = true;
     }
-   }
+  }
 
    ngOnChanges(changes: SimpleChanges) {
        this.showFieldErrors = this.showErrors || this.showFieldErrors;
