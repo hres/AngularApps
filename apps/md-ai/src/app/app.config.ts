@@ -1,10 +1,10 @@
 import { ApplicationConfig } from '@angular/core';
 import { InstructionService, NoCacheHeadersInterceptor, VALIDATION_SERVICES, ValidationService, VersionService } from '@hpfb/sdk/ui';
-import { HTTP_INTERCEPTORS, HttpBackend, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 export const appConfig: ApplicationConfig = {
@@ -15,8 +15,8 @@ export const appConfig: ApplicationConfig = {
         defaultLanguage: 'en',
         loader: {
           provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpBackend]
+          useFactory: createTranslateLoader,
+          deps: [HttpClient],
         },
       })
     ),
@@ -33,6 +33,6 @@ export const appConfig: ApplicationConfig = {
   ],
 };
 
-export function HttpLoaderFactory(_httpBackend: HttpBackend) {
-  return new MultiTranslateHttpLoader(_httpBackend, ['./assets/i18n/', './assets/i18n/common/']); 
+export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
