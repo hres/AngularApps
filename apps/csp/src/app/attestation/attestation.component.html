@@ -15,7 +15,7 @@
               <label aria-hidden="true" for="attestApplicant{{i}}">
                 <input attr.aria-label="{{attest | ariaTransform: lang}}" type="radio" attr.aria-label="{{attest | ariaTransform: lang}}"
                     id="attestApplicant{{i}}" name="attestationAsApplicantGroup" value="{{attest | ariaTransform: lang}}"
-                    (change)="onAttestationAsApplicantSelected($event)"
+                    (change)="onAttestationSelected($event)"
                     [formControlName]="'attestationAsApplicant'" />
                     {{attest | textTransform: lang }}
               </label>
@@ -40,7 +40,7 @@
               <label aria-hidden="true" for="attestSubmission{{i}}">
                 <input attr.aria-label="{{attest | ariaTransform: lang}}" type="radio" attr.aria-label="{{attest | ariaTransform: lang}}"
                   id="attestSubmission{{i}}" name="attestationAsSubmissionGroup" value="{{attest | ariaTransform: lang}}"
-                  (change)="onAttestationAsSubmissionSelected($event)"
+                  (change)="onAttestationSelected($event)"
                   [formControlName]="'attestationAsSubmission'"  />
                   {{attest | textTransform: lang }}
               </label>
