@@ -19,11 +19,8 @@
         <div class="panel-body">
           <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath" 
             [startCheckSumVersion]="startCheckSumVersionNum" [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
-            <app-filereader-instruction fileUploadInstruction [lang]="lang"></app-filereader-instruction>
+            <app-filereader-instruction fileUploadInstruction [lang]="lang" [isInternal]="isInternal" [isStatusFinal]="isStatusFinal"></app-filereader-instruction>
           </lib-file-reader>
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-info" *ngIf="isStatusFinal">
-            <p>{{"amend.alert" | translate}}</p>
-          </div>
         </div>
       </section>
     </div>
