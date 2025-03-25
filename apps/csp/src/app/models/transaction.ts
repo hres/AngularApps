@@ -7,6 +7,7 @@ export interface Transaction {
 
 export interface TransactionEnrol {
   template_type: string;
+  enrolment_version: string;
   date_saved: string;
   software_version: string;
   form_language: string;
@@ -97,4 +98,19 @@ export interface ITimelySubmissionInformation {
   timely_submission_statement: string;
   marketing_application_date: string;
   marketing_country: IIdTextLabel;
+}
+
+export interface IMedicalInformation {
+  medicinalIngredients: string;
+  productName: string;
+}
+
+export interface IAttestationInfomation {
+     attestationAsApplicant: string;
+     attestationAsSubmission: ITimelySubmissionInformation;
+}
+
+export interface ICspInfomation {//Certificate of Supplementary Protection (CSP) Information
+  enrollVersion: string;
+  dateLastSaved: string;
 }

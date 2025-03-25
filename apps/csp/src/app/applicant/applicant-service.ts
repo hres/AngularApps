@@ -28,7 +28,7 @@ export class ApplicantService {
       agentName: new FormControl(null),
       orgName: new FormControl(null),
       isBillingDifferent: [false]
-     
+
     },);
     return applicantForm;
   }
@@ -43,7 +43,7 @@ export class ApplicantService {
     let applicants = []
 
     const applicant = applicantModel;
-    
+
     applicant.billing_role = NO;
     applicant.applicant_role = YES;
 
@@ -56,7 +56,7 @@ export class ApplicantService {
     this._contactDetailsService.mapFormModelToDataModel(applicantContactFormGroupValue, applicant.contact, lang, languageList);
 
     applicants.push(applicant)
-    
+
     if(formValue['isBillingDifferent']){
       console.log("BILLING");
       const billing = billingModel;
@@ -82,7 +82,7 @@ export class ApplicantService {
     formRecord.controls['agentName'].setValue(applicantModel.agent_name);
     formRecord.controls['isBillingDifferent'].setValue(false);
 
-    if (billingModel.billing_role == YES) {
+    if (billingModel != null && billingModel.billing_role == YES) {
       formRecord.controls['isBillingDifferent'].setValue(true);
       formRecord.controls['orgName'].setValue(billingModel.agent_name);
     } //else {

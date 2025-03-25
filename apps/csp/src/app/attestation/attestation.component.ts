@@ -1,25 +1,41 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, ENGLISH, FRENCH, HelpSequence, ICode, ICodeAria, UtilsService } from '@hpfb/sdk/ui';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  BaseComponent,
+  ENGLISH,
+  FRENCH,
+  HelpSequence,
+  ICode,
+  ICodeAria,
+  UtilsService,
+} from '@hpfb/sdk/ui';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { AttestationService } from './attestation.service';
-import { Ectd } from '../models/transaction';
+import { Ectd, IAttestationInfomation } from '../models/transaction';
 import { AttestationTypeForSubmission } from './AttestationEnum';
 
 @Component({
   selector: 'app-attestation',
   templateUrl: './attestation.component.html',
   styleUrl: './attestation.component.css',
-  providers: [ AttestationService ],
+  providers: [AttestationService],
   encapsulation: ViewEncapsulation.None,
 })
-
-export class AttestationComponent extends BaseComponent implements OnInit{
-
-
-
+export class AttestationComponent
+  extends BaseComponent
+  implements OnInit, OnChanges
+{
   public lang: string;
-  public openother: boolean ;
+  public openother: boolean;
   helpIndex: HelpSequence;
   showFieldsErrors: boolean = false;
 
@@ -28,13 +44,18 @@ export class AttestationComponent extends BaseComponent implements OnInit{
   public showFieldErrors: boolean = false;
   @Output() errorlis = new EventEmitter(true);
   @Output() errorList = new EventEmitter(true);
-  @Input() dataModel: Ectd;
+  @Input() attestationModel: IAttestationInfomation;
   attestationAsApplicantOptions: ICodeAria[] = [];
   attestationAsSubmissionOptions: ICodeAria[] = [];
 
   countryOptions: ICode[] = [];
 
-  constructor(private _attestationService: AttestationService, private _fb: FormBuilder, private _globalService: GlobalService, private _utilsService: UtilsService){
+  constructor(
+    private _attestationService: AttestationService,
+    private _fb: FormBuilder,
+    private _globalService: GlobalService,
+    private _utilsService: UtilsService
+  ) {
     super();
     this.showFieldsErrors = false;
   }
@@ -47,25 +68,53 @@ export class AttestationComponent extends BaseComponent implements OnInit{
     this.openother = false;
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-    if(!this.attestationForm){
-      this.attestationForm = this._attestationService.getAttestationForm(this._fb);
+    if (!this.attestationForm) {
+      this.attestationForm = this._attestationService.getAttestationForm(
+        this._fb
+      );
     }
 
-    this.attestationAsApplicantOptions = this._globalService.attestationAsApplicant;
-    this.attestationAsSubmissionOptions = this._globalService.attestationAsSubmission;
+    this.attestationAsApplicantOptions =
+      this._globalService.attestationAsApplicant;
+    this.attestationAsSubmissionOptions =
+      this._globalService.attestationAsSubmission;
     this.countryOptions = this._globalService.countryList;
- }
+  }
 
   onAttestationSelected(e: any): void {
     this.openother = false;
-    if(this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandEn || this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandFr ){
+    if (
+      this.attestationForm.get('attestationAsSubmission').value ==
+        AttestationTypeForSubmission.grandEn ||
+      this.attestationForm.get('attestationAsSubmission').value ==
+        AttestationTypeForSubmission.grandFr
+    ) {
       this.openother = true;
+    } else {
+      this.attestationForm.controls['marketing_country'].setValue(null);
+      this.attestationForm.controls['marketing_application_date'].setValue('');
     }
   }
-  
+
   ngOnChanges(changes: SimpleChanges) {
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
-    const isFirstChange = this._utilsService.isFirstChange(changes);   
+    if (!this._utilsService.isFirstChange(changes)) {
+      if (changes['attestationModel']) {
+        this._attestationService.mapDataModelToFormModel(
+          changes['attestationModel'].currentValue,
+          <FormGroup>this.attestationForm,
+          this.countryOptions
+        );
+        if (
+          this.attestationForm.get('attestationAsSubmission').value ==
+            AttestationTypeForSubmission.grandEn ||
+          this.attestationForm.get('attestationAsSubmission').value ==
+            AttestationTypeForSubmission.grandFr
+        ) {
+          this.openother = true;
+        }
+      }
+    }
   }
 
   getFormValue() {
@@ -76,4 +125,3 @@ export class AttestationComponent extends BaseComponent implements OnInit{
     this._globalService.isDateValid(event, this.attestationForm);
   }
 }
-

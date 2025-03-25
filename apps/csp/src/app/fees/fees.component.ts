@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
   SimpleChanges,
@@ -11,6 +12,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ICode, BaseComponent, HelpSequence, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FeesService } from './fees.service';
+import { FeeDetails } from '../models/transaction';
 
 @Component({
   selector: 'app-fees',
@@ -19,7 +21,7 @@ import { FeesService } from './fees.service';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class FeesComponent  extends BaseComponent implements OnInit {
+export class FeesComponent  extends BaseComponent implements OnInit, OnChanges {
 
   public showFieldErrors: boolean = false;
   lang: string;
@@ -28,6 +30,7 @@ export class FeesComponent  extends BaseComponent implements OnInit {
   @Output() errorList = new EventEmitter(true);
   feesForm: FormGroup;
   payMethodOptions: ICode[] = [];
+  @Input() feePaymentModel: FeeDetails;
 
   constructor(private feesService: FeesService, private _fb: FormBuilder, private _globalService: GlobalService,
     private _utilsService: UtilsService) {
@@ -53,8 +56,15 @@ export class FeesComponent  extends BaseComponent implements OnInit {
     this.errorList.emit(errors);
   }
 
-  ngOnChange(changes: SimpleChanges){
+  ngOnChanges(changes: SimpleChanges){
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
-    const isFirstChange = this._utilsService.isFirstChange(changes);
+    if (!this._utilsService.isFirstChange(changes)) {
+      if (changes['feePaymentModel']) {
+        this.feesService.mapDataModelToFormModel(
+          changes['feePaymentModel'].currentValue as FeeDetails,
+          <FormGroup>this.feesForm
+        );
+      }
+    }
   }
 }

@@ -28,6 +28,7 @@ export class NewDrugSubmissionInformationComponent extends BaseComponent impleme
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   public newDrugSubmissionInfoForm: FormGroup;
+  @Input() newDrugSubmissionModel;
 
 
   constructor(
@@ -63,7 +64,9 @@ export class NewDrugSubmissionInformationComponent extends BaseComponent impleme
 
   ngOnChanges(changes: SimpleChanges) {
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
-    const isFirstChange = this._utilsService.isFirstChange(changes);
+    if (!this._utilsService.isFirstChange(changes) && changes['newDrugSubmissionModel']) {
+      this._newDrugSubmissionInformationService.mapDataModelToFormModel( changes['newDrugSubmissionModel'].currentValue, (<FormGroup>this.newDrugSubmissionInfoForm))
+  }
   }
 
 }

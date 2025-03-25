@@ -3,20 +3,21 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
   QueryList,
   SimpleChanges,
   ViewChild,
   ViewChildren,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import {  UtilsService,  HelpSequence,  BaseComponent, ICode,} from '@hpfb/sdk/ui';
+import { UtilsService, HelpSequence, BaseComponent, ICode } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { ApplicantService } from './applicant-service';
 import { AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
-import { IContact, INameAddress } from '@hpfb/pbv'
+import { IContact, INameAddress } from '@hpfb/pbv';
 import { ADDR_CONT_TYPE } from '../app.constants';
 import { IApplicant } from '../models/transaction';
 
@@ -25,8 +26,10 @@ import { IApplicant } from '../models/transaction';
   templateUrl: './applicant.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-
-export class ApplicantComponent extends BaseComponent implements OnInit {
+export class ApplicantComponent
+  extends BaseComponent
+  implements OnInit, OnChanges
+{
   public showFieldErrors: boolean = false;
   lang: string;
   languageList: ICode[] = [];
@@ -52,8 +55,10 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
   private _billingContactErrorList: any[] = [];
   private _childrenErrors: any[] = [];
 
-  @ViewChildren(ContactDetailsComponent) contactComponents: QueryList<ContactDetailsComponent>;
-  @ViewChildren(AddressDetailsComponent) addressComponents: QueryList<AddressDetailsComponent>;
+  @ViewChildren(ContactDetailsComponent)
+  contactComponents: QueryList<ContactDetailsComponent>;
+  @ViewChildren(AddressDetailsComponent)
+  addressComponents: QueryList<AddressDetailsComponent>;
 
   // Fields to store individual component instances
   applicantContact: ContactDetailsComponent;
@@ -79,9 +84,8 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
     this.countryList = this._globalService.countryList;
 
     if (!this.applicantInformationForm) {
-      this.applicantInformationForm = ApplicantService.getApplicantInformationForm(
-        this._fb
-      );
+      this.applicantInformationForm =
+        ApplicantService.getApplicantInformationForm(this._fb);
     }
   }
 
@@ -104,33 +108,44 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges){
+  ngOnChanges(changes: SimpleChanges) {
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
 
     if (!isFirstChange) {
       if (changes['applicantModel']) {
-        const applicantModel = changes['applicantModel'].currentValue as IApplicant;
-        const billingModel = changes['billingModel'].currentValue as IApplicant;
-        this._applicantService.mapDataModelToFormModel(applicantModel, billingModel, (<FormGroup>this.applicantInformationForm))
+        this.applicantModel = changes['applicantModel']
+          .currentValue as IApplicant;
+        let billingModel2 = this.billingModel;
+        if (changes['billingModel']) {
+          billingModel2 = changes['billingModel'].currentValue as IApplicant;
+        }
+        this._applicantService.mapDataModelToFormModel(
+          this.applicantModel,
+          billingModel2,
+          <FormGroup>this.applicantInformationForm
+        );
       }
     }
   }
 
   showBilling() {
-    return this.billingModel || this.applicantInformationForm.controls['isBillingDifferent'].value == true;
+    return (
+      this.billingModel ||
+      this.applicantInformationForm.controls['isBillingDifferent'].value == true
+    );
   }
 
   protected override emitErrors(errors: any[]): void {
     this.errorList.emit(errors);
   }
 
-  processAddressErrors(childErrors:any[]) {
+  processAddressErrors(childErrors: any[]) {
     this._addressErrorList = childErrors;
     this._appendChildAndParentErrors();
   }
 
-  processContactErrors(childErrors:any[]) {
+  processContactErrors(childErrors: any[]) {
     this._contactErrorList = childErrors;
     this._appendChildAndParentErrors();
   }
@@ -145,7 +160,7 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
     this._appendChildAndParentErrors();
   }
 
-  onBillingClick(event:any) {
+  onBillingClick(event: any) {
     const checkbox = event.target as HTMLInputElement;
     if (checkbox) {
       this._appendChildAndParentErrors();
@@ -155,12 +170,10 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
   private _appendChildAndParentErrors() {
     this._childrenErrors = [];
     this._childrenErrors = this._childrenErrors.concat(
-      (this._contactErrorList ?? []).concat(
-        (this._addressErrorList ?? [])
-      )
+      (this._contactErrorList ?? []).concat(this._addressErrorList ?? [])
     );
 
-    if (this.showBilling()) {  
+    if (this.showBilling()) {
       this._childrenErrors = this._childrenErrors.concat(
         (this._billingContactErrorList ?? []).concat(
           this._billingAddressErrorList ?? []
@@ -170,7 +183,7 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
 
     const parentErrors = this.msgList?.toArray() ?? [];
     const combinedErrors = [...parentErrors, ...this._childrenErrors];
-    this._emitCombinedErrors(combinedErrors); 
+    this._emitCombinedErrors(combinedErrors);
   }
 
   private _emitCombinedErrors(errors: any[]): void {
@@ -190,10 +203,10 @@ export class ApplicantComponent extends BaseComponent implements OnInit {
   }
 
   getBillingAddressFormValue() {
-    return this.billingAddress? this.billingAddress.getFormValue() : null;
+    return this.billingAddress ? this.billingAddress.getFormValue() : null;
   }
 
   getBillingContactFormValue() {
-    return this.billingContact? this.billingContact.getFormValue() : null;
+    return this.billingContact ? this.billingContact.getFormValue() : null;
   }
 }

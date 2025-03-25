@@ -12,7 +12,7 @@ export class PatentService {
 
   constructor( private _globalService: GlobalService ) {}
 
-  public static getPatentInformationForm(fb:FormBuilder) {
+  public  getPatentInformationForm(fb:FormBuilder) {
     if (!fb) {
       return null;
    }
