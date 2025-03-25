@@ -50,7 +50,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _contactCompanyRoleErrors = [];
   private _addressListErrors = [];
   private _addressCompanyRoleErrors = [];
-  private _productLineErrors = [];
+  private _productLineFormErrors = [];
   private _consentPrivacyError = [];
 
   public coForm: FormGroup; 
@@ -162,7 +162,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this._addressListErrors, 
       this._contactCompanyRoleErrors, 
       this._contactListErrors,
-      this._productLineErrors,
+      this._productLineFormErrors,
       this._consentPrivacyError
     );
     
@@ -177,7 +177,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   processProductLineErrors(errorList) {
-    this._productLineErrors = errorList;
+    this._productLineFormErrors = errorList;
     this.processErrors();
   }
 
