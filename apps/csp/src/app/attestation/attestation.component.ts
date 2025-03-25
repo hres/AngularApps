@@ -37,50 +37,42 @@ export class AttestationComponent extends BaseComponent implements OnInit{
   constructor(private _attestationService: AttestationService, private _fb: FormBuilder, private _globalService: GlobalService, private _utilsService: UtilsService){
     super();
     this.showFieldsErrors = false;
-    }
-
+  }
 
   protected override emitErrors(errors: any[]): void {
-      this.errorList.emit(errors);
-    }
-
-
+    this.errorList.emit(errors);
+  }
 
   ngOnInit(): void {
     this.openother = false;
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
     if(!this.attestationForm){
-    this.attestationForm = this._attestationService.getAttestationForm(this._fb);
+      this.attestationForm = this._attestationService.getAttestationForm(this._fb);
     }
 
     this.attestationAsApplicantOptions = this._globalService.attestationAsApplicant;
     this.attestationAsSubmissionOptions = this._globalService.attestationAsSubmission;
     this.countryOptions = this._globalService.countryList;
-   }
+ }
 
-   onAttestationAsApplicantSelected(e: any): void {
+  onAttestationSelected(e: any): void {
     this.openother = false;
+    if(this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandEn || this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandFr ){
+      this.openother = true;
+    }
+  }
+  
+  ngOnChanges(changes: SimpleChanges) {
+    this.showFieldErrors = this.showErrors || this.showFieldErrors;
+    const isFirstChange = this._utilsService.isFirstChange(changes);   
   }
 
-  onAttestationASSubmissionSelected(e: any): void {
-    if(this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandEn || this.attestationForm.get('attestationAsSubmission').value == AttestationTypeForSubmission.grandFr ){
-        this.openother = true;
-    }else{
-        this.openother = false;
-    }
-   }
+  getFormValue() {
+    return this.attestationForm.value;
+  }
 
-   ngOnChanges(changes: SimpleChanges) {
-       this.showFieldErrors = this.showErrors || this.showFieldErrors;
-       const isFirstChange = this._utilsService.isFirstChange(changes);
-     }
-
-   getFormValue() {
-     return this.attestationForm.value;
-   }
-
-   onDateInput(event: any): void {
+  onDateInput(event: any): void {
     this._globalService.isDateValid(event, this.attestationForm);
   }
 }

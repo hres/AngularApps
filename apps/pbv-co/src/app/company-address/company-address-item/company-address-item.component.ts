@@ -219,6 +219,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
       this.emitErrors(combinedErrors);
     }
   }
+  
 
   public showErrorSummary(): boolean {
     return (this.showErrors && this.errors.length > 0);
