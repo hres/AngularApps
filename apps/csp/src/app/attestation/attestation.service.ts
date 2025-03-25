@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ConverterService, ENGLISH, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { Ectd, IAttestationInfomation, TransactionEnrol } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
+import { AttestationTypeForSubmission } from './AttestationEnum';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ export class AttestationService {
   public mapDataModelToFormModel(attestationModel: IAttestationInfomation, formRecord: FormGroup, countryOptions: ICode[] ) {
     formRecord.controls['attestationAsApplicant'].setValue(attestationModel.attestationAsApplicant);
     formRecord.controls['attestationAsSubmission'].setValue(attestationModel.attestationAsSubmission.timely_submission_statement);
-    if('GRANT' == attestationModel.attestationAsSubmission.timely_submission_statement){
+    if(AttestationTypeForSubmission.grandEn == attestationModel.attestationAsSubmission.timely_submission_statement || AttestationTypeForSubmission.grandEn == attestationModel.attestationAsSubmission.timely_submission_statement){
     formRecord.controls['marketing_country'].setValue(this.findIdOfDrugUse(attestationModel.attestationAsSubmission.marketing_country._label_en, countryOptions));
     formRecord.controls['marketing_application_date'].setValue(attestationModel.attestationAsSubmission.marketing_application_date);
     }

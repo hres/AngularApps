@@ -449,59 +449,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           }
         }
       }
-   // }
-    //  else {
-    //   const singleApplicant:IApplicant[]=[];
-    //   const objs = Object.entries(trans.applicant);
-    //   singleApplicant.push(trans.applicant);
-    //   trans.applicant = singleApplicant;
-      // Object.keys(objs).forEach((key) => {
-      //   const keyvalue = key;
-
-      //   console.log(keyvalue);
-      //   const valuev = objs[key];
-      //   console.log(valuev);
-      //   switch (valuev[0]) {
-      //     case 'applicant_name':
-      //       this.applicantModel.applicant_name = valuev[1];
-      //       break;
-      //     case 'csp_customer_number':
-      //       this.applicantModel.csp_customer_number = valuev[1];
-      //       break;
-      //     case 'billing_role':
-      //       this.applicantModel.billing_role = valuev[1];
-      //       break;
-      //     case 'applicant_role':
-      //       this.applicantModel.applicant_role = valuev[1];
-      //       break;
-      //     case 'csp_customer_number':
-      //       this.applicantModel.cra_business_number = valuev[1];
-      //       break;
-      //     case 'agent_name':
-      //       this.applicantModel.agent_name = valuev[1];
-      //       break;
-      //   }
-      // });
-    //  console.log(this.applicantModel);
-      // for(let obbjelement of objs){
-      //   let key= obbjelement.keys;
-      //   if(obbjelement[0]='agent_name'){
-      //   let applicant_name = obbjelement[1];
-      //   }
-      //   console.log(obbjelement[0]);
-      //   console.log(obbjelement[1]);
-      //     if (obj[7] != null) {
-      //       const address = Object.entries(obj[7]);
-      //       console.log(address);
-      //     }
-      //     if (obj[6]) {
-      //       const contract = Object.entries(obj[6]);
-      //       console.log(contract);
-      //     }
-      //   }
-  //  }
-
-
   }
   public preload() {
     // console.log("Calling preload")
@@ -640,8 +587,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     this._baseService.mapCertificateOfSupplementaryProtectionFormsToOutput(newTransactionEnrol, this.cspiModel,this._baseService.certSuppProtectForm  );
 
-     newTransactionEnrol.date_saved =
-      this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
     newTransactionEnrol.software_version = this._globalService.appVersion;
     newTransactionEnrol.form_language = this._globalService.currLanguage;
 

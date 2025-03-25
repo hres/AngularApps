@@ -22,7 +22,7 @@ export class CertSuppProtectService {
    }
    return fb.group({
      enrollVersion: ['0.0'],
-     dateLastSaved: [''],
+     dateLastSaved: [this.datepipe.transform(new Date( new Date(Date.now())), 'yyyy-MM-dd')],
    });
   }
 
@@ -41,7 +41,7 @@ export class CertSuppProtectService {
 
   public mapFormModelToDataModel(transactionEnrol: TransactionEnrol,  cspiModel: ICspInfomation, certSuppProtectForm: FormGroup  ) {
      transactionEnrol.enrolment_version =this.getUpdateEnrolmentVersion(cspiModel.enrollVersion);
-     transactionEnrol.date_saved = this.datepipe.transform(new Date( new Date(Date.now())), 'yyyy-MM-dd');
+     transactionEnrol.date_saved = certSuppProtectForm.value['dateLastSaved'];
      cspiModel.dateLastSaved = transactionEnrol.date_saved;
      cspiModel.enrollVersion = transactionEnrol.enrolment_version;
      certSuppProtectForm.patchValue({dateLastSaved:    cspiModel.dateLastSaved});
