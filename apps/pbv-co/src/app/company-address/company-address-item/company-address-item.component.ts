@@ -85,13 +85,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
       });
     });
     this.cdRef.detectChanges();
-
-    setTimeout(() => {
-      const inputElement = document.querySelector('pbv-address-details input[name="address"]');
-      if (inputElement) {
-        inputElement.setAttribute('maxlength', '120');
-      }
-    }, 0);
   }
 
   
