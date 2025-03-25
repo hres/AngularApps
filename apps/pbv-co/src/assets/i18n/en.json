@@ -72,7 +72,7 @@
     "phone.number":"Phone number (including area code)",
     "phone.extension":"Phone extension",
     "fax.number":"Fax number (including area code)",
-    "fax.number.nofaxnum": "(Use 0000000000 if not available)",
+    "fax.number.nofaxnum": "(Use 0000000000 if not available) By not entering a fax number, you authorise receipt of billing communication by email.",
     "contact.email":"Email",
     "error.mgs.zip":"Invalid entry - must be 5 numbers",
     "error.msg.minlength": "Invalid entry - must be {{ requiredLength }} numbers",
