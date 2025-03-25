@@ -10,7 +10,7 @@ export class NoticeOfComplianceService {
 
   constructor( ) {}
 
-  public static getNoticeOfComplianceForm(fb:FormBuilder) {
+  public  getNoticeOfComplianceForm(fb:FormBuilder) {
     if (!fb) {
       return null;
    }
@@ -24,13 +24,11 @@ export class NoticeOfComplianceService {
 
 
   public mapFormModelToDataModel(formValue: any, transactionEnrol: TransactionEnrol) {
-
     transactionEnrol.application_info.noc_date = formValue['nocDate'];
     }
 
-  public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
-
-    formRecord.controls['nocDate'].setValue(transactionEnrol.application_info.noc_date);
+  public mapDataModelToFormModel(nocDate: string, formRecord: FormGroup) {
+    formRecord.controls['nocDate'].setValue(nocDate);
    }
 
 

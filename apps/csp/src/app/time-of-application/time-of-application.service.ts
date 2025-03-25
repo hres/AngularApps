@@ -29,8 +29,8 @@ export class TimingOfApplicationService {
     transactionEnrol.application_info.time_application = formValue['timingOfApplicant'];
     }
 
-  public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
+  public mapDataModelToFormModel(timingOfApplicant: string, formRecord: FormGroup) {
 
-    formRecord.controls['timingOfApplicant'].setValue(transactionEnrol.application_info.time_application);
+    formRecord.controls['timingOfApplicant'].setValue(timingOfApplicant);
    }
 }

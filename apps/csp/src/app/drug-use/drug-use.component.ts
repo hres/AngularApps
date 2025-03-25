@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
   SimpleChanges,
@@ -20,13 +21,17 @@ import { GlobalService } from '../global/global.service';
   providers: [DrugUseService],
   encapsulation: ViewEncapsulation.None,
 })
-export class DrugUseComponent extends BaseComponent implements OnInit {
+export class DrugUseComponent
+  extends BaseComponent
+  implements OnInit, OnChanges
+{
   public showFieldErrors: boolean = false;
   lang: string;
   helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   drugUseOptions: ICode[] = [];
+  @Input() drugUseModel: string;
 
   public drugUseForm: FormGroup;
 
@@ -60,6 +65,13 @@ export class DrugUseComponent extends BaseComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
-    const isFirstChange = this._utilsService.isFirstChange(changes);
+    if (!this._utilsService.isFirstChange(changes)) {
+      if (changes['drugUseModel']) {
+        this.drugUseService.mapDataModelToFormModel(
+          changes['drugUseModel'].currentValue,
+          <FormGroup>this.drugUseForm
+        );
+      }
+    }
   }
 }

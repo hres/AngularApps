@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TransactionEnrol } from '../models/transaction';
+import { IMedicalInformation, TransactionEnrol } from '../models/transaction';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +28,8 @@ export class MedicinalIngredientsService {
     transactionEnrol.application_info.product_name = formValue['productName'];
     }
 
-  public mapDataModelToFormModel(transactionEnrol: TransactionEnrol, formRecord: FormGroup) {
-    formRecord.controls['medicinalIngredients'].setValue(transactionEnrol.application_info.medicinal_ingredient);
-    formRecord.controls['productName'].setValue(transactionEnrol.application_info.product_name);
+  public mapDataModelToFormModel(medicinalIngredients: string, product_name: string, formRecord: FormGroup) {
+    formRecord.controls['medicinalIngredients'].setValue(medicinalIngredients);
+    formRecord.controls['productName'].setValue(product_name);
    }
 }

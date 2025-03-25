@@ -201,24 +201,17 @@ export class CompanyAddressItemComponent extends BaseComponent{
   protected override _appendErrorsFromChild() {
     // Method is overriden to place company roles error last, since it is the last field in the record.
     this._coRolesErrors = this.msgList.toArray(); // Includes: Company name and company roles
-
-    // Check if the company roles is in the list of errors, if so, extract it
-    let roleError = null;
-    const roleErrorIndex = this._coRolesErrors.findIndex(error => error.controlId === "companyRoles");
-    if (roleErrorIndex !== -1) {
-      // Extract the error
-      roleError = this._coRolesErrors[roleErrorIndex];
   
-      // Remove the error from the list
-      this._coRolesErrors.splice(roleErrorIndex, 1);
-    }
+    // Extract all companyRoles errors
+    const roleErrors = this._coRolesErrors.filter(error => error.parentId === "coAddress");
   
-    const combinedErrors = [...this._coRolesErrors, ...this._addressErrorList, roleError].filter(error => error !== null);    if (combinedErrors === null) {
-      this.emitErrors([]);
-    } else {
-      this.emitErrors(combinedErrors);
-    }
+    // Remove them from the original list
+    this._coRolesErrors = this._coRolesErrors.filter(error => error.parentId !== "coAddress");
+  
+    const combinedErrors = [...this._coRolesErrors, ...this._addressErrorList, ...roleErrors];
+    this.emitErrors(combinedErrors);
   }
+  
 
   public showErrorSummary(): boolean {
     return (this.showErrors && this.errors.length > 0);

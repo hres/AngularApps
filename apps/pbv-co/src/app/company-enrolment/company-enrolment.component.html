@@ -36,7 +36,7 @@
             </label>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="!isInternal">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
           <button class="btn btn-primary" (click)="setAmendState()" [disabled]="disableAmendButton">
             {{'amend.enrol'|translate}}</button>
@@ -64,7 +64,7 @@
                     label="reason.filing" parentId="companyEnrolment"></control-messages>
             </label>
             <textarea id="filingReason" name="filingReason" class="form-control full-width"
-                        [formControl]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" maxlength="400" ></textarea>
+                        [formControl]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" maxlength="1000" ></textarea>
         </div>
     </div>
 </div>

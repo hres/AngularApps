@@ -31,6 +31,7 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   public noticeOfComplianceForm: FormGroup;
+  @Input() nocModel: string;
 
 
   constructor(
@@ -50,7 +51,7 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
     this.helpIndex = this._globalService.helpIndex;
 
     if (!this.noticeOfComplianceForm) {
-      this.noticeOfComplianceForm = NoticeOfComplianceService.getNoticeOfComplianceForm(
+      this.noticeOfComplianceForm = this._noticeOfComplianceService.getNoticeOfComplianceForm(
         this._fb
       );
     }
@@ -72,6 +73,9 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
 
   ngOnChanges(changes: SimpleChanges) {
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
+    if (!this._utilsService.isFirstChange(changes) && changes['nocModel']) {
+        this._noticeOfComplianceService.mapDataModelToFormModel( changes['nocModel'].currentValue, (<FormGroup>this.noticeOfComplianceForm))
+    }
   }
 }
 
