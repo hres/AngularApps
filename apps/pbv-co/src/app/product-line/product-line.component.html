@@ -11,8 +11,8 @@
                     <control-messages *ngIf="productLineChkFormArray.invalid"
                             [showError]="showErrors"
                             [control]="productLineChkFormArray | formControl"
-                            controlId="productLine" label="label.prod.line"
-                            parentId="productLine"></control-messages>
+                            controlId="productLineForm" label="label.prod.line"
+                            parentId="productLineForm"></control-messages>
                 </legend>
                 <ul class="form-group list-unstyled">
                     <li class="checkbox" [formArrayName]="'productLine'" *ngFor="let product of productLineChkFormArray.controls; let i = index">
