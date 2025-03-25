@@ -87,7 +87,7 @@
     </div>
 
     <div class="row btn-group-sm">
-      <div class="form-group col-md-4">
+      <div *ngIf="!isInternal" class="form-group col-md-4">
         <button type="button" class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
           {{'save.working.copy'|translate}}
         </button>

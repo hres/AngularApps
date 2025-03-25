@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="!isInternal">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <ng-container *ngIf="lang === 'en'">
       <p>First time users of this form cannot select a file to load and must create an XML file by completing all the required fields below and clicking the "Save draft XML" button at the bottom of this form. </p>
