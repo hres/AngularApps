@@ -76,7 +76,7 @@
     "contact.email":"Courriel",
     "error.mgs.zip":"Entrée non valide - doit contenir 5 chiffres",
     "error.msg.postal":"Format non valide - doit être X#X#X#",
-    "error.msg.minlength": "Entrée non valide - doit contenir {{ requiredLength }} chiffres",
+    "error.msg.minlength": "Entrée non valide - doit contenir un minimum de {{ requiredLength }} chiffres",
     "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
     "add.contact":"Ajouter un enregistrement",
     "save.contact":"Enregistrer l'enregistrement",
@@ -113,6 +113,6 @@
     "popup.title":"Modèle de compagnie",
     "popup.close": "Fermer",
 
-    "error.mgs.5.numeric": "Veuillez fournir 5 chiffres."
+    "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres"
 
 }
