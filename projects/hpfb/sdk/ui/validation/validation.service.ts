@@ -41,7 +41,6 @@ export class ValidationService implements IValidationService {
       'error.msg.invalidDate': 'error.msg.invalidDate',
       'error.msg.endDate':'error.msg.endDate',
       'error.msg.amount.limit':'error.msg.amount.limit',
-      'error.msg.business':'error.msg.business',
     };
 
     return config[validatorName];
@@ -356,17 +355,6 @@ export class ValidationService implements IValidationService {
       return {'error.msg.amount.limit': true};
     } else {
       return null;
-    }
-  }
-
-  static businessNumValidator(control) {
-    if (!control.value) {
-      return null;
-    }
-    if (control.value.match(/^[0-9]{9}$/)) {
-      return null;
-    } else {
-      return {'error.msg.business': true};
     }
   }
 }
