@@ -10,6 +10,7 @@ export class FormDataLoaderService {
   private enrolmentStatusesPath = DATA_PATH + 'enrolmentStatuses.json'
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private companyRolesPath = DATA_PATH + 'companyRoles.json';
+  private representativeRolesPath = DATA_PATH + 'representativeRoles.json';
   private productLinePath = DATA_PATH + 'productLine.json';
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
@@ -19,6 +20,7 @@ export class FormDataLoaderService {
   cachedEnrolmentStatuses$:Observable<ICode[]>;
   cachedLanguageList$:Observable<ICode[]>;
   cachedCompanyRolesList$:Observable<ICode[]>;
+  cachedRepresentativeRolesList$:Observable<ICode[]>;
   cachedProductLineList$:Observable<ICode[]>;
   cachedProvincesList$:Observable<ICode[]>;
   cachedStatesList$:Observable<ICode[]>;
@@ -71,6 +73,17 @@ export class FormDataLoaderService {
         );
     } 
     return this.cachedCompanyRolesList$;
+  }
+
+  getRepresentativeRolesList(): Observable<ICode[]> {
+    if (!this.cachedRepresentativeRolesList$) {
+      this.cachedRepresentativeRolesList$ = this._dataService.getData<ICode>(this.representativeRolesPath)
+        .pipe(
+          // tap(()=>console.log('getEnrollmentStatusesList() is called')),
+          shareReplay(1)
+        );
+    } 
+    return this.cachedRepresentativeRolesList$;
   }
 
   getProductLineList(): Observable<ICode[]> {

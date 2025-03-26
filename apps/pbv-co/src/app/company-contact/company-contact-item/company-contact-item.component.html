@@ -17,12 +17,12 @@
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" id="companyRoles">
           <legend class="required">
-            <span class="field-name">{{'select.roles' | translate}}</span>
+            <span class="field-name">{{'select.roles.rep' | translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
                             [showError]="showErrors"
                             [control]="companyRolesChkFormArray | formControl"
-                            controlId="companyRoles" label="select.roles"
+                            controlId="companyRoles" label="select.roles.rep"
                             parentId="companyContact"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">
@@ -30,15 +30,15 @@
               <label [for]="'contactRole' + j + '-' + i">
               <input type="checkbox" [id]="'contactRole' + j + '-' + i" 
               [formControl]="reason | formControl" 
-              (change)="companyRolesOnChange($event, companyRolesOptionList[i].value, i)"/> 
-              {{companyRolesOptionList[i].label}}
+              (change)="companyRolesOnChange($event, representativeRolesOptionList[i].value, i)"/> 
+              {{representativeRolesOptionList[i].label}}
               </label>
               <div>
                 <control-messages *ngIf="reason.invalid"
                 [showError]="showErrors"
                 [control]="reason | formControl"
                 [controlId]="'contactRole-' + i"
-                [label]="companyRolesOptionList[i].label"
+                [label]="representativeRolesOptionList[i].label"
                 parentId="coContact">
                 </control-messages>
               </div>
