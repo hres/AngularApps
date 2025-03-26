@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild, signal, Signal, computed, effect, viewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, HelpSequence, CHECK_SUM_CONST } from '@hpfb/sdk/ui';
+import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, HelpSequence, CHECK_SUM_CONST, PopupComponent } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -27,7 +27,7 @@ import { lastValueFrom } from 'rxjs';
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
     providers: [FileConversionService, UtilsService, VersionService, CheckSumService, ConverterService, EntityBaseService, FormBaseService],
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, CompanyContactModule, CompanyAddressModule]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, FilereaderInstructionComponent, CompanyContactModule, CompanyAddressModule, PopupComponent]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -78,6 +78,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public mailToLink = '';
   public submitToEmail: string = '';
   public submitToSubject: string = '';
+
+  popupId = 'saveXmlPopup';
 
   private _signalService = inject(AppSignalService)
 
@@ -226,7 +228,19 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public saveXmlFile() {
     this.showErrors = true;
     this.processErrors();
-    this._saveXML();
+    if (this.errorList && this.errorList.length > 0) {
+      document.location.href = '#topErrorSummary';
+    } else {
+      if (this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine) {
+        this._saveXML();
+      } else {
+        this.openPopup();
+      }
+    }
+  }
+
+  openPopup(){
+    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
   }
 
   public saveWorkingCopyFile() {
