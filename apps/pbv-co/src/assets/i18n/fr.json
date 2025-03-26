@@ -79,6 +79,7 @@
     "error.msg.postal":"Format non valide - doit être X#X#X#",
     "error.msg.minlength": "Entrée non valide - doit contenir un minimum de {{ requiredLength }} chiffres",
     "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
+    "error.msg.business": "Entrée non valide - doit contenir 9 chiffres",
     "add.contact":"Ajouter un enregistrement",
     "save.contact":"Enregistrer l'enregistrement",
     "delete.contact":"Supprimer l'enregistrement",
