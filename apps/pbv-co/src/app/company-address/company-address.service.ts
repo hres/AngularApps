@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AddressDetailsService } from "@hpfb/pbv";
 import { ErrorSummaryObject, ERR_TYPE_LEAST_ONE_REC, getEmptyErrorSummaryObj, ValidationService, IRecordService } from "@hpfb/sdk/ui";
+import { PbvValidationService } from "@hpfb/pbv"
 
 @Injectable()
 export class CompanyAddressService implements IRecordService{
@@ -20,7 +21,7 @@ export class CompanyAddressService implements IRecordService{
             lastSavedState: null, // store the last saved state of the contactInfo for reverting function
             addressInfo: fb.group({
                 companyName: [null, [Validators.required]],
-                businessNum: ['', [Validators.minLength(9), ValidationService.phoneNumberValidator]],
+                businessNum: ['', [Validators.minLength(9), PbvValidationService.businessNumValidator]],
                 addressCompanyRoles: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
                 selectedAddressCompanyRoles: [''],
                 addressDetails: this._addressDetailsService.getReactiveModel(fb)
