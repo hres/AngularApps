@@ -77,10 +77,12 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
   activateAmendButton(dataModel : CompanyEnrol) {
     if (dataModel) {
-      if (!this.isInternal && 
-        dataModel.application_type._id == ENROLMENT_STATUS.FINAL) {
+      if (!this.isInternal && dataModel.application_type._id == ENROLMENT_STATUS.FINAL) {
         this.disableAmendButton = false;
       } 
+      if(dataModel.software_version === '4.2.4' && ENROLMENT_STATUS.FINAL){
+        this.disableAmendButton = false;
+      }
     }
   }
 
