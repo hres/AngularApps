@@ -10,7 +10,8 @@ export class PbvValidationService {
   getValidatorErrorMessage(validatorName: string): string | null {
     const config = {
       'error.mgs.pbv.dossier.id': 'error.mgs.dossier.id',
-      'error.msg.roleSelected':'error.msg.roleSelected'
+      'error.msg.roleSelected':'error.msg.roleSelected',
+      'error.msg.business':'error.msg.business',
     };
 
     return config[validatorName];
@@ -46,6 +47,17 @@ export class PbvValidationService {
       return null;
     } else {
       return {'error.mgs.pbv.dossier.id': true};
+    }
+  }
+
+  static businessNumValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{9}$/)) {
+      return null;
+    } else {
+      return {'error.msg.business': true};
     }
   }
 }

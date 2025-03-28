@@ -261,7 +261,7 @@ span.mouseHover:hover {
 	
 	<!-- Company Enrolment -->
 	<xsl:template match="COMPANY_ENROL">
-		<h1>Modéle de compagnie: Processus d'Inscription Réglementaire (PIR) pour les produits pharmaceutiques humain et vétérinaire et biocides <xsl:if test="software_version != ''">(Version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
+		<h1>Modéle de compagnie: Processus d'Inscription Réglementaire (PIR) pour les produits pharmaceutiques humain et vétérinaire et biocides <xsl:if test="software_version != ''">(version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
         <section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -277,7 +277,7 @@ span.mouseHover:hover {
                                 <th style="text-align: center;font-weight:bold;">Identifiant de la compagnie</th>
                             </tr>
                             <tr>
-                                <td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="application_type"/></span> </td>
+                                <td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="application_type/@label_fr"/></span> </td>
                                 <td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="enrolment_version" /></span> </td>
                                 <td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="substring(date_saved,0,11)" /></span> </td>
                                 <td style="text-align: center;"><span class="mouseHover"><xsl:value-of select="company_id" /></span> </td>

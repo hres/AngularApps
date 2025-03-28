@@ -139,7 +139,7 @@
 											<xsl:if test="sequence_from_date !='' and sequence_to_date ='' and sequence_version=''">
 												<div class="row">
 													<div class="col-md-12">
-														<strong class="padLeft3">Date de la demande: </strong>
+														<strong class="padLeft3">Daté: </strong>
 														<span class="mouseHover">
 															<xsl:value-of select="sequence_from_date" />
 														</span>
@@ -175,7 +175,7 @@
 											<xsl:if test="sequence_description_value/@id = 'CSO_RMP'">
 												<div class="row">
 													<div class="col-md-12">
-														<strong class="padLeft3">Date de la demande: </strong>
+														<strong class="padLeft3">Daté: </strong>
 														<span class="mouseHover">
 															<xsl:value-of select="sequence_from_date" />
 														</span>

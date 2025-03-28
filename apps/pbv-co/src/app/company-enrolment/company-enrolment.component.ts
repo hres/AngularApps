@@ -26,6 +26,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   @Output() errorList = new EventEmitter(true);
 
   public disableAmendButton: boolean = true;
+  public showAmendButton: boolean = false;
   public showAmendNote: boolean = false;
 
   constructor(private _companyEnrolmentService: CompanyEnrolmentService, 
@@ -55,12 +56,17 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
     if (changes['dataModel']) {
       const dataModelCurrentValue = changes['dataModel'].currentValue as CompanyEnrol;
+      this.setDisableAmendButtonFlag(dataModelCurrentValue.application_type._id, this.isInternal);
 
       if (!isFirstChange) {
         this._companyEnrolmentService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getCompanyEnrolmentForm());
       }
       this.activateAmendButton(dataModelCurrentValue);
     }
+  }
+
+  private setDisableAmendButtonFlag(enrolStatusId: string, isInternal: boolean) : void{
+    this.showAmendButton = (enrolStatusId === ENROLMENT_STATUS.FINAL && !isInternal);
   }
 
   private _getCompanyEnrolmentForm(){
@@ -75,12 +81,13 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     this.errorList.emit(errors);
   }
 
-  activateAmendButton(dataModel : CompanyEnrol) {
+  activateAmendButton(dataModel: CompanyEnrol) {
     if (dataModel) {
-      if (!this.isInternal && dataModel.application_type._id == ENROLMENT_STATUS.FINAL) {
+      if (!this.isInternal && dataModel.application_type._id === ENROLMENT_STATUS.FINAL) {
         this.disableAmendButton = false;
-      } 
-      if(dataModel.software_version === '4.2.4' && ENROLMENT_STATUS.FINAL){
+      } else if (dataModel.application_type._id === ENROLMENT_STATUS.NEW) {
+        this.disableAmendButton = true;
+      } else if(dataModel.software_version === '4.2.4' && ENROLMENT_STATUS.FINAL) {
         this.disableAmendButton = false;
       }
     }
@@ -88,7 +95,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
   setAmendState() {
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
-
+    this.disableAmendButton = true;
     this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, ENROLMENT_STATUS.AMEND, enrolmentStatusesList, this.lang, true)
     this.showAmendNote = true;
     this._resetControlValues(["reasonForFiling"]);
