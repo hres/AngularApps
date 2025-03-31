@@ -56,7 +56,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
     if (changes['dataModel']) {
       const dataModelCurrentValue = changes['dataModel'].currentValue as CompanyEnrol;
-      // this.setDisableAmendButtonFlag(dataModelCurrentValue.application_type._id, this.isInternal);
+      this.setDisableAmendButtonFlag(dataModelCurrentValue.application_type._id, this.isInternal);
 
       if (!isFirstChange) {
         this._companyEnrolmentService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getCompanyEnrolmentForm());
