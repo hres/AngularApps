@@ -99,7 +99,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     this.dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, ENROLMENT_STATUS.AMEND, this.lang);
     this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, ENROLMENT_STATUS.AMEND, enrolmentStatusesList, this.lang, true)
     this.showAmendNote = true;
-    console.log(this.dataModel.application_type._id);
     this._resetControlValues(["reasonForFiling"]);
   }
 
