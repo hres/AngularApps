@@ -11,3 +11,14 @@ label > select {
     margin-top: 5px;
     font-weight: normal;
 }
+
+h3.panel-title{
+    line-height: 25px;
+}
+
+@media (max-width: 365px) {  /* nested error to help some overlapping */
+    .panel-body .alert > ul {
+        margin-left: 0px;
+        padding-left: 14px;
+    }
+  }
