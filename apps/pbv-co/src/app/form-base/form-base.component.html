@@ -98,7 +98,8 @@
         </button>
       </div>
       <div *ngIf="!isInternal" class="form-group col-md-4">
-        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
+        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()"
+        [disabled]="isAmend()">
           {{'draft.xml'|translate}}
         </button>
       </div>

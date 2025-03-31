@@ -56,7 +56,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
     if (changes['dataModel']) {
       const dataModelCurrentValue = changes['dataModel'].currentValue as CompanyEnrol;
-      this.setDisableAmendButtonFlag(dataModelCurrentValue.application_type._id, this.isInternal);
+      // this.setDisableAmendButtonFlag(dataModelCurrentValue.application_type._id, this.isInternal);
 
       if (!isFirstChange) {
         this._companyEnrolmentService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getCompanyEnrolmentForm());
@@ -96,8 +96,10 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   setAmendState() {
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
     this.disableAmendButton = true;
+    this.dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, ENROLMENT_STATUS.AMEND, this.lang);
     this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, ENROLMENT_STATUS.AMEND, enrolmentStatusesList, this.lang, true)
     this.showAmendNote = true;
+    console.log(this.dataModel.application_type._id);
     this._resetControlValues(["reasonForFiling"]);
   }
 
