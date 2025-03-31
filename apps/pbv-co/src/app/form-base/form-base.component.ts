@@ -70,7 +70,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public versionTagPath = VERSION_TAG_PATH;
   public startCheckSumVersionNum = START_CHECKSUM_VERSION;
 
-  isStatusFinal: boolean;
+  isStatusFinal: boolean = false;
 
   public mailToLabel = 'mailto.label';
   public disableMailto: boolean = false;
@@ -255,6 +255,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.companyEnrolModel = fileData.data.COMPANY_ENROL;
       this._initModels(this.companyEnrolModel);
       this.isStatusFinal = this.companyEnrolModel.application_type._id == ENROLMENT_STATUS.FINAL;
+      if(this.companyEnrolModel.software_version === '4.2.4'){
+        this.isStatusFinal = true;
+      }
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
       // this.agentInfoOnChange();

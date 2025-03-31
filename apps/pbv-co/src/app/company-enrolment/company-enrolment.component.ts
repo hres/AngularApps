@@ -87,6 +87,8 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
         this.disableAmendButton = false;
       } else if (dataModel.application_type._id === ENROLMENT_STATUS.NEW) {
         this.disableAmendButton = true;
+      } else if(dataModel.software_version === '4.2.4' && ENROLMENT_STATUS.FINAL) {
+        this.disableAmendButton = false;
       }
     }
   }
