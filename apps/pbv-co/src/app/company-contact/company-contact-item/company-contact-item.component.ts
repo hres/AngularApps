@@ -147,6 +147,8 @@ export class CompanyContactItemComponent extends BaseComponent{
     } else {
       roleControl.setErrors(null); // Remove error if valid
     } 
+
+    this.cdRef.detectChanges();
     //this._appendErrorsFromChild(); // Update errors for company roles here
   }
 

@@ -22,10 +22,12 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   @Input() provinceList;
   @Input() stateList;
   @Input() canadaDefault: boolean;
-  @Input() formGroup?: FormGroup;
   @Input() addrType;
   @Input() addrGroupLabelKey;
   @Output() errorList = new EventEmitter(true);
+
+  @Input() formGroup?: FormGroup;
+  @Input() recordId?: number | null = null;
 
   public addressForm: FormGroup;
   // public provinceLabel = 'addressDetails.province';

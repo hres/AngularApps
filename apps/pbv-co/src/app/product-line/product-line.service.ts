@@ -26,7 +26,6 @@ export class ProductLineService {
   public mapFormModelToDataModel(dataModel:CompanyEnrol, coEnrolFormModel:any) {
     const lang = this._globalService.currLanguage;
     const productLineList = this._globalService.productLineList;
-    console.log(coEnrolFormModel.selectedProductLines);
     const products: ProductLine = {
       product_line: this._converterService.findAndConverCodesToIdTextLabels(productLineList, coEnrolFormModel.selectedProductLines, lang)
     }

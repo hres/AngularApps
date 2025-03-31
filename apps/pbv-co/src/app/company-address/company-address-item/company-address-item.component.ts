@@ -118,6 +118,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   }
 
   public deleteAddressRecord(index: number): void {
+    console.log(this.cRRow.get('id').value)
     this._errNotifService.updateErrorSummary(ADDRESS_ERROR_PREFIX + this.cRRow.get('id').value, null);
     // Find roles that need to be removed
     const prefixToDelete = index.toString();
@@ -155,6 +156,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
     } else {
       roleControl.setErrors(null); // Remove error if valid
     }
+
+    console.log(this._signalService.getSelectedAddressCompanyRoles()());
+    this.cdRef.detectChanges();
     //this._appendErrorsFromChild(); // Update errors for company roles here
   }
 
