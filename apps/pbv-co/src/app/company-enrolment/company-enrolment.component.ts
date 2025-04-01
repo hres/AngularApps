@@ -106,6 +106,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   setAmendState() {
     const enrolmentStatusesList = this._globalService.enrolmentStatusList;
     this.disableAmendButton = true;
+    this.dataModel.application_type = this._converterService.findAndConverCodeToIdTextLabel(enrolmentStatusesList, ENROLMENT_STATUS.AMEND, this.lang);
     this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, ENROLMENT_STATUS.AMEND, enrolmentStatusesList, this.lang, true)
     this.showAmendNote = true;
     this._resetControlValues(["reasonForFiling"]);
