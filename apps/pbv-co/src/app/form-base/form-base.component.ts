@@ -376,24 +376,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
 
     const companyName = this._findCompanyNameMFRrole(addressFormArrayValue);
-
-
     this.submitToSubject = await lastValueFrom(this._translateService.get('email.subject'));
     this.submitToEmail = await lastValueFrom(this._translateService.get('email.to'));
     const emailDraft = await lastValueFrom(this._translateService.get('email.draft'));
-    const emailCompanyId = await lastValueFrom(this._translateService.get('email.company.id'));
     body = await lastValueFrom(this._translateService.get('email.body'));
-
-    emailSubject = `${emailDraft}${companyName ? companyName + ' ' : ''}${companyId ? companyId : emailCompanyId}`;
-
     let email = this.submitToEmail.replace(/[()]/g, '').trim();
 
-    // Encode mailto parameters
-    const encodedSubject = encodeURIComponent(emailSubject);
-    const encodedBody = encodeURIComponent(body);
-
-    this.mailToLink = `mailto:${email}?subject=${encodedSubject}&body=${encodedBody}`;
-
+    emailSubject = emailDraft + ((companyName === null || companyName === '') ? '[company name]' : companyName) + ' ' + ((companyId === '') ? ' ' : ' - ' + companyId); body = body;
+ 
+    this.mailToLink = `mailto:${email}?subject=${emailSubject}&body=${body}`;
   }
 
   public onChanged(e, controlName) {
