@@ -47,7 +47,7 @@ export class FeesService {
     let id: string = null;
     if (this.methodList != null && this.methodList.length > 0) {
       for (var paymentElement of this.methodList) {
-        if (label === paymentElement.en || label === paymentElement.fr) {
+        if (label === paymentElement.en || label === paymentElement.fr || label ===  paymentElement.id) {
           id = paymentElement.id;
           break;
         }

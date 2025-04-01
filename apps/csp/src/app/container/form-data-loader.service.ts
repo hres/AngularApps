@@ -7,7 +7,7 @@ import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParent
 export class FormDataLoaderService {
 
   // private keywordsJsonPath = DATA_PATH + 'keywords.json';
-  private countriesJsonPath = DATA_PATH + 'countries.json';
+  private countriesJsonPath = DATA_PATH + 'csp_eucountries.json';
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
   private drugUseJsonPath = DATA_PATH + 'druguses.json';

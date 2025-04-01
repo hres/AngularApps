@@ -16,10 +16,10 @@ import {
   IMedicalInformation,
   IAttestationInfomation,
   ICspInfomation,
-} from '../models/transaction';
+  } from '../models/transaction';
 import { INameAddress, IContact } from '@hpfb/pbv';
 import { GlobalService } from '../global/global.service';
-import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
+import { EntityBaseService, IIdTextLabel, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
 import { BehaviorSubject } from 'rxjs';
 import { PatentService } from '../patent/patent-service.service';
@@ -46,9 +46,6 @@ export class FormBaseService {
   private messageSource = new BehaviorSubject('');
   currentMessage = this.messageSource.asObservable();
   constructor(
-    private _entityBaseService: EntityBaseService,
-    private _utilsService: UtilsService,
-    private _globalService: GlobalService,
     private _patentService: PatentService,
     private _drugUseService: DrugUseService,
     private _nocService: NoticeOfComplianceService,
@@ -81,7 +78,7 @@ export class FormBaseService {
 
   public getEmptyEnrol(): Transaction {
     const enrollment: Transaction = {
-      TRANSACTION_ENROL: this.getEmptyTransactionEnrol(),
+      CERTIFICATE_SUPPLEMENTARY_PROTECTION: this.getEmptyTransactionEnrol(),
     };
 
     return enrollment;
@@ -91,6 +88,7 @@ export class FormBaseService {
     return {
       advanced_payment_fee: '',
       advanced_payment_type: '',
+      advanced_payment_ack:''
     };
   }
 
@@ -104,16 +102,7 @@ export class FormBaseService {
     };
   }
 
-  public getEmptyAddressDetailsModel(): INameAddress {
-    return {
-      street_address: '',
-      city: '',
-      country: undefined,
-      province_lov: undefined,
-      province_text: '',
-      postal_code: '',
-    };
-  }
+
 
   public getEmptyContactModel(): IContact {
     return {
@@ -182,78 +171,8 @@ export class FormBaseService {
       revised_trans_desc: undefined,
     };
 
-    // console.log(
-    //   'getEmptyMasterFileDetailsModel ~ lifecycleRecord',
-    //   JSON.stringify(lifecycleRecord)
-    // );
-
     return lifecycleRecord;
   }
-
-  // public getEmptyContactInfo() : ContactInfo {
-  //   const contactInfo: ContactInfo = {
-  //     holder_name_address: this.getEmptyAddressDetailsModel(),
-  //     holder_contact: this.getEmptyContactModel(),
-  //     agent_not_applicable: undefined,
-  //     agent_name_address: this.getEmptyAddressDetailsModel(),
-  //     agent_contact: this.getEmptyContactModel(),
-  //     contact_info_confirm: false
-  //   }
-  //   return contactInfo;
-  // }
-
-  // public mapDataModelToFormModel(contactInfo: ContactInfo, formRecord: FormGroup) {
-  //   // console.log(contactInfo.agent_not_applicable, typeof contactInfo.agent_not_applicable, this._utilsService.toBoolean(contactInfo.agent_not_applicable));
-  //   formRecord.controls['notApplicable'].setValue(this._utilsService.toBoolean(contactInfo.agent_not_applicable));
-  //   // user needs to check contactInfoConfirm checkbox each time they submit the form, so no need to load it from the uploaded data file
-  // }
-
-  // public mapRequiredFormsToOutput(outputTransactionEnrol: TransactionEnrol, regulatoryInfoFormGroupValue: any, certificationFormGroupValue: any): void{
-  //   this._regulatoryInfoService.mapFormModelToDataModel(regulatoryInfoFormGroupValue, outputTransactionEnrol.ectd);
-  //   this._certificationService.mapFormModelToDataModel(certificationFormGroupValue, outputTransactionEnrol)
-  // }
-
-  // public mapAddressFormContactFormToOutput(contactInfo: ContactInfo,
-  //   addressesFormGroupValue: Array<{ addrType: string, value: any }>, contactsFormGroupValue: Array<{ contactType: string, value: any }>): void{
-
-  //   if (contactInfo.agent_not_applicable) {
-  //     const holderAddress = addressesFormGroupValue.filter(address => address.addrType === ADDR_CONT_TYPE.HOLDER)[0];
-  //     if (holderAddress) {
-  //       this._addressDetailsService.mapFormModelToDataModel(holderAddress.value, contactInfo.holder_name_address);
-  //     } else {
-  //       console.error('mapAddressFormContactFormToOutput ~ No holder address found');
-  //     }
-  //     contactInfo.agent_name_address = null;
-
-  //     const holderContact = contactsFormGroupValue.filter(contact => contact.contactType === ADDR_CONT_TYPE.HOLDER)[0];
-  //     if (holderContact) {
-  //       this._contactDetailsService.mapFormModelToDataModel(holderContact.value, contactInfo.holder_contact);
-  //     } else {
-  //       console.error('mapAddressFormContactFormToOutput ~ No holder contact found');
-  //     }
-  //     contactInfo.agent_contact = null;
-
-  //   } else {
-  //     addressesFormGroupValue.forEach(address => {
-  //       if (address.addrType === ADDR_CONT_TYPE.HOLDER) {
-  //         this._addressDetailsService.mapFormModelToDataModel(address.value, contactInfo.holder_name_address);
-  //       } else if (address.addrType === ADDR_CONT_TYPE.AGENT) {
-  //         this._addressDetailsService.mapFormModelToDataModel(address.value, contactInfo.agent_name_address);
-  //       }
-  //     });
-  //     contactsFormGroupValue.forEach(contact => {
-  //       if (contact.contactType === ADDR_CONT_TYPE.HOLDER) {
-  //         this._contactDetailsService.mapFormModelToDataModel(contact.value, contactInfo.holder_contact);
-  //       } else if (contact.contactType === ADDR_CONT_TYPE.AGENT) {
-  //         this._contactDetailsService.mapFormModelToDataModel(contact.value, contactInfo.agent_contact);
-  //       }
-  //     });
-  //   }
-  // }
-
-  // public mapFeeFormToOutput(feeDetail: FeeDetails, feeFormGroupValue: any): void{
-  //   this._feeService.mapFormModelToDataModel(feeFormGroupValue, feeDetail);
-  // }
 
   private getEmptyPatent(): IPatent {
     const patent: IPatent = {
@@ -282,6 +201,8 @@ export class FormBaseService {
     };
     return applicant;
   }
+
+
 
   private getApplicationInformation(): IApplicationInformation {
     const applicantInfo: IApplicationInformation = {
@@ -322,14 +243,6 @@ export class FormBaseService {
 
     return cerspModel;
   }
-
-  // private getEmptyMedicinalIngredients(): IMedicinalIngredients {
-  //   const medicinalIngredients: IMedicinalIngredients = {
-  //     medicinalIngredient: '',
-  //     productName: ''
-  //   };
-  //   return medicinalIngredients;
-  // }
 
   public mapPatentFormsToOutput(
     outputTransactionEnrol: TransactionEnrol,
@@ -466,4 +379,15 @@ export class FormBaseService {
       certSuppProtectForm
     );
   }
+
+  public getEmptyIIdTextLabel(): IIdTextLabel {
+    const iIdTextLabel: IIdTextLabel = {
+      _id: '',
+      __text: '',
+      _label_en: '',
+      _label_fr: '',
+    };
+    return iIdTextLabel;
+  }
+
 }

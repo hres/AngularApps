@@ -12,7 +12,7 @@ import {
   ViewChildren,
   ViewEncapsulation,
 } from '@angular/core';
-import { UtilsService, HelpSequence, BaseComponent, ICode } from '@hpfb/sdk/ui';
+import { UtilsService, HelpSequence, BaseComponent, ICode, IIdTextLabel } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { ApplicantService } from './applicant-service';
@@ -20,6 +20,7 @@ import { AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
 import { IContact, INameAddress } from '@hpfb/pbv';
 import { ADDR_CONT_TYPE } from '../app.constants';
 import { IApplicant } from '../models/transaction';
+import { CANADA, USA } from '../../../../../projects/hpfb/sdk/ui/common.constants';
 
 @Component({
   selector: 'app-applicant',
@@ -116,9 +117,31 @@ export class ApplicantComponent
       if (changes['applicantModel']) {
         this.applicantModel = changes['applicantModel']
           .currentValue as IApplicant;
+          // let isUSORCANADA: boolean = true;
+          // // this.applicantModel.address.country._id = this.applicantModel.address.country.__text;
+          // if(this.applicantModel.address.country.__text === 'CAN' ){
+          //   this.applicantModel.address.country._id = CANADA;
+          // }else if(this.applicantModel.address.country.__text === 'USA' ){
+          //   this.applicantModel.address.country._id = USA;
+          // }else{
+          //   isUSORCANADA = false;
+          // }
+          // let provinceLov = String( this.applicantModel.address.province_lov);
+          //  if(isUSORCANADA){
+          //  let tempProvince:IIdTextLabel = this._applicantService.getEmptyIIdTextLabel();
+          //  tempProvince._id=provinceLov;
+          //  this.applicantAddressModel.province_lov = tempProvince;
+          //  }else{
+          //  this.applicantAddressModel.province_text=provinceLov;
+          //  }
+
         let billingModel2 = this.billingModel;
         if (changes['billingModel']) {
           billingModel2 = changes['billingModel'].currentValue as IApplicant;
+          // billingModel2.address.country._id = billingModel2.address.country.__text;
+          // this.billingAddressModel.province_lov._id='QC';
+          // this.billingAddressModel.province_lov._label_en='Quebec';
+          // this.billingAddressModel.province_lov._label_fr='Quebec';
         }
         this._applicantService.mapDataModelToFormModel(
           this.applicantModel,
@@ -209,4 +232,6 @@ export class ApplicantComponent
   getBillingContactFormValue() {
     return this.billingContact ? this.billingContact.getFormValue() : null;
   }
+
+
 }

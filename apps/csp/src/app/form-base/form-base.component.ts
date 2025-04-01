@@ -27,6 +27,7 @@ import {
   ConvertResults,
   CHECK_SUM_CONST,
   ICode,
+  IIdTextLabel,
 } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -66,6 +67,10 @@ import { ApplicantComponent } from '../applicant/applicant.component';
 import { HcUseOnlyComponent } from '../health-canada-only/health-canada-only.component';
 import { AttestationComponent } from '../attestation/attestation.component';
 import { CertSuppProtectComponent } from '../cert-supp-protect/cert-supp-protect.component';
+import {
+  CANADA,
+  USA,
+} from '../../../../../projects/hpfb/sdk/ui/common.constants';
 
 @Component({
   selector: 'app-form-base',
@@ -122,7 +127,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(CertificationComponent)
   certificationComponent: CertificationComponent;
   @ViewChild(AttestationComponent) attestationComponent: AttestationComponent;
-  @ViewChild(CertSuppProtectComponent) certSuppProtectComponent: CertSuppProtectComponent;
+  @ViewChild(CertSuppProtectComponent)
+  certSuppProtectComponent: CertSuppProtectComponent;
 
   private _patentInformationErrors = [];
   private _drugUseErrors = [];
@@ -368,7 +374,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public processFile(fileData: ConvertResults) {
     // console.log(fileData);
     if (fileData.data !== null) {
-      this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
+      this.transactionEnrollModel =
+        fileData.data.CERTIFICATE_SUPPLEMENTARY_PROTECTION;
       this._initModels(this.transactionEnrollModel);
       // this.setSelectedTxDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
@@ -378,14 +385,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _initModels(trans: TransactionEnrol) {
     this.ectdModel = trans.ectd;
-    this.cspiModel= this._baseService.getCerSuppProtect();
-  this.cspiModel.dateLastSaved = trans.date_saved;
-  this.cspiModel.enrollVersion = trans.enrolment_version;
+    this.cspiModel = this._baseService.getCerSuppProtect();
+    this.cspiModel.dateLastSaved = trans.date_saved;
+    this.cspiModel.enrollVersion = trans.enrolment_version;
 
     if (trans.application_info != null) {
       this.attestationModel = this._baseService.getAttestation();
       this.drugUseModel = trans.application_info.drug_use;
-       this.patentModel = trans.application_info.patent_info;
+      this.patentModel = trans.application_info.patent_info;
       this.timingOfApplicantModel = trans.application_info.time_application;
       this.nocModel = trans.application_info.noc_date;
       this.newDrugSubmissionModel = trans.application_info.control_number;
@@ -403,52 +410,43 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.feePaymentModel = trans.advanced_payment;
     this.certModel = trans.certification;
 
-
     if (trans.advanced_payment != null) {
       this.transFeeModel = trans.advanced_payment;
     }
 
-    // this.applicantModel = null;
-    // this.billingModel = null;
-
     this.applicantModel = this._baseService.getEmptyApplicant();
-
-    // Initialize the applicant's contact and address models
-    //  for( let applicant of trans.applicant){
-    //   console.log(applicant.applicant_name);
-    //  }
-
     const singleApplicant = trans.applicant;
     console.log(Array.isArray(trans.applicant));
     if (!Array.isArray(trans.applicant)) {
-      const singleApplicant:IApplicant[]=[];
+      const singleApplicant: IApplicant[] = [];
       const objs = Object.entries(trans.applicant);
       singleApplicant.push(trans.applicant);
       trans.applicant = singleApplicant;
-
     }
-      if (trans.applicant && trans.applicant.length > 0) {
-        const applicant = trans.applicant[0]; // Assuming the first applicant is the main applicant
-        this.applicantModel = applicant;
-        if (trans.applicant[0].contact) {
-          this.contactModel = trans.applicant[0].contact;
-        }
-        if (trans.applicant[0].address) {
-          this.addressModel = trans.applicant[0].address;
-        }
+    if (trans.applicant && trans.applicant.length > 0) {
+      const applicant = trans.applicant[0]; // Assuming the first applicant is the main applicant
+      this.applicantModel = applicant;
+      this.convertAddress(this.applicantModel.address);
+      if (trans.applicant[0].contact) {
+        this.contactModel = trans.applicant[0].contact;
+      }
+      if (trans.applicant[0].address) {
+        this.addressModel = trans.applicant[0].address;
+      }
 
-        // Initialize the billing contact and address models if available
-        if (trans.applicant.length > 1) {
-          const billingApplicant = trans.applicant[1]; // Assuming the second applicant is the billing applicant
-          this.billingModel = billingApplicant;
-          if (billingApplicant.contact) {
-            this.contactBillingModel = billingApplicant.contact;
-          }
-          if (billingApplicant.address) {
-            this.addressBillingModel = billingApplicant.address;
-          }
+      // Initialize the billing contact and address models if available
+      if (trans.applicant.length > 1) {
+        const billingApplicant = trans.applicant[1]; // Assuming the second applicant is the billing applicant
+        this.billingModel = billingApplicant;
+        this.convertAddress(this.billingModel.address);
+        if (billingApplicant.contact) {
+          this.contactBillingModel = billingApplicant.contact;
+        }
+        if (billingApplicant.address) {
+          this.addressBillingModel = billingApplicant.address;
         }
       }
+    }
   }
   public preload() {
     // console.log("Calling preload")
@@ -503,8 +501,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _prepareForSaving(xmlFile: boolean): Transaction {
     const newTransactionEnrol: TransactionEnrol =
       this._baseService.getEmptyTransactionEnrol();
-
-
 
     //get Patent information data
 
@@ -564,10 +560,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     );
 
     const applicantInfo = this.applicantComponent.getFormValue();
-    const applicantAddressFormGroupValue = this.applicantComponent.getApplicantAddressFormValue();
-    const applicantContactFormGroupValue = this.applicantComponent.getApplicantContactFormValue();
-    const billingAddressFormGroupValue =  this.applicantComponent.getBillingAddressFormValue();
-    const billingContactFormGroupValue =  this.applicantComponent.getBillingContactFormValue();
+    const applicantAddressFormGroupValue =
+      this.applicantComponent.getApplicantAddressFormValue();
+    const applicantContactFormGroupValue =
+      this.applicantComponent.getApplicantContactFormValue();
+    const billingAddressFormGroupValue =
+      this.applicantComponent.getBillingAddressFormValue();
+    const billingContactFormGroupValue =
+      this.applicantComponent.getBillingContactFormValue();
     this._baseService.mapApplicantInfoToOutput(
       newTransactionEnrol,
       applicantInfo,
@@ -585,19 +585,23 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.countryOptions
     );
 
-    this._baseService.mapCertificateOfSupplementaryProtectionFormsToOutput(newTransactionEnrol, this.cspiModel,this._baseService.certSuppProtectForm  );
+    this._baseService.mapCertificateOfSupplementaryProtectionFormsToOutput(
+      newTransactionEnrol,
+      this.cspiModel,
+      this._baseService.certSuppProtectForm
+    );
 
     newTransactionEnrol.software_version = this._globalService.appVersion;
     newTransactionEnrol.form_language = this._globalService.currLanguage;
 
     const output: Transaction = {
-      TRANSACTION_ENROL: newTransactionEnrol,
+      CERTIFICATE_SUPPLEMENTARY_PROTECTION: newTransactionEnrol,
     };
 
     if (xmlFile) {
       // add and calculate check_sum if it is xml
-      output.TRANSACTION_ENROL[CHECK_SUM_CONST] = ''; // this is needed for generating the checksum value
-      output.TRANSACTION_ENROL[CHECK_SUM_CONST] =
+      output.CERTIFICATE_SUPPLEMENTARY_PROTECTION[CHECK_SUM_CONST] = ''; // this is needed for generating the checksum value
+      output.CERTIFICATE_SUPPLEMENTARY_PROTECTION[CHECK_SUM_CONST] =
         this._checkSumService.createHash(output);
     }
 
@@ -614,6 +618,28 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public onChanged(e, controlName) {
     if (e?.target?.checked === false) {
       this.rtForm.controls[controlName].reset();
+    }
+  }
+
+  private convertAddress(addressModel: INameAddress) {
+    if (addressModel.country._id == undefined && addressModel.country.__text) {
+      let isUSORCANADA: boolean = true;
+      if (addressModel.country.__text === 'CAN') {
+        addressModel.country._id = CANADA;
+      } else if (addressModel.country.__text === 'USA') {
+        addressModel.country._id = USA;
+      } else {
+        isUSORCANADA = false;
+      }
+      let provinceLov = String(addressModel.province_lov);
+      if (isUSORCANADA) {
+        let tempProvince: IIdTextLabel =
+          this._baseService.getEmptyIIdTextLabel();
+        tempProvince._id = provinceLov;
+        addressModel.province_lov = tempProvince;
+      } else {
+        addressModel.province_text = provinceLov;
+      }
     }
   }
 }

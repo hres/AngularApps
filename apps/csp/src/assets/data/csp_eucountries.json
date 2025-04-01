@@ -31,5 +31,6 @@
     {"id":"USA","en":"United States","fr":"États-Unis"},
     {"id":"AUS","en":"Australia","fr":"Australie"},
     {"id":"CHE","en":"Switzerland","fr":"Suisse"},
-    {"id":"JPN","en":"Japan","fr":"Japon"}
+    {"id":"JPN","en":"Japan","fr":"Japon"},
+    {"id":"CAN", "en": "Canada", "fr": "Canada "}
   ]
