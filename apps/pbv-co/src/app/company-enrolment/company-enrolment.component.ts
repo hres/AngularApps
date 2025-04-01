@@ -66,8 +66,14 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   }
 
   private setDisableAmendButtonFlag(dataModel: CompanyEnrol, isInternal: boolean) : void{
-    const appType = String(this.dataModel.application_type);
-    this.showAmendButton = (appType === ENROLMENT_STATUS.FINAL && !isInternal);
+    if (dataModel.software_version < this._globalService.appVersion) {
+      const appType = String(this.dataModel.application_type);
+      if (appType === ENROLMENT_STATUS.FINAL){
+        this.showAmendButton = (appType === ENROLMENT_STATUS.FINAL && !isInternal);
+      }
+    } else {
+      this.showAmendButton = (dataModel.application_type._id === ENROLMENT_STATUS.FINAL && !isInternal);
+    }
   }
 
   private _getCompanyEnrolmentForm(){
@@ -84,14 +90,16 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
   activateAmendButton(dataModel: CompanyEnrol) {
     if (dataModel) {
-      const appType = String(this.dataModel.application_type);
       if (!this.isInternal && dataModel.application_type._id === ENROLMENT_STATUS.FINAL) {
         this.disableAmendButton = false;
       } else if (dataModel.application_type._id === ENROLMENT_STATUS.NEW) {
         this.disableAmendButton = true;
-      } else if(dataModel.software_version < this._globalService.appVersion && appType === ENROLMENT_STATUS.FINAL) {
-        this.disableAmendButton = false;
-      }
+      } else if (dataModel.software_version < this._globalService.appVersion) {
+        const appType = String(this.dataModel.application_type);
+          if (appType === ENROLMENT_STATUS.FINAL) {
+            this.disableAmendButton = false;
+          }
+        }
     }
   }
 
