@@ -254,9 +254,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (fileData.data !== null) {
       this.companyEnrolModel = fileData.data.COMPANY_ENROL;
       this._initModels(this.companyEnrolModel);
-      this.isStatusFinal = this.companyEnrolModel.application_type._id == ENROLMENT_STATUS.FINAL;
-      if(this.companyEnrolModel.software_version === '4.2.4'){
-        this.isStatusFinal = true;
+      if(this.companyEnrolModel.software_version < this._globalService.appVersion){
+        const appType = String(this.companyEnrolModel.application_type);
+        this.isStatusFinal = appType === ENROLMENT_STATUS.FINAL;
+      } else {
+        this.isStatusFinal = this.companyEnrolModel.application_type._id == ENROLMENT_STATUS.FINAL;
       }
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
@@ -306,6 +308,20 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
     document.location.href = '#topErrorSummaryId';
   }
+
+  public isAmend() {    
+    if (this.companyEnrolModel.application_type._id === ENROLMENT_STATUS.FINAL) {
+      return (!this.isInternal && this.isStatusFinal);
+    } else if (this.companyEnrolModel.software_version < this._globalService.appVersion) {
+      const appType = String(this.companyEnrolModel.application_type);
+      if (appType === ENROLMENT_STATUS.FINAL) {
+        return (!this.isInternal && this.isStatusFinal);
+      } 
+      return false;
+    }
+    return false;
+  }
+  
 
   private _prepareForSaving(xmlFile: boolean): Company {
     let contactsFormArrayValue = null;
@@ -376,24 +392,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
 
     const companyName = this._findCompanyNameMFRrole(addressFormArrayValue);
-
-
     this.submitToSubject = await lastValueFrom(this._translateService.get('email.subject'));
     this.submitToEmail = await lastValueFrom(this._translateService.get('email.to'));
     const emailDraft = await lastValueFrom(this._translateService.get('email.draft'));
-    const emailCompanyId = await lastValueFrom(this._translateService.get('email.company.id'));
     body = await lastValueFrom(this._translateService.get('email.body'));
-
-    emailSubject = `${emailDraft}${companyName ? companyName + ' ' : ''}${companyId ? companyId : emailCompanyId}`;
-
     let email = this.submitToEmail.replace(/[()]/g, '').trim();
 
-    // Encode mailto parameters
-    const encodedSubject = encodeURIComponent(emailSubject);
-    const encodedBody = encodeURIComponent(body);
-
-    this.mailToLink = `mailto:${email}?subject=${encodedSubject}&body=${encodedBody}`;
-
+    emailSubject = emailDraft + ((companyName === null || companyName === '') ? '[company name]' : companyName) + ' ' + ((companyId === '') ? ' ' : ' - ' + companyId); body = body;
+ 
+    this.mailToLink = `mailto:${email}?subject=${emailSubject}&body=${body}`;
   }
 
   public onChanged(e, controlName) {
