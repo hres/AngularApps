@@ -103,7 +103,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   public deleteContactRecord(index: number): void {
     this._errNotifService.updateErrorSummary(CONTACT_ERROR_PREFIX + this.cRRow.get('id').value, null);
     // Find roles that need to be removed
-    const prefixToDelete = index.toString();
+    const prefixToDelete = this.cRRow.get('recordId').value.toString();
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
     rolesToRemove.forEach(role => this._signalService.removeContactCompanyRole(role));
@@ -133,7 +133,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   
     // Get the specific form control using index
     const roleControl = this.companyRolesChkFormArray.at(index);
-    const uniqueRole = this.j + selectedRole;
+    const uniqueRole = this.cRRow.get('recordId').value + selectedRole;
     // Update signal array
     if (isChecked) {
       this._signalService.updateContactCompanyRoles(uniqueRole);

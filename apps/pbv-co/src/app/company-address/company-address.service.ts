@@ -16,6 +16,7 @@ export class CompanyAddressService implements IRecordService{
     
         return fb.group({
             id: -1,
+            recordId: -1,
             isNew: true,
             expandFlag: true,
             lastSavedState: null, // store the last saved state of the contactInfo for reverting function
