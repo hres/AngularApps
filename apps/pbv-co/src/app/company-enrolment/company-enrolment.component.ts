@@ -56,7 +56,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
     if (changes['dataModel']) {
       const dataModelCurrentValue = changes['dataModel'].currentValue as CompanyEnrol;
-      this.setDisableAmendButtonFlag(dataModelCurrentValue.application_type._id, this.isInternal);
+      this.setDisableAmendButtonFlag(dataModelCurrentValue, this.isInternal);
 
       if (!isFirstChange) {
         this._companyEnrolmentService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getCompanyEnrolmentForm());
@@ -65,8 +65,15 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     }
   }
 
-  private setDisableAmendButtonFlag(enrolStatusId: string, isInternal: boolean) : void{
-    this.showAmendButton = (enrolStatusId === ENROLMENT_STATUS.FINAL && !isInternal);
+  private setDisableAmendButtonFlag(dataModel: CompanyEnrol, isInternal: boolean) : void{
+    if (dataModel.software_version < this._globalService.appVersion) {
+      const appType = String(this.dataModel.application_type);
+      if (appType === ENROLMENT_STATUS.FINAL){
+        this.showAmendButton = (appType === ENROLMENT_STATUS.FINAL && !isInternal);
+      }
+    } else {
+      this.showAmendButton = (dataModel.application_type._id === ENROLMENT_STATUS.FINAL && !isInternal);
+    }
   }
 
   private _getCompanyEnrolmentForm(){
@@ -87,9 +94,12 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
         this.disableAmendButton = false;
       } else if (dataModel.application_type._id === ENROLMENT_STATUS.NEW) {
         this.disableAmendButton = true;
-      } else if(dataModel.software_version === '4.2.4' && ENROLMENT_STATUS.FINAL) {
-        this.disableAmendButton = false;
-      }
+      } else if (dataModel.software_version < this._globalService.appVersion) {
+        const appType = String(this.dataModel.application_type);
+          if (appType === ENROLMENT_STATUS.FINAL) {
+            this.disableAmendButton = false;
+          }
+        }
     }
   }
 

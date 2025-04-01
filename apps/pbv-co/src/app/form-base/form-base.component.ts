@@ -254,9 +254,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (fileData.data !== null) {
       this.companyEnrolModel = fileData.data.COMPANY_ENROL;
       this._initModels(this.companyEnrolModel);
-      this.isStatusFinal = this.companyEnrolModel.application_type._id == ENROLMENT_STATUS.FINAL;
-      if(this.companyEnrolModel.software_version === '4.2.4'){
-        this.isStatusFinal = true;
+      if(this.companyEnrolModel.software_version < this._globalService.appVersion){
+        const appType = String(this.companyEnrolModel.application_type);
+        this.isStatusFinal = appType === ENROLMENT_STATUS.FINAL;
+      } else {
+        this.isStatusFinal = this.companyEnrolModel.application_type._id == ENROLMENT_STATUS.FINAL;
       }
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
