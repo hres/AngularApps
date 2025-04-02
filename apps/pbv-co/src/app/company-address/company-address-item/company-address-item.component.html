@@ -45,6 +45,7 @@
                     [stateList]="stateList"
                     [canadaDefault]="false"
                     [formGroup]="addressDetailsFormGroup"
+                    [recordId]="j"
                     (errorList)="processAddressErrors($event)">
         </pbv-address-details>
 
@@ -62,7 +63,7 @@
             <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
                             [showError]="showErrors"
                             [control]="companyRolesChkFormArray | formControl"
-                            controlId="companyRoles" label="select.roles.comp"
+                            controlId="addressCompanyRoles{{j}}" label="select.roles.comp"
                             parentId="coAddress"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">
@@ -77,7 +78,7 @@
                 <control-messages *ngIf="reason.invalid"
                 [showError]="showErrors"
                 [control]="reason | formControl"
-                [controlId]="'addressRole-' + i"
+                [controlId]="'addressRole' + j + '-' + i"
                 [label]="companyRolesOptionList[i].label"
                 parentId="coAddress">
                 </control-messages>

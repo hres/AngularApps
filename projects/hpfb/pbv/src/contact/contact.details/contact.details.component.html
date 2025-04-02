@@ -2,103 +2,103 @@
     <div [formGroup]="contactDetailsForm">
        <div class="row">
         <div class="form-group col-sm-6" >
-          <label for="{{contactType}}firstName" class="required full-width">
+          <label for="{{contactType}}firstName{{recordId}}" class="required full-width">
             <span class="field-name">{{'first.name'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['firstName'].invalid"
                               [showError]="showFieldErrors" 
                               [control]="contactDetailsForm.controls['firstName'] | formControl"
-                              controlId="{{contactType}}firstName" label="first.name" parentId="{{contactType}}contactInfo"
+                              controlId="{{contactType}}firstName{{recordId}}" label="first.name" parentId="{{contactType}}contactInfo"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-            <input name="firstName" id="{{contactType}}firstName" class="form-control full-width" maxlength="60" 
+            <input name="firstName" id="{{contactType}}firstName{{recordId}}" class="form-control full-width" maxlength="60" 
               [formControlName]="'firstName'"/>
           </label>
         </div>
         <div class="form-group col-sm-6" >
-          <label for="{{contactType}}initials">
+          <label for="{{contactType}}initials{{recordId}}">
             <span class="field-name">{{'initials'|translate}}</span>          
-            <input name="initials" id="{{contactType}}initials" class="form-control full-width" maxlength="10" 
+            <input name="initials" id="{{contactType}}initials{{recordId}}" class="form-control full-width" maxlength="10" 
               [formControlName]="'initials'"/>
           </label>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-sm-6" >
-          <label for="{{contactType}}lastName" class="required full-width">
+          <label for="{{contactType}}lastName{{recordId}}" class="required full-width">
             <span class="field-name">{{'last.name'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['lastName'].invalid"
                               [showError]="showFieldErrors" 
                               [control]="contactDetailsForm.controls['lastName'] | formControl"
-                              controlId="{{contactType}}lastName" label="last.name" parentId="{{contactType}}contactInfo"
+                              controlId="{{contactType}}lastName{{recordId}}" label="last.name" parentId="{{contactType}}contactInfo"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-            <input name="lastName" id="{{contactType}}lastName" class="form-control full-width" maxlength="60" 
+            <input name="lastName" id="{{contactType}}lastName{{recordId}}" class="form-control full-width" maxlength="60" 
               [formControlName]="'lastName'"/>
           </label>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-sm-6" >
-          <label for="{{contactType}}language" class="required">
+          <label for="{{contactType}}language{{recordId}}" class="required">
             <span class="field-name">{{'lang.correspond' |translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['language'].invalid"
                               [showError]="showFieldErrors" 
                               [control]="contactDetailsForm.controls['language'] | formControl"
-                              controlId="{{contactType}}language" label="lang.correspond" parentId="{{contactType}}contactInfo"
+                              controlId="{{contactType}}language{{recordId}}" label="lang.correspond" parentId="{{contactType}}contactInfo"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-            <select id="{{contactType}}language" required class="form-control" [formControlName]="'language'">
+            <select id="{{contactType}}language{{recordId}}" required class="form-control" [formControlName]="'language'">
               <option label=" " value=""></option>
               <option *ngFor="let langOption of languageList" [value]="langOption.id">{{langOption | textTransform: lang }}</option>
             </select>
           </label>
         </div>
         <div class="form-group col-sm-6">
-          <label for="{{contactType}}jobTitle" class="required">
+          <label for="{{contactType}}jobTitle{{recordId}}" class="required">
             <span class="field-name">{{'job.title'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['jobTitle'].invalid"
                               [showError]="showFieldErrors" 
                               [control]="contactDetailsForm.controls['jobTitle'] | formControl"
-                              controlId="{{contactType}}jobTitle" label="job.title" parentId="{{contactType}}contactInfo"
+                              controlId="{{contactType}}jobTitle{{recordId}}" label="job.title" parentId="{{contactType}}contactInfo"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-            <input name="jobTitle" id="{{contactType}}jobTitle" class="form-control full-width" maxlength="40" [formControlName]="'jobTitle'"/>
+            <input name="jobTitle" id="{{contactType}}jobTitle{{recordId}}" class="form-control full-width" maxlength="40" [formControlName]="'jobTitle'"/>
           </label>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-sm-6" >
-          <label for="{{contactType}}phoneNumber" class="required full-width">
+          <label for="{{contactType}}phoneNumber{{recordId}}" class="required full-width">
             <span class="field-name">{{'phone.number'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['phoneNumber'].invalid"
                               [showError]="showFieldErrors" 
                               [control]="contactDetailsForm.controls['phoneNumber'] | formControl"
-                              controlId="{{contactType}}phoneNumber" label="phone.number" parentId="{{contactType}}contactInfo"
+                              controlId="{{contactType}}phoneNumber{{recordId}}" label="phone.number" parentId="{{contactType}}contactInfo"
                               requiredLength="10"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-            <input name="phoneNumber" id="{{contactType}}phoneNumber" class="form-control full-width" data-only-digits
+            <input name="phoneNumber" id="{{contactType}}phoneNumber{{recordId}}" class="form-control full-width" data-only-digits
               [formControlName]="'phoneNumber'" maxlength="25"/>
           </label>
         </div>
         <div class="form-group col-sm-3">
-          <label for="{{contactType}}phoneExtension">
+          <label for="{{contactType}}phoneExtension{{recordId}}">
             <span class="field-name">{{'phone.extension' |translate}}</span>
-            <input name="phoneExtension" id="{{contactType}}phoneExtension" class="form-control" maxlength="10" data-only-digits
+            <input name="phoneExtension" id="{{contactType}}phoneExtension{{recordId}}" class="form-control" maxlength="10" data-only-digits
             [formControlName]="'phoneExtension'"/>
           </label>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-sm-6">
-          <label class="required full-width" for="{{contactType}}faxNumber">
+          <label class="required full-width" for="{{contactType}}faxNumber{{recordId}}">
             <span class="field-name">{{'fax.number' |translate }}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['faxNumber'].invalid" [showError]="showFieldErrors"
-              [control]="contactDetailsForm.controls['faxNumber'] | formControl" controlId="{{contactType}}faxNumber" label="fax.number"
+              [control]="contactDetailsForm.controls['faxNumber'] | formControl" controlId="{{contactType}}faxNumber{{recordId}}" label="fax.number"
               parentId="{{contactType}}contactInfo" requiredLength="10" 
               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-            <input name="faxNumber" id="{{contactType}}faxNumber" class="form-control full-width" data-only-digits maxlength="25"
+            <input name="faxNumber" id="{{contactType}}faxNumber{{recordId}}" class="form-control full-width" data-only-digits maxlength="25"
                    [formControlName]="'faxNumber'"/>
                    <span class="field-name small">{{'fax.number.nofaxnum' |translate }}</span>
           </label>
@@ -106,15 +106,15 @@
       </div>
       <div class="row">
         <div class="form-group col-sm-6" >
-          <label for="{{contactType}}email" class="required full-width">
+          <label for="{{contactType}}email{{recordId}}" class="required full-width">
             <span class="field-name">{{'contact.email'|translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="contactDetailsForm.controls['email'].invalid"
                               [showError]="showFieldErrors" 
                               [control]="contactDetailsForm.controls['email'] | formControl"
-                              controlId="{{contactType}}email" label="contact.email" parentId="{{contactType}}contactInfo"
+                              controlId="{{contactType}}email{{recordId}}" label="contact.email" parentId="{{contactType}}contactInfo"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-            <input name="email" id="{{contactType}}email" class="form-control full-width" maxlength="80" [formControlName]="'email'" />
+            <input name="email" id="{{contactType}}email{{recordId}}" class="form-control full-width" maxlength="80" [formControlName]="'email'" />
           </label>
         </div>
         

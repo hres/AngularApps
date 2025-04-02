@@ -60,7 +60,7 @@
                 </sup>
                 <control-messages *ngIf="companyEnrolmentForm.controls['reasonForFiling'].invalid"
                     [showError]="showFieldErrors"
-                    [control]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" controlId="reasonForFiling"
+                    [control]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" controlId="filingReason"
                     label="reason.filing" parentId="companyEnrolment"></control-messages>
             </label>
             <textarea id="filingReason" name="filingReason" class="form-control full-width"

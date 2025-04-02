@@ -147,7 +147,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (errorObjs) {
       errorObjs.forEach(
         error => {
-          if (error.label === 'label.consent.privacy') {
+          if (error.label === 'consent.privacy') {
             consentPrivacyTempError.push(error);
           }
         }
@@ -229,7 +229,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showErrors = true;
     this.processErrors();
     if (this.errorList && this.errorList.length > 0) {
-      document.location.href = '#topErrorSummary';
+      document.location.href = '#topErrorSummaryId';
     } else {
       if (this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine) {
         this._saveXML();
