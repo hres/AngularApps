@@ -429,6 +429,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.convertAddress(this.applicantModel.address);
       if (trans.applicant[0].contact) {
         this.contactModel = trans.applicant[0].contact;
+        this.convertLanguage(this.contactModel);
       }
       if (trans.applicant[0].address) {
         this.addressModel = trans.applicant[0].address;
@@ -441,6 +442,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this.convertAddress(this.billingModel.address);
         if (billingApplicant.contact) {
           this.contactBillingModel = billingApplicant.contact;
+          this.convertLanguage(this.contactBillingModel);
         }
         if (billingApplicant.address) {
           this.addressBillingModel = billingApplicant.address;
@@ -623,6 +625,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private convertAddress(addressModel: INameAddress) {
     if (addressModel.country._id == undefined && addressModel.country.__text) {
+      //it is to handle address in old form.
       let isUSORCANADA: boolean = true;
       if (addressModel.country.__text === 'CAN') {
         addressModel.country._id = CANADA;
@@ -640,6 +643,17 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       } else {
         addressModel.province_text = provinceLov;
       }
+    }
+  }
+
+  private convertLanguage(contactBillingModel: IContact) {
+    if (
+      contactBillingModel.language_correspondance._id == undefined &&
+      contactBillingModel.language_correspondance
+    ) {
+      let tempLangugae: IIdTextLabel = this._baseService.getEmptyIIdTextLabel();
+      tempLangugae._id = String(contactBillingModel.language_correspondance);
+      contactBillingModel.language_correspondance = tempLangugae;
     }
   }
 }

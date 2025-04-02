@@ -1,5 +1,7 @@
 export const CANADA: string = 'CA';
+export const CANADAOLD: string = 'CAN';
 export const USA: string = 'US';
+export const USAOLD: string = 'USA';
 export const ENGLISH: string = 'en';
 export const FRENCH: string = 'fr';
 export const YES: string = 'yes';
