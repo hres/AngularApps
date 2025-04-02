@@ -59,6 +59,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
   
               this.recordFormArray.push(group);
             });
+            this.listService.setMaxId(recordData.length);
           }
       } else {
         if (!this.isInternal) {
