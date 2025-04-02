@@ -21,6 +21,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
   @Output() rolesUpdated = new EventEmitter<CheckboxOption[]>();
+  @Output() removeRoleError = new EventEmitter();
   
   helpIndex: HelpSequence;
 
@@ -124,7 +125,10 @@ export class CompanyAddressItemComponent extends BaseComponent{
     const prefixToDelete = this.cRRow.get('recordId').value.toString();
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
-    rolesToRemove.forEach(role => this._signalService.removeAddressCompanyRole(role));
+    rolesToRemove.forEach(role => 
+      {
+        this._signalService.removeAddressCompanyRole(role)
+      });
     this.deleteRecord.emit(index);
     this.cRRow.markAsPristine();
   }
@@ -148,6 +152,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
       this._signalService.updateAddressCompanyRoles(uniqueRole);
     } else {
       this._signalService.removeAddressCompanyRole(uniqueRole);
+      this.removeRoleError.emit({ id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
     }
 
     // Attach validation to the specific role
