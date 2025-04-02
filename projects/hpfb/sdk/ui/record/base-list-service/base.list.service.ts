@@ -29,6 +29,10 @@ export abstract class BaseListService implements IListService {
     return maxId + 1;
   }
 
+  setMaxId(value : number): void {
+    this.idCount = value;
+  }
+
   getId(): number {
     this.idCount += 1;
     return this.idCount;
