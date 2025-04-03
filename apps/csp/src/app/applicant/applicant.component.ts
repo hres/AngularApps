@@ -36,6 +36,7 @@ export class ApplicantComponent
   languageList: ICode[] = [];
   provinceList: ICode[] = [];
   countryList: ICode[] = [];
+  stateList: ICode[] = [];
 
   helpIndex: HelpSequence;
   @Input() showErrors: boolean;
@@ -83,6 +84,7 @@ export class ApplicantComponent
     this.languageList = this._globalService.languageList;
     this.provinceList = this._globalService.provinceList;
     this.countryList = this._globalService.countryList;
+    this.stateList = this._globalService.stateList;
 
     if (!this.applicantInformationForm) {
       this.applicantInformationForm =

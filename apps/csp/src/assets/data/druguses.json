@@ -1,12 +1,12 @@
 [
   {
       "id": "1",
-      "en": "Human",
-      "fr": "Humain"
+      "en": "HUMAN",
+      "fr": "HUMAIN"
   },
   {
       "id": "2",
-      "en": "Veterinary",
+      "en": "VETERINARY",
       "fr": "Vétérinaire"
   }
 

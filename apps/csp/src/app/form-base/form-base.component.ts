@@ -626,22 +626,25 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private convertAddress(addressModel: INameAddress) {
     if (addressModel.country._id == undefined && addressModel.country.__text) {
       //it is to handle address in old form.
-      let isUSORCANADA: boolean = true;
-      if (addressModel.country.__text === 'CAN') {
-        addressModel.country._id = CANADA;
-      } else if (addressModel.country.__text === 'USA') {
-        addressModel.country._id = USA;
-      } else {
-        isUSORCANADA = false;
+
+      let newCountry = this._globalService.countryIdMappingList.find(
+        (item) => item.id === addressModel.country.__text
+      );
+      if (newCountry != null) {
+        addressModel.country._id = newCountry.newid;
       }
-      let provinceLov = String(addressModel.province_lov);
-      if (isUSORCANADA) {
+
+      if (
+        addressModel.country._id === 'CA' ||
+        addressModel.country._id === 'US'
+      ) {
+        let provinceLov = String(addressModel.province_lov);
         let tempProvince: IIdTextLabel =
           this._baseService.getEmptyIIdTextLabel();
         tempProvince._id = provinceLov;
         addressModel.province_lov = tempProvince;
       } else {
-        addressModel.province_text = provinceLov;
+        addressModel.province_text = addressModel.province_text;
       }
     }
   }
