@@ -150,17 +150,24 @@ export class CompanyAddressItemComponent extends BaseComponent{
     // Update signal array
     if (isChecked) {
       this._signalService.updateAddressCompanyRoles(uniqueRole);
+      if (this.isRoleAlreadySelected(selectedRole)) {
+        roleControl.setErrors({ 'error.msg.roleSelected': true });
+      }
     } else {
       this._signalService.removeAddressCompanyRole(uniqueRole);
       this.removeRoleError.emit({ id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
+      roleControl.setErrors(null); // Remove error if valid
+
     }
 
     // Attach validation to the specific role
-    if (this.isRoleAlreadySelected(selectedRole)) {
-      roleControl.setErrors({ 'error.msg.roleSelected': true });
-    } else {
-      roleControl.setErrors(null); // Remove error if valid
-    }
+    // if (this.isRoleAlreadySelected(selectedRole)) {
+    //   console.log("selected");
+    //   roleControl.setErrors({ 'error.msg.roleSelected': true });
+    // } else {
+    //   console.log("remove error")
+    //   roleControl.setErrors(null); // Remove error if valid
+    // }
 
     console.log(this._signalService.getSelectedAddressCompanyRoles()());
     this.cdRef.detectChanges();
