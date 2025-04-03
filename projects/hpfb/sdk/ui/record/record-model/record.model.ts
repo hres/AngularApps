@@ -4,6 +4,7 @@ export interface RecordFormGroup extends OutputRecord, FormGroup {
     expandFlag: boolean;
     lastSavedState: any;
     recordInfo: FormGroup;
+    recordId: number;
 }
 export interface OutputRecord {
     id: number;

@@ -43,6 +43,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
   
       if (recordData && recordData.length !== 0) {
           if (recordData.length > 0) {
+            let maxId = -1;
             recordData.forEach((record, index) => {
               const group = this.recordService.createRecordFormGroup(this._fb);
   
@@ -58,8 +59,10 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
               this._patchLastSavedStateValue(group.controls['lastSavedState'], record);
   
               this.recordFormArray.push(group);
+              // Parse the ID as a number and update maxId if necessary
+              maxId = Math.max(Number(record.id), maxId);
             });
-            this.listService.setMaxId(recordData.length);
+            this.listService.setMaxId(maxId);
           }
       } else {
         if (!this.isInternal) {
