@@ -122,7 +122,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   public deleteAddressRecord(index: number): void {
     this._errNotifService.updateErrorSummary(ADDRESS_ERROR_PREFIX + this.cRRow.get('id').value, null);
     // Find roles that need to be removed
-    const prefixToDelete = this.cRRow.get('recordId').value.toString();
+    const prefixToDelete = this.cRRow.get('id').value === -1? this.cRRow.get('recordId').value.toString() : this.cRRow.get('id').value;
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
     rolesToRemove.forEach(role => 
@@ -146,7 +146,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   
     // Get the specific form control using index
     const roleControl = this.companyRolesChkFormArray.at(index);
-    const uniqueRole = this.cRRow.get('recordId').value + selectedRole;
+    const uniqueRole = this.cRRow.get('id').value === -1 ? this.cRRow.get('recordId').value + selectedRole : this.cRRow.get('id').value + selectedRole;
     // Update signal array
     if (isChecked) {
       this._signalService.updateAddressCompanyRoles(uniqueRole);

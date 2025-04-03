@@ -20,7 +20,7 @@ export class CompanyContactService implements IRecordService{
     
         return fb.group({
             id: -1,
-            recordId: -1,
+            recordId: -1, // Used to assign an id to record when it's first created
             isNew: true,
             expandFlag: true,
             lastSavedState: null, // store the last saved state of the contactInfo for reverting function
