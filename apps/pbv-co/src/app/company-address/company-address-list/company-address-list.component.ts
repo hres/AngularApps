@@ -105,6 +105,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
       
       if (itemRole === role && idMatch !== recordId) {
         id = Number(idMatch?.[1]); // Return the number as a number type
+        break;
       }
     }
 
@@ -117,7 +118,9 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
       if (formGroupWithId) {
         let addressRoles = formGroupWithId.get('addressInfo.addressCompanyRoles') as FormArray;
         const roleControl = addressRoles.at(roleIndex);
-        roleControl.setErrors(null);
+        if (roleControl.errors) {
+          roleControl.setErrors(null);
+        }
       }
     }
   }

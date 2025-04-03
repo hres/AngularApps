@@ -278,15 +278,31 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // this.addressModel = trans.regulatory_activity_address;
     // this.contactModel = trans.regulatory_activity_contact;
     const tAddresses = companyEnrol.address_record;
-    this.addressListModel = Array.isArray(tAddresses) ? tAddresses : [tAddresses];
+    const tAddressesArray = Array.isArray(tAddresses) ? tAddresses : [tAddresses];
+    this.addressListModel = companyEnrol.software_version < this._globalService.appVersion? this._mapAddressIdToId(tAddressesArray) : tAddressesArray;
     if (this._utilsService.isEmpty(tAddresses)) {
       this.addressListModel = [];
     }
     const tContacts = companyEnrol.contact_record;
-    this.contactListModel = Array.isArray(tContacts) ? tContacts : [tContacts];
+    const tContactsArray = Array.isArray(tContacts) ? tContacts : [tContacts];
+    this.contactListModel = companyEnrol.software_version < this._globalService.appVersion? this._mapContactIdToId(tContactsArray) : tContactsArray;
     if (this._utilsService.isEmpty(tContacts)) {
       this.contactListModel = [];
     }
+  }
+
+  _mapAddressIdToId(addressArray: any): AddressRecord[] {
+    return addressArray.map(({ address_id, ...rest }) => ({
+      id: address_id,  // Rename address_id to id
+      ...rest          // Keep the remaining properties
+    }));
+  }
+
+  _mapContactIdToId(contactArray : any): ContactRecord[] {
+    return contactArray.map(({ contact_id, ...rest }) => ({
+      id: contact_id,  // Rename contact_id to id
+      ...rest          // Keep the remaining properties
+    }));
   }
 
   @HostListener('window:beforeunload', ['$event'])
