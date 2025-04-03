@@ -20,8 +20,10 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   @Input() languageList;
   @Input() contactType;
   @Input() contactGroupLabelKey;
-  @Input() formGroup?: FormGroup;
   @Output() errorList = new EventEmitter(true);
+
+  @Input() formGroup?: FormGroup;
+  @Input() recordId?: number | null = null;
 
   constructor(private _contactDetailsService: ContactDetailsService, private _fb: FormBuilder, private _utilsService: UtilsService) {
     super();

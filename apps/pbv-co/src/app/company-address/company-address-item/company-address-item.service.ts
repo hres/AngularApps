@@ -97,7 +97,7 @@ export class CompanyAddressItemService {
       }
 
       selectedCompanyRoles.forEach(role => {
-        this._signalService.updateAddressCompanyRoles(`${id - 1}${role}`);
+        this._signalService.updateAddressCompanyRoles(`${id}${role}`);
       });    
     }
 

@@ -10,19 +10,20 @@
         [lang]="lang"
         [languageList]="languageList"
         [formGroup]="contactDetailsFormGroup"
+        [recordId]="j"
         (errorList)="processContactErrors($event)"> 
         </pbv-contact-details>
 
       <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <fieldset class="chkbxrdio-grp" id="companyRoles">
+        <fieldset class="chkbxrdio-grp" id="contactCompanyRoles{{j}}">
           <legend class="required">
             <span class="field-name">{{'select.roles.rep' | translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
                             [showError]="showErrors"
                             [control]="companyRolesChkFormArray | formControl"
-                            controlId="companyRoles" label="select.roles.rep"
+                            controlId="contactCompanyRoles{{j}}" label="select.roles.rep"
                             parentId="companyContact"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">
@@ -37,7 +38,7 @@
                 <control-messages *ngIf="reason.invalid"
                 [showError]="showErrors"
                 [control]="reason | formControl"
-                [controlId]="'contactRole-' + i"
+                [controlId]="'contactRole' + j + '-' + i"
                 [label]="representativeRolesOptionList[i].label"
                 parentId="coContact">
                 </control-messages>

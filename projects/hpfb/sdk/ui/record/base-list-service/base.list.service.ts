@@ -5,6 +5,7 @@ import { IListService } from "./base.list.service.interface";
 export abstract class BaseListService implements IListService {
 
   protected list: FormGroup[];
+  protected idCount: number = 0;
 
   setList(list: FormGroup[]): void {
     this.list = list;
@@ -26,5 +27,14 @@ export abstract class BaseListService implements IListService {
   
     // Increment the maximum ID to get the next available ID
     return maxId + 1;
+  }
+
+  setMaxId(value : number): void {
+    this.idCount = value;
+  }
+
+  getId(): number {
+    this.idCount += 1;
+    return this.idCount;
   }
 }

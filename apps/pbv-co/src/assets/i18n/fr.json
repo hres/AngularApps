@@ -40,7 +40,6 @@
     "prod.line": "Sélectionnez un ou plusieurs des cadres réglementaires suivants en vertu duquel/desquels le fabricant/promoteur pourrait déposer une présentation/demande (cochez toutes les cases qui s’appliquent) :",
     "prod.line.title": "Sélectionnez un ou plusieurs des cadres réglementaires suivants",
     "ht.prod.line": "Veuillez noter qu'il ne peut toujours y avoir qu'une seule adresse et un seul représentant de la compagnie par rôle, même si la compagnie dépose des présentations ou des demandes en vertu des deux cadres réglementaires. Il ne peut pas y avoir plus d'un CO distincts pour la même compagnie.",
-    "label.prod.line": "Ligne de produits",
     "mailto.label": "Soumettre à Santé Canada",
 
     "heading.company.address":"Détails d'adresse {{seqnumber}}",
@@ -101,7 +100,6 @@
     "mailto.07": "Corps : L’ébauche de fichier CO XML est jointe.",
     "mailto.08": "Pièce jointe : Ébauche de fichier CO XML.",
     "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité.",
-    "label.consent.privacy": "Consentement de confidentialité",
 
     "email.subject": "Unité des renseignements sur le client",
     "email.to": "(client.information@hc-sc.gc.ca)",

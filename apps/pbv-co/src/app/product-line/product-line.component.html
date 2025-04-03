@@ -11,7 +11,7 @@
                     <control-messages *ngIf="productLineChkFormArray.invalid"
                             [showError]="showErrors"
                             [control]="productLineChkFormArray | formControl"
-                            controlId="productLineForm" label="label.prod.line"
+                            controlId="{{productLineOptionList[0].value}}" label="prod.line"
                             parentId="productLineForm"></control-messages>
                 </legend>
                 <ul class="form-group list-unstyled">

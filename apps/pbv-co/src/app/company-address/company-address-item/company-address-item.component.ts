@@ -42,6 +42,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   errors = [];
 
   private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
+  private selectedRoles : string[];
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
@@ -120,7 +121,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   public deleteAddressRecord(index: number): void {
     this._errNotifService.updateErrorSummary(ADDRESS_ERROR_PREFIX + this.cRRow.get('id').value, null);
     // Find roles that need to be removed
-    const prefixToDelete = index.toString();
+    const prefixToDelete = this.cRRow.get('recordId').value.toString();
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
     rolesToRemove.forEach(role => this._signalService.removeAddressCompanyRole(role));
@@ -141,7 +142,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   
     // Get the specific form control using index
     const roleControl = this.companyRolesChkFormArray.at(index);
-    const uniqueRole = this.j + selectedRole;
+    const uniqueRole = this.cRRow.get('recordId').value + selectedRole;
     // Update signal array
     if (isChecked) {
       this._signalService.updateAddressCompanyRoles(uniqueRole);
@@ -155,6 +156,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
     } else {
       roleControl.setErrors(null); // Remove error if valid
     }
+
+    console.log(this._signalService.getSelectedAddressCompanyRoles()());
+    this.cdRef.detectChanges();
     //this._appendErrorsFromChild(); // Update errors for company roles here
   }
 

@@ -43,12 +43,13 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
   
       if (recordData && recordData.length !== 0) {
           if (recordData.length > 0) {
-            recordData.forEach(record => {
+            recordData.forEach((record, index) => {
               const group = this.recordService.createRecordFormGroup(this._fb);
   
               // Set values after defining the form controls
               group.patchValue({
                 id: record.id,
+                recordId: index + 1,
                 isNew: false,
                 expandFlag: false,
               });
@@ -58,10 +59,14 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
   
               this.recordFormArray.push(group);
             });
+            this.listService.setMaxId(recordData.length);
           }
       } else {
         if (!this.isInternal) {
             const group = this.recordService.createRecordFormGroup(this._fb);
+            group.patchValue({
+                recordId: this.listService.getId()
+            })
             this.recordFormArray.push(group);
             const firstFormRecord = this.recordFormArray.at(0) as FormGroup;
             firstFormRecord.controls['expandFlag'].setValue(true);
@@ -78,6 +83,9 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
 
     addRecord(): void {
         const group = this.recordService.createRecordFormGroup(this._fb);
+        group.patchValue({
+            recordId: this.listService.getId()
+        })
         this.recordFormArray.push(group);    
     }
 
