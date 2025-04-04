@@ -49,11 +49,11 @@ export class CompanyAddressItemService {
       return [selectedRoles, rolesArray];
     }
 
-    public mapFormModelToDataModel(contactFormGroup : FormGroup, addressOutput : AddressRecord)  
+    public mapFormModelToDataModel(addressFormGroup : FormGroup, addressOutput : AddressRecord)  
     {   
-      addressOutput.id = contactFormGroup['id'];
+      addressOutput.id = addressFormGroup['id'];
 
-      const companyInfoFormGroup = contactFormGroup['addressInfo'];
+      const companyInfoFormGroup = addressFormGroup['addressInfo'];
       addressOutput.company_name = companyInfoFormGroup['companyName'];
       addressOutput.business_number = companyInfoFormGroup['businessNum'];
       if (companyInfoFormGroup['selectedAddressCompanyRoles']) {

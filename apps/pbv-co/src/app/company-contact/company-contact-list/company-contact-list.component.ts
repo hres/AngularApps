@@ -37,6 +37,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
               private _contactDetailsService: ContactDetailsService,
               private _errorNotifService: ErrorNotificationService,
               private _companyContactItemService: CompanyContactItemService,
+              private _signalService: AppSignalService,
               companyContactListService: CompanyContactListService) {
     super(fb, companyContactListService);
     this.recordService = this._contactService;
@@ -87,6 +88,44 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   handleRolesUpdated(updatedRoles: CheckboxOption[]) {
     this.companyRolesOptionList = updatedRoles;
+  }
+
+  handleRemoveRoleError(event : any) {
+    // event: unchecked role
+    const recordId = event.id;
+    const role = event.role;
+    const roleIndex = event.roleIndex;
+    let id = null;
+
+    // Check if there are any other records with the same role that's been unchecked,
+    // If so, clear the errors
+
+    // Look for other records that has the same role as the role that has been unchecked
+    const currentRolesArray = this._signalService.getSelectedContactCompanyRoles()();
+    for (const item of currentRolesArray) {
+      const idMatch = item.match(/^(\d+)/); // Extract the number (prefix)
+      const itemRole = item.replace(/^\d+/, ''); // Extract role type
+
+      if (itemRole === role && idMatch !== recordId) {
+        id = Number(idMatch?.[1]); // Return the number as a number type
+        break;
+      }
+    }
+
+    // If id has been found, find FormGroup with matching recordId. Set role's errors to null
+    if (id) {
+      const formGroupWithId = this.recordFormArray.controls.find(
+        (group) => group.get('recordId')?.value === id
+      ) as FormGroup | undefined;
+
+      if (formGroupWithId) {
+        let contactRoles = formGroupWithId.get('companyInfo.companyRoles') as FormArray;
+        const roleControl = contactRoles.at(roleIndex);
+        if (roleControl.errors) {
+          roleControl.setErrors(null);
+        }
+      }
+    }
   }
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
