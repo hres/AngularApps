@@ -24,6 +24,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
   @Output() rolesUpdated = new EventEmitter<CheckboxOption[]>();
+  @Output() removeRoleError = new EventEmitter();
 
   lang = this._globalService.currLanguage;
   languageList: ICode[] = [];
@@ -103,7 +104,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   public deleteContactRecord(index: number): void {
     this._errNotifService.updateErrorSummary(CONTACT_ERROR_PREFIX + this.cRRow.get('id').value, null);
     // Find roles that need to be removed
-    const prefixToDelete = this.cRRow.get('recordId').value.toString();
+    const prefixToDelete = this.cRRow.get('id').value === -1? this.cRRow.get('recordId').value.toString() : this.cRRow.get('id').value;
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
     rolesToRemove.forEach(role => this._signalService.removeContactCompanyRole(role));
@@ -133,20 +134,17 @@ export class CompanyContactItemComponent extends BaseComponent{
   
     // Get the specific form control using index
     const roleControl = this.companyRolesChkFormArray.at(index);
-    const uniqueRole = this.cRRow.get('recordId').value + selectedRole;
+    const uniqueRole = this.cRRow.get('id').value === -1 ? this.cRRow.get('recordId').value + selectedRole : this.cRRow.get('id').value + selectedRole;
     // Update signal array
     if (isChecked) {
-      this._signalService.updateContactCompanyRoles(uniqueRole);
+      this._signalService.updateContactCompanyRoles(uniqueRole);if (this.isRoleAlreadySelected(selectedRole)) {
+        roleControl.setErrors({ 'error.msg.roleSelected': true });
+      } 
     } else {
       this._signalService.removeContactCompanyRole(uniqueRole);
-    }
-  
-    // Attach validation to the specific role
-    if (this.isRoleAlreadySelected(selectedRole)) {
-      roleControl.setErrors({ 'error.msg.roleSelected': true });
-    } else {
+      this.removeRoleError.emit({id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
       roleControl.setErrors(null); // Remove error if valid
-    } 
+    }
 
     this.cdRef.detectChanges();
     //this._appendErrorsFromChild(); // Update errors for company roles here

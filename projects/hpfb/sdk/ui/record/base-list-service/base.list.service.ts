@@ -29,6 +29,7 @@ export abstract class BaseListService implements IListService {
     return maxId + 1;
   }
 
+  // These are id's are used for keeping track of recordId - used for prefixes on global variables accross records
   setMaxId(value : number): void {
     this.idCount = value;
   }
