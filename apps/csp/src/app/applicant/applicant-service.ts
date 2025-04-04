@@ -135,13 +135,4 @@ export class ApplicantService {
     //}
   }
 
-  public getEmptyIIdTextLabel(): IIdTextLabel {
-    const iIdTextLabel: IIdTextLabel = {
-      _id: '',
-      __text: '',
-      _label_en: '',
-      _label_fr: '',
-    };
-    return iIdTextLabel;
-  }
 }
