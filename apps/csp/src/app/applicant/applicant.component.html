@@ -44,21 +44,21 @@
                 </label>
             </div>
         </div>
-        
+
         <legend class="ng-binding">
             {{"applicant.contact.info" | translate}}
         </legend>
 
-        <pbv-contact-details [showErrors]="showErrors" 
+        <pbv-contact-details [showErrors]="showErrors"
         [contactDetailsModel]="applicantContactModel"
                 [lang]="lang"
                 [languageList]="languageList"
                 (errorList)="processContactErrors($event)"
-                [contactType]="applicant" 
+                [contactType]="applicant"
                 [contactGroupLabelKey]="'label.applicant'">
         </pbv-contact-details>
 
-        <pbv-address-details [showErrors]="showErrors" 
+        <pbv-address-details [showErrors]="showErrors"
                 [addressModel]="applicantAddressModel"
                 [lang]="lang"
                 [provinceList]="provinceList"
@@ -97,7 +97,7 @@
                     </div>
                 </div>
 
-                <pbv-contact-details [showErrors]="showErrors" 
+                <pbv-contact-details [showErrors]="showErrors"
                         [contactDetailsModel]="billingContactModel"
                         [lang]="lang"
                         [languageList]="languageList"
@@ -105,11 +105,12 @@
                         [contactType]="billing" [contactGroupLabelKey]="'label.billing'">
                 </pbv-contact-details>
 
-                <pbv-address-details [showErrors]="showErrors" 
+                <pbv-address-details [showErrors]="showErrors"
                         [addressModel]="billingAddressModel"
                         [lang]="lang"
                         [provinceList]="provinceList"
                         [countryList]="countryList"
+                        [stateList]="stateList"
                         [canadaDefault]="false"
                         (errorList)="processBillingAddressErrors($event)"
                         [addrType]="billing" [addrGroupLabelKey]="'label.billing'">
