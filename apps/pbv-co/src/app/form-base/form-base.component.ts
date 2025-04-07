@@ -399,9 +399,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     let emailSubject = '';
     let body = ''; 
 
-    const companyEnrolmentFormGroupValue = this.companyEnrolmentComponent.getFormValue();
-    const companyId = companyEnrolmentFormGroupValue.companyId;
-
     let addressFormArrayValue = null;
     if (this.companyAddressListComponent.recordFormArray) {
       addressFormArrayValue = this.companyAddressListComponent.recordFormArray.value;
@@ -414,7 +411,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     body = await lastValueFrom(this._translateService.get('email.body'));
     let email = this.submitToEmail.replace(/[()]/g, '').trim();
 
-    emailSubject = emailDraft + ((companyName === null || companyName === '') ? '[company name]' : companyName) + ' ' + ((companyId === '') ? ' ' : ' - ' + companyId); body = body;
+    emailSubject = emailDraft + ((companyName === null || companyName === '') ? '[company name]' : companyName) + ' ' + ((this.companyEnrolModel.company_id === '') ? ' ' : ' - ' + this.companyEnrolModel.company_id); body = body;
  
     this.mailToLink = `mailto:${email}?subject=${emailSubject}&body=${body}`;
   }
