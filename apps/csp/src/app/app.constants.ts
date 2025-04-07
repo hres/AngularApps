@@ -4,7 +4,8 @@ export const START_CHECKSUM_VERSION = 2;
 
 export const DATA_PATH: string = './assets/data/';
 
-export const FILE_OUTPUT_PREFIX = 'CSP';
+export const FILE_OUTPUT_PREFIX = 'hccsp';
+export const FILE_OUTPUT_SEPERATOR = '-';
 
 export const HELP_FOOTNOTE_PREFIX = 'tr';
 export const HELP_FOOTNOTE_SUFFIX = '-rf';

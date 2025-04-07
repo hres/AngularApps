@@ -34,6 +34,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import {
   FILE_OUTPUT_PREFIX,
+  FILE_OUTPUT_SEPERATOR,
   ROOT_TAG,
   START_CHECKSUM_VERSION,
   VERSION_TAG_PATH,
@@ -172,6 +173,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public feePaymentModel: FeeDetails;
   public attestationModel: IAttestationInfomation;
   public cspiModel: ICspInfomation;
+  private fileName:string;
 
   constructor(
     private _fb: FormBuilder,
@@ -202,9 +204,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
 
       this.transactionEnrollModel = this.enrollModel[this.rootTagText];
-      // this.transactionEnrollModel.applicant[0] = this._baseService.getEmptyApplicant();
-      // this.transactionEnrollModel.applicant[1] = this._baseService.getEmptyApplicant();
-      // console.log('oninit', JSON.stringify(this.transactionEnrollModel, null, 2));
 
       this._initModels(this.transactionEnrollModel);
 
@@ -220,6 +219,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+
     document.location.href = '#def-top';
 
     this.msgList.changes.subscribe((errorObjs) => {
@@ -235,24 +235,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processErrors() {
     // console.log('@@@@@@@@@@@@ processErrors');
     this.errorList = [];
-    // concat the error arrays
-    // this.errorList = this.errorList.concat(this._regulatoryInfoErrors);
-
-    // if (this.showContact()) {
-    //   this.errorList = this.errorList.concat(
-    //     this._addressErrors.concat(this._contactErrors)
-    //   );
-    //   if(!this.notApplicable)
-    //     this.errorList = this.errorList.concat(
-    //       this._agentAddressErrors.concat(this._agentContactErrors)
-    //     );
-    //   this.errorList = this.errorList.concat(this._contactConfirmError);
-    // }
-
-    // if (this.showFee()) {
-    //   this.errorList = this.errorList.concat(this._transFeeErrors);
-    // }
-
     this.errorList = this.errorList.concat(this._applicantErrors);
     this.errorList = this.errorList.concat(this._patentInformationErrors);
     this.errorList = this.errorList.concat(this._newDrugSubmissionInfoErrors);
@@ -323,30 +305,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  // processContactErrors(errorList) {
-  //   this._contactErrors = errorList;
-  //   this.processErrors();
-  // }
 
-  // processTransFeeErrors(errorList) {
-  //   this._transFeeErrors = errorList;
-  //   this.processErrors();
-  // }
-
-  // processAddressErrors(errorList) {
-  //   this._addressErrors = errorList;
-  //   this.processErrors();
-  // }
-
-  // processAgentAddressErrors(errorList) {
-  //   this._agentAddressErrors = errorList;
-  //   this.processErrors();
-  // }
-
-  // processAgentContactErrors(errorList) {
-  //   this._agentContactErrors = errorList;
-  //   this.processErrors();
-  // }
 
   public hideErrorSummary() {
     return this.showErrors && this.errorList && this.errorList.length > 0;
@@ -360,9 +319,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public saveWorkingCopyFile() {
     const result: Transaction = this._prepareForSaving(false);
-    const fileName = this._generateFileName(result[ROOT_TAG]);
-    this.fileServices.saveJsonToFile(result, fileName, null);
-    this.saveWorkCopyTime = Date.now();
+    const fileName = this._generateFileName(result.TRANSACTION_ENROL.enrolment_version);
+      this.fileServices.saveJsonToFile(result, fileName, null);
+      this.saveWorkCopyTime = Date.now();
   }
 
   public processFile(fileData: ConvertResults) {
@@ -485,8 +444,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   _saveXML() {
     if (this.errorList && this.errorList.length < 1) {
-      const result: Transaction = this._prepareForSaving(true);
-      const fileName = this._generateFileName(result[ROOT_TAG]);
+      const result: Transaction = this._prepareForSaving(true) as Transaction;
+      const fileName = this._generateFileName(result.TRANSACTION_ENROL.enrolment_version);
       const xsltVersion =
         this._versionService.getApplicationMajorVersionWithUnderscore(
           this._globalService.appVersion
@@ -606,9 +565,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return output;
   }
 
-  private _generateFileName(transactionEnrol: TransactionEnrol): string {
-    let fileName = FILE_OUTPUT_PREFIX + '-' + transactionEnrol.date_saved;
-    return fileName;
+  private _generateFileName(enrolment_version:string): string {
+    let fileName = FILE_OUTPUT_PREFIX + FILE_OUTPUT_SEPERATOR + enrolment_version;
+    let newfielname = fileName.replace(".", FILE_OUTPUT_SEPERATOR);
+    return newfielname
   }
 
   public onChanged(e, controlName) {
