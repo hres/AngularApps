@@ -12,7 +12,7 @@ import {
   ViewChildren,
   ViewEncapsulation,
 } from '@angular/core';
-import { UtilsService, HelpSequence, BaseComponent, ICode } from '@hpfb/sdk/ui';
+import { UtilsService, HelpSequence, BaseComponent, ICode, IIdTextLabel } from '@hpfb/sdk/ui';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { ApplicantService } from './applicant-service';
@@ -20,6 +20,7 @@ import { AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
 import { IContact, INameAddress } from '@hpfb/pbv';
 import { ADDR_CONT_TYPE } from '../app.constants';
 import { IApplicant } from '../models/transaction';
+import { CANADA, USA } from '../../../../../projects/hpfb/sdk/ui/common.constants';
 
 @Component({
   selector: 'app-applicant',
@@ -85,7 +86,6 @@ export class ApplicantComponent
     this.countryList = this._globalService.countryList;
     this.stateList = this._globalService.stateList;
 
-
     if (!this.applicantInformationForm) {
       this.applicantInformationForm =
         ApplicantService.getApplicantInformationForm(this._fb);
@@ -119,7 +119,8 @@ export class ApplicantComponent
       if (changes['applicantModel']) {
         this.applicantModel = changes['applicantModel']
           .currentValue as IApplicant;
-        let billingModel2 = this.billingModel;
+
+          let billingModel2 = this.billingModel;
         if (changes['billingModel']) {
           billingModel2 = changes['billingModel'].currentValue as IApplicant;
         }
@@ -165,6 +166,10 @@ export class ApplicantComponent
 
   onBillingClick(event: any) {
     const checkbox = event.target as HTMLInputElement;
+    if( this.showBilling()){
+      this.billingModel = undefined;
+      this.applicantInformationForm.controls['isBillingDifferent'].value == false;
+    }
     if (checkbox) {
       this._appendChildAndParentErrors();
     }
@@ -212,4 +217,6 @@ export class ApplicantComponent
   getBillingContactFormValue() {
     return this.billingContact ? this.billingContact.getFormValue() : null;
   }
+
+
 }
