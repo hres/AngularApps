@@ -33,7 +33,8 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getPayMethodOptions(this._globalService.currLanguage),
     this._formDataLoader.getLanguageList(),
     this._formDataLoader.getAttestationAsApplicant(this._globalService.currLanguage),
-    this._formDataLoader.getAttestationAsSubmission(this._globalService.currLanguage)
+    this._formDataLoader.getAttestationAsSubmission(this._globalService.currLanguage),
+    this._formDataLoader.getCountryIdMapping(),
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -54,6 +55,7 @@ export class ContainerComponent implements OnInit {
       this._globalService.languageList = data[6];
       this._globalService.attestationAsApplicant = data[7];
       this._globalService.attestationAsSubmission = data[8];
+      this._globalService.countryIdMappingList = data[9];
       this.loadFormBaseComponent = true;
 
     });

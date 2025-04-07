@@ -35,7 +35,7 @@ export class GlobalService {
   private _languageList: ICode[];
   private _attestationAsApplicant: ICodeAria[] = [];
   private _attestationAsSubmission: ICodeAria[] = [];
-
+  private _countryIdMappingList: any[] = [];
   constructor(private instructionService: InstructionService) {}
 
   /**
@@ -203,7 +203,13 @@ export class GlobalService {
     }
 
 
+    public get countryIdMappingList(): any[] {
+      return this._countryIdMappingList;
+    }
 
+    public set countryIdMappingList(value: any[]) {
+      this._countryIdMappingList = value;
+    }
 
   /** Checking is date is fully filled out and between the years 1900 - 3000
    * @param event

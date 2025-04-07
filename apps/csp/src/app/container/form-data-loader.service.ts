@@ -7,7 +7,7 @@ import { DataLoaderService, ICode, ICodeAria, ICodeDefinition, IKeyword, IParent
 export class FormDataLoaderService {
 
   // private keywordsJsonPath = DATA_PATH + 'keywords.json';
-  private countriesJsonPath = DATA_PATH + 'countries.json';
+  private countriesJsonPath = DATA_PATH + 'csp_eucountries.json';
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
   private drugUseJsonPath = DATA_PATH + 'druguses.json';
@@ -16,6 +16,7 @@ export class FormDataLoaderService {
   private keywordsJsonPath = DATA_PATH + 'keywords.json';
   private AttestationJsonPath = DATA_PATH + 'attestation.json';
   private AttestationForSubmissionJsonPath = DATA_PATH + 'attestationASSubmission.json';
+  private countryMappingJsonPath = DATA_PATH + 'countryIdMapping.json';
 
   cachedLanguageList$:Observable<ICode[]>;
   cachedYesNo$:Observable<ICode[]>;
@@ -28,6 +29,7 @@ export class FormDataLoaderService {
   payMethodOptions$: Observable<ICode[]>;
   attestationAsApplicantOptions$: Observable<ICode[]>;
   attestationAsSubmissionOptions$: Observable<ICode[]>;
+  countryIdMapping$: Observable<any[]>;
   // mfUseOptions$: Observable<ICode[]>;
   // txDescs$: Observable<ICodeDefinition[]>;
   // mfTypeTxDescOptions$: Observable<IParentChildren[]>;
@@ -133,6 +135,19 @@ export class FormDataLoaderService {
       );
     return this.attestationAsSubmissionOptions$;
   }
+
+
+    //Temporary mapping for country code update from version 4.4.3 to 5.0.0, shall be removed in later releases
+    getCountryIdMapping(): Observable<any[]> {
+      if (!this.countryIdMapping$) {
+        this.countryIdMapping$ = this._dataService
+          .getData<any>(DATA_PATH + 'countryIdMapping.json')
+          .pipe(
+            shareReplay(1)
+          );
+      }
+      return this.countryIdMapping$;
+    }
 
 }
 

@@ -60,7 +60,7 @@ export class DrugUseService {
     let id: string = null;
     if (this.drugUseList != null && this.drugUseList.length > 0) {
       for (var drugUseElement of this.drugUseList) {
-        if (label === drugUseElement.en || label === drugUseElement.fr) {
+        if (label === drugUseElement.id ) {
           id = drugUseElement.id;
           break;
         }

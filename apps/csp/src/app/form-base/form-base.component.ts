@@ -27,6 +27,7 @@ import {
   ConvertResults,
   CHECK_SUM_CONST,
   ICode,
+  IIdTextLabel,
 } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -66,6 +67,10 @@ import { ApplicantComponent } from '../applicant/applicant.component';
 import { HcUseOnlyComponent } from '../health-canada-only/health-canada-only.component';
 import { AttestationComponent } from '../attestation/attestation.component';
 import { CertSuppProtectComponent } from '../cert-supp-protect/cert-supp-protect.component';
+import {
+  CANADA,
+  USA,
+} from '../../../../../projects/hpfb/sdk/ui/common.constants';
 
 @Component({
   selector: 'app-form-base',
@@ -368,7 +373,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public processFile(fileData: ConvertResults) {
     // console.log(fileData);
     if (fileData.data !== null) {
-      this.transactionEnrollModel = fileData.data.TRANSACTION_ENROL;
+      this.transactionEnrollModel =
+        fileData.data.CERTIFICATE_SUPPLEMENTARY_PROTECTION;
       this._initModels(this.transactionEnrollModel);
       // this.setSelectedTxDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
@@ -406,16 +412,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.transFeeModel = trans.advanced_payment;
     }
 
-    // this.applicantModel = null;
-    // this.billingModel = null;
-
     this.applicantModel = this._baseService.getEmptyApplicant();
-
-    // Initialize the applicant's contact and address models
-    //  for( let applicant of trans.applicant){
-    //   console.log(applicant.applicant_name);
-    //  }
-
     const singleApplicant = trans.applicant;
     console.log(Array.isArray(trans.applicant));
     if (!Array.isArray(trans.applicant)) {
@@ -594,13 +591,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     newTransactionEnrol.form_language = this._globalService.currLanguage;
 
     const output: Transaction = {
-      TRANSACTION_ENROL: newTransactionEnrol,
+      CERTIFICATE_SUPPLEMENTARY_PROTECTION: newTransactionEnrol,
     };
 
     if (xmlFile) {
       // add and calculate check_sum if it is xml
-      output.TRANSACTION_ENROL[CHECK_SUM_CONST] = ''; // this is needed for generating the checksum value
-      output.TRANSACTION_ENROL[CHECK_SUM_CONST] =
+      output.CERTIFICATE_SUPPLEMENTARY_PROTECTION[CHECK_SUM_CONST] = ''; // this is needed for generating the checksum value
+      output.CERTIFICATE_SUPPLEMENTARY_PROTECTION[CHECK_SUM_CONST] =
         this._checkSumService.createHash(output);
     }
 
@@ -617,6 +614,43 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public onChanged(e, controlName) {
     if (e?.target?.checked === false) {
       this.rtForm.controls[controlName].reset();
+    }
+  }
+
+  private convertAddress(addressModel: INameAddress) {
+    if (addressModel.country._id == undefined && addressModel.country.__text) {
+      //it is to handle address in old form.
+
+      let newCountry = this._globalService.countryIdMappingList.find(
+        (item) => item.id === addressModel.country.__text
+      );
+      if (newCountry != null) {
+        addressModel.country._id = newCountry.newid;
+      }
+
+      if (
+        addressModel.country._id === 'CA' ||
+        addressModel.country._id === 'US'
+      ) {
+        let provinceLov = String(addressModel.province_lov);
+        let tempProvince: IIdTextLabel =
+          this._baseService.getEmptyIIdTextLabel();
+        tempProvince._id = provinceLov;
+        addressModel.province_lov = tempProvince;
+      } else {
+        addressModel.province_text = addressModel.province_text;
+      }
+    }
+  }
+
+  private convertLanguage(contactBillingModel: IContact) {
+    if (
+      contactBillingModel.language_correspondance._id == undefined &&
+      contactBillingModel.language_correspondance
+    ) {
+      let tempLangugae: IIdTextLabel = this._baseService.getEmptyIIdTextLabel();
+      tempLangugae._id = String(contactBillingModel.language_correspondance);
+      contactBillingModel.language_correspondance = tempLangugae;
     }
   }
 }

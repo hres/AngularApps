@@ -2,7 +2,7 @@ import { IIdText, IIdTextLabel, ITextLabel } from "@hpfb/sdk/ui";
 import { INameAddress, IContact } from "@hpfb/pbv";
 
 export interface Transaction {
-  TRANSACTION_ENROL: TransactionEnrol;
+  CERTIFICATE_SUPPLEMENTARY_PROTECTION: TransactionEnrol;
 }
 
 export interface TransactionEnrol {
@@ -59,6 +59,7 @@ export interface LifecycleRecord {
 export interface FeeDetails {
   advanced_payment_fee: string;
   advanced_payment_type: string;
+  advanced_payment_ack: string;
 }
 
 export interface CertDetails {
