@@ -155,7 +155,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel: Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public certModel: CertDetails;
-  public ectdModel: Ectd;
   public hcUseModel: HcUse;
   public transFeeModel: FeeDetails;
   public applicantModel: IApplicant;
@@ -384,7 +383,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _initModels(trans: TransactionEnrol) {
-    this.ectdModel = trans.ectd;
     this.cspiModel = this._baseService.getCerSuppProtect();
     this.cspiModel.dateLastSaved = trans.date_saved;
     this.cspiModel.enrollVersion = trans.enrolment_version;
@@ -426,10 +424,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (trans.applicant && trans.applicant.length > 0) {
       const applicant = trans.applicant[0]; // Assuming the first applicant is the main applicant
       this.applicantModel = applicant;
-      this.convertAddress(this.applicantModel.address);
       if (trans.applicant[0].contact) {
         this.contactModel = trans.applicant[0].contact;
-        this.convertLanguage(this.contactModel);
       }
       if (trans.applicant[0].address) {
         this.addressModel = trans.applicant[0].address;
@@ -439,10 +435,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       if (trans.applicant.length > 1) {
         const billingApplicant = trans.applicant[1]; // Assuming the second applicant is the billing applicant
         this.billingModel = billingApplicant;
-        this.convertAddress(this.billingModel.address);
         if (billingApplicant.contact) {
           this.contactBillingModel = billingApplicant.contact;
-          this.convertLanguage(this.contactBillingModel);
         }
         if (billingApplicant.address) {
           this.addressBillingModel = billingApplicant.address;
