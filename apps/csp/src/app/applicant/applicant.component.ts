@@ -119,31 +119,10 @@ export class ApplicantComponent
       if (changes['applicantModel']) {
         this.applicantModel = changes['applicantModel']
           .currentValue as IApplicant;
-          // let isUSORCANADA: boolean = true;
-          // // this.applicantModel.address.country._id = this.applicantModel.address.country.__text;
-          // if(this.applicantModel.address.country.__text === 'CAN' ){
-          //   this.applicantModel.address.country._id = CANADA;
-          // }else if(this.applicantModel.address.country.__text === 'USA' ){
-          //   this.applicantModel.address.country._id = USA;
-          // }else{
-          //   isUSORCANADA = false;
-          // }
-          // let provinceLov = String( this.applicantModel.address.province_lov);
-          //  if(isUSORCANADA){
-          //  let tempProvince:IIdTextLabel = this._applicantService.getEmptyIIdTextLabel();
-          //  tempProvince._id=provinceLov;
-          //  this.applicantAddressModel.province_lov = tempProvince;
-          //  }else{
-          //  this.applicantAddressModel.province_text=provinceLov;
-          //  }
 
-        let billingModel2 = this.billingModel;
+          let billingModel2 = this.billingModel;
         if (changes['billingModel']) {
           billingModel2 = changes['billingModel'].currentValue as IApplicant;
-          // billingModel2.address.country._id = billingModel2.address.country.__text;
-          // this.billingAddressModel.province_lov._id='QC';
-          // this.billingAddressModel.province_lov._label_en='Quebec';
-          // this.billingAddressModel.province_lov._label_fr='Quebec';
         }
         this._applicantService.mapDataModelToFormModel(
           this.applicantModel,
@@ -187,6 +166,10 @@ export class ApplicantComponent
 
   onBillingClick(event: any) {
     const checkbox = event.target as HTMLInputElement;
+    if( this.showBilling()){
+      this.billingModel = undefined;
+      this.applicantInformationForm.controls['isBillingDifferent'].value == false;
+    }
     if (checkbox) {
       this._appendChildAndParentErrors();
     }

@@ -67,7 +67,7 @@ export class DrugUseComponent
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
     if (!this._utilsService.isFirstChange(changes)) {
       if (changes['drugUseModel']) {
-        this.drugUseService.mapDataModelToFormModel(
+         this.drugUseService.mapDataModelToFormModel(
           changes['drugUseModel'].currentValue,
           <FormGroup>this.drugUseForm
         );
