@@ -137,7 +137,6 @@ export class FormBaseService {
       software_version: '',
       form_language: '',
       check_sum: '',
-      ectd: this.getEmptyEctd(),
       health_canada_only: this.getEmptyHcUse(),
       applicant: this.getEmptyArrayOfApplicants(),
       application_info: this.getApplicationInformation(),
@@ -147,14 +146,6 @@ export class FormBaseService {
     };
 
     return TransactionEnrol;
-  }
-
-  private getEmptyEctd(): Ectd {
-    const ectd: Ectd = {
-      product_protocol: '',
-      lifecycle_record: this.getEmptyLifecycleRecord(),
-    };
-    return ectd;
   }
 
   private getEmptyHcUse(): HcUse {

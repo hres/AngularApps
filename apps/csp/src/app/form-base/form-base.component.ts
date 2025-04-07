@@ -122,7 +122,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(CertificationComponent)
   certificationComponent: CertificationComponent;
   @ViewChild(AttestationComponent) attestationComponent: AttestationComponent;
-  @ViewChild(CertSuppProtectComponent) certSuppProtectComponent: CertSuppProtectComponent;
+  @ViewChild(CertSuppProtectComponent)
+  certSuppProtectComponent: CertSuppProtectComponent;
 
   private _patentInformationErrors = [];
   private _drugUseErrors = [];
@@ -149,7 +150,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel: Transaction;
   public transactionEnrollModel: TransactionEnrol;
   public certModel: CertDetails;
-  public ectdModel: Ectd;
   public hcUseModel: HcUse;
   public transFeeModel: FeeDetails;
   public applicantModel: IApplicant;
@@ -377,15 +377,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _initModels(trans: TransactionEnrol) {
-    this.ectdModel = trans.ectd;
-    this.cspiModel= this._baseService.getCerSuppProtect();
-  this.cspiModel.dateLastSaved = trans.date_saved;
-  this.cspiModel.enrollVersion = trans.enrolment_version;
+    this.cspiModel = this._baseService.getCerSuppProtect();
+    this.cspiModel.dateLastSaved = trans.date_saved;
+    this.cspiModel.enrollVersion = trans.enrolment_version;
 
     if (trans.application_info != null) {
       this.attestationModel = this._baseService.getAttestation();
       this.drugUseModel = trans.application_info.drug_use;
-       this.patentModel = trans.application_info.patent_info;
+      this.patentModel = trans.application_info.patent_info;
       this.timingOfApplicantModel = trans.application_info.time_application;
       this.nocModel = trans.application_info.noc_date;
       this.newDrugSubmissionModel = trans.application_info.control_number;
@@ -402,7 +401,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.hcuseOnlyModel = trans.health_canada_only;
     this.feePaymentModel = trans.advanced_payment;
     this.certModel = trans.certification;
-
 
     if (trans.advanced_payment != null) {
       this.transFeeModel = trans.advanced_payment;
@@ -421,34 +419,33 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const singleApplicant = trans.applicant;
     console.log(Array.isArray(trans.applicant));
     if (!Array.isArray(trans.applicant)) {
-      const singleApplicant:IApplicant[]=[];
+      const singleApplicant: IApplicant[] = [];
       const objs = Object.entries(trans.applicant);
       singleApplicant.push(trans.applicant);
       trans.applicant = singleApplicant;
-
     }
-      if (trans.applicant && trans.applicant.length > 0) {
-        const applicant = trans.applicant[0]; // Assuming the first applicant is the main applicant
-        this.applicantModel = applicant;
-        if (trans.applicant[0].contact) {
-          this.contactModel = trans.applicant[0].contact;
-        }
-        if (trans.applicant[0].address) {
-          this.addressModel = trans.applicant[0].address;
-        }
+    if (trans.applicant && trans.applicant.length > 0) {
+      const applicant = trans.applicant[0]; // Assuming the first applicant is the main applicant
+      this.applicantModel = applicant;
+      if (trans.applicant[0].contact) {
+        this.contactModel = trans.applicant[0].contact;
+      }
+      if (trans.applicant[0].address) {
+        this.addressModel = trans.applicant[0].address;
+      }
 
-        // Initialize the billing contact and address models if available
-        if (trans.applicant.length > 1) {
-          const billingApplicant = trans.applicant[1]; // Assuming the second applicant is the billing applicant
-          this.billingModel = billingApplicant;
-          if (billingApplicant.contact) {
-            this.contactBillingModel = billingApplicant.contact;
-          }
-          if (billingApplicant.address) {
-            this.addressBillingModel = billingApplicant.address;
-          }
+      // Initialize the billing contact and address models if available
+      if (trans.applicant.length > 1) {
+        const billingApplicant = trans.applicant[1]; // Assuming the second applicant is the billing applicant
+        this.billingModel = billingApplicant;
+        if (billingApplicant.contact) {
+          this.contactBillingModel = billingApplicant.contact;
+        }
+        if (billingApplicant.address) {
+          this.addressBillingModel = billingApplicant.address;
         }
       }
+    }
   }
   public preload() {
     // console.log("Calling preload")
@@ -503,8 +500,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _prepareForSaving(xmlFile: boolean): Transaction {
     const newTransactionEnrol: TransactionEnrol =
       this._baseService.getEmptyTransactionEnrol();
-
-
 
     //get Patent information data
 
@@ -564,10 +559,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     );
 
     const applicantInfo = this.applicantComponent.getFormValue();
-    const applicantAddressFormGroupValue = this.applicantComponent.getApplicantAddressFormValue();
-    const applicantContactFormGroupValue = this.applicantComponent.getApplicantContactFormValue();
-    const billingAddressFormGroupValue =  this.applicantComponent.getBillingAddressFormValue();
-    const billingContactFormGroupValue =  this.applicantComponent.getBillingContactFormValue();
+    const applicantAddressFormGroupValue =
+      this.applicantComponent.getApplicantAddressFormValue();
+    const applicantContactFormGroupValue =
+      this.applicantComponent.getApplicantContactFormValue();
+    const billingAddressFormGroupValue =
+      this.applicantComponent.getBillingAddressFormValue();
+    const billingContactFormGroupValue =
+      this.applicantComponent.getBillingContactFormValue();
     this._baseService.mapApplicantInfoToOutput(
       newTransactionEnrol,
       applicantInfo,
@@ -585,7 +584,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.countryOptions
     );
 
-    this._baseService.mapCertificateOfSupplementaryProtectionFormsToOutput(newTransactionEnrol, this.cspiModel,this._baseService.certSuppProtectForm  );
+    this._baseService.mapCertificateOfSupplementaryProtectionFormsToOutput(
+      newTransactionEnrol,
+      this.cspiModel,
+      this._baseService.certSuppProtectForm
+    );
 
     newTransactionEnrol.software_version = this._globalService.appVersion;
     newTransactionEnrol.form_language = this._globalService.currLanguage;
