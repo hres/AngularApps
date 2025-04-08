@@ -41,7 +41,7 @@
           </h2>
           </header>
           <div class="panel-body">
-            <app-company-enrolment [showErrors]="showErrors" [dataModel]="companyEnrolModel" (errorList)="processCompanyEnrolmentErrors($event)" [isInternal]="isInternal"></app-company-enrolment>
+            <app-company-enrolment [showErrors]="showErrors" [dataModel]="companyEnrolModel" [disableForm]="disableForm"  (errorList)="processCompanyEnrolmentErrors($event)" (enableForm)="enableForm($event)" [isInternal]="isInternal"></app-company-enrolment>
 
             <section class="panel  panel-default">
               <header class="panel-heading clearfix">
@@ -52,7 +52,7 @@
                 </h3>
               </header>
               <div class="panel-body">
-                <app-company-address-list [recordList]="addressListModel" [showErrors]="showErrors" [isInternal]="isInternal" [earlyVersion]="isEarlyVersion()" (errorEmit)="processAddressListErrors($event)"></app-company-address-list>
+                <app-company-address-list [recordList]="addressListModel" [showErrors]="showErrors" [isInternal]="isInternal" [earlyVersion]="isEarlyVersion()" [disableForm]="disableForm" (errorEmit)="processAddressListErrors($event)"></app-company-address-list>
               </div>
             </section>
 
@@ -65,24 +65,23 @@
                 </h3>
               </header>
               <div class="panel-body">
-                <app-company-contact-list [recordList]="contactListModel" [showErrors]="showErrors" [isInternal]="isInternal" (errorEmit)="processContactListErrors($event)"></app-company-contact-list>
+                <app-company-contact-list [recordList]="contactListModel" [showErrors]="showErrors" [isInternal]="isInternal" [disableForm]="disableForm" (errorEmit)="processContactListErrors($event)"></app-company-contact-list>
               </div>
             </section>
-            <app-product-line [showErrors]="showErrors" [dataModel]="companyEnrolModel" (errorList)="processProductLineErrors($event)"></app-product-line>
+            <app-product-line [showErrors]="showErrors" [dataModel]="companyEnrolModel" [disableForm]="disableForm" (errorList)="processProductLineErrors($event)"></app-product-line>
           </div>
       </section>
-    </div>
-
-    <div *ngIf="!isInternal" class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <label for="certifyPrivacy" class="required">
-          <input type="checkbox" id="certifyPrivacy" [formControlName]="'certifyPrivacy'" (blur)="processErrors()" required/>
-          <strong> {{'consent.privacy'|translate}}</strong>
-          <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-          <control-messages *ngIf="coForm.controls['certifyPrivacy'].invalid" [showError]="showErrors" 
-              parentId="coForm" [control]="coForm.controls['certifyPrivacy'] | formControl"
-              controlId="certifyPrivacy" label="consent.privacy"></control-messages>
-        </label>
+      <div *ngIf="!isInternal" class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <label for="certifyPrivacy" class="required">
+            <input type="checkbox" id="certifyPrivacy" [formControlName]="'certifyPrivacy'" (blur)="processErrors()" required/>
+            <strong> {{'consent.privacy'|translate}}</strong>
+            <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+            <control-messages *ngIf="coForm.controls['certifyPrivacy'].invalid" [showError]="showErrors" 
+                parentId="coForm" [control]="coForm.controls['certifyPrivacy'] | formControl"
+                controlId="certifyPrivacy" label="consent.privacy"></control-messages>
+          </label>
+        </div>
       </div>
     </div>
 

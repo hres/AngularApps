@@ -21,6 +21,7 @@ export class ProductLineComponent extends BaseComponent implements OnInit{
   public productLineForm: FormGroup;
   @Input() showErrors: boolean;
   @Input() dataModel: CompanyEnrol;
+  @Input() disableForm: boolean;
   @Output() errorList = new EventEmitter(true);
   @Output() productUpdated = new EventEmitter<CheckboxOption[]>();
 
@@ -57,6 +58,12 @@ export class ProductLineComponent extends BaseComponent implements OnInit{
       if (!isFirstChange) {
         this._productLineService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getProductLineForm(), this.productLineCodeList,  this.productLineOptionList);
       }
+    }
+
+    if (this.disableForm) {
+      this.disableFormGroup();
+    } else {
+      this.enableFormGroup();
     }
   }
 
@@ -106,5 +113,17 @@ export class ProductLineComponent extends BaseComponent implements OnInit{
     }
     
     this.productUpdated.emit(this.productLineOptionList);
+  }
+
+  disableFormGroup() {
+    if (this.productLineForm) {
+      this.productLineForm.disable();
+    }
+  }
+
+  enableFormGroup() {
+    if (this.productLineForm) {
+      this.productLineForm.enable();
+    }
   }
 }

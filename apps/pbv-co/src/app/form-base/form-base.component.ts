@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild, signal, Signal, computed, effect, viewChild } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild, signal, Signal, computed, effect, viewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, HelpSequence, CHECK_SUM_CONST, PopupComponent } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -71,6 +71,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public startCheckSumVersionNum = START_CHECKSUM_VERSION;
 
   isStatusFinal: boolean = false;
+  disableForm: boolean = false;
 
   public mailToLabel = 'mailto.label';
   public disableMailto: boolean = false;
@@ -260,9 +261,24 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       } else {
         this.isStatusFinal = this.companyEnrolModel.application_type._id == ENROLMENT_STATUS.FINAL;
       }
+      this._disableForm();
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
       // this.agentInfoOnChange();
+    }
+  }
+
+  private _disableForm() {
+    if (this.isStatusFinal) {
+      this.disableForm = true;
+      this.coForm.disable();
+    }
+  }
+
+  enableForm(e : any) {
+    if (e) {
+      this.disableForm = false;
+      this.coForm.enable();
     }
   }
   
