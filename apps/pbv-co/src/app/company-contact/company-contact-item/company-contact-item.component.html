@@ -51,9 +51,9 @@
 
         <div class="row">
           <div class="btn-group-sm col-xs-12 text-left">          
-            <button id="saveCompanyRecord{{j}}" attr.aria-label="{{'save.contact' | translate}} {{'heading.company.contact' | translate: {seqnumber: j + 1} }}" class="btn btn-primary" style="margin: 3px" (click)="saveContactRecord(j)" >{{'save.contact'|translate}}</button>
-            <button id="deleteCompanyRecord{{j}}" attr.aria-label="{{'delete.contact' | translate}} {{ 'heading.company.contact' | translate: {seqnumber: j + 1} }}" class="btn btn-danger" style="margin: 3px"  (click)="deleteContactRecord(j)" >{{'delete.contact'|translate}}</button> <!--[disabled]="disableDeleteButton()"-->
-            <button id="revertCompanyRecord{{j}}" attr.aria-label="{{'discard.changes' | translate}} {{ 'heading.company.contact' | translate: {seqnumber: j + 1} }}" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()" (click)="revertContactRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>          
+            <button id="saveCompanyRecord{{j}}" attr.aria-label="{{'save.contact' | translate}} {{'heading.company.contact' | translate: {seqnumber: j + 1} }}" class="btn btn-primary" style="margin: 3px" (click)="saveContactRecord(j)" [disabled]="disableForm" >{{'save.contact'|translate}}</button>
+            <button id="deleteCompanyRecord{{j}}" attr.aria-label="{{'delete.contact' | translate}} {{ 'heading.company.contact' | translate: {seqnumber: j + 1} }}" class="btn btn-danger" style="margin: 3px"  (click)="deleteContactRecord(j)" [disabled]="disableForm" >{{'delete.contact'|translate}}</button> <!--[disabled]="disableDeleteButton()"-->
+            <button id="revertCompanyRecord{{j}}" attr.aria-label="{{'discard.changes' | translate}} {{ 'heading.company.contact' | translate: {seqnumber: j + 1} }}" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton() || disableForm" (click)="revertContactRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>          
           </div>
         </div>
     </div>
