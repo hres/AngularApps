@@ -553,6 +553,7 @@
     "select.file": "Sélectionnez un fichier à télécharger",
     "choose.file":"Choisir un fichier",
     "no.file.chosen": "Aucun fichier choisi",
+    "refresh.file.input": "Actualisez cette page",
     "attestation.date.of.first.marketing.approval.application": "Date de première demande pour une autorisation de vente",
     "attestation.country.of.first.marketing.approval.application": "Pays de première demande pour une autorisation de vente",
 
