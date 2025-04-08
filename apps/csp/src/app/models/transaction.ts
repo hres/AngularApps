@@ -12,7 +12,6 @@ export interface TransactionEnrol {
   software_version: string;
   form_language: string;
   check_sum?: string;
-  ectd: Ectd;
   health_canada_only: HcUse;
   applicant: IApplicant[];
   advanced_payment: FeeDetails;
