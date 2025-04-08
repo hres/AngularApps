@@ -92,7 +92,7 @@
         </button>
       </div>
       <div *ngIf="isInternal" class="form-group col-md-4">
-        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()">
+        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()" [disabled]="disableForm">
           {{'generate.final'|translate}}
         </button>
       </div>
