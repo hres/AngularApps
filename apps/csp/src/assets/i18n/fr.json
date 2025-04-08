@@ -535,8 +535,8 @@
     "billing.address": "Adresse de facturation",
     "bill.add.check": " Cocher ici pour saisir une adresse de facturation (si elle diffère des coordonnées du demandeur)",
     "bill.add.org": "Nom de l'organisme (dénomination sociale complète – ne pas utiliser d’abréviations)",
-    "label.applicant": "Demandeur",
-    "label.billing": "Facturation",
+    "label.applicant": "Renseignements sur le demandeur",
+    "label.billing": "Adresse de facturation",
 
     "msg.success.load": "Le fichier a été chargé avec succès",
     "msg.err.parseFail": "Erreur: il y a eu une erreur en analysant le fichier de travail.",
