@@ -17,6 +17,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   @Input() cRRow: FormGroup;
   @Input() j: number;
   @Input() showErrors: boolean;
+  @Input() disableForm: boolean;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
@@ -72,6 +73,12 @@ export class CompanyAddressItemComponent extends BaseComponent{
   ngOnChanges(changes: SimpleChanges) : void{
     if (changes['cRRow']) {
       this._updateCompanyRolesArray();
+    }
+    
+    if (this.disableForm) {
+      this.disableFormGroup();
+    } else {
+      this.enableFormGroup();
     }
   }
 
@@ -243,5 +250,13 @@ export class CompanyAddressItemComponent extends BaseComponent{
     }
 
     this.cdRef.detectChanges(); // Do change detection here to reactively update error summary
+  }
+
+  disableFormGroup() {
+    this.cRRow.disable();
+  }
+
+  enableFormGroup() {
+    this.cRRow.enable();
   }
 }

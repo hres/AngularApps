@@ -6,6 +6,7 @@ import { FormDataLoaderService } from '../../container/form-data-loader.service'
 import { GlobalService } from '../../global/global.service';
 import { AddressRecord } from '../../models/Company';
 import { AppSignalService } from '../../signal/app-signal.service';
+import { CompanyAddressItemComponent } from '../company-address-item/company-address-item.component';
 import { CompanyAddressItemService } from '../company-address-item/company-address-item.service';
 import { CompanyAddressService } from '../company-address.service';
 import { CompanyAddressListService } from './company-address-list.service';
@@ -28,6 +29,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   companyRolesOptionList: CheckboxOption[] = []; // Store received data
 
   @Input() earlyVersion;
+  @Input() disableForm : boolean;
   @Output() errorEmit = new EventEmitter(true);
 
   constructor(private fb: FormBuilder, 

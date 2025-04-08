@@ -23,7 +23,9 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   @Input() showErrors: boolean;
   @Input() dataModel: CompanyEnrol;
   @Input() isInternal: boolean;
+  @Input() disableForm: boolean;
   @Output() errorList = new EventEmitter(true);
+  @Output() enableForm = new EventEmitter(false);
 
   public disableAmendButton: boolean = true;
   public showAmendButton: boolean = false;
@@ -62,6 +64,12 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
         this._companyEnrolmentService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this._getCompanyEnrolmentForm());
       }
       this.activateAmendButton(dataModelCurrentValue);
+    }
+
+    if (this.disableForm) {
+      this.disableFormGroup();
+    } else {
+      this.enableFormGroup();
     }
   }
 
@@ -110,10 +118,23 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, ENROLMENT_STATUS.AMEND, enrolmentStatusesList, this.lang, true)
     this.showAmendNote = true;
     this._resetControlValues(["reasonForFiling"]);
+    this.enableForm.emit(true);
   }
 
   getFormValue() {
     return this.companyEnrolmentForm.value;
+  }
+
+  disableFormGroup() {
+    if (this.companyEnrolmentForm) {
+      this.companyEnrolmentForm.disable();
+    }
+  }
+
+  enableFormGroup() {
+    if (this.companyEnrolmentForm) {
+      this.companyEnrolmentForm.enable();
+    }
   }
 
   private _resetControlValues(controlNames: string[]) {

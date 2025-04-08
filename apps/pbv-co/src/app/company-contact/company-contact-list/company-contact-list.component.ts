@@ -30,6 +30,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   companyRolesOptionList: CheckboxOption[] = []; // Store received data
 
+  @Input() disableForm : boolean;
   @Output() errorEmit = new EventEmitter(true);
 
   constructor(private fb: FormBuilder, 
