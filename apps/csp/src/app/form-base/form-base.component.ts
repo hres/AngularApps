@@ -324,7 +324,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public saveWorkingCopyFile() {
     const result: Transaction = this._prepareForSaving(false);
-    const fileName = this._generateFileName(result.TRANSACTION_ENROL.enrolment_version);
+    const fileName = this._generateFileName(result.CERTIFICATE_SUPPLEMENTARY_PROTECTION.enrolment_version);
       this.fileServices.saveJsonToFile(result, fileName, null);
       this.saveWorkCopyTime = Date.now();
   }
@@ -439,7 +439,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   _saveXML() {
     if (this.errorList && this.errorList.length < 1) {
       const result: Transaction = this._prepareForSaving(true) as Transaction;
-      const fileName = this._generateFileName(result.TRANSACTION_ENROL.enrolment_version);
+      const fileName = this._generateFileName(result.CERTIFICATE_SUPPLEMENTARY_PROTECTION.enrolment_version);
       const xsltVersion =
         this._versionService.getApplicationMajorVersionWithUnderscore(
           this._globalService.appVersion
