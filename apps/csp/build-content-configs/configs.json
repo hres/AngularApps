@@ -2,20 +2,20 @@
     "date_issued": "2023-06-26",
     "server_base_url": {
         "external": {
-             "dev": "https://lam-dev.hres.ca/rep_test/certificate2023",
-             "prod": "https://health-products.canada.ca/forms/certificate2023"
+             "dev": "https://lam-dev.hres.ca/rep_test/certificate2025",
+             "prod": "https://health-products.canada.ca/forms/certificate2025"
        },
        "internal":{
-             "dev": "https://lam-dev.hres.ca/rep_test/certificate2023",
-             "prod": "https://lam-dev.hres.ca/REP-Form-Internal/certificate2023"
+             "dev": "https://lam-dev.hres.ca/rep_test/certificate2025",
+             "prod": "https://lam-dev.hres.ca/REP-Form-Internal/certificate2025"
 
        }
 
     },
     "index_file_name": {
       "external": {
-            "en": "certificate-supplementary-protection-form-2023.html",
-            "fr": "formulaire-certificat-protection-supplementaire-2023.html"
+            "en": "certificate-supplementary-protection-form-2025.html",
+            "fr": "formulaire-certificat-protection-supplementaire-2025.html"
         },
 
       "internal": {
