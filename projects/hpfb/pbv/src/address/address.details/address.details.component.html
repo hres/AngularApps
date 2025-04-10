@@ -93,7 +93,7 @@
             <input *ngIf="!isCanadaOrUSA()" name="postal" id="{{addrType}}postal{{recordId}}" class="form-control" [formControlName]="'postal'"  
                    maxlength="20" />
             <input *ngIf="isCanada()" name="postal" id="{{addrType}}postal{{recordId}}" class="form-control" [formControlName]="'postal'"  
-                   maxlength="6" />
+                   maxlength="6" data-number-letter/>
             <input *ngIf="isUsa()" name="postal" id="{{addrType}}postal{{recordId}}" class="form-control" [formControlName]="'postal'"  
                    maxlength="5" data-only-digits/>       
           </label>
