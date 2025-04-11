@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import {BrowserModule} from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective} from '@hpfb/sdk/ui';
+import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective } from '@hpfb/sdk/ui';
 import { PopupComponent } from '@hpfb/sdk/ui';
 import { CompanyAddressItemComponent } from './company-address-item/company-address-item.component';
 import { CompanyAddressListComponent } from './company-address-list/company-address-list.component';
