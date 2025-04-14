@@ -17,10 +17,11 @@ export class ContactDetailsService {
    */
   public getReactiveModel(fb: FormBuilder) {
     if (!fb) {return null; }
-    return fb.group({
+    const form = fb.group({
         firstName: [null, Validators.required],
         initials: [null],
         lastName: [null, Validators.required],
+        fullName: [{ value: '', disabled: true }],
         language: [null, Validators.required],
         jobTitle: [null, Validators.required],
         faxNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.faxNumberValidator]],
@@ -28,6 +29,18 @@ export class ContactDetailsService {
         phoneExtension: '',
         email: [null, [Validators.required, ValidationService.emailValidator]],
     });
+
+    form.get('firstName')?.valueChanges.subscribe(() => this.updateFullName(form));
+    form.get('lastName')?.valueChanges.subscribe(() => this.updateFullName(form));
+
+    return form;
+  }
+
+  private updateFullName(form: FormGroup) {
+    const firstName = form.get('firstName')?.value || '';
+    const lastName = form.get('lastName')?.value || '';
+    const fullName = `${firstName} ${lastName}`.trim();
+    form.get('fullName')?.setValue(fullName, { emitEvent: false });
   }
 
   public mapFormModelToDataModel(formValue: any, contactModel: IContact, lang, languageList) {
