@@ -52,7 +52,7 @@
                 </h3>
               </header>
               <div class="panel-body">
-                <app-company-address-list [recordList]="addressListModel" [showErrors]="showErrors" [isInternal]="isInternal" [earlyVersion]="isEarlyVersion()" [disableForm]="disableForm" (errorEmit)="processAddressListErrors($event)"></app-company-address-list>
+                <app-company-address-list [lang]="lang"  [recordList]="addressListModel" [showErrors]="showErrors" [isInternal]="isInternal" [earlyVersion]="isEarlyVersion()" [disableForm]="disableForm" (errorEmit)="processAddressListErrors($event)"></app-company-address-list>
               </div>
             </section>
 
@@ -65,7 +65,7 @@
                 </h3>
               </header>
               <div class="panel-body">
-                <app-company-contact-list [recordList]="contactListModel" [showErrors]="showErrors" [isInternal]="isInternal" [disableForm]="disableForm" [earlyVersion]="isEarlyVersion()" (errorEmit)="processContactListErrors($event)"></app-company-contact-list>
+                <app-company-contact-list [lang]="lang"  [recordList]="contactListModel" [showErrors]="showErrors" [isInternal]="isInternal" [disableForm]="disableForm" [earlyVersion]="isEarlyVersion()" (errorEmit)="processContactListErrors($event)"></app-company-contact-list>
               </div>
             </section>
             <app-product-line [showErrors]="showErrors" [dataModel]="companyEnrolModel" [disableForm]="disableForm" (errorList)="processProductLineErrors($event)"></app-product-line>
