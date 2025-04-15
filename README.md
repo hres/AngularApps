@@ -4,25 +4,25 @@ This repository follows a monorepo architecture that contains multiple applicati
 
 ## Repository Structure
 
-├── apps/                           # Application directory
-│   ├── csp/                        # Certificate of Supplementary Protection Application          
-│   ├── md-ai/                      # Medical Devices - Application Information
-│   ├── md-co/                      # Medical Devices - Company Template
-│   ├── md-rt/                      # Medical Devices - Regulatory Transaction
-│   ├── mf-rt/                      # Master File Application Form
-│   ├── pbv-co/                     # PharmaBio/Vet - Company Template
-│   ├── pbv-pi/                     # PharmaBio/Vet - Product Information
-│   └── pbv-rt                      # PharmaBio/Vet - Regulatory Transaction
-├── libs/                           # Built tarball files of libraries
-├── projects/                       # Libraries
-│   ├── pbv/                        # PharmaBio/Vet library
-│   └── sdk/                        # General library
-├── python/                         # Scripts for building apps
+├── apps/  # Application directory
+│   ├── csp/  # Certificate of Supplementary Protection Application          
+│   ├── md-ai/  # Medical Devices - Application Information
+│   ├── md-co/  # Medical Devices - Company Template
+│   ├── md-rt/  # Medical Devices - Regulatory Transaction
+│   ├── mf-rt/  # Master File Application Form
+│   ├── pbv-co/  # PharmaBio/Vet - Company Template
+│   ├── pbv-pi/  # PharmaBio/Vet - Product Information
+│   └── pbv-rt   # PharmaBio/Vet - Regulatory Transaction
+├── libs/  # Built tarball files of libraries
+├── projects/  # Libraries
+│   ├── pbv/   # PharmaBio/Vet library
+│   └── sdk/   # General library
+├── python/  # Scripts for building apps
 │   ├── buildHtmlFiles/   
 │   ├── post-app-build/      
 │   └── utils/      
 ├── angular.json/         
-├── package.json/                   # Root-level dependencies and scripts (for tooling, builds, linting, etc.)
+├── package.json/ # Root-level dependencies and scripts
 └── README.md
 
 ## Local Development and Deployment Instructions
