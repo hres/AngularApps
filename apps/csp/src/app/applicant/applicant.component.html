@@ -44,11 +44,11 @@
                 </label>
             </div>
         </div>
-
+       <fieldset>
         <legend class="ng-binding">
             {{"applicant.contact.info" | translate}}
         </legend>
-
+       </fieldset>
         <pbv-contact-details [showErrors]="showErrors"
         [contactDetailsModel]="applicantContactModel"
                 [lang]="lang"
@@ -72,7 +72,7 @@
         <div class="form-group row">
             <div class="col-xs-12">
                 <label for="isBillingDifferent">
-                    <input type="checkbox" id="isBillingDifferent" formControlName="isBillingDifferent" [formControl]="applicantInformationForm.controls['isBillingDifferent'] | formControl" (change)="onBillingClick($event)"/>
+                    <input type="checkbox" id="isBillingDifferent" name="isBillingDifferent" [formControl]="applicantInformationForm.controls['isBillingDifferent'] | formControl" (change)="onBillingClick($event)"/>
                     <span>{{ "bill.add.check" | translate }}</span>
                 </label>
             </div>
@@ -80,13 +80,14 @@
 
         <div class="form-group row" [hidden]="!showBilling()">
             <div class="col-xs-12">
+              <fieldset>
                 <legend>
                     {{"billing.address" | translate}}
                     <sup [id]="helpIndex['billAddIndx'][2]">
                         <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['billAddIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['billAddIndx'][0]}}</a>
                     </sup>
                 </legend>
-
+              </fieldset>
                 <div class="row">
                     <div class="form-group col-xs-8">
                         <label for="orgName">
