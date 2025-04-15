@@ -128,9 +128,6 @@ shared formControl's validtion functions
 **version**:
 a service to deal with form version number
 
-common.constants.ts
-common constants
-
 ### Creating and Building an Angular Library
 
 Inside the projects/ directory, create a new folder named after your project. Then, in the root of the newly created folder, run the following command to generate a new library:
