@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, output, Output, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AddressDetailsService, INameAddress } from '@hpfb/pbv';
-import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService } from '@hpfb/sdk/ui';
+import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService, UtilsService, ICode, ENGLISH, FRENCH } from '@hpfb/sdk/ui';
 import { FormDataLoaderService } from '../../container/form-data-loader.service';
 import { GlobalService } from '../../global/global.service';
 import { AddressRecord } from '../../models/Company';
@@ -32,6 +32,8 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   @Input() disableForm : boolean;
   @Output() errorEmit = new EventEmitter(true);
 
+  provinceList: ICode[] = [];
+
   constructor(private fb: FormBuilder, 
     private _addressService: CompanyAddressService,
     private _addressDetailsService: AddressDetailsService,
@@ -39,6 +41,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     private _companyAddressItemService: CompanyAddressItemService,
     private _globalService: GlobalService,
     private _signalService: AppSignalService,
+    private _utilsService: UtilsService,
     companyAddressListService: CompanyAddressListService) {
       super(fb, companyAddressListService);
       this.recordService = this._addressService;
@@ -48,7 +51,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   }
 
   ngOnInit():void {
-
+    this.provinceList = this._globalService.provinceList;
   }
 
   override ngAfterViewInit(): void {
@@ -57,12 +60,16 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     }))
   }
 
+  protected _expandInvalidRecordUponLoading() {
+    this._expandNextInvalidRecord();
+  }
+
   protected _patchRecordInfoValue(form, outputModel: AddressRecord) {
     if (this.companyRolesOptionList) {
       this._companyAddressItemService.mapDataModelToFormModel(outputModel, form.controls['addressInfo'], this.companyRolesOptionList, form.controls['id'].value)
     }
     const addressDetailsFormGroup = form.controls['addressInfo'].controls['addressDetails'];
-    this._mapEarlyVersionCountryCodes(outputModel.company_address_details)
+    this._mapEarlyVersionCountryProvinceCodesAndPostal(outputModel.company_address_details);
     this._addressDetailsService.mapDataModelToFormModel(outputModel.company_address_details, addressDetailsFormGroup);
   }
 
@@ -149,13 +156,50 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     this.errorEmit.emit(errorsToEmit);
   }
 
-  private _mapEarlyVersionCountryCodes(addressModel : INameAddress) {
-    //Needs to update country code from version 4.4.3 to 5.0.0, shall be removed in later release
-    if (this.earlyVersion && addressModel.country._id !=''){
+  // An interceptor function for backwards compatibility.
+  private _mapEarlyVersionCountryProvinceCodesAndPostal(addressModel : INameAddress) {
+    this._mapCountryCodes(addressModel);
+    this._mapProvinceAndCountryNoIdValue(addressModel);
+    this._mapPostalCode(addressModel);
+  }
+
+  private _mapCountryCodes(addressModel: INameAddress) {
+    if (this.earlyVersion && addressModel.country._id !='' && addressModel.country._id !== undefined){
       let newCountry = this._globalService.countryIdMappingList.find(
         (item) => item.id === addressModel.country._id);
       if (newCountry != null){
         addressModel.country._id = newCountry.newid;
+      }
+    }
+  }
+
+  private _mapProvinceAndCountryNoIdValue(addressModel: INameAddress) {
+    if (this.earlyVersion && addressModel.country._id === undefined) { // Early version that doesn't have country id - take value as ID
+      if (addressModel.country._id === undefined) {
+        let newCountry = this._globalService.countryIdMappingList.find(
+          (item) => item.id === addressModel.country.__text);
+        if (newCountry != null){
+          addressModel.country._id = newCountry.newid;
+        }
+      }
+      
+      if (addressModel.province_lov._id === undefined) {
+        const provinceEnglish = this._utilsService.findAndTranslateCode(this.provinceList, ENGLISH, String(addressModel.province_lov));
+        const provinceFrench = this._utilsService.findAndTranslateCode(this.provinceList, FRENCH, String(addressModel.province_lov));
+
+        const provinceModel = this._utilsService.createIIdTextLabelObj(String(addressModel.province_lov), provinceEnglish, provinceFrench, this._globalService.currLanguage === ENGLISH ? provinceEnglish : provinceFrench);
+        addressModel.province_lov = provinceModel;
+      }
+    }
+  }
+
+  private _mapPostalCode(addressModel: INameAddress) {
+    if (this.earlyVersion && addressModel.postal_code) {
+      let postalCode = addressModel.postal_code;
+      // Check if postal code matches X#X #X# (space in between)
+      if (postalCode.match(/^(?!.*[DFIOQU])[A-VXYa-vxy][0-9][A-Za-z] [0-9][A-Za-z][0-9]$/)) {
+        postalCode = postalCode.replace(' ', '');
+        addressModel.postal_code = postalCode;
       }
     }
   }

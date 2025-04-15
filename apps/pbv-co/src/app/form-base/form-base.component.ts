@@ -232,7 +232,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummaryId';
     } else {
-      if (this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine) {
+      if (this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine
+        && this.companyAddressListComponent.recordFormArray.valid && this.companyContactListComponent.recordFormArray.valid) {
         this._saveXML();
       } else {
         this.openPopup();
@@ -257,7 +258,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this._initModels(this.companyEnrolModel);
       if(this.companyEnrolModel.software_version < this._globalService.appVersion){
         const appType = String(this.companyEnrolModel.application_type);
-        this.isStatusFinal = appType === ENROLMENT_STATUS.FINAL;
+        this.isStatusFinal = appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED;
       } else {
         this.isStatusFinal = this.companyEnrolModel.application_type._id == ENROLMENT_STATUS.FINAL;
       }
@@ -346,7 +347,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       return (!this.isInternal && this.isStatusFinal);
     } else if (this.companyEnrolModel.software_version < this._globalService.appVersion) {
       const appType = String(this.companyEnrolModel.application_type);
-      if (appType === ENROLMENT_STATUS.FINAL) {
+      if (appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED) {
         return (!this.isInternal && this.isStatusFinal);
       } 
       return false;
