@@ -63,6 +63,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
               maxId = Math.max(Number(record.id), maxId);
             });
             this.listService.setMaxId(maxId);
+            this._expandInvalidRecordUponLoading();
           }
       } else {
         if (!this.isInternal) {
@@ -81,6 +82,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
       this.listService.setList(this.recordFormArray.controls as FormGroup[]);
     }
 
+    protected abstract _expandInvalidRecordUponLoading();
     protected abstract _patchRecordInfoValue(group, outputModel);
     protected abstract _patchLastSavedStateValue(lastSavedStateFormControl, outputModel);
 
@@ -109,7 +111,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
     }
 
-    private _expandNextInvalidRecord(){
+    protected _expandNextInvalidRecord(){
         // expand next invalid record
         for (let index = 0; index < this.recordFormArray.controls.length; index++) {
          const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
