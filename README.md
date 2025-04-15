@@ -66,65 +66,66 @@ Contains shared components, models, and utility functions used across all Pharma
 ### sdk/
 Contains common logic, services, and shared utilities across all apps in the monorepo. Any general-purpose code should go here.
 
-#### SDK Usage
-**check-sum**
+### SDK Usage
+
+**check-sum**:
 a service to create checksum value for xml output
 
-**component-base**
+**component-base**:
 abstract BaseComponent class. It emits errors in the AfterViewInit lifecycle.
 
-**converter**
+**converter**:
 a service to convert between ICode and IIdTextLabel objects
 
-**data-loader**
+**data-loader**:
 a service to load json data into the application
 
-**directives**
+**directives**:
 NumbersOnlyDirective to stripe alpha chars when user does copy/paste
 
-**error-msg**
+**error-msg**:
 shared components to display the field error message and the aggregation of the form's error messages
 
-**expander**
+**expander**:
 shared component to expand/collapse a section
 
-**file-io**
+**file-io**:
 shared component to handle importing form exported data
 
-**information**
+**information**:
 shared components for Privacy Notice Statement and Security Disclaimer
 
-**interceptor**
+**interceptor**: 
 contains an interceptor to modify outgoing HTTP requests to include headers that prevent caching
 
-**layout**
+**layout**:
 shared component for form's layout
 
-**logger**
+**logger**:
 contains a service to log messages to console
 
-**model**
+**model**:
 shared entity models and html CheckboxOption 
 
-**pipes**
+**pipes**:
 various customized pipes used in forms
 
-**popup**
+**popup**:
 shared component to display a popup window
 
-**record-list**
+**record-list**:
 shared component to handle list of records
 
-**routing**
+**routing**:
 contains a service to handle page navigation
 
-**utils**
+**utils**:
 various common utility functions
 
-**validation**
+**validation**:
 shared formControl's validtion functions
 
-**version**
+**version**:
 a service to deal with form version number
 
 common.constants.ts
