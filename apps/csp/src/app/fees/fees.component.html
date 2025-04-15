@@ -5,44 +5,44 @@
           <span class="field-name col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;" [innerHTML]="'fees.text'|translate"></span>
         </div>
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <label for="fees" class="required full-width">
+          <label for="feeAmount" class="required full-width"   >
             <span class="field-name fees">{{ 'fees.paid' |translate }}</span>
-            <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong> 
+            <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
             <control-messages *ngIf="feesForm.controls['feeAmount'].invalid"
               [showError]="showErrors"
               [control]="feesForm.controls['feeAmount'] | formControl"
               controlId="feeAmount"
               label="error.fee"
-              parentId="cspFees">              
+              parentId="cspFees">
             </control-messages>
-            <div style="display: flex;">
+            <span style="display: flex;">
               <span class="input-group-addon" style="padding-right: 23px;">$</span>
-              <input class="form-control"id="feeAmount"type="number"step="0.01" [formControlName]="'feeAmount'">  
-            </div>  
+              <input class="form-control" id="feeAmount" type="number"step="0.01" [formControlName]="'feeAmount'">
+            </span>
           </label>
         </div>
       </div>
 
       <div class="row">
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-          <label for="fees" class="required full-width">
+          <label for="payMethod" class="required full-width"  >
             <span class="field-name">{{ 'pay.method' |translate }}</span>
             <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
             <sup [id]="helpIndex['methodPayIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['methodPayIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['methodPayIndx'][0]}}</a>
-            </sup> 
+            </sup>
             <control-messages *ngIf="feesForm.controls['payMethod'].invalid"
               [showError]="showErrors"
               [control]="feesForm.controls['payMethod'] | formControl"
               controlId="payMethod"
               label="pay.method"
-              parentId="cspFees">              
+              parentId="cspFees">
             </control-messages>
             <select id="payMethod" required class="form-control full-width"
                 [formControlName]="'payMethod'">
                 <option label=" " value=""></option>
                 <option *ngFor="let payMethod of payMethodOptions" [value]="payMethod.id"> {{ payMethod| textTransform: lang }}</option>
-            </select>  
+            </select>
           </label>
         </div>
       </div>

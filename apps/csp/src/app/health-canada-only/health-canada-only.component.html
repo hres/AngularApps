@@ -17,7 +17,7 @@
       </div>
 
       <div class="form-group col-sm-4">
-        <label for="CustNum">
+        <label for="custNum"  >
           <span><b>{{ "hco.cust.num" | translate }}</b></span>
           <control-messages
             *ngIf="hcUseOnlyForm.controls['custNum'].invalid"
@@ -61,7 +61,7 @@
           label="notes"
         ></control-messages>
         <textarea
-          class="form-control full-width"            
+          class="form-control full-width"
           id="notes"
           [formControlName]="'notes'"
           rows="4"
