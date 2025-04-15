@@ -49,7 +49,6 @@ export class NoticeOfComplianceComponent extends BaseComponent implements OnInit
   ngOnInit(): void {
 
     this.helpIndex = this._globalService.helpIndex;
-
     if (!this.noticeOfComplianceForm) {
       this.noticeOfComplianceForm = this._noticeOfComplianceService.getNoticeOfComplianceForm(
         this._fb

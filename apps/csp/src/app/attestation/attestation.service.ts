@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConverterService, ENGLISH, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { Ectd, IAttestationInfomation, TransactionEnrol } from '../models/transaction';
-import { GlobalService } from '../global/global.service';
 import { AttestationTypeForSubmission } from './AttestationEnum';
 
 @Injectable({
@@ -10,11 +9,7 @@ import { AttestationTypeForSubmission } from './AttestationEnum';
 })
 export class AttestationService {
 
-  private _currLanguage: string = ENGLISH;
-
-  constructor( private _utilsService: UtilsService,private _converterService: ConverterService) { }
-
-
+  constructor( private _converterService: ConverterService) { }
 
   getAttestationForm(fb: FormBuilder) {
     if (!fb) {

@@ -10,8 +10,6 @@ import {
 } from '@angular/core';
 import {
   BaseComponent,
-  ENGLISH,
-  FRENCH,
   HelpSequence,
   ICode,
   ICodeAria,

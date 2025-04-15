@@ -54,7 +54,6 @@ export class CertificationComponent  extends BaseComponent implements OnInit, On
 
   protected override emitErrors(errors: any[]){
     this.errorList.emit(errors);
-
   }
 
   onDateInput(event: any): void {

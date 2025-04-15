@@ -4,20 +4,17 @@ import {
   Input,
   OnChanges,
   OnInit,
-  OnDestroy,
   Output,
-  QueryList,
   SimpleChanges,
   ViewChildren, ViewEncapsulation,
   computed,
   signal
 } from '@angular/core';
-import { ICodeDefinition, ICodeAria, ICode, IParentChildren, EntityBaseService, UtilsService, ErrorModule, PipesModule, BaseComponent, HelpSequence } from '@hpfb/sdk/ui';
-import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {  UtilsService, BaseComponent, HelpSequence } from '@hpfb/sdk/ui';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { CertSuppProtectService } from './cert-supp-protect.service';
 import { Ectd, ICspInfomation } from '../models/transaction';
 import { GlobalService } from '../global/global.service';
-import { Subscription } from 'rxjs';
 import { FormBaseService } from '../form-base/form-base.service';
 import { DatePipe } from '@angular/common';
 
@@ -71,12 +68,6 @@ export class CertSuppProtectComponent extends BaseComponent implements OnInit, O
           );
         }
       }
-  }
-
-  private _resetControlValues(controlNames: string[]) {
-    for (let i = 0; i < controlNames.length; i++) {
-      this._utilsService.resetControlsValues(this.certSuppProtectForm.controls[controlNames[i]]);
-    }
   }
 
   getFormValue() {
