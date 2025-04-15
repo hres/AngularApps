@@ -25,6 +25,9 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   popupId: string = 'addressPopup';
   statusMessage : string = '';
   errorList;
+  statusMessageSubject : string = '';
+  focusField : string = 'companyName'
+  addButton : string = 'addAddressBtn'
 
   companyRolesOptionList: CheckboxOption[] = []; // Store received data
 
@@ -52,6 +55,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
 
   ngOnInit():void {
     this.provinceList = this._globalService.provinceList;
+    this._globalService.currLanguage === ENGLISH ? this.statusMessageSubject = 'Address details' : this.statusMessageSubject = 'fr_Address details';
   }
 
   override ngAfterViewInit(): void {

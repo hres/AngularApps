@@ -27,6 +27,9 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   popupId: string = 'contactPopup';
   statusMessage : string = '';
   errorList;
+  statusMessageSubject : string = '';
+  focusField : string = 'firstName'
+  addButton : string = 'addContactBtn'
 
   companyRolesOptionList: CheckboxOption[] = []; // Store received data
 
@@ -54,6 +57,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   ngOnInit():void {
     this.languageList = this._globalService.languageList;
+    this._globalService.currLanguage === ENGLISH ? this.statusMessageSubject = 'Company representative details' : this.statusMessageSubject = 'fr_Company representative details';
   }
 
   override ngAfterViewInit(): void {

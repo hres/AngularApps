@@ -10,3 +10,9 @@ export const FINAL: string = 'FINAL';
 
 export const OTHER_EN: string = "Other";
 export const OTHER_FR: string = "Autre"
+
+export const RECORD_ACTIONS = {
+     SAVE: 'SAVE',
+     DISCARD: 'DISCARD',
+     DELETE: 'DELETE'
+ };
