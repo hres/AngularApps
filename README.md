@@ -3,7 +3,7 @@
 This repository follows a monorepo architecture that contains multiple applications and a library.
 
 ## Repository Structure
-
+.
 ├── apps/  # Application directory
 │   ├── csp/  # Certificate of Supplementary Protection Application          
 │   ├── md-ai/  # Medical Devices - Application Information
