@@ -16,7 +16,7 @@
                 </legend>
                 <ul class="form-group list-unstyled">
                     <li class="checkbox" [formArrayName]="'productLine'" *ngFor="let product of productLineChkFormArray.controls; let i = index">
-                        <label for={{productLineOptionList[i].value}}>
+                        <label for={{productLineOptionList[i].label}}>
                             <input type="checkbox" id={{productLineOptionList[i].value}} [formControl]="product | formControl" (change)="productLineOnChange($event)"/> {{productLineOptionList[i].label}}
                         </label>
                     </li>

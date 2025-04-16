@@ -12,7 +12,7 @@
             </legend>
             <ul class="form-group list-unstyled">
               <li class="radio" *ngFor="let timing of timingOfApplicantOptions; let i = index">
-                <label aria-hidden="true" for="timing{{i}}">
+                <label for="timing{{i}}">
                   <input attr.aria-label="{{timing | ariaTransform: lang}}" type="radio" attr.aria-label="{{timing | ariaTransform: lang}}"
                       id="timing{{i}}" name="timingOfApplicant" value="{{timing | ariaTransform: lang}}"
                     (change)="onTimingSelected($event)"

@@ -12,7 +12,7 @@
           </legend>
           <ul class="form-group list-unstyled">
             <li class="radio" *ngFor="let attest of attestationAsApplicantOptions; let i = index">
-              <label aria-hidden="true" for="attestApplicant{{i}}">
+              <label for="attestApplicant{{i}}">
                 <input attr.aria-label="{{attest | ariaTransform: lang}}" type="radio" attr.aria-label="{{attest | ariaTransform: lang}}"
                     id="attestApplicant{{i}}" name="attestationAsApplicant" value="{{attest | ariaTransform: lang}}"
                     (change)="onAttestationSelected($event)"
@@ -37,7 +37,7 @@
           </legend>
           <ul class="form-group list-unstyled">
             <li class="radio" *ngFor="let attest of attestationAsSubmissionOptions; let i = index">
-              <label aria-hidden="true" for="attestSubmission{{i}}">
+              <label for="attestSubmission{{i}}">
                 <input attr.aria-label="{{attest | ariaTransform: lang}}" type="radio" attr.aria-label="{{attest | ariaTransform: lang}}"
                   id="attestSubmission{{i}}" name="attestationAsSubmission" value="{{attest | ariaTransform: lang}}"
                   (change)="onAttestationSelected($event)"
