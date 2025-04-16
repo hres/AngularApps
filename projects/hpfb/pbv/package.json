@@ -7,8 +7,9 @@
     "@angular/core": "^18.2.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0",
-    "@hpfb/sdk": "file:../../../libs/hpfb-sdk-1.3.0.tgz"
+    "@hpfb/pbv": "file:",
+    "@hpfb/sdk": "file:../../../libs/hpfb-sdk-1.3.0.tgz",
+    "tslib": "^2.3.0"
   },
   "sideEffects": false
 }
