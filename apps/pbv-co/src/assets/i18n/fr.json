@@ -70,7 +70,7 @@
     "lang.correspond":"Langue de correspondance",
     "job.title":"Titre de poste",
     "phone.number":"Numéro de téléphone (y compris indicatif régional)",
-    "phone.extension":"Extension de téléphone",
+    "phone.extension":"Numéro de l'extension",
     "fax.number":"Numéro de télécopieur (y compris indicatif régional)",
     "fax.number.nofaxnum": "(Si pas disponible, utilisez 0000000000) Si vous n’indiquez pas un numéro de télécopieur, vous autorisez la réception de la communication de facturation par courriel.",
     "contact.email":"Courriel",
