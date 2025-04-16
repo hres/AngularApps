@@ -55,7 +55,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
 
   ngOnInit():void {
     this.provinceList = this._globalService.provinceList;
-    this._globalService.currLanguage === ENGLISH ? this.statusMessageSubject = 'Address details' : this.statusMessageSubject = 'fr_Address details';
+    this._globalService.currLanguage === ENGLISH ? this.statusMessageSubject = 'Address details' : this.statusMessageSubject = 'coordonnées';
   }
 
   override ngAfterViewInit(): void {
