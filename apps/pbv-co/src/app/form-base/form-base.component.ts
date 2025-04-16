@@ -161,10 +161,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processErrors() {
     this.errorList = [].concat(
       this._companyEnrolmentErrors,
-      this._addressCompanyRoleErrors, 
       this._addressListErrors, 
-      this._contactCompanyRoleErrors, 
+      this._addressCompanyRoleErrors, 
       this._contactListErrors,
+      this._contactCompanyRoleErrors, 
       this._productLineErrors,
       this._consentPrivacyError
     );
