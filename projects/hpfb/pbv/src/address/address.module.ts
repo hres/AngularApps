@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { BrowserModule } from '@angular/platform-browser';
 import { ErrorModule } from '@hpfb/sdk/ui';
 import { PipesModule } from '@hpfb/sdk/ui';
-import { NumbersOnlyDirective } from '@hpfb/sdk/ui';
+import { NumbersOnlyDirective, NumbersLettersDirective } from '@hpfb/sdk/ui';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddressDetailsService } from './address.details/address.details.service';
 
@@ -18,7 +18,8 @@ import { AddressDetailsService } from './address.details/address.details.service
     ErrorModule,
     PipesModule,
     TranslateModule,
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    NumbersLettersDirective
   ],
   declarations: [AddressDetailsComponent],
   exports: [AddressDetailsComponent],

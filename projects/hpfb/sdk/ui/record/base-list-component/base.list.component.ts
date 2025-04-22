@@ -7,6 +7,7 @@ import { BaseListService } from "../base-list-service/base.list.service";
 import { BaseComponent } from "../../component-base/base.component"
 
 import $ from 'jquery';
+import { RECORD_ACTIONS } from "../../common.constants";
 
 @Component({
     template: ''
@@ -15,11 +16,15 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     @Input() recordList: T[];
     @Input() showErrors: boolean;
     @Input() isInternal?: boolean;
+    @Input() lang: string;
 
     recordFormGroup: FormGroup;
     errorSummaryChild: any;
 
     abstract statusMessage : string;
+    abstract statusMessageSubject : string;
+    abstract focusField : string; // Field to focus on after clicking "Add Record"
+    abstract addButton : string; // Button id to focus on after clicking delete/save
     abstract records: string;
     abstract recordInfo: string;
     abstract recordService: IRecordService;
@@ -63,6 +68,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
               maxId = Math.max(Number(record.id), maxId);
             });
             this.listService.setMaxId(maxId);
+            this._expandInvalidRecordUponLoading();
           }
       } else {
         if (!this.isInternal) {
@@ -81,15 +87,29 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
       this.listService.setList(this.recordFormArray.controls as FormGroup[]);
     }
 
+    protected abstract _expandInvalidRecordUponLoading();
     protected abstract _patchRecordInfoValue(group, outputModel);
     protected abstract _patchLastSavedStateValue(lastSavedStateFormControl, outputModel);
 
     addRecord(): void {
         const group = this.recordService.createRecordFormGroup(this._fb);
+        const newIndex = this.recordFormArray.length;
+        let recordFocus = "";
+
         group.patchValue({
             recordId: this.listService.getId()
         })
         this.recordFormArray.push(group);    
+
+        if (this.recordFormArray.length >= 1) {
+            recordFocus = this.focusField + newIndex;
+          } else {
+            recordFocus = this.focusField + 0;
+        }
+
+        setTimeout(() => {
+            document.getElementById(recordFocus).focus()  
+        }, 0);
     }
 
     saveRecord(event: any): void {
@@ -107,9 +127,15 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         group.get('lastSavedState').setValue(recordInfo.value);
         this._expandNextInvalidRecord();
         this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
+
+        this._setStatusMessage(RECORD_ACTIONS.SAVE, id);
+         
+        setTimeout(() => {
+            document.getElementById(this.addButton).focus(); 
+        }, 0);
     }
 
-    private _expandNextInvalidRecord(){
+    protected _expandNextInvalidRecord(){
         // expand next invalid record
         for (let index = 0; index < this.recordFormArray.controls.length; index++) {
          const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
@@ -122,22 +148,37 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     }
 
     deleteRecord(index: number): void {
+        const id = index + 1;
         const group = this.recordFormArray.at(index) as RecordFormGroup;
         const recordInfo = this.getRecordInfo(group);
         recordInfo.reset();
         this.recordFormArray.removeAt(index);
     
         this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
+
+        this._setStatusMessage(RECORD_ACTIONS.DELETE, id);
+        document.getElementById(this.addButton).focus();
     }
 
     revertRecord(event: any): void {
-       const index = event.index;
-        const id = event.id;
+        const index = event.index;
+        const id = index + 1;
         const group = this.recordFormArray.at(index) as RecordFormGroup;
         const recordInfo = this.getRecordInfo(group);
         // Revert to the last saved state
         const lastSavedState = group.get('lastSavedState').value;
         recordInfo.patchValue(lastSavedState); 
+
+        this._setStatusMessage(RECORD_ACTIONS.DISCARD, id);
+ 
+         const discardMsg = this.statusMessage;
+         
+         setTimeout(() => {
+             this.statusMessage = ''; // Temporarily clear the message
+             setTimeout(() => {
+                 this.statusMessage = discardMsg; // Restore the message
+             }, 50); // Small delay before restoring
+           }, 50);
     }
 
     handleRowClick(event: any): void {
@@ -168,6 +209,26 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
 
     openPopup(): void {
         jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+    }
+
+    private _setStatusMessage(action : string, id : number): void {
+        console.log(this.lang)
+        const actionMessages = {
+            'SAVE': {
+              en: `${this.statusMessageSubject} record ${id} has been saved.`,
+              fr: `Enregistrement du ${this.statusMessageSubject} ${id} a été sauvegardé.`
+            },
+            'DELETE': {
+              en: `${this.statusMessageSubject} record ${id} has been deleted.`,
+              fr: `Enregistrement du ${this.statusMessageSubject} ${id} a été supprimé.`
+            },
+            'DISCARD': {
+              en: `${this.statusMessageSubject} record ${id} changes have been discarded.`,
+              fr: `Les modification du ${this.statusMessageSubject} ${id} ont été annulées.`
+            }
+          };
+        
+        this.statusMessage = actionMessages[action][this.lang];
     }
 
     get recordFormArray(): FormArray {

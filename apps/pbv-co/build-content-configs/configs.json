@@ -7,7 +7,7 @@
         },
         "internal": {
             "dev": "https://lam-dev.hres.ca/rep-dev",
-            "prod": "https://lam-dev.hres.ca/REP-Form-Internal"
+            "prod": "https://lam-dev.hres.ca/rep-dev"
         }
     },
     "index_file_name": {

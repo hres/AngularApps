@@ -35,7 +35,8 @@ export const HELP_TEXT_SEQUENCE = [
 export const ENROLMENT_STATUS = {
   NEW: 'NEW',
   AMEND: 'AMEND',
-  FINAL: 'FINAL'
+  FINAL: 'FINAL',
+  APPROVED: 'APPROVED'
 };
 
 export const ROLE_MAPPING: { [key: string]: string } = {

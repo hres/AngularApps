@@ -76,8 +76,8 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   private setDisableAmendButtonFlag(dataModel: CompanyEnrol, isInternal: boolean) : void{
     if (dataModel.software_version < this._globalService.appVersion) {
       const appType = String(this.dataModel.application_type);
-      if (appType === ENROLMENT_STATUS.FINAL){
-        this.showAmendButton = (appType === ENROLMENT_STATUS.FINAL && !isInternal);
+      if (appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED){
+        this.showAmendButton = !isInternal;
       }
     } else {
       this.showAmendButton = (dataModel.application_type._id === ENROLMENT_STATUS.FINAL && !isInternal);
@@ -104,7 +104,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
         this.disableAmendButton = true;
       } else if (dataModel.software_version < this._globalService.appVersion) {
         const appType = String(this.dataModel.application_type);
-          if (appType === ENROLMENT_STATUS.FINAL) {
+          if (appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED) {
             this.disableAmendButton = false;
           }
         }

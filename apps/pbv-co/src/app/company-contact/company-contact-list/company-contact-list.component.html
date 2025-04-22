@@ -2,7 +2,7 @@
     <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.data.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
       <div [formArrayName]="'contacts'">
   
-        <lib-accordion [rowsFormArray]="recordFormArray" [accordionHeadingMsgKey]="'heading.company.contact'" [accordionHeadingSupp]="['companyInfo', 'contactDetails', 'firstName']" 
+        <lib-accordion [rowsFormArray]="recordFormArray" [accordionHeadingMsgKey]="'heading.company.contact'" [accordionHeadingSupp]="['companyInfo', 'contactDetails', 'fullName']" 
         (rowClicked)="handleRowClick($event)">
       
         <ng-template #tmpl let-recordRow let-idx="i">

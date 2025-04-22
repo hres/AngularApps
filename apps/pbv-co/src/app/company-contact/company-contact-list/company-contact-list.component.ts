@@ -1,12 +1,12 @@
 import { Component, computed, Signal, EventEmitter, Input, output, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Form} from '@angular/forms';
-import { CheckboxOption, ControlMessagesComponent, ConverterService, ErrorNotificationService, ErrorSummaryComponent, ICode } from '@hpfb/sdk/ui';
+import { CheckboxOption, ControlMessagesComponent, ConverterService, ENGLISH, ErrorNotificationService, ErrorSummaryComponent, FRENCH, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { ContactRecord } from '../../models/Company';
 import { BaseListComponent } from '@hpfb/sdk/ui';
 import { CompanyContactService } from '../company-contact.service';
 import { ERR_TYPE_LEAST_ONE_REC, ErrorSummaryObject, getEmptyErrorSummaryObj } from '@hpfb/sdk/ui';
 import { IRecordService } from '@hpfb/sdk/ui';
-import { ContactDetailsService } from '@hpfb/pbv';
+import { ContactDetailsService, IContact } from '@hpfb/pbv';
 import { AppSignalService } from '../../signal/app-signal.service';
 import { GlobalService } from '../../global/global.service';
 import { FormDataLoaderService } from '../../container/form-data-loader.service';
@@ -27,10 +27,16 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   popupId: string = 'contactPopup';
   statusMessage : string = '';
   errorList;
+  statusMessageSubject : string = '';
+  focusField : string = 'firstName'
+  addButton : string = 'addContactBtn'
 
   companyRolesOptionList: CheckboxOption[] = []; // Store received data
 
+  languageList: ICode[] = [];
+
   @Input() disableForm : boolean;
+  @Input() earlyVersion;
   @Output() errorEmit = new EventEmitter(true);
 
   constructor(private fb: FormBuilder, 
@@ -39,6 +45,8 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
               private _errorNotifService: ErrorNotificationService,
               private _companyContactItemService: CompanyContactItemService,
               private _signalService: AppSignalService,
+              private _utilsService: UtilsService,
+              private _globalService: GlobalService,
               companyContactListService: CompanyContactListService) {
     super(fb, companyContactListService);
     this.recordService = this._contactService;
@@ -48,7 +56,8 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   }
 
   ngOnInit():void {
-
+    this.languageList = this._globalService.languageList;
+    this._globalService.currLanguage === ENGLISH ? this.statusMessageSubject = 'Company representative details' : this.statusMessageSubject = 'Coordonnées des représentants de la compagnie';
   }
 
   override ngAfterViewInit(): void {
@@ -57,11 +66,16 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     }))
   }
 
+  protected _expandInvalidRecordUponLoading() {
+    this._expandNextInvalidRecord();
+  }
+
   protected _patchRecordInfoValue(form, outputModel: ContactRecord) {
     if (this.companyRolesOptionList) {
       this._companyContactItemService.mapDataModelToFormModel(outputModel, form.controls['companyInfo'], this.companyRolesOptionList, form.controls['id'].value)
     }
     const contactDetailsFormGroup = form.controls['companyInfo'].controls['contactDetails'];
+    this._mapEarlyVersionLanguageField(outputModel.company_contact_details);
     this._contactDetailsService.mapDataModelToFormModel(outputModel.company_contact_details, contactDetailsFormGroup);
   }
 
@@ -150,6 +164,16 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     }
     this.errorList = errorsToEmit;
     this.errorEmit.emit(errorsToEmit);
+  }
+
+  private _mapEarlyVersionLanguageField(contactModel: IContact) {
+    if (this.earlyVersion && contactModel.language_correspondance._id === undefined) {
+      const langEnglish = this._utilsService.findAndTranslateCode(this.languageList, ENGLISH, String(contactModel.language_correspondance));
+      const langFrench = this._utilsService.findAndTranslateCode(this.languageList, FRENCH, String(contactModel.language_correspondance));
+
+      const languageModel = this._utilsService.createIIdTextLabelObj(String(contactModel.language_correspondance), langEnglish, langFrench, this._globalService.currLanguage === ENGLISH ? langEnglish : langFrench);
+      contactModel.language_correspondance = languageModel;
+    }
   }
 
 }
