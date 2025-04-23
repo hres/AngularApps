@@ -69,15 +69,6 @@ export class MedicinalIngredientsComponent  extends BaseComponent implements OnI
   ngOnChanges(changes: SimpleChanges){
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
-    // if (!isFirstChange) {
-    //   if (changes['medicinalIngredient'] && changes['productName'])  {
-    //     const productName = changes['productName'].currentValue
-    //     const medicinalIngredient = changes['medicinalIngredient'].currentValue
-    //     this.medicinalIngredientService.mapDataModelToFormModel(medicinalIngredient, productName, (<FormGroup>this.medicinalIngredientForm))
-    //   }
-    // }
-
-
     if (!isFirstChange) {
       if (changes['transactionEnrollModel'] )  {
         const transactionEnrollModel = changes['transactionEnrollModel'].currentValue as TransactionEnrol

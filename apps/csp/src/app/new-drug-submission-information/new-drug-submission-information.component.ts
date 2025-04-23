@@ -19,17 +19,16 @@ import { NewDrugSubmissionInformationService } from './new-drug-submission-infor
   styleUrl: './new-drug-submission-information.component.css',
   encapsulation: ViewEncapsulation.None,
 })
-export class NewDrugSubmissionInformationComponent extends BaseComponent implements OnInit {
-
-
-
+export class NewDrugSubmissionInformationComponent
+  extends BaseComponent
+  implements OnInit
+{
   public showFieldErrors: boolean = false;
   helpIndex: HelpSequence;
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
   public newDrugSubmissionInfoForm: FormGroup;
   @Input() newDrugSubmissionModel;
-
 
   constructor(
     private _newDrugSubmissionInformationService: NewDrugSubmissionInformationService,
@@ -40,15 +39,15 @@ export class NewDrugSubmissionInformationComponent extends BaseComponent impleme
   ) {
     super();
     this.showFieldErrors = false;
-
-
   }
   ngOnInit(): void {
-
     this.helpIndex = this._globalService.helpIndex;
 
     if (!this.newDrugSubmissionInfoForm) {
-      this.newDrugSubmissionInfoForm = this._newDrugSubmissionInformationService.getNewDrugSubmissionInforForm(this._fb);
+      this.newDrugSubmissionInfoForm =
+        this._newDrugSubmissionInformationService.getNewDrugSubmissionInforForm(
+          this._fb
+        );
     }
   }
 
@@ -56,17 +55,20 @@ export class NewDrugSubmissionInformationComponent extends BaseComponent impleme
     this.errorList.emit(errors);
   }
 
-
-
   getFormValue() {
     return this.newDrugSubmissionInfoForm.value;
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
-    if (!this._utilsService.isFirstChange(changes) && changes['newDrugSubmissionModel']) {
-      this._newDrugSubmissionInformationService.mapDataModelToFormModel( changes['newDrugSubmissionModel'].currentValue, (<FormGroup>this.newDrugSubmissionInfoForm))
+    if (
+      !this._utilsService.isFirstChange(changes) &&
+      changes['newDrugSubmissionModel']
+    ) {
+      this._newDrugSubmissionInformationService.mapDataModelToFormModel(
+        changes['newDrugSubmissionModel'].currentValue,
+        <FormGroup>this.newDrugSubmissionInfoForm
+      );
+    }
   }
-  }
-
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IMedicalInformation, TransactionEnrol } from '../models/transaction';
+import { TransactionEnrol } from '../models/transaction';
 
 @Injectable({
   providedIn: 'root'

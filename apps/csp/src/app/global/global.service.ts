@@ -5,8 +5,6 @@ import {
   HelpSequence,
   ICode,
   ICodeAria,
-  ICodeDefinition,
-  IParentChildren,
   InstructionService,
 } from '@hpfb/sdk/ui';
 import { Transaction } from '../models/transaction';
@@ -36,6 +34,8 @@ export class GlobalService {
   private _attestationAsApplicant: ICodeAria[] = [];
   private _attestationAsSubmission: ICodeAria[] = [];
   private _countryIdMappingList: any[] = [];
+
+
   constructor(private instructionService: InstructionService) {}
 
   /**

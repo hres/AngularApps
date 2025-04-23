@@ -8,7 +8,6 @@ import {
   Output,
   QueryList,
   SimpleChanges,
-  ViewChild,
   ViewChildren,
   ViewEncapsulation,
 } from '@angular/core';
@@ -20,7 +19,7 @@ import { AddressDetailsComponent, ContactDetailsComponent } from '@hpfb/pbv';
 import { IContact, INameAddress } from '@hpfb/pbv';
 import { ADDR_CONT_TYPE } from '../app.constants';
 import { IApplicant } from '../models/transaction';
-import { CANADA, USA } from '../../../../../projects/hpfb/sdk/ui/common.constants';
+
 
 @Component({
   selector: 'app-applicant',
