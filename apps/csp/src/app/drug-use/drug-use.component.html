@@ -23,7 +23,7 @@
           class="form-control full-width"
           [formControlName]="'drugUse'"
         >
-          <option label=" " value=""></option>
+          <option value="" disabled selected>{{ 'select.option'|translate }}</option>
           <option *ngFor="let drugUse of drugUseOptions" [value]="drugUse.id">
             {{ drugUse | textTransform : lang }}
           </option>
