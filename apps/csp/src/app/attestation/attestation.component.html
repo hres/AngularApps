@@ -83,8 +83,8 @@
               </control-messages>
             </label>
             <select id="country" required class="form-control full-width" [formControlName]="'marketing_country'">
-                <option label=" " value=""></option>
-                <option *ngFor="let country of countryOptions" [value]="country.id"> {{ country| textTransform: lang }}</option>
+              <option value="" disabled selected>{{ 'select.option'|translate }}</option>
+              <option *ngFor="let country of countryOptions" [value]="country.id"> {{ country| textTransform: lang }}</option>
             </select>
           </div>
         </div>
