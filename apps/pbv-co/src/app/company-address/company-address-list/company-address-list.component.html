@@ -13,9 +13,9 @@
           [j]="idx"
           [showErrors]="showErrors"
           [disableForm]="disableForm"
-          (saveRecord)="saveRecord($event)"
-          (deleteRecord)="deleteRecord($event)"
-          (revertRecord)="revertRecord($event)"
+          (saveRecord)="saveAddressRecord($event)"
+          (deleteRecord)="deleteAdressRecord($event)"
+          (revertRecord)="revertAdressRecord($event)"
           (rolesUpdated)="handleRolesUpdated($event)"
           (removeRoleError)="handleRemoveRoleError($event)"></app-company-address-item>
         </ng-template>
