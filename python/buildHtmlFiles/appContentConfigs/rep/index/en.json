@@ -10,7 +10,7 @@
             "groups": [
                 {
                     "bullets": [
-                        "<a href=\"{{ base_url }}version_history.html\">Template revision history (2025-03-26)</a>"
+                        "<a href=\"{{ base_url }}version_history.html\">Template revision history (2025-06-03)</a>"
                     ]
                 }
             ]
@@ -19,7 +19,7 @@
             "header": "Outside the Regulatory Transaction Process",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company (CO) Template (2023-02-28)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company (CO) Template (2025-06-03)</a>",
                     "bullets": [
                         "Required to obtain a company ID and/or update company information to Health Canada.",
                         "Sent via email. <ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
@@ -73,7 +73,7 @@
             "groups": [
                 {
                     "bullets": [
-                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.en }}\">Download stylesheet zip file (2025-03-26)</a>"                    ]
+                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.en }}\">Download stylesheet zip file (2025-06-03)</a>"                    ]
                 }
             ]
         },
@@ -83,7 +83,7 @@
             "groups": [
                 {
                     "bullets": [
-                        "<a href=\"{{ base_url }}prod_v42_wcag/company/companyINT-en.html\">Company Enrolment - Internal version 4.2.4</a>",
+                        "<a href=\"{{ base_url }}company/internal/en/companyINT-en.html\">Company Enrolment - Internal version 5.0.0</a>",
                         "<a href=\"https://lam-dev.hres.ca/REP-Form-Internal/PROD/repDiff/diffForm-en.html\">Comparison tool (2020)</a>"                       ]
                 }
             ]

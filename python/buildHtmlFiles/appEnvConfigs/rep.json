@@ -17,12 +17,12 @@
     "template_paths": {
         "dev": {
             "co": {
-                "en": "prod_v42_wcag/company/company.html",
-                "fr": "prod_v42_wcag/company/entreprise.html"
+                "en": "company/en/company.html",
+                "fr": "company/fr/entreprise.html"
             },
             "co_internal": {
-                "en": "prod_v42_wcag/company/companyINT-en.html ",
-                "fr": "prod_v42_wcag/company/companyINT-fr.html"
+                "en": "company/internal/en/companyINT-en.html ",
+                "fr": "company/internal/fr/companyINT-fr.html"
             },
             "rt": {
                 "en": "transaction/en/regulatory-transaction.html",
@@ -39,12 +39,12 @@
         },
         "prod": {
             "co": {
-                "en": "company/company.html",
-                "fr": "company/entreprise.html"
+                "en": "company/en/company.html",
+                "fr": "company/fr/entreprise.html"
             },
             "co_internal": {
-                "en": "prod_v42_wcag/company/companyINT-en.html ",
-                "fr": "prod_v42_wcag/company/companyINT-fr.html"
+                "en": "company/internal/en/companyINT-en.html ",
+                "fr": "company/internal/fr/companyINT-fr.html"
             },
             "rt": {
                 "en": "v44/transaction/regulatory-transaction.html",
