@@ -109,9 +109,10 @@
     "email.body": "The CO XML file is NOT automatically attached. Attach the draft CO XML file prior to sending.",
     "email.mail.to": "mailto:",
 
-    "msg.save.xml.popup": "Please save the unsaved input data before generating XML file.",
-    "msg.save.data.popup": "Please save the unsaved input data.",
-    "popup.title":"Company Template",
+    "msg.save.xml.popup": "Please save the unsaved input data before saving draft XML file.",
+    "msg.save.addressInfo.popup": "Please save the unsaved input data for address information.",
+    "msg.save.compRepInfo.popup": "Please save the unsaved input data for company representative information.",
+    "popup.title":"Warning",
     "popup.close": "Close",
 
     "error.mgs.5.numeric": "Invalid entry - must be five numbers"
