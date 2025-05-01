@@ -24,7 +24,7 @@
     
       <div class="row mrgn-tp-md mrgn-bttm-lg">
         <div class="btn-group-sm col-md-12 text-left">
-          <button class="btn btn-primary" (click)="addRecord()" id="addContactBtn" [disabled]="disableAddButton() || disableForm"> <!--[disabled]="disableAddButton()"-->
+          <button class="btn btn-primary" (click)="addRecord()" id="addContactBtn" [disabled]="disableAddButton() || disableForm || allRolesSelected()"> <!--[disabled]="disableAddButton()"-->
             {{'add.contact'|translate}}
           </button>
         </div>

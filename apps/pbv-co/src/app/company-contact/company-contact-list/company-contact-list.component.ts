@@ -33,6 +33,9 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   companyRolesOptionList: CheckboxOption[] = []; // Store received data
 
+  private selectedContactCompanyRoles : Signal<string[]> = this._signalService.getSelectedContactCompanyRoles();
+  allRolesSelected = computed(() => {return this.isRolesComplete(this.selectedContactCompanyRoles());})
+
   languageList: ICode[] = [];
 
   @Input() disableForm : boolean;
@@ -176,4 +179,9 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     }
   }
 
+  private isRolesComplete(selectedRoles : string[]) {
+    const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // Required roles
+    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
+    return companyRolesList.every(role => cleanSelectedRoles.includes(role));
+  }
 }

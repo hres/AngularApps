@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, output, Output, ViewEncapsulation } from '@angular/core';
+import { Component, computed, EventEmitter, Input, output, Output, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AddressDetailsService, INameAddress } from '@hpfb/pbv';
 import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService, UtilsService, ICode, ENGLISH, FRENCH } from '@hpfb/sdk/ui';
@@ -26,8 +26,10 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   statusMessage : string = '';
   errorList;
   statusMessageSubject : string = '';
-  focusField : string = 'companyName'
-  addButton : string = 'addAddressBtn'
+  focusField : string = 'companyName';
+  addButton : string = 'addAddressBtn';
+  private selectedAddressCompanyRoles : Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
+  allRolesSelected = computed(() => {return this.isRolesComplete(this.selectedAddressCompanyRoles());})
 
   companyRolesOptionList: CheckboxOption[] = []; // Store received data
 
@@ -206,5 +208,11 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
         addressModel.postal_code = postalCode;
       }
     }
+  }
+  
+  private isRolesComplete(selectedRoles : string[]) {
+    const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // Required roles
+    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
+    return companyRolesList.every(role => cleanSelectedRoles.includes(role));
   }
 } 
