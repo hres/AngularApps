@@ -1,6 +1,6 @@
 import { Component, computed, Signal, EventEmitter, Input, output, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Form} from '@angular/forms';
-import { CheckboxOption, ControlMessagesComponent, ConverterService, ENGLISH, ErrorNotificationService, ErrorSummaryComponent, FRENCH, ICode, UtilsService } from '@hpfb/sdk/ui';
+import { CheckboxOption, ControlMessagesComponent, ConverterService, ENGLISH, ErrorNotificationService, ErrorSummaryComponent, FRENCH, ICode, UtilsService, RecordFormGroup } from '@hpfb/sdk/ui';
 import { ContactRecord } from '../../models/Company';
 import { BaseListComponent } from '@hpfb/sdk/ui';
 import { CompanyContactService } from '../company-contact.service';
@@ -60,7 +60,6 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   ngOnInit():void {
     this.languageList = this._globalService.languageList;
-    this._globalService.currLanguage === ENGLISH ? this.statusMessageSubject = 'Company representative details' : this.statusMessageSubject = 'Coordonnées des représentants de la compagnie';
   }
 
   override ngAfterViewInit(): void {
@@ -144,6 +143,75 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
         }
       }
     }
+  }
+
+  saveCompanyRecord(event: any): void {
+    const index = event.index;
+    const group = this.recordFormArray.at(index) as RecordFormGroup;
+    // if this is a new record, assign next available id, otherwise, use it's existing id
+    const id = group.get('isNew').value? this.listService.getNextId(): group.get('id').value
+    group.patchValue({ 
+    id: id,
+    isNew: false,
+    expandFlag: false,    // collapse this record
+    });
+    const recordInfo = this.getRecordInfo(group);
+    // Update lastSavedState with the current value of contactInfo
+    group.get('lastSavedState').setValue(recordInfo.value);
+    this._expandNextInvalidRecord();
+    this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
+
+    if (this._globalService.currLanguage == "en") {
+      this.statusMessage = "Company representative details records " + id + " has been saved.";
+    } else {
+      this.statusMessage = "Enregistrement du représentant de la compagnie " + id + " a été sauvegardé.";
+    }
+     
+    setTimeout(() => {
+        document.getElementById(this.addButton).focus(); 
+    }, 0);
+  }
+
+  deleteCompanyRecord(index: number): void {
+    const id = index + 1;
+    const group = this.recordFormArray.at(index) as RecordFormGroup;
+    const recordInfo = this.getRecordInfo(group);
+    recordInfo.reset();
+    this.recordFormArray.removeAt(index);
+    this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
+
+    if (this._globalService.currLanguage == "en") {
+      this.statusMessage = "Company representative details records " + id + " has been deleted.";
+    } else {
+      this.statusMessage = "Enregistrement du représentant de la compagnie " + id + " a été supprimé.";
+    }
+
+    document.getElementById(this.addButton).focus();
+  }
+
+  revertCompanyRecord(event: any): void {
+    const index = event.index;
+    const id = index + 1;
+    const group = this.recordFormArray.at(index) as RecordFormGroup;
+    const recordInfo = this.getRecordInfo(group);
+    // Revert to the last saved state
+    const lastSavedState = group.get('lastSavedState').value;
+    recordInfo.patchValue(lastSavedState); 
+
+    if (this._globalService.currLanguage == "en") {
+      this.statusMessage = "Company representative details records " + id + " changes have been discarded.";
+    } else {
+      this.statusMessage = "Les modifications apportées au représentant de la compagnie " + id + " ont été annulées.";
+    }
+
+    const discardMsg = this.statusMessage;
+      
+    setTimeout(() => {
+      this.statusMessage = ''; // Temporarily clear the message
+      setTimeout(() => {
+        this.statusMessage = discardMsg; // Restore the message
+      }, 50); // Small delay before restoring
+    }, 50);
   }
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {

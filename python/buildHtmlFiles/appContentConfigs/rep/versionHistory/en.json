@@ -7,6 +7,21 @@
     ],
     "releases": [
         {
+            "header": "June 3, 2025 Release",
+            "details": [
+                {
+                    "template": "Company (CO) Template<br>Version 5.0.0<br><br><br>Stylesheet package*",
+                    "changes": [
+                        "Added info bubble for the company template",
+                        "Added instructions in the “Load a company enrolment file” section",
+                        "Removed routing identifier",
+                        "Added the question “Select one or more of the following regulatory frameworks under which the manufacturer/sponsor company will be filing submissions/applications",
+                        "*New CO stylesheet to match changes on this template"
+                    ]
+                }
+            ]
+        },
+        {
             "header": "March 26, 2025 Release",
             "details": [
                 {

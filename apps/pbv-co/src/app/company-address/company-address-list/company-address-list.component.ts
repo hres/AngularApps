@@ -1,7 +1,7 @@
 import { Component, computed, EventEmitter, Input, output, Output, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AddressDetailsService, INameAddress } from '@hpfb/pbv';
-import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService, UtilsService, ICode, ENGLISH, FRENCH } from '@hpfb/sdk/ui';
+import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService, UtilsService, ICode, ENGLISH, FRENCH, RecordFormGroup } from '@hpfb/sdk/ui';
 import { FormDataLoaderService } from '../../container/form-data-loader.service';
 import { GlobalService } from '../../global/global.service';
 import { AddressRecord } from '../../models/Company';
@@ -57,7 +57,6 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
 
   ngOnInit():void {
     this.provinceList = this._globalService.provinceList;
-    this._globalService.currLanguage === ENGLISH ? this.statusMessageSubject = 'Address details' : this.statusMessageSubject = 'coordonnées';
   }
 
   override ngAfterViewInit(): void {
@@ -138,6 +137,75 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
         }
       }
     }
+  }
+
+  saveAddressRecord(event: any): void {
+    const index = event.index;
+    const group = this.recordFormArray.at(index) as RecordFormGroup;
+    // if this is a new record, assign next available id, otherwise, use it's existing id
+    const id = group.get('isNew').value? this.listService.getNextId(): group.get('id').value
+    group.patchValue({ 
+    id: id,
+    isNew: false,
+    expandFlag: false,    // collapse this record
+    });
+    const recordInfo = this.getRecordInfo(group);
+    // Update lastSavedState with the current value of contactInfo
+    group.get('lastSavedState').setValue(recordInfo.value);
+    this._expandNextInvalidRecord();
+    this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
+
+    if (this._globalService.currLanguage == "en") {
+      this.statusMessage = "Address details record " + id + " has been saved.";
+    } else {
+      this.statusMessage = "Enregistrement des détails de l’adresse " + id + " a été sauvegardé.";
+    }
+     
+    setTimeout(() => {
+        document.getElementById(this.addButton).focus(); 
+    }, 0);
+  }
+
+  deleteAdressRecord(index: number): void {
+    const id = index + 1;
+    const group = this.recordFormArray.at(index) as RecordFormGroup;
+    const recordInfo = this.getRecordInfo(group);
+    recordInfo.reset();
+    this.recordFormArray.removeAt(index);
+    this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
+
+    if (this._globalService.currLanguage == "en") {
+      this.statusMessage = "Address details record " + id + " has been deleted.";
+    } else {
+      this.statusMessage = "Enregistrement des détails de l’adresse " + id + " a été supprimé.";
+    }
+
+    document.getElementById(this.addButton).focus();
+  }
+
+  revertAdressRecord(event: any): void {
+    const index = event.index;
+    const id = index + 1;
+    const group = this.recordFormArray.at(index) as RecordFormGroup;
+    const recordInfo = this.getRecordInfo(group);
+    // Revert to the last saved state
+    const lastSavedState = group.get('lastSavedState').value;
+    recordInfo.patchValue(lastSavedState); 
+
+    if (this._globalService.currLanguage == "en") {
+      this.statusMessage = "Address details record " + id + " changes have been discarded.";
+    } else {
+      this.statusMessage = "Les modifications apportées aux détails de l'adresse " + id + " ont été annulées.";
+    }
+
+    const discardMsg = this.statusMessage;
+      
+    setTimeout(() => {
+      this.statusMessage = ''; // Temporarily clear the message
+      setTimeout(() => {
+        this.statusMessage = discardMsg; // Restore the message
+      }, 50); // Small delay before restoring
+    }, 50);
   }
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
