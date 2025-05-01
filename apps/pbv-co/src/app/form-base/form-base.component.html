@@ -92,18 +92,18 @@
         </button>
       </div>
       <div *ngIf="isInternal" class="form-group col-md-4">
-        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()" [disabled]="disableForm">
+        <button type="button" class="btn btn-primary btn-lg" (click)="saveXmlFile()" [disabled]="disableForm">
           {{'generate.final'|translate}}
         </button>
       </div>
       <div *ngIf="!isInternal" class="form-group col-md-4">
-        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()"
+        <button type="button" class="btn btn-primary btn-lg" (click)="saveXmlFile()"
         [disabled]="isAmend()">
           {{'draft.xml'|translate}}
         </button>
       </div>
       <div class="form-group col-md-4" *ngIf="!isInternal">
-        <a class="btn btn-primary btn-lg active" [href] = "mailToLink" (click)="mailto()"
+        <a class="btn btn-primary btn-lg" [href] = "mailToLink" (click)="mailto()"
            [class.disabled]="disableMailto" >
           {{'mailto.label'|translate}}
         </a>
