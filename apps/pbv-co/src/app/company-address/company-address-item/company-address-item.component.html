@@ -9,7 +9,7 @@
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="companyName{{j}}" class="required full-width">
                     <span class="field-name">{{ 'company.name'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="cRRow.get('addressInfo.companyName').invalid"
                         [showError]="showErrors"
                         [control]="cRRow.get('addressInfo.companyName') | formControl" controlId="companyName{{j}}"
