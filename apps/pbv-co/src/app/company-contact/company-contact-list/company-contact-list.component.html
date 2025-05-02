@@ -1,5 +1,5 @@
 <div id="contactListTable" [formGroup]="recordFormGroup">
-    <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.data.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
+    <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.compRepInfo.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
       <div [formArrayName]="'contacts'">
   
         <lib-accordion [rowsFormArray]="recordFormArray" [accordionHeadingMsgKey]="'heading.company.contact'" [accordionHeadingSupp]="['companyInfo', 'contactDetails', 'fullName']" 
