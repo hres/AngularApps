@@ -376,7 +376,7 @@
     "csp.customer.number":"CSP Customer Number",
     "agent.name":"Agent Name (Full legal Name - no abbreviations)",
     "panel.title.timing.of.application": "6. Timing of Application",
-    "application.is.applying":"Application is applying(select one only)",
+    "application.is.applying":"Applicant is applying(select one only)",
 
     "panel.title.attestations": "8. Attestations",
     "attestation.as.applicant": "Attestation as to Applicant",
