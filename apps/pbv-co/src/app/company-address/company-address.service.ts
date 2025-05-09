@@ -48,7 +48,7 @@ export class CompanyAddressService implements IRecordService{
 
         oerr = getEmptyErrorSummaryObj();
         oerr.index = 0;
-        oerr.tableId = 'addressCompanyRoles0';
+        oerr.tableId = 'addressListTable';
         oerr.type = ERR_TYPE_LEAST_ONE_REC;
         oerr.label = 'error.msg.addressRolesMissing';
         oerr.componentId = 'address';
