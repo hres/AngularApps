@@ -21,7 +21,7 @@
             <span class="field-name">{{'select.roles.rep' | translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
-                            [showError]="showErrors"
+                            [showError]="showErrors" [attr.aria-live]="showErrors? null: 'assertive'"
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="contactCompanyRoles{{j}}" label="select.roles.rep"
                             parentId="companyContact"></control-messages>
