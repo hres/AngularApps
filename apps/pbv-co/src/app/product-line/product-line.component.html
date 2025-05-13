@@ -8,7 +8,7 @@
                     <sup [id]="helpIndex['prodLineIndx'][2]">
                         <a class="fn-lnk" [href]="'#' + helpIndex['prodLineIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodLineIndx'][0]}}</a>
                     </sup>
-                    <control-messages *ngIf="productLineChkFormArray.invalid"
+                    <control-messages *ngIf="productLineChkFormArray.invalid" [attr.aria-live]="showErrors? null: 'assertive'"
                             [showError]="showErrors"
                             [control]="productLineChkFormArray | formControl"
                             controlId="{{productLineOptionList[0].value}}" label="prod.line"
