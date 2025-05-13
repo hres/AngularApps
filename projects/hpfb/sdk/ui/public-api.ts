@@ -67,3 +67,4 @@ export * from './record/record-service/record.service.interface';
 export * from './record/record-model/record.model';
 
 export * from './popup/popup.component';
+export * from './popup/confirmation-popup/confirmation-popup.component';

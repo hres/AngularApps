@@ -22,7 +22,10 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     errorSummaryChild: any;
 
     abstract statusMessage : string;
-    abstract statusMessageSubject : string;
+    abstract statusMessageSave : string;
+    abstract statusMessageDiscard : string;
+    abstract statusMessageDelete : string;
+
     abstract focusField : string; // Field to focus on after clicking "Add Record"
     abstract addButton : string; // Button id to focus on after clicking delete/save
     abstract records: string;
@@ -215,16 +218,16 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         console.log(this.lang)
         const actionMessages = {
             'SAVE': {
-              en: `${this.statusMessageSubject} record ${id} has been saved.`,
-              fr: `Enregistrement du ${this.statusMessageSubject} ${id} a été sauvegardé.`
+              en: `${this.statusMessageSave} ${id} has been saved.`,
+              fr: `Enregistrement ${this.statusMessageSave} ${id} a été sauvegardé.`
             },
             'DELETE': {
-              en: `${this.statusMessageSubject} record ${id} has been deleted.`,
-              fr: `Enregistrement du ${this.statusMessageSubject} ${id} a été supprimé.`
+              en: `${this.statusMessageDelete} ${id} has been deleted.`,
+              fr: `Enregistrement ${this.statusMessageDelete} ${id} a été supprimé.`
             },
             'DISCARD': {
-              en: `${this.statusMessageSubject} record ${id} changes have been discarded.`,
-              fr: `Les modification du ${this.statusMessageSubject} ${id} ont été annulées.`
+              en: `${this.statusMessageDiscard} ${id} changes have been discarded.`,
+              fr: `Les modification apportées ${this.statusMessageDiscard} ${id} ont été annulées.`
             }
           };
         

@@ -1,0 +1,16 @@
+<section id={{id}} class="wb-overlay modal-dialog modal-content overlay-def wb-popup-mid overlay-bg">
+	<header class="modal-header">
+	  <h2 class="modal-title">{{title}}</h2>
+	</header>
+	<div class="modal-body">
+	  {{message}}
+	</div>
+	<div class="modal-footer custom-footer">
+		<div class="left-button">
+		  <button class="btn overlay-close" type="button" (click)="closePopup()">{{ cancel }}</button>
+		</div>
+		<div class="right-button">
+		  <button class="btn" type="button" (click)="onConfirm()">{{ confirm }}</button>
+		</div>
+	  </div>	  
+</section>
