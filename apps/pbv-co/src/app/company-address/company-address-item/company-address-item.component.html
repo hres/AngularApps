@@ -9,12 +9,12 @@
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="companyName{{j}}" class="required full-width">
                     <span class="field-name">{{ 'company.name'|translate }}</span>
-                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="cRRow.get('addressInfo.companyName').invalid"
+                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <control-messages *ngIf="cRRow.get('addressInfo.companyName').invalid" [attr.aria-live]="showErrors? null: 'assertive'"
                         [showError]="showErrors"
                         [control]="cRRow.get('addressInfo.companyName') | formControl" controlId="companyName{{j}}"
                         label="company.name" parentId="companyAddress"></control-messages>
-                    <input maxlength="80" id="companyName{{j}}" class="form-control full-width"
+                    <input maxlength="80" id="companyName{{j}}" class="form-control full-width" required
                         name="companyName" [formControlName]="'companyName'" />
                 </label>
             </div>
@@ -28,7 +28,7 @@
                         <a class="fn-lnk" [href]="'#' + helpIndex['businessNumIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['businessNumIndx'][0]}}</a>
                       </sup>
                     </span>
-                    <control-messages *ngIf="cRRow.get('addressInfo.businessNum').invalid"
+                    <control-messages *ngIf="cRRow.get('addressInfo.businessNum').invalid" [attr.aria-live]="showErrors? null: 'assertive'"
                         [showError]="showErrors"
                         [control]="cRRow.get('addressInfo.businessNum') | formControl" controlId="businessNum{{j}}"
                         label="business.number" parentId="companyAddress"></control-messages>
@@ -60,7 +60,7 @@
                 <a class="fn-lnk" [href]="'#' + helpIndex['selectRolesIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['selectRolesIndx'][0]}}</a>
               </sup>
             </strong>
-            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
+            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']" [attr.aria-live]="showErrors? null: 'assertive'"
                             [showError]="showErrors"
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="addressCompanyRoles{{j}}" label="select.roles.comp"
