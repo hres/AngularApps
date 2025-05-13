@@ -286,7 +286,7 @@ span.mouseHover:hover {
                     </div>
                     <div class="row">
                         <div class="panel-body">
-                            <strong>Motif du dépôt: </strong>
+                            <strong>Motif du dépôt : </strong>
                             <span class="mouseHover">
                                 <xsl:value-of select="reason_amend" />
                             </span>
@@ -321,7 +321,7 @@ span.mouseHover:hover {
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Rue: </strong>
+                                                <strong>Rue : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_address_details/street_address" />
                                                 </span>
@@ -329,7 +329,7 @@ span.mouseHover:hover {
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Ville: </strong>
+                                                <strong>Ville : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_address_details/city" />
                                                 </span>
@@ -337,7 +337,7 @@ span.mouseHover:hover {
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Pays: </strong>
+                                                <strong>Pays : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_address_details/country/@label_fr" />
                                                 </span>
@@ -347,7 +347,7 @@ span.mouseHover:hover {
                                             <xsl:when test="company_address_details/country/@id = 'CA'">
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <strong>Province: </strong>
+                                                        <strong>Province : </strong>
                                                         <span class="mouseHover">
                                                             <xsl:value-of select="company_address_details/province_lov/@label_fr" />
                                                         </span>
@@ -355,7 +355,7 @@ span.mouseHover:hover {
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <strong>Code postal: </strong>
+                                                        <strong>Code postal : </strong>
                                                         <span class="mouseHover">
                                                             <xsl:value-of select="company_address_details/postal_code" />
                                                         </span>
@@ -365,7 +365,7 @@ span.mouseHover:hover {
                                             <xsl:when test="company_address_details/country/@id = 'US'">
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <strong>État: </strong>
+                                                        <strong>État : </strong>
                                                         <span class="mouseHover">
                                                             <xsl:value-of select="company_address_details/province_lov/@label_fr" />
                                                         </span>
@@ -373,7 +373,7 @@ span.mouseHover:hover {
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <strong>Code ZIP: </strong>
+                                                        <strong>Code ZIP : </strong>
                                                         <span class="mouseHover">
                                                             <xsl:value-of select="company_address_details/postal_code" />
                                                         </span>
@@ -383,7 +383,7 @@ span.mouseHover:hover {
                                             <xsl:otherwise>
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <strong>Province ou état: </strong>
+                                                        <strong>Province ou état : </strong>
                                                         <span class="mouseHover">
                                                             <xsl:value-of select="company_address_details/province_text" />
                                                         </span>
@@ -391,7 +391,7 @@ span.mouseHover:hover {
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <strong>Code postal/ZIP: </strong>
+                                                        <strong>Code postal/ZIP : </strong>
                                                         <span class="mouseHover">
                                                             <xsl:value-of select="company_address_details/postal_code" />
                                                         </span>
@@ -401,7 +401,7 @@ span.mouseHover:hover {
                                         </xsl:choose>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Rôles: </strong>
+                                                <strong>Rôles : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:call-template name="addressRoles"/>
                                                 </span>
@@ -425,7 +425,7 @@ span.mouseHover:hover {
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Prénom: </strong>
+                                                <strong>Prénom : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/given_name" />
                                                 </span>
@@ -433,7 +433,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Initiales: </strong>
+                                                <strong>Initiales : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/initials" />
                                                 </span>
@@ -441,7 +441,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Nom de famille: </strong>
+                                                <strong>Nom de famille : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/surname" />
                                                 </span>
@@ -449,7 +449,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Langue de correspondance: </strong>
+                                                <strong>Langue de correspondance : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/language_correspondance/@label_fr" />
                                                 </span>
@@ -457,7 +457,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Titre de poste: </strong>
+                                                <strong>Titre de poste : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/job_title" />
                                                 </span>
@@ -465,7 +465,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Numéro de téléphone: </strong>
+                                                <strong>Numéro de téléphone : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/phone_num" />
                                                 </span>
@@ -473,7 +473,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Extension de téléphone: </strong>
+                                                <strong>Extension de téléphone : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/phone_ext" />
                                                 </span>
@@ -481,7 +481,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Numéro de télécopieur: </strong>
+                                                <strong>Numéro de télécopieur : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/fax_num" />
                                                 </span>
@@ -489,7 +489,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Courriel: </strong>
+                                                <strong>Courriel : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/email" />
                                                 </span>
@@ -497,7 +497,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Rôles: </strong>
+                                                <strong>Rôles : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:call-template name="contactRoles"/>
                                                 </span>
