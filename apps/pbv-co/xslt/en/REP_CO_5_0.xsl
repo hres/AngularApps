@@ -261,7 +261,7 @@ span.mouseHover:hover {
 	
 	<!-- Company Enrolment -->
 	<xsl:template match="COMPANY_ENROL">
-		<h1>Company Template: Regulatory Enrolment Process (REP) for human and veterinary drugs and biocides <xsl:if test="software_version != ''">(version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
+		<h1>Company Template: Regulatory Enrolment Process (REP) for human and veterinary drugs and biocides <xsl:if test="software_version != ''">(version <xsl:value-of select="software_version"/>)</xsl:if></h1>
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
