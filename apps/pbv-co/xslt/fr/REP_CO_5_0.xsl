@@ -313,7 +313,7 @@ span.mouseHover:hover {
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Numéro d’entreprise de l'Agence du revenu du Canada: </strong>
+                                                <strong>Numéro d’entreprise de l'Agence du revenu du Canada : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="business_number" />
                                                 </span>
@@ -513,7 +513,7 @@ span.mouseHover:hover {
 							<h2 class="panel-title">Cadres réglementaires</h2>
 						</div>
 						<div class="panel-body">
-                            <strong>Sélectionnez un ou plusieurs des cadres réglementaires suivants en vertu duquel/desquels le fabricant/promoteur pourrait déposer une présentation/demande:</strong>
+                            <strong>Sélectionnez un ou plusieurs des cadres réglementaires suivants en vertu duquel/desquels le fabricant/promoteur pourrait déposer une présentation/demande :</strong>
                             <xsl:for-each select="product_line_checkbox/product_line">
                                 <div class="row">
                                     <div class="col-xs-12">
