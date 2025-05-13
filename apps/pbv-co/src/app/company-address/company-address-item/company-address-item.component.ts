@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, QueryList, Signal, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, EventEmitter, Input, Output, QueryList, Signal, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent, CheckboxOption, ConverterService, ErrorNotificationService, ErrorSummaryComponent, HelpSequence, ICode } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
-import { ADDRESS_ERROR_PREFIX } from '../../app.constants';
+import { ADDRESS_ERROR_PREFIX, ROLE_INDEX_MAPPING } from '../../app.constants';
 import { GlobalService } from '../../global/global.service';
 import { AppSignalService } from '../../signal/app-signal.service';
 import { CompanyAddressItemService } from './company-address-item.service';
@@ -57,6 +57,10 @@ export class CompanyAddressItemComponent extends BaseComponent{
               private _companyAddressItemService : CompanyAddressItemService,
               private cdRef: ChangeDetectorRef) {
       super();
+      effect(() => {
+        this._disableRoles();
+        this._enableRoles();
+      });
   }
 
   ngOnInit(): void {
@@ -76,9 +80,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
     }
     
     if (this.disableForm) {
-      this.disableFormGroup();
+      this._disableFormGroup();
     } else {
-      this.enableFormGroup();
+      this._enableFormGroup();
     }
   }
 
@@ -157,13 +161,13 @@ export class CompanyAddressItemComponent extends BaseComponent{
     // Update signal array
     if (isChecked) {
       this._signalService.updateAddressCompanyRoles(uniqueRole);
-      if (this.isRoleAlreadySelected(selectedRole)) {
-        roleControl.setErrors({ 'error.msg.roleSelected': true });
-      }
+      // if (this.isRoleAlreadySelected(selectedRole)) {
+      //   roleControl.setErrors({ 'error.msg.roleSelected': true });
+      // }
     } else {
       this._signalService.removeAddressCompanyRole(uniqueRole);
-      this.removeRoleError.emit({ id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
-      roleControl.setErrors(null); // Remove error if valid
+      // this.removeRoleError.emit({ id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
+      // roleControl.setErrors(null); // Remove error if valid
 
     }
 
@@ -181,10 +185,13 @@ export class CompanyAddressItemComponent extends BaseComponent{
     //this._appendErrorsFromChild(); // Update errors for company roles here
   }
 
-  isRoleAlreadySelected = (role: string): boolean => {
-    const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, '')); // Remove the numeric prefix
-    return roles.filter(r => r === role).length > 1; // Check if role appears more than once
-  };
+  /**
+   * Deprecated
+   */
+  // isRoleAlreadySelected = (role: string): boolean => {
+  //   const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, '')); // Remove the numeric prefix
+  //   return roles.filter(r => r === role).length > 1; // Check if role appears more than once
+  // };
 
   private _updateCompanyRolesArray() {
     const companyRolesList = this._globalService.companyRolesList;
@@ -252,11 +259,52 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.cdRef.detectChanges(); // Do change detection here to reactively update error summary
   }
 
-  disableFormGroup() {
+  private _disableFormGroup() {
     this.cRRow.disable();
   }
 
-  enableFormGroup() {
+  private _enableFormGroup() {
     this.cRRow.enable();
+  }
+
+  private _disableRoles() {
+    const recordId = this.cRRow.get('id').value === -1 
+      ? this.cRRow.get('recordId').value 
+      : this.cRRow.get('id').value;
+  
+    this.selectedCompanyRoles().forEach(roleWithPrefix => {
+      const selectedRecordId = roleWithPrefix.match(/^\d+/)?.[0] ?? '';
+      const roleId = roleWithPrefix.slice(selectedRecordId.length);
+    
+      if (selectedRecordId !== String(recordId)) {
+        const mappedIndex = ROLE_INDEX_MAPPING[roleId];
+        if (mappedIndex !== undefined) {
+          this._disableRole(mappedIndex);
+        }
+      }
+    });
+  }
+
+  private _enableRoles() {
+    const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, ''));
+    this.companyRolesOptionList.forEach(role => {
+        if (!roles.includes(role.value)) {
+          const mappedIndex = ROLE_INDEX_MAPPING[role.value];
+          if (mappedIndex !== undefined) {
+            this._enableRole(mappedIndex);
+          }
+        }
+      }
+    )
+  }
+
+  private _disableRole(roleIndex) {
+    const roleFormGroup = this.companyRolesChkFormArray.at(roleIndex) as FormGroup;
+    roleFormGroup.disable();
+  }
+
+  private _enableRole(roleIndex) {
+    const roleFormGroup = this.companyRolesChkFormArray.at(roleIndex) as FormGroup;
+    roleFormGroup.enable();
   }
 }

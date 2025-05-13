@@ -1,6 +1,6 @@
 import { Component, computed, Signal, EventEmitter, Input, output, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Form} from '@angular/forms';
-import { CheckboxOption, ControlMessagesComponent, ConverterService, ENGLISH, ErrorNotificationService, ErrorSummaryComponent, FRENCH, ICode, UtilsService, RecordFormGroup } from '@hpfb/sdk/ui';
+import { CheckboxOption, ControlMessagesComponent, ConverterService, ENGLISH, ErrorNotificationService, ErrorSummaryComponent, FRENCH, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { ContactRecord } from '../../models/Company';
 import { BaseListComponent } from '@hpfb/sdk/ui';
 import { CompanyContactService } from '../company-contact.service';
@@ -27,7 +27,11 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   popupId: string = 'contactPopup';
   statusMessage : string = '';
   errorList;
-  statusMessageSubject : string = '';
+  
+  statusMessageSave : string = '';
+  statusMessageDiscard: string = '';
+  statusMessageDelete: string = '';
+
   focusField : string = 'firstName'
   addButton : string = 'addContactBtn'
 
@@ -60,6 +64,12 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   ngOnInit():void {
     this.languageList = this._globalService.languageList;
+    if (this._globalService.currLanguage === ENGLISH) {
+      this.statusMessageSave = this.statusMessageDelete = this.statusMessageDiscard = 'Comapny representative details records';
+    } else {
+      this.statusMessageSave = this.statusMessageDelete = 'du représentant de la compagnie';
+      this.statusMessageDiscard = 'au représentant de la compagnie'
+    }  
   }
 
   override ngAfterViewInit(): void {
@@ -107,112 +117,47 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     this.companyRolesOptionList = updatedRoles;
   }
 
-  handleRemoveRoleError(event : any) {
-    // event: unchecked role
-    const recordId = event.id;
-    const role = event.role;
-    const roleIndex = event.roleIndex;
-    let id = null;
+  /**
+   * Deprecated
+   * @param  
+   */
+  // handleRemoveRoleError(event : any) {
+  //   // event: unchecked role
+  //   const recordId = event.id;
+  //   const role = event.role;
+  //   const roleIndex = event.roleIndex;
+  //   let id = null;
 
-    // Check if there are any other records with the same role that's been unchecked,
-    // If so, clear the errors
+  //   // Check if there are any other records with the same role that's been unchecked,
+  //   // If so, clear the errors
 
-    // Look for other records that has the same role as the role that has been unchecked
-    const currentRolesArray = this._signalService.getSelectedContactCompanyRoles()();
-    for (const item of currentRolesArray) {
-      const idMatch = item.match(/^(\d+)/); // Extract the number (prefix)
-      const itemRole = item.replace(/^\d+/, ''); // Extract role type
+  //   // Look for other records that has the same role as the role that has been unchecked
+  //   const currentRolesArray = this._signalService.getSelectedContactCompanyRoles()();
+  //   for (const item of currentRolesArray) {
+  //     const idMatch = item.match(/^(\d+)/); // Extract the number (prefix)
+  //     const itemRole = item.replace(/^\d+/, ''); // Extract role type
 
-      if (itemRole === role && idMatch !== recordId) {
-        id = Number(idMatch?.[1]); // Return the number as a number type
-        break;
-      }
-    }
+  //     if (itemRole === role && idMatch !== recordId) {
+  //       id = Number(idMatch?.[1]); // Return the number as a number type
+  //       break;
+  //     }
+  //   }
 
-    // If id has been found, find FormGroup with matching recordId. Set role's errors to null
-    if (id) {
-      const formGroupWithId = this.recordFormArray.controls.find(
-        (group) => group.get('recordId')?.value === id
-      ) as FormGroup | undefined;
+  //   // If id has been found, find FormGroup with matching recordId. Set role's errors to null
+  //   if (id) {
+  //     const formGroupWithId = this.recordFormArray.controls.find(
+  //       (group) => group.get('recordId')?.value === id
+  //     ) as FormGroup | undefined;
 
-      if (formGroupWithId) {
-        let contactRoles = formGroupWithId.get('companyInfo.companyRoles') as FormArray;
-        const roleControl = contactRoles.at(roleIndex);
-        if (roleControl.errors) {
-          roleControl.setErrors(null);
-        }
-      }
-    }
-  }
-
-  saveCompanyRecord(event: any): void {
-    const index = event.index;
-    const group = this.recordFormArray.at(index) as RecordFormGroup;
-    // if this is a new record, assign next available id, otherwise, use it's existing id
-    const id = group.get('isNew').value? this.listService.getNextId(): group.get('id').value
-    group.patchValue({ 
-    id: id,
-    isNew: false,
-    expandFlag: false,    // collapse this record
-    });
-    const recordInfo = this.getRecordInfo(group);
-    // Update lastSavedState with the current value of contactInfo
-    group.get('lastSavedState').setValue(recordInfo.value);
-    this._expandNextInvalidRecord();
-    this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
-
-    if (this._globalService.currLanguage == "en") {
-      this.statusMessage = "Company representative details records " + id + " has been saved.";
-    } else {
-      this.statusMessage = "Enregistrement du représentant de la compagnie " + id + " a été sauvegardé.";
-    }
-     
-    setTimeout(() => {
-        document.getElementById(this.addButton).focus(); 
-    }, 0);
-  }
-
-  deleteCompanyRecord(index: number): void {
-    const id = index + 1;
-    const group = this.recordFormArray.at(index) as RecordFormGroup;
-    const recordInfo = this.getRecordInfo(group);
-    recordInfo.reset();
-    this.recordFormArray.removeAt(index);
-    this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
-
-    if (this._globalService.currLanguage == "en") {
-      this.statusMessage = "Company representative details records " + id + " has been deleted.";
-    } else {
-      this.statusMessage = "Enregistrement du représentant de la compagnie " + id + " a été supprimé.";
-    }
-
-    document.getElementById(this.addButton).focus();
-  }
-
-  revertCompanyRecord(event: any): void {
-    const index = event.index;
-    const id = index + 1;
-    const group = this.recordFormArray.at(index) as RecordFormGroup;
-    const recordInfo = this.getRecordInfo(group);
-    // Revert to the last saved state
-    const lastSavedState = group.get('lastSavedState').value;
-    recordInfo.patchValue(lastSavedState); 
-
-    if (this._globalService.currLanguage == "en") {
-      this.statusMessage = "Company representative details records " + id + " changes have been discarded.";
-    } else {
-      this.statusMessage = "Les modifications apportées au représentant de la compagnie " + id + " ont été annulées.";
-    }
-
-    const discardMsg = this.statusMessage;
-      
-    setTimeout(() => {
-      this.statusMessage = ''; // Temporarily clear the message
-      setTimeout(() => {
-        this.statusMessage = discardMsg; // Restore the message
-      }, 50); // Small delay before restoring
-    }, 50);
-  }
+  //     if (formGroupWithId) {
+  //       let contactRoles = formGroupWithId.get('companyInfo.companyRoles') as FormArray;
+  //       const roleControl = contactRoles.at(roleIndex);
+  //       if (roleControl.errors) {
+  //         roleControl.setErrors(null);
+  //       }
+  //     }
+  //   }
+  // }
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
     // console.log('...._processErrorSummaries:', errSummaryEntries);

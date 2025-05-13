@@ -56,3 +56,9 @@ export const ROLE_CODES = {
   BILL: 'BILL',
   MAIL: 'MAIL'
 }
+
+export const ROLE_INDEX_MAPPING = {
+  MFR: 0,
+  MAIL: 1,
+  BILL: 2
+}

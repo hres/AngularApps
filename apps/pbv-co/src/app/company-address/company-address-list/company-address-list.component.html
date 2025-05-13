@@ -13,11 +13,10 @@
           [j]="idx"
           [showErrors]="showErrors"
           [disableForm]="disableForm"
-          (saveRecord)="saveAddressRecord($event)"
-          (deleteRecord)="deleteAdressRecord($event)"
-          (revertRecord)="revertAdressRecord($event)"
-          (rolesUpdated)="handleRolesUpdated($event)"
-          (removeRoleError)="handleRemoveRoleError($event)"></app-company-address-item>
+          (saveRecord)="saveRecord($event)"
+          (deleteRecord)="deleteRecord($event)"
+          (revertRecord)="revertRecord($event)"
+          (rolesUpdated)="handleRolesUpdated($event)"></app-company-address-item>
         </ng-template>
       
       </lib-accordion>
