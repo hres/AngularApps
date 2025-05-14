@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, effect, EventEmitter, Input, Output, Quer
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent, CheckboxOption, ConverterService, ErrorNotificationService, ErrorSummaryComponent, HelpSequence, ICode } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 import { ADDRESS_ERROR_PREFIX, ROLE_INDEX_MAPPING } from '../../app.constants';
 import { GlobalService } from '../../global/global.service';
 import { AppSignalService } from '../../signal/app-signal.service';
@@ -63,7 +64,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
       });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.countryList = this._globalService.countryList;
     this.provinceList = this._globalService.provinceList;
     this.stateList = this._globalService.stateList; 
@@ -72,6 +73,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+   
+    const heading = await this._getHeading(); // Await here
+    this.cRRow.get('heading').setValue(heading);
   }
 
   ngOnChanges(changes: SimpleChanges) : void{
@@ -115,18 +119,39 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this._save(index);
   }
 
-  private _save(index: number): void {
+  private async _save(index: number) {
     if (this.cRRow.valid) {
+      const heading = await this._getHeading(); // Await here
+      this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
     } else {
       this.showErrors = true;
       document.location.href = '#coAddressErrorSummary' + this.j;
     }
-  } 
+  }  
+
+  private async _getHeading(): Promise<string> {
+    let fullHeading = '';
+    let companyName = null;
+    const id = this.cRRow.get('recordId')?.value;
+
+    if (this.cRRow.get('id').value !== -1) {
+      companyName = this.cRRow.get('addressInfo.companyName')?.value?.trim() ?? '';
+    }
+
+    const heading = await lastValueFrom(
+      this._translateService.get('heading.company.address', { seqnumber: id })
+    );
+    
+    fullHeading = companyName ? `${heading} - ${companyName}` : heading;
+      
+    return fullHeading;
+  }
+  
 
   public revertAddressRecord(index: number, recordId: number): void {
-    this.revertRecord.emit({ index: index, id: recordId });
+    this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
     this.cRRow.markAsPristine();
   }
 
@@ -140,7 +165,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
       {
         this._signalService.removeAddressCompanyRole(role)
       });
-    this.deleteRecord.emit(index);
+    this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
     this.cRRow.markAsPristine();
   }
 

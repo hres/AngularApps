@@ -25,6 +25,9 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   records: string = 'contacts';
   recordInfo: string = 'companyInfo';
   popupId: string = 'contactPopup';
+  discardPopupId: string = 'contactDiscardPopup';
+  deletePopupId: string = 'contactDeletePopup';
+
   statusMessage : string = '';
   errorList;
   

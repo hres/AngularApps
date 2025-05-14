@@ -53,7 +53,7 @@
     "addressDetails.postalCode": "Code postal",
     "addressDetails.zipCode": "Code ZIP",
     "addressDetails.provState": "Province ou état",
-    "add.address":"Ajouter un enregistrement",
+    "add.address":"Ajouter un détail d’adresse",
     "save.address":"Enregistrer l'enregistrement",
     "delete.address":"Supprimer l'enregistrement",
 
@@ -79,7 +79,7 @@
     "error.msg.minlength": "Entrée non valide - doit contenir un minimum de {{ requiredLength }} chiffres",
     "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
     "error.msg.business": "Entrée non valide - doit contenir 9 chiffres",
-    "add.contact":"Ajouter un enregistrement",
+    "add.contact":"Ajouter un détail du repésentant de la compagnie",
     "save.contact":"Enregistrer l'enregistrement",
     "delete.contact":"Supprimer l'enregistrement",
     "discard.changes":"Éliminer les modifications",
@@ -111,8 +111,14 @@
     "msg.save.xml.popup": "Veuillez sauvegarder les données d'entrée non enregistrées avant d’enregistrer le brouillon XML.",
     "msg.save.addressInfo.popup": "Veuillez sauvegarder les données d'entrée non enregistrées pour l’information d’adresse.",
     "msg.save.compRepInfo.popup": "Veuillez sauvegarder les données d'entrée non enregistrées pour l’information sur les représentants de la compagnie.",
+    "msg.discard.popup": "Êtes-vous sûr de vouloir annuler la modification pour {{heading}}?",
+    "msg.delete.popup": "Êtes-vous sûr de vouloir supprimer {{heading}}?",
     "popup.title":"Avertissement",
     "popup.close": "Fermer",
+    "popup.cancel": "Annuler",
+    "popup.confirm": "D'accord",
+    "popup.warning": "Avertissement!",
+
 
     "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres"
 

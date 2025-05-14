@@ -21,6 +21,9 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   records: string = 'addresses';
   recordInfo: string = 'addressInfo';
   popupId: string = 'addressPopup';
+  discardPopupId: string = 'addressDiscardPopup';
+  deletePopupId: string = 'addressDeletePopup';
+
   statusMessage : string = '';
   errorList;
 

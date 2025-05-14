@@ -9,6 +9,7 @@ import { FormArray } from '@angular/forms';
 import { CompanyContactItemService } from './company-contact-item.service';
 import { AppSignalService } from '../../signal/app-signal.service';
 import { Signal } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-company-contact-item',
@@ -61,13 +62,16 @@ export class CompanyContactItemComponent extends BaseComponent{
     });
   }
 
-  ngOnInit() : void{
+  async ngOnInit() : Promise<void> {
     this.lang = this._globalService.currLanguage;
     this.languageList = this._globalService.languageList;
     this.representativeRolesCodeList = this._globalService.representativeRolesList;
 
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+
+    const heading = await this._getHeading(); // Await here
+    this.cRRow.get('heading').setValue(heading);
   }
 
   ngOnChanges(changes: SimpleChanges) : void{
@@ -108,7 +112,7 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   
   public revertContactRecord(index: number, recordId: number): void {
-    this.revertRecord.emit({ index: index, id: recordId });
+    this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
     this.cRRow.markAsPristine();
   }
 
@@ -119,7 +123,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
     rolesToRemove.forEach(role => this._signalService.removeContactCompanyRole(role));
-    this.deleteRecord.emit(index);
+    this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
     this.cRRow.markAsPristine();
   }
 
@@ -128,8 +132,10 @@ export class CompanyContactItemComponent extends BaseComponent{
     this._save(index);
   }
 
-  private _save(index: number): void {
+  private async _save(index: number) {
     if (this.cRRow.valid) {
+      const heading = await this._getHeading(); // Await here
+      this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
     } else {
@@ -137,6 +143,25 @@ export class CompanyContactItemComponent extends BaseComponent{
       document.location.href = '#coContactErrorSummary' + this.j;
     }
   } 
+
+  
+  private async _getHeading(): Promise<string> {
+    let fullHeading = '';
+    let fullName = null;
+    const id = this.cRRow.get('recordId')?.value;
+
+    if (this.cRRow.get('id').value !== -1) {
+      fullName = this.cRRow.get('companyInfo.contactDetails.fullName')?.value?.trim() ?? '';
+    }
+
+    const heading = await lastValueFrom(
+      this._translateService.get('heading.company.contact', { seqnumber: id })
+    );
+    
+    fullHeading = fullName ? `${heading} - ${fullName}` : heading;
+      
+    return fullHeading;
+  }
 
  
   companyRolesOnChange(e: any, selectedRole: string, index: number) {
