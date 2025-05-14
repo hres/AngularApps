@@ -19,7 +19,8 @@
           (saveRecord)="saveRecord($event)"
           (deleteRecord)="deleteRecordConfirmation($event)"
           (revertRecord)="discardRecordConfirmation($event)"
-          (rolesUpdated)="handleRolesUpdated($event)"></app-company-contact-item>
+          (rolesUpdated)="handleRolesUpdated($event)"
+          (discardHandled)="onDiscardHandled($event)"></app-company-contact-item>
         </ng-template>
       
       </lib-accordion>

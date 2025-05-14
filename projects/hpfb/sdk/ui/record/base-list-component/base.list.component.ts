@@ -207,6 +207,10 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         jQuery( "#" + this.deletePopupId ).trigger( "open.wb-overlay" );
     }
 
+    onDiscardHandled(event:any) {
+        this.discardConfirmed = null;
+    }
+
     handleRowClick(event: any): void {
         const clickedIndex = event.index;
         const clickedRecordState = event.state;

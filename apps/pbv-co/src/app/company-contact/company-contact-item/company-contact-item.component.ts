@@ -28,6 +28,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   @Output() deleteRecord = new EventEmitter();
   @Output() rolesUpdated = new EventEmitter<CheckboxOption[]>();
   @Output() removeRoleError = new EventEmitter();
+  @Output() discardHandled = new EventEmitter();
 
   lang = this._globalService.currLanguage;
   languageList: ICode[] = [];
@@ -79,13 +80,13 @@ export class CompanyContactItemComponent extends BaseComponent{
       this._updateCompanyRolesArray();
     }
 
-    if (changes['discardConfirmed']) {
-      if (this.discardConfirmed === this._discardIndex) {
-        this._updateRolesSignalAfterDiscard();
-        this._patchLastSavedRoles();
-      }
+     if (changes['discardConfirmed'] && 
+    changes['discardConfirmed'].currentValue === this._discardIndex &&
+    changes['discardConfirmed'].previousValue !== changes['discardConfirmed'].currentValue) {
+      this._updateRolesSignalAfterDiscard();
+      this._patchLastSavedRoles();
+      this.discardHandled.emit();
     }
-    
 
     if (this.disableForm) {
       this._disableFormGroup();
