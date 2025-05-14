@@ -1,7 +1,7 @@
 <div id="contactListTable" [formGroup]="recordFormGroup">
     <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.compRepInfo.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
-    <lib-confirmation-popup [id]="discardPopupId" [title]="" [message]="'msg.discard.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="discardHeading" (confirmed)="revertRecord($event)" ></lib-confirmation-popup>
-    <lib-confirmation-popup [id]="deletePopupId" [title]="" [message]="'msg.delete.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="deleteHeading" (confirmed)="deleteRecord($event)" ></lib-confirmation-popup> 
+    <lib-confirmation-popup [id]="discardPopupId" [title]="'popup.warning' | translate" [message]="'msg.discard.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="discardHeading" (confirmed)="revertRecord($event)" ></lib-confirmation-popup>
+    <lib-confirmation-popup [id]="deletePopupId" [title]="'popup.warning' | translate" [message]="'msg.delete.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="deleteHeading" (confirmed)="deleteRecord($event)" ></lib-confirmation-popup> 
       <div [formArrayName]="'contacts'">
   
         <lib-accordion [rowsFormArray]="recordFormArray" [accordionHeadingMsgKey]="'heading.company.contact'" [accordionHeadingSupp]="['companyInfo', 'contactDetails', 'fullName']" 

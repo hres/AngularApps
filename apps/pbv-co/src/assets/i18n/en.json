@@ -118,6 +118,7 @@
     "popup.close": "Close",
     "popup.cancel": "Cancel",
     "popup.confirm": "OK",
+    "popup.warning": "Warning!",
 
     "error.mgs.5.numeric": "Invalid entry - must be five numbers"
 }

@@ -117,6 +117,7 @@
     "popup.close": "Fermer",
     "popup.cancel": "Annuler",
     "popup.confirm": "D'accord",
+    "popup.warning": "Avertissement!",
 
 
     "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres"
