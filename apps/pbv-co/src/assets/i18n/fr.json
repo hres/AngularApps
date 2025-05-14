@@ -53,7 +53,7 @@
     "addressDetails.postalCode": "Code postal",
     "addressDetails.zipCode": "Code ZIP",
     "addressDetails.provState": "Province ou état",
-    "add.address":"Ajouter un enregistrement",
+    "add.address":"Ajouter un détail d’adresse",
     "save.address":"Enregistrer l'enregistrement",
     "delete.address":"Supprimer l'enregistrement",
 
@@ -79,7 +79,7 @@
     "error.msg.minlength": "Entrée non valide - doit contenir un minimum de {{ requiredLength }} chiffres",
     "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
     "error.msg.business": "Entrée non valide - doit contenir 9 chiffres",
-    "add.contact":"Ajouter un enregistrement",
+    "add.contact":"Ajouter un détail du repésentant de la compagnie",
     "save.contact":"Enregistrer l'enregistrement",
     "delete.contact":"Supprimer l'enregistrement",
     "discard.changes":"Éliminer les modifications",

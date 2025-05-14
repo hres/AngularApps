@@ -53,7 +53,7 @@
     "addressDetails.postalCode": "Postal code",
     "addressDetails.zipCode": "ZIP code",
     "addressDetails.provState": "Province or state",
-    "add.address":"Add record",
+    "add.address":"Add address detail record",
     "save.address":"Save record",
     "delete.address":"Delete record",
 
@@ -79,7 +79,7 @@
     "error.msg.postal":"Invalid format - must be X#X#X#",
     "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
     "error.msg.business": "Invalid entry - must be 9 numbers",
-    "add.contact":"Add record",
+    "add.contact":"Add company detail record",
     "save.contact":"Save record",
     "delete.contact":"Delete record",
     "discard.changes":"Discard changes",
