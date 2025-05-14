@@ -61,6 +61,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     const isFirstChange = this._utilsService.isFirstChange(changes);
     if (changes['formGroup']) {
       this.addressForm = this.formGroup;
+      this.onCountryChange(null);
     }
     if (!isFirstChange) {
       if (changes['addressModel']) {
