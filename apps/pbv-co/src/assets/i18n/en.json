@@ -112,8 +112,12 @@
     "msg.save.xml.popup": "Please save the unsaved input data before saving draft XML file.",
     "msg.save.addressInfo.popup": "Please save the unsaved input data for address information.",
     "msg.save.compRepInfo.popup": "Please save the unsaved input data for company representative information.",
+    "msg.discard.popup": "Are you sure you want to discard change for {{heading}}?",
+    "msg.delete.popup": "Are you sure you want to delete {{heading}}?",
     "popup.title":"Warning",
     "popup.close": "Close",
+    "popup.cancel": "Cancel",
+    "popup.confirm": "OK",
 
     "error.mgs.5.numeric": "Invalid entry - must be five numbers"
 }

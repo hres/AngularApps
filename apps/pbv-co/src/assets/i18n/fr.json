@@ -111,8 +111,13 @@
     "msg.save.xml.popup": "Veuillez sauvegarder les données d'entrée non enregistrées avant d’enregistrer le brouillon XML.",
     "msg.save.addressInfo.popup": "Veuillez sauvegarder les données d'entrée non enregistrées pour l’information d’adresse.",
     "msg.save.compRepInfo.popup": "Veuillez sauvegarder les données d'entrée non enregistrées pour l’information sur les représentants de la compagnie.",
+    "msg.discard.popup": "Êtes-vous sûr de vouloir annuler la modification pour {{heading}}?",
+    "msg.delete.popup": "Êtes-vous sûr de vouloir supprimer {{heading}}?",
     "popup.title":"Avertissement",
     "popup.close": "Fermer",
+    "popup.cancel": "Annuler",
+    "popup.confirm": "D'accord",
+
 
     "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres"
 

@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import $ from 'jquery';
 
 @Component({
   selector: 'lib-confirmation-popup',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './confirmation-popup.component.html',
   styleUrl: './confirmation-popup.component.css',
   encapsulation: ViewEncapsulation.None
@@ -15,6 +16,7 @@ export class ConfirmationPopupComponent {
   @Input() id: string;
   @Input() cancel: string;
   @Input() confirm: string;
+  @Input() heading: string;
 
   @Output() confirmed = new EventEmitter();
 

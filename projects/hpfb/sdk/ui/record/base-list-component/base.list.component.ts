@@ -21,6 +21,11 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     recordFormGroup: FormGroup;
     errorSummaryChild: any;
 
+    discardHeading: string;
+    discardIndex: number;
+    deleteHeading: string;
+    deleteIndex: number;
+
     abstract statusMessage : string;
     abstract statusMessageSave : string;
     abstract statusMessageDiscard : string;
@@ -32,6 +37,8 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     abstract recordInfo: string;
     abstract recordService: IRecordService;
     abstract popupId: string;
+    abstract discardPopupId: string;
+    abstract deletePopupId: string;
     abstract errorList: [];
 
     constructor(private _fb: FormBuilder, 
@@ -150,8 +157,9 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
        }     
     }
 
-    deleteRecord(index: number): void {
-        const id = index + 1;
+    deleteRecord(event:any): void {
+        const index = this.deleteIndex;
+        const id = this.deleteIndex + 1;
         const group = this.recordFormArray.at(index) as RecordFormGroup;
         const recordInfo = this.getRecordInfo(group);
         recordInfo.reset();
@@ -164,8 +172,8 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     }
 
     revertRecord(event: any): void {
-        const index = event.index;
-        const id = index + 1;
+        const index = this.discardIndex;
+        const id = this.discardIndex + 1;
         const group = this.recordFormArray.at(index) as RecordFormGroup;
         const recordInfo = this.getRecordInfo(group);
         // Revert to the last saved state
@@ -182,6 +190,18 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
                  this.statusMessage = discardMsg; // Restore the message
              }, 50); // Small delay before restoring
            }, 50);
+    }
+
+    discardRecordConfirmation(event:any) {
+        this.discardIndex = event.index;
+        this.discardHeading = event.heading;
+        jQuery( "#" + this.discardPopupId ).trigger( "open.wb-overlay" );
+    }
+
+    deleteRecordConfirmation(event:any) {
+        this.deleteIndex = event.index;
+        this.deleteHeading = event.heading;
+        jQuery( "#" + this.deletePopupId ).trigger( "open.wb-overlay" );
     }
 
     handleRowClick(event: any): void {

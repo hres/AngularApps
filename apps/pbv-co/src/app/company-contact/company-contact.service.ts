@@ -24,6 +24,7 @@ export class CompanyContactService implements IRecordService{
             isNew: true,
             expandFlag: true,
             lastSavedState: null, // store the last saved state of the contactInfo for reverting function
+            heading: null,
             companyInfo: fb.group({
                 companyRoles: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
                 selectedCompanyRoles: [''],

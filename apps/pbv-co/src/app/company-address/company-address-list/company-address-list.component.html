@@ -1,5 +1,7 @@
 <div id="addressListTable" [formGroup]="recordFormGroup">
     <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.addressInfo.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
+    <lib-confirmation-popup [id]="discardPopupId" [title]="" [message]="'msg.discard.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="discardHeading" (confirmed)="revertRecord($event)" ></lib-confirmation-popup>
+    <lib-confirmation-popup [id]="deletePopupId" [title]="" [message]="'msg.delete.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="deleteHeading" (confirmed)="deleteRecord($event)" ></lib-confirmation-popup>  
       <div [formArrayName]="'addresses'">
   
         <lib-accordion [rowsFormArray]="recordFormArray" [accordionHeadingMsgKey]="'heading.company.address'" [accordionHeadingSupp]="['addressInfo', 'companyName']" 
@@ -14,8 +16,8 @@
           [showErrors]="showErrors"
           [disableForm]="disableForm"
           (saveRecord)="saveRecord($event)"
-          (deleteRecord)="deleteRecord($event)"
-          (revertRecord)="revertRecord($event)"
+          (deleteRecord)="deleteRecordConfirmation($event)"
+          (revertRecord)="discardRecordConfirmation($event)"
           (rolesUpdated)="handleRolesUpdated($event)"></app-company-address-item>
         </ng-template>
       
