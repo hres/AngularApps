@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, Inject, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, inject, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from "@angular/core";
 import { IBaseList } from "./base.list.interface";
 import { FormGroup, FormArray, FormBuilder } from "@angular/forms";
 import { IRecordService } from "../record-service/record.service.interface";
@@ -23,6 +23,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
 
     discardHeading: string;
     discardIndex: number;
+    discardConfirmed: number;
     deleteHeading: string;
     deleteIndex: number;
 
@@ -190,6 +191,8 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
                  this.statusMessage = discardMsg; // Restore the message
              }, 50); // Small delay before restoring
            }, 50);
+
+        this.discardConfirmed = index;
     }
 
     discardRecordConfirmation(event:any) {
@@ -235,7 +238,6 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     }
 
     private _setStatusMessage(action : string, id : number): void {
-        console.log(this.lang)
         const actionMessages = {
             'SAVE': {
               en: `${this.statusMessageSave} ${id} has been saved.`,

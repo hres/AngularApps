@@ -22,6 +22,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   @Input() j: number;
   @Input() showErrors: boolean;
   @Input() disableForm: boolean;
+  @Input() discardConfirmed: number;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
@@ -44,6 +45,8 @@ export class CompanyContactItemComponent extends BaseComponent{
   errors = [];
 
   private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedContactCompanyRoles();
+
+  private _discardIndex : number;
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
@@ -79,6 +82,14 @@ export class CompanyContactItemComponent extends BaseComponent{
       this._updateCompanyRolesArray();
     }
 
+    if (changes['discardConfirmed']) {
+      if (this.discardConfirmed === this._discardIndex) {
+        this._updateRolesSignalAfterDiscard();
+        this._patchLastSavedRoles();
+      }
+    }
+    
+
     if (this.disableForm) {
       this._disableFormGroup();
     } else {
@@ -112,8 +123,36 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   
   public revertContactRecord(index: number, recordId: number): void {
+    this._discardIndex = index;
     this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
     this.cRRow.markAsPristine();
+  }
+
+  private _updateRolesSignalAfterDiscard() {
+    const recordId = this.cRRow.get('recordId')?.value;
+    const selectedRoles = this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.value ?? [];
+  
+    if (!recordId || !Array.isArray(selectedRoles)) return;
+  
+    const validKeys = selectedRoles.map(role => `${recordId}${role}`);
+    const current = this.selectedCompanyRoles();
+  
+    const updated = current.filter(entry => {
+      const entryRecordId = entry.match(/^\d+/)?.[0]; // Extract prefix digits
+      return entryRecordId !== String(recordId) || validKeys.includes(entry);
+    });
+    
+    this._signalService.setAddressCompanyRoles(updated);
+  }
+
+  private _patchLastSavedRoles(): void {
+    const selectedRoles = this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.value ?? [];
+  
+    // Loop through all roles in the ROLE_INDEX_MAPPING
+    Object.entries(ROLE_INDEX_MAPPING).forEach(([role, index]) => {
+      const isSelected = selectedRoles.includes(role);
+      this.companyRolesChkFormArray.at(index).setValue(isSelected);
+    });
   }
 
   public deleteContactRecord(index: number): void {
