@@ -72,9 +72,6 @@ export class CompanyContactItemComponent extends BaseComponent{
 
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
-
-    const heading = await this._getHeading(); // Await here
-    this.cRRow.get('heading').setValue(heading);
   }
 
   ngOnChanges(changes: SimpleChanges) : void{
@@ -155,13 +152,15 @@ export class CompanyContactItemComponent extends BaseComponent{
     });
   }
 
-  public deleteContactRecord(index: number): void {
+  public async deleteContactRecord(index: number): Promise<void> {
     this._errNotifService.updateErrorSummary(CONTACT_ERROR_PREFIX + this.cRRow.get('id').value, null);
     // Find roles that need to be removed
     const prefixToDelete = this.cRRow.get('id').value === -1? this.cRRow.get('recordId').value.toString() : this.cRRow.get('id').value;
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
     rolesToRemove.forEach(role => this._signalService.removeContactCompanyRole(role));
+    const heading = await this._getHeading(index); // Await here
+    this.cRRow.get('heading').setValue(heading);
     this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
     this.cRRow.markAsPristine();
   }
@@ -173,7 +172,7 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   private async _save(index: number) {
     if (this.cRRow.valid) {
-      const heading = await this._getHeading(); // Await here
+      const heading = await this._getHeading(index); // Await here
       this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
@@ -184,10 +183,10 @@ export class CompanyContactItemComponent extends BaseComponent{
   } 
 
   
-  private async _getHeading(): Promise<string> {
+  private async _getHeading(index): Promise<string> {
     let fullHeading = '';
     let fullName = null;
-    const id = this.cRRow.get('recordId')?.value;
+    const id = index + 1;
 
     if (this.cRRow.get('id').value !== -1) {
       fullName = this.cRRow.get('companyInfo.contactDetails.fullName')?.value?.trim() ?? '';

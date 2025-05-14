@@ -76,8 +76,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
    
-    const heading = await this._getHeading(); // Await here
-    this.cRRow.get('heading').setValue(heading);
   }
 
   ngOnChanges(changes: SimpleChanges) : void{
@@ -130,7 +128,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   private async _save(index: number) {
     if (this.cRRow.valid) {
-      const heading = await this._getHeading(); // Await here
+      const heading = await this._getHeading(index); // Await here
       this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
@@ -140,10 +138,10 @@ export class CompanyAddressItemComponent extends BaseComponent{
     }
   }  
 
-  private async _getHeading(): Promise<string> {
+  private async _getHeading(index): Promise<string> {
     let fullHeading = '';
     let companyName = null;
-    const id = this.cRRow.get('recordId')?.value;
+    const id = index + 1;
 
     if (this.cRRow.get('id').value !== -1) {
       companyName = this.cRRow.get('addressInfo.companyName')?.value?.trim() ?? '';
@@ -152,7 +150,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
     const heading = await lastValueFrom(
       this._translateService.get('heading.company.address', { seqnumber: id })
     );
-    
     fullHeading = companyName ? `${heading} - ${companyName}` : heading;
       
     return fullHeading;
@@ -192,7 +189,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
     });
   }
 
-  public deleteAddressRecord(index: number): void {
+  public async deleteAddressRecord(index: number): Promise<void> {
     this._errNotifService.updateErrorSummary(ADDRESS_ERROR_PREFIX + this.cRRow.get('id').value, null);
     // Find roles that need to be removed
     const prefixToDelete = this.cRRow.get('id').value === -1? this.cRRow.get('recordId').value.toString() : this.cRRow.get('id').value;
@@ -203,6 +200,8 @@ export class CompanyAddressItemComponent extends BaseComponent{
         this._signalService.removeAddressCompanyRole(role)
       });
     this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
+    const heading = await this._getHeading(index); // Await here
+    this.cRRow.get('heading').setValue(heading);
     this.cRRow.markAsPristine();
   }
 
