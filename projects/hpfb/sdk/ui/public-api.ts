@@ -65,6 +65,8 @@ export * from './record/base-list-component/base.list.component';
 export * from './record/base-list-service/base.list.service';
 export * from './record/record-service/record.service.interface';
 export * from './record/record-model/record.model';
+export * from './record/record-action-service/record-delete.service';
+export * from './record/record-action-service/record-discard.service';
 
 export * from './popup/popup.component';
 export * from './popup/confirmation-popup/confirmation-popup.component';

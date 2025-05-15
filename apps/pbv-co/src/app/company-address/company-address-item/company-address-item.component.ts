@@ -1,11 +1,12 @@
 import { ChangeDetectorRef, Component, effect, EventEmitter, Input, Output, QueryList, Signal, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { BaseComponent, CheckboxOption, ConverterService, ErrorNotificationService, ErrorSummaryComponent, HelpSequence, ICode } from '@hpfb/sdk/ui';
+import { BaseComponent, CheckboxOption, ConverterService, ErrorNotificationService, ErrorSummaryComponent, HelpSequence, ICode, RecordDiscardService, RecordDeleteService } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { ADDRESS_ERROR_PREFIX, ROLE_INDEX_MAPPING } from '../../app.constants';
 import { GlobalService } from '../../global/global.service';
 import { AppSignalService } from '../../signal/app-signal.service';
+import { CompanyAddressService } from '../company-address.service';
 import { CompanyAddressItemService } from './company-address-item.service';
 
 @Component({
@@ -19,13 +20,12 @@ export class CompanyAddressItemComponent extends BaseComponent{
   @Input() j: number;
   @Input() showErrors: boolean;
   @Input() disableForm: boolean;
-  @Input() discardConfirmed: number;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
   @Output() rolesUpdated = new EventEmitter<CheckboxOption[]>();
   @Output() removeRoleError = new EventEmitter();
-  @Output() discardHandled = new EventEmitter();
+  @Output() deleteHandled = new EventEmitter();
   
   helpIndex: HelpSequence;
 
@@ -49,6 +49,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
 
   private _discardIndex : number;
+  private _deleteIndex : number;
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
@@ -59,6 +60,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
               private _converterService : ConverterService,
               private _signalService : AppSignalService,
               private _companyAddressItemService : CompanyAddressItemService,
+              private _addressService : CompanyAddressService,
+              private _recordDiscardService : RecordDiscardService,
+              private _recordDeleteService : RecordDeleteService,
               private cdRef: ChangeDetectorRef) {
       super();
       effect(() => {
@@ -77,21 +81,25 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
    
+    this._recordDiscardService.discardConfirmed$.subscribe(index => {
+      if (index === this._discardIndex) {
+        this._updateRolesSignalAfterDiscard();
+        this._patchLastSavedRoles();
+      }
+    });
+
+    this._recordDeleteService.deleteConfirmed$.subscribe(index => {
+      if (index === this._deleteIndex) {
+        this._handleRecordDeletion();
+        this.deleteHandled.emit(true)
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) : void{
     if (changes['cRRow']) {
       this._updateCompanyRolesArray();
     }
-
-    if (changes['discardConfirmed'] && 
-    changes['discardConfirmed'].currentValue === this._discardIndex &&
-    changes['discardConfirmed'].previousValue !== changes['discardConfirmed'].currentValue) {
-      this._updateRolesSignalAfterDiscard();
-      this._patchLastSavedRoles();
-      this.discardHandled.emit();
-    }
-
     
     if (this.disableForm) {
       this._disableFormGroup();
@@ -131,7 +139,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   private async _save(index: number) {
     if (this.cRRow.valid) {
-      const heading = await this._getHeading(index); // Await here
+      const heading = await this._addressService.getHeading(index, this.cRRow); // Await here
       this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
@@ -140,23 +148,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
       document.location.href = '#coAddressErrorSummary' + this.j;
     }
   }  
-
-  private async _getHeading(index): Promise<string> {
-    let fullHeading = '';
-    let companyName = null;
-    const id = index + 1;
-
-    if (this.cRRow.get('id').value !== -1) {
-      companyName = this.cRRow.get('addressInfo.companyName')?.value?.trim() ?? '';
-    }
-
-    const heading = await lastValueFrom(
-      this._translateService.get('heading.company.address', { seqnumber: id })
-    );
-    fullHeading = companyName ? `${heading} - ${companyName}` : heading;
-      
-    return fullHeading;
-  }
   
 
   public revertAddressRecord(index: number, recordId: number): void {
@@ -193,18 +184,22 @@ export class CompanyAddressItemComponent extends BaseComponent{
   }
 
   public async deleteAddressRecord(index: number): Promise<void> {
+    this._deleteIndex = index;
+    const heading = await this._addressService.getHeading(index, this.cRRow); // Set heading here for when the record isn't saved yet
+    this.cRRow.get('heading').setValue(heading);
+    this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
+  }
+
+  private _handleRecordDeletion() {
     this._errNotifService.updateErrorSummary(ADDRESS_ERROR_PREFIX + this.cRRow.get('id').value, null);
     // Find roles that need to be removed
-    const prefixToDelete = this.cRRow.get('id').value === -1? this.cRRow.get('recordId').value.toString() : this.cRRow.get('id').value;
+    const prefixToDelete = this.cRRow.get('recordId').value.toString();
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
     rolesToRemove.forEach(role => 
       {
         this._signalService.removeAddressCompanyRole(role)
       });
-    this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
-    const heading = await this._getHeading(index); // Await here
-    this.cRRow.get('heading').setValue(heading);
     this.cRRow.markAsPristine();
   }
 
@@ -221,7 +216,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   
     // Get the specific form control using index
     const roleControl = this.companyRolesChkFormArray.at(index);
-    const uniqueRole = this.cRRow.get('id').value === -1 ? this.cRRow.get('recordId').value + selectedRole : this.cRRow.get('id').value + selectedRole;
+    const uniqueRole = this.cRRow.get('recordId').value + selectedRole;
     // Update signal array
     if (isChecked) {
       this._signalService.updateAddressCompanyRoles(uniqueRole);
@@ -332,9 +327,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   }
 
   private _disableRoles() {
-    const recordId = this.cRRow.get('id').value === -1 
-      ? this.cRRow.get('recordId').value 
-      : this.cRRow.get('id').value;
+    const recordId = this.cRRow.get('recordId').value
   
     this.selectedCompanyRoles().forEach(roleWithPrefix => {
       const selectedRecordId = roleWithPrefix.match(/^\d+/)?.[0] ?? '';
@@ -366,11 +359,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   }
 
   private _disableRole(roleIndex) {
-    console.log(roleIndex);
-    console.log(this.companyRolesChkFormArray)
     const roleFormGroup = this.companyRolesChkFormArray.at(roleIndex) as FormGroup;
-    console.log(this.companyRolesChkFormArray)
-    console.log(roleFormGroup);
     roleFormGroup.disable();
   }
 

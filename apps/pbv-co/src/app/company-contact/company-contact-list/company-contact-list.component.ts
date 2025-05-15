@@ -1,6 +1,6 @@
 import { Component, computed, Signal, EventEmitter, Input, output, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Form} from '@angular/forms';
-import { CheckboxOption, ControlMessagesComponent, ConverterService, ENGLISH, ErrorNotificationService, ErrorSummaryComponent, FRENCH, ICode, UtilsService } from '@hpfb/sdk/ui';
+import { CheckboxOption, ControlMessagesComponent, ConverterService, ENGLISH, ErrorNotificationService, ErrorSummaryComponent, FRENCH, ICode, RecordDeleteService, RecordDiscardService, UtilsService } from '@hpfb/sdk/ui';
 import { ContactRecord } from '../../models/Company';
 import { BaseListComponent } from '@hpfb/sdk/ui';
 import { CompanyContactService } from '../company-contact.service';
@@ -57,8 +57,10 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
               private _signalService: AppSignalService,
               private _utilsService: UtilsService,
               private _globalService: GlobalService,
+              deleteService : RecordDeleteService,
+              discardService : RecordDiscardService,
               companyContactListService: CompanyContactListService) {
-    super(fb, companyContactListService);
+    super(fb, companyContactListService, discardService, deleteService);
     this.recordService = this._contactService;
     this.recordFormGroup = this.fb.group({
       contacts: this.fb.array([])

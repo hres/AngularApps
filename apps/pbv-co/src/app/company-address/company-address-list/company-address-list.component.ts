@@ -1,7 +1,7 @@
 import { Component, computed, EventEmitter, Input, Output, Signal, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AddressDetailsService, INameAddress } from '@hpfb/pbv';
-import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService, UtilsService, ICode, ENGLISH, FRENCH, RecordFormGroup } from '@hpfb/sdk/ui';
+import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService, UtilsService, ICode, ENGLISH, FRENCH, RecordFormGroup, RecordDeleteService, RecordDiscardService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../../global/global.service';
 import { AddressRecord } from '../../models/Company';
 import { AppSignalService } from '../../signal/app-signal.service';
@@ -52,8 +52,10 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     private _globalService: GlobalService,
     private _signalService: AppSignalService,
     private _utilsService: UtilsService,
+    deleteService : RecordDeleteService,
+    discardService : RecordDiscardService,
     companyAddressListService: CompanyAddressListService) {
-      super(fb, companyAddressListService);
+      super(fb, companyAddressListService, discardService, deleteService);
       this.recordService = this._addressService;
         this.recordFormGroup = this.fb.group({
         addresses: this.fb.array([])
@@ -97,6 +99,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
       mailing: null,
       selectedAddressCompanyRoles: selectedRoles,
       addressCompanyRoles: companyRoles,
+      companyName: outputModel.company_name,
       addressDetails: {
         address: outputModel.company_address_details.street_address,
         city: outputModel.company_address_details.city,
