@@ -93,6 +93,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     }
     const contactDetailsFormGroup = form.controls['companyInfo'].controls['contactDetails'];
     this._mapEarlyVersionLanguageField(outputModel.company_contact_details);
+    this._mapEarlyVersionPhoneFaxField(outputModel.company_contact_details);
     this._contactDetailsService.mapDataModelToFormModel(outputModel.company_contact_details, contactDetailsFormGroup);
   }
 
@@ -194,6 +195,13 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
       const languageModel = this._utilsService.createIIdTextLabelObj(String(contactModel.language_correspondance), langEnglish, langFrench, this._globalService.currLanguage === ENGLISH ? langEnglish : langFrench);
       contactModel.language_correspondance = languageModel;
+    }
+  }
+
+  private _mapEarlyVersionPhoneFaxField(contactModel: IContact) {
+    if (this.earlyVersion) {
+      contactModel.phone_num = contactModel.phone_num.replace(/[^0-9]*/g, '');
+      contactModel.fax_num = contactModel.fax_num.replace(/[^0-9]*/g, '');
     }
   }
 
