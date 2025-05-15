@@ -77,7 +77,7 @@
     "error.mgs.zip":"Entrée non valide - doit contenir 5 chiffres",
     "error.msg.postal":"Format non valide - doit être X#X#X#",
     "error.msg.minlength": "Entrée non valide - doit contenir un minimum de {{ requiredLength }} chiffres",
-    "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
+    "error.msg.email":"Entrée non valide - doit être votrenom@domaine.com",
     "error.msg.business": "Entrée non valide - doit contenir 9 chiffres",
     "add.contact":"Ajouter un enregistrement des détails de la compagnie",
     "save.contact":"Enregistrer l'enregistrement",
@@ -120,6 +120,7 @@
     "popup.warning": "Avertissement!",
 
 
-    "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres"
+    "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres",
+    "screen.reader.postal": "Invalid format - must be alpha chiffre alpha chiffre alpha chiffre"
 
 }

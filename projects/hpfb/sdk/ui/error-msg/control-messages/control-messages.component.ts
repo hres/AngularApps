@@ -47,6 +47,11 @@ export class ControlMessagesComponent implements OnChanges {
    */
   @Input() index: Number;
 
+  /**
+   * Aria label for when screen reader needs to announce something different from inline error message.
+   */
+  @Input() ariaMessage : string;
+
    /**
    * Number of error from error summary
    */
@@ -122,6 +127,13 @@ export class ControlMessagesComponent implements OnChanges {
     const test = ((this.control.invalid && this.control.touched && this.control.dirty) || (this.control.invalid && this._errorVisible));
     return test;
   }
+
+  isCanadianPostalCode(): boolean {
+    const controlName = this.controlId?.toLowerCase() || '';
+    const labelText = this.label?.toLowerCase() || '';
+    return controlName.includes('postal') && labelText.includes('postal') && this.control?.errors?.['pattern'];
+  }
+  
 
 }
 
