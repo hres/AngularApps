@@ -47,11 +47,6 @@ export class ControlMessagesComponent implements OnChanges {
    */
   @Input() index: Number;
 
-  /**
-   * Aria label for when screen reader needs to announce something different from inline error message.
-   */
-  @Input() ariaMessage : string;
-
    /**
    * Number of error from error summary
    */
