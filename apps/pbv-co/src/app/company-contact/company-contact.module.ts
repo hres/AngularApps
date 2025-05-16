@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import {BrowserModule} from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective } from '@hpfb/sdk/ui';
+import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective, RecordDeleteService, RecordDiscardService } from '@hpfb/sdk/ui';
 import { PopupComponent, ConfirmationPopupComponent } from '@hpfb/sdk/ui';
 import { CompanyContactItemComponent } from './company-contact-item/company-contact-item.component';
 import { CompanyContactListComponent } from './company-contact-list/company-contact-list.component';
@@ -40,7 +40,9 @@ import { CompanyContactListService } from './company-contact-list/company-contac
   providers: [
    CompanyContactService,
    CompanyContactItemService,
-   CompanyContactListService
+   CompanyContactListService,
+   RecordDeleteService,
+   RecordDiscardService
   ]
 })
 export class CompanyContactModule { }

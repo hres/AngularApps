@@ -74,11 +74,11 @@
     "fax.number":"Fax number (including area code)",
     "fax.number.nofaxnum": "(Use 0000000000 if not available) By not entering a fax number, you authorise receipt of billing communication by email.",
     "contact.email":"Email address",
-    "error.mgs.zip":"Invalid entry - must be 5 numbers",
-    "error.msg.minlength": "Invalid entry - must be minimum {{ requiredLength }} numbers",
+    "error.mgs.zip":"Invalid entry - must be 5 digits",
+    "error.msg.minlength": "Invalid entry - must be minimum {{ requiredLength }} digits",
     "error.msg.postal":"Invalid format - must be X#X#X#",
-    "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
-    "error.msg.business": "Invalid entry - must be 9 numbers",
+    "error.msg.email":"Invalid format - Must be example@domain.com",
+    "error.msg.business": "Invalid entry - must be 9 digits",
     "add.contact":"Add company detail record",
     "save.contact":"Save record",
     "delete.contact":"Delete record",
@@ -120,5 +120,6 @@
     "popup.confirm": "OK",
     "popup.warning": "Warning!",
 
-    "error.mgs.5.numeric": "Invalid entry - must be five numbers"
+    "error.mgs.5.numeric": "Invalid entry - must be five digits",
+    "screen.reader.postal": "Invalid format - must be alpha digit alpha digit alpha digit"
 }

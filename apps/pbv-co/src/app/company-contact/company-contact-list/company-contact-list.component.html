@@ -15,11 +15,12 @@
           [j]="idx"
           [showErrors]="showErrors"
           [disableForm]="disableForm"
-          [discardConfirmed]="discardConfirmed"
           (saveRecord)="saveRecord($event)"
           (deleteRecord)="deleteRecordConfirmation($event)"
           (revertRecord)="discardRecordConfirmation($event)"
-          (rolesUpdated)="handleRolesUpdated($event)"></app-company-contact-item>
+          (rolesUpdated)="handleRolesUpdated($event)"
+          (discardHandled)="onDiscardHandled($event)"
+          (deleteHandled)="onDeleteHandled($event)"></app-company-contact-item>
         </ng-template>
       
       </lib-accordion>

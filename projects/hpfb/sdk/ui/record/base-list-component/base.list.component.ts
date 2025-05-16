@@ -8,6 +8,8 @@ import { BaseComponent } from "../../component-base/base.component"
 
 import $ from 'jquery';
 import { RECORD_ACTIONS } from "../../common.constants";
+import { RecordDiscardService } from "../record-action-service/record-discard.service";
+import { RecordDeleteService } from "../record-action-service/record-delete.service";
 
 @Component({
     template: ''
@@ -26,6 +28,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     discardConfirmed: number;
     deleteHeading: string;
     deleteIndex: number;
+    deleteConfirmed: number;
 
     abstract statusMessage : string;
     abstract statusMessageSave : string;
@@ -43,7 +46,9 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     abstract errorList: [];
 
     constructor(private _fb: FormBuilder, 
-        @Inject(BaseListService) protected listService: BaseListService) {
+        @Inject(BaseListService) protected listService: BaseListService,
+        private _recordDiscardService: RecordDiscardService,
+        private _recordDeleteService: RecordDeleteService) {
         super();
     }
 
@@ -53,14 +58,14 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         }
     }
 
-    private _init(recordData: T[]) {
+    private async _init(recordData: T[]) : Promise<void> {
         // Clear existing controls
       this.recordFormArray.clear();
   
       if (recordData && recordData.length !== 0) {
           if (recordData.length > 0) {
             let maxId = -1;
-            recordData.forEach((record, index) => {
+            recordData.forEach(async (record, index) => {
               const group = this.recordService.createRecordFormGroup(this._fb);
   
               // Set values after defining the form controls
@@ -73,6 +78,9 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
               
               this._patchRecordInfoValue(group, record);
               this._patchLastSavedStateValue(group.controls['lastSavedState'], record);
+
+              const heading = await this.recordService.getHeading(index, group); // Set heading here for when the record isn't saved yet
+              group.get('heading').setValue(heading);
   
               this.recordFormArray.push(group);
               // Parse the ID as a number and update maxId if necessary
@@ -169,7 +177,12 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
 
         this._setStatusMessage(RECORD_ACTIONS.DELETE, id);
-        document.getElementById(this.addButton).focus();
+        //this.deleteConfirmed = index;
+        this.onDeleteConfrmed(index)
+
+        setTimeout(() => {
+            document.getElementById(this.addButton)?.focus();
+        }, 0);
     }
 
     revertRecord(event: any): void {
@@ -192,7 +205,15 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
              }, 50); // Small delay before restoring
            }, 50);
 
-        this.discardConfirmed = index;
+        this.onDiscardConfirmed(index);
+    }
+
+    onDiscardConfirmed(index: number) {
+        this._recordDiscardService.confirmDiscard(index);
+    }
+
+    onDeleteConfrmed(index: number) {
+        this._recordDeleteService.confirmDelete(index);
     }
 
     discardRecordConfirmation(event:any) {
@@ -206,6 +227,19 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         this.deleteHeading = event.heading;
         jQuery( "#" + this.deletePopupId ).trigger( "open.wb-overlay" );
     }
+
+    onDiscardHandled(event:any) {
+        // this.discardConfirmed = null;
+    }
+
+    onDeleteHandled(event:any) {
+        if (event) {
+          for (let index = 0; index < this.recordFormArray.controls.length; index++) {
+            const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
+            group.controls['expandFlag'].setValue(false);
+          }
+        }
+      }
 
     handleRowClick(event: any): void {
         const clickedIndex = event.index;

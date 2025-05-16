@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, computed, effect, QueryList, SimpleChange, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { GlobalService } from '../../global/global.service';
-import { ICode, CheckboxOption, ErrorNotificationService, BaseComponent, ControlMessagesComponent, ConverterService, UtilsService, ErrorSummaryComponent } from '@hpfb/sdk/ui';
+import { ICode, CheckboxOption, ErrorNotificationService, BaseComponent, ControlMessagesComponent, ConverterService, UtilsService, ErrorSummaryComponent, RecordDiscardService, RecordDeleteService } from '@hpfb/sdk/ui';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CONTACT_ERROR_PREFIX, ROLE_INDEX_MAPPING } from '../../app.constants';
@@ -10,6 +10,7 @@ import { CompanyContactItemService } from './company-contact-item.service';
 import { AppSignalService } from '../../signal/app-signal.service';
 import { Signal } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { CompanyContactService } from '../company-contact.service';
 
 @Component({
   selector: 'app-company-contact-item',
@@ -22,12 +23,13 @@ export class CompanyContactItemComponent extends BaseComponent{
   @Input() j: number;
   @Input() showErrors: boolean;
   @Input() disableForm: boolean;
-  @Input() discardConfirmed: number;
   @Output() saveRecord = new EventEmitter();
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
   @Output() rolesUpdated = new EventEmitter<CheckboxOption[]>();
   @Output() removeRoleError = new EventEmitter();
+  @Output() discardHandled = new EventEmitter();
+  @Output() deleteHandled = new EventEmitter();
 
   lang = this._globalService.currLanguage;
   languageList: ICode[] = [];
@@ -47,6 +49,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedContactCompanyRoles();
 
   private _discardIndex : number;
+  private _deleteIndex : number;
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
@@ -57,6 +60,9 @@ export class CompanyContactItemComponent extends BaseComponent{
               private _companyContactItemService : CompanyContactItemService,
               private _converterService : ConverterService,
               private _signalService : AppSignalService,
+              private _contactService : CompanyContactService,
+              private _recordDiscardService: RecordDiscardService,
+              private _recordDeleteService : RecordDeleteService,
               private cdRef: ChangeDetectorRef) {
     super();
     effect(() => {
@@ -73,22 +79,26 @@ export class CompanyContactItemComponent extends BaseComponent{
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
 
-    const heading = await this._getHeading(); // Await here
-    this.cRRow.get('heading').setValue(heading);
+    this._recordDiscardService.discardConfirmed$.subscribe(index => {
+      if (index === this._discardIndex) {
+        this._updateRolesSignalAfterDiscard();
+        this._patchLastSavedRoles();
+        this.discardHandled.emit();
+      }
+    });
+
+    this._recordDeleteService.deleteConfirmed$.subscribe(index => {
+      if (index === this._deleteIndex) {
+        this._handleRecordDeletion();
+        this.deleteHandled.emit(true)
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) : void{
     if (changes['cRRow']) {
       this._updateCompanyRolesArray();
     }
-
-    if (changes['discardConfirmed']) {
-      if (this.discardConfirmed === this._discardIndex) {
-        this._updateRolesSignalAfterDiscard();
-        this._patchLastSavedRoles();
-      }
-    }
-    
 
     if (this.disableForm) {
       this._disableFormGroup();
@@ -130,7 +140,7 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   private _updateRolesSignalAfterDiscard() {
     const recordId = this.cRRow.get('recordId')?.value;
-    const selectedRoles = this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.value ?? [];
+    const selectedRoles = this.cRRow.get('companyInfo.selectedCompanyRoles')?.value ?? [];
   
     if (!recordId || !Array.isArray(selectedRoles)) return;
   
@@ -142,11 +152,11 @@ export class CompanyContactItemComponent extends BaseComponent{
       return entryRecordId !== String(recordId) || validKeys.includes(entry);
     });
     
-    this._signalService.setAddressCompanyRoles(updated);
+    this._signalService.setContactCompanyRoles(updated);
   }
 
   private _patchLastSavedRoles(): void {
-    const selectedRoles = this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.value ?? [];
+    const selectedRoles = this.cRRow.get('companyInfo.selectedCompanyRoles')?.value ?? [];
   
     // Loop through all roles in the ROLE_INDEX_MAPPING
     Object.entries(ROLE_INDEX_MAPPING).forEach(([role, index]) => {
@@ -155,14 +165,24 @@ export class CompanyContactItemComponent extends BaseComponent{
     });
   }
 
-  public deleteContactRecord(index: number): void {
+  public async deleteContactRecord(index: number): Promise<void> {
+    this._deleteIndex = index;
+    const heading = await this._contactService.getHeading(index, this.cRRow); // Await here
+    this.cRRow.get('heading').setValue(heading);
+    this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
+    this.cRRow.markAsPristine();
+  }
+
+  private _handleRecordDeletion() {
     this._errNotifService.updateErrorSummary(CONTACT_ERROR_PREFIX + this.cRRow.get('id').value, null);
     // Find roles that need to be removed
-    const prefixToDelete = this.cRRow.get('id').value === -1? this.cRRow.get('recordId').value.toString() : this.cRRow.get('id').value;
+    const prefixToDelete = this.cRRow.get('recordId').value.toString();
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
-    rolesToRemove.forEach(role => this._signalService.removeContactCompanyRole(role));
-    this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
+    rolesToRemove.forEach(role => 
+      {
+        this._signalService.removeContactCompanyRole(role)
+      });
     this.cRRow.markAsPristine();
   }
 
@@ -173,7 +193,7 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   private async _save(index: number) {
     if (this.cRRow.valid) {
-      const heading = await this._getHeading(); // Await here
+      const heading = await this._contactService.getHeading(index, this.cRRow); // Await here
       this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
@@ -182,26 +202,6 @@ export class CompanyContactItemComponent extends BaseComponent{
       document.location.href = '#coContactErrorSummary' + this.j;
     }
   } 
-
-  
-  private async _getHeading(): Promise<string> {
-    let fullHeading = '';
-    let fullName = null;
-    const id = this.cRRow.get('recordId')?.value;
-
-    if (this.cRRow.get('id').value !== -1) {
-      fullName = this.cRRow.get('companyInfo.contactDetails.fullName')?.value?.trim() ?? '';
-    }
-
-    const heading = await lastValueFrom(
-      this._translateService.get('heading.company.contact', { seqnumber: id })
-    );
-    
-    fullHeading = fullName ? `${heading} - ${fullName}` : heading;
-      
-    return fullHeading;
-  }
-
  
   companyRolesOnChange(e: any, selectedRole: string, index: number) {
     this.cRRow.get('companyInfo.selectedCompanyRoles').setValue(this.selectedCompanyRolesCodes);
@@ -209,7 +209,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   
     // Get the specific form control using index
     const roleControl = this.companyRolesChkFormArray.at(index);
-    const uniqueRole = this.cRRow.get('id').value === -1 ? this.cRRow.get('recordId').value + selectedRole : this.cRRow.get('id').value + selectedRole;
+    const uniqueRole = this.cRRow.get('recordId').value + selectedRole;
     // Update signal array
     if (isChecked) {
       this._signalService.updateContactCompanyRoles(uniqueRole);
@@ -311,9 +311,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   }
 
   private _disableRoles() {
-    const recordId = this.cRRow.get('id').value === -1 
-      ? this.cRRow.get('recordId').value 
-      : this.cRRow.get('id').value;
+    const recordId = this.cRRow.get('recordId').value;
   
     this.selectedCompanyRoles().forEach(roleWithPrefix => {
       const selectedRecordId = roleWithPrefix.match(/^\d+/)?.[0] ?? '';
