@@ -89,8 +89,7 @@
                               [showError]="showFieldErrors" 
                               [control]="addressForm.controls['postal'] | formControl"
                               controlId="{{addrType}}postal{{recordId}}" label="{{postalLabel()}}" parentId="{{addrType}}addressInfo"
-                              translatedParentLabel="{{addrGroupLabelKey|translate}}"
-                              [ariaMessage]="isCanada() ? ('screen.reader.postal' | translate) : null"></control-messages> 
+                              translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages> 
             <input *ngIf="!isCanadaOrUSA()" name="postal" id="{{addrType}}postal{{recordId}}" class="form-control" [formControlName]="'postal'"  
                    maxlength="20" required/>
             <input *ngIf="isCanada()" name="postal" id="{{addrType}}postal{{recordId}}" class="form-control" [formControlName]="'postal'"  
