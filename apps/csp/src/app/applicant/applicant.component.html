@@ -103,7 +103,8 @@
                         [lang]="lang"
                         [languageList]="languageList"
                         (errorList)="processBillingContactErrors($event)"
-                        [contactType]="billing" [contactGroupLabelKey]="'label.billing'">
+                        [contactType]="billing" [contactGroupLabelKey]="'label.billing'"
+                        [resetFormGroup]="resetSignal">
                 </pbv-contact-details>
 
                 <pbv-address-details [showErrors]="showErrors"
@@ -114,7 +115,8 @@
                         [stateList]="stateList"
                         [canadaDefault]="false"
                         (errorList)="processBillingAddressErrors($event)"
-                        [addrType]="billing" [addrGroupLabelKey]="'label.billing'">
+                        [addrType]="billing" [addrGroupLabelKey]="'label.billing'"
+                        [resetFormGroup]="resetSignal">
                 </pbv-address-details>
 
             </div>
