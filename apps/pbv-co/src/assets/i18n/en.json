@@ -79,7 +79,7 @@
     "error.msg.postal":"Invalid format - must be X1X1X1",
     "error.msg.email":"Invalid format - Must be example@domain.com",
     "error.msg.business": "Invalid entry - must be 9 digits",
-    "add.contact":"Add company detail record",
+    "add.contact":"Add company representative record",
     "save.contact":"Save record",
     "delete.contact":"Delete record",
     "discard.changes":"Discard changes",
