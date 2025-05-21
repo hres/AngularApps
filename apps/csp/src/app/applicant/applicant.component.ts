@@ -49,6 +49,8 @@ export class ApplicantComponent
   public applicantInformationForm: FormGroup;
   public applicant: string = ADDR_CONT_TYPE.APPLICANT;
   public billing: string = ADDR_CONT_TYPE.BILLING;
+  public resetSignal = 0;
+
 
   private _addressErrorList: any[];
   private _contactErrorList: any[];
@@ -165,10 +167,15 @@ export class ApplicantComponent
 
   onBillingClick(event: any) {
     const checkbox = event.target as HTMLInputElement;
-    if( this.showBilling()){
-      this.billingModel = undefined;
-      this.applicantInformationForm.controls['isBillingDifferent'].value == false;
+
+    if (!event.target.checked) {
+      this.resetSignal++; 
+      if (this.showBilling()) {
+        this.billingModel = undefined;
+        this.applicantInformationForm.controls['isBillingDifferent'].value == false;
+      }
     }
+    
     if (checkbox) {
       this._appendChildAndParentErrors();
     }
