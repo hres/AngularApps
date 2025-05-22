@@ -50,6 +50,8 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   private _discardIndex : number;
   private _deleteIndex : number;
+  
+  private _previouslyDisabled : boolean;
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
@@ -103,8 +105,11 @@ export class CompanyAddressItemComponent extends BaseComponent{
     
     if (this.disableForm) {
       this._disableFormGroup();
+      this._previouslyDisabled = true;
     } else {
-      this._enableFormGroup();
+      if (this._previouslyDisabled) {
+        this._enableFormGroup();
+      }
     }
   }
 
@@ -324,6 +329,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   private _enableFormGroup() {
     this.cRRow.enable();
+    if (this.cRRow.get('expandFlag').value) {
+      this.cRRow.get('expandFlag').setValue(false);
+    }
   }
 
   private _disableRoles() {
