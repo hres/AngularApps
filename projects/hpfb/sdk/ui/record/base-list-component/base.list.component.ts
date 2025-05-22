@@ -61,17 +61,16 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     private async _init(recordData: T[]) : Promise<void> {
         // Clear existing controls
       this.recordFormArray.clear();
-  
+      let maxId = -1;
       if (recordData && recordData.length !== 0) {
           if (recordData.length > 0) {
-            let maxId = -1;
             recordData.forEach(async (record, index) => {
               const group = this.recordService.createRecordFormGroup(this._fb);
   
               // Set values after defining the form controls
               group.patchValue({
                 id: record.id,
-                recordId: index + 1,
+                recordId: record.id,
                 isNew: false,
                 expandFlag: false,
               });
@@ -85,8 +84,8 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
               this.recordFormArray.push(group);
               // Parse the ID as a number and update maxId if necessary
               maxId = Math.max(Number(record.id), maxId);
+              this.listService.setMaxId(maxId);
             });
-            this.listService.setMaxId(maxId);
             this._expandInvalidRecordUponLoading();
           }
       } else {
