@@ -102,10 +102,10 @@
         </button>
       </div>
       <div class="form-group col-md-4" *ngIf="!isInternal">
-        <a class="btn btn-primary btn-lg" [href] = "mailToLink" (click)="mailto()"
-           [class.disabled]="disableMailto" >
+        <button class="btn btn-primary btn-lg" (click)="mailto()"
+           [disabled]="disableMailto" >
           {{'mailto.label'|translate}}
-        </a>
+      </button>
       </div>
     </div>
     <div class="row" *ngIf="showMailToHelpText">

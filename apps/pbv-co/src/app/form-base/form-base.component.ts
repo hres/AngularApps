@@ -431,6 +431,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     emailSubject = emailDraft + ((companyName === null || companyName === '') ? '[company name]' : companyName) + ' ' + ((this.companyEnrolModel.company_id === '') ? ' ' : ' - ' + this.companyEnrolModel.company_id); body = body;
  
     this.mailToLink = `mailto:${email}?subject=${emailSubject}&body=${body}`;
+    window.location.href=this.mailToLink;
   }
 
   public onChanged(e, controlName) {
