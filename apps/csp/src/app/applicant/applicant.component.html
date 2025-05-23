@@ -4,7 +4,7 @@
             <div class="form-group col-xs-8 ">
                 <label for="applicantName" class="required">
                     <span class="field-name">{{ 'applicant.name'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="applicantInformationForm.controls['applicantName'].invalid"
                         [showError]="showErrors"
                         [control]="applicantInformationForm.controls['applicantName'] | formControl" controlId="applicantName"
@@ -25,7 +25,7 @@
             <div class="form-group col-sm-6">
                 <label for="cspNumber" class="required">
                     <span class="field-name">{{ 'csp.customer.number'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="applicantInformationForm.controls['cspNumber'].invalid"
                         [showError]="showErrors"
                         [control]="applicantInformationForm.controls['cspNumber'] | formControl" controlId="cspNumber"
@@ -103,7 +103,8 @@
                         [lang]="lang"
                         [languageList]="languageList"
                         (errorList)="processBillingContactErrors($event)"
-                        [contactType]="billing" [contactGroupLabelKey]="'label.billing'">
+                        [contactType]="billing" [contactGroupLabelKey]="'label.billing'"
+                        [resetFormGroup]="resetSignal">
                 </pbv-contact-details>
 
                 <pbv-address-details [showErrors]="showErrors"
@@ -114,7 +115,8 @@
                         [stateList]="stateList"
                         [canadaDefault]="false"
                         (errorList)="processBillingAddressErrors($event)"
-                        [addrType]="billing" [addrGroupLabelKey]="'label.billing'">
+                        [addrType]="billing" [addrGroupLabelKey]="'label.billing'"
+                        [resetFormGroup]="resetSignal">
                 </pbv-address-details>
 
             </div>

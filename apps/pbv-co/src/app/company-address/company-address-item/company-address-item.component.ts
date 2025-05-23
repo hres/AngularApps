@@ -1,10 +1,12 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, QueryList, Signal, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, EventEmitter, Input, Output, QueryList, Signal, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { BaseComponent, CheckboxOption, ConverterService, ErrorNotificationService, ErrorSummaryComponent, HelpSequence, ICode } from '@hpfb/sdk/ui';
+import { BaseComponent, CheckboxOption, ConverterService, ErrorNotificationService, ErrorSummaryComponent, HelpSequence, ICode, RecordDiscardService, RecordDeleteService } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
-import { ADDRESS_ERROR_PREFIX } from '../../app.constants';
+import { lastValueFrom } from 'rxjs';
+import { ADDRESS_ERROR_PREFIX, ROLE_INDEX_MAPPING } from '../../app.constants';
 import { GlobalService } from '../../global/global.service';
 import { AppSignalService } from '../../signal/app-signal.service';
+import { CompanyAddressService } from '../company-address.service';
 import { CompanyAddressItemService } from './company-address-item.service';
 
 @Component({
@@ -23,6 +25,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   @Output() deleteRecord = new EventEmitter();
   @Output() rolesUpdated = new EventEmitter<CheckboxOption[]>();
   @Output() removeRoleError = new EventEmitter();
+  @Output() deleteHandled = new EventEmitter();
   
   helpIndex: HelpSequence;
 
@@ -44,7 +47,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
   errors = [];
 
   private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
-  private selectedRoles : string[];
+
+  private _discardIndex : number;
+  private _deleteIndex : number;
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
@@ -55,11 +60,18 @@ export class CompanyAddressItemComponent extends BaseComponent{
               private _converterService : ConverterService,
               private _signalService : AppSignalService,
               private _companyAddressItemService : CompanyAddressItemService,
+              private _addressService : CompanyAddressService,
+              private _recordDiscardService : RecordDiscardService,
+              private _recordDeleteService : RecordDeleteService,
               private cdRef: ChangeDetectorRef) {
       super();
+      effect(() => {
+        this._disableRoles();
+        this._enableRoles();
+      });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.countryList = this._globalService.countryList;
     this.provinceList = this._globalService.provinceList;
     this.stateList = this._globalService.stateList; 
@@ -68,6 +80,20 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+   
+    this._recordDiscardService.discardConfirmed$.subscribe(index => {
+      if (index === this._discardIndex) {
+        this._updateRolesSignalAfterDiscard();
+        this._patchLastSavedRoles();
+      }
+    });
+
+    this._recordDeleteService.deleteConfirmed$.subscribe(index => {
+      if (index === this._deleteIndex) {
+        this._handleRecordDeletion();
+        this.deleteHandled.emit(true)
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) : void{
@@ -76,9 +102,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
     }
     
     if (this.disableForm) {
-      this.disableFormGroup();
+      this._disableFormGroup();
     } else {
-      this.enableFormGroup();
+      this._enableFormGroup();
     }
   }
 
@@ -111,32 +137,69 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this._save(index);
   }
 
-  private _save(index: number): void {
+  private async _save(index: number) {
     if (this.cRRow.valid) {
+      const heading = await this._addressService.getHeading(index, this.cRRow); // Await here
+      this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
     } else {
       this.showErrors = true;
       document.location.href = '#coAddressErrorSummary' + this.j;
     }
-  } 
+  }  
+  
 
   public revertAddressRecord(index: number, recordId: number): void {
-    this.revertRecord.emit({ index: index, id: recordId });
+    this._discardIndex = index;
+    this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
     this.cRRow.markAsPristine();
   }
 
-  public deleteAddressRecord(index: number): void {
+  private _updateRolesSignalAfterDiscard() {
+    const recordId = this.cRRow.get('recordId')?.value;
+    const selectedRoles = this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.value ?? [];
+  
+    if (!recordId || !Array.isArray(selectedRoles)) return;
+  
+    const validKeys = selectedRoles.map(role => `${recordId}${role}`);
+    const current = this.selectedCompanyRoles();
+  
+    const updated = current.filter(entry => {
+      const entryRecordId = entry.match(/^\d+/)?.[0]; // Extract prefix digits
+      return entryRecordId !== String(recordId) || validKeys.includes(entry);
+    });
+    
+    this._signalService.setAddressCompanyRoles(updated);
+  }
+
+  private _patchLastSavedRoles(): void {
+    const selectedRoles = this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.value ?? [];
+  
+    // Loop through all roles in the ROLE_INDEX_MAPPING
+    Object.entries(ROLE_INDEX_MAPPING).forEach(([role, index]) => {
+      const isSelected = selectedRoles.includes(role);
+      this.companyRolesChkFormArray.at(index).setValue(isSelected);
+    });
+  }
+
+  public async deleteAddressRecord(index: number): Promise<void> {
+    this._deleteIndex = index;
+    const heading = await this._addressService.getHeading(index, this.cRRow); // Set heading here for when the record isn't saved yet
+    this.cRRow.get('heading').setValue(heading);
+    this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
+  }
+
+  private _handleRecordDeletion() {
     this._errNotifService.updateErrorSummary(ADDRESS_ERROR_PREFIX + this.cRRow.get('id').value, null);
     // Find roles that need to be removed
-    const prefixToDelete = this.cRRow.get('id').value === -1? this.cRRow.get('recordId').value.toString() : this.cRRow.get('id').value;
+    const prefixToDelete = this.cRRow.get('recordId').value.toString();
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
     rolesToRemove.forEach(role => 
       {
         this._signalService.removeAddressCompanyRole(role)
       });
-    this.deleteRecord.emit(index);
     this.cRRow.markAsPristine();
   }
 
@@ -153,17 +216,17 @@ export class CompanyAddressItemComponent extends BaseComponent{
   
     // Get the specific form control using index
     const roleControl = this.companyRolesChkFormArray.at(index);
-    const uniqueRole = this.cRRow.get('id').value === -1 ? this.cRRow.get('recordId').value + selectedRole : this.cRRow.get('id').value + selectedRole;
+    const uniqueRole = this.cRRow.get('recordId').value + selectedRole;
     // Update signal array
     if (isChecked) {
       this._signalService.updateAddressCompanyRoles(uniqueRole);
-      if (this.isRoleAlreadySelected(selectedRole)) {
-        roleControl.setErrors({ 'error.msg.roleSelected': true });
-      }
+      // if (this.isRoleAlreadySelected(selectedRole)) {
+      //   roleControl.setErrors({ 'error.msg.roleSelected': true });
+      // }
     } else {
       this._signalService.removeAddressCompanyRole(uniqueRole);
-      this.removeRoleError.emit({ id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
-      roleControl.setErrors(null); // Remove error if valid
+      // this.removeRoleError.emit({ id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
+      // roleControl.setErrors(null); // Remove error if valid
 
     }
 
@@ -181,10 +244,13 @@ export class CompanyAddressItemComponent extends BaseComponent{
     //this._appendErrorsFromChild(); // Update errors for company roles here
   }
 
-  isRoleAlreadySelected = (role: string): boolean => {
-    const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, '')); // Remove the numeric prefix
-    return roles.filter(r => r === role).length > 1; // Check if role appears more than once
-  };
+  /**
+   * Deprecated
+   */
+  // isRoleAlreadySelected = (role: string): boolean => {
+  //   const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, '')); // Remove the numeric prefix
+  //   return roles.filter(r => r === role).length > 1; // Check if role appears more than once
+  // };
 
   private _updateCompanyRolesArray() {
     const companyRolesList = this._globalService.companyRolesList;
@@ -252,11 +318,53 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.cdRef.detectChanges(); // Do change detection here to reactively update error summary
   }
 
-  disableFormGroup() {
+  private _disableFormGroup() {
     this.cRRow.disable();
   }
 
-  enableFormGroup() {
+  private _enableFormGroup() {
     this.cRRow.enable();
+  }
+
+  private _disableRoles() {
+    const recordId = this.cRRow.get('recordId').value
+  
+    this.selectedCompanyRoles().forEach(roleWithPrefix => {
+      const selectedRecordId = roleWithPrefix.match(/^\d+/)?.[0] ?? '';
+      const roleId = roleWithPrefix.slice(selectedRecordId.length);
+
+      console.log("selectedRecId", selectedRecordId);
+      console.log("roleId", roleId);
+    
+      if (selectedRecordId !== String(recordId)) {
+        const mappedIndex = ROLE_INDEX_MAPPING[roleId];
+        if (mappedIndex !== undefined) {
+          this._disableRole(mappedIndex);
+        }
+      }
+    });
+  }
+
+  private _enableRoles() {
+    const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, ''));
+    this.companyRolesOptionList.forEach(role => {
+        if (!roles.includes(role.value)) {
+          const mappedIndex = ROLE_INDEX_MAPPING[role.value];
+          if (mappedIndex !== undefined) {
+            this._enableRole(mappedIndex);
+          }
+        }
+      }
+    )
+  }
+
+  private _disableRole(roleIndex) {
+    const roleFormGroup = this.companyRolesChkFormArray.at(roleIndex) as FormGroup;
+    roleFormGroup.disable();
+  }
+
+  private _enableRole(roleIndex) {
+    const roleFormGroup = this.companyRolesChkFormArray.at(roleIndex) as FormGroup;
+    roleFormGroup.enable();
   }
 }

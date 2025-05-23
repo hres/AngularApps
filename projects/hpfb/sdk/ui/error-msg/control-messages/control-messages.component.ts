@@ -119,9 +119,16 @@ export class ControlMessagesComponent implements OnChanges {
    * @returns {boolean}
    */
   makeErrorVisible() {
-    const test = ((this.control.invalid && this.control.touched) || (this.control.invalid && this._errorVisible));
+    const test = ((this.control.invalid && this.control.touched && this.control.dirty) || (this.control.invalid && this._errorVisible));
     return test;
   }
+
+  isCanadianPostalCode(): boolean {
+    const controlName = this.controlId?.toLowerCase() || '';
+    const labelText = this.label?.toLowerCase() || '';
+    return controlName.includes('postal') && labelText.includes('postal') && this.control?.errors?.['pattern'];
+  }
+  
 
 }
 

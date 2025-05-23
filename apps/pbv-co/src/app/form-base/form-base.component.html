@@ -1,6 +1,5 @@
 <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.xml.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
 
-
 <div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
   <form name="coForm" [formGroup]="coForm" novalidate>
     <div class="row mrgn-tp-md">
@@ -77,7 +76,7 @@
             <input type="checkbox" id="certifyPrivacy" [formControlName]="'certifyPrivacy'" (blur)="processErrors()" required/>
             <strong> {{'consent.privacy'|translate}}</strong>
             <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-            <control-messages *ngIf="coForm.controls['certifyPrivacy'].invalid" [showError]="showErrors" 
+            <control-messages *ngIf="coForm.controls['certifyPrivacy'].invalid" [showError]="showErrors" [attr.aria-live]="showErrors? null: 'assertive'"
                 parentId="coForm" [control]="coForm.controls['certifyPrivacy'] | formControl"
                 controlId="certifyPrivacy" label="consent.privacy"></control-messages>
           </label>
@@ -92,18 +91,18 @@
         </button>
       </div>
       <div *ngIf="isInternal" class="form-group col-md-4">
-        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()" [disabled]="disableForm">
+        <button type="button" class="btn btn-primary btn-lg" (click)="saveXmlFile()" [disabled]="disableForm">
           {{'generate.final'|translate}}
         </button>
       </div>
       <div *ngIf="!isInternal" class="form-group col-md-4">
-        <button type="button" class="btn btn-primary btn-lg active" (click)="saveXmlFile()"
+        <button type="button" class="btn btn-primary btn-lg" (click)="saveXmlFile()"
         [disabled]="isAmend()">
           {{'draft.xml'|translate}}
         </button>
       </div>
       <div class="form-group col-md-4" *ngIf="!isInternal">
-        <a class="btn btn-primary btn-lg active" [href] = "mailToLink" (click)="mailto()"
+        <a class="btn btn-primary btn-lg" [href] = "mailToLink" (click)="mailto()"
            [class.disabled]="disableMailto" >
           {{'mailto.label'|translate}}
         </a>
