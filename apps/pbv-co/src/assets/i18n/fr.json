@@ -73,7 +73,7 @@
     "phone.extension":"Numéro de l'extension",
     "fax.number":"Numéro de télécopieur (y compris indicatif régional)",
     "fax.number.nofaxnum": "(Si pas disponible, utilisez 0000000000) Si vous n’indiquez pas un numéro de télécopieur, vous autorisez la réception de la communication de facturation par courriel.",
-    "contact.email":"Courriel",
+    "contact.email":"Adresse de courriel",
     "error.mgs.zip":"Entrée non valide - doit contenir 5 chiffres",
     "error.msg.postal":"Format non valide - doit être X1X1X1",
     "error.msg.minlength": "Entrée non valide - doit contenir un minimum de {{ requiredLength }} chiffres",
