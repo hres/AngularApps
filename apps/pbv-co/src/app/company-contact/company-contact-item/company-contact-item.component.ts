@@ -153,12 +153,17 @@ export class CompanyContactItemComponent extends BaseComponent{
     const validKeys = selectedRoles.map(role => `${recordId}${role}`);
     const current = this.selectedCompanyRoles();
   
+    // Keep the roles that belong to other records and this record. This unchecks the roles that has been checked
     const updated = current.filter(entry => {
       const entryRecordId = entry.match(/^\d+/)?.[0]; // Extract prefix digits
       return entryRecordId !== String(recordId) || validKeys.includes(entry);
     });
-    
-    this._signalService.setContactCompanyRoles(updated);
+  
+    // Add in the role that was unchecked from last saved state. This checks the role that has been unchecked
+    const missing = validKeys.filter(key => !updated.includes(key));
+    const final = [...updated, ...missing];
+  
+    this._signalService.setAddressCompanyRoles(final);
   }
 
   private _patchLastSavedRoles(): void {

@@ -25,6 +25,8 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   @Input() formGroup?: FormGroup;
   @Input() recordId?: number | null = null;
   @Input() resetFormGroup? : number | null = null;
+  @Input() autocomplete = false;
+
 
   constructor(private _contactDetailsService: ContactDetailsService, private _fb: FormBuilder, private _utilsService: UtilsService) {
     super();

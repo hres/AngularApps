@@ -77,14 +77,14 @@
                               controlId="{{contactType}}phoneNumber{{recordId}}" label="phone.number" parentId="{{contactType}}contactInfo"
                               requiredLength="10"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-            <input name="phoneNumber" id="{{contactType}}phoneNumber{{recordId}}" class="form-control full-width" data-only-digits autocomplete="tel" required
+            <input name="phoneNumber" id="{{contactType}}phoneNumber{{recordId}}" class="form-control full-width" data-only-digits [attr.autocomplete]="autocomplete ? 'tel' : 'off'" required
               [formControlName]="'phoneNumber'" maxlength="25"/>
           </label>
         </div>
         <div class="form-group col-sm-3">
           <label for="{{contactType}}phoneExtension{{recordId}}">
             <span class="field-name">{{'phone.extension' |translate}}</span>
-            <input name="phoneExtension" id="{{contactType}}phoneExtension{{recordId}}" class="form-control" maxlength="10" data-only-digits autocomplete="tel-extension"
+            <input name="phoneExtension" id="{{contactType}}phoneExtension{{recordId}}" class="form-control" maxlength="10" data-only-digits [attr.autocomplete]="autocomplete ? 'tel-exttension' : 'off'"
             [formControlName]="'phoneExtension'"/>
           </label>
         </div>
@@ -98,7 +98,7 @@
               [control]="contactDetailsForm.controls['faxNumber'] | formControl" controlId="{{contactType}}faxNumber{{recordId}}" label="fax.number"
               parentId="{{contactType}}contactInfo" requiredLength="10"
               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
-            <input name="faxNumber" id="{{contactType}}faxNumber{{recordId}}" class="form-control full-width" data-only-digits maxlength="25" autocomplete="faxNumber"
+            <input name="faxNumber" id="{{contactType}}faxNumber{{recordId}}" class="form-control full-width" data-only-digits maxlength="25" [attr.autocomplete]="autocomplete ? 'faxNumber' : 'off'"
                    [formControlName]="'faxNumber'" required/>
                    <span class="field-name small">{{'fax.number.nofaxnum' |translate }}</span>
           </label>

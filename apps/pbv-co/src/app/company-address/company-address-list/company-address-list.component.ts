@@ -105,7 +105,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
         city: outputModel.company_address_details.city,
         provState: outputModel.company_address_details.province_lov ? outputModel.company_address_details.province_lov._id : null,
         provText: outputModel.company_address_details.province_text,
-        country: outputModel.company_address_details.country._id,
+        country: outputModel.company_address_details.country ? outputModel.company_address_details.country._id : null,
         postal: outputModel.company_address_details.postal_code
       }
     })

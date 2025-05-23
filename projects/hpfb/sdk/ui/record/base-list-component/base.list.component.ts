@@ -58,52 +58,55 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         }
     }
 
-    private async _init(recordData: T[]) : Promise<void> {
+    private async _init(recordData: T[]): Promise<void> {
         // Clear existing controls
-      this.recordFormArray.clear();
-      let maxId = -1;
-      if (recordData && recordData.length !== 0) {
-          if (recordData.length > 0) {
-            recordData.forEach(async (record, index) => {
-              const group = this.recordService.createRecordFormGroup(this._fb);
-  
-              // Set values after defining the form controls
-              group.patchValue({
-                id: record.id,
-                recordId: record.id,
-                isNew: false,
-                expandFlag: false,
-              });
-              
-              this._patchRecordInfoValue(group, record);
-              this._patchLastSavedStateValue(group.controls['lastSavedState'], record);
-
-              const heading = await this.recordService.getHeading(index, group); // Set heading here for when the record isn't saved yet
-              group.get('heading').setValue(heading);
-  
-              this.recordFormArray.push(group);
-              // Parse the ID as a number and update maxId if necessary
-              maxId = Math.max(Number(record.id), maxId);
-              this.listService.setMaxId(maxId);
-            });
+        this.recordFormArray.clear();
+        let maxId = -1;
+    
+        if (recordData && recordData.length !== 0) {
+            for (const [index, record] of recordData.entries()) {
+                const group = this.recordService.createRecordFormGroup(this._fb);
+    
+                // Set values after defining the form controls
+                group.patchValue({
+                    id: record.id,
+                    recordId: record.id,
+                    isNew: false,
+                    expandFlag: false,
+                });
+    
+                this._patchRecordInfoValue(group, record);
+                this._patchLastSavedStateValue(group.controls['lastSavedState'], record);
+    
+                const heading = await this.recordService.getHeading(index, group);
+                group.get('heading').setValue(heading);
+    
+                this.recordFormArray.push(group);    
+                // Parse the ID as a number and update maxId if necessary
+                maxId = Math.max(Number(record.id), maxId);
+                this.listService.setMaxId(maxId);
+            }
+    
+            // Now it's safe to expand the first invalid record
             this._expandInvalidRecordUponLoading();
-          }
-      } else {
-        if (!this.isInternal) {
-            const group = this.recordService.createRecordFormGroup(this._fb);
-            group.patchValue({
-                recordId: this.listService.getId()
-            })
-            this.recordFormArray.push(group);
-            const firstFormRecord = this.recordFormArray.at(0) as FormGroup;
-            firstFormRecord.controls['expandFlag'].setValue(true);
+    
+        } else {
+            if (!this.isInternal) {
+                const group = this.recordService.createRecordFormGroup(this._fb);
+                group.patchValue({
+                    recordId: this.listService.getId()
+                });
+                this.recordFormArray.push(group);
+                const firstFormRecord = this.recordFormArray.at(0) as FormGroup;
+                firstFormRecord.controls['expandFlag'].setValue(true);
+            }
         }
-      }
-      this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
-  
-      // Set the list of form groups
-      this.listService.setList(this.recordFormArray.controls as FormGroup[]);
-    }
+    
+        this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
+    
+        // Set the list of form groups
+        this.listService.setList(this.recordFormArray.controls as FormGroup[]);
+    }    
 
     protected abstract _expandInvalidRecordUponLoading();
     protected abstract _patchRecordInfoValue(group, outputModel);
