@@ -77,7 +77,7 @@
     "error.mgs.zip":"Invalid entry - must be 5 digits",
     "error.msg.minlength": "Invalid entry - must be minimum {{ requiredLength }} digits",
     "error.msg.postal":"Invalid format - must be X1X1X1",
-    "error.msg.email":"Invalid format - Must be example@domain.com",
+    "error.msg.email":"Invalid format - must be example@domain.com",
     "error.msg.business": "Invalid entry - must be 9 digits",
     "add.contact":"Add company representative record",
     "save.contact":"Save record",

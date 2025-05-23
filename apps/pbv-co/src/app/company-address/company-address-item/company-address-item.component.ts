@@ -335,8 +335,17 @@ export class CompanyAddressItemComponent extends BaseComponent{
   private _enableFormGroup() {
     this.cRRow.enable();
     if (this.cRRow.get('expandFlag').value) {
-      this.cRRow.get('expandFlag').setValue(false);
+      this.cRRow.get('expandFlag').setValue(false); // Collapse records
+      // Expand record again if it has an error/empty field
+      if (this.cRRow.invalid) {
+        this._handleFormInvalidity();
+      }
     }
+  }
+
+  private _handleFormInvalidity() {
+    this.cRRow.get('expandFlag').setValue(true); // Collapse records
+    this.cRRow.markAsDirty();
   }
 
   private _disableRoles() {
