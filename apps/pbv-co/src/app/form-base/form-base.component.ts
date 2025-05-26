@@ -232,7 +232,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummaryId';
     } else {
-      if (this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine
+      if (!this.companyAddressListComponent.hasNoRolesSelected() && !this.companyContactListComponent.hasNoRolesSelected() && this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine
         && this.companyAddressListComponent.recordFormArray.valid && this.companyContactListComponent.recordFormArray.valid) {
         this._saveXML();
       } else {

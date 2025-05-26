@@ -127,7 +127,7 @@ export class ControlMessagesComponent implements OnChanges {
     // If this.hasErrors (manual error check for disabled form group) is defined, check for this flag.
     const hasManualError = this.hasErrors ?? false;
     if (hasManualError) {
-      return this.hasErrors && this._errorVisible;
+      return this.hasErrors && this._errorVisible || (this.hasErrors && !this.control.valid);
     }
   
     return (this.control.invalid && this.control.touched && this.control.dirty) || (this.control.invalid && this._errorVisible);

@@ -1,10 +1,11 @@
-import { Component, computed, EventEmitter, Input, Output, Signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, EventEmitter, Input, Output, QueryList, Signal, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AddressDetailsService, INameAddress } from '@hpfb/pbv';
 import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService, UtilsService, ICode, ENGLISH, FRENCH, RecordFormGroup, RecordDeleteService, RecordDiscardService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../../global/global.service';
 import { AddressRecord } from '../../models/Company';
 import { AppSignalService } from '../../signal/app-signal.service';
+import { CompanyAddressItemComponent } from '../company-address-item/company-address-item.component';
 import { CompanyAddressItemService } from '../company-address-item/company-address-item.service';
 import { CompanyAddressService } from '../company-address.service';
 import { CompanyAddressListService } from './company-address-list.service';
@@ -41,6 +42,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   @Input() earlyVersion;
   @Input() disableForm : boolean;
   @Output() errorEmit = new EventEmitter(true);
+  @ViewChildren(CompanyAddressItemComponent) itemComponents: QueryList<CompanyAddressItemComponent>;
 
   provinceList: ICode[] = [];
 
@@ -232,4 +234,13 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
     return companyRolesList.every(role => cleanSelectedRoles.includes(role));
   }
+
+  public hasNoRolesSelected(): boolean {
+    if (this.itemComponents) {
+      const hasInvalid = this.itemComponents.some(item => item.rolesInvalid);
+      return hasInvalid;
+    }
+    return false;
+  }
+  
 } 

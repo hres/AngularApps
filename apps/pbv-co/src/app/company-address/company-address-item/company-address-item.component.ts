@@ -143,7 +143,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   }
 
   private async _save(index: number) {
-    if (this.cRRow.valid) {
+    if (this.cRRow.valid && !this.isNoRoleSelected()) {
       const heading = await this._addressService.getHeading(index, this.cRRow); // Await here
       this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
@@ -396,5 +396,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
   private _enableRole(roleIndex) {
     const roleFormGroup = this.companyRolesChkFormArray.at(roleIndex) as FormGroup;
     roleFormGroup.enable();
+  }
+
+  get rolesInvalid() : boolean {
+    return !this.companyRolesChkFormArray.valid;
   }
 }
