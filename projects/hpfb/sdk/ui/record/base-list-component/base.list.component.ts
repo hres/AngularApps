@@ -64,6 +64,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         let maxId = -1;
     
         if (recordData && recordData.length !== 0) {
+            this.recordFormGroup.markAsPristine();
             for (const [index, record] of recordData.entries()) {
                 const group = this.recordService.createRecordFormGroup(this._fb);
     
@@ -246,6 +247,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     handleRowClick(event: any): void {
         const clickedIndex = event.index;
         const clickedRecordState = event.state;
+        console.log(this.recordFormGroup);
         if (this.recordFormGroup.pristine) {
         this.recordFormArray.controls.forEach( (element: FormGroup, index: number) => {
             if (clickedIndex===index) {
