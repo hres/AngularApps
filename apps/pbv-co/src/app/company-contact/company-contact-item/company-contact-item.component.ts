@@ -297,6 +297,16 @@ export class CompanyContactItemComponent extends BaseComponent{
     this.rolesUpdated.emit(this.representativeRolesOptionList);
   }
 
+  isNoRoleSelected(): boolean {
+    const formArray = this.companyRolesChkFormArray;
+    // Check if none of the roles are selected (value = true)
+    const noRoles = formArray.controls.every(control => !control.value);
+    if (noRoles){
+      this.companyRolesChkFormArray.setErrors({ 'required': true });
+    }
+    return noRoles;
+  }
+
   get companyRoles(): FormArray {
     return this.cRRow.get('companyInfo.companyRoles') as FormArray;
   }
@@ -331,6 +341,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   private _handleFormInvalidity() {
     this.cRRow.get('expandFlag').setValue(true); // Collapse records
     this.cRRow.markAsDirty();
+    this._disableRoles();
   }
 
   private _disableRoles() {

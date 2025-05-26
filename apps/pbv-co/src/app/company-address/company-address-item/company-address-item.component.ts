@@ -249,7 +249,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
     //   roleControl.setErrors(null); // Remove error if valid
     // }
 
-    console.log(this._signalService.getSelectedAddressCompanyRoles()());
+    //console.log(this._signalService.getSelectedAddressCompanyRoles()());
     this.cdRef.detectChanges();
     //this._appendErrorsFromChild(); // Update errors for company roles here
   }
@@ -278,6 +278,16 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.rolesUpdated.emit(this.companyRolesOptionList);
   }
 
+  isNoRoleSelected(): boolean {
+    const formArray = this.companyRolesChkFormArray;
+    // Check if none of the roles are selected
+    const noRoles = formArray.controls.every(control => !control.value);
+    if (noRoles){
+      // If no roles selected, manually set the errors
+      this.companyRolesChkFormArray.setErrors({ 'required': true });
+    }
+    return noRoles;
+  }
   
   get companyRolesChkFormArray() {
     return this.cRRow.get('addressInfo.addressCompanyRoles') as FormArray;
@@ -346,6 +356,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   private _handleFormInvalidity() {
     this.cRRow.get('expandFlag').setValue(true); // Collapse records
     this.cRRow.markAsDirty();
+    this._disableRoles();
   }
 
   private _disableRoles() {
@@ -354,9 +365,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.selectedCompanyRoles().forEach(roleWithPrefix => {
       const selectedRecordId = roleWithPrefix.match(/^\d+/)?.[0] ?? '';
       const roleId = roleWithPrefix.slice(selectedRecordId.length);
-
-      console.log("selectedRecId", selectedRecordId);
-      console.log("roleId", roleId);
     
       if (selectedRecordId !== String(recordId)) {
         const mappedIndex = ROLE_INDEX_MAPPING[roleId];

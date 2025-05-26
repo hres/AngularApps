@@ -20,11 +20,12 @@
           <legend class="required">
             <span class="field-name">{{'select.roles.rep' | translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
+            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required'] || isNoRoleSelected()"
                             [showError]="showErrors" [attr.aria-live]="showErrors? null: 'assertive'"
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="contactCompanyRoles{{j}}" label="select.roles.rep"
-                            parentId="companyContact"></control-messages>
+                            parentId="companyContact"
+                            [hasErrors]="companyRolesChkFormArray.errors !== null"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">
           <li class="checkbox" [formArrayName]="'companyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">
@@ -34,7 +35,7 @@
               (change)="companyRolesOnChange($event, representativeRolesOptionList[i].value, i)"/> 
               {{representativeRolesOptionList[i].label}}
               </label>
-              <div>
+              <!-- <div>
                 <control-messages *ngIf="reason.invalid"
                 [showError]="showErrors"
                 [control]="reason | formControl"
@@ -42,7 +43,7 @@
                 [label]="representativeRolesOptionList[i].label"
                 parentId="coContact">
                 </control-messages>
-              </div>
+              </div> -->
           </li>
           </ul>
         </fieldset>

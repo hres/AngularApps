@@ -60,11 +60,12 @@
                 <a class="fn-lnk" [href]="'#' + helpIndex['selectRolesIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['selectRolesIndx'][0]}}</a>
               </sup>
             </strong>
-            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']" [attr.aria-live]="showErrors? null: 'assertive'"
+            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required'] || isNoRoleSelected()" [attr.aria-live]="showErrors? null: 'assertive'"
                             [showError]="showErrors"
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="addressCompanyRoles{{j}}" label="select.roles.comp"
-                            parentId="coAddress"></control-messages>
+                            parentId="coAddress"
+                            [hasErrors]="companyRolesChkFormArray.errors !== null"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">
           <li class="checkbox" [formArrayName]="'addressCompanyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">
@@ -74,7 +75,7 @@
                 (change)="companyRolesOnChange($event, companyRolesOptionList[i].value, i)" />
                 {{companyRolesOptionList[i].label}}
               </label>
-              <div>
+              <!-- <div>
                 <control-messages *ngIf="reason.invalid"
                 [showError]="showErrors"
                 [control]="reason | formControl"
@@ -82,7 +83,7 @@
                 [label]="companyRolesOptionList[i].label"
                 parentId="coAddress">
                 </control-messages>
-              </div>
+              </div> -->
           </li>
           </ul>
         </fieldset>
