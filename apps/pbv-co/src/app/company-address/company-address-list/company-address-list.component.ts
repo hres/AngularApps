@@ -84,6 +84,18 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     this._expandNextInvalidRecord();
   }
 
+  expandAllInvalidRecords() {
+    for (let index = 0; index < this.recordFormArray.controls.length; index++) {
+      const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
+
+      if (!group.get('addressInfo.isRoleSelected').value) {
+       group.controls['expandFlag'].setValue(true);
+       group.markAsDirty();
+       group.markAsTouched();
+      } 
+    }     
+  }
+
   protected _patchRecordInfoValue(form, outputModel: AddressRecord) {
     if (this.companyRolesOptionList) {
       this._companyAddressItemService.mapDataModelToFormModel(outputModel, form.controls['addressInfo'], this.companyRolesOptionList, form.controls['id'].value)
@@ -236,12 +248,15 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   }
 
   public hasNoRolesSelected(): boolean {
-    // Only works if record is expanded. Shown on UI
-    if (this.itemComponents) {
-      const hasInvalid = this.itemComponents.some(item => item.rolesInvalid);
-      return hasInvalid;
+    if (!this.recordFormArray || this.recordFormArray.length === 0) {
+      return false;
     }
-    return false;
+    
+    // Check if a role has been selected
+    return this.recordFormArray.controls.some((group: FormGroup) => {
+      const isRoleSelectedControl = group.get('addressInfo.isRoleSelected');
+      return !isRoleSelectedControl?.value;
+    });
   }
 
   /**
@@ -262,6 +277,23 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
           group.controls['expandFlag'].setValue(false);
         }
       }
+    }
+  }
+
+  override handleRowClick(event: any): void {
+    const clickedIndex = event.index;
+    const clickedRecordState = event.state;
+    if (this.recordFormGroup.pristine) {
+      this.recordFormArray.controls.forEach( (element: FormGroup, index: number) => {
+        if (clickedIndex===index) {
+          if (element.get('addressInfo.isRoleSelected').value) {
+            element.controls['expandFlag'].setValue(!clickedRecordState)
+          } else {
+            this.openPopup();
+          }
+        } 
+    })} else {
+      this.openPopup();
     }
   }
   

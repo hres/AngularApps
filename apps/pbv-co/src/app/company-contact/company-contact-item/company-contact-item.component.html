@@ -21,11 +21,11 @@
             <span class="field-name">{{'select.roles.rep' | translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required'] || isNoRoleSelectedAndAllDisabled()"
-                            [showError]="showErrors" [attr.aria-live]="showErrors? null: 'assertive'"
+                            [showError]="showErrors || isNoRoleSelectedAndAllDisabled() || rolesTouched" [attr.aria-live]="showErrors? null: 'assertive'"
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="contactCompanyRoles{{j}}" label="select.roles.rep"
                             parentId="companyContact"
-                            [hasErrors]="isNoRoleSelectedAndAllDisabled()"></control-messages>
+                            [disabledError]="isNoRoleSelectedAndAllDisabled()"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">
           <li class="checkbox" [formArrayName]="'companyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">

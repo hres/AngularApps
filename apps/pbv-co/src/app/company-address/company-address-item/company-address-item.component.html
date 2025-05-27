@@ -61,11 +61,11 @@
               </sup>
             </strong>
             <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required'] || isNoRoleSelectedAndAllDisabled()" [attr.aria-live]="showErrors? null: 'assertive'"
-                            [showError]="showErrors"
+                            [showError]="showErrors || isNoRoleSelectedAndAllDisabled() || rolesTouched"
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="addressCompanyRoles{{j}}" label="select.roles.comp"
                             parentId="coAddress"
-                            [hasErrors]="isNoRoleSelectedAndAllDisabled()"></control-messages>
+                            [disabledError]="isNoRoleSelectedAndAllDisabled()"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">
           <li class="checkbox" [formArrayName]="'addressCompanyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">

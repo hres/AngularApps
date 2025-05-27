@@ -91,6 +91,17 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     this._expandNextInvalidRecord();
   }
 
+  expandAllInvalidRecords() {
+    for (let index = 0; index < this.recordFormArray.controls.length; index++) {
+      const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
+      if (!group.get('companyInfo.isRoleSelected')) {
+       group.controls['expandFlag'].setValue(true);
+       group.markAsDirty();
+       group.markAsTouched();
+      } 
+    }     
+  }
+
   protected _patchRecordInfoValue(form, outputModel: ContactRecord) {
     if (this.companyRolesOptionList) {
       this._companyContactItemService.mapDataModelToFormModel(outputModel, form.controls['companyInfo'], this.companyRolesOptionList, form.controls['id'].value)
@@ -216,11 +227,14 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   }
 
   public hasNoRolesSelected(): boolean {
-    if (this.itemComponents) {
-      const hasInvalid = this.itemComponents.some(item => item.rolesInvalid);
-      return hasInvalid;
+    if (!this.recordFormArray || this.recordFormArray.length === 0) {
+      return false;
     }
-    return false;
+    
+    return this.recordFormArray.controls.some((group: FormGroup) => {
+      const isRoleSelectedControl = group.get('companyInfo.isRoleSelected');
+      return !isRoleSelectedControl?.value;
+    });
   }
 
   override onDeleteHandled(event: any): void {
@@ -235,6 +249,23 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
           group.controls['expandFlag'].setValue(false);
         }
       }
+    }
+  }
+
+  override handleRowClick(event: any): void {
+    const clickedIndex = event.index;
+    const clickedRecordState = event.state;
+    if (this.recordFormGroup.pristine) {
+      this.recordFormArray.controls.forEach( (element: FormGroup, index: number) => {
+        if (clickedIndex===index) {
+          if (element.get('companyInfo.isRoleSelected').value) {
+            element.controls['expandFlag'].setValue(!clickedRecordState)
+          } else {
+            this.openPopup();
+          }
+        } 
+    })} else {
+      this.openPopup();
     }
   }
 }

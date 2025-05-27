@@ -215,6 +215,7 @@ export class CompanyContactItemComponent extends BaseComponent{
       this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
+      this.cRRow.get('companyInfo.rolesTouched').setValue(false);
     } else {
       this.showErrors = true;
       document.location.href = '#coContactErrorSummary' + this.j;
@@ -222,6 +223,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   } 
  
   companyRolesOnChange(e: any, selectedRole: string, index: number) {
+    this.cRRow.get('companyInfo.rolesTouched').setValue(true);
     this.cRRow.get('companyInfo.selectedCompanyRoles').setValue(this.selectedCompanyRolesCodes);
     const isChecked = (e.target as HTMLInputElement).checked;
   
@@ -312,6 +314,10 @@ export class CompanyContactItemComponent extends BaseComponent{
     return this.cRRow.get('companyInfo.companyRoles') as FormArray;
   }
 
+  get rolesTouched(): boolean {
+    return this.cRRow.get('companyInfo.rolesTouched').value as boolean;
+  }
+
   private _updateCompanyRolesArray() {
     const representativeRolesList = this._globalService.representativeRolesList;
     this.representativeRolesOptionList = representativeRolesList.map((item) => {
@@ -398,10 +404,6 @@ export class CompanyContactItemComponent extends BaseComponent{
   private _enableRole(roleIndex) {
     const roleFormGroup = this.companyRolesChkFormArray.at(roleIndex) as FormGroup;
     roleFormGroup.enable();
-  }
-
-  get rolesInvalid() : boolean {
-    return !this.companyRolesChkFormArray.valid;
   }
 
 }
