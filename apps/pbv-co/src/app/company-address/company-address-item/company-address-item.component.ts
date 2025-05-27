@@ -179,6 +179,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
   
     // Add in the role that was unchecked from last saved state. This checks the role that has been unchecked
     const missing = validKeys.filter(key => !updated.includes(key));
+    if (missing) {
+      this.cRRow.get('addressInfo.isRoleSelected').setValue(true);
+    }
     const final = [...updated, ...missing];
   
     this._signalService.setAddressCompanyRoles(final);
