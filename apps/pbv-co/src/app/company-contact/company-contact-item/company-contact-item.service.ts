@@ -77,6 +77,7 @@ export class CompanyContactItemService {
         // Update form model
         formRecord.controls['selectedCompanyRoles'].setValue(selectedRoles);
         if (selectedRoles.length > 0) {
+          formRecord.controls['isRoleSelected'].setValue(true);
           const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
 
           this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang)

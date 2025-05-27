@@ -236,11 +236,27 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   }
 
   public hasNoRolesSelected(): boolean {
+    // Only works if record is expanded. Shown on UI
     if (this.itemComponents) {
       const hasInvalid = this.itemComponents.some(item => item.rolesInvalid);
       return hasInvalid;
     }
     return false;
+  }
+
+  override onDeleteHandled(event: any): void {
+    if (event) {
+      for (let index = 0; index < this.recordFormArray.controls.length; index++) {
+        const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
+        console.log(group.get('addressInfo.isRoleSelected').value, group.pristine);
+        if (!group.get('addressInfo.isRoleSelected').value ||
+              (group.get('addressInfo.isRoleSelected').value && !group.pristine)) {
+                group.controls['expandFlag'].setValue(true);
+        } else {
+          group.controls['expandFlag'].setValue(false);
+        }
+      }
+    }
   }
   
 } 

@@ -32,7 +32,8 @@ export class CompanyContactService implements IRecordService{
             companyInfo: fb.group({
                 companyRoles: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
                 selectedCompanyRoles: [''],
-                contactDetails: this._contactDetailsService.getReactiveModel(fb)
+                contactDetails: this._contactDetailsService.getReactiveModel(fb),
+                isRoleSelected: [false]
                 }, { updateOn: 'change' }
             )
         });

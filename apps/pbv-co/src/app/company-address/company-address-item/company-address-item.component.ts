@@ -230,6 +230,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
     // Update signal array
     if (isChecked) {
       this._signalService.updateAddressCompanyRoles(uniqueRole);
+      this.cRRow.get('addressInfo.isRoleSelected').setValue(true);
       // if (this.isRoleAlreadySelected(selectedRole)) {
       //   roleControl.setErrors({ 'error.msg.roleSelected': true });
       // }
@@ -237,7 +238,9 @@ export class CompanyAddressItemComponent extends BaseComponent{
       this._signalService.removeAddressCompanyRole(uniqueRole);
       // this.removeRoleError.emit({ id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
       // roleControl.setErrors(null); // Remove error if valid
-
+    }
+    if (this.isNoRoleSelected()) {
+      this.cRRow.get('addressInfo.isRoleSelected').setValue(false);
     }
 
     // Attach validation to the specific role
@@ -279,6 +282,14 @@ export class CompanyAddressItemComponent extends BaseComponent{
   }
 
   isNoRoleSelected(): boolean {
+    const formArray = this.companyRolesChkFormArray;
+    // Check if none of the roles are selected
+    const noRoles = formArray.controls.every(control => !control.value);
+    
+    return noRoles;
+  }
+
+  isNoRoleSelectedAndAllDisabled(): boolean {
     const formArray = this.companyRolesChkFormArray;
     // Check if none of the roles are selected
     const noRoles = formArray.controls.every(control => !control.value);

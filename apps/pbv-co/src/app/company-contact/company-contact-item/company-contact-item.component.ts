@@ -224,6 +224,8 @@ export class CompanyContactItemComponent extends BaseComponent{
     // Update signal array
     if (isChecked) {
       this._signalService.updateContactCompanyRoles(uniqueRole);
+      this.cRRow.get('companyInfo.isRoleSelected').setValue(true);
+
       // if (this.isRoleAlreadySelected(selectedRole)) {
       //   roleControl.setErrors({ 'error.msg.roleSelected': true });
       // } 
@@ -231,6 +233,10 @@ export class CompanyContactItemComponent extends BaseComponent{
       this._signalService.removeContactCompanyRole(uniqueRole);
       // this.removeRoleError.emit({id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
       // roleControl.setErrors(null); // Remove error if valid
+    }
+
+    if (this.isNoRoleSelected()) {
+      this.cRRow.get('companyInfo.isRoleSelected').setValue(false);
     }
 
     this.cdRef.detectChanges();
@@ -299,14 +305,24 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   isNoRoleSelected(): boolean {
     const formArray = this.companyRolesChkFormArray;
-    // Check if none of the roles are selected (value = true)
+    // Check if none of the roles are selected
+    const noRoles = formArray.controls.every(control => !control.value);
+    
+    return noRoles;
+  }
+
+  isNoRoleSelectedAndAllDisabled(): boolean {
+    const formArray = this.companyRolesChkFormArray;
+    // Check if none of the roles are selected
     const noRoles = formArray.controls.every(control => !control.value);
     const allDisabled = formArray.controls.every(control => control.disabled);
     if (noRoles && allDisabled){
+      // If no roles selected, manually set the errors
       this.companyRolesChkFormArray.setErrors({ 'required': true });
     }
     return noRoles && allDisabled;
   }
+  
 
   get companyRoles(): FormArray {
     return this.cRRow.get('companyInfo.companyRoles') as FormArray;

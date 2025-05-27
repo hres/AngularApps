@@ -239,7 +239,9 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         if (event) {
           for (let index = 0; index < this.recordFormArray.controls.length; index++) {
             const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
-            group.controls['expandFlag'].setValue(false);
+            if (!group.invalid) {
+                group.controls['expandFlag'].setValue(false);
+            }
           }
         }
       }
