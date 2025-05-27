@@ -65,7 +65,7 @@
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="addressCompanyRoles{{j}}" label="select.roles.comp"
                             parentId="coAddress"
-                            [hasErrors]="companyRolesChkFormArray.errors !== null"></control-messages>
+                            [hasErrors]="isNoRoleSelected()"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">
           <li class="checkbox" [formArrayName]="'addressCompanyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">

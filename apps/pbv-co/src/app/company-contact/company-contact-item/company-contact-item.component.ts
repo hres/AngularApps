@@ -301,10 +301,11 @@ export class CompanyContactItemComponent extends BaseComponent{
     const formArray = this.companyRolesChkFormArray;
     // Check if none of the roles are selected (value = true)
     const noRoles = formArray.controls.every(control => !control.value);
-    if (noRoles){
+    const allDisabled = formArray.controls.every(control => control.disabled);
+    if (noRoles && allDisabled){
       this.companyRolesChkFormArray.setErrors({ 'required': true });
     }
-    return noRoles;
+    return noRoles && allDisabled;
   }
 
   get companyRoles(): FormArray {

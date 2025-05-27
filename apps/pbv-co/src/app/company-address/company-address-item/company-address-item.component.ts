@@ -282,11 +282,12 @@ export class CompanyAddressItemComponent extends BaseComponent{
     const formArray = this.companyRolesChkFormArray;
     // Check if none of the roles are selected
     const noRoles = formArray.controls.every(control => !control.value);
-    if (noRoles){
+    const allDisabled = formArray.controls.every(control => control.disabled);
+    if (noRoles && allDisabled){
       // If no roles selected, manually set the errors
       this.companyRolesChkFormArray.setErrors({ 'required': true });
     }
-    return noRoles;
+    return noRoles && allDisabled;
   }
   
   get companyRolesChkFormArray() {
