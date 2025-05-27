@@ -148,6 +148,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
       this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
+      this.cRRow.get('addressInfo.rolesTouched').setValue(false);
     } else {
       this.showErrors = true;
       document.location.href = '#coAddressErrorSummary' + this.j;
@@ -193,6 +194,13 @@ export class CompanyAddressItemComponent extends BaseComponent{
     });
   }
 
+  public disabledDiscardButton() {
+    if (this.cRRow.get('isNew').value) {
+      return true;
+    }
+    return false;
+  }
+
   public async deleteAddressRecord(index: number): Promise<void> {
     this._deleteIndex = index;
     const heading = await this._addressService.getHeading(index, this.cRRow); // Set heading here for when the record isn't saved yet
@@ -213,14 +221,8 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.cRRow.markAsPristine();
   }
 
-  public disabledDiscardButton() {
-    if (this.cRRow.get('isNew').value) {
-      return true;
-    }
-    return false;
-  }
-
   companyRolesOnChange(e: any, selectedRole: string, index: number) {
+    this.cRRow.get('addressInfo.rolesTouched').setValue(true);
     this.cRRow.get('addressInfo.selectedAddressCompanyRoles').setValue(this.selectedCompanyRolesCodes);
     const isChecked = (e.target as HTMLInputElement).checked;
   
@@ -312,7 +314,10 @@ export class CompanyAddressItemComponent extends BaseComponent{
   get addressDetailsFormGroup(): FormGroup {
     return this.cRRow.get('addressInfo.addressDetails') as FormGroup;
   }
-  
+
+  get rolesTouched(): boolean {
+    return this.cRRow.get('addressInfo.rolesTouched').value as boolean;
+  }
 
   processAddressErrors(childErrors:any[]) {
     this._addressErrorList = childErrors;
@@ -410,7 +415,4 @@ export class CompanyAddressItemComponent extends BaseComponent{
     roleFormGroup.enable();
   }
 
-  get rolesInvalid() : boolean {
-    return !this.companyRolesChkFormArray.valid;
-  }
 }

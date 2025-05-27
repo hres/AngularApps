@@ -236,6 +236,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         && this.companyAddressListComponent.recordFormArray.valid && this.companyContactListComponent.recordFormArray.valid) {
         this._saveXML();
       } else {
+        this.companyAddressListComponent.expandAllInvalidRecords();
+        this.companyContactListComponent.expandAllInvalidRecords();
         this.openPopup();
       }
     }

@@ -31,7 +31,8 @@ export class CompanyAddressService implements IRecordService{
                 addressCompanyRoles: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
                 selectedAddressCompanyRoles: [''],
                 addressDetails: this._addressDetailsService.getReactiveModel(fb),
-                isRoleSelected: [false]
+                isRoleSelected: [false],
+                rolesTouched: [false]
                 }, { updateOn: 'change' }
             )
         });

@@ -110,6 +110,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     }    
 
     protected abstract _expandInvalidRecordUponLoading();
+    abstract expandAllInvalidRecords();
     protected abstract _patchRecordInfoValue(group, outputModel);
     protected abstract _patchLastSavedStateValue(lastSavedStateFormControl, outputModel);
 
@@ -249,7 +250,6 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     handleRowClick(event: any): void {
         const clickedIndex = event.index;
         const clickedRecordState = event.state;
-        console.log(this.recordFormGroup);
         if (this.recordFormGroup.pristine) {
         this.recordFormArray.controls.forEach( (element: FormGroup, index: number) => {
             if (clickedIndex===index) {

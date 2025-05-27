@@ -50,7 +50,7 @@ export class ControlMessagesComponent implements OnChanges {
   /**
    * For manually showing inline control message for disabled FormControl.
    */
-  @Input() hasErrors?: boolean = undefined;
+  @Input() disabledError?: boolean = undefined;
 
    /**
    * Number of error from error summary
@@ -125,10 +125,15 @@ export class ControlMessagesComponent implements OnChanges {
    */
   makeErrorVisible(): boolean {
     // If this.hasErrors (manual error check for disabled form group) is defined, check for this flag.
-    const hasManualError = this.hasErrors ?? false;
+    const hasManualError = this.disabledError ?? false;
     if (hasManualError) {
-      return this.hasErrors && this._errorVisible;
+      return this.disabledError && this._errorVisible;
     }
+
+    // More defensive
+    // if (this.hasErrors !== undefined) {
+    //   return !!this.hasErrors && this._errorVisible;
+    // }
   
     return (this.control.invalid && this.control.touched && this.control.dirty) || (this.control.invalid && this._errorVisible);
     
