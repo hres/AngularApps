@@ -30,7 +30,8 @@ export class CompanyAddressService implements IRecordService{
                 businessNum: ['', [ PbvValidationService.businessNumValidator]],
                 addressCompanyRoles: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
                 selectedAddressCompanyRoles: [''],
-                addressDetails: this._addressDetailsService.getReactiveModel(fb)
+                addressDetails: this._addressDetailsService.getReactiveModel(fb),
+                isRoleSelected: [false]
                 }, { updateOn: 'change' }
             )
         });

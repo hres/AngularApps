@@ -51,6 +51,9 @@ export class CompanyContactItemComponent extends BaseComponent{
   private _discardIndex : number;
   private _deleteIndex : number;
 
+  private _previouslyDisabled : boolean;
+
+
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
 
@@ -102,8 +105,11 @@ export class CompanyContactItemComponent extends BaseComponent{
 
     if (this.disableForm) {
       this._disableFormGroup();
+      this._previouslyDisabled = true;
     } else {
-      this._enableFormGroup();
+      if (this._previouslyDisabled) {
+        this._enableFormGroup();
+      }
     }
   }
 
@@ -147,12 +153,17 @@ export class CompanyContactItemComponent extends BaseComponent{
     const validKeys = selectedRoles.map(role => `${recordId}${role}`);
     const current = this.selectedCompanyRoles();
   
+    // Keep the roles that belong to other records and this record. This unchecks the roles that has been checked
     const updated = current.filter(entry => {
       const entryRecordId = entry.match(/^\d+/)?.[0]; // Extract prefix digits
       return entryRecordId !== String(recordId) || validKeys.includes(entry);
     });
-    
-    this._signalService.setContactCompanyRoles(updated);
+  
+    // Add in the role that was unchecked from last saved state. This checks the role that has been unchecked
+    const missing = validKeys.filter(key => !updated.includes(key));
+    const final = [...updated, ...missing];
+  
+    this._signalService.setAddressCompanyRoles(final);
   }
 
   private _patchLastSavedRoles(): void {
@@ -192,7 +203,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   }
 
   private async _save(index: number) {
-    if (this.cRRow.valid) {
+    if (this.cRRow.valid && !this.isNoRoleSelected()) {
       const heading = await this._contactService.getHeading(index, this.cRRow); // Await here
       this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
@@ -213,6 +224,8 @@ export class CompanyContactItemComponent extends BaseComponent{
     // Update signal array
     if (isChecked) {
       this._signalService.updateContactCompanyRoles(uniqueRole);
+      this.cRRow.get('companyInfo.isRoleSelected').setValue(true);
+
       // if (this.isRoleAlreadySelected(selectedRole)) {
       //   roleControl.setErrors({ 'error.msg.roleSelected': true });
       // } 
@@ -220,6 +233,10 @@ export class CompanyContactItemComponent extends BaseComponent{
       this._signalService.removeContactCompanyRole(uniqueRole);
       // this.removeRoleError.emit({id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
       // roleControl.setErrors(null); // Remove error if valid
+    }
+
+    if (this.isNoRoleSelected()) {
+      this.cRRow.get('companyInfo.isRoleSelected').setValue(false);
     }
 
     this.cdRef.detectChanges();
@@ -286,6 +303,27 @@ export class CompanyContactItemComponent extends BaseComponent{
     this.rolesUpdated.emit(this.representativeRolesOptionList);
   }
 
+  isNoRoleSelected(): boolean {
+    const formArray = this.companyRolesChkFormArray;
+    // Check if none of the roles are selected
+    const noRoles = formArray.controls.every(control => !control.value);
+    
+    return noRoles;
+  }
+
+  isNoRoleSelectedAndAllDisabled(): boolean {
+    const formArray = this.companyRolesChkFormArray;
+    // Check if none of the roles are selected
+    const noRoles = formArray.controls.every(control => !control.value);
+    const allDisabled = formArray.controls.every(control => control.disabled);
+    if (noRoles && allDisabled){
+      // If no roles selected, manually set the errors
+      this.companyRolesChkFormArray.setErrors({ 'required': true });
+    }
+    return noRoles && allDisabled;
+  }
+  
+
   get companyRoles(): FormArray {
     return this.cRRow.get('companyInfo.companyRoles') as FormArray;
   }
@@ -308,6 +346,19 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   private _enableFormGroup() {
     this.cRRow.enable();
+    if (this.cRRow.get('expandFlag').value) {
+      this.cRRow.get('expandFlag').setValue(false); // Collapse records
+      // Expand record again if it has an error/empty field
+      if (this.cRRow.invalid) {
+        this._handleFormInvalidity();
+      }
+    }
+  }
+  
+  private _handleFormInvalidity() {
+    this.cRRow.get('expandFlag').setValue(true); // Collapse records
+    this.cRRow.markAsDirty();
+    this._disableRoles();
   }
 
   private _disableRoles() {
@@ -347,6 +398,10 @@ export class CompanyContactItemComponent extends BaseComponent{
   private _enableRole(roleIndex) {
     const roleFormGroup = this.companyRolesChkFormArray.at(roleIndex) as FormGroup;
     roleFormGroup.enable();
+  }
+
+  get rolesInvalid() : boolean {
+    return !this.companyRolesChkFormArray.valid;
   }
 
 }

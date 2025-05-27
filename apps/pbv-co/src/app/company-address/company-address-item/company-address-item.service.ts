@@ -83,6 +83,7 @@ export class CompanyAddressItemService {
         this._mapCompanyRolesToSignal(selectedRoles, id);
         formRecord.controls['selectedAddressCompanyRoles'].setValue(selectedRoles);
         if (selectedRoles.length > 0) {
+          formRecord.controls['isRoleSelected'].setValue(true);
           const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
 
           this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang)

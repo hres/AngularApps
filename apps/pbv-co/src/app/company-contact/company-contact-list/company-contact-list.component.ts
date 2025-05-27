@@ -1,4 +1,4 @@
-import { Component, computed, Signal, EventEmitter, Input, output, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, computed, Signal, EventEmitter, Input, output, Output, SimpleChanges, ViewEncapsulation, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Form} from '@angular/forms';
 import { CheckboxOption, ControlMessagesComponent, ConverterService, ENGLISH, ErrorNotificationService, ErrorSummaryComponent, FRENCH, ICode, RecordDeleteService, RecordDiscardService, UtilsService } from '@hpfb/sdk/ui';
 import { ContactRecord } from '../../models/Company';
@@ -12,6 +12,8 @@ import { GlobalService } from '../../global/global.service';
 import { FormDataLoaderService } from '../../container/form-data-loader.service';
 import { CompanyContactItemService } from '../company-contact-item/company-contact-item.service';
 import { CompanyContactListService } from './company-contact-list.service';
+import { CompanyContactItemComponent } from '../company-contact-item/company-contact-item.component';
+import { RecordFormGroup } from '../../../../../../projects/hpfb/sdk/ui';
 
 @Component({
   selector: 'app-company-contact-list',
@@ -48,6 +50,8 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   @Input() disableForm : boolean;
   @Input() earlyVersion;
   @Output() errorEmit = new EventEmitter(true);
+  @ViewChildren(CompanyContactItemComponent) itemComponents: QueryList<CompanyContactItemComponent>;
+
 
   constructor(private fb: FormBuilder, 
               private _contactService: CompanyContactService,
@@ -209,5 +213,28 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // Required roles
     const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
     return companyRolesList.every(role => cleanSelectedRoles.includes(role));
+  }
+
+  public hasNoRolesSelected(): boolean {
+    if (this.itemComponents) {
+      const hasInvalid = this.itemComponents.some(item => item.rolesInvalid);
+      return hasInvalid;
+    }
+    return false;
+  }
+
+  override onDeleteHandled(event: any): void {
+    if (event) {
+      for (let index = 0; index < this.recordFormArray.controls.length; index++) {
+        const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
+        console.log(group.get('companyInfo.isRoleSelected').value, group.pristine);
+        if (!group.get('companyInfo.isRoleSelected').value ||
+              (group.get('companyInfo.isRoleSelected').value && !group.pristine)) {
+                group.controls['expandFlag'].setValue(true);
+        } else {
+          group.controls['expandFlag'].setValue(false);
+        }
+      }
+    }
   }
 }

@@ -47,6 +47,11 @@ export class ControlMessagesComponent implements OnChanges {
    */
   @Input() index: Number;
 
+  /**
+   * For manually showing inline control message for disabled FormControl.
+   */
+  @Input() hasErrors?: boolean = undefined;
+
    /**
    * Number of error from error summary
    */
@@ -118,10 +123,17 @@ export class ControlMessagesComponent implements OnChanges {
    * Controls the visibility of an error
    * @returns {boolean}
    */
-  makeErrorVisible() {
-    const test = ((this.control.invalid && this.control.touched && this.control.dirty) || (this.control.invalid && this._errorVisible));
-    return test;
+  makeErrorVisible(): boolean {
+    // If this.hasErrors (manual error check for disabled form group) is defined, check for this flag.
+    const hasManualError = this.hasErrors ?? false;
+    if (hasManualError) {
+      return this.hasErrors && this._errorVisible;
+    }
+  
+    return (this.control.invalid && this.control.touched && this.control.dirty) || (this.control.invalid && this._errorVisible);
+    
   }
+  
 
   isCanadianPostalCode(): boolean {
     const controlName = this.controlId?.toLowerCase() || '';
