@@ -163,7 +163,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     const missing = validKeys.filter(key => !updated.includes(key));
     const final = [...updated, ...missing];
   
-    this._signalService.setAddressCompanyRoles(final);
+    this._signalService.setContactCompanyRoles(final);
   }
 
   private _patchLastSavedRoles(): void {
@@ -174,6 +174,13 @@ export class CompanyContactItemComponent extends BaseComponent{
       const isSelected = selectedRoles.includes(role);
       this.companyRolesChkFormArray.at(index).setValue(isSelected);
     });
+  }
+
+  public disabledDiscardButton() {
+    if (this.cRRow.get('isNew').value) {
+      return true;
+    }
+    return false;
   }
 
   public async deleteContactRecord(index: number): Promise<void> {
@@ -243,6 +250,27 @@ export class CompanyContactItemComponent extends BaseComponent{
     //this._appendErrorsFromChild(); // Update errors for company roles here
   }
 
+  
+  isNoRoleSelected(): boolean {
+    const formArray = this.companyRolesChkFormArray;
+    // Check if none of the roles are selected
+    const noRoles = formArray.controls.every(control => !control.value);
+    
+    return noRoles;
+  }
+
+  isNoRoleSelectedAndAllDisabled(): boolean {
+    const formArray = this.companyRolesChkFormArray;
+    // Check if none of the roles are selected
+    const noRoles = formArray.controls.every(control => !control.value);
+    const allDisabled = formArray.controls.every(control => control.disabled);
+    if (noRoles && allDisabled){
+      // If no roles selected, manually set the errors
+      this.companyRolesChkFormArray.setErrors({ 'required': true });
+    }
+    return noRoles && allDisabled;
+  }
+
   /**
    * Deprecated
    * @returns 
@@ -251,13 +279,6 @@ export class CompanyContactItemComponent extends BaseComponent{
   //   const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, '')); // Remove the numeric prefix
   //   return roles.filter(r => r === role).length > 1; // Check if role appears more than once
   // };
-
-  public disabledDiscardButton() {
-    if (this.cRRow.get('isNew').value) {
-      return true;
-    }
-    return false;
-  }
 
   processContactErrors(childErrors:any[]) {
     this._contactErrorList = childErrors;
@@ -287,6 +308,10 @@ export class CompanyContactItemComponent extends BaseComponent{
     return this.cRRow.get('companyInfo.contactDetails') as FormGroup;
   }
 
+  get companyRoles(): FormArray {
+    return this.cRRow.get('companyInfo.companyRoles') as FormArray;
+  }
+
   private _updateCompanyRolesArray() {
     const representativeRolesList = this._globalService.representativeRolesList;
     this.representativeRolesOptionList = representativeRolesList.map((item) => {
@@ -301,31 +326,6 @@ export class CompanyContactItemComponent extends BaseComponent{
     }
     
     this.rolesUpdated.emit(this.representativeRolesOptionList);
-  }
-
-  isNoRoleSelected(): boolean {
-    const formArray = this.companyRolesChkFormArray;
-    // Check if none of the roles are selected
-    const noRoles = formArray.controls.every(control => !control.value);
-    
-    return noRoles;
-  }
-
-  isNoRoleSelectedAndAllDisabled(): boolean {
-    const formArray = this.companyRolesChkFormArray;
-    // Check if none of the roles are selected
-    const noRoles = formArray.controls.every(control => !control.value);
-    const allDisabled = formArray.controls.every(control => control.disabled);
-    if (noRoles && allDisabled){
-      // If no roles selected, manually set the errors
-      this.companyRolesChkFormArray.setErrors({ 'required': true });
-    }
-    return noRoles && allDisabled;
-  }
-  
-
-  get companyRoles(): FormArray {
-    return this.cRRow.get('companyInfo.companyRoles') as FormArray;
   }
 
   protected emitErrors(errors: any[]): void {

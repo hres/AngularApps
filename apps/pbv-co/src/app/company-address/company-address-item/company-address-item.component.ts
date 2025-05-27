@@ -193,6 +193,13 @@ export class CompanyAddressItemComponent extends BaseComponent{
     });
   }
 
+  public disabledDiscardButton() {
+    if (this.cRRow.get('isNew').value) {
+      return true;
+    }
+    return false;
+  }
+
   public async deleteAddressRecord(index: number): Promise<void> {
     this._deleteIndex = index;
     const heading = await this._addressService.getHeading(index, this.cRRow); // Set heading here for when the record isn't saved yet
@@ -211,13 +218,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
         this._signalService.removeAddressCompanyRole(role)
       });
     this.cRRow.markAsPristine();
-  }
-
-  public disabledDiscardButton() {
-    if (this.cRRow.get('isNew').value) {
-      return true;
-    }
-    return false;
   }
 
   companyRolesOnChange(e: any, selectedRole: string, index: number) {

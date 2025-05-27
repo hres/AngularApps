@@ -244,6 +244,12 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     return false;
   }
 
+  /**
+   * Override onDeleteHandled to check if there is no role selected for record -> expand the record
+   *                                      record has been touched -> expand the record
+   * TODO: Remove "group.get('addressInfo.isRoleSelected').value" from (group.get('addressInfo.isRoleSelected').value && !group.pristine)
+   * @param event 
+   */
   override onDeleteHandled(event: any): void {
     if (event) {
       for (let index = 0; index < this.recordFormArray.controls.length; index++) {
