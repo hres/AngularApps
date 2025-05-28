@@ -184,18 +184,31 @@ export class CompanyAddressItemComponent extends BaseComponent{
     // If so, say a role could not be discard because it's been selected and do not re-check
     // Check the other role thats not disabled, if any
     const missing = validKeys.filter(key => !updated.includes(key));
+    
+    // Split missing into those selected by others and those not
+    const alreadySelectedByOthers: string[] = [];
+    const notSelectedByOthers: string[] = [];
 
-    // Find which missing roles are NOT selected by other records
-    const notSelectedByOthers = missing.filter(key => {
-      const roleId = key.slice(String(recordId).length); // Get role from current record
-      return !current.some(entry => { // 
+    for (const key of missing) {
+      const roleId = key.slice(String(recordId).length);
+
+      const isTaken = current.some(entry => {
         const otherRecordId = entry.match(/^\d+/)?.[0];
-        return otherRecordId !== String(recordId) && entry.endsWith(roleId); // Already selected
+        return otherRecordId !== String(recordId) && entry.endsWith(roleId);
       });
-    });
+
+      if (isTaken) {
+        alreadySelectedByOthers.push(roleId);
+      } else {
+        notSelectedByOthers.push(key);
+      }
+    }
+
+    if (alreadySelectedByOthers.length > 0) {
+      this.openPopup();
+    }
 
     if (notSelectedByOthers.length > 0) {
-      this.openPopup();
       this.cRRow.get('addressInfo.isRoleSelected').setValue(true);
       const final = [...updated, ...notSelectedByOthers];
       this._signalService.setAddressCompanyRoles(final);
@@ -450,6 +463,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   }
 
   openPopup(): void {
+    console.log("open popup")
     jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
   }
 
