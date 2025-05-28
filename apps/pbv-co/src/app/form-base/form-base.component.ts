@@ -232,6 +232,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummaryId';
     } else {
+      // console.log(!this.companyAddressListComponent.hasNoRolesSelected())
+      // console.log(!this.companyContactListComponent.hasNoRolesSelected()) 
+      // console.log(this.companyAddressListComponent.recordFormGroup.pristine)
+      // console.log(this.companyContactListComponent.recordFormGroup.pristine)
+      // console.log(this.companyAddressListComponent.recordFormArray.valid)
+      // console.log(this.companyContactListComponent.recordFormArray.valid)
       if (!this.companyAddressListComponent.hasNoRolesSelected() && !this.companyContactListComponent.hasNoRolesSelected() && this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine
         && this.companyAddressListComponent.recordFormArray.valid && this.companyContactListComponent.recordFormArray.valid) {
         this._saveXML();
