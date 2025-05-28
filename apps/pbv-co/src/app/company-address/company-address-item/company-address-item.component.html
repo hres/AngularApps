@@ -1,4 +1,5 @@
 <div [formGroup]="cRRow">
+    <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.discard.role.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
     <div id="coAddressErrorSummary{{j}}">
       <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
       [errorList]="errors" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
