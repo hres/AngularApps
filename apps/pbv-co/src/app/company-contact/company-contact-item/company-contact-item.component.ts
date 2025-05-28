@@ -31,6 +31,8 @@ export class CompanyContactItemComponent extends BaseComponent{
   @Output() discardHandled = new EventEmitter();
   @Output() deleteHandled = new EventEmitter();
 
+  popupId = 'contact-discard-warning'
+
   lang = this._globalService.currLanguage;
   languageList: ICode[] = [];
   
@@ -84,8 +86,8 @@ export class CompanyContactItemComponent extends BaseComponent{
 
     this._recordDiscardService.discardConfirmed$.subscribe(index => {
       if (index === this._discardIndex) {
-        this._updateRolesSignalAfterDiscard();
-        this._patchLastSavedRoles();
+        this._handleDiscard();
+        this._patchAndCheckLastSavedRoles();
         this.discardHandled.emit();
       }
     });
@@ -144,7 +146,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     this.cRRow.markAsPristine();
   }
 
-  private _updateRolesSignalAfterDiscard() {
+  private _handleDiscard() {
     const recordId = this.cRRow.get('recordId')?.value;
     const selectedRoles = this.cRRow.get('companyInfo.selectedCompanyRoles')?.value ?? [];
   
@@ -161,22 +163,59 @@ export class CompanyContactItemComponent extends BaseComponent{
   
     // Add in the role that was unchecked from last saved state. This checks the role that has been unchecked
     const missing = validKeys.filter(key => !updated.includes(key));
-    if (missing) {
-      this.cRRow.get('companyInfo.isRoleSelected').setValue(true);
-    }
-    const final = [...updated, ...missing];
-  
-    this._signalService.setContactCompanyRoles(final);
+     // Split missing into those selected by others and those not
+     const alreadySelectedByOthers: string[] = [];
+     const notSelectedByOthers: string[] = [];
+ 
+     for (const key of missing) {
+       const roleId = key.slice(String(recordId).length);
+ 
+       const isTaken = current.some(entry => {
+         const otherRecordId = entry.match(/^\d+/)?.[0];
+         return otherRecordId !== String(recordId) && entry.endsWith(roleId);
+       });
+ 
+       if (isTaken) {
+         alreadySelectedByOthers.push(roleId);
+       } else {
+         notSelectedByOthers.push(key);
+       }
+     }
+ 
+     if (alreadySelectedByOthers.length > 0) {
+       this.openPopup();
+     }
+     
+     // Update roles signal array
+     if (notSelectedByOthers.length > 0) {
+       this.cRRow.get('companyInfo.isRoleSelected').setValue(true);
+       const final = [...updated, ...notSelectedByOthers];
+       this._signalService.setContactCompanyRoles(final);
+     } else {
+       // None can be re-added because they're selected by other records
+       this._signalService.setContactCompanyRoles(updated);
+     }
   }
 
-  private _patchLastSavedRoles(): void {
+  private _patchAndCheckLastSavedRoles(): void {
     const selectedRoles = this.cRRow.get('companyInfo.selectedCompanyRoles')?.value ?? [];
+    const enabledAndCheckedRoles: string[] = [];
   
-    // Loop through all roles in the ROLE_INDEX_MAPPING
     Object.entries(ROLE_INDEX_MAPPING).forEach(([role, index]) => {
-      const isSelected = selectedRoles.includes(role);
-      this.companyRolesChkFormArray.at(index).setValue(isSelected);
+      const control = this.companyRolesChkFormArray.at(index);
+      const isRoleSelected = selectedRoles.includes(role);
+  
+      // Only check the box if the role was selected and the control is not disabled
+      const shouldCheck = isRoleSelected && !control.disabled;
+      control.setValue(shouldCheck);
+  
+      if (shouldCheck) {
+        enabledAndCheckedRoles.push(role);
+      }
     });
+  
+    // Update the selected roles in the form group to reflect only enabled and checked roles
+    this.cRRow.get('companyInfo.selectedCompanyRoles')?.setValue(enabledAndCheckedRoles);
   }
 
   public disabledDiscardButton() {
@@ -407,6 +446,10 @@ export class CompanyContactItemComponent extends BaseComponent{
   private _enableRole(roleIndex) {
     const roleFormGroup = this.companyRolesChkFormArray.at(roleIndex) as FormGroup;
     roleFormGroup.enable();
+  }
+
+  openPopup(): void {
+    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
   }
 
 }

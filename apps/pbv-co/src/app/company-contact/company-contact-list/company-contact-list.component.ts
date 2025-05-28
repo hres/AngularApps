@@ -88,13 +88,13 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   }
 
   protected _expandInvalidRecordUponLoading() {
-    this._expandNextInvalidRecord();
+    this.expandAllInvalidRecords();
   }
 
   expandAllInvalidRecords() {
     for (let index = 0; index < this.recordFormArray.controls.length; index++) {
       const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
-      if (!group.get('companyInfo.isRoleSelected')) {
+      if (!group.get('companyInfo.isRoleSelected') || group.invalid) {
        group.controls['expandFlag'].setValue(true);
        group.markAsDirty();
        group.markAsTouched();
