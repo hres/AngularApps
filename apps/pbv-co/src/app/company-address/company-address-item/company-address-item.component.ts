@@ -86,7 +86,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
    
     this._recordDiscardService.discardConfirmed$.subscribe(index => {
       if (index === this._discardIndex) {
-        this._updateRolesSignalAfterDiscard();
+        this._handleDiscard();
         this._patchAndCheckLastSavedRoles();
       }
     });
@@ -163,7 +163,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.cRRow.markAsPristine();
   }
 
-  private _updateRolesSignalAfterDiscard() {
+  private _handleDiscard() {
     const recordId = this.cRRow.get('recordId')?.value;
     const selectedRoles = this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.value ?? [];
   
@@ -208,6 +208,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
       this.openPopup();
     }
 
+    // Update roles signal array
     if (notSelectedByOthers.length > 0) {
       this.cRRow.get('addressInfo.isRoleSelected').setValue(true);
       const final = [...updated, ...notSelectedByOthers];
@@ -463,7 +464,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
   }
 
   openPopup(): void {
-    console.log("open popup")
     jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
   }
 
