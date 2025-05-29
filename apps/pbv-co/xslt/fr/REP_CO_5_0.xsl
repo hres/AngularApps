@@ -489,7 +489,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Courriel : </strong>
+                                                <strong>Adresse de courriel : </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/email" />
                                                 </span>
