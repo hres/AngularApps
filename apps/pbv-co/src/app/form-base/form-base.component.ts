@@ -402,7 +402,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       output.COMPANY_ENROL[CHECK_SUM_CONST]  = this._checkSumService.createHash(output);
     }
 
-    console.log('_prepareForSaving ~ output', JSON.stringify(output, null, 2));
+    //console.log('_prepareForSaving ~ output', JSON.stringify(output, null, 2));
 
     return output;
   }

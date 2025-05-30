@@ -425,7 +425,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   private _disableRoles() {
     const recordId = this.cRRow.get('recordId').value
-    console.log(this.selectedCompanyRoles());
   
     this.selectedCompanyRoles().forEach(roleWithPrefix => {
       const selectedRecordId = roleWithPrefix.match(/^\d+/)?.[0] ?? '';
