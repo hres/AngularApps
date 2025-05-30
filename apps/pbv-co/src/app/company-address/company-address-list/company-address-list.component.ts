@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, output, Output, ViewEncapsulation } from '@angular/core';
+import { Component, computed, EventEmitter, Input, Output, QueryList, Signal, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AddressDetailsService, INameAddress } from '@hpfb/pbv';
-import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService, UtilsService, ICode, ENGLISH, FRENCH, RecordFormGroup } from '@hpfb/sdk/ui';
-import { FormDataLoaderService } from '../../container/form-data-loader.service';
+import { CheckboxOption, ErrorNotificationService, ErrorSummaryComponent, BaseListComponent, IRecordService, UtilsService, ICode, ENGLISH, FRENCH, RecordFormGroup, RecordDeleteService, RecordDiscardService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../../global/global.service';
 import { AddressRecord } from '../../models/Company';
 import { AppSignalService } from '../../signal/app-signal.service';
@@ -23,17 +22,27 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   records: string = 'addresses';
   recordInfo: string = 'addressInfo';
   popupId: string = 'addressPopup';
+  discardPopupId: string = 'addressDiscardPopup';
+  deletePopupId: string = 'addressDeletePopup';
+
   statusMessage : string = '';
   errorList;
-  statusMessageSubject : string = '';
-  focusField : string = 'companyName'
-  addButton : string = 'addAddressBtn'
+
+  statusMessageSave : string = '';
+  statusMessageDiscard: string = '';
+  statusMessageDelete: string = '';
+  
+  focusField : string = 'companyName';
+  addButton : string = 'addAddressBtn';
+  private selectedAddressCompanyRoles : Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
+  allRolesSelected = computed(() => {return this.isRolesComplete(this.selectedAddressCompanyRoles());})
 
   companyRolesOptionList: CheckboxOption[] = []; // Store received data
 
   @Input() earlyVersion;
   @Input() disableForm : boolean;
   @Output() errorEmit = new EventEmitter(true);
+  @ViewChildren(CompanyAddressItemComponent) itemComponents: QueryList<CompanyAddressItemComponent>;
 
   provinceList: ICode[] = [];
 
@@ -45,8 +54,10 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     private _globalService: GlobalService,
     private _signalService: AppSignalService,
     private _utilsService: UtilsService,
+    deleteService : RecordDeleteService,
+    discardService : RecordDiscardService,
     companyAddressListService: CompanyAddressListService) {
-      super(fb, companyAddressListService);
+      super(fb, companyAddressListService, discardService, deleteService);
       this.recordService = this._addressService;
         this.recordFormGroup = this.fb.group({
         addresses: this.fb.array([])
@@ -55,6 +66,12 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
 
   ngOnInit():void {
     this.provinceList = this._globalService.provinceList;
+    if (this._globalService.currLanguage === ENGLISH) {
+      this.statusMessageSave = this.statusMessageDelete = this.statusMessageDiscard = 'Address details record';
+    } else {
+      this.statusMessageSave = this.statusMessageDelete = 'des détails de l’adresse';
+      this.statusMessageDiscard = 'aux détails de l’adresse'
+    }
   }
 
   override ngAfterViewInit(): void {
@@ -64,7 +81,18 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   }
 
   protected _expandInvalidRecordUponLoading() {
-    this._expandNextInvalidRecord();
+    this.expandAllInvalidRecords();
+  }
+
+  expandAllInvalidRecords() {
+    for (let index = 0; index < this.recordFormArray.controls.length; index++) {
+      const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
+      if (!group.get('addressInfo.isRoleSelected').value || group.invalid) {
+       group.controls['expandFlag'].setValue(true);
+       group.markAsDirty();
+       group.markAsTouched();
+      } 
+    }     
   }
 
   protected _patchRecordInfoValue(form, outputModel: AddressRecord) {
@@ -84,12 +112,13 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
       mailing: null,
       selectedAddressCompanyRoles: selectedRoles,
       addressCompanyRoles: companyRoles,
+      companyName: outputModel.company_name,
       addressDetails: {
         address: outputModel.company_address_details.street_address,
         city: outputModel.company_address_details.city,
         provState: outputModel.company_address_details.province_lov ? outputModel.company_address_details.province_lov._id : null,
         provText: outputModel.company_address_details.province_text,
-        country: outputModel.company_address_details.country._id,
+        country: outputModel.company_address_details.country ? outputModel.company_address_details.country._id : null,
         postal: outputModel.company_address_details.postal_code
       }
     })
@@ -99,112 +128,47 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     this.companyRolesOptionList = updatedRoles;
   }
 
-  handleRemoveRoleError(event : any) {
-    // event: unchecked role
-    const recordId = event.id;
-    const role = event.role;
-    const roleIndex = event.roleIndex;
-    let id = null;
+  /**
+   * Deprecated
+   * @param event
+   */
+  // handleRemoveRoleError(event : any) {
+  //   // event: unchecked role
+  //   const recordId = event.id;
+  //   const role = event.role;
+  //   const roleIndex = event.roleIndex;
+  //   let id = null;
 
-    // Check if there are any other records with the same role that's been unchecked,
-    // If so, clear the errors
+  //   // Check if there are any other records with the same role that's been unchecked,
+  //   // If so, clear the errors
 
-    // Look for other records that has the same role as the role that has been unchecked
-    const currentRolesArray = this._signalService.getSelectedAddressCompanyRoles()();
-    for (const item of currentRolesArray) {
-      const idMatch = item.match(/^(\d+)/); // Extract the number (prefix)
-      const itemRole = item.replace(/^\d+/, ''); // Extract role type
+  //   // Look for other records that has the same role as the role that has been unchecked
+  //   const currentRolesArray = this._signalService.getSelectedAddressCompanyRoles()();
+  //   for (const item of currentRolesArray) {
+  //     const idMatch = item.match(/^(\d+)/); // Extract the number (prefix)
+  //     const itemRole = item.replace(/^\d+/, ''); // Extract role type
       
-      if (itemRole === role && idMatch !== recordId) {
-        id = Number(idMatch?.[1]); // Return the number as a number type
-        break;
-      }
-    }
+  //     if (itemRole === role && idMatch !== recordId) {
+  //       id = Number(idMatch?.[1]); // Return the number as a number type
+  //       break;
+  //     }
+  //   }
 
-    // If id has been found, find FormGroup with matching recordId. Set role's errors to null
-    if (id) {
-      const formGroupWithId = this.recordFormArray.controls.find(
-        (group) => group.get('recordId')?.value === id
-      ) as FormGroup | undefined;
+  //   // If id has been found, find FormGroup with matching recordId. Set role's errors to null
+  //   if (id) {
+  //     const formGroupWithId = this.recordFormArray.controls.find(
+  //       (group) => group.get('recordId')?.value === id
+  //     ) as FormGroup | undefined;
         
-      if (formGroupWithId) {
-        let addressRoles = formGroupWithId.get('addressInfo.addressCompanyRoles') as FormArray;
-        const roleControl = addressRoles.at(roleIndex);
-        if (roleControl.errors) {
-          roleControl.setErrors(null);
-        }
-      }
-    }
-  }
-
-  saveAddressRecord(event: any): void {
-    const index = event.index;
-    const group = this.recordFormArray.at(index) as RecordFormGroup;
-    // if this is a new record, assign next available id, otherwise, use it's existing id
-    const id = group.get('isNew').value? this.listService.getNextId(): group.get('id').value
-    group.patchValue({ 
-    id: id,
-    isNew: false,
-    expandFlag: false,    // collapse this record
-    });
-    const recordInfo = this.getRecordInfo(group);
-    // Update lastSavedState with the current value of contactInfo
-    group.get('lastSavedState').setValue(recordInfo.value);
-    this._expandNextInvalidRecord();
-    this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
-
-    if (this._globalService.currLanguage == "en") {
-      this.statusMessage = "Address details record " + id + " has been saved.";
-    } else {
-      this.statusMessage = "Enregistrement des détails de l’adresse " + id + " a été sauvegardé.";
-    }
-     
-    setTimeout(() => {
-        document.getElementById(this.addButton).focus(); 
-    }, 0);
-  }
-
-  deleteAdressRecord(index: number): void {
-    const id = index + 1;
-    const group = this.recordFormArray.at(index) as RecordFormGroup;
-    const recordInfo = this.getRecordInfo(group);
-    recordInfo.reset();
-    this.recordFormArray.removeAt(index);
-    this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
-
-    if (this._globalService.currLanguage == "en") {
-      this.statusMessage = "Address details record " + id + " has been deleted.";
-    } else {
-      this.statusMessage = "Enregistrement des détails de l’adresse " + id + " a été supprimé.";
-    }
-
-    document.getElementById(this.addButton).focus();
-  }
-
-  revertAdressRecord(event: any): void {
-    const index = event.index;
-    const id = index + 1;
-    const group = this.recordFormArray.at(index) as RecordFormGroup;
-    const recordInfo = this.getRecordInfo(group);
-    // Revert to the last saved state
-    const lastSavedState = group.get('lastSavedState').value;
-    recordInfo.patchValue(lastSavedState); 
-
-    if (this._globalService.currLanguage == "en") {
-      this.statusMessage = "Address details record " + id + " changes have been discarded.";
-    } else {
-      this.statusMessage = "Les modifications apportées aux détails de l'adresse " + id + " ont été annulées.";
-    }
-
-    const discardMsg = this.statusMessage;
-      
-    setTimeout(() => {
-      this.statusMessage = ''; // Temporarily clear the message
-      setTimeout(() => {
-        this.statusMessage = discardMsg; // Restore the message
-      }, 50); // Small delay before restoring
-    }, 50);
-  }
+  //     if (formGroupWithId) {
+  //       let addressRoles = formGroupWithId.get('addressInfo.addressCompanyRoles') as FormArray;
+  //       const roleControl = addressRoles.at(roleIndex);
+  //       if (roleControl.errors) {
+  //         roleControl.setErrors(null);
+  //       }
+  //     }
+  //   }
+  // }
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
     // console.log('...._processErrorSummaries:', errSummaryEntries);
@@ -275,4 +239,61 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
       }
     }
   }
+  
+  private isRolesComplete(selectedRoles : string[]) {
+    const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // Required roles
+    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
+    return companyRolesList.every(role => cleanSelectedRoles.includes(role));
+  }
+
+  public hasNoRolesSelected(): boolean {
+    if (!this.recordFormArray || this.recordFormArray.length === 0) {
+      return false;
+    }
+    
+    // Check if a role has been selected
+    return this.recordFormArray.controls.some((group: FormGroup) => {
+      const isRoleSelectedControl = group.get('addressInfo.isRoleSelected');
+      return !isRoleSelectedControl?.value;
+    });
+  }
+
+  /**
+   * Override onDeleteHandled to check if there is no role selected for record -> expand the record
+   *                                      record has been touched -> expand the record
+   * TODO: Remove "group.get('addressInfo.isRoleSelected').value" from (group.get('addressInfo.isRoleSelected').value && !group.pristine)
+   * @param event 
+   */
+  override onDeleteHandled(event: any): void {
+    if (event) {
+      for (let index = 0; index < this.recordFormArray.controls.length; index++) {
+        const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
+        console.log(group.get('addressInfo.isRoleSelected').value, group.pristine);
+        if (!group.get('addressInfo.isRoleSelected').value ||
+              (group.get('addressInfo.isRoleSelected').value && !group.pristine)) {
+                group.controls['expandFlag'].setValue(true);
+        } else {
+          group.controls['expandFlag'].setValue(false);
+        }
+      }
+    }
+  }
+
+  override handleRowClick(event: any): void {
+    const clickedIndex = event.index;
+    const clickedRecordState = event.state;
+    if (this.recordFormGroup.pristine) {
+      this.recordFormArray.controls.forEach( (element: FormGroup, index: number) => {
+        if (clickedIndex===index) {
+          if (element.get('addressInfo.isRoleSelected').value) {
+            element.controls['expandFlag'].setValue(!clickedRecordState)
+          } else {
+            this.openPopup();
+          }
+        } 
+    })} else {
+      this.openPopup();
+    }
+  }
+  
 } 

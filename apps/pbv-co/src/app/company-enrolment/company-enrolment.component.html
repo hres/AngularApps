@@ -26,13 +26,13 @@
         <div class="form-group col-sm-6 col-xs-12">
             <label for="companyId" [ngClass]="{'required':isInternal}" class="full-width">
             <span class="field-name" >{{'company.id'|translate}}</span>
-            <strong *ngIf="isInternal" class="required" >{{'commmon.required.bracket'|translate}}</strong>
+            <strong *ngIf="isInternal" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="isInternal && companyEnrolmentForm.controls['companyId'].invalid"
-                                [showError]="showFieldErrors"
+                                [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                                 [control]="companyEnrolmentForm.controls['companyId'] | formControl"
                                 controlId="companyId" label="company.id" parentId="companyEnrolment"></control-messages>
             <input name="companyId" id="companyId" class="form-control" 
-                    [readonly]="!isInternal" [formControl]="companyEnrolmentForm.controls['companyId'] | formControl" [maxLength]="5" data-only-digits/>
+                    [readonly]="!isInternal" [formControl]="companyEnrolmentForm.controls['companyId'] | formControl" [maxLength]="5" required data-only-digits/>
             </label>
         </div>
     </div>
@@ -58,13 +58,13 @@
                 <sup [id]="helpIndex['reasonIndx'][2]">
                     <a class="fn-lnk" [href]="'#' + helpIndex['reasonIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['reasonIndx'][0]}}</a>
                 </sup>
-                <control-messages *ngIf="companyEnrolmentForm.controls['reasonForFiling'].invalid"
+                <control-messages *ngIf="companyEnrolmentForm.controls['reasonForFiling'].invalid" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                     [showError]="showFieldErrors"
                     [control]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" controlId="filingReason"
                     label="reason.filing" parentId="companyEnrolment"></control-messages>
             </label>
-            <textarea id="filingReason" name="filingReason" class="form-control full-width"
-                        [formControl]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" maxlength="1000" ></textarea>
+            <textarea id="filingReason" name="filingReason" class="form-control full-width" 
+                        [formControl]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" maxlength="1000" required></textarea>
         </div>
     </div>
 </div>

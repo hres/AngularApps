@@ -4,7 +4,7 @@
       <span class="field-name">{{ 'select.file'|translate }}</span>
     </label>
     <div *ngIf="!importSuccess">
-      <button id="fileLoadButton" [attr.aria-labelledby]="fileImported ? 'fileName' : 'noFileChosen'" onclick="document.getElementById('fileLoad').click()" > {{ 'choose.file' | translate }} </button>
+      <button id="fileLoadButton" [attr.aria-describedby]="fileImported ? 'fileName' : 'noFileChosen'" onclick="document.getElementById('fileLoad').click()" > {{ 'choose.file' | translate }} </button>
       <input style="display:none" type="file" id="fileLoad" name="fileLoad" accept=".xml, .hcsc" (change)="changeListener($event)" />
       <!-- FOR SCREEN READER : To read "Select a file to load, no file chosen / (file name) button" -->
       <span hidden class="field-name" *ngIf="!fileImported" id="noFileChosen"> {{ 'select.file'|translate }} {{ 'no.file.chosen' | translate }} </span>

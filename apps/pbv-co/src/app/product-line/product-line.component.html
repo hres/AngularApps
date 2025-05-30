@@ -8,16 +8,16 @@
                     <sup [id]="helpIndex['prodLineIndx'][2]">
                         <a class="fn-lnk" [href]="'#' + helpIndex['prodLineIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prodLineIndx'][0]}}</a>
                     </sup>
-                    <control-messages *ngIf="productLineChkFormArray.invalid"
+                    <control-messages *ngIf="productLineChkFormArray.invalid" [attr.aria-live]="showErrors? null: 'assertive'"
                             [showError]="showErrors"
                             [control]="productLineChkFormArray | formControl"
-                            controlId="{{productLineOptionList[0].value}}" label="prod.line"
+                            controlId="productLine{{productLineOptionList[0].value}}" label="prod.line"
                             parentId="productLineForm"></control-messages>
                 </legend>
                 <ul class="form-group list-unstyled">
                     <li class="checkbox" [formArrayName]="'productLine'" *ngFor="let product of productLineChkFormArray.controls; let i = index">
-                        <label [attr.id]="'label-productLine-' + i" for={{productLineOptionList[i].value}}>
-                            <input type="checkbox" id={{productLineOptionList[i].value}} [formControl]="product | formControl" (change)="productLineOnChange($event)" [attr.aria-labelledby]="'label-productLine-' + i" /> 
+                        <label [attr.id]="'label-productLine-' + i" for="productLine{{productLineOptionList[i].value}}">
+                            <input type="checkbox" id="productLine{{productLineOptionList[i].value}}" [formControl]="product | formControl" (change)="productLineOnChange($event)" [attr.aria-labelledby]="'label-productLine-' + i" /> 
                             {{productLineOptionList[i].label}}
                         </label>
                     </li>
