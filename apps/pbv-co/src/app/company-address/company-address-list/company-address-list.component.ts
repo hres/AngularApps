@@ -268,7 +268,6 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     if (event) {
       for (let index = 0; index < this.recordFormArray.controls.length; index++) {
         const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
-        console.log(group.get('addressInfo.isRoleSelected').value, group.pristine);
         if (!group.get('addressInfo.isRoleSelected').value ||
               (group.get('addressInfo.isRoleSelected').value && !group.pristine)) {
                 group.controls['expandFlag'].setValue(true);

@@ -241,7 +241,6 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     if (event) {
       for (let index = 0; index < this.recordFormArray.controls.length; index++) {
         const group: RecordFormGroup = this.recordFormArray.controls[index] as RecordFormGroup;
-        console.log(group.get('companyInfo.isRoleSelected').value, group.pristine);
         if (!group.get('companyInfo.isRoleSelected').value ||
               (group.get('companyInfo.isRoleSelected').value && !group.pristine)) {
                 group.controls['expandFlag'].setValue(true);
