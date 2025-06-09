@@ -430,7 +430,7 @@
     "cra.business.number":"Numéro d’entreprise d’ARC",
     "csp.customer.number":"Numéro de client de CPS",
     "agent.name":"Nom de l’agent (dénomination sociale complète – ne pas utiliser d’abréviations)",
-    "panel.title.timing.of.application": "6. Môment du dépot de la demande",
+    "panel.title.timing.of.application": "6. Môment du dépôt de la demande",
     "application.is.applying":"Le demandeur dépose une demande (sélectionner une seule réponse)",
 
     "panel.title.attestations": "8. Attestations",
@@ -469,7 +469,7 @@
     "phone.number":"Numéro de téléphone (y compris indicatif régional)",
     "phone.extension":"Numéro de l'extension",
     "fax.number":"Numéro de télécopieur (y compris indicatif régional)",
-    "fax.number.nofaxnum": "(Si pas disponible, utilisez 0000000000)",
+    "fax.number.nofaxnum": "(Si le numéro n’est pas disponible, utilisez 0000000000)",
     "contact.email":"Adresse de courriel",
     "error.msg.minlength": "Entrée non valide - doit contenir {{ requiredLength }} chiffres",
     "error.mgs.dossier.id": "Format incorrect. - Le numéro de dossier est incorrect pour ce type de dossier. Veuillez vérifier le numéro de dossier et le type de dossier pour votre produit.",
