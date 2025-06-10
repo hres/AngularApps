@@ -123,8 +123,8 @@
     {
         "id": "IMMEDIATE_NOTIFICATION",
         "en": "Immediate notification",
-        "fr": "Notification Immédiate",
-        "defEn": "Immediate Notifications are for minor changes where timely awareness is necessary. Health Canada should be notified within the time window extending from 21 days before and 14 days after the implementation date. This reporting category also includes the majority of major and moderate changes that have been downgraded to minor quality changes as a result of the execution of a PACMP or through a negotiated EC and associated reporting category.",
+        "fr": "Notification immédiate",
+        "defEn": "Immediate notifications are for minor changes where timely awareness is necessary. Health Canada should be notified within the time window extending from 21 days before and 14 days after the implementation date. This reporting category also includes the majority of major and moderate changes that have been downgraded to minor quality changes as a result of the execution of a PACMP or through a negotiated EC and associated reporting category.",
         "defFr": "Les notifications immédiates concernent les changements mineurs pour lesquels une prise de conscience en temps opportun est nécessaire. Santé Canada doit être informé dans une fenêtre allant de 21 jours avant et 14 jours après la date de mise en œuvre. Cette catégorie de changement  comprend également la majorité des changements majeurs et modérés qui ont été rétrogradés en changements de qualité mineurs à la suite de l'exécution d'un PGCAA ou via un CE négocié et la catégorie de changement associée."
     },
     {
@@ -150,7 +150,7 @@
         "id": "MEETING_MINUTES",
         "en": "Minutes of meeting",
         "fr": "Procès-verbal de la réunion",
-        "defEn": "Transaction to provide minutes from a pre-submission meeting.",
+        "defEn": "Transaction to provide minutes from a meeting.",
         "defFr": "Transaction pour fournir le procès-verbal d'une réunion de pré-soumission."
     },
     {
@@ -406,7 +406,7 @@
         "id": "PRESUB_MEETING_RQ",
         "en": "Submission meeting request",
         "fr": "Demande de réunion préalable à la présentation",
-        "defEn": "Transaction to request a pre-submission meeting.",
+        "defEn": "Transaction to request a meeting with Health Canada.",
         "defFr": "Transaction pour demander une réunion de pré-soumission."
     },
     {

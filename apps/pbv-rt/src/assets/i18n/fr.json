@@ -60,7 +60,7 @@
     "phone.extension":"Numéro de l'extension",
     "fax.number":"Numéro de télécopieur (y compris indicatif régional)",
     "fax.number.nofaxnum": "(Si pas disponible, utilisez 0000000000)",
-    "contact.email":"Courriel",
+    "contact.email":"Adresse de courriel",
 
     "company.rep.this": "Représentant de la compagnie",
     "confirm.contact.valid": "Je confirme que l'information de la personne-ressource de l’activité réglementaire ci-dessus est valide.",
