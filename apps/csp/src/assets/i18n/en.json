@@ -411,8 +411,8 @@
     "error.msg.minlength": "Invalid entry - must be {{ requiredLength }} digits",
     "error.mgs.dossier.id": "Incorrect format - The dossier identifier is incorrect for this dossier type. Please verify the dossier identifer and dossier type for your product.",
     "error.mgs.zip":"Invalid entry - must be 5 digits",
-    "error.msg.postal":"Invalid format - must be X#X#X#",
-    "error.msg.email":"Invalid format - Must be xxxx@xxxx.xxx",
+    "error.msg.postal":"Invalid format - must be X1X1X1",
+    "error.msg.email":"Invalid format - must be example@domain.com",
     "error.msg.invalidDate": "The date is not valid",
 
     "panel.title.hc.only": "Health Canada Use Only",
@@ -483,7 +483,7 @@
     "label.applicant": "Applicant Information",
     "label.billing": "Billing Address",
 
-    "msg.success.load": "The file was loaded successfully",
+    "msg.success.load": "The file was loaded successfully, and the form was updated below.",
     "msg.err.parseFail": "Error: there was an error parsing the working file.",
     "msg.err.jsonparse": "There was an error parsing the working file.",
     "msg.err.file.load": "There was a problem loading the file.",

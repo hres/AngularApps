@@ -474,8 +474,8 @@
     "error.msg.minlength": "Entrée non valide - doit contenir {{ requiredLength }} chiffres",
     "error.mgs.dossier.id": "Format incorrect. - Le numéro de dossier est incorrect pour ce type de dossier. Veuillez vérifier le numéro de dossier et le type de dossier pour votre produit.",
     "error.mgs.zip":"Entrée non valide - doit contenir 5 chiffres",
-    "error.msg.postal":"Format non valide - doit être X#X#X#",
-    "error.msg.email":"Entrée non valide - doit être xxxx@xxxx.xxx",
+    "error.msg.postal":"Format non valide - doit être X1X1X1",
+    "error.msg.email":"Entrée non valide - doit être exemple@domaine.com",
     "error.msg.invalidDate": "Cette date n'est pas valide",
 
     "panel.title.hc.only": "Á l'usage de Santé Canada",
@@ -538,7 +538,7 @@
     "label.applicant": "Renseignements sur le demandeur",
     "label.billing": "Adresse de facturation",
 
-    "msg.success.load": "Le fichier a été chargé avec succès",
+    "msg.success.load": "Le fichier a été chargé avec succès et le formulaire a été mis à jour ci-dessous.",
     "msg.err.parseFail": "Erreur: il y a eu une erreur en analysant le fichier de travail.",
     "msg.err.jsonparse": "Il y a eu une erreur en analysant le fichier de travail.",
     "msg.err.file.load": "Il y a eu un problème lors du chargement du fichier.",
