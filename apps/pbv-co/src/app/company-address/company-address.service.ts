@@ -3,10 +3,14 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AddressDetailsService } from "@hpfb/pbv";
 import { ErrorSummaryObject, ERR_TYPE_LEAST_ONE_REC, getEmptyErrorSummaryObj, ValidationService, IRecordService } from "@hpfb/sdk/ui";
 import { PbvValidationService } from "@hpfb/pbv";
+import { lastValueFrom } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class CompanyAddressService implements IRecordService{
     _addressDetailsService = inject(AddressDetailsService);
+    _translateService = inject(TranslateService);
+
     addressFormArrValue = signal<any[]>([]);
 
     createRecordFormGroup(fb: FormBuilder): FormGroup<any> {
@@ -20,12 +24,15 @@ export class CompanyAddressService implements IRecordService{
             isNew: true,
             expandFlag: true,
             lastSavedState: null, // store the last saved state of the contactInfo for reverting function
+            heading: null,
             addressInfo: fb.group({
                 companyName: [null, [Validators.required]],
                 businessNum: ['', [ PbvValidationService.businessNumValidator]],
                 addressCompanyRoles: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
                 selectedAddressCompanyRoles: [''],
-                addressDetails: this._addressDetailsService.getReactiveModel(fb)
+                addressDetails: this._addressDetailsService.getReactiveModel(fb),
+                isRoleSelected: [false],
+                rolesTouched: [false]
                 }, { updateOn: 'change' }
             )
         });
@@ -57,5 +64,24 @@ export class CompanyAddressService implements IRecordService{
         
         return oerr;
     }
+
+    /**
+     * Method for creating a heading for confirmation popup
+     */
+    public async getHeading(index : number, formGroup : FormGroup): Promise<string> {
+        let fullHeading = '';
+        let companyName = null;
+        const id = index + 1;
+
+        if (formGroup.get('id').value !== -1) {
+          companyName = formGroup.get('addressInfo.companyName')?.value?.trim() ?? '';
+        }
     
+        const heading = await lastValueFrom(
+          this._translateService.get('heading.company.address', { seqnumber: id })
+        );
+        fullHeading = companyName ? `${heading} - ${companyName}` : heading;
+          
+        return fullHeading;
+      }
 }

@@ -28,6 +28,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
 
   @Input() formGroup?: FormGroup;
   @Input() recordId?: number | null = null;
+  @Input() resetFormGroup? : number | null = null;
 
   public addressForm: FormGroup;
   // public provinceLabel = 'addressDetails.province';
@@ -61,6 +62,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     const isFirstChange = this._utilsService.isFirstChange(changes);
     if (changes['formGroup']) {
       this.addressForm = this.formGroup;
+      this.onCountryChange(null);
     }
     if (!isFirstChange) {
       if (changes['addressModel']) {
@@ -68,6 +70,12 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
         if (dataModel) {
           this._detailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.addressForm));
           this.onCountryChange(null);
+        }
+      }
+      
+      if (changes['resetFormGroup']) {
+        if (this.resetFormGroup > 0) {
+          this._resetFormGroup();
         }
       }
     }
@@ -168,6 +176,10 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     } else {
       return 'addressDetails.postalZipCode';
     }
+  }
+
+  private _resetFormGroup() : void {
+    this.addressForm.reset();
   }
 
 }
