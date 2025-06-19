@@ -77,6 +77,7 @@ export class CompanyContactItemService {
         // Update form model
         formRecord.controls['selectedCompanyRoles'].setValue(selectedRoles);
         if (selectedRoles.length > 0) {
+          formRecord.controls['isRoleSelected'].setValue(true);
           const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
 
           this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang)
@@ -96,9 +97,9 @@ export class CompanyContactItemService {
     }
 
     
-    getSelectedContactCompanyRoles(companyAddress : ContactRecord) {
+    getSelectedContactCompanyRoles(companyInfo : ContactRecord) {
       const selectedRoles: string[] = Object.keys(REVERSE_ROLE_MAPPING)
-        .filter((key) => companyAddress[key] === YES) // Check for "Y"
+        .filter((key) => companyInfo[key] === YES) // Check for "Y"
         .map((key) => REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
 
       return selectedRoles;

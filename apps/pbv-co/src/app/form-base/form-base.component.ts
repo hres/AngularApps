@@ -232,10 +232,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummaryId';
     } else {
-      if (this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine
+      // console.log(!this.companyAddressListComponent.hasNoRolesSelected())
+      // console.log(!this.companyContactListComponent.hasNoRolesSelected()) 
+      // console.log(this.companyAddressListComponent.recordFormGroup.pristine)
+      // console.log(this.companyContactListComponent.recordFormGroup.pristine)
+      // console.log(this.companyAddressListComponent.recordFormArray.valid)
+      // console.log(this.companyContactListComponent.recordFormArray.valid)
+      if (!this.companyAddressListComponent.hasNoRolesSelected() && !this.companyContactListComponent.hasNoRolesSelected() && this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine
         && this.companyAddressListComponent.recordFormArray.valid && this.companyContactListComponent.recordFormArray.valid) {
         this._saveXML();
       } else {
+        this.companyAddressListComponent.expandAllInvalidRecords();
+        this.companyContactListComponent.expandAllInvalidRecords();
         this.openPopup();
       }
     }
@@ -394,7 +402,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       output.COMPANY_ENROL[CHECK_SUM_CONST]  = this._checkSumService.createHash(output);
     }
 
-    console.log('_prepareForSaving ~ output', JSON.stringify(output, null, 2));
+    //console.log('_prepareForSaving ~ output', JSON.stringify(output, null, 2));
 
     return output;
   }
@@ -431,6 +439,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     emailSubject = emailDraft + ((companyName === null || companyName === '') ? '[company name]' : companyName) + ' ' + ((this.companyEnrolModel.company_id === '') ? ' ' : ' - ' + this.companyEnrolModel.company_id); body = body;
  
     this.mailToLink = `mailto:${email}?subject=${emailSubject}&body=${body}`;
+    window.location.href=this.mailToLink;
   }
 
   public onChanged(e, controlName) {

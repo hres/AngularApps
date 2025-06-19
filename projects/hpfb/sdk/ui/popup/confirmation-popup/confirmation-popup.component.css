@@ -1,0 +1,16 @@
+.wb-popup-mid {
+    width: 30%;
+    height: fit-content;
+}
+
+.custom-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+.left-button,
+.right-button {
+    flex: 0 0 auto;
+}
+  
