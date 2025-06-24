@@ -21,7 +21,7 @@
 	</xsl:template>
 	<!-- Transaction Enrolment -->
 	<xsl:template match="TRANSACTION_ENROL">
-		<h1>Modèle de transaction réglementaire: Processus d'inscription réglementaire (PIR)<xsl:if test="software_version != ''"> (version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
+		<h1>Modèle de transaction réglementaire: Processus d'inscription réglementaire (PIR)<xsl:if test="software_version != ''"> (version <xsl:value-of select="software_version"/>)</xsl:if></h1>
 					<div class="well well-sm" >
 						<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 							<tr>
@@ -47,7 +47,7 @@
 					<div class="well well-sm" >
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Type de dossier: </strong>
+								<strong> Type de dossier : </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="ectd/dossier_type/@label_fr" />
 								</span>
@@ -55,7 +55,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Numéro de la compagnie: </strong>
+								<strong> Numéro de la compagnie : </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="ectd/company_id" />
 								</span>
@@ -63,7 +63,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Numéro de dossier: </strong>
+								<strong> Numéro de dossier : </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="ectd/dossier_id" />
 								</span>
@@ -71,7 +71,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Nom du produit: </strong>
+								<strong> Nom du produit : </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="ectd/product_name"/>
 								</span>
@@ -103,7 +103,7 @@
 						<xsl:if test="is_admin_sub = 'Y'">
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Raison de la demande administrative ou de la présentation: </strong>
+								<strong> Raison de la demande administrative ou de la présentation : </strong>
 								<span class="mouseHover"><xsl:value-of select="sub_type/@label_fr"/>
 								</span>
 							</div>
@@ -120,17 +120,17 @@
 										<xsl:for-each select="ectd/lifecycle_record">
 											<div class="row">
 												<div class="col-xs-12">
-												<strong class="padLeft3">Responsable de l’activité réglementaire: </strong><span class="mouseHover"><xsl:value-of select="regulatory_activity_lead/@label_fr"/></span>
+												<strong class="padLeft3">Responsable de l’activité réglementaire : </strong><span class="mouseHover"><xsl:value-of select="regulatory_activity_lead/@label_fr"/></span>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-xs-12">
-												<strong class="padLeft3">Type d'activité réglementaire: </strong><span class="mouseHover"><xsl:value-of select="regulatory_activity_type/@label_fr"/></span>
+												<strong class="padLeft3">Type d'activité réglementaire : </strong><span class="mouseHover"><xsl:value-of select="regulatory_activity_type/@label_fr"/></span>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-12">
-													<strong class="padLeft3">Description de la transaction de réglementation: </strong>
+													<strong class="padLeft3">Description de la transaction de réglementation : </strong>
 													<span class="mouseHover">
 														<xsl:value-of select="sequence_description_value/@label_fr" />
 													</span>
@@ -139,7 +139,7 @@
 											<xsl:if test="sequence_from_date !='' and sequence_to_date ='' and sequence_version=''">
 												<div class="row">
 													<div class="col-md-12">
-														<strong class="padLeft3">Daté: </strong>
+														<strong class="padLeft3">Daté : </strong>
 														<span class="mouseHover">
 															<xsl:value-of select="sequence_from_date" />
 														</span>
@@ -149,13 +149,13 @@
 											<xsl:if test="sequence_from_date !='' and sequence_to_date !=''">
 												<div class="row">
 													<div class="col-md-4">
-														<strong class="padLeft3">Date de début: </strong>
+														<strong class="padLeft3">Date de début : </strong>
 														<span class="mouseHover">
 															<xsl:value-of select="sequence_from_date" />
 														</span>
 													</div>
 													<div class="col-md-4">
-														<strong class="padLeft3">Date de fin: </strong>
+														<strong class="padLeft3">Date de fin : </strong>
 														<span class="mouseHover">
 															<xsl:value-of select="sequence_to_date" />
 														</span>
@@ -165,7 +165,7 @@
 											<xsl:if test="sequence_description_value/@id = 'YEAR_LIST_OF_CHANGE' or sequence_description_value/@id = 'YEAR'">
 												<div class="row">
 													<div class="col-md-12">
-														<strong class="padLeft3"><xsl:value-of select="sequence_description_value/@label_fr" />: </strong>
+														<strong class="padLeft3"><xsl:value-of select="sequence_description_value/@label_fr" /> : </strong>
 														<span class="mouseHover">
 															<xsl:value-of select="sequence_year" />
 														</span>
@@ -175,7 +175,7 @@
 											<xsl:if test="sequence_description_value/@id = 'CSO_RMP'">
 												<div class="row">
 													<div class="col-md-12">
-														<strong class="padLeft3">Daté: </strong>
+														<strong class="padLeft3">Daté : </strong>
 														<span class="mouseHover">
 															<xsl:value-of select="sequence_from_date" />
 														</span>
@@ -183,7 +183,7 @@
 												</div>
 												<div class="row">
 													<div class="col-md-12">
-														<strong class="padLeft3">Numéro de la version: </strong>
+														<strong class="padLeft3">Numéro de la version : </strong>
 														<span class="mouseHover">
 															<xsl:value-of select="sequence_version" />
 														</span>
@@ -193,23 +193,23 @@
 											<xsl:if test="requester_name != ''">
 												<div class="row">
 													<div class="col-md-12">
-													<strong class="padLeft3">Demandeur d’information sollicitée:</strong>
+													<strong class="padLeft3">Demandeur d’information sollicitée :</strong>
 													</div>
 												</div>
 												<div class="row">
 													<div class="col-md-4">
-														<strong class="padLeft3">Nom du demandeur 1: </strong>
+														<strong class="padLeft3">Nom du demandeur 1 : </strong>
 														<span class="mouseHover"><xsl:value-of select="requester_name"/></span>
 													</div>
 													<xsl:if test="requester_name2 != ''">
 													<div class="col-md-4">
-														<strong>Nom du demandeur 2: </strong>
+														<strong>Nom du demandeur 2 : </strong>
 														<span class="mouseHover"><xsl:value-of select="requester_name2"/></span>
 													</div>
 													</xsl:if>
 													<xsl:if test="requester_name3 != ''">
 													<div class="col-md-4">
-														<strong>Nom du demandeur 3: </strong>
+														<strong>Nom du demandeur 3 : </strong>
 														<span class="mouseHover"><xsl:value-of select="requester_name3"/></span>
 													</div>
 													</xsl:if>
@@ -218,7 +218,7 @@
 											<xsl:if test="sequence_details != ''">
 												<div class="row">
 													<div class="col-md-12">
-														<strong class="padLeft3">Description brève: </strong>
+														<strong class="padLeft3">Description brève : </strong>
 														<span class="mouseHover">
 															<xsl:value-of select="sequence_details" />
 														</span>
@@ -228,7 +228,7 @@
 											<xsl:if test="sequence_details_change != ''">
 												<div class="row">
 													<div class="col-md-12">
-														<strong class="padLeft3">Description brève des modifications apportées: </strong>
+														<strong class="padLeft3">Description brève des modifications apportées : </strong>
 														<span class="mouseHover">
 															<xsl:value-of select="sequence_details_change" />
 														</span>
@@ -237,7 +237,7 @@
 											</xsl:if>
 											<div class="row">
 												<div class="form-group col-md-6">
-												<strong class="padLeft3">Numéro de contrôle: </strong><span class="mouseHover"><xsl:value-of select="control_number"/></span>
+												<strong class="padLeft3">Numéro de contrôle : </strong><span class="mouseHover"><xsl:value-of select="control_number"/></span>
 												</div>
 											</div>
 										</xsl:for-each>
@@ -255,13 +255,13 @@
 					<div class="well well-sm" >
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> Catégorie de la présentation: </strong>
+								<strong> Catégorie de la présentation : </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="fee_details/submission_class/@label_fr"/>
 								</span>
 							</div>
 							<div class="col-xs-12">
-								<strong>Description de la présentation:</strong>
+								<strong>Description de la présentation :</strong>
 								<div class="col-xs-12">
 								<span>
 								<xsl:value-of select="fee_details/submission_description/@label_fr" disable-output-escaping="yes"/>
@@ -329,17 +329,17 @@
 					<h2 class="panel-title">Personne-ressource pour cette activité réglementaire</h2>
 				</div>
 				<div class="panel-body">
-					<strong>A. Information sur la compagnie: </strong>
+					<strong>A. Information sur la compagnie : </strong>
                     <div class="well well-sm" >
                         <div class="row">
                             <div class="col-xs-12">
-                                <strong>Le contact pour cette activité de réglementation est-il un tiers correspondant au nom du fabricant / sponsor? </strong>
+                                <strong>Le contact pour cette activité de réglementation est-il un tiers agissant au nom du fabricant / sponsor? </strong>
                                 <span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_third_party"/></xsl:call-template>
                                 </span>
                             </div>
                             <xsl:if test="is_third_party = 'Y'">
 								<div class="col-xs-12">
-									<strong>Nom de la compagnie (nom légal complet): </strong>
+									<strong>Nom de la compagnie (nom légal complet) : </strong>
 									<span class="mouseHover"><xsl:value-of select="company_name" /> </span>
 								</div>
                             </xsl:if>
@@ -350,7 +350,7 @@
 						<div class="well well-sm">
 							<div class="row">
 								<div class="col-xs-12">
-									<strong>Rue: </strong>
+									<strong>Rue : </strong>
 									<span class="mouseHover">
 										<xsl:value-of select="regulatory_activity_address/street_address" />
 									</span>
@@ -358,7 +358,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12">
-									<strong>Ville: </strong>
+									<strong>Ville : </strong>
 									<span class="mouseHover">
 										<xsl:value-of select="regulatory_activity_address/city" />
 									</span>
@@ -366,7 +366,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12">
-									<strong>Pays: </strong>
+									<strong>Pays : </strong>
 									<span class="mouseHover">
 										<xsl:value-of select="regulatory_activity_address/country/@label_fr" />
 									</span>
@@ -376,7 +376,7 @@
 								<xsl:when test="regulatory_activity_address/country/@id = 'CA'">
 									<div class="row">
 										<div class="col-xs-12">
-											<strong>Province: </strong>
+											<strong>Province : </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/province_lov/@label_fr" />
 											</span>
@@ -384,7 +384,7 @@
 									</div>
 									<div class="row">
 										<div class="col-xs-12">
-											<strong>Code postal: </strong>
+											<strong>Code postal : </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/postal_code" />
 											</span>
@@ -394,7 +394,7 @@
 								<xsl:when test="regulatory_activity_address/country/@id = 'US'">
 									<div class="row">
 										<div class="col-xs-12">
-											<strong>État: </strong>
+											<strong>État : </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/province_lov/@label_fr" />
 											</span>
@@ -402,7 +402,7 @@
 									</div>
 									<div class="row">
 										<div class="col-xs-12">
-											<strong>Code ZIP: </strong>
+											<strong>Code ZIP : </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/postal_code" />
 											</span>
@@ -412,7 +412,7 @@
 								<xsl:otherwise>
 									<div class="row">
 										<div class="col-xs-12">
-											<strong>Province ou état: </strong>
+											<strong>Province ou état : </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/province_text" />
 											</span>
@@ -420,7 +420,7 @@
 									</div>
 									<div class="row">
 										<div class="col-xs-12">
-											<strong>Code postal/ZIP: </strong>
+											<strong>Code postal/ZIP : </strong>
 											<span class="mouseHover">
 												<xsl:value-of select="regulatory_activity_address/postal_code" />
 											</span>
@@ -430,10 +430,10 @@
 							</xsl:choose>
 						</div>
 					</xsl:if>
-                    <strong>C. Représentant de la compagnie: </strong>
+                    <strong>C. Représentant de la compagnie : </strong>
 					<div class="well well-sm">
 						<div class="row">
-							<strong class="col-xs-12">Prénom: <span
+							<strong class="col-xs-12">Prénom : <span
 									class="mouseHover normalWeight">
 									<xsl:value-of
 										select="regulatory_activity_contact/given_name" />
@@ -441,21 +441,21 @@
 							</strong>
 						</div>
 						<div class="row">
-								<strong class="col-xs-12">Nom de famille: <span
+								<strong class="col-xs-12">Nom de famille : <span
 										class="mouseHover normalWeight">
 										<xsl:value-of select="regulatory_activity_contact/surname" />
 									</span>
 								</strong>
 						</div>
 						<div class="row">
-								<strong class="col-xs-12">Initiales: <span
+								<strong class="col-xs-12">Initiales : <span
 										class="mouseHover normalWeight">
 										<xsl:value-of select="regulatory_activity_contact/initials" />
 									</span>
 								</strong>
 						</div>						
 						<div class="row">
-							<strong class="col-xs-12">Langue de correspondance: <span
+							<strong class="col-xs-12">Langue de correspondance : <span
 									class="mouseHover normalWeight">
 									<xsl:value-of
 										select="regulatory_activity_contact/language_correspondance/@label_fr" />
@@ -463,7 +463,7 @@
 							</strong>
 						</div>
 						<div class="row">						
-							<strong class="col-xs-12">Titre du poste: <span
+							<strong class="col-xs-12">Titre du poste : <span
 								class="mouseHover normalWeight">
 								<xsl:value-of
 									select="regulatory_activity_contact/job_title" />
@@ -472,7 +472,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<strong>Numéro de téléphone: </strong>
+								<strong>Numéro de téléphone : </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="regulatory_activity_contact/phone_num" />
 								</span>
@@ -480,21 +480,21 @@
 						</div>
 						<div class="row">							
 							<div class="col-xs-12">
-								<strong>Numéro de l'extension: </strong>
+								<strong>Numéro de l'extension : </strong>
 								<span class="mouseHover">
 									<xsl:value-of select="regulatory_activity_contact/phone_ext" />
 								</span>
 							</div>
 						</div>
 						<div class="row">
-							<strong class="col-xs-12">Numéro de télécopieur: <span
+							<strong class="col-xs-12">Numéro de télécopieur : <span
 									class="mouseHover normalWeight">
 									<xsl:value-of select="regulatory_activity_contact/fax_num" />
 								</span>
 							</strong>
 						</div>
 						<div class="row">
-							<strong class="col-xs-12">Courriel: <span
+							<strong class="col-xs-12">Adresse de courriel : <span
 									class="mouseHover normalWeight" style="font-weight:normal; ">
 									<xsl:value-of select="regulatory_activity_contact/email" />
 								</span>
@@ -539,4 +539,4 @@
 		</xsl:choose>
 		</span>
 	</xsl:template>
-</xsl:transform>
+</xsl:transform><!-- Stylus Studio meta-information - (c) 2004-2009. Progress Software Corporation. All rights reserved.-->
