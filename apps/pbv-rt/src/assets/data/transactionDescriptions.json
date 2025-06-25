@@ -151,7 +151,7 @@
         "en": "Minutes of meeting",
         "fr": "Procès-verbal de la réunion",
         "defEn": "Transaction to provide minutes from a meeting.",
-        "defFr": "Transaction pour fournir le procès-verbal d'une réunion de pré-soumission."
+        "defFr": "Transaction pour fournir le procès-verbal d'une réunion."
     },
     {
         "id": "NOTIFICATION_INTERRUPT_SALE",
@@ -407,7 +407,7 @@
         "en": "Submission meeting request",
         "fr": "Demande de réunion préalable à la présentation",
         "defEn": "Transaction to request a meeting with Health Canada.",
-        "defFr": "Transaction pour demander une réunion de pré-soumission."
+        "defFr": "Transaction pour demander une réunion avec Santé Canada."
     },
     {
         "id": "TEST_STUDIES_ORDER",
