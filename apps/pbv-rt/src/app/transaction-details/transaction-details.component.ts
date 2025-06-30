@@ -22,6 +22,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   @Input() dataModel: LifecycleRecord;
   @Input() newlySelDossierType: string;
   @Output() errorList = new EventEmitter(true);
+ 
 
   transctionDetailsForm: FormGroup;
 
@@ -38,6 +39,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   }
 
   isVet: boolean = false;
+  isNOC: boolean = false;
   readonly selectedDossierTypeId: Signal<string> = this._transactionDetailsService.selectedDossierTypeId;
   readonly selectedRaLeadId: Signal<string> = this._transactionDetailsService.selectedRaLeadId;
   readonly selectedRaTypeId: Signal<string> = this._transactionDetailsService.selectedRaTypeId;
@@ -232,6 +234,15 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     // Clear Transaction Description signals and form values
     this._signalService.setSelectedTxnDesc(""); 
     this.transctionDetailsForm.controls['descriptionType'].setValue(""); 
+    this.transctionDetailsForm.controls['controlNumber'].setValue(""); 
+    if(this.transctionDetailsForm.controls['activityType'].getRawValue() =="B02-20160301-038")
+    {
+      this.transctionDetailsForm.controls['controlNumber'].setValue("000000");
+      this.isNOC = true;
+    }else{
+      this.transctionDetailsForm.controls['controlNumber'].setValue("");
+      this.isNOC = false;
+    }
   }
 
   onTransactionDescriptionSelected(txDescId: string) {
@@ -281,6 +292,10 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     this._resetControlValues(valuesToReset);
   }
 
+  onblur() {
+    // this._loggerService.log('input is typed');
+    //this._saveData();
+  }
   getFormValue() {
     return this.transctionDetailsForm.value;
   }
