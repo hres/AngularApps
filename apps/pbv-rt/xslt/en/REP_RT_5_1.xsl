@@ -22,7 +22,7 @@
 	<!--  Transaction Enrolment  -->
 	<xsl:template match="TRANSACTION_ENROL">
 		<h1> Regulatory Transaction Template: Regulatory Enrolment Process (REP) <xsl:if
-				test="software_version != ''"> (version: <xsl:value-of select="software_version" />) </xsl:if>
+				test="software_version != ''"> (version <xsl:value-of select="software_version" />) </xsl:if>
 		</h1>
 <div class="well well-sm">
 			<table border="1" cellspacing="2" cellpadding="2"
@@ -30,7 +30,7 @@
 				<tr>
 					<th style="text-align: center;font-weight:bold;">Company Identifier </th>
 					<th style="text-align: center;font-weight:bold;">Dossier type</th>
-					<th style="text-align: center;font-weight:bold;">Dossier Identifier </th>
+					<th style="text-align: center;font-weight:bold;">Dossier identifier </th>
 					<th style="text-align: center;font-weight:bold;">Date last saved</th>
 				</tr>
 				<tr>
@@ -425,8 +425,7 @@
 					<div class="well well-sm">
 						<div class="row">
 							<div class="col-xs-12">
-								<strong>Is the contact for this regulatory activity a third party
-		corresponding on behalf of the manufacturer/sponsor? </strong>
+								<strong>Is the contact for this regulatory activity a third party acting on behalf of the manufacturer/sponsor? </strong>
 								<span class="mouseHover">
 									<xsl:call-template name="YesNoUnknow">
 										<xsl:with-param name="value" select="is_third_party" />
@@ -592,7 +591,7 @@
 							</strong>
 						</div>
 						<div class="row">
-							<strong class="col-xs-12"> Email: <span
+							<strong class="col-xs-12"> Email address: <span
 									class="mouseHover normalWeight" style="font-weight:normal; ">
 									<xsl:value-of select="regulatory_activity_contact/email" />
 								</span>

@@ -307,9 +307,11 @@ export class TransactionDetailsService {
     // it will be reset based on computed showDateOfRequest()/showStartEndDate() flags in TransactionDetailsComponent.onSequenceDescriptionSelected method
     formRecord.controls['dateOfRequest'].setValue(dataModel.sequence_from_date);
     formRecord.controls['startDate'].setValue(dataModel.sequence_from_date);
-    formRecord.controls['endDate'].setValue(dataModel.sequence_from_date);
+    formRecord.controls['endDate'].setValue(dataModel.sequence_to_date);
     formRecord.controls['briefDescription'].setValue(dataModel.sequence_details);
-    formRecord.controls['briefDescriptionOfChange'].setValue(dataModel.sequence_details_change);
+    if(this.showBriefDescriptionnOfChangeTxnDescs.includes(dataModel.sequence_description_value._id)){
+      formRecord.controls['briefDescriptionOfChange'].setValue(dataModel.sequence_details_change);
+    }
     formRecord.controls['versionNumber'].setValue(dataModel.sequence_version);
     // load both yearsOfChange and year's value from dataModel.sequence_year, 
     // it will be reset based on computed showYearsOfChange()/showYear() flags in TransactionDetailsComponent.onSequenceDescriptionSelected method

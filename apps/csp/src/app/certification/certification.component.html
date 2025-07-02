@@ -7,7 +7,7 @@
         <div class="form-group col-sm-4 col-xs-12">
           <label for="firstName" class="required">
             <span class="field-name">{{ 'cert.first' |translate }}</span>
-            <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+            <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
             <control-messages *ngIf="certificationForm.controls['firstName'].invalid"
               [showError]="showErrors"
               [control]="certificationForm.controls['firstName'] | formControl"
@@ -36,7 +36,7 @@
       <div class="form-group col-sm-4 col-xs-12">
         <label for="lastName" class="required">
           <span class="field-name">{{ 'cert.last' |translate }}</span>
-          <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+          <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="certificationForm.controls['lastName'].invalid"
             [showError]="showErrors"
             [control]="certificationForm.controls['lastName'] | formControl"
@@ -55,7 +55,7 @@
       <div class="form-group col-sm-4 col-xs-12">
         <label for="jobTitle" class="required"  >
           <span class="field-name">{{ 'cert.job' |translate }}</span>
-          <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+          <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="certificationForm.controls['jobTitle'].invalid"
             [showError]="showErrors"
             [control]="certificationForm.controls['jobTitle'] | formControl"
@@ -70,7 +70,7 @@
       <div class="form-group col-sm-6 col-xs-12">
         <label for="date" class="required">
           <span class="field-name">{{ 'cert.date' |translate }}</span>
-          <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+          <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="certificationForm.controls['date'].invalid"
             [showError]="showErrors"
             [control]="certificationForm.controls['date'] | formControl"

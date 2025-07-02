@@ -7,7 +7,7 @@
     ],
     "releases": [
         {
-            "header": "Publication du 6 juin 2025",
+            "header": "Publication du 3 juin 2025",
             "details": [
                 {
                     "template": "Modèle de compagnie (CO)<br>Version 5.0.0<br><br><br>Ensemble de feuilles de style*",
@@ -15,7 +15,7 @@
                         "Ajout de la bulle d’information pour modèle de compagnie",
                         "Ajout d'instructions concernant la section « Charger un fichier d’inscription de la compagnie »",
                         "Suppression de l'identificateur d'acheminement",
-                        "Ajout  de la question « Sélectionnez un ou plusieurs des cadres réglementaires suivants en vertu duquel/desquels le fabricant/promoteur pourrait déposer une présentation/demande »",
+                        "Ajout  de la question « Sélectionnez un ou plusieurs des cadres réglementaires suivants en vertu duquel/desquels le fabricant/promoteur pourrait déposer une présentation/demande »<br><br><br>",
                         "*Nouvelle feuille de style CO pour correspondre aux modifications apportées à ce modèle"
                     ]
                 }
