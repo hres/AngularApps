@@ -229,23 +229,23 @@
         </fieldset>
 
     </ng-container>
-
-    <div class="row">
-        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <label for="controlNumber" class="required">
-                <span class="field-name">{{'ctrl.num'|translate }} {{'six.digits' | translate}}</span>
-                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid" [showError]="showErrors" 
-                    [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
-                    label="ctrl.num" parentId="regulatoryInfo"></control-messages>
-            </label>
-            <input id="controlNumber" name="controlNumber" class="form-control" [formControlName]="'controlNumber'"
-                minlength="6" maxlength="6" size="6" data-only-digits/>
-        </div>
-    </div>
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="alert alert-info">
-            <div><app-control-number-helptext [lang]="lang" /></div> 
+            <div aria-describedby="controlNumber"><app-control-number-helptext [lang]="lang" /></div> 
         </div>
     </div>    
+    <div class="row">
+        <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12  minWidth200">
+            <label for="controlNumber" class="required">
+                <span class="field-name">{{'ctrl.num'|translate }} {{'six.digits' | translate}}</span>
+              <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+              <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid"
+                                [showError]="showErrors"
+                                [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
+                                label="ctrl.num" parentId="regulatoryInfo"></control-messages>
+                                <input id="controlNumber" name="controlNumber" class="form-control" [formControlName]="'controlNumber'"
+            [readonly]="isNOC" minlength="6" maxlength="6" size="6" data-only-digits/>
+            </label> 
+          </div>
+    </div> 
 </div>
