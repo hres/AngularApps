@@ -40,7 +40,7 @@
             </control-messages>
             <select id="payMethod" required class="form-control full-width"
                 [formControlName]="'payMethod'">
-                <option value="" disabled selected>{{ 'select.option'|translate }}</option>
+                <option label="{{ 'select.option'|translate }}"></option>
                 <option *ngFor="let payMethod of payMethodOptions" [value]="payMethod.id"> {{ payMethod| textTransform: lang }}</option>
             </select>
           </label>
