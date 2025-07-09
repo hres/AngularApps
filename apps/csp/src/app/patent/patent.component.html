@@ -3,12 +3,9 @@
     <div class="row">
       <div class="col-sm-6">
         <label for="patentNumber" class="required">
-          <span
-            >{{ "patent.Id" | translate }}</span
-          >
-          <strong class="required">{{
-            "commmon.required.bracket" | translate
-          }}</strong>
+          <span>{{ "patent.Id" | translate }}
+            <strong class="required" aria-hidden="true">{{"commmon.required.bracket" | translate}}</strong>
+          </span>
           <control-messages
             *ngIf="patentInformationForm.controls['patentNumber'].invalid"
             [showError]="showErrors"
@@ -32,12 +29,9 @@
 <div class="row">
       <div class="col-sm-4">
         <label for="patentFillingDate" class="required">
-          <span
-            >{{ "filling.date" | translate }}</span
-          >
-          <strong class="required">{{
-            "commmon.required.bracket" | translate
-          }}</strong>
+          <span>{{ "filling.date" | translate }}
+            <strong class="required" aria-hidden="true">{{"commmon.required.bracket" | translate}}</strong>
+          </span>
           <control-messages
             *ngIf="patentInformationForm.controls['patentFillingDate'].invalid"
             [showError]="showErrors"
@@ -60,12 +54,9 @@
 
       <div class="col-sm-4">
         <label for="patentGrandDate" class="required">
-          <span
-            >{{ "grand.date" | translate }}</span
-          >
-          <strong class="required">{{
-            "commmon.required.bracket" | translate
-          }}</strong>
+          <span>{{ "grand.date" | translate }}
+            <strong class="required" aria-hidden="true">{{"commmon.required.bracket" | translate}}</strong>
+          </span>
           <control-messages
             *ngIf="patentInformationForm.controls['patentGrandDate'].invalid"
             [showError]="showErrors"
@@ -88,12 +79,9 @@
 
       <div class="col-sm-4">
         <label for="patentExpirationDate" class="required">
-          <span
-            >{{ "expiration.date" | translate }}</span
-          >
-          <strong class="required">{{
-            "commmon.required.bracket" | translate
-          }}</strong>
+          <span>{{ "expiration.date" | translate }}
+            <strong class="required" aria-hidden="true">{{"commmon.required.bracket" | translate}}</strong>
+          </span>
           <control-messages
             *ngIf="
               patentInformationForm.controls['patentExpirationDate'].invalid

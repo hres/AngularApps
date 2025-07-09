@@ -3,11 +3,9 @@
     <div class="row">
         <div class="col-sm-6">
         <label for="ndsNumber" class="required">
-          <span
-            >{{ "new.drug.submission.info.nds.number" | translate }}</span>
-          <strong class="required">{{
-            "commmon.required.bracket" | translate
-          }}</strong>
+          <span>{{ "new.drug.submission.info.nds.number" | translate }}
+            <strong class="required" aria-hidden="true">{{"commmon.required.bracket" | translate}}</strong>
+          </span>
           <control-messages
             *ngIf="newDrugSubmissionInfoForm.controls['ndsNumber'].invalid"
             [showError]="showErrors"

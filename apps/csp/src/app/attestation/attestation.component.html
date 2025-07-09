@@ -3,8 +3,10 @@
     <div class="row">
       <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" >
-          <legend id="attestationType0" class="required"><span class="field-name">{{'attestation.as.applicant' |translate }}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
+          <legend id="attestationType0" class="required">
+            <span class="field-name">{{'attestation.as.applicant' |translate }}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
+            </span>
             <control-messages *ngIf="attestationForm.controls['attestationAsApplicant'].invalid"
             [showError]="showFieldErrors"
             [control]="attestationForm.controls['attestationAsApplicant'] | formControl"
@@ -28,8 +30,10 @@
     <div class="row">
       <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" >
-          <legend id="attestationType2" class="required"><span class="field-name">{{'attestation.timely.submission' |translate }}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
+          <legend id="attestationType2" class="required">
+            <span class="field-name">{{'attestation.timely.submission' |translate }}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
+            </span>
             <control-messages *ngIf="attestationForm.controls['attestationAsSubmission'].invalid"
               [showError]="showFieldErrors"
               [control]="attestationForm.controls['attestationAsSubmission'] | formControl"
@@ -53,12 +57,12 @@
             <label for="firstApprovalDate" class="required">
               <span>
                 {{ "attestation.date.of.first.marketing.approval.application" | translate }}
+                <strong class="required" aria-hidden="true">{{"commmon.required.bracket" | translate}}
+                  <sup [id]="helpIndex['approvalIndx'][2]">
+                    <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['approvalIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['approvalIndx'][0]}}</a>
+                  </sup>
+                </strong>
               </span>
-              <strong class="required">{{"commmon.required.bracket" | translate}}
-                <sup [id]="helpIndex['approvalIndx'][2]">
-                  <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['approvalIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['approvalIndx'][0]}}</a>
-                </sup>
-              </strong>
               <control-messages
                 *ngIf="attestationForm.controls['marketing_application_date'].invalid"
                 [showError]="showErrors"
@@ -72,8 +76,9 @@
             </label>
 
             <label for="country" class="required full-width">
-              <span class="field-name">{{ 'attestation.country.of.first.marketing.approval.application' |translate }}</span>
-              <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+              <span class="field-name">{{ 'attestation.country.of.first.marketing.approval.application' |translate }}
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+              </span>
               <control-messages *ngIf="attestationForm.controls['marketing_country'].invalid"
                 [showError]="showFieldErrors"
                 [control]="attestationForm.controls['marketing_country'] | formControl"

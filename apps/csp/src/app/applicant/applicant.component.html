@@ -3,8 +3,9 @@
         <div class="row">
             <div class="form-group col-xs-8 ">
                 <label for="applicantName" class="required">
-                    <span class="field-name">{{ 'applicant.name'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <span class="field-name">{{ 'applicant.name'|translate }}
+                        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    </span>
                     <control-messages *ngIf="applicantInformationForm.controls['applicantName'].invalid"
                         [showError]="showErrors"
                         [control]="applicantInformationForm.controls['applicantName'] | formControl" controlId="applicantName"
@@ -24,8 +25,9 @@
         <div class="row">
             <div class="form-group col-sm-6">
                 <label for="cspNumber" class="required">
-                    <span class="field-name">{{ 'csp.customer.number'|translate }}</span>
-                    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    <span class="field-name">{{ 'csp.customer.number'|translate }}
+                        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                    </span>
                     <control-messages *ngIf="applicantInformationForm.controls['cspNumber'].invalid"
                         [showError]="showErrors"
                         [control]="applicantInformationForm.controls['cspNumber'] | formControl" controlId="cspNumber"
