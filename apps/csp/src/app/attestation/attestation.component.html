@@ -4,7 +4,7 @@
       <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" >
           <legend id="attestationType0" class="required"><span class="field-name">{{'attestation.as.applicant' |translate }}</span>
-            <strong class="required" aria-hidden="false">{{'commmon.required.bracket' |translate }}</strong>
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
             <control-messages *ngIf="attestationForm.controls['attestationAsApplicant'].invalid"
             [showError]="showFieldErrors"
             [control]="attestationForm.controls['attestationAsApplicant'] | formControl"
@@ -29,7 +29,7 @@
       <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" >
           <legend id="attestationType2" class="required"><span class="field-name">{{'attestation.timely.submission' |translate }}</span>
-            <strong class="required" aria-hidden="false">{{'commmon.required.bracket' |translate }}</strong>
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
             <control-messages *ngIf="attestationForm.controls['attestationAsSubmission'].invalid"
               [showError]="showFieldErrors"
               [control]="attestationForm.controls['attestationAsSubmission'] | formControl"
@@ -73,7 +73,7 @@
 
             <label for="country" class="required full-width">
               <span class="field-name">{{ 'attestation.country.of.first.marketing.approval.application' |translate }}</span>
-              <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
+              <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
               <control-messages *ngIf="attestationForm.controls['marketing_country'].invalid"
                 [showError]="showFieldErrors"
                 [control]="attestationForm.controls['marketing_country'] | formControl"

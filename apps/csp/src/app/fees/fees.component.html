@@ -7,7 +7,7 @@
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <label for="feeAmount" class="required full-width"   >
             <span class="field-name fees">{{ 'fees.paid' |translate }}</span>
-            <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
+            <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
             <control-messages *ngIf="feesForm.controls['feeAmount'].invalid"
               [showError]="showErrors"
               [control]="feesForm.controls['feeAmount'] | formControl"
@@ -27,7 +27,7 @@
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
           <label for="payMethod" class="required full-width"  >
             <span class="field-name">{{ 'pay.method' |translate }}</span>
-            <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
+            <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
             <sup [id]="helpIndex['methodPayIndx'][2]">
               <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['methodPayIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['methodPayIndx'][0]}}</a>
             </sup>

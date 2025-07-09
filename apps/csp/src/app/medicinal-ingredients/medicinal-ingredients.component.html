@@ -4,7 +4,7 @@
         <div class="form-group  col-sm-12">
             <label for="medicinalIngredients" class="required">
                 <span class="field-name">{{ 'medicinal.ingredients' |translate }}</span>
-                <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages
                  *ngIf="medicinalIngredientForm.controls['medicinalIngredients'].invalid"
                     [showError]="showErrors"
@@ -28,7 +28,7 @@
         <div class="form-group  col-sm-12">
           <label for="productname" class="required">
               <span class="field-name">{{ 'product.name' |translate }}</span>
-              <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
+              <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
               <control-messages
                *ngIf="medicinalIngredientForm.controls['productName'].invalid"
                   [showError]="showErrors"
