@@ -3,9 +3,11 @@
     <div class="row">
       <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" >
-            <legend id ="timingOfApplicantType0" class="required"><span class="field-name">{{'application.is.applying'|translate}}</span>
+            <legend id ="timingOfApplicantType0" class="required">
+              <span class="field-name">{{'application.is.applying'|translate}}
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-                <control-messages *ngIf="timingOfApplicationForm.controls['timingOfApplicant'].invalid"
+              </span>
+              <control-messages *ngIf="timingOfApplicationForm.controls['timingOfApplicant'].invalid"
                     [showError]="showFieldErrors"
                     [control]="timingOfApplicationForm.controls['timingOfApplicant'] | formControl"
                     controlId="timingOfApplicantType0" label="application.is.applying" parentId="timingOfApplicant"></control-messages>

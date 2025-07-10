@@ -3,8 +3,9 @@
      <div class="row">
         <div class="form-group  col-sm-12">
             <label for="medicinalIngredients" class="required">
-                <span class="field-name">{{ 'medicinal.ingredients' |translate }}</span>
-                <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
+                <span class="field-name">{{ 'medicinal.ingredients' |translate }}
+                  <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                </span>
                 <control-messages
                  *ngIf="medicinalIngredientForm.controls['medicinalIngredients'].invalid"
                     [showError]="showErrors"
@@ -27,8 +28,9 @@
        <div class="row">
         <div class="form-group  col-sm-12">
           <label for="productname" class="required">
-              <span class="field-name">{{ 'product.name' |translate }}</span>
-              <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
+              <span class="field-name">{{ 'product.name' |translate }}
+                <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+              </span>
               <control-messages
                *ngIf="medicinalIngredientForm.controls['productName'].invalid"
                   [showError]="showErrors"
