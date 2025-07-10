@@ -29,10 +29,10 @@
           <label for="payMethod" class="required full-width"  >
             <span class="field-name">{{ 'pay.method' |translate }}
               <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-            </span>
-            <sup [id]="helpIndex['methodPayIndx'][2]">
-              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['methodPayIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['methodPayIndx'][0]}}</a>
-            </sup>
+              <sup [id]="helpIndex['methodPayIndx'][2]">
+                <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['methodPayIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['methodPayIndx'][0]}}</a>
+              </sup>
+            </span>&nbsp;
             <control-messages *ngIf="feesForm.controls['payMethod'].invalid"
               [showError]="showErrors"
               [control]="feesForm.controls['payMethod'] | formControl"
