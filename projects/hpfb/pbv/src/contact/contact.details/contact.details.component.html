@@ -3,8 +3,9 @@
        <div class="row">
         <div class="form-group col-sm-6" >
           <label for="{{contactType}}firstName{{recordId}}" class="required full-width">
-            <span class="field-name">{{'first.name'|translate}}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'first.name'|translate}}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            </span>
             <control-messages *ngIf="contactDetailsForm.controls['firstName'].invalid" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                               [showError]="showFieldErrors"
                               [control]="contactDetailsForm.controls['firstName'] | formControl"
@@ -25,8 +26,9 @@
       <div class="row">
         <div class="form-group col-sm-6" >
           <label for="{{contactType}}lastName{{recordId}}" class="required full-width">
-            <span class="field-name">{{'last.name'|translate}}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'last.name'|translate}}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            </span>
             <control-messages *ngIf="contactDetailsForm.controls['lastName'].invalid" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                               [showError]="showFieldErrors"
                               [control]="contactDetailsForm.controls['lastName'] | formControl"
@@ -40,23 +42,25 @@
       <div class="row">
         <div class="form-group col-sm-6" >
           <label for="{{contactType}}language{{recordId}}" class="required">
-            <span class="field-name">{{'lang.correspond' |translate}}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'lang.correspond' |translate}}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            </span>
             <control-messages *ngIf="contactDetailsForm.controls['language'].invalid" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                               [showError]="showFieldErrors"
                               [control]="contactDetailsForm.controls['language'] | formControl"
                               controlId="{{contactType}}language{{recordId}}" label="lang.correspond" parentId="{{contactType}}contactInfo"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
             <select id="{{contactType}}language{{recordId}}" required class="form-control" [formControlName]="'language'">
-              <option value="" disabled selected>{{ 'select.option'|translate }}</option>
+              <option label="{{ 'select.option'|translate }}"></option>
               <option *ngFor="let langOption of languageList" [value]="langOption.id">{{langOption | textTransform: lang }}</option>
             </select>
           </label>
         </div>
         <div class="form-group col-sm-6">
           <label for="{{contactType}}jobTitle{{recordId}}" class="required">
-            <span class="field-name">{{'job.title'|translate}}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'job.title'|translate}}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            </span>
             <control-messages *ngIf="contactDetailsForm.controls['jobTitle'].invalid" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                               [showError]="showFieldErrors"
                               [control]="contactDetailsForm.controls['jobTitle'] | formControl"
@@ -69,8 +73,9 @@
       <div class="row">
         <div class="form-group col-sm-6" >
           <label for="{{contactType}}phoneNumber{{recordId}}" class="required full-width">
-            <span class="field-name">{{'phone.number'|translate}}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'phone.number'|translate}}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            </span>
             <control-messages *ngIf="contactDetailsForm.controls['phoneNumber'].invalid" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                               [showError]="showFieldErrors"
                               [control]="contactDetailsForm.controls['phoneNumber'] | formControl"
@@ -92,8 +97,9 @@
       <div class="row">
         <div class="form-group col-sm-6">
           <label class="required full-width" for="{{contactType}}faxNumber{{recordId}}">
-            <span class="field-name">{{'fax.number' |translate }}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'fax.number' |translate }}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            </span>
             <control-messages *ngIf="contactDetailsForm.controls['faxNumber'].invalid" [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
               [control]="contactDetailsForm.controls['faxNumber'] | formControl" controlId="{{contactType}}faxNumber{{recordId}}" label="fax.number"
               parentId="{{contactType}}contactInfo" requiredLength="10"
@@ -107,8 +113,9 @@
       <div class="row">
         <div class="form-group col-sm-6" >
           <label for="{{contactType}}email{{recordId}}" class="required full-width">
-            <span class="field-name">{{'contact.email'|translate}}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            <span class="field-name">{{'contact.email'|translate}}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            </span>
             <control-messages *ngIf="contactDetailsForm.controls['email'].invalid" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                               [showError]="showFieldErrors"
                               [control]="contactDetailsForm.controls['email'] | formControl"

@@ -34,7 +34,7 @@ export class DrugUseService {
       return null;
     }
     const drugUseForm = fb.nonNullable.group({
-      drugUse: new FormControl(null, Validators.required),
+      drugUse: new FormControl('', Validators.required),
     });
     return drugUseForm;
   }

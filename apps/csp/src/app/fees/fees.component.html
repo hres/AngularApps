@@ -6,8 +6,9 @@
         </div>
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <label for="feeAmount" class="required full-width"   >
-            <span class="field-name fees">{{ 'fees.paid' |translate }}</span>
-            <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
+            <span class="field-name fees">{{ 'fees.paid' |translate }}
+              <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+            </span>
             <control-messages *ngIf="feesForm.controls['feeAmount'].invalid"
               [showError]="showErrors"
               [control]="feesForm.controls['feeAmount'] | formControl"
@@ -26,11 +27,12 @@
       <div class="row">
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
           <label for="payMethod" class="required full-width"  >
-            <span class="field-name">{{ 'pay.method' |translate }}</span>
-            <strong class="required" aria-hidden="false">{{ 'commmon.required.bracket'|translate }}</strong>
-            <sup [id]="helpIndex['methodPayIndx'][2]">
-              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['methodPayIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['methodPayIndx'][0]}}</a>
-            </sup>
+            <span class="field-name">{{ 'pay.method' |translate }}
+              <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+              <sup [id]="helpIndex['methodPayIndx'][2]">
+                <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['methodPayIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['methodPayIndx'][0]}}</a>
+              </sup>
+            </span>&nbsp;
             <control-messages *ngIf="feesForm.controls['payMethod'].invalid"
               [showError]="showErrors"
               [control]="feesForm.controls['payMethod'] | formControl"
@@ -40,7 +42,7 @@
             </control-messages>
             <select id="payMethod" required class="form-control full-width"
                 [formControlName]="'payMethod'">
-                <option value="" disabled selected>{{ 'select.option'|translate }}</option>
+                <option label="{{ 'select.option'|translate }}"></option>
                 <option *ngFor="let payMethod of payMethodOptions" [value]="payMethod.id"> {{ payMethod| textTransform: lang }}</option>
             </select>
           </label>
