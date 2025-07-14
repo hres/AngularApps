@@ -92,6 +92,9 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     if (this.isCanadaOrUSA()) {
       // update provState and postal fields' validator
       this.addressForm.controls['provState'].setValidators([Validators.required]);
+      if (this.addressForm.controls['provState'].value == null){
+        this.addressForm.controls['provState'].setValue('');
+      }
       this.addressForm.controls['provState'].updateValueAndValidity();
 
       if (this.isCanada()) {

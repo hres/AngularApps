@@ -25,7 +25,7 @@ export class FeesService {
 
     const feesForm  = fb.nonNullable.group({
       feeAmount: new FormControl(null, [Validators.required, ValidationService.limitValidation]),
-      payMethod: new FormControl(null, Validators.required),
+      payMethod: new FormControl("", Validators.required),
 
     })
     return feesForm;
