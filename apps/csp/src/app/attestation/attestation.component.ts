@@ -89,7 +89,7 @@ export class AttestationComponent
     ) {
       this.openother = true;
     } else {
-      this.attestationForm.controls['marketing_country'].setValue(null);
+      this.attestationForm.controls['marketing_country'].setValue('');
       this.attestationForm.controls['marketing_application_date'].setValue('');
     }
   }
