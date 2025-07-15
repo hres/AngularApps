@@ -114,6 +114,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
     if (!selectedDossierTypeId) {
       this.adminSubmissionSelected.set(null);
+      this._signalService.setSelectedDossierType(null);
       const valuesToReset = ['isAdminSubmission', 'adminSubType'];
       this._resetControlValues(valuesToReset);
     } else {
