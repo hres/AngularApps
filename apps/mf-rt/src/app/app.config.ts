@@ -1,10 +1,11 @@
 import { ApplicationConfig } from '@angular/core';
-import { InstructionService, NoCacheHeadersInterceptor, VersionService } from '@hpfb/sdk/ui';
+import { InstructionService, NoCacheHeadersInterceptor, ValidationService, VALIDATION_SERVICES, VersionService } from '@hpfb/sdk/ui';
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 
 
 export const appConfig: ApplicationConfig = {
@@ -23,8 +24,13 @@ export const appConfig: ApplicationConfig = {
     Title,
     VersionService,
     { provide: HTTP_INTERCEPTORS, useClass: NoCacheHeadersInterceptor, multi: true },
+    {
+      provide: VALIDATION_SERVICES,
+      useClass: ValidationService,
+      multi: true, // Allow multiple services
+    },
     InstructionService,
-    NoCacheHeadersInterceptor, 
+    NoCacheHeadersInterceptor,
   ],
 };
 
