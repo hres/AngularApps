@@ -238,8 +238,8 @@
                                 [showError]="showErrors"
                                 [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
                                 label="ctrl.num" parentId="regulatoryInfo"></control-messages>
-                                <input id="controlNumber" name="controlNumber" class="form-control" [formControlName]="'controlNumber'"
-            [readonly]="isNOC" minlength="6" maxlength="6" size="6" data-only-digits/>
+            <input id="controlNumber" name="controlNumber" class="form-control" [formControlName]="'controlNumber'"
+            [readonly]="isNOC()" minlength="6" maxlength="6" size="6" data-only-digits/>
             </label> 
           </div>
     </div> 
