@@ -3,7 +3,7 @@ import { UtilsService, ConverterService, ITextLabel, EntityBaseService, ENGLISH,
 import { GlobalService } from '../global/global.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LifecycleRecord } from '../models/transaction';
-import { LEVEL3_NOTICE_OF_CHANGE, LINE_BREAK, TXN_DESC, TXN_DESC_ACTION } from '../app.constants';
+import { CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE, LEVEL3_NOTICE_OF_CHANGE, LINE_BREAK, TXN_DESC, TXN_DESC_ACTION } from '../app.constants';
 import { AppSignalService } from '../signal/app-signal.service';
 
 @Injectable()
@@ -283,7 +283,7 @@ export class TransactionDetailsService {
   public mapDataModelToFormModel(dataModel: LifecycleRecord, formRecord: FormGroup): void {
 
     if (dataModel.regulatory_activity_type?._id === LEVEL3_NOTICE_OF_CHANGE){
-      formRecord.controls['controlNumber'].setValue('000000');
+      formRecord.controls['controlNumber'].setValue(CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE);
     } else {
       formRecord.controls['controlNumber'].setValue(dataModel.control_number);
     }

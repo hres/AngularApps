@@ -160,3 +160,5 @@ export const RA_LEAD = {
 };
 
 export const LEVEL3_NOTICE_OF_CHANGE = 'B02-20160301-038';
+
+export const CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE = '000000';

@@ -5,7 +5,7 @@ import { TransactionDetailsService } from './transaction-details.service';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
 import { LifecycleRecord } from '../models/transaction';
-import { DOSSIER_TYPE, LEVEL3_NOTICE_OF_CHANGE, RA_LEAD, TXN_DESC_ACTION } from '../app.constants';
+import { CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE, DOSSIER_TYPE, LEVEL3_NOTICE_OF_CHANGE, RA_LEAD, TXN_DESC_ACTION } from '../app.constants';
 
 @Component({
   selector: 'app-transaction-details',
@@ -239,7 +239,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     this.transctionDetailsForm.controls['descriptionType'].setValue("");
     this.transctionDetailsForm.controls['controlNumber'].setValue(""); 
     if (this.isNOC()) {
-      this.transctionDetailsForm.controls['controlNumber'].setValue("000000");
+      this.transctionDetailsForm.controls['controlNumber'].setValue(CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE);
     }
   }
 
