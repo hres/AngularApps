@@ -192,6 +192,6 @@
     "error.msg.postal":"Format non valide - doit être X1X1X1",
     "error.msg.email":"Entrée non valide - doit être exemple@domaine.com",
     "error.msg.invalidDate": "Cette date n'est pas valide",
-    "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité."
-
+    "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité.",
+    "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres"
 }
