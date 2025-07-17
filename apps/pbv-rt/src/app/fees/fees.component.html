@@ -15,7 +15,7 @@
                     controlId="subClass" label="sub.class" ></control-messages>
             </label>
             <select id="subClass" name="subClass" class="form-control" [formControlName]="'subClass'" (change)="onSubmissionClassSelected($any($event.target).value)">
-                    <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
+                    <option label="{{ 'select.option'|translate }}" [value]="null"></option>
                     <option *ngFor="let item of submissionClassOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
             </select>
         </div>
