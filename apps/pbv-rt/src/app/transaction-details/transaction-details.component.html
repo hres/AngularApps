@@ -13,7 +13,7 @@
                     controlId="activityLead" label="activity.lead" parentId="regulatoryInfo"></control-messages>
                 <select id="activityLead" name="activityLead" class="form-control full-width"
                     [formControlName]="'activityLead'" (change)="onRaLeadSelected($any($event.target).value)">
-                    <option label=" " value=""></option>
+                    <option *ngIf="selectedDossierTypeId()" label="{{ 'select.option'|translate }}" value=""></option>
                     <option *ngFor="let lead of raLeadList()" [value]="lead.id"> {{ lead| textTransform: lang }}</option>
                 </select>
             </label>
@@ -35,7 +35,7 @@
             
                 <select id="activityType" name="activityType" class="form-control full-width"
                     [formControlName]="'activityType'" (change)="onRaTypeSelected($any($event.target).value)">
-                    <option label=" " value=""></option>
+                    <option *ngIf="selectedRaLeadId()" label="{{ 'select.option'|translate }}" value=""></option>
                     <option *ngFor="let item of raTypeList()" [value]="item.id"> {{ item| textTransform: lang }}</option>
                 </select>
             </label>
@@ -57,7 +57,7 @@
                 <select id="descriptionType" name="descriptionType" class="form-control full-width"
                     [formControlName]="'descriptionType'"
                     (change)="onTransactionDescriptionSelected($any($event.target).value)">
-                    <option label=" " value=""></option>
+                    <option *ngIf="selectedRaTypeId()" label="{{ 'select.option'|translate }}" value=""></option>
                     <option *ngFor="let item of transactionDescriptionList()" [value]="item.id"> {{ item| textTransform:
                         lang }}</option>
                 </select>

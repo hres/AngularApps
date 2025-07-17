@@ -61,6 +61,9 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
           raLeadIds.includes(lead.id)
         );
         this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  'updating raLeadList', `filteredRaLeads ->`, filteredRaLeads);
+        if (!this.selectedRaLeadId()) {
+          this.transctionDetailsForm.controls['activityLead'].setValue(''); //Set the selected value to "select an option"
+        }
         return filteredRaLeads;
       } else {
         this._logger.error(this._globalService.debugEnabled, 'TransactionDetailsComponent', 'updating raLeadList', `found ${filteredDossierTypeAndRaLeads.length} filteredDossierTypeAndRaLeads`);
