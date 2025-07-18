@@ -16,7 +16,7 @@
                 </label>
                 <select id="dossierType" name="dossierType" class="form-control"
                     [formControlName]="'dossierType'" (change)="onDossierTypeSelected($any($event.target).value)">
-                    <option label=" " value=""></option>
+                    <option label="{{ 'select.option'|translate }}" [value]="null"></option>
                     <option *ngFor="let item of dossierTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
                 </select>
             </div>
@@ -163,7 +163,7 @@
                     </label>
                     <select id="adminSubType" name="adminSubType" class="form-control"
                         [formControlName]="'adminSubType'" (change)="onAdminSubTypeSelected($any($event.target).value)">
-                        <option label=" " value=""></option>
+                        <option label="{{ 'select.option'|translate }}" [value]="null"></option>
                         <option *ngFor="let item of adminSubTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
                     </select>
                 </div>
