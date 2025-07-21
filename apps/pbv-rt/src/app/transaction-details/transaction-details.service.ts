@@ -315,7 +315,7 @@ export class TransactionDetailsService {
     formRecord.controls['startDate'].setValue(dataModel.sequence_from_date);
     formRecord.controls['endDate'].setValue(dataModel.sequence_to_date);
     formRecord.controls['briefDescription'].setValue(dataModel.sequence_details);
-    if(this.showBriefDescriptionnOfChangeTxnDescs.includes(dataModel.sequence_description_value._id)){
+    if(this.showBriefDescriptionnOfChangeTxnDescs.includes(dataModel.sequence_description_value?._id)){
       formRecord.controls['briefDescriptionOfChange'].setValue(dataModel.sequence_details_change);
     }
     formRecord.controls['versionNumber'].setValue(dataModel.sequence_version);
