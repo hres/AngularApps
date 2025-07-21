@@ -5,7 +5,7 @@ import { TransactionDetailsService } from './transaction-details.service';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
 import { LifecycleRecord } from '../models/transaction';
-import { DOSSIER_TYPE, RA_LEAD, TXN_DESC_ACTION } from '../app.constants';
+import { CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE, DOSSIER_TYPE, LEVEL3_NOTICE_OF_CHANGE, RA_LEAD, TXN_DESC_ACTION } from '../app.constants';
 
 @Component({
   selector: 'app-transaction-details',
@@ -39,7 +39,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   }
 
   isVet: boolean = false;
-  isNOC: boolean = false;
+  isNOC = computed(() => this.selectedRaTypeId() === LEVEL3_NOTICE_OF_CHANGE);
   readonly selectedDossierTypeId: Signal<string> = this._transactionDetailsService.selectedDossierTypeId;
   readonly selectedRaLeadId: Signal<string> = this._transactionDetailsService.selectedRaLeadId;
   readonly selectedRaTypeId: Signal<string> = this._transactionDetailsService.selectedRaTypeId;
@@ -61,6 +61,9 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
           raLeadIds.includes(lead.id)
         );
         this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  'updating raLeadList', `filteredRaLeads ->`, filteredRaLeads);
+        if (!this.selectedRaLeadId()) {
+          this.transctionDetailsForm.controls['activityLead'].setValue(''); //Set the selected value to "select an option"
+        }
         return filteredRaLeads;
       } else {
         this._logger.error(this._globalService.debugEnabled, 'TransactionDetailsComponent', 'updating raLeadList', `found ${filteredDossierTypeAndRaLeads.length} filteredDossierTypeAndRaLeads`);
@@ -233,15 +236,10 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     this._signalService.setSelectedRaType(raTypeId);
     // Clear Transaction Description signals and form values
     this._signalService.setSelectedTxnDesc(""); 
-    this.transctionDetailsForm.controls['descriptionType'].setValue(""); 
+    this.transctionDetailsForm.controls['descriptionType'].setValue("");
     this.transctionDetailsForm.controls['controlNumber'].setValue(""); 
-    if(this.transctionDetailsForm.controls['activityType'].getRawValue() =="B02-20160301-038")
-    {
-      this.transctionDetailsForm.controls['controlNumber'].setValue("000000");
-      this.isNOC = true;
-    }else{
-      this.transctionDetailsForm.controls['controlNumber'].setValue("");
-      this.isNOC = false;
+    if (this.isNOC()) {
+      this.transctionDetailsForm.controls['controlNumber'].setValue(CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE);
     }
   }
 

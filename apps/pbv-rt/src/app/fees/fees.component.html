@@ -15,7 +15,7 @@
                     controlId="subClass" label="sub.class" ></control-messages>
             </label>
             <select id="subClass" name="subClass" class="form-control" [formControlName]="'subClass'" (change)="onSubmissionClassSelected($any($event.target).value)">
-                    <option label=" " value=""></option>
+                    <option label="{{ 'select.option'|translate }}" [value]="null"></option>
                     <option *ngFor="let item of submissionClassOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
             </select>
         </div>
@@ -39,7 +39,7 @@
                         <span class="field-name">{{'mitigation.type'|translate }}</span>
                     </label>
                     <select id="mitigationType" name="mitigationType" class="form-control" [formControlName]="'mitigationType'" (change)="onMitigationTypeSelected($any($event.target).value)">
-                            <option label=" " value=""></option>
+                            <option label="{{ 'select.option'|translate }}" [value]="null"></option>
                             <option *ngFor="let item of mitigationTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
                     </select>
                 </div>
