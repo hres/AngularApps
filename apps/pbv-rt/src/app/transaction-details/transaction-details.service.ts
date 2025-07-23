@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, Signal } from '@angular/core';
-import { UtilsService, ConverterService, ITextLabel, EntityBaseService, ENGLISH, FRENCH } from '@hpfb/sdk/ui';
+import { UtilsService, ConverterService, ITextLabel, EntityBaseService, ENGLISH, FRENCH, ValidationService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LifecycleRecord } from '../models/transaction';
@@ -143,7 +143,7 @@ export class TransactionDetailsService {
       return null;
    }
    return fb.group({
-    controlNumber: [null, [Validators.required, Validators.minLength(6)]],
+    controlNumber: [null, [Validators.required, ValidationService.numeric6Validator]],
     activityLead: [null, [Validators.required]],
     activityType: [null, Validators.required],
     descriptionType: [null, Validators.required],

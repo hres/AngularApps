@@ -192,5 +192,6 @@
     "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité.",
 
     "select.option": "Sélectionnez une option",
-    "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres"
+    "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres",
+    "error.mgs.6.numeric": "Entrée non valide - doit contenir 6 chiffres"
 }
