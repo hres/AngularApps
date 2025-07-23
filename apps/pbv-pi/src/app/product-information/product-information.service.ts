@@ -3,7 +3,7 @@ import { ConverterService, UtilsService} from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { DrugProductEnrol } from '../models/ProductInformation';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PbvService } from '@hpfb/pbv';
+import { PbvValidationService } from '@hpfb/pbv';
 import { data } from 'jquery';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class ProductInformationService {
    }
    return fb.group({
     dossierType: [null, [Validators.required]],
-    dossierId: [null, [Validators.required, PbvService.pharmabioDossierIdValidator]],
+    dossierId: [null, [Validators.required, PbvValidationService.pharmabioDossierIdValidator]],
     companyId: [null, [Validators.required, Validators.minLength(5)]],
     productName: [null, [Validators.required]],
     properName: [null, [Validators.required]],
