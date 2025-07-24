@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'lib-security-disclaimer',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './security-disclaimer.component.html',
     styles: []
 })
