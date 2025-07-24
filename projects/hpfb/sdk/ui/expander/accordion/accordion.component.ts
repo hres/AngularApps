@@ -2,10 +2,11 @@ import { Component, ContentChild, EventEmitter, Input, OnChanges, Output, Simple
 import { FormArray, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'lib-accordion',
-  templateUrl: './accordion.component.html',
-  styleUrls: ['./accordion.component.css'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'lib-accordion',
+    templateUrl: './accordion.component.html',
+    styleUrls: ['./accordion.component.css'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AccordionComponent {
 

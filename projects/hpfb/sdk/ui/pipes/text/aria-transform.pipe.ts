@@ -5,7 +5,8 @@ import { ICodeAria } from '../../data-loader/data';
 // take an ICodeAria value and return either en or fr value based on lang
 
 @Pipe({
-  name: 'ariaTransform'
+    name: 'ariaTransform',
+    standalone: false
 })
 export class AriaTransformPipe implements PipeTransform {
 

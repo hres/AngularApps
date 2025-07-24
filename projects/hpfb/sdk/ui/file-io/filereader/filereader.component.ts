@@ -7,10 +7,11 @@ import {CheckSumService} from '../../check-sum/check-sum.service';
 import { CHECK_SUM_CONST } from '../../check-sum/check-sum-constants';
 
 @Component({
-  selector: 'lib-file-reader',
-  templateUrl: './filereader.component.html',
-  styleUrls: ['./filereader.component.css'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'lib-file-reader',
+    templateUrl: './filereader.component.html',
+    styleUrls: ['./filereader.component.css'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class FilereaderComponent implements OnInit {

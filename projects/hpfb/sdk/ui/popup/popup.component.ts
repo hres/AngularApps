@@ -2,12 +2,11 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import $ from 'jquery';
 
 @Component({
-  selector: 'lib-popup',
-  standalone: true,
-  imports: [],
-  templateUrl: './popup.component.html',
-  styleUrl: './popup.component.css',
-  encapsulation: ViewEncapsulation.None
+    selector: 'lib-popup',
+    imports: [],
+    templateUrl: './popup.component.html',
+    styleUrl: './popup.component.css',
+    encapsulation: ViewEncapsulation.None
 })
 export class PopupComponent {
   @Input() message: string ;
