@@ -7,6 +7,21 @@
     ],
     "releases": [
         {
+            "header": "September 10, 2025 Release",
+            "details": [
+                {
+                    "template": "Regulatory Transaction (RT) Template<br>Version 5.1.0<br><br><br>Stylesheet package*",
+                    "changes": [
+                        "When regulatory activity type \"Level 3 - Notice of change\" is selected, the \"Control Number\" field changes to 000000 and the field is disabled",
+                        "Updated regulatory transaction description definitions for \"Minutes of meeting\" and \"Submission meeting request\"",
+                        "Updated info bubble for the \"Control Number\"",
+                        "Updated the third party question and info bubble in section A. Company information",
+                        "*New RT stylesheet to match changes on this template"
+                    ]
+                }
+            ]
+        },
+        {
             "header": "June 3, 2025 Release",
             "details": [
                 {

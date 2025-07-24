@@ -10,7 +10,7 @@
             "groups": [
                 {
                     "bullets": [
-                        "<a href=\"{{ base_url }}historique_révisions.html\">Historique des révisions du modèle (2025-06-03)</a>"
+                        "<a href=\"{{ base_url }}historique_révisions.html\">Historique des révisions du modèle (2025-09-10)</a>"
                     ]
                 }
             ]
@@ -27,7 +27,7 @@
                     ]
                 },
                 {
-                    "header": "<a href=\"https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/demandes-presentations/lignes-directrices/depot-soumissions-electroniques/modele-dossier-pharmaceutique.html\">Formulaire de demande pour l'ID de dossier pour les médicaments à usage humain</a>",
+                    "header": "<a href=\"https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/demandes-presentations/lignes-directrices/depot-soumissions-electroniques/modele-dossier-pharmaceutique.html\">Formulaire de demande pour l'ID de dossier pour les médicaments humain</a>",
                     "bullets": [
                         "Obligation d'obtenir un ID de dossier, avant de déposer une transaction réglementaire pour un nouveau dossier, lors de la conversion d'un dossier d'un format non-eCTD au format eCTD, ou lors du dépôt d'une transaction réglementaire pour un dossier dont vous ne connaissez pas l'ID de dossier.",
                         "Reportez-vous à la section « 2.4 Processus de demande pour un ID de dossier » de la ligne directrice PIR."
@@ -53,7 +53,7 @@
             "header": "Dans le cadre du processus de transaction réglementaire",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.fr }}\">Modèle de transaction réglementaire (TR) pour les médicaments à usage humain et désinfectants (2025-03-26)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.fr }}\">Modèle de transaction réglementaire (TR) (2025-09-10)</a>",
                     "bullets": [
                         "Obligatoire avec chaque transaction réglementaire déposée auprès de Santé Canada.",
                         "Pour une description détaillée des exigences pour le modèle TR, reportez-vous à la section « 2.5 Processus de dépôt de transactions réglementaires » de la ligne directrice PIR."
@@ -73,7 +73,7 @@
             "groups": [
                 {
                     "bullets": [
-                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.fr }}\">Télécharger le fichier zip des feuilles de style (2025-06-03)</a>"                    ]
+                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.fr }}\">Télécharger le fichier zip des feuilles de style (2025-09-10)</a>"                    ]
                 }
             ]
         },
