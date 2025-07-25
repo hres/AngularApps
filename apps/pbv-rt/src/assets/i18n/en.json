@@ -192,5 +192,6 @@
 
     "select.option": "Select an option",
     "error.mgs.5.numeric": "Invalid entry - must be 5 digits",
-    "error.mgs.6.numeric": "Invalid entry - must be 6 digits"
-}
+    "error.mgs.6.numeric": "Invalid entry - must be 6 digits",
+    "error.mgs.4.numeric": "Invalid entry - must be 4 digits"
+    }
