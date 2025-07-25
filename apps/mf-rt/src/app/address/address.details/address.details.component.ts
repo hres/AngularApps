@@ -14,12 +14,14 @@ import { INameAddress } from '../../models/transaction';
   selector: 'app-address-details',
   templateUrl: 'address.details.component.html',
   styleUrls: ['address.details.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone:false
+
 })
 
 export class AddressDetailsComponent extends BaseComponent implements OnInit, OnChanges {
   lang: string;
-  helpTextSequences: HelpIndex; 
+  helpTextSequences: HelpIndex;
   countryList: ICode[] = [];
   provinceList: ICode[] = [];
   stateList: ICode[] = [];
@@ -34,7 +36,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   public provStateList: ICode[] = [];
   public provinceLabel = 'addressDetails.province';
   public postalLabel = 'addressDetails.postalZipCode';
-  
+
   public showFieldErrors = false;
 
  // writable signal for the answer of "Country" field
@@ -50,7 +52,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     return this._utilsService.isCanadaOrUSA(this.selectedCountrySignal());
   });
 
-  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private _detailsService: AddressDetailsService, 
+  constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef, private _detailsService: AddressDetailsService,
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -62,7 +64,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     this.helpTextSequences = this._globalService.helpIndex;
     this.countryList = this._globalService.countryList;
     this.provinceList = this._globalService.provinceList;
-    this.stateList = this._globalService.stateList; 
+    this.stateList = this._globalService.stateList;
 
     if (!this.addressForm) {
       this.addressForm = this._detailsService.getReactiveModel(this._fb);
@@ -124,7 +126,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
       this.addressForm.controls['provState'].setValidators([]);
       this.addressForm.controls['provState'].updateValueAndValidity();
 
-      this.addressForm.controls['postal'].setValidators([Validators.required]);     
+      this.addressForm.controls['postal'].setValidators([Validators.required]);
       this.addressForm.controls['postal'].updateValueAndValidity();
 
       this.postalLabel = 'addressDetails.postalZipCode';

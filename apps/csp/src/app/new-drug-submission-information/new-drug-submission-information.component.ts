@@ -18,6 +18,7 @@ import { NewDrugSubmissionInformationService } from './new-drug-submission-infor
   templateUrl: './new-drug-submission-information.component.html',
   styleUrl: './new-drug-submission-information.component.css',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class NewDrugSubmissionInformationComponent
   extends BaseComponent

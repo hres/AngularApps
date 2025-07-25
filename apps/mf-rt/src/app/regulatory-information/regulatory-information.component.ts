@@ -23,10 +23,11 @@ import { GlobalService } from '../global/global.service';
   templateUrl: './regulatory-information.component.html',
   styles: [],
   encapsulation: ViewEncapsulation.None,
+  standalone:false
 })
 export class RegulatoryInformationComponent extends BaseComponent implements OnInit {
   lang: string;
-  helpIndex: HelpIndex; 
+  helpIndex: HelpIndex;
 
   public regulartoryInfoForm: FormGroup;
   @Input() detailsChanged: number;
@@ -46,7 +47,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   selectedTxDescDefinition: string;
   public yesNoList: ICode[] = [];
   public showFieldErrors: boolean = false;
-    
+
   txDescRquireRevise: string = '13';
 
   // writable signal for the answer of "Transaction Description" field
@@ -66,7 +67,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     return this.showReqRevisedTxDesc() && this.selectedReqRevisionSignal() === 'Y'
   });
 
-  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
+  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder,
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -75,7 +76,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-    
+
     if (!this.regulartoryInfoForm) {
       this.regulartoryInfoForm = RegulatoryInformationService.getRegularInfoForm(this._fb);
     }

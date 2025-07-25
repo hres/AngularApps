@@ -20,6 +20,7 @@ import { CertDetails } from '../models/transaction';
   styleUrl: './certification.component.css',
   providers:  [ CertificationService ],
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class CertificationComponent  extends BaseComponent implements OnInit, OnChanges {

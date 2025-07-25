@@ -28,13 +28,17 @@ import { ContactDetailsService } from './contact/contact-details/contact-details
     MasterFileFeeComponent,
     CertificationComponent
   ],
-  // imports: [
-  //   CommonModule,
-  //   TranslateModule,
-  //   ReactiveFormsModule,
-  //   TranslateModule
-
-  // ],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    CommonUiFeatureModule,
+    ErrorModule,
+    PipesModule,
+    ExpanderModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    NumbersOnlyDirective
+  ],
   providers: [
     RegulatoryInformationService,
     AddressDetailsService,

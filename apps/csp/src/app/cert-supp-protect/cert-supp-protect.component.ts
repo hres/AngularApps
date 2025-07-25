@@ -23,6 +23,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './cert-supp-protect.component.html',
   styles: [],
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class CertSuppProtectComponent extends BaseComponent implements OnInit, OnChanges {
   lang: string;

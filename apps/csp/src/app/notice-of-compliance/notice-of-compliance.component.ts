@@ -22,7 +22,8 @@ import { GlobalService } from '../global/global.service';
   selector: 'app-notice-of-compliance',
   templateUrl: './notice-of-compliance.component.html',
   styleUrl: './notice-of-compliance.component.css',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class NoticeOfComplianceComponent extends BaseComponent implements OnInit {
 

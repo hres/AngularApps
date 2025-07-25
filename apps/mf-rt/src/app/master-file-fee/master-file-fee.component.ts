@@ -10,10 +10,11 @@ import { FeeDetails } from '../models/transaction';
   templateUrl: './master-file-fee.component.html',
   styleUrl: './master-file-fee.component.css',
   encapsulation: ViewEncapsulation.None,
+  standalone:false
 })
 export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   lang: string;
-  helpIndex: HelpIndex; 
+  helpIndex: HelpIndex;
   public showFieldErrors: boolean = false;
   public showNumOfAccessLetter: boolean = false;
   public yesNoList: ICode[] = [];
@@ -24,7 +25,7 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
   @Input() dataModel: FeeDetails;
   @Output() errorList = new EventEmitter(true);
 
-  constructor(private _masterFileFeeService: MasterFileFeeService, private _fb: FormBuilder, 
+  constructor(private _masterFileFeeService: MasterFileFeeService, private _fb: FormBuilder,
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -41,7 +42,7 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
     this.yesNoList = this._globalService.yesnoList;
     this.whoResponsibleList = this._globalService.whoResponsible;
   }
-  
+
   ngOnChanges(changes: SimpleChanges) {
     this.showFieldErrors = this.showErrors || this.showFieldErrors;
     const isFirstChange = this._utilsService.isFirstChange(changes);
@@ -63,7 +64,7 @@ export class MasterFileFeeComponent extends BaseComponent implements OnInit{
       this.showNumOfAccessLetter = true;
     } else {
       this.showNumOfAccessLetter = false;
-      this.feeForm.controls['numOfAccessLetter'].setValue(''); // null or empty? 
+      this.feeForm.controls['numOfAccessLetter'].setValue(''); // null or empty?
     }
   }
 

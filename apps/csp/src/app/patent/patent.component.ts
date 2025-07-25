@@ -17,6 +17,7 @@ import { IPatent } from '../models/transaction';
   templateUrl: './patent.component.html',
   styleUrl: './patent.component.css',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class PatentComponent extends BaseComponent implements OnInit {
   public showFieldErrors: boolean = false;

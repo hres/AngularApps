@@ -19,6 +19,7 @@ import { FeeDetails } from '../models/transaction';
   templateUrl: './fees.component.html',
   styleUrl: './fees.component.css',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class FeesComponent  extends BaseComponent implements OnInit, OnChanges {
