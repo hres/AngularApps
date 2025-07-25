@@ -77,7 +77,7 @@
     "regulatory.fees": "Frais",
     
     "is.priority": "Cette activité de réglementation a-t-elle été approuvée aux fins d’examen prioritaire?",
-    "is.noc": "Cette activité de réglementation a-t-elle été approuvée aux fins d’examen pour un AC-C? ",
+    "is.noc": "Cette activité de réglementation a-t-elle été approuvée aux fins d’examen pour un AC-C?",
     "is.admin.submission": "S'agit-il d'une demande administrative ou d'une présentation?",
     "admin.descript": "Description de la présentation administrative ou de la composante administrative",
     "admin.sub.type": "Raison de la demande administrative ou de la présentation",
@@ -158,8 +158,6 @@
     "ht.year.change.13": "Par exemple :",
     "ht.desc.change.1": "Consultez les sections pertinentes des annexes des lignes directrices changements survenus après l'avis de conformité (AC) pour identifier les changements nécessaires.",
     "ht.desc.change.2": "Par exemple : Document sur la qualité - 3.2.S Substance médicamenteuse no 1, 2d, 9b, 17",
-    "ht.desc.change.3": "",
-    "ht.desc.change.4": "",
     "ht.req.sol": "Si le nom du demandeur est inconnu, entrez l'adresse courriel générique à partir duquel la demande a été envoyée.",
     "ht.fees.1": "La section portant  sur les frais doit être remplie afin présenter correctement une demande de mesures d'atténuation des frais.",
     "ht.fees.2": "Veuillez consulter la <a target='_blank' href='https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/frais/examen-presentations-demandes-drogue.html'>Ligne directrice : Frais pour l’examen des présentations et des demandes de médicaments à usage humain et de désinfectants assimilés à une drogue</a>",
