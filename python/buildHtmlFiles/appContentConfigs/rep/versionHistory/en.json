@@ -16,6 +16,7 @@
                         "Updated regulatory transaction description definitions for \"Minutes of meeting\" and \"Submission meeting request\"",
                         "Updated info bubble for the \"Control Number\"",
                         "Updated the third party question and info bubble in section A. Company information",
+                        "Resolved \"end date\" that reverted to \"start date\" when loading existing RT file for RA types: PBRER-C, PBRER-PV, PSUR-C, PSUR PV, YBPR<br><br><br>",
                         "*New RT stylesheet to match changes on this template"
                     ]
                 }

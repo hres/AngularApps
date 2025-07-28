@@ -16,6 +16,7 @@
                         "Mise à jour des définitions de la description de la transaction de réglementation pour « Procès-verbal de la réunion » et « Demande de réunion préalable à la présentation »",
                         "Mise à jour de la bulle d’information pour « Numéro de contrôle »",
                         "Mise à jour de la question de tiers et de la bulle d'information dans section A. Information sur la compagnie",
+                        "Résolution de la « date de fin » qui revenait à la « date de début » lors du chargement du fichier TR existant pour les types de AR : RPEAR-C, RPEAR-VC, RPPV-C, RPPV-VC, RAPB<br><br><br>",
                         "*Nouvelle feuille de style TR pour correspondre aux modifications apportées à ce modèle"
                     ]
                 }
