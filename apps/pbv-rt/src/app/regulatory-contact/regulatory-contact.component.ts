@@ -101,6 +101,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
       this.showCompanyAndAddress = false;
       this._addressErrorList = [];
       this._signed3rdPartyChanged = false;
+      this._utilsService.resetControlsValues(this.regulatoryContactInfoForm.controls['companyName']);
     } else {
       this.showCompanyAndAddress = true;
       this._signed3rdPartyChanged = true;
