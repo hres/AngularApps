@@ -26,6 +26,7 @@ export class ValidationService implements IValidationService {
       'error.mgs.contact.id': 'error.mgs.contact.id',
       'error.mgs.primary.company.id': 'error.mgs.primary.company.id',
       'error.mgs.primary.contact.id': 'error.mgs.primary.contact.id',
+      'error.mgs.4.numeric':'error.mgs.4.numeric',
       'error.mgs.5.numeric': 'error.mgs.5.numeric',
       'error.mgs.6.numeric': 'error.mgs.6.numeric',
       'error.mgs.8.numeric':'error.mgs.8.numeric',
@@ -142,6 +143,17 @@ export class ValidationService implements IValidationService {
       return null;
     } else {
       return {'error.mgs.company.id': true};
+    }
+  }
+
+    static numeric4Validator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{4}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.4.numeric': true};
     }
   }
 
