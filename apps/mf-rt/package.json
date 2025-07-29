@@ -16,7 +16,7 @@
     "post-build": "python ../../python/post-app-build/post-build.py"
   },
   "dependencies": {
-    "@hpfb/sdk": "file:../../libs/hpfb-sdk-1.4.0.tgz"
+    "@hpfb/sdk": "file:../../libs/hpfb-sdk-1.5.0.tgz"
   },
   "private": true
 }
