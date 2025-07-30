@@ -16,7 +16,8 @@ import { CompanyContactService } from '../company-contact.service';
   selector: 'app-company-contact-item',
   templateUrl: './company-contact-item.component.html',
   styleUrl: './company-contact-item.component.css',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class CompanyContactItemComponent extends BaseComponent{
   @Input() cRRow: FormGroup;
@@ -35,7 +36,7 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   lang = this._globalService.currLanguage;
   languageList: ICode[] = [];
-  
+
   public representativeRolesOptionList: CheckboxOption[] = [];
   public representativeRolesCodeList: ICode[] = [];
 
@@ -139,7 +140,7 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   }
 
-  
+
   public revertContactRecord(index: number, recordId: number): void {
     this._discardIndex = index;
     this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
@@ -149,43 +150,43 @@ export class CompanyContactItemComponent extends BaseComponent{
   private _handleDiscard() {
     const recordId = this.cRRow.get('recordId')?.value;
     const selectedRoles = this.cRRow.get('companyInfo.selectedCompanyRoles')?.value ?? [];
-  
+
     if (!recordId || !Array.isArray(selectedRoles)) return;
-  
+
     const validKeys = selectedRoles.map(role => `${recordId}${role}`);
     const current = this.selectedCompanyRoles();
-  
+
     // Keep the roles that belong to other records and this record. This unchecks the roles that has been checked
     const updated = current.filter(entry => {
       const entryRecordId = entry.match(/^\d+/)?.[0]; // Extract prefix digits
       return entryRecordId !== String(recordId) || validKeys.includes(entry);
     });
-  
+
     // Add in the role that was unchecked from last saved state. This checks the role that has been unchecked
     const missing = validKeys.filter(key => !updated.includes(key));
      // Split missing into those selected by others and those not
      const alreadySelectedByOthers: string[] = [];
      const notSelectedByOthers: string[] = [];
- 
+
      for (const key of missing) {
        const roleId = key.slice(String(recordId).length);
- 
+
        const isTaken = current.some(entry => {
          const otherRecordId = entry.match(/^\d+/)?.[0];
          return otherRecordId !== String(recordId) && entry.endsWith(roleId);
        });
- 
+
        if (isTaken) {
          alreadySelectedByOthers.push(roleId);
        } else {
          notSelectedByOthers.push(key);
        }
      }
- 
+
      if (alreadySelectedByOthers.length > 0) {
        this.openPopup();
      }
-     
+
      // Update roles signal array
      if (notSelectedByOthers.length > 0) {
        this.cRRow.get('companyInfo.isRoleSelected').setValue(true);
@@ -200,20 +201,20 @@ export class CompanyContactItemComponent extends BaseComponent{
   private _patchAndCheckLastSavedRoles(): void {
     const selectedRoles = this.cRRow.get('companyInfo.selectedCompanyRoles')?.value ?? [];
     const enabledAndCheckedRoles: string[] = [];
-  
+
     Object.entries(ROLE_INDEX_MAPPING).forEach(([role, index]) => {
       const control = this.companyRolesChkFormArray.at(index);
       const isRoleSelected = selectedRoles.includes(role);
-  
+
       // Only check the box if the role was selected and the control is not disabled
       const shouldCheck = isRoleSelected && !control.disabled;
       control.setValue(shouldCheck);
-  
+
       if (shouldCheck) {
         enabledAndCheckedRoles.push(role);
       }
     });
-  
+
     // Update the selected roles in the form group to reflect only enabled and checked roles
     this.cRRow.get('companyInfo.selectedCompanyRoles')?.setValue(enabledAndCheckedRoles);
   }
@@ -239,7 +240,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     const prefixToDelete = this.cRRow.get('recordId').value.toString();
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
-    rolesToRemove.forEach(role => 
+    rolesToRemove.forEach(role =>
       {
         this._signalService.removeContactCompanyRole(role)
       });
@@ -262,13 +263,13 @@ export class CompanyContactItemComponent extends BaseComponent{
       this.showErrors = true;
       document.location.href = '#coContactErrorSummary' + this.j;
     }
-  } 
- 
+  }
+
   companyRolesOnChange(e: any, selectedRole: string, index: number) {
     this.cRRow.get('companyInfo.rolesTouched').setValue(true);
     this.cRRow.get('companyInfo.selectedCompanyRoles').setValue(this.selectedCompanyRolesCodes);
     const isChecked = (e.target as HTMLInputElement).checked;
-  
+
     // Get the specific form control using index
     const roleControl = this.companyRolesChkFormArray.at(index);
     const uniqueRole = this.cRRow.get('recordId').value + selectedRole;
@@ -279,7 +280,7 @@ export class CompanyContactItemComponent extends BaseComponent{
 
       // if (this.isRoleAlreadySelected(selectedRole)) {
       //   roleControl.setErrors({ 'error.msg.roleSelected': true });
-      // } 
+      // }
     } else {
       this._signalService.removeContactCompanyRole(uniqueRole);
       // this.removeRoleError.emit({id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
@@ -294,12 +295,12 @@ export class CompanyContactItemComponent extends BaseComponent{
     //this._appendErrorsFromChild(); // Update errors for company roles here
   }
 
-  
+
   isNoRoleSelected(): boolean {
     const formArray = this.companyRolesChkFormArray;
     // Check if none of the roles are selected
     const noRoles = formArray.controls.every(control => !control.value);
-    
+
     return noRoles;
   }
 
@@ -317,7 +318,7 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   /**
    * Deprecated
-   * @returns 
+   * @returns
    */
   // isRoleAlreadySelected = (role: string): boolean => {
   //   const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, '')); // Remove the numeric prefix
@@ -332,7 +333,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   protected override _appendErrorsFromChild() {
     // Method is overriden to place company roles error last, since it is the last field in the record.
     this._coRolesErrors = this.msgList.toArray();
-    const combinedErrors = [...this._contactErrorList, ...this._coRolesErrors]; 
+    const combinedErrors = [...this._contactErrorList, ...this._coRolesErrors];
     this.emitErrors(combinedErrors);
   }
 
@@ -372,7 +373,7 @@ export class CompanyContactItemComponent extends BaseComponent{
         this.companyRolesChkFormArray.push(new FormControl(false));
       });
     }
-    
+
     this.rolesUpdated.emit(this.representativeRolesOptionList);
   }
 
@@ -402,7 +403,7 @@ export class CompanyContactItemComponent extends BaseComponent{
       }
     }
   }
-  
+
   private _handleFormInvalidity() {
     this.cRRow.get('expandFlag').setValue(true); // Collapse records
     this.cRRow.markAsDirty();
@@ -411,11 +412,11 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   private _disableRoles() {
     const recordId = this.cRRow.get('recordId').value;
-  
+
     this.selectedCompanyRoles().forEach(roleWithPrefix => {
       const selectedRecordId = roleWithPrefix.match(/^\d+/)?.[0] ?? '';
       const roleId = roleWithPrefix.slice(selectedRecordId.length);
-    
+
       if (selectedRecordId !== String(recordId)) {
         const mappedIndex = ROLE_INDEX_MAPPING[roleId];
         if (mappedIndex !== undefined) {

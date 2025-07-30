@@ -8,12 +8,13 @@ import { ProductInformationService } from './product-information.service';
 @Component({
   selector: 'app-product-information',
   templateUrl: './product-information.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class ProductInformationComponent extends BaseComponent implements OnInit{
 
   lang: string;
-  helpIndex: HelpSequence; 
+  helpIndex: HelpSequence;
 
   @Input() showErrors: boolean;
   @Input() dataModel: DrugProductEnrol;
@@ -31,7 +32,7 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
     return this.adminSubSelected() === 'Y';
   });
   selectedAdminSubTypeDefinition: string = '';
-  
+
   constructor(private _utilsService: UtilsService, private _fb: FormBuilder, private _globalService: GlobalService, private _productInfoService: ProductInformationService) {
     super();
     this.showFieldErrors = false;
@@ -62,7 +63,7 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
         // this.lifecycleRecordModel = dataModelCurrentValue.ectd.lifecycle_record;
         this._productInfoService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this.productInfoForm);
 
-        // this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value); 
+        // this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value);
         this.onAdminSubSelected(this.productInfoForm.controls['isAdminSub'].value, true);
         this.onSubTypeSelected(this.productInfoForm.controls['subType'].value);
       }

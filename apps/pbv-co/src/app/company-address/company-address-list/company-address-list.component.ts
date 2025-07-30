@@ -14,7 +14,8 @@ import { CompanyAddressListService } from './company-address-list.service';
   selector: 'app-company-address-list',
   templateUrl: './company-address-list.component.html',
   styleUrl: './company-address-list.component.css',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class CompanyAddressListComponent extends BaseListComponent<AddressRecord>{
   recordService: IRecordService;
@@ -31,7 +32,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   statusMessageSave : string = '';
   statusMessageDiscard: string = '';
   statusMessageDelete: string = '';
-  
+
   focusField : string = 'companyName';
   addButton : string = 'addAddressBtn';
   private selectedAddressCompanyRoles : Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
@@ -46,7 +47,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
 
   provinceList: ICode[] = [];
 
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder,
     private _addressService: CompanyAddressService,
     private _addressDetailsService: AddressDetailsService,
     private _errorNotifService: ErrorNotificationService,
@@ -91,8 +92,8 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
        group.controls['expandFlag'].setValue(true);
        group.markAsDirty();
        group.markAsTouched();
-      } 
-    }     
+      }
+    }
   }
 
   protected _patchRecordInfoValue(form, outputModel: AddressRecord) {
@@ -147,7 +148,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   //   for (const item of currentRolesArray) {
   //     const idMatch = item.match(/^(\d+)/); // Extract the number (prefix)
   //     const itemRole = item.replace(/^\d+/, ''); // Extract role type
-      
+
   //     if (itemRole === role && idMatch !== recordId) {
   //       id = Number(idMatch?.[1]); // Return the number as a number type
   //       break;
@@ -159,7 +160,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   //     const formGroupWithId = this.recordFormArray.controls.find(
   //       (group) => group.get('recordId')?.value === id
   //     ) as FormGroup | undefined;
-        
+
   //     if (formGroupWithId) {
   //       let addressRoles = formGroupWithId.get('addressInfo.addressCompanyRoles') as FormArray;
   //       const roleControl = addressRoles.at(roleIndex);
@@ -172,7 +173,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
     // console.log('...._processErrorSummaries:', errSummaryEntries);
-    // get the first entry where the errSummaryMessage property is not empty 
+    // get the first entry where the errSummaryMessage property is not empty
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
     const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId.startsWith("addressListTable"));
     if (filteredErrSummaryEntry) {
@@ -181,7 +182,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
       this.errorSummaryChild = null;
     }
     this.emitErrors();
-  } 
+  }
 
   protected emitErrors(): void {
     let errorsToEmit = [];
@@ -218,7 +219,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
           addressModel.country._id = newCountry.newid;
         }
       }
-      
+
       if (addressModel.province_lov._id === undefined) {
         const provinceEnglish = this._utilsService.findAndTranslateCode(this.provinceList, ENGLISH, String(addressModel.province_lov));
         const provinceFrench = this._utilsService.findAndTranslateCode(this.provinceList, FRENCH, String(addressModel.province_lov));
@@ -239,7 +240,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
       }
     }
   }
-  
+
   private isRolesComplete(selectedRoles : string[]) {
     const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // Required roles
     const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
@@ -250,7 +251,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     if (!this.recordFormArray || this.recordFormArray.length === 0) {
       return false;
     }
-    
+
     // Check if a role has been selected
     return this.recordFormArray.controls.some((group: FormGroup) => {
       const isRoleSelectedControl = group.get('addressInfo.isRoleSelected');
@@ -262,7 +263,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
    * Override onDeleteHandled to check if there is no role selected for record -> expand the record
    *                                      record has been touched -> expand the record
    * TODO: Remove "group.get('addressInfo.isRoleSelected').value" from (group.get('addressInfo.isRoleSelected').value && !group.pristine)
-   * @param event 
+   * @param event
    */
   override onDeleteHandled(event: any): void {
     if (event) {
@@ -289,10 +290,10 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
           } else {
             this.openPopup();
           }
-        } 
+        }
     })} else {
       this.openPopup();
     }
   }
-  
-} 
+
+}

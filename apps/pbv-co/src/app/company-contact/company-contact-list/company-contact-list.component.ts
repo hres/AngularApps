@@ -19,7 +19,8 @@ import { RecordFormGroup } from '../../../../../../projects/hpfb/sdk/ui';
   selector: 'app-company-contact-list',
   templateUrl: './company-contact-list.component.html',
   styleUrl: './company-contact-list.component.css',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class CompanyContactListComponent extends BaseListComponent<ContactRecord>{
   recordService: IRecordService;
@@ -32,7 +33,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   statusMessage : string = '';
   errorList;
-  
+
   statusMessageSave : string = '';
   statusMessageDiscard: string = '';
   statusMessageDelete: string = '';
@@ -53,7 +54,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   @ViewChildren(CompanyContactItemComponent) itemComponents: QueryList<CompanyContactItemComponent>;
 
 
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder,
               private _contactService: CompanyContactService,
               private _contactDetailsService: ContactDetailsService,
               private _errorNotifService: ErrorNotificationService,
@@ -78,7 +79,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     } else {
       this.statusMessageSave = this.statusMessageDelete = 'du représentant de la compagnie';
       this.statusMessageDiscard = 'au représentant de la compagnie'
-    }  
+    }
   }
 
   override ngAfterViewInit(): void {
@@ -98,8 +99,8 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
        group.controls['expandFlag'].setValue(true);
        group.markAsDirty();
        group.markAsTouched();
-      } 
-    }     
+      }
+    }
   }
 
   protected _patchRecordInfoValue(form, outputModel: ContactRecord) {
@@ -140,7 +141,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   /**
    * Deprecated
-   * @param  
+   * @param
    */
   // handleRemoveRoleError(event : any) {
   //   // event: unchecked role
@@ -182,7 +183,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
     // console.log('...._processErrorSummaries:', errSummaryEntries);
-    // get the first entry where the errSummaryMessage property is not empty 
+    // get the first entry where the errSummaryMessage property is not empty
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
     const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId.startsWith("contactListTable"));
     if (filteredErrSummaryEntry) {
@@ -191,7 +192,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
       this.errorSummaryChild = null;
     }
     this.emitErrors();
-  } 
+  }
 
 
   protected emitErrors(): void {
@@ -230,7 +231,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     if (!this.recordFormArray || this.recordFormArray.length === 0) {
       return false;
     }
-    
+
     return this.recordFormArray.controls.some((group: FormGroup) => {
       const isRoleSelectedControl = group.get('companyInfo.isRoleSelected');
       return !isRoleSelectedControl?.value;
@@ -262,7 +263,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
           } else {
             this.openPopup();
           }
-        } 
+        }
     })} else {
       this.openPopup();
     }

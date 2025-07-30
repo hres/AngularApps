@@ -13,7 +13,8 @@ import { CompanyAddressItemService } from './company-address-item.service';
   selector: 'app-company-address-item',
   templateUrl: './company-address-item.component.html',
   styleUrl: './company-address-item.component.css',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class CompanyAddressItemComponent extends BaseComponent{
   @Input() cRRow: FormGroup;
@@ -26,7 +27,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   @Output() rolesUpdated = new EventEmitter<CheckboxOption[]>();
   @Output() removeRoleError = new EventEmitter();
   @Output() deleteHandled = new EventEmitter();
-  
+
   helpIndex: HelpSequence;
   popupId = 'address-discard-warning'
 
@@ -34,7 +35,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   provinceList: ICode[] = [];
   stateList: ICode[] = [];
   lang = this._globalService.currLanguage;
-  
+
   public companyRolesOptionList: CheckboxOption[] = [];
   public companyRolesCodeList: ICode[] = [];
 
@@ -51,7 +52,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   private _discardIndex : number;
   private _deleteIndex : number;
-  
+
   private _previouslyDisabled : boolean;
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
@@ -77,13 +78,13 @@ export class CompanyAddressItemComponent extends BaseComponent{
   async ngOnInit(): Promise<void> {
     this.countryList = this._globalService.countryList;
     this.provinceList = this._globalService.provinceList;
-    this.stateList = this._globalService.stateList; 
+    this.stateList = this._globalService.stateList;
     this.companyRolesCodeList = this._globalService.companyRolesList;
     this.helpIndex = this._globalService.helpIndex;
 
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
-   
+
     this._recordDiscardService.discardConfirmed$.subscribe(index => {
       if (index === this._discardIndex) {
         this._handleDiscard();
@@ -103,7 +104,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
     if (changes['cRRow']) {
       this._updateCompanyRolesArray();
     }
-    
+
     if (this.disableForm) {
       this._disableFormGroup();
       this._previouslyDisabled = true;
@@ -128,7 +129,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.cdRef.detectChanges();
   }
 
-  
+
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
     if (list.length >= 1) {
       console.warn('Contact List found >1 Error Summary ' + list.length);
@@ -154,8 +155,8 @@ export class CompanyAddressItemComponent extends BaseComponent{
       this.showErrors = true;
       document.location.href = '#coAddressErrorSummary' + this.j;
     }
-  }  
-  
+  }
+
 
   public revertAddressRecord(index: number, recordId: number): void {
     this._discardIndex = index;
@@ -166,25 +167,25 @@ export class CompanyAddressItemComponent extends BaseComponent{
   private _handleDiscard() {
     const recordId = this.cRRow.get('recordId')?.value;
     const selectedRoles = this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.value ?? [];
-  
+
     if (!recordId || !Array.isArray(selectedRoles)) return;
-  
+
     const validKeys = selectedRoles.map(role => `${recordId}${role}`);
     const current = this.selectedCompanyRoles();
-  
+
     // Keep the roles that belong to other records and this record. This unchecks the roles that has been checked
     const updated = current.filter(entry => {
       const entryRecordId = entry.match(/^\d+/)?.[0]; // Extract prefix digits
       return entryRecordId !== String(recordId) || validKeys.includes(entry);
     });
-  
+
     // Add in the role that was unchecked from last saved state. This checks the role that has been unchecked
-    
+
     // First, check if they are disabled. i.e: selected by other records.
     // If so, say a role could not be discard because it's been selected and do not re-check
     // Check the other role thats not disabled, if any
     const missing = validKeys.filter(key => !updated.includes(key));
-    
+
     // Split missing into those selected by others and those not
     const alreadySelectedByOthers: string[] = [];
     const notSelectedByOthers: string[] = [];
@@ -218,28 +219,28 @@ export class CompanyAddressItemComponent extends BaseComponent{
       this._signalService.setAddressCompanyRoles(updated);
     }
   }
-  
+
   private _patchAndCheckLastSavedRoles(): void {
     const selectedRoles = this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.value ?? [];
     const enabledAndCheckedRoles: string[] = [];
-  
+
     Object.entries(ROLE_INDEX_MAPPING).forEach(([role, index]) => {
       const control = this.companyRolesChkFormArray.at(index);
       const isRoleSelected = selectedRoles.includes(role);
-  
+
       // Only check the box if the role was selected and the control is not disabled
       const shouldCheck = isRoleSelected && !control.disabled;
       control.setValue(shouldCheck);
-  
+
       if (shouldCheck) {
         enabledAndCheckedRoles.push(role);
       }
     });
-  
+
     // Update the selected roles in the form group to reflect only enabled and checked roles
     this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.setValue(enabledAndCheckedRoles);
   }
-  
+
 
   public disabledDiscardButton() {
     if (this.cRRow.get('isNew').value) {
@@ -261,7 +262,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
     const prefixToDelete = this.cRRow.get('recordId').value.toString();
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
     // Remove each matching role
-    rolesToRemove.forEach(role => 
+    rolesToRemove.forEach(role =>
       {
         this._signalService.removeAddressCompanyRole(role)
       });
@@ -272,7 +273,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.cRRow.get('addressInfo.rolesTouched').setValue(true);
     this.cRRow.get('addressInfo.selectedAddressCompanyRoles').setValue(this.selectedCompanyRolesCodes);
     const isChecked = (e.target as HTMLInputElement).checked;
-  
+
     // Get the specific form control using index
     const roleControl = this.companyRolesChkFormArray.at(index);
     const uniqueRole = this.cRRow.get('recordId').value + selectedRole;
@@ -326,7 +327,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
         this.companyRolesChkFormArray.push(new FormControl(false));
       });
     }
-    
+
     this.rolesUpdated.emit(this.companyRolesOptionList);
   }
 
@@ -334,7 +335,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
     const formArray = this.companyRolesChkFormArray;
     // Check if none of the roles are selected
     const noRoles = formArray.controls.every(control => !control.value);
-    
+
     return noRoles;
   }
 
@@ -349,7 +350,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
     }
     return noRoles && allDisabled;
   }
-  
+
   get companyRolesChkFormArray() {
     return this.cRRow.get('addressInfo.addressCompanyRoles') as FormArray;
   }
@@ -374,17 +375,17 @@ export class CompanyAddressItemComponent extends BaseComponent{
   protected override _appendErrorsFromChild() {
     // Method is overriden to place company roles error last, since it is the last field in the record.
     this._coRolesErrors = this.msgList.toArray(); // Includes: Company name and company roles
-  
+
     // Extract all companyRoles errors
     const roleErrors = this._coRolesErrors.filter(error => error.parentId === "coAddress");
-  
+
     // Remove them from the original list
     this._coRolesErrors = this._coRolesErrors.filter(error => error.parentId !== "coAddress");
-  
+
     const combinedErrors = [...this._coRolesErrors, ...this._addressErrorList, ...roleErrors];
     this.emitErrors(combinedErrors);
   }
-  
+
 
   public showErrorSummary(): boolean {
     return (this.showErrors && this.errors.length > 0);
@@ -425,11 +426,11 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   private _disableRoles() {
     const recordId = this.cRRow.get('recordId').value
-  
+
     this.selectedCompanyRoles().forEach(roleWithPrefix => {
       const selectedRecordId = roleWithPrefix.match(/^\d+/)?.[0] ?? '';
       const roleId = roleWithPrefix.slice(selectedRecordId.length);
-    
+
       if (selectedRecordId !== String(recordId)) {
         const mappedIndex = ROLE_INDEX_MAPPING[roleId];
         if (mappedIndex !== undefined) {

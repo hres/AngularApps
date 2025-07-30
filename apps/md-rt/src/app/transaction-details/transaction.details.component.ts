@@ -11,7 +11,8 @@ import { RegulatoryActivityType, AmendReason, DeviceClass, TransactionDesc } fro
 @Component({
   selector: 'transaction-details',
   templateUrl: 'transaction.details.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class TransactionDetailsComponent extends BaseComponent implements OnInit, OnChanges  {
@@ -20,7 +21,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   @Input() showErrors: boolean;
   @Input() transactionInfoModel;
   lang: string;
-  helpIndex: { [key: string]: number }; 
+  helpIndex: { [key: string]: number };
 
   @Output() detailErrorList = new EventEmitter(true);
 
@@ -38,7 +39,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
   constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
     private _utilsService: UtilsService, private cdr: ChangeDetectorRef) {
-    
+
     super();
     this.showFieldErrors = false;
     this.showErrors = false;
@@ -69,7 +70,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   ngOnChanges(changes: SimpleChanges) {
 
     if (changes['showErrors']) {
-      this.showFieldErrors = changes['showErrors'].currentValue;     
+      this.showFieldErrors = changes['showErrors'].currentValue;
     }
 
     if (changes['transactionInfoModel'] && !changes['transactionInfoModel'].firstChange) {
@@ -79,7 +80,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
         this.transDetailsForm = this._detailsService.getReactiveModel(this._fb);
         this.transDetailsForm.markAsPristine();
       }
-      this._detailsService.mapDataModelToDetailForm(dataModel, (<FormGroup>this.transDetailsForm), this.amendReasonList, 
+      this._detailsService.mapDataModelToDetailForm(dataModel, (<FormGroup>this.transDetailsForm), this.amendReasonList,
         this.raTypeDeviceClassAmendReason, this.amendReasonOptionList, this.lang);
 
       const raTypeValue: string = this.activityTypeFormControl.value;
@@ -126,11 +127,11 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     const selectedDeviceClass = this.deviceClassFormControl?.value;
 
     if (selectedRaType && selectedDeviceClass) {
-      this._detailsService.loadAmendReasonOptions(selectedRaType, selectedDeviceClass, this.amendReasonList, this.raTypeDeviceClassAmendReason, 
+      this._detailsService.loadAmendReasonOptions(selectedRaType, selectedDeviceClass, this.amendReasonList, this.raTypeDeviceClassAmendReason,
         this.amendReasonOptionList, this.lang, this.amendReasonChkFormArray);
     } else {
       this.amendReasonOptionList = [];
-    }    
+    }
   }
 
   onOrgManufactureLicblur() {
@@ -174,7 +175,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       }
       if (!this.showMeetingId()) {
         this._utilsService.resetControlsValues(this.transDetailsForm.controls['meetingId'])
-      }      
+      }
   }
 
   amendReasonOnChange() {
@@ -190,7 +191,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       this._utilsService.resetControlsValues(this.transDetailsForm.controls['briefDesc']);
     }
     return false;
-  }    
+  }
 
   showDate(){
     if (this._detailsService.isRequestDateRequired(this.txDescriptionFormControl.value)) {
@@ -199,20 +200,20 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       this._utilsService.resetControlsValues(this.transDetailsForm.controls['requestDate']);
     }
     return false;
-   } 
+   }
 
  // show when Regulatory Activity type is "minor change" and Transaction Description is "Initial" for all classes (I, II, III) or
- // when Regulatory Activity Type is "licence amendment" and Transaction Description is "Initial" for all classes (I, II, III) and for any of the 4 following <Reason for filing this Amendment> : 
+ // when Regulatory Activity Type is "licence amendment" and Transaction Description is "Initial" for all classes (I, II, III) and for any of the 4 following <Reason for filing this Amendment> :
  // - Change to the classification of a device
- // - Change in the licence name  
- // - Change in the device name  
- // - Addition/Deletion/Change 
+ // - Change in the licence name
+ // - Change in the device name
+ // - Addition/Deletion/Change
   showRationale() {
 
     const amendResonsRequireRationale: string[] = [AmendReason.CLASSIFICATION_CHANGE, AmendReason.LICENCE_CHANGE, AmendReason.DEVICE_CHANGE, AmendReason.ADD_DELETE_CHANGE];
 
     if ((this.activityTypeFormControl.value === RegulatoryActivityType.MinorChange && this._isTransactionDescriptionInitial()) ||
-    (this.activityTypeFormControl.value === RegulatoryActivityType.LicenceAmendment && this._isTransactionDescriptionInitial() && 
+    (this.activityTypeFormControl.value === RegulatoryActivityType.LicenceAmendment && this._isTransactionDescriptionInitial() &&
       this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, amendResonsRequireRationale))) {
       return true;
     } else {
@@ -223,7 +224,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   }
 
   // show if Regulatory Activity Type is "licence amendment", Transaction Description is "initial" , Device class is Class II
-  // and amendment reason is Change to the purpose/indication of a device  
+  // and amendment reason is Change to the purpose/indication of a device
   showProposedPurpose() {
     if (this.activityTypeFormControl.value === RegulatoryActivityType.LicenceAmendment &&
       this._isTransactionDescriptionInitial() &&
@@ -260,7 +261,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
     if (activityTypesRequiresAmendReason.includes(selectedRaTypeValue) && this._isTransactionDescriptionInitial() && selectedDeviceClass) {
       return true;
-    } 
+    }
     return false;
   }
 
@@ -271,7 +272,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
     if (activityTypeRequireDeviceName.includes(selectedRaTypeValue) && this._isTransactionDescriptionInitial()) {
       return true;
-    } 
+    }
     return false;
   }
 
@@ -369,6 +370,6 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
   checkDateValidity(event: any): void {
     this._utilsService.checkInputValidity(event, this.transDetailsForm.get('requestDate'), 'invalidDate');
-  }  
+  }
 }
 

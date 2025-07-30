@@ -9,7 +9,8 @@ import { ApplicationInfoDetailsService } from '../application-info-details/appli
 @Component({
   selector: 'app-declaration-conformity',
   templateUrl: './declaration-conformity.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class DeclarationConformityComponent {
   public declarationLocalModel: FormGroup;
@@ -36,14 +37,14 @@ export class DeclarationConformityComponent {
     this.showErrors = false;
     if (!this.declarationLocalModel) {
       this.declarationLocalModel = this._declarationService.getReactiveModel(this._fb);
-    }           
-              
+    }
+
   }
 
   async ngOnInit() {
     this.yesNoList = this._globalService.$yesNoList;
   }
-  
+
   ngAfterViewInit() {
     this.msgList.changes.subscribe(errorObjs => {
       let temp = [];

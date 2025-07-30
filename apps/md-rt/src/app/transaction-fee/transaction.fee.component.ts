@@ -7,7 +7,8 @@ import { TransactionFeeService } from './transaction.fee.service';
 @Component({
   selector: 'transaction-fee',
   templateUrl: 'transaction.fee.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class TransactionFeeComponent extends BaseComponent implements OnInit, OnChanges, AfterViewInit{
@@ -26,7 +27,7 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
   constructor(private _fb: FormBuilder, private _feeService:TransactionFeeService, private _globalService: GlobalService,
               private cdr: ChangeDetectorRef) {
 
-    super();                
+    super();
     this.showFieldErrors = false;
     this.showErrors = false;
 
@@ -78,7 +79,7 @@ export class TransactionFeeComponent extends BaseComponent implements OnInit, On
       this.transFeeForm.controls['billCompanyId'].markAsUntouched();
       this.transFeeForm.controls['billContactId'].setValue(null);
       this.transFeeForm.controls['billContactId'].markAsUntouched();
-    } 
+    }
   }
-  
+
 }
