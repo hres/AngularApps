@@ -175,6 +175,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
   ngOnChanges(changes: SimpleChanges) {
     const isFirstChange = this._utilsService.isFirstChange(changes);
+    this.isVet = this.selectedDossierTypeId() == DOSSIER_TYPE.VETERINARY;
     // Ignore first trigger of ngOnChanges
     if (!isFirstChange) {
       if (changes['showErrors']) {
@@ -202,15 +203,12 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
         this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  `ngOnChanges dossierTypeId ${this.newlySelDossierType} is passed in`)
         const valuesToReset = ['activityLead', 'activityType', 'descriptionType'];
         this._resetControlValues(valuesToReset);
-
-        this.isVet = this.newlySelDossierType == DOSSIER_TYPE.VETERINARY;
         if (this.isVet) {
           this.transctionDetailsForm.controls['activityLead'].setValue(RA_LEAD.VETERINARY);
           this.onRaLeadSelected(RA_LEAD.VETERINARY);
         } else {
           this.onRaLeadSelected(this.transctionDetailsForm.controls['activityLead'].value);
         }
-        this.isVet = this.newlySelDossierType == DOSSIER_TYPE.VETERINARY;
       }
     }
   }
