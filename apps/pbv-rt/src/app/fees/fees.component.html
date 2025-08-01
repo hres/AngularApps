@@ -1,7 +1,7 @@
 <div [formGroup]="feesForm">
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="alert alert-info" role="alert">
-            <p aria-live="polite" [innerHTML]="'fee.pay.notice' | translate"></p>
+        <div class="alert alert-info">
+            <p [innerHTML]="'fee.pay.notice' | translate"></p>
         </div>
     </div>
     <div class="row">
@@ -15,7 +15,7 @@
                     controlId="subClass" label="sub.class" ></control-messages>
             </label>
             <select id="subClass" name="subClass" class="form-control" [formControlName]="'subClass'" (change)="onSubmissionClassSelected($any($event.target).value)">
-                    <option label=" " value=""></option>
+                    <option label="{{ 'select.option'|translate }}" [value]="null"></option>
                     <option *ngFor="let item of submissionClassOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
             </select>
         </div>
@@ -39,7 +39,7 @@
                         <span class="field-name">{{'mitigation.type'|translate }}</span>
                     </label>
                     <select id="mitigationType" name="mitigationType" class="form-control" [formControlName]="'mitigationType'" (change)="onMitigationTypeSelected($any($event.target).value)">
-                            <option label=" " value=""></option>
+                            <option label="{{ 'select.option'|translate }}" [value]="null"></option>
                             <option *ngFor="let item of mitigationTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
                     </select>
                 </div>

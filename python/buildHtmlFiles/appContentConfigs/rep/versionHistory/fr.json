@@ -7,7 +7,23 @@
     ],
     "releases": [
         {
-            "header": "Publication du 6 juin 2025",
+            "header": "Publication du 10 septembre 2025",
+            "details": [
+                {
+                    "template": "Le modèle de transaction réglementaire (TR)<br>Version 5.1.0<br><br><br>Ensemble de feuilles de style*",
+                    "changes": [
+                        "Lorsque le type d’activité réglementaire « Niveau 3 - Déclaration de changements » est sélectionné, le champ du « Numéro de contrôle » devient 000000 et le champ est désactivé",
+                        "Mise à jour des définitions de la description de la transaction de réglementation pour « Procès-verbal de la réunion » et « Demande de réunion préalable à la présentation »",
+                        "Mise à jour de la bulle d’information pour « Numéro de contrôle »",
+                        "Mise à jour de la question de tiers et de la bulle d'information dans section A. Information sur la compagnie",
+                        "Résolution de la « date de fin » qui revenait à la « date de début » lors du chargement du fichier TR existant pour les types de AR : RPEAR-C, RPEAR-VC, RPPV-C, RPPV-VC, RAPB<br><br><br>",
+                        "*Nouvelle feuille de style TR pour correspondre aux modifications apportées à ce modèle"
+                    ]
+                }
+            ]
+        },
+        {
+            "header": "Publication du 3 juin 2025",
             "details": [
                 {
                     "template": "Modèle de compagnie (CO)<br>Version 5.0.0<br><br><br>Ensemble de feuilles de style*",
@@ -15,7 +31,7 @@
                         "Ajout de la bulle d’information pour modèle de compagnie",
                         "Ajout d'instructions concernant la section « Charger un fichier d’inscription de la compagnie »",
                         "Suppression de l'identificateur d'acheminement",
-                        "Ajout  de la question « Sélectionnez un ou plusieurs des cadres réglementaires suivants en vertu duquel/desquels le fabricant/promoteur pourrait déposer une présentation/demande »",
+                        "Ajout  de la question « Sélectionnez un ou plusieurs des cadres réglementaires suivants en vertu duquel/desquels le fabricant/promoteur pourrait déposer une présentation/demande »<br><br><br>",
                         "*Nouvelle feuille de style CO pour correspondre aux modifications apportées à ce modèle"
                     ]
                 }

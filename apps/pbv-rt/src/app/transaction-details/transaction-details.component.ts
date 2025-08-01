@@ -5,7 +5,7 @@ import { TransactionDetailsService } from './transaction-details.service';
 import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
 import { LifecycleRecord } from '../models/transaction';
-import { DOSSIER_TYPE, RA_LEAD, TXN_DESC_ACTION } from '../app.constants';
+import { CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE, DOSSIER_TYPE, LEVEL3_NOTICE_OF_CHANGE, RA_LEAD, TXN_DESC_ACTION } from '../app.constants';
 
 @Component({
   selector: 'app-transaction-details',
@@ -22,6 +22,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   @Input() dataModel: LifecycleRecord;
   @Input() newlySelDossierType: string;
   @Output() errorList = new EventEmitter(true);
+ 
 
   transctionDetailsForm: FormGroup;
 
@@ -38,6 +39,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   }
 
   isVet: boolean = false;
+  isNOC = computed(() => this.selectedRaTypeId() === LEVEL3_NOTICE_OF_CHANGE);
   readonly selectedDossierTypeId: Signal<string> = this._transactionDetailsService.selectedDossierTypeId;
   readonly selectedRaLeadId: Signal<string> = this._transactionDetailsService.selectedRaLeadId;
   readonly selectedRaTypeId: Signal<string> = this._transactionDetailsService.selectedRaTypeId;
@@ -59,6 +61,9 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
           raLeadIds.includes(lead.id)
         );
         this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  'updating raLeadList', `filteredRaLeads ->`, filteredRaLeads);
+        if (!this.selectedRaLeadId()) {
+          this.transctionDetailsForm.controls['activityLead'].setValue(''); //Set the selected value to "select an option"
+        }
         return filteredRaLeads;
       } else {
         this._logger.error(this._globalService.debugEnabled, 'TransactionDetailsComponent', 'updating raLeadList', `found ${filteredDossierTypeAndRaLeads.length} filteredDossierTypeAndRaLeads`);
@@ -231,7 +236,11 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     this._signalService.setSelectedRaType(raTypeId);
     // Clear Transaction Description signals and form values
     this._signalService.setSelectedTxnDesc(""); 
-    this.transctionDetailsForm.controls['descriptionType'].setValue(""); 
+    this.transctionDetailsForm.controls['descriptionType'].setValue("");
+    this.transctionDetailsForm.controls['controlNumber'].setValue(""); 
+    if (this.isNOC()) {
+      this.transctionDetailsForm.controls['controlNumber'].setValue(CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE);
+    }
   }
 
   onTransactionDescriptionSelected(txDescId: string) {
@@ -281,6 +290,10 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     this._resetControlValues(valuesToReset);
   }
 
+  onblur() {
+    // this._loggerService.log('input is typed');
+    //this._saveData();
+  }
   getFormValue() {
     return this.transctionDetailsForm.value;
   }

@@ -1,9 +1,9 @@
 import { computed, inject, Injectable, Signal } from '@angular/core';
-import { UtilsService, ConverterService, ITextLabel, EntityBaseService, ENGLISH, FRENCH } from '@hpfb/sdk/ui';
+import { UtilsService, ConverterService, ITextLabel, EntityBaseService, ENGLISH, FRENCH, ValidationService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LifecycleRecord } from '../models/transaction';
-import { LINE_BREAK, TXN_DESC, TXN_DESC_ACTION } from '../app.constants';
+import { CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE, LEVEL3_NOTICE_OF_CHANGE, LINE_BREAK, TXN_DESC, TXN_DESC_ACTION } from '../app.constants';
 import { AppSignalService } from '../signal/app-signal.service';
 
 @Injectable()
@@ -143,7 +143,7 @@ export class TransactionDetailsService {
       return null;
    }
    return fb.group({
-    controlNumber: [null, [Validators.required, Validators.minLength(6)]],
+    controlNumber: [null, [Validators.required, ValidationService.numeric6Validator]],
     activityLead: [null, [Validators.required]],
     activityType: [null, Validators.required],
     descriptionType: [null, Validators.required],
@@ -151,7 +151,7 @@ export class TransactionDetailsService {
     startDate: [null, Validators.required],
     endDate: [null, Validators.required],
     yearsOfChange: [null, Validators.required],
-    year: [null, [Validators.required, Validators.minLength(4)]],
+    year: [null, [Validators.required, ValidationService.numeric4Validator]],
     requester1: [null, Validators.required],
     requester2: [null],
     requester3: [null],
@@ -281,7 +281,13 @@ export class TransactionDetailsService {
   }
 
   public mapDataModelToFormModel(dataModel: LifecycleRecord, formRecord: FormGroup): void {
-    formRecord.controls['controlNumber'].setValue(dataModel.control_number);
+
+    if (dataModel.regulatory_activity_type?._id === LEVEL3_NOTICE_OF_CHANGE){
+      formRecord.controls['controlNumber'].setValue(CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE);
+    } else {
+      formRecord.controls['controlNumber'].setValue(dataModel.control_number);
+    }
+
 
     if(dataModel.regulatory_activity_lead?._id){
       const id = this._utilsService.getIdFromIdTextLabel(dataModel.regulatory_activity_lead);
@@ -307,9 +313,11 @@ export class TransactionDetailsService {
     // it will be reset based on computed showDateOfRequest()/showStartEndDate() flags in TransactionDetailsComponent.onSequenceDescriptionSelected method
     formRecord.controls['dateOfRequest'].setValue(dataModel.sequence_from_date);
     formRecord.controls['startDate'].setValue(dataModel.sequence_from_date);
-    formRecord.controls['endDate'].setValue(dataModel.sequence_from_date);
+    formRecord.controls['endDate'].setValue(dataModel.sequence_to_date);
     formRecord.controls['briefDescription'].setValue(dataModel.sequence_details);
-    formRecord.controls['briefDescriptionOfChange'].setValue(dataModel.sequence_details_change);
+    if(this.showBriefDescriptionnOfChangeTxnDescs.includes(dataModel.sequence_description_value?._id)){
+      formRecord.controls['briefDescriptionOfChange'].setValue(dataModel.sequence_details_change);
+    }
     formRecord.controls['versionNumber'].setValue(dataModel.sequence_version);
     // load both yearsOfChange and year's value from dataModel.sequence_year, 
     // it will be reset based on computed showYearsOfChange()/showYear() flags in TransactionDetailsComponent.onSequenceDescriptionSelected method

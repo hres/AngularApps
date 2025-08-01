@@ -1,4 +1,5 @@
 <div [formGroup]="cRRow">
+  <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.discard.role.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
     <div id="coContactErrorSummary{{j}}">
       <lib-error-summary *ngIf="showErrorSummary()" [hiddenSummary]="showErrorSummary()"
       [errorList]="errors" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
@@ -20,11 +21,12 @@
           <legend class="required">
             <span class="field-name">{{'select.roles.rep' | translate}}</span>
             <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required']"
-                            [showError]="showErrors"
+            <control-messages *ngIf="companyRolesChkFormArray.invalid && companyRolesChkFormArray.errors?.['required'] || isNoRoleSelectedAndAllDisabled()"
+                            [showError]="showErrors || isNoRoleSelectedAndAllDisabled() || rolesTouched" [attr.aria-live]="showErrors? null: 'assertive'"
                             [control]="companyRolesChkFormArray | formControl"
                             controlId="contactCompanyRoles{{j}}" label="select.roles.rep"
-                            parentId="companyContact"></control-messages>
+                            parentId="companyContact"
+                            [disabledError]="isNoRoleSelectedAndAllDisabled()"></control-messages>
         </legend>
           <ul class="form-group list-unstyled">
           <li class="checkbox" [formArrayName]="'companyRoles'" *ngFor="let reason of companyRolesChkFormArray.controls; let i = index">
@@ -34,7 +36,7 @@
               (change)="companyRolesOnChange($event, representativeRolesOptionList[i].value, i)"/> 
               {{representativeRolesOptionList[i].label}}
               </label>
-              <div>
+              <!-- <div>
                 <control-messages *ngIf="reason.invalid"
                 [showError]="showErrors"
                 [control]="reason | formControl"
@@ -42,7 +44,7 @@
                 [label]="representativeRolesOptionList[i].label"
                 parentId="coContact">
                 </control-messages>
-              </div>
+              </div> -->
           </li>
           </ul>
         </fieldset>

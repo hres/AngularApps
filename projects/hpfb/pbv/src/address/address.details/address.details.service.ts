@@ -20,7 +20,7 @@ export class AddressDetailsService {
       provText: '',
       provState: '',
       city: ['', [Validators.required]],
-      country: [null, [Validators.required]],
+      country: ['', [Validators.required]],
       postal: ['', [Validators.required]]
     });
   }
@@ -90,7 +90,6 @@ export class AddressDetailsService {
 
       this._utilsService.resetControlsValues(record.controls['provText'])
       record.controls['provList'].setValidators([Validators.required]);
-
       if (this._utilsService.isCanada(countryId)) {
         record.controls['postal'].setValidators([Validators.required, ValidationService.canadaPostalValidator]);
         listToReturn = provinceList;

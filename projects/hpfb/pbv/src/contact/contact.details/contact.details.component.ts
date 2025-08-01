@@ -24,6 +24,9 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
 
   @Input() formGroup?: FormGroup;
   @Input() recordId?: number | null = null;
+  @Input() resetFormGroup? : number | null = null;
+  @Input() autocomplete = false;
+
 
   constructor(private _contactDetailsService: ContactDetailsService, private _fb: FormBuilder, private _utilsService: UtilsService) {
     super();
@@ -52,6 +55,12 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
           this._contactDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.contactDetailsForm));
         }       
       }
+
+      if (changes['resetFormGroup']) {
+        if (this.resetFormGroup > 0) {
+          this._resetFormGroup();
+        }
+      }
     }
   }
 
@@ -62,4 +71,9 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   getFormValue() {
     return this.contactDetailsForm.value;
   }
+
+  private _resetFormGroup() : void {
+    this.contactDetailsForm.reset();
+  }
+
 }

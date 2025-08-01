@@ -3,10 +3,9 @@
     <div class="row">
       <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <label for="drugUse" class="required full-width">
-          <span class="field-name">{{ "drug.use" | translate }}</span>
-          <strong class="required" aria-hidden="true">{{
-            "commmon.required.bracket" | translate
-          }}</strong>
+          <span class="field-name">{{ "drug.use" | translate }}
+            <strong class="required" aria-hidden="true">{{"commmon.required.bracket" | translate}}</strong>
+          </span>
           <control-messages
             *ngIf="drugUseForm.controls['drugUse'].invalid"
             [showError]="showFieldErrors"
@@ -23,7 +22,7 @@
           class="form-control full-width"
           [formControlName]="'drugUse'"
         >
-          <option value="" disabled selected>{{ 'select.option'|translate }}</option>
+          <option label="{{ 'select.option'|translate }}"></option>
           <option *ngFor="let drugUse of drugUseOptions" [value]="drugUse.id">
             {{ drugUse | textTransform : lang }}
           </option>

@@ -6,10 +6,14 @@ import { ContactDetailsService } from "@hpfb/pbv";
 import { inject, signal } from "@angular/core";
 import { ContactRecord } from "../models/Company";
 import { ErrorSummaryObject, ERR_TYPE_LEAST_ONE_REC, getEmptyErrorSummaryObj, ValidationService } from "@hpfb/sdk/ui";
+import { lastValueFrom } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class CompanyContactService implements IRecordService{
     _contactDetailsService = inject(ContactDetailsService);
+    _translateService = inject(TranslateService)
+
     contactFormArrValue = signal<any[]>([]);
 
     createRecordFormGroup(fb: FormBuilder): FormGroup<any> {
@@ -24,10 +28,13 @@ export class CompanyContactService implements IRecordService{
             isNew: true,
             expandFlag: true,
             lastSavedState: null, // store the last saved state of the contactInfo for reverting function
+            heading: null,
             companyInfo: fb.group({
                 companyRoles: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
                 selectedCompanyRoles: [''],
-                contactDetails: this._contactDetailsService.getReactiveModel(fb)
+                contactDetails: this._contactDetailsService.getReactiveModel(fb),
+                isRoleSelected: [false],
+                rolesTouched: [false]
                 }, { updateOn: 'change' }
             )
         });
@@ -58,5 +65,24 @@ export class CompanyContactService implements IRecordService{
       
         return oerr;
       }
+
+    public async getHeading(index : number, formGroup : FormGroup): Promise<string> {
+        let fullHeading = '';
+        let fullName = null;
+        const id = index + 1;
+
+        if (formGroup.get('id').value !== -1) {
+            fullName = formGroup.get('companyInfo.contactDetails.fullName')?.value?.trim() ?? '';
+        }
+
+        const heading = await lastValueFrom(
+            this._translateService.get('heading.company.contact', { seqnumber: id })
+        );
+        
+        fullHeading = fullName ? `${heading} - ${fullName}` : heading;
+            
+        return fullHeading;
+    }
+
 
 }

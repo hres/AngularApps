@@ -539,4 +539,4 @@
 		</xsl:choose>
 		</span>
 	</xsl:template>
-</xsl:transform><!-- Stylus Studio meta-information - (c) 2004-2009. Progress Software Corporation. All rights reserved.-->
+</xsl:transform>

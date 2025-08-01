@@ -13,7 +13,7 @@
                     controlId="activityLead" label="activity.lead" parentId="regulatoryInfo"></control-messages>
                 <select id="activityLead" name="activityLead" class="form-control full-width"
                     [formControlName]="'activityLead'" (change)="onRaLeadSelected($any($event.target).value)">
-                    <option label=" " value=""></option>
+                    <option *ngIf="selectedDossierTypeId()" label="{{ 'select.option'|translate }}" value=""></option>
                     <option *ngFor="let lead of raLeadList()" [value]="lead.id"> {{ lead| textTransform: lang }}</option>
                 </select>
             </label>
@@ -35,7 +35,7 @@
             
                 <select id="activityType" name="activityType" class="form-control full-width"
                     [formControlName]="'activityType'" (change)="onRaTypeSelected($any($event.target).value)">
-                    <option label=" " value=""></option>
+                    <option *ngIf="selectedRaLeadId()" label="{{ 'select.option'|translate }}" value=""></option>
                     <option *ngFor="let item of raTypeList()" [value]="item.id"> {{ item| textTransform: lang }}</option>
                 </select>
             </label>
@@ -57,7 +57,7 @@
                 <select id="descriptionType" name="descriptionType" class="form-control full-width"
                     [formControlName]="'descriptionType'"
                     (change)="onTransactionDescriptionSelected($any($event.target).value)">
-                    <option label=" " value=""></option>
+                    <option *ngIf="selectedRaTypeId()" label="{{ 'select.option'|translate }}" value=""></option>
                     <option *ngFor="let item of transactionDescriptionList()" [value]="item.id"> {{ item| textTransform:
                         lang }}</option>
                 </select>
@@ -228,24 +228,24 @@
             </div>
         </fieldset>
 
-    </ng-container>
-
+    </ng-container> 
     <div class="row">
-        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12  minWidth200">
             <label for="controlNumber" class="required">
                 <span class="field-name">{{'ctrl.num'|translate }} {{'six.digits' | translate}}</span>
-                <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid" [showError]="showErrors" 
-                    [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
-                    label="ctrl.num" parentId="regulatoryInfo"></control-messages>
-            </label>
+              <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+              <control-messages *ngIf="transctionDetailsForm.controls['controlNumber'].invalid"
+                                [showError]="showErrors"
+                                [control]="transctionDetailsForm.controls['controlNumber'] | formControl" controlId="controlNumber"
+                                label="ctrl.num" parentId="regulatoryInfo"></control-messages>
             <input id="controlNumber" name="controlNumber" class="form-control" [formControlName]="'controlNumber'"
-                minlength="6" maxlength="6" size="6" data-only-digits/>
-        </div>
-    </div>
+            [readonly]="isNOC()" minlength="6" maxlength="6" size="6" data-only-digits/>
+            </label> 
+          </div>
+    </div> 
     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="alert alert-info" role="alert">
-            <div aria-live="polite"><app-control-number-helptext [lang]="lang" /></div> 
+        <div class="alert alert-info">
+            <div aria-describedby="controlNumber"><app-control-number-helptext [lang]="lang" /></div> 
         </div>
-    </div>    
+    </div>   
 </div>

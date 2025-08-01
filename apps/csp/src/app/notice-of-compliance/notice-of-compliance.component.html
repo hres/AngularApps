@@ -3,12 +3,9 @@
     <div class="row">
         <div class="col-sm-6">
         <label for="nocDate" class="required">
-          <span
-            ><b>{{ "noc.date" | translate }}</b></span
-          >
-          <strong class="required">{{
-            "commmon.required.bracket" | translate
-          }}</strong>
+          <span>{{ "noc.date" | translate }}
+            <strong class="required" aria-hidden="true">{{"commmon.required.bracket" | translate}}</strong>
+          </span>
           <control-messages
             *ngIf="noticeOfComplianceForm.controls['nocDate'].invalid"
             [showError]="showErrors"

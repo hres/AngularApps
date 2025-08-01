@@ -20,6 +20,7 @@ export class FeesComponent extends BaseComponent implements OnInit{
 
   @Input() showErrors: boolean;
   @Input() dataModel: FeeDetails;
+  @Input() resetForm: boolean;
   @Output() errorList = new EventEmitter(true);
 
   submissionClassOptions: ICodeDefinition[] = [];
@@ -62,6 +63,13 @@ export class FeesComponent extends BaseComponent implements OnInit{
       this._feesService.mapDataModelToFormModel(
         dataModelCurrentValue,
         <FormGroup>this._getFeesForm());
+
+        this.onSubmissionClassSelected(dataModelCurrentValue.submission_class ? dataModelCurrentValue.submission_class._id : null);
+    }
+
+    if (changes['resetForm'] && changes['resetForm'].currentValue) {
+      // Trigger form reset when resetForm is true
+      this.resetFormGroup();
     }
   }
 
@@ -96,4 +104,10 @@ export class FeesComponent extends BaseComponent implements OnInit{
       this._utilsService.resetControlsValues(this.feesForm.controls[controlNames[i]]);
     }
   }
+
+  resetFormGroup() {
+    this.feesForm.reset();
+    this._signalService.setMitigationType(null);
+  }
+
 }

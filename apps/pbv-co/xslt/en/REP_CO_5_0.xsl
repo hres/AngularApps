@@ -261,7 +261,7 @@ span.mouseHover:hover {
 	
 	<!-- Company Enrolment -->
 	<xsl:template match="COMPANY_ENROL">
-		<h1>Company Template: Regulatory Enrolment Process (REP) for human and veterinary drugs and biocides <xsl:if test="software_version != ''">(version: <xsl:value-of select="software_version"/>)</xsl:if></h1>
+		<h1>Company Template: Regulatory Enrolment Process (REP) for human and veterinary drugs and biocides <xsl:if test="software_version != ''">(version <xsl:value-of select="software_version"/>)</xsl:if></h1>
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -401,7 +401,7 @@ span.mouseHover:hover {
                                         </xsl:choose>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Roles: </strong>
+                                                <strong>Select one or more roles for this company: </strong>
                                                 <span class="mouseHover">
                                                     <xsl:call-template name="addressRoles"/>
                                                 </span>
@@ -489,7 +489,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Email: </strong>
+                                                <strong>Email address: </strong>
                                                 <span class="mouseHover">
                                                     <xsl:value-of select="company_contact_details/email" />
                                                 </span>
@@ -497,7 +497,7 @@ span.mouseHover:hover {
 						                </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <strong>Roles: </strong>
+                                                <strong>Select one or more roles for this company representative: </strong>
                                                 <span class="mouseHover">
                                                     <xsl:call-template name="contactRoles"/>
                                                 </span>
@@ -513,9 +513,10 @@ span.mouseHover:hover {
 							<h2 class="panel-title">Regulatory frameworks</h2>
 						</div>
 						<div class="panel-body">
+                            <strong>Select one or more of the following regulatory frameworks under which the manufacturer/sponsor company will be filling submissions/applications: </strong>
                             <xsl:for-each select="product_line_checkbox/product_line">
                                 <div class="row">
-                                    <div class="col-xs-12">
+                                    <div class="col-xs-8">
                                         <span class="mouseHover">
                                             <span class="c-checkbox">X </span>
                                             <xsl:value-of select="@label_en" />

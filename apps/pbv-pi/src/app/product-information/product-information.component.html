@@ -91,9 +91,9 @@
         <fieldset class="col-md-12 chkbxrdio-grp">
           <legend class="required">
             6. {{'is.admin.submission' |translate}}
-            <sup [id]="helpIndex['adminSubIndx'][2]">
-                <a class="fn-lnk" [href]="'#' + helpIndex['adminSubIndx'][1]"><span
-                  class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminSubIndx'][0]}}</a>
+            <sup [id]="helpIndex['adminCompInx'][2]">
+                <a class="fn-lnk" [href]="'#' + helpIndex['adminCompInx'][1]"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminCompInx'][0]}}</a>
             </sup>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -130,9 +130,9 @@
         <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chkbxrdio-grp form-inline">
             <legend>
                 7. {{'address.to.send' |translate}}
-                <sup [id]="helpIndex['addrToSendIndx'][2]">
-                    <a class="fn-lnk" [href]="'#' + helpIndex['addrToSendIndx'][1]"><span
-                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['addrToSendIndx'][0]}}</a>
+                <sup [id]="helpIndex['addressSentIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['addressSentIndx'][1]"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['addressSentIndx'][0]}}</a>
                 </sup>
               </legend>
               <div class="row">

@@ -11,7 +11,7 @@
                               controlId="{{contactType}}FirstName" label="first.name" parentId="{{contactType}}Info"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
           </label>
-          <input name="firstName" id="{{contactType}}FirstName" class="form-control full-width" maxlength="60" 
+          <input name="firstName" id="{{contactType}}FirstName" class="form-control full-width" maxlength="60"
               [formControlName]="'firstName'"/>
         </div>
         <div class="form-group col-sm-6" >
@@ -24,7 +24,7 @@
                               controlId="{{contactType}}LastName" label="last.name" parentId="{{contactType}}Info"
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
           </label>
-          <input name="lastName" id="{{contactType}}LastName" class="form-control full-width" maxlength="60" 
+          <input name="lastName" id="{{contactType}}LastName" class="form-control full-width" maxlength="60"
               [formControlName]="'lastName'"/>
         </div>
       </div>
@@ -83,15 +83,15 @@
       <div class="row">
         <div class="form-group col-sm-6">
           <label class="full-width" for="{{contactType}}FaxNumber">
-            <span class="field-name">{{'fax.number' |translate }}</span><br/>
-            <span class="field-name small">{{'fax.number.nofaxnum' |translate }}</span>
-            <control-messages *ngIf="contactDetailsForm.controls['faxNumber'].invalid" [showError]="showFieldErrors"
+            <span class="field-name">{{'fax.number' |translate }}</span>
+              <control-messages *ngIf="contactDetailsForm.controls['faxNumber'].invalid" [showError]="showFieldErrors"
               [control]="contactDetailsForm.controls['faxNumber'] | formControl" controlId="{{contactType}}FaxNumber" label="fax.number"
               parentId="{{contactType}}Info" requiredLength="10"
               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
           </label>
           <input name="faxNumber" id="{{contactType}}FaxNumber" class="form-control full-width" data-only-digits maxlength="25"
                    [formControlName]="'faxNumber'"/>
+          <strong class="field-name small">{{'fax.number.nofaxnum' |translate }}</strong>
         </div>
       </div>
       <div class="row">
@@ -107,7 +107,7 @@
           </label>
           <input name="email" id="{{contactType}}Email" class="form-control full-width" maxlength="80" [formControlName]="'email'" />
         </div>
-        
+
       </div>
     </div>
   </div>

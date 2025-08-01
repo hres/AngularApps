@@ -3,7 +3,7 @@
     <div class="row">
       <div class="form-group col-sm-4">
         <label for="appReceived">
-          <span><b>{{ "hco.app.received" | translate }}</b></span>
+          <span>{{ "hco.app.received" | translate }}</span>
           <control-messages
             *ngIf="hcUseOnlyForm.controls['appReceived'].invalid"
             [showError]="showErrors"
@@ -18,7 +18,7 @@
 
       <div class="form-group col-sm-4">
         <label for="custNum"  >
-          <span><b>{{ "hco.cust.num" | translate }}</b></span>
+          <span>{{ "hco.cust.num" | translate }}</span>
           <control-messages
             *ngIf="hcUseOnlyForm.controls['custNum'].invalid"
             [showError]="showErrors"
@@ -34,7 +34,7 @@
 
       <div class="form-group col-sm-4">
         <label for="appNum">
-          <span><b>{{ "hco.app.num" | translate }}</b></span>
+          <span>{{ "hco.app.num" | translate }}</span>
           <control-messages
             *ngIf="hcUseOnlyForm.controls['appNum'].invalid"
             [showError]="showErrors"
@@ -52,7 +52,7 @@
     <div class="row">
       <div class="form-group col-sm-12">
         <label for="notes">
-        <span><b>{{ "hco.notes" | translate }}</b></span>
+        <span>{{ "hco.notes" | translate }}</span>
         <control-messages
           *ngIf="hcUseOnlyForm.controls['notes'].invalid"
           [showError]="showErrors"

@@ -19,8 +19,11 @@ export class AccordionComponent {
   // https://stackoverflow.com/questions/41510470/pass-scope-data-into-ng-content-in-angular2
   @ContentChild('tmpl') tmplRef: TemplateRef<any>;
 
+  accordionState: string = 'collapsed';
+
   toggleExpand(index:number,  expanded: boolean) {
     this.rowClicked.emit({ index: index, state: expanded }) 
+    this.accordionState = expanded ? "collapsed" : "expanded";
   }
 
   constructor() {}
