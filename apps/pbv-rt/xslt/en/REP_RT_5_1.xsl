@@ -30,7 +30,7 @@
 				<tr>
 					<th style="text-align: center;font-weight:bold;">Company Identifier </th>
 					<th style="text-align: center;font-weight:bold;">Dossier type</th>
-					<th style="text-align: center;font-weight:bold;">Dossier identifier </th>
+					<th style="text-align: center;font-weight:bold;">Dossier Identifier </th>
 					<th style="text-align: center;font-weight:bold;">Date last saved</th>
 				</tr>
 				<tr>
@@ -327,10 +327,8 @@
 								</div>
 								<div class="col-xs-12">
 									<strong>Submission description: </strong>
-									<div class="col-xs-12">
-										<span>
+									<div>
 											<xsl:value-of select="fee_details/submission_description/@label_en" disable-output-escaping="yes"/>
-										</span>
 									</div>
 								</div>
 							</div>
@@ -340,13 +338,14 @@
 							<div class="row">
 								<div class="form-group col-xs-12 h3 text-info">Mitigation measures</div>
 	
-									<div class="col-xs-12">
-										<div class="col-xs-12">
-											<span class="mouseHover">
-												<xsl:value-of
-													select="fee_details/mitigation/mitigation_type/@label_en" />
-											</span>
-										</div>
+								<div class="col-xs-12">
+									<div>
+										<span class="mouseHover">
+											<xsl:value-of
+												select="fee_details/mitigation/mitigation_type/@label_en" />
+										</span>
+									</div>
+								</div>
 								<div class="col-xs-12">
 									<xsl:if	test="fee_details/mitigation/mitigation_type/@id = 'SMALL_BUSINESS'">
 										<strong><xsl:call-template name="hp-checkbox">
@@ -357,7 +356,7 @@
 												Health Canada prior to submitting this submission/application. We understand that failure to
 												register as a small business prior to submitting this submission/application will result in
 												the full fee being charged.</strong>
-										<div class="col-xs-12">
+										<div>
 										<strong>We have not previously filed a submission/application in respect of a drug with Health Canada. We are filing our first submission/application.</strong>
 											<span class="mouseHover">
 												<xsl:call-template name="YesNoUnknow">
@@ -373,7 +372,7 @@
 												select="fee_details/mitigation/certify_urgent_health_need" />
 										</xsl:call-template>
 										We certify that the drug in our submission/application is on the List of Drugs for an Urgent Public Health Need as per the Access to Drugs in Exceptional Circumstances Regulations and:</strong>
-										<div class="col-xs-12">
+										<div>
 											<ol class="lst-lwr-alph">
 												<li>the drug has the same medicinal ingredient,	strength and route of administration, and is in a comparable dosage form, as a drug that may be imported under subsection C.10.001(2) of those Regulations;</li>
 												<li>no drug identification number has been assigned	under section C.01.014.2 of those Regulations for the drug or for another drug that has the	same medicinal ingredient, strength and route of administration and is in a comparable dosage form; and</li>
@@ -387,7 +386,7 @@
 												select="fee_details/mitigation/certify_funded_health_institution" />
 										</xsl:call-template>
 										We certify that our institution is funded by the Government of Canada or the government of a province or territory and that it is</strong>
-										<div class="col-xs-12">
+										<div>
 											<ol class="lst-lwr-alph">
 												<li>licensed, approved or designated by a province in accordance with the laws of the province to provide care or treatment to persons or animals suffering from any form of disease or illness; or</li>
 												<li>owned or operated by the Government of Canada or the government of a province and that provides health services.</li>
@@ -410,7 +409,6 @@
 									</xsl:if>
 								</div>
 							</div>
-						</div>
 						</div>
 						</xsl:if>
 					</div>
