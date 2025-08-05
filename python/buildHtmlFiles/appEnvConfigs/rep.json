@@ -2,7 +2,7 @@
     "environments": {
         "dev": "https://lam-dev.hres.ca/rep-dev/",
         "prod": {
-            "internal": "https://lam-dev.hres.ca/REP-Form/",
+            "internal": "https://health-products.canada.ca/rep-pir/",
             "external": "https://health-products.canada.ca/rep-pir/"
         }
     },
@@ -47,8 +47,8 @@
                 "fr": "company/internal/fr/companyINT-fr.html"
             },
             "rt": {
-                "en": "v44/transaction/regulatory-transaction.html",
-                "fr": "v44/transaction/réglementaire-transaction.html"
+                "en": "transaction/en/regulatory-transaction.html#def-top",
+                "fr": "transaction/fr/réglementaire-transaction.html#def-top"
             },
             "pi": {
                 "en": "v44/product/product.html",
