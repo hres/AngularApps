@@ -111,7 +111,7 @@
     "ht.comp.id.1": "The company identifier can be obtained from the latest Health Canada issued final company XML file, or the 'company code' found on the Annual Drug Notification Form (ADNF).",
     "ht.comp.id.2": "The company identifier must be 5 digits, add leading zero when required.",
     "ht.dossier.id": "Dossier Identifier - The dossier identifier is a code created by Health Canada to uniquely identify the dossier.  For existing dossiers the dossier ID can be verified from the Drug Submission Tracking System \u2013 Industry Access (DSTS-IA).  If a dossier ID has not yet been assigned, sponsors must request for one using the appropriate form, available on the REP information webpage.",
-    "ht.dossier.id.0": "The format of a dossier identifier is a letter followed by six digits. (for example x######). For example in this field you would need to enter one of the following depending on the dossier type:",
+    "ht.dossier.id.0": "The format of a dossier identifier is a letter followed by six digits. For example, in this field you would need to enter one of the following depending on the dossier type:",
     "ht.dossier.id.1": "eCTD formatted dossier - e######",
     "ht.dossier.id.2": "Non-eCTD formatted dossier for division 1 human drugs - d######",
     "ht.dossier.id.3": "Non-eCTD formatted dossier for division 8 human drugs - p######",
