@@ -1,5 +1,5 @@
 {
-    "version": "version ",
+    "version": "Version ",
     "top.fromHC": "De <a href='https://www.canada.ca/fr/sante-canada.html'>Santé Canada</a>",
     "top.privacy.statement": "Énoncé de confidentialité",
     "top.security.declaimer": "Avis de non-responsabilité concernant la sécurité",
@@ -24,7 +24,7 @@
     "msg.err.jsonparse": "Il y a eu une erreur en analysant le fichier de travail.",
     "msg.err.file.load": "Il y a eu un problème lors du chargement du fichier.",
     "msg.err.file.type": "Erreur : Un type de fichier invalide a été sélectionné.",
-    "msg.err.form.type": " : le type de formulaire incorrect a été sélectionné pour ce formulaire.",
+    "msg.err.form.type": "Erreur : le type de formulaire incorrect a été sélectionné pour ce formulaire.",
     "msg.err.checksum": "Erreur : il y a eu une erreur en analysant le fichier.",
     "error.msg.invalidDate": "Cette date n'est pas valide",
     "return.instruction": "Revenir à la référence de l'instruction",

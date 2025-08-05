@@ -469,7 +469,7 @@
         "en": "GMP compliance issue raised by other regulators",
         "fr": "Problèmes de conformité aux BPF relevés par d'autres organismes de réglementation",
         "defEn": "When notifying Health Canada about issues/concerns with media fill failures, sterility, violation of GMPs, out of specifications results (example: failure of appearance test due to visible particles), potency assay, stability, etc. which are not subject to submission filing.",
-        "defFr": "Lorsqu'il s'agit de notifier à Santé Canada des problèmes/préoccupations concernant des défauts de remplissage du support, la stérilité, le non-respect des BPF, les résultats non conformes (exemple : échec du test de défaillance d'apparence en raison de particules visibles), les essais de puissance, la stabilité, etc. qui ne sont pas soumis à la présentation."
+        "defFr": "Lorsqu'il s'agit de notifier à Santé Canada des problèmes/préoccupations concernant des défauts de remplissage du support, la stérilité, le non-respect des BPF, les résultats non conformes (exemple: échec du test de défaillance d'apparence en raison de particules visibles), les essais de puissance, la stabilité, etc. qui ne sont pas soumis à la présentation."
     },
     {
         "id": "RECLASS_LOT_RELEASE",
