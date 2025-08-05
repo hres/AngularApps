@@ -37,7 +37,7 @@
 
     "panel.title.reg.contact": "Personne-ressource pour cette activité réglementaire",
     "company.info": "A. Information sur la compagnie",
-    "is.signed.3rd.party":"Le contact pour cette activité de réglementation est-il un tiers agissant au nom du fabricant / sponsor?",
+    "is.signed.3rd.party":"Le contact pour cette activité de réglementation est-il un tiers agissant au nom du fabricant / sponsor ?",
     "aut.letter.note":"Un formulaire d'autorisation d'une tierce partie est requise dans le cadre de la transaction initiale/première de chaque activité réglementaire, lorsque le contact réglementaire pour cette activité est une tierce partie agissant au nom du fabricant/promoteur.",
     "company.name":"Nom de la compagnie (nom légal complet)",
     "address.info": "B. Information d'adresse",
@@ -111,7 +111,7 @@
     "ht.comp.id.1": "Le numéro de la compagnie peut être obtenu à partir du dernier fichier XML de compagnie émis par Santé Canada, ou du « code de compagnie » figurant dans le formulaire annuel de notification des médicaments (FADN).",
     "ht.comp.id.2": "Le numéro de la compagnie doit comprendre 5 chiffres. Ajoutez un zéro au début, si nécessaire.",
     "ht.dossier.id": "Le numéro de dossier - Le numéro de dossier est un code créé par Santé Canada pour identifier le dossier de façon unique. Si inconnu, un numéro de dossier peut être obtenu auprès du Système de suivi des présentations de drogues - Accès à l'industrie (DSTS-IA). Si un numéro de dossier n'a pas encore été attribué, les promoteurs devraient poser une demande en utilisant le formulaire approprié, disponible sur la page web d'information du PIR.",
-    "ht.dossier.id.0": "Le format de numéro de dossier est une lettre minuscule suivie de six chiffres . Par exemple, dans ce champ, veuillez saisir l'un des éléments suivants en fonction du type de dossier :",
+    "ht.dossier.id.0": "Le format de numéro de dossier est une lettre minuscule suivie de six chiffres. Par exemple, dans ce champ, veuillez saisir l'un des éléments suivants en fonction du type de dossier :",
     "ht.dossier.id.1": "Dossier formaté eCTD - e######",
     "ht.dossier.id.2": "Dossier formaté non-eCTD pour la division 1 médicaments à usage humain - d######",
     "ht.dossier.id.3": "Dossier formaté non-eCTD pour la division 8 médicaments à usage humain - p######",
