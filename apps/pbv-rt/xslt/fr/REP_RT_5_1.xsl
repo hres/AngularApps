@@ -21,7 +21,7 @@
 	</xsl:template>
 	<!-- Transaction Enrolment -->
 	<xsl:template match="TRANSACTION_ENROL">
-		<h1>Modèle de transaction réglementaire: Processus d'inscription réglementaire (PIR)<xsl:if test="software_version != ''"> (version <xsl:value-of select="software_version"/>)</xsl:if></h1>
+		<h1>Modèle de transaction réglementaire : Processus d'inscription réglementaire (PIR)<xsl:if test="software_version != ''"> (version <xsl:value-of select="software_version"/>)</xsl:if></h1>
 					<div class="well well-sm" >
 						<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 							<tr>
@@ -80,14 +80,14 @@
 						<xsl:if test="ectd/dossier_type/@id = 'D21' or ectd/dossier_type/@id = 'D22'">
 							<div class="row">
 								<div class="col-xs-12">
-									<strong> Cette activité de réglementation a-t-elle été approuvée aux fins d’examen prioritaire? </strong>
+									<strong> Cette activité de réglementation a-t-elle été approuvée aux fins d’examen prioritaire ? </strong>
 									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_priority"/></xsl:call-template>
 									</span>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-xs-12">
-									<strong> Cette activité de réglementation a-t-elle été approuvée aux fins d’examen pour un AC-C?  </strong>
+									<strong> Cette activité de réglementation a-t-elle été approuvée aux fins d’examen pour un AC-C ?  </strong>
 									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_noc"/></xsl:call-template>
 									</span>
 								</div>
@@ -95,7 +95,7 @@
 						</xsl:if>
 						<div class="row">
 							<div class="col-xs-12">
-								<strong> S'agit-il d'une demande administrative ou d'une présentation? </strong>
+								<strong> S'agit-il d'une demande administrative ou d'une présentation ? </strong>
 								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_admin_sub"/></xsl:call-template>
 								</span>
 							</div>
@@ -262,10 +262,8 @@
 							</div>
 							<div class="col-xs-12">
 								<strong>Description de la présentation :</strong>
-								<div class="col-xs-12">
-								<span>
-								<xsl:value-of select="fee_details/submission_description/@label_fr" disable-output-escaping="yes"/>
-								</span>
+								<div>
+									<xsl:value-of select="fee_details/submission_description/@label_fr" disable-output-escaping="yes"/>
 								</div>
 							</div>
 						</div>
@@ -275,7 +273,7 @@
 						<div class="row">
 							<div class="form-group col-xs-12 h3 text-info">Mesures d'atténuation</div>
 							<div class="col-xs-12">
-								<div class="col-xs-12">
+								<div>
 									<span class="mouseHover"><xsl:value-of select="fee_details/mitigation/mitigation_type/@label_fr"/></span>
 								</div>
 							</div>
@@ -284,7 +282,7 @@
 								<strong><xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_small_business"/></xsl:call-template>
 								Nous certifions que nous répondons à la définition de petites entreprises et que nous avons enregistré notre entreprise auprès de Santé Canada avant de soumettre cette soumission ou demande. Nous comprenons que le fait de ne pas s'inscrire en tant que petite entreprise avant de soumettre cette soumission ou demande entraînera l'inscription intégrale à la totalité des frais.</strong>
 								
-								<div class="col-xs-12">
+								<div>
 								<strong>Nous n'avons pas encore déposé de demande d'un médicament auprès de Santé Canada. Nous sommes en train de déposer notre première demande de traitement de médicaments.</strong>
 								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="fee_details/mitigation/small_business_fee_application"/></xsl:call-template></span>
 								</div>
@@ -292,7 +290,7 @@
 							<xsl:if test="fee_details/mitigation/mitigation_type/@id = 'URGENT_HEALTH_NEED'">
 								<strong><xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="fee_details/mitigation/certify_urgent_health_need"/></xsl:call-template>
 								Nous certifions que le médicament faisant l’objet de la présentation ou de la demande se trouve dans la liste des médicaments utilisés pour des besoins urgents en matière de santé publique conformément au Règlement sur l’accès aux médicaments dans des circonstances exceptionnelles, et que :</strong>
-								<div class="col-xs-12">
+								<div>
 								<ol class="lst-lwr-alph">
 									<li>Le médicament comporte le même ingrédient médicinal, la même concentration et la même voie d’administration, ainsi qu’une forme dosifiée comparable, qu’un médicament qui pourrait être importé en vertu du paragraphe C.10.001(2) de ce règlement;</li>
 									<li>Aucun numéro d’identification de médicament n’a été attribué en vertu de l’article C.01.014.2 de ce règlement pour ce médicament ou pour un autre médicament qui comporte le même ingrédient médicinal, la même concentration et la même voie d’administration et est offert dans une forme dosifiée comparable;</li>
@@ -333,7 +331,7 @@
                     <div class="well well-sm" >
                         <div class="row">
                             <div class="col-xs-12">
-                                <strong>Le contact pour cette activité de réglementation est-il un tiers agissant au nom du fabricant / sponsor? </strong>
+                                <strong>Le contact pour cette activité de réglementation est-il un tiers agissant au nom du fabricant / sponsor ? </strong>
                                 <span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="is_third_party"/></xsl:call-template>
                                 </span>
                             </div>
