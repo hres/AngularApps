@@ -11,6 +11,7 @@ import { CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE, DOSSIER_TYPE, LEVEL3_NOTICE_OF_CHA
   selector: 'app-transaction-details',
   templateUrl: './transaction-details.component.html',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class TransactionDetailsComponent extends BaseComponent implements OnInit {
 
@@ -22,7 +23,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   @Input() dataModel: LifecycleRecord;
   @Input() newlySelDossierType: string;
   @Output() errorList = new EventEmitter(true);
- 
+
 
   transctionDetailsForm: FormGroup;
 
@@ -103,9 +104,9 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   // Regulatory Transaction Description drodropdown list is computed based on the selected Regulatory Activity Lead and the selected Regulatory Activity Type
   transactionDescriptionList: Signal<ICodeDefinition[]> = computed(() => {
     if (this.selectedRaLeadId() && this.selectedRaTypeId()) {
-      this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  
+      this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',
         'updating transactionDescriptionList',  'this.selectedRaLeadId()',this.selectedRaLeadId(), 'this.selectedRaTypeId()', this.selectedRaTypeId());
-      // filter the raLeadRaTypeAndTxnDescrs dataset by raLeadId 
+      // filter the raLeadRaTypeAndTxnDescrs dataset by raLeadId
       const filteredRaLeadRaTypeAndTxnDescs =
         this._globalService.raLeadRaTypeAndTxnDescrs.filter(
           (item) =>
@@ -114,7 +115,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       if (filteredRaLeadRaTypeAndTxnDescs.length === 1) {
         const matrix = filteredRaLeadRaTypeAndTxnDescs[0].matrix;
         this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  'updating transactionDescriptionList',  'filteredRaLeadRaTypeAndTxnDescs[0].matrix ->', matrix);
-        // filter matrix by raTypeId 
+        // filter matrix by raTypeId
         const filteredMatrix = matrix.filter(
             (item) =>
               item.raTypeId === this.selectedRaTypeId());
@@ -190,7 +191,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
           <FormGroup>this.transctionDetailsForm
         );
         this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  `ngOnChanges uploaded values ...
-          activityLead=${this.transctionDetailsForm.controls['activityLead'].value}, 
+          activityLead=${this.transctionDetailsForm.controls['activityLead'].value},
           activityType=${this.transctionDetailsForm.controls['activityType'].value}
           descriptionTyp=${this.transctionDetailsForm.controls['descriptionType'].value}`);
 
@@ -233,9 +234,9 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  'onRaTypeSelected activity type id:', raTypeId);
     this._signalService.setSelectedRaType(raTypeId);
     // Clear Transaction Description signals and form values
-    this._signalService.setSelectedTxnDesc(""); 
+    this._signalService.setSelectedTxnDesc("");
     this.transctionDetailsForm.controls['descriptionType'].setValue("");
-    this.transctionDetailsForm.controls['controlNumber'].setValue(""); 
+    this.transctionDetailsForm.controls['controlNumber'].setValue("");
     if (this.isNOC()) {
       this.transctionDetailsForm.controls['controlNumber'].setValue(CONTROL_NUM_LEVEL3_NOTICE_OF_CHANGE);
     }
@@ -244,7 +245,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   onTransactionDescriptionSelected(txDescId: string) {
     this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  'onTransactionDescriptionSelected transaction description id:', txDescId);
     this._signalService.setSelectedTxnDesc(txDescId);
-    
+
     this._resetActionsValues();
   }
 
@@ -252,39 +253,39 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     let keysToKeep: string[] = [];
     if (this.showDateOfRequest()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_DATEOFREQUEST);
-    } 
+    }
     if (this.showStartEndDate()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_STARTENDDATE);
-    } 
+    }
     if (this.showRequesters()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_REQUESTERS);
-    } 
+    }
     if (this.showYearsOfChange()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_YEARSOFCHANGE);
-    } 
+    }
     if (this.showYear()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_YEAR);
-    } 
+    }
     if (this.showVersionNum()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_VERSIONNUM);
-    } 
+    }
     if (this.showBriefDescription()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_BRIEFDESCRIPTION);
-    } 
+    }
     if (this.showBriefDescriptionOfChange()) {
       keysToKeep.push(TXN_DESC_ACTION.SHOW_BRIEFDESCRIPTIONOFCHANGE);
     }
 
     // Collect all the values to remove from actionFlagFieldsMap based on these keys
     let valuesToKeep: string[] = [];
-    
+
     keysToKeep.forEach(key => {
       valuesToKeep = valuesToKeep.concat(this._transactionDetailsService.actionFlagFieldsMap[key] || []);
     });
 
     // Filter out the fields that exist in valuesToKeep
     const valuesToReset = this._transactionDetailsService.actionFieldsArray.filter(field => !valuesToKeep.includes(field));
-    this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  'onTransactionDescriptionSelected', '_resetActionsValues ->', valuesToReset); 
+    this._logger.log(this._globalService.debugEnabled, 'TransactionDetailsComponent',  'onTransactionDescriptionSelected', '_resetActionsValues ->', valuesToReset);
     this._resetControlValues(valuesToReset);
   }
 
@@ -306,9 +307,9 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       console.log("here");
       this.transctionDetailsForm.controls['endDate'].setErrors({'error.msg.endDate' : true});
     } else {
-      this._utilsService.checkInputValidity(event, this.transctionDetailsForm.get(inputName),'invalidDate');    
+      this._utilsService.checkInputValidity(event, this.transctionDetailsForm.get(inputName),'invalidDate');
     }
-  } 
+  }
 
   private _getCodeDefinition(codeDefinitionList: ICodeDefinition[], id: string){
     return this._utilsService.getCodeDefinitionByIdByLang(id, codeDefinitionList, this.lang)

@@ -13,10 +13,11 @@ import { PbvValidationService } from '@hpfb/pbv';
   templateUrl: './regulatory-information.component.html',
   styles: [],
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class RegulatoryInformationComponent extends BaseComponent implements OnInit {
   lang: string;
-  helpIndex: HelpSequence; 
+  helpIndex: HelpSequence;
 
   @Input() showErrors: boolean;
   @Input() dataModel: TransactionEnrol;
@@ -56,7 +57,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
   selectedAdminSubTypeDefinition: string = '';
 
-  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder, 
+  constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder,
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -65,7 +66,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
-    
+
     if (!this.regulartoryInfoForm) {
       this.regulartoryInfoForm = RegulatoryInformationService.getRegularInfoForm(this._fb);
     }
@@ -102,7 +103,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
           dataModelCurrentValue,
           <FormGroup>this.regulartoryInfoForm);
 
-        this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value); 
+        this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value);
         this.onAdminSubmissionSelected(this.regulartoryInfoForm.controls['isAdminSubmission'].value, true);
         this.onAdminSubTypeSelected(this.regulartoryInfoForm.controls['adminSubType'].value);
       }
@@ -147,7 +148,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
       event.preventDefault(); // Block invalid input
     }
   }
-  
+
   getFormValue() {
     const regInfoFormValues = this.regulartoryInfoForm.value;
     const tranDetailsFormValues = this.tranDetailsChild.getFormValue();
