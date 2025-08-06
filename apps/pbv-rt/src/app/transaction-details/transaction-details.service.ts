@@ -319,10 +319,12 @@ export class TransactionDetailsService {
       formRecord.controls['briefDescriptionOfChange'].setValue(dataModel.sequence_details_change);
     }
     formRecord.controls['versionNumber'].setValue(dataModel.sequence_version);
-    // load both yearsOfChange and year's value from dataModel.sequence_year, 
-    // it will be reset based on computed showYearsOfChange()/showYear() flags in TransactionDetailsComponent.onSequenceDescriptionSelected method
-    formRecord.controls['yearsOfChange'].setValue(dataModel.sequence_year);
-    formRecord.controls['year'].setValue(dataModel.sequence_year);
+    if (this.showYearsOfChangeTxnDescs.includes(dataModel.sequence_description_value?._id)) {
+      formRecord.controls['yearsOfChange'].setValue(dataModel.sequence_year);
+    }
+    if (this.showYearTxnDescs.includes(dataModel.sequence_description_value?._id)) {
+      formRecord.controls['year'].setValue(dataModel.sequence_year);
+    }
     formRecord.controls['requester1'].setValue(this._compareRequesterText(dataModel.requester_name));
     formRecord.controls['requester2'].setValue(this._compareRequesterText(dataModel.requester_name2));
     formRecord.controls['requester3'].setValue(this._compareRequesterText(dataModel.requester_name3));
