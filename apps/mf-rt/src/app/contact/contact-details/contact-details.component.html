@@ -45,14 +45,8 @@
           </select>
         </div>
         <div class="form-group col-sm-6">
-          <label for="{{contactType}}JobTitle" class="required full-width">
+          <label for="{{contactType}}JobTitle" class="full-width">
             <span class="field-name">{{'job.title'|translate}}</span>
-            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="contactDetailsForm.controls['jobTitle'].invalid"
-                              [showError]="showFieldErrors"
-                              [control]="contactDetailsForm.controls['jobTitle'] | formControl"
-                              controlId="{{contactType}}JobTitle" label="job.title" parentId="{{contactType}}Info"
-                              translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
         </label>
         <input name="jobTitle" id="{{contactType}}JobTitle" class="form-control full-width" maxlength="60" [formControlName]="'jobTitle'"/>
         </div>
