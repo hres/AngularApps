@@ -24,8 +24,8 @@
   "panel.title.fees": "Master file fees",
   "panel.title.certification": "Certification",
   "required": "This field is required",
-  "error.msg.minlength": "Minimum length {{ requiredLength }} numbers",
-  "error.mgs.dossier.id": "Invalid entry - must be in format 1234-567",
+  "error.msg.minlength": "Minimum length {{ requiredLength }} digits",
+  "error.mgs.dossier.id": "Invalid entry - must be a lowercase letter followed by 6 or 7 digits",
   "error.mgs.company.id": "Please specify a valid manufacturer company identifier.",
   "error.mgs.regu.contact.id": "Please specify a valid regulatory manufacturer contact identifier.",
   "error.mgs.incorrectFormat": "Invalid entry - must be in format 1234-567",
@@ -34,7 +34,6 @@
   "error.msg.phone": "Minimum length 10 digits",
   "error.msg.email": "Invalid entry - must be in format example@domain.com",
   "error.msg.fax": "Minimum length 10 digits",
-  "error.msg.account": "Invalid entry - must be 5 digits",
   "error.msg.business": "Invalid entry - must be 9 digits",
   "error.msg.invalidDate": "The date is not valid",
   "commmon.required.bracket": " (required)",
@@ -114,5 +113,6 @@
   "postal.not.applicable":"(use “not applicable” if not available)",
   "req.revision":"Did the clarification request require you to revise the transaction description?",
   "revised.transaction.description":"Revised transaction description",
-  "purpose.of.collection":"Health Canada requires the personal information to process regulatory application forms. The information you provide may be used to contact you to verify provided information, to assess the feasibility of enrolling companies, dossiers, and track regulatory activities and transactions."
+  "purpose.of.collection":"Health Canada requires the personal information to process regulatory application forms. The information you provide may be used to contact you to verify provided information, to assess the feasibility of enrolling companies, dossiers, and track regulatory activities and transactions.",
+  "error.mgs.5.numeric": "Invalid entry - must be exactly 5 digits"
 }
