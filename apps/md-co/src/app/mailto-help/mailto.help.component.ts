@@ -4,12 +4,13 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation }
   selector: 'app-mailto-help',
   templateUrl: 'mailto.help.component.html',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class MailtoHelpComponent implements OnChanges{
   @Input() email : string;
   @Input() subject : string;
   @Input() lang : string;
-  
+
   public subjectParam: string = '';
   public emailParam: string = '';
 

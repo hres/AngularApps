@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable, map, shareReplay, tap} from 'rxjs';
 import { DATA_PATH } from '../app.constants';
-import { DataLoaderService, UtilsService } from '@hpfb/sdk/ui';
-import { ICode, ICodeDefinition, IKeyword } from '@hpfb/sdk/ui/data-loader/data';
+import { DataLoaderService, ICode, ICodeDefinition, IKeyword, UtilsService } from '@hpfb/sdk/ui';
+
 
 @Injectable()
 export class CompanyDataLoaderService {
@@ -39,7 +39,7 @@ export class CompanyDataLoaderService {
           // tap(()=>console.log('getKeywordList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedKeywords$;
   }
 
@@ -51,7 +51,7 @@ export class CompanyDataLoaderService {
           // tap(()=>console.log('getCountryList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedCountries$;
   }
 
@@ -63,7 +63,7 @@ export class CompanyDataLoaderService {
           // tap(()=>console.log('getProvinceList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedProvinces$;
   }
 
@@ -75,7 +75,7 @@ export class CompanyDataLoaderService {
           // tap(()=>console.log('getStateList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedStates$;
   }
 
@@ -86,7 +86,7 @@ export class CompanyDataLoaderService {
           // tap(()=>console.log('getAmendReasonList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedAmendReasons$;
   }
 
@@ -97,10 +97,10 @@ export class CompanyDataLoaderService {
           // tap(()=>console.log('getContactStatusesList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedContactStatuses$;
-  } 
-  
+  }
+
   getEnrollmentStatusesList(): Observable<ICode[]> {
     if (!this.cachedEnrollmentStatuses$) {
       this.cachedEnrollmentStatuses$ = this._dataService.getData<ICode>(this.enrollmentStatusesJsonPath)
@@ -108,7 +108,7 @@ export class CompanyDataLoaderService {
           // tap(()=>console.log('getEnrollmentStatusesList() is called')),
           shareReplay(1)
         );
-    } 
+    }
     return this.cachedEnrollmentStatuses$;
   }
 

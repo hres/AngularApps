@@ -11,7 +11,8 @@ import { EnrollmentStatus} from '../app.constants';
 @Component({
   selector: 'com-gen-info',
   templateUrl: 'company.info.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
@@ -54,7 +55,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     this.detailsChanged = 0;
     // this._loggerService.log('company.info', 'onInit', 'this.isInternal: ' + this.isInternal);
 
-    
+
     this._formDataLoader.getKeywordList().subscribe((keywords) => {
       try {
         // this._loggerService.log('company.info', 'onInit', keywords);
@@ -75,7 +76,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
 
     });
 
-    
+
   }
 
   ngAfterViewInit() {
@@ -170,10 +171,10 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private _saveData(): void{
-    this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel), this.genInfoModel, this.selectedAmendReasonCodes, 
+    this._companyInfoService.mapFormModelToDataModel((<FormGroup>this.generalInfoFormLocalModel), this.genInfoModel, this.selectedAmendReasonCodes,
       this.amendReasonCodeList, this.lang, this.enrollmentStatusesList);
   }
-  
+
   amendReasonOnChange(){
     this._saveDataAndEmitGenInfoChangeFlag();
   }

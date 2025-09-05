@@ -15,7 +15,8 @@ import { ICode, UtilsService, ControlMessagesComponent, ErrorSummaryComponent, E
   templateUrl: './company-contact-record.component.html',
   styleUrls: ['./company-contact-record.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 
 })
 export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
@@ -47,13 +48,13 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public isNew: boolean;
   public showErrSummary: boolean;
   private errorSummaryChild: ErrorSummaryComponent = null;
-  
+
   public headingLevel = 'h4';
   headingPreamble: string = "heading.contactDetails";
   headingPreambleParams: any;
   translatedParentLabel: string;
 
-  constructor( private cdr: ChangeDetectorRef, private _utilsService: UtilsService, 
+  constructor( private cdr: ChangeDetectorRef, private _utilsService: UtilsService,
     private _detailsService: ContactDetailsService, private _translateService: TranslateService, private _errorNotificationService: ErrorNotificationService) {
     this.showErrors = false;
     this.showErrSummary = false;
@@ -85,7 +86,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
     this._errorNotificationService.updateErrorSummary(this.contactRecordModel.controls['id'].value, this.errorSummaryChild);
- 
+
     // this._emitErrors();
   }
   /***
@@ -157,7 +158,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this._emitErrors();
     this.contactRecordModel.markAsPristine();
   }
- 
+
   public setStatusToRevise(): void {
     this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Revise, this.contactStatusList, this.lang, true);
     this.saveContactRecord(ContactStatus.Revise);
@@ -174,7 +175,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   public saveContactRecord(contactStatus?: ContactStatus): void {
-    // console.log("====>saveContactRecord ", this.errorList);  
+    // console.log("====>saveContactRecord ", this.errorList);
     if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
       if (contactStatus) {
         this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
@@ -197,13 +198,13 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // when user clicks the "Acitve Contact" button, if the current Contact Status is "REVISE", 
-  // it will show the "error.msg.revise.contact" error 
+  // when user clicks the "Acitve Contact" button, if the current Contact Status is "REVISE",
+  // it will show the "error.msg.revise.contact" error
   // if that is the only error on the record, we will allow user to continue to "Active Contact"
   private _recordInvalidExcemption(contactStatus?: ContactStatus){
     let returnValue: boolean = false;
     if (contactStatus) {
-      if (contactStatus===ContactStatus.Active && this.errorList.length===1 && this.errorList[0].currentError === "error.msg.revise.contact") 
+      if (contactStatus===ContactStatus.Active && this.errorList.length===1 && this.errorList[0].currentError === "error.msg.revise.contact")
       returnValue =  true;
     }
     return returnValue;
@@ -254,7 +255,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public isContactSetToRemove(): boolean {
     return (this.isContactStatus(ContactStatus.Remove));
   }
-    
+
   get contactDetailsForm() {
     return this.contactRecordModel.get('contactDetails') as FormGroup;
   }
@@ -263,6 +264,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     const contStatusValue = this.contactDetailsForm.controls['status'].value;
     return contStatusValue===status;
   }
-  
+
 
 }
