@@ -10,7 +10,8 @@ import { ICode, UtilsService, ControlMessagesComponent } from '@hpfb/sdk/ui';
 @Component({
   selector: 'app-contact-details',
   templateUrl: 'contact.details.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 /**
@@ -19,7 +20,7 @@ import { ICode, UtilsService, ControlMessagesComponent } from '@hpfb/sdk/ui';
 export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input('group') public contactDetailForm: FormGroup;    // contact detail form will use the reactive model passed in from the contact record component
-  @Input() recordId: string; 
+  @Input() recordId: string;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
   @Input() isInternal: boolean;
@@ -67,7 +68,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
 
   ngOnChanges(changes: SimpleChanges) {
     // console.log(this._utilsService.checkComponentChanges(changes));
-    
+
     if (changes['showErrors']) {
       this.showFieldErrors = changes['showErrors'].currentValue;
       let temp = [];
