@@ -68,7 +68,7 @@
         </label>
         <select id="{{addrType}}Country" required [formControlName]="'country'" class="required form-control"
                 (change)="onCountryChange($event)">
-          <option label=" " value=""></option>
+          <option label="{{ 'select.option'|translate }}" [value]="null"></option>
           <option *ngFor="let ctry of countryList" [value]="ctry.id">{{ ctry| textTransform: lang }}</option>
         </select>
       </div>

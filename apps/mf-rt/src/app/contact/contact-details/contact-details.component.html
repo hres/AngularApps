@@ -40,7 +40,7 @@
                               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
           </label>
           <select id="{{contactType}}Language" required class="form-control" [formControlName]="'language'">
-            <option label=" " value=""></option>
+            <option label="{{ 'select.option'|translate }}" [value]="null"></option>
             <option *ngFor="let langOption of languageList" [value]="langOption.id">{{langOption | textTransform: lang }}</option>
           </select>
         </div>

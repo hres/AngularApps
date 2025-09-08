@@ -115,5 +115,6 @@
   "req.revision":"La demande de clarification vous a-t-elle obligé à réviser la description de la transaction?",
   "revised.transaction.description":"Description de la transaction révisée",
   "purpose.of.collection":"Santé Canada a besoin des renseignements personnels pour traiter les formulaires de demande réglementaire. Les informations que vous fournissez peuvent être utilisées pour vous contacter afin de vérifier les informations fournies, d'évaluer la faisabilité de l'inscription d'entreprises, de dossiers et de suivre les activités et transactions réglementaires.",
-  "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres"
+  "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres",
+  "select.option": "Sélectionnez une option"
 }

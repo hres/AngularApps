@@ -57,7 +57,7 @@
               </label>
               <select id="masterFileUse" name="masterFileUse" required class="form-control full-width"
                   [formControlName]="'masterFileUse'">
-                  <option label=" " value=""></option>
+                  <option label="{{ 'select.option'|translate }}" [value]="null"></option>
                   <option *ngFor="let mfUse of mfUseOptions" [value]="mfUse.id"> {{ mfUse| textTransform: lang }}</option>
               </select>
           </div>
@@ -108,7 +108,7 @@
                 <select id="descriptionType" name="descriptionType" required class="form-control full-width"
                     (change)="onTxDescriptionSelected($any($event.target).value)"
                     [formControlName]="'descriptionType'">
-                    <option label=" " value=""></option>
+                    <option *ngIf="selectedMfTypeDefinition" label="{{ 'select.option'|translate }}" [value]="null"></option>
                     <option *ngFor="let desc of txDescOptions" [value]="desc.id"> {{ desc | textTransform: lang }}
                     </option>
                 </select>
@@ -182,7 +182,7 @@
                 </label>
                 <select id="revisedDescriptionType" name="revisedDescriptionType" required class="form-control full-width"
                     [formControlName]="'revisedDescriptionType'">
-                    <option label=" " value=""></option>
+                    <option label="{{ 'select.option'|translate }}" [value]="null"></option>
                     <option *ngFor="let desc of revTxDescOptions" [value]="desc.id"> {{ desc | textTransform: lang }}
                     </option>
                 </select>
