@@ -6,7 +6,7 @@
           <span class="field-name">{{'company.name.full'|translate}}</span>
           <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['companyName'].invalid"
-                            [showError]="showFieldErrors"
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
                             [control]="addressForm.controls['companyName'] | formControl"
                             controlId="{{addrType}}CompanyName" label="company.name.full" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
@@ -33,7 +33,7 @@
           <span class="field-name">{{'addressDetails.street'|translate}}</span>
           <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['address'].invalid"
-                            [showError]="showFieldErrors"
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
                             [control]="addressForm.controls['address'] | formControl"
                             controlId="{{addrType}}Address" label="addressDetails.street" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
@@ -48,7 +48,7 @@
           <span class="field-name">{{'addressDetails.city'|translate}}</span>
           <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['city'].invalid"
-                            [showError]="showFieldErrors"
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
                             [control]="addressForm.controls['city'] | formControl"
                             controlId="{{addrType}}City" label="addressDetails.city" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
@@ -61,7 +61,7 @@
           <span class="field-name">{{'addressDetails.country'|translate}}</span>
           <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['country'].invalid"
-                            [showError]="showFieldErrors"
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
                             [control]="addressForm.controls['country'] | formControl"
                             controlId="{{addrType}}Country" label="addressDetails.country" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
@@ -79,7 +79,7 @@
           <span class="field-name">{{provinceLabel |translate}}</span>
           <strong *ngIf="isCanadaOrUSA()" class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['provState'].invalid"
-                            [showError]="showFieldErrors"
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
                             [control]="addressForm.controls['provState'] | formControl"
                             controlId="{{addrType}}ProvState" label="{{provinceLabel}}" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
@@ -102,7 +102,7 @@
           <span *ngIf="!isCanadaOrUSA()" class="field-name small">{{'postal.not.applicable' |translate }}</span>
           <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['postal'].invalid"
-                            [showError]="showFieldErrors"
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
                             [control]="addressForm.controls['postal'] | formControl"
                             controlId="{{addrType}}Postal" label="{{postalLabel}}" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
