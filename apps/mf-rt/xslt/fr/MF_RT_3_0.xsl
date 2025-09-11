@@ -416,7 +416,7 @@ span.normalWeight {
   <!-- Transaction Enrolment -->
   <xsl:template match="TRANSACTION_ENROL">
     <h1>Formulaire de demande de fiches maîtresses
-      <xsl:if test="software_version != ''">(Version: <xsl:value-of select="software_version"/>)
+      <xsl:if test="software_version != ''">(version: <xsl:value-of select="software_version"/>)
       </xsl:if>
     </h1>
     <div class="well well-sm">
@@ -464,7 +464,7 @@ span.normalWeight {
           <div class="col-xs-12">
             <strong>Type de la fiche maîtresse:&#160;</strong>
             <span class="mouseHover normalWeight">
-              <xsl:value-of select="ectd/lifecycle_record/regulatory_activity_type" />
+              <xsl:value-of select="ectd/lifecycle_record/regulatory_activity_type/@label_fr" />
             </span>
           </div>
         </div>
@@ -472,7 +472,7 @@ span.normalWeight {
           <div class="col-xs-12">
             <strong>Usage du fiche maîtresse:&#160;</strong>
             <span class="mouseHover normalWeight">
-              <xsl:value-of select="ectd/lifecycle_record/master_file_use" />
+              <xsl:value-of select="ectd/lifecycle_record/master_file_use/@label_fr" />
             </span>
           </div>
         </div>
@@ -480,7 +480,7 @@ span.normalWeight {
           <div class="col-xs-12">
             <strong>Description de la transaction:&#160;</strong>
             <span class="mouseHover normalWeight">
-              <xsl:value-of select="ectd/lifecycle_record/sequence_description_value" />
+              <xsl:value-of select="ectd/lifecycle_record/sequence_description_value/@label_fr" />
             </span>
           </div>
         </div>
@@ -519,7 +519,7 @@ span.normalWeight {
             <div class="col-xs-12">
               <strong>Description de la transaction révisée:&#160;</strong>
               <span class="mouseHover normalWeight">
-                <xsl:value-of select="ectd/lifecycle_record/revised_trans_desc" />
+                <xsl:value-of select="ectd/lifecycle_record/revised_trans_desc/@label_fr" />
               </span>
             </div>
           </div>
@@ -782,13 +782,13 @@ span.normalWeight {
       <div class="col-xs-6">
         <strong>Pays:&#160;</strong>
         <span class="mouseHover normalWeight">
-          <xsl:value-of select="$value/country"/>
+          <xsl:value-of select="$value/country/@label_fr"/>
         </span>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Province:&#160;</strong>
+        <strong>Province ou état:&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:if test="$value/province_lov != ''">
             <xsl:value-of select="$value/province_lov"/>
@@ -859,7 +859,7 @@ span.normalWeight {
         </span>
       </div>
       <div class="col-xs-6">
-        <strong>Courriel :&#160;</strong>
+        <strong>Adresse de courriel:&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/email"/>
         </span>
