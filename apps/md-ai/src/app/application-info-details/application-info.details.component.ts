@@ -10,7 +10,8 @@ import { DeviceClass, ActivityType, Compliance} from '../app.constants';
 @Component({
   selector: 'app-info-details',
   templateUrl: 'application-info.details.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, AfterViewInit {
@@ -22,7 +23,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
   @Input() helpTextSequences;
   @Input() loadFileIndicator;
   @Output() detailErrorList = new EventEmitter(true); // For processing app info details errors
-  @Output() resetMaterialErrorList = new EventEmitter(true); // To reset material errors 
+  @Output() resetMaterialErrorList = new EventEmitter(true); // To reset material errors
   @Output() resetDeclarationError = new EventEmitter(true); // Reset declaration error
   @Output() resetPriorityRevError = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
@@ -103,7 +104,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       }
       this.detailErrorList.emit(temp);
     }
-   
+
     if (changes['appInfoModel']) {
       const dataModel = changes['appInfoModel'].currentValue;
       if (!this.appInfoFormLocalModel) {
@@ -121,7 +122,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       !this.isDeviceIV()) {
       this._detailsService.deviceClassIV.set(false);
       this.resetMaterialErrorList.emit(true);
-    } 
+    }
 
     if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
       this.isDeviceIV()) {
@@ -131,7 +132,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
     if (!this.appInfoFormLocalModel.controls['deviceClass'].value ||
       !this.isDeviceIII()) {
       this._detailsService.deviceClassIII.set(false);
-    } 
+    }
 
     if (this.appInfoFormLocalModel.controls['deviceClass'].value &&
       this.isDeviceIII()) {
@@ -210,7 +211,7 @@ export class ApplicationInfoDetailsComponent implements OnInit, OnChanges, After
       const valuesToReset = ['din', 'npn'];
       this._resetControlValues(valuesToReset);
     }
-    
+
   }
 
   isOtherPharmacopeia() {

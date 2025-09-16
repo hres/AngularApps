@@ -13,6 +13,7 @@ import { AddressDetailsComponent, ContactDetailsComponent, IContact, INameAddres
   templateUrl: './regulatory-contact.component.html',
   styles: [],
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   lang:string;
@@ -21,7 +22,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   provinceList: ICode[] = [];
   stateList: ICode[] = [];
   helpIndex: HelpSequence;
-  
+
   public regulatoryContactInfoForm: FormGroup;
   @Input() showErrors: boolean;
   @Input() dataModel: TransactionEnrol;
@@ -43,7 +44,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
   showCompanyAndAddress : boolean = true;
   private _signed3rdPartyChanged : boolean = false;
 
-  constructor(private _regulatoryContactService: RegulatoryContactService, private _fb: FormBuilder, 
+  constructor(private _regulatoryContactService: RegulatoryContactService, private _fb: FormBuilder,
     private _utilsService: UtilsService, private _globalService: GlobalService, private _signalService:AppSignalService) {
     super();
     this.showFieldErrors = false;
@@ -59,7 +60,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
     this.languageList = this._globalService.languageList;
     this.countryList = this._globalService.countryList;
     this.provinceList = this._globalService.provinceList;
-    this.stateList = this._globalService.stateList; 
+    this.stateList = this._globalService.stateList;
 
     this.yesNoList = this._globalService.yesnoList;
   }
@@ -149,7 +150,7 @@ export class RegulatoryContactComponent extends BaseComponent implements OnInit{
     if (index !== -1 && index !== errors.length - 1) {
       // Remove the element from its current position
       const [removedElement] = errors.splice(index, 1);
-      
+
       // Add the element back at the end of the array
       errors.push(removedElement);
     }

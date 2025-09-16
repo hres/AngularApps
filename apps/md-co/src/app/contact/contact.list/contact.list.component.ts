@@ -17,7 +17,8 @@ import { Contact } from '../../models/Enrollment';
   selector: 'app-contact-list',
   templateUrl: './contact.list.component.html',
   styleUrls: ['./contact.list.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 
 })
 export class ContactListComponent extends RecordListBaseComponent implements OnInit, OnChanges, AfterViewInit {
@@ -46,8 +47,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   popupId='contactPopup';
 
   statusMessage : string = '';
-  
-  constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService, 
+
+  constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService,
     private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService) {
     super();
     this.contactListForm = this._listService.getReactiveModel(_fb);     // it's an empty formArray
@@ -82,7 +83,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
     // console.log('...._processErrorSummaries:', errSummaryEntries);
-    // get the first entry where the errSummaryMessage property is not empty 
+    // get the first entry where the errSummaryMessage property is not empty
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
     const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage);
     // console.log('....', filteredErrSummaryEntry);
@@ -92,7 +93,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       this.errorSummaryChild = null;
     }
     this._emitErrors(true);
-  }  
+  }
 
   // /**
   //  * Updates the error list to include the error summaries. Messages upwards
@@ -136,7 +137,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     if (changes['contactStatusList']) {
       this.initWithData();
     }
-      
+
   }
 
   private initWithData(){
@@ -148,7 +149,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       if ( !this.contactModel || this.contactModel.length === 0 ) {
         this._createFormContact();
       } else {
-        this._listService.createFormRecordList(this.contactModel, this._fb, this.contactList, this.isInternal); 
+        this._listService.createFormRecordList(this.contactModel, this._fb, this.contactList, this.isInternal);
         if (this.isInternal) {
           this._expandNextInvalidRecord();
         } else {
@@ -192,7 +193,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       }
     }
     setTimeout(() => {
-      document.getElementById(contactFocus).focus()  
+      document.getElementById(contactFocus).focus()
     }, 0);
     this.showErrors = false;
   }
@@ -220,8 +221,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       if (element.controls['id'].value===recordId) {
         element.controls['expandFlag'].setValue(false);
         break;
-      } 
-    }  
+      }
+    }
 
     // when it runs to here, it means no errors for the contact record, so we should also remove its ErrorSummary if there is any
     this._errorNotificationService.removeErrorSummary(recordId.toString());
@@ -238,9 +239,9 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
         this.statusMessage = "Enregistrement du contact " + (recordId + 1) + " a été sauvegardé."
       }
     }
-    
+
     setTimeout(() => {
-      document.getElementById('addContactBtn').focus()  
+      document.getElementById('addContactBtn').focus()
     }, 0);
 
     this.contactsUpdated.emit(this.contactModel);
@@ -254,8 +255,8 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       if (element.invalid) {
         element.controls['expandFlag'].setValue(true);
         break;
-      } 
-    }     
+      }
+    }
   }
   /**
    *  Updates the error list
@@ -312,10 +313,10 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     let recordId = record.controls.id.value;
 
     let modelRecord = this._listService.getModelRecord(recordId);
-    if (!modelRecord) { 
+    if (!modelRecord) {
       modelRecord = this._listService.getEmptyContactModel();
       modelRecord.id = recordId;
-    } 
+    }
     let rec = this.getRecord(recordId, this.contactList);
     if (rec) {
       this._recordService.mapDataModelFormModel(modelRecord, rec);
@@ -400,7 +401,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * check if its record exists
    */
   public disableAddButton(): boolean {
-    // console.log("form is invalid: ", !this.contactListForm.valid,  "form has errors: ", this.errorList.length>0, 
+    // console.log("form is invalid: ", !this.contactListForm.valid,  "form has errors: ", this.errorList.length>0,
     //   "form is dirty: ", this.contactListForm.dirty);
     return ( !this.contactListForm.valid  || this.errorList.length > 0 ||  this.contactListForm.dirty );
   }
@@ -429,7 +430,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     return true;
   }
 
-  handleRowClick(event: any) {  
+  handleRowClick(event: any) {
     const clickedIndex = event.index;
     const clickedRecordState = event.state;
 

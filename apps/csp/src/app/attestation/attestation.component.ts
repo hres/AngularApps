@@ -27,6 +27,7 @@ import { AttestationTypeForSubmission } from './AttestationEnum';
   styleUrl: './attestation.component.css',
   providers: [AttestationService],
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class AttestationComponent
   extends BaseComponent

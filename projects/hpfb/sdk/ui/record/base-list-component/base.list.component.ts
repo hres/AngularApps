@@ -12,7 +12,8 @@ import { RecordDiscardService } from "../record-action-service/record-discard.se
 import { RecordDeleteService } from "../record-action-service/record-delete.service";
 
 @Component({
-    template: ''
+    template: '',
+    standalone: false
 })
 export abstract class BaseListComponent<T extends OutputRecord> extends BaseComponent implements IBaseList<T>, AfterViewInit {
     @Input() recordList: T[];

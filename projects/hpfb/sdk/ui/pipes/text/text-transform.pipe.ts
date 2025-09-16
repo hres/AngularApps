@@ -5,7 +5,8 @@ import { ICode } from '../../data-loader/data';
 // take an ICode value and return either en or fr value based on lang
 
 @Pipe({
-  name: 'textTransform'
+    name: 'textTransform',
+    standalone: false
 })
 export class TextTransformPipe implements PipeTransform {
 

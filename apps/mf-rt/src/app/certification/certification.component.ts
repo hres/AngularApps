@@ -9,18 +9,19 @@ import { CertificationService } from './certification.service';
   templateUrl: './certification.component.html',
   styleUrl: './certification.component.css',
   encapsulation: ViewEncapsulation.None,
+  standalone:false
 })
 export class CertificationComponent extends BaseComponent implements OnInit{
 
   lang: string;
-  helpIndex: HelpIndex; 
+  helpIndex: HelpIndex;
   public showFieldErrors: boolean = false;
   public certificationForm: FormGroup;
 
   @Input() showErrors: boolean;
   @Output() errorList = new EventEmitter(true);
 
-  constructor(private _certificationService: CertificationService, private _fb: FormBuilder, private _utilsService: UtilsService, 
+  constructor(private _certificationService: CertificationService, private _fb: FormBuilder, private _utilsService: UtilsService,
     private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
@@ -55,7 +56,7 @@ export class CertificationComponent extends BaseComponent implements OnInit{
 
   checkDateValidity(event: any): void {
     this._utilsService.checkInputValidity(event, this.certificationForm.get('submitDate'), 'invalidDate');
-  }  
+  }
 
   getFormValue() {
     return this.certificationForm.value;

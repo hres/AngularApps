@@ -13,7 +13,8 @@ import { ErrorNotificationService } from '@hpfb/sdk/ui';
 @Component({
     selector: 'app-device-list',
     templateUrl: './device-list.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
@@ -33,9 +34,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
   statusMessage : string = '';
 
-  constructor(private fb: FormBuilder, 
-              private _utilsService: UtilsService, 
-              private _globalService: GlobalService, 
+  constructor(private fb: FormBuilder,
+              private _utilsService: UtilsService,
+              private _globalService: GlobalService,
               private _deviceService : DeviceService,
               private _errorDeviceNotificationService : ErrorNotificationService) {
 
@@ -49,7 +50,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -64,7 +65,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       this._updateLocalErrorList(errorObjs);
     });
     this.msgList.notifyOnChanges();
-    
+
     this._errorDeviceNotificationService.errorSummaryChanged$.subscribe((errors) => {
       this._processErrorSummaries(errors);
     });
@@ -72,7 +73,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
     // console.log('...._processErrorSummaries:', errSummaryEntries);
-    // get the first entry where the errSummaryMessage property is not empty 
+    // get the first entry where the errSummaryMessage property is not empty
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
     // console.log("processing error summary in contact list component...", errSummaryEntries);
     const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && !summary.errSummaryMessage.componentId.startsWith("materialListTable"));
@@ -83,7 +84,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       this.errorSummaryChild = null;
     }
     this._emitErrors();
-  } 
+  }
 
   addDevice() {
     this._deviceService.showDeviceErrorSummaryOneRec.set(false);
@@ -98,17 +99,17 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       deviceFocus = "deviceName" + 0;
     }
     setTimeout(() => {
-      document.getElementById(deviceFocus).focus()  
+      document.getElementById(deviceFocus).focus()
     }, 0);
   }
 
-  saveDeviceRecord(event: any) {  
+  saveDeviceRecord(event: any) {
     const index = event.index;
 
     const group = this.devicesFormArr.at(index) as FormGroup;
     // if this is a new record, assign next available id, otherwise, use it's existing id
     const id = group.get('isNew').value? this.deviceListService.getNextId(): group.get('id').value
-    group.patchValue({ 
+    group.patchValue({
       id: id,
       isNew: false,
       expandFlag: false,    // collapse this record
@@ -134,7 +135,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       this.statusMessage = "Enregistrement d’intrument " + id + " a été sauvegardé.";
     }
     setTimeout(() => {
-      document.getElementById('addDeviceBtn').focus()  
+      document.getElementById('addDeviceBtn').focus()
     }, 0);
   }
 
@@ -146,8 +147,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       group.controls['expandFlag'].setValue(true);
       this.deviceListForm.markAsDirty();
        break;
-     } 
-   }     
+     }
+   }
  }
 
   deleteDeviceRecord(index){
@@ -171,7 +172,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     document.getElementById('addDeviceBtn').focus();
   }
 
-  revertDevice(event: any) {  
+  revertDevice(event: any) {
     let discardMsg = "";
     const index = event.index;
     const id : string = (index + 1).toString();
@@ -184,7 +185,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     deviceInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
-      discardMsg = "Device record " + id + " changes have been discarded.";    
+      discardMsg = "Device record " + id + " changes have been discarded.";
     } else {
       discardMsg = "Les modifications d’enregistrement d’intrument " + id + " ont été annulées.";
     }
@@ -200,7 +201,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     }, 50);
   }
 
-  
+
   private _init(devicesData: Device[]) {
       // Clear existing controls
     this.devicesFormArr.clear();
@@ -279,7 +280,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
   }
 
-  handleRowClick(event: any) {  
+  handleRowClick(event: any) {
     const clickedIndex = event.index;
     const clickedRecordState = event.state;
 
@@ -293,12 +294,12 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       this.openPopup();
     }
 
-  } 
+  }
 
   /**
    * Method to check if child device item has any errors
-   * 
-   * @param errs 
+   *
+   * @param errs
    */
   showError(errs) {
     if (errs.length > 0) {
@@ -307,7 +308,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       this.showErrors = false;
     }
   }
-  
+
   public disableAddButton(): boolean {
     // console.log("device list form", this.deviceListForm);
     // console.log("form is invalid: ", !this.deviceListForm.valid,  "form has errors: ", this.showErrors, "form is dirty: ", this.deviceListForm.dirty);
@@ -319,7 +320,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       errs.forEach(err => {
        this.errorList.push(err);
       });
-    } 
+    }
     if (errs.length == 0) {
       this.errorList = errs;
     }
@@ -333,7 +334,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
     }
-    
+
     // Error List is a QueryList type
     if (this.errorList) {
       this.errorList.forEach(err => {
@@ -353,7 +354,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
   getDevicesFormArrValues(): any {
     return this.devicesFormArr.value;
-  }  
+  }
 
   openPopup(){
     jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );

@@ -11,7 +11,8 @@ import { DeviceService } from '../device.service';
 @Component({
   selector: 'app-device-item',
   templateUrl: './device-item.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class DeviceItemComponent implements OnInit, AfterViewInit {
@@ -47,8 +48,8 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
-  constructor(private _globalService: GlobalService, 
-              private _utilsService: UtilsService, 
+  constructor(private _globalService: GlobalService,
+              private _utilsService: UtilsService,
               private _translateService: TranslateService,
               private _errorNotificationService : ErrorNotificationService,
               private _deviceService : DeviceService,
@@ -56,7 +57,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     //this.isInternal = this._globalService.$isInternal;
 
     effect(() => {
-      // this._deviceService.showDeviceErrorSummary() 
+      // this._deviceService.showDeviceErrorSummary()
       if (this._deviceService.showDeviceErrorSummaryOneRec()) {
       this.showErrors = this._globalService.showErrors()
       this.showErrSummary = this.showErrors;
@@ -65,13 +66,13 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
           this._updateErrorList(this.msgList);
         }
       }
-    
+
     });
   }
 
   ngOnChanges(changes : SimpleChanges) {
     this.onDeviceAuthorizedChange(null);
-    this.onDeviceAppChange(null); 
+    this.onDeviceAppChange(null);
   }
 
   async ngOnInit() {
@@ -109,7 +110,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
     this._errorNotificationService.updateErrorSummary(DEVICE_ERROR_PREFIX + this.cRRow.get('id').value, this.errorSummaryChild);
- 
+
     // this._emitErrors();
   }
 
@@ -141,7 +142,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   public revertDeviceRecord(index: number, recordId: number): void {
     this.revertRecord.emit({ index: index, id: recordId });
     this.onDeviceAuthorizedChange(null);
-    this.onDeviceAppChange(null); 
+    this.onDeviceAppChange(null);
 
     this.cRRow.markAsPristine();
   }
@@ -173,7 +174,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
       this.showErrors = true;
       document.location.href = '#deviceErrorSummary' + this.j;
     }
-  } 
+  }
 
   onDeviceAuthorizedChange(e: any) {
     let deviceAuthorized;
@@ -192,7 +193,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     if (deviceAuthorized) {
       if (deviceAuthorized === YES) {
         this.deviceAppSubmitted = false;
-        this.deviceAppNotSubmitted = false; 
+        this.deviceAppNotSubmitted = false;
         this.deviceAuthorized = true;
         this.deviceNotAuthorized = false;
         this._utilsService.resetControlsValues(deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
@@ -203,7 +204,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
       }
     } else {
       this.deviceAppSubmitted = false;
-      this.deviceAppNotSubmitted = false; 
+      this.deviceAppNotSubmitted = false;
       this.deviceAuthorized = false;
       this.deviceNotAuthorized = false;
       this._utilsService.resetControlsValues(licenceNum, deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
@@ -249,7 +250,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   public showErrorSummary(): boolean {
     return ((this.showErrSummary) && this.errorList.length > 0);
   }
-  
+
   // todo use include, not !Remove
   // public isActiveContact(): boolean {
   //   return (!this.isContactStatus(ContactStatus.Remove));
@@ -258,5 +259,5 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   get deviceInfo() : FormGroup{
     return this.cRRow.get('deviceInfo') as FormGroup;
   }
- 
+
 }

@@ -10,14 +10,15 @@
   @Component({
     selector: 'primary-contact',
     templateUrl: 'primary.contact.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
   })
-  
+
   /**
    * Primary Contact component is used for company form
    */
   export class PrimaryContactComponent implements OnInit, OnChanges, AfterViewInit {
-  
+
     public primContactFormLocalModel: FormGroup;
     @Input('group') public primContactFormRecord: FormGroup;
     @Input() detailsChanged: any; // TODO: Change type
@@ -30,20 +31,20 @@
 
     @Output() errorList = new EventEmitter(true);
     @Output() showAdminChanges = new EventEmitter(true);
-    
+
     @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-  
+
     public showFieldErrors = false;
     // public yesNoList: Array<any> = [];
     private detailsService: PrimaryContactService;
-  
+
     constructor(private _fb: FormBuilder, private cdr: ChangeDetectorRef,  private router: Router, private _utilsService: UtilsService, private _converterService: ConverterService, private _loggerService: LoggerService) {
       this.showFieldErrors = false;
       // this.showErrors = false;
       this.detailsService = new PrimaryContactService();
       // this.yesNoList = this.detailsService.getYesNoList();
     }
-  
+
     ngOnInit() {
       // console.log('ng on init');
       if (!this.primContactFormLocalModel) {
@@ -51,16 +52,16 @@
       }
       this.detailsChanged = 0;
     }
-  
+
     ngAfterViewInit() {
       this.msgList.changes.subscribe(errorObjs => {
         let temp = [];
         // this._updateErrorList(errorObjs);
       });
       this.msgList.notifyOnChanges();
-  
+
     }
-  
+
     // private _updateErrorList(errorObjs) {
     //   let temp = [];
     //   if (errorObjs) {
@@ -73,12 +74,12 @@
     //   this.primContactErrorList.emit(temp);
     //
     // }
-  
+
     ngDoCheck() {
       /*  this.isValid();
         this._syncCurrentExpandedRow();*/
     }
-  
+
     ngOnChanges(changes: SimpleChanges) {
       const isFirstChange = this._utilsService.isFirstChange(changes);
 
@@ -88,7 +89,7 @@
         // console.log("the details cbange");
         if (this.primContactFormRecord) {
           this.setToLocalModel();
-  
+
         } else {
           this.primContactFormLocalModel = PrimaryContactService.getReactiveModel(this._fb);
           this.primContactFormLocalModel.markAsPristine();
@@ -126,24 +127,23 @@
       }
     }
     }
-  
+
     /**
      * Uses the updated reactive forms model locally
      */
-  
+
     setToLocalModel() {
       this.primContactFormLocalModel = this.primContactFormRecord;
       if (!this.primContactFormLocalModel.pristine) {
         this.primContactFormLocalModel.markAsPristine();
       }
     }
-  
+
     onblur() {
       // console.log('input is typed');
       PrimaryContactService.mapFormModelToDataModel((<FormGroup>this.primContactFormLocalModel),
         this.primContactModel);
     }
-  
+
   }
-  
-  
+

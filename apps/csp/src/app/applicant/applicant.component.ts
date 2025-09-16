@@ -25,6 +25,7 @@ import { IApplicant } from '../models/transaction';
   selector: 'app-applicant',
   templateUrl: './applicant.component.html',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class ApplicantComponent
   extends BaseComponent
@@ -169,13 +170,13 @@ export class ApplicantComponent
     const checkbox = event.target as HTMLInputElement;
 
     if (!event.target.checked) {
-      this.resetSignal++; 
+      this.resetSignal++;
       if (this.showBilling()) {
         this.billingModel = undefined;
         this.applicantInformationForm.controls['isBillingDifferent'].value == false;
       }
     }
-    
+
     if (checkbox) {
       this._appendChildAndParentErrors();
     }

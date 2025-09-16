@@ -10,15 +10,16 @@ import {
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
 import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.constants';
 
-  
+
   @Component({
     selector: 'comp-admin-changes',
     templateUrl: 'company-admin.changes.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
   })
-  
+
   export class CompanyAdminChangesComponent implements OnInit, OnChanges, AfterViewInit {
-  
+
     public adminChangesFormLocalModel: FormGroup;
     @Input('group') public adminChangesFormRecord: FormGroup;
     @Input() detailsChanged: any; // TODO: Change type
@@ -31,20 +32,20 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
     @Output() adminChangesErrorList = new EventEmitter(true);
     // @Output() licenceErrorList = new EventEmitter(true);
     @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-  
+
     public yesNoList: ICode[] = [];
     public showFieldErrors = false;
     public licenceModel = [];  // todo: clean up licence model code to remove it
     public maxImpactedLicencesLength = MAX_IMPACTED_LIC_NUM_LENGTH;
     private adminChangesService: CompanyAdminChangesService;
     amendReasonDefs: string[] = [];
-  
+
     constructor(private _fb: FormBuilder, private _utilsService: UtilsService, private _loggerService: LoggerService, private _formDataLoader: CompanyDataLoaderService) {
       this.showFieldErrors = false;
       this.showErrors = false;
       this.adminChangesService = new CompanyAdminChangesService();
     }
-  
+
     ngOnInit() {
       if (!this.adminChangesFormLocalModel) {
         this.adminChangesFormLocalModel = this.adminChangesService.getReactiveModel(this._fb);
@@ -59,16 +60,16 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
         }
       });
     }
-  
+
     ngAfterViewInit() {
       this.msgList.changes.subscribe(errorObjs => {
         let temp = [];
         this._updateErrorList(errorObjs);
       });
       this.msgList.notifyOnChanges();
-  
+
     }
-  
+
     private _updateErrorList(errorObjs) {
       let temp = [];
       if (errorObjs) {
@@ -80,22 +81,22 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
       }
       this.adminChangesErrorList.emit(temp);
     }
-  
+
     ngOnChanges(changes: SimpleChanges) {
-  
+
       // since we can't detect changes on objects, using a separate flag
       if (changes['detailsChanged']) { // used as a change indicator for the model
         // console.log("the details cbange");
         if (this.adminChangesFormRecord) {
           this.setToLocalModel();
-  
+
         } else {
           this.adminChangesFormLocalModel = this.adminChangesService.getReactiveModel(this._fb);
           this.adminChangesFormLocalModel.markAsPristine();
         }
       }
       if (changes['showErrors']) {
-  
+
         this.showFieldErrors = changes['showErrors'].currentValue;
         let temp = [];
         if (this.msgList) {
@@ -112,7 +113,7 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
         this._formDataLoader.getAmendReasonList().subscribe((data) => {
           const amendReasonCodeList: ICodeDefinition[] = data;
           this.amendReasonDefs = [];
-          
+
           for (const code of amendReasonCodes) {
             const codeDefinition = this._utilsService.findCodeDefinitionById(amendReasonCodeList, code);
             if (codeDefinition) {
@@ -145,24 +146,24 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
         CompanyAdminChangesService.mapDataModelToFormModel(dataModel, (<FormGroup>this.adminChangesFormLocalModel));
       }
     }
-  
+
     /**
      * Uses the updated reactive forms model locally
      */
-  
+
     setToLocalModel() {
       this.adminChangesFormLocalModel = this.adminChangesFormRecord;
       if (!this.adminChangesFormLocalModel.pristine) {
         this.adminChangesFormLocalModel.markAsPristine();
       }
     }
-  
+
     onblur() {
       // console.log('input is typed');
       CompanyAdminChangesService.mapFormModelToDataModel((<FormGroup>this.adminChangesFormLocalModel),
         this.adminChangesModel, this.licenceModel);
     }
-  
+
     licNumOnblur() {
       // console.log('license input is typed');
       if (this.adminChangesFormLocalModel.controls['licenceNumbers'].value) {
@@ -173,7 +174,7 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
           .split(',');
         let templicNum = '';
         let tempLicStrs = '';
-        
+
         if (licArray.length > 0) {
           // Loop through the array of numbers after splitting it from the splitters
           templicNum = '000000' + licArray[0].replace(/[^0-9]/g, ''); // Add 6 leading zeros
@@ -181,7 +182,7 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
           for (let i = 1; i < licArray.length; i++) { // Start looping starting at the second
             tempLicStrs += NEW_LINE; // Add a new line - this counts as a character
             templicNum = '000000' + licArray[i].replace(/[^0-9]/g, ''); // Add 6 leading zeros
-            tempLicStrs += templicNum.slice(templicNum.length - LIC_NUM_LENGTH); // Delete the remaining zeroes 
+            tempLicStrs += templicNum.slice(templicNum.length - LIC_NUM_LENGTH); // Delete the remaining zeroes
           }
 
           // If the input exceeds the maximum length, cut off the remaining digits (after max length)
@@ -198,17 +199,17 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
       }
       this.onblur();
     }
-  
+
     // processLicenceErrors(errorList) {
     //   this.licenceErrorList.emit(errorList);
     //
     // }
-  
+
     // processLicenceUpdate(licences) {
     //   this.licenceModel = licences;
     //   this.onblur();
     // }
-  
+
     isReguChange() {
       if (this.adminChangesFormLocalModel.controls['isReguChange'].value &&
             this.adminChangesFormLocalModel.controls['isReguChange'].value === YES) {
@@ -224,5 +225,4 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
       return false;
     }
   }
-  
-  
+

@@ -6,7 +6,7 @@ import {
   CommonUiFeatureModule,
   NumbersOnlyDirective
 } from '@hpfb/sdk/ui';
-import { CommonModule } from '@angular/common';
+import {CommonModule, } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegulatoryInformationComponent } from './regulatory-information/regulatory-information.component';
@@ -25,7 +25,7 @@ import { ContactDetailsService } from './contact/contact-details/contact-details
     RegulatoryInformationComponent,
     AddressDetailsComponent,
     ContactDetailsComponent,
-    MasterFileFeeComponent, 
+    MasterFileFeeComponent,
     CertificationComponent
   ],
   imports: [
@@ -46,11 +46,11 @@ import { ContactDetailsService } from './contact/contact-details/contact-details
     MasterFileFeeService,
     CertificationService
   ],
-  exports: [CommonUiFeatureModule, 
+  exports: [CommonUiFeatureModule,
     RegulatoryInformationComponent,
     AddressDetailsComponent,
     ContactDetailsComponent,
-    MasterFileFeeComponent, 
+    MasterFileFeeComponent,
     CertificationComponent
    ],
 })

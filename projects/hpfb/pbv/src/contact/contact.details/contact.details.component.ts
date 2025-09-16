@@ -5,10 +5,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ContactDetailsService } from './contact.details.service';
 
 @Component({
-  selector: 'pbv-contact-details',
-  templateUrl: './contact.details.component.html',
-  //styleUrl: './contact-details.component.css',
-  encapsulation: ViewEncapsulation.None,
+    selector: 'pbv-contact-details',
+    templateUrl: './contact.details.component.html',
+    //styleUrl: './contact-details.component.css',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ContactDetailsComponent extends BaseComponent implements OnInit{
   public showFieldErrors: boolean = false;

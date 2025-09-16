@@ -10,7 +10,8 @@ import { INameAddress } from '../../models/Enrollment';
 @Component({
   selector: 'lib-address-details',
   templateUrl: 'address.details.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class AddressDetailsComponent implements OnInit {
@@ -138,7 +139,7 @@ export class AddressDetailsComponent implements OnInit {
     }
   }
 
-  
+
   _setCountryState(formModel: FormGroup) {
     const countryControl = this.addressFormLocalModel.get('country');
     const countryValue: string = countryControl?.value;

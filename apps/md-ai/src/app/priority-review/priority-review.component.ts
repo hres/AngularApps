@@ -7,7 +7,8 @@ import { PriorityReviewService } from './priority-review.service';
 @Component({
   selector: 'app-priority-review',
   templateUrl: './priority-review.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class PriorityReviewComponent {
   public priorityReviewLocalModel: FormGroup;
@@ -17,7 +18,7 @@ export class PriorityReviewComponent {
   @Input() helpTextSequences;
   @Output() priorityRevErrorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
-  
+
   public yesNoList: ICode[] = [];
   public seriousDiagnosisReasonOptionList: CheckboxOption[] = [];
   public diagnosisReasonCodeList: ICode[] = [];
@@ -124,7 +125,7 @@ export class PriorityReviewComponent {
     });
 
     this.seriousDiagnosisReasonOptionList.forEach(() => this.diagnosisReasonChkFormArray.push(new FormControl(false)));
-  } 
+  }
 
   get diagnosisReasonChkFormArray() {
     return this.priorityReviewLocalModel.controls['diagnosisReasons'] as FormArray

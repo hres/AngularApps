@@ -10,6 +10,7 @@ import { Ectd } from '../models/transaction';
   templateUrl: './time-of-application.component.html',
   styleUrl: './time-of-application.component.css',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class TimeOfApplicationComponent extends BaseComponent implements OnInit{
 

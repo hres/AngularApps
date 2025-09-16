@@ -20,6 +20,7 @@ import { GlobalService } from '../global/global.service';
   styleUrl: './drug-use.component.css',
   providers: [DrugUseService],
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class DrugUseComponent
   extends BaseComponent

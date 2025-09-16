@@ -9,7 +9,7 @@ import { BiologicalMaterial } from '../../models/Enrollment';
 @Component({
     selector: 'app-material-list',
     templateUrl: './material-list.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,  standalone: false
 })
 
 export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
@@ -32,9 +32,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
   statusMessage : string = '';
 
-  constructor(private fb: FormBuilder, 
-              private _utilsService: UtilsService, 
-              private _globalService: GlobalService, 
+  constructor(private fb: FormBuilder,
+              private _utilsService: UtilsService,
+              private _globalService: GlobalService,
               private _materialService : MaterialService,
               private _errNotifService : ErrorNotificationService) {
 
@@ -52,7 +52,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
-   
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -78,7 +78,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
     // console.log('...._processErrorSummaries:', errSummaryEntries);
-    // get the first entry where the errSummaryMessage property is not empty 
+    // get the first entry where the errSummaryMessage property is not empty
     // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
     const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && !summary.errSummaryMessage.componentId.startsWith("deviceListTable"));
     if (filteredErrSummaryEntry) {
@@ -87,7 +87,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this.errorSummaryChild = null;
     }
     this._emitErrors();
-  } 
+  }
 
   get materialsFormArr(): FormArray {
     return this.materialListForm.get('materials') as FormArray;
@@ -108,17 +108,17 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       materialFocus = "materialName" + 0;
     }
     setTimeout(() => {
-      document.getElementById(materialFocus).focus()  
+      document.getElementById(materialFocus).focus()
     }, 0);
   }
 
-  saveMaterialRecord(event: any) {  
+  saveMaterialRecord(event: any) {
     const index = event.index;
 
     const group = this.materialsFormArr.at(index) as FormGroup;
     // if this is a new record, assign next available id, otherwise, use it's existing id
     const id = group.get('isNew').value? this.materialListService.getNextId(): group.get('id').value
-    group.patchValue({ 
+    group.patchValue({
       id: id,
       isNew: false,
       expandFlag: false,    // collapse this record
@@ -142,7 +142,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this.statusMessage = "Enregistrement du matériel biologique " + id + " a été sauvegardé.";
     }
     setTimeout(() => {
-      document.getElementById('addMaterialBtn').focus()  
+      document.getElementById('addMaterialBtn').focus()
     }, 0);
   }
 
@@ -154,8 +154,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       group.controls['expandFlag'].setValue(true);
       this.materialListForm.markAsDirty();
        break;
-     } 
-   }     
+     }
+   }
  }
 
   deleteMaterialRecord(index){
@@ -166,7 +166,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     this.materialsFormArr.removeAt(index);
 
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
-    
+
     if (this.materialsFormArr.length == 0) {
       this.atLeastOneRec.set(false);
       this._emitErrors();
@@ -183,7 +183,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     document.getElementById('addMaterialBtn').focus();
   }
 
-  revertMaterial(event: any) {  
+  revertMaterial(event: any) {
     let discardMsg = "";
     const index = event.index;
     const id : string = (index + 1).toString();
@@ -196,7 +196,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     materialInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
-      discardMsg = "Biological material record " + id + " changes have been discarded.";        
+      discardMsg = "Biological material record " + id + " changes have been discarded.";
     } else {
       discardMsg = "Les modification du matériel biologique " + id + " ont été annulées.";
     }
@@ -212,7 +212,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     }, 50);
   }
 
-  
+
   private _init(materialsData: BiologicalMaterial[]) {
       // Clear existing controls
     this.materialsFormArr.clear();
@@ -229,7 +229,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
               expandFlag: false,
               lastSavedState: material
             });
-            
+
             this._patchMaterialInfoValue(group.get('lastSavedState'), material);
             this._patchMaterialInfoValue(group.controls['materialInfo'], material);
 
@@ -264,7 +264,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  handleRowClick(event: any) {  
+  handleRowClick(event: any) {
     const clickedIndex = event.index;
     const clickedRecordState = event.state;
 
@@ -279,12 +279,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this.openPopup();
     }
 
-  } 
+  }
 
   /**
    * Method to check if child material item has any errors
-   * 
-   * @param errs 
+   *
+   * @param errs
    */
   showError(errs) {
     if (errs.length > 0) {
@@ -293,7 +293,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this.showErrors = false;
     }
   }
-  
+
   public disableAddButton(): boolean {
     // console.log("material list form", this.materialListForm);
     // console.log("form is invalid: ", !this.materialListForm.valid,  "form has errors: ", this.showErrors, "form is dirty: ", this.materialListForm.dirty);
@@ -306,7 +306,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
   getMaterialsFormArrValues(): any {
     return this.materialsFormArr.value;
-  }  
+  }
 
   private _emitErrors(): void {
     let emitErrors = [];
@@ -320,7 +320,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
    this._materialService.setListErrors(emitErrors);
-    
+
     // console.log("emitting errors to info comp ..", emitErrors);
     // this.errorListUpdated.emit(emitErrors);
     // this._materialService.errors.update( errors => emitErrors );
@@ -355,7 +355,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     // const atLeastOneRecord = controls.some((control: AbstractControl) => control['isNew'].value !== true);
     // console.log("at least one record", atLeastOneRecord);
     return atLeastOneRecord ? null : { atLeastOneMat : oerr};
-  } 
+  }
 
   openPopup(){
     jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );

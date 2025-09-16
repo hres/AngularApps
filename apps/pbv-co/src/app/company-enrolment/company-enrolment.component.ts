@@ -12,11 +12,12 @@ import { data } from 'jquery';
   selector: 'app-company-enrolment',
   templateUrl: './company-enrolment.component.html',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
   public lang: string;
-  helpIndex: HelpSequence; 
+  helpIndex: HelpSequence;
   public showFieldErrors: boolean = false;
 
   public companyEnrolmentForm: FormGroup;
@@ -31,15 +32,15 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   public showAmendButton: boolean = false;
   public showAmendNote: boolean = false;
 
-  constructor(private _companyEnrolmentService: CompanyEnrolmentService, 
-              private _fb: FormBuilder, 
-              private _utilsService: UtilsService, 
+  constructor(private _companyEnrolmentService: CompanyEnrolmentService,
+              private _fb: FormBuilder,
+              private _utilsService: UtilsService,
               private _globalService: GlobalService,
               private _converterService : ConverterService) {
     super();
     this.showFieldErrors = false;
   }
-  
+
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
@@ -88,7 +89,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     if (!this.companyEnrolmentForm) {
       this.companyEnrolmentForm = CompanyEnrolmentService.getEnrolmentForm(this._fb);
     }
-    
+
     return this.companyEnrolmentForm;
   }
 

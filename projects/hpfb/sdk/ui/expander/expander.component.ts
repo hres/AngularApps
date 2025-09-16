@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewE
 import { FINAL } from '../common.constants';
 
 @Component({
-  selector: 'lib-expander',
-  templateUrl: './expander.component.html',
-  encapsulation: ViewEncapsulation.None
+    selector: 'lib-expander',
+    templateUrl: './expander.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class ExpanderComponent implements OnChanges {

@@ -1,4 +1,4 @@
-<ng-container *ngFor="let record of dataItems; index as i;">
+@for (record of dataItems; track record; let i = $index) {
   <div role="button" >
     <h4 id="tr-expand-row-{{i}}" class="clickableRow" [ngClass]="{'selected':isExpanded(i)}"
       [attr.aria-expanded]="getExpandedState(i)" i18n-title="@@expander.rowTitle" [title]="getRowTitle(i)"
@@ -7,8 +7,9 @@
       {{accordionHeadingMsgKey | translate}}&nbsp; {{ +record['id']+1 }}
     </h4>
   </div>
-
-  <div class="table-override" *ngIf="isExpanded(i)">
-    <ng-content></ng-content>
-  </div>
-</ng-container>
+  @if (isExpanded(i)) {
+    <div class="table-override">
+      <ng-content></ng-content>
+    </div>
+  }
+}

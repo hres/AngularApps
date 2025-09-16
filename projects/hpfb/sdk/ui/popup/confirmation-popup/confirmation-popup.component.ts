@@ -3,12 +3,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import $ from 'jquery';
 
 @Component({
-  selector: 'lib-confirmation-popup',
-  standalone: true,
-  imports: [TranslateModule],
-  templateUrl: './confirmation-popup.component.html',
-  styleUrl: './confirmation-popup.component.css',
-  encapsulation: ViewEncapsulation.None
+    selector: 'lib-confirmation-popup',
+    imports: [TranslateModule],
+    templateUrl: './confirmation-popup.component.html',
+    styleUrl: './confirmation-popup.component.css',
+    encapsulation: ViewEncapsulation.None
 })
 export class ConfirmationPopupComponent {
   @Input() message: string ;

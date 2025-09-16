@@ -10,10 +10,11 @@ import { GlobalService } from '../../global/global.service';
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.css',
   encapsulation: ViewEncapsulation.None,
+  standalone:false
 })
 export class ContactDetailsComponent extends BaseComponent implements OnInit{
   lang: string;
-  helpIndex: HelpIndex; 
+  helpIndex: HelpIndex;
   public showFieldErrors: boolean = false;
   public contactDetailsForm: FormGroup;
   public languageList: ICode[] = [];
@@ -36,7 +37,7 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
     }
 
   }
-    
+
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
@@ -50,7 +51,7 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
         const dataModel = changes['contactDetailsModel'].currentValue as IContact;
         if (dataModel) {
           this._contactDetailsService.mapDataModelToFormModel(dataModel, (<FormGroup>this.contactDetailsForm));
-        }       
+        }
       }
     }
   }

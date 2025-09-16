@@ -10,16 +10,17 @@ import { ApplicationInfoBaseService } from '../../form-base/application-info-bas
 @Component({
   selector: 'app-material-info',
   templateUrl: './material-info.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
-  
+
   public materialInfoForm : FormGroup;
   @Input() public materialInfo;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChild(MaterialListComponent) aiMaterials: MaterialListComponent;
-  
+
   lang = this._globalService.lang();
 
   materialService = inject(MaterialService)
@@ -38,7 +39,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
               private _applicationInfoBaseService : ApplicationInfoBaseService) {
     if (!this.materialInfoForm) {
       this.materialInfoForm = this.materialService.createMaterialInfoFormGroup(this._fb);
-    }            
+    }
     effect(() => {
       this.showErrors = this._globalService.showErrors();
       if (this._globalService.showErrors()) {
@@ -56,7 +57,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
       this._init(changes['materialInfo'].currentValue);
     }
   }
-  
+
   ngAfterViewInit(): void {
     this.msgList.changes.subscribe(errorObjs => {
       this._updateErrorList(this.msgList);
@@ -93,7 +94,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
     } else {
       this.materialInfoForm = this.materialService.createMaterialInfoFormGroup(this._fb);
     }
-    
+
     if (materialData) {
       this.materialInfoForm.patchValue({
         hasRecombinant: materialData.has_recombinant? materialData.has_recombinant : '',
@@ -133,7 +134,7 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
 
   isAnimalHumanSourced() {
     if (this.materialInfoForm.controls['isAnimalHumanSourced'].value &&
-          this.materialInfoForm.controls['isAnimalHumanSourced'].value === YES) {  
+          this.materialInfoForm.controls['isAnimalHumanSourced'].value === YES) {
       return true;
     } else {
       this._utilsService.resetControlsValues(this.materialInfoForm.controls['isListedIddTable']);

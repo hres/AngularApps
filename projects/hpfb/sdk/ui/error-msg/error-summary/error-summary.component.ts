@@ -4,10 +4,11 @@ import {ErrorSummaryObject, ERR_TYPE_COMPONENT, ERR_TYPE_LEAST_ONE_REC, getEmpty
 import { ErrMessageService } from '../err.message.service';
 
 @Component({
-  selector: 'lib-error-summary',
-  templateUrl: './error-summary.component.html',
-  styleUrls: ['./error-summary.component.css'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'lib-error-summary',
+    templateUrl: './error-summary.component.html',
+    styleUrls: ['./error-summary.component.css'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ErrorSummaryComponent implements AfterViewInit {
   @Input() headingPreamble: string;

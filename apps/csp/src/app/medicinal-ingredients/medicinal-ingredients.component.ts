@@ -19,6 +19,7 @@ import { IMedicalInformation, Transaction, TransactionEnrol } from '../models/tr
   templateUrl: './medicinal-ingredients.component.html',
   styleUrl: './medicinal-ingredients.component.css',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class MedicinalIngredientsComponent  extends BaseComponent implements OnInit, OnChanges {

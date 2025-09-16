@@ -11,7 +11,8 @@ import { MaterialService } from '../material.service';
 @Component({
   selector: 'app-material-item',
   templateUrl: './material-item.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 
 export class MaterialItemComponent implements OnInit, AfterViewInit {
@@ -46,16 +47,16 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
 
-  constructor(private _globalService: GlobalService, 
-              private _utilsService: UtilsService, 
-              private _translateService: TranslateService, 
+  constructor(private _globalService: GlobalService,
+              private _utilsService: UtilsService,
+              private _translateService: TranslateService,
               private _materialListComponent : MaterialListComponent,
               private _errNotifService : ErrorNotificationService,
               private _materialService : MaterialService,
               private cdref: ChangeDetectorRef){
 
     effect(() => {
-      //this._materialService.showMaterialErrorSummary() && 
+      //this._materialService.showMaterialErrorSummary() &&
       if (this._materialService.showMaterialErrorSummaryOneRec()) {
       this.showErrors = this._globalService.showErrors()
       this.showErrSummary = this.showErrors;
@@ -64,7 +65,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
           this._updateErrorList(this.msgList);
         }
       }
-    
+
     });
   }
 
@@ -111,7 +112,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
     this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, this.errorSummaryChild);
- 
+
     // this._emitErrors();
   }
 
@@ -169,7 +170,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
       this.showErrors = true;
       document.location.href = '#materialErrorSummary' + this.j;
     }
-  } 
+  }
 
   /**
    * This method is to make the field more reactive when selecting "Other"
@@ -249,5 +250,5 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   get materialInfo() : FormGroup{
     return this.cRRow.get('materialInfo') as FormGroup;
   }
- 
+
 }

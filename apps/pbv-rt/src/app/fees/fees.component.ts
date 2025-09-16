@@ -11,6 +11,7 @@ import { AppSignalService } from '../signal/app-signal.service';
   selector: 'app-fees',
   templateUrl: './fees.component.html',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class FeesComponent extends BaseComponent implements OnInit{
 
@@ -38,12 +39,12 @@ export class FeesComponent extends BaseComponent implements OnInit{
 
   submissionDescription: String = undefined;
 
-  constructor(private _feesService: FeesService, private _fb: FormBuilder, 
+  constructor(private _feesService: FeesService, private _fb: FormBuilder,
     private _utilsService: UtilsService, private _globalService: GlobalService) {
     super();
     this.showFieldErrors = false;
   }
-  
+
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.submissionClassOptions = this._globalService.submissionClasses;

@@ -5,10 +5,11 @@ import {TranslateService} from '@ngx-translate/core';
 import { ErrMessageService } from '../err.message.service';
 
 @Component({
-  selector: 'control-messages',
-  templateUrl: './control-messages.component.html',
-  styleUrls: ['./control-messages.component.css'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'control-messages',
+    templateUrl: './control-messages.component.html',
+    styleUrls: ['./control-messages.component.css'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class ControlMessagesComponent implements OnChanges {

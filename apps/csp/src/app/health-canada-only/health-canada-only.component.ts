@@ -19,6 +19,7 @@ import { HcUse } from '../models/transaction';
   templateUrl: './health-canada-only.component.html',
   styleUrl: './health-canada-only.component.css',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class HcUseOnlyComponent extends BaseComponent implements OnInit, OnChanges {
   public showFieldErrors: boolean = false;

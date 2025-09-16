@@ -8,9 +8,10 @@ import { BaseComponent, CANADA, HelpIndex, ICode, UtilsService, ValidationServic
 import { INameAddress } from '../../model/entity-base';
 
 @Component({
-  selector: 'pbv-address-details',
-  templateUrl: 'address.details.component.html',
-  encapsulation: ViewEncapsulation.None
+    selector: 'pbv-address-details',
+    templateUrl: 'address.details.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class AddressDetailsComponent extends BaseComponent implements OnInit, OnChanges {

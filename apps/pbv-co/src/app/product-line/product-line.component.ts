@@ -11,11 +11,12 @@ import { FormArray } from '@angular/forms';
   templateUrl: './product-line.component.html',
   styleUrl: './product-line.component.css',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class ProductLineComponent extends BaseComponent implements OnInit{
 
   public lang: string;
-  helpIndex: HelpSequence; 
+  helpIndex: HelpSequence;
   public showFieldErrors: boolean = false;
 
   public productLineForm: FormGroup;
@@ -28,15 +29,15 @@ export class ProductLineComponent extends BaseComponent implements OnInit{
   public productLineOptionList: CheckboxOption[] = [];
   public productLineCodeList: ICode[] = [];
 
-  constructor(private _productLineService: ProductLineService, 
-              private _fb: FormBuilder, 
-              private _utilsService: UtilsService, 
+  constructor(private _productLineService: ProductLineService,
+              private _fb: FormBuilder,
+              private _utilsService: UtilsService,
               private _globalService: GlobalService,
               private _converterService : ConverterService) {
     super();
     this.showFieldErrors = false;
   }
-  
+
   ngOnInit(): void {
     this.lang = this._globalService.currLanguage;
     this.helpIndex = this._globalService.helpIndex;
@@ -72,7 +73,7 @@ export class ProductLineComponent extends BaseComponent implements OnInit{
       this.productLineForm = ProductLineService.getEnrolmentForm(this._fb);
     }
     this._updateProductLineArray();
-    
+
     return this.productLineForm;
   }
 
@@ -111,7 +112,7 @@ export class ProductLineComponent extends BaseComponent implements OnInit{
         this.productLineChkFormArray.push(new FormControl(false));
       });
     }
-    
+
     this.productUpdated.emit(this.productLineOptionList);
   }
 

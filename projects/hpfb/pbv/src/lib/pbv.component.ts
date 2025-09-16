@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'pb-lib-pbv',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'pb-lib-pbv',
+    imports: [],
+    template: `
     <p>
       pbv works!
     </p>
   `,
-  styles: ``
+    styles: ``
 })
 export class PbvComponent {
 
