@@ -26,8 +26,6 @@
   "required": "This field is required",
   "error.msg.minlength": "Minimum length {{ requiredLength }} digits",
   "error.mgs.dossier.id": "Incorrect format -  The dossier identifier is incorrect. Please verify the dossier identifier for your master file.",
-  "error.mgs.company.id": "Please specify a valid manufacturer company identifier.",
-  "error.mgs.regu.contact.id": "Please specify a valid regulatory manufacturer contact identifier.",
   "error.mgs.incorrectFormat": "Invalid entry - must be in format 1234-567",
   "error.msg.postal": "Invalid entry - must be in format X1X1X1",
   "error.mgs.zip": "Invalid entry - must be 5 digits",
