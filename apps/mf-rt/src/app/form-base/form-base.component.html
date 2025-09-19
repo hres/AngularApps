@@ -119,7 +119,6 @@
                   <label for="contactInfoConfirmId">
                     <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId"
                     (blur)="processErrors()"
-                    (change)="onChanged($event, 'contactInfoConfirm')"
                       [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
 
                     <span><b>{{'info.confirmation'|translate}}</b></span>
