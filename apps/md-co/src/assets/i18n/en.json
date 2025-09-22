@@ -30,7 +30,7 @@
     "fileio.msg.dataTypeError": "Error: the wrong form data was selected for this form.",
     "fileio.msg.noFileChoosen": "No file chosen",
     "amend.note": "The “Amend Enrolment” button must be selected when amending a Final Company XML.",
-    "refresh.file.input": "Refresh this page",
+    "refresh.file.input": "Refresh this page to clear form",
     "save.record": "Save Record",
     "delete.record": "Delete Record",
     "save.contact": "Save Contact",
