@@ -68,7 +68,7 @@
         </label>
         <select id="{{addrType}}Country" [formControlName]="'country'" class="required form-control"
                 (change)="onCountryChange($event)">
-          <option label="{{ 'select.option'|translate }}" [value]="null"></option>
+          <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
           <option *ngFor="let ctry of countryList" [value]="ctry.id">{{ ctry| textTransform: lang }}</option>
         </select>
       </div>
@@ -85,7 +85,7 @@
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
         </label>
         <select id="{{addrType}}ProvState" class="form-control full-width"  [formControlName]="'provState'">
-          <option label="{{ 'select.option'|translate }}" [value]="null"></option>
+          <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
           <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov | textTransform: lang}}</option>
         </select>
       </div>
