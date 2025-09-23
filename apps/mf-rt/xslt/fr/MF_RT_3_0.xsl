@@ -446,7 +446,7 @@ span.normalWeight {
       <div class="panel-body">
         <div class="row">
           <div class="col-xs-12">
-            <strong>Nom de la fiche maîtresse:&#160;</strong>
+            <strong>Nom de la fiche maîtresse :&#160;</strong>
             <span class="mouseHover normalWeight">
               <xsl:value-of select="ectd/product_name" />
             </span>
@@ -454,7 +454,7 @@ span.normalWeight {
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <strong>Numéro de fiche maîtresse:&#160;</strong>
+            <strong>Numéro de fiche maîtresse :&#160;</strong>
             <span class="mouseHover normalWeight">
               <xsl:value-of select="ectd/lifecycle_record/master_file_number" />
             </span>
@@ -462,7 +462,7 @@ span.normalWeight {
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <strong>Type de la fiche maîtresse:&#160;</strong>
+            <strong>Type de la fiche maîtresse :&#160;</strong>
             <span class="mouseHover normalWeight">
               <xsl:value-of select="ectd/lifecycle_record/regulatory_activity_type/@label_fr" />
             </span>
@@ -470,7 +470,7 @@ span.normalWeight {
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <strong>Usage du fiche maîtresse:&#160;</strong>
+            <strong>Usage du fiche maîtresse :&#160;</strong>
             <span class="mouseHover normalWeight">
               <xsl:value-of select="ectd/lifecycle_record/master_file_use/@label_fr" />
             </span>
@@ -478,7 +478,7 @@ span.normalWeight {
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <strong>Description de la transaction:&#160;</strong>
+            <strong>Description de la transaction :&#160;</strong>
             <span class="mouseHover normalWeight">
               <xsl:value-of select="ectd/lifecycle_record/sequence_description_value/@label_fr" />
             </span>
@@ -487,7 +487,7 @@ span.normalWeight {
         <div class="row">
           <xsl:if test="ectd/lifecycle_record/sequence_from_date !=''">
             <div class="col-xs-6">
-              <strong>Date:&#160;</strong>
+              <strong>Date :&#160;</strong>
               <span class="mouseHover normalWeight">
                 <xsl:value-of select="ectd/lifecycle_record/sequence_from_date" />
               </span>
@@ -495,7 +495,7 @@ span.normalWeight {
           </xsl:if>
           <xsl:if test="ectd/lifecycle_record/requester_of_solicited_information !=''">
             <div class="col-xs-6">
-              <strong>Demandeur d’information sollicitée:&#160;</strong>
+              <strong>Demandeur d’information sollicitée :&#160;</strong>
               <span class="mouseHover normalWeight">
                 <xsl:value-of select="ectd/lifecycle_record/requester_of_solicited_information" />
               </span>
@@ -505,7 +505,7 @@ span.normalWeight {
         <xsl:if test="ectd/lifecycle_record/revise_trans_desc_request !=''">
           <div class="row">
             <div class="col-xs-12">
-              <strong>La demande de clarification vous a-t-elle obligé à réviser la description de la transaction?&#160;</strong>
+              <strong>La demande de clarification vous a-t-elle obligé à réviser la description de la transaction ?&#160;</strong>
               <span class="mouseHover normalWeight">
               <xsl:call-template name="YesNoUnknow">
                 <xsl:with-param name="value" select="ectd/lifecycle_record/revise_trans_desc_request"/>
@@ -517,7 +517,7 @@ span.normalWeight {
         <xsl:if test="ectd/lifecycle_record/revised_trans_desc !=''">
           <div class="row">
             <div class="col-xs-12">
-              <strong>Description de la transaction révisée:&#160;</strong>
+              <strong>Description de la transaction révisée :&#160;</strong>
               <span class="mouseHover normalWeight">
                 <xsl:value-of select="ectd/lifecycle_record/revised_trans_desc/@label_fr" />
               </span>
@@ -613,7 +613,7 @@ span.normalWeight {
         <div class="panel-body">
           <div class="row">
             <div class="col-xs-12">
-              <strong>Joignez-vous une ou plusieurs lettres d’accès à cette transaction? &#160;</strong>
+              <strong>Joignez-vous une ou plusieurs lettres d’accès à cette transaction ? &#160;</strong>
               <xsl:call-template name="YesNoUnknow">
                 <xsl:with-param name="value" select="fee_details/are_there_access_letters"/>
               </xsl:call-template>
@@ -622,14 +622,14 @@ span.normalWeight {
           <xsl:if test="fee_details/number_of_access_letters != ''">
             <div class="row">
               <div class="col-xs-12">
-                <strong>Nombre de lettre(s) d’accès: &#160;</strong>
+                <strong>Nombre de lettre(s) d’accès : &#160;</strong>
                 <xsl:value-of select="fee_details/number_of_access_letters"/>
               </div>
             </div>
           </xsl:if>
           <div class="row">
             <div class="col-xs-12">
-              <strong>Qui paiera les frais? &#160;</strong>
+              <strong>Qui paiera les frais ? &#160;</strong>
               <xsl:choose>
                 <xsl:when test=" 'AuthorizedMasterFileAgent' = fee_details/who_responsible_fee">
                   Agent autorisé de la fiche maîtresse / Tiers au nom du titulaire autorisé
@@ -643,7 +643,7 @@ span.normalWeight {
           <div class="row">
             <xsl:if test="fee_details/account_number != ''">
               <div class="col-xs-6">
-                <strong>Numéro de compte du client:&#160;</strong>
+                <strong>Numéro de compte du client :&#160;</strong>
                 <span class="mouseHover normalWeight">
                   <xsl:value-of select="fee_details/account_number"/>
                 </span>
@@ -651,7 +651,7 @@ span.normalWeight {
             </xsl:if>
             <xsl:if test="fee_details/cra_business_number != ''">
               <div class="col-xs-6">
-                <strong>Numéro d’entreprise de l'Agence du revenu du Canada:&#160;</strong>
+                <strong>Numéro d’entreprise de l'Agence du revenu du Canada :&#160;</strong>
                 <span class="mouseHover normalWeight">
                   <xsl:value-of select="fee_details/cra_business_number"/>
                 </span>
@@ -678,13 +678,13 @@ span.normalWeight {
         </div>
         <div class="row">
           <div class="col-xs-6">
-            <strong>Nom complet:&#160;</strong>
+            <strong>Nom complet :&#160;</strong>
             <span class="mouseHover normalWeight">
               <xsl:value-of select="full_name"/>
             </span>
           </div>
           <div class="col-xs-6">
-            <strong>Date:&#160;</strong>
+            <strong>Date :&#160;</strong>
             <span class="mouseHover normalWeight">
               <xsl:value-of select="submit_date"/>
             </span>
@@ -695,7 +695,7 @@ span.normalWeight {
             <xsl:call-template name="hp-checkbox">
               <xsl:with-param name="value" select="consent_privacy"/>
             </xsl:call-template>
-            <span class="mouseHover normalWeight">En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité.</span>
+            <span class="mouseHover normalWeight">En fournissant vos renseignements personnels, vous consentez à leur collecte, utilisation et divulgation conformément à l'énoncé de confidentialité.</span>
           </strong> 
         </div>
       </div>
@@ -758,7 +758,7 @@ span.normalWeight {
     <xsl:param name="value" select="/.."/>
     <div class="row">
       <div class="col-xs-12">
-        <strong>Nom de la compagnie (nom légal complet):&#160;</strong>
+        <strong>Nom de la compagnie (nom légal complet) :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/company_name"/>
         </span>
@@ -766,7 +766,7 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <strong>Adresse:&#160;</strong>
+        <strong>Adresse :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/street_address"/>
         </span>
@@ -774,13 +774,13 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Ville:&#160;</strong>
+        <strong>Ville :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/city"/>
         </span>
       </div>
       <div class="col-xs-6">
-        <strong>Pays:&#160;</strong>
+        <strong>Pays :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/country/@label_fr"/>
         </span>
@@ -788,7 +788,7 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Province ou état:&#160;</strong>
+        <strong>Province ou état :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:if test="$value/province_lov != ''">
             <xsl:value-of select="$value/province_lov"/>
@@ -799,7 +799,7 @@ span.normalWeight {
         </span>
       </div>
       <div class="col-xs-6">
-        <strong>Code postale/ZIP:&#160;</strong>
+        <strong>Code postale/ZIP :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/postal_code"/>
         </span>
@@ -811,13 +811,13 @@ span.normalWeight {
     <xsl:param name="value" select="/.."/>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Prénom:&#160;</strong>
+        <strong>Prénom :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/given_name"/>
         </span>
       </div>
       <div class="col-xs-6">
-        <strong>Nom de famille:&#160;</strong>
+        <strong>Nom de famille :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/surname"/>
         </span>
@@ -825,13 +825,13 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Langue de correspondance:&#160;</strong>
+        <strong>Langue de correspondance :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/language_correspondance"/>
         </span>
       </div>
       <div class="col-xs-6">
-        <strong>Titre du poste:&#160;</strong>
+        <strong>Titre du poste :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/job_title"/>
         </span>
@@ -839,13 +839,13 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Numéro de téléphone:&#160;</strong>
+        <strong>Numéro de téléphone :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/phone_num"/>
         </span>
       </div>
       <div class="col-xs-6">
-        <strong>Numéro de l'extension:&#160;</strong>
+        <strong>Numéro de l'extension :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/phone_ext"/>
         </span>
@@ -853,13 +853,13 @@ span.normalWeight {
     </div>
     <div class="row">
       <div class="col-xs-6">
-        <strong>Numéro de télécopieur:&#160;</strong>
+        <strong>Numéro de télécopieur :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/fax_num"/>
         </span>
       </div>
       <div class="col-xs-6">
-        <strong>Adresse de courriel:&#160;</strong>
+        <strong>Adresse de courriel :&#160;</strong>
         <span class="mouseHover normalWeight">
           <xsl:value-of select="$value/email"/>
         </span>
