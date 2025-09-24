@@ -421,7 +421,7 @@ span.normalWeight {
     <div class="well well-sm">
       <table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
         <tr>
-          <th style="text-align: center;font-weight:bold;">Dossier Identifier</th>
+          <th style="text-align: center;font-weight:bold;">Dossier identifier</th>
           <th style="text-align: center;font-weight:bold;">Date last saved</th>
         </tr>
         <tr>
@@ -697,7 +697,7 @@ span.normalWeight {
             <xsl:call-template name="hp-checkbox">
               <xsl:with-param name="value" select="consent_privacy"/>
             </xsl:call-template>
-            <span class="mouseHover normalWeight">By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the privacy notice statement. </span>
+            <span class="mouseHover normalWeight">By providing your personal information, you consent to its collection, use, and disclosure in accordance with the privacy notice statement.</span>
           </strong>
         </div>          
       </div>

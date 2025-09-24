@@ -377,12 +377,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  public onChanged(e, controlName) {
-    if (e?.target?.checked === false) {
-      this.masterFileForm.controls[controlName].reset();
-    }
-  }
-
   checkDateValidity(event: any): void {
     this._utilsService.checkInputValidity(event, this.masterFileForm.get('submitDate'), 'invalidDate');
   }

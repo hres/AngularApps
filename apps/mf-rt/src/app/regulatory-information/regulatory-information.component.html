@@ -41,7 +41,7 @@
                         [control]="regulartoryInfoForm.controls['masterFileNumber'] | formControl"
                         controlId="masterFileNumber" label="masterfile.number" parentId="regulatoryInfo"></control-messages>
                 </label>
-                <input id="masterFileNumber" name="masterFileNumber" class="form-control full-width"
+                <input id="masterFileNumber" name="masterFileNumber" class="form-control full-width" maxlength="8"
                         [formControlName]="'masterFileNumber'" />
             </div>
         </div>
@@ -58,7 +58,7 @@
               <select id="masterFileUse" name="masterFileUse" class="form-control full-width"
                   [formControlName]="'masterFileUse'">
                   <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
-                  <option *ngFor="let mfUse of mfUseOptions" [value]="mfUse.id"> {{ mfUse| textTransform: lang }}</option>
+                  <option *ngFor="let mfUse of mfUseOptions" [value]="mfUse.id">{{ mfUse| textTransform: lang }}</option>
               </select>
           </div>
       </div>
@@ -107,8 +107,7 @@
                     (change)="onTxDescriptionSelected($any($event.target).value)"
                     [formControlName]="'descriptionType'">
                     <option *ngIf="selectedMfTypeDefinition" label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
-                    <option *ngFor="let desc of txDescOptions" [value]="desc.id"> {{ desc | textTransform: lang }}
-                    </option>
+                    <option *ngFor="let desc of txDescOptions" [value]="desc.id">{{ desc | textTransform: lang }}</option>
                 </select>
             </div>
         </div>
@@ -181,8 +180,7 @@
                 <select id="revisedDescriptionType" name="revisedDescriptionType" class="form-control full-width"
                     [formControlName]="'revisedDescriptionType'">
                     <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
-                    <option *ngFor="let desc of revTxDescOptions" [value]="desc.id"> {{ desc | textTransform: lang }}
-                    </option>
+                    <option *ngFor="let desc of revTxDescOptions" [value]="desc.id">{{ desc | textTransform: lang }}</option>
                 </select>
             </div>
         </div>

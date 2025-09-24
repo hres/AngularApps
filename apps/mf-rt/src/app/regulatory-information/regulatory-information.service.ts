@@ -61,9 +61,9 @@ export class RegulatoryInformationService {
         }      
       } else {
         dataModel.lifecycle_record.transaction_description = {
-          '_label_en':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_en, dataModel.lifecycle_record.sequence_from_date),
-          '_label_fr':this._utilsService.concat(dataModel.lifecycle_record.sequence_description_value._label_fr, dataModel.lifecycle_record.sequence_from_date)
-        }  
+          '_label_en': dataModel.lifecycle_record.sequence_description_value._label_en,
+          '_label_fr': dataModel.lifecycle_record.sequence_description_value._label_fr
+        }
       }
       if (this._utilsService.isFrench(lang)) {
         dataModel.lifecycle_record.transaction_description.__text = dataModel.lifecycle_record.transaction_description._label_fr;
