@@ -258,7 +258,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const contactFormGroupValue = this.regulatoryContactComponent.getContactFormValue();
     this._baseService.mapRegContactInfoToOutput(newTransactionEnrol, contactInfoFormGroupValue, addressFormGroupValue, contactFormGroupValue);
 
-    newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm');
     newTransactionEnrol.software_version = this._globalService.appVersion;
     newTransactionEnrol.form_language = this._globalService.currLanguage;
 

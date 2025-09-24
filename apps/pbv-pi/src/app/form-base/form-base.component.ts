@@ -218,7 +218,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const productInfoFormGroupValue = this.productInfoComponent.getFormValue();
     this._baseService.mapProductInfoFormToOutput(newDrugProductEnrol, productInfoFormGroupValue);
 
-    newDrugProductEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    newDrugProductEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm');
     newDrugProductEnrol.software_version = this._globalService.appVersion;
     newDrugProductEnrol.form_language = this._globalService.currLanguage;
 

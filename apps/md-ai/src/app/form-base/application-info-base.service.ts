@@ -202,7 +202,7 @@ export class ApplicationInfoBaseService {
    };
 
    // update the last_saved_date
-   output.DEVICE_APPLICATION_INFO.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm')
+   output.DEVICE_APPLICATION_INFO.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm')
 
    return output;
   }

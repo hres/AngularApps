@@ -370,7 +370,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const newcompanyEnrol: CompanyEnrol = this._baseService.getEmptyCompanyEnrol();
 
-    newcompanyEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    newcompanyEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm');
     newcompanyEnrol.software_version = this._globalService.appVersion;
     newcompanyEnrol.form_language = this._globalService.currLanguage;
 
