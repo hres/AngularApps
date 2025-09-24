@@ -42,7 +42,7 @@ export class CompanyEnrolmentService {
     } else {
       dataModel.enrolment_version = this._incrementEnrolmentVersion(isInternal, coEnrolFormModel['enrolmentVersion']);
     }
-    dataModel.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    dataModel.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm');
     dataModel.company_id = coEnrolFormModel['companyId'];
     dataModel.reason_amend = coEnrolFormModel['reasonForFiling'];
   }

@@ -335,7 +335,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       newTransactionEnrol.fee_details = null;
     }
 
-    newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    newTransactionEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm');
     newTransactionEnrol.software_version = this._globalService.appVersion;
     newTransactionEnrol.form_language = this._globalService.currLanguage;
 
