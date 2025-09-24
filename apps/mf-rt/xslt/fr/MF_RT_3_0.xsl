@@ -416,7 +416,7 @@ span.normalWeight {
   <!-- Transaction Enrolment -->
   <xsl:template match="TRANSACTION_ENROL">
     <h1>Formulaire de demande de fiches maîtresses
-      <xsl:if test="software_version != ''">(version: <xsl:value-of select="software_version"/>)
+      <xsl:if test="software_version != ''">(version <xsl:value-of select="software_version"/>)
       </xsl:if>
     </h1>
     <div class="well well-sm">
