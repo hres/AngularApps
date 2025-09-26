@@ -10,7 +10,7 @@
                         [showError]="showErrors"
                         [control]="applicantInformationForm.controls['applicantName'] | formControl" controlId="applicantName"
                         label="applicant.name" parentId="cspApplicant"></control-messages>
-                    <input maxlength="80" id="applicantName" class="form-control" size="80"
+                    <input maxlength="80" id="applicantName" class="form-control" size="80" required=""
                         name="applicantName" [formControl]="applicantInformationForm.controls['applicantName'] | formControl" />
                 </label>
             </div>
@@ -32,7 +32,7 @@
                         [showError]="showErrors"
                         [control]="applicantInformationForm.controls['cspNumber'] | formControl" controlId="cspNumber"
                         label="csp.customer.number" parentId="cspApplicant"></control-messages>
-                    <input maxlength="5" size="5" id="cspNumber" class="form-control"
+                    <input maxlength="5" size="5" id="cspNumber" class="form-control"  required
                         name="cspNumber" [formControl]="applicantInformationForm.controls['cspNumber'] | formControl" />
                 </label>
             </div>
