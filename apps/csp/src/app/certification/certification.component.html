@@ -16,7 +16,7 @@
               label="error.cert.first"
               parentId="cspCertification">
             </control-messages>
-            <input class="form-control" maxlength="60" size="30" id="firstName" type="text" [formControlName]="'firstName'"/>
+            <input class="form-control" maxlength="60" size="30" id="firstName"type="text" [formControlName]="'firstName'"   required="required"/>
           </label>
         </div>
 
@@ -30,7 +30,7 @@
             label="initials"
             parentId="cspCertification">
           </control-messages>
-          <input class="form-control" size="10" maxlength="10" id="initials" type="text" [formControlName]="'initials'" required/>
+          <input class="form-control" size="10" maxlength="10" id="initials" type="text" [formControlName]="'initials'"  />
         </label>
       </div>
 
@@ -46,7 +46,7 @@
             label="error.cert.last"
             parentId="cspCertification">
           </control-messages>
-          <input class="form-control" size="30" maxlength="60" id="lastName" type="text" [formControlName]="'lastName'"  required/>
+          <input class="form-control" size="30" maxlength="60" id="lastName" type="text" [formControlName]="'lastName'"    required="required"/>
         </label>
       </div>
 
@@ -66,7 +66,7 @@
             label="error.cert.job"
             parentId="cspCertification">
           </control-messages>
-          <input class="form-control" maxlength="40" size="30" id="jobTitle" type="text" [formControlName]="'jobTitle'" required/>
+          <input class="form-control" maxlength="40" size="30" id="jobTitle" type="text" [formControlName]="'jobTitle'" required="required"/>
         </label>
       </div>
 
@@ -82,7 +82,7 @@
             label="error.cert.date"
             parentId="cspCertification">
           </control-messages>
-          <input class="form-control" id="date" type="date" [formControlName]="'date'" (blur)="onDateInput($event)" required/>
+          <input class="form-control" id="date" type="date" [formControlName]="'date'" (blur)="onDateInput($event)" required="required"/>
         </label>
       </div>
 

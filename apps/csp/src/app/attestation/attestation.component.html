@@ -2,9 +2,9 @@
   <div [formGroup]="attestationForm">
     <div class="row">
       <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <fieldset class="chkbxrdio-grp" required >
+        <fieldset class="chkbxrdio-grp"  >
           <legend id="attestationType0" class="required" >
-            <span  class="field-name">{{'attestation.as.applicant' |translate }}
+            <span class="field-name">{{'attestation.as.applicant' |translate }}
               <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
             </span>
             <control-messages *ngIf="attestationForm.controls['attestationAsApplicant'].invalid"
@@ -29,9 +29,9 @@
 
     <div class="row">
       <div class="form-group wb-frmvld col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <fieldset class="chkbxrdio-grp" required >
+        <fieldset class="chkbxrdio-grp"  >
           <legend id="attestationType2" class="required">
-            <span required class="field-name">{{'attestation.timely.submission' |translate }}
+            <span  class="field-name">{{'attestation.timely.submission' |translate }}
               <strong class="required" aria-hidden="true">{{'commmon.required.bracket' |translate }}</strong>
             </span>
             <control-messages *ngIf="attestationForm.controls['attestationAsSubmission'].invalid"
@@ -71,7 +71,7 @@
                 controlId="firstApprovalDate"
                 label="attestation.date.of.first.marketing.approval.application"
               ></control-messages>
-              <input class="form-control" id="firstApprovalDate" type="date" required
+              <input class="form-control" id="firstApprovalDate" type="date"   required="required"
                 [formControlName]="'marketing_application_date'" (blur)="onDateInput($event)"/>
             </label>
 
@@ -87,7 +87,7 @@
                 parentId="cspAttestation">
               </control-messages>
             </label>
-            <select id="country" required class="form-control full-width" [formControlName]="'marketing_country'">
+            <select id="country"   required="required" class="form-control full-width" [formControlName]="'marketing_country'">
               <option label="{{ 'select.option'|translate }}"></option>
               <option *ngFor="let country of countryOptions" [value]="country.id"> {{ country| textTransform: lang }}</option>
             </select>
