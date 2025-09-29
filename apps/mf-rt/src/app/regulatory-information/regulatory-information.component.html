@@ -77,7 +77,7 @@
                     <li class="radio" *ngFor="let mfType of mfTypeOptions; let i = index">
                         <label for="masterFileType{{i}}"><input type="radio" id="masterFileType{{i}}" name="masterFileType" [value]="mfType.id"
                           (change)="onMfTypeSelected($event)"
-                          [formControlName]="'masterFileType'" aria-describedby="mfTypeDefinition" required="123"/>
+                          [formControlName]="'masterFileType'" aria-describedby="mfTypeDefinition" required="8888"/>
                           {{mfType | textTransform: lang }}
                         </label>
                     </li>
