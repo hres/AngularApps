@@ -17,7 +17,7 @@
           </h2>
         </header>
         <div class="panel-body">
-          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath" 
+          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath"
             [startCheckSumVersion]="startCheckSumVersionNum" [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
             <app-filereader-instruction fileUploadInstruction [lang]="lang"></app-filereader-instruction>
           </lib-file-reader>
@@ -56,7 +56,7 @@
                   </h3>
                 </header>
                 <div class="panel-body">
-                  <app-address-details [showErrors]="showErrors" 
+                  <app-address-details [showErrors]="showErrors"
                     [addressModel]="holderAddressModel" [addrType]="holder" [addrGroupLabelKey]="'label.holder'"
                     (errorList)="processAddressErrors($event)">
                   </app-address-details>
@@ -69,7 +69,7 @@
                 <div class="panel-body">
                    <app-contact-details [showErrors]="showErrors" [contactDetailsModel]="holderContactModel"
                     (errorList)="processContactErrors($event)" [contactType]="holder" [contactGroupLabelKey]="'label.holder'">
-                  </app-contact-details> 
+                  </app-contact-details>
                 </div>
               </section>
 
@@ -98,7 +98,7 @@
                       </div>
                     </div>
                   </div>
-                  <app-address-details *ngIf="!notApplicable" [showErrors]="showErrors" 
+                  <app-address-details *ngIf="!notApplicable" [showErrors]="showErrors"
                     [addressModel]="agentAddressModel" [addrType]="agent" [addrGroupLabelKey]="'label.agent'"
                     (errorList)="processAgentAddressErrors($event)">
                   </app-address-details>
@@ -111,13 +111,13 @@
                 <div class="panel-body">
                   <app-contact-details [showErrors]="showErrors" [contactDetailsModel]="agentContactModel"
                   (errorList)="processAgentContactErrors($event)" [contactType]="agent" [contactGroupLabelKey]="'label.agent'">
-                </app-contact-details> 
+                </app-contact-details>
                 </div>
               </section>
               <div class="col-xs-12 full-width">
                 <div class="checkbox required">
                   <label for="contactInfoConfirmId">
-                    <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId"
+                    <input name="contactInfoConfirmName" type="checkbox" id="contactInfoConfirmId" required="required"
                     (blur)="processErrors()"
                       [formControl]="masterFileForm.controls['contactInfoConfirm'] | formControl" />
 

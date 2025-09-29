@@ -4,14 +4,14 @@
       <div class="form-group col-xs-12" >
         <label for="{{addrType}}CompanyName" class="required full-width">
           <span class="field-name">{{'company.name.full'|translate}}</span>
-          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['companyName'].invalid"
-                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                             [control]="addressForm.controls['companyName'] | formControl"
                             controlId="{{addrType}}CompanyName" label="company.name.full" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
         </label>
-        <input name="companyName" id="{{addrType}}CompanyName" class="form-control full-width"
+        <input name="companyName" id="{{addrType}}CompanyName" class="form-control full-width" required="required"
                  [formControlName]="'companyName'" maxlength="200"/>
       </div>
     </div>
@@ -31,14 +31,14 @@
       <div class="form-group col-xs-12" >
         <label for="{{addrType}}Address" class="required full-width">
           <span class="field-name">{{'addressDetails.street'|translate}}</span>
-          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['address'].invalid"
-                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                             [control]="addressForm.controls['address'] | formControl"
                             controlId="{{addrType}}Address" label="addressDetails.street" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
         </label>
-        <input name="address" id="{{addrType}}Address" class="form-control full-width"
+        <input name="address" id="{{addrType}}Address" class="form-control full-width"  required="required"
             [formControlName]="'address'" maxlength="250"/>
       </div>
     </div>
@@ -46,27 +46,27 @@
       <div class="form-group col-sm-6 col-xs-12" >
         <label for="{{addrType}}City" class="required full-width">
           <span class="field-name">{{'addressDetails.city'|translate}}</span>
-          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['city'].invalid"
-                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                             [control]="addressForm.controls['city'] | formControl"
                             controlId="{{addrType}}City" label="addressDetails.city" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
         </label>
-        <input name="city" id="{{addrType}}City" class="form-control full-width"
+        <input name="city" id="{{addrType}}City" class="form-control full-width" required="required"
                  [formControlName]="'city'" maxlength="60"/>
       </div>
       <div class="form-group col-sm-5 col-xs-12" >
         <label class="required full-width" for="{{addrType}}Country">
           <span class="field-name">{{'addressDetails.country'|translate}}</span>
-          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['country'].invalid"
-                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                             [control]="addressForm.controls['country'] | formControl"
                             controlId="{{addrType}}Country" label="addressDetails.country" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
         </label>
-        <select id="{{addrType}}Country" [formControlName]="'country'" class="required form-control"
+        <select id="{{addrType}}Country" [formControlName]="'country'" class="required form-control" required="required"
                 (change)="onCountryChange($event)">
           <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
           <option *ngFor="let ctry of countryList" [value]="ctry.id">{{ ctry| textTransform: lang }}</option>
@@ -79,7 +79,7 @@
           <span class="field-name">{{provinceLabel |translate}}</span>
           <strong *ngIf="isCanadaOrUSA()" class="required">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['provState'].invalid"
-                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                             [control]="addressForm.controls['provState'] | formControl"
                             controlId="{{addrType}}ProvState" label="{{provinceLabel}}" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
@@ -100,18 +100,18 @@
         <label for="{{addrType}}Postal" class="required">
           <span class="field-name">{{ postalLabel |translate}}&nbsp;</span>
           <span *ngIf="!isCanadaOrUSA()" class="field-name">{{'postal.not.applicable' |translate }}</span>
-          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['postal'].invalid"
-                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                             [control]="addressForm.controls['postal'] | formControl"
                             controlId="{{addrType}}Postal" label="{{postalLabel}}" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
         </label>
-          <input *ngIf="!isCanadaOrUSA()" name="postal" id="{{addrType}}Postal" class="form-control" [formControlName]="'postal'"
+          <input *ngIf="!isCanadaOrUSA()" name="postal" id="{{addrType}}Postal" class="form-control" [formControlName]="'postal'" required="required"
                  maxlength="20" />
-          <input *ngIf="isCanada()" name="postal" id="{{addrType}}Postal" class="form-control" [formControlName]="'postal'"
+          <input *ngIf="isCanada()" name="postal" id="{{addrType}}Postal" class="form-control" [formControlName]="'postal'" required="required"
                  maxlength="6" />
-          <input *ngIf="isUsa()" name="postal" id="{{addrType}}Postal" class="form-control" [formControlName]="'postal'"
+          <input *ngIf="isUsa()" name="postal" id="{{addrType}}Postal" class="form-control" [formControlName]="'postal'" required="required"
                  maxlength="5" data-only-digits/>
     </div>
     <!-- <pre>{{addressForm.value |json}}</pre> -->
