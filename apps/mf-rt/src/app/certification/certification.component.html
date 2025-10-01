@@ -2,10 +2,10 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkbox required">
         <label for="certifyAccurateCompleteId">
-        <input type="checkbox" id="certifyAccurateCompleteId" 
+        <input type="checkbox" id="certifyAccurateCompleteId" required="required"
         [formControlName]="'certifyAccurateComplete'" />
         <span><b>{{'certify.info'|translate}}</b></span>
-        <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
         <control-messages *ngIf="certificationForm.controls['certifyAccurateComplete'].invalid" [showError]="showErrors"
             parentId="mfCertif" [control]="certificationForm.controls['certifyAccurateComplete'] | formControl"
             controlId="certifyAccurateCompleteId" label="certify.info"></control-messages>
@@ -22,7 +22,7 @@
         parentId="mfCertif" [control]="certificationForm.controls['fullName'] | formControl"
         controlId="fullNameId" label="full.name"></control-messages>
     </label>
-    <input name="fullName" class="form-control" id="fullNameId" maxlength="120"
+    <input name="fullName" class="form-control" id="fullNameId" maxlength="120" required="required"
         [formControlName]="'fullName'" />
     </div>
 </div>
@@ -30,13 +30,13 @@
 <div class="col-sm-6">
     <label for="submitDateId" class="required">
     <span><b>{{'submit.date'|translate}}</b></span>
-    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+    <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
     <control-messages *ngIf="certificationForm.controls['submitDate'].invalid" [showError]="showErrors"
         parentId="mfCertif" [control]="certificationForm.controls['submitDate'] | formControl" controlId="submitDateId"
         label="submit.date"></control-messages>
     </label>
-    <input name="submitDate" class="form-control" id="submitDateId" type="date"
-        [formControlName]="'submitDate'" (input)="checkDateValidity($event)" /> 
+    <input name="submitDate" class="form-control" id="submitDateId" type="date"  required="required"
+        [formControlName]="'submitDate'" (input)="checkDateValidity($event)" />
 </div>
 </div>
 
@@ -46,11 +46,11 @@
 
 <div class="row col-xs-12 full-width">
     <div class="checkbox required">
-        <label for="consentPrivacyId">            
-        <input name="consentPrivacyName" type="checkbox" id="consentPrivacyId"
+        <label for="consentPrivacyId">
+        <input name="consentPrivacyName" type="checkbox" id="consentPrivacyId"  required="required"
             [formControlName]="'consentPrivacy'" />
         <span><b>{{'consent.privacy'|translate}}</b></span>
-        <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
         <control-messages *ngIf="certificationForm.controls['consentPrivacy'].invalid" [showError]="showErrors"
             parentId="mfCertif" [control]="certificationForm.controls['consentPrivacy'] | formControl"
             controlId="consentPrivacyId" label="consent.privacy"></control-messages>

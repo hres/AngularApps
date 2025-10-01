@@ -17,21 +17,21 @@
       <fieldset class="col-md-12 chkbxrdio-grp">
         <legend class="required" id="areAccessLettersId">
           {{'are.access.letters' |translate}}
-          <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+          <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
           <sup id="tr7-rf">
             <a class="fn-lnk" href="#tr7"><span
                 class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['accessLetrIndx']}}</a>
           </sup>
-          <control-messages *ngIf="feeForm.controls['areAccessLetters'].invalid" [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+          <control-messages *ngIf="feeForm.controls['areAccessLetters'].invalid" [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
             [control]="feeForm.controls['areAccessLetters'] | formControl" controlId="areAccessLettersId"
             label="are.access.letters" parentId="mfFees"></control-messages>
         </legend>
         <ng-container *ngFor="let yesno of yesNoList; let i = index">
           <label for="areAccessLettersId{{i}}" class="radio-inline">
             <input type="radio"
-              id="areAccessLettersId{{i}}" name="areAccessLetters" [value]="yesno.id" 
+              id="areAccessLettersId{{i}}" name="areAccessLetters" [value]="yesno.id"
               (change)="areAccessLettersChanged()"
-              [formControl]="feeForm.controls['areAccessLetters'] | formControl" required/>
+              [formControl]="feeForm.controls['areAccessLetters'] | formControl" required="required"/>
             {{yesno | textTransform: lang }}
             </label>
          </ng-container>
@@ -41,13 +41,13 @@
       <div class="form-group col-xs-12" >
         <label for="numOfAccessLetter" class="required full-width">
           <span class="field-name">{{'number.of.letters'|translate}}</span>
-          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="feeForm.controls['numOfAccessLetter'].invalid"
-                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                             [control]="feeForm.controls['numOfAccessLetter'] | formControl"
                             controlId="numOfAccessLetter" label="number.of.letters" parentId="mfFees"></control-messages>
         </label>
-        <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3"
+        <input id="numOfAccessLetter" class="form-control" name="numOfAccessLetter" maxlength="3" required="required"
                  [formControl]="feeForm.controls['numOfAccessLetter'] | formControl" data-only-digits/>
       </div>
   </div>
@@ -55,14 +55,14 @@
       <fieldset class="col-md-12 chkbxrdio-grp">
         <legend class="required" id="whoResponsibleId">
           {{'who.responsible' |translate}}
-          <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
-          <control-messages *ngIf="feeForm.controls['whoResponsible'].invalid" [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+          <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
+          <control-messages *ngIf="feeForm.controls['whoResponsible'].invalid" [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
             [control]="feeForm.controls['whoResponsible'] | formControl" controlId="whoResponsibleId"
             label="who.responsible" parentId="mfFees"></control-messages>
         </legend>
         <div class="radio" *ngFor="let who of whoResponsibleList; let i = index">
           <label for="whoResponsibleId{{i}}">
-              <input type="radio" id="whoResponsibleId{{i}}" name="whoResponsible" [value]="who.id" 
+              <input type="radio" id="whoResponsibleId{{i}}" name="whoResponsible" [value]="who.id" required="required"
               [formControl]="feeForm.controls['whoResponsible'] | formControl" required/>
               {{who | textTransform: lang }}
           </label>
@@ -78,7 +78,7 @@
                 class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['accountNumIndx']}}</a>
           </sup>
           <control-messages *ngIf="feeForm.controls['accountNumber'].invalid"
-                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                             [control]="feeForm.controls['accountNumber'] | formControl"
                             controlId="accountNumber" label="account.num" parentId="mfFees"
                             requiredLength="5"></control-messages>
@@ -89,7 +89,7 @@
         <label for="businessNumber" class="full-width">
           <span class="field-name">{{'business.num'|translate}}</span>
           <control-messages *ngIf="feeForm.controls['businessNumber'].invalid"
-                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'" 
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                             [control]="feeForm.controls['businessNumber'] | formControl"
                             controlId="businessNumber" label="business.num" parentId="mfFees"
                             requiredLength="9"></control-messages>
