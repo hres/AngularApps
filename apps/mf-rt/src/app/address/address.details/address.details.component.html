@@ -77,14 +77,14 @@
       <div *ngIf="isCanadaOrUSA()" class="form-group col-xs-12 col-sm-6" >
         <label for="{{addrType}}ProvState" class="required full-width">
           <span class="field-name">{{provinceLabel |translate}}</span>
-          <strong *ngIf="isCanadaOrUSA()" class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <strong *ngIf="isCanadaOrUSA()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="addressForm.controls['provState'].invalid"
                             [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                             [control]="addressForm.controls['provState'] | formControl"
                             controlId="{{addrType}}ProvState" label="{{provinceLabel}}" parentId="{{addrType}}Info"
                             translatedParentLabel="{{addrGroupLabelKey|translate}}"></control-messages>
         </label>
-        <select id="{{addrType}}ProvState" class="form-control full-width"  [formControlName]="'provState'">
+        <select id="{{addrType}}ProvState" class="form-control full-width"  [formControlName]="'provState'"  required="required">
           <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
           <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov | textTransform: lang}}</option>
         </select>
