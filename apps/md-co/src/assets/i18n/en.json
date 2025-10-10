@@ -5,7 +5,7 @@
   "top.privacy.statement": "Privacy notice statement",
   "top.security.declaimer": "Security Disclaimer",
   "top.instruction": "Instructions",
-
+    "PROTECTED_B": "Protected \"B\" when completed",
     "load.file": "Load a company enrolment file",
     "select.file": "Select a file to load",
     "choose.file":"Choose File",
@@ -120,7 +120,6 @@
     "return.instruction": "Return to instruction",
     "privacy.statement": "Privacy Notice Statement",
     "security.declaimer": "Security disclaimer",
-    "PROTECTED_B": "Protected \"B\" when completed",
     "mailto.label": "Submit to Health Canada",
     "help.load.file.01": "A file should not be loaded if this is the first time enrolling the Company.",
     "help.load.file.02": "When continuing with a working copy, the format of the file to load should be .hcsc.",

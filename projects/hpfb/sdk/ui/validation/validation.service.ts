@@ -24,8 +24,6 @@ export class ValidationService implements IValidationService {
       'error.mgs.zip': 'error.mgs.zip',
       'error.mgs.company.id': 'error.mgs.company.id',
       'error.mgs.contact.id': 'error.mgs.contact.id',
-      'error.mgs.primary.company.id': 'error.mgs.primary.company.id',
-      'error.mgs.primary.contact.id': 'error.mgs.primary.contact.id',
       'error.mgs.4.numeric':'error.mgs.4.numeric',
       'error.mgs.5.numeric': 'error.mgs.5.numeric',
       'error.mgs.6.numeric': 'error.mgs.6.numeric',
