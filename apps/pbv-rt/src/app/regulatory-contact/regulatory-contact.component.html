@@ -8,14 +8,14 @@
                     <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
                     <control-messages *ngIf="regulatoryContactInfoForm.controls['isSigned3rdParty'].invalid" [showError]="showFieldErrors"
                     [control]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl" controlId="thirdPartyId" 
-                    label="is.signed.3rd.party" parentId="pbvContact"></control-messages>
+                    label="is.signed.3rd.party" parentId="pbvContact" id="isSigned3rdPartyError" ></control-messages>
                 </legend>
                 <ng-container *ngFor="let yesno of yesNoList; let i = index">
                     <label for="isSigned3rdParty{{i}}" class="radio-inline">
                         <input type="radio"
                         id="isSigned3rdParty{{i}}" name="isSigned3rdParty" [value]="yesno.id"
                         (change)="isSigned3rdPartyOnChange()"
-                        [formControl]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl"/>
+                        [formControl]="regulatoryContactInfoForm.controls['isSigned3rdParty'] | formControl" aria-describedby="isSigned3rdPartyError"/>
                         {{yesno | textTransform: lang}}
                     </label>
                 </ng-container>
