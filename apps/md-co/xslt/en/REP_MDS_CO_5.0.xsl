@@ -410,7 +410,7 @@ span.normalWeight {
 
 	<!-- Company Enrolment -->
 	<xsl:template name="DEVICE_COMPANY_ENROL">
-		<h1>Company Template: Regulatory Enrolment Process (REP) for Medical Devices (Version: 4.0.0)</h1>
+		<h1>Company Template: Regulatory Enrolment Process (REP) for medical devices (version 5.0.0)</h1>
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -520,7 +520,7 @@ span.normalWeight {
 												Postal Code
 											</xsl:when>
 											<xsl:otherwise>
-												Postal/Zip Code (Use "not applicable" if not available)
+												Postal/ZIP code (use "not applicable" if not available)
 											</xsl:otherwise>
 										</xsl:choose>:&#160;
 										</strong>
@@ -559,12 +559,12 @@ span.normalWeight {
 					<xsl:if test="/descendant-or-self::general_information/amend_reasons/manufacturer_name_change = 'yes' or /descendant-or-self::general_information/amend_reasons/manufacturer_address_change = 'yes' or /descendant-or-self::general_information/amend_reasons/facility_change = 'yes' or /descendant-or-self::general_information/are_licenses_transfered = 'yes'">
 					<section class="panel panel-default" >
 						<div class="panel-heading">
-							<h2 class="panel-title">Company Administrative Changes</h2>
+							<h2 class="panel-title">Company administrative changes</h2>
 						</div>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<strong>All Impacted Licence Number(s) (Hard return between licence numbers):&#160;</strong>
+									<strong>All impacted Licence Number(s) (hard return between licence numbers):&#160;</strong>
 								</div>
 							</div>
 							<div class="row">
@@ -593,7 +593,7 @@ span.normalWeight {
 								</div>
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>New Contact Name:&#160;</strong>
+										<strong>New contact name:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::administrative_changes/new_contact_name"/></span>
 									</div>
 								</div>
@@ -620,13 +620,13 @@ span.normalWeight {
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Contact Status:&#160;</strong>
+						<strong>Contact status:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="status/@label_en"/></span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Full Name (First and Last):&#160;</strong>
+						<strong>Full name (first and last):&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="full_name"/></span>&#160;&#160;
 					</div>
 				</div>

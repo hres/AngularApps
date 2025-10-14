@@ -367,14 +367,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       } else {
         this.submitToSubject = 'Systèmes de qualité';
       }
-      this.submitToEmail = '(qs.mdb@hc-sc.gc.ca)';
+      this.submitToEmail = 'qs.mdb@hc-sc.gc.ca';
     } else {
       if (this.lang == 'en') {
         this.submitToSubject = 'MD licensing';
       } else {
         this.submitToSubject = 'Licence délivrée aux médecins';
       }
-      this.submitToEmail = '(devicelicensing-homologationinstruments@hc-sc.gc.ca)';
+      this.submitToEmail = 'devicelicensing-homologationinstruments@hc-sc.gc.ca';
     }
 
     if (this.lang == 'en') {
@@ -394,7 +394,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       emailSubject =
         ' Ébauche du fichier CO XML -  ' +
         ((this.addressModel.company_name === null || this.addressModel.company_name === '')
-          ? '[insérer le nom de votre entreprise]'
+          ? '[insérer le nom de votre compagnie]'
           : this.addressModel.company_name) +
         ' ' +
         ((this.genInfoModel.company_id === '')
@@ -404,10 +404,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         "NOTE: Le fichier XML de l'entreprise n'est pas automatiquement joint. VEUILLEZ JOINDRE LE BROUILLON XML DE L'ENTREPRISE AVANT DE LE SOUMETTRE.";
     }
 
-    const email = this._utilsService.removeFirstAndLastChars(this.submitToEmail);
+    //const email = this._utilsService.removeFirstAndLastChars(this.submitToEmail);
 
     this.mailToLink =
-        'mailto:' + email + '?subject=' + emailSubject + '&body=' + body;
+        'mailto:' + this.submitToEmail + '?subject=' + emailSubject + '&body=' + body;
 
   }
 
