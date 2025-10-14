@@ -94,13 +94,13 @@
                         <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
                         <control-messages *ngIf="feesForm.controls['smallBusinessFeeApp'].invalid" [showError]="showErrors"
                         parentId="feesForm" [control]="feesForm.controls['smallBusinessFeeApp'] | formControl" 
-                        controlId="smallBusinessFeeApp0" label="small.business.fee.application"></control-messages>
+                        controlId="smallBusinessFeeApp0" label="small.business.fee.application" id="smallBusinessFeeAppError"></control-messages>
                     </legend>
                     <ng-container *ngFor="let yesno of yesNoList; let i = index">
                         <label for="smallBusinessFeeApp{{i}}" class="radio-inline">
                           <input type="radio"
                             id="smallBusinessFeeApp{{i}}" name="smallBusinessFeeApp" [value]="yesno.id" 
-                            [formControl]="feesForm.controls['smallBusinessFeeApp'] | formControl"/>
+                            [formControl]="feesForm.controls['smallBusinessFeeApp'] | formControl" aria-describedby="smallBusinessFeeAppError"/>
                           {{yesno | textTransform: lang }}
                           </label>
                        </ng-container>

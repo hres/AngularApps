@@ -88,15 +88,16 @@
                     <a class="fn-lnk" [href]="'#' + helpIndex['prioRevIndx'][1]"><span
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['prioRevIndx'][0]}}</a>
                 </sup>
+              </legend>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isPriority'].invalid" [showError]="showFieldErrors"
                   [control]="regulartoryInfoForm.controls['isPriority'] | formControl" controlId="isPriority0" 
-                  label="is.priority" parentId="regulatoryInfo"></control-messages>
-              </legend>
+                  label="is.priority" parentId="regulatoryInfo" id="isPriorityError"></control-messages>
+              <br/>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
                 <label for="isPriority{{i}}" class="radio-inline">
                   <input type="radio"
                     id="isPriority{{i}}" name="isPriority" [value]="yesno.id"
-                    [formControlName]="'isPriority'"/>
+                    [formControlName]="'isPriority'" aria-describedby="isPriorityError" />
                   {{yesno | textTransform: lang }}
                   </label>
                </ng-container>
@@ -111,15 +112,16 @@
                   <a class="fn-lnk" [href]="'#' + helpIndex['nocRevIndx'][1]"><span
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['nocRevIndx'][0]}}</a>
                 </sup>
+              </legend>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isNOC'].invalid" [showError]="showFieldErrors"
                   [control]="regulartoryInfoForm.controls['isNOC'] | formControl" controlId="isNOC0" 
-                  label="is.noc" parentId="regulatoryInfo"></control-messages>
-              </legend>
+                  label="is.noc" parentId="regulatoryInfo" id="isNOCError"></control-messages>
+              <br/>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
                 <label for="isNOC{{i}}" class="radio-inline">
                   <input type="radio"
                     id="isNOC{{i}}" name="isNOC" [value]="yesno.id"
-                    [formControlName]="'isNOC'"/>
+                    [formControlName]="'isNOC'" aria-describedby="isNOCError"/>
                   {{yesno | textTransform: lang }}
                   </label>
                </ng-container>
@@ -134,15 +136,16 @@
                     <a class="fn-lnk" [href]="'#' + helpIndex['adminSubIndx'][1]"><span
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminSubIndx'][0]}}</a>
                 </sup>
+              </legend>
                 <control-messages *ngIf="regulartoryInfoForm.controls['isAdminSubmission'].invalid" [showError]="showFieldErrors"
                   [control]="regulartoryInfoForm.controls['isAdminSubmission'] | formControl" controlId="isAdminSubmission0" 
-                  label="is.admin.submission" parentId="regulatoryInfo"></control-messages>
-              </legend>
+                  label="is.admin.submission" parentId="regulatoryInfo" id="isAdminSubmissionError"></control-messages>
+              <br/>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
                 <label for="isAdminSubmission{{i}}" class="radio-inline">
                   <input type="radio" (change)="onAdminSubmissionSelected(yesno.id, false)"
                     id="isAdminSubmission{{i}}" name="isAdminSubmission" [value]="yesno.id"
-                    [formControlName]="'isAdminSubmission'"/>
+                    [formControlName]="'isAdminSubmission'"  aria-describedby="isAdminSubmissionError"/>
                   {{yesno | textTransform: lang }}
                   </label>
                </ng-container>

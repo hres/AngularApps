@@ -1,6 +1,6 @@
 @if (makeErrorVisible()) {
   <strong class="error">
-    <span class="label label-danger">
+    <span class="label label-danger font-size-100">
       @if(errorSummaryFlag && errorNumber) {
         <span class="prefix">{{'error' | translate: {number: errorNumber} }}&nbsp;</span>
       }
