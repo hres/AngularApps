@@ -414,16 +414,16 @@ span.normalWeight {
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h2 class="panel-title">Regulatory Company Enrolment</h2>
+					<h2 class="panel-title">Regulatory company enrolment</h2>
 				</div>
 
 				<div class="panel-body">
 					<div class="well well-sm" >
 						<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 							<tr>
-								<td style="text-align: center;font-weight:bold;">Enrolment Status</td>
-								<td style="text-align: center;font-weight:bold;">Enrolment Version</td>
-								<td style="text-align: center;font-weight:bold;">Date Generated</td>
+								<td style="text-align: center;font-weight:bold;">Enrolment status</td>
+								<td style="text-align: center;font-weight:bold;">Enrolment version</td>
+								<td style="text-align: center;font-weight:bold;">Date generated</td>
 								<td style="text-align: center;font-weight:bold;">Company Identifier</td>
 							</tr>
 							<tr>
@@ -437,7 +437,7 @@ span.normalWeight {
 					<xsl:if test="/descendant-or-self::general_information/status/@id = 'AMEND'">
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<strong>Reason for Amendment:&#160;</strong>
+								<strong>Reason for amendment:&#160;</strong>
 								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/amend_reasons/amend_reason/@label_en"/></span>
 							</div>
 						</div>
@@ -457,7 +457,7 @@ span.normalWeight {
 					</div>
 					<section class="panel panel-default" >
 							<div class="panel-heading">
-								<h2 class="panel-title">Address Information</h2>
+								<h2 class="panel-title">Address information</h2>
 							</div>
 							<div class="panel-body">
 								<div class="row">
@@ -581,13 +581,13 @@ span.normalWeight {
 							<xsl:if test="/descendant-or-self::administrative_changes/is_regulatory_change = 'yes'">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>New Company Identifier (6 chiffres):&#160;</strong>
+										<strong>New Company Identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="substring(/descendant-or-self::administrative_changes/new_company_id, 2, 6)"/></span>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>New Contact Identifier (5 chiffres):&#160;</strong>
+										<strong>New Contact Identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::administrative_changes/new_contact_id"/></span>
 									</div>
 								</div>
@@ -609,7 +609,7 @@ span.normalWeight {
 	<xsl:template match="contacts/contact">
 		<section class="panel panel-default" >
 			<div class="panel-heading">
-				<h2 class="panel-title">Company Representative &#160;<xsl:value-of select="id + 1"/></h2>
+				<h2 class="panel-title">Company representative &#160;<xsl:value-of select="id + 1"/></h2>
 			</div>
 			<div class="panel-body">
 				<div class="row">
