@@ -410,7 +410,7 @@ span.normalWeight {
 
 	<!-- Company Enrolment -->
 	<xsl:template name="DEVICE_COMPANY_ENROL">
-		<h1>Modèle de compagnie: Processus d'inscription réglementaire (PIR) pour les instruments médicaux (Version: 4.0.0)</h1>
+		<h1>Modèle de compagnie: Processus d'inscription réglementaire (PIR) pour les instruments médicaux (version: 5.0.0)</h1>
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -450,14 +450,14 @@ span.normalWeight {
 					</xsl:if>
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<strong> Il y a-t-il des licences de propriété en processus d'acheminement? &#160;</strong>
+							<strong>Est-ce que la présente modification sert à changer le titulaire d'homologations d'une compagnie à une autre ?:&#160;</strong>
 							<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::general_information/are_licenses_transfered"/></xsl:call-template></span>
 						</div>
 						<br /><br />
 					</div>
 					<section class="panel panel-default" >
 							<div class="panel-heading">
-								<h2 class="panel-title">Information d'adresse</h2>
+								<h2 class="panel-title">Détails de l'adresse</h2>
 							</div>
 							<div class="panel-body">
 								<div class="row">
@@ -501,7 +501,7 @@ span.normalWeight {
 											</span>
 										</xsl:when>
 										<xsl:otherwise>
-											<strong>Province ou État:&#160;</strong>
+											<strong>Province ou état:&#160;</strong>
 											<span class="mouseHover">
 											<xsl:value-of select="/descendant-or-self::address/province_text"/>
 											</span>
@@ -520,7 +520,7 @@ span.normalWeight {
 												Code postal
 											</xsl:when>
 											<xsl:otherwise>
-												Code Postal/ZIP (Si pas disponible, utilisez « sans objet »)
+												Code Postal/ZIP (si pas disponible, utilisez « sans objet »)
 											</xsl:otherwise>
 										</xsl:choose>:&#160;
 										</strong>
@@ -539,7 +539,7 @@ span.normalWeight {
 					</section>
 					<section class="panel panel-default" >
 						<div class="panel-heading">
-							<h2 class="panel-title">Désignation de la personne-ressource de l’entreprise (fabricant uniquement):</h2>
+							<h2 class="panel-title">Désignation de personne-ressource de l’entreprise (fabricant uniquement):</h2>
 						</div>
 						<div class="panel-body">
                             <div class="row">
@@ -559,12 +559,12 @@ span.normalWeight {
 					<xsl:if test="/descendant-or-self::general_information/amend_reasons/manufacturer_name_change = 'yes' or /descendant-or-self::general_information/amend_reasons/manufacturer_address_change = 'yes' or /descendant-or-self::general_information/amend_reasons/facility_change = 'yes' or /descendant-or-self::general_information/are_licenses_transfered = 'yes'">
 					<section class="panel panel-default" >
 						<div class="panel-heading">
-							<h2 class="panel-title">Modifications administratives de l'entreprise</h2>
+							<h2 class="panel-title">Modifications administratives de la compagnie</h2>
 						</div>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<strong>Tous les numéros de licence concernée(s) (Placez un retour entre chaque numéro d'homologation):&#160;</strong>
+									<strong>Tous les numéros d'identification des homologations visées (placez un retour forcé entre chaque numéro d'homologation):&#160;</strong>
 								</div>
 							</div>
 							<div class="row">
@@ -581,11 +581,11 @@ span.normalWeight {
 							<xsl:if test="/descendant-or-self::administrative_changes/is_regulatory_change = 'yes'">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Nouvel identifiant de la compagnie:&#160;</strong>
+										<strong>Nouvel identifiant de la compagnie (6 chiffres):&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="substring(/descendant-or-self::administrative_changes/new_company_id, 2, 6)"/></span>
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Nouvel identifiant du contact:&#160;</strong>
+										<strong>Nouvel identifiant du contact (5 chiffres):&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::administrative_changes/new_contact_id"/></span>
 									</div>
 								</div>
@@ -607,7 +607,7 @@ span.normalWeight {
 	<xsl:template match="contacts/contact">
 		<section class="panel panel-default" >
 			<div class="panel-heading">
-				<h2 class="panel-title">Représentant de la compagnie&#160;<xsl:value-of select="id + 1"/></h2>
+				<h2 class="panel-title">Représentant de la compagnie &#160;<xsl:value-of select="id + 1"/></h2>
 			</div>
 			<div class="panel-body">
 				<div class="row">
@@ -636,7 +636,7 @@ span.normalWeight {
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Titre de poste:&#160;</strong>
+						<strong>Titre du poste:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="job_title"/></span>
 					</div>
 				</div>
@@ -648,14 +648,14 @@ span.normalWeight {
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Extension de téléphone:&#160;</strong>
+						<strong>Numéro de l'extensione:&#160;</strong>
 						<span class="mouseHover"><xsl:if test="phone_ext = ''">&#160;&#160;&#160;&#160;</xsl:if>
 						<xsl:value-of select="phone_ext"/></span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Numéro de télécopieur (incluant le code régional):&#160;</strong>
+						<strong>Numéro de télécopieur (y compris le code régional):&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="fax_num"/></span>
 					</div>
 				</div>
