@@ -10,6 +10,7 @@
   "choose.file":"Choisir un fichier",
   "select.file": "Sélectionnez un fichier à charger",
   "no.file.chosen": "Aucun fichier choisi",
+  "warning.text": "<p>Ce modèle est destiné à l'enregistrement des compagnies pour les instruments médicaux</p><br><p>Ce modèle ne doit pas être utilisé pour l'enregistrement des compagnies pour les médicaments pour usage humain et vétérinaire et les biocides. Utilisez plutôt le <a href='https://health-products.canada.ca/rep-pir/company/fr/entreprise.html#def-top'>Modèle de compagnie: Processus d'Inscription Réglementaire (PIR) pour les produits pharmaceutiques humain et vétérinaire et biocides. </a></p><br><p>Une compagnie peut avoir besoin de remplir les deux modèles en fonction des produits qu'elle vend.</p>",
   "company.enrolment": "Inscription réglementaire d'une compagnie",
   "company.id": "Identifiant de la compagnie",
   "addressDetails.street": "Rue",
