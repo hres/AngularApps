@@ -75,10 +75,11 @@
                   </legend>
                   <ul class="form-group list-unstyled">
                     <li class="radio" *ngFor="let mfType of mfTypeOptions; let i = index">
-                        <label for="masterFileType{{i}}"><input type="radio" id="masterFileType{{i}}" name="masterFileType" [value]="mfType.id"  required="required"
-                          (change)="onMfTypeSelected($event)"
-                          [formControlName]="'masterFileType'" aria-describedby="mfTypeDefinition" required="required"/>
-                          {{mfType | textTransform: lang }}
+                        <label for="masterFileType{{i}}">
+                            <input type="radio" id="masterFileType{{i}}" name="masterFileType" [value]="mfType.id"  required="required"
+                                (change)="onMfTypeSelected($event)"
+                                [formControlName]="'masterFileType'" required="required" [attr.aria-label]="getMfTypeDesc(mfType | textTransform: lang, mfType.id)"/>
+                                {{mfType | textTransform: lang }}
                         </label>
                     </li>
                   </ul>
@@ -88,7 +89,7 @@
         <div class="row" *ngIf="selectedMfTypeDefinition">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="alert alert-info">
-                    <p id="mfTypeDefinition">{{selectedMfTypeDefinition}}</p>
+                    <p id="mfTypeDefinition" aria-hidden="true">{{selectedMfTypeDefinition}}</p>
                 </div>
             </div>
         </div>
