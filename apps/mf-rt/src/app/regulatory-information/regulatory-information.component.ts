@@ -129,6 +129,11 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     }
   }
 
+  getMfTypeDesc(mfType : any, mfTypeId : any) : string {
+    const codeDefinition = this._utilsService.findCodeDefinitionById(this.mfTypeOptions, mfTypeId);
+    return mfType + " - " + this._utilsService.getCodeDefinitionByLang(codeDefinition, this.lang);
+  }
+
   onTxDescriptionSelected(e: any): void {
     const selectedTxDescId = this.regulartoryInfoForm.get('descriptionType').value;
     this.selectedTxDescDefinition = this._utilsService.getCodeDefinitionByIdByLang(selectedTxDescId, this.descriptionTypeList, this.lang);
