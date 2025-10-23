@@ -91,9 +91,10 @@
   "info.confirmation": "J’atteste que les informations ci-dessus sont valides",
   "fee.warning1": "Ne joignez aucun paiement à votre présentation, supplément ou demande. Santé Canada examinera votre document et émettra une facture en conséquence.",
   "fee.warning2": "Pour plus d’informations sur les frais liés à la fiche maîtresse et sur le paiement des factures, veuillez consulter au ",
-  "fee.warning.link.title": "financement et frais.",
+  "fee.warning.link.title": "financement et frais",
   "fee.warning.link.url": "https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/financement-frais.html",
-  "fee.warning3": " Le non-paiement des frais peut entraîner le non-traitement de votre demande de la fiche maîtresse.",
+  "open.new.window": " (s'ouvre dans une nouvelle fenêtre)",
+  "fee.warning3": ". Le non-paiement des frais peut entraîner le non-traitement de votre demande de la fiche maîtresse.",
   "are.access.letters": "Joignez-vous une ou plusieurs lettres d’accès à cette transaction ?",
   "number.of.letters": "Nombre de lettre(s) d’accès ?",
   "who.responsible": "Qui paiera les frais ?",
@@ -116,5 +117,6 @@
   "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres",
   "select.option": "Sélectionnez une option",
   "section.show.option": "[ Cette section peut ne pas être visible. ] ",
+  "warning.text1": "Ce modèle sert à enregistrer une fiche maîtresse auprès de Santé Canada. Le formulaire Web en format « Extensible Markup Language » (XML) pour la demande de fiche maîtresse (formulaire de demande de FM) doit accompagner chaque document technique commun électronique (eCTD) et non-eCTD transaction envoyée par le portail de demandes électroniques (PDE). <br/><br/>Assurez-vous que tous les champs de ce modèle sont complétés dans l’ordre séquentiel. Les sélections faites dans certains champs peuvent affecter la visibilité et la disponibilité d’autres champs et sections tout au long du formulaire.",
   "transaction.description.default.option": "D'abord, sélectionnez un type de fiche maîtresse parmi les options ci-dessus. "
 }

@@ -90,9 +90,10 @@
   "info.confirmation": "I confirm that the above information is valid",
   "fee.warning1": "Do not send fee payment with your master file, update or letter of access transactions. Health Canada will verify the fee and issue an invoice accordingly.",
   "fee.warning2": "For information on master file fees and payment of invoices, please refer to ",
-  "fee.warning.link.title": "Funding and Fees.",
+  "fee.warning.link.title": "Funding and Fees",
   "fee.warning.link.url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/funding-fees.html",
-  "fee.warning3": "Failure to pay fees will result in your master file being denied access and future transactions being placed on hold or rejected.",
+  "open.new.window": " (opens in a new window)",
+  "fee.warning3": ". Failure to pay fees will result in your master file being denied access and future transactions being placed on hold or rejected.",
   "are.access.letters": "Are there letter(s) of access being filed with this transaction?",
   "number.of.letters": "Number of letter(s) of access?",
   "who.responsible": "Who is responsible for payment of fees?",
@@ -115,5 +116,6 @@
   "error.mgs.5.numeric": "Invalid entry - must be 5 digits",
   "select.option": "Select an option",
   "section.show.option": "[ This section may not be visible. ] ",
+  "warning.text": "This template is used to register a master file with Health Canada. The web-based Extensible Markup Language (XML) master file application form (MF application form) must accompany every electronic Common Technical Document (eCTD) and non-eCTD transaction sent through the electronic submissions gateway (ESG). <br/><br/>Ensure that all fields in this template are completed in the sequential order. The selections made in certain fields may affect the visibility and availability of other fields and sections throughout the form.",
   "transaction.description.default.option": "First, select a master file type from the options above."
 }
