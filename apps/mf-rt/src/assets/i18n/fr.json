@@ -116,5 +116,6 @@
   "purpose.of.collection":"Santé Canada a besoin des renseignements personnels pour traiter les formulaires de demande réglementaire. Les informations que vous fournissez peuvent être utilisées pour vous contacter afin de vérifier les informations fournies, d'évaluer la faisabilité de l'inscription d'entreprises, de dossiers et de suivre les activités et transactions réglementaires.",
   "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres",
   "select.option": "Sélectionnez une option",
-  "section.show.option": "[ Cette section peut ne pas être visible. ] "
+  "section.show.option": "[ Cette section peut ne pas être visible. ] ",
+  "warning.text1": "Ce modèle sert à enregistrer une fiche maîtresse auprès de Santé Canada. Le formulaire Web en format « Extensible Markup Language » (XML) pour la demande de fiche maîtresse (formulaire de demande de FM) doit accompagner chaque document technique commun électronique (eCTD) et non-eCTD transaction envoyée par le portail de demandes électroniques (PDE). <br/><br/>Assurez-vous que tous les champs de ce modèle sont complétés dans l’ordre séquentiel. Les sélections faites dans certains champs peuvent affecter la visibilité et la disponibilité d’autres champs et sections tout au long du formulaire."
 }
