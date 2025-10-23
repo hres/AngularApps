@@ -116,5 +116,6 @@
   "error.mgs.5.numeric": "Invalid entry - must be 5 digits",
   "select.option": "Select an option",
   "section.show.option": "[ This section may not be visible. ] ",
-  "warning.text": "This template is used to register a master file with Health Canada. The web-based Extensible Markup Language (XML) master file application form (MF application form) must accompany every electronic Common Technical Document (eCTD) and non-eCTD transaction sent through the electronic submissions gateway (ESG). <br/><br/>Ensure that all fields in this template are completed in the sequential order. The selections made in certain fields may affect the visibility and availability of other fields and sections throughout the form."
+  "warning.text": "This template is used to register a master file with Health Canada. The web-based Extensible Markup Language (XML) master file application form (MF application form) must accompany every electronic Common Technical Document (eCTD) and non-eCTD transaction sent through the electronic submissions gateway (ESG). <br/><br/>Ensure that all fields in this template are completed in the sequential order. The selections made in certain fields may affect the visibility and availability of other fields and sections throughout the form.",
+  "transaction.description.default.option": "First, select a master file type from the options above."
 }
