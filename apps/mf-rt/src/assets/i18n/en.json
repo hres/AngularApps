@@ -114,5 +114,6 @@
   "purpose.of.collection":"Health Canada requires the personal information to process regulatory application forms. The information you provide may be used to contact you to verify provided information, to assess the feasibility of enrolling companies, dossiers, and track regulatory activities and transactions.",
   "error.mgs.5.numeric": "Invalid entry - must be 5 digits",
   "select.option": "Select an option",
-  "section.show.option": "[ This section may not be visible. ] "
+  "section.show.option": "[ This section may not be visible. ] ",
+  "transaction.description.default.option": "First, select a master file type from the options above."
 }
