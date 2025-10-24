@@ -1,11 +1,14 @@
 import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation,
+  inject
 } from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {AddressDetailsService} from './address.details.service';
 import { ControlMessagesComponent, LoggerService, UtilsService } from '@hpfb/sdk/ui';
 import { INameAddress } from '../../models/Enrollment';
+import { GlobalService } from '../../global/global.service';
+
 
 @Component({
   selector: 'lib-address-details',
@@ -47,8 +50,9 @@ export class AddressDetailsComponent implements OnInit {
   public zipCode = false;
 
   public showFieldErrors = false;
+  private _logger = inject(LoggerService)
 
-  constructor(private cdr: ChangeDetectorRef, private _addressDetailsService: AddressDetailsService, private _utilsService: UtilsService, private _loggerService: LoggerService) {
+  constructor(private cdr: ChangeDetectorRef, private _addressDetailsService: AddressDetailsService, private _utilsService: UtilsService, private _loggerService: LoggerService, private _globalService: GlobalService) {
     this.showFieldErrors = false;
     this.showErrors = false;
   }
@@ -125,7 +129,7 @@ export class AddressDetailsComponent implements OnInit {
         this.countries = changes['countryList'].currentValue;
       }
       if (changes['addressFormLocalModel']) {
-        this._loggerService.log('address.detail', '**********the ADDRESS details changed');
+        this._loggerService.log( this._globalService.debugEnabled,'address.detail', '**********the ADDRESS details changed');
         this.addressFormRecord = this.addressFormLocalModel;
       }
       if (changes['addressModel']) {
@@ -188,7 +192,7 @@ export class AddressDetailsComponent implements OnInit {
   }
 
   removed(rec) {
-    this._loggerService.log('address.detail', rec);
+    this._loggerService.log(this._globalService.debugEnabled,'address.detail', rec);
     // this.addressFormLocalModel.controls['country.setValue(null)
   }
 

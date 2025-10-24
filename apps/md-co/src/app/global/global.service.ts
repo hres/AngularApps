@@ -14,6 +14,13 @@ export class GlobalService {
   private helpIndex: { [key: string]: number };
   private currLanguage: string;
   private enrollment: Enrollment;
+  private _debugEnabled: boolean = false;
+  public get debugEnabled(): boolean {
+    return this._debugEnabled;
+  }
+  public set debugEnabled(value: boolean) {
+    this._debugEnabled = value;
+  }
 
   /**
    * Getter $devEnv
