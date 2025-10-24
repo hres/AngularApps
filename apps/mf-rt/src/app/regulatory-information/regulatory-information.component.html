@@ -75,10 +75,11 @@
                   </legend>
                   <ul class="form-group list-unstyled">
                     <li class="radio" *ngFor="let mfType of mfTypeOptions; let i = index">
-                        <label for="masterFileType{{i}}"><input type="radio" id="masterFileType{{i}}" name="masterFileType" [value]="mfType.id"  required="required"
-                          (change)="onMfTypeSelected($event)"
-                          [formControlName]="'masterFileType'" aria-describedby="mfTypeDefinition" required="required"/>
-                          {{mfType | textTransform: lang }}
+                        <label for="masterFileType{{i}}">
+                            <input type="radio" id="masterFileType{{i}}" name="masterFileType" [value]="mfType.id"  required="required"
+                                (change)="onMfTypeSelected($event)"
+                                [formControlName]="'masterFileType'" required="required" [attr.aria-label]="getMfTypeDesc(mfType | textTransform: lang, mfType.id)"/>
+                                {{mfType | textTransform: lang }}
                         </label>
                     </li>
                   </ul>
@@ -88,13 +89,13 @@
         <div class="row" *ngIf="selectedMfTypeDefinition">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="alert alert-info">
-                    <p id="mfTypeDefinition">{{selectedMfTypeDefinition}}</p>
+                    <p id="mfTypeDefinition" aria-hidden="true">{{selectedMfTypeDefinition}}</p>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <label for="descriptionType" class="required full-width">
                     <span class="field-name">{{ 'transaction.description' |translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -106,6 +107,7 @@
                 <select id="descriptionType" name="descriptionType" class="form-control full-width" required="required"
                     (change)="onTxDescriptionSelected($any($event.target).value)"
                     [formControlName]="'descriptionType'">
+                    <option *ngIf="!selectedMfTypeDefinition" label="{{ 'transaction.description.default.option'|translate }}" [ngValue]="null" disabled></option>
                     <option *ngIf="selectedMfTypeDefinition" label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
                     <option *ngFor="let desc of txDescOptions" [value]="desc.id">{{ desc | textTransform: lang }}</option>
                 </select>
