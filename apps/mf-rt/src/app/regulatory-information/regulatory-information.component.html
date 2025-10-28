@@ -107,8 +107,14 @@
                 <select id="descriptionType" name="descriptionType" class="form-control full-width" required="required"
                     (change)="onTxDescriptionSelected($any($event.target).value)"
                     [formControlName]="'descriptionType'">
-                    <option *ngIf="!selectedMfTypeDefinition" label="{{ 'transaction.description.default.option'|translate }}" [ngValue]="null" disabled></option>
-                    <option *ngIf="selectedMfTypeDefinition" label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
+                    <option [ngValue]="null" disabled>
+                        @if (!selectedMfTypeDefinition) {
+                            {{ 'transaction.description.default.option' | translate }}
+                        }
+                        @else {
+                            {{ 'select.option' | translate }}
+                        }
+                    </option>
                     <option *ngFor="let desc of txDescOptions" [value]="desc.id">{{ desc | textTransform: lang }}</option>
                 </select>
             </div>
