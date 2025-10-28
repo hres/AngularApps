@@ -121,6 +121,12 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     // get the transaction description dropdown list
     this._getTransactionDescriptions(this.selectedMfTypeId);
 
+    // REPMFFORM-248 clear selected description type when changing MF Type but not when loading files
+    if (e != null){ 
+      const valuesToReset = ['descriptionType'];
+      this._resetControlValues(valuesToReset);
+    }
+
     if (this.showRevisedTxDesc()) {
       this._getRevisedTransactionDescriptions(this.selectedMfTypeId);
     } else if (e != null){ // REPMFFORM-197 do not reset revised transaction description when loading file
