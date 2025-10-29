@@ -9,10 +9,12 @@ import {ContactListService} from './contact-list.service';
 import {TranslateService} from '@ngx-translate/core';
 import { ContactStatus } from '../../app.constants';
 import { Subscription } from 'rxjs';
-import { ErrorSummaryComponent, ICode, RecordListBaseComponent, UtilsService, ErrorNotificationService, ErrorSummaryObject, getEmptyErrorSummaryObj, ERR_TYPE_LEAST_ONE_REC } from '@hpfb/sdk/ui';
+import { ErrorSummaryComponent, ICode,  ErrorNotificationService, ErrorSummaryObject, getEmptyErrorSummaryObj, ERR_TYPE_LEAST_ONE_REC, UtilsService, BaseListComponent } from '@hpfb/sdk/ui';
 import { Contact } from '../../models/Enrollment';
+import { ContactListBaseComponent } from './contact.base.component';
 
-//  import {ExpanderComponent} from '../../common/expander/expander.component';
+
+
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact.list.component.html',
@@ -21,7 +23,7 @@ import { Contact } from '../../models/Enrollment';
   standalone: false
 
 })
-export class ContactListComponent extends RecordListBaseComponent implements OnInit, OnChanges, AfterViewInit {
+export class ContactListComponent extends ContactListBaseComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() public contactModel: Contact[] = [];
   @Input() public saveContact;
   @Input() public showErrors: boolean;
@@ -47,6 +49,11 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   popupId='contactPopup';
 
   statusMessage : string = '';
+  discardPopupId: string = 'contactDiscardPopup';
+  deletePopupId: string = 'contactDeletePopup';
+
+  discardHeading: string="contact";
+  deleteHeading: string = "contact";
 
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService,
     private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService) {
@@ -118,7 +125,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * Processes change events from inputs
    * @param {SimpleChanges} changes
    */
-  ngOnChanges(changes: SimpleChanges) {
+   ngOnChanges(changes: SimpleChanges) {
     // console.log(this._utilsService.checkComponentChanges(changes));
 
     if (changes['loadFileIndicator']) {
@@ -345,6 +352,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
     } else {
       document.location.href = '#status';
     }
+    // jQuery( "#" + this.discardPopupId ).trigger( "open.wb-overlay" );
   }
 
   /**
@@ -352,6 +360,7 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
    * @param id
    */
   public deleteContact(id): void {
+
     this.deleteRecord(id, this.contactList, this._listService);
     // since the contact record is deleted, we should also remove its ErrorSummary if there is any
     this._errorNotificationService.removeErrorSummary(id);
@@ -363,7 +372,10 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
       this.statusMessage = "Enregistrement du contact  " + (id + 1) + " a été supprimé."
     }
     document.location.href = '#contactListTable';
+
+    jQuery( "#" + this.deletePopupId ).trigger( "open.wb-overlay" );
     this.contactsUpdated.emit(this.contactModel);
+
   }
 
   public statusChange(id, status): void {
@@ -455,5 +467,6 @@ export class ContactListComponent extends RecordListBaseComponent implements OnI
   openPopup(){
     jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
 }
+
 }
 

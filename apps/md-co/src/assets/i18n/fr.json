@@ -149,5 +149,7 @@
   "msg.save.data.popup": "Veuillez sauvegarder les données d'entrée non enregistrées.",
   "popup.title": "Modèle de compagnie",
   "popup.close": "Fermer",
-  "select.option": "Sélectionnez une option"
+  "select.option": "Sélectionnez une option",
+  "popup.cancel": "Annuler",
+  "popup.confirm": "D'accord"
 }

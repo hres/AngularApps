@@ -1,14 +1,18 @@
 import {
     Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
-    AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
+    AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation,
+    inject
   } from '@angular/core';
   import {FormGroup, FormBuilder} from '@angular/forms';
-  import {ControlMessagesComponent, ICode, ICodeDefinition, LoggerService, UtilsService, YES} from '@hpfb/sdk/ui';
+  import {ControlMessagesComponent, ICode, ICodeDefinition,  LoggerService,  UtilsService,  YES} from '@hpfb/sdk/ui';
   import {CompanyAdminChangesService} from './company-admin.changes.service';
   import {HttpClient} from '@angular/common/http';
   import {TranslateService} from '@ngx-translate/core';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
 import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.constants';
+import { GlobalService } from '../global/global.service';
+
+
 
 
   @Component({
@@ -40,7 +44,9 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
     private adminChangesService: CompanyAdminChangesService;
     amendReasonDefs: string[] = [];
 
-    constructor(private _fb: FormBuilder, private _utilsService: UtilsService, private _loggerService: LoggerService, private _formDataLoader: CompanyDataLoaderService) {
+    private _logger = inject(LoggerService)
+
+    constructor(private _fb: FormBuilder, private _utilsService: UtilsService, private _loggerService: LoggerService, private _formDataLoader: CompanyDataLoaderService, private _globalService: GlobalService) {
       this.showFieldErrors = false;
       this.showErrors = false;
       this.adminChangesService = new CompanyAdminChangesService();
@@ -122,7 +128,7 @@ import { LIC_NUM_LENGTH, MAX_IMPACTED_LIC_NUM_LENGTH, NEW_LINE } from '../app.co
                 this.amendReasonDefs.push(defByLang);
               }
             } else {
-              this._loggerService.error("company.admin.change", "ngOnChange", "couldn't find code definition for ", code);
+              this._loggerService.error(this._globalService.debugEnabled, "company.admin.change", "ngOnChange", "couldn't find code definition for ", code);
             }
           }
         });

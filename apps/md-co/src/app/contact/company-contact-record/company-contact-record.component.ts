@@ -34,6 +34,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Output() saveRecord = new EventEmitter<{recModel:FormGroup, status:string}>;
   @Output() revertRecord = new EventEmitter();
   @Output() deleteRecord = new EventEmitter();
+
   @Output() errors = new EventEmitter();
 
   @ViewChild(ContactDetailsComponent, {static: true}) contactDetailsChild;
@@ -64,6 +65,21 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.headingPreambleParams = this.cRRow.get('seqNumber').value;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
     this.contactRecordModel = this.cRRow;
+
+    // this._recordDiscardService.discardConfirmed$.subscribe(index => {
+    //   if (index === this._discardIndex) {
+    //     this._handleDiscard();
+    //     this._patchAndCheckLastSavedRoles();
+    //     this.revertRecord.emit();
+    //   }
+    // });
+
+    // this._recordDeleteService.deleteConfirmed$.subscribe(index => {
+    //   if (index === this._deleteIndex) {
+    //     this._handleRecordDeletion();
+    //     this.deleteRecord.emit(true)
+    //   }
+
   }
 
   ngAfterViewInit(){

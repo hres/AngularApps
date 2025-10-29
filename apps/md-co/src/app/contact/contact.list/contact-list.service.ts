@@ -4,13 +4,14 @@ import {CompanyContactRecordService} from '../company-contact-record/company-con
 import {ContactDetailsService} from '../contact.details/contact.details.service';
 import { Observable, Subject } from 'rxjs';
 import { ContactStatus } from '../../app.constants';
-import { ICode, UtilsService, RecordListServiceInterface, RecordListBaseService } from '@hpfb/sdk/ui';
 import { Contact } from '../../models/Enrollment';
 import { CompanyBaseService } from '../../form-base/company-base.service';
+import { ICode, UtilsService } from '@hpfb/sdk/ui';
+import { RecordListServiceInterface } from './contact.list.service.interface';
 
 
 @Injectable()
-export class ContactListService extends RecordListBaseService implements RecordListServiceInterface {
+export class ContactListService implements RecordListServiceInterface {
 
   /***
    *  The data list of contact records
@@ -20,7 +21,7 @@ export class ContactListService extends RecordListBaseService implements RecordL
 
   // to facilitate to subscribe to contactModel's changes
   private contactModelSubject: Subject<any> = new Subject<any>();
-  contactModelChanges$: Observable<any> = this.contactModelSubject.asObservable(); 
+  contactModelChanges$: Observable<any> = this.contactModelSubject.asObservable();
 
   // whenever contactList changes, notify subscribers
   notifyContactModelChanges(changes: any) {
@@ -29,7 +30,6 @@ export class ContactListService extends RecordListBaseService implements RecordL
 
   constructor(private _recordService: CompanyContactRecordService, private _companyBaseService: CompanyBaseService, private _utilsService: UtilsService,
     private _detailsService: ContactDetailsService) {
-    super();
     this.contactList = [];
     this.initIndex(this.contactList);
   }
@@ -155,13 +155,96 @@ export class ContactListService extends RecordListBaseService implements RecordL
 
   updateUIDisplayValues(formRecordList: FormArray, contactStatusList: ICode[], lang: string){
     // update Contact Record seqNumber
-    this.updateFormRecordListSeqNumber(formRecordList); 
-    
+    this.updateFormRecordListSeqNumber(formRecordList);
+
     formRecordList.controls.forEach( (element: FormGroup) => {
       const contactDetailFormRecord = element.controls['contactDetails'] as FormGroup;
       // update Contact Detail statusText
       this._detailsService.setFormContactStatus(contactDetailFormRecord, contactDetailFormRecord.controls['status'].value, contactStatusList, lang, false)
     });
   }
+
+   /**
+   * Used to create record ids
+   * @type {number}
+   * @private
+   */
+   private _indexValue = -1;
+
+
+   /**
+    * Parses the current data and finds the largest ID
+    * @public
+    */
+   public initIndex(recordList) {
+     this.resetIndex();
+     for (let record of recordList) {
+       if (record.id > this._indexValue) {
+         this._indexValue = record.id;
+       }
+     }
+     // console.log("The index value "+  this._indexValue)
+   }
+
+   /**
+    * Gets the next record id
+    * @returns {number}
+    */
+   getNextIndex() {
+     this._indexValue++;
+     // console.log("In list service get id "+ this._indexValue);
+     return this._indexValue;
+   }
+
+   /**
+    * Resets the index to the base value. Used for record ids
+    */
+   public resetIndex() {
+     this._indexValue = -1;
+   }
+
+   /**
+    * Gets the current id value to use for a record
+    * @returns {number}
+    */
+   getCurrentIndex() {
+
+     return this._indexValue;
+   }
+
+   /**
+    * Sets the record id to a value
+    * @param {number} value
+    */
+   public setIndex(value: number) {
+     this._indexValue = value;
+   }
+
+   public updateFormRecordListSeqNumber(formRecordList: FormArray){
+     let seq = 0;
+     formRecordList.controls.forEach( (element: FormGroup) => {
+       // console.log(element);
+       element.controls['seqNumber'].setValue(seq + 1);
+       seq ++;
+     });
+   }
+
+   /**
+    * if formRecordIdToExpand is passed in, expand that record and collapse all other records;
+    * otherwise, collapse all records
+    *
+    * @param formRecordList
+    * @param formRecordIdToExpand optional
+    */
+   public collapseFormRecordList(utilsService: UtilsService, formRecordList: FormArray, formRecordIdToExpand?: number){
+     formRecordList.controls.forEach( (element: FormGroup) => {
+       // console.log(element);
+       if ( !utilsService.isEmpty(formRecordIdToExpand) && (Number(element.controls['id'].value) === formRecordIdToExpand) ) {
+         element.controls['expandFlag'].setValue(true);
+       } else {
+         element.controls['expandFlag'].setValue(false);
+       }
+     });
+   }
 
 }

@@ -157,5 +157,10 @@
     "msg.save.data.popup": "Please save the unsaved input data.",
     "popup.title": "Company Template",
     "popup.close": "Close",
-    "select.option": "Select an option"
+    "select.option": "Select an option",
+    "popup.cancel": "Cancel",
+    "popup.confirm": "OK",
+    "msg.discard.popup": "Are you sure you want to discard change for {{heading}}?",
+    "msg.delete.popup": "Are you sure you want to delete {{heading}}?",
+    "popup.warning":"Warning"
   }
