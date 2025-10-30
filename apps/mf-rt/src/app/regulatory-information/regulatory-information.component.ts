@@ -123,9 +123,10 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
 
     // REPMFFORM-197, REPMFFORM-248 clear selected description type when changing MF Type but not when loading files
     if (e != null){ 
-      const valuesToReset = ['descriptionType','revisedDescriptionType'];
+      const valuesToReset = ['descriptionType','requestDate','requester','reqRevision','revisedDescriptionType'];
       this._resetControlValues(valuesToReset);
       this.selectedTxDescSignal.set(null);
+      this.selectedReqRevisionSignal.set(null);
     }
 
     if (this.showRevisedTxDesc()) {
