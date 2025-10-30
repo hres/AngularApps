@@ -119,79 +119,80 @@
                 </select>
             </div>
         </div>
-       <div class="row" *ngIf="selectedTxDescDefinition">
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="alert alert-info" role="alert">
-                    <p aria-live="polite">{{selectedTxDescDefinition}}</p>
+        <div *ngIf="selectedTxDescSignal()">
+            <div class="row" *ngIf="selectedTxDescDefinition">
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="alert alert-info" role="alert">
+                        <p aria-live="polite">{{selectedTxDescDefinition}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="showDateAndRequester()">
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label for="requestDate" class="required">
+                        <span class="field-name">{{ 'request.date' |translate }}</span>
+                        <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                        <control-messages *ngIf="regulartoryInfoForm.controls['requestDate'].invalid"
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
+                            [control]="regulartoryInfoForm.controls['requestDate'] | formControl" controlId="requestDate"
+                            label="request.date" parentId="regulatoryInfo"></control-messages>
+                    </label>
+                    <input id="requestDate" name="requestDate" type="date" class="form-control"
+                            (input)="checkDateValidity($event)" [formControlName]="'requestDate'" />
+                </div>
+
+                <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label for="requester" class="required full-width">
+                        <span class="field-name">{{'requester.title'|translate}}</span>
+                        <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+                        <control-messages *ngIf="regulartoryInfoForm.controls['requester'].invalid"
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
+                            [control]="regulartoryInfoForm.controls['requester'] | formControl" controlId="requester"
+                            label="requester.title" parentId="regulatoryInfo"></control-messages>
+                    </label>
+                    <input id="requester" name="requester" type="text" class="form-control full-width"
+                        [formControlName]="'requester'">
+                </div>
+            </div>
+            <div class="row form-group" *ngIf="showReqRevisedTxDesc()">
+                <fieldset class="col-md-12 chkbxrdio-grp"
+                    data-ng-class="{'has-error':regulartoryInfoForm.controls['reqRevision'].$invalid}">
+                    <legend class="required" id="reqRevision">
+                        {{'req.revision' |translate}}
+                        <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+                        <control-messages *ngIf="regulartoryInfoForm.controls['reqRevision'].invalid"
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
+                            [control]="regulartoryInfoForm.controls['reqRevision'] | formControl" controlId="reqRevision"
+                            label="req.revision" parentId="regulatoryInfo"></control-messages>
+                    </legend>
+                    <ul class="form-group form-inline list-unstyled">
+                        <li class="label-inline" *ngFor="let yesno of yesNoList; let i = index">
+                            <label for="reqRevision{{i}}">
+                            <input type="radio" name="reqRevision" id="reqRevision{{i}}" [value]="yesno.id"
+                                (change)="reqRevisionChanged($event)"
+                                [formControlName]="'reqRevision'" />
+                            {{ yesno | textTransform: lang }}</label>
+                        </li>
+                    </ul>
+                </fieldset>
+            </div>
+            <div class="row" *ngIf="showRevisedTxDesc()">
+                <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label for="revisedDescriptionType" class="required full-width">
+                        <span class="field-name">{{ 'revised.transaction.description' |translate }}</span>
+                        <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+                        <control-messages *ngIf="regulartoryInfoForm.controls['revisedDescriptionType'].invalid"
+                            [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
+                            [control]="regulartoryInfoForm.controls['revisedDescriptionType'] | formControl"
+                            controlId="revisedDescriptionType" label="revised.transaction.description" parentId="regulatoryInfo"></control-messages>
+                    </label>
+                    <select id="revisedDescriptionType" name="revisedDescriptionType" class="form-control full-width"
+                        [formControlName]="'revisedDescriptionType'">
+                        <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
+                        <option *ngFor="let desc of revTxDescOptions" [value]="desc.id">{{ desc | textTransform: lang }}</option>
+                    </select>
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="showDateAndRequester()">
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <label for="requestDate" class="required">
-                    <span class="field-name">{{ 'request.date' |translate }}</span>
-                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['requestDate'].invalid"
-                        [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
-                        [control]="regulartoryInfoForm.controls['requestDate'] | formControl" controlId="requestDate"
-                        label="request.date" parentId="regulatoryInfo"></control-messages>
-                </label>
-                <input id="requestDate" name="requestDate" type="date" class="form-control"
-                        (input)="checkDateValidity($event)" [formControlName]="'requestDate'" />
-            </div>
-
-            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="requester" class="required full-width">
-                    <span class="field-name">{{'requester.title'|translate}}</span>
-                    <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['requester'].invalid"
-                        [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
-                        [control]="regulartoryInfoForm.controls['requester'] | formControl" controlId="requester"
-                        label="requester.title" parentId="regulatoryInfo"></control-messages>
-                </label>
-                <input id="requester" name="requester" type="text" class="form-control full-width"
-                    [formControlName]="'requester'">
-            </div>
-        </div>
-        <div class="row form-group" *ngIf="showReqRevisedTxDesc()">
-            <fieldset class="col-md-12 chkbxrdio-grp"
-                data-ng-class="{'has-error':regulartoryInfoForm.controls['reqRevision'].$invalid}">
-                <legend class="required" id="reqRevision">
-                    {{'req.revision' |translate}}
-                    <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['reqRevision'].invalid"
-                        [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
-                        [control]="regulartoryInfoForm.controls['reqRevision'] | formControl" controlId="reqRevision"
-                        label="req.revision" parentId="regulatoryInfo"></control-messages>
-                </legend>
-                <ul class="form-group form-inline list-unstyled">
-                    <li class="label-inline" *ngFor="let yesno of yesNoList; let i = index">
-                        <label for="reqRevision{{i}}">
-                        <input type="radio" name="reqRevision" id="reqRevision{{i}}" [value]="yesno.id"
-                            (change)="reqRevisionChanged($event)"
-                            [formControlName]="'reqRevision'" />
-                        {{ yesno | textTransform: lang }}</label>
-                    </li>
-                </ul>
-            </fieldset>
-        </div>
-        <div class="row" *ngIf="showRevisedTxDesc()">
-            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="revisedDescriptionType" class="required full-width">
-                    <span class="field-name">{{ 'revised.transaction.description' |translate }}</span>
-                    <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
-                    <control-messages *ngIf="regulartoryInfoForm.controls['revisedDescriptionType'].invalid"
-                        [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
-                        [control]="regulartoryInfoForm.controls['revisedDescriptionType'] | formControl"
-                        controlId="revisedDescriptionType" label="revised.transaction.description" parentId="regulatoryInfo"></control-messages>
-                </label>
-                <select id="revisedDescriptionType" name="revisedDescriptionType" class="form-control full-width"
-                    [formControlName]="'revisedDescriptionType'">
-                    <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
-                    <option *ngFor="let desc of revTxDescOptions" [value]="desc.id">{{ desc | textTransform: lang }}</option>
-                </select>
-            </div>
-        </div>
-
     </div>
 </div>
