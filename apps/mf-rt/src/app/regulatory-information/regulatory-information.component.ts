@@ -125,6 +125,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     if (e != null){ 
       const valuesToReset = ['descriptionType','revisedDescriptionType'];
       this._resetControlValues(valuesToReset);
+      this.selectedTxDescSignal.set(null);
     }
 
     if (this.showRevisedTxDesc()) {
