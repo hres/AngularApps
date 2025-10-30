@@ -145,22 +145,11 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     // console.log(this.selectedTxDescDefinition);
     this.selectedTxDescSignal.set(selectedTxDescId);
 
-    if (!this.showDateAndRequester()) {
-      // console.log('reset request date and requester fields when transaction description does not require them');
-      const valuesToReset = ['requestDate', 'requester'];
+    // REPMFFORM-248 clear related fields to transaction description
+    if (e != null){ 
+      const valuesToReset = ['requestDate','requester','reqRevision','revisedDescriptionType'];
       this._resetControlValues(valuesToReset);
-    }
-
-    if (!this.showReqRevisedTxDesc()) {
-      // console.log('reset reqRevision and revised transaction description fields if transaction description is not 13');
-      const valuesToReset = ['reqRevision', 'revisedDescriptionType'];
-      this._resetControlValues(valuesToReset);
-    }
-
-    if (!this.showReqRevisedTxDesc()) {
-      // console.log('reset revised transaction description if reqRevision is No');
-      const valuesToReset = ['revisedDescriptionType'];
-      this._resetControlValues(valuesToReset);
+      this.selectedReqRevisionSignal.set(null);
     }
 
     if (e) {
