@@ -34,10 +34,9 @@
   "save.record": "Ajouter un enregistrement",
   "delete.record": "Effacer l'enregistrement",
   "save.contact": "Enregistrer le contact",
-  "discard.record": "Supprimer l'enregistrement",
-  "set.revise.status": "Modifier le contact",
-  "set.remove.status": "Supprimer le contact",
-  "set.active.status": "Activer et enregistrer le contact",
+   "set.revise.status": "Modifier et enregistrer le contact",
+    "set.remove.status": "Demande de supprimer le contact",
+    "set.active.status": "Activer et enregistrer le contact",
   "remove.contact": "Supprimer le contact",
   "required": "Ce champ est obligatoire.",
   "error.msg.minlength": "Minimum de {{ requiredLength }} chiffres",
@@ -76,7 +75,7 @@
   "contact.role.legend": "fr_Select one or more roles for this company representative",
   "contact.role.instruct": "fr_Company Representative Role Instructions",
   "add.repres": "Ajouter enregistrement",
-  "discard.changes": "Rejeter les modifications",
+  "discard.changes": "Revise and save contact(fR)",
   "commmon.required.bracket": " (obligatoire)",
   "errorSummary.company": "Modèle de compagnie",
   "error.found.plural": " erreurs ont été trouvées.",
@@ -151,5 +150,17 @@
   "popup.close": "Fermer",
   "select.option": "Sélectionnez une option",
   "popup.cancel": "Annuler",
-  "popup.confirm": "D'accord"
+  "popup.confirm": "D'accord",
+  "msg.discard.contact.change.popup": "Êtes-vous sûr de vouloir annuler la modification pour {{heading}}?",
+  "msg.discard.contact.record.popup": " Êtes-vous sûr de vouloir supprimer {{heading}}?",
+  "msg.contact.revise.status.popup": "Cette action changera le statut du contact de {{heading}} en « Réviser » et enregistrera la fiche",
+  "msg.contact.remove.status.popup": "This action will change the contact status of {{heading}} to "Remove" and save the record ",
+  "msg.remove.contact.popup": " Êtes-vous sûr de vouloir supprimer {{heading}} ? ",
+  "msg.save.draft.xml.popup": "Veuillez sauvegarder les données d'entrée non enregistrées avant d’enregistrer le brouillon XML ",
+
+
+
+  "msg.save.popup": "Êtes-vous sûr de vouloir supprimer {{heading}}?",
+
+  "heading.company.contact":"Détails du représentant de la compagnie {{seqnumber}}"
 }

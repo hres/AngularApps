@@ -9,6 +9,9 @@ import {ContactDetailsService} from '../contact.details/contact.details.service'
 import { ContactStatus } from '../../app.constants';
 import {TranslateService} from '@ngx-translate/core';
 import { ICode, UtilsService, ControlMessagesComponent, ErrorSummaryComponent, ErrorNotificationService } from '@hpfb/sdk/ui';
+import { CompanyContactRecordService } from './company-contact-record.service';
+
+
 
 @Component({
   selector: 'app-company-contact-record',
@@ -34,8 +37,11 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() disableForm: boolean;
 
   @Output() saveRecord = new EventEmitter<{recModel:FormGroup, status:string}>;
-  @Output() revertRecord = new EventEmitter();
-  @Output() deleteRecord = new EventEmitter();
+  @Output() discardChangeEvent = new EventEmitter<{id: number,  heading: string}>;
+  @Output() discardRecordEvent = new EventEmitter<{id: number,  heading: string}>;
+  @Output() setRemoveStatusEvent = new EventEmitter<{id: number, status: string, heading: string}>;
+  @Output() setReviseStatusEvent = new EventEmitter<{id: number, status: string, heading: string}>;
+  @Output() setActiveStatusEvent = new EventEmitter<{id: number, status: string, heading:string}>;
 
   @Output() errors = new EventEmitter();
 
@@ -57,8 +63,9 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   headingPreambleParams: any;
   translatedParentLabel: string;
 
+
   constructor( private cdr: ChangeDetectorRef, private _utilsService: UtilsService,
-    private _detailsService: ContactDetailsService, private _translateService: TranslateService, private _errorNotificationService: ErrorNotificationService) {
+    private _detailsService: ContactDetailsService, private _translateService: TranslateService, private _errorNotificationService: ErrorNotificationService, private _companyRecordService: CompanyContactRecordService) {
     this.showErrors = false;
     this.showErrSummary = false;
   }
@@ -68,21 +75,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
     this.contactRecordModel = this.cRRow;
 
-    // this._recordDiscardService.discardConfirmed$.subscribe(index => {
-    //   if (index === this._discardIndex) {
-    //     this._handleDiscard();
-    //     this._patchAndCheckLastSavedRoles();
-    //     this.revertRecord.emit();
-    //   }
-    // });
-
-    // this._recordDeleteService.deleteConfirmed$.subscribe(index => {
-    //   if (index === this._deleteIndex) {
-    //     this._handleRecordDeletion();
-    //     this.deleteRecord.emit(true)
-    //   }
-
-  }
+   }
 
   ngAfterViewInit(){
     this.msgList.changes.subscribe(errorObjs => {
@@ -167,43 +160,53 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   /**
    * Changes the local model back to the last saved version of the contact
    */
-  public revertContactRecord(): void {
-    this.revertRecord.emit(this.contactRecordModel);
+  public revertContactRecord():  void {
+     const heading =  this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
+    this.discardChangeEvent.emit({id:this.contactRecordModel.value.id, heading: heading});
     this.contactRecordModel.markAsPristine();
   }
 
   /***
    * Deletes the contact reocord with the selected id from both the model and the form
    */
-  public deleteContactRecord(): void {
+  public  deleteContactRecord(): void {
     this.errorSummaryChild = null;
-    this.deleteRecord.emit(this.contactRecordModel.value.id);
+    const heading =  this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
+    this.discardRecordEvent.emit({id: this.contactRecordModel.value.id, heading: heading} );
     this._emitErrors();
     this.contactRecordModel.markAsPristine();
   }
 
-  public setStatusToRevise(): void {
+  public  setStatusToRevise(): void {
+    const heading = this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
+    this.setReviseStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Revise, heading: heading});
     this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Revise, this.contactStatusList, this.lang, true);
     this.saveContactRecord(ContactStatus.Revise);
   }
 
-  public setStatusToRemove(): void {
+  public  setStatusToRemove(): void {
+    const heading =  this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
+    this.setRemoveStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Remove, heading: heading});
     this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Remove, this.contactStatusList, this.lang, true);
     this.saveContactRecord(ContactStatus.Remove);
   }
 
-  public activeContactRecord(): void {
-    // this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
-    this.saveContactRecord(ContactStatus.Active)
+  public  activeContactRecord(): void{
+    const heading = this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
+    this.saveContactRecord(heading, ContactStatus.Active);
   }
 
-  public saveContactRecord(contactStatus?: ContactStatus): void {
+  public  saveContactRecord(heading?: string,contactStatus?: ContactStatus ): void {
     // console.log("====>saveContactRecord ", this.errorList);
     if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
       if (contactStatus) {
         this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
       }
-      this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
+      if(heading){
+      this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: contactStatus, heading: heading});
+      }else{
+        this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
+      }
       this.contactRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved

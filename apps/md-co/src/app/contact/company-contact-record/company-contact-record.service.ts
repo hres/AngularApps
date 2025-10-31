@@ -1,11 +1,15 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ContactDetailsService} from '../contact.details/contact.details.service';
 import { Contact } from '../../models/Enrollment';
 import { ICode } from '@hpfb/sdk/ui';
+import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from "rxjs";
 
 @Injectable()
 export class CompanyContactRecordService {
+
+  _translateService = inject(TranslateService);
 
   constructor(private _detailsService: ContactDetailsService) {
   }
@@ -41,5 +45,10 @@ export class CompanyContactRecordService {
     // formRecord.controls.companyName.setValue(contactRecordModel.company);
     this._detailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls['contactDetails']);
   }
+
+   public  getHeading(index : number, formGroup : FormGroup): string {
+
+      return this._translateService.instant('heading.company.contact', { seqnumber: index+1})
+   }
 
 }

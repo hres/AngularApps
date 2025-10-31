@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CompanyContactRecordService } from './company-contact-record/company-contact-record.service';
 import { ContactDetailsService } from './contact.details/contact.details.service';
-import { ErrorModule, ExpanderModule, NumbersOnlyDirective, PipesModule, PopupComponent } from '@hpfb/sdk/ui';
+import { ErrorModule, ExpanderModule, NumbersOnlyDirective, PipesModule, PopupComponent, ConfirmationPopupComponent } from '@hpfb/sdk/ui';
 
 @NgModule({
   imports: [
@@ -20,8 +20,9 @@ import { ErrorModule, ExpanderModule, NumbersOnlyDirective, PipesModule, PopupCo
     PipesModule,
     ExpanderModule,
     NumbersOnlyDirective,
-    PopupComponent
-  ],
+    PopupComponent,
+    ConfirmationPopupComponent
+],
   declarations: [
     CompanyContactRecordComponent,
     ContactDetailsComponent,
