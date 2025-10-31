@@ -10,7 +10,7 @@
     "select.file": "Select a file to load",
     "choose.file":"Choose File",
     "no.file.chosen": "No file chosen",
-    "warning.text": "<p>This template is for company registration for medical devices.</p><br><p>This template must not be used for company registration for human and veterinary drugs and biocides. Instead use the <a href='https://health-products.canada.ca/rep-pir/company/en/company.html#def-top'>Company Template: Regulatory Enrolment Process (REP) for human and veterinary drugs and biocides.</a></p><br><p>A company may need to fill out both templates based on the products they sell. </p>", 
+    "warning.text": "<p>This template is for company registration for medical devices.</p><br><p>This template must not be used for company registration for human and veterinary drugs and biocides. Instead use the <a href='https://health-products.canada.ca/rep-pir/company/en/company.html#def-top'>Company Template: Regulatory Enrolment Process (REP) for human and veterinary drugs and biocides.</a></p><br><p>A company may need to fill out both templates based on the products they sell. </p>",
     "company.enrolment": "Regulatory Company Enrolment",
     "company.id": "Company Identifier",
     "addressDetails.street": "Street address",
@@ -33,11 +33,10 @@
     "amend.note": "The “Amend Enrolment” button must be selected when amending a Final Company XML.",
     "refresh.file.input": "Refresh this page to clear form",
     "save.record": "Save record",
-    "delete.record": "Delete Record",
+    "delete.record": "Delete record",
     "save.contact": "Save contact",
-    "discard.record": "Discard record",
-    "set.revise.status": "Revise contact",
-    "set.remove.status": "Delete contact",
+    "set.revise.status": "Revise and save contact",
+    "set.remove.status": "Request to remove contact",
     "set.active.status": "Activate and save contact",
     "remove.contact": "Remove contact",
     "required": "This field is required",
@@ -160,7 +159,17 @@
     "select.option": "Select an option",
     "popup.cancel": "Cancel",
     "popup.confirm": "OK",
-    "msg.discard.popup": "Are you sure you want to discard change for {{heading}}?",
-    "msg.delete.popup": "Are you sure you want to delete {{heading}}?",
-    "popup.warning":"Warning"
+    "msg.delete.company.change.popup": "Are you sure you want to discard change for {{heading}}?",
+    "msg.delete.company.record.popup": "Are you sure you want to delete {{heading}}?",
+    "msg.company.revise.status.popup": "This action will change the contact status of {{heading}} to 'Revise' and save the record ",
+    "msg.company.remove.status.popup": "This action will change the contact status of {{heading}} to 'Remove' and save the record ",
+    "msg.remove.company.popup": " Are you sure you want to delete {{heading}}? ",
+    "msg.active.and.save.company.popup": "This action will change the contact status of {{heading}} to 'Active' and save the record ",
+    "msg.save.draft.xml.popup": "Please save the unsaved input data before saving draft XML file ",
+
+
+    "msg.save.popup": "Are you sure you want to save {{heading}}?",
+    "popup.warning":"Warning",
+
+    "heading.company.contact":"Company representative details {{seqnumber}}"
   }

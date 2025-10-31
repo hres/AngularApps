@@ -11,7 +11,7 @@ import { ContactStatus } from '../../app.constants';
 import { Subscription } from 'rxjs';
 import { ErrorSummaryComponent, ICode,  ErrorNotificationService, ErrorSummaryObject, getEmptyErrorSummaryObj, ERR_TYPE_LEAST_ONE_REC, UtilsService, BaseListComponent } from '@hpfb/sdk/ui';
 import { Contact } from '../../models/Enrollment';
-import { ContactListBaseComponent } from './contact.base.component';
+import { ContactListBaseComponent } from './contact.list.base.component';
 
 
 
@@ -47,14 +47,26 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   private contactModelChangesSubscription: Subscription;
 
   popupId='contactPopup';
-
   statusMessage : string = '';
-  discardPopupId: string = 'contactDiscardPopup';
-  deletePopupId: string = 'contactDeletePopup';
+  contactHeading: string='';
 
-  discardHeading: string="contact";
-  deleteHeading: string = "contact";
-
+ saveRecordPopupID: string = "saveRecordPopupID";
+ setReviseStatusPopupID: string = "setReviseStatusPopupID";
+ setRemoveStatusPopupID: string = "setRemoveStatusPopupID";
+ setActiveStatusPopupID: string = "setActiveStatusPopupID";
+ discardChangePopupID: string = "discardChangePopupID";
+ discardRecordPopupID: string = "discardRecordPopupID";
+ removeContactPopupID: string = "removeContactPopupID";
+ saveToDraftXMLPopupID: string = "saveToDraftXMLPopupID";
+ private  contactId: number;
+ contactStatus: any;
+ discardRecordHeading: string;
+ discardChangeHeading: string;
+ setReviseStatusHeading: string;
+ setRemoveStatusHeading: string;
+ removeContactHeading: string;
+ setActiveStatusHeading: string;
+ saveToDraftXMLHeading: string;
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService,
     private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService) {
     super();
@@ -66,18 +78,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   }
 
   ngAfterViewInit() {
-    // ContactListComponent doesn't have ErrorSummaryComponent in the template, so the subscribe won't be triggered.
-    /*
-    // this.setExpander(this.expander);
-    this.processSummaries(this.errorSummaryChildList);
-    this.errorSummaryChildList.changes.subscribe(list => {
-      this.processSummaries(list);
-    });
-
-    //   this.cd.detectChanges();
-    */
-    // subscribe and process the updated contact records' error summaries
-    this._errorNotificationService.errorSummaryChanged$.subscribe((errors) => {
+     this._errorNotificationService.errorSummaryChanged$.subscribe((errors) => {
       this._processErrorSummaries(errors);
     });
 
@@ -102,24 +103,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this._emitErrors(true);
   }
 
-  // /**
-  //  * Updates the error list to include the error summaries. Messages upwards
-  //  * @param {QueryList<ErrorSummaryComponent>} list
-  //  */
-  // private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
-  //   if (list.length > 1) {
-  //     console.warn('Contact List found >1 Error Summary ' + list.length);
-  //   }
-  //   // console.log('ContactList process Summaries');
-  //   this.errorSummaryChild = list.first;
-  //   // TODO what is this for need to untangle
-  //   // this.setErrorSummary(this.errorSummaryChild);
-  //   // if (this.errorSummaryChild) {
-  //   //   this.errorSummaryChild.index = this.getExpandedRow();
-  //   // }
-  //   // console.log(this.errorSummaryChild);
-  //   this._emitErrors();
-  // }
+
 
   /**
    * Processes change events from inputs
@@ -237,6 +221,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this._expandNextInvalidRecord();
 
     this.showErrors = true;
+
     if (status) {
       this.statusChange(recordId + 1, status);
     } else {
@@ -272,13 +257,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   updateErrorList(errs) {
     // console.log("updateErrorList", errs)
     this.errorList = errs;
-    // this.errorList = (errs && errs.length > 0) ? this.errorList.concat(errs) : [];
-    // for (const err of this.errorList) {
-    //   err.index = this.getExpandedRow();
-    //   if (err.type === ERR_TYPE_COMPONENT) {
-    //     err.expander = this.expander; // associate the expander
-    //   }
-    // }
+
     this._emitErrors(false); // needed or will generate a valuechanged error
   }
 
@@ -288,13 +267,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
    */
   private _emitErrors(checkErrorSummary: boolean): void {
     let emitErrors = [];
-    // adding the child errors
-    // if (this.errorList) { //  && !this.isInternal
-    //   // emitErrors = this.errorList;
-    //   this.errorList.forEach((error: any) => {
-    //     emitErrors.push(error);
-    //   });
-    // }
+
     if (!this.isInternal && this._noNonRemoveRecords(this.contactModel)) {
       const oerr: ErrorSummaryObject = getEmptyErrorSummaryObj();
       oerr.index = 0;
@@ -315,16 +288,15 @@ export class ContactListComponent extends ContactListBaseComponent implements On
    * Loads the last saved version of the record data
    * @param record
    */
-  public revertContact(record): void {
+  public revertContact(id): void {
     let discardMsg = "";
-    let recordId = record.controls.id.value;
 
-    let modelRecord = this._listService.getModelRecord(recordId);
+    let modelRecord = this._listService.getModelRecord( this.contactId);
     if (!modelRecord) {
       modelRecord = this._listService.getEmptyContactModel();
-      modelRecord.id = recordId;
+      modelRecord.id = this.contactId;
     }
-    let rec = this.getRecord(recordId, this.contactList);
+    let rec = this.getRecord(this.contactId, this.contactList);
     if (rec) {
       this._recordService.mapDataModelFormModel(modelRecord, rec);
     } else {
@@ -332,9 +304,9 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       console.warn('ContactList:rec is null');
     }
     if (this.lang == "en") {
-      discardMsg = "Contact record " + (recordId + 1) + "  changes have been discarded."
+      discardMsg = "Contact record " + (this.contactId + 1) + "  changes have been discarded."
     } else {
-      discardMsg = "Les modifications du contact " + (recordId + 1) + " ont été annulées."
+      discardMsg = "Les modifications du contact " + (this.contactId + 1) + " ont été annulées."
     }
 
     this.statusMessage = discardMsg;
@@ -361,31 +333,29 @@ export class ContactListComponent extends ContactListBaseComponent implements On
    */
   public deleteContact(id): void {
 
-    this.deleteRecord(id, this.contactList, this._listService);
+    this.deleteRecord(this.contactId, this.contactList, this._listService);
+
     // since the contact record is deleted, we should also remove its ErrorSummary if there is any
-    this._errorNotificationService.removeErrorSummary(id);
+    this._errorNotificationService.removeErrorSummary(this.contactId.toString());
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
     this._expandNextInvalidRecord();
     if (this.lang == "en") {
-      this.statusMessage = "Contact record " + (id + 1) + " has been deleted."
+      this.statusMessage = "Contact record " + (this.contactId.toString() + 1) + " has been deleted."
     } else {
-      this.statusMessage = "Enregistrement du contact  " + (id + 1) + " a été supprimé."
+      this.statusMessage = "Enregistrement du contact  " + (this.contactId.toString() + 1) + " a été supprimé."
     }
     document.location.href = '#contactListTable';
 
-    jQuery( "#" + this.deletePopupId ).trigger( "open.wb-overlay" );
     this.contactsUpdated.emit(this.contactModel);
 
   }
 
-  public statusChange(id, status): void {
-    // const id = idAndStatus.id + 1;
-    // const status = idAndStatus.status;
 
+  public statusChange(id, status): void {
     if (this.lang == "en") {
       switch (status) {
         case ContactStatus.Active:
-          this.statusMessage = "Contact record " + id + " status is now active.";
+          this.statusMessage = "Contact record " +id + " status is now active.";
           break;
         case ContactStatus.Remove:
           this.statusMessage = "Contact record " + id + " status has been changed to remove.";
@@ -467,6 +437,50 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   openPopup(){
     jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
 }
+
+
+discarChangeContactConfirmation(event) {
+  this.contactId = event.id;
+  this.discardChangeHeading=event.heading;
+  jQuery( "#" + this.discardChangePopupID ).trigger( "open.wb-overlay" );
+
+}
+discarRecordeContactConfirmation(event) {
+  this.contactId = event.id;
+   this.discardRecordHeading=event.heading;
+   jQuery( "#" + this.discardRecordPopupID ).trigger( "open.wb-overlay" );
+
+ }
+
+deleteContactConfirmation(event) {
+  this.contactId = event.id;
+  this.removeContactHeading=event.heading;
+  jQuery( "#" + this.removeContactPopupID ).trigger( "open.wb-overlay" );
+}
+
+setReviseStatusConfirmation(event) {
+  this.contactId = event.id;
+  this.setReviseStatusHeading=event.heading;
+  this.contactStatus = event.status;
+ jQuery( "#" + this.setReviseStatusPopupID ).trigger( "open.wb-overlay" );
+}
+
+setRemoveStatusConfirmation(event) {
+  this.contactId = event.id;
+  this.contactStatus = event.status;
+  this.setRemoveStatusHeading=event.heading;
+  jQuery( "#" + this.setRemoveStatusPopupID ).trigger( "open.wb-overlay" );
+}
+
+setActiveStatusConfirmation(event) {
+  this.contactId = event.id;
+  this.contactStatus = event.status;
+  if(event.heading){
+  this.setActiveStatusHeading=event.heading;
+  }
+  jQuery( "#" + this.setActiveStatusPopupID ).trigger( "open.wb-overlay" );
+}
+
 
 }
 
