@@ -9,7 +9,7 @@
     "select.file": "Sélectionnez un fichier à charger",
     "choose.file": "Choisir un fichier",
     "no.file.chosen": "Aucun fichier choisi",
-    "refresh.file.input": "Actualisez cette page",
+    "refresh.file.input": "Actualiser la page pour effacer le formulaire",
     "other": "Autre",
     "other.specify": "Autre détails",
     "required": "Ce champ est obligatoire.",
