@@ -29,7 +29,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @Input() lang;
   @Input() helpTextSequences;
   @ViewChild(ContactListComponent, {static: true}) companyContacts: ContactListComponent;
-  
+
   private _genInfoErrors = [];
   private _addressErrors = [];
   private _contactErrors = [];
@@ -37,8 +37,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   // private _primContactErrors = [];
   public companyForm: FormGroup;
   public errorList = [];
-  
-  public rootTagText = ROOT_TAG; 
+
+  public rootTagText = ROOT_TAG;
   private xslName: string;
 
   public loadFileIndicator = 0;
@@ -58,16 +58,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public enrollModel : Enrollment;
 
   public addressModel : INameAddress;
-  public genInfoModel : GeneralInformation; 
+  public genInfoModel : GeneralInformation;
   public contactModel : Contact[];
   public adminChangesModel :AdministrativeChanges;
-  public primContactModel : PrimaryContact; 
+  public primContactModel : PrimaryContact;
   public helpIndex: { [key: string]: number }; // todo CompanyBaseService.getHelpTextIndex();
 
   public saveXmlLabel = 'save.draft';
 
   public activeContacts = [];
-  
+
   public showAmendNote: boolean = false;
 
   public mailToLabel = 'mailto.label';
@@ -209,23 +209,23 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   // called from company.info.component when "amend reasons" and/or "are licenses being transferred" are updated
-  processGenInfoUpdates(changed: boolean) {  
+  processGenInfoUpdates(changed: boolean) {
     // the newly changed values are already saved in the genInfoModel in the company.info.component
     // so we can just get the needed values directly from genInfoModel
-    this._setShowAdminChangesFlag();    
+    this._setShowAdminChangesFlag();
 
     // mailtoQS has the same business rule as showAdminChanges
     this.mailtoQS = this.showAdminChanges;
 
     if (this.showAdminChanges) {
-      this.selectedAmendReasonCodes = this._utilsService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason) 
+      this.selectedAmendReasonCodes = this._utilsService.getIdsFromIdTextLabels(this.genInfoModel.amend_reasons.amend_reason)
       // re-initiate the object in case showAdminChanges is flipped back and forth
       // this.adminChangesModel = this._companyService.getEmptyAdminChangesModel(); //REPMDFORM-187
     } else {
       this.selectedAmendReasonCodes = [];
-      // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false 
-      // REPMDFORM-221: set the model to empty instead of null 
-      this.adminChangesModel = this._companyService.getEmptyAdminChangesModel(); 
+      // reset adminchanges model to empty and update its error list to empty if showAdminChanges is false
+      // REPMDFORM-221: set the model to empty instead of null
+      this.adminChangesModel = this._companyService.getEmptyAdminChangesModel();
       this.processAdminChangesErrors([]);
     }
   }
@@ -249,7 +249,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummary';
     } else {
-      if (this.companyContacts.contactListForm.pristine) {
+
+      if (this.companyContacts.contactListForm.pristine && this.companyContacts.contactListForm.valid) {
         const result = this._prepareForSaving(true);
         const fileName = this._buildfileName();
         this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
@@ -271,8 +272,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (!this.showAdminChanges) {
       this.adminChangesModel = null;
   }
-   
-    let output: Enrollment = { 
+
+    let output: Enrollment = {
       DEVICE_COMPANY_ENROL: {
         software_version: this._globalService.$appVersion,
         form_language: this._globalService.getCurrLanguage(),
@@ -319,7 +320,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // once load data files on internal site, lower components should update error list and push them up
         this.showErrors = true;
       }
-      // console.log("processFile", "internal?", this.isInternal, "this.showErrors", this.showErrors) 
+
+      // console.log("processFile", "internal?", this.isInternal, "this.showErrors", this.showErrors)
       if (this._isFinal() && !this.isInternal){
         this._disableForm();
       }
@@ -406,7 +408,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           : this.genInfoModel.company_id);
       body =
         'NOTE: The Company XML file is not automatically attached. ATTACH THE DRAFT COMPANY XML PRIOR TO SUBMITTING.';
-    } 
+    }
     if (this.lang == 'fr') {
       emailSubject =
         ' Ébauche du fichier CO XML -  ' +
@@ -460,7 +462,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.contactModel = [];
     }
     this.showAmendNote = this._isFinal() && !this.isInternal;
-    this._setShowAdminChangesFlag();    
+    this._setShowAdminChangesFlag();
   }
 
   private _isFinal(): boolean{
@@ -473,7 +475,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const areLicensesBeingTransfered =  this.genInfoModel.are_licenses_transfered;
 
     this.showAdminChanges = this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, this.amendReasonCodesToShowAdminChanges) || areLicensesBeingTransfered === YES;
-    
+
     // console.log("_setShowAdminChangesFlag()", "this.selectedAmendReasonCodes", this.selectedAmendReasonCodes, "areLicensesBeingTransfered", areLicensesBeingTransfered, "this.showAdminChanges", this.showAdminChanges);
   }
 

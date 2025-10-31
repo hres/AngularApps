@@ -1,24 +1,37 @@
 <div [formGroup]="contactListForm">
   <!--<lib-error-summary *ngIf="showErrorsSummary()" [hiddenSummary]="showErrorsSummary()"-->
   <!--[errorList]="errorList" headingPreamble="heading.contactInfo"-->
-  <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></lib-error-summary>-->  
+  <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></lib-error-summary>-->
 
   <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.data.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
+  <lib-confirmation-popup [id]="saveRecordPopupID" [title]="'popup.warning' | translate" [message]="'msg.discard.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="contactHeading" (confirmed)="saveContactRecord($event)" ></lib-confirmation-popup>
+  <lib-confirmation-popup [id]="setReviseStatusPopupID" [title]="'popup.warning' | translate" [message]="'msg.company.revise.status.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="setReviseStatusHeading" (confirmed)="statusChange($event, $event)" ></lib-confirmation-popup>
+   <lib-confirmation-popup [id]="setRemoveStatusPopupID" [title]="'popup.warning' | translate" [message]="'msg.company.remove.status.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="setRemoveStatusHeading" (confirmed)="statusChange($event, $event)" ></lib-confirmation-popup>
+  <lib-confirmation-popup [id]="discardRecordPopupID" [title]="'popup.warning' | translate" [message]="'msg.delete.company.record.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="discardRecordHeading" (confirmed)="deleteContact($event)" ></lib-confirmation-popup>
+  <lib-confirmation-popup [id]="discardChangePopupID" [title]="'popup.warning' | translate" [message]="'msg.delete.company.change.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="discardChangeHeading" (confirmed)="revertContact($event)" ></lib-confirmation-popup>
+  <lib-confirmation-popup [id]="removeContactPopupID" [title]="'popup.warning' | translate" [message]="'msg.revise.staus.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="removeContactHeading" (confirmed)="deleteContact($event)" ></lib-confirmation-popup>
+  <lib-confirmation-popup [id]="saveToDraftXMLPopupID" [title]="'popup.warning' | translate" [message]="'msg.active.and.save.company.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="saveToDraftXMLHeading" (confirmed)="statusChange($event, $event)" ></lib-confirmation-popup>
+  <lib-confirmation-popup [id]="setActiveStatusPopupID" [title]="'popup.warning' | translate" [message]="'msg.active.and.save.company.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="setActiveStatusHeading" (confirmed)="statusChange($event, $event)" ></lib-confirmation-popup>
 
-  <lib-accordion [rowsFormArray]="contactList" [accordionHeadingMsgKey]="'heading.contactDetails'" [accordionHeadingSupp]="['contactDetails', 'fullName']" 
+  <lib-accordion [rowsFormArray]="contactList" [accordionHeadingMsgKey]="'heading.contactDetails'" [accordionHeadingSupp]="['contactDetails', 'fullName']"
     (rowClicked)="handleRowClick($event)">
 
     <ng-template #tmpl let-recordRow let-idx="i">
       <!-- ==={{recordRow.get('id').value}}=== -->
       <!-- === index = {{idx}} ,  === -->
-      <app-company-contact-record 
+      <app-company-contact-record
         [cRRow]="recordRow" [isInternal]="isInternal"
         [languageList]="languageList" [contactStatusList]="contactStatusList" [showErrors]="showErrors" [lang]="lang"
         [helpTextSequences]="helpTextSequences"
-        [disableForm]="disableForm"
-        (saveRecord)="saveContactRecord($event)"
-        (errors)="updateErrorList($event)" (revertRecord)="revertContact($event)"
-        (deleteRecord)="deleteContact($event)"></app-company-contact-record>
+         (saveRecord)="saveContactRecord($event)"
+        (errors)="updateErrorList($event)"
+        (discardChangeEvent)="discarChangeContactConfirmation($event)"
+        (discardRecordEvent)="discarRecordeContactConfirmation($event)"
+        (setReviseStatusEvent)="setReviseStatusConfirmation($event)"
+        (setRemoveStatusEvent) = "setRemoveStatusConfirmation($event)"
+        (setActiveStatusEvent) = "setActiveStatusConfirmation($event)"
+          [disableForm]="disableForm"
+        ></app-company-contact-record>
     </ng-template>
 
   </lib-accordion>
@@ -31,7 +44,4 @@
     </div>
   </div>
   <div class="sr-only" id="statusMsg" aria-live="polite" role="status">{{ statusMessage }}</div>
-
-  <!-- <pre>Form Data {{contactListForm.value |json}}</pre>
-  <pre>Data Model for Contact List {{contactModel|json}}</pre> -->
 </div>
