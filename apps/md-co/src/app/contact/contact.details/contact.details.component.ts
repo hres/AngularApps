@@ -29,6 +29,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
   @Input() lang;
   @Input() helpTextSequences;
   @Input() translatedParentLabel: string;
+  @Input() disableForm: boolean;
 
   @Output() errorList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
@@ -80,7 +81,23 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
       }
       this.errorList.emit(temp);
     }
+    
+    if (this.disableForm) {
+      this.disableFormGroup();
+    } else {
+      this.enableFormGroup();
+    }
+  }
+  disableFormGroup() {
+    if (this.contactDetailForm) {
+      this.contactDetailForm.disable();
+    }
   }
 
+  enableFormGroup() {
+    if (this.contactDetailForm) {
+      this.contactDetailForm.enable();
+    }
+  }
 }
 
