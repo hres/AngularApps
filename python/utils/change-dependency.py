@@ -1,8 +1,10 @@
 import json
 import os
 import fileUtils as fileUtils
+import sys
+
 # Define the path to your library's built package.json
-library_name = 'pbv'  # Replace with your library name
+library_name = sys.argv[1]  # Replace with your library name
 dist_path = os.path.join('dist','hpfb',library_name)
 package_json_path = os.path.join(dist_path, 'package.json')
 # The dependency to modify (you can change this)
