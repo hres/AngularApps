@@ -26,9 +26,11 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() isInternal: boolean;
   @Input() helpTextSequences;
   @Input() enrollmentStatusesList;
+  @Input() disableForm: boolean;
 
   @Output() errorList = new EventEmitter(true);
   @Output() updatedGenInfo = new EventEmitter(true);
+  @Output() enableForm = new EventEmitter(false);
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -139,6 +141,12 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
         this._companyInfoService.setEnrolmentStatus((<FormGroup>this.generalInfoFormLocalModel), this.generalInfoFormLocalModel.controls['formStatus'].value, this.enrollmentStatusesList, this.lang, false);
       }
     }
+
+    if (this.disableForm) {
+      this.disableFormGroup();
+    } else {
+      this.enableFormGroup();
+    }
   }
 
   private setDisableAmendButtonFlag(enrolStatusId: string, isInternal: boolean) : void{
@@ -163,6 +171,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     this.genInfoModel.rationale = '';
     this.genInfoModel.are_licenses_transfered = '';
     this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList, this.enrollmentStatusesList, this.lang);
+    this.enableForm.emit(true);
   }
 
   onblur() {
@@ -195,6 +204,18 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   // shortcut to get selectedAmendReasonCodes
   get selectedAmendReasonCodes(): string[] {
     return this._companyInfoService.getSelectedAmendReasonCodes(this.amendReasonOptionList, this.amendReasonChkFormArray);
+  }
+
+  disableFormGroup() {
+    if (this.generalInfoFormLocalModel) {
+      this.generalInfoFormLocalModel.disable();
+    }
+  }
+
+  enableFormGroup() {
+    if (this.generalInfoFormLocalModel) {
+      this.generalInfoFormLocalModel.enable();
+    }
   }
 
 }

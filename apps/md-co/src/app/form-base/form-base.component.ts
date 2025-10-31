@@ -81,6 +81,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private activeContactStatuses: string[] = [ContactStatus.New, ContactStatus.Revise , ContactStatus.Active];
   private amendReasonCodesToShowAdminChanges:string[] = new Array(AMEND_REASON_NAME_CHANGE, AMEND_REASON_ADDR_CHANGE, AMEND_REASON_FACILITY_CHANGE) ;
 
+  public isStatusFinal: boolean = false;
+  public disableForm: boolean = false;
+
   popupId = 'saveXmlPopup';
 
   constructor(
@@ -303,6 +306,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public processFile(fileData: ConvertResults) {
+    console.log(fileData);
     if (fileData.data !== null) {
       this.loadFileIndicator++;
       const enrollment : Enrollment = fileData.data;
@@ -316,7 +320,21 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         // once load data files on internal site, lower components should update error list and push them up
         this.showErrors = true;
       }
+
       // console.log("processFile", "internal?", this.isInternal, "this.showErrors", this.showErrors)
+      if (this._isFinal() && !this.isInternal){
+        this._disableForm();
+      }
+    }
+  }
+
+  private _disableForm() {
+      this.disableForm = true;
+  }
+
+  enableForm(e : any) {
+    if (e) {
+      this.disableForm = false;
     }
   }
 

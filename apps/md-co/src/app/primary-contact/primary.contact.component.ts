@@ -27,6 +27,7 @@
     @Input() lang;
     @Input() activeContactList;
     @Input() helpTextSequences;
+    @Input() disableForm: boolean;
     // @Output() primContactErrorList = new EventEmitter(true);
 
     @Output() errorList = new EventEmitter(true);
@@ -125,6 +126,12 @@
         }
         this.onblur();
       }
+
+      if (this.disableForm) {
+        this.disableFormGroup();
+    } else {
+        this.enableFormGroup();
+    }
     }
     }
 
@@ -143,6 +150,18 @@
       // console.log('input is typed');
       PrimaryContactService.mapFormModelToDataModel((<FormGroup>this.primContactFormLocalModel),
         this.primContactModel);
+    }
+
+    disableFormGroup() {
+      if (this.primContactFormLocalModel) {
+        this.primContactFormLocalModel.disable();
+      }
+    }
+
+    enableFormGroup() {
+      if (this.primContactFormLocalModel) {
+        this.primContactFormLocalModel.enable();
+      }
     }
 
   }

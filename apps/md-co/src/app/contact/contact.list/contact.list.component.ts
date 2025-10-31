@@ -34,6 +34,8 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   @Input() public xmlStatus;
   @Input() lang;
   @Input() helpTextSequences;
+  @Input() disableForm: boolean;
+
   @Output() public errors = new EventEmitter();
   @Output() public contactsUpdated = new EventEmitter();
 
@@ -129,6 +131,11 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       this.initWithData();
     }
 
+    if (this.disableForm) {
+      this.disableFormGroup();
+    } else {
+      this.enableFormGroup();
+    }
   }
 
   private initWithData(){
@@ -438,7 +445,6 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
 }
 
-
 discarChangeContactConfirmation(event) {
   this.contactId = event.id;
   this.discardChangeHeading=event.heading;
@@ -482,5 +488,17 @@ setActiveStatusConfirmation(event) {
 }
 
 
+  disableFormGroup() {
+    if (this.contactListForm) {
+      this.contactListForm.disable();
+    }
+  }
+
+  enableFormGroup() {
+    if (this.contactListForm) {
+      this.contactListForm.enable();
+    }
+
+  }
 }
 

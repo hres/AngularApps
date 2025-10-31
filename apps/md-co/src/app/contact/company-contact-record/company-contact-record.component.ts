@@ -34,6 +34,8 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() showErrors: boolean;
   @Input() lang;
   @Input() helpTextSequences;
+  @Input() disableForm: boolean;
+
   @Output() saveRecord = new EventEmitter<{recModel:FormGroup, status:string}>;
   @Output() discardChangeEvent = new EventEmitter<{id: number,  heading: string}>;
   @Output() discardRecordEvent = new EventEmitter<{id: number,  heading: string}>;
@@ -120,6 +122,11 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     }
     this.cdr.detectChanges(); // doing our own change detection
 
+    if (this.disableForm) {
+      this.disableFormGroup();
+    } else {
+      this.enableFormGroup();
+    }
   }
 
   /**
@@ -284,5 +291,16 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     return contStatusValue===status;
   }
 
+  disableFormGroup() {
+    if (this.contactRecordModel) {
+      this.contactRecordModel.disable();
+    }
+  }
+
+  enableFormGroup() {
+    if (this.contactRecordModel) {
+      this.contactRecordModel.enable();
+    }
+  }
 
 }

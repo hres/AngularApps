@@ -46,6 +46,8 @@
                               [genInfoModel]="genInfoModel"
                               [helpTextSequences]="helpIndex"
                               [enrollmentStatusesList]="enrollmentStatusList"
+                              [disableForm]="disableForm"
+                              (enableForm)="enableForm($event)" 
                               (updatedGenInfo)="processGenInfoUpdates($event)"
                               (errorList)="processGenInfoErrors($event)">
             </com-gen-info>
@@ -59,6 +61,8 @@
                                    [provinceList]="provinceList"
                                    [addressModel]="addressModel" [stateList]="stateList"
                                    [helpTextSequences]="helpIndex"
+                                   [disableForm]="disableForm"
+                                   (enableForm)="enableForm($event)" 
                                    (errorList)="processAddressErrors($event)"></lib-address-details>
                 </div>
               </section>
@@ -75,6 +79,8 @@
                                  [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status._id"
                                  [showErrors]="showErrors" [contactModel]="contactModel"
                                  [languageList]="languageList" [contactStatusList]="contactStatusList"
+                                 [disableForm]="disableForm"
+                                 (enableForm)="enableForm($event)" 
                                  (contactsUpdated)="updateActiveContactList($event)"></app-contact-list>
                 </div>
               </section>
@@ -92,6 +98,8 @@
             <primary-contact [lang]="lang"
                              [primContactModel]="primContactModel"
                              [activeContactList]="activeContacts"
+                             [disableForm]="disableForm"
+                             (enableForm)="enableForm($event)" 
                              [helpTextSequences]="helpIndex"></primary-contact>
           </div>
         </section>
@@ -109,6 +117,8 @@
                                   [isInternal]="isInternal"
                                   [adminChangesModel]="adminChangesModel"
                                   [helpTextSequences]="helpIndex"
+                                  [disableForm]="disableForm"
+                                  (enableForm)="enableForm($event)" 
                                   (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>          
           </div>
         </section>
@@ -117,7 +127,7 @@
       <!-- <pre>disableMailto {{disableMailto}} | showMailToHelpText {{showMailToHelpText}}  </pre> -->
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">
-        <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" >
+        <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
           {{'save.working.copy'|translate}}
         </button>
       </div>

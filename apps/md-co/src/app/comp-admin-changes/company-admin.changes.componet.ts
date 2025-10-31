@@ -33,6 +33,7 @@ import { GlobalService } from '../global/global.service';
     @Input() adminChangesModel;
     @Input() lang;
     @Input() helpTextSequences;
+    @Input() disableForm: boolean;
     @Output() adminChangesErrorList = new EventEmitter(true);
     // @Output() licenceErrorList = new EventEmitter(true);
     @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
@@ -151,6 +152,12 @@ import { GlobalService } from '../global/global.service';
         // }
         CompanyAdminChangesService.mapDataModelToFormModel(dataModel, (<FormGroup>this.adminChangesFormLocalModel));
       }
+
+      if (this.disableForm) {
+        this.disableFormGroup();
+      } else {
+        this.enableFormGroup();
+      }
     }
 
     /**
@@ -229,6 +236,18 @@ import { GlobalService } from '../global/global.service';
         this.adminChangesFormLocalModel.controls['newContactName'].markAsUntouched();
       }
       return false;
+    }
+
+    disableFormGroup() {
+      if (this.adminChangesFormLocalModel) {
+        this.adminChangesFormLocalModel.disable();
+      }
+    }
+
+    enableFormGroup() {
+      if (this.adminChangesFormLocalModel) {
+        this.adminChangesFormLocalModel.enable();
+      }
     }
   }
 

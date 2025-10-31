@@ -15,6 +15,7 @@ import { AppFormModule } from '../app.form.module';
   imports: [CommonModule, TranslateModule, LayoutComponent, PrivacyStatementComponent, SecurityDisclaimerComponent, InstructionComponent, FormBaseComponent, AppFormModule],
   providers: [FormDataLoaderService],
   templateUrl: './container.component.html',
+  styleUrls: ['./container.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class ContainerComponent implements OnInit {
