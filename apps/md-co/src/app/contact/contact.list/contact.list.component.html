@@ -14,7 +14,9 @@
       <app-company-contact-record 
         [cRRow]="recordRow" [isInternal]="isInternal"
         [languageList]="languageList" [contactStatusList]="contactStatusList" [showErrors]="showErrors" [lang]="lang"
-        [helpTextSequences]="helpTextSequences" (saveRecord)="saveContactRecord($event)"
+        [helpTextSequences]="helpTextSequences"
+        [disableForm]="disableForm"
+        (saveRecord)="saveContactRecord($event)"
         (errors)="updateErrorList($event)" (revertRecord)="revertContact($event)"
         (deleteRecord)="deleteContact($event)"></app-company-contact-record>
     </ng-template>

@@ -32,8 +32,11 @@ export class AddressDetailsComponent implements OnInit {
   @Input() helpTextSequences;
   @Input() addrType: string;    // optional, used to set unique html id if there are different types of address, eg. companyAddress, contactAddress etc
   @Input() appName: string;    // optional, the subform could have different fields or behaviour for different applications
-
+  @Input() disableForm : boolean;
+  
   @Output() errorList = new EventEmitter(true);
+
+    
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -140,6 +143,12 @@ export class AddressDetailsComponent implements OnInit {
           this._setCountryState(this.addressFormLocalModel);
         }
       }
+    }
+
+    if (this.disableForm) {
+      this.disableFormGroup();
+    } else {
+      this.enableFormGroup();
     }
   }
 
@@ -264,6 +273,18 @@ export class AddressDetailsComponent implements OnInit {
       this.postalLabel = 'addressDetails.postalCodeZip';
       this.postalCode = false;
       this.zipCode = false;
+    }
+  }
+
+  disableFormGroup() {
+    if (this.addressFormLocalModel) {
+      this.addressFormLocalModel.disable();
+    }
+  }
+
+  enableFormGroup() {
+    if (this.addressFormLocalModel) {
+      this.addressFormLocalModel.enable();
     }
   }
 
