@@ -11,16 +11,6 @@ import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
-    // importProvidersFrom(
-    //   TranslateModule.forRoot({
-    //     defaultLanguage: 'en',
-    //     loader: {
-    //       provide: TranslateLoader,
-    //       useFactory: HttpLoaderFactory,
-    //       deps: [HttpClient],
-    //     },
-    //   })
-    // ),
     Title,
     VersionService,
     { provide: HTTP_INTERCEPTORS, useClass: NoCacheHeadersInterceptor, multi: true },
@@ -33,11 +23,3 @@ export const appConfig: ApplicationConfig = {
     NoCacheHeadersInterceptor,
   ],
 };
-
-// export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
-//   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-// }
-//   export function HttpLoaderFactory(_httpBackend: HttpBackend) {
-//   const ml:MultiTranslateHttpLoader=new MultiTranslateHttpLoader(_httpBackend, ['./assets/i18n/', './assets/i18n/common/']);;
-//     return ml;
-// }
