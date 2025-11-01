@@ -1,25 +1,26 @@
 import { ApplicationConfig } from '@angular/core';
 import { InstructionService, NoCacheHeadersInterceptor, VALIDATION_SERVICES, ValidationService, VersionService } from '@hpfb/sdk/ui';
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpBackend, HttpClient, provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
-    importProvidersFrom(
-      TranslateModule.forRoot({
-        defaultLanguage: 'en',
-        loader: {
-          provide: TranslateLoader,
-          useFactory: createTranslateLoader,
-          deps: [HttpClient],
-        },
-      })
-    ),
+    // importProvidersFrom(
+    //   TranslateModule.forRoot({
+    //     defaultLanguage: 'en',
+    //     loader: {
+    //       provide: TranslateLoader,
+    //       useFactory: HttpLoaderFactory,
+    //       deps: [HttpClient],
+    //     },
+    //   })
+    // ),
     Title,
     VersionService,
     { provide: HTTP_INTERCEPTORS, useClass: NoCacheHeadersInterceptor, multi: true },
@@ -33,6 +34,10 @@ export const appConfig: ApplicationConfig = {
   ],
 };
 
-export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+// export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
+//   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+// }
+//   export function HttpLoaderFactory(_httpBackend: HttpBackend) {
+//   const ml:MultiTranslateHttpLoader=new MultiTranslateHttpLoader(_httpBackend, ['./assets/i18n/', './assets/i18n/common/']);;
+//     return ml;
+// }

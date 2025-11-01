@@ -5,7 +5,6 @@
   "top.privacy.statement": "Énoncé de confidentialité",
   "top.security.declaimer": "Avis de non-responsabilité concernant la sécurité",
   "top.instruction": "Instructions",
-  "PROTECTED_B": "Protégé \"B\" une fois rempli",
   "load.file": "Charger un fichier d'inscription de la compagnie",
   "choose.file":"Choisir un fichier",
   "select.file": "Sélectionnez un fichier à charger",
@@ -154,7 +153,7 @@
   "msg.discard.contact.change.popup": "Êtes-vous sûr de vouloir annuler la modification pour {{heading}}?",
   "msg.discard.contact.record.popup": " Êtes-vous sûr de vouloir supprimer {{heading}}?",
   "msg.contact.revise.status.popup": "Cette action changera le statut du contact de {{heading}} en « Réviser » et enregistrera la fiche",
-  "msg.contact.remove.status.popup": "This action will change the contact status of {{heading}} to "Remove" and save the record ",
+  "msg.contact.remove.status.popup": "This action will change the contact status of {{heading}} to 'Remove' and save the record ",
   "msg.remove.contact.popup": " Êtes-vous sûr de vouloir supprimer {{heading}} ? ",
   "msg.save.draft.xml.popup": "Veuillez sauvegarder les données d'entrée non enregistrées avant d’enregistrer le brouillon XML ",
 
