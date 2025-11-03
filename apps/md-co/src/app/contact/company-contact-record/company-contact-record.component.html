@@ -45,22 +45,22 @@
                         </ng-container>
 
                         <ng-container >
-                          <li *ngIf="isInternal && isInternalActiveContact()">
+                          <li *ngIf=" isInternalActiveContact()">
                             <button id="activeRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'set.active.status' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}"
                             class="btn btn-default" (click)="activeContactRecord()">{{'set.active.status'|translate}}</button>
                           </li>
-                          <li *ngIf="isInternal &&  isInternalDeleteContact()">
+                          <li *ngIf="isInternalDeleteContact()">
                             <button id="internalRemoveRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'remove.contact' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}"
                             class="btn btn-danger" (click)="deleteContactRecord()">{{'remove.contact'|translate}}</button>
                           </li>
-                          <li *ngIf="isInternal &&  isNewContact()">
+                          <li *ngIf=" isNewContact()">
                             <button id="internalDeleteRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'delete.record' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}"
                             class="btn btn-danger" (click)="deleteContactRecord()">{{'delete.record'|translate}}</button>
                           </li>
-                          <li *ngIf="!isContactSetToRemove()" >
+                          <li *ngIf="  !isContactSetToRemove()  " >
                             <button id="internalRevertRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'discard.changes' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}"
                             class="btn btn-default"  [disabled]="disabledDiscardButton() || disableForm" (click)="revertContactRecord()" >{{'discard.changes'|translate}}</button>
