@@ -230,12 +230,12 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.showErrors = true;
 
     if (status) {
-      this.statusChange(recordId + 1, status);
+      this.statusChange(record.controls['seqNumber'].value, status);
     } else {
       if (this.lang == "en") {
-        this.statusMessage = "Contact record " + (recordId + 1) + " has been saved."
+        this.statusMessage = "Contact record " + record.controls['seqNumber'].value + " has been saved."
       } else {
-        this.statusMessage = "Enregistrement du contact " + (recordId + 1) + " a été sauvegardé."
+        this.statusMessage = "Enregistrement du contact " + record.controls['seqNumber'].value + " a été sauvegardé."
       }
     }
 
@@ -311,9 +311,9 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       console.warn('ContactList:rec is null');
     }
     if (this.lang == "en") {
-      discardMsg = "Contact record " + (this.contactId + 1) + "  changes have been discarded."
+      discardMsg = "Contact record " +  rec.controls['seqNumber'].value + "  changes have been discarded."
     } else {
-      discardMsg = "Les modifications du contact " + (this.contactId + 1) + " ont été annulées."
+      discardMsg = "Les modifications du contact " +  rec.controls['seqNumber'].value + " ont été annulées."
     }
 
     this.statusMessage = discardMsg;
@@ -339,7 +339,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
    * @param id
    */
   public deleteContact(id): void {
-
+    let deletedRec = this.getRecord(id, this.contactList);
     this.deleteRecord(this.contactId, this.contactList, this._listService);
 
     // since the contact record is deleted, we should also remove its ErrorSummary if there is any
@@ -347,9 +347,9 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
     this._expandNextInvalidRecord();
     if (this.lang == "en") {
-      this.statusMessage = "Contact record " + (this.contactId.toString() + 1) + " has been deleted."
+      this.statusMessage = "Contact record " + deletedRec.controls['seqNumber'].value + " has been deleted."
     } else {
-      this.statusMessage = "Enregistrement du contact  " + (this.contactId.toString() + 1) + " a été supprimé."
+      this.statusMessage = "Enregistrement du contact  " + deletedRec.controls['seqNumber'].value + " a été supprimé."
     }
     document.location.href = '#contactListTable';
 
@@ -358,29 +358,29 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   }
 
 
-  public statusChange(id, status): void {
+  public statusChange(seqNumber, status): void {
     if (this.lang == "en") {
       switch (status) {
         case ContactStatus.Active:
-          this.statusMessage = "Contact record " +id + " status is now active.";
+          this.statusMessage = "Contact record " + seqNumber + " status is now active.";
           break;
         case ContactStatus.Remove:
-          this.statusMessage = "Contact record " + id + " status has been changed to remove.";
+          this.statusMessage = "Contact record " + seqNumber + " status has been changed to remove.";
           break;
         case ContactStatus.Revise:
-          this.statusMessage = "Contact record " + id + " status has been changed to revise.";
+          this.statusMessage = "Contact record " + seqNumber + " status has been changed to revise.";
           break;
       }
     } else {
       switch (status) {
         case ContactStatus.Active:
-          this.statusMessage = " Le statut d’enregistrement de contact " + id + " est maintenant actif.";
+          this.statusMessage = " Le statut d’enregistrement de contact " + seqNumber + " est maintenant actif.";
           break;
         case ContactStatus.Remove:
-          this.statusMessage = "Le statut d’enregistrement de contact " + id + " a été modifié pour être supprimé.";
+          this.statusMessage = "Le statut d’enregistrement de contact " + seqNumber + " a été modifié pour être supprimé.";
           break;
         case ContactStatus.Revise:
-          this.statusMessage = "Le statut d’enregistrement de contact " + id + " a été modifié pour être révisé.";
+          this.statusMessage = "Le statut d’enregistrement de contact " + seqNumber + " a été modifié pour être révisé.";
           break;
       }
     }
