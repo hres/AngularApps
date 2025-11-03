@@ -16,9 +16,15 @@ import { MailtoHelpComponent } from './mailto-help/mailto.help.component';
 import { CompanyBaseService } from './form-base/company-base.service';
 import { CompanyInfoService } from './company-info/company.info.service';
 import { CompanyDataLoaderService } from './form-base/company-data-loader.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpBackend } from '@angular/common/http';
+import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 
+
+export function HttpLoaderFactory(_httpBackend: HttpBackend) {
+  return new MultiTranslateHttpLoader(_httpBackend, ['./assets/i18n/', './assets/i18n/common/',]);
+}
 @NgModule({
   declarations: [
     CompanyInfoComponent,
@@ -35,7 +41,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     ExpanderModule,
     ReactiveFormsModule,
     TranslateModule,
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpBackend],
+      },
+    }),
   ],
   providers: [
     CompanyDataLoaderService,
@@ -45,7 +59,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CompanyAdminChangesComponent,
     CompanyAdminChangesService,
   ],
-  exports: [CommonUiFeatureModule, 
+  exports: [CommonUiFeatureModule,
     CompanyInfoComponent,
     PrimaryContactComponent,
     CompanyAdminChangesComponent,
