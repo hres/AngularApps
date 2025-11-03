@@ -156,8 +156,8 @@
   "msg.contact.remove.status.popup": "This action will change the contact status of {{heading}} to \"Remove\" and save the record ",
   "msg.remove.contact.popup": " Êtes-vous sûr de vouloir supprimer {{heading}} ? ",
   "msg.save.draft.xml.popup": "Veuillez sauvegarder les données d'entrée non enregistrées avant d’enregistrer le brouillon XML ",
-
-
+  "msg.active.and.save.company.popup": "Cette action changera le statut du contact de {{heading}} en « Actif » et enregistrera la fiche ",
+  "popup.warning": "Avertissement!",
 
   "msg.save.popup": "Êtes-vous sûr de vouloir supprimer {{heading}}?",
 
