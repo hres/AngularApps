@@ -32,6 +32,7 @@ export enum TransactionDesc {
   RS = 'RS', // Response to screening deficiency letter
   UD = 'UD', // Unsolicited Information
   WR = 'WR', //	Withdrawal Request
+  ER = 'ER'
 }
 
 // the values need to match the code values in device classes json data file
