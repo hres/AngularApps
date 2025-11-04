@@ -32,7 +32,7 @@
     "fileio.msg.fileTypeError": "File Type Error",
     "fileio.msg.dataTypeError": "Error: the wrong form data was selected for this form.",
     "fileio.msg.noFileChoosen": "No file chosen",
-    "refresh.file.input": "Refresh this page",
+    "refresh.file.input": "Refresh this page to clear form",
     "add.device": "Add Device Record",
     "save.device": "Save Record",
     "delete.device": "Delete Record",

@@ -420,7 +420,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
           ? ''
           : this.genInfoModel.company_id);
       body =
-        "NOTE: Le fichier XML de l'entreprise n'est pas automatiquement joint. VEUILLEZ JOINDRE LE BROUILLON XML DE L'ENTREPRISE AVANT DE LE SOUMETTRE.";
+        "NOTE: Le fichier XML de la compagnie n'est pas automatiquement joint. VEUILLEZ JOINDRE LE BROUILLON XML DE COMPAGNIE AVANT DE LE SOUMETTRE.";
     }
 
     //const email = this._utilsService.removeFirstAndLastChars(this.submitToEmail);

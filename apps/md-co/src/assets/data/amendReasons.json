@@ -4,7 +4,7 @@
     "en":"Change in manufacturer's name",
     "fr":"Modification du nom du fabricant seulement",
     "defEn": "The revised manufacturer's name should be listed in the \"company name\" field in address information section above",
-    "defFr": "Le nom du fabricant révisé doit être indiqué dans le champ «nom de la compagnie» dans la section des détails de l'adresse ci-dessus"
+    "defFr": "Le nom du fabricant révisé doit être indiqué dans le champ « nom de la compagnie » dans la section des détails de l'adresse ci-dessus"
   },
   {
     "id":"ADDR_CHANGE",
