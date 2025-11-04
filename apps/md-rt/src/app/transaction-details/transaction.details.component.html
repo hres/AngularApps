@@ -94,7 +94,7 @@
           </select>
         </label>
       </div>
-      <div class="form-group form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
+      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
         <label for="descriptionType" class="required full-width">
           <span class="field-name" >{{ 'trans.description' |translate }}</span>
           <strong class="required" >{{ 'commmon.required.bracket'|translate }}</strong>
@@ -105,7 +105,13 @@
                             parentId="transDetails"></control-messages>
           <select id="descriptionType" name="descriptionType" required class="form-control full-width" (change)="descriptionOnChange()"
             [formControl]="transDetailsForm.controls['descriptionType'] | formControl">
-            <option label=" " value=""></option>
+            <option [ngValue]="null" disabled>
+              @if (!raTypeSelected) {
+                  {{ 'transaction.description.default.option' | translate }}              }
+              @else {
+                  {{ 'select.option' | translate }}
+              }
+            </option>
             <option *ngFor="let desc of transDescList" [ngValue]="desc.id"> {{ desc | textTransform: lang }}</option>
           </select>
         </label>

@@ -33,6 +33,8 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   raTypeTxDesc: IParentChildren[];   // the relationship betweenraType and txDesc relationship
   raTypeDeviceClassAmendReason: any[] = [];   // the relationship between raType, device classes and amend reasons
 
+  public raTypeSelected = false;
+
   public showFieldErrors = false;
 
   public amendReasonOptionList: CheckboxOption[] = [];
@@ -102,8 +104,10 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     if (selectedRaTypeValue) {
       // dynamically load the transaction description dropdowns according to the selected activity type value
       this.transDescList = this._getTransactionDescriptions(this.raTypeTxDesc, selectedRaTypeValue);
+      this.raTypeSelected = true;
     } else {
       this.transDescList = [];
+      this.raTypeSelected = false;
     }
   }
 
