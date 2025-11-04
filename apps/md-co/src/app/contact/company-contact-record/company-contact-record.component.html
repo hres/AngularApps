@@ -15,8 +15,6 @@
                       <ul class="list-inline lst-spcd ">
 
                         <ng-container *ngIf=" !isContactSetToRemove()">
-
-
                           <li *ngIf="!isInternal && isExternalNewContact()">
                             <button id="saveRecord{{contactRecordModel.get('id').value}}"
                                 attr.aria-label="{{'save.contact' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}"
@@ -50,7 +48,7 @@
                             attr.aria-label="{{'remove.contact' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}"
                             class="btn btn-danger" (click)="deleteContactRecord()" [disabled]="disableForm">{{'remove.contact'|translate}}</button>
                           </li>
-                          <li *ngIf=" isNewContact()">
+                          <li *ngIf=" isInternal  && isNewContact()">
                             <button id="internalDeleteRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'delete.record' | translate}} {{'heading.contactDetails' | translate: {seqnumber: contactRecordModel.get('id').value + 1} }}"
                             class="btn btn-danger" (click)="deleteContactRecord()" [disabled]="disableForm">{{'delete.record'|translate}}</button>
