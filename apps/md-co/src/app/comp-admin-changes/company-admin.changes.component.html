@@ -49,23 +49,28 @@
           </div>
         </section>
       </div>
-      <div class="row row-center">
-        <div class="form-group col-xs-12" >
-          <label for="isReguChange" class="required full-width">
-            <span class="field-name">{{'is.change' |translate}}</span>
-            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="adminChangesFormLocalModel.controls['isReguChange'].invalid"
-                              [showError]="showFieldErrors"
-                              [control]="adminChangesFormLocalModel.controls['isReguChange'] | formControl"
-                              controlId="isReguChange" label="is.change" parentId="adminChangesDetails"
-                              parentLabel="Admin Changes"></control-messages>
-            <select id="isReguChange" required class="form-control" (change)="onblur()" [formControl]="adminChangesFormLocalModel.controls['isReguChange'] | formControl">
-              <option label=" " value=""></option>
-               <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{ yesno | textTransform: lang }}</option>
-            </select>
-          </label>
-        </div>
-      </div>
+    <div class="row form-group">
+      <fieldset class="col-md-12 chkbxrdio-grp">
+          <legend class="required">
+              {{ 'is.change' | translate}}
+              <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+              <control-messages *ngIf="adminChangesFormLocalModel.controls['isReguChange'].invalid" [showError]="showFieldErrors"
+                          [control]="adminChangesFormLocalModel.controls['isReguChange'] | formControl"
+                          controlId="isReguChange" label="is.change"
+                          parentId="adminChangesDetails"
+                          parentLabel="Admin Changes"></control-messages>
+          </legend>
+          <ng-container *ngFor="let yesno of yesNoList; let i = index">
+              <label for="isReguChange{{i}}" class="radio-inline">
+                  <input type="radio"
+                  id="isReguChange{{i}}" [value]="yesno.id" required
+                  (change)="onblur()"
+                  [formControl]="adminChangesFormLocalModel.controls['isReguChange'] | formControl" />
+                  {{yesno | textTransform: lang}}
+              </label>
+          </ng-container>
+      </fieldset>
+    </div>
   
       <div class="row row-center" *ngIf="isReguChange()">
         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12" >
