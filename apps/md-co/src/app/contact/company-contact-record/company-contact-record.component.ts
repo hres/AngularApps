@@ -303,4 +303,16 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     }
   }
 
+  public disabledDiscardButton() {
+    if (this.cRRow.get('isNew').value) {
+      return true;
+    }
+if(this.cRRow.dirty){
+  return false;
+}else{
+  return true;
+}
+
+  }
+
 }
