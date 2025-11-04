@@ -143,7 +143,7 @@
   "des.finance": "Contact financier désigné (fabricant uniquement)",
   "comp.admin.info":"Veuillez inclure la page de couverture de chaque homologation visée, une copie de l'étiquette modifiée reflétant les modifications, un certificat valide du Programme d’audit unique des matériels médicaux [PAUMM] qui reflète le changement de nom ou d’adresse du fabricant, un formulaire F202 rempli et un formulaire d’attestation signé, le cas échéant.",
   "error":"Erreur {{number}}:",
-  "msg.save.xml.popup": "Veuillez sauvegarder les données d'entrée non enregistrées avant de générer le fichier XML.",
+  "msg.save.xml.popup": "Veuillez sauvegarder les données d'entrée non enregistrées avant d’enregistrer le brouillon XML.",
   "msg.save.data.popup": "Veuillez sauvegarder les données d'entrée non enregistrées.",
   "popup.close": "Fermer",
   "select.option": "Sélectionnez une option",
