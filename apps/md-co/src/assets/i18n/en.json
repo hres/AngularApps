@@ -153,21 +153,15 @@
     "error":"Error {{number}}:",
     "msg.save.xml.popup": "Please save the unsaved input data before generating XML file.",
     "msg.save.data.popup": "Please save the unsaved input data.",
-    "popup.title": "Company Template",
     "popup.close": "Close",
     "select.option": "Select an option",
     "popup.cancel": "Cancel",
     "popup.confirm": "OK",
     "msg.delete.company.change.popup": "Are you sure you want to discard change for {{heading}}?",
     "msg.delete.company.record.popup": "Are you sure you want to delete {{heading}}?",
-    "msg.company.revise.status.popup": "This action will change the contact status of {{heading}} to 'Revise' and save the record ",
-    "msg.company.remove.status.popup": "This action will change the contact status of {{heading}} to 'Remove' and save the record ",
-    "msg.remove.company.popup": " Are you sure you want to delete {{heading}}? ",
-    "msg.active.and.save.company.popup": "This action will change the contact status of {{heading}} to 'Active' and save the record ",
-    "msg.save.draft.xml.popup": "Please save the unsaved input data before saving draft XML file ",
-
-
-    "msg.save.popup": "Are you sure you want to save {{heading}}?",
+    "msg.company.revise.status.popup": "This action will change the contact status of {{heading}} to \"Revise\" and save the record.",
+    "msg.company.remove.status.popup": "This action will change the contact status of {{heading}} to \"Remove\" and save the record.",
+    "msg.active.and.save.company.popup": "This action will change the contact status of {{heading}} to \"Active\" and save the record.",
     "popup.warning":"Warning",
 
     "heading.company.contact":"Company representative details {{seqnumber}}"
