@@ -539,6 +539,12 @@ span.normalWeight {
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/application_number"/></span>
 										</div>
 									</xsl:if>
+                  <xsl:if test="/descendant-or-self::application_info/description_type/@id = 'MM'">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<strong>Meeting Identifier:&#160;</strong>
+											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/meeting_id"/></span>
+										</div>
+								</xsl:if>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/device_name != ''">
 									<div class="row">
