@@ -20,6 +20,8 @@
   "regulatory.contact.id": "Regulatory Contact Identifier",
   "activity.type": "Regulatory activity type",
   "trans.description": "Transaction description",
+  "transaction.description.default.option":"First, select a regulatory activity type.",
+  "select.option": "Select an option",
   "device.class": "Device class",
   "amend.reason": "Reason for amendment",
   "licence.number": "Licence Number",

@@ -20,6 +20,8 @@
   "regulatory.contact.id": "Identifiant du contact réglementaire",
   "activity.type": "Type d'activité réglementaire",
   "trans.description": "Description de la transaction",
+  "transaction.description.default.option":"D'abord, sélectionnez un type d'activité réglementaire.",
+  "select.option": "Sélectionnez une option",
   "device.class": "Classe de l'instrument",
   "amend.reason": "Raison de la modification",
   "licence.number": "Numéro d'homologation'",

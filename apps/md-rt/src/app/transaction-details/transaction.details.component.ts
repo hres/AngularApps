@@ -33,6 +33,8 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
   raTypeTxDesc: IParentChildren[];   // the relationship betweenraType and txDesc relationship
   raTypeDeviceClassAmendReason: any[] = [];   // the relationship between raType, device classes and amend reasons
 
+  public raTypeSelected = false;
+
   public showFieldErrors = false;
 
   public amendReasonOptionList: CheckboxOption[] = [];
@@ -102,8 +104,10 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     if (selectedRaTypeValue) {
       // dynamically load the transaction description dropdowns according to the selected activity type value
       this.transDescList = this._getTransactionDescriptions(this.raTypeTxDesc, selectedRaTypeValue);
+      this.raTypeSelected = true;
     } else {
       this.transDescList = [];
+      this.raTypeSelected = false;
     }
   }
 
@@ -214,7 +218,8 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
     if ((this.activityTypeFormControl.value === RegulatoryActivityType.MinorChange && this._isTransactionDescriptionInitial()) ||
     (this.activityTypeFormControl.value === RegulatoryActivityType.LicenceAmendment && this._isTransactionDescriptionInitial() &&
-      this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, amendResonsRequireRationale))) {
+      this._utilsService.isArray1ElementInArray2(this.selectedAmendReasonCodes, amendResonsRequireRationale)) ||
+      this._isTransactionDescriptionExtensionRequest()) {
       return true;
     } else {
       this._utilsService.resetControlsValues(this.transDetailsForm.controls['rationale']);
@@ -341,6 +346,10 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
   private _isTransactionDescriptionInitial() {
     return this.txDescriptionFormControl.value === TransactionDesc.INITIAL
+  }
+
+  private _isTransactionDescriptionExtensionRequest() {
+    return this.txDescriptionFormControl.value === TransactionDesc.ER
   }
 
   private _getTransactionDescriptions(raTypeTxDesc: IParentChildren[], raType: string): ICode[]{
