@@ -450,7 +450,7 @@ span.normalWeight {
 					</xsl:if>
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<strong>Are any ownership of licenses being transferred? &#160;</strong>
+							<strong>Is this amendment intended to transfer ownership of licences between companies?&#160;</strong>
 							<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::general_information/are_licenses_transfered"/></xsl:call-template></span>
 						</div>
 						<br /><br />
