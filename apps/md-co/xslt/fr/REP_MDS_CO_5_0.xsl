@@ -520,7 +520,7 @@ span.normalWeight {
 												Code postal
 											</xsl:when>
 											<xsl:otherwise>
-												Code Postal/ZIP (si pas disponible, utilisez « sans objet »)
+												Code postal/ZIP (si pas disponible, utilisez « sans objet »)
 											</xsl:otherwise>
 										</xsl:choose>:&#160;
 										</strong>
@@ -539,18 +539,18 @@ span.normalWeight {
 					</section>
 					<section class="panel panel-default" >
 						<div class="panel-heading">
-							<h2 class="panel-title">Désignation de personne-ressource de l’entreprise (fabricant uniquement) :</h2>
+							<h2 class="panel-title">Désignation de personne-ressource de l’entreprise (fabricant uniquement) :&#160;</h2>
 						</div>
 						<div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <strong>Personne-ressource désignée pour le renouvellement (fabricant uniquement) :</strong>
+                                    <strong>Personne-ressource désignée pour le renouvellement (fabricant uniquement) :&#160;</strong>
                                     <span class="mouseHover"><xsl:value-of select="/descendant-or-self::primary_contact/renewal_contact_name"/></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <strong>Contact financier désigné (fabricant uniquement) :</strong>
+                                    <strong>Contact financier désigné (fabricant uniquement) :&#160;</strong>
                                     <span class="mouseHover"><xsl:value-of select="/descendant-or-self::primary_contact/finance_contact_name"/></span>
                                 </div>
                             </div>

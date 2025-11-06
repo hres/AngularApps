@@ -26,7 +26,6 @@
   "amend.reason": "Raison de la modification",
   "licence.number": "Numéro d'homologation'",
   "application.number": "Numéro de la demande",
-  "meeting.id": "Identifiant de la réunion",
   "device.name": "Nom de l'instrument, tel qu'il apparaît sur l'étiquette",
   "licence.name": "Nom d'homologation proposé",
   "include.ddt": "Joignez à cette demande le fichier Excel de détails de l'instrument avec la feuille correspondante « changement de nom de l'instrument » et/ou « Ajout / Suppression » remplie.",
@@ -92,4 +91,4 @@
   "help.device.detail.01": "Les identifiants figurant dans le fichier Excel de détails de l'instrument doivent apparaître sur l'étiquette soumis et correspondre à l'identifiant figurant sur celui-ci.",
   "help.device.detail.02": "Obligatoire pour toutes les nouvelles demandes d’homologation, ainsi que pour toute demande de modification susceptible d’avoir des répercussions sur la liste de catalogue d'un fabricant.",
   "help.device.detail.03": "Le fichier Excel de détails de l'instrument est disponible sur la page <a href='https://health-products.canada.ca/rep-pir/mds-index-fr.html'>d’index du PIR pour les instruments médicaux.</a>"
-}  
+}

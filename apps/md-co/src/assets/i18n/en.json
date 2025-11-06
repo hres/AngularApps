@@ -9,7 +9,7 @@
     "select.file": "Select a file to load",
     "choose.file":"Choose File",
     "no.file.chosen": "No file chosen",
-    "warning.text": "<p>This template is for company registration for medical devices.</p><p>This template must not be used for company registration for human and veterinary drugs and biocides. Instead use the <a href='https://health-products.canada.ca/rep-pir/company/en/company.html#def-top'>Company Template: Regulatory Enrolment Process (REP) for human and veterinary drugs and biocides.</a></p><p>A company may need to fill out both templates based on the products they sell. </p>",
+    "warning.text": "<p>This template is for company registration for medical devices.</p><p>This template must not be used for company registration for human and veterinary drugs and biocides. Instead use the <a href='https://health-products.canada.ca/rep-pir/company/en/company.html#def-top'>Company Template: Regulatory Enrolment Process (REP) for human and veterinary drugs and biocides.</a></p><p>A company may need to fill out both templates based on the products they sell. </p><p>Ensure that all fields in this template are completed in the sequential order. The selections made in certain fields may affect the visibility and availability of other fields and sections throughout the form.</p>",
     "company.enrolment": "Regulatory Company Enrolment",
     "company.id": "Company Identifier",
     "addressDetails.street": "Street address",
@@ -152,24 +152,18 @@
     "des.default.option":"First, create company representative record(s) above.",
     "comp.admin.info":"Please include the cover page of each impacted licence, a copy of updated labelling reflecting the changes, a valid Medical Device Single Audit Program [MDSAP] Certificate that reflects the change in the manufacturer’s name or address, a completed F202 form, and a signed attestation form as applicable.",
     "error":"Error {{number}}:",
-    "msg.save.xml.popup": "Please save the unsaved input data before generating XML file.",
+    "msg.save.xml.popup": "Please save the unsaved input data before saving draft XML file.",
     "msg.save.data.popup": "Please save the unsaved input data.",
-    "popup.title": "Company Template",
     "popup.close": "Close",
     "select.option": "Select an option",
     "popup.cancel": "Cancel",
     "popup.confirm": "OK",
     "msg.delete.company.change.popup": "Are you sure you want to discard change for {{heading}}?",
     "msg.delete.company.record.popup": "Are you sure you want to delete {{heading}}?",
-    "msg.company.revise.status.popup": "This action will change the contact status of {{heading}} to 'Revise' and save the record ",
-    "msg.company.remove.status.popup": "This action will change the contact status of {{heading}} to 'Remove' and save the record ",
-    "msg.remove.company.popup": " Are you sure you want to delete {{heading}}? ",
-    "msg.active.and.save.company.popup": "This action will change the contact status of {{heading}} to 'Active' and save the record ",
-    "msg.save.draft.xml.popup": "Please save the unsaved input data before saving draft XML file ",
-
-
-    "msg.save.popup": "Are you sure you want to save {{heading}}?",
+    "msg.company.revise.status.popup": "This action will change the contact status of {{heading}} to \"Revise\" and save the record.",
+    "msg.company.remove.status.popup": "This action will change the contact status of {{heading}} to \"Remove\" and disable the record.",
+    "msg.active.and.save.company.popup": "This action will change the contact status of {{heading}} to \"Active\" and save the record.",
     "popup.warning":"Warning",
 
-    "heading.company.contact":"Company representative details {{seqnumber}}"
+    "heading.company.contact":"company representative details {{seqnumber}}"
   }
