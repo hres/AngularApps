@@ -27,6 +27,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() cRRow: FormGroup;
   @Input() languageList: ICode[];
   @Input() contactStatusList: ICode[];
+  @Input() j: number;
 
   public contactRecordModel: FormGroup;
   @Input('group') public contactFormRecord: FormGroup;
