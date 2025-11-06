@@ -117,13 +117,36 @@
         PrimaryContactService.mapDataModelToFormModel(this.primContactModel, (<FormGroup>this.primContactFormLocalModel));
       }
       if (changes['activeContactList']) {
-        if (this.primContactFormLocalModel.controls['renewalContactName'] &&
-          !changes['activeContactList'].currentValue.includes(this.primContactFormLocalModel.controls['renewalContactName'].value)) {
-          this.primContactFormLocalModel.controls['renewalContactName'].setValue('');
-        }if (this.primContactFormLocalModel.controls['financeContactName'] &&
-          !changes['activeContactList'].currentValue.includes(this.primContactFormLocalModel.controls['financeContactName'].value)) {
-          this.primContactFormLocalModel.controls['financeContactName'].setValue('');
-        }
+        const renewalCtrl = this.primContactFormLocalModel.controls['renewalContactName'];
+        const financeCtrl = this.primContactFormLocalModel.controls['financeContactName'];
+      
+        const currentList = changes['activeContactList'].currentValue || [];
+        const hasContacts = currentList.length > 0;
+      
+        // Set dropdowns to default values
+        const resetIfDeleted = (ctrl) => {
+          const value = ctrl.value;
+
+          if (!hasContacts) {
+            // Case 1: There are no active contacts.
+            // Always reset to null so dropdown shows 'des.default.option'
+            ctrl.setValue(null);
+          } 
+          else if (!value) {
+            // Case 2: Contacts exist, but nothing is currently selected.
+            // Reset to null to make dropdown show 'select.option'
+            ctrl.setValue(null);
+          } 
+          else if (!currentList.includes(value)) {
+            // Case 3: The currently selected contact was deleted.
+            // Reset to null to show 'select.option' again.
+            ctrl.setValue(null);
+          }
+        };
+      
+        resetIfDeleted(renewalCtrl);
+        resetIfDeleted(financeCtrl);
+      
         this.onblur();
       }
 
@@ -162,6 +185,13 @@
       if (this.primContactFormLocalModel) {
         this.primContactFormLocalModel.enable();
       }
+    }
+
+    activeContactListNotEmpty() {
+      if (this.activeContactList && this.activeContactList.length > 0) {
+        return true;
+      }
+      return false;
     }
 
   }
