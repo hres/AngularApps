@@ -53,7 +53,6 @@
   "minNumber5": "(5 chiffres)",
   "minNumber6": "(6 chiffres)",
   "minNumber8": "(8 chiffres)",
-  "reason.amend": "Raison du dépôt de cet amendement",
   "save.working.copy": "Enregistrer la copie de travail",
   "generate.final": "Générer le XML",
   "msg.success.load": "Le fichier a été chargé avec succès",

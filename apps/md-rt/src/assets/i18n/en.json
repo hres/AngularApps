@@ -53,7 +53,6 @@
   "minNumber5": "(5 digits)",
   "minNumber6": "(6 digits)",
   "minNumber8": "(8 digits)",
-  "reason.amend": "Reason for amendment",
   "save.working.copy": "Save working copy",
   "generate.final": "Generate XML",
   "msg.success.load": "The file was loaded successfully",
