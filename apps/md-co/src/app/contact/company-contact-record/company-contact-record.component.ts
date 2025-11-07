@@ -193,20 +193,22 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
   public  activeContactRecord(): void{
     const heading = this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
-    this.saveContactRecord(heading, ContactStatus.Active);
+    this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Active, heading: heading});
+    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
+    this.saveContactRecord(ContactStatus.Active);
   }
 
-  public  saveContactRecord(heading?: string,contactStatus?: ContactStatus ): void {
-    // console.log("====>saveContactRecord ", this.errorList);
+  public  saveContactRecord(contactStatus?: ContactStatus ): void {
+    //console.log("====>saveContactRecord ", this.contactStatusList);
     if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
       if (contactStatus) {
         this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
       }
-      if(heading){
-      this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: contactStatus, heading: heading});
-      }else{
-        this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
-      }
+      //if(heading){
+      //this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: contactStatus, heading: heading});
+      //}else{
+      this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
+      //}
       this.contactRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved
