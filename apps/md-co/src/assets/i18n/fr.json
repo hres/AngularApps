@@ -110,7 +110,7 @@
   "minNumber8": "(8 chiffres)",
   "error.found.because": " n’a pas pu être enregistré car ",
   "instruction": "instruction",
-  "return.instruction": "Revenir à la référence de l'instruction",
+  "return.instruction": "Revenir à la référence de l'instruction ",
   "mailto.label": "Soumettre à Santé Canada",
   "help.load.file.01": "Un fichier de compagnie ne devrait pas être chargé s’il s’agit de la première inscription de la compagnie.",
   "help.load.file.02": "Pour procéder avec une copie de travail crée au préalable, le fichier doit être chargé en format .hcsc.",
