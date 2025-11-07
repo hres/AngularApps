@@ -18,7 +18,7 @@
         <label for="statusText{{recordId}}" class="full-width">
           <span class="field-name">{{'status' |translate}}
               <sup id="co4-rf">
-                <a class="fn-lnk" href="#co4"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.conStatInx}}</a>
+                <a class="fn-lnk" href="#co4"><span class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpTextSequences.conStatInx}}</a>
               </sup>
           </span>
           <control-messages *ngIf="isInternal && contactDetailForm.controls['status'].invalid"
