@@ -20,6 +20,7 @@
       <!-- ==={{recordRow.get('id').value}}=== -->
       <!-- === index = {{idx}} ,  === -->
       <app-company-contact-record
+        [j]="idx"
         [cRRow]="recordRow" [isInternal]="isInternal"
         [languageList]="languageList" [contactStatusList]="contactStatusList" [showErrors]="showErrors" [lang]="lang"
         [helpTextSequences]="helpTextSequences"

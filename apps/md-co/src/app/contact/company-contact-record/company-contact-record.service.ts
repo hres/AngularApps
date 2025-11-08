@@ -46,9 +46,8 @@ export class CompanyContactRecordService {
     this._detailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls['contactDetails']);
   }
 
-   public  getHeading(index : number, formGroup : FormGroup): string {
-
-      return this._translateService.instant('heading.company.contact', { seqnumber: index+1})
+   public  getHeading(index : number): string {
+      return this._translateService.instant('heading.company.contact', { seqnumber: index + 1})
    }
 
 }
