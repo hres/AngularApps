@@ -23,17 +23,17 @@
                           <li *ngIf="!isInternal && isExternalNotNewContact()">
                             <button id="reviseRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'set.revise.status' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                            class="btn btn-default" (click)="setStatusToRevise()" [disabled]=" showErrorSummary()" [disabled]="disableForm">{{'set.revise.status'|translate}}</button>
+                            class="btn btn-default" (click)="setStatusToRevise(j)" [disabled]=" showErrorSummary()" [disabled]="disableForm">{{'set.revise.status'|translate}}</button>
                           </li>
                           <li *ngIf="!isInternal && isExternalNotNewContact()">
                             <button id="removeRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'set.remove.status' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                            class="btn btn-danger" (click)="setStatusToRemove()" [disabled]="showErrorSummary()" [disabled]="disableForm">{{'set.remove.status'|translate}}</button>
+                            class="btn btn-danger" (click)="setStatusToRemove(j)" [disabled]="showErrorSummary()" [disabled]="disableForm">{{'set.remove.status'|translate}}</button>
                           </li>
                           <li *ngIf="!isInternal && isNewContact()">
                             <button id="deleteRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'delete.record' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                            class="btn btn-danger" (click)="deleteContactRecord()" [disabled]="disableForm">{{'delete.record'|translate}}</button>
+                            class="btn btn-danger" (click)="deleteContactRecord(j)" [disabled]="disableForm">{{'delete.record'|translate}}</button>
                           </li>
                         </ng-container>
 
@@ -41,22 +41,22 @@
                           <li *ngIf=" isInternalActiveContact()">
                             <button id="activeRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'set.active.status' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                            class="btn btn-default" (click)="activeContactRecord()" [disabled]="disableForm">{{'set.active.status'|translate}}</button>
+                            class="btn btn-default" (click)="activeContactRecord(j)" [disabled]="disableForm">{{'set.active.status'|translate}}</button>
                           </li>
                           <li *ngIf="isInternalDeleteContact()">
                             <button id="internalRemoveRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'remove.contact' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                            class="btn btn-danger" (click)="deleteContactRecord()" [disabled]="disableForm">{{'remove.contact'|translate}}</button>
+                            class="btn btn-danger" (click)="deleteContactRecord(j)" [disabled]="disableForm">{{'remove.contact'|translate}}</button>
                           </li>
                           <li *ngIf=" isInternal  && isNewContact()">
                             <button id="internalDeleteRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'delete.record' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                            class="btn btn-danger" (click)="deleteContactRecord()" [disabled]="disableForm">{{'delete.record'|translate}}</button>
+                            class="btn btn-danger" (click)="deleteContactRecord(j)" [disabled]="disableForm">{{'delete.record'|translate}}</button>
                           </li>
                           <li *ngIf="  !isContactSetToRemove()  " >
                             <button id="internalRevertRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'discard.changes' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                            class="btn btn-default"  [disabled]="disabledDiscardButton() || disableForm" (click)="revertContactRecord()" >{{'discard.changes'|translate}}</button>
+                            class="btn btn-default"  [disabled]="disabledDiscardButton() || disableForm" (click)="revertContactRecord(j)" >{{'discard.changes'|translate}}</button>
                           </li>
                         </ng-container>
 

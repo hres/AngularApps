@@ -1,17 +1,32 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges, ViewChild,
-  ViewChildren, ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  input,
+  Input,
+  OnInit,
+  Output,
+  QueryList,
+  SimpleChanges,
+  ViewChild,
+  ViewChildren,
+  ViewEncapsulation,
 } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {ContactDetailsComponent} from '../contact.details/contact.details.component';
-import {ContactDetailsService} from '../contact.details/contact.details.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ContactDetailsComponent } from '../contact.details/contact.details.component';
+import { ContactDetailsService } from '../contact.details/contact.details.service';
 import { ContactStatus } from '../../app.constants';
-import {TranslateService} from '@ngx-translate/core';
-import { ICode, UtilsService, ControlMessagesComponent, ErrorSummaryComponent, ErrorNotificationService } from '@hpfb/sdk/ui';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  ICode,
+  UtilsService,
+  ControlMessagesComponent,
+  ErrorSummaryComponent,
+  ErrorNotificationService,
+} from '@hpfb/sdk/ui';
 import { CompanyContactRecordService } from './company-contact-record.service';
-
-
 
 @Component({
   selector: 'app-company-contact-record',
@@ -19,11 +34,10 @@ import { CompanyContactRecordService } from './company-contact-record.service';
   styleUrls: ['./company-contact-record.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: false
-
+  standalone: false,
 })
 export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
-
+  @Input() j: number;
   @Input() cRRow: FormGroup;
   @Input() languageList: ICode[];
   @Input() contactStatusList: ICode[];
@@ -37,18 +51,41 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Input() helpTextSequences;
   @Input() disableForm: boolean;
 
-  @Output() saveRecord = new EventEmitter<{recModel:FormGroup, status:string}>;
-  @Output() discardChangeEvent = new EventEmitter<{id: number,  heading: string}>;
-  @Output() discardRecordEvent = new EventEmitter<{id: number,  heading: string}>;
-  @Output() setRemoveStatusEvent = new EventEmitter<{id: number, status: string, heading: string}>;
-  @Output() setReviseStatusEvent = new EventEmitter<{id: number, status: string, heading: string}>;
-  @Output() setActiveStatusEvent = new EventEmitter<{id: number, status: string, heading:string}>;
+  @Output() saveRecord = new EventEmitter<{
+    recModel: FormGroup;
+    status: string;
+  }>();
+  @Output() discardChangeEvent = new EventEmitter<{
+    id: number;
+    heading: string;
+  }>();
+  @Output() discardRecordEvent = new EventEmitter<{
+    id: number;
+    heading: string;
+  }>();
+  @Output() setRemoveStatusEvent = new EventEmitter<{
+    id: number;
+    status: string;
+    heading: string;
+  }>();
+  @Output() setReviseStatusEvent = new EventEmitter<{
+    id: number;
+    status: string;
+    heading: string;
+  }>();
+  @Output() setActiveStatusEvent = new EventEmitter<{
+    id: number;
+    status: string;
+    heading: string;
+  }>();
 
   @Output() errors = new EventEmitter();
 
-  @ViewChild(ContactDetailsComponent, {static: true}) contactDetailsChild;
-  @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
-  @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
+  @ViewChild(ContactDetailsComponent, { static: true }) contactDetailsChild;
+  @ViewChildren(ErrorSummaryComponent)
+  errorSummaryChildList: QueryList<ErrorSummaryComponent>;
+  @ViewChildren(ControlMessagesComponent)
+  msgList: QueryList<ControlMessagesComponent>;
 
   public updateChild: number = 0;
   public sequenceNum: number = 0;
@@ -60,35 +97,41 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   private errorSummaryChild: ErrorSummaryComponent = null;
 
   public headingLevel = 'h4';
-  headingPreamble: string = "heading.contactDetails";
+  headingPreamble: string = 'heading.contactDetails';
   headingPreambleParams: any;
   translatedParentLabel: string;
 
-
-  constructor( private cdr: ChangeDetectorRef, private _utilsService: UtilsService,
-    private _detailsService: ContactDetailsService, private _translateService: TranslateService, private _errorNotificationService: ErrorNotificationService, private _companyRecordService: CompanyContactRecordService) {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private _utilsService: UtilsService,
+    private _detailsService: ContactDetailsService,
+    private _translateService: TranslateService,
+    private _errorNotificationService: ErrorNotificationService,
+    private _companyRecordService: CompanyContactRecordService
+  ) {
     this.showErrors = false;
     this.showErrSummary = false;
   }
 
   ngOnInit() {
     this.headingPreambleParams = this.cRRow.get('seqNumber').value;
-    this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+    this.translatedParentLabel = this._translateService.instant(
+      this.headingPreamble,
+      { seqnumber: this.headingPreambleParams }
+    );
     this.contactRecordModel = this.cRRow;
+  }
 
-   }
-
-  ngAfterViewInit(){
-    this.msgList.changes.subscribe(errorObjs => {
+  ngAfterViewInit() {
+    this.msgList.changes.subscribe((errorObjs) => {
       // update is handled directly in the function
       this.updateErrorList(null, true);
       this._emitErrors();
     });
     /** this is processsing the errorSummary that is a child in  Contact record **/
-    this.errorSummaryChildList.changes.subscribe(list => {
+    this.errorSummaryChildList.changes.subscribe((list) => {
       this.processSummaries(list);
     });
-
   }
 
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
@@ -97,7 +140,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     }
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
-    this._errorNotificationService.updateErrorSummary(this.contactRecordModel.controls['id'].value, this.errorSummaryChild);
+    this._errorNotificationService.updateErrorSummary(
+      this.contactRecordModel.controls['id'].value,
+      this.errorSummaryChild
+    );
 
     // this._emitErrors();
   }
@@ -113,7 +159,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.errors.emit(emitErrors);
   }
 
-  ngOnChanges (changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges) {
     // console.log(this._utilsService.checkComponentChanges(changes));
 
     if (changes['showErrors']) {
@@ -143,11 +189,9 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.parentErrorList = [];
     // do this so don't miss it on a race condition
     if (this.msgList) {
-      this.msgList.forEach(
-        error => {
-          this.parentErrorList.push(error);
-        }
-      );
+      this.msgList.forEach((error) => {
+        this.parentErrorList.push(error);
+      });
       // this.cdr.detectChanges(); // doing our own change detection
     }
 
@@ -161,53 +205,100 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   /**
    * Changes the local model back to the last saved version of the contact
    */
-  public revertContactRecord():  void {
-     const heading =  this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
-    this.discardChangeEvent.emit({id:this.contactRecordModel.value.id, heading: heading});
+  public revertContactRecord(index: number): void {
+    const heading = this._companyRecordService.getHeading(index); // Await here
+    this.discardChangeEvent.emit({
+      id: this.contactRecordModel.value.id,
+      heading: heading,
+    });
     this.contactRecordModel.markAsPristine();
   }
 
   /***
    * Deletes the contact reocord with the selected id from both the model and the form
    */
-  public  deleteContactRecord(): void {
+  public deleteContactRecord(index: number): void {
     this.errorSummaryChild = null;
-    const heading =  this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
-    this.discardRecordEvent.emit({id: this.contactRecordModel.value.id, heading: heading} );
+    const heading = this._companyRecordService.getHeading(index); // Await here
+    this.discardRecordEvent.emit({
+      id: this.contactRecordModel.value.id,
+      heading: heading,
+    });
     this._emitErrors();
     this.contactRecordModel.markAsPristine();
   }
 
-  public  setStatusToRevise(): void {
-    const heading = this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
-    this.setReviseStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Revise, heading: heading});
-    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Revise, this.contactStatusList, this.lang, true);
+  public setStatusToRevise(index: number): void {
+    const heading = this._companyRecordService.getHeading(index); // Await here
+    this.setReviseStatusEvent.emit({
+      id: this.contactRecordModel.value.id,
+      status: ContactStatus.Revise,
+      heading: heading,
+    });
+    this._detailsService.setFormContactStatus(
+      this.contactDetailsForm,
+      ContactStatus.Revise,
+      this.contactStatusList,
+      this.lang,
+      true
+    );
     this.saveContactRecord(ContactStatus.Revise);
   }
 
-  public  setStatusToRemove(): void {
-    const heading =  this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
-    this.setRemoveStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Remove, heading: heading});
-    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Remove, this.contactStatusList, this.lang, true);
+  public setStatusToRemove(index: number): void {
+    const heading = this._companyRecordService.getHeading(index); // Await here
+    this.setRemoveStatusEvent.emit({
+      id: this.contactRecordModel.value.id,
+      status: ContactStatus.Remove,
+      heading: heading,
+    });
+    this._detailsService.setFormContactStatus(
+      this.contactDetailsForm,
+      ContactStatus.Remove,
+      this.contactStatusList,
+      this.lang,
+      true
+    );
     this.saveContactRecord(ContactStatus.Remove);
   }
 
-  public  activeContactRecord(): void{
-    const heading = this._companyRecordService.getHeading(this.contactRecordModel.value.id, this.cRRow); // Await here
-    this.saveContactRecord(heading, ContactStatus.Active);
+  public activeContactRecord(index: number): void {
+    const heading = this._companyRecordService.getHeading(index); // Await here
+    this.setActiveStatusEvent.emit({
+      id: this.contactRecordModel.value.id,
+      status: ContactStatus.Active,
+      heading: heading,
+    });
+    this._detailsService.setFormContactStatus(
+      this.contactDetailsForm,
+      ContactStatus.Active,
+      this.contactStatusList,
+      this.lang,
+      true
+    );
+    this.saveContactRecord(ContactStatus.Active);
   }
 
-  public  saveContactRecord(heading?: string,contactStatus?: ContactStatus ): void {
+  public saveContactRecord(contactStatus?: ContactStatus): void {
     // console.log("====>saveContactRecord ", this.errorList);
-    if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
+
+    if (
+      this.contactRecordModel.valid ||
+      this._recordInvalidExcemption(contactStatus)
+    ) {
       if (contactStatus) {
-        this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
+        this._detailsService.setFormContactStatus(
+          this.contactDetailsForm,
+          contactStatus,
+          this.contactStatusList,
+          this.lang,
+          true
+        );
       }
-      if(heading){
-      this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: contactStatus, heading: heading});
-      }else{
-        this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
-      }
+      this.saveRecord.emit({
+        recModel: this.contactRecordModel,
+        status: contactStatus,
+      });
       this.contactRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved
@@ -215,7 +306,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       this.contactRecordModel.controls['id'].setValue(1);
       if (this.contactRecordModel.valid) {
         this.contactRecordModel.controls['id'].setValue(temp);
-        this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
+        this.saveRecord.emit({
+          recModel: this.contactRecordModel,
+          status: contactStatus,
+        });
       } else {
         this.contactRecordModel.controls['id'].setValue(temp);
         this.showErrSummary = true;
@@ -228,11 +322,15 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   // when user clicks the "Acitve Contact" button, if the current Contact Status is "REVISE",
   // it will show the "error.msg.revise.contact" error
   // if that is the only error on the record, we will allow user to continue to "Active Contact"
-  private _recordInvalidExcemption(contactStatus?: ContactStatus){
+  private _recordInvalidExcemption(contactStatus?: ContactStatus) {
     let returnValue: boolean = false;
     if (contactStatus) {
-      if (contactStatus===ContactStatus.Active && this.errorList.length===1 && this.errorList[0].currentError === "error.msg.revise.contact")
-      returnValue =  true;
+      if (
+        contactStatus === ContactStatus.Active &&
+        this.errorList.length === 1 &&
+        this.errorList[0].currentError === 'error.msg.revise.contact'
+      )
+        returnValue = true;
     }
     return returnValue;
   }
@@ -241,46 +339,46 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
    * Changes the local model back to the last saved version of the contact
    */
   public showErrorSummary(): boolean {
-    return (this.showErrSummary && this.errorList.length > 0);
+    return this.showErrSummary && this.errorList.length > 0;
   }
 
   /**
    * show revise and remove contact button
    */
   public isExternalNotNewContact(): boolean {
-    return (!this.isInternal && !this.isContactStatus(ContactStatus.New));
+    return !this.isInternal && !this.isContactStatus(ContactStatus.New);
   }
 
   /**
    * internal site show active contact button
    */
   public isInternalActiveContact(): boolean {
-    return (this.isInternal && !this.isContactStatus(ContactStatus.Remove));
+    return this.isInternal && !this.isContactStatus(ContactStatus.Remove);
   }
 
   /**
    * External site show save contact button
    */
   public isExternalNewContact(): boolean {
-    return (!this.isInternal && this.isContactStatus(ContactStatus.New));
+    return !this.isInternal && this.isContactStatus(ContactStatus.New);
   }
 
-    /**
+  /**
    * Internal/External site show discard record button
    */
-    public isNewContact(): boolean {
-      return (this.isContactStatus(ContactStatus.New));
-    }
+  public isNewContact(): boolean {
+    return this.isContactStatus(ContactStatus.New);
+  }
 
   /**
    * Internal site show delete contact button
    */
   public isInternalDeleteContact(): boolean {
-    return (this.isInternal && this.isContactStatus(ContactStatus.Remove));
+    return this.isInternal && this.isContactStatus(ContactStatus.Remove);
   }
 
   public isContactSetToRemove(): boolean {
-    return (this.isContactStatus(ContactStatus.Remove));
+    return this.isContactStatus(ContactStatus.Remove);
   }
 
   get contactDetailsForm() {
@@ -289,7 +387,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
   private isContactStatus(status: ContactStatus) {
     const contStatusValue = this.contactDetailsForm.controls['status'].value;
-    return contStatusValue===status;
+    return contStatusValue === status;
   }
 
   disableFormGroup() {
@@ -308,12 +406,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     if (this.cRRow.get('isNew').value) {
       return true;
     }
-if(this.cRRow.dirty){
-  return false;
-}else{
-  return true;
-}
-
+    if (this.cRRow.dirty) {
+      return false;
+    } else {
+      return true;
+    }
   }
-
 }
