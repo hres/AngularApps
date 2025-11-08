@@ -81,10 +81,10 @@
     {
         "raTypeId": "B02-20160301-082",
         "txDescIds": [
+            "RAIL",
             "RER",
+            "RSTC",
             "ROHL",
-            "RS39L",
-            "UD",
             "ER"
         ]
     }

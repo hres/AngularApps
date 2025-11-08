@@ -5,12 +5,18 @@
           <label for="renewalContactName" class="full-width">
             <span class="field-name">{{'des.renewal' |translate}}
                 <sup id="co5-rf">
-                  <a class="fn-lnk" href="#co5"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.desRenewalInx}}</a>
+                  <a class="fn-lnk" href="#co5"><span class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpTextSequences.desRenewalInx}}</a>
                 </sup>
             </span>
             <select id="renewalContactName" class="form-control" (blur)="onblur()" [formControl]="primContactFormLocalModel.controls['renewalContactName'] | formControl">
-              <option label=" " value=""></option>
-              <option *ngFor="let opt of activeContactList" [ngValue]="opt"> {{opt}}</option>
+              <option [ngValue]="null" disabled>
+                @if (activeContactListNotEmpty()) {
+                  {{ 'select.option' | translate }}
+                } @else {
+                  {{ 'des.default.option' | translate }}
+                }
+              </option>          
+              <option *ngFor="let opt of activeContactList" [ngValue]="opt">{{ opt }}</option>
             </select>
           </label>
         </div>
@@ -20,14 +26,21 @@
           <label for="financeContactName" class="full-width">
             <span class="field-name">{{'des.finance' |translate}}
                 <sup id="co6-rf">
-                  <a class="fn-lnk" href="#co6"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.desFinanceInx}}</a>
+                  <a class="fn-lnk" href="#co6"><span class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpTextSequences.desFinanceInx}}</a>
                 </sup>
             </span>
             <select id="financeContactName" class="form-control" (blur)="onblur()" [formControl]="primContactFormLocalModel.controls['financeContactName'] | formControl">
-              <option label=" " value=""></option>
-              <option *ngFor="let opt of activeContactList" [ngValue]="opt"> {{opt}}</option>
+              <option [ngValue]="null" disabled>
+                @if (activeContactListNotEmpty()) {
+                  {{ 'select.option' | translate }}
+                } @else {
+                  {{ 'des.default.option' | translate }}
+                }
+              </option>           
+              <option *ngFor="let opt of activeContactList" [ngValue]="opt">{{ opt }}</option>
             </select>
           </label>
+          <!-- <pre>{{activeContactListNotEmpty() | json}}</pre> -->
         </div>
       </div>
     </div>

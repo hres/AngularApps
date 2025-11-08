@@ -261,43 +261,20 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.saveContactRecord(ContactStatus.Remove);
   }
 
-  public activeContactRecord(index: number): void {
+  public  activeContactRecord(index: number): void{
     const heading = this._companyRecordService.getHeading(index); // Await here
-    this.setActiveStatusEvent.emit({
-      id: this.contactRecordModel.value.id,
-      status: ContactStatus.Active,
-      heading: heading,
-    });
-    this._detailsService.setFormContactStatus(
-      this.contactDetailsForm,
-      ContactStatus.Active,
-      this.contactStatusList,
-      this.lang,
-      true
-    );
+    this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Active, heading: heading});
+    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
     this.saveContactRecord(ContactStatus.Active);
   }
 
-  public saveContactRecord(contactStatus?: ContactStatus): void {
-    // console.log("====>saveContactRecord ", this.errorList);
-
-    if (
-      this.contactRecordModel.valid ||
-      this._recordInvalidExcemption(contactStatus)
-    ) {
+  public  saveContactRecord(contactStatus?: ContactStatus ): void {
+    //console.log("====>saveContactRecord ", this.contactStatusList);
+    if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
       if (contactStatus) {
-        this._detailsService.setFormContactStatus(
-          this.contactDetailsForm,
-          contactStatus,
-          this.contactStatusList,
-          this.lang,
-          true
-        );
+        this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
       }
-      this.saveRecord.emit({
-        recModel: this.contactRecordModel,
-        status: contactStatus,
-      });
+      this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
       this.contactRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved
