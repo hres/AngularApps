@@ -62,7 +62,7 @@
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
               <label for="isReguChange{{i}}" class="radio-inline">
-                  <input type="radio"
+                  <input type="radio" name="isReguChange"
                   id="isReguChange{{i}}" [value]="yesno.id" required
                   (change)="onblur()"
                   [formControl]="adminChangesFormLocalModel.controls['isReguChange'] | formControl" />
