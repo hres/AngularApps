@@ -60,6 +60,7 @@ export const helpInstructionHeadings = [
   'transactionInfoInx',
   'dossierIdInx',
   'contactIdInx',
+  'transDescInx',
   'deviceClassInx',
   'applicationNumberInx',
   'deviceNameInx',

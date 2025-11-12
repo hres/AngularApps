@@ -49,38 +49,49 @@
 				<span class="wb-inv">{{'regulatory.contact.id'|translate}}</span></a></p>
         </dd>
 
-        <dt>{{'Instruction'|translate}} {{helpTextSequences.deviceClassInx}}</dt>
+        <dt>{{'Instruction'|translate}} {{helpTextSequences.transDescInx}}</dt>
         <dd id="tr5">
+            <div class="fn-rep">
+				<p>{{'help.transactionDesc1'|translate}}</p>
+				<p>{{'help.transactionDesc2'|translate}}</p>
+				<p>{{'help.transactionDesc3'|translate}}</p>
+			</div>
+			<p class="fn-rtn"><a href="#tr5-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['transDescInx']}}
+				<span class="wb-inv">{{'trans.description'|translate}}</span></a></p>
+        </dd>
+
+        <dt>{{'Instruction'|translate}} {{helpTextSequences.deviceClassInx}}</dt>
+        <dd id="tr6">
             <div class="fn-rep">
 				<p>{{'section.show.option'|translate}}{{'device.class'|translate}}</p>
 				<p>{{'help.deviceClass.01'|translate}}<a [href]="'help.deviceClass.url'|translate">{{'help.deviceClass.02'|translate}}</a></p>		
 			</div>
-			<p class="fn-rtn"><a href="#tr5-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['deviceClassInx']}}
+			<p class="fn-rtn"><a href="#tr6-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['deviceClassInx']}}
 				<span class="wb-inv">{{'device.class'|translate}}</span></a></p>
         </dd>
 
         <dt>{{'Instruction'|translate}} {{helpTextSequences.applicationNumberInx}}</dt>
-        <dd id="tr6">
+        <dd id="tr7">
             <div class="fn-rep">
 				<p>{{'section.show.option'|translate}}{{'application.number'|translate}}</p>
 				<p>{{'help.application.number'|translate}}</p>
 			</div>
-			<p class="fn-rtn"><a href="#tr6-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['applicationNumberInx']}}
+			<p class="fn-rtn"><a href="#tr7-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['applicationNumberInx']}}
 				<span class="wb-inv">{{'application.number'|translate}}</span></a></p>
         </dd>
 
         <dt>{{'Instruction'|translate}} {{helpTextSequences.deviceNameInx}}</dt>
-        <dd id="tr7">
+        <dd id="tr8">
             <div class="fn-rep">
 				<p>{{'section.show.option'|translate}}{{'device.name'|translate}}</p>
 				<p>{{'help.device.name'|translate}}</p>
 			</div>
-			<p class="fn-rtn"><a href="#tr7-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['deviceNameInx']}}
+			<p class="fn-rtn"><a href="#tr8-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['deviceNameInx']}}
 				<span class="wb-inv">{{'device.name'|translate}}</span></a></p>
         </dd>
 
         <dt>{{'Instruction'|translate}} {{helpTextSequences.licenseNumberlInx}}</dt>
-        <dd id="tr8">
+        <dd id="tr9">
             <div class="fn-rep">
 				<p>{{'licence.number'|translate}}</p>
 				<ul>
@@ -89,12 +100,12 @@
 					<li>{{'help.licence.number.03'|translate}}</li>
 				</ul>
             </div>
-			<p class="fn-rtn"><a href="#tr8-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['licenseNumberlInx']}}
+			<p class="fn-rtn"><a href="#tr9-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['licenseNumberlInx']}}
 				<span class="wb-inv">{{'licence.number'|translate}}</span></a></p>
         </dd>
 
         <dt>{{'Instruction'|translate}} {{helpTextSequences.deviceDetailInx}}</dt>
-        <dd id="tr9">
+        <dd id="tr10">
             <div class="fn-rep">
 				<p>{{'has.ddt'|translate}}</p>
 				<ul>
@@ -103,7 +114,7 @@
 					<li [innerHTML]="'help.device.detail.03' | translate"></li>
 				</ul>
             </div>
-			<p class="fn-rtn"><a href="#tr9-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['deviceDetailInx']}}
+			<p class="fn-rtn"><a href="#tr10-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['deviceDetailInx']}}
 				<span class="wb-inv">{{'has.ddt'|translate}}</span></a></p>
         </dd>
     

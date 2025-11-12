@@ -278,12 +278,12 @@ export class TransactionDetailsService {
   }
 
   isMandatoryAppNumRequired(txDescription: TransactionDesc): boolean{
-    const txDescRequireMandatoryAppNum = [TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.RS, TransactionDesc.WR, TransactionDesc.RQ_REVIEW_REPORT, TransactionDesc.ROHL, TransactionDesc.RRIR, TransactionDesc.UD];
+    const txDescRequireMandatoryAppNum = [TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.RS, TransactionDesc.WR, TransactionDesc.RQ_REVIEW_REPORT, TransactionDesc.ROHL, TransactionDesc.RRIR, TransactionDesc.UD, TransactionDesc.MM];
     return txDescRequireMandatoryAppNum.includes(txDescription)
   }
 
   isOptionalAppNumRequired(txDescription: TransactionDesc): boolean{
-    const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.MM, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.ER];
+    const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.ER];
     return txDescRequireOptionalAppNum.includes(txDescription)
   }
 
