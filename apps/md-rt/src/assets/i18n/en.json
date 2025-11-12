@@ -12,7 +12,7 @@
   "no.file.chosen": "No file chosen",
   "error":"Error {{number}}:",
   "heading.transaction": "Regulatory transaction enrolment",
-  "dossier.id": "Dossier Identifier (\"m\" followed by 6 digits)",
+  "dossier.id": "Dossier Identifier (lowercase \"m\" followed by 6 digits)",
   "dossier.type": "Dossier type",
   "manufacturing.company.id": "Manufacturer Company Identifier",
   "manufacturing.contact.id": "Manufacturer Contact Identifier",
