@@ -177,9 +177,6 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       if (!this.showProposedPurpose()) {
         this._utilsService.resetControlsValues(this.transDetailsForm.controls['proposedPurpose'])
       }
-      if (!this.showMeetingId()) {
-        this._utilsService.resetControlsValues(this.transDetailsForm.controls['meetingId'])
-      }
   }
 
   amendReasonOnChange() {
@@ -312,15 +309,15 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     return this.selectedAmendReasonCodes.includes(AmendReason.DEVICE_CHANGE) || this.selectedAmendReasonCodes.includes(AmendReason.ADD_DELETE_CHANGE) ? true : false;
   }
 
-  showMeetingId() {
-    const selectedTxDescription = this.txDescriptionFormControl.value;
-    if (selectedTxDescription === TransactionDesc.MM) {
-      return true;
-    } else {
-      this._utilsService.resetControlsValues(this.transDetailsForm.controls['meetingId']);
-    }
-    return false;
-  }
+//  showMeetingId() {
+//    const selectedTxDescription = this.txDescriptionFormControl.value;
+//    if (selectedTxDescription === TransactionDesc.MM) {
+//      return true;
+//    } else {
+//      this._utilsService.resetControlsValues(this.transDetailsForm.controls['meetingId']);
+//    }
+//    return false;
+//  }
 
   // show Original Manufacturer's Company Identifier and Original Manufacturer's Licence Number
   // if Regulatory Activity  Type "private label" or "private label amendment" and one of the following Transaction Description
