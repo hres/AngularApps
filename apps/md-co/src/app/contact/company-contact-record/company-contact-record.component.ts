@@ -56,25 +56,30 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Output() discardChangeEvent = new EventEmitter<{
     id: number;
     heading: string;
+    buttonTrigger: HTMLElement;
   }>();
   @Output() discardRecordEvent = new EventEmitter<{
     id: number;
     heading: string;
+    buttonTrigger: HTMLElement;
   }>();
   @Output() setRemoveStatusEvent = new EventEmitter<{
     id: number;
     status: string;
     heading: string;
+    buttonTrigger: HTMLElement;
   }>();
   @Output() setReviseStatusEvent = new EventEmitter<{
     id: number;
     status: string;
     heading: string;
+    buttonTrigger: HTMLElement;
   }>();
   @Output() setActiveStatusEvent = new EventEmitter<{
     id: number;
     status: string;
     heading: string;
+    buttonTrigger: HTMLElement;
   }>();
 
   @Output() errors = new EventEmitter();
@@ -203,11 +208,14 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   /**
    * Changes the local model back to the last saved version of the contact
    */
-  public revertContactRecord(index: number): void {
+  public revertContactRecord(event : Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
     this.discardChangeEvent.emit({
       id: this.contactRecordModel.value.id,
       heading: heading,
+      buttonTrigger: trigger
     });
     this.contactRecordModel.markAsPristine();
   }
@@ -215,23 +223,29 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   /***
    * Deletes the contact reocord with the selected id from both the model and the form
    */
-  public deleteContactRecord(index: number): void {
+  public deleteContactRecord(event: Event, index: number): void {
     this.errorSummaryChild = null;
     const heading = this._companyRecordService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
     this.discardRecordEvent.emit({
       id: this.contactRecordModel.value.id,
       heading: heading,
+      buttonTrigger: trigger
     });
     this._emitErrors();
     this.contactRecordModel.markAsPristine();
   }
 
-  public setStatusToRevise(index: number): void {
+  public setStatusToRevise(event : Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
     this.setReviseStatusEvent.emit({
       id: this.contactRecordModel.value.id,
       status: ContactStatus.Revise,
       heading: heading,
+      buttonTrigger: trigger
     });
     this._detailsService.setFormContactStatus(
       this.contactDetailsForm,
@@ -243,12 +257,15 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.saveContactRecord(ContactStatus.Revise);
   }
 
-  public setStatusToRemove(index: number): void {
+  public setStatusToRemove(event : Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
     this.setRemoveStatusEvent.emit({
       id: this.contactRecordModel.value.id,
       status: ContactStatus.Remove,
       heading: heading,
+      buttonTrigger: trigger
     });
     this._detailsService.setFormContactStatus(
       this.contactDetailsForm,
@@ -260,9 +277,11 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.saveContactRecord(ContactStatus.Remove);
   }
 
-  public  activeContactRecord(index: number): void{
+  public  activeContactRecord(event : Event, index: number): void{
     const heading = this._companyRecordService.getHeading(index); // Await here
-    this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Active, heading: heading});
+    const trigger = event.target as HTMLElement;
+
+    this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Active, heading: heading, buttonTrigger: trigger});
     this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
     this.saveContactRecord(ContactStatus.Active);
   }

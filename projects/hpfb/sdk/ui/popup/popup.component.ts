@@ -13,7 +13,7 @@ export class PopupComponent {
   @Input() title: string;
   @Input() id: string;
   @Input() close: string;
-  @Output() closed = new EventEmitter<void>();
+  @Output() closed = new EventEmitter();
 
   closePopup() {
     jQuery( ".wb-overlay").trigger( "close.wb-overlay" );

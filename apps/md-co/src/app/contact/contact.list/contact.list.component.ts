@@ -51,6 +51,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   popupId='contactPopup';
   statusMessage : string = '';
   contactHeading: string='';
+  popupTrigger : HTMLElement = null;
 
  saveRecordPopupID: string = "saveRecordPopupID";
  setReviseStatusPopupID: string = "setReviseStatusPopupID";
@@ -339,7 +340,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
    * @param id
    */
   public deleteContact(id): void {
-    let deletedRec = this.getRecord(id, this.contactList);
+    let deletedRec = this.getRecord(this.contactId, this.contactList);
     this.deleteRecord(this.contactId, this.contactList, this._listService);
 
     // since the contact record is deleted, we should also remove its ErrorSummary if there is any
@@ -355,6 +356,9 @@ export class ContactListComponent extends ContactListBaseComponent implements On
 
     this.contactsUpdated.emit(this.contactModel);
 
+    setTimeout(() => {
+      document.getElementById('addContactBtn').focus()
+    }, 100);
   }
 
 
@@ -441,41 +445,64 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     // Unsubscribe to avoid memory leaks
     this.contactModelChangesSubscription.unsubscribe();
   }
-  openPopup(){
+
+openPopup(){
     jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+}
+
+openConfirmationPopup(popupId : string) {
+  const popupSelector = "#" + popupId;
+  jQuery(popupSelector).trigger("open.wb-overlay");
+
+  // Wait for overlay to render to focus on Close button once it is shown on the UI
+  setTimeout(() => {
+    const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+    if (btn) {
+      btn.focus();
+    }
+  }, 100);
+}
+
+handleClosedPopup() {
+  setTimeout(() => {
+    this.popupTrigger.focus();
+  })
 }
 
 discarChangeContactConfirmation(event) {
   this.contactId = event.id;
   this.discardChangeHeading=event.heading;
-  jQuery( "#" + this.discardChangePopupID ).trigger( "open.wb-overlay" );
-
+  this.popupTrigger = event.buttonTrigger;
+  this.openConfirmationPopup(this.discardChangePopupID);
 }
 discarRecordeContactConfirmation(event) {
   this.contactId = event.id;
    this.discardRecordHeading=event.heading;
-   jQuery( "#" + this.discardRecordPopupID ).trigger( "open.wb-overlay" );
-
+   this.popupTrigger = event.buttonTrigger;
+   this.openConfirmationPopup(this.discardRecordPopupID);
  }
 
-deleteContactConfirmation(event) {
+deleteContactConfirmation(event) { // NOT USED
   this.contactId = event.id;
   this.removeContactHeading=event.heading;
-  jQuery( "#" + this.removeContactPopupID ).trigger( "open.wb-overlay" );
+  this.popupTrigger = event.buttonTrigger;
+  this.openConfirmationPopup(this.removeContactPopupID);
 }
 
 setReviseStatusConfirmation(event) {
   this.contactId = event.id;
   this.setReviseStatusHeading=event.heading;
   this.contactStatus = event.status;
- jQuery( "#" + this.setReviseStatusPopupID ).trigger( "open.wb-overlay" );
+  this.popupTrigger = event.buttonTrigger;
+  this.openConfirmationPopup(this.setReviseStatusPopupID);
 }
 
 setRemoveStatusConfirmation(event) {
   this.contactId = event.id;
   this.contactStatus = event.status;
   this.setRemoveStatusHeading=event.heading;
-  jQuery( "#" + this.setRemoveStatusPopupID ).trigger( "open.wb-overlay" );
+  this.popupTrigger = event.buttonTrigger;
+  this.openConfirmationPopup(this.setRemoveStatusPopupID);
 }
 
 setActiveStatusConfirmation(event) {
@@ -484,7 +511,8 @@ setActiveStatusConfirmation(event) {
   if(event.heading){
   this.setActiveStatusHeading=event.heading;
   }
-  jQuery( "#" + this.setActiveStatusPopupID ).trigger( "open.wb-overlay" );
+  this.popupTrigger = event.buttonTrigger;
+  this.openConfirmationPopup(this.setActiveStatusPopupID);
 }
 
 
