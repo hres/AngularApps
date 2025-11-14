@@ -56,11 +56,6 @@
         "fr": "Conditions imposées"
     },
     {
-        "id": "RSTC",
-        "en": "Response to terms and conditions letter",
-        "fr": "Réponse à la lettre de conditions"
-    },
-    {
         "id": "RS39L",
         "en": "Response to S.39 letter",
         "fr": "Réponse à la lettre de l'article 39"
@@ -81,19 +76,9 @@
         "fr": "Demande de retrait"
     },
     {
-        "id": "RRR",
-        "en": "Request for review reports",
-        "fr": "Demande de rapports d'examen"
-    },
-    {
         "id": "ER",
         "en": "Extension request",
         "fr": "Demande de prolongation"
-    },
-    {
-        "id": "RCIR",
-        "en": "Response to reconsideration information request",
-        "fr": "Réponse à la demande d'information sur le réexamen"
     },
     {
         "id": "ROHL",
