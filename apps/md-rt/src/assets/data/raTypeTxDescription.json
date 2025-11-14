@@ -7,7 +7,10 @@
             "UD",
             "WR",
             "ER",
-            "RCIR"
+            "RS",
+            "RRIR",
+            "RQ_REVIEW_REPORT",
+            "LIA"
         ]
     },
     {
@@ -22,9 +25,9 @@
             "RS",
             "UD",
             "WR",
-            "RRR",
+            "RQ_REVIEW_REPORT",
             "ER",
-            "RCIR"
+            "RRIR"
         ]
     },
     {
@@ -39,9 +42,9 @@
             "RS",
             "UD",
             "WR",
-            "RRR",
             "ER",
-            "RCIR"
+            "RRIR",
+            "RQ_REVIEW_REPORT"
         ]
     },
     {
@@ -52,7 +55,9 @@
             "UD",
             "WR",
             "ER",
-            "RCIR"
+            "RRIR",
+            "RER",
+            "LIA"
         ]
     },
     {
@@ -63,11 +68,13 @@
             "UD",
             "WR",
             "ER",
-            "RCIR"
+            "RRIR",
+            "RER",
+            "LIA"
         ]
     },
     {
-        "raTypeId": "B02-20160301-081",
+        "raTypeId": "B02-20250923-01",
         "txDescIds": [
             "IRSR",
             "LIOH",
@@ -79,12 +86,12 @@
         ]
     },
     {
-        "raTypeId": "B02-20160301-082",
+        "raTypeId": "B02-20250714-01",
         "txDescIds": [
+            "RAIL",
             "RER",
+            "RS36L",
             "ROHL",
-            "RS39L",
-            "UD",
             "ER"
         ]
     }

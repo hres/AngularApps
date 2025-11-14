@@ -29,8 +29,8 @@ export class PrimaryContactService {
       return null;
     }
     return fb.group({
-      renewalContactName: '',
-      financeContactName: ''
+      renewalContactName: null,
+      financeContactName: null
     });
   }
 

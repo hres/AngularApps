@@ -80,7 +80,7 @@
       <fieldset class="col-md-12 chkbxrdio-grp">
           <legend class="required">
               {{ 'ownership.transferred' | translate}}
-              <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+              <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
               <control-messages *ngIf="generalInfoFormLocalModel.controls['areLicensesTransfered'].invalid" [showError]="showFieldErrors"
                           [control]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl"
                           controlId="areLicensesTransfered" label="ownership.transferred"
@@ -89,7 +89,7 @@
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
               <label for="areLicensesTransfered{{i}}" class="radio-inline">
-                  <input type="radio"
+                  <input type="radio" name="areLicensesTransfered"
                   id="areLicensesTransfered{{i}}" [value]="yesno.id" required
                   (change)="areLicensesBeingTransferedOnChange()"
                   [formControl]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl"/>

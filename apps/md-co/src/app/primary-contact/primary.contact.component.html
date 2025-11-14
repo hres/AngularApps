@@ -9,8 +9,14 @@
                 </sup>
             </span>
             <select id="renewalContactName" class="form-control" (blur)="onblur()" [formControl]="primContactFormLocalModel.controls['renewalContactName'] | formControl">
-              <option label=" " value=""></option>
-              <option *ngFor="let opt of activeContactList" [ngValue]="opt"> {{opt}}</option>
+              <option [ngValue]="null" disabled>
+                @if (activeContactListNotEmpty()) {
+                  {{ 'select.option' | translate }}
+                } @else {
+                  {{ 'des.default.option' | translate }}
+                }
+              </option>          
+              <option *ngFor="let opt of activeContactList" [ngValue]="opt">{{ opt }}</option>
             </select>
           </label>
         </div>
@@ -24,10 +30,17 @@
                 </sup>
             </span>
             <select id="financeContactName" class="form-control" (blur)="onblur()" [formControl]="primContactFormLocalModel.controls['financeContactName'] | formControl">
-              <option label=" " value=""></option>
-              <option *ngFor="let opt of activeContactList" [ngValue]="opt"> {{opt}}</option>
+              <option [ngValue]="null" disabled>
+                @if (activeContactListNotEmpty()) {
+                  {{ 'select.option' | translate }}
+                } @else {
+                  {{ 'des.default.option' | translate }}
+                }
+              </option>           
+              <option *ngFor="let opt of activeContactList" [ngValue]="opt">{{ opt }}</option>
             </select>
           </label>
+          <!-- <pre>{{activeContactListNotEmpty() | json}}</pre> -->
         </div>
       </div>
     </div>

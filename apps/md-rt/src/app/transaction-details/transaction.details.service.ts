@@ -35,7 +35,7 @@ export class TransactionDetailsService {
       orgManufactureLic: ['', [Validators.required, ValidationService.licenceNumValidator]],
       appNum: ['', [Validators.required, ValidationService.numeric6Validator]],
       appNumOpt: ['', [ValidationService.numeric6Validator]],
-      meetingId: ['', [ValidationService.numeric6Validator]],
+//      meetingId: ['', [ValidationService.numeric6Validator]],
       deviceName: ['', Validators.required],
       licenceName: ['', Validators.required],
       requestDate: ['', Validators.required],
@@ -105,7 +105,7 @@ export class TransactionDetailsService {
       transactionInfoModel.application_number = null;
     }
 
-    transactionInfoModel.meeting_id = formValue.meetingId;
+//    transactionInfoModel.meeting_id = formValue.meetingId;
     transactionInfoModel.device_name = formValue.deviceName;
     transactionInfoModel.proposed_licence_name = formValue.licenceName;
 
@@ -174,7 +174,7 @@ export class TransactionDetailsService {
     formRecord.controls['licenceNum'].setValue(transactionInfoModel.licence_number);
     formRecord.controls['appNumOpt'].setValue(transactionInfoModel.application_number);
     formRecord.controls['appNum'].setValue(transactionInfoModel.application_number);
-    formRecord.controls['meetingId'].setValue(transactionInfoModel.meeting_id);
+//    formRecord.controls['meetingId'].setValue(transactionInfoModel.meeting_id);
     formRecord.controls['deviceName'].setValue(transactionInfoModel.device_name);
     formRecord.controls['licenceName'].setValue(transactionInfoModel.proposed_licence_name);
     formRecord.controls['requestDate'].setValue(transactionInfoModel.request_date);
@@ -267,8 +267,8 @@ export class TransactionDetailsService {
   }
 
   isRequestDateRequired(txDescription: TransactionDesc): boolean{
-    const txDescRequireDate = [TransactionDesc.IRSR, TransactionDesc.MM, TransactionDesc.PSI, TransactionDesc.RAIL, TransactionDesc.RER, 
-      TransactionDesc.RS25L, TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.RS];
+    const txDescRequireDate = [TransactionDesc.IRSR, TransactionDesc.PSI, TransactionDesc.RAIL, TransactionDesc.RER, 
+      TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.RS];
 
      return txDescRequireDate.includes(txDescription) ? true : false;
   }
@@ -278,12 +278,12 @@ export class TransactionDetailsService {
   }
 
   isMandatoryAppNumRequired(txDescription: TransactionDesc): boolean{
-    const txDescRequireMandatoryAppNum = [TransactionDesc.ACD, TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.RS, TransactionDesc.WR];
+    const txDescRequireMandatoryAppNum = [TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.RS, TransactionDesc.WR, TransactionDesc.RQ_REVIEW_REPORT, TransactionDesc.ROHL, TransactionDesc.RRIR, TransactionDesc.UD, TransactionDesc.MM];
     return txDescRequireMandatoryAppNum.includes(txDescription)
   }
 
   isOptionalAppNumRequired(txDescription: TransactionDesc): boolean{
-    const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.MM, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.RS39L];
+    const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.ER];
     return txDescRequireOptionalAppNum.includes(txDescription)
   }
 

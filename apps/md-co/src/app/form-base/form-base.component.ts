@@ -100,7 +100,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showAdminChanges = false;
     this.showErrors = false;
 
-    this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersion(this._globalService.$appVersion) + '.xsl';
+    this.xslName = XSLT_PREFIX.toUpperCase() + this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.$appVersion) + '.xsl';
   }
 
   ngOnInit() {

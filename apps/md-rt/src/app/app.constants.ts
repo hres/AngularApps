@@ -12,27 +12,32 @@ export enum RegulatoryActivityType {
   PrivateLabelAmendment = 'B02-20160301-074',
   MinorChange = 'B02-20160301-033',
   LicenceAmendment = 'B02-20160301-040',
+  S39 = 'B02-20250923-01',
+  TermsAndConds = 'B02-20250714-01'
 }
 
 // the values need to match the code values in transaction descriptions json data file
 export enum TransactionDesc {
-  ACD = 'ACD', //	Appeal Comprehensive Document
-  INITIAL = 'INITIAL',
+  INITIAL = 'INITIAL', //Initial
+  ER = 'ER', // Extension request
   IRSR = 'IRSR', //	Issue Related Safety Request
   LIA = 'LIA', //	Letter of Intent to Appeal
   LIOH = 'LIOH', //	Letter of Intent to Invoke Opportunity to be Heard
   MM = 'MM', //	Minutes of Meeting
   OHCD = 'OHCD', //	Opportunity to be Heard Comprehensive Document
   PSI = 'PSI', //	Patient Safety Information (Medication error)
+  PRCI = 'PRCI', //Public release of clinical information
+  RQ_REVIEW_REPORT = 'RQ_REVIEW_REPORT', //Request for review reports
   RAIL = 'RAIL', //Response to Additional Information Letter
   RER = 'RER', //	Response to E-mail Request
-  RS25L = 'RS25L', //	Response to S.25 Letter
+  ROHL = 'ROHL', //Response to opportunity to be heard letter
+  RRIR = 'RRIR', //Response to reconsideration information request
   RS36L = 'RS36L', //	Response to S.36 Letter
   RS39L = 'RS39L', //	Response to S.39 Letter
   RS = 'RS', // Response to screening deficiency letter
   UD = 'UD', // Unsolicited Information
   WR = 'WR', //	Withdrawal Request
-  ER = 'ER'
+  
 }
 
 // the values need to match the code values in device classes json data file
@@ -55,6 +60,7 @@ export const helpInstructionHeadings = [
   'transactionInfoInx',
   'dossierIdInx',
   'contactIdInx',
+  'transDescInx',
   'deviceClassInx',
   'applicationNumberInx',
   'deviceNameInx',
