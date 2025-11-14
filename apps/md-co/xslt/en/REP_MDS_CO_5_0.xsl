@@ -410,7 +410,7 @@ span.normalWeight {
 
 	<!-- Company Enrolment -->
 	<xsl:template name="DEVICE_COMPANY_ENROL">
-		<h1>Company Template: Regulatory Enrolment Process (REP) for medical devices (version 5.0.0)</h1>
+		<h1>Company template: Regulatory enrolment process (REP) for medical devices (version 5.0.0)</h1>
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
