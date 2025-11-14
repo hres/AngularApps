@@ -3,11 +3,11 @@
     <div class="row">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <label for="dossierId" class="required full-width">
-          <span class="field-name">{{ 'dossier.id'|translate }}</span>
+          <span class="field-name">{{ 'dossier.id'|translate }}{{ 'dossier.id.help'|translate }}</span>
           <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr3-rf">
             <a class="fn-lnk" href="#tr3"><span class="wb-inv">{{ 'instruction'|translate
-                }}</span>{{helpIndex['dossierIdInx']}}</a>
+                }}&#160;</span>{{helpIndex['dossierIdInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsForm.controls['dossierId'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['dossierId'] | formControl" controlId="dossierId" label="dossier.id"
@@ -60,7 +60,7 @@
           <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr4-rf">
             <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate
-                }}</span>{{helpIndex['contactIdInx']}}</a>
+                }}&#160;</span>{{helpIndex['contactIdInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsForm.controls['reguContactId'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['reguContactId'] | formControl" controlId="reguContactId"
@@ -92,7 +92,7 @@
           <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr5-rf">
               <a class="fn-lnk" href="#tr5"><span class="wb-inv">{{ 'instruction'|translate
-                  }}</span>{{helpIndex['transDescInx']}}</a>
+                  }}&#160;</span>{{helpIndex['transDescInx']}}</a>
             </sup>
           <control-messages *ngIf="transDetailsForm.controls['descriptionType'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['descriptionType'] | formControl" controlId="descriptionType"
@@ -118,7 +118,7 @@
             <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
             <sup id="tr6-rf">
               <a class="fn-lnk" href="#tr6"><span class="wb-inv">{{ 'instruction'|translate
-                  }}</span>{{helpIndex['deviceClassInx']}}</a>
+                  }}&#160;</span>{{helpIndex['deviceClassInx']}}</a>
             </sup>
             <control-messages *ngIf="transDetailsForm.controls['deviceClass'].invalid" [showError]="showFieldErrors"
               [control]="transDetailsForm.controls['deviceClass'] | formControl" controlId="deviceClass0"
@@ -207,7 +207,7 @@
           <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr7-rf">
             <a class="fn-lnk" href="#tr7"><span class="wb-inv">{{ 'instruction'|translate
-                }}</span>{{helpIndex['applicationNumberInx']}}</a>
+                }}&#160;</span>{{helpIndex['applicationNumberInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsForm.controls['appNum'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['appNum'] | formControl" controlId="appNum" label="application.number"
@@ -221,7 +221,7 @@
           <span class="field-name">{{ 'application.number' |translate }} {{ 'minNumber6'|translate }}</span>
           <sup id="tr6-rf">
             <a class="fn-lnk" href="#tr6"><span class="wb-inv">{{ 'instruction'|translate
-                }}</span>{{helpIndex['applicationNumberInx']}}</a>
+                }}&#160;</span>{{helpIndex['applicationNumberInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsForm.controls['appNumOpt'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['appNumOpt'] | formControl" controlId="appNumOpt"
@@ -236,7 +236,7 @@
           <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr8-rf">
             <a class="fn-lnk" href="#tr8"><span class="wb-inv">{{ 'instruction'|translate
-                }}</span>{{helpIndex['deviceNameInx']}}</a>
+                }}&#160;</span>{{helpIndex['deviceNameInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsForm.controls['deviceName'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['deviceName'] | formControl" controlId="deviceName" label="device.name"
@@ -295,7 +295,7 @@
           <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr9-rf">
             <a class="fn-lnk" href="#tr9"><span class="wb-inv">{{ 'instruction'|translate
-                }}</span>{{helpIndex['licenseNumberlInx']}}</a>
+                }}&#160;</span>{{helpIndex['licenseNumberlInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsForm.controls['licenceNum'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['licenceNum']| formControl" controlId="licenceNum"
@@ -341,7 +341,7 @@
           <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <sup id="tr10-rf">
             <a class="fn-lnk" href="#tr10"><span
-                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['deviceDetailInx']}}</a>
+                class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpIndex['deviceDetailInx']}}</a>
           </sup>
           <control-messages *ngIf="transDetailsForm.controls['hasDdtMan'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['hasDdtMan'] | formControl" controlId="hasDdtMan" label="has.ddt"

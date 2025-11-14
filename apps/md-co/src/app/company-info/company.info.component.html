@@ -80,7 +80,7 @@
       <fieldset class="col-md-12 chkbxrdio-grp">
           <legend class="required">
               {{ 'ownership.transferred' | translate}}
-              <strong class="required"> {{'commmon.required.bracket' |translate}}</strong>
+              <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
               <control-messages *ngIf="generalInfoFormLocalModel.controls['areLicensesTransfered'].invalid" [showError]="showFieldErrors"
                           [control]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl"
                           controlId="areLicensesTransfered" label="ownership.transferred"
