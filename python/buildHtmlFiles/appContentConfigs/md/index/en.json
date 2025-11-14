@@ -55,14 +55,14 @@
                     "header": "Device Details (2023-12-01)",
                     "bullets": [
                         "Required for all new licence applications, as well as any amendment applications that may impact a manufacturers catalogue listing.",
-                        "<a href=\"{{ base_url }}{{ template_paths.dd.en }}\" download=\"\">Download Device Details xlsx file.</a>"
+                        "<a href=\"{{ base_url }}{{ template_paths.dd.en }}\" download=\"\">Download Device Details xlsx file</a>."
                     ]
                 },
                 {
                     "header": "Application Attestation Form (2024-01-15)",
                     "bullets": [
                         "Required for the initial transaction of a new regulatory activity",
-                        "<a href=\"{{ base_url }}{{ template_paths.aaf.en }}\" download=\"\">Download Application Attestation pdf form.</a>"
+                        "<a href=\"{{ base_url }}{{ template_paths.aaf.en }}\" download=\"\">Download Application Attestation pdf form</a>."
                     ]
                 }
             ]
