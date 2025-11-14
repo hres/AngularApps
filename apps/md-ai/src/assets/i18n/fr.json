@@ -106,7 +106,7 @@
     "error.mgs.dossier.id": "Entrée non valide - doit contenir m + 6 chiffres",
     "error.mgs.6.numeric":"Entrée non valide - doit contenir 6 chiffres",
     "error.mgs.8.numeric":"Entrée non valide - doit contenir 8 chiffres",
-    "error.mgs.company.id": "Entrée non valide: doit contenir 6 chiffres",
+    "error.mgs.company.id": "Entrée non valide - doit contenir 6 chiffres",
     "error.mgs.licence.number": "fr_Please specify a valid Licence Number.",
     "error.msg.materialOneRecord": "Nécessite au moins un attribut de matériel biologique",
     "errorSummary.application-info": "Le formulaire d'information sur les demandes d’homologation",
