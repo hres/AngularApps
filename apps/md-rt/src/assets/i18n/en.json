@@ -92,6 +92,6 @@
   "help.licence.number.03": "If the licence number has not yet been assigned, use 000000.",
   "help.device.detail.01": "The identifiers listed in the device details excel file must appear on and match the identifier listed on the submitted labelling.",
   "help.device.detail.02": "Required for all new licence applications, as well as any amendment applications that may impact a manufacturers catalogue listing.",
-  "help.device.detail.03": "The Device details excel file is available on the <a href='https://health-products.canada.ca/rep-pir/mds-index.html'>REP Index page for medical devices.</a>"
+  "help.device.detail.03": "The Device details excel file is available on the <a href='https://health-products.canada.ca/rep-pir/mds-index.html'>REP Index page for medical devices</a>."
 
 }
