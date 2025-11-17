@@ -24,7 +24,7 @@ export class AccordionComponent {
   accordionState: string = 'collapsed';
 
   toggleExpand(index:number,  expanded: boolean) {
-    this.rowClicked.emit({ index: index, state: expanded}); 
+    this.rowClicked.emit({ index: index, state: expanded }); 
     this.accordionState = expanded ? "collapsed" : "expanded";
   }
 
