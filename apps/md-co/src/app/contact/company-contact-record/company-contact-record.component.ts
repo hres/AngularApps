@@ -65,16 +65,19 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     id: number;
     status: string;
     heading: string;
+    recModel: FormGroup;
   }>();
   @Output() setReviseStatusEvent = new EventEmitter<{
     id: number;
     status: string;
     heading: string;
+    recModel: FormGroup;
   }>();
   @Output() setActiveStatusEvent = new EventEmitter<{
     id: number;
     status: string;
     heading: string;
+    recModel: FormGroup;
   }>();
 
   @Output() errors = new EventEmitter();
@@ -228,52 +231,68 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
   public setStatusToRevise(index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
-    this.setReviseStatusEvent.emit({
-      id: this.contactRecordModel.value.id,
-      status: ContactStatus.Revise,
-      heading: heading,
-    });
-    this._detailsService.setFormContactStatus(
-      this.contactDetailsForm,
-      ContactStatus.Revise,
-      this.contactStatusList,
-      this.lang,
-      true
-    );
-    this.saveContactRecord(ContactStatus.Revise);
+    // this.setReviseStatusEvent.emit({
+    //   id: this.contactRecordModel.value.id,
+    //   status: ContactStatus.Revise,
+    //   heading: heading,
+    // });
+    // this._detailsService.setFormContactStatus(
+    //   this.contactDetailsForm,
+    //   ContactStatus.Revise,
+    //   this.contactStatusList,
+    //   this.lang,
+    //   true
+    // );
+    this.saveContactRecord(index,heading,ContactStatus.Revise);
   }
 
   public setStatusToRemove(index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
-    this.setRemoveStatusEvent.emit({
-      id: this.contactRecordModel.value.id,
-      status: ContactStatus.Remove,
-      heading: heading,
-    });
-    this._detailsService.setFormContactStatus(
-      this.contactDetailsForm,
-      ContactStatus.Remove,
-      this.contactStatusList,
-      this.lang,
-      true
-    );
-    this.saveContactRecord(ContactStatus.Remove);
+    // this.setRemoveStatusEvent.emit({
+    //   id: this.contactRecordModel.value.id,
+    //   status: ContactStatus.Remove,
+    //   heading: heading,
+    // });
+    // this._detailsService.setFormContactStatus(
+    //   this.contactDetailsForm,
+    //   ContactStatus.Remove,
+    //   this.contactStatusList,
+    //   this.lang,
+    //   true
+    // );
+    this.saveContactRecord(index,heading,ContactStatus.Remove);
   }
 
   public  activeContactRecord(index: number): void{
     const heading = this._companyRecordService.getHeading(index); // Await here
-    this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Active, heading: heading});
-    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
-    this.saveContactRecord(ContactStatus.Active);
+    // this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Active, heading: heading});
+//    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
+    this.saveContactRecord(index,heading,ContactStatus.Active);
   }
 
-  public  saveContactRecord(contactStatus?: ContactStatus ): void {
+  public  saveContactRecord( id?: number,   heading?: string  , contactStatus?: ContactStatus ): void {
     //console.log("====>saveContactRecord ", this.contactStatusList);
     if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
       if (contactStatus) {
-        this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
+     //   this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
       }
-      this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
+      switch (contactStatus) {
+        case ContactStatus.Active:
+          this.setActiveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus});
+
+          break;
+        case ContactStatus.Remove:
+          this.setRemoveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus});
+          break;
+        case ContactStatus.Revise:
+          this.setReviseStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus});
+
+          break;
+      }
+
+      // this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
+
+
       this.contactRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved
@@ -285,12 +304,35 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
           recModel: this.contactRecordModel,
           status: contactStatus,
         });
+        // switch (contactStatus) {
+        //   case ContactStatus.Active:
+        //     this.setActiveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus});
+
+        //     break;
+        //   case ContactStatus.Remove:
+        //     this.setRemoveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus});
+        //     break;
+        //   case ContactStatus.Revise:
+        //     this.setReviseStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus});
+
+        //     break;
+        // }
+
       } else {
         this.contactRecordModel.controls['id'].setValue(temp);
         this.showErrSummary = true;
         this.showErrors = true;
         document.location.href = '#contactErrorSummary' + temp;
       }
+
+
+    //    this._detailsService.setFormContactStatus(
+    //   this.contactDetailsForm,
+    //   contactStatus,
+    //   this.contactStatusList,
+    //   this.lang,
+    //   true
+    // );
     }
   }
 

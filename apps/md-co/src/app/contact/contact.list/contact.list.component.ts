@@ -69,6 +69,9 @@ export class ContactListComponent extends ContactListBaseComponent implements On
  removeContactHeading: string;
  setActiveStatusHeading: string;
  saveToDraftXMLHeading: string;
+ newCompanyContactStatus: string;
+
+ contactRecord:any;
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService,
     private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService) {
     super();
@@ -359,6 +362,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
 
 
   public statusChange(seqNumber, status): void {
+
     if (this.lang == "en") {
       switch (status) {
         case ContactStatus.Active:
@@ -384,6 +388,8 @@ export class ContactListComponent extends ContactListBaseComponent implements On
           break;
       }
     }
+
+    this.saveContactRecord(this.contactRecord);
   }
 
   /**
@@ -475,6 +481,7 @@ setRemoveStatusConfirmation(event) {
   this.contactId = event.id;
   this.contactStatus = event.status;
   this.setRemoveStatusHeading=event.heading;
+  this.contactRecord = event.recModel;
   jQuery( "#" + this.setRemoveStatusPopupID ).trigger( "open.wb-overlay" );
 }
 
