@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { ErrorSummaryComponent, ICode,  ErrorNotificationService, ErrorSummaryObject, getEmptyErrorSummaryObj, ERR_TYPE_LEAST_ONE_REC, UtilsService, BaseListComponent } from '@hpfb/sdk/ui';
 import { Contact } from '../../models/Enrollment';
 import { ContactListBaseComponent } from './contact.list.base.component';
+import { AccordionComponent } from '@hpfb/sdk/ui';
 
 
 
@@ -41,6 +42,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
 
   @ViewChild(CompanyContactRecordComponent, {static: true}) companyContactChild: CompanyContactRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
+  @ViewChild(AccordionComponent) accordionChild: AccordionComponent;
 
   private errorSummaryChild = null;
   public contactListForm: FormGroup;
@@ -52,6 +54,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   statusMessage : string = '';
   contactHeading: string='';
   popupTrigger : HTMLElement = null;
+  rowIndexToRefocus : number;
 
  saveRecordPopupID: string = "saveRecordPopupID";
  setReviseStatusPopupID: string = "setReviseStatusPopupID";
@@ -426,6 +429,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   handleRowClick(event: any) {
     const clickedIndex = event.index;
     const clickedRecordState = event.state;
+    this.rowIndexToRefocus = event.index;
 
     // console.log(this._utilsService.logFormControlState(this.contactListForm))
 
@@ -446,9 +450,18 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.contactModelChangesSubscription.unsubscribe();
   }
 
-openPopup(){
-    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
-}
+  openPopup(){
+    const popupSelector = "#" + this.popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+  
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
 
 openConfirmationPopup(popupId : string) {
   const popupSelector = "#" + popupId;
@@ -467,6 +480,10 @@ handleClosedPopup() {
   setTimeout(() => {
     this.popupTrigger.focus();
   })
+}
+
+handleClosedPopupAccordion() {
+  this.accordionChild.focusHeader(this.rowIndexToRefocus);
 }
 
 discarChangeContactConfirmation(event) {

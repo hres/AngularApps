@@ -1,4 +1,4 @@
-import { Component, ContentChild, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewEncapsulation, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { FormArray, FormGroup} from '@angular/forms';
 
 @Component({
@@ -19,11 +19,12 @@ export class AccordionComponent {
   @Output() rowClicked: EventEmitter<any> = new EventEmitter();
   // https://stackoverflow.com/questions/41510470/pass-scope-data-into-ng-content-in-angular2
   @ContentChild('tmpl') tmplRef: TemplateRef<any>;
+  @ViewChildren('headerEl') headerEls!: QueryList<ElementRef>;
 
   accordionState: string = 'collapsed';
 
   toggleExpand(index:number,  expanded: boolean) {
-    this.rowClicked.emit({ index: index, state: expanded }) 
+    this.rowClicked.emit({ index: index, state: expanded}); 
     this.accordionState = expanded ? "collapsed" : "expanded";
   }
 
@@ -31,6 +32,13 @@ export class AccordionComponent {
 
   getNestedFormValue(recordRow, keys: string[]): any {
     return keys.reduce((acc, key) => acc?.get(key), recordRow)?.value ?? null;
+  }
+  
+  focusHeader(index: number) {
+    const el = this.headerEls.toArray()[index]?.nativeElement;
+    if (el) {
+      setTimeout(() => el.focus(), 0);
+    }
   }
   
 }

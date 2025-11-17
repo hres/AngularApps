@@ -8,7 +8,7 @@
       } @else {
         <div role="button"
           aria-describedby="accordionHelp">
-          <h4 id="" class="panel-title" tabindex="0"
+          <h4 #headerEl id="" class="panel-title" tabindex="0"
             (keydown.enter)="toggleExpand(i, recordRow.get('expandFlag').value)"
             (keydown.space)="$event.preventDefault(); toggleExpand(i, recordRow.get('expandFlag').value)"
             (click)="toggleExpand(i, recordRow.get('expandFlag').value)">
