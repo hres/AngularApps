@@ -5,7 +5,7 @@
         <label for="hasFees" class="required full-width">
 
           <span class="field-name">{{'are.fees' |translate}}</span>
-          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="transFeeForm.controls['hasFees'].invalid" [showError]="showFieldErrors"
             [control]="transFeeForm.controls['hasFees'] | formControl" controlId="hasFees" label="are.fees"
             parentId="transFees"></control-messages>
@@ -13,7 +13,8 @@
         </label>
         <label *ngFor="let yesno of yesNoList; let i = index" for="hasFeeId{{i}}" class="radio-inline">
           <input type="radio" id="hasFeeId{{i}}" name="hasFee" [value]="yesno.id" (change)="hasFeesOnChange()"
-            [formControl]="transFeeForm.controls['hasFees'] | formControl" (change)="hasFeesOnChange()" />
+            [formControl]="transFeeForm.controls['hasFees'] | formControl" (change)="hasFeesOnChange()"
+            required="required" />
           {{yesno | textTransform: lang }}
         </label>
       </div>
@@ -24,23 +25,23 @@
       <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <label for="billCompanyId" class="required full-width">
           <span class="field-name">{{'billing.company.id'|translate}} {{ 'minNumber6'|translate }}</span>
-          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="transFeeForm.controls['billCompanyId'].invalid" [showError]="showFieldErrors"
             [control]="transFeeForm.controls['billCompanyId'] | formControl" controlId="billCompanyId"
             label="billing.company.id" parentId="transFees"></control-messages>
           <input id="billCompanyId" class="form-control" name="billCompanyId" data-only-digits [maxLength]="6"
-            [formControl]="transFeeForm.controls['billCompanyId'] | formControl" />
+            required="required" [formControl]="transFeeForm.controls['billCompanyId'] | formControl" />
         </label>
       </div>
       <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <label for="billContactId" class="required full-width">
           <span class="field-name">{{'billing.contact.id'|translate}} {{ 'minNumber5'|translate }}</span>
-          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="transFeeForm.controls['billContactId'].invalid" [showError]="showFieldErrors"
             [control]="transFeeForm.controls['billContactId'] | formControl" controlId="billContactId"
             label="billing.contact.id" parentId="transFees"></control-messages>
           <input id="billContactId" class="form-control" name="billContactId" data-only-digits [maxLength]="5"
-            [formControl]="transFeeForm.controls['billContactId'] | formControl" />
+            required="required" [formControl]="transFeeForm.controls['billContactId'] | formControl" />
         </label>
       </div>
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -51,7 +52,5 @@
         </div>
       </div>
     </div>
-
-    <!-- <pre>{{transFeeForm.value |json}}</pre> -->
   </div>
 </div>

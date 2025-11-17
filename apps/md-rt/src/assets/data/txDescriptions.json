@@ -7,7 +7,7 @@
     {
         "id": "IRSR",
         "en": "Issue related safety request",
-        "fr": "Demande de sécurité liée à un problème"
+        "fr": "Demande liée à un problème de sûreté"
     },
     {
         "id": "LIA",
@@ -46,7 +46,7 @@
     },
     {
         "id": "RER",
-        "en": "Response to Clarification request",
+        "en": "Response to clarification request",
         "fr": "Réponse à la demande de clarification"
     },
 
@@ -54,11 +54,6 @@
         "id": "RS36L",
         "en": "Terms and conditions letter",
         "fr": "Conditions imposées"
-    },
-    {
-        "id": "RSTC",
-        "en": "Response to terms and conditions letter",
-        "fr": "Réponse à la lettre de conditions"
     },
     {
         "id": "RS39L",
@@ -81,23 +76,23 @@
         "fr": "Demande de retrait"
     },
     {
-        "id": "RRR",
-        "en": "Request for review reports",
-        "fr": "Demande de rapports d'examen"
-    },
-    {
         "id": "ER",
         "en": "Extension request",
         "fr": "Demande de prolongation"
     },
     {
-        "id": "RCIR",
-        "en": "Response to reconsideration information request",
-        "fr": "Réponse à la demande d'information sur le réexamen"
-    },
-    {
         "id": "ROHL",
         "en": "Response to opportunity to be heard letter",
         "fr": "Réponse à la lettre sur la possibilité d'être entendu"
+    },
+    {
+        "id": "RQ_REVIEW_REPORT",
+        "en": "Request for review reports",
+        "fr": "Demande de rapports d'examen"
+    },
+    {
+        "id": "RRIR",
+        "en": "Response to reconsideration information request",
+        "fr": "Réponse à la demande d'information sur le réexamen"
     }
 ]

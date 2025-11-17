@@ -7,13 +7,13 @@
         <div class="form-group col-xs-12" >
           <label for="hasRecombinant" class="required full-width">
             <span class="field-name">{{'consist.recombinant' |translate}}</span>
-            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="materialInfoForm.controls['hasRecombinant'].invalid"
                               [showError]="showErrors"
                               [control]="materialInfoForm.controls['hasRecombinant'] | formControl"
                               controlId="hasRecombinant" label="consist.recombinant" parentId="materialInfoDetails"></control-messages>
 
-            <select id="hasRecombinant" name="hasRecombinant" required class="form-control"
+            <select id="hasRecombinant" name="hasRecombinant" required="required" class="form-control"
                    [formControl]="materialInfoForm.controls['hasRecombinant'] | formControl">
               <option label=" " value=""></option>
               <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
@@ -26,12 +26,12 @@
       <div class="form-group col-xs-12" >
           <label for="isAnimalHumanSourced" class="required full-width">
             <span class="field-name">{{'contain.material' |translate}}</span>
-            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <strong class="required"  aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="materialInfoForm.controls['isAnimalHumanSourced'].invalid"
                               [showError]="showErrors"
                               [control]="materialInfoForm.controls['isAnimalHumanSourced'] | formControl"
                               controlId="isAnimalHumanSourced" label="contain.material" parentId="materialInfoDetails"></control-messages>
-            <select id="isAnimalHumanSourced" name="isAnimalHumanSourced" required class="form-control"
+            <select id="isAnimalHumanSourced" name="isAnimalHumanSourced"  required="required" class="form-control"
                     (change)="animalHumanSourcedOnChange()"
                     [formControl]="materialInfoForm.controls['isAnimalHumanSourced'] | formControl">
               <option label=" " value=""></option>
@@ -44,12 +44,12 @@
         <div class="form-group col-xs-12" >
           <label for="isListedIddTable" class="required full-width">
             <span class="field-name">{{'is.same.material' |translate}}</span>
-            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="materialInfoForm.controls['isListedIddTable'].invalid"
                               [showError]="showErrors"
                               [control]="materialInfoForm.controls['isListedIddTable'] | formControl"
                               controlId="isListedIddTable" label="is.same.material" parentId="materialInfoDetails"></control-messages>
-            <select id="isListedIddTable" name="isListedIddTable" required class="form-control"
+            <select id="isListedIddTable" name="isListedIddTable"  required="required" class="form-control"
                     [formControl]="materialInfoForm.controls['isListedIddTable'] | formControl">
               <option label=" " value=""></option>
               <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
