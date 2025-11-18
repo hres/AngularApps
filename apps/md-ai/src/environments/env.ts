@@ -1,4 +1,4 @@
 export const baseEnv = {
-  appVersion: '3.0.2',
+  appVersion: '4.0.0',
   dateIssued: '2024-01-01'
 };
