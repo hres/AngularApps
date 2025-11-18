@@ -99,5 +99,10 @@ export class ContactDetailsComponent implements OnInit, OnChanges, AfterViewInit
       this.contactDetailForm.enable();
     }
   }
+
+  getLanguageDisplayValue(language : string) {
+    const lang = this._utilsService.findAndTranslateCode(this.languageList, this.lang, language);
+    return lang;
+  }
 }
 
