@@ -25,7 +25,8 @@ export enum ActivityType {
   LicenceAmendment = 'B02-20160301-040',
   PrivateLabel = 'B02-20160301-073',
   PrivateLabelAmendment = 'B02-20160301-074',
-  S25 = 'B02-20160301-081'
+  S25 = 'B02-20160301-081',
+  TermsAndConds = 'B02-20250714-01'
 } 
 
 export enum Compliance {
