@@ -275,6 +275,8 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
       if (contactStatus) {
      //   this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
+      }else{//for save record
+        this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
       }
       switch (contactStatus) {
         case ContactStatus.Active:
@@ -290,7 +292,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
           break;
       }
 
-      // this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
 
 
       this.contactRecordModel.markAsPristine();
