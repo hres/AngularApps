@@ -31,7 +31,7 @@
   "amend.note": "Le bouton « Modifier l'inscription » doit être sélectionné lors de la modification du fichier XML final de  la compagnie.",
   "refresh.file.input": "Actualiser la page pour effacer le formulaire",
   "save.record": "Ajouter un enregistrement",
-  "delete.record": "Effacer l'enregistrement",
+  "delete.record": "Supprimer l'enregistrement",
   "save.contact": "Enregistrer le contact",
   "set.revise.status": "Modifier et enregistrer le contact",
   "set.remove.status": "Demande de supprimer le contact",
