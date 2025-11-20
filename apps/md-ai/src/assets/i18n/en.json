@@ -103,7 +103,7 @@
     "no": "No",
     "minlength": "Minimum length 6",
     "error.mgs.minlength":"Must be {{ requiredLength }} digits",
-    "error.mgs.dossier.id": "Invalid entry - must be lowercase \"m\" folowed by 6 digits",
+    "error.mgs.dossier.id": "Invalid entry - must be lowercase \"m\" followed by 6 digits",
     "error.mgs.6.numeric":"Invalid entry - must be 6 digits",
     "error.mgs.8.numeric":"Invalid entry - must be 8 digits",
     "error.mgs.company.id": "Invalid entry - must be 6 digits",
