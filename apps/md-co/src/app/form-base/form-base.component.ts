@@ -85,6 +85,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public disableForm: boolean = false;
 
   popupId = 'saveXmlPopup';
+  popupTrigger: HTMLElement = null;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -242,7 +243,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return (!this.isInternal && this._isFinal());
   }
 
-  public saveXmlFile() {
+  public saveXmlFile(event : Event) {
     // console.log("saveXmlFile", "this.showErrors", this.showErrors, this.errorList.length)
     this.showErrors = true;
     this.processErrors();
@@ -255,6 +256,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         const fileName = this._buildfileName();
         this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
       } else {
+        const trigger = event.target as HTMLElement;
+        this.popupTrigger = trigger;
         this.openPopup();
       }
     }
@@ -479,7 +482,22 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log("_setShowAdminChangesFlag()", "this.selectedAmendReasonCodes", this.selectedAmendReasonCodes, "areLicensesBeingTransfered", areLicensesBeingTransfered, "this.showAdminChanges", this.showAdminChanges);
   }
 
-  openPopup(){
-      jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  openPopup() {
+    const popupSelector = "#" + this.popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+  
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
   }
 }

@@ -1,5 +1,5 @@
-<lib-popup *ngIf="!isInternal" [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.draftxml.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
-<lib-popup *ngIf="isInternal" [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.xml.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
+<lib-popup *ngIf="!isInternal" [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.draftxml.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopup()"></lib-popup>
+<lib-popup *ngIf="isInternal" [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.xml.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopup()"></lib-popup>
 
 <div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
   <form name="companyForm" [formGroup]="companyForm" novalidate>
@@ -133,7 +133,7 @@
         </button>
       </div>
       <div class="form-group col-md-4">
-        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile()"
+        <button class="btn btn-primary btn-lg active" (click)="saveXmlFile($event)"
                 [disabled]="isExternalAndFinal()" >
           {{saveXmlLabel|translate}}
         </button>
