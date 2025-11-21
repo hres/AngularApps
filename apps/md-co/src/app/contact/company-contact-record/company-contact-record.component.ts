@@ -56,10 +56,12 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   @Output() discardChangeEvent = new EventEmitter<{
     id: number;
     heading: string;
+    buttonTrigger: HTMLElement;
   }>();
   @Output() discardRecordEvent = new EventEmitter<{
     id: number;
     heading: string;
+    buttonTrigger: HTMLElement;
   }>();
   @Output() setRemoveStatusEvent = new EventEmitter<{
     id: number;
@@ -67,6 +69,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     heading: string;
     recModel: FormGroup;
     tempContactDetailsForm: FormGroup;
+    buttonTrigger: HTMLElement;
   }>();
   @Output() setReviseStatusEvent = new EventEmitter<{
     id: number;
@@ -74,6 +77,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     heading: string;
     recModel: FormGroup;
     tempContactDetailsForm: FormGroup;
+    buttonTrigger: HTMLElement;
   }>();
   @Output() setActiveStatusEvent = new EventEmitter<{
     id: number;
@@ -81,6 +85,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     heading: string;
     recModel: FormGroup;
     tempContactDetailsForm: FormGroup;
+    buttonTrigger: HTMLElement;
   }>();
 
   @Output() errors = new EventEmitter();
@@ -209,11 +214,14 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   /**
    * Changes the local model back to the last saved version of the contact
    */
-  public revertContactRecord(index: number): void {
+  public revertContactRecord(event : Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
     this.discardChangeEvent.emit({
       id: this.contactRecordModel.value.id,
       heading: heading,
+      buttonTrigger: trigger
     });
     this.contactRecordModel.markAsPristine();
   }
@@ -221,59 +229,39 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   /***
    * Deletes the contact reocord with the selected id from both the model and the form
    */
-  public deleteContactRecord(index: number): void {
+  public deleteContactRecord(event: Event, index: number): void {
     this.errorSummaryChild = null;
     const heading = this._companyRecordService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
     this.discardRecordEvent.emit({
       id: this.contactRecordModel.value.id,
       heading: heading,
+      buttonTrigger: trigger
     });
     this._emitErrors();
     this.contactRecordModel.markAsPristine();
   }
 
-  public setStatusToRevise(index: number): void {
+  public setStatusToRevise(event : Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
-    // this.setReviseStatusEvent.emit({
-    //   id: this.contactRecordModel.value.id,
-    //   status: ContactStatus.Revise,
-    //   heading: heading,
-    // });
-    // this._detailsService.setFormContactStatus(
-    //   this.contactDetailsForm,
-    //   ContactStatus.Revise,
-    //   this.contactStatusList,
-    //   this.lang,
-    //   true
-    // );
-    this.saveContactRecord(index,heading,ContactStatus.Revise);
+    const trigger = event.target as HTMLElement;
+    this.saveContactRecord(index,heading,ContactStatus.Revise, trigger);
   }
 
-  public setStatusToRemove(index: number): void {
+  public setStatusToRemove(event : Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
-    // this.setRemoveStatusEvent.emit({
-    //   id: this.contactRecordModel.value.id,
-    //   status: ContactStatus.Remove,
-    //   heading: heading,
-    // });
-    // this._detailsService.setFormContactStatus(
-    //   this.contactDetailsForm,
-    //   ContactStatus.Remove,
-    //   this.contactStatusList,
-    //   this.lang,
-    //   true
-    // );
-    this.saveContactRecord(index,heading,ContactStatus.Remove);
+    const trigger = event.target as HTMLElement;
+    this.saveContactRecord(index,heading,ContactStatus.Remove, trigger);
   }
 
-  public  activeContactRecord(index: number): void{
+  public  activeContactRecord(event : Event, index: number): void{
     const heading = this._companyRecordService.getHeading(index); // Await here
-    // this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Active, heading: heading});
-//    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
-    this.saveContactRecord(index,heading,ContactStatus.Active);
+    const trigger = event.target as HTMLElement;
+    this.saveContactRecord(index,heading,ContactStatus.Active, trigger);
   }
 
-  public  saveContactRecord( id?: number,   heading?: string  , contactStatus?: ContactStatus ): void {
+  public  saveContactRecord( id?: number,   heading?: string  , contactStatus?: ContactStatus, trigger?: HTMLElement ): void {
     //console.log("====>saveContactRecord ", this.contactStatusList);
     if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
       if (!contactStatus) {
@@ -281,13 +269,13 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       }
       switch (contactStatus) {
         case ContactStatus.Active:
-          this.setActiveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm});
+          this.setActiveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger});
           break;
         case ContactStatus.Remove:
-          this.setRemoveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm});
+          this.setRemoveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger});
           break;
         case ContactStatus.Revise:
-          this.setReviseStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm});
+          this.setReviseStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger});
           break;
       }
       this.contactRecordModel.markAsPristine();

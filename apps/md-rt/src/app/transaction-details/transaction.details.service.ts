@@ -274,7 +274,9 @@ export class TransactionDetailsService {
   }
 
   isBriefDescRequired(txDescription: TransactionDesc): boolean{
-    return txDescription === TransactionDesc.UD ? true : false;
+    const txtDescRequireBriefDesc = [TransactionDesc.UD, TransactionDesc.ER];
+
+    return txtDescRequireBriefDesc.includes(txDescription) ? true : false;
   }
 
   isMandatoryAppNumRequired(txDescription: TransactionDesc): boolean{

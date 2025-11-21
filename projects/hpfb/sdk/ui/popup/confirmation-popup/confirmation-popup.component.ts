@@ -18,9 +18,11 @@ export class ConfirmationPopupComponent {
   @Input() heading: string;
 
   @Output() confirmed = new EventEmitter();
+  @Output() closed = new EventEmitter();
 
   closePopup() {
     jQuery( ".wb-overlay").trigger( "close.wb-overlay" );
+    this.closed.emit();
   }
 
   onConfirm() {

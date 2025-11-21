@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import $ from 'jquery';
 
 @Component({
@@ -13,8 +13,10 @@ export class PopupComponent {
   @Input() title: string;
   @Input() id: string;
   @Input() close: string;
+  @Output() closed = new EventEmitter();
 
   closePopup() {
     jQuery( ".wb-overlay").trigger( "close.wb-overlay" );
+    this.closed.emit();
   }
 }
