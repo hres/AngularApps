@@ -67,7 +67,7 @@
           </select>
 
           <input *ngIf="disableEdit" id="language{{recordId}}" class="form-control full-width" required="required"
-            [formControl]="contactDetailForm.controls['language'] | formControl" [readonly]="disableEdit" />
+          [value]="getLanguageDisplayValue(contactDetailForm.controls['language'].value)" [readonly]="disableEdit" />
         </label>
       </div>
       <div class="form-group col-sm-4">
