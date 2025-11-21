@@ -31,7 +31,7 @@
   "amend.note": "Le bouton « Modifier l'inscription » doit être sélectionné lors de la modification du fichier XML final de  la compagnie.",
   "refresh.file.input": "Actualiser la page pour effacer le formulaire",
   "save.record": "Ajouter un enregistrement",
-  "delete.record": "Effacer l'enregistrement",
+  "delete.record": "Supprimer l'enregistrement",
   "save.contact": "Enregistrer le contact",
   "set.revise.status": "Modifier et enregistrer le contact",
   "set.remove.status": "Demande de supprimer le contact",
@@ -151,6 +151,5 @@
   "msg.company.remove.status.popup": "Cette action changera le statut du contact de {{heading}} en « Supprimer » et désactivera la fiche.",
   "msg.active.and.save.company.popup": "Cette action changera le statut du contact de {{heading}} en « Actif » et enregistrera la fiche.",
   "popup.warning": "Avertissement",
-  "popup.title":"Modèle de compagnie",
   "heading.company.contact":"détails du représentant de la compagnie {{seqnumber}}"
 }
