@@ -151,6 +151,5 @@
   "msg.company.remove.status.popup": "Cette action changera le statut du contact de {{heading}} en « Supprimer » et désactivera la fiche.",
   "msg.active.and.save.company.popup": "Cette action changera le statut du contact de {{heading}} en « Actif » et enregistrera la fiche.",
   "popup.warning": "Avertissement",
-  "popup.title":"Modèle de compagnie",
   "heading.company.contact":"détails du représentant de la compagnie {{seqnumber}}"
 }

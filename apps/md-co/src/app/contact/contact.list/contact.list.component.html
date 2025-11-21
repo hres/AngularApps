@@ -3,7 +3,7 @@
   <!--[errorList]="errorList" headingPreamble="heading.contactInfo"-->
   <!--[headingLevel]="headingLevel" label="Company Representative Record(s)" compId="contactList"></lib-error-summary>-->
 
-  <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.data.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopupAccordion()"></lib-popup>
+  <lib-popup [id]="popupId" [title]="'popup.warning' | translate" [message]="'msg.save.data.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopupAccordion()"></lib-popup>
   <lib-confirmation-popup [id]="saveRecordPopupID" [title]="'popup.warning' | translate" [message]="'msg.discard.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="contactHeading" (confirmed)="saveContactRecord($event)" (closed)="handleClosedPopup()" ></lib-confirmation-popup>
   <lib-confirmation-popup [id]="setReviseStatusPopupID" [title]="'popup.warning' | translate" [message]="'msg.company.revise.status.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="setReviseStatusHeading" (confirmed)="statusChange($event, $event)" (closed)="handleClosedPopup()" ></lib-confirmation-popup>
    <lib-confirmation-popup [id]="setRemoveStatusPopupID" [title]="'popup.warning' | translate" [message]="'msg.company.remove.status.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="setRemoveStatusHeading" (confirmed)="statusChange($event, $event)" (closed)="handleClosedPopup()" ></lib-confirmation-popup>
