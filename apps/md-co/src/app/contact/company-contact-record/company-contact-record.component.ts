@@ -67,18 +67,24 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     id: number;
     status: string;
     heading: string;
+    recModel: FormGroup;
+    tempContactDetailsForm: FormGroup;
     buttonTrigger: HTMLElement;
   }>();
   @Output() setReviseStatusEvent = new EventEmitter<{
     id: number;
     status: string;
     heading: string;
+    recModel: FormGroup;
+    tempContactDetailsForm: FormGroup;
     buttonTrigger: HTMLElement;
   }>();
   @Output() setActiveStatusEvent = new EventEmitter<{
     id: number;
     status: string;
     heading: string;
+    recModel: FormGroup;
+    tempContactDetailsForm: FormGroup;
     buttonTrigger: HTMLElement;
   }>();
 
@@ -240,59 +246,38 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   public setStatusToRevise(event : Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
-
-    this.setReviseStatusEvent.emit({
-      id: this.contactRecordModel.value.id,
-      status: ContactStatus.Revise,
-      heading: heading,
-      buttonTrigger: trigger
-    });
-    this._detailsService.setFormContactStatus(
-      this.contactDetailsForm,
-      ContactStatus.Revise,
-      this.contactStatusList,
-      this.lang,
-      true
-    );
-    this.saveContactRecord(ContactStatus.Revise);
+    this.saveContactRecord(index,heading,ContactStatus.Revise, trigger);
   }
 
   public setStatusToRemove(event : Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
-
-    this.setRemoveStatusEvent.emit({
-      id: this.contactRecordModel.value.id,
-      status: ContactStatus.Remove,
-      heading: heading,
-      buttonTrigger: trigger
-    });
-    this._detailsService.setFormContactStatus(
-      this.contactDetailsForm,
-      ContactStatus.Remove,
-      this.contactStatusList,
-      this.lang,
-      true
-    );
-    this.saveContactRecord(ContactStatus.Remove);
+    this.saveContactRecord(index,heading,ContactStatus.Remove, trigger);
   }
 
   public  activeContactRecord(event : Event, index: number): void{
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
-
-    this.setActiveStatusEvent.emit({id: this.contactRecordModel.value.id, status: ContactStatus.Active, heading: heading, buttonTrigger: trigger});
-    this._detailsService.setFormContactStatus(this.contactDetailsForm, ContactStatus.Active, this.contactStatusList, this.lang, true);
-    this.saveContactRecord(ContactStatus.Active);
+    this.saveContactRecord(index,heading,ContactStatus.Active, trigger);
   }
 
-  public  saveContactRecord(contactStatus?: ContactStatus ): void {
+  public  saveContactRecord( id?: number,   heading?: string  , contactStatus?: ContactStatus, trigger?: HTMLElement ): void {
     //console.log("====>saveContactRecord ", this.contactStatusList);
     if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
-      if (contactStatus) {
-        this._detailsService.setFormContactStatus(this.contactDetailsForm, contactStatus, this.contactStatusList, this.lang, true);
+      if (!contactStatus) {
+           this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
       }
-      this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
+      switch (contactStatus) {
+        case ContactStatus.Active:
+          this.setActiveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger});
+          break;
+        case ContactStatus.Remove:
+          this.setRemoveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger});
+          break;
+        case ContactStatus.Revise:
+          this.setReviseStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger});
+          break;
+      }
       this.contactRecordModel.markAsPristine();
     } else {
       // id is used for an error to ensure the record gets saved
@@ -304,6 +289,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
           recModel: this.contactRecordModel,
           status: contactStatus,
         });
+
       } else {
         this.contactRecordModel.controls['id'].setValue(temp);
         this.showErrSummary = true;

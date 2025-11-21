@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { ErrorSummaryComponent, ICode,  ErrorNotificationService, ErrorSummaryObject, getEmptyErrorSummaryObj, ERR_TYPE_LEAST_ONE_REC, UtilsService, BaseListComponent } from '@hpfb/sdk/ui';
 import { Contact } from '../../models/Enrollment';
 import { ContactListBaseComponent } from './contact.list.base.component';
+import { ContactDetailsService } from '../contact.details/contact.details.service';
 import { AccordionComponent } from '@hpfb/sdk/ui';
 
 
@@ -22,9 +23,10 @@ import { AccordionComponent } from '@hpfb/sdk/ui';
   styleUrls: ['./contact.list.component.css'],
   encapsulation: ViewEncapsulation.None,
   standalone: false
-
 })
 export class ContactListComponent extends ContactListBaseComponent implements OnInit, OnChanges, AfterViewInit {
+  recModel:FormGroup;
+  updatedContactDetailsForm: FormGroup;
   @Input() public contactModel: Contact[] = [];
   @Input() public saveContact;
   @Input() public showErrors: boolean;
@@ -73,8 +75,9 @@ export class ContactListComponent extends ContactListBaseComponent implements On
  removeContactHeading: string;
  setActiveStatusHeading: string;
  saveToDraftXMLHeading: string;
+
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService,
-    private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService) {
+    private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService,  private _detailsService: ContactDetailsService) {
     super();
     this.contactListForm = this._listService.getReactiveModel(_fb);     // it's an empty formArray
   }
@@ -211,9 +214,17 @@ export class ContactListComponent extends ContactListBaseComponent implements On
    * @param record
    */
   public saveContactRecord(contactRecord) {
-    const record = contactRecord.recModel;
-    const status = contactRecord.status;
+    let record : any = this.recModel;
+    if(this.contactStatus && this.updatedContactDetailsForm){
+        record  = this.recModel;
+        this._detailsService.setFormContactStatus(this.updatedContactDetailsForm,this.contactStatus , this.contactStatusList, this.lang, true);
+      }else{
+        record = contactRecord.recModel;
+      }
+
+
     const recordId = this.saveRecord(record, this._listService, this.lang, this.languageList, this.contactStatusList);
+
     // console.log(`recordId ${recordId} was saved`)
 
     // collapse this record
@@ -249,6 +260,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
 
     this.contactsUpdated.emit(this.contactModel);
   }
+
 
   private _expandNextInvalidRecord(){
      // expand next invalid record
@@ -366,6 +378,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
 
 
   public statusChange(seqNumber, status): void {
+
     if (this.lang == "en") {
       switch (status) {
         case ContactStatus.Active:
@@ -391,6 +404,8 @@ export class ContactListComponent extends ContactListBaseComponent implements On
           break;
       }
     }
+
+    this.saveContactRecord(this.contactModel);
   }
 
   /**
@@ -453,7 +468,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   openPopup(){
     const popupSelector = "#" + this.popupId;
     jQuery(popupSelector).trigger("open.wb-overlay");
-  
+
     // Wait for overlay to render to focus on Close button once it is shown on the UI
     setTimeout(() => {
       const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
@@ -510,6 +525,9 @@ setReviseStatusConfirmation(event) {
   this.contactId = event.id;
   this.setReviseStatusHeading=event.heading;
   this.contactStatus = event.status;
+  this.recModel = event.recModel;
+  this.updatedContactDetailsForm=event.tempContactDetailsForm;
+ jQuery( "#" + this.setReviseStatusPopupID ).trigger( "open.wb-overlay" );
   this.popupTrigger = event.buttonTrigger;
   this.openConfirmationPopup(this.setReviseStatusPopupID);
 }
@@ -518,6 +536,10 @@ setRemoveStatusConfirmation(event) {
   this.contactId = event.id;
   this.contactStatus = event.status;
   this.setRemoveStatusHeading=event.heading;
+  this.recModel = event.recModel;
+  this.updatedContactDetailsForm=event.tempContactDetailsForm;
+
+  jQuery( "#" + this.setRemoveStatusPopupID ).trigger( "open.wb-overlay" );
   this.popupTrigger = event.buttonTrigger;
   this.openConfirmationPopup(this.setRemoveStatusPopupID);
 }
@@ -525,8 +547,10 @@ setRemoveStatusConfirmation(event) {
 setActiveStatusConfirmation(event) {
   this.contactId = event.id;
   this.contactStatus = event.status;
+  this.recModel = event.recModel;
   if(event.heading){
   this.setActiveStatusHeading=event.heading;
+   this.updatedContactDetailsForm=event.tempContactDetailsForm;
   }
   this.popupTrigger = event.buttonTrigger;
   this.openConfirmationPopup(this.setActiveStatusPopupID);
