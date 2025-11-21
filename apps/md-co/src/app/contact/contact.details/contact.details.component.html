@@ -10,7 +10,7 @@
             [showError]="showFieldErrors" [control]="contactDetailForm.controls['contactId'] | formControl"
             controlId="contactId{{recordId}}" label="contact.id" parentId="contactDetails"
             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
-          <input name="contactId" id="contactId{{recordId}}" class="form-control" required="required"
+          <input name="contactId" id="contactId{{recordId}}" class="form-control"
             [readonly]="!isInternal" [formControl]="contactDetailForm.controls['contactId'] | formControl"
             [maxLength]="5" data-only-digits />
         </label>
