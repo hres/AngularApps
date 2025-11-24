@@ -57,6 +57,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     id: number;
     heading: string;
     buttonTrigger: HTMLElement;
+    tempContactDetailsForm: FormGroup;
   }>();
   @Output() discardRecordEvent = new EventEmitter<{
     id: number;
@@ -109,6 +110,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   headingPreamble: string = 'heading.contactDetails';
   headingPreambleParams: any;
   translatedParentLabel: string;
+  disableDiscardBtn: boolean;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -129,6 +131,12 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       { seqnumber: this.headingPreambleParams }
     );
     this.contactRecordModel = this.cRRow;
+    const contactForm = <FormGroup>this.cRRow.controls['contactDetails'];
+    if (contactForm.controls['fullName'].value) {
+      this.disableDiscardBtn = true
+    } else {
+      this.disableDiscardBtn = false;
+    }
   }
 
   ngAfterViewInit() {
@@ -170,7 +178,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges) {
     // console.log(this._utilsService.checkComponentChanges(changes));
-
     if (changes['showErrors']) {
       // console.log("contact.record", "onchange", "showErrors", changes['showErrors'].currentValue)
       this.showErrSummary = changes['showErrors'].currentValue;
@@ -214,16 +221,18 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   /**
    * Changes the local model back to the last saved version of the contact
    */
-  public revertContactRecord(event : Event, index: number): void {
+  public revertContactRecord(event: Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
 
     this.discardChangeEvent.emit({
       id: this.contactRecordModel.value.id,
       heading: heading,
-      buttonTrigger: trigger
+      buttonTrigger: trigger,
+      tempContactDetailsForm: this.contactDetailsForm,
     });
-    this.contactRecordModel.markAsPristine();
+    //this.contactRecordModel.markAsPristine();
+    this.disableDiscardBtn = true
   }
 
   /***
@@ -243,39 +252,40 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     this.contactRecordModel.markAsPristine();
   }
 
-  public setStatusToRevise(event : Event, index: number): void {
+  public setStatusToRevise(event: Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
-    this.saveContactRecord(index,heading,ContactStatus.Revise, trigger);
+    this.saveContactRecord(index, heading, ContactStatus.Revise, trigger);
   }
 
-  public setStatusToRemove(event : Event, index: number): void {
+  public setStatusToRemove(event: Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
-    this.saveContactRecord(index,heading,ContactStatus.Remove, trigger);
+    this.saveContactRecord(index, heading, ContactStatus.Remove, trigger);
   }
 
-  public  activeContactRecord(event : Event, index: number): void{
+  public activeContactRecord(event: Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
-    this.saveContactRecord(index,heading,ContactStatus.Active, trigger);
+    this.saveContactRecord(index, heading, ContactStatus.Active, trigger);
   }
 
-  public  saveContactRecord( id?: number,   heading?: string  , contactStatus?: ContactStatus, trigger?: HTMLElement ): void {
+  public saveContactRecord(id?: number, heading?: string, contactStatus?: ContactStatus, trigger?: HTMLElement): void {
     //console.log("====>saveContactRecord ", this.contactStatusList);
+    this.disableDiscardBtn = true;
     if (this.contactRecordModel.valid || this._recordInvalidExcemption(contactStatus)) {
       if (!contactStatus) {
-           this.saveRecord.emit({recModel: this.contactRecordModel, status: contactStatus});
+        this.saveRecord.emit({ recModel: this.contactRecordModel, status: contactStatus });
       }
       switch (contactStatus) {
         case ContactStatus.Active:
-          this.setActiveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger});
+          this.setActiveStatusEvent.emit({ id, heading, recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger });
           break;
         case ContactStatus.Remove:
-          this.setRemoveStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger});
+          this.setRemoveStatusEvent.emit({ id, heading, recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger });
           break;
         case ContactStatus.Revise:
-          this.setReviseStatusEvent.emit({id,heading,recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger});
+          this.setReviseStatusEvent.emit({ id, heading, recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger });
           break;
       }
       this.contactRecordModel.markAsPristine();
@@ -383,12 +393,10 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   public disabledDiscardButton() {
-    if (this.cRRow.get('isNew').value) {
-      return true;
+    if (this.disableDiscardBtn && !this.isContactStatus(ContactStatus.Remove) && this.contactDetailsForm.dirty) {
+      return false
     }
-    if (this.cRRow.dirty) {
-      return false;
-    } else {
+    else {
       return true;
     }
   }
