@@ -25,7 +25,7 @@
           </span>
           <control-messages *ngIf="isInternal && contactDetailForm.controls['status'].invalid"
             [showError]="showFieldErrors" [control]="contactDetailForm.controls['status'] | formControl"
-            controlId="status{{recordId}}" label="status" parentId="contactDetails"
+            controlId="statusText{{recordId}}" label="status" parentId="contactDetails"
             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <input name="statusText" id="statusText{{recordId}}" class="form-control" [readonly]="true"
             [formControl]="contactDetailForm.controls['statusText'] | formControl" />
