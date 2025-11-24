@@ -63,8 +63,8 @@
             parentLabel="Admin Changes"></control-messages>
         </legend>
         <ng-container *ngFor="let yesno of yesNoList; let i = index">
-          <label for="isReguChange{{i}}" class="radio-inline">
-            <input type="radio" name="isReguChange" id="isReguChange{{i}}" [value]="yesno.id" required="required"
+          <label id="isReguChange" for="isReguChange{{i}}" class="radio-inline">
+            <input type="radio" name="isReguChange" id="isReguChange{{i}}" [value]="yesno.id" required
               (change)="onblur()" [formControl]="adminChangesFormLocalModel.controls['isReguChange'] | formControl" />
             {{yesno | textTransform: lang}}
           </label>
