@@ -26,7 +26,6 @@
   "addressDetails.cityTown": "Ville",
   "fileio.msg.success": "Le fichier a été chargé avec succès",
   "fileio.msg.fileTypeError": "Le type de fichier sélectionné est invalide pour ce formulaire.",
-  "fileio.msg.dataTypeError": "Le type de formulaire sélectionné est invalide pour ce formulaire.",
   "fileio.msg.noFileChoosen": "Aucun fichier choisi",
   "amend.note": "Le bouton « Modifier l'inscription » doit être sélectionné lors de la modification du fichier XML final de  la compagnie.",
   "refresh.file.input": "Actualiser la page pour effacer le formulaire",
