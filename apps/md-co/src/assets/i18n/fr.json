@@ -152,6 +152,5 @@
   "msg.active.and.save.company.popup": "Cette action changera le statut du contact de {{heading}} en « Actif » et enregistrera la fiche.",
   "msg.amend.enrolment.popup": "Cette action effacera certains champs. Veuillez examiner l’ensemble du modèle attentivement et fournir les informations requises lorsqu’elles sont manquantes.",
   "popup.warning": "Avertissement",
-  "popup.title":"Modèle de compagnie",
   "heading.company.contact":"détails du représentant de la compagnie {{seqnumber}}"
 }

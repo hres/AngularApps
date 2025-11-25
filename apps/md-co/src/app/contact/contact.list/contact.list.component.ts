@@ -2,19 +2,18 @@ import {
   Component, OnInit, Input, ViewChild, SimpleChanges, OnChanges, ViewChildren, QueryList, EventEmitter, Output,
   AfterViewInit, DoCheck, ViewEncapsulation
 } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {CompanyContactRecordComponent} from '../company-contact-record/company-contact-record.component';
-import {CompanyContactRecordService} from '../company-contact-record/company-contact-record.service';
-import {ContactListService} from './contact-list.service';
-import {TranslateService} from '@ngx-translate/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CompanyContactRecordComponent } from '../company-contact-record/company-contact-record.component';
+import { CompanyContactRecordService } from '../company-contact-record/company-contact-record.service';
+import { ContactListService } from './contact-list.service';
+import { TranslateService } from '@ngx-translate/core';
 import { ContactStatus } from '../../app.constants';
 import { Subscription } from 'rxjs';
-import { ErrorSummaryComponent, ICode,  ErrorNotificationService, ErrorSummaryObject, getEmptyErrorSummaryObj, ERR_TYPE_LEAST_ONE_REC, UtilsService, BaseListComponent } from '@hpfb/sdk/ui';
+import { ErrorSummaryComponent, ICode, ErrorNotificationService, ErrorSummaryObject, getEmptyErrorSummaryObj, ERR_TYPE_LEAST_ONE_REC, UtilsService, BaseListComponent } from '@hpfb/sdk/ui';
 import { Contact } from '../../models/Enrollment';
 import { ContactListBaseComponent } from './contact.list.base.component';
 import { ContactDetailsService } from '../contact.details/contact.details.service';
 import { AccordionComponent } from '@hpfb/sdk/ui';
-
 
 
 @Component({
@@ -25,7 +24,7 @@ import { AccordionComponent } from '@hpfb/sdk/ui';
   standalone: false
 })
 export class ContactListComponent extends ContactListBaseComponent implements OnInit, OnChanges, AfterViewInit {
-  recModel:FormGroup;
+  recModel: FormGroup;
   updatedContactDetailsForm: FormGroup;
   @Input() public contactModel: Contact[] = [];
   @Input() public saveContact;
@@ -42,7 +41,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   @Output() public errors = new EventEmitter();
   @Output() public contactsUpdated = new EventEmitter();
 
-  @ViewChild(CompanyContactRecordComponent, {static: true}) companyContactChild: CompanyContactRecordComponent;
+  @ViewChild(CompanyContactRecordComponent, { static: true }) companyContactChild: CompanyContactRecordComponent;
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(AccordionComponent) accordionChild: AccordionComponent;
 
@@ -52,32 +51,32 @@ export class ContactListComponent extends ContactListBaseComponent implements On
 
   private contactModelChangesSubscription: Subscription;
 
-  popupId='contactPopup';
-  statusMessage : string = '';
-  contactHeading: string='';
-  popupTrigger : HTMLElement = null;
-  rowIndexToRefocus : number;
+  popupId = 'contactPopup';
+  statusMessage: string = '';
+  contactHeading: string = '';
+  popupTrigger: HTMLElement = null;
+  rowIndexToRefocus: number;
 
- saveRecordPopupID: string = "saveRecordPopupID";
- setReviseStatusPopupID: string = "setReviseStatusPopupID";
- setRemoveStatusPopupID: string = "setRemoveStatusPopupID";
- setActiveStatusPopupID: string = "setActiveStatusPopupID";
- discardChangePopupID: string = "discardChangePopupID";
- discardRecordPopupID: string = "discardRecordPopupID";
- removeContactPopupID: string = "removeContactPopupID";
- saveToDraftXMLPopupID: string = "saveToDraftXMLPopupID";
- private  contactId: number;
- contactStatus: any;
- discardRecordHeading: string;
- discardChangeHeading: string;
- setReviseStatusHeading: string;
- setRemoveStatusHeading: string;
- removeContactHeading: string;
- setActiveStatusHeading: string;
- saveToDraftXMLHeading: string;
+  saveRecordPopupID: string = "saveRecordPopupID";
+  setReviseStatusPopupID: string = "setReviseStatusPopupID";
+  setRemoveStatusPopupID: string = "setRemoveStatusPopupID";
+  setActiveStatusPopupID: string = "setActiveStatusPopupID";
+  discardChangePopupID: string = "discardChangePopupID";
+  discardRecordPopupID: string = "discardRecordPopupID";
+  removeContactPopupID: string = "removeContactPopupID";
+  saveToDraftXMLPopupID: string = "saveToDraftXMLPopupID";
+  private contactId: number;
+  contactStatus: any;
+  discardRecordHeading: string;
+  discardChangeHeading: string;
+  setReviseStatusHeading: string;
+  setRemoveStatusHeading: string;
+  removeContactHeading: string;
+  setActiveStatusHeading: string;
+  saveToDraftXMLHeading: string;
 
   constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService,
-    private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService,  private _detailsService: ContactDetailsService) {
+    private _listService: ContactListService, private _recordService: CompanyContactRecordService, private _errorNotificationService: ErrorNotificationService, private _detailsService: ContactDetailsService) {
     super();
     this.contactListForm = this._listService.getReactiveModel(_fb);     // it's an empty formArray
   }
@@ -87,7 +86,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   }
 
   ngAfterViewInit() {
-     this._errorNotificationService.errorSummaryChanged$.subscribe((errors) => {
+    this._errorNotificationService.errorSummaryChanged$.subscribe((errors) => {
       this._processErrorSummaries(errors);
     });
 
@@ -113,12 +112,11 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   }
 
 
-
   /**
    * Processes change events from inputs
    * @param {SimpleChanges} changes
    */
-   ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges) {
     // console.log(this._utilsService.checkComponentChanges(changes));
 
     if (changes['loadFileIndicator']) {
@@ -145,13 +143,13 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     }
   }
 
-  private initWithData(){
+  private initWithData() {
     if (this.contactStatusList.length > 0 && this.contactModel) {
 
       this._listService.setModelRecordList(this.contactModel);
       this._listService.initIndex(this.contactModel);
 
-      if ( !this.contactModel || this.contactModel.length === 0 ) {
+      if (!this.contactModel || this.contactModel.length === 0) {
         this._createFormContact();
       } else {
         this._listService.createFormRecordList(this.contactModel, this._fb, this.contactList, this.isInternal);
@@ -166,12 +164,11 @@ export class ContactListComponent extends ContactListBaseComponent implements On
 
       this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
     }
-}
+  }
 
   get contactList(): FormArray {
     return <FormArray>(this.contactListForm.controls['contacts']);
   }
-
 
   /**
    * Adds an contact UI record to the contact List
@@ -203,7 +200,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.showErrors = false;
   }
 
-  private _createFormContact(){
+  private _createFormContact() {
     const formContact = this._listService.createContactFormRecord(this._fb, this.isInternal);
     this.addRecord(formContact, this.contactList);
     this._listService.collapseFormRecordList(this._utilsService, this.contactList, formContact.controls['id'].value);
@@ -214,14 +211,13 @@ export class ContactListComponent extends ContactListBaseComponent implements On
    * @param record
    */
   public saveContactRecord(contactRecord) {
-    let record : any = this.recModel;
-    if(this.contactStatus && this.updatedContactDetailsForm){
-        record  = this.recModel;
-        this._detailsService.setFormContactStatus(this.updatedContactDetailsForm,this.contactStatus , this.contactStatusList, this.lang, true);
-      }else{
-        record = contactRecord.recModel;
-      }
-
+    let record: any = this.recModel;
+    if (this.contactStatus && this.updatedContactDetailsForm) {
+      record = this.recModel;
+      this._detailsService.setFormContactStatus(this.updatedContactDetailsForm, this.contactStatus, this.contactStatusList, this.lang, true);
+    } else {
+      record = contactRecord.recModel;
+    }
 
     const recordId = this.saveRecord(record, this._listService, this.lang, this.languageList, this.contactStatusList);
 
@@ -231,7 +227,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     for (let index = 0; index < this.contactList.controls.length; index++) {
       const element: FormGroup = this.contactList.controls[index] as FormGroup;
       // console.log(element);
-      if (element.controls['id'].value===recordId) {
+      if (element.controls['id'].value === recordId) {
         element.controls['expandFlag'].setValue(false);
         break;
       }
@@ -261,10 +257,9 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.contactsUpdated.emit(this.contactModel);
   }
 
-
-  private _expandNextInvalidRecord(){
-     // expand next invalid record
-     for (let index = 0; index < this.contactList.controls.length; index++) {
+  private _expandNextInvalidRecord() {
+    // expand next invalid record
+    for (let index = 0; index < this.contactList.controls.length; index++) {
       const element: FormGroup = this.contactList.controls[index] as FormGroup;
       // console.log(element);
       if (element.invalid) {
@@ -320,7 +315,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   public revertContact(id): void {
     let discardMsg = "";
 
-    let modelRecord = this._listService.getModelRecord( this.contactId);
+    let modelRecord = this._listService.getModelRecord(this.contactId);
     if (!modelRecord) {
       modelRecord = this._listService.getEmptyContactModel();
       modelRecord.id = this.contactId;
@@ -333,9 +328,9 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       console.warn('ContactList:rec is null');
     }
     if (this.lang == "en") {
-      discardMsg = "Contact record " +  rec.controls['seqNumber'].value + "  changes have been discarded."
+      discardMsg = "Contact record " + rec.controls['seqNumber'].value + "  changes have been discarded."
     } else {
-      discardMsg = "Les modifications du contact " +  rec.controls['seqNumber'].value + " ont été annulées."
+      discardMsg = "Les modifications du contact " + rec.controls['seqNumber'].value + " ont été annulées."
     }
 
     this.statusMessage = discardMsg;
@@ -344,7 +339,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     setTimeout(() => {
       this.statusMessage = ''; // Temporarily clear the message
       setTimeout(() => {
-          this.statusMessage = discardMsg; // Restore the message
+        this.statusMessage = discardMsg; // Restore the message
       }, 50); // Small delay before restoring
     }, 50);
 
@@ -353,6 +348,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     } else {
       document.location.href = '#status';
     }
+    this.updatedContactDetailsForm.markAsPristine()
     // jQuery( "#" + this.discardPopupId ).trigger( "open.wb-overlay" );
   }
 
@@ -381,7 +377,6 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       document.getElementById('addContactBtn').focus()
     }, 100);
   }
-
 
   public statusChange(seqNumber, status): void {
 
@@ -420,7 +415,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   public disableAddButton(): boolean {
     // console.log("form is invalid: ", !this.contactListForm.valid,  "form has errors: ", this.errorList.length>0,
     //   "form is dirty: ", this.contactListForm.dirty);
-    return ( !this.contactListForm.valid  || this.errorList.length > 0 ||  this.contactListForm.dirty );
+    return (!this.contactListForm.valid || this.errorList.length > 0 || this.contactListForm.dirty);
   }
 
   /**
@@ -437,7 +432,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   private _noNonRemoveRecords(dataList): boolean {
     if (dataList && dataList.length > 0) {
       for (const index in dataList) {
-        if (dataList[index].status._id !== ContactStatus.Remove) {return false; }     //todo use the constant
+        if (dataList[index].status._id !== ContactStatus.Remove) { return false; }     //todo use the constant
       }
       // dataList.forEach(record => {
       //   if (record.status._id !== 'Remove') {return false; }
@@ -455,8 +450,8 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     // console.log(this._utilsService.logFormControlState(this.contactListForm))
 
     if (this.contactListForm.pristine) {
-      this.contactList.controls.forEach( (element: FormGroup, index: number) => {
-        if (clickedIndex===index) {
+      this.contactList.controls.forEach((element: FormGroup, index: number) => {
+        if (clickedIndex === index) {
           element.controls['expandFlag'].setValue(!clickedRecordState)
         }
       })
@@ -471,7 +466,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.contactModelChangesSubscription.unsubscribe();
   }
 
-  openPopup(){
+  openPopup() {
     const popupSelector = "#" + this.popupId;
     jQuery(popupSelector).trigger("open.wb-overlay");
 
@@ -484,84 +479,85 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     }, 100);
   }
 
-openConfirmationPopup(popupId : string) {
-  const popupSelector = "#" + popupId;
-  jQuery(popupSelector).trigger("open.wb-overlay");
+  openConfirmationPopup(popupId: string) {
+    const popupSelector = "#" + popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
 
-  // Wait for overlay to render to focus on Close button once it is shown on the UI
-  setTimeout(() => {
-    const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
-    if (btn) {
-      btn.focus();
-    }
-  }, 100);
-}
-
-handleClosedPopup() {
-  setTimeout(() => {
-    this.popupTrigger.focus();
-  })
-}
-
-handleClosedPopupAccordion() {
-  this.accordionChild.focusHeader(this.rowIndexToRefocus);
-}
-
-discarChangeContactConfirmation(event) {
-  this.contactId = event.id;
-  this.discardChangeHeading=event.heading;
-  this.popupTrigger = event.buttonTrigger;
-  this.openConfirmationPopup(this.discardChangePopupID);
-}
-discarRecordeContactConfirmation(event) {
-  this.contactId = event.id;
-   this.discardRecordHeading=event.heading;
-   this.popupTrigger = event.buttonTrigger;
-   this.openConfirmationPopup(this.discardRecordPopupID);
- }
-
-deleteContactConfirmation(event) { // NOT USED
-  this.contactId = event.id;
-  this.removeContactHeading=event.heading;
-  this.popupTrigger = event.buttonTrigger;
-  this.openConfirmationPopup(this.removeContactPopupID);
-}
-
-setReviseStatusConfirmation(event) {
-  this.contactId = event.id;
-  this.setReviseStatusHeading=event.heading;
-  this.contactStatus = event.status;
-  this.recModel = event.recModel;
-  this.updatedContactDetailsForm=event.tempContactDetailsForm;
- jQuery( "#" + this.setReviseStatusPopupID ).trigger( "open.wb-overlay" );
-  this.popupTrigger = event.buttonTrigger;
-  this.openConfirmationPopup(this.setReviseStatusPopupID);
-}
-
-setRemoveStatusConfirmation(event) {
-  this.contactId = event.id;
-  this.contactStatus = event.status;
-  this.setRemoveStatusHeading=event.heading;
-  this.recModel = event.recModel;
-  this.updatedContactDetailsForm=event.tempContactDetailsForm;
-
-  jQuery( "#" + this.setRemoveStatusPopupID ).trigger( "open.wb-overlay" );
-  this.popupTrigger = event.buttonTrigger;
-  this.openConfirmationPopup(this.setRemoveStatusPopupID);
-}
-
-setActiveStatusConfirmation(event) {
-  this.contactId = event.id;
-  this.contactStatus = event.status;
-  this.recModel = event.recModel;
-  if(event.heading){
-  this.setActiveStatusHeading=event.heading;
-   this.updatedContactDetailsForm=event.tempContactDetailsForm;
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
   }
-  this.popupTrigger = event.buttonTrigger;
-  this.openConfirmationPopup(this.setActiveStatusPopupID);
-}
 
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
+  }
+
+  handleClosedPopupAccordion() {
+    this.accordionChild.focusHeader(this.rowIndexToRefocus);
+  }
+
+  discarChangeContactConfirmation(event) {
+    this.contactId = event.id;
+    this.discardChangeHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.discardChangePopupID);
+    this.updatedContactDetailsForm = event.tempContactDetailsForm;
+    this.updatedContactDetailsForm.markAsDirty()
+  }
+  discarRecordeContactConfirmation(event) {
+    this.contactId = event.id;
+    this.discardRecordHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.discardRecordPopupID);
+  }
+
+  deleteContactConfirmation(event) { // NOT USED
+    this.contactId = event.id;
+    this.removeContactHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.removeContactPopupID);
+  }
+
+  setReviseStatusConfirmation(event) {
+    this.contactId = event.id;
+    this.setReviseStatusHeading = event.heading;
+    this.contactStatus = event.status;
+    this.recModel = event.recModel;
+    this.updatedContactDetailsForm = event.tempContactDetailsForm;
+    jQuery("#" + this.setReviseStatusPopupID).trigger("open.wb-overlay");
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.setReviseStatusPopupID);
+  }
+
+  setRemoveStatusConfirmation(event) {
+    this.contactId = event.id;
+    this.contactStatus = event.status;
+    this.setRemoveStatusHeading = event.heading;
+    this.recModel = event.recModel;
+    this.updatedContactDetailsForm = event.tempContactDetailsForm;
+
+    jQuery("#" + this.setRemoveStatusPopupID).trigger("open.wb-overlay");
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.setRemoveStatusPopupID);
+  }
+
+  setActiveStatusConfirmation(event) {
+    this.contactId = event.id;
+    this.contactStatus = event.status;
+    this.recModel = event.recModel;
+    if (event.heading) {
+      this.setActiveStatusHeading = event.heading;
+      this.updatedContactDetailsForm = event.tempContactDetailsForm;
+    }
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.setActiveStatusPopupID);
+  }
 
   disableFormGroup() {
     if (this.contactListForm) {
@@ -573,7 +569,5 @@ setActiveStatusConfirmation(event) {
     if (this.contactListForm) {
       this.contactListForm.enable();
     }
-
   }
 }
-

@@ -83,7 +83,7 @@ export class ValidationService implements IValidationService {
     if (!control.value) {
       return null;
     }
-    if (control.value.match(/^[0-9]{5}(?:-[0-9]{4})?$/)) {
+    if (control.value.match(/^[0-9]{5}?$/)) {
       return null;
     } else {
       return {'error.mgs.zip': true};

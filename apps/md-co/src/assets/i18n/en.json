@@ -29,7 +29,7 @@
     "fileio.msg.fileTypeError": "An invalid file type was selected.",
     "fileio.msg.dataTypeError": "Error: the wrong form data was selected for this form.",
     "fileio.msg.noFileChoosen": "No file chosen",
-    "amend.note": "The “Amend enrolment” button must be selected when amending a Final Company XML.",
+    "amend.note": "The “Amend enrolment” button must be selected when amending a final company XML.",
     "refresh.file.input": "Refresh this page to clear form",
     "save.record": "Save record",
     "delete.record": "Delete record",
@@ -160,6 +160,5 @@
     "msg.active.and.save.company.popup": "This action will change the contact status of {{heading}} to \"Active\" and save the record.",
     "msg.amend.enrolment.popup": "This action will clear certain fields. Please review the entire template and provide the required information where missing.",
     "popup.warning":"Warning",
-    "popup.title":"Company template",
     "heading.company.contact":"company representative details {{seqnumber}}"
   }
