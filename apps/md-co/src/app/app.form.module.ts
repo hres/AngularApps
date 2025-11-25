@@ -27,7 +27,6 @@ export function HttpLoaderFactory(_httpBackend: HttpBackend) {
 }
 @NgModule({
   declarations: [
-    CompanyInfoComponent,
     PrimaryContactComponent,
     CompanyAdminChangesComponent,
     MailtoHelpComponent
@@ -60,7 +59,6 @@ export function HttpLoaderFactory(_httpBackend: HttpBackend) {
     CompanyAdminChangesService,
   ],
   exports: [CommonUiFeatureModule,
-    CompanyInfoComponent,
     PrimaryContactComponent,
     CompanyAdminChangesComponent,
     MailtoHelpComponent],

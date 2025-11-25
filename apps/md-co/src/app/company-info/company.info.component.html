@@ -1,5 +1,7 @@
 <div>
   <div [formGroup]="generalInfoFormLocalModel">
+    <lib-confirmation-popup [id]="amendEnrolmentPopupId" [title]="'popup.warning' | translate" [message]="'msg.amend.enrolment.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" (confirmed)="setAmendState()" (closed)="handleClosedPopup()" ></lib-confirmation-popup>
+
     <div class="row">
       <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12 minWidth200" >
         <label for="formStatusText">
@@ -31,12 +33,12 @@
     </div>
     <div class="row" *ngIf="showAmendButton">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-        <button class="btn btn-primary" (click)="setAmendState()" [disabled]="disableAmendButton" >
+        <button class="btn btn-primary" (click)="showAmendEnrolPopup($event)" [disabled]="disableAmendButton" >
           {{'amend.enrol'|translate}}</button>
       </div>
     </div>
 
-    <ng-container *ngIf="isAmend">
+    <ng-container *ngIf="isAmend || isAmendReasonsFilled">
       <div class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" id="amendReason">
           <legend class="required"><span class="field-name">{{'amend.reason' | translate}}</span>
