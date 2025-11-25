@@ -1,5 +1,7 @@
 <lib-layout>
     <ng-container header>
+        <section class="alert alert-info" [innerHTML]="'warning.text' | translate ">
+        </section>
         <section class="module-attention">
             <details>
                 <summary class="background-medium">{{ "top.privacy.statement" | translate }}</summary>
