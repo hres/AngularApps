@@ -10,6 +10,7 @@
     "choose.file":"Choose file",
     "no.file.chosen": "No file chosen",
     "application-info.enrolment": "Regulatory Application Information Enrolment",
+    "warning.text": "<p>This template is used to file medical device licence applications to Health Canada.</p><br><p>The web-based Extensible Markup Language (XML) application information file (REP AI XML) is required for only a subset of medical device transactions sent through the electronic submissions gateway (ESG).</p><br><p>Ensure that all fields in this template are completed in the sequential order. The selections made in certain fields may affect the visibility and availability of other fields and sections throughout the form.</p>",  
     "heading.app-info": "Application information",
     "company.id": "Manufacturer Company Identifier",
     "dossier.id": "Dossier Identifier",
