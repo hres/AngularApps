@@ -150,6 +150,7 @@
   "msg.company.revise.status.popup": "Cette action changera le statut du contact de {{heading}} en « Réviser » et enregistrera la fiche.",
   "msg.company.remove.status.popup": "Cette action changera le statut du contact de {{heading}} en « Supprimer » et désactivera la fiche.",
   "msg.active.and.save.company.popup": "Cette action changera le statut du contact de {{heading}} en « Actif » et enregistrera la fiche.",
+  "msg.amend.enrolment.popup": "Cette action effacera certains champs. Veuillez examiner l’ensemble du modèle attentivement et fournir les informations requises lorsqu’elles sont manquantes.",
   "popup.warning": "Avertissement",
   "heading.company.contact":"détails du représentant de la compagnie {{seqnumber}}"
 }

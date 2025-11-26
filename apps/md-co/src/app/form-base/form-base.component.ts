@@ -14,6 +14,7 @@ import { FilereaderInstructionComponent } from "../filereader-instruction/filere
 import { ContactListComponent } from '../contact/contact.list/contact.list.component';
 import { ContactModule } from '../contact/contact.module';
 import { AddressModule } from '../address/address.module';
+import { CompanyInfoComponent } from '../company-info/company.info.component';
 
 @Component({
     selector: 'app-form-base',
@@ -21,7 +22,7 @@ import { AddressModule } from '../address/address.module';
     templateUrl: './form-base.component.html',
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, PopupComponent, FilereaderInstructionComponent, ContactModule, AddressModule]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, PopupComponent, FilereaderInstructionComponent, ContactModule, AddressModule, CompanyInfoComponent]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -447,10 +448,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _init(companyEnroll: DeviceCompanyEnrol){
     this.genInfoModel = companyEnroll.general_information;
     // set amend reasons and admin changes section to null if status is Final
-    if (this._isFinal()) {   // ling todo review this
-      this.genInfoModel.amend_reasons = null;
-      // this.genInfoModel.are_licenses_transfered = '';
-    }
+    // if (this._isFinal()) {   // ling todo review this
+    //   this.genInfoModel.amend_reasons = null;
+    //   this.genInfoModel.are_licenses_transfered = '';
+    // }
     if (companyEnroll.administrative_changes) {
       this.adminChangesModel = companyEnroll.administrative_changes;
     }
