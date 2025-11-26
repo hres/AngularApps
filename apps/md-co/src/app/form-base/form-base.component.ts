@@ -340,6 +340,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (e) {
       this.disableForm = false;
     }
+    this.showErrors = true;
   }
 
   private _updateEnrollmentVersion(genInfo: GeneralInformation) {
