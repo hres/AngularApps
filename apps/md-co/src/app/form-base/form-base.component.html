@@ -139,9 +139,15 @@
         </button>
       </div>
       <div class="form-group col-md-4" *ngIf="!isInternal">
-        <a class="btn btn-primary btn-lg active" [href] = "mailToLink" (click)="mailto()"
-           [class.disabled]="disableMailto" >
-          {{'mailto.label'|translate}}
+        <a
+          class="btn btn-primary btn-lg active btn-mailto"
+          [href]="disableMailto ? null : mailToLink"
+          (click)="disableMailto ? $event.preventDefault() : mailto()"
+          [class.disabled]="disableMailto"
+          [class.bold]="disableMailto"
+          [attr.aria-disabled]="disableMailto"
+          [attr.tabindex]="disableMailto ? -1 : 0">
+          {{ 'mailto.label' | translate }}
         </a>
       </div>
     </div>

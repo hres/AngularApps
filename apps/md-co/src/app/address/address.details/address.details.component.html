@@ -61,7 +61,8 @@
           <select class="margin-top-small" id="{{addrType}}Country"
             [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required form-control"
             required="required" (typed)="typed($event)" (blur)="tempCountryOnblur($event)"
-            (change)="onCountryChange($event)">
+            (change)="onCountryChange($event)">            
+            <option label=" " value=""></option>
             <option *ngFor="let ctry of countries" [ngValue]="ctry.id">{{ctry | textTransform: lang }}</option>
           </select>
         </label>
