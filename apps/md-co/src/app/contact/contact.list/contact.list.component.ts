@@ -136,21 +136,22 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       this.initWithData();
     }
 
-    if (this.disableForm) {
-      this.disableFormGroup();
-    } else {
-      this.enableFormGroup();
-    
-      // collapse all records without errors
-      this._collapseValidRecords();
-    
-      const expanded = this._expandNextInvalidRecord(true);
-      if (!expanded) {
-        const firstFormRecord = this.contactList.at(0) as FormGroup;
-        firstFormRecord.controls['expandFlag'].setValue(true);
+    if (changes['disableForm']) {
+      const prev = changes['disableForm'].previousValue;
+      const curr = changes['disableForm'].currentValue;
+  
+      // Always enable/disable form properly
+      if (curr) {
+        this.disableFormGroup();
+      } else {
+        this.enableFormGroup();
+  
+        // Only run this AFTER going from disabled → enabled (e.g: loading in a final xml and pressing amend enrolment)
+        if (prev === true && curr === false) {
+          this._handlePostEnableBehavior();
+        }
       }
     }
-    
   }
 
   private initWithData() {
@@ -587,6 +588,20 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   enableFormGroup() {
     if (this.contactListForm) {
       this.contactListForm.enable();
+    }
+  }
+
+  private _handlePostEnableBehavior(): void {
+    // collapse valid records
+    this._collapseValidRecords();
+  
+    // expand next invalid record
+    const expanded = this._expandNextInvalidRecord(true);
+  
+    // if no invalid record exists, expand the first
+    if (!expanded) {
+      const firstFormRecord = this.contactList.at(0) as FormGroup;
+      firstFormRecord.controls['expandFlag'].setValue(true);
     }
   }
 }
