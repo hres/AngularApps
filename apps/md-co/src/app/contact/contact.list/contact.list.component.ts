@@ -136,10 +136,21 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       this.initWithData();
     }
 
-    if (this.disableForm) {
-      this.disableFormGroup();
-    } else {
-      this.enableFormGroup();
+    if (changes['disableForm']) {
+      const prev = changes['disableForm'].previousValue;
+      const curr = changes['disableForm'].currentValue;
+  
+      // Always enable/disable form properly
+      if (curr) {
+        this.disableFormGroup();
+      } else {
+        this.enableFormGroup();
+  
+        // Only run this AFTER going from disabled → enabled (e.g: loading in a final xml and pressing amend enrolment)
+        if (prev === true && curr === false) {
+          this._handlePostEnableBehavior();
+        }
+      }
     }
   }
 
@@ -236,7 +247,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     // when it runs to here, it means no errors for the contact record, so we should also remove its ErrorSummary if there is any
     this._errorNotificationService.removeErrorSummary(recordId.toString());
 
-    this._expandNextInvalidRecord();
+    this._expandNextInvalidRecord(false);
 
     this.showErrors = true;
 
@@ -257,17 +268,26 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.contactsUpdated.emit(this.contactModel);
   }
 
-  private _expandNextInvalidRecord() {
-    // expand next invalid record
+  private _expandNextInvalidRecord(returnValue?: boolean): boolean | void {
     for (let index = 0; index < this.contactList.controls.length; index++) {
-      const element: FormGroup = this.contactList.controls[index] as FormGroup;
-      // console.log(element);
+      const element = this.contactList.controls[index] as FormGroup;
       if (element.invalid) {
         element.controls['expandFlag'].setValue(true);
-        break;
+        return returnValue ? true : undefined;
       }
     }
-  }
+    return returnValue ? false : undefined;
+  }  
+
+  private _collapseValidRecords(): void {
+    this.contactList.controls.forEach((ctrl) => {
+      const group = ctrl as FormGroup;
+      if (!group.invalid) {
+        group.controls['expandFlag'].setValue(false);
+      }
+    });
+  }  
+  
   /**
    *  Updates the error list
    * @param errs - the list of errors to broadcast
@@ -363,7 +383,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     // since the contact record is deleted, we should also remove its ErrorSummary if there is any
     this._errorNotificationService.removeErrorSummary(this.contactId.toString());
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
-    this._expandNextInvalidRecord();
+    this._expandNextInvalidRecord(false);
     if (this.lang == "en") {
       this.statusMessage = "Contact record " + deletedRec.controls['seqNumber'].value + " has been deleted."
     } else {
@@ -568,6 +588,20 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   enableFormGroup() {
     if (this.contactListForm) {
       this.contactListForm.enable();
+    }
+  }
+
+  private _handlePostEnableBehavior(): void {
+    // collapse valid records
+    this._collapseValidRecords();
+  
+    // expand next invalid record
+    const expanded = this._expandNextInvalidRecord(true);
+  
+    // if no invalid record exists, expand the first
+    if (!expanded) {
+      const firstFormRecord = this.contactList.at(0) as FormGroup;
+      firstFormRecord.controls['expandFlag'].setValue(true);
     }
   }
 }

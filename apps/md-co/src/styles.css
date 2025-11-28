@@ -14,3 +14,18 @@ label > input {
 .upperCase {
     text-transform: uppercase;
 }
+
+.btn-mailto {
+    font-weight: normal;
+    background-color: #1c578a;
+    cursor: pointer;
+}
+
+.btn-mailto.bold {
+    font-weight: bold;
+}
+
+.btn-mailto.disabled {
+    background-color: #5a9bd4;
+    cursor: not-allowed;
+}
