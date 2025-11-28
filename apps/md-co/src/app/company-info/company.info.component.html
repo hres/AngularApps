@@ -86,12 +86,12 @@
               <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
               <control-messages *ngIf="generalInfoFormLocalModel.controls['areLicensesTransfered'].invalid" [showError]="showFieldErrors"
                           [control]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl"
-                          controlId="areLicensesTransferedLabel" label="ownership.transferred"
+                          controlId="areLicensesTransfered0" label="ownership.transferred"
                           parentId="generalInfo"
                           parentLabel="Regulatory Company Enrolment"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
-              <label id="areLicensesTransferedLabel" for="areLicensesTransfered{{i}}" class="radio-inline">
+              <label for="areLicensesTransfered{{i}}" class="radio-inline">
                   <input type="radio" name="areLicensesTransfered"
                   id="areLicensesTransfered{{i}}" [value]="yesno.id" required
                   (change)="areLicensesBeingTransferedOnChange()"
