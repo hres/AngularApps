@@ -142,12 +142,13 @@
                 <control-messages *ngIf="appInfoFormLocalModel.controls['isIvdd'].invalid" [showError]="showFieldErrors"
                   [control]="appInfoFormLocalModel.controls['isIvdd'] | formControl" controlId="isIvdd" label="is.ivdd"
                   parentId="appInfoDetails"></control-messages>
-                <select id="isIvdd" name="isIvdd" required="required" class="form-control"
-                  [formControl]="appInfoFormLocalModel.controls['isIvdd'] | formControl">
-                  <option label=" " value=""></option>
-                  <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}
-                  </option>
-                </select>
+                <div>
+                  <label *ngFor="let yesno of yesNoList; let i = index" for="isIvdd" class="radio-inline">
+                    <input type="radio" id="isIvdd" name="isIvdd" [value]="yesno.id" aria-required="true"
+                      [formControl]="appInfoFormLocalModel.controls['isIvdd']  | formControl" />
+                    {{yesno | textTransform: lang }}
+                  </label>
+                </div>
               </label>
             </div>
           </div>
@@ -159,12 +160,13 @@
                 <control-messages *ngIf="appInfoFormLocalModel.controls['isHomeUse'].invalid"
                   [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['isHomeUse'] | formControl"
                   controlId="isHomeUse" label="is.home.use" parentId="appInfoDetails"></control-messages>
-                <select id="isHomeUse" name="isHomeUse" required="required" class="form-control"
-                  [formControl]="appInfoFormLocalModel.controls['isHomeUse'] | formControl">
-                  <option label=" " value=""></option>
-                  <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}
-                  </option>
-                </select>
+                <div>
+                  <label *ngFor="let yesno of yesNoList; let i = index" for="isIvdd" class="radio-inline">
+                    <input type="radio" id="isHomeUse" name="isHomeUse" [value]="yesno.id" aria-required="true"
+                      [formControl]="appInfoFormLocalModel.controls['isHomeUse']  | formControl" />
+                    {{yesno | textTransform: lang }}
+                  </label>
+                </div>
               </label>
             </div>
             <div class="form-group col-xs-12">
@@ -174,12 +176,13 @@
                 <control-messages *ngIf="appInfoFormLocalModel.controls['isCarePoint'].invalid"
                   [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['isCarePoint'] | formControl"
                   controlId="isCarePoint" label="is.point.care" parentId="appInfoDetails"></control-messages>
-                <select id="isCarePoint" name="isCarePoint" required="required" class="form-control"
-                  [formControl]="appInfoFormLocalModel.controls['isCarePoint'] | formControl">
-                  <option label=" " value=""></option>
-                  <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}
-                  </option>
-                </select>
+                <div>
+                  <label *ngFor="let yesno of yesNoList; let i = index" for="isCarePoint" class="radio-inline">
+                    <input type="radio" id="isCarePoint" name="isCarePoint" [value]="yesno.id" aria-required="true"
+                      [formControl]="appInfoFormLocalModel.controls['isCarePoint']  | formControl" />
+                    {{yesno | textTransform: lang }}
+                  </label>
+                </div>
               </label>
             </div>
           </div>
@@ -192,12 +195,14 @@
                   [showError]="showFieldErrors"
                   [control]="appInfoFormLocalModel.controls['isEmitRadiation'] | formControl"
                   controlId="isEmitRadiation" label="contain.radiation" parentId="appInfoDetails"></control-messages>
-                <select id="isEmitRadiation" name="isEmitRadiation" required="required" class="form-control"
-                  [formControl]="appInfoFormLocalModel.controls['isEmitRadiation'] | formControl">
-                  <option label=" " value=""></option>
-                  <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}
-                  </option>
-                </select>
+                <div>
+                  <label *ngFor="let yesno of yesNoList; let i = index" for="isEmitRadiation" class="radio-inline">
+                    <input type="radio" id="isEmitRadiation" name="isEmitRadiation" [value]="yesno.id"
+                      aria-required="true"
+                      [formControl]="appInfoFormLocalModel.controls['isEmitRadiation']  | formControl" />
+                    {{yesno | textTransform: lang }}
+                  </label>
+                </div>
               </label>
             </div>
           </div>
@@ -209,12 +214,13 @@
                 <control-messages *ngIf="appInfoFormLocalModel.controls['hasDrug'].invalid"
                   [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['hasDrug'] | formControl"
                   controlId="hasDrug" label="contain.drug" parentId="appInfoDetails"></control-messages>
-                <select id="hasDrug" name="hasDrug" required="required" class="form-control"
-                  (change)="hasDrugOnChange()" [formControl]="appInfoFormLocalModel.controls['hasDrug'] | formControl">
-                  <option label=" " value=""></option>
-                  <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}
-                  </option>
-                </select>
+                <div>
+                  <label *ngFor="let yesno of yesNoList; let i = index" for="hasDrug" class="radio-inline">
+                    <input type="radio" id="hasDrug" name="hasDrug" [value]="yesno.id" aria-required="true"
+                      [formControl]="appInfoFormLocalModel.controls['hasDrug']  | formControl" />
+                    {{yesno | textTransform: lang }}
+                  </label>
+                </div>
               </label>
             </div>
             <div *ngIf="hasDrug()" class="form-group col-xs-12">
