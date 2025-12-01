@@ -170,6 +170,10 @@ export class AddressDetailsComponent implements OnInit {
       this.showProvText = true;
     }
     this._setPostalPattern(countryValue);
+
+    if (this._utilsService.isCanadaOrUSA(countryValue)) {
+      this.addressFormLocalModel.get('provList').setValue(null);
+    }
     // update errors manually?
     if (this.showFieldErrors) {
   //     this.cdr.detectChanges(); // doing our own change detection
