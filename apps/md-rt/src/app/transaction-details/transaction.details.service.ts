@@ -274,18 +274,18 @@ export class TransactionDetailsService {
   }
 
   isBriefDescRequired(txDescription: TransactionDesc): boolean{
-    const txtDescRequireBriefDesc = [TransactionDesc.UD, TransactionDesc.ER];
+    const txtDescRequireBriefDesc = [TransactionDesc.UD];
 
     return txtDescRequireBriefDesc.includes(txDescription) ? true : false;
   }
 
   isMandatoryAppNumRequired(txDescription: TransactionDesc): boolean{
-    const txDescRequireMandatoryAppNum = [TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.RS, TransactionDesc.WR, TransactionDesc.RQ_REVIEW_REPORT, TransactionDesc.ROHL, TransactionDesc.RRIR, TransactionDesc.UD, TransactionDesc.MM];
+    const txDescRequireMandatoryAppNum = [TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.WR, TransactionDesc.RQ_REVIEW_REPORT, TransactionDesc.ROHL, TransactionDesc.RRIR, TransactionDesc.UD, TransactionDesc.MM];
     return txDescRequireMandatoryAppNum.includes(txDescription)
   }
 
   isOptionalAppNumRequired(txDescription: TransactionDesc): boolean{
-    const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.ER];
+    const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.ER];
     return txDescRequireOptionalAppNum.includes(txDescription)
   }
 
