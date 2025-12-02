@@ -33,7 +33,6 @@ export interface ApplicationInfo {
   has_ddt:                  string;
   org_manufacture_id:       string;
   org_manufacture_lic:      string;
-  meeting_id:               string;
   proposed_licence_name:    string;
   brief_description:        string;
   rationale:                string;
