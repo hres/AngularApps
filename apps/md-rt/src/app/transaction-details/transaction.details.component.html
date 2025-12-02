@@ -81,7 +81,7 @@
             label="activity.type" parentId="transDetails"></control-messages>
           <select id="activityType" name="activityType" required class="form-control full-width"
             (change)="activityTypeOnChange()" [formControl]="transDetailsForm.controls['activityType'] | formControl">
-            <option label="{{ 'select.option' | translate }}" value="" disabled></option>
+            <option label="{{ 'select.option' | translate }}" [ngValue]="null" disabled></option>
             <option *ngFor="let type of actTypeList" [ngValue]="type.id"    required="required" > {{ type | textTransform: lang }}</option>
           </select>
         </label>

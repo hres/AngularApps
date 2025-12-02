@@ -6,7 +6,8 @@ import {FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BaseComponent, CheckboxOption, ControlMessagesComponent, ICode, ICodeAria, IParentChildren, UtilsService } from '@hpfb/sdk/ui';
 import {TransactionDetailsService} from './transaction.details.service';
 import { GlobalService } from '../global/global.service';
-import { RegulatoryActivityType, AmendReason, DeviceClass, TransactionDesc } from '../app.constants';
+import { RegulatoryActivityType, AmendReason, DeviceClass, TransactionDesc, deprecatedTxDescs, deprecatedActivityTypes } from '../app.constants';
+import { ApplicationInfo } from '../models/Enrollment';
 
 @Component({
   selector: 'transaction-details',
@@ -77,13 +78,26 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
     if (changes['transactionInfoModel'] && !changes['transactionInfoModel'].firstChange) {
       // console.log('**********the transaction model changed');
-      const dataModel = changes['transactionInfoModel'].currentValue;
+      const dataModel: ApplicationInfo = changes['transactionInfoModel'].currentValue;
       if (!this.transDetailsForm) {
         this.transDetailsForm = this._detailsService.getReactiveModel(this._fb);
         this.transDetailsForm.markAsPristine();
       }
       this._detailsService.mapDataModelToDetailForm(dataModel, (<FormGroup>this.transDetailsForm), this.amendReasonList,
         this.raTypeDeviceClassAmendReason, this.amendReasonOptionList, this.lang);
+      
+      const activityTypeDataModel: string = this._utilsService.getIdFromIdTextLabel(dataModel.regulatory_activity_type);
+      if (deprecatedActivityTypes.includes(activityTypeDataModel)) {
+        this.activityTypeFormControl.setValue(null); // Set form's activity type to null
+        this.txDescriptionFormControl.setValue(null); // Then set tx desc to null because it depends on activity type
+      }
+      const txDescValueDataModel: string = this._utilsService.getIdFromIdTextLabel(dataModel.description_type);
+      if (deprecatedTxDescs.includes(txDescValueDataModel)) {
+        this.txDescriptionFormControl.setValue(null);
+        if (this.activityTypeFormControl.value) {
+          this.raTypeSelected = true; // Set flag to true if ra type is not null (after loading in form)
+        }
+      }
 
       const raTypeValue: string = this.activityTypeFormControl.value;
       if (raTypeValue) {
