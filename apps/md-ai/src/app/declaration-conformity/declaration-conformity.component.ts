@@ -106,6 +106,14 @@ export class DeclarationConformityComponent {
     return false;
   }
 
+  isMandatoryForClassII() {
+    if ((this._appInfoService.raTypeLicence() || this._appInfoService.raTypeLicenceAmend())
+      && (this._appInfoService.deviceClassII()) ) {
+      return true;
+    }
+    return false;
+  }
+
   isNoDeclaration() {
     if (this.declarationLocalModel.controls['declarationConformity'].value) {
       return (this.declarationLocalModel.controls['declarationConformity'].value === NO);

@@ -10,7 +10,7 @@
     "choose.file":"Choose file",
     "no.file.chosen": "No file chosen",
     "application-info.enrolment": "Regulatory Application Information Enrolment",
-    "warning.text": "<p>This template is used to file medical device licence applications to Health Canada.</p><br><p>The web-based Extensible Markup Language (XML) application information file (REP AI XML) is required for only a subset of medical device transactions sent through the electronic submissions gateway (ESG).</p><br><p>Ensure that all fields in this template are completed in the sequential order. The selections made in certain fields may affect the visibility and availability of other fields and sections throughout the form.</p>",  
+    "warning.text": "<p>This template is used to file medical device licence applications to Health Canada.</p><br><p>The web-based Extensible Markup Language (XML) application information file (REP AI XML) is required for only a subset of medical device transactions sent through the electronic submissions gateway (ESG).</p><br><p>Ensure that all fields in this template are completed in the sequential order. The selections made in certain fields may affect the visibility and availability of other fields and sections throughout the form.</p>",
     "heading.app-info": "Application information",
     "company.id": "Manufacturer Company Identifier",
     "dossier.id": "Dossier Identifier",
@@ -86,6 +86,9 @@
     "conformity.declaration": "Declaration of conformity form (available on the Health Canada website) confirms that the medical device(s) comply with recognized standards or equivalent or better standards",
     "declaration.instruct1": "In lieu of a Declaration of Conformity confirming that the subject device(s) are designed and manufactured in compliance with recognized standards, detailed information should be provided in the corresponding section of the IMDRF folder structure as evidence of the device(s) meeting an equivalent or better standard.",
     "declaration.instruct2": "Alternatively, if the subject device(s) DO NOT conform with a recognized, equivalent, or better standard then detailed information should be provided as evidence of the safety and effectiveness of these devices as per the ",
+    "conformity.declaration.medical.device.title": "The medical devices subject to this application conform with Recognized Standards as set out in the Guidance document on Recognition and Use of Standards under the Medical Devices Regulations (opens in new window). An attestation listing the recognized standard(s) that the subject medical device(s) comply with has been included in the corresponding section of the IMDRF folder structure.",
+    "conformity.declaration.medical.device.instruct": "An attestation must be included in the corresponding section of the IMDRF folder structure stating that there is objective evidence that the device(s): • meet an equivalent or better standard, or • has been tested and that alternative evidence of safety and effectiveness is available",
+    "conformity.declaration.medical.device.link": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/using-standards-support-compliance-regulations.html",
     "declaration.instruct.link": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-document-recognition-use-standards-under-medical-devices-regulations.html",
     "declaration.instruct.tite": "Guidance Document on Recognition and Use of Standards under the Medical Devices Regulations.",
     "containing.material": "Devices containing biological material",
@@ -144,7 +147,7 @@
     "security.declaimer": "Security Disclaimer",
     "PROTECTED_B": "Protected \"B\" when completed",
     "section.show.option": "[ This section may not be visible.] ",
-  
+
     "help.file.load_1": "When continuing with a working copy, the format of the file to load should be .hcsc.",
     "help.file.load_2": "When viewing a draft or final XML file, the format of the file to load should be .xml.",
     "help.app.info_1": "The manufacturer company identifier must be obtained from the final company XML file, issued by Health Canada.",
@@ -160,4 +163,3 @@
     "help.priority.rev":"manufacturers can request priority review for their application in order to ensure a timely review of critical new medical devices for serious, life threatening, or severely debilitating diseases or conditions. Manufacturers will be notified at screening acceptance whether their application was accepted for priority review.",
     "alert.info":"Alert information"
     }
-    

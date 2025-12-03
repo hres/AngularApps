@@ -21,7 +21,8 @@
             <div>
               <label *ngFor="let yesno of yesNoList; let i = index" for="declarationConformity" class="radio-inline">
                 <input type="radio" id="declarationConformity" name="declarationConformity" [value]="yesno.id"
-                  aria-required="true" [formControl]="declarationLocalModel.controls['declarationConformity'] | formControl">
+                  aria-required="true"
+                  [formControl]="declarationLocalModel.controls['declarationConformity'] | formControl">
                 {{yesno | textTransform: lang }}
               </label>
             </div>
@@ -44,19 +45,52 @@
             <div>
               <label *ngFor="let yesno of yesNoList; let i = index" for="declarationConformity" class="radio-inline">
                 <input type="radio" id="declarationConformity" name="declarationConformity" [value]="yesno.id"
-                  aria-required="true" [formControl]="declarationLocalModel.controls['declarationConformity'] | formControl">
+                  aria-required="true"
+                  [formControl]="declarationLocalModel.controls['declarationConformity'] | formControl">
                 {{yesno | textTransform: lang }}
               </label>
             </div>
           </label>
         </div>
       </div>
+
+      <div *ngIf="isMandatoryForClassII()" class="row">
+        <div class="form-group col-xs-12">
+          <label for="declarationConformity" class="full-width">
+            <span class="field-name">{{'conformity.declaration.medical.device.title' |translate}}</span>
+            <sup id="ap8-rf">
+              <a class="fn-lnk" href="#ap8"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.cfmDecIndx}}</a>
+            </sup>
+            <!--<control-messages *ngIf="appInfoFormLocalModel.controls.declarationConformity.invalid"-->
+            <!--[showError]="showFieldErrors"-->
+            <!--[control]="appInfoFormLocalModel.controls.declarationConformity"-->
+            <!--controlId="declarationConformity" label="conformity.declaration"-->
+            <!--parentId="appInfoDetails"></control-messages>-->
+            <div>
+              <label *ngFor="let yesno of yesNoList; let i = index" for="declarationConformity" class="radio-inline">
+                <input type="radio" id="declarationConformity" name="declarationConformity" [value]="yesno.id"
+                  aria-required="true"
+                  [formControl]="declarationLocalModel.controls['declarationConformity'] | formControl">
+                {{yesno | textTransform: lang }}
+              </label>
+            </div>
+          </label>
+        </div>
+      </div>
+
+
       <div *ngIf="isNoDeclaration()" class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="alert alert-info" role="alert">
+          <div class="alert alert-info" role="alert" *ngIf="isOptional() || isMandatory()">
             <p aria-live="polite">{{'declaration.instruct1'|translate}}</p>
             <p aria-live="polite">{{'declaration.instruct2'|translate}}
               <a href="{{'declaration.instruct.link'|translate}}">{{'declaration.instruct.tite'|translate}}</a>
+            </p>
+          </div>
+          <div class="alert alert-info" role="alert" *ngIf="isMandatoryForClassII() ">
+            <p aria-live="polite">{{'conformity.declaration.medical.device.instruct'|translate}}
+              <a href="{{'conformity.declaration.medical.device.link'|translate}}">{{'declaration.instruct.tite'|translate}}</a>
             </p>
           </div>
         </div>

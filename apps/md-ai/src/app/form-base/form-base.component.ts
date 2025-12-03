@@ -43,18 +43,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _appInfoDetailErrors = [];
   private _deviceErrors = [];
-  private _materialInfoErrors = []; 
+  private _materialInfoErrors = [];
   private _materialListErrors = [];
   private _priorityRevErrors = [];
   private _declarationErrors = [];
-  
+
   //computed(() => {
     // console.log("computed", this._materialService.errors());
     // this._materialErrors = this._materialService.errors();
     // this.processErrors(); });
   public applicationForm: FormGroup;  // todo: do we need it? could remove?
   public errorList = [];
-  public rootTagText = ROOT_TAG; 
+  public rootTagText = ROOT_TAG;
   private xslName: string;
 
   public countryList = [];
@@ -66,10 +66,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public headingLevel = 'h2';
 
   lang = this._globalService.lang();
-  
+
 
   public enrollModel : Enrollment;
-  public appInfoModel : ApplicationInfo; 
+  public appInfoModel : ApplicationInfo;
   public transactionModel: Enrollment;
   public deviceModel: Device[];
   public materialInfo: BiologicalMaterialData;
@@ -117,7 +117,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     // this means it's associated with a reactive form, and Angular automatically prevents the default form submission behavior
-    this.applicationForm = this.fb.group({}); 
+    this.applicationForm = this.fb.group({});
 
     try {
       if (!this._globalService.getEnrollment()) {
@@ -136,7 +136,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     } catch (e) {
       console.error(e);
-    }      
+    }
   }
 
   ngAfterViewInit(): void {
@@ -158,7 +158,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._appInfoDetailErrors = errorList;
     this.processErrors();
   }
-  
+
   processPriorityRevErrors(errorList) {
     this._priorityRevErrors = errorList;
     this.processErrors();
@@ -168,7 +168,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._declarationErrors = errorList;
     this.processErrors();
   }
-  
+
 
   /**
    * Resets material errors when device class is changed from Class IV
@@ -195,7 +195,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
     this.processErrors();
   }
-  
+
   public hideErrorSummary() {
     return (this.showErrors && this.errorList && this.errorList.length > 0);
   }
@@ -216,7 +216,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       document.location.href = '#topErrorSummary';
     } else {
       const aiDevices = this.aiDevices;
-      
+
       let aiMaterials;
       if (this.bioMaterialInfo) {
         aiMaterials = this.bioMaterialInfo.aiMaterials;
@@ -228,7 +228,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         } else {
             this.openPopup();
         }
-      } 
+      }
 
       if (!aiMaterials && aiDevices) {
         if (this.aiDevices.deviceListForm.pristine) {
@@ -359,7 +359,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       for (let i = 0; i < devicesFormArrayControls.length; i++) {
         // if (devicesFormArrayControls[i].invalid) {
         //   this._deviceService.showDeviceErrorSummary.set(true);
-        // } 
+        // }
 
         // If Generate XML is clicked for the first time and if there are any empty/unsaved records, show error summary
         if (this.processXmlCount == 1 && devicesFormArrayControls[i].invalid) {
@@ -386,7 +386,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         for (let i = 0; i < materialsFormArrayControls.length; i++) {
           // if (materialsFormArrayControls[i].invalid) {
             // this._materialService.showMaterialErrorSummary.set(true);
-          // } 
+          // }
 
           // If Generate XML is clicked for the first time and if there are any empty/unsaved records, show error summary
           if (this.processXmlCount == 1 && materialsFormArrayControls[i].invalid) {
@@ -401,7 +401,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     if (this._appInfoService.deviceClassIV()) {
       return true;
-    } 
+    }
     return false;
   }
 
@@ -409,7 +409,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if ((this._appInfoService.raTypeLicence()
       || this._appInfoService.raTypeLicenceAmend())
     && (this._appInfoService.deviceClassIII()
-      || this._appInfoService.deviceClassIV())) {
+      || this._appInfoService.deviceClassIV())
+       || this._appInfoService.deviceClassII()
+     ) {
       return true;
     } else {
     }
