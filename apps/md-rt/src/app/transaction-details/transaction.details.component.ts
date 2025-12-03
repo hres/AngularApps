@@ -88,12 +88,12 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       
       const activityTypeDataModel: string = this._utilsService.getIdFromIdTextLabel(dataModel.regulatory_activity_type);
       if (deprecatedActivityTypes.includes(activityTypeDataModel)) {
-        this.activityTypeFormControl.setValue(null); // Set form's activity type to null
-        this.txDescriptionFormControl.setValue(null); // Then set tx desc to null because it depends on activity type
+        this.activityTypeFormControl.setValue(""); // Set form's activity type to null
+        this.txDescriptionFormControl.setValue(""); // Then set tx desc to null because it depends on activity type
       }
       const txDescValueDataModel: string = this._utilsService.getIdFromIdTextLabel(dataModel.description_type);
       if (deprecatedTxDescs.includes(txDescValueDataModel)) {
-        this.txDescriptionFormControl.setValue(null);
+        this.txDescriptionFormControl.setValue("");
         if (this.activityTypeFormControl.value) {
           this.raTypeSelected = true; // Set flag to true if ra type is not null (after loading in form)
         }
@@ -104,6 +104,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
         // dynamically load the transaction description dropdowns according to the selected activity type value
         this.transDescList = this._getTransactionDescriptions(this.raTypeTxDesc, raTypeValue);
       }
+      this._descrDeviceOnblur();
     }
 
   }
@@ -119,6 +120,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       // dynamically load the transaction description dropdowns according to the selected activity type value
       this.transDescList = this._getTransactionDescriptions(this.raTypeTxDesc, selectedRaTypeValue);
       this.raTypeSelected = true;
+      this.txDescriptionFormControl.setValue("");
     } else {
       this.transDescList = [];
       this.raTypeSelected = false;

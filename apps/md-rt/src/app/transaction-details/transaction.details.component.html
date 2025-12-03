@@ -81,8 +81,8 @@
             label="activity.type" parentId="transDetails"></control-messages>
           <select id="activityType" name="activityType" required class="form-control full-width"
             (change)="activityTypeOnChange()" [formControl]="transDetailsForm.controls['activityType'] | formControl">
-            <option label="{{ 'select.option' | translate }}" [ngValue]="null" disabled></option>
-            <option *ngFor="let type of actTypeList" [ngValue]="type.id"    required="required" > {{ type | textTransform: lang }}</option>
+            <option label="{{ 'select.option' | translate }}" [ngValue]="" disabled></option>
+            <option *ngFor="let type of actTypeList" [ngValue]="type.id"  > {{ type | textTransform: lang }}</option>
           </select>
         </label>
       </div>
@@ -99,7 +99,7 @@
             label="trans.description" parentId="transDetails"></control-messages>
           <select id="descriptionType" name="descriptionType" required class="form-control full-width"  required="required"
             (change)="descriptionOnChange()" [formControl]="transDetailsForm.controls['descriptionType'] | formControl">
-            <option [ngValue]="null" disabled>
+            <option [ngValue]="" value="" disabled>
               @if (!raTypeSelected) {
               {{ 'transaction.description.default.option' | translate }} }
               @else {
@@ -151,7 +151,7 @@
             <li class="checkbox" formArrayName="amendReasons"
               *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
               <label for={{amendReasonOptionList[i].value}}>
-                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" required="required"
+                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl"
                   (change)="amendReasonOnChange()" /> {{amendReasonOptionList[i].label}}
               </label>
             </li>
