@@ -409,8 +409,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if ((this._appInfoService.raTypeLicence()
       || this._appInfoService.raTypeLicenceAmend())
     && (this._appInfoService.deviceClassIII()
-      || this._appInfoService.deviceClassIV())
-       || this._appInfoService.deviceClassII()
+      || this._appInfoService.deviceClassIV()
+       || this._appInfoService.deviceClassII())
      ) {
       return true;
     } else {
