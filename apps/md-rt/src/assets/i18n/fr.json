@@ -48,6 +48,7 @@
   "error.mgs.licence.number": "Entrée non valide - doit être 6 chiffres - Ajouter un 0 à gauche si le numéro d'homologation contient moins de 6 chiffres",
   "error.msg.invalidDate": "Cette date n'est pas valide",
   "commmon.required.bracket": " (obligatoire)",
+  "sr.required":"obligatoire",
   "errorSummary.transaction": "Formulaire de transaction",
   "error.found.because":" n’a pas pu être sauvegardé car ",
   "error.found.plural": " erreurs ont été trouvées.",

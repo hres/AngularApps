@@ -79,7 +79,7 @@
           <control-messages *ngIf="transDetailsForm.controls['activityType'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['activityType'] | formControl" controlId="activityType"
             label="activity.type" parentId="transDetails"></control-messages>
-          <select id="activityType" name="activityType" required class="form-control full-width"
+          <select id="activityType" name="activityType" required class="form-control full-width" required="required"
             (change)="activityTypeOnChange()" [formControl]="transDetailsForm.controls['activityType'] | formControl">
             <option label="{{ 'select.option' | translate }}" [ngValue]="" disabled></option>
             <option *ngFor="let type of actTypeList" [ngValue]="type.id"  > {{ type | textTransform: lang }}</option>
@@ -140,12 +140,18 @@
 
     <div class="row" *ngIf="showAmendReason()">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <fieldset class="chkbxrdio-grp" id="amendReasons">
-          <legend class="required"><span class="field-name">{{'amend.reason' | translate}}</span>
-            <strong class="required"  aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="amendReasonChkFormArray.invalid" [showError]="showFieldErrors"
-              [control]="amendReasonChkFormArray | formControl" controlId="amendReasons" label="amend.reason"
-              parentId="transDetails"></control-messages>
+        <fieldset class="chkbxrdio-grp" id="amendReasons" role="group" aria-required="true">
+          <legend class="required">
+            <span class="field-name">{{'amend.reason' | translate}}</span>
+            <span id="amendReasonsRequired" class="sr-only">{{'sr.required' | translate }}</span>
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>    
+            <control-messages *ngIf="amendReasonChkFormArray.invalid"
+              [showError]="showFieldErrors"
+              [control]="amendReasonChkFormArray | formControl"
+              controlId="amendReasons"
+              label="amend.reason"
+              parentId="transDetails">
+            </control-messages>
           </legend>
           <ul class="form-group list-unstyled">
             <li class="checkbox" formArrayName="amendReasons"

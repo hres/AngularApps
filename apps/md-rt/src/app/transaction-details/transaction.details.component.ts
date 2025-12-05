@@ -8,6 +8,7 @@ import {TransactionDetailsService} from './transaction.details.service';
 import { GlobalService } from '../global/global.service';
 import { RegulatoryActivityType, AmendReason, DeviceClass, TransactionDesc, deprecatedTxDescs, deprecatedActivityTypes } from '../app.constants';
 import { ApplicationInfo } from '../models/Enrollment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'transaction-details',
@@ -40,8 +41,10 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
   public amendReasonOptionList: CheckboxOption[] = [];
 
+  public srRequiredText : string = '';
+
   constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
-    private _utilsService: UtilsService, private cdr: ChangeDetectorRef) {
+    private _utilsService: UtilsService, private cdr: ChangeDetectorRef, private translate: TranslateService) {
 
     super();
     this.showFieldErrors = false;
@@ -63,6 +66,9 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     // console.log(this.raTypeDeviceClassAmendReason)
     this.raTypeTxDesc = this._globalService.$activityTypeTxDescription;
     // console.log(this.raTypeTxDesc)
+    this.translate.get('sr.required').subscribe(value => {
+      this.srRequiredText = value;
+    });
   }
 
   protected override emitErrors(errors: any[]): void {
