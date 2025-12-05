@@ -334,27 +334,30 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <label for="hasDdtMan" class="required"  aria-hidden="true">
-          <strong>{{'has.ddt'|translate}}</strong>
-          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-          <sup id="tr10-rf">
-            <a class="fn-lnk" href="#tr10"><span
-                class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpIndex['deviceDetailInx']}}</a>
-          </sup>
-          <control-messages *ngIf="transDetailsForm.controls['hasDdtMan'].invalid" [showError]="showFieldErrors"
-            [control]="transDetailsForm.controls['hasDdtMan'] | formControl" controlId="hasDdtMan" label="has.ddt"
-            parentId="transDetails"></control-messages>
-        </label>
-        <div>
-          <label *ngFor="let yesno of yesNoList; let i = index" for="hasDdtMaId{{i}}" class="radio-inline">
-            <input type="radio" id="hasDdtMaId{{i}}" name="hasDdtMan" [value]="yesno.id" required="required"
-              [formControl]="transDetailsForm.controls['hasDdtMan'] | formControl" />
-            {{yesno | textTransform: lang }}
-          </label>
-        </div>
+    <div class="row form-group">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <fieldset class="chkbxrdio-grp">
+          <legend class="required">
+              {{ 'has.ddt' | translate}}
+              <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
+              <sup id="tr10-rf">
+                <a class="fn-lnk" href="#tr10"><span
+                    class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpIndex['deviceDetailInx']}}</a>
+              </sup>
+              <control-messages *ngIf="transDetailsForm.controls['hasDdtMan'].invalid" [showError]="showFieldErrors"
+              [control]="transDetailsForm.controls['hasDdtMan'] | formControl" controlId="hasDdtMan" label="has.ddt"
+              parentId="transDetails"></control-messages>
+          </legend>
+          <ng-container *ngFor="let yesno of yesNoList; let i = index">
+              <label for="hasDdtMaId{{i}}" class="radio-inline">
+                <input type="radio" id="hasDdtMaId{{i}}" name="hasDdtMan" [value]="yesno.id" required="required"
+                  [formControl]="transDetailsForm.controls['hasDdtMan'] | formControl" />
+                {{yesno | textTransform: lang }}
+              </label>
+          </ng-container>
+      </fieldset>
       </div>
     </div>
+
   </div>
 </div>
