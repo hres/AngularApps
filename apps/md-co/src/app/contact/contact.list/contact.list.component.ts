@@ -312,7 +312,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       oerr.type = ERR_TYPE_LEAST_ONE_REC;
 
       if (this.contactList.length == 0) {
-        oerr.tableId = 'headingContactInfo';
+        oerr.tableId = 'addContactBtn';
       } else {
         oerr.tableId = 'contactListTable';
       }
