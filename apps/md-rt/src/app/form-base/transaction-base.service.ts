@@ -48,7 +48,6 @@ export class TransactionBaseService {
         has_ddt: '',
         org_manufacture_id: '',
         org_manufacture_lic: '',
-        meeting_id: '',
         proposed_licence_name: '',
         brief_description: '',
         rationale: '',

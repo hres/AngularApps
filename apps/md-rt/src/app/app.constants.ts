@@ -67,3 +67,11 @@ export const helpInstructionHeadings = [
   'licenseNumberlInx',
   'deviceDetailInx',
 ];
+
+export const deprecatedTxDescs = [
+  'ACD', // Appeal Comprehensive Document
+]
+
+export const deprecatedActivityTypes = [
+  'B02-20160301-081' // Response to s.25 Letter
+]
