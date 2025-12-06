@@ -57,10 +57,25 @@
       <div *ngIf="isMandatoryForClassII()" class="row">
         <div class="form-group col-xs-12">
           <label for="declarationConformity" class="full-width">
-            <span class="field-name">{{'conformity.declaration.medical.device.title' |translate}}</span>
+            <span class="field-name">{{'conformity.declaration' |translate}}</span>
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+
+            <!-- <sup id="ap8-rf">
+              <a class="fn-lnk" href="#ap8"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.cfmDecIndx}}</a>
+            </sup> -->
+            <span class="field-name">{{'conformity.declaration.medical.device.title.part1' |translate}}</span>
+            <a href="{{'declaration.instruct.link'|translate}}">{{'declaration.instruct.tite'|translate}}</a>
+            <span class="field-name">{{'conformity.declaration.medical.device.title.part2' |translate}}</span>
+
+            <control-messages *ngIf="declarationLocalModel.controls['declarationConformity'].invalid"
+            [showError]="showFieldErrors"
+            [control]="declarationLocalModel.controls['declarationConformity'] | formControl"
+            controlId="declarationConformity" label="conformity.declaration"
+            parentId="declarationCon"></control-messages>
             <div>
               <label *ngFor="let yesno of yesNoList; let i = index" for="declarationConformity" class="radio-inline">
-                <input type="radio" id="declarationConformity" name="declarationConformity" [value]="yesno.id"
+                <input type="radio" id="declarationConformity" name="declarationConformity" [value]="yesno.id"  required="required"
                   aria-required="true"
                   [formControl]="declarationLocalModel.controls['declarationConformity'] | formControl">
                 {{yesno | textTransform: lang }}
@@ -76,7 +91,7 @@
           <div class="alert alert-info" role="alert" *ngIf="isOptional() || isMandatory()">
             <p aria-live="polite">{{'declaration.instruct1'|translate}}</p>
             <p aria-live="polite">{{'declaration.instruct2'|translate}}
-              <a href="{{'declaration.instruct.link'|translate}}">{{'declaration.instruct.tite'|translate}}</a>
+
             </p>
           </div>
           <div class="alert alert-info" role="alert" *ngIf="isMandatoryForClassII() ">

@@ -25,6 +25,7 @@ import {
 import { ApplicationInfoDetailsService } from './application-info.details.service';
 import { GlobalService } from '../global/global.service';
 import { DeviceClass, ActivityType, Compliance } from '../app.constants';
+import { pairwise, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-info-details',
@@ -45,6 +46,7 @@ export class ApplicationInfoDetailsComponent
   @Output() resetMaterialErrorList = new EventEmitter(true); // To reset material errors
   @Output() resetDeclarationError = new EventEmitter(true); // Reset declaration error
   @Output() resetPriorityRevError = new EventEmitter(true);
+  @Output() resetYesNoList = new EventEmitter(true);
   @ViewChildren(ControlMessagesComponent)
   msgList: QueryList<ControlMessagesComponent>;
 
@@ -90,6 +92,24 @@ export class ApplicationInfoDetailsComponent
     this.yesNoList = this._globalService.$yesNoList;
 
     this.complianceCodeList = this._globalService.$complianceList;
+    this.appInfoFormLocalModel
+      .get('deviceClass')
+      .valueChanges.pipe(
+        startWith(this.appInfoFormLocalModel.value), // Emit the initial value first
+        pairwise() // Pair the current value with the previous value
+      )
+      .subscribe(([previousValue, currentValue]) => {
+        if (
+          (previousValue == DeviceClass.ClassIII ||
+            previousValue == DeviceClass.ClassIV) &&
+          (currentValue === DeviceClass.ClassIII ||
+            currentValue === DeviceClass.ClassIV)
+        ) {
+          this.resetYesNoList.emit(false);
+        } else {
+          this.resetYesNoList.emit(true);
+        }
+      });
   }
 
   ngAfterViewInit() {
