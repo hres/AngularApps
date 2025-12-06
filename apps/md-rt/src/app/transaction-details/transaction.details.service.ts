@@ -24,7 +24,7 @@ export class TransactionDetailsService {
       reguCompanyId: ['', [Validators.required, ValidationService.numeric6Validator]],
       reguContactId: ['', [Validators.required, ValidationService.numeric5Validator]],
       activityType: ['', Validators.required],
-      descriptionType: [null, Validators.required],
+      descriptionType: ['', Validators.required],
       deviceClass: ['', Validators.required],
       amendReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]), // holds "Reason for filing this Amendment" dropdown list options selected states (true or false)
       selectedAmendReasonCodes: [''],    // holds the selected amend reason codes, it's set when "Reason for filing this Amendment" dropdown list onChange"

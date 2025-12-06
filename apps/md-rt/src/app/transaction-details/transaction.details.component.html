@@ -79,10 +79,10 @@
           <control-messages *ngIf="transDetailsForm.controls['activityType'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['activityType'] | formControl" controlId="activityType"
             label="activity.type" parentId="transDetails"></control-messages>
-          <select id="activityType" name="activityType" required class="form-control full-width"
+          <select id="activityType" name="activityType" required class="form-control full-width" required="required"
             (change)="activityTypeOnChange()" [formControl]="transDetailsForm.controls['activityType'] | formControl">
-            <option label="{{ 'select.option' | translate }}" value="" disabled></option>
-            <option *ngFor="let type of actTypeList" [ngValue]="type.id"    required="required" > {{ type | textTransform: lang }}</option>
+            <option label="{{ 'select.option' | translate }}" [ngValue]="" disabled></option>
+            <option *ngFor="let type of actTypeList" [ngValue]="type.id"  > {{ type | textTransform: lang }}</option>
           </select>
         </label>
       </div>
@@ -99,7 +99,7 @@
             label="trans.description" parentId="transDetails"></control-messages>
           <select id="descriptionType" name="descriptionType" required class="form-control full-width"  required="required"
             (change)="descriptionOnChange()" [formControl]="transDetailsForm.controls['descriptionType'] | formControl">
-            <option [ngValue]="null" disabled>
+            <option [ngValue]="" value="" disabled>
               @if (!raTypeSelected) {
               {{ 'transaction.description.default.option' | translate }} }
               @else {
@@ -140,18 +140,24 @@
 
     <div class="row" *ngIf="showAmendReason()">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <fieldset class="chkbxrdio-grp" id="amendReasons">
-          <legend class="required"><span class="field-name">{{'amend.reason' | translate}}</span>
-            <strong class="required"  aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-            <control-messages *ngIf="amendReasonChkFormArray.invalid" [showError]="showFieldErrors"
-              [control]="amendReasonChkFormArray | formControl" controlId="amendReasons" label="amend.reason"
-              parentId="transDetails"></control-messages>
+        <fieldset class="chkbxrdio-grp" id="amendReasons" role="group" aria-required="true">
+          <legend class="required">
+            <span class="field-name">{{'amend.reason' | translate}}</span>
+            <span id="amendReasonsRequired" class="sr-only">{{'sr.required' | translate }}</span>
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>    
+            <control-messages *ngIf="amendReasonChkFormArray.invalid"
+              [showError]="showFieldErrors"
+              [control]="amendReasonChkFormArray | formControl"
+              controlId="amendReasons"
+              label="amend.reason"
+              parentId="transDetails">
+            </control-messages>
           </legend>
           <ul class="form-group list-unstyled">
             <li class="checkbox" formArrayName="amendReasons"
               *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
               <label for={{amendReasonOptionList[i].value}}>
-                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" required="required"
+                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl"
                   (change)="amendReasonOnChange()" /> {{amendReasonOptionList[i].label}}
               </label>
             </li>
@@ -334,27 +340,30 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <label for="hasDdtMan" class="required"  aria-hidden="true">
-          <strong>{{'has.ddt'|translate}}</strong>
-          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-          <sup id="tr10-rf">
-            <a class="fn-lnk" href="#tr10"><span
-                class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpIndex['deviceDetailInx']}}</a>
-          </sup>
-          <control-messages *ngIf="transDetailsForm.controls['hasDdtMan'].invalid" [showError]="showFieldErrors"
-            [control]="transDetailsForm.controls['hasDdtMan'] | formControl" controlId="hasDdtMan" label="has.ddt"
-            parentId="transDetails"></control-messages>
-        </label>
-        <div>
-          <label *ngFor="let yesno of yesNoList; let i = index" for="hasDdtMaId{{i}}" class="radio-inline">
-            <input type="radio" id="hasDdtMaId{{i}}" name="hasDdtMan" [value]="yesno.id" required="required"
-              [formControl]="transDetailsForm.controls['hasDdtMan'] | formControl" />
-            {{yesno | textTransform: lang }}
-          </label>
-        </div>
+    <div class="row form-group">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <fieldset class="chkbxrdio-grp">
+          <legend class="required">
+              {{ 'has.ddt' | translate}}
+              <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
+              <sup id="tr10-rf">
+                <a class="fn-lnk" href="#tr10"><span
+                    class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpIndex['deviceDetailInx']}}</a>
+              </sup>
+              <control-messages *ngIf="transDetailsForm.controls['hasDdtMan'].invalid" [showError]="showFieldErrors"
+              [control]="transDetailsForm.controls['hasDdtMan'] | formControl" controlId="hasDdtMan" label="has.ddt"
+              parentId="transDetails"></control-messages>
+          </legend>
+          <ng-container *ngFor="let yesno of yesNoList; let i = index">
+              <label for="hasDdtMaId{{i}}" class="radio-inline">
+                <input type="radio" id="hasDdtMaId{{i}}" name="hasDdtMan" [value]="yesno.id" required="required"
+                  [formControl]="transDetailsForm.controls['hasDdtMan'] | formControl" />
+                {{yesno | textTransform: lang }}
+              </label>
+          </ng-container>
+      </fieldset>
       </div>
     </div>
+
   </div>
 </div>

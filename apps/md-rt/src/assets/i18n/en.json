@@ -48,6 +48,7 @@
   "error.mgs.licence.number": "Invalid entry - must be 6 digits - Add leading 0 if less than 6 digits",
   "error.msg.invalidDate": "The date is not valid",
   "commmon.required.bracket": " (required)",
+  "sr.required":"required",
   "errorSummary.transaction": "Transaction form",
   "error.found.because":" could not be saved because ",
   "error.found.plural": " errors were found",
@@ -85,7 +86,7 @@
   "help.transactionDesc3": "The 'Date of request' refers to the date of the letter issued by Health Canada that this transaction is in response to.",
   "help.deviceClass.01": "Refer to the ",
   "help.deviceClass.02": "Guidance Document - Guidance on the Risk-based Classification System for Non-In Vitro Diagnostic Devices (non-IVDDs)",
-  "help.deviceClass.url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-document-guidance-risk-based-classification-system-non-vitro-diagnostic.html.",
+  "help.deviceClass.url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/guidance-document-guidance-risk-based-classification-system-non-vitro-diagnostic.html",
   "help.application.number": "This number is assigned by Health Canada for each application/transaction received.",
   "help.device.name": "Only one name should be entered in this field. The device name will be used as the licence name unless the application is for a family of medical devices. In this case, a generic licence name that covers all possible trade names (for example, urinary catheters) should be used.",
   "help.licence.number.01": "This number is assigned by Health Canada once a device(s) has been authorized for sale. ",
@@ -93,6 +94,6 @@
   "help.licence.number.03": "If the licence number has not yet been assigned, use 000000.",
   "help.device.detail.01": "The identifiers listed in the device details excel file must appear on and match the identifier listed on the submitted labelling.",
   "help.device.detail.02": "Required for all new licence applications, as well as any amendment applications that may impact a manufacturers catalogue listing.",
-  "help.device.detail.03": "The device details excel file is available on the <a href='https://health-products.canada.ca/rep-pir/mds-index.html'>REP Index page for medical devices</a>."
-
+  "help.device.detail.03": "The device details excel file is available on the <a href='https://health-products.canada.ca/rep-pir/mds-index.html' target='_blank'  aria-describedby='openNewWindowInstr'>REP Index page for medical devices</a> <span aria-hidden='true'><span id=\"openNewWindowInstr\">(opens in a new window)</span></span>.",
+  "open.new.window": " (opens in a new window)"
 }

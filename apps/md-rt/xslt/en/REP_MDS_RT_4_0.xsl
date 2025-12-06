@@ -412,13 +412,13 @@ span.normalWeight {
 	<!-- Application Information Enrolment -->
 
 	<xsl:template name="mybody">
-		<h1>Regulatory Transaction Template: Regulatory Enrolment Process (REP) for medical devices (version: <xsl:value-of select="/descendant-or-self::software_version"/>)</h1>
+		<h1>Regulatory transaction template: Regulatory enrolment process (REP) for medical devices (version: <xsl:value-of select="/descendant-or-self::software_version"/>)</h1>
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
 					<td style="text-align: center;font-weight:bold;">Dossier type</td>
-					<td style="text-align: center;font-weight:bold;">Dossier Identifier</td>
-					<td style="text-align: center;font-weight:bold;">Date Generated</td>
+					<td style="text-align: center;font-weight:bold;">Dossier identifier</td>
+					<td style="text-align: center;font-weight:bold;">Date generated</td>
 				</tr>
 				<tr>
 					<td style="text-align: center;"> <span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/dossier_type/@label_en" /></span> </td>
@@ -437,28 +437,28 @@ span.normalWeight {
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Dossier Identifier:&#160;</strong>
+										<strong>Dossier identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/dossier_id"/></span>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Manufacturer Company Identifier:&#160;</strong>
+										<strong>Manufacturer company identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/company_id"/></span>
 									</div>
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Regulatory Company Identifier:&#160;</strong>
+										<strong>Regulatory company identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_company_id"/></span>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Manufacturer Contact Identifier:&#160;</strong>
+										<strong>Manufacturer contact identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/manufacturer_contact_id"/></span>
 									</div>
 
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Regulatory Contact Identifier:&#160;</strong>
+										<strong>Regulatory contact identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_contact_id"/></span>
 									</div>
 								</div>
@@ -532,14 +532,14 @@ span.normalWeight {
 										</div>
 									</div>
 								</xsl:if>
-								<div class="row">
-									<xsl:if test="/descendant-or-self::application_info/application_number != ''">
-										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+								<xsl:if test="/descendant-or-self::application_info/application_number != ''">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											<strong>Application Number:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/application_number"/></span>
 										</div>
-									</xsl:if>
-								</div>
+									</div>
+								</xsl:if>
 								<xsl:if test="/descendant-or-self::application_info/device_name != ''">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -557,11 +557,11 @@ span.normalWeight {
 								<xsl:if test="/descendant-or-self::application_info/org_manufacture_id != ''">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-											<strong>Original manufacturer's Company Identifier:&#160;</strong>
+											<strong>Original manufacturer's company identifier:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/org_manufacture_id"/></span>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-											<strong>Original manufacturer's Licence Number:&#160;</strong>
+											<strong>Original manufacturer's licence number:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/org_manufacture_lic"/></span>
 										</div>
 									</div>
@@ -588,11 +588,11 @@ span.normalWeight {
 							<xsl:if test="/descendant-or-self::transFees/has_fees = 'yes'">
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Billing Company Identifier:&#160;</strong>
+										<strong>Billing company identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::transFees/billing_company_id"/></span>
 									</div>
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<strong>Billing Contact Identifier:&#160;</strong>
+										<strong>Billing contact identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::transFees/billing_contact_id"/></span>
 									</div>
 								</div>
