@@ -109,8 +109,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       if (raTypeValue) {
         // dynamically load the transaction description dropdowns according to the selected activity type value
         this.transDescList = this._getTransactionDescriptions(this.raTypeTxDesc, raTypeValue);
-      }
-      this._descrDeviceOnblur();
+      }     
     }
 
   }
