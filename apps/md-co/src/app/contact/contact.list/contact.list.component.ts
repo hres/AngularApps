@@ -213,6 +213,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
 
   private _createFormContact() {
     const formContact = this._listService.createContactFormRecord(this._fb, this.isInternal);
+    this.recModel = formContact;
     this.addRecord(formContact, this.contactList);
     this._listService.collapseFormRecordList(this._utilsService, this.contactList, formContact.controls['id'].value);
   }
