@@ -8,13 +8,29 @@ import { InstructionService } from '@hpfb/sdk/ui';
 export class GlobalService {
   constructor(private instructionService: InstructionService) {}
 
-  private devEnv: boolean;
+  private _devEnv: boolean = false;
+
   private appVersion: string;
   private isInternal: boolean;
   private helpIndex: { [key: string]: number };
   private currLanguage: string;
   private enrollment: Enrollment;
   private _debugEnabled: boolean = false;
+  private _byPassChecksum: boolean = false;
+
+
+  public get devEnv(): boolean {
+    return this._devEnv;
+  }
+  public set devEnv(value: boolean) {
+    this._devEnv = value;
+  }
+  public get byPassChecksum(): boolean {
+    return this._byPassChecksum;
+  }
+  public set byPassChecksum(value: boolean) {
+    this._byPassChecksum = value;
+  }
   public get debugEnabled(): boolean {
     return this._debugEnabled;
   }
@@ -22,21 +38,6 @@ export class GlobalService {
     this._debugEnabled = value;
   }
 
-  /**
-   * Getter $devEnv
-   * @return {boolean}
-   */
-  public get $devEnv(): boolean {
-    return this.devEnv;
-  }
-
-  /**
-   * Setter $devEnv
-   * @param {boolean} value
-   */
-  public set $devEnv(value: boolean) {
-    this.devEnv = value;
-  }
 
   /**
    * Getter $appVersion

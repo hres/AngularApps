@@ -8,7 +8,8 @@ import {Enrollment} from '../models/Enrollment';
 export class GlobalService {
   constructor(private instructionService: InstructionService) {}
 
-  private devEnv: boolean;
+  private _devEnv: boolean;
+
   private appVersion: string;
   private helpIndex: { [key: string]: number };
   private currLanguage: string;
@@ -31,6 +32,14 @@ export class GlobalService {
   materialFormArrValue = signal<any[]>([]);
   deviceFormArrValue = signal<any[]>([]);
   lang = signal<string>('');
+  private _byPassChecksum: boolean = false;
+
+  public get byPassChecksum(): boolean {
+    return this._byPassChecksum;
+  }
+  public set byPassChecksum(value: boolean) {
+    this._byPassChecksum = value;
+  }
 
   setShowErrors(flag: boolean): void {
     // console.log("setShowErrors to", flag)
@@ -49,21 +58,6 @@ export class GlobalService {
     this.lang.set(language);
   }
 
-  /**
-   * Getter $devEnv
-   * @return {boolean}
-   */
-  public get $devEnv(): boolean {
-    return this.devEnv;
-  }
-
-  /**
-   * Setter $devEnv
-   * @param {boolean} value
-   */
-  public set $devEnv(value: boolean) {
-    this.devEnv = value;
-  }
 
   /**
    * Getter $appVersion
@@ -199,6 +193,13 @@ export class GlobalService {
 
   public set $countryList(value: ICode[]) {
     this.countryList = value;
+  }
+
+  public get devEnv(): boolean {
+    return this._devEnv;
+  }
+  public set devEnv(value: boolean) {
+    this._devEnv = value;
   }
 
 }

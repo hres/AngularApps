@@ -27,7 +27,7 @@ export class ContainerComponent implements OnInit {
     this.language = this._globalService.getCurrLanguage();
     this.isInternal = this._globalService.$isInternal;
     this.helpIndex = this._globalService.getHelpIndex();
-    this.devEnv = this._globalService.$devEnv;
+    this.devEnv = this._globalService.devEnv;
   }
-  
+
 }

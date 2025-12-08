@@ -8,7 +8,8 @@ import { Enrollment } from '../models/Enrollment';
 export class GlobalService {
   constructor(private instructionService: InstructionService) {}
 
-  private devEnv: boolean;
+  private _devEnv: boolean;
+
   private appVersion: string;
   private helpIndex: { [key: string]: number };
   private currLanguage: string;
@@ -22,22 +23,23 @@ export class GlobalService {
   private amendReasonRelationship: any[];
   private transactionDescriptionList: ICode[];
   private yesnoList: ICode[];
+  private _byPassCheckSum: boolean;
 
-  /**
-   * Getter $devEnv
-   * @return {boolean}
-   */
-  public get $devEnv(): boolean {
-    return this.devEnv;
+
+  public get devEnv(): boolean {
+    return this._devEnv;
+  }
+  public set devEnv(value: boolean) {
+    this._devEnv = value;
+  }
+  public get byPassCheckSum(): boolean {
+    return this._byPassCheckSum;
+  }
+  public set byPassCheckSum(value: boolean) {
+    this._byPassCheckSum = value;
   }
 
-  /**
-   * Setter $devEnv
-   * @param {boolean} value
-   */
-  public set $devEnv(value: boolean) {
-    this.devEnv = value;
-  }
+
 
   /**
    * Getter $appVersion
@@ -106,7 +108,7 @@ export class GlobalService {
   public get $amendReasonList(): ICode[] {
     return this.amendReasonList;
   }
-  
+
   public set $amendReasonList(value: ICode[]) {
     this.amendReasonList = value;
   }
@@ -114,7 +116,7 @@ export class GlobalService {
   public get $amendReasonRelationship(): any[] {
     return this.amendReasonRelationship;
   }
-  
+
   public set $amendReasonRelationship(value: any[]) {
     this.amendReasonRelationship = value;
   }
