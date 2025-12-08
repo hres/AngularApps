@@ -25,7 +25,7 @@
             </div>
           </section>
         </div>
-  
+
         <div id="topErrorSummary">
           <lib-error-summary [hiddenSummary]="hideErrorSummary()" [errorList]="errorList" [headingLevel]="headingLevel"
                        headingPreamble="errorSummary.application-info"></lib-error-summary>
@@ -48,10 +48,11 @@
                 <app-info-details [showErrors]="showErrors"
                                   [appInfoModel]="appInfoModel"
                                   [helpTextSequences]="helpIndex"
-                                  (detailErrorList)="processDetailErrors($event)"                                 
+                                  (detailErrorList)="processDetailErrors($event)"
                                   (resetMaterialErrorList)="resetMaterialErrors($event)"
                                   (resetDeclarationError)="resetDeclarationError($event)"
-                                  (resetPriorityRevError)="resetPriorityRevError($event)">
+                                  (resetPriorityRevError)="resetPriorityRevError($event)"
+                                  (resetYesNoList)="resetYesNot($event)">
                 </app-info-details>
                 <section class="panel  panel-default">
                   <header class="panel-heading clearfix">
@@ -62,7 +63,13 @@
                   </div>
                 </section>
                 <div *ngIf="showDeclarationConformityAndPriorityRev()">
-                  <app-declaration-conformity [helpTextSequences]="helpIndex" [declarationModel]="declarationModel" [showErrors]="showErrors" (declarationErrorList)="processDeclarationErrors($event)"></app-declaration-conformity>
+                  <app-declaration-conformity
+                   [declarationLocalModel]="declarationLocalModel"
+                   [helpTextSequences]="helpIndex"
+                    [declarationModel]="declarationModel"
+                   [showErrors]="showErrors"
+                   (declarationErrorList)="processDeclarationErrors($event)">
+                  </app-declaration-conformity>
                 </div>
                 <div *ngIf="isDeviceIV()">
                   <app-material-info [materialInfo]="materialInfo"> </app-material-info>
@@ -77,7 +84,7 @@
                     </h2>
                   </header>
                   <div class="panel-body">
-                    <app-priority-review [helpTextSequences]="helpIndex" [priorityRevModel]="priorityRevModel" 
+                    <app-priority-review [helpTextSequences]="helpIndex" [priorityRevModel]="priorityRevModel"
                     [showErrors]="showErrors" (priorityRevErrorList)="processPriorityRevErrors($event)"></app-priority-review>
                   </div>
                 </section>

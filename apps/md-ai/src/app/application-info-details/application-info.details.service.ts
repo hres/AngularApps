@@ -13,6 +13,7 @@ export class ApplicationInfoDetailsService {
 
   public deviceClassIV = signal(false);
   public deviceClassIII = signal(false);
+  public deviceClassII = signal(false);
 
   public raTypeLicence = signal(false);
   public raTypeLicenceAmend = signal(false);
@@ -68,7 +69,7 @@ export class ApplicationInfoDetailsService {
     const actTypeList = this._globalService.$regActivityTypeList;
     const devClassList = this._globalService.$deviceClassesList;
     const drugTypeList = this._globalService.$rawDrugTypeList;
-    
+
     const complianceList = this._globalService.$complianceList;
     const diagnosisReasonList = this._globalService.$diagnosisReasonList;
 
@@ -77,10 +78,10 @@ export class ApplicationInfoDetailsService {
     }
     appInfoModel.dossier_id = formRecord.dossierId;
     appInfoModel.mdsap_number = formRecord.mdsapNum;
-    
+
     const mdsapOrgCodeValue = this._utilsService.findCodeById(mdsapOrgList, formRecord.mdsapOrg);
     appInfoModel.mdsap_org = mdsapOrgCodeValue? this._converterService.convertCodeToIdTextLabel(mdsapOrgCodeValue, lang) : null;
-    
+
     const licenceAppTypeCodeValue = this._utilsService.findCodeById(licenceAppTypeList, formRecord.licenceAppType);
     appInfoModel.licence_application_type = licenceAppTypeCodeValue? this._converterService.convertCodeToIdTextLabel(licenceAppTypeCodeValue, lang) : null;
 
@@ -98,7 +99,7 @@ export class ApplicationInfoDetailsService {
 
     const hasDinNpnCodeValue = this._utilsService.findCodeById(drugTypeList, formRecord.hasDinNpn);
     appInfoModel.has_din_npn = hasDinNpnCodeValue? this._converterService.convertCodeToIdTextLabel(hasDinNpnCodeValue, lang) : null;
-    
+
     if (formRecord.selectedComplianceCodes) {
       const compliances: Compliances = {
         compliance: this._converterService.findAndConverCodesToIdTextLabels(complianceList, formRecord.selectedComplianceCodes, lang)
@@ -107,7 +108,7 @@ export class ApplicationInfoDetailsService {
     } else {
       appInfoModel.compliance = null;
     }
-    
+
     appInfoModel.din = formRecord.din;
     appInfoModel.npn = formRecord.npn;
     appInfoModel.drug_name = formRecord.drugName;
@@ -185,7 +186,7 @@ export class ApplicationInfoDetailsService {
         const complianceFormArray = this.getComplianceChkboxFormArray(formRecord);
         this.loadComplianceOptions(complianceList, complianceOptionList, complianceFormArray, lang);
         this._converterService.checkCheckboxes(loadedComplianceReasonCodes, complianceOptionList, complianceFormArray);
-      }  
+      }
       formRecord.controls['selectedComplianceCodes'].setValue(loadedComplianceReasonCodes);
     }
 
@@ -202,7 +203,7 @@ export class ApplicationInfoDetailsService {
     formRecord.controls['provisionMdrSA'].setValue(mdrsa);
     const mdrioa = appInfoModel.interim_order_authorization;
     formRecord.controls['provisionMdrIOA'].setValue(mdrioa)
-    
+
     formRecord.controls['applicationNum'].setValue(appInfoModel.application_number);
     formRecord.controls['sapReqNum'].setValue(appInfoModel.sap_request_number);
     formRecord.controls['authNum'].setValue(appInfoModel.authorization_id);
@@ -210,7 +211,7 @@ export class ApplicationInfoDetailsService {
 
   getComplianceChkboxFormArray(formRecord: FormGroup) {
     return formRecord.controls['compliance'] as FormArray;
-  }  
+  }
 
   loadComplianceOptions(complianceList, complianceOptionList, complianceChkboxFormArray, lang) {
     complianceOptionList.length = 0;
