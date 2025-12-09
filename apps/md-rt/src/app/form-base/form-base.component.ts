@@ -24,21 +24,23 @@ import { FilereaderInstructionComponent } from "../filereader-instruction/filere
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
   lang: string;
-  helpIndex: { [key: string]: number }; 
+  helpIndex: { [key: string]: number };
 
   private _transactionDetailErrors = [];
   private _transFeeErrors = [];
   public transactionForm: FormGroup;
   public showErrors: boolean;
   public errorList = [];
-  public rootTagText = ROOT_TAG; 
-    
+  public rootTagText = ROOT_TAG;
+
   public headingLevel = 'h2';
 
   public enrollModel : Enrollment;
-  public transactionInfoModel : ApplicationInfo;; 
+  public transactionInfoModel : ApplicationInfo;;
   public transFeeModel: TransFees;
   public fileServices: FileConversionService;
+  devEnv: boolean;
+  byPassCheckSum: boolean;
 
   @ViewChild(TransactionDetailsComponent) detailsComponent: TransactionDetailsComponent;
   @ViewChild(TransactionFeeComponent) feeComponent: TransactionFeeComponent;
@@ -51,16 +53,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     private _checkSumService: CheckSumService
   ) {
 
-    this.showErrors = false;    
+    this.showErrors = false;
     this.fileServices = new FileConversionService();
   }
 
   ngOnInit() {
     this.lang = this._globalService.getCurrLanguage();
     this.helpIndex = this._globalService.getHelpIndex();
-    
+
     // this means it's associated with a reactive form, and Angular automatically prevents the default form submission behavior
-    this.transactionForm = this.fb.group({}); 
+    this.transactionForm = this.fb.group({});
 
     try {
       if (!this._globalService.getEnrollment()) {
@@ -77,9 +79,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
       this.helpIndex = this._globalService.getHelpIndex();
 
+      this.devEnv = this._globalService.devEnv;
+      this.byPassCheckSum = this._globalService.byPassCheckSum;
+
     } catch (e) {
       console.error(e);
-    }      
+    }
   }
 
   ngAfterViewInit(): void {
@@ -171,7 +176,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _init(transactionEnroll: DeviceTransactionEnrol){
-    this.transactionInfoModel = transactionEnroll.application_info;  
+    this.transactionInfoModel = transactionEnroll.application_info;
     this.transFeeModel = transactionEnroll.transFees;
   }
 }

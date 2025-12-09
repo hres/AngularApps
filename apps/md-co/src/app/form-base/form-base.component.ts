@@ -88,6 +88,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   popupId = 'saveXmlPopup';
   popupTrigger: HTMLElement = null;
 
+  devEnv: boolean;
+  byPassCheckSum: boolean;
+
   constructor(
     private cdr: ChangeDetectorRef,
     private _formDataLoader: CompanyDataLoaderService,
@@ -157,6 +160,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
 
       this.helpIndex = this._globalService.getHelpIndex();
+      this.devEnv = this._globalService.devEnv;
+      this.byPassCheckSum = this._globalService.byPassChecksum;
 
     } catch (e) {
       console.error(e);
@@ -487,7 +492,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   openPopup() {
     const popupSelector = "#" + this.popupId;
     jQuery(popupSelector).trigger("open.wb-overlay");
-  
+
     // Wait for overlay to render to focus on Close button once it is shown on the UI
     setTimeout(() => {
       const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;

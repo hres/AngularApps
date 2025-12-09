@@ -142,6 +142,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processXmlCount: number = 0;
   public resetYN: boolean = false;
   public declarationLocalModel: FormGroup;
+  devEnv: boolean;
+  byPassCheckSum: boolean;
 
   /* public customSettings: TinyMce.Settings | any;*/
   constructor(
@@ -207,6 +209,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this._init(applicationEnroll);
 
       //this.helpIndex = this._globalService.getHelpIndex();
+      this.devEnv = this._globalService.devEnv;
+      this.byPassCheckSum = this._globalService.byPassChecksum;
     } catch (e) {
       console.error(e);
     }
