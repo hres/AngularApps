@@ -9,6 +9,6 @@ export const environment = {
   ...base,    // merge with base environment configs
   production: false,
   lang: 'en',
-  byPassCheckSum: true,
-  internal: true
+  byPassCheckSum: false,
+  internal: false
 }
