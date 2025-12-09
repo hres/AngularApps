@@ -141,7 +141,7 @@
       <div class="form-group col-md-4" *ngIf="!isInternal">
         <a
           class="btn btn-primary btn-lg active btn-mailto"
-          [href]="disableMailto ? null : mailToLink"
+          [attr.href]="disableMailto ? null : mailToLink"
           (click)="disableMailto ? $event.preventDefault() : mailto()"
           [class.disabled]="disableMailto"
           [class.bold]="disableMailto"

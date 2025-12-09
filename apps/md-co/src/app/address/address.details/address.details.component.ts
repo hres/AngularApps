@@ -130,6 +130,7 @@ export class AddressDetailsComponent implements OnInit {
       }
       if (changes['countryList']) {
         this.countries = changes['countryList'].currentValue;
+        this.addressFormLocalModel.controls['country'].setValue('');
       }
       if (changes['addressFormLocalModel']) {
         this._loggerService.log( this._globalService.debugEnabled,'address.detail', '**********the ADDRESS details changed');
@@ -172,7 +173,7 @@ export class AddressDetailsComponent implements OnInit {
     this._setPostalPattern(countryValue);
 
     if (this._utilsService.isCanadaOrUSA(countryValue)) {
-      this.addressFormLocalModel.get('provList').setValue(null);
+      this.addressFormLocalModel.get('provList').setValue('');
     }
     // update errors manually?
     if (this.showFieldErrors) {

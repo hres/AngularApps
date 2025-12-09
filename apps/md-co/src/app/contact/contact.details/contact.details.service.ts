@@ -31,7 +31,7 @@ export class ContactDetailsService {
       fullName: [null, Validators.required],
       // initials: '',
       // lastName: [null, Validators.required],
-      language: [null, Validators.required],
+      language: ['', Validators.required],
       jobTitle: [null, Validators.required],
       faxNumber: ['', [Validators.minLength(10), ValidationService.faxNumberValidator]],
       phoneNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.phoneNumberValidator]],
