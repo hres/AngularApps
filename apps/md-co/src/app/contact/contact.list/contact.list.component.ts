@@ -213,6 +213,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
 
   private _createFormContact() {
     const formContact = this._listService.createContactFormRecord(this._fb, this.isInternal);
+    this.recModel = formContact;
     this.addRecord(formContact, this.contactList);
     this._listService.collapseFormRecordList(this._utilsService, this.contactList, formContact.controls['id'].value);
   }
@@ -312,7 +313,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       oerr.type = ERR_TYPE_LEAST_ONE_REC;
 
       if (this.contactList.length == 0) {
-        oerr.tableId = 'headingContactInfo';
+        oerr.tableId = 'addContactBtn';
       } else {
         oerr.tableId = 'contactListTable';
       }

@@ -61,7 +61,7 @@
             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
           <select *ngIf="!disableEdit" id="language{{recordId}}" required class="form-control"
             [formControl]="contactDetailForm.controls['language'] | formControl">
-            <option label=" " value=""></option>
+            <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
             <option *ngFor="let langOpt of languageList" [ngValue]="langOpt.id"> {{langOpt | textTransform: lang }}
             </option>
           </select>

@@ -62,7 +62,7 @@
             [formControl]="addressFormLocalModel.controls['country'] | formControl" class="required form-control"
             required="required" (typed)="typed($event)" (blur)="tempCountryOnblur($event)"
             (change)="onCountryChange($event)">            
-            <option label=" " value=""></option>
+            <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
             <option *ngFor="let ctry of countries" [ngValue]="ctry.id">{{ctry | textTransform: lang }}</option>
           </select>
         </label>
@@ -79,7 +79,7 @@
             label="{{provinceLabel}}" parentId="addressDetails" parentLabel="REP Address"></control-messages>
           <select id="{{addrType}}ProvState" required class="form-control full-width" (blur)="onblur()"
             [formControl]="addressFormLocalModel.controls['provList'] | formControl" required="required">
-            <option label=" " value=""></option>
+            <option label="{{ 'select.option'|translate }}" [ngValue]="null"></option>
             <option *ngFor="let prov of provStateList" [ngValue]="prov.id"> {{prov | textTransform: lang}}</option>
           </select>
         </label>

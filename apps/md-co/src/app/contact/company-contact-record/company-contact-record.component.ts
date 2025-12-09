@@ -248,7 +248,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       heading: heading,
       buttonTrigger: trigger
     });
-    this._emitErrors();
+    //this._emitErrors();
     this.contactRecordModel.markAsPristine();
   }
 
