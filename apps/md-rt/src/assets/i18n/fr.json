@@ -94,6 +94,6 @@
   "help.licence.number.03": "Si le numéro d'homologation n'a pas encore été attribué, utilisez 000000.",
   "help.device.detail.01": "Les identifiants figurant dans le fichier Excel de détails de l'instrument doivent apparaître sur l'étiquette soumis et correspondre à l'identifiant figurant sur celui-ci.",
   "help.device.detail.02": "Obligatoire pour toutes les nouvelles demandes d’homologation, ainsi que pour toute demande de modification susceptible d’avoir des répercussions sur la liste de catalogue d'un fabricant.",
-  "help.device.detail.03": "Le fichier Excel de détails de l'instrument est disponible sur la page <a href='https://health-products.canada.ca/rep-pir/mds-index-fr.html'  target='_blank'  aria-describedby='openNewWindowInstr'>d'index du PIR pour les instruments médicaux</a> <span aria-hidden='true'><span id=\"openNewWindowInstr\">(s'ouvre dans une nouvelle fenêtre)</span></span>.",
+  "help.device.detail.03": "Le fichier Excel de détails de l'instrument est disponible sur la <a href='https://health-products.canada.ca/rep-pir/mds-index-fr.html'  target='_blank'  aria-describedby='openNewWindowInstr'>page d'index du PIR pour les instruments médicaux</a> <span aria-hidden='true'><span id=\"openNewWindowInstr\">(s'ouvre dans une nouvelle fenêtre)</span></span>.",
   "open.new.window": " (s'ouvre dans une nouvelle fenêtre)"
 }
