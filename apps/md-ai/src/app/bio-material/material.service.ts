@@ -57,11 +57,11 @@ export class MaterialService {
       materialInfo: fb.group({
         materialName: ['', Validators.required],
         deviceName: ['', Validators.required],
-        originCountry: [null, []],
-        specFamily: [null, Validators.required],
-        tissueType: [null, []],
+        originCountry: ['', []],
+        specFamily: ['', Validators.required],
+        tissueType: ['', []],
         tissueTypeOtherDetails: ['', []],
-        derivative: [null, []],
+        derivative: ['', []],
         derivativeOtherDetails: ['', []],
       }, { updateOn: 'change' }
       )

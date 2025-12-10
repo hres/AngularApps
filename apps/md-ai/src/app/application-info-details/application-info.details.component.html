@@ -58,7 +58,7 @@
             parentId="appInfoDetails"></control-messages>
           <select id="mdsapOrg" name="mdsapOrg" required="required" class="form-control"
             [formControl]="appInfoFormLocalModel.controls['mdsapOrg'] | formControl">
-            <option label=" " value=""></option>
+            <option label="{{ 'select.option' | translate }}" [ngValue]="" disabled></option>
             <option *ngFor="let mdsapOrg of mdsapOrgList" [ngValue]="mdsapOrg.id"> {{ mdsapOrg | textTransform : lang}}
             </option>
           </select>
@@ -79,7 +79,7 @@
             controlId="licenceAppType" label="licence.app.type" parentId="appInfoDetails"></control-messages>
           <select id="licenceAppType" name="licenceAppType" required="required" class="form-control full-width"
             [formControl]="appInfoFormLocalModel.controls['licenceAppType'] | formControl">
-            <option label=" " value=""></option>
+            <option label="{{ 'select.option' | translate }}" [ngValue]="" disabled></option>
             <option *ngFor="let lat of licenceAppTypeList" [ngValue]="lat.id"> {{lat | textTransform : lang}}</option>
           </select>
         </label>
@@ -96,7 +96,7 @@
           <select id="activityType" name="activityType" required="required" class="form-control full-width"
             [formControl]="appInfoFormLocalModel.controls['activityType'] | formControl"
             (change)="activityTypeOnChange()">
-            <option label=" " value=""></option>
+            <option label="{{ 'select.option' | translate }}" [ngValue]="" disabled></option>
             <option *ngFor="let type of actTypeList" [ngValue]="type.id"> {{type | textTransform : lang}}</option>
           </select>
         </label>
@@ -217,7 +217,7 @@
                 <div>
                   <label *ngFor="let yesno of yesNoList; let i = index" for="hasDrug" class="radio-inline">
                     <input type="radio" id="hasDrug" name="hasDrug" [value]="yesno.id" aria-required="true"
-                      [formControl]="appInfoFormLocalModel.controls['hasDrug']  | formControl" />
+                      [formControl]="appInfoFormLocalModel.controls['hasDrug']  | formControl" (change)="onHasDrugChange($event)"/>
                     {{yesno | textTransform: lang }}
                   </label>
                 </div>
@@ -228,7 +228,7 @@
                 <span class="field-name">{{'have.din.npn' |translate}}</span>
                 <select id="hasDinNpn" name="hasDinNpn" class="form-control" (change)="dinNpnOnChange()"
                   [formControl]="appInfoFormLocalModel.controls['hasDinNpn'] | formControl">
-                  <option label=" " value=""></option>
+                  <option label="{{ 'select.option' | translate }}" [ngValue]="" disabled></option>
                   <option *ngFor="let drugType of drugTypeList" [ngValue]="drugType.id"> {{drugType | textTransform :
                     lang}}</option>
                 </select>

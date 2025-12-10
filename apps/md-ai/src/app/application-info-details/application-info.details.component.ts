@@ -110,6 +110,10 @@ export class ApplicationInfoDetailsComponent
           this.resetYesNoList.emit(true);
         }
       });
+
+    this.appInfoFormLocalModel.controls['mdsapOrg'].setValue('');
+    this.appInfoFormLocalModel.controls['licenceAppType'].setValue('');
+    this.appInfoFormLocalModel.controls['activityType'].setValue('');
   }
 
   ngAfterViewInit() {
@@ -257,6 +261,10 @@ export class ApplicationInfoDetailsComponent
       this._resetControlValues(valuesToReset);
     }
     return false;
+  }
+
+  onHasDrugChange(event: any) {
+    this.appInfoFormLocalModel.controls['hasDinNpn'].setValue('');
   }
 
   hasDrug() {
