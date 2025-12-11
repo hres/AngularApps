@@ -424,7 +424,7 @@ span.normalWeight {
 								<td style="text-align: center;font-weight:bold;">Enrolment status</td>
 								<td style="text-align: center;font-weight:bold;">Enrolment version</td>
 								<td style="text-align: center;font-weight:bold;">Date generated</td>
-								<td style="text-align: center;font-weight:bold;">Company Identifier</td>
+								<td style="text-align: center;font-weight:bold;">Company identifier</td>
 							</tr>
 							<tr>
 								<td style="text-align: center;"> <span  class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/status/@label_en" /></span> </td>
@@ -522,7 +522,7 @@ span.normalWeight {
 											<xsl:otherwise>
 												Postal/ZIP code (use "not applicable" if not available)
 											</xsl:otherwise>
-										</xsl:choose>:&#160;
+										</xsl:choose>:
 										</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/postal_code"/></span>
 										</div>
@@ -565,11 +565,7 @@ span.normalWeight {
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<strong>All impacted licence number(s) (hard return between licence numbers):&#160;</strong>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<xsl:call-template name="break"><xsl:with-param name="text" select="/descendant-or-self::administrative_changes/all_licence_numbers"/></xsl:call-template>
+                  <xsl:call-template name="break"><xsl:with-param name="text" select="/descendant-or-self::administrative_changes/all_licence_numbers"/></xsl:call-template>
 								</div>
 							</div>
 							<div class="row">
@@ -581,13 +577,13 @@ span.normalWeight {
 							<xsl:if test="/descendant-or-self::administrative_changes/is_regulatory_change = 'yes'">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>New Company Identifier:&#160;</strong>
+										<strong>New company identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="substring(/descendant-or-self::administrative_changes/new_company_id, 2, 6)"/></span>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>New Contact Identifier:&#160;</strong>
+										<strong>New contact identifier:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::administrative_changes/new_contact_id"/></span>
 									</div>
 								</div>
@@ -614,7 +610,7 @@ span.normalWeight {
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Contact Identifier:&#160;</strong>
+						<strong>Contact identifier:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="contact_id"/></span>
 					</div>
 				</div>
