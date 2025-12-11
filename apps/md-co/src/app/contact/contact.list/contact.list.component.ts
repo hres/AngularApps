@@ -139,13 +139,13 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     if (changes['disableForm']) {
       const prev = changes['disableForm'].previousValue;
       const curr = changes['disableForm'].currentValue;
-  
+
       // Always enable/disable form properly
       if (curr) {
         this.disableFormGroup();
       } else {
         this.enableFormGroup();
-  
+
         // Only run this AFTER going from disabled → enabled (e.g: loading in a final xml and pressing amend enrolment)
         if (prev === true && curr === false) {
           this._handlePostEnableBehavior();
@@ -261,7 +261,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
         this.statusMessage = "Enregistrement du contact " + record.controls['seqNumber'].value + " a été sauvegardé."
       }
     }
-
+    this.contactListForm.markAsPristine();
     setTimeout(() => {
       document.getElementById('addContactBtn').focus()
     }, 0);
@@ -278,7 +278,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       }
     }
     return returnValue ? false : undefined;
-  }  
+  }
 
   private _collapseValidRecords(): void {
     this.contactList.controls.forEach((ctrl) => {
@@ -287,8 +287,8 @@ export class ContactListComponent extends ContactListBaseComponent implements On
         group.controls['expandFlag'].setValue(false);
       }
     });
-  }  
-  
+  }
+
   /**
    *  Updates the error list
    * @param errs - the list of errors to broadcast
@@ -380,7 +380,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   public deleteContact(id): void {
     let deletedRec = this.getRecord(this.contactId, this.contactList);
     this.deleteRecord(this.contactId, this.contactList, this._listService);
-
+    this.contactListForm.markAsPristine();
     // since the contact record is deleted, we should also remove its ErrorSummary if there is any
     this._errorNotificationService.removeErrorSummary(this.contactId.toString());
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
@@ -595,10 +595,8 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   private _handlePostEnableBehavior(): void {
     // collapse valid records
     this._collapseValidRecords();
-  
     // expand next invalid record
     const expanded = this._expandNextInvalidRecord(true);
-  
     // if no invalid record exists, expand the first
     if (!expanded) {
       const firstFormRecord = this.contactList.at(0) as FormGroup;
