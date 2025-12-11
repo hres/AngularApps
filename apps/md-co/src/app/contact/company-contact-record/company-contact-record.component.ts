@@ -249,13 +249,14 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       buttonTrigger: trigger
     });
     //this._emitErrors();
-    this.contactRecordModel.markAsPristine();
+    this.contactRecordModel.markAsDirty();
   }
 
   public setStatusToRevise(event: Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
     this.saveContactRecord(index, heading, ContactStatus.Revise, trigger);
+    this.contactRecordModel.markAsDirty();
   }
 
   public setStatusToRemove(event: Event, index: number): void {
