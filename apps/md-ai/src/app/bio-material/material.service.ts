@@ -1,10 +1,13 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConverterService, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class MaterialService {
+
+  _translateService = inject(TranslateService);
   
   materialInfoErrors = signal([]); // Material Component -> Form Base
   materialListErrors = signal([]); 
@@ -124,6 +127,10 @@ export class MaterialService {
     formRecord.controls['tissueTypeOtherDetails'].setValue(materialModel.tissue_type_other_details);
     formRecord.controls['derivative'].setValue(materialModel.derivative);
     formRecord.controls['derivativeOtherDetails'].setValue(materialModel.derivative_other_details);
+  }
+
+  public getHeading(index : number): string {
+    return this._translateService.instant('heading.biological.material', { seqnumber: index + 1})
   }
 
 }
