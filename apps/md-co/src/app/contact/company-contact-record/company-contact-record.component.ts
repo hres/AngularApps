@@ -263,6 +263,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
     this.saveContactRecord(index, heading, ContactStatus.Remove, trigger);
+    this.contactRecordModel.markAsDirty();
   }
 
   public activeContactRecord(event: Event, index: number): void {
