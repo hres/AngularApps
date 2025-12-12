@@ -161,16 +161,18 @@ export class TransactionDetailsService {
       formRecord.controls['deviceClass'].setValue(null);
     }
 
-    const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
-    this.loadAmendReasonOptions(activityTypeId, deviceClassId, amendReasonList, relationship, amendReasonOptionList, lang, amendReasonFormArray);
-    if (transactionInfoModel.amend_reasons) {
-      const loadedAmendReasonCodes: string[] = this._utilsService.getIdsFromIdTextLabels(transactionInfoModel.amend_reasons.amend_reason);
-      if (loadedAmendReasonCodes.length > 0) {
-        this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
+    if (deviceClassId) {
+      const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
+      this.loadAmendReasonOptions(activityTypeId, deviceClassId, amendReasonList, relationship, amendReasonOptionList, lang, amendReasonFormArray);
+      if (transactionInfoModel.amend_reasons) {
+        const loadedAmendReasonCodes: string[] = this._utilsService.getIdsFromIdTextLabels(transactionInfoModel.amend_reasons.amend_reason);
+        if (loadedAmendReasonCodes.length > 0) {
+          this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
+        }  
+        formRecord.controls['selectedAmendReasonCodes'].setValue(loadedAmendReasonCodes);
       }  
-      formRecord.controls['selectedAmendReasonCodes'].setValue(loadedAmendReasonCodes);
     }
-
+  
     formRecord.controls['licenceNum'].setValue(transactionInfoModel.licence_number);
     formRecord.controls['appNumOpt'].setValue(transactionInfoModel.application_number);
     formRecord.controls['appNum'].setValue(transactionInfoModel.application_number);
