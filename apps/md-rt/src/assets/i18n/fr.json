@@ -11,7 +11,7 @@
   "choose.file":"Choisir un fichier",
   "no.file.chosen": "Aucun fichier choisi",
   "error":"Erreur {{number}} :",
-  "warning.text": "<p>Ce modèle sert à déposer une demande d’homologation d’un instrument médical auprès de Santé Canada.</p><br><p>Le fichier d’information sur les demandes d’homologation, au format langage de balisage extensible et basé sur le Web, est requis uniquement pour un sous‑ensemble de transactions relatives aux instruments médicaux envoyées par le portail de demandes électroniques (PDE). Veuillez consulter la section « Modèle et processus de demande d'information » de la ligne directrice PIR relatif aux instruments médicaux.</p><br><p>Assurez-vous que tous les champs de ce modèle sont complétés dans l’ordre séquentiel. Les sélections faites dans certains champs peuvent affecter la visibilité et la disponibilité d’autres champs et sections tout au long du formulaire.</p>",
+  "warning.text": "<p>Ce modèle sert à déposer une demande d’homologation d’un instrument médical auprès de Santé Canada.</p><br><p>Le fichier Web de transaction réglementaire en format « Extensible Markup Language » (PIR TR XML) doit accompagner chaque transaction d’instrument médical envoyée par le portail de demandes électroniques (PDE).</p><br><p>Assurez-vous que tous les champs de ce modèle sont complétés dans l’ordre séquentiel. Les sélections faites dans certains champs peuvent affecter la visibilité et la disponibilité d’autres champs et sections tout au long du formulaire.</p>",
   "heading.transaction": "Inscription d'une transaction réglementaire",
   "dossier.id": "Numéro de dossier",
   "dossier.id.help": " (« m » minuscule suivie de 6 chiffres)",
