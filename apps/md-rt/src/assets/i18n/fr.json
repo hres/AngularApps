@@ -30,7 +30,7 @@
   "application.number": "Numéro de la demande",
   "device.name": "Nom de l'instrument, tel qu'il apparaît sur l'étiquette",
   "licence.name": "Nom d'homologation proposé",
-  "include.ddt": "Joignez à cette demande le fichier Excel des détails de l'instrument avec la feuille correspondante « changement de nom de l'instrument » et/ou « Ajout / Suppression » remplie.",
+  "include.ddt": "Joignez à cette demande le fichier Excel des détails de l'instrument avec la feuille correspondante « changement de nom de l'instrument » et/ou « Ajout / suppression » remplie.",
   "request.date": "Date de la demande",
   "brief.descr": "Brève description",
   "has.ddt": "Est-ce qu'un fichier excel des détails de l'instrument est inclus ?",
