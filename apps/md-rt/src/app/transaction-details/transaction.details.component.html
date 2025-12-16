@@ -140,7 +140,7 @@
 
     <div class="row" *ngIf="showAmendReason()">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <fieldset class="chkbxrdio-grp" id="amendReasons" role="group" aria-required="true">
+        <fieldset class="chkbxrdio-grp" id="amendReasons">
           <legend class="required">
             <span class="field-name">{{'amend.reason' | translate}}</span>
             <span id="amendReasonsRequired" class="sr-only">{{'sr.required' | translate }}</span>
@@ -153,15 +153,17 @@
               parentId="transDetails">
             </control-messages>
           </legend>
-          <ul class="form-group list-unstyled">
-            <li class="checkbox" formArrayName="amendReasons"
-              *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
-              <label for={{amendReasonOptionList[i].value}}>
-                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl"
-                  (change)="amendReasonOnChange()" /> {{amendReasonOptionList[i].label}}
-              </label>
-            </li>
-          </ul>
+          <ng-container formArrayName="amendReasons">
+            <ul class="form-group list-unstyled">
+              <li class="checkbox"
+                *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
+                <label for={{amendReasonOptionList[i].value}}>
+                  <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl"
+                    (change)="amendReasonOnChange()" /> {{amendReasonOptionList[i].label}}
+                </label>
+              </li>
+            </ul>
+          </ng-container>
         </fieldset>
       </div>
     </div>
