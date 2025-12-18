@@ -249,8 +249,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       buttonTrigger: trigger
     });
     //this._emitErrors();
-    this.contactRecordModel.markAsDirty();
-  }
+   }
 
   public setStatusToRevise(event: Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
@@ -263,7 +262,6 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
     this.saveContactRecord(index, heading, ContactStatus.Remove, trigger);
-    this.contactRecordModel.markAsDirty();
   }
 
   public activeContactRecord(event: Event, index: number): void {
