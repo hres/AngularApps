@@ -393,7 +393,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   public disabledDiscardButton() {
-    if (this.disableDiscardBtn && !this.isContactStatus(ContactStatus.Remove) && this.contactDetailsForm.dirty) {
+    if (this.disableDiscardBtn && (!this.isContactStatus(ContactStatus.Remove) ||  !this.isContactStatus(ContactStatus.Revise))  && this.contactDetailsForm.dirty) {
       return false
     }
     else {
