@@ -144,14 +144,14 @@ export class TransactionDetailsService {
       activityTypeId = this._utilsService.getIdFromIdTextLabel(transactionInfoModel.regulatory_activity_type);
       formRecord.controls['activityType'].setValue(activityTypeId? activityTypeId : null);
     } else {
-      formRecord.controls['activityType'].setValue(null);
+      formRecord.controls['activityType'].setValue('');
     }
 
     if (transactionInfoModel.description_type) {
       txDescriptionId = this._utilsService.getIdFromIdTextLabel(transactionInfoModel.description_type);
       formRecord.controls['descriptionType'].setValue(txDescriptionId? txDescriptionId : null);
     } else {
-      formRecord.controls['descriptionType'].setValue(null);
+      formRecord.controls['descriptionType'].setValue('');
     }
 
     if (transactionInfoModel.device_class) {

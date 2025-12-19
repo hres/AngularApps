@@ -353,12 +353,12 @@
                     class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpIndex['deviceDetailInx']}}</a>
               </sup>
               <control-messages *ngIf="transDetailsForm.controls['hasDdtMan'].invalid" [showError]="showFieldErrors"
-              [control]="transDetailsForm.controls['hasDdtMan'] | formControl" controlId="hasDdtMan" label="has.ddt"
+              [control]="transDetailsForm.controls['hasDdtMan'] | formControl" controlId="hasDdtManId0" label="has.ddt"
               parentId="transDetails"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
-              <label for="hasDdtMaId{{i}}" class="radio-inline">
-                <input type="radio" id="hasDdtMaId{{i}}" name="hasDdtMan" [value]="yesno.id" required="required"
+              <label for="hasDdtManId{{i}}" class="radio-inline">
+                <input type="radio" id="hasDdtManId{{i}}" name="hasDdtMan" [value]="yesno.id" required="required"
                   [formControl]="transDetailsForm.controls['hasDdtMan'] | formControl" />
                 {{yesno | textTransform: lang }}
               </label>
