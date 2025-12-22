@@ -23,7 +23,7 @@
                           <li *ngIf="!isInternal && isExternalNotNewContact()">
                             <button id="reviseRecord{{contactRecordModel.get('id').value}}"
                             attr.aria-label="{{'set.revise.status' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                            class="btn btn-default" (click)="setStatusToRevise($event, j)" [disabled]=" showErrorSummary()" [disabled]="disableForm">{{'set.revise.status'|translate}}</button>
+                            class="btn btn-default" (click)="setStatusToRevise($event, j)" [disabled]=" showErrorSummary()" [disabled]="disabledDiscardButton() || disableForm"  >{{'set.revise.status'|translate}}</button>
                           </li>
                           <li *ngIf="!isInternal && isExternalNotNewContact()">
                             <button id="removeRecord{{contactRecordModel.get('id').value}}"
