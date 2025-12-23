@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CompanyInfoService} from './company.info.service';
-import { ControlMessagesComponent, UtilsService, LoggerService, ICode, ConverterService, CheckboxOption, ICodeDefinition, ConfirmationPopupComponent, PipesModule, ErrorModule, FileIoModule } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, UtilsService, LoggerService, ICode, ConverterService, CheckboxOption, ICodeDefinition, ConfirmationPopupComponent, PipesModule, ErrorModule, FileIoModule, NumbersOnlyDirective } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
 import { EnrollmentStatus} from '../app.constants';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,7 +17,7 @@ import { AppFormModule } from '../app.form.module';
   templateUrl: 'company.info.component.html',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, ConfirmationPopupComponent]
+  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, ConfirmationPopupComponent, NumbersOnlyDirective]
 })
 
 export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
