@@ -412,7 +412,7 @@ span.normalWeight {
 	<!-- Application Information Enrolment -->
 
 	<xsl:template name="mybody">
-		<h1>Regulatory transaction template: Regulatory enrolment process (REP) for medical devices (version: <xsl:value-of select="/descendant-or-self::software_version"/>)</h1>
+		<h1>Regulatory transaction template: Regulatory enrolment process (REP) for medical devices (version <xsl:value-of select="/descendant-or-self::software_version"/>)</h1>
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
@@ -482,7 +482,7 @@ span.normalWeight {
 								</xsl:if>
 								<xsl:if test="/descendant-or-self::application_info/amend_reasons/amend_reason">
 									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Reason for amendment</strong></div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Reason for amendment:&#160;</strong></div>
 									</div>
 									<xsl:for-each select="/descendant-or-self::application_info/amend_reasons/amend_reason">
 										<div class="row">
@@ -495,19 +495,15 @@ span.normalWeight {
 								<xsl:if test="/descendant-or-self::application_info/rationale != ''">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<strong>Rationale:</strong>
-										</div>
-									</div>
-									<div class="row">
-										<div class="ccol-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<xsl:value-of select="/descendant-or-self::application_info/rationale"/>
+											<strong>Rationale:&#160;</strong>
+											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/rationale"/></span>
 										</div>
 									</div>
 								</xsl:if>
 								<xsl:if test="/descendant-or-self::application_info/proposed_indication != ''">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<strong>Proposed purpose/indication for use:</strong>
+											<strong>Proposed purpose/indication for use:&#160;</strong>
 										</div>
 									</div>
 									<div class="row">
@@ -535,7 +531,7 @@ span.normalWeight {
 								<xsl:if test="/descendant-or-self::application_info/application_number != ''">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<strong>Application Number:&#160;</strong>
+											<strong>Application number:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/application_number"/></span>
 										</div>
 									</div>
