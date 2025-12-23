@@ -85,7 +85,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public isStatusFinal: boolean = false;
   public disableForm: boolean = false;
 
-  popupId = 'saveXmlPopup';
+  popupIdExternal = 'saveXmlPopupExternal';
+  popupIdInternal = 'saveXmlPopupInternal'
   popupTrigger: HTMLElement = null;
 
   devEnv: boolean;
@@ -256,6 +257,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummary';
     } else {
+
+      // Check if internal and if there are any new records -> force user to activate a record in internal to be able to generate XML
+      if (this.isInternal && this.companyContacts.hasNewRecords()) {
+        const trigger = event.target as HTMLElement;
+        this.popupTrigger = trigger;
+        this.openPopup();
+        return;
+      }
 
       if (this.companyContacts.contactListForm.pristine && this.companyContacts.contactListForm.valid) {
         const result = this._prepareForSaving(true);
@@ -490,7 +499,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   openPopup() {
-    const popupSelector = "#" + this.popupId;
+    const popupSelector = `#${this.isInternal ? this.popupIdInternal : this.popupIdExternal}`;
     jQuery(popupSelector).trigger("open.wb-overlay");
 
     // Wait for overlay to render to focus on Close button once it is shown on the UI

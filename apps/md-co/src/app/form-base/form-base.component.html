@@ -1,5 +1,5 @@
-<lib-popup *ngIf="!isInternal" [id]="popupId" [title]="'popup.warning' | translate" [message]="'msg.save.draftxml.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopup()"></lib-popup>
-<lib-popup *ngIf="isInternal" [id]="popupId" [title]="'popup.warning' | translate" [message]="'msg.save.xml.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopup()"></lib-popup>
+<lib-popup *ngIf="!isInternal" [id]="popupIdExternal" [title]="'popup.warning' | translate" [message]="'msg.save.draftxml.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopup()"></lib-popup>
+<lib-popup *ngIf="isInternal" [id]="popupIdInternal" [title]="'popup.warning' | translate" [message]="'msg.save.xml.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopup()"></lib-popup>
 
 <div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
   <form name="companyForm" [formGroup]="companyForm" novalidate>
@@ -74,7 +74,7 @@
                 <header class="panel-heading clearfix">
                   <h3 class="panel-title">{{'heading.contactInfo'|translate}}</h3>
                 </header>
-                <div class="panel-body">
+                <div id="contactRecords" class="panel-body">
                   <app-contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternal"
                                  [loadFileIndicator]="loadFileIndicator" [lang]="lang"
                                  [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status._id"
@@ -127,7 +127,7 @@
 
       <!-- <pre>disableMailto {{disableMailto}} | showMailToHelpText {{showMailToHelpText}}  </pre> -->
     <div class="row btn-group-sm">
-      <div class="form-group col-md-4">
+      <div *ngIf="!isInternal" class="form-group col-md-4">
         <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
           {{'save.working.copy'|translate}}
         </button>
