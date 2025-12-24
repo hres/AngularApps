@@ -412,7 +412,7 @@ span.normalWeight {
 	<!-- Application Information Enrolment -->
 
 	<xsl:template name="mybody">
-		<h1>Modèle de transaction réglementaire: Processus d'inscription réglementaire (PIR) pour les instruments médicaux (version: <xsl:value-of select="/descendant-or-self::software_version"/>)</h1>
+		<h1>Modèle de transaction réglementaire : Processus d'inscription réglementaire (PIR) pour les instruments médicaux (version <xsl:value-of select="/descendant-or-self::software_version"/>)</h1>
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
@@ -495,19 +495,15 @@ span.normalWeight {
 								<xsl:if test="/descendant-or-self::application_info/rationale != ''">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<strong>Justification :</strong>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<xsl:value-of select="/descendant-or-self::application_info/rationale"/>
+											<strong>Justification :&#160;</strong>
+											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/rationale"/></span>
 										</div>
 									</div>
 								</xsl:if>
 								<xsl:if test="/descendant-or-self::application_info/proposed_indication != ''">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<strong>Indications / fins d'utilisations proposées / :</strong>
+											<strong>Indications / fins d'utilisations proposées :&#160;</strong>
 										</div>
 									</div>
 									<div class="row">

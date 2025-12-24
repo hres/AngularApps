@@ -312,10 +312,13 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       oerr.index = 0;
       oerr.type = ERR_TYPE_LEAST_ONE_REC;
 
-      if (this.contactList.length == 0) {
+      // If there are no current records, or if there's only one record and it is set to REMOVE -> Error link is set to Add Record button
+      // Otherwise, set it to the contact records component
+      if ( this.contactList.length === 0 ||
+        (this.contactList.length === 1 && (this.contactListForm.get('contacts') as FormArray).at(0).get('contactDetails.status')?.value === ContactStatus.Remove)) {
         oerr.tableId = 'addContactBtn';
       } else {
-        oerr.tableId = 'contactListTable';
+        oerr.tableId = 'contactRecords';
       }
 
       oerr.label = 'error.msg.contact.one.record';
@@ -603,4 +606,21 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       firstFormRecord.controls['expandFlag'].setValue(true);
     }
   }
+
+/**
+ * Checks if there are any new contact records in the contact list form
+ * New records are identified by status === ContactStatus.New
+ * Logs debug info for each record
+ */
+public hasNewRecords(): boolean {
+  if (!this.contactList || this.contactList.length === 0) {
+    return false;
+  }
+
+  return this.contactList.controls.some((ctrl: FormGroup) => {
+    const contactDetails = ctrl.get('contactDetails') as FormGroup;
+    return contactDetails?.controls['status']?.value === ContactStatus.New;
+  });
+}
+
 }
