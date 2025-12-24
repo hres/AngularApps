@@ -400,4 +400,13 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       return true;
     }
   }
+
+  public disabledReviseAndSaveButton() {
+    if (  this.contactDetailsForm.dirty) {
+      return false
+    }
+    else {
+      return true;
+    }
+  }
 }
