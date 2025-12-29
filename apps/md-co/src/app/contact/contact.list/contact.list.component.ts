@@ -554,8 +554,8 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.contactStatus = event.status;
     this.recModel = event.recModel;
     this.updatedContactDetailsForm = event.tempContactDetailsForm;
-    jQuery("#" + this.setReviseStatusPopupID).trigger("open.wb-overlay");
     this.popupTrigger = event.buttonTrigger;
+    this.updatedContactDetailsForm.markAsDirty()
     this.openConfirmationPopup(this.setReviseStatusPopupID);
   }
 
@@ -565,8 +565,6 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.setRemoveStatusHeading = event.heading;
     this.recModel = event.recModel;
     this.updatedContactDetailsForm = event.tempContactDetailsForm;
-
-    jQuery("#" + this.setRemoveStatusPopupID).trigger("open.wb-overlay");
     this.popupTrigger = event.buttonTrigger;
     this.openConfirmationPopup(this.setRemoveStatusPopupID);
   }
