@@ -231,8 +231,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       buttonTrigger: trigger,
       tempContactDetailsForm: this.contactDetailsForm,
     });
-    //this.contactRecordModel.markAsPristine();
-    this.disableDiscardBtn = true
+     this.disableDiscardBtn = true
   }
 
   /***
@@ -255,8 +254,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
     this.saveContactRecord(index, heading, ContactStatus.Revise, trigger);
-    this.contactRecordModel.markAsDirty();
-  }
+   }
 
   public setStatusToRemove(event: Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
@@ -277,6 +275,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
       if (!contactStatus) {
         this.saveRecord.emit({ recModel: this.contactRecordModel, status: contactStatus });
       }
+      this.contactRecordModel.markAsPristine();
       switch (contactStatus) {
         case ContactStatus.Active:
           this.setActiveStatusEvent.emit({ id, heading, recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger });
@@ -285,10 +284,11 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
           this.setRemoveStatusEvent.emit({ id, heading, recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger });
           break;
         case ContactStatus.Revise:
+          this.contactRecordModel.markAsDirty();
           this.setReviseStatusEvent.emit({ id, heading, recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger });
           break;
       }
-      this.contactRecordModel.markAsPristine();
+
     } else {
       // id is used for an error to ensure the record gets saved
       let temp = this.contactRecordModel.value.id;
@@ -402,7 +402,7 @@ export class CompanyContactRecordComponent implements OnInit, AfterViewInit {
   }
 
   public disabledReviseAndSaveButton() {
-    if (  this.contactDetailsForm.dirty) {
+    if ( this.contactDetailsForm.dirty) {
       return false
     }
     else {
