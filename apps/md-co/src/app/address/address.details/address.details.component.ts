@@ -33,10 +33,10 @@ export class AddressDetailsComponent implements OnInit {
   @Input() addrType: string;    // optional, used to set unique html id if there are different types of address, eg. companyAddress, contactAddress etc
   @Input() appName: string;    // optional, the subform could have different fields or behaviour for different applications
   @Input() disableForm : boolean;
-  
+
   @Output() errorList = new EventEmitter(true);
 
-    
+
 
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
@@ -59,7 +59,9 @@ export class AddressDetailsComponent implements OnInit {
     this.showFieldErrors = false;
     this.showErrors = false;
   }
-
+  // if (this._utilsService.isCanadaOrUSA(countryValue)) {
+  //   this.addressFormLocalModel.get('provList').setValue('');
+  // }
   ngOnInit() {
 
     if (!this.addressFormLocalModel) {
@@ -130,6 +132,7 @@ export class AddressDetailsComponent implements OnInit {
       }
       if (changes['countryList']) {
         this.countries = changes['countryList'].currentValue;
+        this.addressFormLocalModel.controls['country'].setValue('');
       }
       if (changes['addressFormLocalModel']) {
         this._loggerService.log( this._globalService.debugEnabled,'address.detail', '**********the ADDRESS details changed');
@@ -170,10 +173,6 @@ export class AddressDetailsComponent implements OnInit {
       this.showProvText = true;
     }
     this._setPostalPattern(countryValue);
-
-    if (this._utilsService.isCanadaOrUSA(countryValue)) {
-      this.addressFormLocalModel.get('provList').setValue(null);
-    }
     // update errors manually?
     if (this.showFieldErrors) {
   //     this.cdr.detectChanges(); // doing our own change detection

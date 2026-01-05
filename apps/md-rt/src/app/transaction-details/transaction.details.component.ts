@@ -100,15 +100,13 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       const txDescValueDataModel: string = this._utilsService.getIdFromIdTextLabel(dataModel.description_type);
       if (deprecatedTxDescs.includes(txDescValueDataModel)) {
         this.txDescriptionFormControl.setValue("");
-        if (this.activityTypeFormControl.value) {
-          this.raTypeSelected = true; // Set flag to true if ra type is not null (after loading in form)
-        }
       }
 
       const raTypeValue: string = this.activityTypeFormControl.value;
       if (raTypeValue) {
         // dynamically load the transaction description dropdowns according to the selected activity type value
         this.transDescList = this._getTransactionDescriptions(this.raTypeTxDesc, raTypeValue);
+        this.raTypeSelected = true; // Set flag to true if ra type is not null (after loading in form)
       }     
     }
 

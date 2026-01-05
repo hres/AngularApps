@@ -522,7 +522,7 @@ span.normalWeight {
 											<xsl:otherwise>
 												Code postal/ZIP (si pas disponible, utilisez « sans objet »)
 											</xsl:otherwise>
-										</xsl:choose>:&#160;
+										</xsl:choose>:
 										</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/postal_code"/></span>
 										</div>
@@ -565,12 +565,8 @@ span.normalWeight {
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<strong>Tous les numéros d'identification des homologations visées (placez un retour forcé entre chaque numéro d'homologation) :&#160;</strong>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<xsl:call-template name="break"><xsl:with-param name="text" select="/descendant-or-self::administrative_changes/all_licence_numbers"/></xsl:call-template>
-								</div>
+                  <xsl:call-template name="break"><xsl:with-param name="text" select="/descendant-or-self::administrative_changes/all_licence_numbers"/></xsl:call-template>
+  							</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

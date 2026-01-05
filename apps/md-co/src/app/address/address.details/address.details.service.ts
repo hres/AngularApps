@@ -15,7 +15,7 @@ export class AddressDetailsService {
       provText: '',
       provList: '',
       city: ['', [Validators.required, Validators.min(5)]],
-      country: [null, [Validators.required, ValidationService.countryValidator]],
+      country: ['', [Validators.required, ValidationService.countryValidator]],
       postal: ['', []]
     });
   }
@@ -44,10 +44,10 @@ export class AddressDetailsService {
     formRecord.controls['postal'].setValue(addressModel.postal_code);
 
     const countryId: string | undefined = this._utilsService.getIdFromIdTextLabel(addressModel.country);
-    formRecord.controls['country'].setValue(countryId? countryId : null);
+    formRecord.controls['country'].setValue(countryId? countryId : '');
    
     const provLovId: string | undefined = this._utilsService.getIdFromIdTextLabel(addressModel.province_lov);
-    formRecord.controls['provList'].setValue(provLovId? provLovId : null);
+    formRecord.controls['provList'].setValue(provLovId? provLovId : '');
 
     formRecord.controls['provText'].setValue(addressModel.province_text);
   }

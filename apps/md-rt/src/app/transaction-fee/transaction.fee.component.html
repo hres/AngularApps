@@ -7,7 +7,7 @@
               {{ 'are.fees' | translate}}
               <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
               <control-messages *ngIf="transFeeForm.controls['hasFees'].invalid" [showError]="showFieldErrors"
-              [control]="transFeeForm.controls['hasFees'] | formControl" controlId="hasFees" label="are.fees"
+              [control]="transFeeForm.controls['hasFees'] | formControl" controlId="hasFeeId0" label="are.fees"
               parentId="transFees"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
