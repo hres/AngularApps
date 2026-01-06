@@ -54,6 +54,7 @@ export class MaterialService {
 
     return fb.group({
       id: -1,
+      seqNumber: -1, // For UI purpose
       isNew: true,
       expandFlag: true,
       lastSavedState: null, // store the last saved state of the contactInfo for reverting function
