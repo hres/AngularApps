@@ -22,8 +22,18 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   lang = this._globalService.lang();
 
   @Output() saveRecord = new EventEmitter();
-  @Output() revertRecord = new EventEmitter();
-  @Output() deleteRecord = new EventEmitter();
+  @Output() revertRecord = new EventEmitter<{
+    index: number,
+    id: number;
+    heading: string;
+    buttonTrigger:HTMLElement;
+  }>;
+  @Output() deleteRecord = new EventEmitter<{
+    id: number;
+    index: number;
+    heading: string;
+    buttonTrigger:HTMLElement;
+  }>;
   @Output() error = new EventEmitter(true);
 
   public yesNoList: ICode[] = [];
@@ -139,18 +149,35 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public revertDeviceRecord(index: number, recordId: number): void {
-    this.revertRecord.emit({ index: index, id: recordId });
+  public revertDeviceRecord(event:Event, index: number, recordId: number): void {
+    const heading = this._deviceService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+    this.revertRecord.emit({ 
+      index: index, 
+      id: this.cRRow.get('id').value,
+      heading: heading,
+      buttonTrigger: trigger
+    });
     this.onDeviceAuthorizedChange(null);
     this.onDeviceAppChange(null);
 
     this.cRRow.markAsPristine();
   }
 
-  public deleteDeviceRecord(index: number): void {
+  public deleteDeviceRecord(event: Event, index: number): void {
     // this.errorSummaryChild = null;
     this._errorNotificationService.updateErrorSummary(DEVICE_ERROR_PREFIX + this.cRRow.get('id').value, null);
-    this.deleteRecord.emit(index);
+    const heading = this._deviceService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
+    
+    this.deleteRecord.emit({
+      id: this.cRRow.get('id').value,
+      //       id: this.cRRow.get('id').value,
+      index: index,
+      heading: heading,
+      buttonTrigger: trigger
+    });
     this.cRRow.markAsPristine();
     this._updateErrorList([]);
   }

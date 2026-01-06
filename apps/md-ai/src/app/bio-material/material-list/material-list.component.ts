@@ -26,11 +26,19 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   firstChange: boolean = false;
 
   popupId = "materialPopup";
+  deleteMaterialPopupID = 'deleteMaterialPopupID';
+  discardChangePopupID = 'discardMaterialChangesPopupID';
+  deleteRecordHeading: string;
+  discardChangeHeading: string;
+  popupTrigger: HTMLElement = null;
 
   atLeastOneRec = signal(false);
   atLeastOneRecBoolean = false;
 
   statusMessage : string = '';
+
+  private materialId: number; // ID a record is assigned to
+  private materialIndex: number; // Place of the record in the array
 
   constructor(private fb: FormBuilder,
               private _utilsService: UtilsService,
@@ -158,8 +166,29 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
    }
  }
 
-  deleteMaterialRecord(index){
-    const id : string = (index + 1).toString();
+  confirmDeleteMaterialRecord(event:any) {
+    this.materialId = event.id;
+    console.log(this.materialId);
+    this.materialIndex = event.index;
+    console.log(this.materialIndex);
+    this.deleteRecordHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.deleteMaterialPopupID);
+  }
+
+  confirmRevertMaterial(event:any) {
+    this.materialId = event.id;
+    this.materialIndex = event.index;
+    this.discardChangeHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.discardChangePopupID);
+    // this.updatedContactDetailsForm = event.tempContactDetailsForm;
+    // this.updatedContactDetailsForm.markAsDirty()
+  }
+
+  deleteMaterialRecord(){
+    const id : number = this.materialId;
+    const index : number = this.materialIndex;
     const group = this.materialsFormArr.at(index) as FormGroup;
     const materialInfo = this.getMaterialInfo(group);
     materialInfo.reset();
@@ -357,7 +386,36 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     return atLeastOneRecord ? null : { atLeastOneMat : oerr};
   }
 
-  openPopup(){
-    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  openPopup() {
+    const popupSelector = "#" + this.popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  openConfirmationPopup(popupId: string) {
+    const popupSelector = "#" + popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    console.log(popupSelector)
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
   }
 }

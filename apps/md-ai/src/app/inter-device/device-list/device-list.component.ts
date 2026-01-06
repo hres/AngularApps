@@ -31,8 +31,16 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   errorSummaryChild = null;
 
   popupId = 'devicePopup';
+  deleteDevicePopupID = 'deleteDevicePopupID';
+  discardChangePopupID = 'discardDeviceChangesPopupID';
+  deleteRecordHeading: string;
+  discardChangeHeading: string;
+  popupTrigger: HTMLElement = null;
 
   statusMessage : string = '';
+
+  private deviceId: number; // ID a record is assigned to
+  private deviceIndex: number; // Place of the record in the array
 
   constructor(private fb: FormBuilder,
               private _utilsService: UtilsService,
@@ -151,8 +159,30 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
    }
  }
 
-  deleteDeviceRecord(index){
-    const id : string = (index + 1).toString();
+  confirmDeleteDeviceRecord(event:any) {
+    this.deviceId = event.id;
+    console.log(this.deviceId);
+    this.deviceIndex = event.index;
+    console.log(this.deviceIndex);
+    this.deleteRecordHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.deleteDevicePopupID);
+  }
+
+  confirmDiscardRecordChanges(event:any) {
+    this.deviceId = event.id;
+    this.deviceIndex = event.index;
+    this.discardChangeHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.discardChangePopupID);
+    // this.updatedContactDetailsForm = event.tempContactDetailsForm;
+    // this.updatedContactDetailsForm.markAsDirty()
+  }
+
+  deleteDeviceRecord(){
+    // const id : string = (index + 1).toString();
+    const id : number = this.deviceId;
+    const index : number = this.deviceIndex;
     const group = this.devicesFormArr.at(index) as FormGroup;
     const deviceInfo = this.getDeviceInfo(group);
     deviceInfo.reset();
@@ -349,6 +379,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   getDeviceInfo(deviceFormGroup : FormGroup): FormGroup {
+    console.log(deviceFormGroup);
     return deviceFormGroup.get('deviceInfo') as FormGroup;
   }
 
@@ -356,8 +387,37 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     return this.devicesFormArr.value;
   }
 
-  openPopup(){
-    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  openPopup() {
+    const popupSelector = "#" + this.popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  openConfirmationPopup(popupId: string) {
+    const popupSelector = "#" + popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    console.log(popupSelector)
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
   }
 
 }

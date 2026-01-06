@@ -22,8 +22,18 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   lang = this._globalService.lang();
 
   @Output() saveRecord = new EventEmitter();
-  @Output() revertRecord = new EventEmitter();
-  @Output() deleteRecord = new EventEmitter();
+  @Output() revertRecord = new EventEmitter<{
+    index: number,
+    id: number;
+    heading: string;
+    buttonTrigger:HTMLElement;
+  }>;
+  @Output() deleteRecord = new EventEmitter<{
+    index: number,
+    id: number;
+    heading: string;
+    buttonTrigger:HTMLElement;
+  }>;
   @Output() error = new EventEmitter(true);
 
   public countries: ICode[] = [];
@@ -141,17 +151,34 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public revertMaterialRecord(index: number, recordId: number): void {
-    this.revertRecord.emit({ index: index, id: recordId });
+  public revertMaterialRecord(event: Event, index: number, recordId: number): void {
+    const heading = this._materialService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
+    this.revertRecord.emit({       
+      index: index, 
+      id: this.cRRow.get('id').value,
+      heading: heading,
+      buttonTrigger: trigger
+    });
     this.onDerivativeSelected(null);
     this.onTissueTypeSelected(null);
     this.cRRow.markAsPristine();
   }
 
-  public deleteMaterialRecord(index: number): void {
+  public deleteMaterialRecord(event: Event, index: number): void {
+    const heading = this._materialService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
     //this.errorSummaryChild = null;
     this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, null);
-    this.deleteRecord.emit(index);
+    this.deleteRecord.emit({
+      id: this.cRRow.get('id').value,
+      //       id: this.cRRow.get('id').value,
+      index: index,
+      heading: heading,
+      buttonTrigger: trigger
+    });
     this.cRRow.markAsPristine();
     this._updateErrorList([]);
   }

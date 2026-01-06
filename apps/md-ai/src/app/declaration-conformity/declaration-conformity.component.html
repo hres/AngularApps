@@ -91,7 +91,7 @@
           <div class="alert alert-info" role="alert" *ngIf="isOptional() || isMandatory()">
             <p aria-live="polite">{{'declaration.instruct1'|translate}}</p>
             <p aria-live="polite">{{'declaration.instruct2'|translate}}
-
+              <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'declaration.instruct.tite'|translate}}</a><a>{{'opens.in.new.window' | translate}}</a>
             </p>
           </div>
           <div class="alert alert-info" role="alert" *ngIf="isMandatoryForClassII() ">
