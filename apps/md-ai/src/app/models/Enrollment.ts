@@ -12,7 +12,6 @@ export interface DeviceApplicationEnrol {
     devices:                        Devices;
     declaration_conformity:         DeclarationComformity;
     material_info:                  BiologicalMaterialData;
-    priority_review:                PriorityReview;
 }
 
 export interface ApplicationInfo {
@@ -25,6 +24,8 @@ export interface ApplicationInfo {
     regulatory_activity_type:       IIdTextLabel;
     regulatory_activity_lead:       IIdTextLabel;
     device_class:                   IIdTextLabel;
+    priority_review:                    string;
+    is_diagnosis_treatment_serious:     DiagnosisReasons;
     is_ivdd:                        string;
     is_home_use:                    string;
     is_care_point_use:              string;
@@ -87,6 +88,9 @@ export interface Device {
     device_explain:                 string;
 }
 
+/**
+ * Deprecated
+ */
 export interface PriorityReview {
     priority_review:                    string;
     is_diagnosis_treatment_serious:     DiagnosisReasons;

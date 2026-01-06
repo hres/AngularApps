@@ -32,8 +32,7 @@ export class ApplicationInfoBaseService {
         application_info: this.getEmptyApplicationInfoModel(),
         devices: {device: []},
         declaration_conformity: this.getEmptyDeclarationConModel(),
-        material_info: this.getEmptyMaterialInfoModel(),
-        priority_review: this.getEmptyPriorityReviewModel()
+        material_info: this.getEmptyMaterialInfoModel()
       }
     };
 
@@ -52,6 +51,8 @@ export class ApplicationInfoBaseService {
         regulatory_activity_type: this._entityBaseService.getEmptyIdTextLabel(),
         regulatory_activity_lead: this._getRegulatoryActivityLead(),
         device_class: this._entityBaseService.getEmptyIdTextLabel(),
+        priority_review: '',
+        is_diagnosis_treatment_serious: null,
         is_ivdd: '',
         is_home_use: '',
         is_care_point_use: '',
@@ -124,6 +125,10 @@ export class ApplicationInfoBaseService {
     )
   }
 
+  /**
+   * Deprecated
+   * @returns 
+   */
   public getEmptyPriorityReviewModel() : PriorityReview {
     return (
       {
@@ -146,7 +151,7 @@ export class ApplicationInfoBaseService {
     return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Devices Directorate', 'Direction des instruments médicaux');
   }
 
-  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, priorityReviewForm, declarationConFrom) {
+  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, declarationConFrom) {
     let deviceModelList = [];
     let materialModelList = [];
     let materialInfoModel : BiologicalMaterialData = null;
@@ -178,11 +183,6 @@ export class ApplicationInfoBaseService {
         materialInfoModel.biological_materials = {material : materialModelList};
       }
     }
-    
-    if (priorityReviewForm) {
-      priorityRevModel = this.getEmptyPriorityReviewModel();
-      this._priorityReviewService.mapFormModelToDataModel(priorityReviewForm, priorityRevModel, this._globalService.lang());
-    }
 
     if (declarationConFrom) {
       declarationConModel = this.getEmptyDeclarationConModel();
@@ -196,8 +196,7 @@ export class ApplicationInfoBaseService {
         'application_info': aiModel,
         'devices': {device : deviceModelList},
         'declaration_conformity': declarationConModel,
-        'material_info' : materialInfoModel,
-        'priority_review' : priorityRevModel       
+        'material_info' : materialInfoModel    
       }
    };
 

@@ -36,6 +36,9 @@ export class ApplicationInfoDetailsService {
       licenceAppType: ['', Validators.required],
       activityType: ['', Validators.required],
       deviceClass: [null, Validators.required],
+      isPriorityReq: [null, Validators.required],
+      diagnosisReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
+      selectedDiagnosisCodes: [''],
       isIvdd: [null, Validators.required],
       isHomeUse: [null, Validators.required],
       isCarePoint: [null, Validators.required],
@@ -61,6 +64,27 @@ export class ApplicationInfoDetailsService {
 
   getSelectedComplianceCodes(complianceList: CheckboxOption[], complianceChkFormArray: FormArray) : string[]{
     return this._converterService.getCheckedCheckboxValues(complianceList, complianceChkFormArray);
+  }
+
+  getSelectedDiagnosisCodes(seriousDiagnosisReasonList: CheckboxOption[], diagnosisReasonChkFormArray: FormArray) : string[] {
+    return this._converterService.getCheckedCheckboxValues(seriousDiagnosisReasonList, diagnosisReasonChkFormArray);
+  }
+
+  getDiagnosisChkboxFormArray(formRecord: FormGroup) {
+    return formRecord.controls['diagnosisReasons'] as FormArray;
+  }  
+
+  loadDiagnosisReasonOptions(diagnosisList, seriousDiagnosisReasonOptionList, diagnosisReasonChkFormArray, lang) {
+    seriousDiagnosisReasonOptionList.length = 0;
+    diagnosisReasonChkFormArray.clear();
+
+  
+    // Populate the array with new items
+    diagnosisList.forEach((item) => {
+      const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
+      seriousDiagnosisReasonOptionList.push(checkboxOption);
+      diagnosisReasonChkFormArray.push(new FormControl(false));
+    });
   }
 
   public mapFormModelToDataModel(formRecord: any, appInfoModel, lang) {
@@ -90,6 +114,14 @@ export class ApplicationInfoDetailsService {
 
     const devClassCodeValue = this._utilsService.findCodeById(devClassList, formRecord.deviceClass);
     appInfoModel.device_class = devClassCodeValue? this._converterService.convertCodeToIdTextLabel(devClassCodeValue, lang) : null;
+
+    appInfoModel.priority_review = formRecord.isPriorityReq;
+    if (formRecord.selectedDiagnosisCodes) {
+        const reasons: DiagnosisReasons = {
+            diagnosis_reason: this._converterService.findAndConverCodesToIdTextLabels(diagnosisReasonList, formRecord.selectedDiagnosisCodes, lang)
+        }
+        appInfoModel.is_diagnosis_treatment_serious = reasons;
+    }
 
     appInfoModel.is_ivdd = formRecord.isIvdd;
     appInfoModel.is_home_use = formRecord.isHomeUse;
@@ -126,7 +158,7 @@ export class ApplicationInfoDetailsService {
     appInfoModel.authorization_id = formRecord.authNum;
   }
 
-  public mapDataModelToFormModel(appInfoModel: ApplicationInfo, formRecord: FormGroup, complianceList: ICode[], complianceOptionList : CheckboxOption[], lang) {
+  public mapDataModelToFormModel(appInfoModel: ApplicationInfo, formRecord: FormGroup, complianceList: ICode[], complianceOptionList : CheckboxOption[], diagnosisReasonList: ICode[], diagnosisOptionList: CheckboxOption[], lang) {
     let mdsapOrgId: string | undefined;
     let licenceAppTypeId: string | undefined;
     let regActivityTypeId: string | undefined;
@@ -165,6 +197,19 @@ export class ApplicationInfoDetailsService {
       formRecord.controls['deviceClass'].setValue(deviceClassId? deviceClassId : null);
     } else {
       formRecord.controls['deviceClass'].setValue(null);
+    }
+
+    formRecord.controls['isPriorityReq'].setValue(appInfoModel.priority_review);
+    if (appInfoModel.priority_review) {
+        if (appInfoModel.is_diagnosis_treatment_serious) {
+            const loadedDiagnosisCodes: string[] = this._utilsService.getIdsFromIdTextLabels(appInfoModel.is_diagnosis_treatment_serious.diagnosis_reason);
+            if (loadedDiagnosisCodes.length > 0) {
+            const diagnosisFormArray = this.getDiagnosisChkboxFormArray(formRecord);
+            this.loadDiagnosisReasonOptions(diagnosisReasonList, diagnosisOptionList, diagnosisFormArray, lang)
+            this._converterService.checkCheckboxes(loadedDiagnosisCodes, diagnosisOptionList, diagnosisFormArray);
+            }  
+            formRecord.controls['selectedDiagnosisCodes'].setValue(loadedDiagnosisCodes);
+        }
     }
 
     formRecord.controls['isIvdd'].setValue(appInfoModel.is_ivdd);

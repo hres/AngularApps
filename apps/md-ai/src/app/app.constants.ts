@@ -43,6 +43,6 @@ export const helpInstructionHeadings = [
   'mdsapOrgIndx',
   'licAppTypeIndx',
   'devClsIndx',
-  'cfmDecIndx',
-  'priRevIndx'
+  'priRevIndx',
+  'cfmDecIndx'
 ];
