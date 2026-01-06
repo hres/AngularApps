@@ -59,7 +59,7 @@
           <select id="mdsapOrg" name="mdsapOrg" required="required" class="form-control"
             [formControl]="appInfoFormLocalModel.controls['mdsapOrg'] | formControl">
             <option label="{{ 'select.option' | translate }}" [ngValue]="" disabled></option>
-            <option *ngFor="let mdsapOrg of mdsapOrgList" [ngValue]="mdsapOrg.id"> {{ mdsapOrg | textTransform : lang}}
+            <option *ngFor="let mdsapOrg of mdsapOrgList" [ngValue]="mdsapOrg.id" lang="en"> {{ mdsapOrg | textTransform : lang}}
             </option>
           </select>
         </label>
