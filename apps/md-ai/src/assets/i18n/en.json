@@ -148,7 +148,7 @@
     "minNumber5": "(5 digits)",
     "minAlphanum5": "(5 characters)",
     "minAlphanum7": "(lowercase \"m\" followed by 6 digits)",
-    "instruction": "instruction ",
+    "instruction": "Instruction ",
     "instruction.help": "Instructions for completing sections on form",
     "return.instruction": "Return to instruction",
     "privacy.statement": "Privacy notice statement",

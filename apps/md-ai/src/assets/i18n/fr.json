@@ -149,7 +149,7 @@
     "minAlphanum5": "fr_(5 characters)",
     "minAlphanum7": "(« m » minuscule suivie de 6 chiffres)",
     "error.found.because":" n’a pas pu être enregistré car ",
-    "instruction": "instruction",
+    "instruction": "Instruction ",
     "instruction.help": "fr_Instructions for completing sections on form",
     "return.instruction": "Revenir à la référence de l'instruction",
     "section.show.option": "[ Cette section peut ne pas être visible. ]",
