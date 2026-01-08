@@ -18,9 +18,10 @@
                 {{helpTextSequences.dossierIdIndx}}
                 <span class="wb-inv">{{'dossier.id'|translate}}</span></a></p>
             <div class="fn-rep">
-                <p>{{'dossier.id'|translate}}</p>
-                <p [innerHTML]="'instruction.dossier.id.line1'|translate"></p>
-                <p [innerHTML]="'instruction.dossier.id.line2'|translate"></p>
+                    <p>{{'dossier.id'|translate}}</p>
+                    <p>{{'instruction.dossier.id.line1'|translate}}</p>
+                    <p>{{'instruction.dossier.id.line2'|translate}}</p>
+                    <p>{{'instruction.dossier.id.line3'|translate}}<strong>{{'instruction.dossier.id.line4'|translate}}</strong>{{'instruction.dossier.id.line5'|translate}}<a [href]="'instruction.dossier.url'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'instruction.dossier.id.line6'|translate}}</a> <span aria-hidden='true'><span id="openNewWindowInstr">{{'open.new.window'|translate}}</span></span>.</p>
             </div>
         </dd>
         <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['holderAddrIndx']}}</dt>
