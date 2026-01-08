@@ -241,6 +241,18 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     }
   }
 
+  showTissueTypeOther() {
+    const selectedTissueType = this.cRRow.get('materialInfo.tissueType').value;
+    return selectedTissueType == TISSUE_OTHER_ID;
+
+  }
+
+  showDerivativeOther() {
+    const selectedDerivative = this.cRRow.get('materialInfo.derivative').value;
+    return selectedDerivative == DERIVATIVE_OTHER_ID;
+  }
+
+
   typed(rec) {
     // this._loggerService.log('address.detail', 'country is typed');
     let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');

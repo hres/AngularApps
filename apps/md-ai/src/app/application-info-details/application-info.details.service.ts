@@ -104,13 +104,13 @@ export class ApplicationInfoDetailsService {
     appInfoModel.mdsap_number = formRecord.mdsapNum;
 
     const mdsapOrgCodeValue = this._utilsService.findCodeById(mdsapOrgList, formRecord.mdsapOrg);
-    appInfoModel.mdsap_org = mdsapOrgCodeValue? this._converterService.convertCodeToIdTextLabel(mdsapOrgCodeValue, lang) : null;
+    appInfoModel.mdsap_org = mdsapOrgCodeValue? this._converterService.convertCodeToIdTextLabel(mdsapOrgCodeValue, lang) : '';
 
     const licenceAppTypeCodeValue = this._utilsService.findCodeById(licenceAppTypeList, formRecord.licenceAppType);
-    appInfoModel.licence_application_type = licenceAppTypeCodeValue? this._converterService.convertCodeToIdTextLabel(licenceAppTypeCodeValue, lang) : null;
+    appInfoModel.licence_application_type = licenceAppTypeCodeValue? this._converterService.convertCodeToIdTextLabel(licenceAppTypeCodeValue, lang) : '';
 
     const actTypeCodeValue = this._utilsService.findCodeById(actTypeList, formRecord.activityType);
-    appInfoModel.regulatory_activity_type = actTypeCodeValue? this._converterService.convertCodeToIdTextLabel(actTypeCodeValue, lang) : null;
+    appInfoModel.regulatory_activity_type = actTypeCodeValue? this._converterService.convertCodeToIdTextLabel(actTypeCodeValue, lang) : '';
 
     const devClassCodeValue = this._utilsService.findCodeById(devClassList, formRecord.deviceClass);
     appInfoModel.device_class = devClassCodeValue? this._converterService.convertCodeToIdTextLabel(devClassCodeValue, lang) : null;
@@ -130,7 +130,7 @@ export class ApplicationInfoDetailsService {
     appInfoModel.has_drug = formRecord.hasDrug;
 
     const hasDinNpnCodeValue = this._utilsService.findCodeById(drugTypeList, formRecord.hasDinNpn);
-    appInfoModel.has_din_npn = hasDinNpnCodeValue? this._converterService.convertCodeToIdTextLabel(hasDinNpnCodeValue, lang) : null;
+    appInfoModel.has_din_npn = hasDinNpnCodeValue? this._converterService.convertCodeToIdTextLabel(hasDinNpnCodeValue, lang) : '';
 
     if (formRecord.selectedComplianceCodes) {
       const compliances: Compliances = {
@@ -173,23 +173,23 @@ export class ApplicationInfoDetailsService {
 
     if (appInfoModel.mdsap_org) {
       mdsapOrgId = this._utilsService.getIdFromIdTextLabel(appInfoModel.mdsap_org);
-      formRecord.controls['mdsapOrg'].setValue(mdsapOrgId? mdsapOrgId : null);
+      formRecord.controls['mdsapOrg'].setValue(mdsapOrgId? mdsapOrgId : '');
     } else {
-      formRecord.controls['mdsapOrg'].setValue(null);
+      formRecord.controls['mdsapOrg'].setValue('');
     }
 
     if (appInfoModel.licence_application_type) {
       licenceAppTypeId = this._utilsService.getIdFromIdTextLabel(appInfoModel.licence_application_type);
-      formRecord.controls['licenceAppType'].setValue(licenceAppTypeId? licenceAppTypeId : null);
+      formRecord.controls['licenceAppType'].setValue(licenceAppTypeId? licenceAppTypeId : '');
     } else {
-      formRecord.controls['licenceAppType'].setValue(null);
+      formRecord.controls['licenceAppType'].setValue('');
     }
 
     if (appInfoModel.regulatory_activity_type) {
       regActivityTypeId = this._utilsService.getIdFromIdTextLabel(appInfoModel.regulatory_activity_type);
-      formRecord.controls['activityType'].setValue(regActivityTypeId? regActivityTypeId : null);
+      formRecord.controls['activityType'].setValue(regActivityTypeId? regActivityTypeId : '');
     } else {
-      formRecord.controls['activityType'].setValue(null);
+      formRecord.controls['activityType'].setValue('');
     }
 
     if (appInfoModel.device_class) {
@@ -220,9 +220,9 @@ export class ApplicationInfoDetailsService {
 
     if (appInfoModel.has_din_npn) {
       hasDinNpnId = this._utilsService.getIdFromIdTextLabel(appInfoModel.has_din_npn);
-      formRecord.controls['hasDinNpn'].setValue(hasDinNpnId? hasDinNpnId : null);
+      formRecord.controls['hasDinNpn'].setValue(hasDinNpnId? hasDinNpnId : '');
     } else {
-      formRecord.controls['hasDinNpn'].setValue(null);
+      formRecord.controls['hasDinNpn'].setValue('');
     }
 
     if (appInfoModel.compliance) {
