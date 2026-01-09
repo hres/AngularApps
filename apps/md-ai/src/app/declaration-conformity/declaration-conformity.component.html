@@ -56,17 +56,11 @@
 
       <div *ngIf="isMandatoryForClassII()" class="row">
         <div class="form-group col-xs-12">
-          <label for="declarationConformity" class="full-width">
-            <span class="field-name">{{'conformity.declaration' |translate}}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-
-            <!-- <sup id="ap8-rf">
-              <a class="fn-lnk" href="#ap8"><span
-                  class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences.cfmDecIndx}}</a>
-            </sup> -->
+          <label for="declarationConformity" class=" required full-width">
             <span class="field-name">{{'conformity.declaration.medical.device.title.part1' |translate}}</span>
             <a href="{{'declaration.instruct.link'|translate}}">{{'declaration.instruct.tite'|translate}}</a>
             <span class="field-name">{{'conformity.declaration.medical.device.title.part2' |translate}}</span>
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
 
             <control-messages *ngIf="declarationLocalModel.controls['declarationConformity'].invalid"
             [showError]="showFieldErrors"
