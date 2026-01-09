@@ -534,8 +534,7 @@ export class ApplicationInfoDetailsComponent
       (this._detailsService.raTypeLicence() ||
         this._detailsService.raTypeLicenceAmend()) &&
       (this._detailsService.deviceClassIII() ||
-        this._detailsService.deviceClassIV() ||
-        this._detailsService.deviceClassII())
+        this._detailsService.deviceClassIV())
     ) {
       return true;
     } else {
