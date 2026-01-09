@@ -39,9 +39,8 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   public yesNoList: ICode[] = [];
 
   deviceAuthorized: boolean = false;
-  deviceNotAuthorized: boolean = false;
+  deviceAuthorizedSelected: boolean = false;
   deviceAppSubmitted: boolean = false;
-  deviceAppNotSubmitted: boolean = false;
 
   //isInternal: boolean
   showErrors: boolean;
@@ -204,67 +203,56 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   }
 
   onDeviceAuthorizedChange(e: any) {
-    let deviceAuthorized;
-
-    if (e) {
-      deviceAuthorized = e.target.value;
-    } else {
-      deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
-    }
+    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
+    console.log(deviceAuthorized);
 
     const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted');
     const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber');
     const deviceExplain = this.cRRow.get('deviceInfo.deviceExplain');
     const licenceNum = this.cRRow.get('deviceInfo.licenceNum');
 
-    if (deviceAuthorized) {
-      if (deviceAuthorized === YES) {
-        this.deviceAppSubmitted = false;
-        this.deviceAppNotSubmitted = false;
-        this.deviceAuthorized = true;
-        this.deviceNotAuthorized = false;
-        this._utilsService.resetControlsValues(deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
-      } else {
-        this.deviceAuthorized = false;
-        this.deviceNotAuthorized = true;
-        this._utilsService.resetControlsValues(licenceNum);
-      }
+    if (deviceAuthorized == YES) {
+      this._utilsService.resetControlsValues(deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
     } else {
-      this.deviceAppSubmitted = false;
-      this.deviceAppNotSubmitted = false;
-      this.deviceAuthorized = false;
-      this.deviceNotAuthorized = false;
-      this._utilsService.resetControlsValues(licenceNum, deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
-  }
+      this._utilsService.resetControlsValues(licenceNum);
+    }
   }
 
   onDeviceAppChange(e: any) {
-    let deviceApplicationSubmitted;
-
-    if (e) {
-      deviceApplicationSubmitted = e.target.value;
-    } else {
-      deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
-    }
-
+    const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
     const deviceExplain = this.cRRow.get('deviceInfo.deviceExplain');
-    const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber')
+    const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber');
 
-    if (deviceApplicationSubmitted) {
-      if (deviceApplicationSubmitted === YES) {
-        this.deviceAppSubmitted = true;
-        this.deviceAppNotSubmitted = false;
-        this._utilsService.resetControlsValues(deviceExplain);
-      } else {
-        this.deviceAppSubmitted = false;
-        this.deviceAppNotSubmitted = true;
-        this._utilsService.resetControlsValues(deviceApplicationNumber);
-      }
+    if (deviceApplicationSubmitted === YES) {
+      this.deviceAppSubmitted = true;
+      this._utilsService.resetControlsValues(deviceExplain);
     } else {
       this.deviceAppSubmitted = false;
-      this.deviceAppNotSubmitted = false;
-      this._utilsService.resetControlsValues(deviceApplicationNumber, deviceExplain);
+      this._utilsService.resetControlsValues(deviceApplicationNumber);
     }
+
+  }
+
+  showLicenceNumber() {
+    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
+    return deviceAuthorized == YES;
+  }
+
+  showPreviouslySubmitted() {
+    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
+    return deviceAuthorized == NO;
+  }
+
+  showApplicationNumber() {
+    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
+    const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
+    return deviceAuthorized == NO && deviceApplicationSubmitted == YES;
+  }
+
+  showPleaseExplain() {
+    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
+    const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
+    return deviceAuthorized == NO && deviceApplicationSubmitted == NO;
   }
 
   public disabledDiscardButton() {

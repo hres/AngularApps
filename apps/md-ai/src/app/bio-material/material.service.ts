@@ -54,6 +54,7 @@ export class MaterialService {
 
     return fb.group({
       id: -1,
+      seqNumber: -1, // For UI purpose
       isNew: true,
       expandFlag: true,
       lastSavedState: null, // store the last saved state of the contactInfo for reverting function
@@ -96,17 +97,17 @@ export class MaterialService {
     materialModel.device_name = materialInfo.deviceName;
 
     const countryCodeValue = this._utilsService.findCodeById(countryList, materialInfo.originCountry);
-    materialModel.origin_country = countryCodeValue? this._converterService.convertCodeToIdTextLabel(countryCodeValue, this._globalService.lang()) : null;
+    materialModel.origin_country = countryCodeValue? this._converterService.convertCodeToIdTextLabel(countryCodeValue, this._globalService.lang()) : '';
 
     const specFamilyCodeValue = this._utilsService.findCodeById(speciesList, materialInfo.specFamily);
-    materialModel.family_of_species = specFamilyCodeValue? this._converterService.convertCodeToIdTextLabel(specFamilyCodeValue, this._globalService.lang()) : null;
+    materialModel.family_of_species = specFamilyCodeValue? this._converterService.convertCodeToIdTextLabel(specFamilyCodeValue, this._globalService.lang()) : '';
 
     const tissueTypeCodeValue = this._utilsService.findCodeById(tissueList, materialInfo.tissueType);
-    materialModel.tissue_substance_type = tissueTypeCodeValue? this._converterService.convertCodeToIdTextLabel(tissueTypeCodeValue, this._globalService.lang()) : null;
+    materialModel.tissue_substance_type = tissueTypeCodeValue? this._converterService.convertCodeToIdTextLabel(tissueTypeCodeValue, this._globalService.lang()) : '';
     materialModel.tissue_type_other_details = materialInfo.tissueTypeOtherDetails;
 
     const derivativeCodeValue = this._utilsService.findCodeById(derivativeList, materialInfo.derivative);
-    materialModel.derivative = derivativeCodeValue? this._converterService.convertCodeToIdTextLabel(derivativeCodeValue, this._globalService.lang()) : null;
+    materialModel.derivative = derivativeCodeValue? this._converterService.convertCodeToIdTextLabel(derivativeCodeValue, this._globalService.lang()) : '';
     materialModel.derivative_other_details = materialInfo.derivativeOtherDetails;
   }
 
@@ -120,7 +121,7 @@ export class MaterialService {
     formRecord.controls['deviceName'].setValue(materialModel.device_name);
 
     const countryId: string | undefined = this._utilsService.getIdFromIdTextLabel(materialModel.origin_country);
-    formRecord.controls['country'].setValue(countryId? countryId : null);
+    formRecord.controls['country'].setValue(countryId? countryId : '');
 
     formRecord.controls['specFamily'].setValue(materialModel.family_of_species);
     formRecord.controls['tissueType'].setValue(materialModel.tissue_substance_type);

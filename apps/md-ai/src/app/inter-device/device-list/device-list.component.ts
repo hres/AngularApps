@@ -100,6 +100,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     const group = this.deviceService.createDeviceFormGroup(this.fb);
     let deviceFocus = "";
     this.devicesFormArr.push(group);
+    this.deviceListService.updateUIDisplayValues(this.devicesFormArr);
+
     if (this.devicesFormArr.length >= 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(false);
       deviceFocus = "deviceName" + newIndex;
@@ -138,9 +140,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Device record " + id + " has been saved.";
+      this.statusMessage = "Device record " + group.controls['seqNumber'].value + " has been saved.";
     } else {
-      this.statusMessage = "Enregistrement d’intrument " + id + " a été sauvegardé.";
+      this.statusMessage = "Enregistrement d’intrument " + group.controls['seqNumber'].value + " a été sauvegardé.";
     }
     setTimeout(() => {
       document.getElementById('addDeviceBtn').focus()
@@ -194,10 +196,11 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     }
     this.errorSummaryChild = null;
     this._emitErrors();
+    this.deviceListService.updateUIDisplayValues(this.devicesFormArr);
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Device record " + id + " has been deleted.";
+      this.statusMessage = "Device record " + group.controls['seqNumber'].value + " has been deleted.";
     } else {
-      this.statusMessage = "Enregistrement d’intrument " + id + " a été supprimé.";
+      this.statusMessage = "Enregistrement d’intrument " + group.controls['seqNumber'].value + " a été supprimé.";
     }
     document.getElementById('addDeviceBtn').focus();
   }
@@ -215,9 +218,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     deviceInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
-      discardMsg = "Device record " + id + " changes have been discarded.";
+      discardMsg = "Device record " + group.controls['seqNumber'].value + " changes have been discarded.";
     } else {
-      discardMsg = "Les modifications d’enregistrement d’intrument " + id + " ont été annulées.";
+      discardMsg = "Les modifications d’enregistrement d’intrument " + group.controls['seqNumber'].value + " ont été annulées.";
     }
 
     this.statusMessage = discardMsg;
@@ -270,6 +273,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // Set the list of form groups
     this.deviceListService.setList(this.devicesFormArr.controls as FormGroup[]);
+    this.deviceListService.updateUIDisplayValues(this.devicesFormArr);
   }
 
   // Change so that it can be used by last saved state and patching in general

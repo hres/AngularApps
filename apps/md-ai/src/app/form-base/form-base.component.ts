@@ -46,7 +46,6 @@ import {
   Device,
   BiologicalMaterialData,
   BiologicalMaterial,
-  PriorityReview,
   DeclarationComformity,
 } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
@@ -57,7 +56,6 @@ import { DeviceModule } from '../inter-device/device.module';
 import { DeviceService } from '../inter-device/device.service';
 import { PopupComponent } from '@hpfb/sdk/ui';
 import $ from 'jquery';
-import { PriorityReviewComponent } from '../priority-review/priority-review.component';
 import { DeviceListComponent } from '../inter-device/device-list/device-list.component';
 import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
 import { MaterialInfoComponent } from '../bio-material/material-info/material-info.component';
@@ -101,7 +99,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   aiDetails: ApplicationInfoDetailsComponent;
   @ViewChild(DeviceListComponent) aiDevices: DeviceListComponent;
   @ViewChild(MaterialInfoComponent) bioMaterialInfo: MaterialInfoComponent;
-  @ViewChild(PriorityReviewComponent) priorityReview: PriorityReviewComponent;
   @ViewChild(DeclarationConformityComponent)
   declarationConformity: DeclarationConformityComponent;
 
@@ -109,7 +106,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _deviceErrors = [];
   private _materialInfoErrors = [];
   private _materialListErrors = [];
-  private _priorityRevErrors = [];
   private _declarationErrors = [];
 
   //computed(() => {
@@ -132,7 +128,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public transactionModel: Enrollment;
   public deviceModel: Device[];
   public materialInfo: BiologicalMaterialData;
-  public priorityRevModel: PriorityReview;
   public declarationModel: DeclarationComformity;
 
   public fileServices: FileConversionService;
@@ -229,7 +224,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this._deviceErrors.concat(
           this._declarationErrors.concat(
             this._materialInfoErrors.concat(
-              this._materialListErrors.concat(this._priorityRevErrors)
+              this._materialListErrors
             )
           )
         )
@@ -243,11 +238,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   processDetailErrors(errorList) {
     this._appInfoDetailErrors = errorList;
-    this.processErrors();
-  }
-
-  processPriorityRevErrors(errorList) {
-    this._priorityRevErrors = errorList;
     this.processErrors();
   }
 
@@ -271,13 +261,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   resetDeclarationError(reset: boolean) {
     if (reset) {
       this._declarationErrors = [];
-    }
-    this.processErrors();
-  }
-
-  resetPriorityRevError(reset: boolean) {
-    if (reset) {
-      this._priorityRevErrors = [];
     }
     this.processErrors();
   }
@@ -353,7 +336,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     let devicesFormArrayValue = null;
     let materialInfoFormGroupValue = null;
     let materialsFormArrayValue = null;
-    let priorityRevFormGroupValue = null;
     let declarationConFormGroupValue = null;
 
     const aiDetailsFormGroupValue = this.aiDetails.appInfoFormLocalModel.value;
@@ -371,11 +353,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
     }
 
-    if (this.priorityReview) {
-      priorityRevFormGroupValue =
-        this.priorityReview.priorityReviewLocalModel.value;
-    }
-
     if (this.declarationConformity) {
       declarationConFormGroupValue =
         this.declarationConformity.declarationLocalModel.value;
@@ -386,7 +363,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       devicesFormArrayValue,
       materialInfoFormGroupValue,
       materialsFormArrayValue,
-      priorityRevFormGroupValue,
       declarationConFormGroupValue
     );
 
@@ -441,7 +417,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.deviceModel = [];
     }
     this.materialInfo = applicationEnroll.material_info;
-    this.priorityRevModel = applicationEnroll.priority_review;
     this.declarationModel = applicationEnroll.declaration_conformity;
   }
 
@@ -518,7 +493,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  public showDeclarationConformityAndPriorityRev() {
+  public showDeclarationConformity() {
     if (
       (this._appInfoService.raTypeLicence() ||
         this._appInfoService.raTypeLicenceAmend()) &&

@@ -107,6 +107,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     let materialFocus = "";
 
     this.materialsFormArr.push(group);
+    this.materialListService.updateUIDisplayValues(this.materialsFormArr);
+
     if (this.materialsFormArr.length > 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(false);
     }
@@ -145,9 +147,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Biological material record " + id + " has been saved.";
+      this.statusMessage = "Biological material record " + group.controls['seqNumber'].value + " has been saved.";
     } else {
-      this.statusMessage = "Enregistrement du matériel biologique " + id + " a été sauvegardé.";
+      this.statusMessage = "Enregistrement du matériel biologique " + group.controls['seqNumber'].value + " a été sauvegardé.";
     }
     setTimeout(() => {
       document.getElementById('addMaterialBtn').focus()
@@ -204,10 +206,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this._materialService.showMaterialErrorSummaryOneRec.set(true);
     }
 
+    this.materialListService.updateUIDisplayValues(this.materialsFormArr);
+
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Biological material record " + id + " has been deleted.";
+      this.statusMessage = "Biological material record " + group.controls['seqNumber'].value + " has been deleted.";
     } else {
-      this.statusMessage = "Enregistrement du matériel biologique " + id + " a été supprimé.";
+      this.statusMessage = "Enregistrement du matériel biologique " + group.controls['seqNumber'].value + " a été supprimé.";
     }
     document.getElementById('addMaterialBtn').focus();
   }
@@ -225,9 +229,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     materialInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
-      discardMsg = "Biological material record " + id + " changes have been discarded.";
+      discardMsg = "Biological material record " + group.controls['seqNumber'].value + " changes have been discarded.";
     } else {
-      discardMsg = "Les modification du matériel biologique " + id + " ont été annulées.";
+      discardMsg = "Les modification du matériel biologique " + group.controls['seqNumber'].value + " ont été annulées.";
     }
 
     this.statusMessage = discardMsg;
@@ -277,6 +281,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // Set the list of form groups
     this.materialListService.setList(this.materialsFormArr.controls as FormGroup[]);
+    this.materialListService.updateUIDisplayValues(this.materialsFormArr);
   }
 
   // todo add contact type

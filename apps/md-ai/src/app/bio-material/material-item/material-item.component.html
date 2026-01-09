@@ -78,7 +78,7 @@
           </label>
         </div>
       </div>
-      @if(isTissueTypeOther) {
+      <div *ngIf="showTissueTypeOther()">
         <div class="row">
           <div class="form-group col-sm-8">
             <label for="tissueTypeOtherDetails" class="full-width">
@@ -88,7 +88,7 @@
             </label>
           </div>
         </div>
-      }
+      </div>
       <div class="row">
         <div class="form-group col-xs-12 col-sm-6 col-md-8" >
           <label for="derivative{{j}}" class="full-width">
@@ -101,7 +101,7 @@
           </label>
         </div>
       </div>
-      @if(isDerivativeOther) {
+      <div *ngIf="showDerivativeOther()">
         <div class="row">
           <div class="form-group col-sm-8">
             <label for="derivativeOtherDetails" class="full-width">
@@ -111,7 +111,7 @@
             </label>
           </div>
         </div>
-      }
+      </div>
       <div class="row">
         <div class="btn-group-sm col-xs-12 text-left">
           <button id="saveMaterialRecord{{j}}" attr.aria-label="{{'save.material' | translate}} {{'heading.biological.material' | translate: {seqnumber: j + 1} }}" class="btn btn-primary" style="margin: 3px" (click)="saveMaterialRecord(j)" >{{'save.material'|translate}}</button>
