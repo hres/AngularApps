@@ -45,7 +45,7 @@
     "required": "Ce champ est obligatoire.",
     "heading.application-info": "fr_Regulatory Application Information Enrolment",
     "heading.device.history": "Historique de l'instrument",
-    "heading.interdependent.device": "Instruments interdépendants # {{seqnumber}}",
+    "heading.interdependent.device": "Instruments interdépendants {{seqnumber}}",
     "heading.device.record": "fr_Device Record",
     "heading.standard.list": "Normes reconnues respectées dans la conception et fabrication de l'instrument",
     "heading.device.material": "Instruments contenant du matériel biologique",
