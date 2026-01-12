@@ -551,7 +551,7 @@ span.normalWeight {
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-xs-6">
-								<strong>La vente de cet instrument a-t-elle déjà été autorisée au Canada en vertu des dispositions du Règlement sur les instruments médicaux ?:</strong>
+								<strong>La vente de cet instrument a-t-elle déjà été autorisée au Canada en vertu des dispositions du Règlement sur les instruments médicaux ? :</strong>
 								</div>
 							</div>
 							<div class="row">

@@ -77,7 +77,7 @@
     "compliance": "Conformité",
     "other.pharmacopeia": "Indiquer une autre pharmacopée",
     "device.history": "Historique de l'instrument",
-    "provision.mdr": "La vente de cet instrument a-t-elle déjà été autorisée au Canada en vertu des dispositions du Règlement sur les instruments médicaux ? ",
+    "provision.mdr": "La vente de cet instrument a-t-elle déjà été autorisée au Canada en vertu des dispositions du Règlement sur les instruments médicaux ? :",
     "mdr.it": "Essai expérimental",
     "mdr.sa": "Accès spécial",
     "mdr.ioa": "Autorisation en vertu de la Partie 1.1",
