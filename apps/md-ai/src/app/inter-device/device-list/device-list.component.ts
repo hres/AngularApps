@@ -209,34 +209,14 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
   revertDevice(event: any) {
     let discardMsg = "";
-   // const index = event.index;
-   const index = this.deviceIndex;
+    const index = this.deviceIndex;
     const id : string = (index + 1).toString();
 
     const group = this.devicesFormArr.at(index) as FormGroup;
-    // const deviceInfo =this.getDeviceInfo(group);
-    let  deviceInfo = this.updatedDeviceForm;
-
-
-    // let modelRecord = this._listService.getModelRecord(this.contactId);
-    // if (!modelRecord) {
-    //   modelRecord = this._listService.getEmptyContactModel();
-    //   modelRecord.id = this.contactId;
-    // }
-    // let rec = this.getRecord(this.contactId, this.contactList);
-    // if (rec) {
-    //   this._recordService.mapDataModelFormModel(modelRecord, rec);
-    // } else {
-    //   // should never happen, there should always be a UI record
-    //   console.warn('ContactList:rec is null');
-    // }
-
-
+    const  deviceInfo = this.updatedDeviceForm;
 
     // Revert to the last saved state
     const lastSavedState = group.get('lastSavedState').value;
-    if(lastSavedState){
-
     deviceInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
       discardMsg = "Device record " + group.controls['seqNumber'].value + " changes have been discarded.";
@@ -246,14 +226,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     this.statusMessage = discardMsg;
     this.updatedDeviceForm.markAsPristine();
-  }else{
-
-    const group = this.deviceService.createDeviceFormGroup(this.fb);
-    let deviceFocus = "";
-    this.devicesFormArr.push(group);
-    this.deviceListService.updateUIDisplayValues(this.devicesFormArr);
-    this.updatedDeviceForm = null;
-  }
 
     // Screen reader will announce message again after the first time Discard Changes button has been clicked
     setTimeout(() => {

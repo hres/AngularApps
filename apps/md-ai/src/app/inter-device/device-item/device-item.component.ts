@@ -260,15 +260,9 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     return deviceAuthorized == NO && deviceApplicationSubmitted == NO;
   }
 
-  // public disabledDiscardButton() {
-  //   if (this.cRRow.get('isNew').value) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
 
   public disabledDiscadrButton() {
-    if ( this.deviceInfo.dirty) {
+    if ( !this.cRRow.get('isNew').value && this.deviceInfo.dirty) {
       return false
     }
     else {
