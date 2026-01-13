@@ -22,7 +22,7 @@
                     "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company (CO) template (2026-01-28)</a>",
                     "bullets": [
                         "Required to obtain a company ID and/or provide updated company information to Health Canada.",
-                        "Sent via the email.<ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
+                        "Sent by email.<ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
                         "Refer to section “Company enrolment/amendments process” of the REP guidance document for medical devices."
                     ]
                 },

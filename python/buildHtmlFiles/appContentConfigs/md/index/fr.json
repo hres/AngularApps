@@ -47,7 +47,7 @@
                 {
                     "header": "<a href=\"{{ base_url }}{{ template_paths.ai.fr }}\">Modèle d’information sur les demandes d’homologation (2024-12-11)</a>",
                     "bullets": [
-                        "Obligatoire uniquement pour un sous-ensemble de transactions. Reportez-vous à la section « Modèle et processus de demande d'information» de la ligne directrice PIR pour les instruments médicaux."
+                        "Obligatoire uniquement pour un sous-ensemble de transactions. Reportez-vous à la section « Modèle et processus de demande d'information » de la ligne directrice PIR pour les instruments médicaux."
                     ]
                 },
                 {
