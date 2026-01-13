@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, TranslateModule],
   templateUrl: './filereader-instruction.component.html',
-  styles: ``,
+  styleUrl: './filereader-instruction.component.css',
   encapsulation: ViewEncapsulation.None
 })
 export class FilereaderInstructionComponent {
