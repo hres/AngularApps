@@ -27,6 +27,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     id: number;
     heading: string;
     buttonTrigger:HTMLElement;
+    tempDeviceForm: FormGroup;
   }>;
   @Output() deleteRecord = new EventEmitter<{
     id: number;
@@ -47,7 +48,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   showErrSummary: boolean = false;
   public errorList = [];
   private errorSummaryChild: ErrorSummaryComponent = null;
-
+  disableDiscardBtn: boolean;
 
   public headingLevel = 'h4';
   headingPreamble: string = "heading.interdependent.device";
@@ -89,6 +90,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+    this.disableDiscardBtn = true;
 
     this.deviceInfo.valueChanges.subscribe(() => {
       this.checkFormDirtyStatus();
@@ -151,16 +153,18 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   public revertDeviceRecord(event:Event, index: number, recordId: number): void {
     const heading = this._deviceService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
-    this.revertRecord.emit({ 
-      index: index, 
+    this.revertRecord.emit({
+      index: index,
       id: this.cRRow.get('id').value,
       heading: heading,
-      buttonTrigger: trigger
+      buttonTrigger: trigger,
+      tempDeviceForm:  this.deviceInfo
     });
+    this.disableDiscardBtn = true
     this.onDeviceAuthorizedChange(null);
     this.onDeviceAppChange(null);
 
-    this.cRRow.markAsPristine();
+//    this.cRRow.markAsPristine();
   }
 
   public deleteDeviceRecord(event: Event, index: number): void {
@@ -169,7 +173,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     const heading = this._deviceService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
 
-    
+
     this.deleteRecord.emit({
       id: this.cRRow.get('id').value,
       //       id: this.cRRow.get('id').value,
@@ -187,6 +191,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   }
 
   private _save(index: number): void {
+    this.disableDiscardBtn = true;
     if (!(this.errorList.length > 0)) { // If there are no errors -> Set null inputs that are invalid to valid
       this._deviceService.setDeviceDetailsErrorsToNull(this.cRRow.get('deviceInfo'));
     }
@@ -255,11 +260,20 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     return deviceAuthorized == NO && deviceApplicationSubmitted == NO;
   }
 
-  public disabledDiscardButton() {
-    if (this.cRRow.get('isNew').value) {
+  // public disabledDiscardButton() {
+  //   if (this.cRRow.get('isNew').value) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  public disabledDiscadrButton() {
+    if ( this.deviceInfo.dirty) {
+      return false
+    }
+    else {
       return true;
     }
-    return false;
   }
 
   public showErrorSummary(): boolean {
