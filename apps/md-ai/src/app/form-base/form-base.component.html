@@ -14,7 +14,7 @@
             <header class="panel-heading clearfix">
               <h2 class="panel-title">{{'load.file'|translate}}
                 <sup id="ap1-rf">
-                  <a class="fn-lnk mrgn-tp-md" href="#ap1"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['loadFileIndx']}}</a>
+                  <a class="fn-lnk mrgn-tp-md" href="#ap1"><span class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpTextSequences['loadFileIndx']}}</a>
                 </sup>
               </h2>
             </header>
@@ -36,7 +36,7 @@
               <header class="panel-heading clearfix">
                 <h2 class="panel-title">{{'heading.app-info'|translate}}
                   <sup id="ap2-rf">
-                    <a class="fn-lnk mrgn-tp-md" href="#ap2"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpTextSequences['appInfoREPIndx']}}</a>
+                    <a class="fn-lnk mrgn-tp-md" href="#ap2"><span class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpTextSequences['appInfoREPIndx']}}</a>
                   </sup>
                 </h2>
               </header>
@@ -51,7 +51,6 @@
                                   (detailErrorList)="processDetailErrors($event)"
                                   (resetMaterialErrorList)="resetMaterialErrors($event)"
                                   (resetDeclarationError)="resetDeclarationError($event)"
-                                  (resetPriorityRevError)="resetPriorityRevError($event)"
                                   (resetYesNoList)="resetYesNot($event)">
                 </app-info-details>
                 <section class="panel  panel-default">
@@ -62,7 +61,7 @@
                     <app-device-list [deviceListData]="deviceModel"> </app-device-list>
                   </div>
                 </section>
-                <div *ngIf="showDeclarationConformityAndPriorityRev()">
+                <div *ngIf="showDeclarationConformity()">
                   <app-declaration-conformity
                    [declarationLocalModel]="declarationLocalModel"
                    [helpTextSequences]="helpIndex"
@@ -74,7 +73,7 @@
                 <div *ngIf="isDeviceIV()">
                   <app-material-info [materialInfo]="materialInfo"> </app-material-info>
                 </div>
-                <div *ngIf="showDeclarationConformityAndPriorityRev()" >
+                <!-- <div *ngIf="showDeclarationConformityAndPriorityRev()" >
                 <section class="panel panel-default">
                   <header class="panel-heading clearfix">
                     <h2 class="panel-title">{{'priority.review'|translate}}
@@ -88,7 +87,7 @@
                     [showErrors]="showErrors" (priorityRevErrorList)="processPriorityRevErrors($event)"></app-priority-review>
                   </div>
                 </section>
-              </div>
+              </div> -->
               </div>
             </section>
           </div>

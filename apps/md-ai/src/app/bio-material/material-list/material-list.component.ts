@@ -26,11 +26,19 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   firstChange: boolean = false;
 
   popupId = "materialPopup";
+  deleteMaterialPopupID = 'deleteMaterialPopupID';
+  discardChangePopupID = 'discardMaterialChangesPopupID';
+  deleteRecordHeading: string;
+  discardChangeHeading: string;
+  popupTrigger: HTMLElement = null;
 
   atLeastOneRec = signal(false);
   atLeastOneRecBoolean = false;
 
   statusMessage : string = '';
+
+  private materialId: number; // ID a record is assigned to
+  private materialIndex: number; // Place of the record in the array
 
   constructor(private fb: FormBuilder,
               private _utilsService: UtilsService,
@@ -99,6 +107,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     let materialFocus = "";
 
     this.materialsFormArr.push(group);
+    this.materialListService.updateUIDisplayValues(this.materialsFormArr);
+
     if (this.materialsFormArr.length > 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(false);
     }
@@ -137,9 +147,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Biological material record " + id + " has been saved.";
+      this.statusMessage = "Biological material record " + group.controls['seqNumber'].value + " has been saved.";
     } else {
-      this.statusMessage = "Enregistrement du matériel biologique " + id + " a été sauvegardé.";
+      this.statusMessage = "Enregistrement du matériel biologique " + group.controls['seqNumber'].value + " a été sauvegardé.";
     }
     setTimeout(() => {
       document.getElementById('addMaterialBtn').focus()
@@ -158,8 +168,29 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
    }
  }
 
-  deleteMaterialRecord(index){
-    const id : string = (index + 1).toString();
+  confirmDeleteMaterialRecord(event:any) {
+    this.materialId = event.id;
+    console.log(this.materialId);
+    this.materialIndex = event.index;
+    console.log(this.materialIndex);
+    this.deleteRecordHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.deleteMaterialPopupID);
+  }
+
+  confirmRevertMaterial(event:any) {
+    this.materialId = event.id;
+    this.materialIndex = event.index;
+    this.discardChangeHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.discardChangePopupID);
+    // this.updatedContactDetailsForm = event.tempContactDetailsForm;
+    // this.updatedContactDetailsForm.markAsDirty()
+  }
+
+  deleteMaterialRecord(){
+    const id : number = this.materialId;
+    const index : number = this.materialIndex;
     const group = this.materialsFormArr.at(index) as FormGroup;
     const materialInfo = this.getMaterialInfo(group);
     materialInfo.reset();
@@ -175,10 +206,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this._materialService.showMaterialErrorSummaryOneRec.set(true);
     }
 
+    this.materialListService.updateUIDisplayValues(this.materialsFormArr);
+
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Biological material record " + id + " has been deleted.";
+      this.statusMessage = "Biological material record " + group.controls['seqNumber'].value + " has been deleted.";
     } else {
-      this.statusMessage = "Enregistrement du matériel biologique " + id + " a été supprimé.";
+      this.statusMessage = "Enregistrement du matériel biologique " + group.controls['seqNumber'].value + " a été supprimé.";
     }
     document.getElementById('addMaterialBtn').focus();
   }
@@ -196,9 +229,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     materialInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
-      discardMsg = "Biological material record " + id + " changes have been discarded.";
+      discardMsg = "Biological material record " + group.controls['seqNumber'].value + " changes have been discarded.";
     } else {
-      discardMsg = "Les modification du matériel biologique " + id + " ont été annulées.";
+      discardMsg = "Les modification du matériel biologique " + group.controls['seqNumber'].value + " ont été annulées.";
     }
 
     this.statusMessage = discardMsg;
@@ -248,6 +281,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // Set the list of form groups
     this.materialListService.setList(this.materialsFormArr.controls as FormGroup[]);
+    this.materialListService.updateUIDisplayValues(this.materialsFormArr);
   }
 
   // todo add contact type
@@ -357,7 +391,36 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     return atLeastOneRecord ? null : { atLeastOneMat : oerr};
   }
 
-  openPopup(){
-    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  openPopup() {
+    const popupSelector = "#" + this.popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  openConfirmationPopup(popupId: string) {
+    const popupSelector = "#" + popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    console.log(popupSelector)
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
   }
 }

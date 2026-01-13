@@ -1,5 +1,8 @@
 <div id="materialListTable" [formGroup]="materialListForm">
   <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.data.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
+  <lib-confirmation-popup [id]="deleteMaterialPopupID" [title]="'popup.warning' | translate" [message]="'msg.delete.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="deleteRecordHeading" (confirmed)="deleteMaterialRecord()" (closed)="handleClosedPopup()" ></lib-confirmation-popup>
+  <lib-confirmation-popup [id]="discardChangePopupID" [title]="'popup.warning' | translate" [message]="'msg.discard.changes.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="discardChangeHeading" (confirmed)="revertMaterial($event)" (closed)="handleClosedPopup()" ></lib-confirmation-popup>
+  
     <div [formArrayName]="'materials'">
 
       <lib-accordion [rowsFormArray]="materialsFormArr" [accordionHeadingMsgKey]="'heading.biological.material'" [accordionHeadingSupp]="['materialInfo', 'materialName']" 
@@ -9,7 +12,7 @@
         <!-- ==={{recordRow.get('id').value}}===
         === index = {{idx}} ,  === -->
         <app-material-item [cRRow]="recordRow" [j]="idx" (saveRecord)="saveMaterialRecord($event)"
-          (deleteRecord)="deleteMaterialRecord($event)" (revertRecord)="revertMaterial($event)" (error)="showError($event)">
+          (deleteRecord)="confirmDeleteMaterialRecord($event)" (revertRecord)="confirmRevertMaterial($event)" (error)="showError($event)">
         </app-material-item>
         <!-- <company-contact-record 
           [cRRow]="recordRow" [isInternal]="isInternal"

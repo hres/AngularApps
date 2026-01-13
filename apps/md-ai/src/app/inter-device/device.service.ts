@@ -1,9 +1,12 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@hpfb/sdk/ui';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class DeviceService {
+
+  _translateService = inject(TranslateService);
 
   deviceErrors = signal([]);
   
@@ -17,6 +20,7 @@ export class DeviceService {
 
     return fb.group({
       id: -1,
+      seqNumber: -1, // For UI purpose
       isNew: true,
       expandFlag: true,
       lastSavedState: null, // store the last saved state of the contactInfo for reverting function
@@ -80,4 +84,8 @@ export class DeviceService {
       }
     });
   }
+
+  public getHeading(index : number): string {
+    return this._translateService.instant('heading.interdependent.device', { seqnumber: index + 1})
+ }
 }

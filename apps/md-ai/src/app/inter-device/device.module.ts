@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import {BrowserModule} from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective, PopupComponent } from '@hpfb/sdk/ui';
+import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective, PopupComponent, ConfirmationPopupComponent } from '@hpfb/sdk/ui';
 
 import { DeviceItemComponent } from './device-item/device-item.component';
 import { DeviceListComponent } from './device-list/device-list.component';
@@ -22,7 +22,8 @@ import { DeviceService } from './device.service';
     PipesModule,
     ExpanderModule,
     NumbersOnlyDirective,
-    PopupComponent
+    PopupComponent,
+    ConfirmationPopupComponent
   ],
   declarations: [
     DeviceItemComponent,

@@ -32,16 +32,19 @@ export class ApplicationInfoDetailsService {
       companyId: [null, [Validators.required, ValidationService.numeric6Validator]],
       dossierId: [null, [Validators.required, ValidationService.dossierIdValidator]],
       mdsapNum: [null, Validators.required],
-      mdsapOrg: [null, Validators.required],
-      licenceAppType: [null, Validators.required],
-      activityType: [null, Validators.required],
+      mdsapOrg: ['', Validators.required],
+      licenceAppType: ['', Validators.required],
+      activityType: ['', Validators.required],
       deviceClass: [null, Validators.required],
+      isPriorityReq: [null, Validators.required],
+      diagnosisReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
+      selectedDiagnosisCodes: [''],
       isIvdd: [null, Validators.required],
       isHomeUse: [null, Validators.required],
       isCarePoint: [null, Validators.required],
       isEmitRadiation: [null, Validators.required],
       hasDrug: [null, Validators.required],
-      hasDinNpn: [null, []],
+      hasDinNpn: ['', []],
       din: [null, [Validators.required, ValidationService.numeric8Validator]],
       npn: [null, [Validators.required, ValidationService.numeric8Validator]],
       drugName: [null, Validators.required],
@@ -63,6 +66,27 @@ export class ApplicationInfoDetailsService {
     return this._converterService.getCheckedCheckboxValues(complianceList, complianceChkFormArray);
   }
 
+  getSelectedDiagnosisCodes(seriousDiagnosisReasonList: CheckboxOption[], diagnosisReasonChkFormArray: FormArray) : string[] {
+    return this._converterService.getCheckedCheckboxValues(seriousDiagnosisReasonList, diagnosisReasonChkFormArray);
+  }
+
+  getDiagnosisChkboxFormArray(formRecord: FormGroup) {
+    return formRecord.controls['diagnosisReasons'] as FormArray;
+  }  
+
+  loadDiagnosisReasonOptions(diagnosisList, seriousDiagnosisReasonOptionList, diagnosisReasonChkFormArray, lang) {
+    seriousDiagnosisReasonOptionList.length = 0;
+    diagnosisReasonChkFormArray.clear();
+
+  
+    // Populate the array with new items
+    diagnosisList.forEach((item) => {
+      const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
+      seriousDiagnosisReasonOptionList.push(checkboxOption);
+      diagnosisReasonChkFormArray.push(new FormControl(false));
+    });
+  }
+
   public mapFormModelToDataModel(formRecord: any, appInfoModel, lang) {
     const licenceAppTypeList = this._globalService.$licenceAppTypeList;
     const mdsapOrgList = this._globalService.$mdAuditProgramList;
@@ -80,16 +104,24 @@ export class ApplicationInfoDetailsService {
     appInfoModel.mdsap_number = formRecord.mdsapNum;
 
     const mdsapOrgCodeValue = this._utilsService.findCodeById(mdsapOrgList, formRecord.mdsapOrg);
-    appInfoModel.mdsap_org = mdsapOrgCodeValue? this._converterService.convertCodeToIdTextLabel(mdsapOrgCodeValue, lang) : null;
+    appInfoModel.mdsap_org = mdsapOrgCodeValue? this._converterService.convertCodeToIdTextLabel(mdsapOrgCodeValue, lang) : '';
 
     const licenceAppTypeCodeValue = this._utilsService.findCodeById(licenceAppTypeList, formRecord.licenceAppType);
-    appInfoModel.licence_application_type = licenceAppTypeCodeValue? this._converterService.convertCodeToIdTextLabel(licenceAppTypeCodeValue, lang) : null;
+    appInfoModel.licence_application_type = licenceAppTypeCodeValue? this._converterService.convertCodeToIdTextLabel(licenceAppTypeCodeValue, lang) : '';
 
     const actTypeCodeValue = this._utilsService.findCodeById(actTypeList, formRecord.activityType);
-    appInfoModel.regulatory_activity_type = actTypeCodeValue? this._converterService.convertCodeToIdTextLabel(actTypeCodeValue, lang) : null;
+    appInfoModel.regulatory_activity_type = actTypeCodeValue? this._converterService.convertCodeToIdTextLabel(actTypeCodeValue, lang) : '';
 
     const devClassCodeValue = this._utilsService.findCodeById(devClassList, formRecord.deviceClass);
     appInfoModel.device_class = devClassCodeValue? this._converterService.convertCodeToIdTextLabel(devClassCodeValue, lang) : null;
+
+    appInfoModel.priority_review = formRecord.isPriorityReq;
+    if (formRecord.selectedDiagnosisCodes) {
+        const reasons: DiagnosisReasons = {
+            diagnosis_reason: this._converterService.findAndConverCodesToIdTextLabels(diagnosisReasonList, formRecord.selectedDiagnosisCodes, lang)
+        }
+        appInfoModel.is_diagnosis_treatment_serious = reasons;
+    }
 
     appInfoModel.is_ivdd = formRecord.isIvdd;
     appInfoModel.is_home_use = formRecord.isHomeUse;
@@ -98,7 +130,7 @@ export class ApplicationInfoDetailsService {
     appInfoModel.has_drug = formRecord.hasDrug;
 
     const hasDinNpnCodeValue = this._utilsService.findCodeById(drugTypeList, formRecord.hasDinNpn);
-    appInfoModel.has_din_npn = hasDinNpnCodeValue? this._converterService.convertCodeToIdTextLabel(hasDinNpnCodeValue, lang) : null;
+    appInfoModel.has_din_npn = hasDinNpnCodeValue? this._converterService.convertCodeToIdTextLabel(hasDinNpnCodeValue, lang) : '';
 
     if (formRecord.selectedComplianceCodes) {
       const compliances: Compliances = {
@@ -126,7 +158,7 @@ export class ApplicationInfoDetailsService {
     appInfoModel.authorization_id = formRecord.authNum;
   }
 
-  public mapDataModelToFormModel(appInfoModel: ApplicationInfo, formRecord: FormGroup, complianceList: ICode[], complianceOptionList : CheckboxOption[], lang) {
+  public mapDataModelToFormModel(appInfoModel: ApplicationInfo, formRecord: FormGroup, complianceList: ICode[], complianceOptionList : CheckboxOption[], diagnosisReasonList: ICode[], diagnosisOptionList: CheckboxOption[], lang) {
     let mdsapOrgId: string | undefined;
     let licenceAppTypeId: string | undefined;
     let regActivityTypeId: string | undefined;
@@ -141,23 +173,23 @@ export class ApplicationInfoDetailsService {
 
     if (appInfoModel.mdsap_org) {
       mdsapOrgId = this._utilsService.getIdFromIdTextLabel(appInfoModel.mdsap_org);
-      formRecord.controls['mdsapOrg'].setValue(mdsapOrgId? mdsapOrgId : null);
+      formRecord.controls['mdsapOrg'].setValue(mdsapOrgId? mdsapOrgId : '');
     } else {
-      formRecord.controls['mdsapOrg'].setValue(null);
+      formRecord.controls['mdsapOrg'].setValue('');
     }
 
     if (appInfoModel.licence_application_type) {
       licenceAppTypeId = this._utilsService.getIdFromIdTextLabel(appInfoModel.licence_application_type);
-      formRecord.controls['licenceAppType'].setValue(licenceAppTypeId? licenceAppTypeId : null);
+      formRecord.controls['licenceAppType'].setValue(licenceAppTypeId? licenceAppTypeId : '');
     } else {
-      formRecord.controls['licenceAppType'].setValue(null);
+      formRecord.controls['licenceAppType'].setValue('');
     }
 
     if (appInfoModel.regulatory_activity_type) {
       regActivityTypeId = this._utilsService.getIdFromIdTextLabel(appInfoModel.regulatory_activity_type);
-      formRecord.controls['activityType'].setValue(regActivityTypeId? regActivityTypeId : null);
+      formRecord.controls['activityType'].setValue(regActivityTypeId? regActivityTypeId : '');
     } else {
-      formRecord.controls['activityType'].setValue(null);
+      formRecord.controls['activityType'].setValue('');
     }
 
     if (appInfoModel.device_class) {
@@ -165,6 +197,19 @@ export class ApplicationInfoDetailsService {
       formRecord.controls['deviceClass'].setValue(deviceClassId? deviceClassId : null);
     } else {
       formRecord.controls['deviceClass'].setValue(null);
+    }
+
+    formRecord.controls['isPriorityReq'].setValue(appInfoModel.priority_review);
+    if (appInfoModel.priority_review) {
+        if (appInfoModel.is_diagnosis_treatment_serious) {
+            const loadedDiagnosisCodes: string[] = this._utilsService.getIdsFromIdTextLabels(appInfoModel.is_diagnosis_treatment_serious.diagnosis_reason);
+            if (loadedDiagnosisCodes.length > 0) {
+            const diagnosisFormArray = this.getDiagnosisChkboxFormArray(formRecord);
+            this.loadDiagnosisReasonOptions(diagnosisReasonList, diagnosisOptionList, diagnosisFormArray, lang)
+            this._converterService.checkCheckboxes(loadedDiagnosisCodes, diagnosisOptionList, diagnosisFormArray);
+            }  
+            formRecord.controls['selectedDiagnosisCodes'].setValue(loadedDiagnosisCodes);
+        }
     }
 
     formRecord.controls['isIvdd'].setValue(appInfoModel.is_ivdd);
@@ -175,9 +220,9 @@ export class ApplicationInfoDetailsService {
 
     if (appInfoModel.has_din_npn) {
       hasDinNpnId = this._utilsService.getIdFromIdTextLabel(appInfoModel.has_din_npn);
-      formRecord.controls['hasDinNpn'].setValue(hasDinNpnId? hasDinNpnId : null);
+      formRecord.controls['hasDinNpn'].setValue(hasDinNpnId? hasDinNpnId : '');
     } else {
-      formRecord.controls['hasDinNpn'].setValue(null);
+      formRecord.controls['hasDinNpn'].setValue('');
     }
 
     if (appInfoModel.compliance) {

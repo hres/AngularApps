@@ -31,8 +31,16 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   errorSummaryChild = null;
 
   popupId = 'devicePopup';
+  deleteDevicePopupID = 'deleteDevicePopupID';
+  discardChangePopupID = 'discardDeviceChangesPopupID';
+  deleteRecordHeading: string;
+  discardChangeHeading: string;
+  popupTrigger: HTMLElement = null;
 
   statusMessage : string = '';
+
+  private deviceId: number; // ID a record is assigned to
+  private deviceIndex: number; // Place of the record in the array
 
   constructor(private fb: FormBuilder,
               private _utilsService: UtilsService,
@@ -92,6 +100,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     const group = this.deviceService.createDeviceFormGroup(this.fb);
     let deviceFocus = "";
     this.devicesFormArr.push(group);
+    this.deviceListService.updateUIDisplayValues(this.devicesFormArr);
+
     if (this.devicesFormArr.length >= 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(false);
       deviceFocus = "deviceName" + newIndex;
@@ -130,9 +140,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     // this.contactsUpdated.emit(this.getContactsFormArrValues());
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Device record " + id + " has been saved.";
+      this.statusMessage = "Device record " + group.controls['seqNumber'].value + " has been saved.";
     } else {
-      this.statusMessage = "Enregistrement d’intrument " + id + " a été sauvegardé.";
+      this.statusMessage = "Enregistrement d’intrument " + group.controls['seqNumber'].value + " a été sauvegardé.";
     }
     setTimeout(() => {
       document.getElementById('addDeviceBtn').focus()
@@ -151,8 +161,30 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
    }
  }
 
-  deleteDeviceRecord(index){
-    const id : string = (index + 1).toString();
+  confirmDeleteDeviceRecord(event:any) {
+    this.deviceId = event.id;
+    console.log(this.deviceId);
+    this.deviceIndex = event.index;
+    console.log(this.deviceIndex);
+    this.deleteRecordHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.deleteDevicePopupID);
+  }
+
+  confirmDiscardRecordChanges(event:any) {
+    this.deviceId = event.id;
+    this.deviceIndex = event.index;
+    this.discardChangeHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.discardChangePopupID);
+    // this.updatedContactDetailsForm = event.tempContactDetailsForm;
+    // this.updatedContactDetailsForm.markAsDirty()
+  }
+
+  deleteDeviceRecord(){
+    // const id : string = (index + 1).toString();
+    const id : number = this.deviceId;
+    const index : number = this.deviceIndex;
     const group = this.devicesFormArr.at(index) as FormGroup;
     const deviceInfo = this.getDeviceInfo(group);
     deviceInfo.reset();
@@ -164,10 +196,11 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     }
     this.errorSummaryChild = null;
     this._emitErrors();
+    this.deviceListService.updateUIDisplayValues(this.devicesFormArr);
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Device record " + id + " has been deleted.";
+      this.statusMessage = "Device record " + group.controls['seqNumber'].value + " has been deleted.";
     } else {
-      this.statusMessage = "Enregistrement d’intrument " + id + " a été supprimé.";
+      this.statusMessage = "Enregistrement d’intrument " + group.controls['seqNumber'].value + " a été supprimé.";
     }
     document.getElementById('addDeviceBtn').focus();
   }
@@ -185,9 +218,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     deviceInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
-      discardMsg = "Device record " + id + " changes have been discarded.";
+      discardMsg = "Device record " + group.controls['seqNumber'].value + " changes have been discarded.";
     } else {
-      discardMsg = "Les modifications d’enregistrement d’intrument " + id + " ont été annulées.";
+      discardMsg = "Les modifications d’enregistrement d’intrument " + group.controls['seqNumber'].value + " ont été annulées.";
     }
 
     this.statusMessage = discardMsg;
@@ -240,6 +273,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // Set the list of form groups
     this.deviceListService.setList(this.devicesFormArr.controls as FormGroup[]);
+    this.deviceListService.updateUIDisplayValues(this.devicesFormArr);
   }
 
   // Change so that it can be used by last saved state and patching in general
@@ -349,6 +383,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   getDeviceInfo(deviceFormGroup : FormGroup): FormGroup {
+    console.log(deviceFormGroup);
     return deviceFormGroup.get('deviceInfo') as FormGroup;
   }
 
@@ -356,8 +391,37 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     return this.devicesFormArr.value;
   }
 
-  openPopup(){
-    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  openPopup() {
+    const popupSelector = "#" + this.popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  openConfirmationPopup(popupId: string) {
+    const popupSelector = "#" + popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    console.log(popupSelector)
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
   }
 
 }

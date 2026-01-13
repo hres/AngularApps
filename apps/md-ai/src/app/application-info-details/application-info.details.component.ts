@@ -59,9 +59,11 @@ export class ApplicationInfoDetailsComponent
   public yesNoList: ICode[] = [];
 
   public complianceOptionList: CheckboxOption[] = [];
+  public seriousDiagnosisReasonOptionList: CheckboxOption[] = [];
 
   // Lists for checkboxes
   public complianceCodeList: ICode[] = [];
+  public diagnosisReasonCodeList: ICode[] = [];
 
   public showFieldErrors = false;
 
@@ -90,6 +92,7 @@ export class ApplicationInfoDetailsComponent
     this.devClassList = this._globalService.$deviceClassesList;
     this.drugTypeList = this._globalService.$rawDrugTypeList;
     this.yesNoList = this._globalService.$yesNoList;
+    this.diagnosisReasonCodeList = this._globalService.$diagnosisReasonList;
 
     this.complianceCodeList = this._globalService.$complianceList;
     this.appInfoFormLocalModel
@@ -110,6 +113,10 @@ export class ApplicationInfoDetailsComponent
           this.resetYesNoList.emit(true);
         }
       });
+
+    this.appInfoFormLocalModel.controls['mdsapOrg'].setValue('');
+    this.appInfoFormLocalModel.controls['licenceAppType'].setValue('');
+    this.appInfoFormLocalModel.controls['activityType'].setValue('');
   }
 
   ngAfterViewInit() {
@@ -151,11 +158,18 @@ export class ApplicationInfoDetailsComponent
         );
         this.appInfoFormLocalModel.markAsPristine();
       }
+
+      // Initialize diagnosis reasons and compliance checkboxes 
+      this._updateDiagnosisReasonArray();
+      this._updateComplianceArray();
+
       this._detailsService.mapDataModelToFormModel(
         dataModel,
         this.appInfoFormLocalModel,
         this.complianceCodeList,
         this.complianceOptionList,
+        this.diagnosisReasonCodeList,
+        this.seriousDiagnosisReasonOptionList,
         this.lang
       );
       this.deviceClassOnblur();
@@ -257,6 +271,11 @@ export class ApplicationInfoDetailsComponent
       this._resetControlValues(valuesToReset);
     }
     return false;
+  }
+
+  onHasDrugChange(event: any) {
+    this.appInfoFormLocalModel.controls['hasDinNpn'].setValue('');
+    this._updateComplianceArray();
   }
 
   hasDrug() {
@@ -439,6 +458,9 @@ export class ApplicationInfoDetailsComponent
     return false;
   }
 
+  /**
+   * Deprecated - Now using onHasDrugChange()
+   */
   hasDrugOnChange() {
     this._updateComplianceArray();
   }
@@ -507,6 +529,58 @@ export class ApplicationInfoDetailsComponent
     );
   }
 
+  public showPriorityReview() {
+    if (
+      (this._detailsService.raTypeLicence() ||
+        this._detailsService.raTypeLicenceAmend()) &&
+      (this._detailsService.deviceClassIII() ||
+        this._detailsService.deviceClassIV() ||
+        this._detailsService.deviceClassII())
+    ) {
+      return true;
+    } else {
+    }
+    return false;
+  }
+
+  priorityRequestedOnChange() {
+    if (this.appInfoFormLocalModel.controls['isPriorityReq'].value &&
+          this.appInfoFormLocalModel.controls['isPriorityReq'].value === YES) {
+      this._updateDiagnosisReasonArray();
+    } else {
+      this._utilsService.resetControlsValues(
+        this.diagnosisReasonChkFormArray,
+        this.appInfoFormLocalModel.controls['selectedDiagnosisCodes'],
+      );
+    }
+  }
+
+  showDiagnosisReasons() {
+    if (this.appInfoFormLocalModel.controls['isPriorityReq'].value &&
+          this.appInfoFormLocalModel.controls['isPriorityReq'].value === YES) {
+         return true;
+    }
+    else {
+      this._utilsService.resetControlsValues(this.appInfoFormLocalModel.controls['diagnosisReasons']);
+    }
+    return false;
+  }
+
+  seriousDiagnosisOnChange() {
+    this.appInfoFormLocalModel.controls['selectedDiagnosisCodes'].setValue(this.selectedDiagnosisCodes);
+  }
+
+  private _updateDiagnosisReasonArray() {
+    const diagnosisReasonList = this._globalService.$diagnosisReasonList;
+    this.seriousDiagnosisReasonOptionList = diagnosisReasonList.map((item) => {
+      return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+    });
+
+    this.seriousDiagnosisReasonOptionList.forEach(() => this.diagnosisReasonChkFormArray.push(new FormControl(false)));
+    console.log("update diagnosis array", this.diagnosisReasonChkFormArray, this.seriousDiagnosisReasonOptionList)
+
+  }
+
   private _updateComplianceArray() {
     const complianceChkList = this._globalService.$complianceList;
     this.complianceOptionList = complianceChkList.map((item) => {
@@ -519,6 +593,7 @@ export class ApplicationInfoDetailsComponent
     this.complianceOptionList.forEach(() =>
       this.complianceChkFormArray.push(new FormControl(false))
     );
+    console.log("update compliance array", this.complianceChkFormArray, this.complianceOptionList)
   }
 
   get complianceChkFormArray() {
@@ -530,5 +605,14 @@ export class ApplicationInfoDetailsComponent
       this.complianceOptionList,
       this.complianceChkFormArray
     );
+  }
+
+  get diagnosisReasonChkFormArray() {
+    return this.appInfoFormLocalModel.controls['diagnosisReasons'] as FormArray
+
+  }
+
+  get selectedDiagnosisCodes(): string[] {
+    return this._detailsService.getSelectedDiagnosisCodes(this.seriousDiagnosisReasonOptionList, this.diagnosisReasonChkFormArray);
   }
 }
