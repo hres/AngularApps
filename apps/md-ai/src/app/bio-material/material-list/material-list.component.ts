@@ -221,11 +221,10 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
   revertMaterial(event: any) {
     let discardMsg = "";
-    const index = event.index;
+    const index = this.materialIndex;
     const id : string = (index + 1).toString();
 
     const group = this.materialsFormArr.at(index) as FormGroup;
-   // const materialInfo =this.getMaterialInfo(group);
     const materialInfo = this.updateMateriraForm;
 
     // Revert to the last saved state

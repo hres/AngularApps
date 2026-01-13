@@ -278,10 +278,10 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   public disabledDiscardButton() {
-    if ( this.cRRow.get('isNew').value || !this.materialInfo.dirty) {
-      return true;
+    if ( !this.cRRow.get('isNew').value && this.materialInfo.dirty) {
+      return false;
     }
-    return false;
+    return true;
   }
 
   public showErrorSummary(): boolean {
