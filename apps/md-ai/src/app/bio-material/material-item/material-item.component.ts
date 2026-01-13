@@ -27,6 +27,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     id: number;
     heading: string;
     buttonTrigger:HTMLElement;
+    tempMaterialForm:  FormGroup;
   }>;
   @Output() deleteRecord = new EventEmitter<{
     index: number,
@@ -155,15 +156,16 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     const heading = this._materialService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
 
-    this.revertRecord.emit({       
-      index: index, 
+    this.revertRecord.emit({
+      index: index,
       id: this.cRRow.get('id').value,
       heading: heading,
-      buttonTrigger: trigger
+      buttonTrigger: trigger,
+      tempMaterialForm: this.materialInfo
     });
     this.onDerivativeSelected(null);
     this.onTissueTypeSelected(null);
-    this.cRRow.markAsPristine();
+    //this.cRRow.markAsPristine();
   }
 
   public deleteMaterialRecord(event: Event, index: number): void {
@@ -276,7 +278,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   public disabledDiscardButton() {
-    if (this.cRRow.get('isNew').value) {
+    if ( this.cRRow.get('isNew').value || !this.materialInfo.dirty) {
       return true;
     }
     return false;
@@ -289,5 +291,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   get materialInfo() : FormGroup{
     return this.cRRow.get('materialInfo') as FormGroup;
   }
+
+
 
 }

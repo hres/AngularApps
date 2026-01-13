@@ -40,6 +40,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   private materialId: number; // ID a record is assigned to
   private materialIndex: number; // Place of the record in the array
 
+  updateMateriraForm: FormGroup;
+
   constructor(private fb: FormBuilder,
               private _utilsService: UtilsService,
               private _globalService: GlobalService,
@@ -175,6 +177,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     console.log(this.materialIndex);
     this.deleteRecordHeading = event.heading;
     this.popupTrigger = event.buttonTrigger;
+
     this.openConfirmationPopup(this.deleteMaterialPopupID);
   }
 
@@ -184,8 +187,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     this.discardChangeHeading = event.heading;
     this.popupTrigger = event.buttonTrigger;
     this.openConfirmationPopup(this.discardChangePopupID);
-    // this.updatedContactDetailsForm = event.tempContactDetailsForm;
-    // this.updatedContactDetailsForm.markAsDirty()
+     this.updateMateriraForm = event.tempMaterialForm;
+     this.updateMateriraForm.markAsDirty()
   }
 
   deleteMaterialRecord(){
@@ -222,7 +225,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     const id : string = (index + 1).toString();
 
     const group = this.materialsFormArr.at(index) as FormGroup;
-    const materialInfo =this.getMaterialInfo(group);
+   // const materialInfo =this.getMaterialInfo(group);
+    const materialInfo = this.updateMateriraForm;
 
     // Revert to the last saved state
     const lastSavedState = group.get('lastSavedState').value;
@@ -235,7 +239,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     this.statusMessage = discardMsg;
-
+    this.updateMateriraForm.markAsPristine();
     // Screen reader will announce message again after the first time Discard Changes button has been clicked
     setTimeout(() => {
       this.statusMessage = ''; // Temporarily clear the message
