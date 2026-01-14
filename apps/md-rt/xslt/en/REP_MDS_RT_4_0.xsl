@@ -536,6 +536,14 @@ span.normalWeight {
 										</div>
 									</div>
 								</xsl:if>
+								<xsl:if test="/descendant-or-self::application_info/brief_description != ''">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<strong>Brief description:&#160;</strong>
+											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/brief_description"/></span>
+										</div>
+									</div>
+								</xsl:if>
 								<xsl:if test="/descendant-or-self::application_info/device_name != ''">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
