@@ -297,11 +297,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         form_language: this._globalService.getCurrLanguage(),
         general_information: this.genInfoModel,
         address: this.addressModel,
-        contacts: {contact: this.contactModel},
+        contacts: {contact: this._removeAnyFrom(this.contactModel,'RoutingID')},
         primary_contact: this.primContactModel,
         administrative_changes: this.adminChangesModel,
       },
     };
+
+
     // console.log("_prepareForSaving, data in 'session' ", JSON.stringify(output, null, 2));
 
     // update the last_saved_date
@@ -323,6 +325,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return output;
   }
 
+  private _removeAnyFrom(collect,tag):Contact[] {
+    const cts = collect.map(function (item) {
+      delete item[tag];
+      return item;
+    });
+    return cts;
+  }
   public processFile(fileData: ConvertResults) {
     console.log(fileData);
     if (fileData.data !== null) {
@@ -368,14 +377,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
     genInfo.enrol_version = enrolVersion;
   }
-
-  // private _removeHcStatus(contacts) {
-  //   const cts = contacts.map(function (item) {
-  //     delete item.hc_status;
-  //     return item;
-  //   });
-  //   return cts;
-  // }
 
   private _buildfileName() {
     const date_generated = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm');

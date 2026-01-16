@@ -53,7 +53,6 @@ export interface Contact {
   phone_num: string;
   phone_ext: string;
   email: string;
-//  routingID: string;
 }
 
 export interface Contacts {
@@ -65,7 +64,7 @@ export interface INameAddress {
   street_address: string;
   city: string;
   country: IIdTextLabel;
-  province_lov: IIdTextLabel;  
+  province_lov: IIdTextLabel;
   province_text: string;
   postal_code: string;
 }
