@@ -436,10 +436,15 @@ span.normalWeight {
 					</div>
 					<xsl:if test="/descendant-or-self::general_information/status/@id = 'AMEND'">
 						<div class="row">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<strong>Reason for amendment:&#160;</strong>
-								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/amend_reasons/amend_reason/@label_en"/></span>
-							</div>
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Reason for amendment:</strong></div>
+								</div>
+								<xsl:for-each select="/descendant-or-self::general_information/amend_reasons/amend_reason">
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="mouseHover"><xsl:value-of select="@label_en"/></span>
+											</div>
+										</div>
+								</xsl:for-each>
 						</div>
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -517,7 +522,7 @@ span.normalWeight {
 												ZIP code
 											</xsl:when>
 											<xsl:when test="/descendant-or-self::address/country/@id = 'CA'">
-												Postal code
+												Postal code:
 											</xsl:when>
 											<xsl:otherwise>
 												Postal/ZIP code (use "not applicable" if not available)

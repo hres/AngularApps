@@ -436,10 +436,15 @@ span.normalWeight {
 					</div>
 					<xsl:if test="/descendant-or-self::general_information/status/@id = 'AMEND'">
 						<div class="row">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<strong>Motif de la modification :&#160;</strong>
-								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/amend_reasons/amend_reason/@label_fr"/></span>
-							</div>
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Motif de la modification:</strong></div>
+								</div>
+								<xsl:for-each select="/descendant-or-self::general_information/amend_reasons/amend_reason">
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
+											</div>
+										</div>
+								</xsl:for-each>
 						</div>
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -550,7 +555,7 @@ span.normalWeight {
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <strong>Contact financier désigné (fabricant uniquement) :&#160;</strong>
+                                    <strong>Personne-ressource désignée pour le financement (fabricant uniquement) :&#160;</strong>
                                     <span class="mouseHover"><xsl:value-of select="/descendant-or-self::primary_contact/finance_contact_name"/></span>
                                 </div>
                             </div>
@@ -644,7 +649,7 @@ span.normalWeight {
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Numéro de l'extensione :&#160;</strong>
+						<strong>Numéro de l'extension :&#160;</strong>
 						<span class="mouseHover"><xsl:if test="phone_ext = ''">&#160;&#160;&#160;&#160;</xsl:if>
 						<xsl:value-of select="phone_ext"/></span>
 					</div>
