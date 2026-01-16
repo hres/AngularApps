@@ -42,6 +42,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   private deviceId: number; // ID a record is assigned to
   private deviceIndex: number; // Place of the record in the array
 
+  updatedDeviceForm: FormGroup;
+
   constructor(private fb: FormBuilder,
               private _utilsService: UtilsService,
               private _globalService: GlobalService,
@@ -177,8 +179,8 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     this.discardChangeHeading = event.heading;
     this.popupTrigger = event.buttonTrigger;
     this.openConfirmationPopup(this.discardChangePopupID);
-    // this.updatedContactDetailsForm = event.tempContactDetailsForm;
-    // this.updatedContactDetailsForm.markAsDirty()
+     this.updatedDeviceForm = event.tempDeviceForm;
+     this.updatedDeviceForm.markAsDirty()
   }
 
   deleteDeviceRecord(){
@@ -207,15 +209,14 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
 
   revertDevice(event: any) {
     let discardMsg = "";
-    const index = event.index;
+    const index = this.deviceIndex;
     const id : string = (index + 1).toString();
 
     const group = this.devicesFormArr.at(index) as FormGroup;
-    const deviceInfo =this.getDeviceInfo(group);
+    const  deviceInfo = this.updatedDeviceForm;
 
     // Revert to the last saved state
     const lastSavedState = group.get('lastSavedState').value;
-
     deviceInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
       discardMsg = "Device record " + group.controls['seqNumber'].value + " changes have been discarded.";
@@ -224,6 +225,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     this.statusMessage = discardMsg;
+    this.updatedDeviceForm.markAsPristine();
 
     // Screen reader will announce message again after the first time Discard Changes button has been clicked
     setTimeout(() => {
