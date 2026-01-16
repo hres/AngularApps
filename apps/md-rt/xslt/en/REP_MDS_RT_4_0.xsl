@@ -333,6 +333,22 @@ legend {
 .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9 {
     float: left;
 }
+
+/* ===== Zoom-safe column expansion ===== */
+
+/* If a row has only one populated column, let it take full width */
+.row > [class*="col-"]:only-child {
+    width: 100% !important;
+}
+
+/* At higher zoom / smaller effective width, stack columns */
+@media (max-width: 1200px) {
+    .col-lg-6,
+    .col-md-6 {
+        width: 100% !important;
+    }
+}
+
 .alert-info, .label-info, .label-info[href]:active, .label-info[href]:focus, .label-info[href]:hover, details.alert.alert-info, details.alert[open].alert-info
  {
     background: #d7faff;
