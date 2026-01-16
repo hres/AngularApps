@@ -2,7 +2,7 @@
     "title": "Regulatory enrolment process (REP) for medical devices",
     "h1_header": "Regulatory enrolment process (REP) for medical devices",
     "paragraphs": [
-        "<div class=\"alert alert-info\"><p>In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use</p></div>"
+        "<div class=\"alert alert-info\"><p>In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use.</p></div>"
     ],
     "sections": [
         {
@@ -22,7 +22,7 @@
                     "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company (CO) template (2026-01-28)</a>",
                     "bullets": [
                         "Required to obtain a company ID and/or provide updated company information to Health Canada.",
-                        "Sent via the email.<ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
+                        "Sent by email.<ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
                         "Refer to section “Company enrolment/amendments process” of the REP guidance document for medical devices."
                     ]
                 },

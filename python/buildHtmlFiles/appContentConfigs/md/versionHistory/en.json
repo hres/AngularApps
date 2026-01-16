@@ -16,7 +16,8 @@
                         "Updated error messages for various fields",
                         "Added pop-up warnings for various buttons",
                         "Updated button labels for amending company representative information",
-                        "Corrected minor grammatical errors"
+                        "Corrected minor grammatical errors<br/><br/><br/>",
+                        "*New CO stylesheet to match changes on this template"
                     ]
                 },
                 {
@@ -28,7 +29,7 @@
                         "Removed regulatory activity type: S.25/36/39/40/41",
                         "Added transaction descriptions: Extension request, Request for reconsideration, Request for review reports, Response to opportunity to be heard letter and Response to reconsideration information request",
                         "Removed transaction descriptions: Appeal Comprehensive Document, Letter of Intent to Appeal, Response to s.25 Letter and Response to s.36 Letter",
-                        "Corrected minor grammatical errors",
+                        "Corrected minor grammatical errors<br/><br/><br/>",
                         "*New RT stylesheet to match changes on this template"
                     ]
                 }
