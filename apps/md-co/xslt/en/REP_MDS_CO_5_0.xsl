@@ -560,7 +560,12 @@ span.normalWeight {
                             </div>
 						</div>
 					</section>
-					<xsl:if test="/descendant-or-self::general_information/amend_reasons/manufacturer_name_change = 'yes' or /descendant-or-self::general_information/amend_reasons/manufacturer_address_change = 'yes' or /descendant-or-self::general_information/amend_reasons/facility_change = 'yes' or /descendant-or-self::general_information/are_licenses_transfered = 'yes'">
+					<xsl:if test="/descendant-or-self::general_information/amend_reasons/amend_reason[
+						@id = 'NAME_CHANGE'
+						or @id = 'ADDR_CHANGE'
+						or @id = 'FACILITY_CHANGE'
+					]
+					or general_information/are_licenses_transfered = 'yes'">			
 					<section class="panel panel-default" >
 						<div class="panel-heading">
 							<h2 class="panel-title">Company administrative changes</h2>
