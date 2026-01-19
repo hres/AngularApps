@@ -436,7 +436,8 @@ span.normalWeight {
 					</div>
 					<xsl:if test="/descendant-or-self::general_information/status/@id = 'AMEND'">
 						<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Motif de la modification:</strong></div>
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<strong>Motif de la modification :</strong></div>
 								<xsl:for-each select="/descendant-or-self::general_information/amend_reasons/amend_reason">
 										<div class="row">
 											<div class="col-xs-12">
