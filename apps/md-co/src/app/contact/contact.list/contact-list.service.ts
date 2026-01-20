@@ -179,7 +179,10 @@ export class ContactListService implements RecordListServiceInterface {
    public initIndex(recordList) {
      this.resetIndex();
      for (let record of recordList) {
-       if (record.id > this._indexValue) {
+      // Cast variables to ensure we're comparing Number types
+      const castedRecordId = Number(record.id);
+      const castedIndexValue = Number(this._indexValue);
+       if (castedRecordId > castedIndexValue) {
          this._indexValue = record.id;
        }
      }
