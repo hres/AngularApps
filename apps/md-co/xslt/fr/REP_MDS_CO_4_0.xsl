@@ -390,9 +390,6 @@ span.normalWeight {
 .padLeft3 {
 	padding-left: 3px;
 }
-.padLeft15 {
-	padding-left: 15px;
-}
 .nowrap {
 	white-space: nowrap;
 }
@@ -410,16 +407,16 @@ span.normalWeight {
 			</body>
 		</html>
 	</xsl:template>
-
+	
 	<!-- Company Enrolment -->
 	<xsl:template name="DEVICE_COMPANY_ENROL">
-		<h1>Modèle de compagnie : Processus d'inscription réglementaire (PIR) pour les instruments médicaux (version 5.0.0)</h1>
+		<h1>Modèle de compagnie: Processus d'inscription réglementaire (PIR) pour les instruments médicaux (Version: 4.0.0)</h1>
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h2 class="panel-title">Inscription d'une compagnie réglementaire</h2>
 				</div>
-
+				
 				<div class="panel-body">
 					<div class="well well-sm" >
 						<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
@@ -440,56 +437,50 @@ span.normalWeight {
 					<xsl:if test="/descendant-or-self::general_information/status/@id = 'AMEND'">
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<strong>Motif de la modification :</strong>
+								<strong>Motif de la modification:&#160;</strong>
+								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/amend_reasons/amend_reason/@label_fr"/></span>
 							</div>
-							<xsl:for-each select="/descendant-or-self::general_information/amend_reasons/amend_reason">
-								<div class="padLeft15">
-									<div class="col-sm-12 col-xs-12">
-										<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>				
-									</div>
-								</div>
-							</xsl:for-each>
 						</div>
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<strong>Justification :&#160;</strong>
+								<strong>Justification:&#160;</strong>
 								<span class="mouseHover"><xsl:value-of select="/descendant-or-self::general_information/rationale"/></span>
 							</div>
 						</div>
 					</xsl:if>
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<strong>Est-ce que la présente modification sert à changer le titulaire d'homologations d'une compagnie à une autre ? :&#160;</strong>
+							<strong> Il y a-t-il des licences de propriété en processus d'acheminement? &#160;</strong>
 							<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::general_information/are_licenses_transfered"/></xsl:call-template></span>
 						</div>
 						<br /><br />
 					</div>
 					<section class="panel panel-default" >
 							<div class="panel-heading">
-								<h2 class="panel-title">Détails de l'adresse</h2>
+								<h2 class="panel-title">Information d'adresse</h2>
 							</div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Nom de la compagnie :&#160;</strong>
+										<strong>Nom de la compagnie:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/company_name"/></span>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Rue :&#160;</strong>
+										<strong>Rue:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/street_address"/></span>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Ville :&#160;</strong>
+										<strong>Ville:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/city"/></span>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<strong>Pays :&#160;</strong>
+									<strong>Pays:&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/country/@label_fr"/>
 									</span>
 									</div>
@@ -498,19 +489,19 @@ span.normalWeight {
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<xsl:choose>
 										<xsl:when test="/descendant-or-self::address/country/@id = 'CA'">
-											<strong>Province :&#160;</strong>
+											<strong>Province:&#160;</strong>
 											<span class="mouseHover">
 											<xsl:value-of select="/descendant-or-self::address/province_lov/@label_fr"/>
 											</span>
 										</xsl:when>
 										<xsl:when test="/descendant-or-self::address/country/@id = 'US'">
-											<strong>État :&#160;</strong>
+											<strong>État:&#160;</strong>
 											<span class="mouseHover">
 											<xsl:value-of select="/descendant-or-self::address/province_lov/@label_fr"/>
 											</span>
 										</xsl:when>
 										<xsl:otherwise>
-											<strong>Province ou état :&#160;</strong>
+											<strong>Province ou État:&#160;</strong>
 											<span class="mouseHover">
 											<xsl:value-of select="/descendant-or-self::address/province_text"/>
 											</span>
@@ -523,15 +514,15 @@ span.normalWeight {
 										<strong>
 										<xsl:choose>
 											<xsl:when test="/descendant-or-self::address/country/@id = 'US'">
-												Code ZIP :
+												Code ZIP 
 											</xsl:when>
 											<xsl:when test="/descendant-or-self::address/country/@id = 'CA'">
-												Code postal :
+												Code postal 
 											</xsl:when>
 											<xsl:otherwise>
-												Code postal/ZIP (si pas disponible, utilisez « sans objet ») :
+												Code Postal/ZIP (Si pas disponible, utilisez « sans objet »)
 											</xsl:otherwise>
-										</xsl:choose>
+										</xsl:choose>:&#160;
 										</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/postal_code"/></span>
 										</div>
@@ -548,60 +539,59 @@ span.normalWeight {
 					</section>
 					<section class="panel panel-default" >
 						<div class="panel-heading">
-							<h2 class="panel-title">Désignation de personne-ressource de l’entreprise (fabricant uniquement) :&#160;</h2>
+							<h2 class="panel-title">Désignation de la personne-ressource de l’entreprise (fabricant uniquement):</h2>
 						</div>
 						<div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <strong>Personne-ressource désignée pour le renouvellement (fabricant uniquement) :&#160;</strong>
+                                    <strong>Personne-ressource désignée pour le renouvellement (fabricant uniquement):</strong>
                                     <span class="mouseHover"><xsl:value-of select="/descendant-or-self::primary_contact/renewal_contact_name"/></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <strong>Personne-ressource désignée pour le financement (fabricant uniquement) :&#160;</strong>
+                                    <strong>Contact financier désigné (fabricant uniquement):</strong>
                                     <span class="mouseHover"><xsl:value-of select="/descendant-or-self::primary_contact/finance_contact_name"/></span>
                                 </div>
                             </div>
 						</div>
 					</section>
-					<xsl:if test="/descendant-or-self::general_information/amend_reasons/amend_reason[
-						@id = 'NAME_CHANGE'
-						or @id = 'ADDR_CHANGE'
-						or @id = 'FACILITY_CHANGE'
-					]
-					or general_information/are_licenses_transfered = 'yes'">
+					<xsl:if test="/descendant-or-self::general_information/amend_reasons/manufacturer_name_change = 'yes' or /descendant-or-self::general_information/amend_reasons/manufacturer_address_change = 'yes' or /descendant-or-self::general_information/amend_reasons/facility_change = 'yes' or /descendant-or-self::general_information/are_licenses_transfered = 'yes'">
 					<section class="panel panel-default" >
 						<div class="panel-heading">
-							<h2 class="panel-title">Modifications administratives de la compagnie</h2>
+							<h2 class="panel-title">Modifications administratives de l'entreprise</h2>
 						</div>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<strong>Tous les numéros d'identification des homologations visées (placez un retour forcé entre chaque numéro d'homologation) :&#160;</strong>
-                  <xsl:call-template name="break"><xsl:with-param name="text" select="/descendant-or-self::administrative_changes/all_licence_numbers"/></xsl:call-template>
-  							</div>
+									<strong>Tous les numéros de licence concernée(s) (Placez un retour entre chaque numéro d'homologation):&#160;</strong>
+								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<strong>Y a-t-il un changement de nom et/ou d'adresse du correspondant réglementaire ?&#160;</strong>
+									<xsl:call-template name="break"><xsl:with-param name="text" select="/descendant-or-self::administrative_changes/all_licence_numbers"/></xsl:call-template>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<strong>Y a-t-il un changement de nom et/ou d'adresse du correspondant réglementaire?&#160;</strong>
 								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::administrative_changes/is_regulatory_change"/></xsl:call-template></span>
 								</div>
 							</div>
 							<xsl:if test="/descendant-or-self::administrative_changes/is_regulatory_change = 'yes'">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Nouvel identifiant de la compagnie :&#160;</strong>
+										<strong>Nouvel identifiant de la compagnie:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="substring(/descendant-or-self::administrative_changes/new_company_id, 2, 6)"/></span>
 									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Nouvel identifiant du contact :&#160;</strong>
+										<strong>Nouvel identifiant du contact:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::administrative_changes/new_contact_id"/></span>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Nom du nouveau contact :&#160;</strong>
+										<strong>Nom du nouveau contact:&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::administrative_changes/new_contact_name"/></span>
 									</div>
 								</div>
@@ -617,64 +607,70 @@ span.normalWeight {
 	<xsl:template match="contacts/contact">
 		<section class="panel panel-default" >
 			<div class="panel-heading">
-				<h2 class="panel-title">Représentant de la compagnie &#160;<xsl:value-of select="id + 1"/></h2>
+				<h2 class="panel-title">Représentant de la compagnie&#160;<xsl:value-of select="id + 1"/></h2>
 			</div>
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Identifiant du contact :&#160;</strong>
+						<strong>Identifiant du contact:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="contact_id"/></span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Statut du contact :&#160;</strong>
+						<strong>Statut du contact:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="status/@label_fr"/></span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Nom complet (prénom et nom de famille) :&#160;</strong>
+						<strong>Nom complet (prénom et nom de famille):&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="full_name"/></span>&#160;&#160;
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Langue de correspondance :&#160;</strong>
+						<strong>Langue de correspondance:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="language_correspondence/@label_fr"/></span>&#160;&#160;
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Titre du poste :&#160;</strong>
+						<strong>Titre de poste:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="job_title"/></span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Numéro de téléphone (y compris le code régional) :&#160;</strong>
+						<strong>Numéro de téléphone (incluant le code régional):&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="phone_num"/></span>&#160;&#160;
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Numéro de l'extension :&#160;</strong>
+						<strong>Extension de téléphone:&#160;</strong>
 						<span class="mouseHover"><xsl:if test="phone_ext = ''">&#160;&#160;&#160;&#160;</xsl:if>
 						<xsl:value-of select="phone_ext"/></span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Numéro de télécopieur (y compris le code régional) :&#160;</strong>
+						<strong>Numéro de télécopieur (incluant le code régional):&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="fax_num"/></span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Adresse de courriel :&#160;</strong>
+						<strong>Courriel:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="email"/></span>
 					</div>
 				</div>
+				<!-- <div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<strong>Identificateur d'acheminement:&#160;</strong>
+						<span class="mouseHover"><xsl:value-of select="routingID"/><xsl:value-of select="routingID"/></span>
+					</div>
+				</div> -->
 			</div>
 		</section>
 	</xsl:template>
@@ -699,8 +695,8 @@ span.normalWeight {
 	      <span class="mouseHover"><xsl:value-of select="substring-before($text, '&#xa;')"/></span>
 	      <br/>
 	      <xsl:call-template name="break">
-	        <xsl:with-param
-	          name="text"
+	        <xsl:with-param 
+	          name="text" 
 	          select="substring-after($text, '&#xa;')"
 	        />
 	      </xsl:call-template>

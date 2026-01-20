@@ -7,6 +7,35 @@
     ],
     "releases": [
         {
+            "header": "Publication du 28 janvier 2026",
+            "details": [
+                {
+                    "template": "Modèle de compagnie <br>(CO)<br>version 5.0.0<br><br>Ensemble de feuilles de style*",
+                    "changes": [
+                        "Ajout de la bulle d’information pour modèle de compagnie",
+                        "Mise à jour des messages d'erreur pour différents champs",
+                        "Ajout d'avertissements contextuels pour divers boutons",
+                        "Mise à jour des étiquettes des boutons pour modifier les information sur les représentants de la compagnie",
+                        "Correction d'erreurs grammaticales mineures<br/><br/><br/>",
+                        "*Nouvelle feuille de style CO pour correspondre aux modifications apportées à ce modèle"
+                    ]
+                },
+                {
+                    "template": "Modèle de transaction <br>réglementaire (TR)<br>version 4.0.0<br><br>Ensemble de feuilles de style*",
+                    "changes": [
+                        "Ajout de la bulle d’information pour modèle de transaction réglementaire",
+                        "Mise à jour des messages d'erreur pour différents champs",
+                        "Ajout de la type d'activité réglementaire : Article 39/40/41et Conditions imposées (article 36)",
+                        "Suppression de la type d'activité réglementaire  :  S.25/36/39/40/41",
+                        "Ajout de la description de transaction :  Demande de prolongation, Demande de réexamen, Demande de rapports d'examen, Réponse à la lettre sur la possibilité d'être entendu, Réponse à la demande d'information sur le réexamen et Réponse à la lettre de conditions",
+                        "Suppression de la description de transaction : Document d’appel complet, Lettre d’intention de recours, Réponse à la lettre de l'article 25 et Réponse à la lettre de l'article 36",
+                        "Correction d'erreurs grammaticales mineures<br/><br/><br/>",
+                        "*Nouvelle feuille de style TR pour correspondre aux modifications apportées à ce modèle"
+                    ]
+                }
+            ]
+        },
+        {
             "header": "Publication du 11 décembre 2024",
             "details": [
                 {

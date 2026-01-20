@@ -7,7 +7,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
+    gap: 1rem; /* Adds spacing between buttons */
+}
+
+/* Trigger stacking at high zoom / small viewport */
+@media (max-width: 480px) {
+    .custom-footer {
+        flex-direction: column; /*Changes layout from horizontal to vertical*/
+        align-items: stretch; /* Stretch buttons to the containers width */ 
+    }
+
+    .custom-footer > div {
+        width: 100%;
+    }
+
+    .custom-footer button {
+        width: 100%;
+    }
+}
+  
   
 .left-button,
 .right-button {

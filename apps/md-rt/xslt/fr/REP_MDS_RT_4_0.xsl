@@ -333,6 +333,23 @@ legend {
 .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9 {
     float: left;
 }
+
+/* ===== Zoom-safe column expansion ===== */
+
+/* If a row has only one populated column, let it take full width */
+.row > [class*="col-"]:only-child {
+    width: 100% !important;
+}
+
+/* At higher zoom / smaller effective width, stack columns */
+@media (max-width: 1200px) {
+    .col-lg-6,
+    .col-md-6 {
+        width: 100% !important;
+    }
+}
+
+
 .alert-info, .label-info, .label-info[href]:active, .label-info[href]:focus, .label-info[href]:hover, details.alert.alert-info, details.alert[open].alert-info
  {
     background: #d7faff;
@@ -437,7 +454,7 @@ span.normalWeight {
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<strong>Numéro de dossier:&#160;</strong>
+										<strong>Numéro de dossier :&#160;</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/dossier_id"/></span>
 									</div>
 								</div>
@@ -535,6 +552,14 @@ span.normalWeight {
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/application_number"/></span>
 									</div>
 								</div>	
+								</xsl:if>
+								<xsl:if test="/descendant-or-self::application_info/brief_description != ''">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<strong>Brève description :&#160;</strong>
+											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/brief_description"/></span>
+										</div>
+									</div>
 								</xsl:if>
 								<xsl:if test="/descendant-or-self::application_info/device_name != ''">
 									<div class="row">

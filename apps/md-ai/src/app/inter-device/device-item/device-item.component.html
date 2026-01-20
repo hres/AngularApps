@@ -115,7 +115,7 @@
             (click)="deleteDeviceRecord($event, j)">{{'delete.device'|translate}}</button>
           <button id="revertDeviceRecord{{j}}"
             attr.aria-label="{{'discard.changes' | translate}} {{'heading.interdependent.device' | translate: {seqnumber: j + 1} }}"
-            class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton()"
+            class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscadrButton()"
             (click)="revertDeviceRecord($event, j, cRRow.controls['id'].value)">{{'discard.changes'|translate}}</button>
 
         </div>

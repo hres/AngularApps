@@ -1,12 +1,41 @@
 {
-    "title": "Regulatory Enrolment Process (REP) for Medical Devices Template Revision History",
-    "h1_header": "Regulatory Enrolment Process (REP) for Medical Devices Template Revision History",
+    "title": "Regulatory enrolment process (REP) for medical devices template revision history",
+    "h1_header": "Regulatory enrolment process (REP) for medical devices template revision history",
     "paragraphs": [
-        "This page outlines changes related to the Regulatory Enrolment Process (REP) templates. Should you have any questions regarding the content of this page, please contact <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"en\">ereview@hc-sc.gc.ca</a>.",
+        "This page outlines changes related to the Regulatory enrolment process (REP) templates. Should you have any questions regarding the content of this page, please contact <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"en\">ereview@hc-sc.gc.ca</a>.",
         "<div class=\"alert alert-info\"><p>In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use.</p></div>"
     ],
     "releases": [
         {
+            "header": "January 28, 2026 release",
+            "details": [
+                {
+                    "template": "Company (CO)<br>template<br>version 5.0.0<br><br>Stylesheet package*",
+                    "changes": [
+                        "Added info bubble for the company template",
+                        "Updated error messages for various fields",
+                        "Added pop-up warnings for various buttons",
+                        "Updated button labels for amending company representative information",
+                        "Corrected minor grammatical errors<br/><br/><br/>",
+                        "*New CO stylesheet to match changes on this template"
+                    ]
+                },
+                {
+                    "template": "Regulatory<br>transaction (RT)<br>template<br>version 4.0.0<br><br>Stylesheet package*",
+                    "changes": [
+                        "Added info bubble for the regulatory transaction template",
+                        "Updated error messages for various fields",
+                        "Added regulatory activity types: Section 39/40/41 and Terms and conditions (section 36)",
+                        "Removed regulatory activity type: S.25/36/39/40/41",
+                        "Added transaction descriptions: Extension request, Request for reconsideration, Request for review reports, Response to opportunity to be heard letter and Response to reconsideration information request",
+                        "Removed transaction descriptions: Appeal Comprehensive Document, Letter of Intent to Appeal, Response to s.25 Letter and Response to s.36 Letter",
+                        "Corrected minor grammatical errors<br/><br/><br/>",
+                        "*New RT stylesheet to match changes on this template"
+                    ]
+                }
+            ]
+        },
+            {
             "header": "December 11, 2024 Release",
             "details": [
                 {
