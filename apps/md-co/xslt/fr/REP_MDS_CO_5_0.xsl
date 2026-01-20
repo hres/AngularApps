@@ -390,6 +390,9 @@ span.normalWeight {
 .padLeft3 {
 	padding-left: 3px;
 }
+.padLeft15 {
+	padding-left: 15px;
+}
 .nowrap {
 	white-space: nowrap;
 }
@@ -436,15 +439,16 @@ span.normalWeight {
 					</div>
 					<xsl:if test="/descendant-or-self::general_information/status/@id = 'AMEND'">
 						<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<strong>Motif de la modification :</strong></div>
-								<xsl:for-each select="/descendant-or-self::general_information/amend_reasons/amend_reason">
-										<div class="row">
-											<div class="col-xs-12">
-												<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
-											</div>
-										</div>
-								</xsl:for-each>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<strong>Motif de la modification :</strong>
+							</div>
+							<xsl:for-each select="/descendant-or-self::general_information/amend_reasons/amend_reason">
+								<div class="padLeft15">
+									<div class="col-sm-12 col-xs-12">
+										<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>				
+									</div>
+								</div>
+							</xsl:for-each>
 						</div>
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -519,15 +523,15 @@ span.normalWeight {
 										<strong>
 										<xsl:choose>
 											<xsl:when test="/descendant-or-self::address/country/@id = 'US'">
-												Code ZIP
+												Code ZIP :
 											</xsl:when>
 											<xsl:when test="/descendant-or-self::address/country/@id = 'CA'">
-												Code postal
+												Code postal :
 											</xsl:when>
 											<xsl:otherwise>
-												Code postal/ZIP (si pas disponible, utilisez « sans objet »)
+												Code postal/ZIP (si pas disponible, utilisez « sans objet ») :
 											</xsl:otherwise>
-										</xsl:choose>:
+										</xsl:choose>
 										</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/postal_code"/></span>
 										</div>
@@ -671,12 +675,6 @@ span.normalWeight {
 						<span class="mouseHover"><xsl:value-of select="email"/></span>
 					</div>
 				</div>
-				<!-- <div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Identificateur d'acheminement:&#160;</strong>
-						<span class="mouseHover"><xsl:value-of select="routingID"/><xsl:value-of select="routingID"/></span>
-					</div>
-				</div> -->
 			</div>
 		</section>
 	</xsl:template>

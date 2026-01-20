@@ -390,6 +390,9 @@ span.normalWeight {
 .padLeft3 {
 	padding-left: 3px;
 }
+.padLeft15 {
+	padding-left: 15px;
+}
 .nowrap {
 	white-space: nowrap;
 }
@@ -438,8 +441,8 @@ span.normalWeight {
 						<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Reason for amendment:</strong></div>
 								<xsl:for-each select="/descendant-or-self::general_information/amend_reasons/amend_reason">
-										<div class="row">
-											<div class="col-xs-12">
+										<div class="padLeft15">
+											<div class="col-sm-12 col-xs-12">
 												<span class="mouseHover"><xsl:value-of select="@label_en"/></span>
 											</div>
 										</div>
@@ -518,15 +521,15 @@ span.normalWeight {
 										<strong>
 										<xsl:choose>
 											<xsl:when test="/descendant-or-self::address/country/@id = 'US'">
-												ZIP code
+												ZIP code:
 											</xsl:when>
 											<xsl:when test="/descendant-or-self::address/country/@id = 'CA'">
 												Postal code:
 											</xsl:when>
 											<xsl:otherwise>
-												Postal/ZIP code (use "not applicable" if not available)
+												Postal/ZIP code (use "not applicable" if not available):
 											</xsl:otherwise>
-										</xsl:choose>:
+										</xsl:choose>
 										</strong>
 										<span class="mouseHover"><xsl:value-of select="/descendant-or-self::address/postal_code"/></span>
 										</div>
@@ -672,12 +675,6 @@ span.normalWeight {
 						<span class="mouseHover"><xsl:value-of select="email"/></span>
 					</div>
 				</div>
-				<!-- <div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<strong>Routing Identifier:&#160;</strong>
-						<span class="mouseHover"><xsl:value-of select="routingID"/><xsl:value-of select="routingID"/></span>
-					</div>
-				</div> -->
 			</div>
 		</section>
 	</xsl:template>
