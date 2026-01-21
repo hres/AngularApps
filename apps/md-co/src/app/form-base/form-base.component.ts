@@ -296,8 +296,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         software_version: this._globalService.$appVersion,
         form_language: this._globalService.getCurrLanguage(),
         general_information: this.genInfoModel,
-        address: this.addressModel,
-        contacts: {contact: this._removeAnyFrom(this.contactModel,'RoutingID')},
+        address: this.setupProvinceBasedOnCountry(this.addressModel),
+        contacts: {contact: this._removeTagFromXml(this.contactModel,'RoutingID')},
         primary_contact: this.primContactModel,
         administrative_changes: this.adminChangesModel,
       },
@@ -325,7 +325,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return output;
   }
 
-  private _removeAnyFrom(collect,tag):Contact[] {
+  private _removeTagFromXml(collect,tag):Contact[] {
     const cts = collect.map(function (item) {
       delete item[tag];
       return item;
@@ -517,4 +517,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.popupTrigger.focus();
     })
   }
+
+  private setupProvinceBasedOnCountry(addressModel:INameAddress) :INameAddress {
+    if(this._utilsService.isCanadaOrUSA(addressModel.country._id)){
+      addressModel.province_text = '';
+    }else{
+      addressModel.province_lov = null;
+     }
+     return addressModel;
+}
 }
