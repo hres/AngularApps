@@ -53,12 +53,14 @@ export class ApplicationInfoDetailsService {
       compliance: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
       selectedComplianceCodes: [''],
       otherPharmacopeia: [null, Validators.required],
+      provisionMdrLIC: [false, []],
       provisionMdrIT: [false, []],
       provisionMdrSA: [false, []],
       provisionMdrIOA: [false, []],
       applicationNum: ['', [ValidationService.numeric6Validator]],
       sapReqNum: ['', []],
-      authNum: ['',[ValidationService.numeric6Validator]]
+      authNum: ['',[ValidationService.numeric6Validator]],
+      licenceNum: ['',[ValidationService.numeric6LeadingZeroesValidator]]
     });
   }
 
