@@ -28,7 +28,7 @@ export class AddressDetailsService {
 
     const countryCodeValue = this._utilsService.findCodeById(countryList, formRecord.controls['country'].value);
     addressModel.country = countryCodeValue? this._converterService.convertCodeToIdTextLabel(countryCodeValue, lang) : null;
-    
+
     const provCodeValue = this._utilsService.findCodeById(provStatList, formRecord.controls['provList'].value);
     addressModel.province_lov = provCodeValue? this._converterService.convertCodeToIdTextLabel(provCodeValue, lang) : null;
 
@@ -45,11 +45,14 @@ export class AddressDetailsService {
 
     const countryId: string | undefined = this._utilsService.getIdFromIdTextLabel(addressModel.country);
     formRecord.controls['country'].setValue(countryId? countryId : '');
-   
-    const provLovId: string | undefined = this._utilsService.getIdFromIdTextLabel(addressModel.province_lov);
-    formRecord.controls['provList'].setValue(provLovId? provLovId : '');
 
-    formRecord.controls['provText'].setValue(addressModel.province_text);
+    const provLovId: string | undefined = this._utilsService.getIdFromIdTextLabel(addressModel.province_lov);
+    if(this._utilsService.isCanadaOrUSA(countryId)){
+      formRecord.controls['provList'].setValue(provLovId? provLovId : '');
+    }else{
+      formRecord.controls['provText'].setValue(addressModel.province_text);
+    }
+
   }
 
   public setProvinceState(record: FormGroup, countryValue: string, provList: ICode[], stateList: ICode[]) {
