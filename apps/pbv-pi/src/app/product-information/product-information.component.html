@@ -2,7 +2,7 @@
     <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="companyId" class="required">
-                <span class="field-name">1. {{'company.id'|translate }} {{'5digits.only'|translate }}</span>
+                <span class="field-name">{{'company.id'|translate }} {{'5digits.only'|translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                 <sup [id]="helpIndex['compIdIndx'][2]">
                     <a class="fn-lnk" [href]="'#' + helpIndex['compIdIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['compIdIndx'][0]}}</a>
@@ -19,7 +19,7 @@
     <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="dossierId" class="required">
-                <span class="field-name">2. {{ 'dossier.id'|translate }} {{ 'dossier.id.format'|translate }}</span>
+                <span class="field-name">{{ 'dossier.id'|translate }} {{ 'dossier.id.format'|translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                 <control-messages *ngIf="productInfoForm.controls['dossierId'].invalid"
                     [showError]="showFieldErrors"
@@ -27,13 +27,13 @@
                     label="dossier.id" parentId="productInfo"></control-messages>
             </label>
             <input id="dossierId" name="dossierId" class="form-control"
-                        [formControlName]="'dossierId'" maxlength="7" size="7" /> 
+                        [formControlName]="'dossierId'" maxlength="7" size="7" />
         </div>
       </div>
     <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="dossierType" class="required">
-                <span class="field-name">3. {{ 'dossier.type'|translate }}</span>
+                <span class="field-name">{{ 'dossier.type'|translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                 <sup [id]="helpIndex['dossierTypeIndx'][2]">
                     <a class="fn-lnk" [href]="'#' + helpIndex['dossierTypeIndx'][1]"><span
@@ -54,7 +54,7 @@
     <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="productName" class="required">
-                <span class="field-name">4. {{ 'product.name'|translate }}</span>
+                <span class="field-name">{{ 'product.name'|translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                 <sup [id]="helpIndex['prodNameIndx'][2]">
                     <a class="fn-lnk" [href]="'#' + helpIndex['prodNameIndx'][1]"><span
@@ -72,7 +72,7 @@
     <div class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label for="properName" class="required">
-                <span class="field-name">5. {{ 'proper.name'|translate }}</span>
+                <span class="field-name">{{ 'proper.name'|translate }}</span>
                 <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                 <sup [id]="helpIndex['properNameIndx'][2]">
                     <a class="fn-lnk" [href]="'#' + helpIndex['properNameIndx'][1]"><span
@@ -90,7 +90,7 @@
     <div class="row form-group">
         <fieldset class="col-md-12 chkbxrdio-grp">
           <legend class="required">
-            6. {{'is.admin.submission' |translate}}
+            {{'is.admin.submission' |translate}}
             <sup [id]="helpIndex['adminCompInx'][2]">
                 <a class="fn-lnk" [href]="'#' + helpIndex['adminCompInx'][1]"><span
                   class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminCompInx'][0]}}</a>
@@ -129,7 +129,7 @@
     <div class="row form-group">
         <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chkbxrdio-grp form-inline">
             <legend>
-                7. {{'address.to.send' |translate}}
+                {{'address.to.send' |translate}}
                 <sup [id]="helpIndex['addressSentIndx'][2]">
                     <a class="fn-lnk" [href]="'#' + helpIndex['addressSentIndx'][1]"><span
                       class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['addressSentIndx'][0]}}</a>
