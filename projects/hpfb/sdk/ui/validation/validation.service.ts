@@ -40,7 +40,8 @@ export class ValidationService implements IValidationService {
       'error.msg.invalidDate': 'error.msg.invalidDate',
       'error.msg.endDate':'error.msg.endDate',
       'error.msg.amount.limit':'error.msg.amount.limit',
-      'error.msg.business':'error.msg.business'
+      'error.msg.business':'error.msg.business',
+      'error.mgs.6.numeric.leading.zeroes': 'error.mgs.6.numeric.leading.zeroes'
     };
 
     return config[validatorName];
@@ -175,6 +176,17 @@ export class ValidationService implements IValidationService {
       return null;
     } else {
       return {'error.mgs.6.numeric': true};
+    }
+  }
+
+  static numeric6LeadingZeroesValidator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^[0-9]{6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.6.numeric.leading.zeroes': true};
     }
   }
 

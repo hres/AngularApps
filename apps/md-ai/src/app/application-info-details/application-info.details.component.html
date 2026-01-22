@@ -452,6 +452,31 @@
                   <div class="checkbox">
                     <label for="chk-mdr-it">
                       <input type="checkbox"
+                        [formControl]="appInfoFormLocalModel.controls['provisionMdrLIC'] | formControl" id="chk-mdr-lic"
+                        name="chk-mdr-lic" />
+                      <span>{{'mdr.lic'|translate}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group col-xs-7" *ngIf="isLic()">
+                  <label for="licenceNum" class=" full-width">
+                    <span class="field-name">{{'lic.number'|translate}} {{'minNumber6'|translate}}</span>
+                    <control-messages *ngIf="appInfoFormLocalModel.controls['licenceNum'].invalid"
+                      [showError]="showFieldErrors"
+                      [control]="appInfoFormLocalModel.controls['licenceNum'] | formControl"
+                      controlId="licenceNum" label="licence.number" parentId="appInfoDetails">
+                    </control-messages>
+                    <input id="licenceNum" name="licenceNum" class="form-control full-width"
+                      [formControl]="appInfoFormLocalModel.controls['licenceNum'] | formControl" data-only-digits
+                      [maxLength]="6" (blur)="licenceNumberOnBlur()"/>
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="checkbox">
+                    <label for="chk-mdr-it">
+                      <input type="checkbox"
                         [formControl]="appInfoFormLocalModel.controls['provisionMdrIT'] | formControl" id="chk-mdr-it"
                         name="chk-mdr-it" />
                       <span>{{'mdr.it'|translate}}</span>

@@ -345,6 +345,32 @@ export class ApplicationInfoDetailsComponent
     return false;
   }
 
+  isLic() {
+    if (this.appInfoFormLocalModel.controls['provisionMdrLIC'].value) {
+      return true;
+    } else {
+      this._resetControlValues(['licenceNum']);
+    }
+    return false;
+  }
+
+  licenceNumberOnBlur(): void {
+    const licenceNumControl = this.appInfoFormLocalModel.controls['licenceNum'];
+  
+    if (!licenceNumControl || !licenceNumControl.value) {
+      return;
+    }
+  
+    const value = licenceNumControl.value.toString();
+  
+    // Pad with leading zeros to exactly 6 digits
+    const paddedValue = value.padStart(6, '0');
+  
+    if (value !== paddedValue) {
+      licenceNumControl.setValue(paddedValue, { emitEvent: false });
+    }
+  }
+  
   isIt() {
     if (this.appInfoFormLocalModel.controls['provisionMdrIT'].value) {
       return true;
@@ -534,8 +560,7 @@ export class ApplicationInfoDetailsComponent
       (this._detailsService.raTypeLicence() ||
         this._detailsService.raTypeLicenceAmend()) &&
       (this._detailsService.deviceClassIII() ||
-        this._detailsService.deviceClassIV() ||
-        this._detailsService.deviceClassII())
+        this._detailsService.deviceClassIV())
     ) {
       return true;
     } else {
