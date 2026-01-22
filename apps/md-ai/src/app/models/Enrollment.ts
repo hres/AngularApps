@@ -39,8 +39,10 @@ export interface ApplicationInfo {
     manufacturer:                   string;
     compliance:                     Compliances;
     other_pharmacopeia:             string;
+    provision_mdr_lic:              string;
     provision_mdr_it:               string;
     provision_mdr_sa:               string;
+    licence_number:                 string;
     application_number:             string;
     sap_request_number:             string;
     interim_order_authorization:    string;
