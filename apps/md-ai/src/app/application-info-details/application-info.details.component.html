@@ -142,8 +142,8 @@
                               [control]="appInfoFormLocalModel.controls['isPriorityReq'] | formControl"
                               controlId="isPriorityReq" label="is.priority.req" parentId="appInfoDetails"></control-messages>
           <div>
-            <label *ngFor="let yesno of yesNoList; let i = index" for="isPriorityReq" class="radio-inline">
-              <input type="radio" id="isPriorityReq" name="isPriorityReq" [value]="yesno.id" aria-required="true"
+            <label *ngFor="let yesno of yesNoList; let i = index" for="isPriorityReq{{i}}" class="radio-inline">
+              <input type="radio" id="isPriorityReq" name="isPriorityReq{{i}}" [value]="yesno.id" aria-required="true"
                 (change)="priorityRequestedOnChange()"
                 [formControl]="appInfoFormLocalModel.controls['isPriorityReq'] | formControl" />
               {{yesno | textTransform: lang }}
@@ -207,15 +207,15 @@
         <div class="panel-body">
           <div class="row">
             <div class="form-group col-xs-12">
-              <label for="isIvdd" class="required full-width">
+              <label class="required full-width">
                 <span class="field-name">{{'is.ivdd' |translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="appInfoFormLocalModel.controls['isIvdd'].invalid" [showError]="showFieldErrors"
                   [control]="appInfoFormLocalModel.controls['isIvdd'] | formControl" controlId="isIvdd" label="is.ivdd"
                   parentId="appInfoDetails"></control-messages>
                 <div>
-                  <label *ngFor="let yesno of yesNoList; let i = index" for="isIvdd" class="radio-inline">
-                    <input type="radio" id="isIvdd" name="isIvdd" [value]="yesno.id" aria-required="true"
+                  <label *ngFor="let yesno of yesNoList; let i = index" for="isIvdd{{i}}" class="radio-inline">
+                    <input type="radio" id="isIvdd{{i}}" name="isIvdd" [value]="yesno.id" aria-required="true"
                       [formControl]="appInfoFormLocalModel.controls['isIvdd']  | formControl" />
                     {{yesno | textTransform: lang }}
                   </label>
@@ -225,15 +225,15 @@
           </div>
           <div class="row" *ngIf="isIVDD()">
             <div class="form-group col-xs-12">
-              <label for="isHomeUse" class="required full-width">
+              <label class="required full-width">
                 <span class="field-name">{{'is.home.use' |translate}}</span>
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="appInfoFormLocalModel.controls['isHomeUse'].invalid"
                   [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['isHomeUse'] | formControl"
                   controlId="isHomeUse" label="is.home.use" parentId="appInfoDetails"></control-messages>
                 <div>
-                  <label *ngFor="let yesno of yesNoList; let i = index" for="isIvdd" class="radio-inline">
-                    <input type="radio" id="isHomeUse" name="isHomeUse" [value]="yesno.id" aria-required="true"
+                  <label *ngFor="let yesno of yesNoList; let i = index" for="isHomeUse{{i}}" class="radio-inline">
+                    <input type="radio" id="isHomeUse{{i}}" name="isHomeUse" [value]="yesno.id" aria-required="true"
                       [formControl]="appInfoFormLocalModel.controls['isHomeUse']  | formControl" />
                     {{yesno | textTransform: lang }}
                   </label>
@@ -248,8 +248,8 @@
                   [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['isCarePoint'] | formControl"
                   controlId="isCarePoint" label="is.point.care" parentId="appInfoDetails"></control-messages>
                 <div>
-                  <label *ngFor="let yesno of yesNoList; let i = index" for="isCarePoint" class="radio-inline">
-                    <input type="radio" id="isCarePoint" name="isCarePoint" [value]="yesno.id" aria-required="true"
+                  <label *ngFor="let yesno of yesNoList; let i = index" for="isCarePoint{{i}}" class="radio-inline">
+                    <input type="radio" id="isCarePoint{{i}}" name="isCarePoint" [value]="yesno.id" aria-required="true"
                       [formControl]="appInfoFormLocalModel.controls['isCarePoint']  | formControl" />
                     {{yesno | textTransform: lang }}
                   </label>
@@ -267,8 +267,8 @@
                   [control]="appInfoFormLocalModel.controls['isEmitRadiation'] | formControl"
                   controlId="isEmitRadiation" label="contain.radiation" parentId="appInfoDetails"></control-messages>
                 <div>
-                  <label *ngFor="let yesno of yesNoList; let i = index" for="isEmitRadiation" class="radio-inline">
-                    <input type="radio" id="isEmitRadiation" name="isEmitRadiation" [value]="yesno.id"
+                  <label *ngFor="let yesno of yesNoList; let i = index" for="isEmitRadiation{{i}}" class="radio-inline">
+                    <input type="radio" id="isEmitRadiation{{i}}" name="isEmitRadiation" [value]="yesno.id"
                       aria-required="true"
                       [formControl]="appInfoFormLocalModel.controls['isEmitRadiation']  | formControl" />
                     {{yesno | textTransform: lang }}
@@ -286,8 +286,8 @@
                   [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['hasDrug'] | formControl"
                   controlId="hasDrug" label="contain.drug" parentId="appInfoDetails"></control-messages>
                 <div>
-                  <label *ngFor="let yesno of yesNoList; let i = index" for="hasDrug" class="radio-inline">
-                    <input type="radio" id="hasDrug" name="hasDrug" [value]="yesno.id" aria-required="true"
+                  <label *ngFor="let yesno of yesNoList; let i = index" for="hasDrug{{i}}" class="radio-inline">
+                    <input type="radio" id="hasDrug" name="hasDrug{{i}}" [value]="yesno.id" aria-required="true"
                       [formControl]="appInfoFormLocalModel.controls['hasDrug']  | formControl" (change)="onHasDrugChange($event)"/>
                     {{yesno | textTransform: lang }}
                   </label>
@@ -450,7 +450,7 @@
               <div class="row">
                 <div class="col-sm-4">
                   <div class="checkbox">
-                    <label for="chk-mdr-it">
+                    <label for="chk-mdr-lic">
                       <input type="checkbox"
                         [formControl]="appInfoFormLocalModel.controls['provisionMdrLIC'] | formControl" id="chk-mdr-lic"
                         name="chk-mdr-lic" />

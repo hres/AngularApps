@@ -13,8 +13,8 @@
                               [control]="materialInfoForm.controls['hasRecombinant'] | formControl"
                               controlId="hasRecombinant" label="consist.recombinant" parentId="materialInfoDetails"></control-messages>
              <div>
-              <label *ngFor="let yesno of yesNoList; let i = index" for="hasRecombinant" class="radio-inline">
-                <input type="radio" id="hasRecombinant" name="hasRecombinant" [value]="yesno.id"
+              <label *ngFor="let yesno of yesNoList; let i = index" for="hasRecombinant{{i}}" class="radio-inline">
+                <input type="radio" id="hasRecombinant{{i}}" name="hasRecombinant" [value]="yesno.id"
                   aria-required="true"    [formControl]="materialInfoForm.controls['hasRecombinant'] | formControl">
                 {{yesno | textTransform: lang }}
               </label>
@@ -33,8 +33,8 @@
                               [control]="materialInfoForm.controls['isAnimalHumanSourced'] | formControl"
                               controlId="isAnimalHumanSourced" label="contain.material" parentId="materialInfoDetails"></control-messages>
               <div>
-              <label *ngFor="let yesno of yesNoList; let i = index" for="isAnimalHumanSourced" class="radio-inline">
-                <input type="radio" id="isAnimalHumanSourced" name="isAnimalHumanSourced" [value]="yesno.id"
+              <label *ngFor="let yesno of yesNoList; let i = index" for="isAnimalHumanSourced{{i}}" class="radio-inline">
+                <input type="radio" id="isAnimalHumanSourced{{i}}" name="isAnimalHumanSourced" [value]="yesno.id"
                   aria-required="true"    [formControl]="materialInfoForm.controls['isAnimalHumanSourced'] | formControl">
                 {{yesno | textTransform: lang }}
               </label>
@@ -52,8 +52,8 @@
                               [control]="materialInfoForm.controls['isListedIddTable'] | formControl"
                               controlId="isListedIddTable" label="is.same.material" parentId="materialInfoDetails"></control-messages>
             <div>
-              <label *ngFor="let yesno of yesNoList; let i = index" for="isListedIddTable" class="radio-inline">
-                <input type="radio" id="isListedIddTable" name="isListedIddTable" [value]="yesno.id"
+              <label *ngFor="let yesno of yesNoList; let i = index" for="isListedIddTable{{i}}" class="radio-inline">
+                <input type="radio" id="isListedIddTable{{i}}" name="isListedIddTable" [value]="yesno.id"
                   aria-required="true"    [formControl]="materialInfoForm.controls['isListedIddTable'] | formControl">
                 {{yesno | textTransform: lang }}
               </label>

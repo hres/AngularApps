@@ -19,8 +19,8 @@
               controlId="declarationConformity" label="conformity.declaration"
               parentId="declarationCon"></control-messages>
             <div>
-              <label *ngFor="let yesno of yesNoList; let i = index" for="declarationConformity" class="radio-inline">
-                <input type="radio" id="declarationConformity" name="declarationConformity" [value]="yesno.id"
+              <label *ngFor="let yesno of yesNoList; let i = index" for="declarationConformity{{i}}" class="radio-inline">
+                <input type="radio" id="declarationConformity{{i}}" name="declarationConformity" [value]="yesno.id"
                   aria-required="true"
                   [formControl]="declarationLocalModel.controls['declarationConformity'] | formControl">
                 {{yesno | textTransform: lang }}

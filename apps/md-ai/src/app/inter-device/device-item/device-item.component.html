@@ -29,8 +29,8 @@
             label="device.authorized" parentId="deviceDetails"
             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
             <div>
-            <label *ngFor="let yesno of yesNoList; let i = index" for="deviceAuthorized" class="radio-inline">
-              <input type="radio" id="deviceAuthorized" name="deviceAuthorized" [value]="yesno.id"
+            <label *ngFor="let yesno of yesNoList; let i = index" for="deviceAuthorized{{i}}" class="radio-inline">
+              <input type="radio" id="deviceAuthorized{{i}}" name="deviceAuthorized" [value]="yesno.id"
                 aria-required="true" (change)="onDeviceAuthorizedChange($event)" [formControlName]="'deviceAuthorized'"/>
               {{yesno | textTransform: lang }}
             </label>
@@ -64,8 +64,8 @@
               controlId="deviceApplicationSubmitted{{j}}" label="device.application.submitted" parentId="deviceDetails"
               translatedParentLabel="{{translatedParentLabel}}"></control-messages>
             <div>
-              <label *ngFor="let yesno of yesNoList; let i = index" for="deviceApplicationSubmitted" class="radio-inline">
-                <input type="radio" id="deviceApplicationSubmitted" name="deviceApplicationSubmitted" [value]="yesno.id"
+              <label *ngFor="let yesno of yesNoList; let i = index" for="deviceApplicationSubmitted{{i}}" class="radio-inline">
+                <input type="radio" id="deviceApplicationSubmitted{{i}}" name="deviceApplicationSubmitted" [value]="yesno.id"
                   aria-required="true" (change)="onDeviceAppChange($event)" [formControlName]="'deviceApplicationSubmitted'">
                 {{yesno | textTransform: lang }}
               </label>
