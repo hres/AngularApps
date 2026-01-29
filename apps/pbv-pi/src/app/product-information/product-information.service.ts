@@ -26,7 +26,8 @@ export class ProductInformationService {
     manufacturer: [null],
     mailing: [null],
     thisActivity: [null],
-    importer: [null]
+    importer: [null],
+    drugUse: [null, [Validators.required]],
    });
   }
 
@@ -43,6 +44,7 @@ export class ProductInformationService {
     dataModel.mailing = formValue['mailing'] == true ? 'Y': undefined;
     dataModel.this_activity = formValue['thisActivity'] == true ? 'Y': undefined;
     dataModel.importer = formValue['importer'] == true ? 'Y': undefined;
+    dataModel.drug_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.drugUse, formValue['drugUse'], lang);
   }
 
   public mapDataModelToFormModel(dataModel: DrugProductEnrol, formRecord: FormGroup): void {
@@ -67,5 +69,12 @@ export class ProductInformationService {
     formRecord.controls['mailing'].setValue(dataModel.mailing=='Y'?true:false);
     formRecord.controls['thisActivity'].setValue(dataModel.this_activity=='Y'?true:false);
     formRecord.controls['importer'].setValue(dataModel.importer=='Y'?true:false);
+
+    if(dataModel.drug_use?._id){
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.drug_use);
+      formRecord.controls['drugUse'].setValue(id? id : null);
+    } else {
+      formRecord.controls['drugUse'].setValue(null);
+    }
   }
 }

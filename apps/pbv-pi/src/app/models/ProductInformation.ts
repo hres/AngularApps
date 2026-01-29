@@ -20,5 +20,6 @@ export interface DrugProductEnrol {
   manufacturer: string;
   mailing: string;
   this_activity: string;
-  importer: string
+  importer: string;
+  drug_use: IIdTextLabel;
 }
