@@ -29,7 +29,9 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getCountryList(this._globalService.currLanguage),
     this._formDataLoader.getDossierTypes(),
     this._formDataLoader.getYesNoList(),
-    this._formDataLoader.getSubTypes(this._globalService.currLanguage)
+    this._formDataLoader.getSubTypes(this._globalService.currLanguage),
+    this._formDataLoader.getYesNoList(),
+    this._formDataLoader.getDrugUses()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -45,6 +47,7 @@ export class ContainerComponent implements OnInit {
       this._globalService.dossierTypes = data[1]
       this._globalService.yesnoList = data[2];
       this._globalService.subTypeList = data[3];
+      this._globalService.drugUse = data[5];
 
       this.loadFormBaseComponent = true;
     });

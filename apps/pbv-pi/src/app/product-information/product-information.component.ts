@@ -24,6 +24,7 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
   public showFieldErrors: boolean = false;
   public productInfoForm: FormGroup;
   dossierTypeOptions: ICodeDefinition[] = [];
+  drugUseOptions: ICodeDefinition[] = [];
   public yesNoList: ICode[] = [];
   subTypeOptions: ICodeDefinition[] = [];
 
@@ -49,6 +50,7 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
     this.dossierTypeOptions = this._globalService.dossierTypes;
     this.yesNoList = this._globalService.yesnoList;
     this.subTypeOptions = this._globalService.subTypeList;
+    this.drugUseOptions = this._globalService.drugUse;
   }
 
   ngOnChanges(changes: SimpleChanges) {

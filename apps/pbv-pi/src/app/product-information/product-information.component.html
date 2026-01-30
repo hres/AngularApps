@@ -164,5 +164,27 @@
                     </div>
               </div>
         </fieldset>
-    </div>
+      </div>
+
+        <div class="row">
+          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <label for="drugUse" class="required">
+                  <span class="field-name">{{ 'drug.use'|translate }}</span>
+                  <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+                  <sup [id]="helpIndex['drugUseIndx'][2]">
+                      <a class="fn-lnk" [href]="'#' + helpIndex['drugUseIndx'][1]"><span
+                              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['drugUseIndx'][0]}}</a>
+                  </sup>
+                  <control-messages *ngIf="productInfoForm.controls['drugUse'].invalid"
+                      [showError]="showFieldErrors"
+                      [control]="productInfoForm.controls['drugUse'] | formControl" controlId="drugUse"
+                      label="drug.use" parentId="productInfo"></control-messages>
+              </label>
+              <select id="drugUse" name="drugUse" required class="form-control"
+                  [formControlName]="'drugUse'">
+                  <option label=" " value=""></option>
+                  <option *ngFor="let item of drugUseOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
+              </select>
+          </div>
+      </div>
 </div>
