@@ -34,8 +34,10 @@ export class ProductInformationService {
     isOnDrug: [null],
     isOnDrugForSchedule: [null],
     isDrugPermitted: [null],
-    dosAge: [null, [Validators.required]]
-    });
+    dosAge: [null, [Validators.required]],
+    drugUse: [null, [Validators.required]],
+   });
+
   }
 
   public mapFormModelToDataModel(formValue: any, dataModel: DrugProductEnrol): void {
@@ -59,6 +61,7 @@ export class ProductInformationService {
     dataModel.isOnDrugForSchedule = formValue['isOnDrugForSchedule'] == true ? 'Y': undefined;
     dataModel.isDrugPermitted = formValue['isDrugPermitted'] == true ? 'Y': undefined;
     dataModel.dosAge = formValue['dosAge'];
+    dataModel.drug_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.drugUse, formValue['drugUse'], lang);
   }
 
   public mapDataModelToFormModel(dataModel: DrugProductEnrol, formRecord: FormGroup): void {
@@ -90,7 +93,15 @@ export class ProductInformationService {
     formRecord.controls['isOnDrugForSchedule'].setValue(dataModel.isOnDrugForSchedule=='Y'?true:false);
     formRecord.controls['isOnDrug'].setValue(dataModel.isOnDrug=='Y'?true:false);
     formRecord.controls['isDrugPermitted'].setValue(dataModel.isDrugPermitted=='Y'?true:false);
-
     formRecord.controls['dosAge'].setValue(dataModel.dosAge);
+
+
+    if(dataModel.drug_use?._id){
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.drug_use);
+      formRecord.controls['drugUse'].setValue(id? id : null);
+    } else {
+      formRecord.controls['drugUse'].setValue(null);
+    }
+
   }
 }

@@ -50,6 +50,7 @@ export const HELP_TEXT_SEQUENCE = [
     'clinAgeIndx',
     'clinRaceIndx',
     'clinPediIndx',
+    'drugUseIndx'
   ];
 
 export const DOSSIER_TYPE = {

@@ -26,6 +26,15 @@ export class GlobalService {
   private _countryList: ICode[];
   private _yesnoList: ICode[];
   private _subTypeList: ICodeDefinition[];
+  private _drugUse: ICodeDefinition[] = [];
+
+
+  public get drugUse(): ICodeDefinition[] {
+    return this._drugUse;
+  }
+  public set drugUse(value: ICodeDefinition[]) {
+    this._drugUse = value;
+  }
 
   constructor() {}
 
@@ -136,4 +145,5 @@ export class GlobalService {
   public set subTypeList(value: ICodeDefinition[]) {
     this._subTypeList = value;
   }
+
 }

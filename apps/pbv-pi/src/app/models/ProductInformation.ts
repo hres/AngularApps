@@ -29,4 +29,5 @@ export interface DrugProductEnrol {
   isOnDrugForSchedule: string,
   isDrugPermitted: string,
   dosAge: string
+  drug_use: IIdTextLabel;
 }

@@ -61,8 +61,8 @@ export class FormBaseService {
       isOnDrug: '',
       isOnDrugForSchedule: '',
       isDrugPermitted: '',
-      dosAge: ''
-
+      dosAge: '',
+      drug_use: undefined,
     };
 
     return drugProductEnrol;

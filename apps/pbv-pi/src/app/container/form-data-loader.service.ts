@@ -10,12 +10,13 @@ export class FormDataLoaderService {
   private dossierTypesJsonPath = DATA_PATH + 'dossierTypes.json';
   private countriesJsonPath = DATA_PATH + 'countries.json';
   private subTypesJsonPath = DATA_PATH + 'subTypes.json';
-  
+  private drugUsedsJsonPath = DATA_PATH + 'drugUses.json';
   cachedYesNo$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
   cachedCountries$:Observable<ICode[]>;
   subTypes$:Observable<ICode[]>;
-  
+  drugUse$: Observable<ICodeDefinition[]>;
+
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
   getDossierTypes(): Observable<ICodeDefinition[]> {
@@ -53,7 +54,7 @@ export class FormDataLoaderService {
     return this.cachedYesNo$;
   }
 
-  
+
   getSubTypes(lang: string): Observable<ICode[]> {
     this.subTypes$ = this._dataService.getSortedDataAccents<ICode>(this.subTypesJsonPath, this._utilsService.getCompareFields(false, lang))
     .pipe(
@@ -61,4 +62,13 @@ export class FormDataLoaderService {
     );
     return this.subTypes$;
   }
+
+  getDrugUses(): Observable<ICodeDefinition[]> {
+     return this.drugUse$ = this._dataService
+      .getData<ICodeAria>(this.drugUsedsJsonPath)
+      .pipe(
+        shareReplay(1)
+      );
+
+    }
 }
