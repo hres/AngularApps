@@ -225,7 +225,8 @@ export class ApplicationInfoDetailsComponent
       (!this.isDeviceIII() && !this.isDeviceIV())
     ) {
       this.resetDeclarationError.emit(true);
-      this.resetPriorityRevError.emit(true);
+      const valuesToReset = ['isPriorityReq', 'diagnosisReasons', 'selectedDiagnosisCodes'];
+      this._resetControlValues(valuesToReset);
     }
   }
 
