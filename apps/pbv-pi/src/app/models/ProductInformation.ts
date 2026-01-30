@@ -20,5 +20,13 @@ export interface DrugProductEnrol {
   manufacturer: string;
   mailing: string;
   this_activity: string;
-  importer: string
+  importer: string,
+  isSchedule: string,
+  isInclude: string,
+  isOnDrugList: string,
+  isRegulated: string,
+  isOnDrug: string,
+  isOnDrugForSchedule: string,
+  isDrugPermitted: string,
+  dosAge: string
 }
