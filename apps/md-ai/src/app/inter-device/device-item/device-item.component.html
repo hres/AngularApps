@@ -20,23 +20,23 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-sm-12">
-        <label for="deviceAuthorized{{j}}" class="required full-width">
-          <span class="field-name">{{'device.authorized' |translate}}</span>
-          <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+      <fieldset class="col-xs-12 form-group chkbxrdio-grp">
+        <legend class="required">
+          {{'device.authorized' |translate}}
+          <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
           <control-messages *ngIf="cRRow.get('deviceInfo.deviceAuthorized').invalid" [showError]="showErrors"
             [control]="cRRow.get('deviceInfo.deviceAuthorized') | formControl" controlId="deviceAuthorized{{j}}"
             label="device.authorized" parentId="deviceDetails"
             translatedParentLabel="{{translatedParentLabel}}"></control-messages>
-            <div>
-            <label *ngFor="let yesno of yesNoList; let i = index" for="deviceAuthorized{{i}}" class="radio-inline">
-              <input type="radio" id="deviceAuthorized{{i}}" name="deviceAuthorized" [value]="yesno.id"
-                aria-required="true" (change)="onDeviceAuthorizedChange($event)" [formControlName]="'deviceAuthorized'"/>
-              {{yesno | textTransform: lang }}
-            </label>
-          </div>
-        </label>
-      </div>
+        </legend>
+        <ng-container *ngFor="let yesno of yesNoList; let i = index">
+          <label for="deviceAuthorized{{i}}" class="radio-inline">
+            <input type="radio" id="deviceAuthorized{{i}}" name="deviceAuthorized" [value]="yesno.id"
+              aria-required="true" (change)="onDeviceAuthorizedChange($event)" [formControlName]="'deviceAuthorized'"/>
+            {{yesno | textTransform: lang }}
+          </label>    
+        </ng-container>
+      </fieldset>
       <div *ngIf="showLicenceNumber()">
         <div class="form-group col-sm-12 ">
           <label for="licenceNum{{j}}" class="required">
@@ -55,23 +55,23 @@
         </div>
       </div>
       <div *ngIf="showPreviouslySubmitted()">
-        <div class="form-group col-sm-12">
-          <label for="deviceApplicationSubmitted{{j}}" class="required full-width">
-            <span class="field-name">{{'device.application.submitted' |translate}}</span>
-            <strong class="required">{{'commmon.required.bracket'|translate}}</strong>
+        <fieldset class="col-sm-12  form-group chkbxrdio-grp">
+          <legend class="required">
+            {{'device.application.submitted' |translate}}
+            <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
             <control-messages *ngIf="cRRow.get('deviceInfo.deviceApplicationSubmitted').invalid" [showError]="showErrors"
-              [control]="cRRow.get('deviceInfo.deviceApplicationSubmitted') | formControl"
-              controlId="deviceApplicationSubmitted{{j}}" label="device.application.submitted" parentId="deviceDetails"
-              translatedParentLabel="{{translatedParentLabel}}"></control-messages>
-            <div>
-              <label *ngFor="let yesno of yesNoList; let i = index" for="deviceApplicationSubmitted{{i}}" class="radio-inline">
-                <input type="radio" id="deviceApplicationSubmitted{{i}}" name="deviceApplicationSubmitted" [value]="yesno.id"
-                  aria-required="true" (change)="onDeviceAppChange($event)" [formControlName]="'deviceApplicationSubmitted'">
-                {{yesno | textTransform: lang }}
-              </label>
-            </div>
-          </label>
-        </div>
+            [control]="cRRow.get('deviceInfo.deviceApplicationSubmitted') | formControl"
+            controlId="deviceApplicationSubmitted{{j}}" label="device.application.submitted" parentId="deviceDetails"
+            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
+          </legend>
+          <ng-container *ngFor="let yesno of yesNoList; let i = index">
+            <label for="deviceApplicationSubmitted{{i}}" class="radio-inline">
+              <input type="radio" id="deviceApplicationSubmitted{{i}}" name="deviceApplicationSubmitted" [value]="yesno.id"
+                aria-required="true" (change)="onDeviceAppChange($event)" [formControlName]="'deviceApplicationSubmitted'">
+              {{yesno | textTransform: lang }}
+            </label>
+          </ng-container>
+        </fieldset>
       </div>
       <div *ngIf="showApplicationNumber()">
         <div class="form-group col-sm-12 ">
