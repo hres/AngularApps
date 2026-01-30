@@ -454,7 +454,7 @@
                   </div>
                 </div>
                 <div class="form-group col-xs-7" *ngIf="isLic()">
-                  <label for="licenceNum" class=" full-width">
+                  <label for="licenceNum">
                     <span class="field-name">{{'lic.number'|translate}} {{'minNumber6'|translate}}</span>
                     <control-messages *ngIf="appInfoFormLocalModel.controls['licenceNum'].invalid"
                       [showError]="showFieldErrors"
@@ -479,7 +479,7 @@
                   </div>
                 </div>
                 <div class="form-group col-xs-7" *ngIf="isIt()">
-                  <label for="applicationNum" class=" full-width">
+                  <label for="applicationNum">
                     <span class="field-name">{{'application.number'|translate}} {{'minNumber6'|translate}}</span>
                     <control-messages *ngIf="appInfoFormLocalModel.controls['applicationNum'].invalid"
                       [showError]="showFieldErrors"
@@ -504,7 +504,7 @@
                   </div>
                 </div>
                 <div class="form-group col-xs-7" *ngIf="isSa()">
-                  <label for="sapReqNum" class=" full-width">
+                  <label for="sapReqNum">
                     <span class="field-name">{{'sap.req.number'|translate}}</span>
                     <input id="sapReqNum" name="sapReqNum" class="form-control full-width"
                       [formControl]="appInfoFormLocalModel.controls['sapReqNum'] | formControl" maxlength="30" />
@@ -523,7 +523,7 @@
                   </div>
                 </div>
                 <div class="form-group col-xs-7" *ngIf="isIoa()">
-                  <label for="authNum" class=" full-width">
+                  <label for="authNum">
                     <span class="field-name">{{'auth.id'|translate}} {{'minNumber6'|translate}}</span>
                     <control-messages *ngIf="appInfoFormLocalModel.controls['authNum'].invalid"
                       [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['authNum'] | formControl"
