@@ -67,13 +67,13 @@ export class ApplicationInfoBaseService {
         compliance: null,
         other_pharmacopeia: '',
         provision_mdr_lic: '',
-        provision_mdr_it:  '',
-        provision_mdr_sa: '',
         licence_number: '',
+        provision_mdr_it:  '',
         application_number: '',
+        provision_mdr_sa: '',
         sap_request_number:'',
-        authorization_id: '',
         interim_order_authorization: '',
+        authorization_id: '',
       }
     )
   }
