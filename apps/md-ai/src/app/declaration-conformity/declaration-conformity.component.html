@@ -52,7 +52,7 @@
         <fieldset class="col-xs-12 chkbxrdio-grp">
           <legend class="required">
             {{'conformity.declaration.medical.device.title.part1' |translate}}
-            <a href="{{'declaration.instruct.link'|translate}}">{{'declaration.instruct.tite'|translate}}</a>
+            <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'declaration.instruct.tite'|translate}}</a>
             {{'conformity.declaration.medical.device.title.part2' |translate}}
             <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
             <sup id="ap8-rf">
