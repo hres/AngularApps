@@ -85,7 +85,7 @@
     "lic.number": "Licence number",
     "auth.id":"Authorization ID",
     "standards.list": "Recognized standards complied within the design and manufacture of the device",
-    "conformity.declaration": "Declaration of conformity form (available on the Health Canada website) confirms that the medical device(s) comply with recognized standards or equivalent or better standards",
+    "conformity.declaration":"Refer to the Medical device application and report forms https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/forms.html (opens in new window) to find the latest version of the declaration of conformity.",
     "declaration.instruct1": "In lieu of a Declaration of Conformity confirming that the subject device(s) are designed and manufactured in compliance with recognized standards, detailed information should be provided in the corresponding section of the IMDRF folder structure as evidence of the device(s) meeting an equivalent or better standard.",
     "declaration.instruct2": "Alternatively, if the subject device(s) DO NOT conform with a recognized, equivalent, or better standard then detailed information should be provided as evidence of the safety and effectiveness of the device(s) as per the ",
     "conformity.declaration.medical.device.title.part1": "The medical devices subject to this application conform with Recognized Standards as set out in the ",
@@ -171,7 +171,7 @@
     "help.device.class_2": "Guidance Document - Guidance on the Risk-based Classification System for Non-In Vitro Diagnostic Devices (non-IVDDs)",
     "help.confm.declar_1": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/forms/declaration-conformity-forms-medical-devices.html",
     "help.confm.declar_2": "Declaration of Conformity",
-    "help.priority.rev":"manufacturers can request priority review for their application in order to ensure a timely review of critical new medical devices for serious, life threatening, or severely debilitating diseases or conditions. Manufacturers will be notified at screening acceptance whether their application was accepted for priority review.",
+    "help.priority.rev":"Manufacturers can request priority review for their application in order to ensure a timely review of critical new medical devices for serious, life threatening, or severely debilitating diseases or conditions. Manufacturers will be notified at screening acceptance whether their application was accepted for priority review.",
     "alert.info":"Alert information",
     "select.option": "Select an option"
     }
