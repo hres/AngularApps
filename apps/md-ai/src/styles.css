@@ -1,3 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'font-awesome/css/font-awesome.css';
 @import '../node_modules/@hpfb/sdk/css/rep.css';
+
+@media (max-width: 768px) {
+    #device-history {
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    #device-history .row {
+      flex-wrap: wrap;
+    }
+  
+    #device-history .form-group,
+    #device-history input.form-control {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+}
+
+@media (min-width: 768px) {
+  /* Only the field-name inside device-history fieldset */
+  #device-history label[for="applicationNum"] > .field-name {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 767px) {
+  #device-history label[for="applicationNum"] > .field-name {
+    white-space: normal;
+  }
+}
+
+  

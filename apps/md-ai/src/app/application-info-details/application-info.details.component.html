@@ -45,12 +45,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-12 minWidth300">
+      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <label for="mdsapOrg" class="required full-width">
           <span class="field-name">{{'mdsap.org'|translate}}</span>
           <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <sup id="ap4-rf">
-            <a class="fn-lnk" href="#ap4"><span
+            <a class="fn-lnk mrgn-tp-sm" href="#ap4"><span
                 class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpTextSequences.mdsapOrgIndx}}</a>
           </sup>
           <control-messages *ngIf="appInfoFormLocalModel.controls['mdsapOrg'].invalid" [showError]="showFieldErrors"
@@ -66,13 +66,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-6 minWidth300">
+      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <label for="licenceAppType" class="required full-width">
           <span class="field-name">{{'licence.app.type' |translate}}</span>
           <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <sup id="ap5-rf">
-            <a class="fn-lnk" href="#ap5"><span
-                class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpTextSequences.licAppTypeIndx}}</a>
+            <a class="fn-lnk mrgn-tp-sm" href="#ap5"><span class="wb-inv">{{ 'instruction'|translate
+                }}&#160;</span>{{helpTextSequences.licAppTypeIndx}}</a>
           </sup>
           <control-messages *ngIf="appInfoFormLocalModel.controls['licenceAppType'].invalid"
             [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['licenceAppType'] | formControl"
@@ -86,7 +86,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-6 minWidth300">
+      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <label for="activityType" class="required full-width">
           <span class="field-name">{{'activity.type' |translate}}</span>
           <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
@@ -133,6 +133,10 @@
         <legend class="required">
           {{'is.priority.req' |translate}}
           <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
+          <sup id="ap7-rf">
+            <a class="fn-lnk" href="#ap7"><span class="wb-inv">{{ 'instruction'|translate
+                }}&#160;</span>{{helpTextSequences.priRevIndx}}</a>
+          </sup>
           <control-messages *ngIf="appInfoFormLocalModel.controls['isPriorityReq'].invalid"
           [showError]="showFieldErrors"
           [control]="appInfoFormLocalModel.controls['isPriorityReq'] | formControl"
@@ -453,8 +457,8 @@
                     </label>
                   </div>
                 </div>
-                <div class="form-group col-xs-7" *ngIf="isLic()">
-                  <label for="licenceNum">
+                <div *ngIf="isLic()">
+                  <label for="licenceNum" class="form-group col-6 col-md-4 col-lg-3 d-block">
                     <span class="field-name">{{'lic.number'|translate}} {{'minNumber6'|translate}}</span>
                     <control-messages *ngIf="appInfoFormLocalModel.controls['licenceNum'].invalid"
                       [showError]="showFieldErrors"
@@ -478,8 +482,8 @@
                     </label>
                   </div>
                 </div>
-                <div class="form-group col-xs-7" *ngIf="isIt()">
-                  <label for="applicationNum">
+                <div *ngIf="isIt()">
+                  <label for="applicationNum" class="form-group col-6 col-md-4 col-lg-3 d-block">
                     <span class="field-name">{{'application.number'|translate}} {{'minNumber6'|translate}}</span>
                     <control-messages *ngIf="appInfoFormLocalModel.controls['applicationNum'].invalid"
                       [showError]="showFieldErrors"
@@ -503,8 +507,8 @@
                     </label>
                   </div>
                 </div>
-                <div class="form-group col-xs-7" *ngIf="isSa()">
-                  <label for="sapReqNum">
+                <div *ngIf="isSa()">
+                  <label for="sapReqNum" class="form-group col-6 col-md-4 col-lg-3 d-block">
                     <span class="field-name">{{'sap.req.number'|translate}}</span>
                     <input id="sapReqNum" name="sapReqNum" class="form-control full-width"
                       [formControl]="appInfoFormLocalModel.controls['sapReqNum'] | formControl" maxlength="30" />
@@ -522,8 +526,8 @@
                     </label>
                   </div>
                 </div>
-                <div class="form-group col-xs-7" *ngIf="isIoa()">
-                  <label for="authNum">
+                <div *ngIf="isIoa()">
+                  <label for="authNum" class="form-group col-6 col-md-4 col-lg-3 d-block">
                     <span class="field-name">{{'auth.id'|translate}} {{'minNumber6'|translate}}</span>
                     <control-messages *ngIf="appInfoFormLocalModel.controls['authNum'].invalid"
                       [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['authNum'] | formControl"
