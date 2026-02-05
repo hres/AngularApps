@@ -55,7 +55,7 @@
     "medical.device.licence": "homologation d'instrument medical",
     "device.authorized": "Cet instrument a-t-il été autorisé par Santé Canada ?",
     "device.application.submitted": "Une demande a-t-elle déjà été soumise pour cet instrument ?",
-    "device.explain": "Justification :",
+    "device.explain": "Justification",
     "application.number": "Numéro d'application ",
     "licence.application.number": "Numéro d'homologation",
     "material.name": "Nom du matériel",
