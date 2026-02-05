@@ -153,6 +153,15 @@ export class ApplicationInfoBaseService {
     return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Devices Directorate', 'Direction des instruments médicaux');
   }
 
+  mapPriorityReviewModel(outputForm) {
+    const priorityReviewModel = outputForm.priority_review;
+
+    if (outputForm.priority_review) {  
+      outputForm.application_info.priority_review = priorityReviewModel.priority_review;
+      outputForm.application_info.is_diagnosis_treatment_serious = priorityReviewModel.is_diagnosis_treatment_serious;
+    }
+  }
+
   mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, declarationConFrom) {
     let deviceModelList = [];
     let materialModelList = [];
