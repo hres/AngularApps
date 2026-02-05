@@ -32,6 +32,7 @@ export class FormBaseService {
     const enrollment:  ProductInformation = {
       DRUG_PRODUCT_ENROL: this.getEmptyDrugProductEnrol()
     };
+
     return enrollment;
   }
 
@@ -53,6 +54,14 @@ export class FormBaseService {
       mailing: '',
       this_activity: '',
       importer: '',
+      isSchedule: '',
+      isInclude: '',
+      isOnDrugList: '',
+      isRegulated: '',
+      isOnDrug: '',
+      isOnDrugForSchedule: '',
+      isDrugPermitted: '',
+      dosAge: '',
       drug_use: undefined,
     };
 

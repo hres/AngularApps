@@ -34,7 +34,7 @@
             <input type="radio" id="deviceAuthorized{{i}}" name="deviceAuthorized" [value]="yesno.id"
               aria-required="true" (change)="onDeviceAuthorizedChange($event)" [formControlName]="'deviceAuthorized'"/>
             {{yesno | textTransform: lang }}
-          </label>    
+          </label>
         </ng-container>
       </fieldset>
       <div *ngIf="showLicenceNumber()">
@@ -50,7 +50,7 @@
               label="licence.application.number" parentId="deviceDetails"
               translatedParentLabel="{{translatedParentLabel}}"></control-messages>
             <input id="licenceNum{{j}}" name="licenceNum" class="form-control" data-only-digits [maxLength]="6"
-              [formControlName]="'licenceNum'" required />
+              [formControlName]="'licenceNum'" required  (blur)="licenceNumberOnBlur()"/>
           </label>
         </div>
       </div>

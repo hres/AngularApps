@@ -27,8 +27,17 @@ export class ProductInformationService {
     mailing: [null],
     thisActivity: [null],
     importer: [null],
+    isSchedule: [null],
+    isInclude: [null],
+    isOnDrugList: [null],
+    isRegulated: [null],
+    isOnDrug: [null],
+    isOnDrugForSchedule: [null],
+    isDrugPermitted: [null],
+    dosAge: [null, [Validators.required]],
     drugUse: [null, [Validators.required]],
    });
+
   }
 
   public mapFormModelToDataModel(formValue: any, dataModel: DrugProductEnrol): void {
@@ -44,6 +53,14 @@ export class ProductInformationService {
     dataModel.mailing = formValue['mailing'] == true ? 'Y': undefined;
     dataModel.this_activity = formValue['thisActivity'] == true ? 'Y': undefined;
     dataModel.importer = formValue['importer'] == true ? 'Y': undefined;
+    dataModel.isSchedule = formValue['isSchedule'] == true ? 'Y': undefined;
+    dataModel.isInclude = formValue['isInclude'] == true ? 'Y': undefined;
+    dataModel.isOnDrugList = formValue['isOnDrugList'] == true ? 'Y': undefined;
+    dataModel.isRegulated = formValue['isRegulated'] == true ? 'Y': undefined;
+    dataModel.isOnDrug = formValue['isOnDrug'] == true ? 'Y': undefined;
+    dataModel.isOnDrugForSchedule = formValue['isOnDrugForSchedule'] == true ? 'Y': undefined;
+    dataModel.isDrugPermitted = formValue['isDrugPermitted'] == true ? 'Y': undefined;
+    dataModel.dosAge = formValue['dosAge'];
     dataModel.drug_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.drugUse, formValue['drugUse'], lang);
   }
 
@@ -69,6 +86,15 @@ export class ProductInformationService {
     formRecord.controls['mailing'].setValue(dataModel.mailing=='Y'?true:false);
     formRecord.controls['thisActivity'].setValue(dataModel.this_activity=='Y'?true:false);
     formRecord.controls['importer'].setValue(dataModel.importer=='Y'?true:false);
+    formRecord.controls['isSchedule'].setValue(dataModel.isSchedule=='Y'?true:false);
+    formRecord.controls['isInclude'].setValue(dataModel.isInclude=='Y'?true:false);
+    formRecord.controls['isOnDrugList'].setValue(dataModel.isOnDrugList=='Y'?true:false);
+    formRecord.controls['isRegulated'].setValue(dataModel.isRegulated=='Y'?true:false);
+    formRecord.controls['isOnDrugForSchedule'].setValue(dataModel.isOnDrugForSchedule=='Y'?true:false);
+    formRecord.controls['isOnDrug'].setValue(dataModel.isOnDrug=='Y'?true:false);
+    formRecord.controls['isDrugPermitted'].setValue(dataModel.isDrugPermitted=='Y'?true:false);
+    formRecord.controls['dosAge'].setValue(dataModel.dosAge);
+
 
     if(dataModel.drug_use?._id){
       const id = this._utilsService.getIdFromIdTextLabel(dataModel.drug_use);
@@ -76,5 +102,6 @@ export class ProductInformationService {
     } else {
       formRecord.controls['drugUse'].setValue(null);
     }
+
   }
 }

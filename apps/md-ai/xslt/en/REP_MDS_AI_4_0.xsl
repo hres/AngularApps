@@ -411,7 +411,7 @@ span.normalWeight {
 	<!-- Application Information Enrolment -->
 
 	<xsl:template name="mybody">
-		<h1>Application Information Template: Regulatory Enrolment Process (REP) (version: 4.0.0)</h1>
+		<h1>Application information template: Regulatory enrolment process (REP) (version 4.0.0)</h1>
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
@@ -429,7 +429,7 @@ span.normalWeight {
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h2 class="panel-title">Application Information</h2>
+					<h2 class="panel-title">Application information</h2>
 				</div>
 				<div class="panel-body">
 					<div class="row">

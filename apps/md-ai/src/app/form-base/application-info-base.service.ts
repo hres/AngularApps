@@ -13,8 +13,8 @@ import { DeclarationConformityService } from '../declaration-conformity/declarat
 export class ApplicationInfoBaseService {
 
 
-  constructor(private _fb: FormBuilder, 
-              private _entityBaseService: EntityBaseService, 
+  constructor(private _fb: FormBuilder,
+              private _entityBaseService: EntityBaseService,
               private _globalService: GlobalService,
               private _utilsService: UtilsService,
               private _applicationInfoDetailsService : ApplicationInfoDetailsService,
@@ -67,10 +67,10 @@ export class ApplicationInfoBaseService {
         compliance: null,
         other_pharmacopeia: '',
         provision_mdr_lic: '',
-        provision_mdr_it:  '',
-        provision_mdr_sa: '',
         licence_number: '',
+        provision_mdr_it:  '',
         application_number: '',
+        provision_mdr_sa: '',
         sap_request_number:'',
         interim_order_authorization: '',
         authorization_id: '',
@@ -129,7 +129,7 @@ export class ApplicationInfoBaseService {
 
   /**
    * Deprecated
-   * @returns 
+   * @returns
    */
   public getEmptyPriorityReviewModel() : PriorityReview {
     return (
@@ -168,7 +168,7 @@ export class ApplicationInfoBaseService {
     let materialInfoModel : BiologicalMaterialData = null;
     let priorityRevModel : PriorityReview = null;
     let declarationConModel : DeclarationComformity = null;
-    
+
     let aiModel: ApplicationInfo = this.getEmptyApplicationInfoModel();
     this._applicationInfoDetailsService.mapFormModelToDataModel(aiDetailsForm, aiModel, this._globalService.lang());
 
@@ -207,7 +207,7 @@ export class ApplicationInfoBaseService {
         'application_info': aiModel,
         'devices': {device : deviceModelList},
         'declaration_conformity': declarationConModel,
-        'material_info' : materialInfoModel    
+        'material_info' : materialInfoModel
       }
    };
 
@@ -217,5 +217,5 @@ export class ApplicationInfoBaseService {
    return output;
   }
 
- 
+
 }
