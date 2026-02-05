@@ -283,4 +283,22 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     return this.cRRow.get('deviceInfo') as FormGroup;
   }
 
+
+  licenceNumberOnBlur(): void {
+    const licenceNumControl = this.deviceInfo.controls['licenceNum'];
+
+    if (!licenceNumControl || !licenceNumControl.value) {
+      return;
+    }
+
+    const value = licenceNumControl.value.toString();
+
+    // Pad with leading zeros to exactly 6 digits
+    const paddedValue = value.padStart(6, '0');
+
+    if (value !== paddedValue) {
+      licenceNumControl.setValue(paddedValue, { emitEvent: false });
+    }
+  }
+
 }

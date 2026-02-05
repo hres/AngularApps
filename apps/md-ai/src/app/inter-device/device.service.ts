@@ -9,7 +9,7 @@ export class DeviceService {
   _translateService = inject(TranslateService);
 
   deviceErrors = signal([]);
-  
+
   // showDeviceErrorSummary = signal(false);
   showDeviceErrorSummaryOneRec = signal(false);
 
@@ -27,7 +27,7 @@ export class DeviceService {
       deviceInfo: fb.group({
         deviceName: ['', Validators.required],
         deviceAuthorized: [null, Validators.required],
-        licenceNum: ['', [Validators.required, ValidationService.numeric6Validator]],
+        licenceNum: ['', [Validators.required, ValidationService.numeric6LeadingZeroesValidator]],
         deviceApplicationSubmitted: [null, Validators.required],
         //deviceApplicationNumber: [null, [Validators.required, ValidationService.appNumValidator ]],
         deviceApplicationNumber: ['', [Validators.required, ValidationService.numeric6Validator]],
@@ -62,12 +62,12 @@ export class DeviceService {
    * Using this method to set the errors of control values that were not touched to false.
    * This is because there are certain controls/inputs that only appear to user when they
    * select a specific value.
-   * 
+   *
    * For ex: When selecting yes to if a device that has been authorized in Canada
    * -> YES: Licence Number appears, not app number & previously submitted & explanation inputs
    * -> App number, previously submitted and explanations become INVALID because they are required
    * when a user selects NO (for authorized in Canada)
-   * @param formGroup 
+   * @param formGroup
    */
   public setDeviceDetailsErrorsToNull(formGroup) {
     // console.log("setting device details errors to null...", formGroup);
