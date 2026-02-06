@@ -95,24 +95,6 @@ export class ApplicationInfoDetailsComponent
     this.diagnosisReasonCodeList = this._globalService.$diagnosisReasonList;
 
     this.complianceCodeList = this._globalService.$complianceList;
-    this.appInfoFormLocalModel
-      .get('deviceClass')
-      .valueChanges.pipe(
-        startWith(this.appInfoFormLocalModel.value), // Emit the initial value first
-        pairwise() // Pair the current value with the previous value
-      )
-      .subscribe(([previousValue, currentValue]) => {
-        if (
-          (previousValue == DeviceClass.ClassIII ||
-            previousValue == DeviceClass.ClassIV) &&
-          (currentValue === DeviceClass.ClassIII ||
-            currentValue === DeviceClass.ClassIV)
-        ) {
-          this.resetYesNoList.emit(false);
-        } else {
-          this.resetYesNoList.emit(true);
-        }
-      });
 
     this.appInfoFormLocalModel.controls['mdsapOrg'].setValue('');
     this.appInfoFormLocalModel.controls['licenceAppType'].setValue('');
@@ -159,7 +141,7 @@ export class ApplicationInfoDetailsComponent
         this.appInfoFormLocalModel.markAsPristine();
       }
 
-      // Initialize diagnosis reasons and compliance checkboxes 
+      // Initialize diagnosis reasons and compliance checkboxes
       this._updateDiagnosisReasonArray();
       this._updateComplianceArray();
 
@@ -357,21 +339,21 @@ export class ApplicationInfoDetailsComponent
 
   licenceNumberOnBlur(): void {
     const licenceNumControl = this.appInfoFormLocalModel.controls['licenceNum'];
-  
+
     if (!licenceNumControl || !licenceNumControl.value) {
       return;
     }
-  
+
     const value = licenceNumControl.value.toString();
-  
+
     // Pad with leading zeros to exactly 6 digits
     const paddedValue = value.padStart(6, '0');
-  
+
     if (value !== paddedValue) {
       licenceNumControl.setValue(paddedValue, { emitEvent: false });
     }
   }
-  
+
   isIt() {
     if (this.appInfoFormLocalModel.controls['provisionMdrIT'].value) {
       return true;
