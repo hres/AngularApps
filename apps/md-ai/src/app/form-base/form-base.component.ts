@@ -410,6 +410,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _init(applicationEnroll: DeviceApplicationEnrol) {
+    const currentVersion = this._versionService.getApplicationMajorVersion(this._globalService.$appVersion);
+    const inputFileVersion = this._versionService.getApplicationMajorVersion(applicationEnroll.software_version);
+    
+    // If loading XML from previous app version
+    if (inputFileVersion < currentVersion) {
+      // Map previous priority review model to current model
+      this._baseService.mapPriorityReviewModel(applicationEnroll);
+    }
+
     this.appInfoModel = applicationEnroll.application_info;
     const tDevices = applicationEnroll.devices['device'];
     this.deviceModel = Array.isArray(tDevices) ? tDevices : [tDevices];
