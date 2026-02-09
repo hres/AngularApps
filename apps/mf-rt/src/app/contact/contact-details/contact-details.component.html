@@ -84,8 +84,8 @@
               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
           </label>
           <input name="faxNumber" id="{{contactType}}FaxNumber" class="form-control full-width" data-only-digits maxlength="25"
-                   [formControlName]="'faxNumber'" aria-describedby="nofaxNum"/>
-          <strong class="field-name small" id="nofaxNum">{{'fax.number.nofaxnum' |translate }}</strong>
+                   [formControlName]="'faxNumber'" [attr.aria-describedby]="contactType + 'nofaxNum'"/>
+          <strong class="field-name small" id="{{contactType}}nofaxNum">{{'fax.number.nofaxnum' |translate }}</strong>
         </div>
       </div>
       <div class="row">
