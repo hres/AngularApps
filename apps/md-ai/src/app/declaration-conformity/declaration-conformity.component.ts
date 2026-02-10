@@ -110,7 +110,7 @@ export class DeclarationConformityComponent {
 
   isMandatory() {
     if (
-     ( this._appInfoService.raTypeLicence() ) &&
+     ( this._appInfoService.raTypeLicence() || this._appInfoService.raTypeLicenceAmend()) &&
       (this._appInfoService.deviceClassIII() ||
         this._appInfoService.deviceClassIV())
     ) {
