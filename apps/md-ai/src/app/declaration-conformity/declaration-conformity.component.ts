@@ -110,7 +110,7 @@ export class DeclarationConformityComponent {
 
   isMandatory() {
     if (
-     ( this._appInfoService.raTypeLicence() || this._appInfoService.raTypeLicenceAmend()) &&
+     ( this._appInfoService.raTypeLicence() || this._appInfoService.raTypeLicenceAmend() ) &&
       (this._appInfoService.deviceClassIII() ||
         this._appInfoService.deviceClassIV())
     ) {
@@ -119,16 +119,6 @@ export class DeclarationConformityComponent {
     return false;
   }
 
-  isOptional() {
-    if (
-      this._appInfoService.raTypeLicenceAmend() &&
-      (this._appInfoService.deviceClassIII() ||
-        this._appInfoService.deviceClassIV())
-    ) {
-      return true;
-    }
-    return false;
-  }
 
   isMandatoryForClassII() {
     if (
