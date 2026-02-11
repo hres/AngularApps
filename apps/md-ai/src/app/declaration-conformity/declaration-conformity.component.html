@@ -33,8 +33,7 @@
         <fieldset class="col-xs-12 chkbxrdio-grp">
           <legend class="required">
             {{'conformity.declaration.medical.device.title.part1' |translate}}
-            <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'declaration.instruct.tite'|translate}}</a>
-            {{'conformity.declaration.medical.device.title.part2' |translate}}
+            <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'declaration.instruct.tite'|translate}}</a> {{'opens.in.new.window'|translate}}. {{'conformity.declaration.medical.device.title.part2' |translate}}
             <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
             <control-messages *ngIf="declarationLocalModel.controls['declarationConformity'].invalid"
             [showError]="showFieldErrors"
@@ -59,7 +58,7 @@
           <div class="alert alert-info" role="alert" *ngIf="isMandatory()">
             <p aria-live="polite">{{'declaration.instruct1'|translate}}</p>
             <p aria-live="polite">{{'declaration.instruct2'|translate}}
-              <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'declaration.instruct.tite'|translate}}</a><a>{{'opens.in.new.window' | translate}}</a>
+              <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'declaration.instruct.tite'|translate}}</a> {{'opens.in.new.window' | translate}}. 
             </p>
           </div>
             <div class="alert alert-info" role="alert" *ngIf="isMandatoryForClassII() ">
