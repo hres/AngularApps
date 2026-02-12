@@ -5,7 +5,7 @@
 
     <div  [formArrayName]="'devices'">
 
-      <lib-accordion [rowsFormArray]="devicesFormArr" [accordionHeadingMsgKey]="'heading.interdependent.device'" [accordionHeadingSupp]="['deviceInfo', 'deviceName']" 
+      <lib-accordion [rowsFormArray]="devicesFormArr" [recordListName]="accordionId" [accordionHeadingMsgKey]="'heading.interdependent.device'" [accordionHeadingSupp]="['deviceInfo', 'deviceName']" 
       (rowClicked)="handleRowClick($event)">
     
       <ng-template #tmpl let-recordRow let-idx="i">
