@@ -42,8 +42,8 @@
             parentId="declarationCon"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
-            <label for="declarationConformity" class="radio-inline">
-              <input type="radio" id="declarationConformity" name="declarationConformity" [value]="yesno.id"  required="required"
+            <label for="declarationConformity{{i}}" class="radio-inline">
+              <input type="radio" id="declarationConformity{{i}}" name="declarationConformity" [value]="yesno.id"
                 aria-required="true"
                 [formControl]="declarationLocalModel.controls['declarationConformity'] | formControl">
               {{yesno | textTransform: lang }}
