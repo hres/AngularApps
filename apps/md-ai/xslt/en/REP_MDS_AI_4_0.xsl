@@ -415,8 +415,8 @@ span.normalWeight {
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
-					<td style="text-align: center;font-weight:bold;">Manufacturer Company Identifier</td>
-					<td style="text-align: center;font-weight:bold;">Dossier Identifier</td>
+					<td style="text-align: center;font-weight:bold;">Manufacturer company identifier</td>
+					<td style="text-align: center;font-weight:bold;">Dossier identifier</td>
 					<td style="text-align: center;font-weight:bold;">Date Last Saved</td>
 				</tr>
 				<tr>
@@ -434,11 +434,11 @@ span.normalWeight {
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-xs-6">
-							<strong>Medical Device Single Audit Program (MDSAP) Certificate Number:&#160;</strong>
+							<strong>Medical Device Single Audit Program (MDSAP) certificate number:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_number" /></span>
 						</div>
 						<div class="col-xs-12">
-							<strong>Medical Device Single Audit Program (MDSAP) Auditing Organization:&#160;</strong>
+							<strong>Medical Device Single Audit Program (MDSAP) auditing organization:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_org/@label_en"/></span>
 						</div>
 						<div class="col-xs-6">
@@ -492,20 +492,20 @@ span.normalWeight {
 									</div>
 									<xsl:if test="/descendant-or-self::application_info/has_drug = 'yes'">
 										<div class="row">&#160;
-											<strong>Does the drug have a Drug Identification Number (DIN) or a Natural Product Number (NPN)?:&#160;</strong>
+											<strong>Does the drug have a drug identification number (DIN) or a natural product number (NPN)?:&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/has_din_npn"/></span>
 										</div>
 									</xsl:if>
 									<xsl:choose>
 									<xsl:when test="/descendant-or-self::application_info/has_din_npn/@id = 'din'">
 										<div class="row">&#160;
-											<strong>Drug Identification Number (DIN):&#160;</strong>
+											<strong>Drug identification number (DIN):&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/din"/></span>
 										</div>
 									</xsl:when>
 									<xsl:when test="/descendant-or-self::application_info/has_din_npn/@id = 'npn'">
 										<div class="row">&#160;
-											<strong>Natural Product Number (NPN):&#160;</strong>
+											<strong>Natural product number (NPN):&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/npn"/></span>
 										</div>
 									</xsl:when>
@@ -551,7 +551,7 @@ span.normalWeight {
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-xs-6">
-								<strong>Has this device been previously authorized for sale in Canada under the following provisions of the Medical Devices Regulations?:</strong>
+								<strong>Has this device been previously authorized for sale in Canada under the following provisions of the medical devices regulations?:</strong>
 								</div>
 							</div>
 							<div class="row">
@@ -561,7 +561,7 @@ span.normalWeight {
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_it = 'true'">
 								<div class="col-xs-6">
-									<strong>Application Number:&#160;</strong>
+									<strong>Application number:&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/application_number"/></span>
 								</div>
 								</xsl:if>
@@ -573,7 +573,7 @@ span.normalWeight {
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_sa = 'true'">
 								<div class="col-xs-6">
-									<strong>SAP Request Number:&#160;</strong>
+									<strong>SAP request number:&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/sap_request_number"/></span>
 								</div>
 								</xsl:if>
@@ -663,7 +663,7 @@ span.normalWeight {
 					<xsl:if test="/descendant-or-self::priority_review/priority_review != ''">
 						<section class="panel panel-default" >
 							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-								<h2 class="panel-title">Priority Review</h2>
+								<h2 class="panel-title">Priority review</h2>
 							</div>
 							<div class="panel-body">
 								<div class="row">
@@ -772,7 +772,7 @@ span.normalWeight {
 				<div class="col-xs-6">
 					<xsl:choose>
 					<xsl:when test="device_authorized = 'yes'">
-						<strong>Licence Number:&#160;</strong>
+						<strong>Licence number:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="./licence_number"/></span>
 					</xsl:when>
 					<xsl:otherwise>
@@ -781,11 +781,11 @@ span.normalWeight {
 						<br/>
 						<xsl:choose>
 						<xsl:when test="device_application_submitted = 'yes'">
-							<strong>Application Number:&#160;</strong>
+							<strong>Application number:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="./device_application_number"/></span>
 						</xsl:when>
 						<xsl:otherwise>
-							<strong>Please explain:&#160;</strong>
+							<strong>Rationale:&#160;</strong>
 							<div class="col-xs-11">
 							<span class="mouseHover"><xsl:value-of select="./device_explain"/></span>
 							</div>
