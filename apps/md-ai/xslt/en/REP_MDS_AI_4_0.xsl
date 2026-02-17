@@ -411,7 +411,7 @@ span.normalWeight {
 	<!-- Application Information Enrolment -->
 
 	<xsl:template name="mybody">
-		<h1>Application information template: Regulatory enrolment process (REP) (version 4.0.0)</h1>
+		<h1>Application information template: Regulatory enrolment process (REP) for medical devices (version 4.0.0)</h1>
 		<div class="well well-sm" >
 			<table border="1" cellspacing="2" cellpadding="2" style="table-layout: fixed; width: 100%;word-wrap: break-word;">
 				<tr>
@@ -456,6 +456,28 @@ span.normalWeight {
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_class/@label_en"/></span>
 						</div>
 					</div>
+					<xsl:if test="/descendant-or-self::priority_review != ''">
+						<div class="row">
+							<div class="col-xs-12">
+								<strong>Is priority review requested for this application?&#160;</strong>
+								<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::priority_review"/></xsl:call-template></span>
+							</div>
+						</div>
+								
+						<xsl:if test="/descendant-or-self::priority_review = 'yes'">
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Priority review is being requested for the subject devices as it is intended for the diagnosis or treatment of a serious, life-threatening or severely debilitating disease or condition and there is substantial clinical evidence that the medical device:</strong></div>
+							</div>
+							<xsl:for-each select="/descendant-or-self::is_diagnosis_treatment_serious/diagnosis_reason">
+								<div class="row">
+									<div class="col-xs-12">
+										<span class="mouseHover"><xsl:value-of select="@label_en"/></span>
+									</div>
+								</div>
+							</xsl:for-each>
+						</xsl:if>
+					</xsl:if>
+
 					<div class="row"><br/></div>
 					<section class="panel panel-default" >
 						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
@@ -556,6 +578,18 @@ span.normalWeight {
 							</div>
 							<div class="row">
 								<div class="col-xs-6">
+									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_lic"/></xsl:call-template>
+									<span class="mouseHover">Medical device licence</span>
+								</div>
+								<xsl:if test="/descendant-or-self::application_info/provision_mdr_lic = 'true'">
+								<div class="col-xs-6">
+									<strong>Licence number:&#160;</strong>
+									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_number"/></span>
+								</div>
+								</xsl:if>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_it"/></xsl:call-template>
 									<span class="mouseHover">Investigational testing</span>
 								</div>
@@ -614,7 +648,7 @@ span.normalWeight {
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-xs-12">
-									<strong>Declaration of conformity form (available on the Health Canada website) confirms that the medical device(s) comply with recognized standards or equivalent or better standards:&#160;</strong>
+									<strong>Declaration of conformity form confirms that the medical device(s) comply with recognized standards or equivalent or better standards:&#160;</strong>
 									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/declaration_conformity"/></xsl:call-template></span>
 									</div>
 								</div>
@@ -642,7 +676,7 @@ span.normalWeight {
 								<xsl:if test="/descendant-or-self::material_info/is_animal_human_sourced = 'yes'">
 									<div class="row">
 									<div class="col-xs-12">
-										<strong>Is the biological material the same for all devices listed in the Device Details Excel File? &#160;</strong>
+										<strong>Is the biological material the same for all devices listed in the Device Details Excel file? &#160;</strong>
 										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::material_info/is_listed_idd_table"/></xsl:call-template></span>
 									</div>
 									</div>
@@ -656,34 +690,6 @@ span.normalWeight {
 											<xsl:apply-templates select="/descendant-or-self::material_info/biological_materials/material"/>
 										</div>
 									</section>
-								</xsl:if>
-							</div>
-						</section>
-					</xsl:if>
-					<xsl:if test="/descendant-or-self::priority_review/priority_review != ''">
-						<section class="panel panel-default" >
-							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
-								<h2 class="panel-title">Priority review</h2>
-							</div>
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-xs-12">
-									<strong>Is priority review requested for this application?&#160;</strong>
-									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::priority_review/priority_review"/></xsl:call-template></span>
-									</div>
-								</div>
-								
-								<xsl:if test="/descendant-or-self::priority_review/priority_review = 'yes'">
-									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Priority review is being requested for the subject devices as it is intended for the diagnosis or treatment of a serious, life-threatening or severely debilitating disease or condition and there is substantial clinical evidence that the medical device:</strong></div>
-									</div>
-									<xsl:for-each select="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
-										<div class="row">
-											<div class="col-xs-12">
-												<span class="mouseHover"><xsl:value-of select="@label_en"/></span>
-											</div>
-										</div>
-									</xsl:for-each>
 								</xsl:if>
 							</div>
 						</section>
@@ -727,7 +733,7 @@ span.normalWeight {
 				</div>
 				<xsl:if test="./tissue_substance_type/@id = '32'">
 					<div class="col-xs-5">
-						<strong>Tissue type other details:&#160;</strong>
+						<strong>Other tissue type details:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="./tissue_type_other_details"/></span>
 					</div>
 				</xsl:if>
@@ -742,7 +748,7 @@ span.normalWeight {
 				</div>
 				<xsl:if test="./derivative/@id = '30'">
 					<div class="col-xs-5">
-						<strong>Derivative other details:&#160;</strong>
+						<strong>Other derivative details:&#160;</strong>
 						<span class="mouseHover"><xsl:value-of select="./derivative_other_details"/></span>
 					</div>
 				</xsl:if>
