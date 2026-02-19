@@ -11,7 +11,7 @@
             <control-messages *ngIf="materialInfoForm.controls['hasRecombinant'].invalid"
                               [showError]="showErrors"
                               [control]="materialInfoForm.controls['hasRecombinant'] | formControl"
-                              controlId="hasRecombinant" label="consist.recombinant" parentId="materialInfoDetails"></control-messages>
+                              controlId="hasRecombinant0" label="consist.recombinant" parentId="materialInfoDetails"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
             <label for="hasRecombinant{{i}}" class="radio-inline">
@@ -30,7 +30,7 @@
             <control-messages *ngIf="materialInfoForm.controls['isAnimalHumanSourced'].invalid"
                               [showError]="showErrors"
                               [control]="materialInfoForm.controls['isAnimalHumanSourced'] | formControl"
-                              controlId="isAnimalHumanSourced" label="contain.material" parentId="materialInfoDetails"></control-messages>
+                              controlId="isAnimalHumanSourced0" label="contain.material" parentId="materialInfoDetails"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
             <label for="isAnimalHumanSourced{{i}}" class="radio-inline">
@@ -49,7 +49,7 @@
             <control-messages *ngIf="materialInfoForm.controls['isListedIddTable'].invalid"
                               [showError]="showErrors"
                               [control]="materialInfoForm.controls['isListedIddTable'] | formControl"
-                              controlId="isListedIddTable" label="is.same.material" parentId="materialInfoDetails"></control-messages>
+                              controlId="isListedIddTable0" label="is.same.material" parentId="materialInfoDetails"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
             <label for="isListedIddTable{{i}}" class="radio-inline">
