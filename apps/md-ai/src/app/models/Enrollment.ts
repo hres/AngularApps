@@ -10,7 +10,7 @@ export interface DeviceApplicationEnrol {
     check_sum?:                     string;
     application_info:               ApplicationInfo;
     devices:                        Devices;
-    declaration_conformity:         DeclarationComformity;
+    recognized_standards_section:         DeclarationComformity;
     material_info:                  BiologicalMaterialData;
 }
 
