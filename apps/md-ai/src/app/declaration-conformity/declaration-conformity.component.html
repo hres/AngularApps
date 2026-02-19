@@ -16,7 +16,7 @@
             <control-messages *ngIf="declarationLocalModel.controls['declarationConformity'].invalid"
             [showError]="showFieldErrors"
             [control]="declarationLocalModel.controls['declarationConformity'] | formControl"
-            controlId="declarationConformity" label="conformity.declaration"
+            controlId="declarationConformity0" label="conformity.declaration"
             parentId="declarationCon"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -38,7 +38,7 @@
             <control-messages *ngIf="declarationLocalModel.controls['declarationConformity'].invalid"
             [showError]="showFieldErrors"
             [control]="declarationLocalModel.controls['declarationConformity'] | formControl"
-            controlId="declarationConformity" label="conformity.declaration"
+            controlId="declarationConformity0" label="conformity.declaration"
             parentId="declarationCon"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -61,11 +61,17 @@
               <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'declaration.instruct.tite'|translate}}</a> {{'opens.in.new.window' | translate}}. 
             </p>
           </div>
-            <div class="alert alert-info" role="alert" *ngIf="isMandatoryForClassII() ">
-            <p aria-live="polite">{{'conformity.declaration.medical.device.instruct1'|translate}}</p>
-            <p aria-live="polite">{{'conformity.declaration.medical.device.instruct2'|translate}}</p>
-            <p aria-live="polite">{{'conformity.declaration.medical.device.instruct3'|translate}}</p>
+          <div class="alert alert-info" role="alert" *ngIf="isMandatoryForClassII()">
+            <p aria-live="polite">
+              {{ 'conformity.declaration.medical.device.instruct1' | translate }}
+            </p>
+          
+            <ul aria-live="polite">
+              <li>{{ 'conformity.declaration.medical.device.instruct2' | translate }}</li>
+              <li>{{ 'conformity.declaration.medical.device.instruct3' | translate }}</li>
+            </ul>
           </div>
+          
         </div>
       </div>
     </div>
