@@ -254,6 +254,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (reset) {
       this._materialListErrors = [];
       this._materialInfoErrors = [];
+      this._materialService.setListErrors([]);
+      this._materialService.setInfoErrors([])
     }
     this.processErrors();
   }
