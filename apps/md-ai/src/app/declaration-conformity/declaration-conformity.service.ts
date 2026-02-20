@@ -36,7 +36,12 @@ export class DeclarationConformityService{
 
     public mapDataModelToFormModel(declarationModel: DeclarationComformity, formRecord: FormGroup) {
         if (declarationModel) {
+
+          if(this._appInfoService.deviceClassII()){
+            formRecord.controls['declarationConformity'].setValue(declarationModel.recognized_standard);
+          }else{
             formRecord.controls['declarationConformity'].setValue(declarationModel.declaration_conformity);
+          }
         }
     }
 }
