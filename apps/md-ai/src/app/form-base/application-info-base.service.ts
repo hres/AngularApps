@@ -143,7 +143,8 @@ export class ApplicationInfoBaseService {
   public getEmptyDeclarationConModel() : DeclarationComformity {
     return (
       {
-        declaration_conformity: ''
+        declaration_conformity: '',
+        recognized_standard:''
       }
     )
   }

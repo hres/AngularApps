@@ -100,6 +100,7 @@ export interface PriorityReview {
 
 export interface DeclarationComformity {
     declaration_conformity :        string;
+    recognized_standard: string
 }
 
 export interface DiagnosisReasons {
