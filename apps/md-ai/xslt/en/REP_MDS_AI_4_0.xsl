@@ -456,7 +456,6 @@ span.normalWeight {
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_class/@label_en"/></span>
 						</div>
 					</div>
-					<xsl:if test="/descendant-or-self::application_info/device_class = 'Class III'">
 					<xsl:if test="/descendant-or-self::priority_review != ''">
 						<div class="row">
 							<div class="col-xs-12">
@@ -477,7 +476,6 @@ span.normalWeight {
 								</div>
 							</xsl:for-each>
 						</xsl:if>
-					</xsl:if>
 					</xsl:if>
 
 					<div class="row"><br/></div>
