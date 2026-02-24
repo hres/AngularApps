@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <label for="mdsapOrg" class="required full-width">
           <span class="field-name">{{'mdsap.org'|translate}}</span>
           <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
@@ -140,7 +140,7 @@
           <control-messages *ngIf="appInfoFormLocalModel.controls['isPriorityReq'].invalid"
           [showError]="showFieldErrors"
           [control]="appInfoFormLocalModel.controls['isPriorityReq'] | formControl"
-          controlId="isPriorityReq" label="is.priority.req" parentId="appInfoDetails"></control-messages>
+          controlId="isPriorityReq0" label="is.priority.req" parentId="appInfoDetails"></control-messages>
         </legend>
         <ng-container *ngFor="let yesno of yesNoList; let i = index">
           <label for="isPriorityReq{{i}}" class="radio-inline">
@@ -206,7 +206,7 @@
                 {{'is.ivdd' |translate}}
                 <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                 <control-messages *ngIf="appInfoFormLocalModel.controls['isIvdd'].invalid" [showError]="showFieldErrors"
-                  [control]="appInfoFormLocalModel.controls['isIvdd'] | formControl" controlId="isIvdd" label="is.ivdd"
+                  [control]="appInfoFormLocalModel.controls['isIvdd'] | formControl" controlId="isIvdd0" label="is.ivdd"
                   parentId="appInfoDetails"></control-messages>
               </legend>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -226,7 +226,7 @@
                   <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['isHomeUse'].invalid"
                     [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['isHomeUse'] | formControl"
-                    controlId="isHomeUse" label="is.home.use" parentId="appInfoDetails"></control-messages>
+                    controlId="isHomeUse0" label="is.home.use" parentId="appInfoDetails"></control-messages>
                 </legend>
                 <ng-container *ngFor="let yesno of yesNoList; let i = index">
                   <label for="isHomeUse{{i}}" class="radio-inline">
@@ -244,7 +244,7 @@
                   <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['isCarePoint'].invalid"
                     [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['isCarePoint'] | formControl"
-                    controlId="isCarePoint" label="is.point.care" parentId="appInfoDetails"></control-messages>
+                    controlId="isCarePoint0" label="is.point.care" parentId="appInfoDetails"></control-messages>
                 </legend>
                 <ng-container *ngFor="let yesno of yesNoList; let i = index">
                   <label for="isCarePoint{{i}}" class="radio-inline">
@@ -264,7 +264,7 @@
                 <control-messages *ngIf="appInfoFormLocalModel.controls['isEmitRadiation'].invalid"
                   [showError]="showFieldErrors"
                   [control]="appInfoFormLocalModel.controls['isEmitRadiation'] | formControl"
-                  controlId="isEmitRadiation" label="contain.radiation" parentId="appInfoDetails"></control-messages>
+                  controlId="isEmitRadiation0" label="contain.radiation" parentId="appInfoDetails"></control-messages>
               </legend>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
                 <label for="isEmitRadiation{{i}}" class="radio-inline">
@@ -283,7 +283,7 @@
                 <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
                 <control-messages *ngIf="appInfoFormLocalModel.controls['hasDrug'].invalid"
                   [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['hasDrug'] | formControl"
-                  controlId="hasDrug" label="contain.drug" parentId="appInfoDetails"></control-messages>
+                  controlId="hasDrug0" label="contain.drug" parentId="appInfoDetails"></control-messages>
               </legend>
               <ng-container *ngFor="let yesno of yesNoList; let i = index">
                 <label for="hasDrug{{i}}" class="radio-inline">
@@ -508,7 +508,7 @@
                   </div>
                 </div>
                 <div *ngIf="isSa()">
-                  <label for="sapReqNum" class="form-group col-6 col-md-4 col-lg-3 d-block">
+                  <label for="sapReqNum" class="form-group col-12 col-md-5 col-lg-4 d-block">
                     <span class="field-name">{{'sap.req.number'|translate}}</span>
                     <input id="sapReqNum" name="sapReqNum" class="form-control full-width"
                       [formControl]="appInfoFormLocalModel.controls['sapReqNum'] | formControl" maxlength="30" />

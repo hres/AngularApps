@@ -31,7 +31,7 @@ export class ApplicationInfoBaseService {
         form_language: '',
         application_info: this.getEmptyApplicationInfoModel(),
         devices: {device: []},
-        declaration_conformity: this.getEmptyDeclarationConModel(),
+        recognized_standards_section: this.getEmptyDeclarationConModel(),
         material_info: this.getEmptyMaterialInfoModel()
       }
     };
@@ -143,7 +143,8 @@ export class ApplicationInfoBaseService {
   public getEmptyDeclarationConModel() : DeclarationComformity {
     return (
       {
-        declaration_conformity: ''
+        declaration_conformity: '',
+        recognized_standard:''
       }
     )
   }
@@ -156,7 +157,7 @@ export class ApplicationInfoBaseService {
   mapPriorityReviewModel(outputForm) {
     const priorityReviewModel = outputForm.priority_review;
 
-    if (outputForm.priority_review) {  
+    if (outputForm.priority_review) {
       outputForm.application_info.priority_review = priorityReviewModel.priority_review;
       outputForm.application_info.is_diagnosis_treatment_serious = priorityReviewModel.is_diagnosis_treatment_serious;
     }
@@ -206,7 +207,7 @@ export class ApplicationInfoBaseService {
         'form_language': this._globalService.getCurrLanguage(),
         'application_info': aiModel,
         'devices': {device : deviceModelList},
-        'declaration_conformity': declarationConModel,
+        'recognized_standards_section': declarationConModel,
         'material_info' : materialInfoModel
       }
    };

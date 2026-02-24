@@ -16,7 +16,7 @@
             <control-messages *ngIf="declarationLocalModel.controls['declarationConformity'].invalid"
             [showError]="showFieldErrors"
             [control]="declarationLocalModel.controls['declarationConformity'] | formControl"
-            controlId="declarationConformity" label="conformity.declaration"
+            controlId="declarationConformity0" label="conformity.declaration"
             parentId="declarationCon"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
@@ -29,45 +29,21 @@
           </ng-container>
         </fieldset>
       </div>
-      <div class="row form-group" *ngIf="isOptional()">
-        <fieldset class="col-xs-12 chkbxrdio-grp">
-          <legend>
-            {{'conformity.declaration' |translate}}
-            <sup id="ap8-rf">
-              <a class="fn-lnk" href="#ap8"><span
-                  class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpTextSequences.cfmDecIndx}}</a>
-            </sup>
-          </legend>
-          <ng-container *ngFor="let yesno of yesNoList; let i = index">
-            <label for="declarationConformity" class="radio-inline">
-              <input type="radio" id="declarationConformity" name="declarationConformity" [value]="yesno.id"
-                aria-required="true"
-                [formControl]="declarationLocalModel.controls['declarationConformity'] | formControl">
-              {{yesno | textTransform: lang }}
-            </label>
-          </ng-container>
-        </fieldset>
-      </div>
       <div class="row form-group" *ngIf="isMandatoryForClassII()">
         <fieldset class="col-xs-12 chkbxrdio-grp">
           <legend class="required">
             {{'conformity.declaration.medical.device.title.part1' |translate}}
-            <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'declaration.instruct.tite'|translate}}</a>
-            {{'conformity.declaration.medical.device.title.part2' |translate}}
+            <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'declaration.instruct.tite'|translate}}</a> {{'opens.in.new.window'|translate}}. {{'conformity.declaration.medical.device.title.part2' |translate}}
             <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
-            <sup id="ap8-rf">
-              <a class="fn-lnk" href="#ap8"><span
-                  class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpTextSequences.cfmDecIndx}}</a>
-            </sup>
             <control-messages *ngIf="declarationLocalModel.controls['declarationConformity'].invalid"
             [showError]="showFieldErrors"
             [control]="declarationLocalModel.controls['declarationConformity'] | formControl"
-            controlId="declarationConformity" label="conformity.declaration"
+            controlId="declarationConformity0" label="conformity.declaration"
             parentId="declarationCon"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
-            <label for="declarationConformity" class="radio-inline">
-              <input type="radio" id="declarationConformity" name="declarationConformity" [value]="yesno.id"  required="required"
+            <label for="declarationConformity{{i}}" class="radio-inline">
+              <input type="radio" id="declarationConformity{{i}}" name="declarationConformity" [value]="yesno.id"
                 aria-required="true"
                 [formControl]="declarationLocalModel.controls['declarationConformity'] | formControl">
               {{yesno | textTransform: lang }}
@@ -79,17 +55,23 @@
 
       <div *ngIf="isNoDeclaration()" class="row">
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="alert alert-info" role="alert" *ngIf="isOptional() || isMandatory()">
+          <div class="alert alert-info" role="alert" *ngIf="isMandatory()">
             <p aria-live="polite">{{'declaration.instruct1'|translate}}</p>
             <p aria-live="polite">{{'declaration.instruct2'|translate}}
-              <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'declaration.instruct.tite'|translate}}</a><a>{{'opens.in.new.window' | translate}}</a>
+              <a [href]="'declaration.instruct.link'|translate" target='_blank' aria-describedby='openNewWindowInstrNoDeclaration'>{{'declaration.instruct.tite'|translate}}</a><span id="openNewWindowInstrNoDeclaration">{{'opens.in.new.window'|translate}}</span>. 
             </p>
           </div>
-          <div class="alert alert-info" role="alert" *ngIf="isMandatoryForClassII() ">
-            <p aria-live="polite">{{'conformity.declaration.medical.device.instruct1'|translate}}</p>
-            <p aria-live="polite">{{'conformity.declaration.medical.device.instruct2'|translate}}</p>
-            <p aria-live="polite">{{'conformity.declaration.medical.device.instruct3'|translate}}</p>
+          <div class="alert alert-info" role="alert" *ngIf="isMandatoryForClassII()">
+            <p aria-live="polite">
+              {{ 'conformity.declaration.medical.device.instruct1' | translate }}
+            </p>
+          
+            <ul aria-live="polite">
+              <li>{{ 'conformity.declaration.medical.device.instruct2' | translate }}</li>
+              <li>{{ 'conformity.declaration.medical.device.instruct3' | translate }}</li>
+            </ul>
           </div>
+          
         </div>
       </div>
     </div>

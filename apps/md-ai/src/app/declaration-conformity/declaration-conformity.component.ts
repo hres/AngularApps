@@ -7,6 +7,8 @@ import {
   SimpleChanges,
   ViewChildren,
   ViewEncapsulation,
+  effect,
+  computed
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
@@ -40,16 +42,34 @@ export class DeclarationConformityComponent {
   public yesNoList: ICode[];
   public showFieldErrors = false;
 
+  private _lastMandatoryState: 'II' | 'III_IV' | null = null;
+  private mandatoryMode = computed<'II' | 'III_IV' | null>(() => {
+    if (this.isMandatoryForClassII()) return 'II';
+    if (this.isMandatory()) return 'III_IV';
+    return null;
+  });
+
+
   lang = this._globalService.lang();
 
   constructor(
     private _fb: FormBuilder,
     private _globalService: GlobalService,
     private _declarationService: DeclarationConformityService,
-    private _converterService: ConverterService,
-    private _utilsService: UtilsService,
     private _appInfoService: ApplicationInfoDetailsService
   ) {
+    effect(() => {
+      const mode = this.mandatoryMode();
+  
+      if (this._lastMandatoryState && mode &&
+          this._lastMandatoryState !== mode) {
+        this.declarationLocalModel
+          .get('declarationConformity')
+          ?.reset();
+      }
+  
+      this._lastMandatoryState = mode;
+    });
     this.showFieldErrors = false;
     this.showErrors = false;
     if (!this.declarationLocalModel) {
@@ -110,7 +130,7 @@ export class DeclarationConformityComponent {
 
   isMandatory() {
     if (
-     ( this._appInfoService.raTypeLicence() ) &&
+     ( this._appInfoService.raTypeLicence() || this._appInfoService.raTypeLicenceAmend() ) &&
       (this._appInfoService.deviceClassIII() ||
         this._appInfoService.deviceClassIV())
     ) {
@@ -119,16 +139,6 @@ export class DeclarationConformityComponent {
     return false;
   }
 
-  isOptional() {
-    if (
-      this._appInfoService.raTypeLicenceAmend() &&
-      (this._appInfoService.deviceClassIII() ||
-        this._appInfoService.deviceClassIV())
-    ) {
-      return true;
-    }
-    return false;
-  }
 
   isMandatoryForClassII() {
     if (

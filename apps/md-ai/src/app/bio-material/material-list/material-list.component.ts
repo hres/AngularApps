@@ -26,6 +26,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   firstChange: boolean = false;
 
   popupId = "materialPopup";
+  accordionId = 'materialAccordion'
   deleteMaterialPopupID = 'deleteMaterialPopupID';
   discardChangePopupID = 'discardMaterialChangesPopupID';
   deleteRecordHeading: string;
