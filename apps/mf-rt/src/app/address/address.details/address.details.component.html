@@ -1,5 +1,11 @@
 <div>
   <div [formGroup]="addressForm">
+    <fieldset>
+      <legend class="sr-only">
+        {{ addrType === ADDR_CONT_TYPE.HOLDER
+            ? ('heading.holder.address' | translate)
+            : ('heading.agent.address' | translate) }}
+      </legend>
     <div class="row">
       <div class="form-group col-xs-12" >
         <label for="{{addrType}}CompanyName" class="required full-width">
@@ -114,6 +120,8 @@
           <input *ngIf="isUsa()" name="postal" id="{{addrType}}Postal" class="form-control" [formControlName]="'postal'" required="required"
                  maxlength="5" data-only-digits/>
     </div>
+    </div>
     <!-- <pre>{{addressForm.value |json}}</pre> -->
+  </fieldset>
   </div>
 </div>
