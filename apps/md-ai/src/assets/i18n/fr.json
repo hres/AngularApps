@@ -142,7 +142,7 @@
     "popup.cancel": "Annuler",
     "popup.confirm": "D'accord",
     "popup.warning":"Avertissement",
-    "msg.delete.popup": "Êtes-vous sûr de vouloir supprime {{heading}} ?",
+    "msg.delete.popup": "Êtes-vous sûr de vouloir supprimer {{heading}} ?",
     "msg.discard.changes.popup": "Êtes-vous sûr de vouloir annuler la modification pour {{heading}} ?",
     "minNumber5": "(5 chiffres)",
     "minNumber6": "(6 chiffres)",
