@@ -414,7 +414,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _init(applicationEnroll: DeviceApplicationEnrol) {
     const currentVersion = this._versionService.getApplicationMajorVersion(this._globalService.$appVersion);
     const inputFileVersion = this._versionService.getApplicationMajorVersion(applicationEnroll.software_version);
-    
+
     // If loading XML from previous app version
     if (inputFileVersion < currentVersion) {
       // Map previous priority review model to current model
@@ -428,7 +428,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.deviceModel = [];
     }
     this.materialInfo = applicationEnroll.material_info;
-    this.declarationModel = applicationEnroll.declaration_conformity;
+    this.declarationModel = applicationEnroll.recognized_standards_section;
   }
 
   openPopup() {

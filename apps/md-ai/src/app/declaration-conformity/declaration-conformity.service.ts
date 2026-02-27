@@ -25,10 +25,10 @@ export class DeclarationConformityService{
     }
 
     public mapFormModelToDataModel(formRecord: any, declarationModel) {
-        declarationModel.recognized_standard = '';
+        declarationModel.recognized_standards = '';
         declarationModel.declaration_conformity ='';
        if(this._appInfoService.deviceClassII()){
-        declarationModel.recognized_standard = formRecord.declarationConformity;
+        declarationModel.recognized_standards = formRecord.declarationConformity;
        }else{
         declarationModel.declaration_conformity = formRecord.declarationConformity;
        }
@@ -36,7 +36,12 @@ export class DeclarationConformityService{
 
     public mapDataModelToFormModel(declarationModel: DeclarationComformity, formRecord: FormGroup) {
         if (declarationModel) {
+
+          if(this._appInfoService.deviceClassII()){
+            formRecord.controls['declarationConformity'].setValue(declarationModel.recognized_standards);
+          }else{
             formRecord.controls['declarationConformity'].setValue(declarationModel.declaration_conformity);
+          }
         }
     }
 }
