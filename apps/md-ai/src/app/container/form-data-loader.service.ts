@@ -122,8 +122,9 @@ export class FormDataLoaderService {
   }
 
   getLicenceAppTypeList(): Observable<ICode[]> {
+    const compareField: SortOn[] = this.getCompareFields(true);
     if (!this.cachedLicenceAppType$) {
-        this.cachedLicenceAppType$ = this._dataService.getData<ICode>(this.licenceAppTypeJsonPath)
+        this.cachedLicenceAppType$ = this._dataService.getSortedDataAccents<ICode>(this.licenceAppTypeJsonPath, compareField)
           .pipe(
             // tap(()=>console.log('getDeviceClassesList() is called')),
             shareReplay(1)
@@ -144,8 +145,9 @@ export class FormDataLoaderService {
   }
 
   getRegActivityTypeList(): Observable<ICode[]> {
+    const compareField: SortOn[] = this.getCompareFields(true);
     if (!this.cachedRegActivityType$) {
-        this.cachedRegActivityType$ = this._dataService.getData<ICode>(this.regActivityTypeJsonPath)
+        this.cachedRegActivityType$ = this._dataService.getSortedDataAccents<ICode>(this.regActivityTypeJsonPath, compareField)
           .pipe(
             // tap(()=>console.log('getDeviceClassesList() is called')),
             shareReplay(1)

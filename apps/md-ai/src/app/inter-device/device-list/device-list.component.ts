@@ -31,6 +31,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   errorSummaryChild = null;
 
   popupId = 'devicePopup';
+  accordionId = 'deviceAccordion'
   deleteDevicePopupID = 'deleteDevicePopupID';
   discardChangePopupID = 'discardDeviceChangesPopupID';
   deleteRecordHeading: string;
