@@ -644,7 +644,7 @@ span.normalWeight {
 							</div>
 						</section>
 					</xsl:if>
-					<xsl:if test="/descendant-or-self::recognized_standards_section/recognized_standard != ''">
+					<xsl:if test="/descendant-or-self::recognized_standards_section/recognized_standards != ''">
 						<section class="panel panel-default" >
 							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
 								<h2 class="panel-title">Normes reconnues respectées dans la conception et fabrication de l'instrument</h2>
@@ -653,7 +653,7 @@ span.normalWeight {
 								<div class="row">
 									<div class="col-xs-12">
 									<strong>Les instruments médicaux visés par la demande sont conformes aux normes reconnues établies dans la Ligne Directrice sur l'utilisation des normes en vue d'assurer le respect du Règlement sur les instruments médicaux . Une attestation répertoriant la ou les normes reconnues suivantes le ou les instruments médicaux sont conformes a été incluse dans la section correspondante de la structure du dossier du Forum international des organismes de réglementation des matériels médicaux (IMDRF). &#160;</strong>
-									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::recognized_standards_section/recognized_standard"/></xsl:call-template></span>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::recognized_standards_section/recognized_standards"/></xsl:call-template></span>
 									</div>
 								</div>
 							</div>
