@@ -3,6 +3,11 @@ import { IIdTextLabel } from "@hpfb/sdk/ui";
 export interface Enrollment {
     DEVICE_APPLICATION_INFO: DeviceApplicationEnrol;
 }
+export interface EnrollmentOut {
+  DEVICE_APPLICATION_INFO: DeviceApplicationEnrolOut;
+}
+
+
 
 export interface DeviceApplicationEnrol {
     software_version:               string;
@@ -10,8 +15,19 @@ export interface DeviceApplicationEnrol {
     check_sum?:                     string;
     application_info:               ApplicationInfo;
     devices:                        Devices;
-    recognized_standards_section:         DeclarationComformity;
+    recognized_standards_section:   DeclarationComformity;
     material_info:                  BiologicalMaterialData;
+    declaration_conformity: DeclarationComformitySuperInterface;
+}
+
+export interface DeviceApplicationEnrolOut {
+  software_version:               string;
+  form_language:                  string;
+  check_sum?:                     string;
+  application_info:               ApplicationInfo;
+  devices:                        Devices;
+  recognized_standards_section:   DeclarationComformity;
+  material_info:                  BiologicalMaterialData;
 }
 
 export interface ApplicationInfo {
@@ -98,9 +114,13 @@ export interface PriorityReview {
     is_diagnosis_treatment_serious:     DiagnosisReasons;
 }
 
-export interface DeclarationComformity {
-    declaration_conformity :        string;
-    recognized_standards: string
+export interface DeclarationComformity extends  DeclarationComformitySuperInterface{
+    recognized_standard: string
+}
+
+
+export interface DeclarationComformitySuperInterface {
+  declaration_conformity :        string;
 }
 
 export interface DiagnosisReasons {
