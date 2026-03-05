@@ -115,14 +115,12 @@ export interface PriorityReview {
 }
 
 export interface DeclarationComformity extends  DeclarationComformitySuperInterface{
-
     recognized_standard: string
 }
 
 
 export interface DeclarationComformitySuperInterface {
   declaration_conformity :        string;
-
 }
 
 export interface DiagnosisReasons {
