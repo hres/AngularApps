@@ -7,6 +7,25 @@
     ],
     "releases": [
         {
+            "header": "Publication du 25 mars 2026",
+            "details": [
+                {
+                    "template": "Modèle d’information sur les demandes d’homologation<br>(CO)<br>version 4.0.0<br><br>Ensemble de feuilles de style*",
+                    "changes": [
+                        "Ajout d’une bulle d’information en haut de la page",
+                        "Mise à jour des messages d'erreur pour divers champs",
+                        "Ajout de types d'activités réglementaires : Article 39/40/41et Conditions imposées (article 36)",
+                        "Suppression d’un type d'activité réglementaire : S.25/36/39/40/41",
+                        "Déplacement des questions relatives à l'examen prioritaire",
+                        "Ajout de nouvelles questions dans la section sur l’historique de l'instrument",
+                        "Ajout de la section Normes reconnues respectées lorsque la classe II de l’instrument est sélectionnée",
+                        "Correction d'erreurs grammaticales mineures<br/><br/><br/>",
+                        "*Nouvelle feuille de style pour correspondre aux modifications apportées à ce modèle"
+                    ]
+                }
+            ]
+        },
+        {
             "header": "Publication du 28 janvier 2026",
             "details": [
                 {
