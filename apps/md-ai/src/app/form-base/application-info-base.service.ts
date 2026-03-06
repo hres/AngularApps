@@ -145,7 +145,7 @@ export class ApplicationInfoBaseService {
     return (
       {
         declaration_conformity: '',
-        recognized_standard:''
+        recognized_standards:''
       }
     )
   }
