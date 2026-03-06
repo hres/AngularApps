@@ -655,7 +655,7 @@ span.normalWeight {
 							</div>
 						</section>					
 					</xsl:if>
-					<xsl:if test="/descendant-or-self::recognized_standards_section/recognized_standard  != ''">					
+					<xsl:if test="/descendant-or-self::recognized_standards_section/recognized_standards  != ''">					
 						<section class="panel panel-default" >
 							<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
 								<h2 class="panel-title">Recognized standards complied within the design and manufacture of the device</h2>
@@ -664,7 +664,7 @@ span.normalWeight {
 								<div class="row">
 									<div class="col-xs-12">
 									<strong>The medical devices subject to this application conform with recognized standards as set out in the Guidance on using standards to support compliance with the Medical Devices Regulations. An attestation listing the recognized standard(s) that the subject medical device(s) comply with has been included in the corresponding section of the IMDRF folder structure.&#160;</strong>
-									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::recognized_standards_section/recognized_standard"/></xsl:call-template></span>
+									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::recognized_standards_section/recognized_standards"/></xsl:call-template></span>
 									</div>
 								</div>
 							</div>
