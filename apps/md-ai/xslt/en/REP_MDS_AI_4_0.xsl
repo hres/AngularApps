@@ -469,7 +469,7 @@ span.normalWeight {
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><strong>Priority review is being requested for the subject devices as it is intended for the diagnosis or treatment of a serious, life-threatening or severely debilitating disease or condition and there is substantial clinical evidence that the medical device:</strong></div>
 							</div>
 							<xsl:for-each select="/descendant-or-self::is_diagnosis_treatment_serious/diagnosis_reason">
-								<div class="col-xs-6">
+								<div class="col-xs-12">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::is_diagnosis_treatment_serious/diagnosis_reason"/></xsl:call-template>
 									<span class="mouseHover"><xsl:value-of select="@label_en"/></span>
 								</div>
@@ -550,11 +550,12 @@ span.normalWeight {
 										<xsl:for-each select="/descendant-or-self::application_info/compliance/compliance">
 												<div class="row">
 													<div class="col-xs-12">
+														<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/compliance/compliance"/></xsl:call-template>
 														<span class="mouseHover"><xsl:value-of select="@label_en"/></span>
 													</div>
 												</div>
 											</xsl:for-each>	
-										<xsl:if test="/descendant-or-self::application_info/other_pharmacopeia != ''">
+										<xsl:if test="/descendant-or-self::application_info/other_pharmacopeia = 'true'">
 											<div class="row">&#160;
 												<strong>Specify other pharmacopeia:&#160;</strong>
 												<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/other_pharmacopeia"/></span>
@@ -571,7 +572,7 @@ span.normalWeight {
 						</div>
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-xs-12">
 								<strong>Has this device been previously authorized for sale in Canada under the following provisions of the medical devices regulations?:</strong>
 								</div>
 							</div>
