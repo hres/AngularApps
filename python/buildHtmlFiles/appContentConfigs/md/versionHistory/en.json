@@ -10,7 +10,7 @@
             "header": "March 25, 2026 release",
             "details": [
                 {
-                    "template": "Application Information (AI)<br>template<br>version 4.0.0<br><br>Stylesheet package*",
+                    "template": "Application information (AI)<br>template<br>version 4.0.0<br><br>Stylesheet package*",
                     "changes": [
                         "Added info bubble at the top of the page",
                         "Updated error messages for various fields",

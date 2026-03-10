@@ -471,6 +471,7 @@ span.normalWeight {
 							<xsl:for-each select="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason">
 								<div class="row">
 									<div class="col-xs-12">
+										<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::priority_review/is_diagnosis_treatment_serious/diagnosis_reason"/></xsl:call-template>
 										<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
 									</div>
 								</div>
@@ -498,7 +499,7 @@ span.normalWeight {
 										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/is_care_point_use"/></xsl:call-template></span>
 									</div>
 									<div class="row">&#160;
-										<strong>Est-ce que certains des instruments contenus dans cette application émettent des radiations ?</strong>
+										<strong>Est-ce que certains des instruments contenus dans cette application émettent des radiations ?&#160;</strong>
 										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/is_emit_radiation"/></xsl:call-template></span>
 									</div>
 								</xsl:when>
@@ -550,11 +551,12 @@ span.normalWeight {
 										<xsl:for-each select="/descendant-or-self::application_info/compliance/compliance">
 												<div class="row">
 													<div class="col-xs-12">
+														<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/compliance/compliance"/></xsl:call-template>
 														<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
 													</div>
 												</div>
 										</xsl:for-each>	
-										<xsl:if test="/descendant-or-self::application_info/other_pharmacopeia !=''">
+										<xsl:if test="/descendant-or-self::application_info/other_pharmacopeia = 'true'">
 											<div class="row">&#160;
 												<strong>Indiquer une autre pharmacopée :&#160;</strong>
 												<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/other_pharmacopeia"/></span>
@@ -571,7 +573,7 @@ span.normalWeight {
 						</div>
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-xs-12">
 								<strong>La vente de cet instrument a-t-elle déjà été autorisée au Canada en vertu des dispositions du Règlement sur les instruments médicaux ? :</strong>
 								</div>
 							</div>

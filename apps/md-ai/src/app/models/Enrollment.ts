@@ -115,7 +115,7 @@ export interface PriorityReview {
 }
 
 export interface DeclarationComformity extends  DeclarationComformitySuperInterface{
-    recognized_standard: string
+    recognized_standards: string
 }
 
 

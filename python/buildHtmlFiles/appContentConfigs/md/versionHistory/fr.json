@@ -10,7 +10,7 @@
             "header": "Publication du 25 mars 2026",
             "details": [
                 {
-                    "template": "Modèle d’information sur les demandes d’homologation<br>(CO)<br>version 4.0.0<br><br>Ensemble de feuilles de style*",
+                    "template": "Modèle d’information sur les demandes d’homologation<br>version 4.0.0<br><br>Ensemble de feuilles de style*",
                     "changes": [
                         "Ajout d’une bulle d’information en haut de la page",
                         "Mise à jour des messages d'erreur pour divers champs",
