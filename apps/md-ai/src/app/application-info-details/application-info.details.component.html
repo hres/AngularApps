@@ -457,9 +457,9 @@
                     </label>
                   </div>
                 </div>
-                <div *ngIf="isLic()" class="form-group col-6 col-md-4 col-lg-3">
+                <div *ngIf="isLic()" class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
                   <label for="licenceNum" class="d-block">
-                    <span class="field-name text-nowrap">
+                    <span class="field-name">
                       {{ 'lic.number' | translate }} {{ 'minNumber6' | translate }}
                     </span>
                   </label>
@@ -481,9 +481,9 @@
                     </label>
                   </div>
                 </div>
-                <div *ngIf="isIt()" class="form-group col-6 col-md-4 col-lg-3">
+                <div *ngIf="isIt()" class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
                   <label for="applicationNum" class="d-block">
-                    <span class="field-name text-nowrap">
+                    <span class="field-name">
                       {{ 'application.number' | translate }} {{ 'minNumber6' | translate }}
                     </span>
                   </label>
@@ -492,7 +492,7 @@
                       [control]="appInfoFormLocalModel.controls['applicationNum'] | formControl"
                       controlId="applicationNum" label="application.number" parentId="appInfoDetails">
                     </control-messages>
-                    <input id="applicationNum" name="applicationNum" class="form-control full-width"
+                    <input id="applicationNum" name="applicationNum" class="form-control"
                     [formControl]="appInfoFormLocalModel.controls['applicationNum'] | formControl" data-only-digits
                     [maxLength]="6" />
                 </div>
@@ -508,10 +508,10 @@
                     </label>
                   </div>
                 </div>
-                <div *ngIf="isSa()" class="form-group col-12 col-md-5 col-lg-4">
+                <div *ngIf="isSa()" class="form-group col-12 col-sm-6 col-md-5 col-lg-4">                  
                   <label for="sapReqNum" class="d-block">
-                    <span class="field-name text-nowrap">
-                      {{ 'sap.req.number' | translate }} {{ 'minNumber6' | translate }}
+                    <span class="field-name">
+                      {{ 'sap.req.number' | translate }}
                     </span>
                   </label>
                   <input id="sapReqNum" name="sapReqNum" class="form-control full-width"
@@ -529,16 +529,16 @@
                     </label>
                   </div>
                 </div>
-                <div *ngIf="isIoa()" class="form-group col-6 col-md-4 col-lg-3">
+                <div *ngIf="isIoa()" class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
                   <label for="authNum" class="d-block">
-                    <span class="field-name text-nowrap">
+                    <span class="field-name">
                       {{ 'auth.id' | translate }} {{ 'minNumber6' | translate }}
                     </span>
                   </label>
                   <control-messages *ngIf="appInfoFormLocalModel.controls['authNum'].invalid"
                   [showError]="showFieldErrors" [control]="appInfoFormLocalModel.controls['authNum'] | formControl"
                   controlId="authNum" label="auth.id" parentId="appInfoDetails"> </control-messages>
-                  <input id="authNum" name="authNum" class="form-control full-width"
+                  <input id="authNum" name="authNum" class="form-control"
                       [formControl]="appInfoFormLocalModel.controls['authNum'] | formControl" data-only-digits
                       [maxLength]="6" />
                 </div>

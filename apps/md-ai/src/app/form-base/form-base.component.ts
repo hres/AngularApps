@@ -136,6 +136,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public helpIndex: { [key: string]: number };
 
   popupId = 'saveXmlPopup';
+  popupTrigger: HTMLElement = null;
+
   processXmlCount: number = 0;
   public resetYN: boolean = false;
   public declarationLocalModel: FormGroup;
@@ -273,7 +275,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return this.showErrors && this.errorList && this.errorList.length > 0;
   }
 
-  public saveXmlFile() {
+  public saveXmlFile(event : Event) {
+    const trigger = event.target as HTMLElement;
+    this.popupTrigger = trigger;
+    
     this.processXmlCount++;
     console.log('saving xml...');
     this.showErrors = true;
@@ -530,5 +535,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         null
       );
     }
+  }
+
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
   }
 }

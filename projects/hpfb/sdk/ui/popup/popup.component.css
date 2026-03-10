@@ -2,3 +2,7 @@
     width: 50%;
     height: fit-content;
 }
+
+.close-btn {
+    background-color: #949494;
+}

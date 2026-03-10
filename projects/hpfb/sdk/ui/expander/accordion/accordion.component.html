@@ -7,7 +7,7 @@
         </h4>
       } @else {
         <div role="button"
-          aria-describedby="accordionHelp">
+        [attr.aria-describedby]="'accordionHelp' + recordListName">
           <h4 #headerEl id="" class="panel-title" tabindex="0"
             (keydown.enter)="toggleExpand(i, recordRow.get('expandFlag').value)"
             (keydown.space)="$event.preventDefault(); toggleExpand(i, recordRow.get('expandFlag').value)"
@@ -36,6 +36,5 @@
 }
 </div>
 }
-<div class="sr-only" id="accordionState{{recordListName}}" aria-live="polite" role="status">{{ accordionState }}</div>
-<span id="accordionHelp{{recordListName}}" class="sr-only">{{ accordionState }}</span>
-
+<!-- <div class="sr-only" id="accordionState{{recordListName}}" aria-live="polite" role="status">{{ accordionState }}</div> -->
+<span [attr.id]="'accordionHelp' + recordListName" class="sr-only">{{ 'section.accordion' | translate }} {{ accordionState }}</span>
