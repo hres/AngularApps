@@ -169,7 +169,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
   public deleteDeviceRecord(event: Event, index: number): void {
     // this.errorSummaryChild = null;
-    this._errorNotificationService.updateErrorSummary(DEVICE_ERROR_PREFIX + this.cRRow.get('id').value, null);
+    // this._errorNotificationService.updateErrorSummary(DEVICE_ERROR_PREFIX + this.cRRow.get('id').value, null);
     const heading = this._deviceService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
 
@@ -181,8 +181,8 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
       heading: heading,
       buttonTrigger: trigger
     });
-    this.cRRow.markAsPristine();
-    this._updateErrorList([]);
+    // this.cRRow.markAsPristine();
+    // this._updateErrorList([]);
   }
 
 

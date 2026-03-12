@@ -9,6 +9,7 @@ import { first } from 'rxjs';
 import { DeviceService } from '../device.service';
 import { DeviceListService } from './device-list.service';
 import { ErrorNotificationService } from '@hpfb/sdk/ui';
+import { DEVICE_ERROR_PREFIX } from '../../app.constants';
 
 @Component({
     selector: 'app-device-list',
@@ -193,6 +194,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     deviceInfo.reset();
     this.devicesFormArr.removeAt(index);
 
+    this.deviceListForm.markAsPristine();
+    this._errorDeviceNotificationService.updateErrorSummary(DEVICE_ERROR_PREFIX + this.deviceId, null);
+
     this._globalService.setDevicesFormArrValue(this.getDevicesFormArrValues());
     if (this.devicesFormArr.length == 1) {
       this._deviceService.showDeviceErrorSummaryOneRec.set(true);
@@ -206,6 +210,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       this.statusMessage = "Enregistrement d’intrument " + group.controls['seqNumber'].value + " a été supprimé.";
     }
     document.getElementById('addDeviceBtn').focus();
+    this.showErrors = false;
   }
 
   revertDevice(event: any) {
