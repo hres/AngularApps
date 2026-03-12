@@ -173,7 +173,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     const trigger = event.target as HTMLElement;
 
     //this.errorSummaryChild = null;
-    this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, null);
+    // this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, null);
     this.deleteRecord.emit({
       id: this.cRRow.get('id').value,
       //       id: this.cRRow.get('id').value,
@@ -181,8 +181,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
       heading: heading,
       buttonTrigger: trigger
     });
-    this.cRRow.markAsPristine();
-    this._updateErrorList([]);
+    // this.cRRow.markAsPristine();
+    // this._updateErrorList([]);
   }
 
 
