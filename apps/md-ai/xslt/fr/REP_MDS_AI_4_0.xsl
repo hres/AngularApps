@@ -400,6 +400,21 @@ span.normalWeight {
 .nav a, a.btn {
     text-decoration: none;
 }
+
+.sapNumber {
+	word-break: break-word;
+}
+
+@media (max-width: 700px) {
+
+  #device-history .row > .col-xs-3,
+  #device-history .row > .col-xs-9 {
+    float: none;
+    width: 100%;
+    display: block;
+  }
+
+}
 				</style>
 			</head>
             <body>
@@ -433,7 +448,7 @@ span.normalWeight {
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-xs-12">
 							<strong>Numéro de certificat du Programme d’audit unique des matériels médicaux (PAUMM) :&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_number" /></span>
 						</div>					
@@ -441,17 +456,17 @@ span.normalWeight {
 							<strong>Organisme d'audit du Programme d’audit unique des matériels médicaux (PAUMM) :&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_org/@label_fr"/></span>
 						</div>
-						<div class="col-xs-6">
+						<div class="col-xs-12">
 							<strong>Type de demande d'homologation :&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_application_type/@label_fr"/></span>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-xs-12">
 							<strong>Type d'activité réglementaire :&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_type/@label_fr"/></span>
 						</div>
-						<div class="col-xs-6">
+						<div class="col-xs-12">
 							<strong>Classe d'instrument :&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_class/@label_fr"/></span>
 						</div>
@@ -505,7 +520,7 @@ span.normalWeight {
 								</xsl:when>
 								<xsl:otherwise>
 									<div class="row">&#160;
-										<strong>Est-ce que certains des instruments contenus dans cette application émettent des radiations ?</strong>
+										<strong>Est-ce que certains des instruments contenus dans cette application émettent des radiations ?&#160;</strong>
 										<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::application_info/is_emit_radiation"/></xsl:call-template></span>
 									</div>
 									<div class="row">&#160;
@@ -514,7 +529,7 @@ span.normalWeight {
 									</div>
 									<xsl:if test="/descendant-or-self::application_info/has_drug = 'yes'">
 										<div class="row">&#160;
-											<strong>Le médicament a-t-il un numéro d'identification de médicament (DIN) ou un numéro de produit naturel (NPN) ?:&#160;</strong>
+											<strong>Le médicament a-t-il un numéro d'identification de médicament (DIN) ou un numéro de produit naturel (NPN) ? :&#160;</strong>
 											<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/has_din_npn"/></span>
 										</div>
 									</xsl:if>
@@ -571,46 +586,55 @@ span.normalWeight {
 						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
 							<h2 class="panel-title">Historique de l'instrument</h2>
 						</div>
-						<div class="panel-body">
+						<div class="panel-body" id="device-history">
 							<div class="row">
 								<div class="col-xs-12">
 								<strong>La vente de cet instrument a-t-elle déjà été autorisée au Canada en vertu des dispositions du Règlement sur les instruments médicaux ? :</strong>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-xs-3">
+									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_lic"/></xsl:call-template>
+									<span class="mouseHover">Homologation d'instrument médical</span>
+								</div>
+								<xsl:if test="/descendant-or-self::application_info/provision_mdr_lic = 'true'">
+								<div class="col-xs-9">
+									<strong>Numéro d'homologation :&#160;</strong>
+									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_number"/></span>
+								</div>
+								</xsl:if>
+							</div>
+							<div class="row">
+								<div class="col-xs-3">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_it"/></xsl:call-template>
 									<span class="mouseHover">Essai expérimental</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_it = 'true'">
-								<div class="col-xs-6">
+								<div class="col-xs-9">
 									<strong>Numéro d'application :&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/application_number"/></span>
 								</div>
 								</xsl:if>
 							</div>
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-xs-3">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_sa"/></xsl:call-template>
 									<span class="mouseHover">Accès spécial</span>
 								</div>
-								<xsl:if test="/descendant-or-self::application_info/provision_mdr_it = 'no' and /descendant-or-self::application_info/provision_mdr_sa = 'yes'">
-									<div class="col-xs-6">&#160;</div>
-								</xsl:if>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_sa = 'true'">
-								<div class="col-xs-6">
+								<div class="col-xs-9">
 									<strong>Numéro de demande PAS :&#160;</strong>
-									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/sap_request_number"/></span>
+									<span class="mouseHover sapNumber"><xsl:value-of select="/descendant-or-self::application_info/sap_request_number"/></span>
 								</div>
 								</xsl:if>
 							</div>
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-xs-3">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/interim_order_authorization"/></xsl:call-template>
 									<span class="mouseHover">Autorisation en vertu de la Partie 1.1</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/interim_order_authorization = 'true'">
-								<div class="col-xs-6">
+								<div class="col-xs-9">
 									<strong>ID d'autorisation :&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/authorization_id"/></span>
 								</div>
@@ -721,13 +745,13 @@ span.normalWeight {
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-5">
+			<div class="col-xs-12">
 				<strong>Pays d'origine (pour animaux seulement) :&#160;</strong>
 				<span class="mouseHover"><xsl:value-of select="./origin_country/@label_fr"/></span>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-5">
+			<div class="col-xs-12">
 				<strong>Famille de l'espèce :&#160;</strong>
 				<span class="mouseHover"><xsl:value-of select="./family_of_species/@label_fr"/></span>
 			</div>
@@ -781,7 +805,7 @@ span.normalWeight {
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-6">
+				<div class="col-xs-12">
 					<xsl:choose>
 					<xsl:when test="device_authorized = 'yes'">
 						<strong>Numéro d'homologation :&#160;</strong>
