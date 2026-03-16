@@ -400,6 +400,21 @@ span.normalWeight {
 .nav a, a.btn {
     text-decoration: none;
 }
+
+.sapNumber {
+	word-break: break-word;
+}
+
+@media (max-width: 700px) {
+
+  #device-history .row > .col-xs-3,
+  #device-history .row > .col-xs-9 {
+    float: none;
+    width: 100%;
+    display: block;
+  }
+
+}
 				</style>
 			</head>
             <body>
@@ -433,7 +448,7 @@ span.normalWeight {
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-xs-12">
 							<strong>Medical Device Single Audit Program (MDSAP) certificate number:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_number" /></span>
 						</div>
@@ -441,17 +456,17 @@ span.normalWeight {
 							<strong>Medical Device Single Audit Program (MDSAP) auditing organization:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/mdsap_org/@label_en"/></span>
 						</div>
-						<div class="col-xs-6">
+						<div class="col-xs-12">
 							<strong>Licence application type:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_application_type/@label_en" /></span>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-xs-12">
 							<strong>Regulatory activity type:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/regulatory_activity_type/@label_en"/></span>
 						</div>
-						<div class="col-xs-6">
+						<div class="col-xs-12">
 							<strong>Device class:&#160;</strong>
 							<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/device_class/@label_en"/></span>
 						</div>
@@ -570,55 +585,55 @@ span.normalWeight {
 						<div class="panel-heading"  style="color:#030303; background-color:#f8f8f8;">
 							<h2 class="panel-title">Device history</h2>
 						</div>
-						<div class="panel-body">
+						<div class="panel-body" id="device-history">
 							<div class="row">
 								<div class="col-xs-12">
 								<strong>Has this device been previously authorized for sale in Canada under the following provisions of the medical devices regulations?:</strong>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-xs-3">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_lic"/></xsl:call-template>
 									<span class="mouseHover">Medical device licence</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_lic = 'true'">
-								<div class="col-xs-6">
+								<div class="col-xs-9">
 									<strong>Licence number:&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_number"/></span>
 								</div>
 								</xsl:if>
 							</div>
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-xs-3">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_it"/></xsl:call-template>
 									<span class="mouseHover">Investigational testing</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_it = 'true'">
-								<div class="col-xs-6">
+								<div class="col-xs-9">
 									<strong>Application number:&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/application_number"/></span>
 								</div>
 								</xsl:if>
 							</div>
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-xs-3">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_sa"/></xsl:call-template>
 									<span class="mouseHover">Special access</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_sa = 'true'">
-								<div class="col-xs-6">
+								<div class="col-xs-9">
 									<strong>SAP request number:&#160;</strong>
-									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/sap_request_number"/></span>
+									<span class="mouseHover sapNumber"><xsl:value-of select="/descendant-or-self::application_info/sap_request_number"/></span>
 								</div>
 								</xsl:if>
 							</div>
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-xs-3">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/interim_order_authorization"/></xsl:call-template>
 									<span class="mouseHover">Authorization under Part 1.1</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/interim_order_authorization = 'true'">
-								<div class="col-xs-6">
+								<div class="col-xs-9">
 									<strong>Authorization ID:&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/authorization_id"/></span>
 								</div>
@@ -730,13 +745,13 @@ span.normalWeight {
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-5">
+				<div class="col-xs-12">
 					<strong>Country of origin (for animals only):&#160;</strong>
 					<span class="mouseHover"><xsl:value-of select="./origin_country/@label_en"/></span>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-5">
+				<div class="col-xs-12">
 					<strong>Family of species:&#160;</strong>
 					<span class="mouseHover"><xsl:value-of select="./family_of_species/@label_en"/></span>
 				</div>
@@ -790,7 +805,7 @@ span.normalWeight {
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-6">
+				<div class="col-xs-12">
 					<xsl:choose>
 					<xsl:when test="device_authorized = 'yes'">
 						<strong>Licence number:&#160;</strong>
