@@ -47,6 +47,8 @@ import {
   BiologicalMaterialData,
   BiologicalMaterial,
   DeclarationComformity,
+  EnrollmentOut,
+  DeclarationComformitySuperInterface,
 } from '../models/Enrollment';
 import { ApplicationInfoDetailsComponent } from '../application-info-details/application-info.details.component';
 import { FilereaderInstructionComponent } from '../filereader-instruction/filereader-instruction.component';
@@ -128,12 +130,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public transactionModel: Enrollment;
   public deviceModel: Device[];
   public materialInfo: BiologicalMaterialData;
-  public declarationModel: DeclarationComformity;
+  public declarationModel: DeclarationComformitySuperInterface;
 
   public fileServices: FileConversionService;
   public helpIndex: { [key: string]: number };
 
   popupId = 'saveXmlPopup';
+  popupTrigger: HTMLElement = null;
+
   processXmlCount: number = 0;
   public resetYN: boolean = false;
   public declarationLocalModel: FormGroup;
@@ -271,7 +275,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return this.showErrors && this.errorList && this.errorList.length > 0;
   }
 
-  public saveXmlFile() {
+  public saveXmlFile(event : Event) {
+    const trigger = event.target as HTMLElement;
+    this.popupTrigger = trigger;
+    
     this.processXmlCount++;
     console.log('saving xml...');
     this.showErrors = true;
@@ -323,18 +330,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public prepareXml() {
-    const result: Enrollment = this._prepareForSaving(true);
+    const result: EnrollmentOut = this._prepareForSaving(true);
     const fileName: string = this._buildfileName(result);
     this._fileService.saveXmlToFile(result, fileName, true, this.xslName);
   }
 
   public saveWorkingCopyFile() {
-    const result: Enrollment = this._prepareForSaving(false);
+    const result: EnrollmentOut = this._prepareForSaving(false);
     const fileName: string = this._buildfileName(result);
     this._fileService.saveJsonToFile(result, fileName, null);
   }
 
-  private _prepareForSaving(xmlFile: boolean): Enrollment {
+  private _prepareForSaving(xmlFile: boolean): EnrollmentOut {
     let devicesFormArrayValue = null;
     let materialInfoFormGroupValue = null;
     let materialsFormArrayValue = null;
@@ -360,7 +367,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this.declarationConformity.declarationLocalModel.value;
     }
 
-    const output: Enrollment = this._baseService.mapFormToOutput(
+    const output: EnrollmentOut = this._baseService.mapFormToOutput(
       aiDetailsFormGroupValue,
       devicesFormArrayValue,
       materialInfoFormGroupValue,
@@ -378,7 +385,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return output;
   }
 
-  private _buildfileName(output: Enrollment): string {
+  private _buildfileName(output: EnrollmentOut): string {
     return (
       'ai-' +
       output.DEVICE_APPLICATION_INFO.application_info.dossier_id +
@@ -428,7 +435,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.deviceModel = [];
     }
     this.materialInfo = applicationEnroll.material_info;
+    if(applicationEnroll.recognized_standards_section){
     this.declarationModel = applicationEnroll.recognized_standards_section;
+    }else {
+      this.declarationModel = applicationEnroll.declaration_conformity;
+    }
   }
 
   openPopup() {
@@ -524,5 +535,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         null
       );
     }
+  }
+
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
   }
 }

@@ -31,4 +31,12 @@
 .right-button {
     flex: 0 0 auto;
 }
-  
+
+.custom-footer .btn.close-btn {
+    background-color: #949494;
+    color: #ffffff
+}
+
+.custom-footer .btn.close-btn:focus {
+    background-color: #6f6f6f;
+}

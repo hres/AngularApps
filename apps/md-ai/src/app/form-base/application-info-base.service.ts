@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials, PriorityReview, DeclarationComformity } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials, PriorityReview, DeclarationComformity,  DeclarationComformitySuperInterface, EnrollmentOut } from '../models/Enrollment';
 import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
 import { GlobalService } from '../global/global.service';
 import { DeviceService } from '../inter-device/device.service';
@@ -32,7 +32,8 @@ export class ApplicationInfoBaseService {
         application_info: this.getEmptyApplicationInfoModel(),
         devices: {device: []},
         recognized_standards_section: this.getEmptyDeclarationConModel(),
-        material_info: this.getEmptyMaterialInfoModel()
+        material_info: this.getEmptyMaterialInfoModel(),
+        declaration_conformity:this.getEmptyDeclarationConModelFromOldForm()
       }
     };
 
@@ -149,6 +150,14 @@ export class ApplicationInfoBaseService {
     )
   }
 
+  public getEmptyDeclarationConModelFromOldForm() : DeclarationComformitySuperInterface {
+    return (
+      {
+        declaration_conformity: '',
+      }
+    )
+  }
+
 
   private _getRegulatoryActivityLead() {
     return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Devices Directorate', 'Direction des instruments médicaux');
@@ -169,6 +178,7 @@ export class ApplicationInfoBaseService {
     let materialInfoModel : BiologicalMaterialData = null;
     let priorityRevModel : PriorityReview = null;
     let declarationConModel : DeclarationComformity = null;
+    let declarationConModelOld : DeclarationComformitySuperInterface= null;
 
     let aiModel: ApplicationInfo = this.getEmptyApplicationInfoModel();
     this._applicationInfoDetailsService.mapFormModelToDataModel(aiDetailsForm, aiModel, this._globalService.lang());
@@ -201,14 +211,15 @@ export class ApplicationInfoBaseService {
       this._declarationConService.mapFormModelToDataModel(declarationConFrom, declarationConModel);
     }
 
-    const output: Enrollment = {
+    const output: EnrollmentOut = {
       'DEVICE_APPLICATION_INFO': {
         'software_version': this._globalService.$appVersion,
         'form_language': this._globalService.getCurrLanguage(),
         'application_info': aiModel,
         'devices': {device : deviceModelList},
         'recognized_standards_section': declarationConModel,
-        'material_info' : materialInfoModel
+        'material_info' : materialInfoModel,
+
       }
    };
 

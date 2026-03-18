@@ -10,7 +10,7 @@
             "groups": [
                 {
                     "bullets": [
-                        "<a href=\"{{ base_url }}mds-historique_révisions.html\">Historique des révisions du modèle (2026-01-28)</a>"
+                        "<a href=\"{{ base_url }}mds-historique_révisions.html\">Historique des révisions du modèle (2026-03-25)</a>"
                     ]
                 }
             ]
@@ -45,20 +45,20 @@
                     ]
                 },
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.ai.fr }}\">Modèle d’information sur les demandes d’homologation (2024-12-11)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.ai.fr }}\">Modèle d’information sur les demandes d’homologation (2026-03-25)</a>",
                     "bullets": [
                         "Obligatoire uniquement pour un sous-ensemble de transactions. Reportez-vous à la section « Modèle et processus de demande d'information » de la ligne directrice PIR pour les instruments médicaux."
                     ]
                 },
                 {
-                    "header": "Détails de l’instrument (2024-04-02)",
+                    "header": "Détails de l’instrument (2026-03-25)",
                     "bullets": [
                         "Obligatoire pour toutes les nouvelles demandes d’homologation, ainsi que pour toute demande de modification susceptible d’avoir des répercussions sur le répertoire des fabricants.",
                         "<a href=\"{{ base_url }}{{ template_paths.dd.fr }}\" download=\"\">Télécharger détails de l’instrument xlsx fichier</a>"
                     ]
                 },
                 {
-                    "header": "Formulaire d'attestation de demande (2024-04-02)",
+                    "header": "Formulaire d'attestation de demande (2026-03-25)",
                     "bullets": [
                         "Obligatoire pour la première transaction d’une nouvelle activité réglementaire.",
                         "<a href=\"{{ base_url }}{{ template_paths.aaf.fr }}\" download=\"\">Télécharger formulaire PDF d'attestation de demande</a>"
@@ -84,7 +84,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.fr }}\">Télécharger le fichier zip de feuille de style (2026-01-28)</a>"
+                        "<a href=\"{{ base_url }}{{ template_paths.stylesheets.fr }}\">Télécharger le fichier zip de feuille de style (2026-03-25)</a>"
                     ]
                 }
             ]

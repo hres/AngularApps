@@ -34,4 +34,7 @@
   }
 }
 
-  
+.control-messages-wrapper { /* Used for application number in device history */
+  display: block;       
+  margin-top: 0.25rem;  
+}

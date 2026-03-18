@@ -7,6 +7,26 @@
     ],
     "releases": [
         {
+            "header": "March 25, 2026 release",
+            "details": [
+                {
+                    "template": "Application information (AI)<br>template<br>version 4.0.0<br><br>Stylesheet package*",
+                    "changes": [
+                        "Added info bubble at the top of the page",
+                        "Updated error messages for various fields",
+                        "Added pop-up warnings for various buttons",
+                        "Added regulatory activity types: Section 39/40/41 and Terms and conditions (section 36)",
+                        "Removed regulatory activity type: S.25/36/39/40/41",
+                        "Moved priority review questions",
+                        "Added new questions to Device history section",
+                        "Added Recognized standards section when device class II is selected",
+                        "Corrected minor grammatical errors<br/><br/><br/>",
+                        "*New stylesheet to match changes on this template"
+                    ]
+                }
+            ]
+        },
+        {
             "header": "January 28, 2026 release",
             "details": [
                 {

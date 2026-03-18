@@ -5,6 +5,7 @@ import { MaterialService } from '../material.service';
 import { MaterialListService } from './material-list.service';
 import { GlobalService } from '../../global/global.service';
 import { BiologicalMaterial } from '../../models/Enrollment';
+import { MATERIAL_ERROR_PREFIX } from '../../app.constants';
 
 @Component({
     selector: 'app-material-list',
@@ -199,6 +200,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     const materialInfo = this.getMaterialInfo(group);
     materialInfo.reset();
     this.materialsFormArr.removeAt(index);
+    
+    this.materialListForm.markAsPristine();
+    this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.materialId, null);
 
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
 
@@ -218,6 +222,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this.statusMessage = "Enregistrement du matériel biologique " + group.controls['seqNumber'].value + " a été supprimé.";
     }
     document.getElementById('addMaterialBtn').focus();
+    this.showErrors = false;
   }
 
   revertMaterial(event: any) {

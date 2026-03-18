@@ -2,3 +2,7 @@
   display: none;
   border: none;
 }
+
+.panel-title {
+  word-break: break-word;    /* wrap long words */
+}
