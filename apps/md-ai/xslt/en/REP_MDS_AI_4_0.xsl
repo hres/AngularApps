@@ -570,7 +570,7 @@ span.normalWeight {
 													</div>
 												</div>
 											</xsl:for-each>	
-										<xsl:if test="/descendant-or-self::application_info/other_pharmacopeia = 'true'">
+										<xsl:if test="/descendant-or-self::application_info/other_pharmacopeia != ''">
 											<div class="row">&#160;
 												<strong>Specify other pharmacopeia:&#160;</strong>
 												<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/other_pharmacopeia"/></span>
@@ -678,7 +678,7 @@ span.normalWeight {
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-xs-12">
-									<strong>The medical devices subject to this application conform with recognized standards as set out in the Guidance on using standards to support compliance with the Medical Devices Regulations. An attestation listing the recognized standard(s) that the subject medical device(s) comply with has been included in the corresponding section of the IMDRF folder structure.&#160;</strong>
+									<strong>The medical devices subject to this application conform with recognized standards as set out in the Guidance on using standards to support compliance with the Medical Devices Regulations. An attestation listing the recognized standard(s) that the subject medical device(s) comply with has been included in the corresponding section of the International Medical Device Regulators Forum (IMDRF) folder structure.&#160;</strong>
 									<span class="mouseHover"><xsl:call-template name="YesNoUnknow"><xsl:with-param name="value" select="/descendant-or-self::recognized_standards_section/recognized_standards"/></xsl:call-template></span>
 									</div>
 								</div>
