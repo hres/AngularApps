@@ -485,7 +485,7 @@ span.normalWeight {
 							</div>
 							<xsl:for-each select="/descendant-or-self::is_diagnosis_treatment_serious/diagnosis_reason">
 								<div class="col-xs-12">
-									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::is_diagnosis_treatment_serious/diagnosis_reason"/></xsl:call-template>
+									<xsl:call-template name="true-checkbox"><xsl:with-param name="value" select="/descendant-or-self::is_diagnosis_treatment_serious/diagnosis_reason" /></xsl:call-template>
 									<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
 								</div>
 							</xsl:for-each>
@@ -564,12 +564,12 @@ span.normalWeight {
 										<xsl:for-each select="/descendant-or-self::application_info/compliance/compliance">
 												<div class="row">
 													<div class="col-xs-12">
-														<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/compliance/compliance"/></xsl:call-template>
+														<xsl:call-template name="true-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/compliance/compliance" /></xsl:call-template>
 														<span class="mouseHover"><xsl:value-of select="@label_fr"/></span>
 													</div>
 												</div>
 										</xsl:for-each>	
-										<xsl:if test="/descendant-or-self::application_info/other_pharmacopeia != ''">
+										<xsl:if test="/descendant-or-self::application_info/other_pharmacopeia = 'true'">
 											<div class="row">&#160;
 												<strong>Indiquer une autre pharmacopée :&#160;</strong>
 												<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/other_pharmacopeia"/></span>
@@ -591,48 +591,48 @@ span.normalWeight {
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-3">
+								<div class="col-xs-5">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_lic"/></xsl:call-template>
 									<span class="mouseHover">Homologation d'instrument médical</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_lic = 'true'">
-								<div class="col-xs-9">
+								<div class="col-xs-7">
 									<strong>Numéro d'homologation :&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/licence_number"/></span>
 								</div>
 								</xsl:if>
 							</div>
 							<div class="row">
-								<div class="col-xs-3">
+								<div class="col-xs-5">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_it"/></xsl:call-template>
 									<span class="mouseHover">Essai expérimental</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_it = 'true'">
-								<div class="col-xs-9">
+								<div class="col-xs-7">
 									<strong>Numéro d'application :&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/application_number"/></span>
 								</div>
 								</xsl:if>
 							</div>
 							<div class="row">
-								<div class="col-xs-3">
+								<div class="col-xs-5">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/provision_mdr_sa"/></xsl:call-template>
 									<span class="mouseHover">Accès spécial</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_sa = 'true'">
-								<div class="col-xs-9">
+								<div class="col-xs-7">
 									<strong>Numéro de demande PAS :&#160;</strong>
 									<span class="mouseHover sapNumber"><xsl:value-of select="/descendant-or-self::application_info/sap_request_number"/></span>
 								</div>
 								</xsl:if>
 							</div>
 							<div class="row">
-								<div class="col-xs-3">
+								<div class="col-xs-5">
 									<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="/descendant-or-self::application_info/interim_order_authorization"/></xsl:call-template>
 									<span class="mouseHover">Autorisation en vertu de la Partie 1.1</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/interim_order_authorization = 'true'">
-								<div class="col-xs-9">
+								<div class="col-xs-7">
 									<strong>ID d'autorisation :&#160;</strong>
 									<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/authorization_id"/></span>
 								</div>
@@ -853,6 +853,12 @@ span.normalWeight {
 				&#160;&#160;
 			</xsl:otherwise>
 		</xsl:choose>
+		</span>
+	</xsl:template>
+	<xsl:template name="true-checkbox">
+		<xsl:param name="value" select="/.."/>
+		<span class="c-checkbox">
+				X
 		</span>
 	</xsl:template>
 	<xsl:template name="lastDate">
