@@ -620,7 +620,7 @@ span.normalWeight {
 									<span class="mouseHover">Accès spécial</span>
 								</div>
 								<xsl:if test="/descendant-or-self::application_info/provision_mdr_sa = 'true'">
-								<div class="col-xs-6">
+								<div class="col-xs-7">
 									<strong>Numéro de demande PAS :&#160;</strong>
 									<span class="mouseHover sapNumber"><xsl:value-of select="/descendant-or-self::application_info/sap_request_number"/></span>
 								</div>
