@@ -569,10 +569,12 @@ span.normalWeight {
 													</div>
 												</div>
 										</xsl:for-each>	
-										<xsl:if test="/descendant-or-self::application_info/other_pharmacopeia = 'true'">
+										<xsl:if test="/descendant-or-self::application_info/compliance/compliance[@id='compliance_other']">
 											<div class="row">&#160;
 												<strong>Indiquer une autre pharmacopée :&#160;</strong>
-												<span class="mouseHover"><xsl:value-of select="/descendant-or-self::application_info/other_pharmacopeia"/></span>
+												<span class="mouseHover">
+													<xsl:value-of select="/descendant-or-self::application_info/other_pharmacopeia"/>
+												</span>
 											</div>
 										</xsl:if>
 									</xsl:if>
