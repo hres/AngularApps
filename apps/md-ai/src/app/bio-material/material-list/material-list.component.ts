@@ -215,7 +215,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this._emitErrors();
     }
 
-    if (this.materialsFormArr.length >= 1) {
+    if (id == -1) {
+      // force emit errors to get rid of error msg from unsaved record
       this._emitErrors(true);
     }
 
@@ -366,7 +367,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (!forceEmit && !this._shouldEmitErrors()) {
       console.log('No open records and at least one record exists – skipping emitErrors');
       return;
-  }
+    }
 
     if (this.materialsFormArr.errors) {
       emitErrors.push(this.materialsFormArr.errors['atLeastOneMat']);
