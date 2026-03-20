@@ -18,6 +18,7 @@ import { MaterialService } from '../material.service';
 export class MaterialItemComponent implements OnInit, AfterViewInit {
   @Input() cRRow: FormGroup;
   @Input() j: number;
+  @Input() xmlTriggered: boolean;
 
   lang = this._globalService.lang();
 
@@ -97,6 +98,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     this.materialInfo.valueChanges.subscribe(() => {
       this.checkFormDirtyStatus();
     });
+
+    this.showErrors = this.xmlTriggered;
   }
 
   ngAfterViewInit(): void {
@@ -285,7 +288,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   public showErrorSummary(): boolean {
-    return (this.showErrSummary && this.errorList.length > 0);
+    return ((this.showErrSummary || this.xmlTriggered) && this.errorList.length > 0);
   }
 
   get materialInfo() : FormGroup{

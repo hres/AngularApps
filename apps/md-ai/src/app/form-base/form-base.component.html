@@ -58,7 +58,7 @@
                     <h3 class="panel-title">{{'heading.devices'|translate}}</h3>
                   </header>
                   <div class="panel-body">
-                    <app-device-list [deviceListData]="deviceModel"> </app-device-list>
+                    <app-device-list [deviceListData]="deviceModel" [xmlTriggered]="showErrors"> </app-device-list>
                   </div>
                 </section>
                 <div *ngIf="showDeclarationConformity()">
@@ -71,7 +71,7 @@
                   </app-declaration-conformity>
                 </div>
                 <div *ngIf="isDeviceIV()">
-                  <app-material-info [materialInfo]="materialInfo"> </app-material-info>
+                  <app-material-info [materialInfo]="materialInfo" [xmlTriggered]="showErrors"> </app-material-info>
                 </div>
                 <!-- <div *ngIf="showDeclarationConformityAndPriorityRev()" >
                 <section class="panel panel-default">
