@@ -450,7 +450,6 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     if (!hasErrors) {
       this.errorSummaryChild = null;
       this.showErrors = false;
-      console.log(this._deviceService.deviceErrors());
   
        // ✅ Remove all deviceListTable errors from signal
       this._deviceService.deviceErrors.update((errors) =>
