@@ -11,7 +11,7 @@
       <ng-template #tmpl let-recordRow let-idx="i">
         <!-- ==={{recordRow.get('id').value}}===
         === index = {{idx}} ,  === -->
-        <app-device-item [cRRow]="recordRow" [j]="idx" (saveRecord)="saveDeviceRecord($event)"
+        <app-device-item [cRRow]="recordRow" [j]="idx" [xmlTriggered]="xmlTriggered" (saveRecord)="saveDeviceRecord($event)"
           (deleteRecord)="confirmDeleteDeviceRecord($event)" (revertRecord)="confirmDiscardRecordChanges($event)" (error)="showError($event)">
         </app-device-item>
         <!-- <company-contact-record 

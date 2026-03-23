@@ -18,6 +18,8 @@ export class MaterialInfoComponent implements OnInit, OnChanges, AfterViewInit{
 
   public materialInfoForm : FormGroup;
   @Input() public materialInfo;
+  @Input() xmlTriggered: boolean;
+
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
   @ViewChild(MaterialListComponent) aiMaterials: MaterialListComponent;
 

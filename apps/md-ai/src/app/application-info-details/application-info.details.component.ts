@@ -585,8 +585,6 @@ export class ApplicationInfoDetailsComponent
     });
 
     this.seriousDiagnosisReasonOptionList.forEach(() => this.diagnosisReasonChkFormArray.push(new FormControl(false)));
-    console.log("update diagnosis array", this.diagnosisReasonChkFormArray, this.seriousDiagnosisReasonOptionList)
-
   }
 
   private _updateComplianceArray() {
@@ -601,7 +599,6 @@ export class ApplicationInfoDetailsComponent
     this.complianceOptionList.forEach(() =>
       this.complianceChkFormArray.push(new FormControl(false))
     );
-    console.log("update compliance array", this.complianceChkFormArray, this.complianceOptionList)
   }
 
   get complianceChkFormArray() {

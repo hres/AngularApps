@@ -18,6 +18,7 @@ import { MaterialService } from '../material.service';
 export class MaterialItemComponent implements OnInit, AfterViewInit {
   @Input() cRRow: FormGroup;
   @Input() j: number;
+  @Input() xmlTriggered: boolean;
 
   lang = this._globalService.lang();
 
@@ -97,6 +98,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     this.materialInfo.valueChanges.subscribe(() => {
       this.checkFormDirtyStatus();
     });
+
+    this.showErrors = this.xmlTriggered;
   }
 
   ngAfterViewInit(): void {
@@ -107,7 +110,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     });
     /** this is processsing the errorSummary that is a child in  Contact record **/
     this.errorSummaryChildList.changes.subscribe(list => {
-      //console.log("error summary child change,", list);
+      // console.log("error summary child change,", list);
       this.processSummaries(list);
     });
   }
@@ -122,6 +125,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     }
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
+    // console.log("material item error changes", this.errorSummaryChild);
     this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, this.errorSummaryChild);
 
     // this._emitErrors();
@@ -285,7 +289,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   public showErrorSummary(): boolean {
-    return (this.showErrSummary && this.errorList.length > 0);
+    return ((this.showErrSummary || this.xmlTriggered) && this.errorList.length > 0);
   }
 
   get materialInfo() : FormGroup{
