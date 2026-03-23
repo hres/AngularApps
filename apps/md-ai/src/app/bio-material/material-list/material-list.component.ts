@@ -367,7 +367,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     let emitErrors = [];
 
     if (!forceEmit && !this._shouldEmitErrors()) {
-      console.log('No open records and at least one record exists – skipping emitErrors');
+      // console.log('No open records and at least one record exists – skipping emitErrors');
       return;
     }
 
