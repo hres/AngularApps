@@ -212,7 +212,6 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
   onDeviceAuthorizedChange(e: any) {
     const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
-    console.log(deviceAuthorized);
 
     const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted');
     const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber');

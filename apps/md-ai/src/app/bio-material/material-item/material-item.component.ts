@@ -110,7 +110,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     });
     /** this is processsing the errorSummary that is a child in  Contact record **/
     this.errorSummaryChildList.changes.subscribe(list => {
-      //console.log("error summary child change,", list);
+      // console.log("error summary child change,", list);
       this.processSummaries(list);
     });
   }
@@ -125,6 +125,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     }
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
+    // console.log("material item error changes", this.errorSummaryChild);
     this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, this.errorSummaryChild);
 
     // this._emitErrors();

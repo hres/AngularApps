@@ -86,6 +86,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     // this.msgList.notifyOnChanges();
 
     this._errNotifService.errorSummaryChanged$.subscribe((errors) => {
+      // console.log("error summary change detected", errors);
       this._processErrorSummaries(errors);
     });
   }
@@ -100,6 +101,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.errorSummaryChild = null;
     }
+    // console.log(errSummaryEntries, filteredErrSummaryEntry, this.errorSummaryChild);
     this._emitErrors();
   }
 
@@ -480,8 +482,9 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (!hasInvalidRecords) {
       this.errorSummaryChild = null;
       this.showErrors = false;
+      this._errNotifService.clearErrors();
     }
-    console.log(this._materialService.materialListErrors());
+    // console.log(this._materialService.materialListErrors());
   }
 
   private _shouldEmitErrors(): boolean {
