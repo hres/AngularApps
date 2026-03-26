@@ -228,7 +228,7 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
           <div class="checkbox label-inline">
             <input type="checkbox" id="isOnDrug" [formControlName]="'isOnDrug'" />
-            <label for="isOnDrug">{{'isOnDrug'|translate}}</label>
+            <label for="isNonPrescriptionDrug">{{'isOnDrug'|translate}}</label>
           </div>
         </div>
       </div>
@@ -236,11 +236,13 @@
       <div class="row nowrap">
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
           <div class="checkbox label-inline">
-            <input type="checkbox" id="isOnDrugForSchedule" [formControlName]="'isOnDrugForSchedule'" />
-            <label for="isOnDrugForSchedule">{{'isOnDrugForSchedule'|translate}}</label>
+            <input type="checkbox" id="isNonPrescriptioScheduleApplied" [formControlName]="'isNonPrescriptioScheduleApplied'" />
+            <label for="isNonPrescriptioScheduleApplied">{{'isNonPrescriptioScheduleApplied'|translate}}</label>
           </div>
         </div>
       </div>
+
+
 
       <div class="row nowrap">
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
@@ -250,8 +252,20 @@
           </div>
         </div>
       </div>
+
+
+      <div *ngIf="this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value " class="row nowrap" formGroupName="schedule_claim_group">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+          <div class="checkbox label-inline">
+            <input type="checkbox" id="isThromboticAndEmbolicDisorder" formControlName="isThrombotic_and_embolic_disorder" />
+            <label for="isThromboticAndEmbolicDisorder">{{'isThromboticAndEmbolicDisorder'|translate}}</label>
+          </div>
+        </div>
+      </div>
+
     </fieldset>
   </div>
+
 
 
 

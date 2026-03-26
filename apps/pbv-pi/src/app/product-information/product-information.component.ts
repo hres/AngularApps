@@ -23,6 +23,7 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
 
   public showFieldErrors: boolean = false;
   public productInfoForm: FormGroup;
+  //public schedule_claim_group: FormGroup;
   dossierTypeOptions: ICodeDefinition[] = [];
   drugUseOptions: ICodeDefinition[] = [];
   public yesNoList: ICode[] = [];
@@ -45,6 +46,7 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
 
     if (!this.productInfoForm) {
       this.productInfoForm = ProductInformationService.getProductInfoForm(this._fb);
+
     }
 
     this.dossierTypeOptions = this._globalService.dossierTypes;
@@ -104,6 +106,8 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
   private _getCodeDefinition(codeDefinitionList: ICodeDefinition[], id: string){
     return this._utilsService.getCodeDefinitionByIdByLang(id, codeDefinitionList, this.lang)
   }
+
+
 }
 
 
