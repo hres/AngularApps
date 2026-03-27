@@ -6,6 +6,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import utils.buildScriptUtils as buildUtils;
 import utils.fileUtils as fileUtils;
 import utils.commonUtils as commonUtils;
+import utils.injectAccessibilityScript as injectScript
+
 
 if __name__ == "__main__":
     
@@ -22,7 +24,7 @@ if __name__ == "__main__":
         print("Error: '--template', '--env' and '--language' must be specified.")
         sys.exit(1) 
 
-    root_folder = args.root_folder or input("Please enter the absolute path to the root folder: ").strip()
+    root_folder = "C:/Users/DMIRAFLO/AngularDevelopment/AngularApps"
     template = args.template
     type = args.type
     env = args.env
@@ -81,17 +83,34 @@ if __name__ == "__main__":
                 lngHref = f'../fr/{f1_data["index_file_name"][type]["fr"]}'
 
         modification_date = commonUtils.get_todays_date()
-        
-        # print(f"\n Date Issued: {date_issued}\n server_base_url: {server_base_url}\n lngHref: {lngHref}\n final_file_name: {final_file_name}")
 
+        # Fetch links for environment&language
+        env_key = "dev" if env == "dev" else "prod"
+        lang_key = "en" if language == "en" else "fr"
+        try:
+            accessibility_link = f1_data["accessibility_statement_link"][env_key][lang_key]
+        except KeyError as e:
+            raise KeyError(
+                f"Missing accessibility_link for template='{template}', env='{env_key}', language='{lang_key}'"
+            ) from e
+    
+        # # print(f"\n Date Issued: {date_issued}\n server_base_url: {server_base_url}\n lngHref: {lngHref}\n final_file_name: {final_file_name}")
+        # template_path = os.path.join(browser_dir, jinja_template_file_name)
+
+        # print("\n--- RAW J2 TEMPLATE ---")
+        # with open(template_path, "r", encoding="utf-8") as f:
+        #     print(f.read())
+        # print("--- END TEMPLATE ---\n")
         final_file_path = buildUtils.generate_from_jinja_template(template_dirs=[browser_dir, temporary_files_dir],
                                                                 template_file_name=jinja_template_file_name, 
                                                                 output_dir=browser_dir, 
                                                                 output_file_name=final_file_name, 
-                                                                env=env, lang=language, base_url=server_base_url, dateIssued=date_issued, dateModified=modification_date, lngHref=lngHref)
+                                                                env=env, lang=language, base_url=server_base_url, dateIssued=date_issued, dateModified=modification_date, lngHref=lngHref, accessibilityUrl=accessibility_link)
         print(f'.......... {final_file_path} is generated successfully.')    
         
-    
+        # Inject accessibility script
+        injectScript.inject_accessibility_script(final_file_path, accessibility_link, language)
+        
     # cleanups
     # delete the temporary files directory
     fileUtils.delete_folder(temporary_files_dir);
