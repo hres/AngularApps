@@ -97,10 +97,6 @@ if __name__ == "__main__":
         # # print(f"\n Date Issued: {date_issued}\n server_base_url: {server_base_url}\n lngHref: {lngHref}\n final_file_name: {final_file_name}")
         # template_path = os.path.join(browser_dir, jinja_template_file_name)
 
-        # print("\n--- RAW J2 TEMPLATE ---")
-        # with open(template_path, "r", encoding="utf-8") as f:
-        #     print(f.read())
-        # print("--- END TEMPLATE ---\n")
         final_file_path = buildUtils.generate_from_jinja_template(template_dirs=[browser_dir, temporary_files_dir],
                                                                 template_file_name=jinja_template_file_name, 
                                                                 output_dir=browser_dir, 
