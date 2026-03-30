@@ -2,6 +2,10 @@
     "form.title": "Product information template: Regulatory enrolment process (REP)",
     "load.file": "Load product information file",
     "errorSummary.form.name": "The form",
+    
+    "warning.text": "<p>This template is used to file submissions (regulatory activities) with Health Canada.</p><br><p>The web-based Extensible Markup Language (XML) product information (REP PI XML) file is required only for a subset of regulatory activities submitted through the electronic submissions gateway (ESG). Refer to “Product information (PI) template and process” section of the guidance document Regulatory enrolment process (REP): Drugs for human/veterinary use, disinfectants, and biocides.  </p><br><p>Ensure that all fields in this template are completed in the sequential order. The selections made in certain fields may affect the visibility and availability of other fields and sections throughout the form. </p>",
+    "ht.load.file.1": "A file should not be loaded if this is the first time enrolling the company.",
+    "amend.alert": "The \"Amend enrolment\" button must be selected when amending a final company XML.",
 
     "product.info": "Product information",
     "company.id": "Company identifier",

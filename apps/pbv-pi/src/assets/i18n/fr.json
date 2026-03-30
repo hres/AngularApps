@@ -3,6 +3,10 @@
     "load.file": "Charger un fichier d’informations sur le produit",
     "errorSummary.form.name": "Le formulaire",
 
+    "warning.text": "<p>Ce modèle sert à déposer des présentations (activités réglementaires) auprès de Santé Canada.</p><br><p>Le fichier Web d’information sur le produit en format « Extensible Markup Language » (PIR IP XML) est requis uniquement pour un sous ensemble d’activités réglementaires soumises par l’entremise du Portail de demandes électroniques (PDE). Consultez la section « Modèle d’information sur le produit (IP) et processus » de la ligne directrice Processus d’inscription réglementaire (PIR) : Médicaments à usage humain/vétérinaire, désinfectants et biocides.</p><br><p>Assurez-vous que tous les champs de ce modèle sont complétés dans l’ordre séquentiel. Les sélections faites dans certains champs peuvent affecter la visibilité et la disponibilité d’autres champs et sections tout au long du formulaire.</p>",
+    "ht.load.file.1": "A file should not be loaded if this is the first time enrolling the company.",
+    "amend.alert": "The \"Amend enrolment\" button must be selected when amending a final company XML.",
+
     "product.info": "Information sur le produit",
     "company.id": "Numéro de la compagnie",
     "panel.title.product.info": "Information sur le produit",
