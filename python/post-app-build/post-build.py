@@ -24,7 +24,7 @@ if __name__ == "__main__":
         print("Error: '--template', '--env' and '--language' must be specified.")
         sys.exit(1) 
 
-    root_folder = "C:/Users/DMIRAFLO/AngularDevelopment/AngularApps"
+    root_folder = args.root_folder or input("Please enter the absolute path to the root folder: ").strip()
     template = args.template
     type = args.type
     env = args.env
