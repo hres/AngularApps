@@ -1,0 +1,529 @@
+[ {
+    "id":"1",
+    "en":"Block or Infiltration",
+    "fr":"Block or Infiltration",
+    "sortPriority": 1
+  },
+  {
+    "id": "3",
+    "en": "Buccal",
+    "fr": "Buccal",
+    "sortPriority": 2
+  },
+  {
+    "id": "5",
+    "en": "Dental",
+    "fr": "Dentaire",
+    "sortPriority": 3
+  },
+  {
+    "id": "6",
+    "en": "Dialysis",
+    "fr": "Dialyse",
+    "sortPriority": 4
+  },
+  {
+    "id": "2",
+    "en": "Disinfectant (barn)",
+    "fr": "Désinfectant (ferme)",
+    "sortPriority": 5
+  },
+  {
+    "id": "87",
+    "en": "Disinfectant (contact lens)",
+    "fr": "Désinfectant (ferme)",
+    "sortPriority": 6
+  },
+  {
+    "id": "93",
+    "en": "Disinfectant (domestic)",
+    "fr": "Désinfectant (usage domestique)",
+    "sortPriority": 7
+  },
+  {
+    "id": "8",
+    "en": "Disinfectant (food presmises)",
+    "fr": "Désinfectant (lieux de transformation alimentaire)",
+    "sortPriority": 8
+  },
+  {
+    "id": "9",
+    "en": "Disinfectant(hospital/hc facilities)",
+    "fr": "Désinfectant (hôpitaux, établissements de soins de santé)",
+    "sortPriority": 9
+  },
+  {
+    "id": "94",
+    "en": "Disinfectant(institutional/industrial)",
+    "fr": "Désinfectant (institutions/industries)",
+    "sortPriority": 10
+  },
+  {
+    "id": "30",
+    "en": "Disinfectant(medical instruments)",
+    "fr": "Désinfectant (instruments médicaux)",
+    "sortPriority": 11
+  },
+  {
+    "id": "7",
+    "en": "Epidural",
+    "fr": "Épidural",
+    "sortPriority": 12
+  },
+  {
+    "id": "90",
+    "en": "Extracorporeal",
+    "fr": "Extracorporelle",
+    "sortPriority": 13
+  },
+  {
+    "id": "111",
+    "en": "Infiltration",
+    "fr": "Infiltration",
+    "sortPriority": 14
+  },
+  {
+    "id": "29",
+    "en": "Inhalation",
+    "fr": "Inhalation",
+    "sortPriority": 15
+  },
+   {
+    "id": "39",
+    "en": "Instillation",
+    "fr": "Instillation",
+    "sortPriority": 16
+  },
+   {
+    "id": "11",
+    "en": "Intra-amniotic",
+    "fr": "Intra-amniotique",
+    "sortPriority": 17
+  },
+  {
+    "id": "12",
+    "en": "Intra-arterial",
+    "fr": "Intra-artérielle",
+    "sortPriority": 18
+  },
+  {
+    "id": "10",
+    "en": "Intra-articular",
+    "fr": "Intra-articulaire",
+    "sortPriority": 19
+  },
+   {
+    "id": "25",
+    "en": "Intrabranchial",
+    "fr": "Intrabranchiale",
+    "sortPriority": 20
+  },
+  {
+    "id": "13",
+    "en": "Intrabursal",
+    "fr": "Intrabursique",
+    "sortPriority": 21
+  },
+  {
+    "id": "14",
+    "en": "Intracardiac",
+    "fr": "Intracardiaque",
+    "sortPriority": 22
+  },
+  {
+    "id": "4",
+    "en": "Intracaudal",
+    "fr": "Intracaudale",
+    "sortPriority": 23
+  },
+  {
+    "id": "84",
+    "en": "Intracavernosal",
+    "fr": "Intracaverneuse",
+    "sortPriority": 24
+  },
+  {
+    "id": "95",
+    "en": "Intracervical",
+    "fr": "Intracervicale",
+    "sortPriority": 25
+  },
+  {
+    "id": "75",
+    "en": "Intracoronary",
+    "fr": "Intracoronarienne",
+    "sortPriority": 26
+  },
+  {
+    "id": "16",
+    "en": "Intracranial",
+    "fr": "Intracraniale",
+    "sortPriority": 27
+  },
+{
+  "id": "19",
+  "en": "Intradermal",
+  "fr": "Intradermique",
+  "sortPriority": 28
+},
+{
+  "id": "27",
+  "en": "Intradiscal",
+  "fr": "Intradiscale",
+  "sortPriority": 29
+},
+{
+  "id": "28",
+  "en": "Intrafollicular",
+  "fr": "Intrafolliculaire",
+  "sortPriority": 30
+},
+{
+  "id": "82",
+  "en": "Intraganglional",
+  "fr": "Intraganglionnaire",
+  "sortPriority": 31
+},
+{
+  "id": "100",
+  "en": "Intraintestinal (upper)",
+  "fr": "Intraintestinale (supérieure)",
+  "sortPriority": 32
+},
+{
+  "id": "21",
+  "en": "Intralesional",
+  "fr": "Intralésionnelle",
+  "sortPriority": 33
+},
+{
+  "id": "23",
+  "en": "Intramammary",
+  "fr": "Intramammaire",
+  "sortPriority": 34
+},
+{
+  "id": "22",
+  "en": "Intramuscular",
+  "fr": "Intramusculaire",
+  "sortPriority": 35
+},
+{
+  "id": "32",
+  "en": "Intraocular",
+  "fr": "Intraoculaire",
+  "sortPriority": 36
+},
+{
+  "id": "98",
+  "en": "Intrapericardial",
+  "fr": "Intrapéricardique",
+  "sortPriority": 37
+},
+{
+  "id": "33",
+  "en": "Intraperitoneal",
+  "fr": "Intrapéritonéale",
+  "sortPriority": 38
+},
+{
+  "id": "34",
+  "en": "Intrapleural",
+  "fr": "Intrapleurale",
+  "sortPriority": 39
+},
+{
+  "id": "35",
+  "en": "Intrapulmonary",
+  "fr": "Intrapulmonaire",
+  "sortPriority": 40
+},
+{
+  "id": "37",
+  "en": "Intraruminal",
+  "fr": "Intraruminale",
+  "sortPriority": 41
+},
+{
+  "id": "38",
+  "en": "Intrasinal",
+  "fr": "Intrasinusienne",
+  "sortPriority": 42
+},
+{
+    "id": "42",
+    "en": "Intraspinal",
+    "fr": "Intrarachidienne",
+    "sortPriority": 41
+  },
+  {
+    "id": "88",
+    "en": "Intratendinous",
+    "fr": "Intratendineuse",
+    "sortPriority": 42
+  },
+  {
+    "id": "46",
+    "en": "Intratesticular",
+    "fr": "Intratesticulaire",
+    "sortPriority": 43
+  },
+  {
+    "id": "31",
+    "en": "Intrathecal",
+    "fr": "Intrathécale",
+    "sortPriority": 44
+  },
+  {
+    "id": "43",
+    "en": "Intrathoracic",
+    "fr": "Intrathoracique",
+    "sortPriority": 45
+  },
+  {
+    "id": "45",
+    "en": "Intratracheal",
+    "fr": "Intratrachéale",
+    "sortPriority": 46
+  },
+  {
+    "id": "79",
+    "en": "Intratumor",
+    "fr": "Intratumorale",
+    "sortPriority": 47
+  },
+  {
+    "id": "48",
+    "en": "Intrauterine",
+    "fr": "Intra-utérine",
+    "sortPriority": 48
+  },
+  {
+    "id": "97",
+    "en": "Intravascular",
+    "fr": "Intravasculaire",
+    "sortPriority": 49
+  },
+  {
+    "id": "49",
+    "en": "Intravenous",
+    "fr": "Intraveineuse",
+    "sortPriority": 50
+  },
+  {
+    "id": "50",
+    "en": "Intraventricular",
+    "fr": "Intraventriculaire",
+    "sortPriority": 51
+  },
+  {
+    "id": "41",
+    "en": "Intravertebral",
+    "fr": "Intravertébrale",
+    "sortPriority": 52
+  },
+  {
+    "id": "96",
+    "en": "Intravesical",
+    "fr": "Intravésicale",
+    "sortPriority": 53
+  },
+  {
+    "id": "47",
+    "en": "Intravesicular",
+    "fr": "Intravésiculaire",
+    "sortPriority": 54
+  },
+  {
+    "id": "80",
+    "en": "Intravitreal",
+    "fr": "Intravitréenne",
+    "sortPriority": 55
+  },
+  {
+    "id": "44",
+    "en": "Intubation",
+    "fr": "Tubage",
+    "sortPriority": 56
+  },
+  {
+    "id": "36",
+    "en": "Irrigation",
+    "fr": "Irrigation",
+    "sortPriority": 57
+  },
+  {
+    "id": "53",
+    "en": "Nasal",
+    "fr": "Nasale",
+    "sortPriority": 58
+  },
+  {
+    "id": "108",
+    "en": "Nasogastric",
+    "fr": "Nasogastrique",
+    "sortPriority": 59
+  },
+  {
+    "id": "110",
+    "en": "Nerve block",
+    "fr": "Bloc nerveux",
+    "sortPriority": 60
+  },
+  {
+    "id": "55",
+    "en": "Ophthalmic",
+    "fr": "Ophtalmique",
+    "sortPriority": 61
+  },
+  {
+    "id": "56",
+    "en": "Oral",
+    "fr": "Orale",
+    "sortPriority": 62
+  },
+  {
+    "id": "57",
+    "en": "Otic",
+    "fr": "Otique",
+    "sortPriority": 63
+  },
+  {
+    "id": "59",
+    "en": "Parenteral (unspecified)",
+    "fr": "Parentérale (non spécifiée)",
+    "sortPriority": 64
+  },
+  {
+    "id": "85",
+    "en": "Percutaneous",
+    "fr": "Percutanée",
+    "sortPriority": 65
+  },
+  {
+    "id": "58",
+    "en": "Periosteal",
+    "fr": "Périostique",
+    "sortPriority": 66
+  },
+  {
+    "id": "62",
+    "en": "Rectal",
+    "fr": "Rectale",
+    "sortPriority": 67
+  },
+  {
+    "id": "60",
+    "en": "Retrobulbar",
+    "fr": "Rétrobulbaire",
+    "sortPriority": 68
+  },
+  {
+    "id": "63",
+    "en": "Soft tissue injection",
+    "fr": "Injection dans les tissus mous",
+    "sortPriority": 69
+  },
+  {
+    "id": "64",
+    "en": "Subarachnoid",
+    "fr": "Sous-arachnoïdienne",
+    "sortPriority": 70
+  },
+  {
+    "id": "65",
+    "en": "Subcutaneous",
+    "fr": "Sous-cutanée",
+    "sortPriority": 71
+  },
+  {
+    "id": "89",
+    "en": "Subgingival",
+    "fr": "Sous-gingivale",
+    "sortPriority": 72
+  },
+  {
+    "id": "66",
+    "en": "Sublingual",
+    "fr": "Sublinguale",
+    "sortPriority": 73
+  },
+  {
+    "id": "109",
+    "en": "Submucosal",
+    "fr": "Sous-muqueuse",
+    "sortPriority": 74
+  },
+  {
+    "id": "67",
+    "en": "Surgical",
+    "fr": "Chirurgicale",
+    "sortPriority": 75
+  },
+  {
+    "id": "70",
+    "en": "Topical",
+    "fr": "Topique",
+    "sortPriority": 76
+  },
+  {
+    "id": "105",
+    "en": "Topical (commercial)",
+    "fr": "Topique (milieu commercial)",
+    "sortPriority": 77
+  },
+  {
+    "id": "106",
+    "en": "Topical (food premises)",
+    "fr": "Topique (lieux de transformation alimentaire)",
+    "sortPriority": 78
+  },
+  {
+    "id": "107",
+    "en": "Topical (hospital/hc facilities)",
+    "fr": "Topique (hôpitaux, établissements de soins de santé)",
+    "sortPriority": 79
+  },
+  {
+    "id": "104",
+    "en": "Topical (household)",
+    "fr": "Topique (maison)",
+    "sortPriority": 80
+  },
+  {
+    "id": "71",
+    "en": "Transdermal",
+    "fr": "Transdermique",
+    "sortPriority": 81
+  },
+  {
+    "id": "91",
+    "en": "Transurethral",
+    "fr": "Transurétrale",
+    "sortPriority": 82
+  },
+  {
+    "id": "73",
+    "en": "Udder wash",
+    "fr": "Nettoyage du pis",
+    "sortPriority": 83
+  },
+  {
+    "id": "92",
+    "en": "Unassigned",
+    "fr": "Non attribuée",
+    "sortPriority": 84
+  },
+  {
+    "id": "72",
+    "en": "Urethral",
+    "fr": "Urétrale",
+    "sortPriority": 85
+  },
+  {
+    "id": "74",
+    "en": "Vaginal",
+    "fr": "Vaginale",
+    "sortPriority": 86
+  }
+]

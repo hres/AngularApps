@@ -1,0 +1,167 @@
+[
+    {
+      "id": "ACUTEALCOHOL",
+      "en": "Acute Alcoholism",
+      "fr": "Alcoolisme aigu"
+    },
+    {
+      "id": "ACUTEANXIETY",
+      "en": "Acute anxiety state",
+      "fr": "État anxieux aigu"
+    },
+    {
+      "id": "ACUTERESP",
+      "en": "Acute infectious respiratory syndromes",
+      "fr": "Syndromes respiratoires infectieux aigus"
+    },
+    {
+      "id": "ACUTEINFLAM",
+      "en": "Acute inflammatory and debilitating arthiritis",
+      "fr": "Arthrite aiguë, inflammatoire et débilitante"
+    },
+    {
+      "id": "ACUTEPSYCHOTIC",
+      "en": "Acute psychotic conditions",
+      "fr": "Troubles psychotiques aigus"
+    },
+    {
+      "id": "ADDICTION",
+      "en": "Addiction (except nicotine addiction)",
+      "fr": "Dépendance (sauf la dépendance à la nicotine)"
+    },
+    {
+      "id": "ATERIOSCLEROSIS",
+      "en": "Ateriosclerosis",
+      "fr": "Artériosclérose"
+    },
+    {
+      "id": "APPENDICITIS",
+      "en": "Appendicitis",
+      "fr": "Appendicite"
+    },
+    {
+      "id": "ASTHMA",
+      "en": "Asthma",
+      "fr": "Asthme"
+    },
+    {
+      "id": "CANCER",
+      "en": "Cancer",
+      "fr": "Cancer"
+    },
+    {
+      "id": "HEARTCONGEST",
+      "en": "Congestive heart failure",
+      "fr": "Insuffisance cardiaque congestive"
+    },
+    {
+      "id": "CONVULSIONS",
+      "en": "Convulsions",
+      "fr": "Convulsions"
+    },
+    {
+      "id": "DEMENTIA",
+      "en": "Dementia",
+      "fr": "Démence"
+    },
+    {
+      "id": "DEPRESSION",
+      "en": "Depresssion",
+      "fr": "Dépression"
+    },
+    {
+      "id": "DIABETES",
+      "en": "Diabetes",
+      "fr": "Diabète"
+    },
+    {
+      "id": "GANGRENE",
+      "en": "Gangrene",
+      "fr": "Gangrène"
+    },
+    {
+      "id": "GLAUCOMA",
+      "en": "Glaucoma",
+      "fr": "Glaucome"
+    },
+    {
+      "id": "BLEEDINGDISORDERS",
+      "en": "Haematologic bleeding disorders",
+      "fr": "Affections hématologiques hémorragiques"
+    },
+    {
+      "id": "HEPATITIS",
+      "en": "Hepatitis",
+      "fr": "Hépatite"
+    },
+    {
+      "id": "HYPERTENSION",
+      "en": "Hypertension",
+      "fr": "Hypertension"
+    },
+    {
+      "id": "NAUSEAPREG",
+      "en": "Nausea and vomiting of pregnancy",
+      "fr": "Nausées et vomissements liés à la grossesse"
+    },
+    {
+      "id": "OBESITY",
+      "en": "Obesity",
+      "fr": "Obésité"
+    },
+    {
+      "id": "RHEUMATICFEVER",
+      "en": "Rheumatic fever",
+      "fr": "Fièvre rhumatismale"
+    },
+    {
+      "id": "SEPTICEMIA",
+      "en": "Septicemia",
+      "fr": "Septicémie"
+    },
+    {
+      "id": "SEXDISEASE",
+      "en": "Sexually transmitted disease",
+      "fr": "Maladies transmises sexuellement"
+    },
+    {
+      "id": "STRANGHERNIA",
+      "en": "Strangulated hernia",
+      "fr": "Hernie étranglée"
+    },
+    {
+      "id": "THROMBOTICDISORDER",
+      "en": "Thrombotic and Embolic Disorder",
+      "fr": "Maladies thrombotiques et emboliques"
+    },
+    {
+      "id": "THYROIDDISEASE",
+      "en": "Thyroid disease",
+      "fr": "Maladie thyroïdienne"
+    },
+    {
+      "id": "UCLERGASTRO",
+      "en": "Ulcer of gastro-intestinal tract",
+      "fr": "Ulcères des voies gastro-intestinales"
+    },
+    {
+      "id": "SCHEDA_CLAIMS",
+      "en": "Please list the schedule A Claims and Indications associated with this product",
+      "fr": "Indiquer les allégations et indications de l’annexe A associées avec ce produit"
+    },
+    {
+      "id": "SCHEDA_DISEASE",
+      "en": "Please check the diseases and disorders that apply to the claims made (select at least one)",
+      "fr": "Cochez la maladie ou le trouble visé par les allégations (au moins une)"
+    },
+    {
+      "id": "ISSCHEDA",
+      "en": "This is a non-prescription drug to which one or more Schedule A claims apply",
+      "fr": "Ce médicament en vente libre auquel une ou plusieurs allégations de l’annexe A s’appliquent"
+    },
+    {
+      "id": "SCHEDA_DETAILS",
+      "en": "Schedule A Claim Details",
+      "fr": "Annexe A détails des allégations"
+    }
+  ]

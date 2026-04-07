@@ -6,18 +6,18 @@
   },
 
   {
-      "id":"VETERINARY",
+      "id":"VET",
       "en": "Veterinary",
       "fr": "Vétérinaire"
   },
   {
-    "id":"Radiopharmaceutical",
+    "id":"RADIO",
     "en": "Radiopharmaceutical",
     "fr": "Radiopharmaceutique"
 },
 
 {
-    "id":"Disinfectant",
+    "id":"DISINFECT",
     "en": "Disinfectant",
     "fr": "Désinfectant"
 },
@@ -26,5 +26,4 @@
   "en": "Drug and medical device",
   "fr": "Drogue et instrument médicale"
 }
-
 ]
