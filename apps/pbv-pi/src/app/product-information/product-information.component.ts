@@ -1,7 +1,7 @@
 import { Component, computed, EventEmitter, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, ControlMessagesComponent, HelpSequence, ICode, ICodeDefinition, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, CheckboxOption, ControlMessagesComponent, ConverterService, HelpSequence, ICode, ICodeDefinition, UtilsService, YES } from '@hpfb/sdk/ui';
 import { DrugProductEnrol } from '../models/ProductInformation';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { ProductInformationService } from './product-information.service';
 
@@ -13,8 +13,7 @@ import { ProductInformationService } from './product-information.service';
 })
 export class ProductInformationComponent extends BaseComponent implements OnInit{
 
-  lang: string;
-  helpIndex: HelpSequence;
+ helpIndex: HelpSequence;
 
   @Input() showErrors: boolean;
   @Input() dataModel: DrugProductEnrol;
@@ -23,11 +22,13 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
 
   public showFieldErrors: boolean = false;
   public productInfoForm: FormGroup;
-  //public schedule_claim_group: FormGroup;
+  public schedule_claim_group: FormGroup;
   dossierTypeOptions: ICodeDefinition[] = [];
   drugUseOptions: ICodeDefinition[] = [];
   public yesNoList: ICode[] = [];
   subTypeOptions: ICodeDefinition[] = [];
+  scheduleClaimCodeList:ICode[] = [];
+  scheduleClaimOptionList: CheckboxOption[] = [];
 
   adminSubSelected = signal('');
   isAdminSub: Signal<boolean> = computed(() => {
@@ -35,7 +36,9 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
   });
   selectedAdminSubTypeDefinition: string = '';
 
-  constructor(private _utilsService: UtilsService, private _fb: FormBuilder, private _globalService: GlobalService, private _productInfoService: ProductInformationService) {
+
+  lang = this._globalService.lang();
+  constructor(private _utilsService: UtilsService, private _fb: FormBuilder, private _globalService: GlobalService, private _productInfoService: ProductInformationService,   private _converterService : ConverterService) {
     super();
     this.showFieldErrors = false;
   }
@@ -53,6 +56,7 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
     this.yesNoList = this._globalService.yesnoList;
     this.subTypeOptions = this._globalService.subTypeList;
     this.drugUseOptions = this._globalService.drugUse;
+    this.scheduleClaimCodeList = this._globalService.scheduleClaims;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -65,13 +69,17 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
       if (changes['dataModel']) {
         const dataModelCurrentValue = changes['dataModel'].currentValue as DrugProductEnrol;
         // this.lifecycleRecordModel = dataModelCurrentValue.ectd.lifecycle_record;
-        this._productInfoService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this.productInfoForm);
+        this._updateScheduleClaimArray();
+        this._productInfoService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this.productInfoForm, this.scheduleClaimOptionList);
 
         // this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value);
         this.onAdminSubSelected(this.productInfoForm.controls['isAdminSub'].value, true);
         this.onSubTypeSelected(this.productInfoForm.controls['subType'].value);
+
+
       }
     }
+
   }
 
   onAdminSubSelected(selectedAdminSubId: string, isProgrammaticUpdate: boolean) {
@@ -108,6 +116,58 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
   }
 
 
+  getSelectedScheduleClaimCodes(seriousDiagnosisReasonList: CheckboxOption[], diagnosisReasonChkFormArray: FormArray) : string[] {
+    return this._converterService.getCheckedCheckboxValues(seriousDiagnosisReasonList, diagnosisReasonChkFormArray);
+  }
+
+  get selectedScheduleClaimCodes(): string[] {
+    return this.getSelectedScheduleClaimCodes(this.scheduleClaimOptionList, this.scheduleClaimChkFormArray);
+  }
+
+
+showScheduleClaimApplied() {
+
+  if (this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value &&
+        this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value === true) {
+       return true;
+  }
+  else {
+    this._utilsService.resetControlsValues(this.productInfoForm.controls['scheduleClaims']);
+  }
+  return false;
 }
 
+
+
+get scheduleClaimChkFormArray() {
+  return this.productInfoForm.controls['scheduleClaims'] as FormArray
+}
+
+private _updateScheduleClaimArray() {
+  const scheduleClaimList = this._globalService.scheduleClaims;
+  this.scheduleClaimOptionList = scheduleClaimList.map((item) => {
+    return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+  });
+
+  this.scheduleClaimOptionList.forEach(() => this.scheduleClaimChkFormArray.push(new FormControl(false)));
+}
+
+scheduleClaimOnChange() {
+  this.productInfoForm.controls['selectedScheduleClaimCodes'].setValue(this.selectedScheduleClaimCodes);
+}
+
+nonPrescriptioScheduleAppliedRequestedOnChange() {
+  if (this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value &&
+        this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value === true) {
+    this._updateScheduleClaimArray();
+  } else {
+    this._utilsService.resetControlsValues(
+      this.scheduleClaimChkFormArray,
+      this.productInfoForm.controls['selectedScheduleClaimCodes'],
+    );
+  }
+}
+
+
+}
 

@@ -236,11 +236,14 @@
       <div class="row nowrap">
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
           <div class="checkbox label-inline">
-            <input type="checkbox" id="isNonPrescriptioScheduleApplied" [formControlName]="'isNonPrescriptioScheduleApplied'" />
+            <input type="checkbox" id="isNonPrescriptioScheduleApplied"
+              [formControlName]="'isNonPrescriptioScheduleApplied'"
+              (change)="nonPrescriptioScheduleAppliedRequestedOnChange()" />
             <label for="isNonPrescriptioScheduleApplied">{{'isNonPrescriptioScheduleApplied'|translate}}</label>
           </div>
         </div>
       </div>
+
 
 
 
@@ -254,39 +257,85 @@
       </div>
 
 
-      <div *ngIf="this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value " class="row nowrap" formGroupName="schedule_claim_group">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="isThromboticAndEmbolicDisorder" formControlName="isThrombotic_and_embolic_disorder" />
-            <label for="isThromboticAndEmbolicDisorder">{{'isThromboticAndEmbolicDisorder'|translate}}</label>
-          </div>
-        </div>
-      </div>
 
+
+      <ng-container *ngIf="showScheduleClaimApplied()" class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <br>
+
+        <br>
+
+        <fieldset class="chkbxrdio-grp" id="scheduleClaims">
+
+          <div class="panel-title rep-expander" role="button" data-toggle="collapse" data-href="" aria-expanded="true"
+            aria-controls="accordiongroup-920-8059-panel" data-ng-click="toggleOpen()"
+            data-uib-accordion-transclude="heading" data-ng-disabled="isDisabled" data-uib-tabindex-toggle=""
+            aria-disabled="true" disabled="disabled" tabindex="-1">
+            <span data-ng-class="{'fa fa-caret-down fa-lg fa-fw':isOpen ,'fa fa-caret-right fa-lg fa-fw':!isOpen}"
+              class="fa fa-caret-down fa-lg fa-fw"></span>
+            <span data-uib-accordion-header="" data-ng-class="{'text-muted': isDisabled}"
+              class="ng-binding text-muted">{{'schedule.claim.applied.detail.title' | translate}}</span>
+          </div>
+
+          <div>
+            <span>{{'schedule.claim.applied.detail' | translate}}</span>
+          </div>
+          <div class="col-md-12">
+            <label for="din">
+              <span class="field-name">{{ 'drug.identification.number'|translate }}</span>
+              <sup [id]="helpIndex['dinIndx'][2]">
+                <a class="fn-lnk" [href]="'#' + helpIndex['dinIndx'][1]"><span
+                    class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dinIndx'][0]}}</a>
+              </sup>
+              <control-messages *ngIf="productInfoForm.controls['din'].invalid" [showError]="showFieldErrors"
+                [control]="productInfoForm.controls['din'] | formControl" controlId="din"
+                label="drug.identification.number" parentId="productInfo"></control-messages>
+            </label>
+            <input type="text" id="din" name="din" class="form-control full-width" [formControlName]="'din'"
+              maxlength="200" />
+
+
+            <br>
+
+            <legend class="required col-md-12">
+              <span class="field-name">{{'schedule.claim.applied' | translate}}</span>
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              <control-messages *ngIf="scheduleClaimChkFormArray.invalid" [showError]="showFieldErrors"
+                [control]="scheduleClaimChkFormArray | formControl" controlId="scheduleClaims"
+                label="schedule.claim.applied" parentId="appInfoDetails"></control-messages>
+            </legend>
+
+
+            <div class="checkbox col-md-4" [formArrayName]="'scheduleClaims'"
+              *ngFor="let reason of scheduleClaimChkFormArray.controls; let i = index" style="margin:0;">
+              <label for={{scheduleClaimOptionList[i].value}}>
+                <input type="checkbox" id={{scheduleClaimOptionList[i].value}} [formControl]="reason | formControl"
+                  (change)="scheduleClaimOnChange()" />
+                {{scheduleClaimOptionList[i].label}}
+              </label>
+            </div>
+
+            <div class="col-xs-12 form-group">
+              <legend class="required  col-md-12  col-md-4 col-xs-12 form-group">
+                <label for="scheduleClaimAndIndicationAssociatedOfProduct">
+                  <span class="field-name">{{'schedule.a.claim.and.indication' | translate}}</span>
+                  <strong aria-hidden="true" class="required"> (required)</strong>
+                  <control-messages
+                    *ngIf="productInfoForm.controls['scheduleClaimAndIndicationAssociatedOfProduct'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="productInfoForm.controls['scheduleClaimAndIndicationAssociatedOfProduct'] | formControl"
+                    controlId="scheduleClaimAndIndicationAssociatedOfProduct" label="schedule.a.claim.and.indication"
+                    parentId="productInfo"></control-messages></label>
+              </legend>
+              <textarea id="scheduleClaimAndIndicationAssociatedOfProduct"
+                name="scheduleClaimAndIndicationAssociatedOfProduct" rows="3" maxlength="400" style="  width: 100%;"
+                [formControlName]="'scheduleClaimAndIndicationAssociatedOfProduct'"></textarea>
+            </div>
+
+          </div>
+        </fieldset>
+      </ng-container>
     </fieldset>
   </div>
-
-
-
-
-
-  <div class="row">
-    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <label for="dosAge" class="required">
-        <span class="field-name">{{ 'proposed.indication.use.dosage'|translate }}</span>
-        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-        <sup [id]="helpIndex['dosageIndx'][2]">
-          <a class="fn-lnk" [href]="'#' + helpIndex['dosageIndx'][1]"><span
-              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dosageIndx'][0]}}</a>
-        </sup>
-        <control-messages *ngIf="productInfoForm.controls['dosAge'].invalid" [showError]="showFieldErrors"
-          [control]="productInfoForm.controls['dosAge'] | formControl" controlId="dosAge" label="product.dosAge"
-          parentId="productInfo"></control-messages>
-      </label>
-      <textarea id="dosAge" name="dosAge" class="form-control full-width" [formControlName]="'dosAge'"
-        maxlength="400"></textarea>
-    </div>
-  </div>
-
 
 </div>

@@ -1,0 +1,173 @@
+[
+  {
+    "id": "1",
+    "en": "Acute Alcoholism",
+    "fr": "Alcoolisme aigu"
+  },
+  {
+    "id": "2",
+    "en": "Acute anxiety state",
+    "fr": "État anxieux aigu"
+  },
+
+  {
+    "id": "3",
+    "en": "Acute infectious respiratory syndromes",
+    "fr": "Syndromes respiratoires infectieux aigus"
+  },
+
+  {
+    "id": "4",
+    "en": "Acute inflammatory and debilitating arthiritis",
+    "fr": "Arthrite aiguë, inflammatoire et débilitante"
+  },
+
+  {
+    "id": "5",
+    "en": "Acute psychotic conditions",
+    "fr": "Troubles psychotiques aigus"
+  },
+
+  {
+    "id": "6",
+    "en": "Addiction (except nicotine addiction)",
+    "fr": "Dépendance (sauf la dépendance à la nicotine)"
+  },
+
+  {
+    "id": "7",
+    "en": "Ateriosclerosis",
+    "fr": "Artériosclérose"
+  },
+
+  {
+    "id": "8",
+    "en": "Appendicitis",
+    "fr": "Appendicite"
+  },
+
+  {
+    "id": "9",
+    "en": "Asthma",
+    "fr": "Asthme"
+  },
+
+  {
+    "id": "10",
+    "en": "Cancer",
+    "fr": "Cancer"
+  },
+
+  {
+    "id": "11",
+    "en": "Congestive heart failure",
+    "fr": "Insuffisance cardiaque congestive"
+  },
+
+  {
+    "id": "12",
+    "en": "Convulsions",
+    "fr": "Convulsions"
+  },
+
+  {
+    "id": "13",
+    "en": "Dementia",
+    "fr": "Démence"
+  },
+
+  {
+    "id": "14",
+    "en": "Depresssion",
+    "fr": "Dépression"
+  },
+
+  {
+    "id": "15",
+    "en": "Diabetes",
+    "fr": "Diabète"
+  },
+
+  {
+    "id": "16",
+    "en": "Gangrene",
+    "fr": "Gangrène"
+  },
+
+  {
+    "id": "17",
+    "en": "Glaucoma",
+    "fr": "Glaucome"
+  },
+
+  {
+    "id": "18",
+    "en": "Haematologic bleeding disorders",
+    "fr": "Affections hématologiques hémorragiques"
+  },
+
+  {
+    "id": "19",
+    "en": "Hepatitis",
+    "fr": "Hépatite"
+  },
+
+  {
+    "id": "20",
+    "en": "Hypertension",
+    "fr": "Hypertension"
+  },
+
+  {
+    "id": "21",
+    "en": "Nausea and vomiting of pregnancy",
+    "fr": "Nausées et vomissements liés à la grossesse"
+  },
+
+  {
+    "id": "22",
+    "en": "Obesity",
+    "fr": "Obésité"
+  },
+
+  {
+    "id": "23",
+    "en": "Rheumatic fever",
+    "fr": "Fièvre rhumatismale"
+  },
+
+  {
+    "id": "24",
+    "en": "Septicemia",
+    "fr": "Septicémie"
+  },
+
+  {
+    "id": "25",
+    "en": "Sexually transmitted disease",
+    "fr": "Maladies transmises sexuellement"
+  },
+
+  {
+    "id": "26",
+    "en": "Strangulated hernia",
+    "fr": "Hernie étranglée"
+  },
+
+  {
+    "id": "27",
+    "en": "Thrombotic and Embolic Disorder",
+    "fr": "Maladies thrombotiques et emboliques"
+  },
+
+  {
+    "id": "28",
+    "en": "Thyroid disease",
+    "fr": "Maladie thyroïdienne"
+  },
+  {
+    "id": "29",
+    "en": "Ulcer of gastro-intestinal tract",
+    "fr": "FoUlcères des voies gastro-intestinalesurnit"
+  }
+]

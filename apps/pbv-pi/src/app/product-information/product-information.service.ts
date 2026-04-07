@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ConverterService, UtilsService} from '@hpfb/sdk/ui';
+import { CheckboxOption, ConverterService, UtilsService, ValidationService} from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
-import { DrugProductEnrol, SchemaClaimGroup } from '../models/ProductInformation';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {  DrugProductEnrol, ScheduleClaim } from '../models/ProductInformation';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PbvValidationService } from '@hpfb/pbv';
 import { data } from 'jquery';
 
@@ -36,48 +36,14 @@ export class ProductInformationService {
     isDrugPermitted: [null],
     dosAge: [null, [Validators.required]],
     drugUse: [null, [Validators.required]],
-    schedule_claim_group:this.getScheduleClaimfoForm(fb)
+    din:[null],
+    scheduleClaimAndIndicationAssociatedOfProduct:[null, [Validators.required]],
+    scheduleClaims: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
+    selectedScheduleClaimCodes: [''],
    });
 
   }
 
-  public static getScheduleClaimfoForm(fb:FormBuilder) {
-    if (!fb) {
-      return null;
-   }
-   return fb.group({
-    isAcute_Alcoholism: [null],
-      isAcute_inflammatory_and_debilitating_arthiritis: [null],
-      isAteriosclerosis: [null],
-      isCancer: [null],
-      isDementia: [null],
-      isGangrene: [null],
-      isHepatitis: [null],
-      isObesity:  [null],
-      isSexually_transmitted_disease:[null],
-      isThyroid_disease: [null],
-      isAcute_anxiety_state: [null],
-      isAcute_psychotic_conditions: [null],
-      isAcute_infectious_respiratory_syndromes: [null],
-      isAddiction_except_nicotine_addiction: [null],
-      isAppendicitis: [null],
-      isCongestive_heart_failure: [null],
-      isDepression: [null],
-      isGlaucoma: [null],
-      isHypertension: [null],
-      isRheumatic_fever: [null],
-      isStrangulated_hernia: [null],
-      isUlcer_of_gastro_intestinal_tract: [null],
-      isAsthma:[null],
-      isConvulsions: [null],
-      isDiabetes: [null],
-      isHaematologic_bleeding_disorders: [null],
-      isNausea_and_vomiting_of_pregnancy: [null],
-      isSepticemia: [null],
-      isThrombotic_and_embolic_disorder: [null],
-   });
-
-  }
 
 
   public mapFormModelToDataModel(formValue: any, dataModel: DrugProductEnrol): void {
@@ -99,50 +65,22 @@ export class ProductInformationService {
     dataModel.isRegulated = formValue['isRegulated'] == true ? 'Y': undefined;
     dataModel.isOnDrug = formValue['isOnDrug'] == true ? 'Y': undefined;
     dataModel.isNonPrescriptioScheduleApplied = formValue['isNonPrescriptioScheduleApplied'] == true ? 'Y': undefined;
-    if (formValue['isNonPrescriptioScheduleApplied'] == true){
 
-    dataModel.schedule_claim_group.isThrombotic_and_embolic_disorder=formValue['schedule_claim_group']['isThrombotic_and_embolic_disorder'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isCancer=formValue['schedule_claim_group']['isCancer'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isAcute_anxiety_state=formValue['schedule_claim_group']['isAcute_anxiety_state'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isAcute_Alcoholism=formValue['schedule_claim_group']['isAcute_Alcoholism'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isAcute_inflammatory_and_debilitating_arthiritis=formValue['schedule_claim_group']['isAcute_inflammatory_and_debilitating_arthiritis'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isAteriosclerosis=formValue['schedule_claim_group']['isAteriosclerosis'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isDementia=formValue['schedule_claim_group']['isDementia'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isGangrene=formValue['schedule_claim_group']['isGangrene'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isHepatitis=formValue['schedule_claim_group']['isHepatitis'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isObesity=formValue['schedule_claim_group']['isObesity'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isSexually_transmitted_disease=formValue['schedule_claim_group']['isSexually_transmitted_disease'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isThyroid_disease=formValue['schedule_claim_group']['isThyroid_disease']  == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isAcute_anxiety_state=formValue['schedule_claim_group']['isAcute_anxiety_state']  == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isAcute_infectious_respiratory_syndromes=formValue['schedule_claim_group']['isAcute_infectious_respiratory_syndromes'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isAddiction_except_nicotine_addiction=formValue['schedule_claim_group']['isAddiction_except_nicotine_addiction']  == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isAcute_inflammatory_and_debilitating_arthiritis=formValue['schedule_claim_group']['isAcute_inflammatory_and_debilitating_arthiritis'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isAppendicitis=formValue['schedule_claim_group']['isAppendicitis']  == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isCongestive_heart_failure=formValue['schedule_claim_group']['isCongestive_heart_failure'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isDepression=formValue['schedule_claim_group']['isDepression'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isGlaucoma=formValue['schedule_claim_group']['isGlaucoma'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isHypertension=formValue['schedule_claim_group']['isHypertension']  == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isRheumatic_fever=formValue['schedule_claim_group']['isRheumatic_fever'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isStrangulated_hernia=formValue['schedule_claim_group']['isStrangulated_hernia']  == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isUlcer_of_gastro_intestinal_tract=formValue['schedule_claim_group']['isUlcer_of_gastro_intestinal_tract'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isAsthma=formValue['schedule_claim_group']['isAsthma'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isConvulsions=formValue['schedule_claim_group']['isConvulsions']  == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isDiabetes=formValue['schedule_claim_group']['isDiabetes'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isHaematologic_bleeding_disorders=formValue['isHaematologic_bleeding_disorders.isCancer'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isNausea_and_vomiting_of_pregnancy=formValue['schedule_claim_group']['isNausea_and_vomiting_of_pregnancy'] == true ? 'Y': undefined;
-    dataModel.schedule_claim_group.isSepticemia=formValue['schedule_claim_group']['isSepticemia']  == true ? 'Y': undefined;
+    if (formValue['isNonPrescriptioScheduleApplied'] == true) {
+            const scheduleClaim: ScheduleClaim = {
+              schedule_claim_applied: this._converterService.findAndConverCodesToIdTextLabels(this._globalService.scheduleClaims, formValue.selectedScheduleClaimCodes, lang),
+              din: formValue['din'],
+              schedule_claim_indication: formValue['scheduleClaimAndIndicationAssociatedOfProduct'],
+            }
+            dataModel.is_schedule_claim = scheduleClaim;
+      }
 
-
-
-    }else{
-      dataModel.schedule_claim_group=null;
-    }
     dataModel.isDrugPermitted = formValue['isDrugPermitted'] == true ? 'Y': undefined;
     dataModel.dosAge = formValue['dosAge'];
     dataModel.drug_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.drugUse, formValue['drugUse'], lang);
   }
 
-  public mapDataModelToFormModel(dataModel: DrugProductEnrol, formRecord: FormGroup): void {
+  public mapDataModelToFormModel(dataModel: DrugProductEnrol, formRecord: FormGroup,   scheduleClaimOptionList: CheckboxOption[] ): void {
     if(dataModel.dossier_type?._id){
       const id = this._utilsService.getIdFromIdTextLabel(dataModel.dossier_type);
       formRecord.controls['dossierType'].setValue(id? id : null);
@@ -181,43 +119,36 @@ export class ProductInformationService {
       formRecord.controls['drugUse'].setValue(null);
     }
 
+
+    if (  formRecord.controls['isNonPrescriptioScheduleApplied'].value==true) {
+      if (dataModel.is_schedule_claim) {
+          const loadedScheduleClaimCodes: string[] = this._utilsService.getIdsFromIdTextLabels(dataModel.is_schedule_claim.schedule_claim_applied);
+          if (loadedScheduleClaimCodes.length > 0) {
+          const scheduleClaimFormArray = this.getScheduleClaimChkboxFormArray(formRecord);
+          this.loadScheduleClaimOptions(this._globalService.scheduleClaims,  scheduleClaimOptionList, scheduleClaimFormArray, this._globalService.lang())
+          this._converterService.checkCheckboxes(loadedScheduleClaimCodes, scheduleClaimOptionList, scheduleClaimFormArray);
+          }
+          formRecord.controls['selectedScheduleClaimCodes'].setValue(loadedScheduleClaimCodes);
+
+          formRecord.controls['din'].setValue(dataModel.is_schedule_claim.din);
+          formRecord.controls['scheduleClaimAndIndicationAssociatedOfProduct'].setValue(dataModel.is_schedule_claim.schedule_claim_indication);
+      }
+  }
+  }
+  getScheduleClaimChkboxFormArray(formRecord: FormGroup) {
+    return formRecord.controls['scheduleClaims'] as FormArray;
   }
 
+  loadScheduleClaimOptions(scheduleClaimList, scheduleClaimOptionList, scheduleClaimChkFormArray, lang) {
+    scheduleClaimOptionList.length = 0;
+    scheduleClaimChkFormArray.clear();
 
-    protected getEmptyScheduledClaim(){
 
-      const schedulesOfClaimsApplied: SchemaClaimGroup = {
-        isAcute_Alcoholism: '',
-        isAcute_inflammatory_and_debilitating_arthiritis: '',
-        isAteriosclerosis: '',
-        isCancer: '',
-        isDementia: '',
-        isGangrene: '',
-        isHepatitis: '',
-        isObesity:  '',
-        isSexually_transmitted_disease:'',
-        isThyroid_disease: '',
-        isAcute_anxiety_state: '',
-        isAcute_psychotic_conditions: '',
-        isAcute_infectious_respiratory_syndromes: '',
-        isAddiction_except_nicotine_addiction: '',
-        isAppendicitis: '',
-        isCongestive_heart_failure: '',
-        isDepression: '',
-        isGlaucoma: '',
-        isHypertension: '',
-        isRheumatic_fever: '',
-        isStrangulated_hernia: '',
-        isUlcer_of_gastro_intestinal_tract: '',
-        isAsthma:'',
-        isConvulsions: '',
-        isDiabetes: '',
-        isHaematologic_bleeding_disorders: '',
-        isNausea_and_vomiting_of_pregnancy: '',
-        isSepticemia: '',
-        isThrombotic_and_embolic_disorder: '',
-
-    }
-  return schedulesOfClaimsApplied;
+    // Populate the array with new items
+    scheduleClaimList.forEach((item) => {
+      const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
+      scheduleClaimOptionList.push(checkboxOption);
+      scheduleClaimChkFormArray.push(new FormControl(false));
+    });
   }
 }

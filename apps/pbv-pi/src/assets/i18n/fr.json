@@ -202,5 +202,13 @@
     "manufacturer": "Fabricant ou promoteur",
     "mailing": "Courrier réglementaire / contact annuel",
     "this.activity": "Personne-ressource pour cette activité réglementaire",
-    "sub.type": "Raison justifiant la composante administrative"
+    "sub.type": "Raison justifiant la composante administrative",
+
+    "schedule.claim.applied": "Cochez la maladie ou le trouble visé par les allégations",
+    "schedule.claim.applied.detail.title": "Annexe A détails des allégations",
+    "schedule.claim.applied.detail": "Fournissez les informations ci-dessous pour les produits sans ordonnance qui ont associé des revendications de l’annexe A seulement.",
+    "drug.identification.number": "Numéro d’ID du médicament (DIN), si existant",
+
+   "schedule.a.claim.and.indication": "Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)"
+
 }

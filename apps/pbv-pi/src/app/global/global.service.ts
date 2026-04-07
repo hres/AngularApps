@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 import {
   ENGLISH,
@@ -27,7 +27,24 @@ export class GlobalService {
   private _yesnoList: ICode[];
   private _subTypeList: ICodeDefinition[];
   private _drugUse: ICodeDefinition[] = [];
+  private _scheduleClaims: ICode[] = [];
 
+  lang = signal<string>('');
+
+
+  setCurrLanguage(language : string): void {
+    this.lang.set(language);
+  }
+
+  getCurrLanguage() {
+    return this.lang();
+  }
+  public get scheduleClaims(): ICode[] {
+    return this._scheduleClaims;
+  }
+  public set scheduleClaims(value: ICode[]) {
+    this._scheduleClaims = value;
+  }
 
   public get drugUse(): ICodeDefinition[] {
     return this._drugUse;

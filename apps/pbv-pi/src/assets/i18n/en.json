@@ -204,5 +204,11 @@
     "manufacturer": "Manufacturer/Sponsor",
     "mailing": "Regulatory Mailing/Annual Contact",
     "this.activity": "Contact for this Regulatory Activity",
-    "sub.type": "Reason for administrative component"
+    "sub.type": "Reason for administrative component",
+    "schedule.claim.applied": "Please check the diseases and disorders that apply to the claims made (select at least one)",
+    "schedule.claim.applied.detail.title": "Schedule A Claim Details",
+    "schedule.claim.applied.detail": "Provide information below for non prescription products that have associated Schedule A claims only.",
+    "drug.identification.number": "Drug Identification Number (DIN), if issued ",
+   "schedule.a.claim.and.indication": " Please list the schedule A Claims and Indications associated with this product"
+
 }
