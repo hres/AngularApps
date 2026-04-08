@@ -267,34 +267,31 @@
 
         <fieldset class="chkbxrdio-grp" id="scheduleClaims">
 
-          <div class="panel-title rep-expander" role="button" data-toggle="collapse" data-href="" aria-expanded="true"
-            aria-controls="accordiongroup-920-8059-panel" data-ng-click="toggleOpen()"
-            data-uib-accordion-transclude="heading" data-ng-disabled="isDisabled" data-uib-tabindex-toggle=""
-            aria-disabled="true" disabled="disabled" tabindex="-1">
-            <span data-ng-class="{'fa fa-caret-down fa-lg fa-fw':isOpen ,'fa fa-caret-right fa-lg fa-fw':!isOpen}"
-              class="fa fa-caret-down fa-lg fa-fw"></span>
-            <span data-uib-accordion-header="" data-ng-class="{'text-muted': isDisabled}"
-              class="ng-binding text-muted">{{'schedule.claim.applied.detail.title' | translate}}</span>
+          <div class="col-xs-16 ">
+            <span class="fa fa-caret-down fa-lg fa-fw"></span>
+            <span>{{'schedule.claim.applied.detail.title' | translate}}</span>
           </div>
-
-          <div>
+          <br>
+          <div class="form-group col-md-10 ">
             <span>{{'schedule.claim.applied.detail' | translate}}</span>
+
           </div>
+          <br>
           <div class="col-md-12">
-            <label for="din">
-              <span class="field-name">{{ 'drug.identification.number'|translate }}</span>
-              <sup [id]="helpIndex['dinIndx'][2]">
-                <a class="fn-lnk" [href]="'#' + helpIndex['dinIndx'][1]"><span
-                    class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dinIndx'][0]}}</a>
-              </sup>
-              <control-messages *ngIf="productInfoForm.controls['din'].invalid" [showError]="showFieldErrors"
-                [control]="productInfoForm.controls['din'] | formControl" controlId="din"
-                label="drug.identification.number" parentId="productInfo"></control-messages>
-            </label>
+            <legend class="required  col-md-12  col-md-4 col-xs-12 form-group">
+              <label for="din">
+                <span class="field-name">{{ 'drug.identification.number'|translate }}</span>
+                <sup [id]="helpIndex['dinIndx'][2]">
+                  <a class="fn-lnk" [href]="'#' + helpIndex['dinIndx'][1]"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dinIndx'][0]}}</a>
+                </sup>
+                <control-messages *ngIf="productInfoForm.controls['din'].invalid" [showError]="showFieldErrors"
+                  [control]="productInfoForm.controls['din'] | formControl" controlId="din"
+                  label="drug.identification.number" parentId="productInfo"></control-messages>
+              </label>
+            </legend>
             <input type="text" id="din" name="din" class="form-control full-width" [formControlName]="'din'"
-              maxlength="200" />
-
-
+              style="  width: 100%;" maxlength="200" />
             <br>
 
             <legend class="required col-md-12">
@@ -315,8 +312,8 @@
               </label>
             </div>
 
-            <div class="col-xs-12 form-group">
-              <legend class="required  col-md-12  col-md-4 col-xs-12 form-group">
+            <div class="form-group">
+              <legend class="required  col-md-12 col-xs-12 form-group">
                 <label for="scheduleClaimAndIndicationAssociatedOfProduct">
                   <span class="field-name">{{'schedule.a.claim.and.indication' | translate}}</span>
                   <strong aria-hidden="true" class="required"> (required)</strong>

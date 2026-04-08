@@ -1,0 +1,694 @@
+[
+    {
+      "id": "2",
+      "en": "Aerosol",
+      "fr": "Aérosol",
+      "sortPriority": 1
+    },
+    {
+      "id": "166",
+      "en": "Aerosol, foam",
+      "fr": "Aérosol, mousse",
+      "sortPriority": 2
+    },
+    {
+      "id": "162",
+      "en": "Aerosol, metered dose",
+      "fr": "Aérosol, dose mesurée",
+      "sortPriority": 3
+    },
+    {
+      "id": "100",
+      "en": "Bar (chewable)",
+      "fr": "Tablette (à mâcher)",
+      "sortPriority": 4
+    },
+    {
+      "id": "127",
+      "en": "Bead",
+      "fr": "Bille",
+      "sortPriority": 5
+    },
+    {
+      "id": "83",
+      "en": "Bolus",
+      "fr": "Bol",
+      "sortPriority": 6
+    },
+    {
+      "id": "176",
+      "en": "Bulk intermediate",
+      "fr": "Intermédiaire en vrac",
+      "sortPriority": 7
+    },
+    {
+      "id": "5",
+      "en": "Capsule",
+      "fr": "Capsule",
+      "sortPriority": 8
+    },
+    {
+      "id": "106",
+      "en": "Capsule (controlled-delivery)",
+      "fr": "Capsule (à libération contrôlée)",
+      "sortPriority": 9
+    },
+    {
+      "id": "137",
+      "en": "Capsule (delayed release)",
+      "fr": "Capsule (à libération retardée)",
+      "sortPriority": 10
+    },
+    {
+      "id": "14",
+      "en": "Capsule (enteric-coated)",
+      "fr": "Capsule (entérosoluble)",
+      "sortPriority": 11
+    },
+    {
+      "id": "141",
+      "en": "Capsule (extended release)",
+      "fr": "Capsule (à libération prolongée)",
+      "sortPriority": 12
+    },
+    {
+      "id": "172",
+      "en": "Capsule (immediate and delayed release)",
+      "fr": "Capsule (à libération immédiate et retardée)",
+      "sortPriority": 13
+    },
+    {
+      "id": "171",
+      "en": "Capsule (immediate and extended release)",
+      "fr": "Capsule (à libération immédiate et prolongée)",
+      "sortPriority": 14
+    },
+    {
+      "id": "161",
+      "en": "Capsule (immediate release)",
+      "fr": "Capsule (à libération immédiate)",
+      "sortPriority": 15
+    },
+    {
+      "id": "68",
+      "en": "Capsule (sustained-release)",
+      "fr": "Capsule (à action soutenue)",
+      "sortPriority": 16
+    },
+    {
+      "id": "7",
+      "en": "Cement",
+      "fr": "Ciment",
+      "sortPriority": 17
+    },
+    {
+      "id": "9",
+      "en": "Cream",
+      "fr": "Crème",
+      "sortPriority": 18
+    },
+    {
+      "id": "142",
+      "en": "Disc",
+      "fr": "Disque",
+      "sortPriority": 19
+    },
+    {
+      "id": "69",
+      "en": "Disc (extended-release)",
+      "fr": "Disque (à libération prolongée)",
+      "sortPriority": 20
+    },
+    {
+      "id": "10",
+      "en": "Douche",
+      "fr": "Douche",
+      "sortPriority": 21
+    },
+    {
+      "id": "13",
+      "en": "Dressing",
+      "fr": "Pansement",
+      "sortPriority": 22
+    },
+    {
+      "id": "12",
+      "en": "Drops",
+      "fr": "Gouttes",
+      "sortPriority": 23
+    },
+    {
+      "id": "24",
+      "en": "Drug premix",
+      "fr": "Prémélange médicamenteux",
+      "sortPriority": 24
+    },
+    {
+      "id": "18",
+      "en": "Elixir",
+      "fr": "Élixir",
+      "sortPriority": 25
+    },
+    {
+      "id": "19",
+      "en": "Emulsion",
+      "fr": "Émulsion",
+      "sortPriority": 26
+    },
+    {
+      "id": "20",
+      "en": "Enema",
+      "fr": "Lavement",
+      "sortPriority": 27
+    },
+    {
+      "id": "167",
+      "en": "Film, soluble",
+      "fr": "Pellicule, soluble",
+      "sortPriority": 28
+    },
+    {
+      "id": "120",
+      "en": "Floss",
+      "fr": "Soie dentaire",
+      "sortPriority": 29
+    },
+    {
+      "id": "175",
+      "en": "Foam",
+      "fr": "Mousse",
+      "sortPriority": 30
+    },
+    {
+      "id": "25",
+      "en": "Gas",
+      "fr": "Gaz",
+      "sortPriority": 31
+    },
+    {
+      "id": "114",
+      "en": "Gel",
+      "fr": "Gel",
+      "sortPriority": 32
+    },
+    {
+      "id": "123",
+      "en": "Gel (controlled-release)",
+      "fr": "Gel (à libération prolongée)",
+      "sortPriority": 33
+    },
+    {
+      "id": "113",
+      "en": "Globules",
+      "fr": "Globules",
+      "sortPriority": 34
+    },
+    {
+      "id": "27",
+      "en": "Graft",
+      "fr": "Greffon",
+      "sortPriority": 35
+    },
+    {
+      "id": "53",
+      "en": "Granules",
+      "fr": "Granules",
+      "sortPriority": 36
+    },
+    {
+      "id": "21",
+      "en": "Granules (effervescents)",
+      "fr": "Granules (Effervescents)",
+      "sortPriority": 37
+    },
+    {
+      "id": "163",
+      "en": "Granules for solution",
+      "fr": "Granules pour solution",
+      "sortPriority": 38
+    },
+    {
+      "id": "157",
+      "en": "Granules for suspension",
+      "fr": "Granules pour suspension",
+      "sortPriority": 39
+    },
+    {
+      "id": "148",
+      "en": "Granules for suspension, delayed release",
+      "fr": "Granules pour suspension, à libération retardée",
+      "sortPriority": 40
+    },
+    {
+      "id": "169",
+      "en": "Granules for suspension, extended release",
+      "fr": "Granules pour suspension, à libération prolongée",
+      "sortPriority": 41
+    },
+    {
+      "id": "28",
+      "en": "Gum",
+      "fr": "Gomme",
+      "sortPriority": 42
+    },
+    {
+      "id": "30",
+      "en": "Implant",
+      "fr": "Implant",
+      "sortPriority": 43
+    },
+    {
+      "id": "116",
+      "en": "Insert",
+      "fr": "Insert",
+      "sortPriority": 44
+    },
+    {
+      "id": "130",
+      "en": "Insert (extended-release)",
+      "fr": "Insert (À libération prolongée)",
+      "sortPriority": 45
+    },
+    {
+      "id": "32",
+      "en": "Kit",
+      "fr": "Trousse",
+      "sortPriority": 46
+    },
+    {
+      "id": "135",
+      "en": "Liposomes",
+      "fr": "Liposomes",
+      "sortPriority": 47
+    },
+    {
+      "id": "34",
+      "en": "Liquid",
+      "fr": "Liquide",
+      "sortPriority": 48
+    },
+    {
+      "id": "36",
+      "en": "Lotion",
+      "fr": "Lotion",
+      "sortPriority": 49
+    },
+    {
+      "id": "39",
+      "en": "Lozenge",
+      "fr": "Pastille",
+      "sortPriority": 50
+    },
+    {
+      "id": "1",
+      "en": "Metered-dose aerosol",
+      "fr": "Aérosol à dose mesurée",
+      "sortPriority": 51
+    },
+    {
+      "id": "117",
+      "en": "Metered-dose pump",
+      "fr": "Pompe à dose mesurée",
+      "sortPriority": 52
+    },
+    {
+      "id": "42",
+      "en": "Mouthwash/gargle",
+      "fr": "Rince-bouche/Gargarisme",
+      "sortPriority": 53
+    },
+    {
+      "id": "174",
+      "en": "Oil",
+      "fr": "Huile",
+      "sortPriority": 54
+    },
+    {
+      "id": "43",
+      "en": "Ointment",
+      "fr": "Pommade",
+      "sortPriority": 55
+    },
+    {
+      "id": "115",
+      "en": "Ovule",
+      "fr": "Ovule",
+      "sortPriority": 56
+    },
+    {
+      "id": "45",
+      "en": "Pad",
+      "fr": "Compresse",
+      "sortPriority": 57
+    },
+    {
+      "id": "51",
+      "en": "Paint",
+      "fr": "Badigeon",
+      "sortPriority": 58
+    },
+    {
+      "id": "52",
+      "en": "Paste",
+      "fr": "Pâte",
+      "sortPriority": 59
+    },
+    {
+      "id": "145",
+      "en": "Patch",
+      "fr": "Timbre",
+      "sortPriority": 60
+    },
+    {
+      "id": "160",
+      "en": "Patch (extended release)",
+      "fr": "Timbre (à libération prolongée)",
+      "sortPriority": 61
+    },
+    {
+      "id": "54",
+      "en": "Pellet",
+      "fr": "Pellet",
+      "sortPriority": 62
+    },
+    {
+      "id": "49",
+      "en": "Pencil",
+      "fr": "Crayon",
+      "sortPriority": 63
+    },
+    {
+      "id": "136",
+      "en": "Piece (chewable)",
+      "fr": "Morceau (à mâcher)",
+      "sortPriority": 64
+    },
+    {
+      "id": "84",
+      "en": "Pill",
+      "fr": "Pillule",
+      "sortPriority": 65
+    },
+    {
+      "id": "50",
+      "en": "Plaster",
+      "fr": "Emplâtre",
+      "sortPriority": 66
+    },
+    {
+      "id": "55",
+      "en": "Powder",
+      "fr": "Poudre",
+      "sortPriority": 67
+    },
+    {
+      "id": "22",
+      "en": "Powder (effervescent)",
+      "fr": "Poudre (effervescente)",
+      "sortPriority": 68
+    },
+    {
+      "id": "152",
+      "en": "Powder (extended release)",
+      "fr": "Poudre (à libération prolongée)",
+      "sortPriority": 69
+    },
+    {
+      "id": "153",
+      "en": "Powder (metered dose)",
+      "fr": "Poudre (à dose mesurée)",
+      "sortPriority": 70
+    },
+    {
+      "id": "56",
+      "en": "Powder for solution",
+      "fr": "Poudre pour solution",
+      "sortPriority": 71
+    },
+    {
+      "id": "126",
+      "en": "Powder for suspension",
+      "fr": "Poudre pour suspension",
+      "sortPriority": 72
+    },
+    {
+      "id": "118",
+      "en": "Powder for suspension, sustained-release",
+      "fr": "Poudre pour suspension, à libération prolongée",
+      "sortPriority": 73
+    },
+    {
+      "id": "104",
+      "en": "Ring (slow-release)",
+      "fr": "Anneau (à libération lente)",
+      "sortPriority": 74
+    },
+    {
+      "id": "59",
+      "en": "Shampoo",
+      "fr": "Shampoing",
+      "sortPriority": 75
+    },
+    {
+      "id": "168",
+      "en": "Shampoo, suspension",
+      "fr": "Shampoing, suspension",
+      "sortPriority": 76
+    },
+    {
+      "id": "62",
+      "en": "Soap bar",
+      "fr": "Pain de savon",
+      "sortPriority": 77
+    },
+    {
+      "id": "134",
+      "en": "Solution",
+      "fr": "Solution",
+      "sortPriority": 78
+    },
+    {
+      "id": "155",
+      "en": "Solution (extended release)",
+      "fr": "Solution (à libération prolongée)",
+      "sortPriority": 79
+    },
+    {
+      "id": "63",
+      "en": "Sponge",
+      "fr": "Éponge",
+      "sortPriority": 80
+    },
+    {
+      "id": "98",
+      "en": "Spray",
+      "fr": "Pulvérisation",
+      "sortPriority": 81
+    },
+    {
+      "id": "164",
+      "en": "Spray, bag-on-valve",
+      "fr": "Pulvérisation, sac-sur-valve",
+      "sortPriority": 82
+    },
+    {
+      "id": "158",
+      "en": "Spray, metered dose",
+      "fr": "Pulvérisation, à dose mesurée",
+      "sortPriority": 83
+    },
+    {
+      "id": "76",
+      "en": "Stick",
+      "fr": "Bâton",
+      "sortPriority": 84
+    },
+    {
+      "id": "77",
+      "en": "Strip",
+      "fr": "Bandelette",
+      "sortPriority": 85
+    },
+    {
+      "id": "78",
+      "en": "Suppository",
+      "fr": "Suppositoire",
+      "sortPriority": 86
+    },
+    {
+      "id": "107",
+      "en": "Suppository (sustained-release)",
+      "fr": "Suppositoire (à libération prolongée)",
+      "sortPriority": 87
+    },
+    {
+      "id": "79",
+      "en": "Suspension",
+      "fr": "Suspension",
+      "sortPriority": 88
+    },
+    {
+      "id": "149",
+      "en": "Suspension (delayed-release)",
+      "fr": "Suspension (à libération retardée)",
+      "sortPriority": 89
+    },
+    {
+      "id": "143",
+      "en": "Suspension (extended-release)",
+      "fr": "Suspension (à libération prolongée)",
+      "sortPriority": 90
+    },
+    {
+      "id": "129",
+      "en": "Swab",
+      "fr": "Coton-tige",
+      "sortPriority": 91
+    },
+    {
+      "id": "82",
+      "en": "Syrup",
+      "fr": "Sirop",
+      "sortPriority": 92
+    },
+    {
+      "id": "70",
+      "en": "Syrup (extended-release)",
+      "fr": "Sirop (à libération prolongée)",
+      "sortPriority": 93
+    },
+    {
+      "id": "85",
+      "en": "Tablet",
+      "fr": "Comprimé",
+      "sortPriority": 94
+    },
+    {
+      "id": "151",
+      "en": "Tablet (chewable)",
+      "fr": "Comprimé (à mâcher)",
+      "sortPriority": 95
+    },
+    {
+      "id": "159",
+      "en": "Tablet (delayed and extended release)",
+      "fr": "Comprimé (à libération retardée et prolongée)",
+      "sortPriority": 96
+    },
+    {
+      "id": "109",
+      "en": "Tablet (delayed-release)",
+      "fr": "Comprimé (à libération retardée)",
+      "sortPriority": 97
+    },
+    {
+      "id": "23",
+      "en": "Tablet (effervescent)",
+      "fr": "Comprimé (effervescent)",
+      "sortPriority": 98
+    },
+    {
+      "id": "17",
+      "en": "Tablet (enteric-coated)",
+      "fr": "Comprimé (entérosoluble)",
+      "sortPriority": 99
+    },
+    {
+      "id": "75",
+      "en": "Tablet (extended-release)",
+      "fr": "Comprimé (à libération prolongée)",
+      "sortPriority": 100
+    },
+    {
+      "id": "170",
+      "en": "Tablet (immediate and delayed-release)",
+      "fr": "Comprimé (à libération immédiate et retardée)",
+      "sortPriority": 101
+    },
+    {
+      "id": "173",
+      "en": "Tablet (immediate and extended release)",
+      "fr": "Comprimé (à libération immédiate et prolongée)",
+      "sortPriority": 102
+    },
+    {
+      "id": "150",
+      "en": "Tablet (immediate release)",
+      "fr": "Comprimé (à libération immédiate)",
+      "sortPriority": 103
+    },
+    {
+      "id": "132",
+      "en": "Tablet (orally disintegrating)",
+      "fr": "Comprimé (à désintégration orale)",
+      "sortPriority": 104
+    },
+    {
+      "id": "73",
+      "en": "Tablet (repeat-action)",
+      "fr": "Comprimé (action répétée)",
+      "sortPriority": 105
+    },
+    {
+      "id": "156",
+      "en": "Tablet for suspension",
+      "fr": "Comprimé pour suspension",
+      "sortPriority": 106
+    },
+    {
+      "id": "87",
+      "en": "Tape",
+      "fr": "Ruban",
+      "sortPriority": 107
+    },
+    {
+      "id": "91",
+      "en": "Tea (herbal)",
+      "fr": "Tisane, infusion",
+      "sortPriority": 108
+    },
+    {
+      "id": "88",
+      "en": "Tincture",
+      "fr": "Teinture",
+      "sortPriority": 109
+    },
+    {
+      "id": "94",
+      "en": "Toothpaste",
+      "fr": "Pâte dentifrice",
+      "sortPriority": 110
+    },
+    {
+      "id": "133",
+      "en": "Unassigned",
+      "fr": "Non attribuée",
+      "sortPriority": 111
+    },
+    {
+      "id": "154",
+      "en": "Vaginal tablet",
+      "fr": "Comprimé vaginal",
+      "sortPriority": 112
+    },
+    {
+      "id": "165",
+      "en": "Vaginal tablet, effervescent",
+      "fr": "Comprimé vaginal, effervescent",
+      "sortPriority": 113
+    },
+    {
+      "id": "96",
+      "en": "Wafer",
+      "fr": "Cachet",
+      "sortPriority": 114
+    },
+    {
+      "id": "105",
+      "en": "Wipe",
+      "fr": "Serviette",
+      "sortPriority": 115
+    }
+    ]
+    
+    

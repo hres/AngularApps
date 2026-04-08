@@ -19,5 +19,15 @@
             "en": "index-internal.html",
             "fr": "index-internal.html"
         }
+    },
+    "accessibility_statement_link": {
+        "dev": {
+            "en": "/rep-dev/mds/accessibility/accessibility-en.html",
+            "fr": "/rep-dev/mds/accessibility/accessibility-fr.html"
+        },
+        "prod": {
+            "en": "https://health-products.canada.ca/rep-pir/mds/accessibility/accessibility-en.html",
+            "fr": "https://health-products.canada.ca/rep-pir/mds/accessibility/accessibility-fr.html"
+        }
     }
 }
