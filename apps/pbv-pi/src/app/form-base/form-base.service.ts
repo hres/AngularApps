@@ -59,14 +59,16 @@ export class FormBaseService {
       isOnDrugList: '',
       isRegulated: '',
       isOnDrug: '',
-      isOnDrugForSchedule: '',
+      isNonPrescriptioScheduleApplied: '',
       isDrugPermitted: '',
       dosAge: '',
       drug_use: undefined,
-    };
+      is_schedule_claim: undefined
+      };
 
     return drugProductEnrol;
   }
+
 
   public mapProductInfoFormToOutput(outputDrugProductEnrol: DrugProductEnrol, productInfoFormGroupValue: any): void{
     this._productInfoService.mapFormModelToDataModel(productInfoFormGroupValue, outputDrugProductEnrol);
