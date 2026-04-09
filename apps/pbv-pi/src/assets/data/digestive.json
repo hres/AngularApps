@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "en": "Appendix",
+    "fr": "Appendice"
+  },
+  {
+    "id": "2",
+    "en": "Bile",
+    "fr": "Bile"
+  },
+  {
+    "id": "3",
+    "en": "Distal ileum",
+    "fr": "Iléon distal"
+  },
+  {
+    "id": "4",
+    "en": "Large intestine",
+    "fr": "Gros intestin"
+  },
+  {
+    "id": "5",
+    "en": "Saliva or salivary gland",
+    "fr": "Salive/glande salivaire"
+  },
+  {
+    "id": "6",
+    "en": "Small intestine other than distal ileum",
+    "fr": "Intestin grêle, autre que l’iléon distal"
+  },
+  {
+    "id": "7",
+    "en": "Stomach",
+    "fr": "Estomac"
+  },
+  {
+    "id": "8",
+    "en": "Other digestive system",
+    "fr": "Autre système digestif"
+  }
+]
