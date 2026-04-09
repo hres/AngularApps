@@ -1,0 +1,27 @@
+[
+  {
+    "id": "1",
+    "en": "Heart or pericardium",
+    "fr": "Cœur/péricarde"
+  },
+  {
+    "id": "2",
+    "en": "Lung",
+    "fr": "Poumon"
+  },
+  {
+    "id": "3",
+    "en": "Nasal fluid",
+    "fr": "Fluide nasal"
+  },
+  {
+    "id": "4",
+    "en": "Trachea",
+    "fr": "Trachée"
+  },
+  {
+    "id": "5",
+    "en": "Other cardio-respiratory system",
+    "fr": "Autre système cardio-respiratoire"
+  }
+]
