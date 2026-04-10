@@ -5,14 +5,16 @@
 <div class="row" *ngIf="!isInternal">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <ng-container *ngIf="lang === 'en'">
-      <p>First time users of this form cannot select a file to load and must create an XML file by completing all the required fields below and clicking the "Save draft XML" button at the bottom of this form. </p>
-      <p>For subsequent uses of this form, upload the last final XML file, you received from Health Canada, by clicking on the “Choose File” button and selecting the XML file. If you do not have the final XML file, contact client information unit at <a href="mailto:client.information&#64;hc-sc.gc.ca">client.information&#64;hc-sc.gc.ca</a>.</p>
-      <p>If you partially complete the form and click on the "Save working copy" button at the bottom of the form, it will save a copy on the local workstation for completion at later time. The file will be saved in the .hcsc file format. The working copies (files with extension .hcsc) should never be sent Health Canada and must be finalized prior to sending.</p>
+      <p>First time users of this form cannot select a file to load and must create an XML file by completing all the required fields below and clicking on the "Generate XML" button at the bottom of this form. </p>
+      <p>For subsequent uses of this form, you can either upload a file by clicking on the "Choose File" button and selecting the .hcsc file or .xml file or you can complete the required fields below to generate a .xml file.</p>
+      <p>If you partially complete the form and click on the "Save working copy" button at the bottom of the form it will save a copy on the local workstation for completion at a later time. The file will be saved in the .hcsc file format. If you are using a previously submitted .xml file, please update the appropriate fields and verify that the details are accurate for the current transaction prior to filing.</p>
+      <p>The working copies (files with extension .hcsc) should never be sent to Health Canada.</p>
     </ng-container>
     <ng-container *ngIf="lang === 'fr'">
-      <p>Les nouveaux utilisateurs de ce formulaire ne peuvent pas sélectionner un fichier à charger et doivent créer un fichier XML en remplissant tous les champs obligatoires ci-dessous et en cliquant sur le bouton « Enregistrer le brouillon XML » au bas de ce formulaire.</p>
-      <p>Pour les utilisations subséquentes de ce formulaire, téléchargez le dernier fichier XML final que vous avez reçu de Santé Canada, en cliquant sur le bouton « Choisir un fichier » et en sélectionnant le fichier XML. Si vous ne disposez pas du fichier XML final, contactez l'unité d'information client à <a href="mailto:client.information&#64;hc-sc.gc.ca">client.information&#64;hc-sc.gc.ca</a>.</p>
-      <p>Si vous remplissez partiellement le formulaire et cliquez sur le bouton « Enregistrer la copie de travail » au bas du formulaire, il enregistrera une copie sur le poste de travail local pour qu'elle soit complétée ultérieurement. Le fichier sera enregistré au format de fichier .hcsc. Les copies de travail (fichiers avec extension .hcsc) ne doivent jamais être envoyées à Santé Canada et doivent être finalisées avant l'envoi.</p>
+      <p>Les nouveaux utilisateurs du formulaire ne peuvent pas sélectionner et télécharger un fichier. Ceci étant dit, ils doivent créer un fichier XML en remplissant les champs obligatoires ci-dessous et en cliquant sur le bouton « Générer le XML » au bas du formulaire.</p>
+      <p>Pour les utilisations ultérieures de ce formulaire, vous pouvez soit télécharger un fichier en cliquant sur le bouton « Choisir un fichier » et en sélectionnant le fichier en format .hcsc ou .xml, soit remplir les champs obligatoires ci-dessous afin de générer un fichier .xml.</p>
+      <p>Si vous remplissez partiellement le formulaire et souhaiter procéder ultérieurement, cliquez sur le bouton « Enregistrer la copie de travail » au bas du formulaire. Une copie sera enregistrée sur le poste de travail en format .hcsc. Si vous utilisez un fichier .xml précédemment soumis, veuillez mettre à jour les champs appropriés et vérifier que les détails sont exacts pour la transaction actuelle avant de déposer le formulaire.</p>
+      <p>Les copies de travail (fichiers portant l'extension .hcsc) ne doivent jamais être envoyées à Santé Canada.</p>
     </ng-container>
   </div>
 </div>
