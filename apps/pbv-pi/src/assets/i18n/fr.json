@@ -261,6 +261,7 @@
     "schedule.claim.applied.detail": "Fournissez les informations ci-dessous pour les produits sans ordonnance qui ont associé des revendications de l’annexe A seulement.",
     "drug.identification.number": "Numéro d’ID du médicament (DIN), si attribué ",
 
-   "schedule.a.claim.and.indication": "Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)"
-
+   "schedule.a.claim.and.indication": "Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)",
+   "disinfectant.type.title": "Type de déinfectant (Veuillez sélectionner au moins un type de désinfectant)",
+   "proposed.indication.use.dosage.daily.dose":"Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)"
 }
