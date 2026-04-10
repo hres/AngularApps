@@ -67,11 +67,11 @@
     "addressDetails.postalCode": "Code postal",
     "addressDetails.zipCode": "ZIP code",
     "addressDetails.provState": "Province ou state",
-
+    
     "add.address":"Add address detail record",
     "save.address":"Enregistrer l'enregistrement de l'importateur",
     "delete.address":"Supprimer l'enregistrement de l'importateur",
-
+    
     "save.record":"Enregistrer l'enregistrement",
     "delete.record":"Supprimer l'enregistrement",
 
@@ -83,9 +83,10 @@
     "data.ques": "Questions sur les données désagrégées",
     "safety": "Innocuité: ",
     "efficacy": "Efficacité : ",
-    "pediatric.pilot.question.text1": "Si vous soumettez une PDN ou un SPDN qui inclut un des changements listés ci-dessous, veuillez inclure",
+    
+    "pediatric.pilot.question.text1": "Si vous soumettez une PDN ou un SPDN qui inclut un des changements listés ci-dessous, veuillez inclure<a href='https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/pediatriques/pilote-plans-developpement-etudes/sondage.html'>sondage sur le programme pilote relatif aux médicaments pédiatriques</a> dans votre présentation : <p><ul><li>nouvelle indication</li><li>nouvelle forme posologique</li><li>nouvelle voie d'administration</li></ul></p>",
     "pediatric.pilot.question.link": "https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/pediatriques/pilote-plans-developpement-etudes/sondage.html",
-    "pediatric.pilot.question.text2": "sondage sur le programme pilote relatif aux médicaments pédiatriques",
+    "pediatric.pilot.question.text2": "Sondage sur le programme pilote relatif aux médicaments pédiatriques",
     "pediatric.pilot.question.text3": "dans votre présentation :",
     "pediatric.pilot.question.1": "nouvelle indication",
     "pediatric.pilot.question.2": "nouvelle forme posologique",
@@ -255,13 +256,11 @@
     "this.activity": "Personne-ressource pour cette activité réglementaire",
     "sub.type": "Raison justifiant la composante administrative",
 
-    "schedule.claim.applied": "Cochez la maladie ou le trouble visé par les allégations",
+    "schedule.claim.applied": "Sélectionnez les maladies ou troubles visé par les allégations (sélectionnez au moins une)",
     "schedule.claim.applied.detail.title": "Annexe A détails des allégations",
     "schedule.claim.applied.detail": "Fournissez les informations ci-dessous pour les produits sans ordonnance qui ont associé des revendications de l’annexe A seulement.",
-    "drug.identification.number": "Numéro d’ID du médicament (DIN), si existant",
+    "drug.identification.number": "Numéro d’ID du médicament (DIN), si attribué ",
 
-   "schedule.a.claim.and.indication": "Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)",
-     "disinfectant.type.title": "Type de déinfectant (Veuillez sélectionner au moins un type de désinfectant)",
-     "proposed.indication.use.dosage.daily.dose":"Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)"
+   "schedule.a.claim.and.indication": "Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)"
 
 }

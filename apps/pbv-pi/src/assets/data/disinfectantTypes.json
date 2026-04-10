@@ -6,13 +6,13 @@
   },
   {
     "id": "2",
-    "en": "Food Processing",
+    "en": "Food processing",
     "fr": "Préparation des aliments"
   },
 
   {
     "id": "3",
-    "en": "Medical Instruments",
+    "en": "Medical instruments",
     "fr": "Instruments médicaux"
   },
 
@@ -29,7 +29,7 @@
   },
   {
     "id": "6",
-    "en": "Institutional/Industrial",
-    "fr": "institutionnel ou industriel"
+    "en": "Institutional or industrial",
+    "fr": "Institutionnel ou industriel"
   }
 ]
