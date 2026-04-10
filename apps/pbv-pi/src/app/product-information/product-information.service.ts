@@ -40,6 +40,8 @@ export class ProductInformationService {
     scheduleClaimAndIndicationAssociatedOfProduct:[null, [Validators.required]],
     scheduleClaims: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
     selectedScheduleClaimCodes: [''],
+    disinfectantTypes: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
+    proposedIndicationOfUseDosage: [null, [Validators.required]],
    });
 
   }
@@ -65,6 +67,7 @@ export class ProductInformationService {
     dataModel.isRegulated = formValue['isRegulated'] == true ? 'Y': undefined;
     dataModel.isOnDrug = formValue['isOnDrug'] == true ? 'Y': undefined;
     dataModel.isNonPrescriptioScheduleApplied = formValue['isNonPrescriptioScheduleApplied'] == true ? 'Y': undefined;
+    dataModel.proposedIndicationOfUseDosage = formValue['proposedIndicationOfUseDosage'];
 
     if (formValue['isNonPrescriptioScheduleApplied'] == true) {
             const scheduleClaim: ScheduleClaim = {
@@ -110,7 +113,7 @@ export class ProductInformationService {
     formRecord.controls['isOnDrug'].setValue(dataModel.isOnDrug=='Y'?true:false);
     formRecord.controls['isDrugPermitted'].setValue(dataModel.isDrugPermitted=='Y'?true:false);
     formRecord.controls['dosAge'].setValue(dataModel.dosAge);
-
+    formRecord.controls['proposedIndicationOfUseDosage'].setValue(dataModel.proposedIndicationOfUseDosage);
 
     if(dataModel.drug_use?._id){
       const id = this._utilsService.getIdFromIdTextLabel(dataModel.drug_use);

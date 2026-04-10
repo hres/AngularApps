@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1",
+    "en": "Hospital",
+    "fr": "Hôpital"
+  },
+  {
+    "id": "2",
+    "en": "Food Processing",
+    "fr": "Préparation des aliments"
+  },
+
+  {
+    "id": "3",
+    "en": "Medical Instruments",
+    "fr": "Instruments médicaux"
+  },
+
+  {
+    "id": "4",
+    "en": "Domestic",
+    "fr": "Domestique"
+  },
+
+  {
+    "id": "5",
+    "en": "Barn",
+    "fr": "Grange"
+  },
+  {
+    "id": "6",
+    "en": "Institutional/Industrial",
+    "fr": "institutionnel ou industriel"
+  }
+]

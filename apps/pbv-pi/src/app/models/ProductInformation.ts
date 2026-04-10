@@ -30,12 +30,18 @@ export interface DrugProductEnrol {
   isDrugPermitted: string,
   dosAge: string
   drug_use: IIdTextLabel,
-  is_schedule_claim:     ScheduleClaim;
+  is_schedule_claim:     ScheduleClaim,
+  disinfectant_types:    DisinfectantTypes;
+  proposedIndicationOfUseDosage: string;
 }
 
 export interface ScheduleClaim {
   din: string;
   schedule_claim_indication: string;
   schedule_claim_applied : IIdTextLabel[];
+}
+
+export interface DisinfectantTypes {
+  disinfectant_type : IIdTextLabel[];
 
 }

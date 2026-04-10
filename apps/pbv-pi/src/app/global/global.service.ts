@@ -28,6 +28,13 @@ export class GlobalService {
   private _subTypeList: ICodeDefinition[];
   private _drugUse: ICodeDefinition[] = [];
   private _scheduleClaims: ICode[] = [];
+  private _disinfectTypes: ICode[] = [];
+  public get disinfectTypes(): ICode[] {
+    return this._disinfectTypes;
+  }
+  public set disinfectTypes(value: ICode[]) {
+    this._disinfectTypes = value;
+  }
 
   lang = signal<string>('');
 

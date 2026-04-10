@@ -67,11 +67,11 @@
     "addressDetails.postalCode": "Code postal",
     "addressDetails.zipCode": "ZIP code",
     "addressDetails.provState": "Province ou state",
-    
+
     "add.address":"Add address detail record",
     "save.address":"Enregistrer l'enregistrement de l'importateur",
     "delete.address":"Supprimer l'enregistrement de l'importateur",
-    
+
     "save.record":"Enregistrer l'enregistrement",
     "delete.record":"Supprimer l'enregistrement",
 
@@ -260,6 +260,8 @@
     "schedule.claim.applied.detail": "Fournissez les informations ci-dessous pour les produits sans ordonnance qui ont associé des revendications de l’annexe A seulement.",
     "drug.identification.number": "Numéro d’ID du médicament (DIN), si existant",
 
-   "schedule.a.claim.and.indication": "Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)"
+   "schedule.a.claim.and.indication": "Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)",
+     "disinfectant.type.title": "Type de déinfectant (Veuillez sélectionner au moins un type de désinfectant)",
+     "proposed.indication.use.dosage.daily.dose":"Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)"
 
 }

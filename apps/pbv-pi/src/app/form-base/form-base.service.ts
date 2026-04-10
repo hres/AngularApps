@@ -63,7 +63,9 @@ export class FormBaseService {
       isDrugPermitted: '',
       dosAge: '',
       drug_use: undefined,
-      is_schedule_claim: undefined
+      is_schedule_claim: undefined,
+      disinfectant_types:undefined,
+      proposedIndicationOfUseDosage:'',
       };
 
     return drugProductEnrol;
