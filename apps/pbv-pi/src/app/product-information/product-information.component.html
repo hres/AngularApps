@@ -1,4 +1,26 @@
 <div [formGroup]="productInfoForm">
+
+  <div class="row">
+    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <label for="dossierType" class="required">
+        <span class="field-name">{{ 'dossier.type'|translate }}</span>
+        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+        <sup [id]="helpIndex['dossierTypeIndx'][2]">
+          <a class="fn-lnk" [href]="'#' + helpIndex['dossierTypeIndx'][1]"><span
+              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierTypeIndx'][0]}}</a>
+        </sup>
+        <control-messages *ngIf="productInfoForm.controls['dossierType'].invalid" [showError]="showFieldErrors"
+          [control]="productInfoForm.controls['dossierType'] | formControl" controlId="dossierType" label="dossier.type"
+          parentId="productInfo"></control-messages>
+      </label>
+      <select id="dossierType" name="dossierType" required class="form-control" [formControlName]="'dossierType'">
+        <option label=" " value=""></option>
+        <option *ngFor="let item of dossierTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
+      </select>
+    </div>
+  </div>
+
+
   <div class="row">
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <label for="companyId" class="required">
@@ -29,25 +51,7 @@
         size="7" />
     </div>
   </div>
-  <div class="row">
-    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <label for="dossierType" class="required">
-        <span class="field-name">{{ 'dossier.type'|translate }}</span>
-        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-        <sup [id]="helpIndex['dossierTypeIndx'][2]">
-          <a class="fn-lnk" [href]="'#' + helpIndex['dossierTypeIndx'][1]"><span
-              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierTypeIndx'][0]}}</a>
-        </sup>
-        <control-messages *ngIf="productInfoForm.controls['dossierType'].invalid" [showError]="showFieldErrors"
-          [control]="productInfoForm.controls['dossierType'] | formControl" controlId="dossierType" label="dossier.type"
-          parentId="productInfo"></control-messages>
-      </label>
-      <select id="dossierType" name="dossierType" required class="form-control" [formControlName]="'dossierType'">
-        <option label=" " value=""></option>
-        <option *ngFor="let item of dossierTypeOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
-      </select>
-    </div>
-  </div>
+
   <div class="row">
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <label for="productName" class="required">
@@ -129,35 +133,22 @@
         </sup>
       </legend>
       <legend class="col-md-12">
-      <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="manufacturer" [formControlName]="'manufacturer'" />
-            <label for="manufacturer">{{'manufacturer'|translate}}</label>
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="manufacturer" [formControlName]="'manufacturer'" />
+              <label for="manufacturer">{{'manufacturer'|translate}}</label>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="mailing" [formControlName]="'mailing'" />
+              <label for="mailing">{{'mailing'|translate}}</label>
+            </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="mailing" [formControlName]="'mailing'" />
-            <label for="mailing">{{'mailing'|translate}}</label>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="this.activity" [formControlName]="'thisActivity'" />
-            <label for="this.activity">{{'this.activity'|translate}}</label>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="importer" [formControlName]="'importer'" />
-            <label for="importer">{{'importer'|translate}}</label>
-          </div>
-        </div>
-      </div>
-    </legend>
+
+      </legend>
     </fieldset>
   </div>
 
@@ -174,7 +165,8 @@
           [control]="productInfoForm.controls['drugUse'] | formControl" controlId="drugUse" label="drug.use"
           parentId="productInfo"></control-messages>
       </label>
-      <select id="drugUse" name="drugUse" required class="form-control" [formControlName]="'drugUse'"   (change)="drugUseChangeRequestedOnChange()">
+      <select id="drugUse" name="drugUse" required class="form-control" [formControlName]="'drugUse'"
+        (change)="drugUseChangeRequestedOnChange()">
         <option label=" " value=""></option>
         <option *ngFor="let item of drugUseOptions" [value]="item.id"> {{ item | textTransform: lang }}</option>
       </select>
@@ -185,17 +177,17 @@
 
       <fieldset class="chkbxrdio-grp" id="disinfectantTypes">
 
-       <div class="col-md-12">
-        <legend class="required col-md-12">
-          <span class="field-name">{{'disinfectant.type.title' | translate}}</span>
-          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="disinfectantTypeChkFormArray.invalid" [showError]="showFieldErrors"
-            [control]="disinfectantTypeChkFormArray | formControl" controlId="disinfectantTypes"
-            label="disinfectant.type.title" parentId="appInfoDetails"></control-messages>
-        </legend>
+        <div class="col-md-12">
+          <legend class="required col-md-12">
+            <span class="field-name">{{'disinfectant.type.title' | translate}}</span>
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            <control-messages *ngIf="disinfectantTypeChkFormArray.invalid" [showError]="showFieldErrors"
+              [control]="disinfectantTypeChkFormArray | formControl" controlId="disinfectantTypes"
+              label="disinfectant.type.title" parentId="appInfoDetails"></control-messages>
+          </legend>
 
 
-         <div class="checkbox col-md-4" [formArrayName]="'disinfectantTypes'"
+          <div class="checkbox col-md-4" [formArrayName]="'disinfectantTypes'"
             *ngFor="let reason of disinfectantTypeChkFormArray.controls; let i = index" style="margin:0;">
             <label for={{disinfectantTypeOptionList[i].value}}>
               <input type="checkbox" id={{disinfectantTypeOptionList[i].value}} [formControl]="reason | formControl"
@@ -204,103 +196,84 @@
             </label>
           </div>
 
-       </div>
+        </div>
       </fieldset>
     </div>
   </div>
 
 
 
-  <div class="row form-group">
-    <fieldset class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chkbxrdio-grp form-inline">
+  <div class="row form-group checkboxWithWrap">
+    <fieldset class=" col-md-12 chkbxrdio-grp form-inline">
       <legend>
         {{'schedule.and.prescription.status' |translate}}
 
       </legend>
 
-      <div class="row nowrap">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-          <legend class="col-md-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="isSchedule" [formControlName]="'isSchedule'" />
-            <label for="isSchedule">{{'isSchedule'|translate}}</label>
+      <div class="row ">
+        <div class="col-md-12">
+
+          <div class="col-md-12">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="isSchedule" [formControlName]="'isSchedule'" />
+              <label for="isSchedule">{{'isSchedule'|translate}}</label>
+            </div>
           </div>
-          </legend>
+
+
+
+
+
+          <div class="col-md-12">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="isInclude" [formControlName]="'isInclude'" />
+              <label for="isInclude">{{'isInclude'|translate}}</label>
+            </div>
+          </div>
+
+
+          <div class="col-md-12">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="isOnDrugList" [formControlName]="'isOnDrugList'" />
+              <label for="isOnDrugList">{{'isOnDrugList'|translate}}</label>
+            </div>
+          </div>
+
+
+          <div class="col-md-12">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="isRegulated" [formControlName]="'isRegulated'" />
+              <label for="isRegulated">{{'isRegulated'|translate}}</label>
+            </div>
+          </div>
+
+
+
+          <div class="col-md-12 ">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="isOnDrug" [formControlName]="'isOnDrug'" />
+              <label for="isNonPrescriptionDrug">{{'isOnDrug'|translate}}</label>
+            </div>
+          </div>
+
+          <div class="col-md-12 ">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="isNonPrescriptioScheduleApplied"
+                [formControlName]="'isNonPrescriptioScheduleApplied'"
+                (change)="nonPrescriptioScheduleAppliedRequestedOnChange()" />
+              <label for="isNonPrescriptioScheduleApplied">{{'isNonPrescriptioScheduleApplied'|translate}}</label>
+            </div>
+          </div>
+
+          <div class="col-md-12 ">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="isDrugPermitted" [formControlName]="'isDrugPermitted'" />
+              <label for="isDrugPermitted">{{'isDrugPermitted'|translate}}</label>
+            </div>
+          </div>
+
         </div>
       </div>
-
-      <div class="row nowrap">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-          <legend class="col-md-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="isInclude" [formControlName]="'isInclude'" />
-            <label for="isInclude">{{'isInclude'|translate}}</label>
-          </div>
-        </legend>
-        </div>
-      </div>
-
-      <div class="row nowrap">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-          <legend class="col-md-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="isOnDrugList" [formControlName]="'isOnDrugList'" />
-            <label for="isOnDrugList">{{'isOnDrugList'|translate}}</label>
-          </div>
-          </legend>
-        </div>
-      </div>
-
-      <div class="row nowrap">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-          <legend class="col-md-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="isRegulated" [formControlName]="'isRegulated'" />
-            <label for="isRegulated">{{'isRegulated'|translate}}</label>
-          </div>
-          </legend>
-        </div>
-      </div>
-
-      <div class="row nowrap">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-          <legend class="col-md-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="isOnDrug" [formControlName]="'isOnDrug'" />
-            <label for="isNonPrescriptionDrug">{{'isOnDrug'|translate}}</label>
-          </div>
-          </legend>
-        </div>
-      </div>
-
-      <div class="row nowrap">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-          <legend class="col-md-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="isNonPrescriptioScheduleApplied"
-              [formControlName]="'isNonPrescriptioScheduleApplied'"
-              (change)="nonPrescriptioScheduleAppliedRequestedOnChange()" />
-            <label for="isNonPrescriptioScheduleApplied">{{'isNonPrescriptioScheduleApplied'|translate}}</label>
-          </div>
-          </legend>
-        </div>
-      </div>
-
-
-
-
-      <div class="row nowrap">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-          <legend class="col-md-12">
-          <div class="checkbox label-inline">
-            <input type="checkbox" id="isDrugPermitted" [formControlName]="'isDrugPermitted'" />
-            <label for="isDrugPermitted">{{'isDrugPermitted'|translate}}</label>
-          </div>
-          </legend>
-        </div>
-      </div>
-
-
 
 
       <ng-container *ngIf="showScheduleClaimApplied()" class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -312,14 +285,14 @@
             <span class="fa fa-caret-down fa-lg fa-fw"></span>
             <span>{{'schedule.claim.applied.detail.title' | translate}}</span>
           </div>
-          <br>
+          <hr style="border-top:1px solid #000;">
           <div class="form-group col-md-10 ">
             <span>{{'schedule.claim.applied.detail' | translate}}</span>
 
           </div>
-          <br>
+          <br><br>
           <div class="col-md-12">
-            <legend class="required  col-md-12  col-md-4 col-xs-12 form-group">
+            <legend class="col-md-12  form-group">
               <label for="din">
                 <span class="field-name">{{ 'drug.identification.number'|translate }}</span>
                 <sup [id]="helpIndex['dinIndx'][2]">
@@ -330,9 +303,10 @@
                   [control]="productInfoForm.controls['din'] | formControl" controlId="din"
                   label="drug.identification.number" parentId="productInfo"></control-messages>
               </label>
+
+              <input type="text" id="din" name="din" class="form-control full-width" [formControlName]="'din'"
+                style="  width: 100%;" maxlength="200" />
             </legend>
-            <input type="text" id="din" name="din" class="form-control full-width" [formControlName]="'din'"
-              style="  width: 100%;" maxlength="200" />
             <br>
 
             <legend class="required col-md-12">
@@ -353,9 +327,9 @@
               </label>
             </div>
 
-            <div class="form-group  full-width">
-              <legend class="required  col-md-12 col-xs-12 form-group">
-                <label for="scheduleClaimAndIndicationAssociatedOfProduct">
+            <div class="row">
+              <div class="required  col-md-12 form-group full-width">
+                <label for="scheduleClaimAndIndicationAssociatedOfProduct" class="required">
                   <span class="field-name">{{'schedule.a.claim.and.indication' | translate}}</span>
                   <strong aria-hidden="true" class="required"> (required)</strong>
                   <control-messages
@@ -364,42 +338,43 @@
                     [control]="productInfoForm.controls['scheduleClaimAndIndicationAssociatedOfProduct'] | formControl"
                     controlId="scheduleClaimAndIndicationAssociatedOfProduct" label="schedule.a.claim.and.indication"
                     parentId="productInfo"></control-messages></label>
-                  </legend>
-              <textarea id="scheduleClaimAndIndicationAssociatedOfProduct"
-                name="scheduleClaimAndIndicationAssociatedOfProduct" rows="3" maxlength="400" style="  width: 100%;" class="form-control full-width"
-                [formControlName]="'scheduleClaimAndIndicationAssociatedOfProduct'"></textarea>
 
+
+                <textarea id="scheduleClaimAndIndicationAssociatedOfProduct"
+                  name="scheduleClaimAndIndicationAssociatedOfProduct" rows="3" maxlength="400" style="  width: 100%;"
+                  class="form-control full-width"
+                  [formControlName]="'scheduleClaimAndIndicationAssociatedOfProduct'"></textarea>
+
+              </div>
             </div>
-
           </div>
         </fieldset>
       </ng-container>
 
     </fieldset>
-
-
-
   </div>
-  <div class="form-group  full-width">
-    <legend class="required  col-md-12 col-xs-12 form-group">
-      <label for="proposedIndicationOfUseDosage">
+
+
+  <div class="row">
+    <div class="form-group col-md-12 ">
+      <label for="proposedIndicationOfUseDosage" class="required">
         <span class="field-name">{{'proposed.indication.use.dosage.daily.dose' | translate}}</span>
         <strong aria-hidden="true" class="required"> (required)</strong>
         <sup [id]="helpIndex['purposeIndx'][2]">
           <a class="fn-lnk" [href]="'#' + helpIndex['purposeIndx'][1]"><span
               class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['purposeIndx'][0]}}</a>
         </sup>
-        <control-messages
-          *ngIf="productInfoForm.controls['proposedIndicationOfUseDosage'].invalid"
+        <control-messages *ngIf="productInfoForm.controls['proposedIndicationOfUseDosage'].invalid"
           [showError]="showFieldErrors"
           [control]="productInfoForm.controls['proposedIndicationOfUseDosage'] | formControl"
           controlId="proposedIndicationOfUseDosage" label="proposed.indication.use.dosage.daily.dose"
           parentId="productInfo"></control-messages></label>
-        </legend>
-    <textarea id="proposedIndicationOfUseDosage"
-      name="proposedIndicationOfUseDosage" rows="3" maxlength="400" style="  width: 100%;" class="form-control full-width"
-      [formControlName]="'proposedIndicationOfUseDosage'"></textarea>
 
+      <textarea id="proposedIndicationOfUseDosage" name="proposedIndicationOfUseDosage" rows="3" maxlength="400"
+        style="width: 100%;" class="form-control full-width"
+        [formControlName]="'proposedIndicationOfUseDosage'"></textarea>
+
+    </div>
   </div>
 
 
