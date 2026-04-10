@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "en": "Yes, my ingredient is supplied as a salt, but calculated as a base",
+    "fr": "Oui, mon ingrédient est fourni comme un sel, mais calculé comme une base"
+  },
+  {
+    "id": "2",
+    "en": "Yes, my ingredient is supplied as a base, and calculated as a base",
+    "fr": "Oui, mon ingrédient est fourni comme une base, et calculé comme une base"
+  },
+  {
+    "id": "3",
+    "en": "No, my ingredient is supplied as a salt, and calculated as a salt",
+    "fr": "Non, mon ingrédient est fourni comme un sel, et calculé comme un sel"
+  },
+  {
+    "id": "4",
+    "en": "No, my product is a biologic",
+    "fr": "Non, mon produit est un produit biologique"
+  }
+]
