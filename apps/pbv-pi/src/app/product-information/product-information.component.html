@@ -290,9 +290,9 @@
             <span>{{'schedule.claim.applied.detail' | translate}}</span>
 
           </div>
-          <br>
+          <br><br>
           <div class="col-md-12">
-            <legend class="required  col-md-12  form-group">
+            <legend class="col-md-12  form-group">
               <label for="din">
                 <span class="field-name">{{ 'drug.identification.number'|translate }}</span>
                 <sup [id]="helpIndex['dinIndx'][2]">
@@ -327,8 +327,8 @@
               </label>
             </div>
 
-            <div class="row form-group">
-              <div class="required  col-md-12 form-group">
+            <div class="row">
+              <div class="required  col-md-12 form-group full-width">
                 <label for="scheduleClaimAndIndicationAssociatedOfProduct" class="required">
                   <span class="field-name">{{'schedule.a.claim.and.indication' | translate}}</span>
                   <strong aria-hidden="true" class="required"> (required)</strong>
@@ -356,7 +356,7 @@
 
 
   <div class="row">
-    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group col-md-12 ">
       <label for="proposedIndicationOfUseDosage" class="required">
         <span class="field-name">{{'proposed.indication.use.dosage.daily.dose' | translate}}</span>
         <strong aria-hidden="true" class="required"> (required)</strong>
@@ -371,7 +371,7 @@
           parentId="productInfo"></control-messages></label>
 
       <textarea id="proposedIndicationOfUseDosage" name="proposedIndicationOfUseDosage" rows="3" maxlength="400"
-        style="  width: 100%;" class="form-control full-width"
+        style="width: 100%;" class="form-control full-width"
         [formControlName]="'proposedIndicationOfUseDosage'"></textarea>
 
     </div>
