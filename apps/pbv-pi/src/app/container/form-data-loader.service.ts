@@ -12,12 +12,14 @@ export class FormDataLoaderService {
   private subTypesJsonPath = DATA_PATH + 'subTypes.json';
   private drugUsedsJsonPath = DATA_PATH + 'drugUses.json';
   private scheduleClaimsJsonPath = DATA_PATH + 'scheduleClaims.json';
+  private disinfectantTypeJsonPath = DATA_PATH + 'disinfectantTypes.json';
   cachedYesNo$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
   cachedCountries$:Observable<ICode[]>;
   subTypes$:Observable<ICode[]>;
   drugUse$: Observable<ICodeDefinition[]>;
   scheduleClaims$: Observable<ICodeDefinition[]>;
+  disinfectantTypes$: Observable<ICodeDefinition[]>;
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -82,6 +84,13 @@ export class FormDataLoaderService {
      .pipe(
        shareReplay(1)
      );
+   }
 
+   getDisinfectantTypes(): Observable<ICodeDefinition[]> {
+    return this.disinfectantTypes$ = this._dataService
+     .getData<ICodeAria>(this.disinfectantTypeJsonPath)
+     .pipe(
+       shareReplay(1)
+     );
    }
 }

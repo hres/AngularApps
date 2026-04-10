@@ -29,6 +29,8 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
   subTypeOptions: ICodeDefinition[] = [];
   scheduleClaimCodeList:ICode[] = [];
   scheduleClaimOptionList: CheckboxOption[] = [];
+  disinfectantTypeOptionList: CheckboxOption[] = [];
+  disinfectantTypeCodeList:ICode[] = [];
 
   adminSubSelected = signal('');
   isAdminSub: Signal<boolean> = computed(() => {
@@ -57,6 +59,7 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
     this.subTypeOptions = this._globalService.subTypeList;
     this.drugUseOptions = this._globalService.drugUse;
     this.scheduleClaimCodeList = this._globalService.scheduleClaims;
+    this.disinfectantTypeCodeList =  this._globalService.disinfectTypes;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -70,6 +73,7 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
         const dataModelCurrentValue = changes['dataModel'].currentValue as DrugProductEnrol;
         // this.lifecycleRecordModel = dataModelCurrentValue.ectd.lifecycle_record;
         this._updateScheduleClaimArray();
+        this._updateDisinfectantTypeClaimArray();
         this._productInfoService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this.productInfoForm, this.scheduleClaimOptionList);
 
         // this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value);
@@ -124,6 +128,14 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
     return this.getSelectedScheduleClaimCodes(this.scheduleClaimOptionList, this.scheduleClaimChkFormArray);
   }
 
+  getSelectedDisintectfectTypeCodes(seriousDiagnosisReasonList: CheckboxOption[], diagnosisReasonChkFormArray: FormArray) : string[] {
+    return this._converterService.getCheckedCheckboxValues(seriousDiagnosisReasonList, diagnosisReasonChkFormArray);
+  }
+
+  get selectedDisinfectantTypeCodes(): string[] {
+    return this.getSelectedDisintectfectTypeCodes(this.disinfectantTypeOptionList, this.scheduleClaimChkFormArray);
+  }
+
 
 showScheduleClaimApplied() {
 
@@ -137,11 +149,26 @@ showScheduleClaimApplied() {
   return false;
 }
 
+showDisinfectantTypes(){
 
+  if (this.productInfoForm.controls['drugUse'].value &&
+        this.productInfoForm.controls['drugUse'].value === 'DISINFECT') {
+       return true;
+  }
+  else {
+    this._utilsService.resetControlsValues(this.productInfoForm.controls['disinfectantTypes']);
+  }
+  return false;
+}
 
 get scheduleClaimChkFormArray() {
   return this.productInfoForm.controls['scheduleClaims'] as FormArray
 }
+
+get disinfectantTypeChkFormArray() {
+  return this.productInfoForm.controls['disinfectantTypes'] as FormArray
+}
+
 
 private _updateScheduleClaimArray() {
   const scheduleClaimList = this._globalService.scheduleClaims;
@@ -152,9 +179,36 @@ private _updateScheduleClaimArray() {
   this.scheduleClaimOptionList.forEach(() => this.scheduleClaimChkFormArray.push(new FormControl(false)));
 }
 
-scheduleClaimOnChange() {
-  this.productInfoForm.controls['selectedScheduleClaimCodes'].setValue(this.selectedScheduleClaimCodes);
+private _updateDisinfectantTypeClaimArray() {
+  const disinfectantList = this._globalService.disinfectTypes;
+  this.disinfectantTypeOptionList = disinfectantList.map((item) => {
+    return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+  });
+
+  this.disinfectantTypeOptionList.forEach(() => this.disinfectantTypeChkFormArray.push(new FormControl(false)));
 }
+
+scheduleClaimOnChange() {
+  this.productInfoForm.controls['selectedDisinfectantTypeCodes'].setValue(this.selectedDisinfectantTypeCodes);
+}
+
+disinfectantTypeOnChange() {
+  this.productInfoForm.controls['selectedDisinfectTypeCodes'].setValue(this.selectedDisinfectantTypeCodes);
+}
+
+
+drugUseChangeRequestedOnChange() {
+  if (this.productInfoForm.controls['drugUse'].value &&
+        this.productInfoForm.controls['drugUse'].value === 'DISINFECT') {
+       this._updateDisinfectantTypeClaimArray();
+  } else {
+    this._utilsService.resetControlsValues(
+      this.scheduleClaimChkFormArray,
+      this.productInfoForm.controls['selectedDisinfectantTypeCodes'],
+    );
+  }
+}
+
 
 nonPrescriptioScheduleAppliedRequestedOnChange() {
   if (this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value &&
@@ -167,7 +221,6 @@ nonPrescriptioScheduleAppliedRequestedOnChange() {
     );
   }
 }
-
 
 }
 

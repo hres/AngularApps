@@ -268,5 +268,7 @@
     "schedule.claim.applied.detail.title": "Schedule A Claim Details",
     "schedule.claim.applied.detail": "Provide information below for non prescription products that have associated Schedule A claims only.",
     "drug.identification.number": "Drug Identification Number (DIN), if issued ",
-   "schedule.a.claim.and.indication": " Please list the schedule A Claims and Indications associated with this product"
+   "schedule.a.claim.and.indication": " Please list the schedule A Claims and Indications associated with this product",
+   "disinfectant.type.title": "Disinfectant Type (Please select at least one disinfectant type)",
+   "proposed.indication.use.dosage.daily.dose":"Proposed Indication/Use/Dosage (including maximum daily dose)"
 }
