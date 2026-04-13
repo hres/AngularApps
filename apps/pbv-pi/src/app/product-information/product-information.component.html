@@ -86,24 +86,7 @@
         maxlength="400"></textarea>
     </div>
   </div>
-  <div class="row form-group">
-    <fieldset class="col-md-12 chkbxrdio-grp">
-      <legend class="required">
-        {{'is.admin.submission' |translate}}
-        <sup [id]="helpIndex['adminCompInx'][2]">
-          <a class="fn-lnk" [href]="'#' + helpIndex['adminCompInx'][1]"><span
-              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminCompInx'][0]}}</a>
-        </sup>
-      </legend>
-      <ng-container *ngFor="let yesno of yesNoList; let i = index">
-        <label for="isAdminSub{{i}}" class="radio-inline">
-          <input type="radio" id="isAdminSub{{i}}" name="isAdminSub" [value]="yesno.id"
-            (change)="onAdminSubSelected(yesno.id, false)" [formControlName]="'isAdminSub'" required />
-          {{yesno | textTransform: lang }}
-        </label>
-      </ng-container>
-    </fieldset>
-  </div>
+
   <ng-container *ngIf="isAdminSub()">
     <div class="row">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -144,6 +127,21 @@
             <div class="checkbox label-inline">
               <input type="checkbox" id="mailing" [formControlName]="'mailing'" />
               <label for="mailing">{{'mailing'|translate}}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="this.activity" [formControlName]="'thisActivity'" />
+              <label for="this.activity">{{'this.activity'|translate}}</label>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="checkbox label-inline">
+              <input type="checkbox" id="importer" [formControlName]="'importer'" />
+              <label for="importer">{{'importer'|translate}}</label>
             </div>
           </div>
         </div>
