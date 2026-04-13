@@ -10,6 +10,7 @@ import { DeviceService } from '../device.service';
 import { DeviceListService } from './device-list.service';
 import { ErrorNotificationService } from '@hpfb/sdk/ui';
 import { DEVICE_ERROR_PREFIX } from '../../app.constants';
+import { MaterialService } from '../../bio-material/material.service';
 
 @Component({
     selector: 'app-device-list',
@@ -20,6 +21,7 @@ import { DEVICE_ERROR_PREFIX } from '../../app.constants';
 
 export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() public deviceListData: Device[];
+  @Input() xmlTriggered: boolean;
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   deviceListForm: FormGroup;
@@ -50,6 +52,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
               private _utilsService: UtilsService,
               private _globalService: GlobalService,
               private _deviceService : DeviceService,
+              private _materialService: MaterialService,
               private _errorDeviceNotificationService : ErrorNotificationService) {
 
     this.deviceListForm = this.fb.group({
@@ -68,7 +71,9 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
     // console.log(this._utilsService.checkComponentChanges(changes));
     if (changes['deviceListData']) {
+      // this._deleteAllDevices()
       this._init(changes['deviceListData'].currentValue);
+      this._clearErrorList();
     }
   }
 
@@ -202,7 +207,7 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
       this._deviceService.showDeviceErrorSummaryOneRec.set(true);
     }
     this.errorSummaryChild = null;
-    this._emitErrors();
+    this._emitErrors(true);
     this.deviceListService.updateUIDisplayValues(this.devicesFormArr);
     if (this._globalService.lang() == "en") {
       this.statusMessage = "Device record " + group.controls['seqNumber'].value + " has been deleted.";
@@ -370,8 +375,13 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     this._emitErrors(); // needed or will generate a valuechanged error
   }
 
-  private _emitErrors(): void {
+  private _emitErrors(forceEmit: boolean = false): void {
     let emitErrors = [];
+
+    if (!forceEmit && !this._hasOpenRecord()) {
+      // No open record, do not emit errors
+      return;
+  }
 
     if (this.errorSummaryChild) {
       emitErrors.push(this.errorSummaryChild);
@@ -432,4 +442,25 @@ export class DeviceListComponent implements OnInit, OnChanges, AfterViewInit {
     })
   }
 
+  private _clearErrorList(): void {
+    const hasErrors = this.devicesFormArr.controls.some(
+      (group: AbstractControl) => group.invalid
+    );
+  
+    if (!hasErrors) {
+      this.errorSummaryChild = null;
+      this.showErrors = false;
+  
+       // ✅ Remove all deviceListTable errors from signal
+      this._deviceService.deviceErrors.update((errors) =>
+      errors.filter(err =>
+        err?.componentId && !err.componentId.startsWith('deviceListTable')
+      ));
+    }
+  }
+  
+  private _hasOpenRecord(): boolean {
+    return this.devicesFormArr.controls.some(group => group.get('expandFlag')?.value);
+  }
+  
 }

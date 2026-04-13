@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation, effect, inject, signal } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
 import { ERR_TYPE_LEAST_ONE_REC, ErrorNotificationService, ErrorSummaryComponent, ErrorSummaryObject, getEmptyErrorSummaryObj, UtilsService } from '@hpfb/sdk/ui';
 import { MaterialService } from '../material.service';
 import { MaterialListService } from './material-list.service';
@@ -15,6 +15,7 @@ import { MATERIAL_ERROR_PREFIX } from '../../app.constants';
 
 export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() public materialListData: BiologicalMaterial[];
+  @Input() xmlTriggered: boolean;
 
   materialListForm: FormGroup;
 
@@ -74,6 +75,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (changes['materialListData']) {
       // console.log("material list component - changes");
       this._init(changes['materialListData'].currentValue);
+      this._clearErrorList();
     }
   }
 
@@ -84,6 +86,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     // this.msgList.notifyOnChanges();
 
     this._errNotifService.errorSummaryChanged$.subscribe((errors) => {
+      // console.log("error summary change detected", errors);
       this._processErrorSummaries(errors);
     });
   }
@@ -98,6 +101,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.errorSummaryChild = null;
     }
+    // console.log(errSummaryEntries, filteredErrSummaryEntry, this.errorSummaryChild);
     this._emitErrors();
   }
 
@@ -149,6 +153,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.materialsFormArr.length > 0) {
       this.atLeastOneRec.set(true);
     }
+
+    this._emitErrors(true);
 
     if (this._globalService.lang() == "en") {
       this.statusMessage = "Biological material record " + group.controls['seqNumber'].value + " has been saved.";
@@ -210,6 +216,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this.atLeastOneRec.set(false);
       this._emitErrors();
     }
+
+    if (id == -1) {
+      // force emit errors to get rid of error msg from unsaved record
+      this._emitErrors(true);
+    }
+
     if (this.materialsFormArr.length == 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(true);
     }
@@ -351,8 +363,13 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     return this.materialsFormArr.value;
   }
 
-  private _emitErrors(): void {
+  private _emitErrors(forceEmit: boolean = false): void {
     let emitErrors = [];
+
+    if (!forceEmit && !this._shouldEmitErrors()) {
+      // console.log('No open records and at least one record exists – skipping emitErrors');
+      return;
+    }
 
     if (this.materialsFormArr.errors) {
       emitErrors.push(this.materialsFormArr.errors['atLeastOneMat']);
@@ -432,4 +449,52 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this.popupTrigger.focus();
     })
   }
+
+  private _clearErrorList(): void {
+    const controls = this.materialsFormArr.controls;
+  
+    // Determine if there is at least one saved record
+    const hasAtLeastOneRecord = controls.some(
+      (group: FormGroup) => !group.get('isNew')?.value
+    );
+  
+    // Determine if any record is invalid
+    const hasInvalidRecords = controls.some((group: AbstractControl) => group.invalid);
+  
+    // Filter errors in a single pass
+    const currentErrors = this._materialService.materialListErrors?.() || [];
+    const filteredErrors = currentErrors.filter(err => {
+      // Remove "least one record" error if at least one record exists
+      if (hasAtLeastOneRecord && err?.tableId.startsWith('materialListTable') && err?.type === 'least_one_rec_error') {
+        return false;
+      }
+  
+      // Remove all "component_error" errors if no invalid records exist
+      if (!hasInvalidRecords && err.componentId?.startsWith('materialListTable') && err?.type === 'component_error') {
+        return false;
+      }
+  
+      return true; // Keep all other errors
+    });
+  
+    // Update the error signal and local summary
+    this._materialService.setListErrors(filteredErrors);
+    if (!hasInvalidRecords) {
+      this.errorSummaryChild = null;
+      this.showErrors = false;
+      this._errNotifService.clearErrors();
+    }
+    // console.log(this._materialService.materialListErrors());
+  }
+
+  private _shouldEmitErrors(): boolean {
+    const hasSavedRecords = this.materialsFormArr.controls.some(group => !group.get('isNew')?.value);
+    const hasOpenRecords = this.materialsFormArr.controls.some(group => group.get('expandFlag')?.value);
+
+    // Emit if:
+    // 1. There are no saved records (must enforce "at least one record")
+    // OR
+    // 2. There is at least one open record
+    return !hasSavedRecords || hasOpenRecords;
+}
 }

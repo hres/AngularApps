@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "en": "Cardio-respiratory system",
+    "fr": "Système cardio-respiratoire"
+  },
+  {
+    "id": "2",
+    "en": "Digestive system",
+    "fr": "Système digestif"
+  },
+  {
+    "id": "3",
+    "en": "Immune system",
+    "fr": "Système immunitaire"
+  },
+  {
+    "id": "4",
+    "en": "Musculoskeletal system",
+    "fr": "Système musculo-squelettique"
+  },
+  {
+    "id": "5",
+    "en": "Nervous system",
+    "fr": "Système nerveux"
+  },
+  {
+    "id": "6",
+    "en": "Reproductive and urinary systems",
+    "fr": "Systèmes reproductif et urinaire"
+  },
+  {
+    "id": "7",
+    "en": "Skin and glandular system",
+    "fr": "Peau et système glandulaire"
+  },
+  {
+    "id": "8",
+    "en": "Other tissues or fluids of origin",
+    "fr": "Origine des autres tissus ou fluides"
+  }
+]

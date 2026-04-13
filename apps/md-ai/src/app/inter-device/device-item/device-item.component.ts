@@ -18,6 +18,7 @@ import { DeviceService } from '../device.service';
 export class DeviceItemComponent implements OnInit, AfterViewInit {
   @Input() cRRow: FormGroup;
   @Input() j: number;
+  @Input() xmlTriggered: boolean;
 
   lang = this._globalService.lang();
 
@@ -95,6 +96,8 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     this.deviceInfo.valueChanges.subscribe(() => {
       this.checkFormDirtyStatus();
     });
+
+    this.showErrors = this.xmlTriggered;
   }
 
   ngAfterViewInit(): void {
@@ -209,7 +212,6 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
   onDeviceAuthorizedChange(e: any) {
     const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
-    console.log(deviceAuthorized);
 
     const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted');
     const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber');
@@ -271,7 +273,8 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   }
 
   public showErrorSummary(): boolean {
-    return ((this.showErrSummary) && this.errorList.length > 0);
+    //console.log(this.showErrSummary, this.errorList.length, this.xmlTriggered)
+    return ((this.showErrSummary || this.xmlTriggered) && this.errorList.length > 0);
   }
 
   // todo use include, not !Remove
