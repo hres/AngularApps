@@ -7,5 +7,15 @@
     "index_file_name": {
         "en": "master-file-form.html",
         "fr": "formulaire-fiche-maitresse.html"
+    },
+    "accessibility_statement_link": {
+        "dev": {
+            "en": "/rep-dev/mds/accessibility/applicationInfo/accessibility-en.html",
+            "fr": "/rep-dev/mds/accessibility/applicationInfo/accessibility-fr.html"
+        },
+        "prod": {
+            "en": "https://health-products.canada.ca/rep-pir/mds/accessibility/applicationInfo/accessibility-en.html",
+            "fr": "https://health-products.canada.ca/rep-pir/mds/accessibility/applicationInfo/accessibility-fr.html"
+        }
     }
 }
