@@ -13,10 +13,10 @@ import { HelpTextModuleModule } from "./instruction/help-text-module.module";
 import { AppSignalService } from './signal/app-signal.service';
 import { ProductInformationComponent } from './product-information/product-information.component';
 import { ProductInformationService } from './product-information/product-information.service';
-
+import { IngredientFormulationModule } from './ingredient-formulation/ingredient-formulation.module';
 @NgModule({
   declarations: [
-    ProductInformationComponent
+    ProductInformationComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +28,8 @@ import { ProductInformationService } from './product-information/product-informa
     ReactiveFormsModule,
     TranslateModule,
     NumbersOnlyDirective,
-    HelpTextModuleModule
+    HelpTextModuleModule,
+    IngredientFormulationModule
 ],
   providers: [
     AppSignalService,
@@ -36,7 +37,8 @@ import { ProductInformationService } from './product-information/product-informa
     ProductInformationService
   ],
   exports: [CommonUiFeatureModule,
-    ProductInformationComponent
+    ProductInformationComponent,
+    IngredientFormulationModule
    ],
 })
 export class AppFormModule {}

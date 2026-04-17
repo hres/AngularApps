@@ -7,11 +7,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { DrugProductEnrol, ProductInformation} from '../models/ProductInformation';
+import { DrugProductEnrol, Ingredient, ProductInformation} from '../models/ProductInformation';
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { ProductInformationComponent } from '../product-information/product-information.component';
-
 @Component({
     selector: 'app-form-base',
     standalone: true,
@@ -44,6 +43,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public enrollModel: ProductInformation;
   public productEnrollModel: DrugProductEnrol;
+  public ingredientListModel: Ingredient[];
 
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
@@ -139,6 +139,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processProductInfoErrors(errorList) {
     this._productInfoErrors = errorList;
     this.processErrors();
+  }
+
+  processIngredientListErrors(errorList) {
+
   }
 
   // // processContactErrors(errorList) {

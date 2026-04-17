@@ -33,6 +33,7 @@ export interface DrugProductEnrol {
   is_schedule_claim:     ScheduleClaim,
   disinfectant_types:    DisinfectantTypes;
   proposedIndicationOfUseDosage: string;
+  formulation_details: Formulation[];
 }
 
 export interface ScheduleClaim {
@@ -44,4 +45,39 @@ export interface ScheduleClaim {
 export interface DisinfectantTypes {
   disinfectant_type : IIdTextLabel[];
 
+}
+
+export interface Formulation {
+  formulation_id : string;
+  formation_name : string;
+  dosage_form : IIdTextLabel;
+  ingredient_section : Ingredient[];
+}
+
+export interface Ingredient {
+  id : number;
+  role : IIdTextLabel;
+  ingredient_name : string;
+  proprietary_attestation : string;
+  // Add text for propriety here;
+  variant_name : string;
+  purpose : string;
+  cas_number : string;
+  ingred_standard : string;
+  strength : string;
+  operator : IIdTextLabel;
+  value : string;
+  lower_limit : string;
+  upper_limit : string;
+  units : IIdTextLabel;
+  units_other : string;
+  per : IIdTextLabel;
+  per_value : string;
+  per_units : IIdTextLabel;
+  per_units_other_details : string;
+  is_base_calc : string;
+  is_nanomaterial : string;
+  nanomaterial : IIdTextLabel;
+  nanomaterial_details : string;
+  is_animal_human_materail : string;
 }

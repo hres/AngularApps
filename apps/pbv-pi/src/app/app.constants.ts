@@ -59,3 +59,40 @@ export const DOSSIER_TYPE = {
   BIOLOGIC_HUMAN: 'D21',
   VETERINARY: 'D24',
 };
+
+export const MEDICINAL = 1;
+export const NON_MEDICINAL = 2;
+
+export const PRESENTATION = 1;
+export const MEASURE = 2;
+
+export const YES = "Y";
+export const NO = "N";
+
+export const EQUALS = 1;
+export const NOT_MORE = 2;
+export const NOT_LESS = 3;
+export const RANGE = 4;
+
+export const UNIT_MEASURE_OTHER = "OTHER";
+export const UNITS_OTHER = "OTHER";
+
+
+export const OPTIONAL_FIELDS_INGREDIENT_FORMULATION = [
+  'purpose',
+  'operator',
+  'operatorValue',
+  'lowerLimit',
+  'upperLimit',
+  'units',
+  'unitOfMeasure',
+  'measureOtherDetails',
+  'per',
+  'perValue',
+  'unitOfPresentation',
+  'calculatedBase',
+  'isNanomaterial',
+  'nanomaterial',
+  'nanomaterialType',
+  'isAnimalHumanSourced'
+];

@@ -43,6 +43,21 @@
           </div>
       </section>
     </div>
+    <div>
+      <section class="panel panel-primary mrgn-tp-lg">
+        <header class="panel-heading clearfix">
+          <h2 class="panel-title">{{ 'formulation.heading' | translate}}
+          </h2>
+          </header>
+          <div class="panel-body">
+            <app-ingredient-formulation-list
+            [lang]="lang" 
+            [recordList]="ingredientListModel" 
+            [showErrors]="showErrors" 
+            (errorEmit)="processIngredientListErrors($event)"></app-ingredient-formulation-list>
+          </div>
+      </section>
+    </div>
     <div class="row btn-group-sm">
       <div class="form-group col-md-4">
         <button type="button" class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
