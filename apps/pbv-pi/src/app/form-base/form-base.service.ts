@@ -66,6 +66,7 @@ export class FormBaseService {
       is_schedule_claim: undefined,
       disinfectant_types:undefined,
       proposedIndicationOfUseDosage:'',
+      formulation_details: undefined,
       };
 
     return drugProductEnrol;

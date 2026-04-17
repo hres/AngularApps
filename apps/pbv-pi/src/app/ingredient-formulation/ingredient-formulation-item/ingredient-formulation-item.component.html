@@ -1,0 +1,460 @@
+<div [formGroup]="cRRow">
+  <div [formGroupName]="'ingredientFormulation'">
+    <!-- ROLE -->
+    <div class="row">
+      <div class="form-group col-md-4">
+        <label class="required full-width" for="roleSelect{{j}}">
+            <span class="field-name">{{'role'|translate}}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            </span>
+            <control-messages *ngIf="cRRow.get('ingredientFormulation.role').invalid" [attr.aria-live]="showErrors? null: 'assertive'"
+            [showError]="showErrors"
+            [control]="cRRow.get('ingredientFormulation.role') | formControl"
+            controlId="roleSelect{{j}}" label="role" parentId="ingredientFormulation{{j}}"></control-messages>
+            <select id="roleSelect{{j}}" required [formControlName]="'role'" class="required form-control" (change)="rolesOnChange()">
+              <option label="{{ 'select.option'|translate }}"></option>
+              @for (role of roleList; track role) {
+                <option [value]="role.id">{{ role| textTransform: lang }}</option>
+              }
+            </select>
+        </label>
+      </div>
+    </div>
+    <div *ngIf="isRoleSeleted()">
+    <!-- INGREDIENT NAME -->
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label class="required" for="ingredientName{{j}}">
+          <span class="field-name">{{'ingredient.name'|translate}}
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+          </span>
+          <control-messages *ngIf="cRRow.get('ingredientFormulation.ingredientName').invalid" [attr.aria-live]="showErrors? null: 'assertive'"
+            [showError]="showErrors"
+            [control]="cRRow.get('ingredientFormulation.ingredientName') | formControl"
+            controlId="ingredientName{{j}}" label="ingredient.name" parentId="ingredientFormulation{{j}}"></control-messages>
+          <input id="ingredientName{{j}}" class="form-control full-width"
+           name="ingredientName" [formControlName]="'ingredientName'" maxlength="100" />
+        </label>
+      </div>
+    </div>
+
+    <!-- ATTEST DETAILS CHECKBOX -->
+    <div *ngIf="isNonMedicinalIngredient()">
+      <div class="row">
+        <div class="form-group col-md-12 checkbox">
+            <label for="attestDetails{{j}}">
+            <input type="checkbox" id="attestDetails{{j}}" 
+                  [formControlName]="'attestDetails'" (change)="attestDetailsOnChange()"/>
+            <span><b>{{'attest.details'|translate}}</b></span>
+            </label>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ATTEST DETAILS FREE TEXT -->
+    <div *ngIf="showAttestDetailsFreeText">
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label class="required" for="attestInformation{{j}}">
+            <span class="field-name">{{'pro.information'|translate}}
+              <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            </span>
+            <input id="attestInformation{{j}}" class="form-control full-width"
+             name="attestInformation" [formControlName]="'attestInformation'" maxlength="12" />
+          </label>
+        </div>
+      </div>
+      
+
+      <!-- ALERT INFO -->
+      <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div role="alert" class="alert alert-info">
+            <p aria-live="polite">
+              {{'pro.note'|translate}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- FORMULATION VARIANT NAME -->
+    <div class="row" *ngIf="isNonMedicinalIngredient()">
+      <div class="form-group col-md-6">
+        <label class="full-width" for="formulationVariantName{{j}}">
+          <span class="field-name">{{'form.variant'|translate}}</span>
+          <input id="formulationVariantName{{j}}" class="form-control full-width"
+           name="formulationVariant" [formControlName]="'formulationVariantName'" maxlength="12" />
+        </label>
+      </div>
+    </div>
+
+
+    <!-- PURPOSE (REQUIRED) -->
+    <div class="row" *ngIf="isNonMedicinalIngredient()">
+      <div class="form-group col-md-6">
+        <label class="full-width" for="purpose{{j}}" [class.required]="!isAttested()">
+          <span class="field-name">{{'purpose'|translate}}
+            <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+          </span>
+          <control-messages *ngIf="cRRow.get('ingredientFormulation.purpose').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.purpose') | formControl"
+              controlId="purpose{{j}}" label="purpose" parentId="ingredientFormulation{{j}}"></control-messages>
+          <input id="purpose{{j}}" class="form-control full-width"
+           name="purpose" [formControlName]="'purpose'" maxlength="12" />
+        </label>
+      </div>
+    </div>
+
+    <!-- CHEMICAL ABSTRACT SERVICES AND STANDRD  -->
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label class="full-width" for="chemicalAbstract{{j}}">
+          <span class="field-name">{{'chemical.abstract.services'|translate}}</span>
+          <input id="chemicalAbstract{{j}}" class="form-control full-width"
+           name="chemicalAbstract" [formControlName]="'chemicalService'" maxlength="12" />
+        </label>
+      </div>
+      <div class="form-group col-md-6">
+        <label class="full-width" for="standard{{j}}">
+          <span class="field-name">{{'standard'|translate}}</span>
+          <input id="standard{{j}}" class="form-control full-width"
+           name="standard" [formControlName]="'standard'" maxlength="40" />
+        </label>
+      </div>
+    </div>
+
+    <!-- STRENGTH - OPERATOR, UNITS, PER, CALCULATED BASE -->
+    <div>
+      <fieldset>
+        <legend class="legend-rep">
+          <span class="field-name">
+            {{'strength' | translate}}
+          </span>
+        </legend>
+      <!-- OPERATOR -->
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label class="full-width" for="operator{{j}}" [class.required]="!isAttested()">
+              <span class="field-name">{{'operator'|translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.operator').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.operator') | formControl "
+              controlId="operator{{j}}" label="operator" parentId="ingredientFormulation{{j}}"></control-messages>
+              <select id="operator{{j}}" required [formControlName]="'operator'" class="required form-control" (change)="operatorOnChange()">
+                <option label="{{ 'select.option'|translate }}"></option>
+                @for (op of operatorList; track op) {
+                  <option [value]="op.id">{{ op| textTransform: lang }}</option>
+                }
+              </select>
+          </label>
+        </div>
+      </div>
+      <!-- OPERATOR VALUE -->
+      <div class="row" *ngIf="isValueOperator()">
+        <div class="form-group col-md-12">
+          <label class="full-width" for="operatorValue{{j}}" [class.required]="!isAttested()">
+              <span class="field-name">{{'value'|translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.operatorValue').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.operatorValue') | formControl "
+              controlId="operatorValue{{j}}" label="value" parentId="ingredientFormulation{{j}}"></control-messages>
+              <input type="number" id="operatorValue{{j}}" class="form-control full-width"
+              name="operatorValue" [formControlName]="'operatorValue'">
+          </label>
+        </div>
+      </div>
+
+      <!-- RANGE UPPER/LOWER LIMITS-->
+      <div class="row" *ngIf="isRangeOperator()">
+        <div class="form-group col-md-12">
+          <label class="full-width" for="lowerLimit{{j}}" [class.required]="!isAttested()">
+              <span class="field-name">{{'lower.limit'|translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.lowerLimit').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.lowerLimit') | formControl "
+              controlId="lowerLimit{{j}}" label="lower.limit" parentId="ingredientFormulation{{j}}"></control-messages>
+              <input type="number" id="lowerLimit{{j}}" class="form-control full-width"
+              name="lowerLimit" [formControlName]="'lowerLimit'">
+          </label>
+        </div>
+
+        <div class="form-group col-md-12">
+          <label class="full-width" for="upperLimit{{j}}" [class.required]="!isAttested()">
+              <span class="field-name">{{'upper.limit'|translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.upperLimit').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.upperLimit') | formControl "
+              controlId="upperLimit{{j}}" label="upper.limit" parentId="ingredientFormulation{{j}}"></control-messages>
+              <input type="number" id="upperLimit{{j}}" class="form-control full-width"
+              name="upperLimit" [formControlName]="'upperLimit'">
+          </label>
+        </div>
+      </div>
+      <!-- UNITS -->
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label class="full-width" for="units{{j}}" [class.required]="!isAttested()">
+              <span class="field-name">{{'units'|translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.units').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.units') | formControl"
+              controlId="units{{j}}" label="units" parentId="ingredientFormulation{{j}}"></control-messages>
+              <select id="units{{j}}" required [formControlName]="'units'" class="required form-control" (change)="unitsOnChange()">
+                <option label="{{ 'select.option'|translate }}"></option>
+                @for (unit of unitsList; track unit) {
+                  <option [value]="unit.id">{{ unit| textTransform: lang }}</option>
+                }
+              </select>
+          </label>
+        </div>
+
+        <div *ngIf="isUnitsOther()">
+          <div class="form-group col-md-4">
+            <label [class.required]="!isAttested()" for="unitsOther{{j}}">
+              <span class="field-name">{{'units.other.details' | translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.unitsOther').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.unitsOther') | formControl"
+              controlId="unitsOther{{j}}" label="units.other.details" parentId="ingredientFormulation{{j}}"></control-messages>
+              <input id="unitsOther{{j}}" class="form-control full-width"
+              name="unitsOther" [formControlName]="'unitsOther'">
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- PER (REQUIRED IF ROLE=MEDICINAL INGREDIENT)-->
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label class="full-width" for="per{{j}}" [class.required]="!isAttested()">
+              <span class="field-name">{{'per'|translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.per').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.per') | formControl"
+              controlId="per{{j}}" label="per" parentId="ingredientFormulation{{j}}"></control-messages>
+              <select id="per{{j}}" required [formControlName]="'per'" class="required form-control" (change)="perOnChange()">
+                <option label="{{ 'select.option'|translate }}"></option>
+                @for (per of perList; track per) {
+                  <option [value]="per.id">{{ per| textTransform: lang }}</option>
+                }
+              </select>
+          </label>
+        </div>
+      </div>
+      <div class="row" *ngIf="hasPerValue()">
+        <div class="form-group col-md-4">
+          <label for="perValue{{j}}" [class.required]="!isAttested()">
+            <span class="field-name">{{'per.value' | translate}}
+              <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+            </span>
+            <control-messages *ngIf="cRRow.get('ingredientFormulation.perValue').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+                [showError]="showErrors"
+                [control]="cRRow.get('ingredientFormulation.perValue') | formControl"
+                controlId="perValue{{j}}" label="per.value" parentId="ingredientFormulation{{j}}"></control-messages>
+            <input type="number" id="perValue{{j}}" class="form-control full-width"
+            name="perValue" [formControlName]="'perValue'">
+          </label>
+        </div>
+
+        <div *ngIf="isUnitOfMeasure()">
+          <div class="form-group col-md-4">
+            <label for="unitMeasure{{j}}" [class.required]="!isAttested()">
+              <span class="field-name">{{'unit.measure' | translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.unitOfMeasure').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.unitMeasure') | formControl"
+              controlId="unitMeasure{{j}}" label="unit.measure" parentId="ingredientFormulation{{j}}"></control-messages>
+              <!-- <input id="unitMeasure{{j}}" class="form-control full-width"
+              name="unitMeasure" [formControlName]="'unitOfMeasure'"> -->
+              <select id="unitMeasure{{j}}" required [formControlName]="'unitOfMeasure'" class="required form-control">
+                <option label="{{ 'select.option'|translate }}"></option>
+                @for (mes of unitMeasureList; track mes) {
+                  <option [value]="mes.id">{{ mes | textTransform: lang }}</option>
+                }
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <!-- IF UNIT OF MEASURE == OTHER, SHOW OTHER DETAILS INPUT--> 
+        <div *ngIf="isUnitOfMeasureOther()">
+          <div class="form-group col-md-4">
+            <label [class.required]="!isAttested()" for="measureOtherDetails{{j}}">
+              <span class="field-name">{{'other.details' | translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.measureOtherDetails').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.unitsOther') | formControl"
+              controlId="measureOtherDetails{{j}}" label="other.details" parentId="ingredientFormulation{{j}}"></control-messages>
+              <input id="measureOtherDetails{{j}}" class="form-control full-width"
+              name="unitMeasure" [formControlName]="'measureOtherDetails'">
+            </label>
+          </div>
+        </div>
+
+        <div *ngIf="isUnitOfPresentation()">
+          <div class="form-group col-md-4">
+            <label [class.required]="!isAttested()" for="unitPresentation{{j}}">
+              <span class="field-name">{{'unit.presentation' | translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.unitOfPresentation').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.unitOfPresentation') | formControl"
+              controlId="unitPresentation{{j}}" label="unit.presentation" parentId="ingredientFormulation{{j}}"></control-messages>
+              <!-- <input id="unitPresentation{{j}}" class="form-control full-width"
+              name="unitPresentation" [formControlName]="'unitOfPresentation'"> -->
+              <select id="unitPresentation{{j}}" required [formControlName]="'unitOfPresentation'" class="required form-control">
+                <option label="{{ 'select.option'|translate }}"></option>
+                @for (pres of unitPresentationList; track pres) {
+                  <option [value]="pres.id">{{ pres | textTransform: lang }}</option>
+                }
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <!-- CALCULATED AS BASE (SHOW IF ROLE=MEDICINAL INGREDIENT)-->
+      <div class="row" *ngIf="isMedicinalIngredient()">
+        <div class="form-group col-md-12">
+          <label class="full-width" for="calculatedBase{{j}}" [class.required]="!isAttested()">
+              <span class="field-name">{{'calculated.as.base'|translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages *ngIf="cRRow.get('ingredientFormulation.calculatedBase').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.calculatedBase') | formControl"
+              controlId="calculatedBase{{j}}" label="calculated.as.base" parentId="ingredientFormulation{{j}}"></control-messages>
+              <select id="calculatedBase{{j}}" required [formControlName]="'calculatedBase'" class="required form-control" (change)="calculatedAsBaseOnChange()">
+                <option label="{{ 'select.option'|translate }}"></option>
+                @for (cal of calculatedAsBaseList; track cal) {
+                  <option [value]="cal.id">{{ cal| textTransform: lang }}</option>
+                }
+              </select>
+          </label>
+        </div>
+      </div>
+      </fieldset>
+    </div>
+
+
+    <!-- IS THIS NANOMATERIAL -->
+    <div class="row">
+      <fieldset class="col-md-12 chkbxrdio-grp">
+        <legend [class.required]="!isAttested()">
+          {{'is.nano'|translate}}
+          <strong *ngIf="!isAttested()" class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
+          <control-messages *ngIf="cRRow.get('ingredientFormulation.isNanomaterial').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+            [showError]="showErrors"
+            [control]="cRRow.get('ingredientFormulation.isNanomaterial') | formControl"
+            controlId="isNanomaterial{{j}}-0" label="is.nano" parentId="ingredientFormulation{{j}}"></control-messages>
+        </legend>
+        <ng-container *ngFor="let yesno of yesNoList; let i = index">
+          <label for="isNanomaterial{{j}}-{{i}}" class="radio-inline">
+            <input type="radio" id="isNanomaterial{{j}}-{{i}}" name="isNanomaterial" [value]="yesno.id"
+            aria-required="true" [formControlName]="'isNanomaterial'"/>
+            {{yesno | textTransform: lang }}
+          </label>
+        </ng-container>
+      </fieldset>
+    </div>
+    
+    <!-- NANOMATERIAL -->
+    <div class="row">
+      <div *ngIf="isNanomaterial()">
+        <div class="form-group col-md-3">
+          <label class="full-width" for="nanomaterial{{j}}" [class.required]="!isAttested()">
+              <span class="field-name">{{'nanomaterial'|translate}}
+                <strong *ngIf="!isAttested()" class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+              </span>
+              <control-messages  *ngIf="cRRow.get('ingredientFormulation.nanomaterial').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+              [showError]="showErrors"
+              [control]="cRRow.get('ingredientFormulation.nanomaterial') | formControl"
+              controlId="nanomaterial{{j}}" label="nanomaterial" parentId="ingredientFormulation{{j}}"></control-messages>
+              <select id="nanomaterial{{j}}" required [formControlName]="'nanomaterial'" class="required form-control" (change)="nanomaterialOnChange()">
+                <option label="{{ 'select.option'|translate }}"></option>
+                @for (nano of nanomaterialList; track nano) {
+                  <option [value]="nano.id">{{ nano| textTransform: lang }}</option>
+                }
+              </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- IF NANOMATERIAL == OTHER -->
+      <!-- <div class="form-group col-md-5">
+        <label class="required full-width" for="nanomaterialType{{j}}">
+          <span class="field-name">{{'nanomaterial.type'|translate}}
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+          </span>
+          <control-messages  *ngIf="cRRow.get('ingredientFormulation.nanomaterialType').invalid" [attr.aria-live]="showErrors? null: 'assertive'"
+            [showError]="showErrors"
+            [control]="cRRow.get('ingredientFormulation.nanomaterialType') | formControl"
+            controlId="nanomaterialType{{j}}" label="nanomaterial.type" parentId="ingredientFormulation{{j}}"></control-messages>
+          <input id="nanomaterialType{{j}}" class="form-control full-width"
+            name="nanomaterialType" [formControlName]="'nanomaterialType'" maxlength="100" />
+        </label>
+      </div> -->
+    </div>
+
+    <!-- IS ANIMAL OR HUMAN SOURCED -->
+    <div class="row">
+      <fieldset class="col-xs-12 chkbxrdio-grp">
+        <legend [class.required]="!isAttested()">
+          {{'bio.source'|translate}}
+          <strong *ngIf="!isAttested()" class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
+          <control-messages  *ngIf="cRRow.get('ingredientFormulation.isAnimalHumanSourced').invalid && !isAttested()" [attr.aria-live]="showErrors? null: 'assertive'"
+            [showError]="showErrors"
+            [control]="cRRow.get('ingredientFormulation.isAnimalHumanSourced') | formControl"
+            controlId="isAnimalHumanSourced{{j}}-0" label="bio.source" parentId="ingredientFormulation{{j}}"></control-messages>
+        </legend>
+        <ng-container *ngFor="let yesno of yesNoList; let i = index">
+          <label for="isAnimalHumanSourced{{j}}-{{i}}" class="radio-inline">
+            <input type="radio" id="isAnimalHumanSourced{{j}}-{{i}}" name="isAnimalHumanSourced" [value]="yesno.id"
+            aria-required="true" [formControlName]="'isAnimalHumanSourced'"/>
+            {{yesno | textTransform: lang }}
+          </label>
+        </ng-container>
+      </fieldset>
+    </div>
+    <!-- ANIMAL OR HUMAN SOURCED NOTE -->
+    <div *ngIf="isAnimalHumanSourced()">
+      <div class="row">
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div role="alert" class="alert alert-info">
+            <p aria-live="polite">
+              {{'bio.note'|translate}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="btn-group-sm col-xs-12 text-left">          
+      <button id="saveIngredientRecord{{j}}" attr.aria-label="{{'save.ingredient' | translate}} {{'heading.form.ingredient' | translate: {seqnumber: j + 1} }}" class="btn btn-primary" style="margin: 3px" (click)="saveIngredientRecord(j)" [disabled]="disableForm" >{{'save.ingredient'|translate}}</button>
+      <button id="deleteIngredientRecord{{j}}" attr.aria-label="{{'delete.record' | translate}} {{ 'heading.form.ingredient' | translate: {seqnumber: j + 1} }}" class="btn btn-danger" style="margin: 3px"  (click)="deleteIngredientRecord(j)" [disabled]="disableForm">{{'delete.record'|translate}}</button> <!--[disabled]="disableDeleteButton()"-->
+      <button id="discardChangesIngredientRecord{{j}}" attr.aria-label="{{'discard.changes' | translate}} {{ 'heading.form.ingredient' | translate: {seqnumber: j + 1} }}" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton() || disableForm" (click)="revertIngredientRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>          
+    </div>
+  </div>
+</div>

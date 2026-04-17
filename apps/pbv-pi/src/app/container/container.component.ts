@@ -34,6 +34,14 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getDrugUses(),
     this._formDataLoader.getScheduleClaims(),
     this._formDataLoader.getDisinfectantTypes(),
+    this._formDataLoader.getNanomaterials(),
+    this._formDataLoader.getOperators(),
+    this._formDataLoader.getPer(),
+    this._formDataLoader.getRoles(),
+    this._formDataLoader.getUnits(),
+    this._formDataLoader.getCalculatedBase(),
+    this._formDataLoader.getUnitMeasure(),
+    this._formDataLoader.getUnitPresentation()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -52,6 +60,14 @@ export class ContainerComponent implements OnInit {
       this._globalService.drugUse = data[5];
       this._globalService.scheduleClaims = data[6];
       this._globalService.disinfectTypes = data[7];
+      this._globalService.nanomaterialList = data[8];
+      this._globalService.operatorList = data[9];
+      this._globalService.perList = data[10];
+      this._globalService.rolesList = data[11];
+      this._globalService.unitsList = data[12];
+      this._globalService.calculatedBaseList = data[13];
+      this._globalService.unitMeasureList = data[14];
+      this._globalService.unitPresentationList = data[15];
 
       this.loadFormBaseComponent = true;
     });
