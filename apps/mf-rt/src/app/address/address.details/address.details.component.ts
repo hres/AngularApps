@@ -9,6 +9,7 @@ import {AddressDetailsService} from './address.details.service';
 import { BaseComponent, HelpIndex, ICode, UtilsService, ValidationService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../../global/global.service';
 import { INameAddress } from '../../models/transaction';
+import { ADDR_CONT_TYPE } from '../../app.constants';
 
 @Component({
   selector: 'app-address-details',
@@ -38,6 +39,8 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
   public postalLabel = 'addressDetails.postalZipCode';
 
   public showFieldErrors = false;
+
+  ADDR_CONT_TYPE = ADDR_CONT_TYPE;
 
  // writable signal for the answer of "Country" field
   readonly selectedCountrySignal = signal<string>('');
