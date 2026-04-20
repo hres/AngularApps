@@ -319,5 +319,9 @@
   "error.msg.remove.contact": "Représentant de la compagnie doivent être supprimés.",
   "error.msg.revise.contact": "Représentant de la compagnie doivent être actif.",
   "error.mgs.contact.id": "Entrée non valide - doit être 5 chiffres",
-  "error.msg.contact.one.record": "Au moins un représentant de l’entreprise ayant un statut nouveau, actif ou révisé doit être inscrit."
+  "error.msg.contact.one.record": "Au moins un représentant de l’entreprise ayant un statut nouveau, actif ou révisé doit être inscrit.",
+  "error.msg.formulation.one.record": "Au moins une formulation est requise",
+  "error.msg.species.one.record": "Au moins un espèce doit être inscrit",
+  "error.msg.ingredient.one.record": "Au moins un ingrédient medicinal ou non medicinal doit être inscrit "
+
 }

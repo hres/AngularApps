@@ -323,6 +323,8 @@
     "error.mgs.primary.contact.id": "Please specify a valid contact Identifier for REP Contact.",
     "error.mgs.primary.company.id": "Please specify a valid company Identifier for REP Contact.",
     "error.mgs.contact.id": "Invalid entry - must be 5 digits",
-    "error.msg.contact.one.record": "At least one company representative with new, active, revise status must be listed"
-
+    "error.msg.contact.one.record": "At least one company representative with new, active, revise status must be listed",
+    "error.msg.formulation.one.record": "At least one formulation is required",
+    "error.msg.species.one.record": "At least one species should be entered",
+    "error.msg.ingredient.one.record": "At least one medicinal or non medicinal ingredient should be entered "
 }

@@ -1,0 +1,27 @@
+[
+    {
+      "id": "1",
+      "en": "Lymph nodes",
+      "fr": "Ganglions lymphatiques"
+    },
+    {
+      "id": "2",
+      "en": "Spleen",
+      "fr": "Rate"
+    },
+    {
+      "id": "3",
+      "en": "Thymus",
+      "fr": "Thymus"
+    },
+    {
+      "id": "4",
+      "en": "Tonsils",
+      "fr": "Amygdales"
+    },
+    {
+      "id": "5",
+      "en": "Other immune system",
+      "fr": "Autre système immunitaire"
+    }
+  ]
