@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConverterService, UtilsService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
+
 
 @Injectable()
 export class IngredientFormulationService {
@@ -31,7 +33,7 @@ export class IngredientFormulationService {
                 role: ['', Validators.required],
                 ingredientName: ['', Validators.required],
                 attestDetails: [''],
-                attestInformation: ['', Validators.required],
+                attestInformation: [''],
                 formulationVariantName: [''],
                 purpose: [''],
                 chemicalService: [''],
@@ -62,20 +64,19 @@ export class IngredientFormulationService {
     } 
 
     public async getHeading(index : number, formGroup : FormGroup): Promise<string> {
-        // let fullHeading = '';
-        // let companyName = null;
-        // const id = index + 1;
+        let fullHeading = '';
+        let ingredientName = null;
+        const id = index + 1;
 
-        // if (formGroup.get('id').value !== -1) {
-        //   companyName = formGroup.get('addressInfo.companyName')?.value?.trim() ?? '';
-        // }
+        if (formGroup.get('id').value !== -1) {
+            ingredientName = formGroup.get('ingredientFormulation.ingredientName')?.value?.trim() ?? '';
+        }
     
-        // const heading = await lastValueFrom(
-        //   this._translateService.get('heading.company.address', { seqnumber: id })
-        // );
-        // fullHeading = companyName ? `${heading} - ${companyName}` : heading;
+        const heading = await lastValueFrom(
+          this._translateService.get('heading.form.ingredient', { seqnumber: id })
+        );
+        fullHeading = ingredientName ? `${heading} - ${ingredientName}` : heading;
           
-        // return fullHeading;
-        return null;
+        return fullHeading;
     }
 }
