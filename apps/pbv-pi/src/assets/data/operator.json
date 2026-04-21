@@ -2,22 +2,22 @@
     {
         "id":"1",
         "en": "Equals",
-        "fr": "fr_Equals"
+        "fr": "Egale"
     },
     {
         "id":"2",
         "en": "Not more than",
-        "fr": "ffr_Not more than"
+        "fr": "Pas plus de"
     },
     {
         "id":"3",
         "en": "Not less than",
-        "fr": "fr_Not less than"
+        "fr": "Pas moins de"
     },
     {
         "id":"4",
         "en": "Range",
-        "fr": "fr_Range"
+        "fr": "Gamme"
     }
 ]
   

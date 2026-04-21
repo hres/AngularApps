@@ -1,0 +1,42 @@
+[
+    {
+      "id": "1",
+      "en": "Abdomen",
+      "fr": "Abdomen"
+    },
+    {
+      "id": "2",
+      "en": "Skull",
+      "fr": "Crâne"
+    },
+    {
+      "id": "3",
+      "en": "Bones other than vertebral column or skull",
+      "fr": "Os (autre que la colonne vertébrale et le crâne)"
+    },
+    {
+      "id": "4",
+      "en": "Collagen",
+      "fr": "Collagène"
+    },
+    {
+      "id": "5",
+      "en": "Tendons or ligaments",
+      "fr": "Tendons/ligaments"
+    },
+    {
+      "id": "6",
+      "en": "Vertebral column",
+      "fr": "Colonne vertébrale"
+    },
+    {
+      "id": "7",
+      "en": "Muscle",
+      "fr": "muscle"
+    },
+    {
+      "id": "8",
+      "en": "Other musculo-skeletal system",
+      "fr": "autre système musculo-squelettique"
+    }
+  ]
