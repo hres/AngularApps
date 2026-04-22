@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { GlobalService } from '../../global/global.service';
 import { Ingredient } from '../../models/ProductInformation';
+import { IngredientFormulationItemService } from '../ingredient-formulation-item/ingredient-formulation-item.service';
 import { IngredientFormulationService } from '../ingredient-formulation.service';
 import { IngredientFormulationListService } from './ingredient-formulation-list.service';
 
@@ -38,6 +39,7 @@ export class IngredientFormulationListComponent extends BaseListComponent<Ingred
 
   constructor(private fb: FormBuilder,
     private _ingredientFormulationService: IngredientFormulationService,
+    private _ingredientFormulationItemService: IngredientFormulationItemService,
     private _errorNotifService: ErrorNotificationService,
     private _globalService: GlobalService,
     private _utilsService: UtilsService,
@@ -81,19 +83,19 @@ export class IngredientFormulationListComponent extends BaseListComponent<Ingred
     }
   }
 
+  // This function is called when looping through the output data's list of records
+  // Maps output model to form
   protected _patchRecordInfoValue(form, outputModel: Ingredient) {
-    // this._companyAddressItemService.mapDataModelToFormModel(outputModel, form.controls['addressInfo'], this.companyRolesOptionList, form.controls['id'].value)
-    // const addressDetailsFormGroup = form.controls['addressInfo'].controls['addressDetails'];
-    // this._mapEarlyVersionCountryProvinceCodesAndPostal(outputModel.company_address_details);
-    // this._addressDetailsService.mapDataModelToFormModel(outputModel.company_address_details, addressDetailsFormGroup);
+    console.log("patching recorrd info")
+
+    this._ingredientFormulationItemService.mapDataModelToFormModel(outputModel, form.controls['ingredientFormulation']);
   }
 
   protected _patchLastSavedStateValue(lastSavedStateFormControl: any, outputModel: Ingredient) {
-    // const [selectedRoles, companyRoles] = this._companyAddressItemService.getSelectedCompanyRolesFromOutputModel(outputModel);
-    // lastSavedStateFormControl.patchValue({
-      
-    //   }
-    // })
+    // TODO: This method is for discarding changes after loading in XML file
+    lastSavedStateFormControl.patchValue({
+
+    })
   }
 
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {

@@ -11,7 +11,7 @@ import { IngredientFormulationItemComponent } from './ingredient-formulation-ite
 import { IngredientFormulationListComponent } from './ingredient-formulation-list/ingredient-formulation-list.component';
 import { IngredientFormulationService } from './ingredient-formulation.service';
 import { IngredientFormulationListService } from './ingredient-formulation-list/ingredient-formulation-list.service';
-
+import { IngredientFormulationItemService } from './ingredient-formulation-item/ingredient-formulation-item.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -39,7 +39,8 @@ import { IngredientFormulationListService } from './ingredient-formulation-list/
   IngredientFormulationService,
    RecordDeleteService,
    RecordDiscardService,
-   IngredientFormulationListService
+   IngredientFormulationListService,
+   IngredientFormulationItemService
   ]
 })
 export class IngredientFormulationModule { }

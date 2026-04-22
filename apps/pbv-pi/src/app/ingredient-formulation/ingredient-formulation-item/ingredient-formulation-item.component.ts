@@ -38,6 +38,11 @@ export class IngredientFormulationItemComponent extends BaseComponent {
   public unitMeasureList: ICode[] = [];
   public unitPresentationList: ICode[] = [];
 
+  public headingLevel = 'h4';
+  headingPreamble: string = "heading.form.ingredient";
+  headingPreambleParams: any;
+  translatedParentLabel: string;
+
   lang = this._globalService.currLanguage;
 
   showAttestDetailsFreeText = false;
@@ -68,6 +73,10 @@ export class IngredientFormulationItemComponent extends BaseComponent {
     this.calculatedAsBaseList = this._globalService.calculatedBaseList;
     this.unitMeasureList = this._globalService.unitMeasureList;
     this.unitPresentationList = this._globalService.unitPresentationList;
+
+    this.headingPreambleParams = this.j+1;
+    this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+
     this._initSubscriptions();
   }
 

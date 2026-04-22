@@ -34,6 +34,7 @@ export interface DrugProductEnrol {
   disinfectant_types:    DisinfectantTypes;
   proposedIndicationOfUseDosage: string;
   formulation_details: Formulation[];
+  ingredients_testing : Ingredient[] // TODO: Remove this, it will be under formulation_details
 }
 
 export interface ScheduleClaim {
@@ -59,6 +60,7 @@ export interface Ingredient {
   role : IIdTextLabel;
   ingredient_name : string;
   proprietary_attestation : string;
+  proprietary_information : string;
   // Add text for propriety here;
   variant_name : string;
   purpose : string;
@@ -79,5 +81,5 @@ export interface Ingredient {
   is_nanomaterial : string;
   nanomaterial : IIdTextLabel;
   nanomaterial_details : string;
-  is_animal_human_materail : string;
+  is_animal_human_material : string;
 }

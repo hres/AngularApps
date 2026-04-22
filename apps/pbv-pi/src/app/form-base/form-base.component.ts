@@ -11,6 +11,7 @@ import { DrugProductEnrol, Ingredient, ProductInformation} from '../models/Produ
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { ProductInformationComponent } from '../product-information/product-information.component';
+import { IngredientFormulationListComponent } from '../ingredient-formulation/ingredient-formulation-list/ingredient-formulation-list.component';
 @Component({
     selector: 'app-form-base',
     standalone: true,
@@ -30,7 +31,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   @ViewChild(ProductInformationComponent) productInfoComponent: ProductInformationComponent;
-  
+  @ViewChild(IngredientFormulationListComponent) ingredientFormulationListComponent: IngredientFormulationListComponent;
+
   private _consertPrivacyError = [];
 
   public piForm: FormGroup; 
@@ -175,7 +177,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log(fileData);
     if (fileData.data !== null) {
       this.productEnrollModel = fileData.data.DRUG_PRODUCT_ENROL;
-      // this._initModels(this.transactionEnrollModel);
+      this._initModels(this.productEnrollModel);
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
       // this.agentInfoOnChange();
@@ -195,6 +197,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // }
     // this.addressModel = trans.regulatory_activity_address;
     // this.contactModel = trans.regulatory_activity_contact;
+    // this.addressListModel = drugProduct.software_version < this._globalService.appVersion? this._mapAddressIdToId(tAddressesArray) : tAddressesArray;
+    const tIngredients = drugProduct.ingredients_testing;
+    const tIngredientsArray = Array.isArray(tIngredients) ? tIngredients : [tIngredients];
+    this.ingredientListModel = tIngredientsArray;
+    if (this._utilsService.isEmpty(tIngredients)) {
+      this.ingredientListModel = [];
+    } 
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -216,11 +225,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _prepareForSaving(xmlFile: boolean): ProductInformation {
-
+    let ingredientFormArrayValue = null;
+    
     const newDrugProductEnrol: DrugProductEnrol = this._baseService.getEmptyDrugProductEnrol();
 
     const productInfoFormGroupValue = this.productInfoComponent.getFormValue();
     this._baseService.mapProductInfoFormToOutput(newDrugProductEnrol, productInfoFormGroupValue);
+
+    if (this.ingredientFormulationListComponent.recordFormArray) {
+      ingredientFormArrayValue = this.ingredientFormulationListComponent.recordFormArray.value;
+    }
+
+    this._baseService.mapIngredientFormulationFormToOutput(newDrugProductEnrol, ingredientFormArrayValue)
 
     newDrugProductEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm');
     newDrugProductEnrol.software_version = this._globalService.appVersion;
