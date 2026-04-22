@@ -21,7 +21,7 @@
     "importer": "Importer",
     "route.id": "Routing identifier",
     "drug.use": "Drug use",
-    "schedule.and.prescription.status": "Schedule A and prescription status (check all that apply): the product is",
+    "schedule.and.prescription.status": "Schedule and prescription status (check all that apply): the product is",
 
     "select.diseases": "Select the diseases and disorders that apply to the claims made (select at least one)",
     "provide.info.products": "Provide information below for non-prescription products that have associated schedule A claims only.",
