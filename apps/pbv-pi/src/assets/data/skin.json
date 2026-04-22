@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "en": "Adrenal gland or tissue",
+    "fr": "Glande ou tissu surrénalien"
+  },
+  {
+    "id": "s2",
+    "en": "Hair, feathers, hooves",
+    "fr": "Cheveu, plumes, sabots"
+  },
+  {
+    "id": "3",
+    "en": "Liver",
+    "fr": "Foie"
+  },
+  {
+    "id": "4",
+    "en": "Pancreas",
+    "fr": "Pancréas"
+  },
+  {
+    "id": "5",
+    "en": "Thyroid or parathyroid",
+    "fr": "Thyroïde ou parathyroïde"
+  },
+  {
+    "id": "6",
+    "en": "Skin or hides",
+    "fr": "Peau ou cuirs"
+  },
+  {
+    "id": "7",
+    "en": "Thyroid or parathyroid",
+    "fr": "Thyroïde ou parathyroïde"
+  },
+  {
+    "id": "8",
+    "en": "Other skin or glandular system",
+    "fr": "Autres système de la peau ou système glandulaire"
+  }
+]
