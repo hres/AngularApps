@@ -14,6 +14,7 @@ import { AppSignalService } from './signal/app-signal.service';
 import { ProductInformationComponent } from './product-information/product-information.component';
 import { ProductInformationService } from './product-information/product-information.service';
 import { IngredientFormulationModule } from './ingredient-formulation/ingredient-formulation.module';
+import { FormulationModule } from './formulation/formulation.module';
 @NgModule({
   declarations: [
     ProductInformationComponent,
@@ -29,7 +30,8 @@ import { IngredientFormulationModule } from './ingredient-formulation/ingredient
     TranslateModule,
     NumbersOnlyDirective,
     HelpTextModuleModule,
-    IngredientFormulationModule
+    IngredientFormulationModule,
+    FormulationModule
 ],
   providers: [
     AppSignalService,
@@ -38,7 +40,8 @@ import { IngredientFormulationModule } from './ingredient-formulation/ingredient
   ],
   exports: [CommonUiFeatureModule,
     ProductInformationComponent,
-    IngredientFormulationModule
+    IngredientFormulationModule,
+    FormulationModule
    ],
 })
 export class AppFormModule {}

@@ -238,10 +238,6 @@ export class IngredientFormulationItemComponent extends BaseComponent {
     return false;
   }
 
-  get addressDetailsFormGroup(): FormGroup {
-    return this.cRRow.get('addressInfo.addressDetails') as FormGroup;
-  }
-
   public showErrorSummary(): boolean {
     return (this.showErrors && this.errors.length > 0);
   }

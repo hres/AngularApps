@@ -21,6 +21,7 @@ export class FormDataLoaderService {
   private calculatedBaseJsonPath = DATA_PATH + 'calculatedBase.json';
   private unitMeasureJsonPath = DATA_PATH + 'unitMeasure.json';
   private unitPresentationJsonPath = DATA_PATH + 'unitPresentation.json';
+  private dosageFormJsonPath = DATA_PATH + 'dosageForm.json';
   cachedYesNo$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
   cachedCountries$:Observable<ICode[]>;
@@ -36,6 +37,7 @@ export class FormDataLoaderService {
   calculatedBase$: Observable<ICode[]>;
   unitMeasure$: Observable<ICode[]>;
   unitPresentation$: Observable<ICode[]>;
+  dosageForm$: Observable<ICode[]>;
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -178,6 +180,14 @@ export class FormDataLoaderService {
    getDisinfectantTypes(): Observable<ICodeDefinition[]> {
     return this.disinfectantTypes$ = this._dataService
      .getData<ICodeAria>(this.disinfectantTypeJsonPath)
+     .pipe(
+       shareReplay(1)
+     );
+   }
+
+   getDosageForms(): Observable<ICode[]> {
+    return this.dosageForm$ = this._dataService
+     .getData<ICodeAria>(this.dosageFormJsonPath)
      .pipe(
        shareReplay(1)
      );

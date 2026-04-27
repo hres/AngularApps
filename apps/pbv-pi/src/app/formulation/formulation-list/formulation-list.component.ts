@@ -4,26 +4,26 @@ import { RecordFormGroup, ENGLISH, UtilsService, IRecordService, BaseListCompone
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { GlobalService } from '../../global/global.service';
-import { Ingredient } from '../../models/ProductInformation';
-import { IngredientFormulationItemService } from '../ingredient-formulation-item/ingredient-formulation-item.service';
-import { IngredientFormulationService } from '../ingredient-formulation.service';
-import { IngredientFormulationListService } from './ingredient-formulation-list.service';
-
+import { Formulation, Ingredient } from '../../models/ProductInformation';
+import { FormulationService } from '../formulation.service';
+import { FormulationItemService } from '../formulation-item/formulation-item.service';
+import { FormulationListService } from './formulation-list.service';
+import { IngredientFormulationItemService } from '../../ingredient-formulation/ingredient-formulation-item/ingredient-formulation-item.service';
 @Component({
-  selector: 'app-ingredient-formulation-list',
-  templateUrl: './ingredient-formulation-list.component.html',
-  styleUrls: ['./ingredient-formulation-list.component.css'],
+  selector: 'app-formulation-list',
   encapsulation: ViewEncapsulation.None,
-  standalone: false
+  standalone: false,
+  templateUrl: './formulation-list.component.html',
+  styleUrl: './formulation-list.component.css'
 })
-export class IngredientFormulationListComponent extends BaseListComponent<Ingredient>{
+export class FormulationListComponent extends BaseListComponent<Formulation>{
   recordService: IRecordService;
 
-  records: string = 'ingredients';
-  recordInfo: string = 'ingredientFormulation';
-  popupId: string = 'ingredientPopup';
-  discardPopupId: string = 'ingredientDiscardPopup';
-  deletePopupId: string = 'ingredientDeletePopup';
+  records: string = 'formulations';
+  recordInfo: string = 'formulation';
+  popupId: string = 'formulationPopup';
+  discardPopupId: string = 'formulationDiscardPopup';
+  deletePopupId: string = 'formulationDeletePopup';
 
   statusMessage : string = '';
   errorList;
@@ -33,30 +33,27 @@ export class IngredientFormulationListComponent extends BaseListComponent<Ingred
   statusMessageDelete: string = '';
 
   focusField : string = '';
-  addButton : string = 'addAddressBtn';
-  
-  @Input()
-  set ingredientFormGroupRecord(value: FormGroup) {
-    if (!value) return;
-    this.recordFormGroup = value;
-  }
+  addButton : string = 'addFormulationBtn';
+
+  @Input() ingredientFormModelList; 
   @Output() errorEmit = new EventEmitter(true);
+  @Output() ingredientFormErrors = new EventEmitter();
 
   constructor(private fb: FormBuilder,
-    private _ingredientFormulationService: IngredientFormulationService,
-    private _ingredientFormulationItemService: IngredientFormulationItemService,
+    private _formulationService: FormulationService,
+    private _formulationItemService: FormulationItemService,
+    private _ingredFormItemService: IngredientFormulationItemService,
     private _errorNotifService: ErrorNotificationService,
     private _globalService: GlobalService,
     private _utilsService: UtilsService,
     deleteService : RecordDeleteService,
     discardService : RecordDiscardService,
-    ingredientFormulationListService: IngredientFormulationListService) {
-      super(fb, ingredientFormulationListService, discardService, deleteService);
-      this.recordService = this._ingredientFormulationService;
-      // this.recordFormGroup = this.fb.group({
-      //   ingredients: this.fb.array([])
-      // });
-      // this.recordFormGroup = this.ingredientFormGroup;
+    formulationListService: FormulationListService) {
+      super(fb, formulationListService, discardService, deleteService);
+      this.recordService = this._formulationService;
+        this.recordFormGroup = this.fb.group({
+        formulations: this.fb.array([])
+      });
   }
 
   ngOnInit():void {
@@ -91,10 +88,15 @@ export class IngredientFormulationListComponent extends BaseListComponent<Ingred
 
   // This function is called when looping through the output data's list of records
   // Maps output model to form
-  protected _patchRecordInfoValue(form, outputModel: Ingredient) {
-    console.log("patching recorrd info")
+  protected _patchRecordInfoValue(form, outputModel: Formulation) {
 
-    this._ingredientFormulationItemService.mapDataModelToFormModel(outputModel, form.controls['ingredientFormulation']);
+    this._formulationItemService.mapDataModelToFormModel(outputModel, form.controls['formulation']);
+      
+    console.log(outputModel, form.controls['formulation']);
+    
+    // Map formulation's ingredient list - pass ingredient list to form-item and it will past the list
+    // to ingred form list -> mapping will happen in the ingred list component
+    this.ingredientFormModelList = outputModel?.ingredient_section;
   }
 
   protected _patchLastSavedStateValue(lastSavedStateFormControl: any, outputModel: Ingredient) {
@@ -124,5 +126,9 @@ export class IngredientFormulationListComponent extends BaseListComponent<Ingred
     }
     this.errorList = errorsToEmit;
     this.errorEmit.emit(errorsToEmit);
+  }
+
+  processIngredListErrors(event : any) {
+    this.ingredientFormErrors.emit();
   }
 }

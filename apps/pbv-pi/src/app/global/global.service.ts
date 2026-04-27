@@ -45,6 +45,7 @@ export class GlobalService {
   private _calculatedBase: ICode[] = [];
   private _unitPresentation: ICode[] = [];
   private _unitMeasure: ICode[] = [];
+  private _dosageForm: ICode[] = [];
 
 
   setCurrLanguage(language : string): void {
@@ -241,5 +242,13 @@ export class GlobalService {
 
   public set unitPresentationList(value: ICode[]) {
     this._unitPresentation = value;
+  }
+
+  public get dosageFormList(): ICode[] {
+    return this._dosageForm;
+  }
+
+  public set dosageFormList(value: ICode[]) {
+    this._dosageForm = value;
   }
 }

@@ -49,8 +49,8 @@ export interface DisinfectantTypes {
 }
 
 export interface Formulation {
-  formulation_id : string;
-  formation_name : string;
+  id : number;
+  formulation_name : string;
   dosage_form : IIdTextLabel;
   ingredient_section : Ingredient[];
 }
@@ -77,7 +77,7 @@ export interface Ingredient {
   per_value : string;
   per_units : IIdTextLabel;
   per_units_other_details : string;
-  is_base_calc : string;
+  is_base_calc : IIdTextLabel;
   is_nanomaterial : string;
   nanomaterial : IIdTextLabel;
   nanomaterial_details : string;

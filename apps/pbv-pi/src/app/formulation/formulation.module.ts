@@ -7,11 +7,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective, RecordDeleteService, RecordDiscardService } from '@hpfb/sdk/ui';
 import { PopupComponent, ConfirmationPopupComponent } from '@hpfb/sdk/ui';
 import { AddressModule } from '@hpfb/pbv';
-import { IngredientFormulationItemComponent } from './ingredient-formulation-item/ingredient-formulation-item.component';
-import { IngredientFormulationListComponent } from './ingredient-formulation-list/ingredient-formulation-list.component';
-import { IngredientFormulationService } from './ingredient-formulation.service';
-import { IngredientFormulationListService } from './ingredient-formulation-list/ingredient-formulation-list.service';
-import { IngredientFormulationItemService } from './ingredient-formulation-item/ingredient-formulation-item.service';
+import { FormulationItemComponent } from '../formulation/formulation-item/formulation-item.component';
+import { FormulationListComponent } from '../formulation/formulation-list/formulation-list.component';
+import { FormulationService } from '../formulation/formulation.service';
+import { FormulationListService } from './formulation-list/formulation-list.service';
+import { FormulationItemService } from './formulation-item/formulation-item.service';
+import { IngredientFormulationModule } from '../ingredient-formulation/ingredient-formulation.module';
 
 @NgModule({
   imports: [
@@ -26,22 +27,23 @@ import { IngredientFormulationItemService } from './ingredient-formulation-item/
     NumbersOnlyDirective,
     PopupComponent,
     ConfirmationPopupComponent,
-    AddressModule
+    AddressModule,
+    IngredientFormulationModule
   ],
   declarations: [
-    IngredientFormulationItemComponent,
-    IngredientFormulationListComponent
+    FormulationItemComponent,
+    FormulationListComponent
   ],
   exports: [
-    IngredientFormulationItemComponent,
-    IngredientFormulationListComponent
+    FormulationItemComponent,
+    FormulationListComponent
   ],
   providers: [
-  IngredientFormulationService,
+  FormulationService,
    RecordDeleteService,
    RecordDiscardService,
-   IngredientFormulationListService,
-   IngredientFormulationItemService
+  FormulationListService,
+   FormulationItemService
   ]
 })
-export class IngredientFormulationModule { }
+export class FormulationModule { }
