@@ -7,10 +7,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { DrugProductEnrol, Ingredient, ProductInformation} from '../models/ProductInformation';
+import { DrugProductEnrol, Formulation, Ingredient, ProductInformation} from '../models/ProductInformation';
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { ProductInformationComponent } from '../product-information/product-information.component';
+import { IngredientFormulationListComponent } from '../ingredient-formulation/ingredient-formulation-list/ingredient-formulation-list.component';
+import { FormulationListComponent } from '../formulation/formulation-list/formulation-list.component';
 @Component({
     selector: 'app-form-base',
     standalone: true,
@@ -30,7 +32,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   @ViewChild(ProductInformationComponent) productInfoComponent: ProductInformationComponent;
-  
+  @ViewChild(IngredientFormulationListComponent) ingredientFormulationListComponent: IngredientFormulationListComponent;
+  @ViewChild(FormulationListComponent) formulationListComponent: FormulationListComponent;
+
   private _consertPrivacyError = [];
 
   public piForm: FormGroup; 
@@ -43,7 +47,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   public enrollModel: ProductInformation;
   public productEnrollModel: DrugProductEnrol;
-  public ingredientListModel: Ingredient[];
+  // public ingredientListModel: Ingredient[];
+  public formulationListModel: Formulation[];
 
   public rootTagText = ROOT_TAG;
   public versionTagPath = VERSION_TAG_PATH;
@@ -141,9 +146,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processIngredientListErrors(errorList) {
-
-  }
+  processFormulationListErrors(errorList) {}
 
   // // processContactErrors(errorList) {
   // //   this._contactErrors = errorList;
@@ -175,7 +178,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // console.log(fileData);
     if (fileData.data !== null) {
       this.productEnrollModel = fileData.data.DRUG_PRODUCT_ENROL;
-      // this._initModels(this.transactionEnrollModel);
+      this._initModels(this.productEnrollModel);
       // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
       // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
       // this.agentInfoOnChange();
@@ -195,6 +198,22 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     // }
     // this.addressModel = trans.regulatory_activity_address;
     // this.contactModel = trans.regulatory_activity_contact;
+    // this.addressListModel = drugProduct.software_version < this._globalService.appVersion? this._mapAddressIdToId(tAddressesArray) : tAddressesArray;
+    const tFormulations = drugProduct.formulation_details;
+    const tFormulationsArray = Array.isArray(tFormulations) ? tFormulations : [tFormulations];
+    this.formulationListModel = tFormulationsArray;
+    if (this._utilsService.isEmpty(tFormulations)) {
+      this.formulationListModel = [];
+    } 
+
+    console.log(this.formulationListModel)
+
+    // const tIngredients = drugProduct.ingredients_testing;
+    // const tIngredientsArray = Array.isArray(tIngredients) ? tIngredients : [tIngredients];
+    // this.ingredientListModel = tIngredientsArray;
+    // if (this._utilsService.isEmpty(tIngredients)) {
+    //   this.ingredientListModel = [];
+    // } 
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -216,11 +235,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _prepareForSaving(xmlFile: boolean): ProductInformation {
-
+    let formulationFormArrayValue = null;
+    
     const newDrugProductEnrol: DrugProductEnrol = this._baseService.getEmptyDrugProductEnrol();
 
     const productInfoFormGroupValue = this.productInfoComponent.getFormValue();
     this._baseService.mapProductInfoFormToOutput(newDrugProductEnrol, productInfoFormGroupValue);
+
+    if (this.formulationListComponent.recordFormArray) {
+      formulationFormArrayValue = this.formulationListComponent.recordFormArray.value;
+    }
+
+    this._baseService.mapFormulationFormToOutput(newDrugProductEnrol, formulationFormArrayValue)
 
     newDrugProductEnrol.date_saved = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm');
     newDrugProductEnrol.software_version = this._globalService.appVersion;

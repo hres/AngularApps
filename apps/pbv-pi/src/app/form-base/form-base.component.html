@@ -50,11 +50,11 @@
           </h2>
           </header>
           <div class="panel-body">
-            <app-ingredient-formulation-list
+            <app-formulation-list
             [lang]="lang" 
-            [recordList]="ingredientListModel" 
+            [recordList]="formulationListModel" 
             [showErrors]="showErrors" 
-            (errorEmit)="processIngredientListErrors($event)"></app-ingredient-formulation-list>
+            (errorEmit)="processFormulationListErrors($event)"></app-formulation-list>
           </div>
       </section>
     </div>

@@ -41,7 +41,8 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getUnits(),
     this._formDataLoader.getCalculatedBase(),
     this._formDataLoader.getUnitMeasure(),
-    this._formDataLoader.getUnitPresentation()
+    this._formDataLoader.getUnitPresentation(),
+    this._formDataLoader.getDosageForms()
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -68,6 +69,7 @@ export class ContainerComponent implements OnInit {
       this._globalService.calculatedBaseList = data[13];
       this._globalService.unitMeasureList = data[14];
       this._globalService.unitPresentationList = data[15];
+      this._globalService.dosageFormList = data[16];
 
       this.loadFormBaseComponent = true;
     });

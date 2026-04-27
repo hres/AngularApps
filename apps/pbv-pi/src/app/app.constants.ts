@@ -94,5 +94,8 @@ export const OPTIONAL_FIELDS_INGREDIENT_FORMULATION = [
   'isNanomaterial',
   'nanomaterial',
   'nanomaterialType',
-  'isAnimalHumanSourced'
+  'isAnimalHumanSourced',
+  'attestInformation'
 ];
+
+export const INGREDIENT_FORMULATION_ERROR_PREFIX = "i.f"
