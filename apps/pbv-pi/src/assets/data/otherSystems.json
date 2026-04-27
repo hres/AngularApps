@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "en": "Adipose or omentum",
+    "fr": "Tissu adipeux/épiploon"
+  },
+  {
+    "id": "2",
+    "en": "Acscites",
+    "fr": "Ascite"
+  },
+  {
+    "id": "3",
+    "en": "Antler velvet",
+    "fr": "Velours de cervidé"
+  },
+  {
+    "id": "4",
+    "en": "Serum",
+    "fr": "Sérum"
+  },
+  {
+    "id": "5",
+    "en": "Whole blood",
+    "fr": "Sang entier"
+  },
+  {
+    "id": "6",
+    "en": "Plasma",
+    "fr": "Plasma"
+  },
+  {
+    "id": "7",
+    "en": "Embryonic tissue",
+    "fr": "Tissu embryonnaire"
+  },
+  {
+    "id": "8",
+    "en": "Fetal tissue",
+    "fr": "Tissu fœtal"
+  },
+  {
+    "id": "9",
+    "en": "Bone marrow",
+    "fr": "Moelle osseuse"
+  },
+  {
+    "id": "10",
+    "en": "Eyes or cornea",
+    "fr": "Yeux/ ou cornée"
+  },
+  {
+    "id": "11",
+    "en": "Gall bladder",
+    "fr": "Vésicule biliaire"
+  },
+  {
+    "id": "12",
+    "en": "Other types of tissues or fluids",
+    "fr": "Autres types de tissus ou de fluides"
+  }
+]
