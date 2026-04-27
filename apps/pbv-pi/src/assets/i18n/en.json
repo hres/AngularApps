@@ -21,7 +21,7 @@
     "importer": "Importer",
     "route.id": "Routing identifier",
     "drug.use": "Drug use",
-    "schedule.and.prescription.status": "Schedule A and prescription status (check all that apply): the product is",
+    "schedule.and.prescription.status": "Schedule and prescription status (check all that apply): the product is",
 
     "select.diseases": "Select the diseases and disorders that apply to the claims made (select at least one)",
     "provide.info.products": "Provide information below for non-prescription products that have associated schedule A claims only.",
@@ -327,6 +327,8 @@
     "error.mgs.primary.company.id": "Please specify a valid company Identifier for REP Contact.",
     "error.mgs.contact.id": "Invalid entry - must be 5 digits",
     "error.msg.contact.one.record": "At least one company representative with new, active, revise status must be listed",
-    "error.msg.ingredientFormulation": "There are errors in ingredient formulation"
-
+    "error.msg.ingredientFormulation": "There are errors in ingredient formulation",
+    "error.msg.formulation.one.record": "At least one formulation is required",
+    "error.msg.species.one.record": "At least one species should be entered",
+    "error.msg.ingredient.one.record": "At least one medicinal or non medicinal ingredient should be entered "
 }

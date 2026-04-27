@@ -284,7 +284,7 @@
     "schedule.claim.applied.detail": "Fournissez les informations ci-dessous pour les produits sans ordonnance qui ont associé des revendications de l’annexe A seulement.",
     "drug.identification.number": "Numéro d’ID du médicament (DIN), si attribué ",
 
-   "schedule.a.claim.and.indication": "Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)",
+    "schedule.a.claim.and.indication":"Indiquer les allégations et indications de l’annexe A associées avec ce produit :",
    "disinfectant.type.title": "Type de déinfectant (Veuillez sélectionner au moins un type de désinfectant)",
    "proposed.indication.use.dosage.daily.dose":"Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)",
    "select.option": "Sélectionnez une option "
@@ -326,6 +326,10 @@
   "error.msg.revise.contact": "Représentant de la compagnie doivent être actif.",
   "error.mgs.contact.id": "Entrée non valide - doit être 5 chiffres",
   "error.msg.contact.one.record": "Au moins un représentant de l’entreprise ayant un statut nouveau, actif ou révisé doit être inscrit.",
+  "error.msg.formulation.one.record": "Au moins une formulation est requise",
+  "error.msg.species.one.record": "Au moins un espèce doit être inscrit",
+  "error.msg.ingredient.one.record": "Au moins un ingrédient medicinal ou non medicinal doit être inscrit "
+,
   "error.msg.ingredientFormulation": "fr_There are errors in ingredient formulation"
 
 }
