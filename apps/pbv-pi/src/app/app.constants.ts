@@ -17,6 +17,7 @@ export const HELP_TEXT_SEQUENCE = [
     'productInfoIndx',
     'compIdIndx',
     'dossierTypeIndx',
+    'dossierIdIndx',
     'prodNameIndx',
     'properNameIndx',
     'adminCompInx',

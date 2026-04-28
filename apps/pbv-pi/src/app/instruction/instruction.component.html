@@ -53,9 +53,23 @@
                     <li>{{'ht.dossier.type.3' | translate}}</li>
                     <li>{{'ht.dossier.type.4' | translate}}</li>
                 </ul>
-
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['dossierTypeIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences.dossierTypeIndx[0]}}
-                        </a></p>
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['dossierTypeIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences.dossierTypeIndx[0]}}</a></p>
+            </div>
+        </dd>    
+        
+        <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['dossierIdIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['dossierIdIndx'][1]">
+            <div class="fn-rep">
+                <p>{{'dossier.id' |translate}}</p>
+                <ul>
+                    <li>{{'ht.dossier.id.0' | translate}}</li>
+                    <li>{{'ht.dossier.id.1' | translate}}</li>
+                    <li>{{'ht.dossier.id.2' | translate}}</li>
+                    <li>{{'ht.dossier.id.3' | translate}}</li>
+                    <li>{{'ht.dossier.id.5' | translate}}</li>
+                </ul>
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['dossierIdIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>
+                        {{helpTextSequences.dossierIdIndx[0]}}</a></p>
             </div>
         </dd>
 
@@ -155,13 +169,13 @@
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['drugUseIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['drugUseIndx'][1]">
+        <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['drugIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['drugIndx'][1]">
             <div class="fn-rep">
                 <p>{{'drug.use' |translate}}</p>
                 <p>{{'ht.drug.use.2'|translate}}</p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['drugUseIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences.drugUseIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['drugIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences.drugIndx[0]}}
                         </a></p>
             </div>
         </dd>
