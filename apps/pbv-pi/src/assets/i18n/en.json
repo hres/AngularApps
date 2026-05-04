@@ -282,6 +282,7 @@
     "mailing": "Regulatory mailing/annual contact",
     "this.activity": "Contact for this regulatory activity",
     "sub.type": "Reason for administrative component",
+    "admin.comp": "Does this regulatory activity contain an administrative component?",
     "schedule.claim.applied": "Select the diseases and disorders that apply to the claims made (select at least one)",
     "schedule.claim.applied.detail.title": "Schedule A claim details",
     "schedule.claim.applied.detail": "Provide information below for non prescription products that have associated schedule A claims only.",
