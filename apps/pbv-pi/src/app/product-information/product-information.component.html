@@ -93,11 +93,33 @@
     <fieldset class="col-xs-12 form-inline">
       <legend>
         {{'pediatric.pilot.question.text2' |translate}}
+        <sup [id]="helpIndex['clinPediIndx'][2]">
+          <a class="fn-lnk" [href]="'#' + helpIndex['clinPediIndx'][1]"><span
+              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['clinPediIndx'][0]}}</a>
+        </sup>
       </legend>
     </fieldset>
   </div></div>
   <div class="alert alert-info" [innerHTML]="'pediatric.pilot.question.text1' | translate "></div>
-
+  <div class="row">
+    <fieldset class="col-md-12 chkbxrdio-grp">
+      <label>
+        {{'admin.comp'|translate}}
+        <strong *ngIf="isAdminSub()" class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
+      </label>
+      <sup [id]="helpIndex['adminCompIndx'][2]">
+        <a class="fn-lnk" [href]="'#' + helpIndex['adminCompIndx'][1]"><span
+            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminCompIndx'][0]}}</a>
+      </sup>
+      <ng-container *ngFor="let yesno of yesNoList; let i = index">
+        <label for="isAdminSub" class="radio-inline">
+          <input type="radio" id="isAdminSub" name="isAdminSub" [value]="yesno.id"
+          aria-required="true" [formControlName]="'isAdminSub'"/>
+          {{yesno | textTransform: lang }}
+        </label>
+      </ng-container>
+    </fieldset>
+  </div>
   <ng-container *ngIf="isAdminSub()">
     <div class="row">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -330,9 +352,9 @@
                 <label for="proposedIndicationOfUseDosage" class="required">
                   <span class="field-name">{{'proposed.indication.use.dosage.daily.dose' | translate}}</span>
                   <strong aria-hidden="true" class="required"> (required)</strong>
-                  <sup [id]="helpIndex['purposeIndx'][2]">
-                    <a class="fn-lnk" [href]="'#' + helpIndex['purposeIndx'][1]"><span
-                        class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['purposeIndx'][0]}}</a>
+                  <sup [id]="helpIndex['dosageIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['dosageIndx'][1]"><span
+                        class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dosageIndx'][0]}}</a>
                   </sup>
                   
                   <control-messages *ngIf="productInfoForm.controls['proposedIndicationOfUseDosage'].invalid"
