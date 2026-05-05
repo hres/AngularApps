@@ -24,7 +24,7 @@ export class SpeciesSubtypesRecordService {
         detailsDirty: [false, Validators.required],
         isNew: true,
         expandFlag: false,
-        contactDetails: this._detailsService.getReactiveModel(fb)
+        speciesSubtypesDetail: this._detailsService.getReactiveModel(fb)
       }
     );
   }
@@ -34,7 +34,7 @@ export class SpeciesSubtypesRecordService {
     // console.log(formRecord);
     contactRecordModel.id = formRecord.controls['id'].value;
     // contactRecordModel.company = formRecord.controls.companyName.value;
-    this._detailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['contactDetails']), contactRecordModel, lang, languageList);
+    this._detailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['speciesSubtypesDetail']), contactRecordModel, lang, languageList);
 
   }
 

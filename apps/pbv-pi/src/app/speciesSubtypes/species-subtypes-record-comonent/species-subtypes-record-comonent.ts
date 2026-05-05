@@ -19,7 +19,7 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
 
 
   public contactRecordModel: FormGroup;
-  @Input('group') public contactFormRecord: FormGroup;
+  @Input('group') public speciesSubtypeRecord: FormGroup;
   @Input() showErrors: boolean;
   @Input() lang;
   @Input() helpTextSequences;
@@ -106,8 +106,8 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
       { seqnumber: this.headingPreambleParams }
     );
     this.contactRecordModel = this.cRRow;
-    const contactForm = <FormGroup>this.cRRow.controls['contactDetails'];
-    if (contactForm.controls['fullName'].value) {
+    const speciesSubtypeForm = <FormGroup>this.cRRow.controls['speciesSubtypesDetail'];
+    if (speciesSubtypeForm.controls['specy'].value) {
       this.disableDiscardBtn = true
     } else {
       this.disableDiscardBtn = false;
@@ -204,7 +204,7 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
       id: this.contactRecordModel.value.id,
       heading: heading,
       buttonTrigger: trigger,
-      tempContactDetailsForm: this.contactDetailsForm,
+      tempContactDetailsForm: this.speciesSubtypesDetailsForm,
     });
      this.disableDiscardBtn = true
   }
@@ -346,8 +346,8 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
   //   return this.isContactStatus(ContactStatus.Remove);
   // }
 
-  get contactDetailsForm() {
-    return this.contactRecordModel.get('contactDetails') as FormGroup;
+  get speciesSubtypesDetailsForm() {
+    return this.contactRecordModel.get('speciesSubtypesDetailForm') as FormGroup;
   }
 
   // private isContactStatus(status: ContactStatus) {
@@ -368,7 +368,7 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
   }
 
   public disabledDiscardButton() {
-    if (this.disableDiscardBtn && this.contactDetailsForm.dirty) {
+    if (this.disableDiscardBtn && this.speciesSubtypesDetailsForm.dirty) {
       return false
     }
     else {
