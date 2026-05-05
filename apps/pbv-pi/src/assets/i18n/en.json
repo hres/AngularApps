@@ -270,5 +270,13 @@
     "drug.identification.number": "Drug identification number (DIN), if issued ",
    "schedule.a.claim.and.indication": " Please list the schedule A claims and indications associated with this product",
    "disinfectant.type.title": "Disinfectant type (please select at least one disinfectant type)",
-   "proposed.indication.use.dosage.daily.dose":"Proposed indication/use/dosage (including maximum daily dose)"
+   "proposed.indication.use.dosage.daily.dose":"Proposed indication/use/dosage (including maximum daily dose)",
+   "add.species": "Add Species",
+   "is.this.used.for.the.treatment.of.food.producing.animal": "Is this used for the treatment of food-producing animals?",
+   "specy.subType": "Subtypes",
+   "product.specy":"Species",
+   "specy.withdrawal.time.title":"Withdrawal time",
+   "specy.withdrawal.time.days": "Days",
+   "specy.withdrawal.time.hours": "Hours"
+
 }

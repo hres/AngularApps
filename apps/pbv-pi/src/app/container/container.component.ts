@@ -34,6 +34,8 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getDrugUses(),
     this._formDataLoader.getScheduleClaims(),
     this._formDataLoader.getDisinfectantTypes(),
+    this._formDataLoader.getVetSpecies(),
+    this._formDataLoader.getSubTypesSpecy(),
   ];
 
   constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
@@ -52,6 +54,8 @@ export class ContainerComponent implements OnInit {
       this._globalService.drugUse = data[5];
       this._globalService.scheduleClaims = data[6];
       this._globalService.disinfectTypes = data[7];
+      this._globalService.vetSpecies = data[8];
+      this._globalService.specySubTypes = data[9];
 
       this.loadFormBaseComponent = true;
     });

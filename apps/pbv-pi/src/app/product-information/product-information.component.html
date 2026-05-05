@@ -171,7 +171,7 @@
     </div>
 
 
-    <div *ngIf="showDisinfectantTypes()" class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div *ngIf="showDisinfectantType" class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
       <fieldset class="chkbxrdio-grp" id="disinfectantTypes">
 
@@ -196,6 +196,26 @@
 
         </div>
       </fieldset>
+    </div>
+
+
+
+    <div *ngIf="showSpeciesForVerterinary" class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+      <app-species-subtypes-list-component>
+                                 (errorList)="updateErrorList"
+                                 [loadFileIndicator]="loadFileIndicator"
+                                 [lang]="lang"
+                                 [helpTextSequences]="helpIndex"
+                                 [xmlStatus]="genInfoModel.status._id"
+                                 [showErrors]="showErrors"
+                                 [contactModel]="contactModel"
+                                 [disableForm]="disableForm"
+                                 (enableForm)="enableForm($event)"
+                                 [vetSpecies]="vetSpecies"
+                                 [specySubTypes]="specySubTypes"
+                                 [yesNoList]="yesNoList"
+                                 </app-species-subtypes-list-component>
     </div>
   </div>
 
@@ -351,7 +371,7 @@
 
     </fieldset>
   </div>
- 
+
   <div class="row">
     <div class="form-group col-md-12 ">
       <label for="proposedIndicationOfUseDosage" class="required">

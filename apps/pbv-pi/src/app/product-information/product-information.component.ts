@@ -1,15 +1,19 @@
 import { Component, computed, EventEmitter, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, CheckboxOption, ControlMessagesComponent, ConverterService, HelpSequence, ICode, ICodeDefinition, UtilsService, YES } from '@hpfb/sdk/ui';
+import { BaseComponent, CheckboxOption, ControlMessagesComponent, ConverterService, ErrorModule, FileIoModule, HelpSequence, ICode, ICodeDefinition, UtilsService, YES } from '@hpfb/sdk/ui';
 import { DrugProductEnrol } from '../models/ProductInformation';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { ProductInformationService } from './product-information.service';
+
 
 @Component({
   selector: 'app-product-information',
   templateUrl: './product-information.component.html',
   encapsulation: ViewEncapsulation.None,
-  standalone: false
+  standalone: false,
+
+
+
 })
 export class ProductInformationComponent extends BaseComponent implements OnInit{
 
@@ -31,13 +35,19 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
   scheduleClaimOptionList: CheckboxOption[] = [];
   disinfectantTypeOptionList: CheckboxOption[] = [];
   disinfectantTypeCodeList:ICode[] = [];
+  vetSpecies: ICode[] = [];
+  specySubTypes: ICode[] = [];
+
+
+  private _specySubTypeErrors = [];
 
   adminSubSelected = signal('');
   isAdminSub: Signal<boolean> = computed(() => {
     return this.adminSubSelected() === 'Y';
   });
   selectedAdminSubTypeDefinition: string = '';
-
+  protected showDisinfectantType = false;
+  protected showSpeciesForVerterinary = false;
 
   lang = this._globalService.lang();
   constructor(private _utilsService: UtilsService, private _fb: FormBuilder, private _globalService: GlobalService, private _productInfoService: ProductInformationService,   private _converterService : ConverterService) {
@@ -60,6 +70,9 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
     this.drugUseOptions = this._globalService.drugUse;
     this.scheduleClaimCodeList = this._globalService.scheduleClaims;
     this.disinfectantTypeCodeList =  this._globalService.disinfectTypes;
+    this.vetSpecies = this._globalService.vetSpecies;
+    this.specySubTypes = this._globalService.specySubTypes;
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -149,17 +162,25 @@ showScheduleClaimApplied() {
   return false;
 }
 
-showDisinfectantTypes(){
+showDisinfectantTypesOrSpecies(){
 
-  if (this.productInfoForm.controls['drugUse'].value &&
-        this.productInfoForm.controls['drugUse'].value === 'DISINFECT') {
-       return true;
+  if (this.productInfoForm.controls['drugUse'].value ){
+        if (this.productInfoForm.controls['drugUse'].value === 'DISINFECT') {
+          this.showDisinfectantType = true;
+      //  return this.showDisinfectantType;
+        }
+
+        if (this.productInfoForm.controls['drugUse'].value === 'VET') {
+          this.showSpeciesForVerterinary = true;
+          // return this.showSpeciesForVerterinary;
+        }
   }
   else {
     this._utilsService.resetControlsValues(this.productInfoForm.controls['disinfectantTypes']);
   }
-  return false;
+
 }
+
 
 get scheduleClaimChkFormArray() {
   return this.productInfoForm.controls['scheduleClaims'] as FormArray
@@ -198,15 +219,18 @@ disinfectantTypeOnChange() {
 
 
 drugUseChangeRequestedOnChange() {
-  if (this.productInfoForm.controls['drugUse'].value &&
-        this.productInfoForm.controls['drugUse'].value === 'DISINFECT') {
-       this._updateDisinfectantTypeClaimArray();
+
+  this.showDisinfectantTypesOrSpecies();
+  if(this.showDisinfectantType){
+      this._updateDisinfectantTypeClaimArray();
   } else {
     this._utilsService.resetControlsValues(
       this.scheduleClaimChkFormArray,
       this.productInfoForm.controls['selectedDisinfectantTypeCodes'],
     );
   }
+
+
 }
 
 
@@ -220,6 +244,12 @@ nonPrescriptioScheduleAppliedRequestedOnChange() {
       this.productInfoForm.controls['selectedScheduleClaimCodes'],
     );
   }
+}
+
+
+updateErrorList(errs) {
+ // console.log("updateErrorList", errs)
+ this.errorList = errs;
 }
 
 }

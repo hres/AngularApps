@@ -5,7 +5,6 @@ import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
 import { DrugProductEnrol, ProductInformation } from '../models/ProductInformation';
 import { ProductInformationService } from '../product-information/product-information.service';
-
 @Injectable()
 export class FormBaseService {
 
@@ -66,13 +65,19 @@ export class FormBaseService {
       is_schedule_claim: undefined,
       disinfectant_types:undefined,
       proposedIndicationOfUseDosage:'',
+      species_subtypes: { species_subtypes: []}
+
       };
 
     return drugProductEnrol;
   }
 
 
+
   public mapProductInfoFormToOutput(outputDrugProductEnrol: DrugProductEnrol, productInfoFormGroupValue: any): void{
     this._productInfoService.mapFormModelToDataModel(productInfoFormGroupValue, outputDrugProductEnrol);
   }
+
+
+
 }

@@ -33,6 +33,7 @@ export interface DrugProductEnrol {
   is_schedule_claim:     ScheduleClaim,
   disinfectant_types:    DisinfectantTypes;
   proposedIndicationOfUseDosage: string;
+  species_subtypes: SpeciesAndSubtypes;
 }
 
 export interface ScheduleClaim {
@@ -43,5 +44,24 @@ export interface ScheduleClaim {
 
 export interface DisinfectantTypes {
   disinfectant_type : IIdTextLabel[];
+
+}
+
+
+export interface SpecyAndSubType {
+  id: number;
+  specy: string;
+  subtype: string;
+  isUsedForTreatmentOfFoodProducingAnimals: string;
+  withdrawal_time: WithdrawalTime
+
+}
+export interface WithdrawalTime {
+  days: number;
+  hours: number;
+}
+
+export interface SpeciesAndSubtypes {
+  species_subtypes: SpecyAndSubType[]
 
 }

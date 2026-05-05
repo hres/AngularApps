@@ -67,11 +67,11 @@
     "addressDetails.postalCode": "Code postal",
     "addressDetails.zipCode": "ZIP code",
     "addressDetails.provState": "Province ou state",
-    
+
     "add.address":"Add address detail record",
     "save.address":"Enregistrer l'enregistrement de l'importateur",
     "delete.address":"Supprimer l'enregistrement de l'importateur",
-    
+
     "save.record":"Enregistrer l'enregistrement",
     "delete.record":"Supprimer l'enregistrement",
 
@@ -83,7 +83,7 @@
     "data.ques": "Questions sur les données désagrégées",
     "safety": "Innocuité: ",
     "efficacy": "Efficacité : ",
-    
+
     "pediatric.pilot.question.text1": "Si vous soumettez une PDN ou un SPDN qui inclut un des changements listés ci-dessous, veuillez inclure<a href='https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/pediatriques/pilote-plans-developpement-etudes/sondage.html'>sondage sur le programme pilote relatif aux médicaments pédiatriques</a> dans votre présentation : <p><ul><li>nouvelle indication</li><li>nouvelle forme posologique</li><li>nouvelle voie d'administration</li></ul></p>",
     "pediatric.pilot.question.link": "https://www.canada.ca/fr/sante-canada/services/medicaments-produits-sante/medicaments/pediatriques/pilote-plans-developpement-etudes/sondage.html",
     "pediatric.pilot.question.text2": "Sondage sur le programme pilote relatif aux médicaments pédiatriques",
@@ -263,5 +263,12 @@
 
    "schedule.a.claim.and.indication": "Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)",
    "disinfectant.type.title": "Type de déinfectant (Veuillez sélectionner au moins un type de désinfectant)",
-   "proposed.indication.use.dosage.daily.dose":"Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)"
+   "proposed.indication.use.dosage.daily.dose":"Indication/emploi/posologie proposé (y compris la dose quotidienne maximale)",
+   "add.species": "Ajouter des espèces",
+   "is.this.used.for.the.treatment.of.food.producing.animal": "Est-il utilisé pour le traitement d’animaux producteurs d’aliments?",
+   "specy.subType": "Sous-types",
+   "product.specy":"Espèce",
+   "specy.withdrawal.time.title":"Délai d'attente ",
+   "specy.withdrawal.time.days": "Jours",
+   "specy.withdrawal.time.hours": "Heures "
 }

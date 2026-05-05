@@ -3,8 +3,7 @@ import { CheckboxOption, ConverterService, UtilsService, ValidationService} from
 import { GlobalService } from '../global/global.service';
 import {  DrugProductEnrol, ScheduleClaim } from '../models/ProductInformation';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { PbvValidationService } from '@hpfb/pbv';
-import { data } from 'jquery';
+
 
 @Injectable()
 export class ProductInformationService {
@@ -42,6 +41,7 @@ export class ProductInformationService {
     selectedScheduleClaimCodes: [''],
     disinfectantTypes: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
     proposedIndicationOfUseDosage: [null, [Validators.required]],
+    species_subtypes:[null]
    });
 
   }
