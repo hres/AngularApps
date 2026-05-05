@@ -191,7 +191,7 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
           contactFocus = "specy" + 0;
         }
     setTimeout(() => {
-      document.getElementById(contactFocus).focus()
+    //  document.getElementById(contactFocus).focus()
     }, 0);
     this.showErrors = false;
   }

@@ -24,7 +24,7 @@ export class SpeciesSubtypesRecordService {
         detailsDirty: [false, Validators.required],
         isNew: true,
         expandFlag: false,
-        speciesSubtypesDetail: this._detailsService.getReactiveModel(fb)
+        speciesSubtypeDetail: this._detailsService.getReactiveModel(fb)
       }
     );
   }

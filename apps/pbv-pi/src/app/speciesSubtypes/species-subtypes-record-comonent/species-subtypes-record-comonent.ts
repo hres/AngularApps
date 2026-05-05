@@ -106,7 +106,7 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
       { seqnumber: this.headingPreambleParams }
     );
     this.contactRecordModel = this.cRRow;
-    const speciesSubtypeForm = <FormGroup>this.cRRow.controls['speciesSubtypesDetail'];
+    const speciesSubtypeForm = <FormGroup>this.cRRow.controls['speciesSubtypeDetail'];
     if (speciesSubtypeForm.controls['specy'].value) {
       this.disableDiscardBtn = true
     } else {
@@ -347,7 +347,7 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
   // }
 
   get speciesSubtypesDetailsForm() {
-    return this.contactRecordModel.get('speciesSubtypesDetailForm') as FormGroup;
+    return this.contactRecordModel.get('speciesSubtypeDetail') as FormGroup;
   }
 
   // private isContactStatus(status: ContactStatus) {

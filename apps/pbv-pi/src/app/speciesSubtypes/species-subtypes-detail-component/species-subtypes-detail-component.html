@@ -20,11 +20,11 @@
             <label for="subType" class="required">
               <span class="field-name">{{ 'specy.subType'|translate }}</span>
               <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-               <control-messages *ngIf="speciesSubtypesDetailForm.controls['subType'].invalid" [showError]="showFieldErrors"
-                [control]="speciesSubtypesDetailForm.controls['subType'] | formControl" controlId="subType" label="specy.subType"
+               <control-messages *ngIf="speciesSubtypesDetailForm.controls['subtype'].invalid" [showError]="showFieldErrors"
+                [control]="speciesSubtypesDetailForm.controls['subtype'] | formControl" controlId="subtype" label="specy.subtype"
                 parentId="productInfo"></control-messages>
             </label>
-            <select id="subType" name="subType" required class="form-contsol" [formControlName]="'subType'">
+            <select id="subtype" name="subtype" required class="form-contsol" [formControlName]="'subtype'">
               <option label=" " value=""></option>
               <option *ngFor="let item of specySubTypes" [value]="item.id"> {{ item | textTransform: lang }}</option>
             </select>
