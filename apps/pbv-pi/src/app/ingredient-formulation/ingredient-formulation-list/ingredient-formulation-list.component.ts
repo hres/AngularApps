@@ -92,15 +92,12 @@ export class IngredientFormulationListComponent extends BaseListComponent<Ingred
   // This function is called when looping through the output data's list of records
   // Maps output model to form
   protected _patchRecordInfoValue(form, outputModel: Ingredient) {
-    console.log("patching recorrd info")
-
     this._ingredientFormulationItemService.mapDataModelToFormModel(outputModel, form.controls['ingredientFormulation']);
   }
 
   protected _patchLastSavedStateValue(lastSavedStateFormControl: any, outputModel: Ingredient) {
     // TODO: This method is for discarding changes after loading in XML file
     lastSavedStateFormControl.patchValue({
-
     })
   }
 

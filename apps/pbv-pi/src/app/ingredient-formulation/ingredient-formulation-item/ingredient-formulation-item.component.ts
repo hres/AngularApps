@@ -34,7 +34,7 @@ export class IngredientFormulationItemComponent extends BaseComponent {
   public roleList: ICode[] = [];
   public unitsList: ICode[] = [];
   public yesNoList: ICode[] = []
-  public calculatedAsBaseList: ICode[] = [];
+  public calculatedBaseList: ICode[] = [];
   public unitMeasureList: ICode[] = [];
   public unitPresentationList: ICode[] = [];
 
@@ -70,7 +70,7 @@ export class IngredientFormulationItemComponent extends BaseComponent {
     this.roleList = this._globalService.rolesList;
     this.unitsList = this._globalService.unitsList;
     this.yesNoList = this._globalService.yesnoList;
-    this.calculatedAsBaseList = this._globalService.calculatedBaseList;
+    this.calculatedBaseList = this._globalService.calculatedBaseList;
     this.unitMeasureList = this._globalService.unitMeasureList;
     this.unitPresentationList = this._globalService.unitPresentationList;
 
@@ -193,12 +193,17 @@ export class IngredientFormulationItemComponent extends BaseComponent {
     }
   }
 
-  calculatedAsBaseOnChange() {}
+  calculatedBaseOnChange() {}
   nanomaterialOnChange() {}
 
   saveIngredientRecord(index : number) : void {
     this._save(index);
   }
+
+  copyIngredientRecord(index : number) : void {
+    //TODO
+  }
+
 
   private async _save(index: number) {
     console.log(this.cRRow.valid)

@@ -349,9 +349,9 @@
               [showError]="showErrors"
               [control]="cRRow.get('ingredientFormulation.calculatedBase') | formControl"
               controlId="calculatedBase{{j}}" label="calculated.as.base" parentId="ingredientFormulation{{j}}"></control-messages>
-              <select id="calculatedBase{{j}}" required [formControlName]="'calculatedBase'" class="required form-control" (change)="calculatedAsBaseOnChange()">
+              <select id="calculatedBase{{j}}" required [formControlName]="'calculatedBase'" class="required form-control" (change)="calculatedBaseOnChange()">
                 <option label="{{ 'select.option'|translate }}"></option>
-                @for (cal of calculatedAsBaseList; track cal) {
+                @for (cal of calculatedBaseList; track cal) {
                   <option [value]="cal.id">{{ cal| textTransform: lang }}</option>
                 }
               </select>
@@ -458,6 +458,7 @@
   <div class="row">
     <div class="btn-group-sm col-xs-12 text-left">          
       <button id="saveIngredientRecord{{j}}" attr.aria-label="{{'save.ingredient' | translate}} {{'heading.form.ingredient' | translate: {seqnumber: j + 1} }}" class="btn btn-primary" style="margin: 3px" (click)="saveIngredientRecord(j)" [disabled]="disableForm" >{{'save.ingredient'|translate}}</button>
+      <button id="copyIngredientRecord{{j}}" attr.aria-label="{{'copy.ingredient' | translate}} {{'heading.form.ingredient' | translate: {seqnumber: j + 1} }}" class="btn btn-primary" style="margin: 3px" (click)="copyIngredientRecord(j)" [disabled]="disableForm" >{{'copy.ingredient'|translate}}</button>
       <button id="deleteIngredientRecord{{j}}" attr.aria-label="{{'delete.record' | translate}} {{ 'heading.form.ingredient' | translate: {seqnumber: j + 1} }}" class="btn btn-danger" style="margin: 3px"  (click)="deleteIngredientRecord(j)" [disabled]="disableForm">{{'delete.record'|translate}}</button> <!--[disabled]="disableDeleteButton()"-->
       <button id="discardChangesIngredientRecord{{j}}" attr.aria-label="{{'discard.changes' | translate}} {{ 'heading.form.ingredient' | translate: {seqnumber: j + 1} }}" class="btn btn-default" style="margin: 3px" [disabled]="disabledDiscardButton() || disableForm" (click)="revertIngredientRecord(j, cRRow.controls['id'].value)" >{{'discard.changes'|translate}}</button>          
     </div>

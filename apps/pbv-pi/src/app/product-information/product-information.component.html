@@ -351,10 +351,10 @@
               <div class="form-group col-md-12 ">
                 <label for="proposedIndicationOfUseDosage" class="required">
                   <span class="field-name">{{'proposed.indication.use.dosage.daily.dose' | translate}}</span>
-                  <strong aria-hidden="true" class="required"> (required)</strong>
-                  <sup [id]="helpIndex['dosageIndx'][2]">
-                    <a class="fn-lnk" [href]="'#' + helpIndex['dosageIndx'][1]"><span
-                        class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dosageIndx'][0]}}</a>
+                  <strong aria-hidden="true" class="required">{{'commmon.required.bracket'|translate}}</strong>
+                  <sup [id]="helpIndex['purposeIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['purposeIndx'][1]"><span
+                        class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['purposeIndx'][0]}}</a>
                   </sup>
                   
                   <control-messages *ngIf="productInfoForm.controls['proposedIndicationOfUseDosage'].invalid"
@@ -383,7 +383,7 @@
               <div class="required  col-md-12 form-group full-width">
                 <label for="scheduleClaimAndIndicationAssociatedOfProduct" class="required">
                   <span class="field-name">{{'schedule.a.claim.and.indication' | translate}}</span>
-                  <strong aria-hidden="true" class="required"> (required)</strong>
+                  <strong aria-hidden="true" class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages
                     *ngIf="productInfoForm.controls['scheduleClaimAndIndicationAssociatedOfProduct'].invalid"
                     [showError]="showFieldErrors"

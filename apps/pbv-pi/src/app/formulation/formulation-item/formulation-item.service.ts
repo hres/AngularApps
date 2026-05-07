@@ -31,6 +31,6 @@ export class FormulationItemService {
 
     public mapDataModelToFormModel(formulationOutput : Formulation, formulationFormGroup: FormGroup) {
         formulationFormGroup.controls['formulationName'].setValue(formulationOutput.formulation_name);
-        formulationFormGroup.controls['dosageForm'].setValue(formulationOutput.dosage_form);
+        formulationFormGroup.controls['dosageForm'].setValue(formulationOutput.dosage_form._id);
     }
 }

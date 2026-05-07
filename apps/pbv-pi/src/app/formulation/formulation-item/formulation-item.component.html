@@ -32,7 +32,7 @@
                   <control-messages *ngIf="cRRow.get('formulation.dosageForm').invalid" [attr.aria-live]="showErrors? null: 'assertive'"
                   [showError]="showErrors"
                   [control]="cRRow.get('formulation.dosageForm') | formControl"
-                  controlId="dosageForm{{j}}" label="role" parentId="formulation{{j}}"></control-messages>
+                  controlId="dosageForm{{j}}" label="formulation.dosageForm" parentId="formulation{{j}}"></control-messages>
                   <select id="dosageForm{{j}}" required [formControlName]="'dosageForm'" class="required form-control" (change)="dosageFormOnChange()">
                     <option label="{{ 'select.option'|translate }}"></option>
                     @for (dosage of dosageFormList; track dosage) {

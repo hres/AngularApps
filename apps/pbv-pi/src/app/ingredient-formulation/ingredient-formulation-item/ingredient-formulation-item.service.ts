@@ -25,7 +25,7 @@ export class IngredientFormulationItemService {
         const unitMeasureList = this._globalService.unitMeasureList;
         const unitPrsentationList = this._globalService.unitPresentationList;
         const nanomaterialList = this._globalService.nanomaterialList;
-
+        const calculatedBaseList = this._globalService.calculatedBaseList;
     
         ingredientOutput.id = ingredientFormGroupRecord['id'];
 
@@ -41,8 +41,8 @@ export class IngredientFormulationItemService {
         ingredientOutput.cas_number = ingredientForm['chemicalService'];
         ingredientOutput.ingred_standard = ingredientForm['standard'];
 
-        const operatorCodeVlaue = this._utilsService.findCodeById(operatorList, ingredientForm['operator']);
-        ingredientOutput.operator = operatorCodeVlaue? this._converterService.convertCodeToIdTextLabel(roleCodeValue, lang) : null;
+        const operatorCodeValue = this._utilsService.findCodeById(operatorList, ingredientForm['operator']);
+        ingredientOutput.operator = operatorCodeValue? this._converterService.convertCodeToIdTextLabel(roleCodeValue, lang) : null;
 
         ingredientOutput.value = ingredientForm['operatorValue'];
         ingredientOutput.lower_limit = ingredientForm['lowerLimit'];
@@ -63,7 +63,9 @@ export class IngredientFormulationItemService {
         ingredientOutput.per_units = ingredientForm['unitOfPresentation'] || ingredientForm['unitOfMeasure'];
         
         ingredientOutput.per_units_other_details = ingredientForm['measureOtherDetails'];
-        ingredientOutput.is_base_calc = ingredientForm['calculatedBase'];
+
+        const calcBasedCodeValue = this._utilsService.findCodeById(calculatedBaseList, ingredientForm['calculatedBase']);
+        ingredientOutput.is_base_calc = calcBasedCodeValue? this._converterService.convertCodeToIdTextLabel(calcBasedCodeValue, lang) : null;
         ingredientOutput.is_nanomaterial = ingredientForm['isNanomaterial'];
 
         const nanoMaterialCodeValue = this._utilsService.findCodeById(nanomaterialList, ingredientForm['nanomaterial']);
