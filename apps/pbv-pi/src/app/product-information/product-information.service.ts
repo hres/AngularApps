@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ConverterService, UtilsService} from '@hpfb/sdk/ui';
+import { CheckboxOption, ConverterService, UtilsService, ValidationService} from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
-import { DrugProductEnrol } from '../models/ProductInformation';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {  DrugProductEnrol, ScheduleClaim } from '../models/ProductInformation';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PbvValidationService } from '@hpfb/pbv';
 import { data } from 'jquery';
 
@@ -17,7 +17,7 @@ export class ProductInformationService {
    }
    return fb.group({
     dossierType: [null, [Validators.required]],
-    dossierId: [null, [Validators.required, PbvValidationService.pharmabioDossierIdValidator]],
+    dossierId: [null],
     companyId: [null, [Validators.required, Validators.minLength(5)]],
     productName: [null, [Validators.required]],
     properName: [null, [Validators.required]],
@@ -26,9 +26,27 @@ export class ProductInformationService {
     manufacturer: [null],
     mailing: [null],
     thisActivity: [null],
-    importer: [null]
+    importer: [null],
+    isSchedule: [null],
+    isInclude: [null],
+    isOnDrugList: [null],
+    isRegulated: [null],
+    isOnDrug: [null],
+    isNonPrescriptioScheduleApplied: [null],
+    isDrugPermitted: [null],
+    dosAge: [null, [Validators.required]],
+    drugUse: [null, [Validators.required]],
+    din:[null],
+    scheduleClaimAndIndicationAssociatedOfProduct:[null, [Validators.required]],
+    scheduleClaims: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
+    selectedScheduleClaimCodes: [''],
+    disinfectantTypes: fb.array([], [ValidationService.atLeastOneCheckboxSelected]),
+    proposedIndicationOfUseDosage: [null, [Validators.required]],
    });
+
   }
+
+
 
   public mapFormModelToDataModel(formValue: any, dataModel: DrugProductEnrol): void {
     const lang = this._globalService.currLanguage;
@@ -43,9 +61,29 @@ export class ProductInformationService {
     dataModel.mailing = formValue['mailing'] == true ? 'Y': undefined;
     dataModel.this_activity = formValue['thisActivity'] == true ? 'Y': undefined;
     dataModel.importer = formValue['importer'] == true ? 'Y': undefined;
+    dataModel.isSchedule = formValue['isSchedule'] == true ? 'Y': undefined;
+    dataModel.isInclude = formValue['isInclude'] == true ? 'Y': undefined;
+    dataModel.isOnDrugList = formValue['isOnDrugList'] == true ? 'Y': undefined;
+    dataModel.isRegulated = formValue['isRegulated'] == true ? 'Y': undefined;
+    dataModel.isOnDrug = formValue['isOnDrug'] == true ? 'Y': undefined;
+    dataModel.isNonPrescriptioScheduleApplied = formValue['isNonPrescriptioScheduleApplied'] == true ? 'Y': undefined;
+    dataModel.proposedIndicationOfUseDosage = formValue['proposedIndicationOfUseDosage'];
+
+    if (formValue['isNonPrescriptioScheduleApplied'] == true) {
+            const scheduleClaim: ScheduleClaim = {
+              schedule_claim_applied: this._converterService.findAndConverCodesToIdTextLabels(this._globalService.scheduleClaims, formValue.selectedScheduleClaimCodes, lang),
+              din: formValue['din'],
+              schedule_claim_indication: formValue['scheduleClaimAndIndicationAssociatedOfProduct'],
+            }
+            dataModel.is_schedule_claim = scheduleClaim;
+      }
+
+    dataModel.isDrugPermitted = formValue['isDrugPermitted'] == true ? 'Y': undefined;
+    dataModel.dosAge = formValue['dosAge'];
+    dataModel.drug_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.drugUse, formValue['drugUse'], lang);
   }
 
-  public mapDataModelToFormModel(dataModel: DrugProductEnrol, formRecord: FormGroup): void {
+  public mapDataModelToFormModel(dataModel: DrugProductEnrol, formRecord: FormGroup,   scheduleClaimOptionList: CheckboxOption[] ): void {
     if(dataModel.dossier_type?._id){
       const id = this._utilsService.getIdFromIdTextLabel(dataModel.dossier_type);
       formRecord.controls['dossierType'].setValue(id? id : null);
@@ -67,5 +105,53 @@ export class ProductInformationService {
     formRecord.controls['mailing'].setValue(dataModel.mailing=='Y'?true:false);
     formRecord.controls['thisActivity'].setValue(dataModel.this_activity=='Y'?true:false);
     formRecord.controls['importer'].setValue(dataModel.importer=='Y'?true:false);
+    formRecord.controls['isSchedule'].setValue(dataModel.isSchedule=='Y'?true:false);
+    formRecord.controls['isInclude'].setValue(dataModel.isInclude=='Y'?true:false);
+    formRecord.controls['isOnDrugList'].setValue(dataModel.isOnDrugList=='Y'?true:false);
+    formRecord.controls['isRegulated'].setValue(dataModel.isRegulated=='Y'?true:false);
+    formRecord.controls['isNonPrescriptioScheduleApplied'].setValue(dataModel.isNonPrescriptioScheduleApplied=='Y'?true:false);
+    formRecord.controls['isOnDrug'].setValue(dataModel.isOnDrug=='Y'?true:false);
+    formRecord.controls['isDrugPermitted'].setValue(dataModel.isDrugPermitted=='Y'?true:false);
+    formRecord.controls['dosAge'].setValue(dataModel.dosAge);
+    formRecord.controls['proposedIndicationOfUseDosage'].setValue(dataModel.proposedIndicationOfUseDosage);
+
+    if(dataModel.drug_use?._id){
+      const id = this._utilsService.getIdFromIdTextLabel(dataModel.drug_use);
+      formRecord.controls['drugUse'].setValue(id? id : null);
+    } else {
+      formRecord.controls['drugUse'].setValue(null);
+    }
+
+
+    if (  formRecord.controls['isNonPrescriptioScheduleApplied'].value==true) {
+      if (dataModel.is_schedule_claim) {
+          const loadedScheduleClaimCodes: string[] = this._utilsService.getIdsFromIdTextLabels(dataModel.is_schedule_claim.schedule_claim_applied);
+          if (loadedScheduleClaimCodes.length > 0) {
+          const scheduleClaimFormArray = this.getScheduleClaimChkboxFormArray(formRecord);
+          this.loadScheduleClaimOptions(this._globalService.scheduleClaims,  scheduleClaimOptionList, scheduleClaimFormArray, this._globalService.lang())
+          this._converterService.checkCheckboxes(loadedScheduleClaimCodes, scheduleClaimOptionList, scheduleClaimFormArray);
+          }
+          formRecord.controls['selectedScheduleClaimCodes'].setValue(loadedScheduleClaimCodes);
+
+          formRecord.controls['din'].setValue(dataModel.is_schedule_claim.din);
+          formRecord.controls['scheduleClaimAndIndicationAssociatedOfProduct'].setValue(dataModel.is_schedule_claim.schedule_claim_indication);
+      }
+  }
+  }
+  getScheduleClaimChkboxFormArray(formRecord: FormGroup) {
+    return formRecord.controls['scheduleClaims'] as FormArray;
+  }
+
+  loadScheduleClaimOptions(scheduleClaimList, scheduleClaimOptionList, scheduleClaimChkFormArray, lang) {
+    scheduleClaimOptionList.length = 0;
+    scheduleClaimChkFormArray.clear();
+
+
+    // Populate the array with new items
+    scheduleClaimList.forEach((item) => {
+      const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
+      scheduleClaimOptionList.push(checkboxOption);
+      scheduleClaimChkFormArray.push(new FormControl(false));
+    });
   }
 }

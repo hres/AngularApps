@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
-import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials, PriorityReview, DeclarationComformity } from '../models/Enrollment';
+import { ApplicationInfo, Enrollment, Device, BiologicalMaterial, BiologicalMaterialData, BiologicalMaterials, PriorityReview, DeclarationComformity,  DeclarationComformitySuperInterface, EnrollmentOut } from '../models/Enrollment';
 import { ApplicationInfoDetailsService } from '../application-info-details/application-info.details.service';
 import { GlobalService } from '../global/global.service';
 import { DeviceService } from '../inter-device/device.service';
@@ -13,8 +13,8 @@ import { DeclarationConformityService } from '../declaration-conformity/declarat
 export class ApplicationInfoBaseService {
 
 
-  constructor(private _fb: FormBuilder, 
-              private _entityBaseService: EntityBaseService, 
+  constructor(private _fb: FormBuilder,
+              private _entityBaseService: EntityBaseService,
               private _globalService: GlobalService,
               private _utilsService: UtilsService,
               private _applicationInfoDetailsService : ApplicationInfoDetailsService,
@@ -31,9 +31,9 @@ export class ApplicationInfoBaseService {
         form_language: '',
         application_info: this.getEmptyApplicationInfoModel(),
         devices: {device: []},
-        declaration_conformity: this.getEmptyDeclarationConModel(),
+        recognized_standards_section: this.getEmptyDeclarationConModel(),
         material_info: this.getEmptyMaterialInfoModel(),
-        priority_review: this.getEmptyPriorityReviewModel()
+        declaration_conformity:this.getEmptyDeclarationConModelFromOldForm()
       }
     };
 
@@ -52,6 +52,8 @@ export class ApplicationInfoBaseService {
         regulatory_activity_type: this._entityBaseService.getEmptyIdTextLabel(),
         regulatory_activity_lead: this._getRegulatoryActivityLead(),
         device_class: this._entityBaseService.getEmptyIdTextLabel(),
+        priority_review: '',
+        is_diagnosis_treatment_serious: null,
         is_ivdd: '',
         is_home_use: '',
         is_care_point_use: '',
@@ -65,9 +67,11 @@ export class ApplicationInfoBaseService {
         manufacturer: '',
         compliance: null,
         other_pharmacopeia: '',
+        provision_mdr_lic: '',
+        licence_number: '',
         provision_mdr_it:  '',
-        provision_mdr_sa: '',
         application_number: '',
+        provision_mdr_sa: '',
         sap_request_number:'',
         interim_order_authorization: '',
         authorization_id: '',
@@ -124,6 +128,10 @@ export class ApplicationInfoBaseService {
     )
   }
 
+  /**
+   * Deprecated
+   * @returns
+   */
   public getEmptyPriorityReviewModel() : PriorityReview {
     return (
       {
@@ -136,7 +144,16 @@ export class ApplicationInfoBaseService {
   public getEmptyDeclarationConModel() : DeclarationComformity {
     return (
       {
-        declaration_conformity: ''
+        declaration_conformity: '',
+        recognized_standards:''
+      }
+    )
+  }
+
+  public getEmptyDeclarationConModelFromOldForm() : DeclarationComformitySuperInterface {
+    return (
+      {
+        declaration_conformity: '',
       }
     )
   }
@@ -146,13 +163,23 @@ export class ApplicationInfoBaseService {
     return this._utilsService.createIIdTextLabelObj('B14-20160301-08', 'Medical Devices Directorate', 'Direction des instruments médicaux');
   }
 
-  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, priorityReviewForm, declarationConFrom) {
+  mapPriorityReviewModel(outputForm) {
+    const priorityReviewModel = outputForm.priority_review;
+
+    if (outputForm.priority_review) {
+      outputForm.application_info.priority_review = priorityReviewModel.priority_review;
+      outputForm.application_info.is_diagnosis_treatment_serious = priorityReviewModel.is_diagnosis_treatment_serious;
+    }
+  }
+
+  mapFormToOutput(aiDetailsForm, devicesForm, materialDetailsForm, materialsForm, declarationConFrom) {
     let deviceModelList = [];
     let materialModelList = [];
     let materialInfoModel : BiologicalMaterialData = null;
     let priorityRevModel : PriorityReview = null;
     let declarationConModel : DeclarationComformity = null;
-    
+    let declarationConModelOld : DeclarationComformitySuperInterface= null;
+
     let aiModel: ApplicationInfo = this.getEmptyApplicationInfoModel();
     this._applicationInfoDetailsService.mapFormModelToDataModel(aiDetailsForm, aiModel, this._globalService.lang());
 
@@ -178,26 +205,21 @@ export class ApplicationInfoBaseService {
         materialInfoModel.biological_materials = {material : materialModelList};
       }
     }
-    
-    if (priorityReviewForm) {
-      priorityRevModel = this.getEmptyPriorityReviewModel();
-      this._priorityReviewService.mapFormModelToDataModel(priorityReviewForm, priorityRevModel, this._globalService.lang());
-    }
 
     if (declarationConFrom) {
       declarationConModel = this.getEmptyDeclarationConModel();
       this._declarationConService.mapFormModelToDataModel(declarationConFrom, declarationConModel);
     }
 
-    const output: Enrollment = {
+    const output: EnrollmentOut = {
       'DEVICE_APPLICATION_INFO': {
         'software_version': this._globalService.$appVersion,
         'form_language': this._globalService.getCurrLanguage(),
         'application_info': aiModel,
         'devices': {device : deviceModelList},
-        'declaration_conformity': declarationConModel,
+        'recognized_standards_section': declarationConModel,
         'material_info' : materialInfoModel,
-        'priority_review' : priorityRevModel       
+
       }
    };
 
@@ -207,5 +229,5 @@ export class ApplicationInfoBaseService {
    return output;
   }
 
- 
+
 }

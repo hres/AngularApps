@@ -18,12 +18,24 @@ import { MaterialService } from '../material.service';
 export class MaterialItemComponent implements OnInit, AfterViewInit {
   @Input() cRRow: FormGroup;
   @Input() j: number;
+  @Input() xmlTriggered: boolean;
 
   lang = this._globalService.lang();
 
   @Output() saveRecord = new EventEmitter();
-  @Output() revertRecord = new EventEmitter();
-  @Output() deleteRecord = new EventEmitter();
+  @Output() revertRecord = new EventEmitter<{
+    index: number,
+    id: number;
+    heading: string;
+    buttonTrigger:HTMLElement;
+    tempMaterialForm:  FormGroup;
+  }>;
+  @Output() deleteRecord = new EventEmitter<{
+    index: number,
+    id: number;
+    heading: string;
+    buttonTrigger:HTMLElement;
+  }>;
   @Output() error = new EventEmitter(true);
 
   public countries: ICode[] = [];
@@ -86,6 +98,8 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     this.materialInfo.valueChanges.subscribe(() => {
       this.checkFormDirtyStatus();
     });
+
+    this.showErrors = this.xmlTriggered;
   }
 
   ngAfterViewInit(): void {
@@ -96,7 +110,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     });
     /** this is processsing the errorSummary that is a child in  Contact record **/
     this.errorSummaryChildList.changes.subscribe(list => {
-      //console.log("error summary child change,", list);
+      // console.log("error summary child change,", list);
       this.processSummaries(list);
     });
   }
@@ -111,6 +125,7 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     }
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
+    // console.log("material item error changes", this.errorSummaryChild);
     this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, this.errorSummaryChild);
 
     // this._emitErrors();
@@ -141,19 +156,37 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public revertMaterialRecord(index: number, recordId: number): void {
-    this.revertRecord.emit({ index: index, id: recordId });
+  public revertMaterialRecord(event: Event, index: number, recordId: number): void {
+    const heading = this._materialService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
+    this.revertRecord.emit({
+      index: index,
+      id: this.cRRow.get('id').value,
+      heading: heading,
+      buttonTrigger: trigger,
+      tempMaterialForm: this.materialInfo
+    });
     this.onDerivativeSelected(null);
     this.onTissueTypeSelected(null);
-    this.cRRow.markAsPristine();
+    //this.cRRow.markAsPristine();
   }
 
-  public deleteMaterialRecord(index: number): void {
+  public deleteMaterialRecord(event: Event, index: number): void {
+    const heading = this._materialService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
     //this.errorSummaryChild = null;
-    this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, null);
-    this.deleteRecord.emit(index);
-    this.cRRow.markAsPristine();
-    this._updateErrorList([]);
+    // this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.cRRow.get('id').value, null);
+    this.deleteRecord.emit({
+      id: this.cRRow.get('id').value,
+      //       id: this.cRRow.get('id').value,
+      index: index,
+      heading: heading,
+      buttonTrigger: trigger
+    });
+    // this.cRRow.markAsPristine();
+    // this._updateErrorList([]);
   }
 
 
@@ -214,6 +247,18 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
     }
   }
 
+  showTissueTypeOther() {
+    const selectedTissueType = this.cRRow.get('materialInfo.tissueType').value;
+    return selectedTissueType == TISSUE_OTHER_ID;
+
+  }
+
+  showDerivativeOther() {
+    const selectedDerivative = this.cRRow.get('materialInfo.derivative').value;
+    return selectedDerivative == DERIVATIVE_OTHER_ID;
+  }
+
+
   typed(rec) {
     // this._loggerService.log('address.detail', 'country is typed');
     let content = rec.toString().replace(/[\x00-\x7F]/g, '', '');
@@ -237,18 +282,20 @@ export class MaterialItemComponent implements OnInit, AfterViewInit {
   }
 
   public disabledDiscardButton() {
-    if (this.cRRow.get('isNew').value) {
-      return true;
+    if ( !this.cRRow.get('isNew').value && this.materialInfo.dirty) {
+      return false;
     }
-    return false;
+    return true;
   }
 
   public showErrorSummary(): boolean {
-    return (this.showErrSummary && this.errorList.length > 0);
+    return ((this.showErrSummary || this.xmlTriggered) && this.errorList.length > 0);
   }
 
   get materialInfo() : FormGroup{
     return this.cRRow.get('materialInfo') as FormGroup;
   }
+
+
 
 }

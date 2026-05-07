@@ -6,7 +6,9 @@ import {FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BaseComponent, CheckboxOption, ControlMessagesComponent, ICode, ICodeAria, IParentChildren, UtilsService } from '@hpfb/sdk/ui';
 import {TransactionDetailsService} from './transaction.details.service';
 import { GlobalService } from '../global/global.service';
-import { RegulatoryActivityType, AmendReason, DeviceClass, TransactionDesc } from '../app.constants';
+import { RegulatoryActivityType, AmendReason, DeviceClass, TransactionDesc, deprecatedTxDescs, deprecatedActivityTypes } from '../app.constants';
+import { ApplicationInfo } from '../models/Enrollment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'transaction-details',
@@ -39,8 +41,10 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
   public amendReasonOptionList: CheckboxOption[] = [];
 
+  public srRequiredText : string = '';
+
   constructor(private _fb: FormBuilder,   private _detailsService: TransactionDetailsService, private _globalService: GlobalService,
-    private _utilsService: UtilsService, private cdr: ChangeDetectorRef) {
+    private _utilsService: UtilsService, private cdr: ChangeDetectorRef, private translate: TranslateService) {
 
     super();
     this.showFieldErrors = false;
@@ -62,6 +66,9 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
     // console.log(this.raTypeDeviceClassAmendReason)
     this.raTypeTxDesc = this._globalService.$activityTypeTxDescription;
     // console.log(this.raTypeTxDesc)
+    this.translate.get('sr.required').subscribe(value => {
+      this.srRequiredText = value;
+    });
   }
 
   protected override emitErrors(errors: any[]): void {
@@ -77,19 +84,30 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
 
     if (changes['transactionInfoModel'] && !changes['transactionInfoModel'].firstChange) {
       // console.log('**********the transaction model changed');
-      const dataModel = changes['transactionInfoModel'].currentValue;
+      const dataModel: ApplicationInfo = changes['transactionInfoModel'].currentValue;
       if (!this.transDetailsForm) {
         this.transDetailsForm = this._detailsService.getReactiveModel(this._fb);
         this.transDetailsForm.markAsPristine();
       }
       this._detailsService.mapDataModelToDetailForm(dataModel, (<FormGroup>this.transDetailsForm), this.amendReasonList,
         this.raTypeDeviceClassAmendReason, this.amendReasonOptionList, this.lang);
+      
+      const activityTypeDataModel: string = this._utilsService.getIdFromIdTextLabel(dataModel.regulatory_activity_type);
+      if (deprecatedActivityTypes.includes(activityTypeDataModel)) {
+        this.activityTypeFormControl.setValue(""); // Set form's activity type to null
+        this.txDescriptionFormControl.setValue(""); // Then set tx desc to null because it depends on activity type
+      }
+      const txDescValueDataModel: string = this._utilsService.getIdFromIdTextLabel(dataModel.description_type);
+      if (deprecatedTxDescs.includes(txDescValueDataModel)) {
+        this.txDescriptionFormControl.setValue("");
+      }
 
       const raTypeValue: string = this.activityTypeFormControl.value;
       if (raTypeValue) {
         // dynamically load the transaction description dropdowns according to the selected activity type value
         this.transDescList = this._getTransactionDescriptions(this.raTypeTxDesc, raTypeValue);
-      }
+        this.raTypeSelected = true; // Set flag to true if ra type is not null (after loading in form)
+      }     
     }
 
   }
@@ -105,6 +123,7 @@ export class TransactionDetailsComponent extends BaseComponent implements OnInit
       // dynamically load the transaction description dropdowns according to the selected activity type value
       this.transDescList = this._getTransactionDescriptions(this.raTypeTxDesc, selectedRaTypeValue);
       this.raTypeSelected = true;
+      this.txDescriptionFormControl.setValue("");
     } else {
       this.transDescList = [];
       this.raTypeSelected = false;

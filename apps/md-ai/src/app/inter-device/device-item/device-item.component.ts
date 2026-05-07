@@ -18,27 +18,38 @@ import { DeviceService } from '../device.service';
 export class DeviceItemComponent implements OnInit, AfterViewInit {
   @Input() cRRow: FormGroup;
   @Input() j: number;
+  @Input() xmlTriggered: boolean;
 
   lang = this._globalService.lang();
 
   @Output() saveRecord = new EventEmitter();
-  @Output() revertRecord = new EventEmitter();
-  @Output() deleteRecord = new EventEmitter();
+  @Output() revertRecord = new EventEmitter<{
+    index: number,
+    id: number;
+    heading: string;
+    buttonTrigger:HTMLElement;
+    tempDeviceForm: FormGroup;
+  }>;
+  @Output() deleteRecord = new EventEmitter<{
+    id: number;
+    index: number;
+    heading: string;
+    buttonTrigger:HTMLElement;
+  }>;
   @Output() error = new EventEmitter(true);
 
   public yesNoList: ICode[] = [];
 
   deviceAuthorized: boolean = false;
-  deviceNotAuthorized: boolean = false;
+  deviceAuthorizedSelected: boolean = false;
   deviceAppSubmitted: boolean = false;
-  deviceAppNotSubmitted: boolean = false;
 
   //isInternal: boolean
   showErrors: boolean;
   showErrSummary: boolean = false;
   public errorList = [];
   private errorSummaryChild: ErrorSummaryComponent = null;
-
+  disableDiscardBtn: boolean;
 
   public headingLevel = 'h4';
   headingPreamble: string = "heading.interdependent.device";
@@ -80,10 +91,13 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
+    this.disableDiscardBtn = true;
 
     this.deviceInfo.valueChanges.subscribe(() => {
       this.checkFormDirtyStatus();
     });
+
+    this.showErrors = this.xmlTriggered;
   }
 
   ngAfterViewInit(): void {
@@ -139,20 +153,39 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public revertDeviceRecord(index: number, recordId: number): void {
-    this.revertRecord.emit({ index: index, id: recordId });
+  public revertDeviceRecord(event:Event, index: number, recordId: number): void {
+    const heading = this._deviceService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+    this.revertRecord.emit({
+      index: index,
+      id: this.cRRow.get('id').value,
+      heading: heading,
+      buttonTrigger: trigger,
+      tempDeviceForm:  this.deviceInfo
+    });
+    this.disableDiscardBtn = true
     this.onDeviceAuthorizedChange(null);
     this.onDeviceAppChange(null);
 
-    this.cRRow.markAsPristine();
+//    this.cRRow.markAsPristine();
   }
 
-  public deleteDeviceRecord(index: number): void {
+  public deleteDeviceRecord(event: Event, index: number): void {
     // this.errorSummaryChild = null;
-    this._errorNotificationService.updateErrorSummary(DEVICE_ERROR_PREFIX + this.cRRow.get('id').value, null);
-    this.deleteRecord.emit(index);
-    this.cRRow.markAsPristine();
-    this._updateErrorList([]);
+    // this._errorNotificationService.updateErrorSummary(DEVICE_ERROR_PREFIX + this.cRRow.get('id').value, null);
+    const heading = this._deviceService.getHeading(index); // Await here
+    const trigger = event.target as HTMLElement;
+
+
+    this.deleteRecord.emit({
+      id: this.cRRow.get('id').value,
+      //       id: this.cRRow.get('id').value,
+      index: index,
+      heading: heading,
+      buttonTrigger: trigger
+    });
+    // this.cRRow.markAsPristine();
+    // this._updateErrorList([]);
   }
 
 
@@ -161,6 +194,7 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   }
 
   private _save(index: number): void {
+    this.disableDiscardBtn = true;
     if (!(this.errorList.length > 0)) { // If there are no errors -> Set null inputs that are invalid to valid
       this._deviceService.setDeviceDetailsErrorsToNull(this.cRRow.get('deviceInfo'));
     }
@@ -177,78 +211,70 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
   }
 
   onDeviceAuthorizedChange(e: any) {
-    let deviceAuthorized;
-
-    if (e) {
-      deviceAuthorized = e.target.value;
-    } else {
-      deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
-    }
+    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
 
     const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted');
     const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber');
     const deviceExplain = this.cRRow.get('deviceInfo.deviceExplain');
     const licenceNum = this.cRRow.get('deviceInfo.licenceNum');
 
-    if (deviceAuthorized) {
-      if (deviceAuthorized === YES) {
-        this.deviceAppSubmitted = false;
-        this.deviceAppNotSubmitted = false;
-        this.deviceAuthorized = true;
-        this.deviceNotAuthorized = false;
-        this._utilsService.resetControlsValues(deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
-      } else {
-        this.deviceAuthorized = false;
-        this.deviceNotAuthorized = true;
-        this._utilsService.resetControlsValues(licenceNum);
-      }
+    if (deviceAuthorized == YES) {
+      this._utilsService.resetControlsValues(deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
     } else {
-      this.deviceAppSubmitted = false;
-      this.deviceAppNotSubmitted = false;
-      this.deviceAuthorized = false;
-      this.deviceNotAuthorized = false;
-      this._utilsService.resetControlsValues(licenceNum, deviceApplicationSubmitted, deviceApplicationNumber, deviceApplicationSubmitted, deviceExplain)
-  }
+      this._utilsService.resetControlsValues(licenceNum);
+    }
   }
 
   onDeviceAppChange(e: any) {
-    let deviceApplicationSubmitted;
-
-    if (e) {
-      deviceApplicationSubmitted = e.target.value;
-    } else {
-      deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
-    }
-
+    const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
     const deviceExplain = this.cRRow.get('deviceInfo.deviceExplain');
-    const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber')
+    const deviceApplicationNumber = this.cRRow.get('deviceInfo.deviceApplicationNumber');
 
-    if (deviceApplicationSubmitted) {
-      if (deviceApplicationSubmitted === YES) {
-        this.deviceAppSubmitted = true;
-        this.deviceAppNotSubmitted = false;
-        this._utilsService.resetControlsValues(deviceExplain);
-      } else {
-        this.deviceAppSubmitted = false;
-        this.deviceAppNotSubmitted = true;
-        this._utilsService.resetControlsValues(deviceApplicationNumber);
-      }
+    if (deviceApplicationSubmitted === YES) {
+      this.deviceAppSubmitted = true;
+      this._utilsService.resetControlsValues(deviceExplain);
     } else {
       this.deviceAppSubmitted = false;
-      this.deviceAppNotSubmitted = false;
-      this._utilsService.resetControlsValues(deviceApplicationNumber, deviceExplain);
+      this._utilsService.resetControlsValues(deviceApplicationNumber);
     }
+
   }
 
-  public disabledDiscardButton() {
-    if (this.cRRow.get('isNew').value) {
+  showLicenceNumber() {
+    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
+    return deviceAuthorized == YES;
+  }
+
+  showPreviouslySubmitted() {
+    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
+    return deviceAuthorized == NO;
+  }
+
+  showApplicationNumber() {
+    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
+    const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
+    return deviceAuthorized == NO && deviceApplicationSubmitted == YES;
+  }
+
+  showPleaseExplain() {
+    const deviceAuthorized = this.cRRow.get('deviceInfo.deviceAuthorized').value;
+    const deviceApplicationSubmitted = this.cRRow.get('deviceInfo.deviceApplicationSubmitted').value;
+    return deviceAuthorized == NO && deviceApplicationSubmitted == NO;
+  }
+
+
+  public disabledDiscadrButton() {
+    if ( !this.cRRow.get('isNew').value && this.deviceInfo.dirty) {
+      return false
+    }
+    else {
       return true;
     }
-    return false;
   }
 
   public showErrorSummary(): boolean {
-    return ((this.showErrSummary) && this.errorList.length > 0);
+    //console.log(this.showErrSummary, this.errorList.length, this.xmlTriggered)
+    return ((this.showErrSummary || this.xmlTriggered) && this.errorList.length > 0);
   }
 
   // todo use include, not !Remove
@@ -258,6 +284,24 @@ export class DeviceItemComponent implements OnInit, AfterViewInit {
 
   get deviceInfo() : FormGroup{
     return this.cRRow.get('deviceInfo') as FormGroup;
+  }
+
+
+  licenceNumberOnBlur(): void {
+    const licenceNumControl = this.deviceInfo.controls['licenceNum'];
+
+    if (!licenceNumControl || !licenceNumControl.value) {
+      return;
+    }
+
+    const value = licenceNumControl.value.toString();
+
+    // Pad with leading zeros to exactly 6 digits
+    const paddedValue = value.padStart(6, '0');
+
+    if (value !== paddedValue) {
+      licenceNumControl.setValue(paddedValue, { emitEvent: false });
+    }
   }
 
 }

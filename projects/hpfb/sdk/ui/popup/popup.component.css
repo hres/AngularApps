@@ -2,3 +2,13 @@
     width: 50%;
     height: fit-content;
 }
+
+.close-btn {
+    background-color: #949494;
+    color: #ffffff;
+}
+
+
+.close-btn:focus {
+    background-color: #6f6f6f;
+}

@@ -1,0 +1,502 @@
+[
+  {
+    "id": "1",
+    "en": "Not applicable",
+    "fr": "Sans objet"
+  },
+  {
+    "id": "2",
+    "en": "Aquarium fish",
+    "fr": "Poissons d'aquarium"
+  },
+  {
+    "id": "3",
+    "en": "Beef cattle",
+    "fr": "Bovins de boucherie"
+  },
+  {
+    "id": "4",
+    "en": "Beef heifers",
+    "fr": "Taures de boucherie"
+  },
+  {
+    "id": "5",
+    "en": "Beef steers",
+    "fr": "Bœufs de boucherie"
+  },
+  {
+    "id": "6",
+    "en": "Bison",
+    "fr": "Bison"
+  },
+  {
+    "id": "7",
+    "en": "Bitches",
+    "fr": "Oper"
+  },
+  {
+    "id": "8",
+    "en": "Black bears",
+    "fr": "Ours noirs"
+  },
+  {
+    "id": "9",
+    "en": "Boars",
+    "fr": "Sangliers"
+  },
+  {
+    "id": "10",
+    "en": "Breeder chickens",
+    "fr": "Poulets reproducteurs"
+  },
+  {
+    "id": "11",
+    "en": "Breeder turkeys",
+    "fr": "Dindes reproductrices"
+  },
+  {
+    "id": "12",
+    "en": "Breeding horses",
+    "fr": "Chevaux d'élevage"
+  },
+  {
+    "id": "13",
+    "en": "Broiler chickens",
+    "fr": "Poulets à griller"
+  },
+  {
+    "id": "14",
+    "en": "Broiler turkeys",
+    "fr": "Dindes à griller"
+  },
+  {
+    "id": "15",
+    "en": "Bulls",
+    "fr": "Taureaux"
+  },
+  {
+    "id": "16",
+    "en": "Calves",
+    "fr": "Veaux"
+  },
+  {
+    "id": "17",
+    "en": "Caribou",
+    "fr": "Caribou"
+  },
+  {
+    "id": "18",
+    "en": "Chickens",
+    "fr": "Poulets"
+  },
+  {
+    "id": "19",
+    "en": "Chicks",
+    "fr": "Poussins"
+  },
+  {
+    "id": "20",
+    "en": "Chinchilla",
+    "fr": "Chinchilla"
+  },
+  {
+    "id": "21",
+    "en": "Clam",
+    "fr": "Palourdes"
+  },
+  {
+    "id": "22",
+    "en": "Codfish",
+    "fr": "Morue"
+  },
+  {
+    "id": "23",
+    "en": "Commercial layer hens",
+    "fr": "Poules pondeuses commerciales"
+  },
+  {
+    "id": "24",
+    "en": "Companion birds",
+    "fr": "Oiseaux de compagnie"
+  },
+  {
+    "id": "25",
+    "en": "Cows",
+    "fr": "Vaches"
+  },
+  {
+    "id": "27",
+    "en": "Cows (lactating)",
+    "fr": "Vaches laitières"
+  },
+  {
+    "id": "28",
+    "en": "Cows (non-lactating)",
+    "fr": "Vaches non allaitantes"
+  },
+  {
+    "id": "29",
+    "en": "Crab",
+    "fr": "Crabe"
+  },
+  {
+    "id": "30",
+    "en": "Crab exoskeleton",
+    "fr": "Exosquelette de crabe"
+  },
+  {
+    "id": "31",
+    "en": "Dairy cattle",
+    "fr": "Bovins laitiers"
+  },
+  {
+    "id": "32",
+    "en": "Dairy heifers",
+    "fr": "Taures laitières"
+  },
+  {
+    "id": "33",
+    "en": "Deer",
+    "fr": "Cerf"
+  },
+  {
+    "id": "34",
+    "en": "Donkeys",
+    "fr": "Ânes"
+  },
+  {
+    "id": "35",
+    "en": "Draft horses",
+    "fr": "Chevaux de trait"
+  },
+  {
+    "id": "36",
+    "en": "Ducks",
+    "fr": "Canards"
+  },
+  {
+    "id": "37",
+    "en": "Elephants",
+    "fr": "Éléphants"
+  },
+  {
+    "id": "38",
+    "en": "Elk",
+    "fr": "Wapiti"
+  },
+  {
+    "id": "39",
+    "en": "Emu",
+    "fr": "Émeu"
+  },
+  {
+    "id": "40",
+    "en": "Ewes",
+    "fr": "Brebis"
+  },
+  {
+    "id": "41",
+    "en": "Farmed fish",
+    "fr": "Poissons d'élevage"
+  },
+  {
+    "id": "42",
+    "en": "Feeder swine",
+    "fr": "Porcs d'engraissement"
+  },
+  {
+    "id": "43",
+    "en": "Feedlot calves",
+    "fr": "Veaux en parc d'engraissement"
+  },
+  {
+    "id": "44",
+    "en": "Feedlot cattle",
+    "fr": "Bovins en parc d'engraissement"
+  },
+  {
+    "id": "45",
+    "en": "Feedlot heifers",
+    "fr": "Génisses en parc d'engraissement"
+  },
+  {
+    "id": "46",
+    "en": "Feedlot steers",
+    "fr": "Bouvillons en parc d'engraissement"
+  },
+  {
+    "id": "47",
+    "en": "Ferrets",
+    "fr": "Furets"
+  },
+  {
+    "id": "48",
+    "en": "Finisher swine",
+    "fr": "Porcs finisseurs"
+  },
+  {
+    "id": "49",
+    "en": "Flounder",
+    "fr": "Sole"
+  },
+  {
+    "id": "50",
+    "en": "Foals",
+    "fr": "Poulains"
+  },
+  {
+    "id": "51",
+    "en": "Foxes",
+    "fr": "Renards"
+  },
+  {
+    "id": "52",
+    "en": "Geese",
+    "fr": "Oies"
+  },
+  {
+    "id": "53",
+    "en": "Gerbils",
+    "fr": "Gerbilles"
+  },
+  {
+    "id": "54",
+    "en": "Gilts",
+    "fr": "Cochettes"
+  },
+  {
+    "id": "55",
+    "en": "Grizzly bears",
+    "fr": "Ours grizzlis"
+  },
+  {
+    "id": "56",
+    "en": "Grower swine",
+    "fr": "Porcs en croissance"
+  },
+  {
+    "id": "57",
+    "en": "Growing turkeys",
+    "fr": "Dindes de chair"
+  },
+  {
+    "id": "58",
+    "en": "Guinea pigs",
+    "fr": "Cochons d'Inde"
+  },
+  {
+    "id": "59",
+    "en": "Hamsters",
+    "fr": "Hamsters"
+  },
+  {
+    "id": "60",
+    "en": "Honey bees",
+    "fr": "Abeilles"
+  },
+  {
+    "id": "61",
+    "en": "Kids",
+    "fr": "Chevreaux"
+  },
+  {
+    "id": "62",
+    "en": "Kittens",
+    "fr": "Chatons"
+  },
+  {
+    "id": "63",
+    "en": "Lactating goats",
+    "fr": "Chèvres laitières"
+  },
+  {
+    "id": "64",
+    "en": "Lambs",
+    "fr": "Agneaux"
+  },
+  {
+    "id": "65",
+    "en": "Lobsters",
+    "fr": "Homards"
+  },
+  {
+    "id": "66",
+    "en": "Mares",
+    "fr": "Juments"
+  },
+  {
+    "id": "67",
+    "en": "Market goats",
+    "fr": "Chèvres"
+  },
+  {
+    "id": "68",
+    "en": "Mice",
+    "fr": "Souris"
+  },
+  {
+    "id": "69",
+    "en": "Mink",
+    "fr": "Vison"
+  },
+  {
+    "id": "70",
+    "en": "Moose",
+    "fr": "Élan"
+  },
+  {
+    "id": "71",
+    "en": "Mules",
+    "fr": "Mules"
+  },
+  {
+    "id": "72",
+    "en": "Mussel",
+    "fr": "Moule"
+  },
+  {
+    "id": "73",
+    "en": "Oyster",
+    "fr": "Huître"
+  },
+  {
+    "id": "74",
+    "en": "Pasture cattle (non-lactating)",
+    "fr": "Bovins de pâturage (non lactants)"
+  },
+  {
+    "id": "75",
+    "en": "Pasture heifers",
+    "fr": "Génisses de pâturage"
+  },
+  {
+    "id": "76",
+    "en": "Pasture steers",
+    "fr": "Bouvillons de pâturage"
+  },
+  {
+    "id": "77",
+    "en": "Piglets",
+    "fr": "Porcelets"
+  },
+  {
+    "id": "78",
+    "en": "Polar bears",
+    "fr": "Ours polaires"
+  },
+  {
+    "id": "79",
+    "en": "Ponies",
+    "fr": "Poneys"
+  },
+  {
+    "id": "80",
+    "en": "Primates (non-human)",
+    "fr": "Primates (non humains)"
+  },
+  {
+    "id": "81",
+    "en": "Pullets",
+    "fr": "Poulettes"
+  },
+  {
+    "id": "82",
+    "en": "Puppies",
+    "fr": "Chiots"
+  },
+  {
+    "id": "83",
+    "en": "Queen (female)",
+    "fr": "Reine (abeille)"
+  },
+  {
+    "id": "84",
+    "en": "Rabbits",
+    "fr": "Lapins"
+  },
+  {
+    "id": "85",
+    "en": "Rats",
+    "fr": "Rats"
+  },
+  {
+    "id": "86",
+    "en": "Replacement chickens",
+    "fr": "Poulets de remplacement"
+  },
+  {
+    "id": "87",
+    "en": "Replacement heifers",
+    "fr": "Génisses de remplacement"
+  },
+  {
+    "id": "88",
+    "en": "Rooster",
+    "fr": "Coq"
+  },
+  {
+    "id": "89",
+    "en": "Salmonid (eggs)",
+    "fr": "Œufs de salmonidés"
+  },
+  {
+    "id": "90",
+    "en": "Salmonids",
+    "fr": "Salmonidés"
+  },
+  {
+    "id": "91",
+    "en": "Shark",
+    "fr": "Requin"
+  },
+  {
+    "id": "92",
+    "en": "Shrimp",
+    "fr": "Crevette"
+  },
+  {
+    "id": "93",
+    "en": "Sows",
+    "fr": "Truies"
+  },
+  {
+    "id": "94",
+    "en": "Stallions",
+    "fr": "Étalons"
+  },
+  {
+    "id": "95",
+    "en": "Steers",
+    "fr": "Bouvillons"
+  },
+  {
+    "id": "96",
+    "en": "Turkey poults",
+    "fr": "Dindonneaux"
+  },
+  {
+    "id": "97",
+    "en": "Turkeys",
+    "fr": "Dindes"
+  },
+  {
+    "id": "98",
+    "en": "Veal calves",
+    "fr": "Veaux de veau"
+  },
+  {
+    "id": "99",
+    "en": "Weanlings",
+    "fr": "Sevrés"
+  },
+  {
+    "id": "100",
+    "en": "Wild/game birds",
+    "fr": "Sauvage / divers"
+  },
+  {
+    "id": "101",
+    "en": "Zebra",
+    "fr": "Zèbre"
+  }
+]

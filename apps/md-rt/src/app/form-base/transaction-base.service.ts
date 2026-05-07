@@ -48,7 +48,6 @@ export class TransactionBaseService {
         has_ddt: '',
         org_manufacture_id: '',
         org_manufacture_lic: '',
-        meeting_id: '',
         proposed_licence_name: '',
         brief_description: '',
         rationale: '',
@@ -68,7 +67,7 @@ export class TransactionBaseService {
   }
 
   private _getMedicalDeviceDossierType(): IIdTextLabel { 
-    return this._utilsService.createIIdTextLabelObj('D23', 'Medical Devices', 'Instruments Médicaux');
+    return this._utilsService.createIIdTextLabelObj('D23', 'Medical devices', 'Instruments médicaux');
   }
 
   private _getMedicalDeviceDirectorateActivityLead(): IIdTextLabel { 
@@ -95,7 +94,7 @@ export class TransactionBaseService {
     };
 
     // update the last_saved_date
-    output.DEVICE_TRANSACTION_ENROL.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-hhmm');
+    output.DEVICE_TRANSACTION_ENROL.application_info.last_saved_date = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm');
 
     return output;
   }

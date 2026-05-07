@@ -11,6 +11,7 @@ import { FormArray, FormGroup} from '@angular/forms';
 export class AccordionComponent {
 
   @Input() rowsFormArray: FormArray;
+  @Input() recordListName: string;
   @Input() accordionHeadingMsgKey: string;
   // if we want to display an extra formcontrol value in the accordion header, pass in the nested formcontrol names using this field
   // eg. to display the contactDetails' fullName in the accordion header, pass in ['contactDetails', 'fullName']" to the accordion component

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 import {
   ENGLISH,
@@ -26,6 +26,48 @@ export class GlobalService {
   private _countryList: ICode[];
   private _yesnoList: ICode[];
   private _subTypeList: ICodeDefinition[];
+  private _drugUse: ICodeDefinition[] = [];
+  private _scheduleClaims: ICode[] = [];
+  private _disinfectTypes: ICode[] = [];
+  public get disinfectTypes(): ICode[] {
+    return this._disinfectTypes;
+  }
+  public set disinfectTypes(value: ICode[]) {
+    this._disinfectTypes = value;
+  }
+
+  lang = signal<string>('');
+  private _nanomaterials: ICode[] = [];
+  private _operators: ICode[] = [];
+  private _per: ICode[] = [];
+  private _roles: ICode[] = [];
+  private _units: ICode[] = [];
+  private _calculatedBase: ICode[] = [];
+  private _unitPresentation: ICode[] = [];
+  private _unitMeasure: ICode[] = [];
+  private _dosageForm: ICode[] = [];
+
+
+  setCurrLanguage(language : string): void {
+    this.lang.set(language);
+  }
+
+  getCurrLanguage() {
+    return this.lang();
+  }
+  public get scheduleClaims(): ICode[] {
+    return this._scheduleClaims;
+  }
+  public set scheduleClaims(value: ICode[]) {
+    this._scheduleClaims = value;
+  }
+
+  public get drugUse(): ICodeDefinition[] {
+    return this._drugUse;
+  }
+  public set drugUse(value: ICodeDefinition[]) {
+    this._drugUse = value;
+  }
 
   constructor() {}
 
@@ -135,5 +177,78 @@ export class GlobalService {
 
   public set subTypeList(value: ICodeDefinition[]) {
     this._subTypeList = value;
+  }
+
+  
+  public get nanomaterialList(): ICode[] {
+    return this._nanomaterials;
+  }
+
+  public set nanomaterialList(value: ICode[]) {
+    this._nanomaterials = value;
+  }
+
+  public get operatorList(): ICode[] {
+    return this._operators;
+  }
+
+  public set operatorList(value: ICode[]) {
+    this._operators = value;
+  }
+
+  public get perList(): ICode[] {
+    return this._per;
+  }
+
+  public set perList(value: ICode[]) {
+    this._per = value;
+  }
+
+  public get rolesList(): ICode[] {
+    return this._roles;
+  }
+
+  public set rolesList(value: ICode[]) {
+    this._roles = value;
+  }
+
+  public get unitsList(): ICode[] {
+    return this._units;
+  }
+
+  public set unitsList(value: ICode[]) {
+    this._units = value;
+  }
+
+  public get calculatedBaseList(): ICode[] {
+    return this._calculatedBase;
+  }
+
+  public set calculatedBaseList(value: ICode[]) {
+    this._calculatedBase = value;
+  }
+
+  public get unitMeasureList(): ICode[] {
+    return this._unitMeasure;
+  }
+
+  public set unitMeasureList(value: ICode[]) {
+    this._unitMeasure = value;
+  }
+
+  public get unitPresentationList(): ICode[] {
+    return this._unitPresentation;
+  }
+
+  public set unitPresentationList(value: ICode[]) {
+    this._unitPresentation = value;
+  }
+
+  public get dosageFormList(): ICode[] {
+    return this._dosageForm;
+  }
+
+  public set dosageFormList(value: ICode[]) {
+    this._dosageForm = value;
   }
 }

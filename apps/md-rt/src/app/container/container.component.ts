@@ -40,7 +40,7 @@ export class ContainerComponent implements OnInit {
   ngOnInit(): void {
     this.language = this._globalService.getCurrLanguage();
     this.helpIndex = this._globalService.getHelpIndex();
-    this.devEnv = this._globalService.$devEnv;
+    this.devEnv = this._globalService.devEnv;
 
     // load data from apis
     combineLatest([
@@ -105,7 +105,7 @@ export class ContainerComponent implements OnInit {
 			}
 		]
 	}, ...]
- 
+
   */
   private combineData(arr1: any[], arr2: any[]): any[] {
     // console.log(arr1, arr2);

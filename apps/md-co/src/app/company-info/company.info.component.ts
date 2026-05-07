@@ -2,17 +2,22 @@ import {
   Component, Input, Output, OnInit, SimpleChanges, OnChanges, EventEmitter, ViewChildren, QueryList,
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CompanyInfoService} from './company.info.service';
-import { ControlMessagesComponent, FINAL, UtilsService, LoggerService, YES, ICode, ConverterService, CheckboxOption, ICodeDefinition, IIdTextLabel } from '@hpfb/sdk/ui';
+import { ControlMessagesComponent, UtilsService, LoggerService, ICode, ConverterService, CheckboxOption, ICodeDefinition, ConfirmationPopupComponent, PipesModule, ErrorModule, FileIoModule, NumbersOnlyDirective } from '@hpfb/sdk/ui';
 import { CompanyDataLoaderService } from '../form-base/company-data-loader.service';
 import { EnrollmentStatus} from '../app.constants';
+import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { AppFormModule } from '../app.form.module';
+
 
 @Component({
   selector: 'com-gen-info',
   templateUrl: 'company.info.component.html',
   encapsulation: ViewEncapsulation.None,
-  standalone: false
+  standalone: true,
+  imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, ConfirmationPopupComponent, NumbersOnlyDirective]
 })
 
 export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
@@ -35,6 +40,7 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChildren(ControlMessagesComponent) msgList: QueryList<ControlMessagesComponent>;
 
   public isAmend: boolean = false;
+  public isAmendReasonsFilled: boolean = false;
 
   public showFieldErrors: boolean;
 
@@ -43,6 +49,10 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   public yesNoList: ICode[] = [];
   private amendReasonCodeList: ICodeDefinition[] = [];
   public amendReasonOptionList: CheckboxOption[] = [];
+
+  popupTrigger: HTMLElement = null;
+  adminChangesHeading: string = '';
+  amendEnrolmentPopupId: string = "amendEnrolmentPopupId";
 
   constructor(private cdr: ChangeDetectorRef, private _companyInfoService: CompanyInfoService, private _formDataLoader: CompanyDataLoaderService,
     private _utilsService: UtilsService, private _converterService: ConverterService, private _loggerService: LoggerService) {
@@ -133,9 +143,10 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
       }
       if (changes['genInfoModel']) {
         const dataModel = changes['genInfoModel'].currentValue;
-        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList, this.enrollmentStatusesList, this.lang);
+        this._companyInfoService.mapDataModelToFormModel(dataModel, this.generalInfoFormLocalModel, this.amendReasonOptionList, this.enrollmentStatusesList, this.lang, this.amendReasonCodeList);
         this.setDisableAmendButtonFlag(dataModel.status._id, this.isInternal);
         this.isAmend = (dataModel.status._id === EnrollmentStatus.Amend);
+        this.isAmendReasonsFilled = (dataModel.amend_reasons && dataModel.rationale)    
       }
       if(changes['enrollmentStatusesList']) {
         this._companyInfoService.setEnrolmentStatus((<FormGroup>this.generalInfoFormLocalModel), this.generalInfoFormLocalModel.controls['formStatus'].value, this.enrollmentStatusesList, this.lang, false);
@@ -170,8 +181,12 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     this.genInfoModel.status = this._converterService.findAndConverCodeToIdTextLabel(this.enrollmentStatusesList, EnrollmentStatus.Amend, this.lang);
     this.genInfoModel.rationale = '';
     this.genInfoModel.are_licenses_transfered = '';
-    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList, this.enrollmentStatusesList, this.lang);
+    this.genInfoModel.amend_reasons = null;
+    this._companyInfoService.mapDataModelToFormModel(this.genInfoModel, (<FormGroup>this.generalInfoFormLocalModel), this.amendReasonOptionList, this.enrollmentStatusesList, this.lang, this.amendReasonCodeList);
+    this._companyInfoService.resetAmendReasons(this.amendReasonChkFormArray, this.generalInfoFormLocalModel)
     this.enableForm.emit(true);
+    this._saveDataAndEmitGenInfoChangeFlag();
+
   }
 
   onblur() {
@@ -185,6 +200,9 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   amendReasonOnChange(){
+    this.generalInfoFormLocalModel.controls['selectedAmendReasonCodes'].setValue(
+      this._companyInfoService.getSelectedAmendReasonCodes(this.amendReasonOptionList, this.amendReasonChkFormArray)
+    )
     this._saveDataAndEmitGenInfoChangeFlag();
   }
 
@@ -216,6 +234,31 @@ export class CompanyInfoComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.generalInfoFormLocalModel) {
       this.generalInfoFormLocalModel.enable();
     }
+  }
+
+  showAmendEnrolPopup(event: Event) {
+    const amendButton = event.target as HTMLElement;
+    this.popupTrigger = amendButton;
+    this.openConfirmationPopup();
+  }
+  
+  openConfirmationPopup() {
+    const popupSelector = "#" + this.amendEnrolmentPopupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
   }
 
 }

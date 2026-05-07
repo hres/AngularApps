@@ -1,7 +1,7 @@
 import { Component, computed, EventEmitter, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, ControlMessagesComponent, HelpSequence, ICode, ICodeDefinition, UtilsService } from '@hpfb/sdk/ui';
+import { BaseComponent, CheckboxOption, ControlMessagesComponent, ConverterService, HelpSequence, ICode, ICodeDefinition, UtilsService, YES } from '@hpfb/sdk/ui';
 import { DrugProductEnrol } from '../models/ProductInformation';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GlobalService } from '../global/global.service';
 import { ProductInformationService } from './product-information.service';
 
@@ -13,8 +13,7 @@ import { ProductInformationService } from './product-information.service';
 })
 export class ProductInformationComponent extends BaseComponent implements OnInit{
 
-  lang: string;
-  helpIndex: HelpSequence;
+ helpIndex: HelpSequence;
 
   @Input() showErrors: boolean;
   @Input() dataModel: DrugProductEnrol;
@@ -23,9 +22,15 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
 
   public showFieldErrors: boolean = false;
   public productInfoForm: FormGroup;
+  public schedule_claim_group: FormGroup;
   dossierTypeOptions: ICodeDefinition[] = [];
+  drugUseOptions: ICodeDefinition[] = [];
   public yesNoList: ICode[] = [];
   subTypeOptions: ICodeDefinition[] = [];
+  scheduleClaimCodeList:ICode[] = [];
+  scheduleClaimOptionList: CheckboxOption[] = [];
+  disinfectantTypeOptionList: CheckboxOption[] = [];
+  disinfectantTypeCodeList:ICode[] = [];
 
   adminSubSelected = signal('');
   isAdminSub: Signal<boolean> = computed(() => {
@@ -33,7 +38,9 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
   });
   selectedAdminSubTypeDefinition: string = '';
 
-  constructor(private _utilsService: UtilsService, private _fb: FormBuilder, private _globalService: GlobalService, private _productInfoService: ProductInformationService) {
+
+  lang = this._globalService.lang();
+  constructor(private _utilsService: UtilsService, private _fb: FormBuilder, private _globalService: GlobalService, private _productInfoService: ProductInformationService,   private _converterService : ConverterService) {
     super();
     this.showFieldErrors = false;
   }
@@ -44,11 +51,15 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
 
     if (!this.productInfoForm) {
       this.productInfoForm = ProductInformationService.getProductInfoForm(this._fb);
+
     }
 
     this.dossierTypeOptions = this._globalService.dossierTypes;
     this.yesNoList = this._globalService.yesnoList;
     this.subTypeOptions = this._globalService.subTypeList;
+    this.drugUseOptions = this._globalService.drugUse;
+    this.scheduleClaimCodeList = this._globalService.scheduleClaims;
+    this.disinfectantTypeCodeList =  this._globalService.disinfectTypes;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -61,13 +72,18 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
       if (changes['dataModel']) {
         const dataModelCurrentValue = changes['dataModel'].currentValue as DrugProductEnrol;
         // this.lifecycleRecordModel = dataModelCurrentValue.ectd.lifecycle_record;
-        this._productInfoService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this.productInfoForm);
+        this._updateScheduleClaimArray();
+        this._updateDisinfectantTypeClaimArray();
+        this._productInfoService.mapDataModelToFormModel(dataModelCurrentValue, <FormGroup>this.productInfoForm, this.scheduleClaimOptionList);
 
         // this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value);
         this.onAdminSubSelected(this.productInfoForm.controls['isAdminSub'].value, true);
         this.onSubTypeSelected(this.productInfoForm.controls['subType'].value);
+
+
       }
     }
+
   }
 
   onAdminSubSelected(selectedAdminSubId: string, isProgrammaticUpdate: boolean) {
@@ -102,6 +118,109 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
   private _getCodeDefinition(codeDefinitionList: ICodeDefinition[], id: string){
     return this._utilsService.getCodeDefinitionByIdByLang(id, codeDefinitionList, this.lang)
   }
+
+
+  getSelectedScheduleClaimCodes(seriousDiagnosisReasonList: CheckboxOption[], diagnosisReasonChkFormArray: FormArray) : string[] {
+    return this._converterService.getCheckedCheckboxValues(seriousDiagnosisReasonList, diagnosisReasonChkFormArray);
+  }
+
+  get selectedScheduleClaimCodes(): string[] {
+    return this.getSelectedScheduleClaimCodes(this.scheduleClaimOptionList, this.scheduleClaimChkFormArray);
+  }
+
+  getSelectedDisintectfectTypeCodes(seriousDiagnosisReasonList: CheckboxOption[], diagnosisReasonChkFormArray: FormArray) : string[] {
+    return this._converterService.getCheckedCheckboxValues(seriousDiagnosisReasonList, diagnosisReasonChkFormArray);
+  }
+
+  get selectedDisinfectantTypeCodes(): string[] {
+    return this.getSelectedDisintectfectTypeCodes(this.disinfectantTypeOptionList, this.scheduleClaimChkFormArray);
+  }
+
+
+showScheduleClaimApplied() {
+
+  if (this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value &&
+        this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value === true) {
+       return true;
+  }
+  else {
+    this._utilsService.resetControlsValues(this.productInfoForm.controls['scheduleClaims']);
+  }
+  return false;
 }
 
+showDisinfectantTypes(){
+
+  if (this.productInfoForm.controls['drugUse'].value &&
+        this.productInfoForm.controls['drugUse'].value === 'DISINFECT') {
+       return true;
+  }
+  else {
+    this._utilsService.resetControlsValues(this.productInfoForm.controls['disinfectantTypes']);
+  }
+  return false;
+}
+
+get scheduleClaimChkFormArray() {
+  return this.productInfoForm.controls['scheduleClaims'] as FormArray
+}
+
+get disinfectantTypeChkFormArray() {
+  return this.productInfoForm.controls['disinfectantTypes'] as FormArray
+}
+
+
+private _updateScheduleClaimArray() {
+  const scheduleClaimList = this._globalService.scheduleClaims;
+  this.scheduleClaimOptionList = scheduleClaimList.map((item) => {
+    return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+  });
+
+  this.scheduleClaimOptionList.forEach(() => this.scheduleClaimChkFormArray.push(new FormControl(false)));
+}
+
+private _updateDisinfectantTypeClaimArray() {
+  const disinfectantList = this._globalService.disinfectTypes;
+  this.disinfectantTypeOptionList = disinfectantList.map((item) => {
+    return this._converterService.convertCodeToCheckboxOption(item, this.lang);
+  });
+
+  this.disinfectantTypeOptionList.forEach(() => this.disinfectantTypeChkFormArray.push(new FormControl(false)));
+}
+
+scheduleClaimOnChange() {
+  this.productInfoForm.controls['selectedDisinfectantTypeCodes'].setValue(this.selectedDisinfectantTypeCodes);
+}
+
+disinfectantTypeOnChange() {
+  this.productInfoForm.controls['selectedDisinfectTypeCodes'].setValue(this.selectedDisinfectantTypeCodes);
+}
+
+
+drugUseChangeRequestedOnChange() {
+  if (this.productInfoForm.controls['drugUse'].value &&
+        this.productInfoForm.controls['drugUse'].value === 'DISINFECT') {
+       this._updateDisinfectantTypeClaimArray();
+  } else {
+    this._utilsService.resetControlsValues(
+      this.scheduleClaimChkFormArray,
+      this.productInfoForm.controls['selectedDisinfectantTypeCodes'],
+    );
+  }
+}
+
+
+nonPrescriptioScheduleAppliedRequestedOnChange() {
+  if (this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value &&
+        this.productInfoForm.controls['isNonPrescriptioScheduleApplied'].value === true) {
+    this._updateScheduleClaimArray();
+  } else {
+    this._utilsService.resetControlsValues(
+      this.scheduleClaimChkFormArray,
+      this.productInfoForm.controls['selectedScheduleClaimCodes'],
+    );
+  }
+}
+
+}
 

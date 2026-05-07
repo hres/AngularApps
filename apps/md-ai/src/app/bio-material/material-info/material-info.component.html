@@ -3,59 +3,62 @@
       <h2 class="panel-title">{{'containing.material'|translate}}</h2>
     </header>
     <div class="panel-body">
-      <div class="row">
-        <div class="form-group col-xs-12" >
-          <label for="hasRecombinant" class="required full-width">
-            <span class="field-name">{{'consist.recombinant' |translate}}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+      <div class="row form-group">
+        <fieldset class="col-xs-12 chkbxrdio-grp">
+          <legend class="required">
+            {{'consist.recombinant' |translate}}
+            <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
             <control-messages *ngIf="materialInfoForm.controls['hasRecombinant'].invalid"
                               [showError]="showErrors"
                               [control]="materialInfoForm.controls['hasRecombinant'] | formControl"
-                              controlId="hasRecombinant" label="consist.recombinant" parentId="materialInfoDetails"></control-messages>
-
-            <select id="hasRecombinant" name="hasRecombinant" required="required" class="form-control"
-                   [formControl]="materialInfoForm.controls['hasRecombinant'] | formControl">
-              <option label=" " value=""></option>
-              <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
-            </select>
-          </label>
-        </div>
+                              controlId="hasRecombinant0" label="consist.recombinant" parentId="materialInfoDetails"></control-messages>
+          </legend>
+          <ng-container *ngFor="let yesno of yesNoList; let i = index">
+            <label for="hasRecombinant{{i}}" class="radio-inline">
+              <input type="radio" id="hasRecombinant{{i}}" name="hasRecombinant" [value]="yesno.id"
+                aria-required="true" [formControl]="materialInfoForm.controls['hasRecombinant'] | formControl">
+              {{yesno | textTransform: lang }}
+            </label>  
+          </ng-container>
+        </fieldset>
       </div>
-     <!-- <div *ngIf="isRecombinant()" class="row"> -->
-      <div class="row">
-      <div class="form-group col-xs-12" >
-          <label for="isAnimalHumanSourced" class="required full-width">
-            <span class="field-name">{{'contain.material' |translate}}</span>
-            <strong class="required"  aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+      <div class="row form-group">
+        <fieldset class="col-xs-12 chkbxrdio-grp">
+          <legend class="required">
+            {{'contain.material' |translate}}
+            <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
             <control-messages *ngIf="materialInfoForm.controls['isAnimalHumanSourced'].invalid"
                               [showError]="showErrors"
                               [control]="materialInfoForm.controls['isAnimalHumanSourced'] | formControl"
-                              controlId="isAnimalHumanSourced" label="contain.material" parentId="materialInfoDetails"></control-messages>
-            <select id="isAnimalHumanSourced" name="isAnimalHumanSourced"  required="required" class="form-control"
-                    (change)="animalHumanSourcedOnChange()"
-                    [formControl]="materialInfoForm.controls['isAnimalHumanSourced'] | formControl">
-              <option label=" " value=""></option>
-              <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
-            </select>
-          </label>
-        </div>
+                              controlId="isAnimalHumanSourced0" label="contain.material" parentId="materialInfoDetails"></control-messages>
+          </legend>
+          <ng-container *ngFor="let yesno of yesNoList; let i = index">
+            <label for="isAnimalHumanSourced{{i}}" class="radio-inline">
+              <input type="radio" id="isAnimalHumanSourced{{i}}" name="isAnimalHumanSourced" [value]="yesno.id"  (change)="animalHumanSourcedOnChange()"
+                aria-required="true" [formControl]="materialInfoForm.controls['isAnimalHumanSourced'] | formControl">
+              {{yesno | textTransform: lang }}
+            </label>
+          </ng-container>
+        </fieldset>
       </div>
-      <div *ngIf="isAnimalHumanSourced()" class="row">
-        <div class="form-group col-xs-12" >
-          <label for="isListedIddTable" class="required full-width">
-            <span class="field-name">{{'is.same.material' |translate}}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+      <div class="row form-group" *ngIf="isAnimalHumanSourced()">
+        <fieldset class="col-xs-12 chkbxrdio-grp">
+          <legend class="required">
+            {{'is.same.material' |translate}}
+            <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
             <control-messages *ngIf="materialInfoForm.controls['isListedIddTable'].invalid"
                               [showError]="showErrors"
                               [control]="materialInfoForm.controls['isListedIddTable'] | formControl"
-                              controlId="isListedIddTable" label="is.same.material" parentId="materialInfoDetails"></control-messages>
-            <select id="isListedIddTable" name="isListedIddTable"  required="required" class="form-control"
-                    [formControl]="materialInfoForm.controls['isListedIddTable'] | formControl">
-              <option label=" " value=""></option>
-              <option *ngFor="let yesno of yesNoList" [ngValue]="yesno.id"> {{yesno | textTransform : lang}}</option>
-            </select>
-          </label>
-        </div>
+                              controlId="isListedIddTable0" label="is.same.material" parentId="materialInfoDetails"></control-messages>
+          </legend>
+          <ng-container *ngFor="let yesno of yesNoList; let i = index">
+            <label for="isListedIddTable{{i}}" class="radio-inline">
+              <input type="radio" id="isListedIddTable{{i}}" name="isListedIddTable" [value]="yesno.id"
+                aria-required="true" [formControl]="materialInfoForm.controls['isListedIddTable'] | formControl">
+              {{yesno | textTransform: lang }}
+            </label>
+          </ng-container>
+        </fieldset>
       </div>
       <div *ngIf="isAnimalHumanSourced()">
         <section id="materialList" class="panel  panel-default">
@@ -63,10 +66,7 @@
             <h3 class="panel-title">{{'heading.materials'|translate}}</h3>
           </header>
           <div class="panel-body">
-            <!-- (errors)="processMaterialErrors($event)" [countryList]="countryList" [lang]="lang"
-                            [showErrors]="showFieldErrors"
-                          (errorListUpdated)="updateMaterialListErrors($event)" -->
-            <app-material-list [materialListData]="materialListModel"> </app-material-list>
+            <app-material-list [materialListData]="materialListModel" [xmlTriggered]="xmlTriggered"> </app-material-list>
           </div>
         </section>
       </div>

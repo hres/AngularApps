@@ -1,9 +1,8 @@
 
 <aside id="no-border" class="wb-fnote" role="note">
   <dl>
-      <dt>{{helpTextSequences.loadFileIndx}}</dt>
+      <dt>{{'instruction'|translate}}&#160;{{helpTextSequences.loadFileIndx}}</dt>
       <dd id="ap1">
-        <p class="fn-rtn"><a href="#ap1-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['loadFileIndx']}}</a></p>
         <div class="fn-rep">
           <p>{{'load.file'|translate}}</p>
           <ul>
@@ -11,11 +10,11 @@
               <li>{{'help.file.load_2'|translate}}</li>
           </ul>
         </div>
+        <p class="fn-rtn"><a href="#ap1-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['loadFileIndx']}}<span class="wb-inv">&#160;{{'load.file'|translate}}</span></a></p>
       </dd>
 
-      <dt>{{helpTextSequences.appInfoREPIndx}}</dt>
+      <dt>{{'instruction'|translate}}&#160;{{helpTextSequences.appInfoREPIndx}}</dt>
       <dd id="ap2">
-        <p class="fn-rtn"><a href="#ap2-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['appInfoREPIndx']}}</a></p>
         <div class="fn-rep">
           <p>{{'heading.app-info'|translate}}</p>
           <ul>
@@ -23,65 +22,63 @@
               <li>{{'help.app.info_2'|translate}}</li>
           </ul>
         </div>
+        <p class="fn-rtn"><a href="#ap2-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['appInfoREPIndx']}}<span class="wb-inv">&#160;{{'heading.app-info'|translate}}</span></a></p>
       </dd>
 
-      <dt>{{helpTextSequences.mdsapNumIndx}}</dt>
+      <dt>{{'instruction'|translate}}&#160;{{helpTextSequences.mdsapNumIndx}}</dt>
       <dd id="ap3">
-        <p class="fn-rtn"><a href="#ap3-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['mdsapNumIndx']}}</a></p>
         <div class="fn-rep">
           <p>{{'mdsap.number' |translate}}</p>
           <p>{{'help.mdsap' |translate}}</p>
         </div>
+        <p class="fn-rtn"><a href="#ap3-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span> {{helpTextSequences['mdsapNumIndx']}}<span class="wb-inv">&#160;{{'mdsap.number'|translate}}</span></a></p>
       </dd>
 
-      <dt>{{helpTextSequences.mdsapOrgIndx}}</dt>
+      <dt>{{'instruction'|translate}}&#160;{{helpTextSequences.mdsapOrgIndx}}</dt>
       <dd id="ap4">
-        <p class="fn-rtn"><a href="#ap4-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['mdsapOrgIndx']}}</a></p>
         <div class="fn-rep">
           <p>{{'mdsap.org' |translate}}</p>
           <p>{{'help.mdsap' |translate}}</p>
         </div>
+        <p class="fn-rtn"><a href="#ap4-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span> {{helpTextSequences['mdsapOrgIndx']}}<span class="wb-inv">&#160;{{'mdsap.org'|translate}}</span></a></p>
       </dd>
 
-      <dt>{{helpTextSequences.licAppTypeIndx}}</dt>
+      <dt>{{'instruction'|translate}}&#160;{{helpTextSequences.licAppTypeIndx}}</dt>
       <dd id="ap5">
-        <p class="fn-rtn"><a href="#ap5-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['licAppTypeIndx']}}</a></p>
-        <div class="fn-rep">
-          <p>{{'licence.app.type' |translate}}</p>
-          <p>{{'help.refer.to' |translate}}<a href="{{'help.lic.app.type_1' |translate}}">
-              {{'help.lic.app.type_2' |translate}} </a></p>
-        </div>
+      <div class="fn-rep">
+        <p>{{'licence.app.type' |translate}}</p>
+        <p>{{'help.refer.to'|translate}}<a [href]="'help.lic.app.type_1'|translate" target='_blank' aria-describedby='openNewWindowInstrLic'>{{'help.lic.app.type_2'|translate}}</a> <span aria-hidden='true'><span id="openNewWindowInstrLic">{{'opens.in.new.window'|translate}}</span></span>.</p>		
+      </div>
+        <p class="fn-rtn"><a href="#ap5-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span> {{helpTextSequences['licAppTypeIndx']}}<span class="wb-inv">&#160;{{'licence.app.type'|translate}}</span></a></p>
       </dd>
 
-      <dt>{{helpTextSequences.devClsIndx}}</dt>
+      <dt>{{'instruction'|translate}}&#160;{{helpTextSequences.devClsIndx}}</dt>
       <dd id="ap6">
-        <p class="fn-rtn"><a href="#ap6-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['devClsIndx']}}</a></p>
-        <div class="fn-rep">
-          <p>{{'device.class' |translate}}</p>
-          <p>{{'help.refer.to' |translate}}<a href="{{'help.device.class_1' |translate}}">
-              {{'help.device.class_2' |translate}}</a></p>
-        </div>              
+      <div class="fn-rep">
+        <p>{{'device.class' |translate}}</p>
+        <p>{{'help.refer.to'|translate}}<a [href]="'help.device.class_1'|translate" target='_blank' aria-describedby='openNewWindowInstrDevice'>{{'help.device.class_2'|translate}}</a> <span aria-hidden='true'><span id="openNewWindowInstrDevice">{{'opens.in.new.window'|translate}}</span></span>.</p>		
+      </div>
+        <p class="fn-rtn"><a href="#ap6-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span> {{helpTextSequences['devClsIndx']}}<span class="wb-inv">&#160;{{'device.class'|translate}}</span></a></p> 
       </dd>
 
-      <dt>{{helpTextSequences.cfmDecIndx}}</dt>
-      <dd id="ap8">
-        <p class="fn-rtn"><a href="#ap8-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['cfmDecIndx']}}</a></p>
+      <dt>{{'instruction'|translate}}&#160;{{helpTextSequences.priRevIndx}}</dt>
+      <dd id="ap7">
         <div class="fn-rep">
-          <p>{{'section.show.option'|translate}} {{'conformity.declaration' |translate}}</p>
-          <p>{{'help.refer.to' |translate}}<a href="{{'help.confm.declar_1' |translate}}">
-              {{'help.confm.declar_2' |translate}}</a>
-          </p>
-        </div>
-      </dd>
-
-      <dt>{{helpTextSequences.priRevIndx}}</dt>
-      <dd id="ap9">
-        <p class="fn-rtn"><a href="#ap9-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences['priRevIndx']}}</a></p>
-        <div class="fn-rep">
-          <p>{{'section.show.option'|translate}} {{'priority.review' |translate}}</p>
+          <p>{{'section.show.option'|translate}} {{'is.priority.req' |translate}}</p>
           <p>{{'help.priority.rev' |translate}}</p>
         </div>
+        <p class="fn-rtn"><a href="#ap7-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span> {{helpTextSequences['priRevIndx']}}<span class="wb-inv">&#160;{{'priority.review'|translate}}</span></a></p>
       </dd>
+
+      <dt>{{'instruction'|translate}}&#160;{{helpTextSequences.cfmDecIndx}}</dt>
+      <dd id="ap8">
+      <div class="fn-rep">
+        <p>{{'section.show.option'|translate}} {{'conformity.declaration' |translate}}</p>
+        <p>{{'help.refer.to'|translate}}<a [href]="'help.confm.declar_1'|translate" target='_blank' aria-describedby='openNewWindowInstrDeclaration'>{{'help.confm.declar_2'|translate}}</a> <span aria-hidden='true'><span id="openNewWindowInstrDeclaration">{{'opens.in.new.window'|translate}}</span></span> {{'help.confm.declar_3'|translate}}</p>		
+      </div>
+        <p class="fn-rtn"><a href="#ap8-rf"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span> {{helpTextSequences['cfmDecIndx']}}<span class="wb-inv">&#160;{{'conformity.declaration' |translate}}</span></a></p>
+      </dd>
+
 
   </dl>
 </aside>

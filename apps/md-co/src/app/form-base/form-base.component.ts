@@ -14,6 +14,7 @@ import { FilereaderInstructionComponent } from "../filereader-instruction/filere
 import { ContactListComponent } from '../contact/contact.list/contact.list.component';
 import { ContactModule } from '../contact/contact.module';
 import { AddressModule } from '../address/address.module';
+import { CompanyInfoComponent } from '../company-info/company.info.component';
 
 @Component({
     selector: 'app-form-base',
@@ -21,7 +22,7 @@ import { AddressModule } from '../address/address.module';
     templateUrl: './form-base.component.html',
     styleUrls: ['./form-base.component.css'],
     encapsulation: ViewEncapsulation.None,
-    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, PopupComponent, FilereaderInstructionComponent, ContactModule, AddressModule]
+    imports: [CommonModule, TranslateModule, ReactiveFormsModule, FileIoModule, ErrorModule, PipesModule, AppFormModule, PopupComponent, FilereaderInstructionComponent, ContactModule, AddressModule, CompanyInfoComponent]
 })
 export class FormBaseComponent implements OnInit, AfterViewInit {
   public errors;
@@ -84,8 +85,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public isStatusFinal: boolean = false;
   public disableForm: boolean = false;
 
-  popupId = 'saveXmlPopup';
+  popupIdExternal = 'saveXmlPopupExternal';
+  popupIdInternal = 'saveXmlPopupInternal'
   popupTrigger: HTMLElement = null;
+
+  devEnv: boolean;
+  byPassCheckSum: boolean;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -156,6 +161,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       }
 
       this.helpIndex = this._globalService.getHelpIndex();
+      this.devEnv = this._globalService.devEnv;
+      this.byPassCheckSum = this._globalService.byPassChecksum;
 
     } catch (e) {
       console.error(e);
@@ -251,6 +258,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       document.location.href = '#topErrorSummary';
     } else {
 
+      // Check if internal and if there are any new records -> force user to activate a record in internal to be able to generate XML
+      if (this.isInternal && this.companyContacts.hasNewRecords()) {
+        const trigger = event.target as HTMLElement;
+        this.popupTrigger = trigger;
+        this.openPopup();
+        return;
+      }
+
       if (this.companyContacts.contactListForm.pristine && this.companyContacts.contactListForm.valid) {
         const result = this._prepareForSaving(true);
         const fileName = this._buildfileName();
@@ -281,12 +296,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         software_version: this._globalService.$appVersion,
         form_language: this._globalService.getCurrLanguage(),
         general_information: this.genInfoModel,
-        address: this.addressModel,
-        contacts: {contact: this.contactModel},
+        address: this.setupProvinceBasedOnCountry(this.addressModel),
+        contacts: {contact: this._removeTagFromXml(this.contactModel,'RoutingID')},
         primary_contact: this.primContactModel,
         administrative_changes: this.adminChangesModel,
       },
     };
+
+
     // console.log("_prepareForSaving, data in 'session' ", JSON.stringify(output, null, 2));
 
     // update the last_saved_date
@@ -308,6 +325,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return output;
   }
 
+  private _removeTagFromXml(collect,tag):Contact[] {
+    const cts = collect.map(function (item) {
+      delete item[tag];
+      return item;
+    });
+    return cts;
+  }
   public processFile(fileData: ConvertResults) {
     console.log(fileData);
     if (fileData.data !== null) {
@@ -339,6 +363,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (e) {
       this.disableForm = false;
     }
+    this.showErrors = true;
   }
 
   private _updateEnrollmentVersion(genInfo: GeneralInformation) {
@@ -352,14 +377,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
     genInfo.enrol_version = enrolVersion;
   }
-
-  // private _removeHcStatus(contacts) {
-  //   const cts = contacts.map(function (item) {
-  //     delete item.hc_status;
-  //     return item;
-  //   });
-  //   return cts;
-  // }
 
   private _buildfileName() {
     const date_generated = this._utilsService.getFormattedDate('yyyy-MM-dd-HHmm');
@@ -447,10 +464,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _init(companyEnroll: DeviceCompanyEnrol){
     this.genInfoModel = companyEnroll.general_information;
     // set amend reasons and admin changes section to null if status is Final
-    if (this._isFinal()) {   // ling todo review this
-      this.genInfoModel.amend_reasons = null;
-      // this.genInfoModel.are_licenses_transfered = '';
-    }
+    // if (this._isFinal()) {   // ling todo review this
+    //   this.genInfoModel.amend_reasons = null;
+    //   this.genInfoModel.are_licenses_transfered = '';
+    // }
     if (companyEnroll.administrative_changes) {
       this.adminChangesModel = companyEnroll.administrative_changes;
     }
@@ -483,9 +500,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   openPopup() {
-    const popupSelector = "#" + this.popupId;
+    const popupSelector = `#${this.isInternal ? this.popupIdInternal : this.popupIdExternal}`;
     jQuery(popupSelector).trigger("open.wb-overlay");
-  
+
     // Wait for overlay to render to focus on Close button once it is shown on the UI
     setTimeout(() => {
       const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
@@ -500,4 +517,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.popupTrigger.focus();
     })
   }
+
+  private setupProvinceBasedOnCountry(addressModel:INameAddress) :INameAddress {
+    if(this._utilsService.isCanadaOrUSA(addressModel.country._id)){
+      addressModel.province_text = '';
+    }else{
+      addressModel.province_lov = null;
+     }
+     return addressModel;
+}
 }

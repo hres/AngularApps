@@ -24,7 +24,7 @@ export class TransactionDetailsService {
       reguCompanyId: ['', [Validators.required, ValidationService.numeric6Validator]],
       reguContactId: ['', [Validators.required, ValidationService.numeric5Validator]],
       activityType: ['', Validators.required],
-      descriptionType: [null, Validators.required],
+      descriptionType: ['', Validators.required],
       deviceClass: ['', Validators.required],
       amendReasons: fb.array([], [ValidationService.atLeastOneCheckboxSelected]), // holds "Reason for filing this Amendment" dropdown list options selected states (true or false)
       selectedAmendReasonCodes: [''],    // holds the selected amend reason codes, it's set when "Reason for filing this Amendment" dropdown list onChange"
@@ -113,7 +113,7 @@ export class TransactionDetailsService {
     transactionInfoModel.brief_description = formValue.briefDesc;
 
     transactionInfoModel.transaction_description = txDescriptionControlValue? this._concatTransactionDescriptionDetails(
-      transactionInfoModel.description_type, transactionInfoModel.request_date, transactionInfoModel.brief_description): null;
+      transactionInfoModel.description_type, transactionInfoModel.request_date, transactionInfoModel.brief_description, transactionInfoModel.rationale): null;
 
     transactionInfoModel.has_ddt = formValue.hasDdtMan;
 
@@ -144,14 +144,14 @@ export class TransactionDetailsService {
       activityTypeId = this._utilsService.getIdFromIdTextLabel(transactionInfoModel.regulatory_activity_type);
       formRecord.controls['activityType'].setValue(activityTypeId? activityTypeId : null);
     } else {
-      formRecord.controls['activityType'].setValue(null);
+      formRecord.controls['activityType'].setValue('');
     }
 
     if (transactionInfoModel.description_type) {
       txDescriptionId = this._utilsService.getIdFromIdTextLabel(transactionInfoModel.description_type);
       formRecord.controls['descriptionType'].setValue(txDescriptionId? txDescriptionId : null);
     } else {
-      formRecord.controls['descriptionType'].setValue(null);
+      formRecord.controls['descriptionType'].setValue('');
     }
 
     if (transactionInfoModel.device_class) {
@@ -161,16 +161,18 @@ export class TransactionDetailsService {
       formRecord.controls['deviceClass'].setValue(null);
     }
 
-    if (transactionInfoModel.amend_reasons) {
-      const loadedAmendReasonCodes: string[] = this._utilsService.getIdsFromIdTextLabels(transactionInfoModel.amend_reasons.amend_reason);
-      if (loadedAmendReasonCodes.length > 0) {
-        const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
-        this.loadAmendReasonOptions(activityTypeId, deviceClassId, amendReasonList, relationship, amendReasonOptionList, lang, amendReasonFormArray);
-        this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
+    if (deviceClassId) {
+      const amendReasonFormArray = this.getAmendReasonCheckboxFormArray(formRecord);
+      this.loadAmendReasonOptions(activityTypeId, deviceClassId, amendReasonList, relationship, amendReasonOptionList, lang, amendReasonFormArray);
+      if (transactionInfoModel.amend_reasons) {
+        const loadedAmendReasonCodes: string[] = this._utilsService.getIdsFromIdTextLabels(transactionInfoModel.amend_reasons.amend_reason);
+        if (loadedAmendReasonCodes.length > 0) {
+          this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
+        }  
+        formRecord.controls['selectedAmendReasonCodes'].setValue(loadedAmendReasonCodes);
       }  
-      formRecord.controls['selectedAmendReasonCodes'].setValue(loadedAmendReasonCodes);
     }
-
+  
     formRecord.controls['licenceNum'].setValue(transactionInfoModel.licence_number);
     formRecord.controls['appNumOpt'].setValue(transactionInfoModel.application_number);
     formRecord.controls['appNum'].setValue(transactionInfoModel.application_number);
@@ -186,7 +188,7 @@ export class TransactionDetailsService {
     formRecord.controls['orgManufactureLic'].setValue(transactionInfoModel.org_manufacture_lic);
   }
 
-  private _concatTransactionDescriptionDetails(txDescriptionIdTextLabel: IIdTextLabel, requestDate: string, briefDescription: string): ITextLabel{
+  private _concatTransactionDescriptionDetails(txDescriptionIdTextLabel: IIdTextLabel, requestDate: string, briefDescription: string, rationale: string): ITextLabel{
     let labelObj: ITextLabel = this._entityBaseService.getEmptyITextLabel();
     const enumValue = this._utilsService.getEnumValueFromString(TransactionDesc, txDescriptionIdTextLabel._id);
 
@@ -197,6 +199,8 @@ export class TransactionDetailsService {
       enConcatText = this._utilsService.concat(enTxDescription, 'dated', requestDate)
     } else if (this.isBriefDescRequired(enumValue)) {
       enConcatText = this._utilsService.concat(enTxDescription, '-', briefDescription)
+    } else if (this.isRationaleRequired(enumValue)) {
+      enConcatText = this._utilsService.concat(enTxDescription, '-', rationale)
     } else {
       enConcatText = enTxDescription;
     }
@@ -209,6 +213,8 @@ export class TransactionDetailsService {
       frConcatText = this._utilsService.concat(frTxDescription, 'daté du', requestDate)
     } else if (this.isBriefDescRequired(enumValue)) {
       frConcatText = this._utilsService.concat(frTxDescription, '-', briefDescription)
+    } else if (this.isRationaleRequired(enumValue)) {
+      frConcatText = this._utilsService.concat(frTxDescription, '-', rationale)
     } else {
       frConcatText = frTxDescription;
     }
@@ -274,18 +280,18 @@ export class TransactionDetailsService {
   }
 
   isBriefDescRequired(txDescription: TransactionDesc): boolean{
-    const txtDescRequireBriefDesc = [TransactionDesc.UD, TransactionDesc.ER];
+    const txtDescRequireBriefDesc = [TransactionDesc.UD];
 
     return txtDescRequireBriefDesc.includes(txDescription) ? true : false;
   }
 
   isMandatoryAppNumRequired(txDescription: TransactionDesc): boolean{
-    const txDescRequireMandatoryAppNum = [TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.RS, TransactionDesc.WR, TransactionDesc.RQ_REVIEW_REPORT, TransactionDesc.ROHL, TransactionDesc.RRIR, TransactionDesc.UD, TransactionDesc.MM];
+    const txDescRequireMandatoryAppNum = [TransactionDesc.LIA, TransactionDesc.RAIL, TransactionDesc.RER, TransactionDesc.WR, TransactionDesc.RQ_REVIEW_REPORT, TransactionDesc.RS36L, TransactionDesc.ROHL, TransactionDesc.RRIR, TransactionDesc.UD, TransactionDesc.MM];
     return txDescRequireMandatoryAppNum.includes(txDescription)
   }
 
   isOptionalAppNumRequired(txDescription: TransactionDesc): boolean{
-    const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.OHCD, TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.ER];
+    const txDescRequireOptionalAppNum = [TransactionDesc.LIOH, TransactionDesc.OHCD, TransactionDesc.ER];
     return txDescRequireOptionalAppNum.includes(txDescription)
   }
 
@@ -295,5 +301,11 @@ export class TransactionDetailsService {
 
     return raTypeRequireManufactureInfo.includes(raType) && txDescRequireManufactureInfo.includes(txDescription) ? true : false;
   }
+
+  isRationaleRequired(txDescription: TransactionDesc): boolean {
+    const txDescRequireRationale = [TransactionDesc.ER];
+    return txDescRequireRationale.includes(txDescription)
+  }
+
 
 }

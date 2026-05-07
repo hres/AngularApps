@@ -1,5 +1,5 @@
-<lib-popup *ngIf="!isInternal" [id]="popupId" [title]="'popup.warning' | translate" [message]="'msg.save.draftxml.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopup()"></lib-popup>
-<lib-popup *ngIf="isInternal" [id]="popupId" [title]="'popup.warning' | translate" [message]="'msg.save.xml.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopup()"></lib-popup>
+<lib-popup *ngIf="!isInternal" [id]="popupIdExternal" [title]="'popup.warning' | translate" [message]="'msg.save.draftxml.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopup()"></lib-popup>
+<lib-popup *ngIf="isInternal" [id]="popupIdInternal" [title]="'popup.warning' | translate" [message]="'msg.save.xml.popup' | translate" [close]="'popup.close' | translate" (closed)="handleClosedPopup()"></lib-popup>
 
 <div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
   <form name="companyForm" [formGroup]="companyForm" novalidate>
@@ -13,15 +13,15 @@
       <div>
         <section class="panel panel-primary mrgn-tp-lg">
           <header class="panel-heading clearfix group-beside">
-            <h2 class="panel-title">{{'load.file'|translate}}   
+            <h2 class="panel-title">{{'load.file'|translate}}
               <sup id="co1-rf">
                 <a class="fn-lnk mrgn-tp-md" href="#co1"><span class="wb-inv">{{'instruction'|translate}}&#160;</span>{{helpTextSequences['loadFileInx']}}</a>
               </sup>
             </h2>
           </header>
-          <div class="panel-body"> 
-            <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang">
-              <app-filereader-instruction fileUploadInstruction [lang]="lang" [isInternal]="isInternal" [showAmendNote]="showAmendNote"></app-filereader-instruction>
+          <div class="panel-body">
+            <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
+              <app-filereader-instruction fileUploadInstruction [lang]="lang" [isInternal]="isInternal" [showAmendNote]="showAmendNote" ></app-filereader-instruction>
             </lib-file-reader>
           </div>
         </section>
@@ -48,7 +48,7 @@
                               [helpTextSequences]="helpIndex"
                               [enrollmentStatusesList]="enrollmentStatusList"
                               [disableForm]="disableForm"
-                              (enableForm)="enableForm($event)" 
+                              (enableForm)="enableForm($event)"
                               (updatedGenInfo)="processGenInfoUpdates($event)"
                               (errorList)="processGenInfoErrors($event)">
             </com-gen-info>
@@ -63,25 +63,25 @@
                                    [addressModel]="addressModel" [stateList]="stateList"
                                    [helpTextSequences]="helpIndex"
                                    [disableForm]="disableForm"
-                                   (enableForm)="enableForm($event)" 
+                                   (enableForm)="enableForm($event)"
                                    (errorList)="processAddressErrors($event)"></lib-address-details>
                 </div>
               </section>
             </div>
-            
+
             <div>
               <section class="panel  panel-default">
                 <header class="panel-heading clearfix">
-                  <h3 id="headingContactInfo" class="panel-title">{{'heading.contactInfo'|translate}}</h3>
+                  <h3 class="panel-title">{{'heading.contactInfo'|translate}}</h3>
                 </header>
-                <div class="panel-body"> 
+                <div id="contactRecords" class="panel-body">
                   <app-contact-list  (errors)="processContactErrors($event)" [isInternal]="isInternal"
                                  [loadFileIndicator]="loadFileIndicator" [lang]="lang"
                                  [helpTextSequences]="helpIndex" [xmlStatus]="genInfoModel.status._id"
                                  [showErrors]="showErrors" [contactModel]="contactModel"
                                  [languageList]="languageList" [contactStatusList]="contactStatusList"
                                  [disableForm]="disableForm"
-                                 (enableForm)="enableForm($event)" 
+                                 (enableForm)="enableForm($event)"
                                  (contactsUpdated)="updateActiveContactList($event)"></app-contact-list>
                 </div>
               </section>
@@ -100,7 +100,7 @@
                              [primContactModel]="primContactModel"
                              [activeContactList]="activeContacts"
                              [disableForm]="disableForm"
-                             (enableForm)="enableForm($event)" 
+                             (enableForm)="enableForm($event)"
                              [helpTextSequences]="helpIndex"></primary-contact>
           </div>
         </section>
@@ -114,20 +114,20 @@
             <h2 class="panel-title">{{'admin.changes'|translate}}</h2>
           </header>
           <div class="panel-body">
-            <comp-admin-changes [showErrors]="showErrors" [slctAmendReasons]="selectedAmendReasonCodes" [lang]="lang" 
+            <comp-admin-changes [showErrors]="showErrors" [slctAmendReasons]="selectedAmendReasonCodes" [lang]="lang"
                                   [isInternal]="isInternal"
                                   [adminChangesModel]="adminChangesModel"
                                   [helpTextSequences]="helpIndex"
                                   [disableForm]="disableForm"
-                                  (enableForm)="enableForm($event)" 
-                                  (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>          
+                                  (enableForm)="enableForm($event)"
+                                  (adminChangesErrorList)="processAdminChangesErrors($event)"></comp-admin-changes>
           </div>
         </section>
       </div>
 
       <!-- <pre>disableMailto {{disableMailto}} | showMailToHelpText {{showMailToHelpText}}  </pre> -->
     <div class="row btn-group-sm">
-      <div class="form-group col-md-4">
+      <div *ngIf="!isInternal" class="form-group col-md-4">
         <button class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
           {{'save.working.copy'|translate}}
         </button>
@@ -139,17 +139,23 @@
         </button>
       </div>
       <div class="form-group col-md-4" *ngIf="!isInternal">
-        <a class="btn btn-primary btn-lg active" [href] = "mailToLink" (click)="mailto()"
-           [class.disabled]="disableMailto" >
-          {{'mailto.label'|translate}}
+        <a
+          class="btn btn-primary btn-lg active btn-mailto"
+          [attr.href]="disableMailto ? null : mailToLink"
+          (click)="disableMailto ? $event.preventDefault() : mailto()"
+          [class.disabled]="disableMailto"
+          [class.bold]="disableMailto"
+          [attr.aria-disabled]="disableMailto"
+          [attr.tabindex]="disableMailto ? -1 : 0">
+          {{ 'mailto.label' | translate }}
         </a>
       </div>
     </div>
-    
+
     <div class="row" *ngIf="showMailToHelpText">
       <app-mailto-help [email]="submitToEmail" [subject]="submitToSubject" [lang]="lang" ></app-mailto-help>
     </div>
-    
+
     <!-- <pre> show admin changes {{showAdminChanges}}</pre> -->
     <!-- <pre> companyForm valid {{companyForm.valid}}</pre> -->
     <!-- <pre> companyForm {{companyForm.value |json}}</pre> -->

@@ -21,8 +21,8 @@ import { ContainerComponent } from './container/container.component';
 export class AppComponent {
   isInternal: boolean = false;
   language :string = ENGLISH;
-  appVersion: string = '0.0.0'; 
-  
+  appVersion: string = '0.0.0';
+
   constructor(
     private translate: TranslateService,
     private _versionService: VersionService,
@@ -37,13 +37,14 @@ export class AppComponent {
     this._globalService.setHelpIndex(helpInstructionHeadings);
     this._globalService.$appVersion = this._versionService.getApplicationVersion(environment);
     this._globalService.$isInternal = environment.internal;
-    this._globalService.$devEnv = !environment.production;
+      this._globalService.devEnv = !environment.production;
+      this._globalService.byPassChecksum = environment.byPassCheckSum;
 
     this.translate.get('form.title').subscribe((res) => {
       this.setTitle(res);
     });
     this.appVersion = this._globalService.$appVersion;
-    this.isInternal = this._globalService.$isInternal;    
+    this.isInternal = this._globalService.$isInternal;
   }
 
   public setTitle(newTitle: string) {

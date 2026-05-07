@@ -1,0 +1,5 @@
+.wrap-words {
+    word-wrap: break-word;         /* legacy support */
+    overflow-wrap: anywhere;       /* modern browsers */
+    word-break: break-word;        /* fallback */
+}

@@ -136,10 +136,21 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       this.initWithData();
     }
 
-    if (this.disableForm) {
-      this.disableFormGroup();
-    } else {
-      this.enableFormGroup();
+    if (changes['disableForm']) {
+      const prev = changes['disableForm'].previousValue;
+      const curr = changes['disableForm'].currentValue;
+
+      // Always enable/disable form properly
+      if (curr) {
+        this.disableFormGroup();
+      } else {
+        this.enableFormGroup();
+
+        // Only run this AFTER going from disabled → enabled (e.g: loading in a final xml and pressing amend enrolment)
+        if (prev === true && curr === false) {
+          this._handlePostEnableBehavior();
+        }
+      }
     }
   }
 
@@ -202,6 +213,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
 
   private _createFormContact() {
     const formContact = this._listService.createContactFormRecord(this._fb, this.isInternal);
+    this.recModel = formContact;
     this.addRecord(formContact, this.contactList);
     this._listService.collapseFormRecordList(this._utilsService, this.contactList, formContact.controls['id'].value);
   }
@@ -236,7 +248,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     // when it runs to here, it means no errors for the contact record, so we should also remove its ErrorSummary if there is any
     this._errorNotificationService.removeErrorSummary(recordId.toString());
 
-    this._expandNextInvalidRecord();
+    this._expandNextInvalidRecord(false);
 
     this.showErrors = true;
 
@@ -249,7 +261,7 @@ export class ContactListComponent extends ContactListBaseComponent implements On
         this.statusMessage = "Enregistrement du contact " + record.controls['seqNumber'].value + " a été sauvegardé."
       }
     }
-
+    this.contactListForm.markAsPristine();
     setTimeout(() => {
       document.getElementById('addContactBtn').focus()
     }, 0);
@@ -257,17 +269,26 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.contactsUpdated.emit(this.contactModel);
   }
 
-  private _expandNextInvalidRecord() {
-    // expand next invalid record
+  private _expandNextInvalidRecord(returnValue?: boolean): boolean | void {
     for (let index = 0; index < this.contactList.controls.length; index++) {
-      const element: FormGroup = this.contactList.controls[index] as FormGroup;
-      // console.log(element);
+      const element = this.contactList.controls[index] as FormGroup;
       if (element.invalid) {
         element.controls['expandFlag'].setValue(true);
-        break;
+        return returnValue ? true : undefined;
       }
     }
+    return returnValue ? false : undefined;
   }
+
+  private _collapseValidRecords(): void {
+    this.contactList.controls.forEach((ctrl) => {
+      const group = ctrl as FormGroup;
+      if (!group.invalid) {
+        group.controls['expandFlag'].setValue(false);
+      }
+    });
+  }
+
   /**
    *  Updates the error list
    * @param errs - the list of errors to broadcast
@@ -291,10 +312,13 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       oerr.index = 0;
       oerr.type = ERR_TYPE_LEAST_ONE_REC;
 
-      if (this.contactList.length == 0) {
-        oerr.tableId = 'headingContactInfo';
+      // If there are no current records, or if there's only one record and it is set to REMOVE -> Error link is set to Add Record button
+      // Otherwise, set it to the contact records component
+      if ( this.contactList.length === 0 ||
+        (this.contactList.length === 1 && (this.contactListForm.get('contacts') as FormArray).at(0).get('contactDetails.status')?.value === ContactStatus.Remove)) {
+        oerr.tableId = 'addContactBtn';
       } else {
-        oerr.tableId = 'contactListTable';
+        oerr.tableId = 'contactRecords';
       }
 
       oerr.label = 'error.msg.contact.one.record';
@@ -359,11 +383,11 @@ export class ContactListComponent extends ContactListBaseComponent implements On
   public deleteContact(id): void {
     let deletedRec = this.getRecord(this.contactId, this.contactList);
     this.deleteRecord(this.contactId, this.contactList, this._listService);
-
+    this.contactListForm.markAsPristine();
     // since the contact record is deleted, we should also remove its ErrorSummary if there is any
     this._errorNotificationService.removeErrorSummary(this.contactId.toString());
     this._listService.updateUIDisplayValues(this.contactList, this.contactStatusList, this.lang);
-    this._expandNextInvalidRecord();
+    this._expandNextInvalidRecord(false);
     if (this.lang == "en") {
       this.statusMessage = "Contact record " + deletedRec.controls['seqNumber'].value + " has been deleted."
     } else {
@@ -530,8 +554,8 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.contactStatus = event.status;
     this.recModel = event.recModel;
     this.updatedContactDetailsForm = event.tempContactDetailsForm;
-    jQuery("#" + this.setReviseStatusPopupID).trigger("open.wb-overlay");
     this.popupTrigger = event.buttonTrigger;
+    this.updatedContactDetailsForm.markAsDirty()
     this.openConfirmationPopup(this.setReviseStatusPopupID);
   }
 
@@ -541,8 +565,6 @@ export class ContactListComponent extends ContactListBaseComponent implements On
     this.setRemoveStatusHeading = event.heading;
     this.recModel = event.recModel;
     this.updatedContactDetailsForm = event.tempContactDetailsForm;
-
-    jQuery("#" + this.setRemoveStatusPopupID).trigger("open.wb-overlay");
     this.popupTrigger = event.buttonTrigger;
     this.openConfirmationPopup(this.setRemoveStatusPopupID);
   }
@@ -570,4 +592,33 @@ export class ContactListComponent extends ContactListBaseComponent implements On
       this.contactListForm.enable();
     }
   }
+
+  private _handlePostEnableBehavior(): void {
+    // collapse valid records
+    this._collapseValidRecords();
+    // expand next invalid record
+    const expanded = this._expandNextInvalidRecord(true);
+    // if no invalid record exists, expand the first
+    if (!expanded) {
+      const firstFormRecord = this.contactList.at(0) as FormGroup;
+      firstFormRecord.controls['expandFlag'].setValue(true);
+    }
+  }
+
+/**
+ * Checks if there are any new contact records in the contact list form
+ * New records are identified by status === ContactStatus.New
+ * Logs debug info for each record
+ */
+public hasNewRecords(): boolean {
+  if (!this.contactList || this.contactList.length === 0) {
+    return false;
+  }
+
+  return this.contactList.controls.some((ctrl: FormGroup) => {
+    const contactDetails = ctrl.get('contactDetails') as FormGroup;
+    return contactDetails?.controls['status']?.value === ContactStatus.New;
+  });
+}
+
 }

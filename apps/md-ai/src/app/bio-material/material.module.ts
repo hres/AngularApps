@@ -10,7 +10,7 @@ import { MaterialInfoComponent } from './material-info/material-info.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import {BrowserModule} from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective, PopupComponent } from '@hpfb/sdk/ui';
+import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective, PopupComponent, ConfirmationPopupComponent } from '@hpfb/sdk/ui';
 
 @NgModule({
   imports: [
@@ -23,7 +23,8 @@ import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective, PopupCo
     PipesModule,
     ExpanderModule,
     NumbersOnlyDirective,
-    PopupComponent
+    PopupComponent,
+    ConfirmationPopupComponent
   ],
   declarations: [
     MaterialItemComponent,

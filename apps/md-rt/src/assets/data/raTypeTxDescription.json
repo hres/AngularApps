@@ -9,7 +9,6 @@
             "ER",
             "RS",
             "RRIR",
-            "RQ_REVIEW_REPORT",
             "LIA"
         ]
     },
@@ -26,7 +25,8 @@
             "UD",
             "WR",
             "ER",
-            "RRIR"
+            "RRIR",
+            "RQ_REVIEW_REPORT"
         ]
     },
     {

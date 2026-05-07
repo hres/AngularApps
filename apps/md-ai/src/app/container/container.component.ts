@@ -47,7 +47,7 @@ export class ContainerComponent implements OnInit {
   ngOnInit(): void {
     this.language = this._globalService.lang();
     this.helpIndex = this._globalService.getHelpIndex();
-    this.devEnv = this._globalService.$devEnv;
+    this.devEnv = this._globalService.devEnv;
 
     // Use forkJoin to wait for all API calls to complete
     forkJoin(this.dataSources).subscribe((data) => {

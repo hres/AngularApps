@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation, effect, inject, signal } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
 import { ERR_TYPE_LEAST_ONE_REC, ErrorNotificationService, ErrorSummaryComponent, ErrorSummaryObject, getEmptyErrorSummaryObj, UtilsService } from '@hpfb/sdk/ui';
 import { MaterialService } from '../material.service';
 import { MaterialListService } from './material-list.service';
 import { GlobalService } from '../../global/global.service';
 import { BiologicalMaterial } from '../../models/Enrollment';
+import { MATERIAL_ERROR_PREFIX } from '../../app.constants';
 
 @Component({
     selector: 'app-material-list',
@@ -14,6 +15,7 @@ import { BiologicalMaterial } from '../../models/Enrollment';
 
 export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() public materialListData: BiologicalMaterial[];
+  @Input() xmlTriggered: boolean;
 
   materialListForm: FormGroup;
 
@@ -26,11 +28,22 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
   firstChange: boolean = false;
 
   popupId = "materialPopup";
+  accordionId = 'materialAccordion'
+  deleteMaterialPopupID = 'deleteMaterialPopupID';
+  discardChangePopupID = 'discardMaterialChangesPopupID';
+  deleteRecordHeading: string;
+  discardChangeHeading: string;
+  popupTrigger: HTMLElement = null;
 
   atLeastOneRec = signal(false);
   atLeastOneRecBoolean = false;
 
   statusMessage : string = '';
+
+  private materialId: number; // ID a record is assigned to
+  private materialIndex: number; // Place of the record in the array
+
+  updateMateriraForm: FormGroup;
 
   constructor(private fb: FormBuilder,
               private _utilsService: UtilsService,
@@ -62,6 +75,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     if (changes['materialListData']) {
       // console.log("material list component - changes");
       this._init(changes['materialListData'].currentValue);
+      this._clearErrorList();
     }
   }
 
@@ -72,6 +86,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     // this.msgList.notifyOnChanges();
 
     this._errNotifService.errorSummaryChanged$.subscribe((errors) => {
+      // console.log("error summary change detected", errors);
       this._processErrorSummaries(errors);
     });
   }
@@ -86,6 +101,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.errorSummaryChild = null;
     }
+    // console.log(errSummaryEntries, filteredErrSummaryEntry, this.errorSummaryChild);
     this._emitErrors();
   }
 
@@ -99,6 +115,8 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     let materialFocus = "";
 
     this.materialsFormArr.push(group);
+    this.materialListService.updateUIDisplayValues(this.materialsFormArr);
+
     if (this.materialsFormArr.length > 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(false);
     }
@@ -136,10 +154,12 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this.atLeastOneRec.set(true);
     }
 
+    this._emitErrors(true);
+
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Biological material record " + id + " has been saved.";
+      this.statusMessage = "Biological material record " + group.controls['seqNumber'].value + " has been saved.";
     } else {
-      this.statusMessage = "Enregistrement du matériel biologique " + id + " a été sauvegardé.";
+      this.statusMessage = "Enregistrement du matériel biologique " + group.controls['seqNumber'].value + " a été sauvegardé.";
     }
     setTimeout(() => {
       document.getElementById('addMaterialBtn').focus()
@@ -158,12 +178,37 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
    }
  }
 
-  deleteMaterialRecord(index){
-    const id : string = (index + 1).toString();
+  confirmDeleteMaterialRecord(event:any) {
+    this.materialId = event.id;
+    console.log(this.materialId);
+    this.materialIndex = event.index;
+    console.log(this.materialIndex);
+    this.deleteRecordHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+
+    this.openConfirmationPopup(this.deleteMaterialPopupID);
+  }
+
+  confirmRevertMaterial(event:any) {
+    this.materialId = event.id;
+    this.materialIndex = event.index;
+    this.discardChangeHeading = event.heading;
+    this.popupTrigger = event.buttonTrigger;
+    this.openConfirmationPopup(this.discardChangePopupID);
+     this.updateMateriraForm = event.tempMaterialForm;
+     this.updateMateriraForm.markAsDirty()
+  }
+
+  deleteMaterialRecord(){
+    const id : number = this.materialId;
+    const index : number = this.materialIndex;
     const group = this.materialsFormArr.at(index) as FormGroup;
     const materialInfo = this.getMaterialInfo(group);
     materialInfo.reset();
     this.materialsFormArr.removeAt(index);
+    
+    this.materialListForm.markAsPristine();
+    this._errNotifService.updateErrorSummary(MATERIAL_ERROR_PREFIX + this.materialId, null);
 
     this._globalService.setMaterialsFormArrValue(this.getMaterialsFormArrValues());
 
@@ -171,38 +216,47 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
       this.atLeastOneRec.set(false);
       this._emitErrors();
     }
+
+    if (id == -1) {
+      // force emit errors to get rid of error msg from unsaved record
+      this._emitErrors(true);
+    }
+
     if (this.materialsFormArr.length == 1) {
       this._materialService.showMaterialErrorSummaryOneRec.set(true);
     }
 
+    this.materialListService.updateUIDisplayValues(this.materialsFormArr);
+
     if (this._globalService.lang() == "en") {
-      this.statusMessage = "Biological material record " + id + " has been deleted.";
+      this.statusMessage = "Biological material record " + group.controls['seqNumber'].value + " has been deleted.";
     } else {
-      this.statusMessage = "Enregistrement du matériel biologique " + id + " a été supprimé.";
+      this.statusMessage = "Enregistrement du matériel biologique " + group.controls['seqNumber'].value + " a été supprimé.";
     }
     document.getElementById('addMaterialBtn').focus();
+    this.showErrors = false;
   }
 
   revertMaterial(event: any) {
     let discardMsg = "";
-    const index = event.index;
+    const index = this.materialIndex;
     const id : string = (index + 1).toString();
 
     const group = this.materialsFormArr.at(index) as FormGroup;
-    const materialInfo =this.getMaterialInfo(group);
+    const materialInfo = this.updateMateriraForm;
 
     // Revert to the last saved state
     const lastSavedState = group.get('lastSavedState').value;
 
     materialInfo.patchValue(lastSavedState);
     if (this._globalService.lang() == "en") {
-      discardMsg = "Biological material record " + id + " changes have been discarded.";
+      discardMsg = "Biological material record " + group.controls['seqNumber'].value + " changes have been discarded.";
     } else {
-      discardMsg = "Les modification du matériel biologique " + id + " ont été annulées.";
+      discardMsg = "Les modification du matériel biologique " + group.controls['seqNumber'].value + " ont été annulées.";
     }
 
     this.statusMessage = discardMsg;
-
+    this.updateMateriraForm.markAsPristine();
     // Screen reader will announce message again after the first time Discard Changes button has been clicked
     setTimeout(() => {
       this.statusMessage = ''; // Temporarily clear the message
@@ -248,6 +302,7 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
 
     // Set the list of form groups
     this.materialListService.setList(this.materialsFormArr.controls as FormGroup[]);
+    this.materialListService.updateUIDisplayValues(this.materialsFormArr);
   }
 
   // todo add contact type
@@ -308,8 +363,13 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     return this.materialsFormArr.value;
   }
 
-  private _emitErrors(): void {
+  private _emitErrors(forceEmit: boolean = false): void {
     let emitErrors = [];
+
+    if (!forceEmit && !this._shouldEmitErrors()) {
+      // console.log('No open records and at least one record exists – skipping emitErrors');
+      return;
+    }
 
     if (this.materialsFormArr.errors) {
       emitErrors.push(this.materialsFormArr.errors['atLeastOneMat']);
@@ -357,7 +417,84 @@ export class MaterialListComponent implements OnInit, OnChanges, AfterViewInit {
     return atLeastOneRecord ? null : { atLeastOneMat : oerr};
   }
 
-  openPopup(){
-    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  openPopup() {
+    const popupSelector = "#" + this.popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
   }
+
+  openConfirmationPopup(popupId: string) {
+    const popupSelector = "#" + popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    console.log(popupSelector)
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
+  }
+
+  private _clearErrorList(): void {
+    const controls = this.materialsFormArr.controls;
+  
+    // Determine if there is at least one saved record
+    const hasAtLeastOneRecord = controls.some(
+      (group: FormGroup) => !group.get('isNew')?.value
+    );
+  
+    // Determine if any record is invalid
+    const hasInvalidRecords = controls.some((group: AbstractControl) => group.invalid);
+  
+    // Filter errors in a single pass
+    const currentErrors = this._materialService.materialListErrors?.() || [];
+    const filteredErrors = currentErrors.filter(err => {
+      // Remove "least one record" error if at least one record exists
+      if (hasAtLeastOneRecord && err?.tableId.startsWith('materialListTable') && err?.type === 'least_one_rec_error') {
+        return false;
+      }
+  
+      // Remove all "component_error" errors if no invalid records exist
+      if (!hasInvalidRecords && err.componentId?.startsWith('materialListTable') && err?.type === 'component_error') {
+        return false;
+      }
+  
+      return true; // Keep all other errors
+    });
+  
+    // Update the error signal and local summary
+    this._materialService.setListErrors(filteredErrors);
+    if (!hasInvalidRecords) {
+      this.errorSummaryChild = null;
+      this.showErrors = false;
+      this._errNotifService.clearErrors();
+    }
+    // console.log(this._materialService.materialListErrors());
+  }
+
+  private _shouldEmitErrors(): boolean {
+    const hasSavedRecords = this.materialsFormArr.controls.some(group => !group.get('isNew')?.value);
+    const hasOpenRecords = this.materialsFormArr.controls.some(group => group.get('expandFlag')?.value);
+
+    // Emit if:
+    // 1. There are no saved records (must enforce "at least one record")
+    // OR
+    // 2. There is at least one open record
+    return !hasSavedRecords || hasOpenRecords;
+}
 }

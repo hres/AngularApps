@@ -1,5 +1,7 @@
 <div>
   <div [formGroup]="generalInfoFormLocalModel">
+    <lib-confirmation-popup [id]="amendEnrolmentPopupId" [title]="'popup.warning' | translate" [message]="'msg.amend.enrolment.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" (confirmed)="setAmendState()" (closed)="handleClosedPopup()" ></lib-confirmation-popup>
+
     <div class="row">
       <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12 minWidth200" >
         <label for="formStatusText">
@@ -31,12 +33,12 @@
     </div>
     <div class="row" *ngIf="showAmendButton">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-        <button class="btn btn-primary" (click)="setAmendState()" [disabled]="disableAmendButton" >
+        <button class="btn btn-primary" (click)="showAmendEnrolPopup($event)" [disabled]="disableAmendButton" >
           {{'amend.enrol'|translate}}</button>
       </div>
     </div>
 
-    <ng-container *ngIf="isAmend">
+    <ng-container *ngIf="isAmend || isAmendReasonsFilled">
       <div class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <fieldset class="chkbxrdio-grp" id="amendReason">
           <legend class="required"><span class="field-name">{{'amend.reason' | translate}}</span>
@@ -48,13 +50,15 @@
                               parentId="generalInfo"
                               parentLabel="Regulatory Company Enrolment"></control-messages>          
           </legend>
-          <ul class="form-group list-unstyled">
-            <li class="checkbox" formArrayName="amendReasons" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
-              <label for={{amendReasonOptionList[i].value}}>
-                <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnChange()"/> {{amendReasonOptionList[i].label}} 
-              </label>
-            </li>
-          </ul>
+          <ng-container formArrayName="amendReasons">
+            <ul class="form-group list-unstyled">
+              <li class="checkbox" *ngFor="let reason of amendReasonChkFormArray.controls; let i = index">
+                <label for={{amendReasonOptionList[i].value}}>
+                  <input type="checkbox" id={{amendReasonOptionList[i].value}} [formControl]="reason | formControl" (change)="amendReasonOnChange()"/> {{amendReasonOptionList[i].label}} 
+                </label>
+              </li>
+            </ul>
+          </ng-container>
         </fieldset>
       </div>
 
@@ -84,12 +88,12 @@
               <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
               <control-messages *ngIf="generalInfoFormLocalModel.controls['areLicensesTransfered'].invalid" [showError]="showFieldErrors"
                           [control]="generalInfoFormLocalModel.controls['areLicensesTransfered'] | formControl"
-                          controlId="areLicensesTransferedLabel" label="ownership.transferred"
+                          controlId="areLicensesTransfered0" label="ownership.transferred"
                           parentId="generalInfo"
                           parentLabel="Regulatory Company Enrolment"></control-messages>
           </legend>
           <ng-container *ngFor="let yesno of yesNoList; let i = index">
-              <label id="areLicensesTransferedLabel" for="areLicensesTransfered{{i}}" class="radio-inline">
+              <label for="areLicensesTransfered{{i}}" class="radio-inline">
                   <input type="radio" name="areLicensesTransfered"
                   id="areLicensesTransfered{{i}}" [value]="yesno.id" required
                   (change)="areLicensesBeingTransferedOnChange()"

@@ -1,25 +1,26 @@
 <div>
   <div [formGroup]="transFeeForm">
-    <div class="row">
-      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <label for="hasFees" class="required full-width">
-
-          <span class="field-name">{{'are.fees' |translate}}</span>
-          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
-          <control-messages *ngIf="transFeeForm.controls['hasFees'].invalid" [showError]="showFieldErrors"
-            [control]="transFeeForm.controls['hasFees'] | formControl" controlId="hasFees" label="are.fees"
-            parentId="transFees"></control-messages>
-
-        </label>
-        <label *ngFor="let yesno of yesNoList; let i = index" for="hasFeeId{{i}}" class="radio-inline">
-          <input type="radio" id="hasFeeId{{i}}" name="hasFee" [value]="yesno.id" (change)="hasFeesOnChange()"
-            [formControl]="transFeeForm.controls['hasFees'] | formControl" (change)="hasFeesOnChange()"
-            required="required" />
-          {{yesno | textTransform: lang }}
-        </label>
+    <div class="row form-group">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <fieldset class="chkbxrdio-grp">
+          <legend class="required">
+              {{ 'are.fees' | translate}}
+              <strong class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
+              <control-messages *ngIf="transFeeForm.controls['hasFees'].invalid" [showError]="showFieldErrors"
+              [control]="transFeeForm.controls['hasFees'] | formControl" controlId="hasFeeId0" label="are.fees"
+              parentId="transFees"></control-messages>
+          </legend>
+          <ng-container *ngFor="let yesno of yesNoList; let i = index">
+              <label for="hasFeeId{{i}}" class="radio-inline">
+                <input type="radio" id="hasFeeId{{i}}" name="hasFee" [value]="yesno.id" (change)="hasFeesOnChange()"
+                [formControl]="transFeeForm.controls['hasFees'] | formControl" (change)="hasFeesOnChange()"
+                required="required" />
+                {{yesno | textTransform: lang }}
+              </label>
+          </ng-container>
+      </fieldset>
       </div>
     </div>
-
 
     <div class="row" *ngIf="hasFeeYes">
       <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">

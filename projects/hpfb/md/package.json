@@ -1,7 +1,7 @@
 {
   "name": "@hpfb/md",
-  "version": "1.0.0",
-  "buildNumber": 3,
+  "version": "1.2.0",
+  "buildNumber": 4,
   "peerDependencies": {
     "@angular/common": "^20.1.3",
     "@angular/core": "^20.1.3"

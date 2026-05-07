@@ -3,6 +3,11 @@ import { IIdTextLabel } from "@hpfb/sdk/ui";
 export interface Enrollment {
     DEVICE_APPLICATION_INFO: DeviceApplicationEnrol;
 }
+export interface EnrollmentOut {
+  DEVICE_APPLICATION_INFO: DeviceApplicationEnrolOut;
+}
+
+
 
 export interface DeviceApplicationEnrol {
     software_version:               string;
@@ -10,9 +15,19 @@ export interface DeviceApplicationEnrol {
     check_sum?:                     string;
     application_info:               ApplicationInfo;
     devices:                        Devices;
-    declaration_conformity:         DeclarationComformity;
+    recognized_standards_section:   DeclarationComformity;
     material_info:                  BiologicalMaterialData;
-    priority_review:                PriorityReview;
+    declaration_conformity: DeclarationComformitySuperInterface;
+}
+
+export interface DeviceApplicationEnrolOut {
+  software_version:               string;
+  form_language:                  string;
+  check_sum?:                     string;
+  application_info:               ApplicationInfo;
+  devices:                        Devices;
+  recognized_standards_section:   DeclarationComformity;
+  material_info:                  BiologicalMaterialData;
 }
 
 export interface ApplicationInfo {
@@ -25,6 +40,8 @@ export interface ApplicationInfo {
     regulatory_activity_type:       IIdTextLabel;
     regulatory_activity_lead:       IIdTextLabel;
     device_class:                   IIdTextLabel;
+    priority_review:                    string;
+    is_diagnosis_treatment_serious:     DiagnosisReasons;
     is_ivdd:                        string;
     is_home_use:                    string;
     is_care_point_use:              string;
@@ -38,8 +55,10 @@ export interface ApplicationInfo {
     manufacturer:                   string;
     compliance:                     Compliances;
     other_pharmacopeia:             string;
+    provision_mdr_lic:              string;
     provision_mdr_it:               string;
     provision_mdr_sa:               string;
+    licence_number:                 string;
     application_number:             string;
     sap_request_number:             string;
     interim_order_authorization:    string;
@@ -87,13 +106,21 @@ export interface Device {
     device_explain:                 string;
 }
 
+/**
+ * Deprecated
+ */
 export interface PriorityReview {
     priority_review:                    string;
     is_diagnosis_treatment_serious:     DiagnosisReasons;
 }
 
-export interface DeclarationComformity {
-    declaration_conformity :        string;
+export interface DeclarationComformity extends  DeclarationComformitySuperInterface{
+    recognized_standards: string
+}
+
+
+export interface DeclarationComformitySuperInterface {
+  declaration_conformity :        string;
 }
 
 export interface DiagnosisReasons {
