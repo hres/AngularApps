@@ -35,8 +35,6 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
   scheduleClaimOptionList: CheckboxOption[] = [];
   disinfectantTypeOptionList: CheckboxOption[] = [];
   disinfectantTypeCodeList:ICode[] = [];
-  vetSpecies: ICode[] = [];
-  specySubTypes: ICode[] = [];
 
 
   private _specySubTypeErrors = [];
@@ -70,8 +68,7 @@ export class ProductInformationComponent extends BaseComponent implements OnInit
     this.drugUseOptions = this._globalService.drugUse;
     this.scheduleClaimCodeList = this._globalService.scheduleClaims;
     this.disinfectantTypeCodeList =  this._globalService.disinfectTypes;
-    this.vetSpecies = this._globalService.vetSpecies;
-    this.specySubTypes = this._globalService.specySubTypes;
+
 
   }
 
@@ -163,16 +160,16 @@ showScheduleClaimApplied() {
 }
 
 showDisinfectantTypesOrSpecies(){
+  this.showDisinfectantType = false;
+  this.showSpeciesForVerterinary = false;
 
   if (this.productInfoForm.controls['drugUse'].value ){
         if (this.productInfoForm.controls['drugUse'].value === 'DISINFECT') {
           this.showDisinfectantType = true;
-      //  return this.showDisinfectantType;
         }
 
         if (this.productInfoForm.controls['drugUse'].value === 'VET') {
           this.showSpeciesForVerterinary = true;
-          // return this.showSpeciesForVerterinary;
         }
   }
   else {

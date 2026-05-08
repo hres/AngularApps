@@ -14,7 +14,7 @@ import { ControlMessagesComponent, ICode, UtilsService } from '@hpfb/sdk/ui';
  */
 export class SpeciesSubtypesDetailComponent implements OnInit, OnChanges, AfterViewInit {
 
-  @Input('group') public speciesSubtypesDetailForm: FormGroup;    // contact detail form will use the reactive model passed in from the contact record component
+  @Input('group') public speciesSubtypesDetailForm: FormGroup;    // specy detail form will use the reactive model passed in from the specy record component
   @Input() recordId: string;
   @Input() detailsChanged: number;
   @Input() showErrors: boolean;
@@ -39,8 +39,8 @@ export class SpeciesSubtypesDetailComponent implements OnInit, OnChanges, AfterV
   }
 
   ngOnInit() {
-    // for external site, disable editing if the Contact Status is REMOVE
-    this.disableEdit = (true )
+    // // for external site, disable editing if the Contact Status is REMOVE
+    // this.disableEdit = (true )
   }
 
   ngAfterViewInit() {
@@ -96,10 +96,14 @@ export class SpeciesSubtypesDetailComponent implements OnInit, OnChanges, AfterV
     }
   }
 
-  // getLanguageDisplayValue(language : string) {
-  //   const lang = this._utilsService.findAndTranslateCode(this.languageList, this.lang, language);
-  //   return lang;
-  // }
+  IsEnterWithdrawTime() {
+    if (this.speciesSubtypesDetailForm.controls['isUsedForTreatmentOfFoodProducingAnimals'].value=='Y' ){
+    return true;
+    }else{
+      return false;
+    }
+  }
+
 }
 
 

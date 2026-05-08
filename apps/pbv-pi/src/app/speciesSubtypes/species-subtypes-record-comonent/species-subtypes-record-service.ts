@@ -34,7 +34,7 @@ export class SpeciesSubtypesRecordService {
     // console.log(formRecord);
     contactRecordModel.id = formRecord.controls['id'].value;
     // contactRecordModel.company = formRecord.controls.companyName.value;
-    this._detailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['speciesSubtypesDetail']), contactRecordModel, lang, languageList);
+    this._detailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['speciesSubtypeDetail']), contactRecordModel, lang, languageList);
 
   }
 
@@ -43,7 +43,7 @@ export class SpeciesSubtypesRecordService {
     formRecord.controls['id'].setValue(Number(contactRecordModel.id));
     formRecord.controls['isNew'].setValue(false);
     // formRecord.controls.companyName.setValue(contactRecordModel.company);
-    this._detailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls['contactDetails']);
+    this._detailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls['speciesSubtypeDetail']);
   }
 
    public  getHeading(index : number): string {

@@ -1,8 +1,8 @@
 <div>
   <div [formGroup]="speciesSubtypesDetailForm">
 
-      <div class="row">
-        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-6">
           <label for="specy" class="required">
             <span class="field-name">{{ 'product.specy'|translate }}</span>
             <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -16,7 +16,7 @@
           </select>
         </div>
 
-          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="col-md-6">
             <label for="subType" class="required">
               <span class="field-name">{{ 'specy.subType'|translate }}</span>
               <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
@@ -24,7 +24,7 @@
                 [control]="speciesSubtypesDetailForm.controls['subtype'] | formControl" controlId="subtype" label="specy.subtype"
                 parentId="productInfo"></control-messages>
             </label>
-            <select id="subtype" name="subtype" required class="form-contsol" [formControlName]="'subtype'">
+            <select id="subtype" name="subtype" required class="form-control" [formControlName]="'subtype'">
               <option label=" " value=""></option>
               <option *ngFor="let item of specySubTypes" [value]="item.id"> {{ item | textTransform: lang }}</option>
             </select>
@@ -34,9 +34,10 @@
 
 
 
+
     <div class="row">
       <fieldset class="col-md-12 chkbxrdio-grp">
-        <legend class="required">
+        <legend >
            {{'is.this.used.for.the.treatment.of.food.producing.animal' |translate}}
 
         </legend>
@@ -52,11 +53,11 @@
   </div>
 
 
-    <div class="row">
+    <div class="row" *ngIf="IsEnterWithdrawTime()">
 
       <div class="form-group col-sm-4">
         <label for="withdrawalTimeDays{{recordId}}" class="required full-width">
-          <span class="field-name">{{'withdrawal.time.days'|translate}}</span>
+          <span class="field-name">{{'specy.withdrawal.time.days'|translate}}</span>
           <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="speciesSubtypesDetailForm.controls['days'].invalid" [showError]="showFieldErrors"
             [control]="speciesSubtypesDetailForm.controls['days'] | formControl" controlId="days{{recordId}}"
@@ -70,7 +71,7 @@
 
       <div class="form-group col-sm-4">
         <label for="hours{{recordId}}" class="required full-width">
-          <span class="field-name">{{'withdrawal.time.hours'|translate}}</span>
+          <span class="field-name">{{'specy.withdrawal.time.hours'|translate}}</span>
           <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="speciesSubtypesDetailForm.controls['hours'].invalid" [showError]="showFieldErrors"
             [control]="speciesSubtypesDetailForm.controls['hours'] | formControl" controlId="hours{{recordId}}"

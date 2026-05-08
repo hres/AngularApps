@@ -13,7 +13,7 @@
   <!-- <lib-confirmation-popup [id]="saveToDraftXMLPopupID" [title]="'popup.warning' | translate" [message]="'msg.active.and.save.company.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="saveToDraftXMLHeading" (confirmed)="statusChange($event, $event)" (closed)="handleClosedPopup()"></lib-confirmation-popup> -->
   <!-- <lib-confirmation-popup [id]="setActiveStatusPopupID" [title]="'popup.warning' | translate" [message]="'msg.active.and.save.company.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="setActiveStatusHeading" (confirmed)="statusChange($event, $event)" (closed)="handleClosedPopup()"></lib-confirmation-popup> -->
 
-  <lib-accordion [rowsFormArray]="contactList" [accordionHeadingMsgKey]="'heading.contactDetails'" [accordionHeadingSupp]="['contactDetails', 'fullName']"
+  <lib-accordion [rowsFormArray]="contactList" [accordionHeadingMsgKey]="'heading.specyDetails'" [accordionHeadingSupp]="['contactDetails', 'fullName']"
     (rowClicked)="handleRowClick($event)">
 
     <ng-template #tmpl let-recordRow let-idx="i">

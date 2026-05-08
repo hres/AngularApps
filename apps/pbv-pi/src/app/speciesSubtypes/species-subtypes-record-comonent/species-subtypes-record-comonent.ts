@@ -225,23 +225,23 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
     //this._emitErrors();
    }
 
-  public setStatusToRevise(event: Event, index: number): void {
-    const heading = this._companyRecordService.getHeading(index); // Await here
-    const trigger = event.target as HTMLElement;
- //   this.saveContactRecord(index, heading, ContactStatus.Revise, trigger);
-   }
+//   public setStatusToRevise(event: Event, index: number): void {
+//     const heading = this._companyRecordService.getHeading(index); // Await here
+//     const trigger = event.target as HTMLElement;
+//  //   this.saveContactRecord(index, heading, ContactStatus.Revise, trigger);
+//    }
 
-  public setStatusToRemove(event: Event, index: number): void {
-    const heading = this._companyRecordService.getHeading(index); // Await here
-    const trigger = event.target as HTMLElement;
-   // this.saveContactRecord(index, heading, ContactStatus.Remove, trigger);
-  }
+//   public setStatusToRemove(event: Event, index: number): void {
+//     const heading = this._companyRecordService.getHeading(index); // Await here
+//     const trigger = event.target as HTMLElement;
+//    // this.saveContactRecord(index, heading, ContactStatus.Remove, trigger);
+//   }
 
-  public activeContactRecord(event: Event, index: number): void {
-    const heading = this._companyRecordService.getHeading(index); // Await here
-    const trigger = event.target as HTMLElement;
-//    this.saveContactRecord(index, heading, ContactStatus.Active, trigger);
-  }
+//   public activeContactRecord(event: Event, index: number): void {
+//     const heading = this._companyRecordService.getHeading(index); // Await here
+//     const trigger = event.target as HTMLElement;
+// //    this.saveContactRecord(index, heading, ContactStatus.Active, trigger);
+//   }
 
   public saveContactRecord(id?: number, heading?: string,  trigger?: HTMLElement): void {
     //console.log("====>saveContactRecord ", this.contactStatusList);

@@ -10,6 +10,7 @@ import { SpeciesSubtypesRecordService } from '../species-subtypes-record-comonen
 import { SpeciesSubtypesDetailsService } from '../species-subtypes-detail-component/species-subtypes-detail-service';
 import { SpeciesSubtypesListBaseComponent } from './species-subtypes-list-base.component';
 import * as $ from 'jquery';
+import { GlobalService } from '../../global/global.service';
 
 @Component({
   selector: 'app-species-subtypes-list-component',
@@ -31,9 +32,9 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
   @Input() lang;
   @Input() helpTextSequences;
   @Input() disableForm: boolean;
-  @Input() vetSpecies;
-  @Input() specySubTypes;
-  @Input() yesNoList;
+   vetSpecies: ICode[];
+   specySubTypes: ICode[];
+    yesNoList: ICode[];
 
   @Output() public errors = new EventEmitter();
   // @Output() public contactsUpdated1 = new EventEmitter();
@@ -63,7 +64,7 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
   // removeContactPopupID: string = "removeContactPopupID";
   saveToDraftXMLPopupID: string = "saveToDraftXMLPopupID";
   private contactId: number;
-  contactStatus: any;
+  // contactStatus: any;
   discardRecordHeading: string;
   discardChangeHeading: string;
   // setReviseStatusHeading: string;
@@ -72,7 +73,7 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
   // setActiveStatusHeading: string;
   saveToDraftXMLHeading: string;
 
-  constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService,
+  constructor(private _fb: FormBuilder, private translate: TranslateService, private _utilsService: UtilsService,  private _globalService: GlobalService,
     private _listService: SpeciesSubtypesListService, private _recordService: SpeciesSubtypesRecordService, private _errorNotificationService: ErrorNotificationService, private _detailsService: SpeciesSubtypesDetailsService) {
     super();
     this.contactListForm = this._listService.getReactiveModel(_fb);     // it's an empty formArray
@@ -80,6 +81,9 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
 
   ngOnInit() {
     // console.log("onInit")
+    this.vetSpecies = this._globalService.vetSpecies;
+    this.specySubTypes = this._globalService.specySubTypes;
+    this.yesNoList = this._globalService.yesnoList;
   }
 
   ngAfterViewInit() {
@@ -209,7 +213,7 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
    */
   public saveContactRecord(contactRecord) {
     let record: any = this.recModel;
-    if (this.contactStatus && this.updatedContactDetailsForm) {
+    if ( this.updatedContactDetailsForm) {
       record = this.recModel;
      } else {
       record = contactRecord.recModel;

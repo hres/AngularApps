@@ -10,7 +10,7 @@ export class SpeciesSubtypesDetailsService {
   constructor(private _utilsService: UtilsService, private _converterService: ConverterService) {}
 
   /**
-   * Gets the reactive forms Model for contact details
+   * Gets the reactive forms Model for speccy and subtype  details
    * @param {FormBuilder} fb
    * @returns {any}
    */
@@ -27,12 +27,19 @@ export class SpeciesSubtypesDetailsService {
   }
 
    public mapFormModelToDataModel(formRecord: FormGroup, specySubTypeModel: SpecyAndSubType, lang: string, languageList: ICode[]) {
-     specySubTypeModel.subtype = formRecord.controls['fullName'].value;
+     specySubTypeModel.subtype = formRecord.controls['subtype'].value;
+     specySubTypeModel.specy = formRecord.controls['specy'].value;
+     specySubTypeModel.isUsedForTreatmentOfFoodProducingAnimals = formRecord.controls['isUsedForTreatmentOfFoodProducingAnimals'].value;
+     specySubTypeModel.withdrawal_time.days = formRecord.controls['days'].value;
+     specySubTypeModel.withdrawal_time.hours = formRecord.controls['hours'].value;
   }
 
   public mapDataModelToFormModel(specySubTypeModel: SpecyAndSubType, formRecord: FormGroup) {
-       formRecord.controls['fullName'].setValue(specySubTypeModel.specy);
-
+       formRecord.controls['subtype'].setValue(specySubTypeModel.subtype);
+       formRecord.controls['specy'].setValue(specySubTypeModel.specy);
+       formRecord.controls['isUsedForTreatmentOfFoodProducingAnimals'].setValue(specySubTypeModel.isUsedForTreatmentOfFoodProducingAnimals);
+       formRecord.controls['days'].setValue(specySubTypeModel.withdrawal_time.days);
+       formRecord.controls['hours'].setValue(specySubTypeModel.withdrawal_time.hours);
 
   }
 
