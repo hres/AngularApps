@@ -244,10 +244,13 @@ nonPrescriptioScheduleAppliedRequestedOnChange() {
 }
 
 
-updateErrorList(errs) {
- // console.log("updateErrorList", errs)
- this.errorList = errs;
+
+private _specyInfoErrors = [];
+
+processSpecyErrors(errorList){
+   this._specyInfoErrors = errorList;
 }
+
 
 }
 

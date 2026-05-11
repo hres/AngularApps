@@ -210,7 +210,7 @@
           </header>
           <div id="specyRecords" class="panel-body">
             <app-species-subtypes-list-component>
-              (errorList)="updateErrorList"
+              (errorList)="processSpecyErrors($event)"
               [loadFileIndicator]="loadFileIndicator"
               [lang]="lang"
               [helpTextSequences]="helpIndex"

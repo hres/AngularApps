@@ -1,7 +1,7 @@
 
 import {FormArray, FormGroup} from '@angular/forms';
 import { Directive, ViewChild} from '@angular/core';
-import { BaseListComponent, ExpanderComponent } from '@hpfb/sdk/ui';
+import { ExpanderComponent } from '@hpfb/sdk/ui';
 import { RecordListServiceInterface } from './specy-subtype.list.service.interface';
 
 
