@@ -31,12 +31,12 @@
       </div>
       <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <label for="manuContactId" class="required full-width">
-          <span class="field-name">{{ 'manufacturing.contact.id'|translate }} {{ 'minNumber5'|translate }}</span>
+          <span class="field-name">{{ 'manufacturing.contact.id'|translate }}</span>
           <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
           <control-messages *ngIf="transDetailsForm.controls['manuContactId'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['manuContactId'] | formControl" controlId="manuContactId"
             label="manufacturing.contact.id" parentId="transDetails"></control-messages>
-          <input id="manuContactId" name="manuContactId" class="form-control" data-only-digits [maxLength]="5" required="required"
+          <input id="manuContactId" name="manuContactId" class="form-control" data-only-digits [maxLength]="6" required="required"
             [formControl]="transDetailsForm.controls['manuContactId'] | formControl" />
         </label>
       </div>
@@ -56,7 +56,7 @@
       </div>
       <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <label for="reguContactId" class="required full-width">
-          <span class="field-name">{{ 'regulatory.contact.id'|translate }} {{ 'minNumber5'|translate }}</span>
+          <span class="field-name">{{ 'regulatory.contact.id'|translate }} </span>
           <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
           <sup id="tr4-rf">
             <a class="fn-lnk" href="#tr4"><span class="wb-inv">{{ 'instruction'|translate
@@ -144,7 +144,7 @@
           <legend class="required">
             <span class="field-name">{{'amend.reason' | translate}}</span>
             <span id="amendReasonsRequired" class="sr-only">{{'sr.required' | translate }}</span>
-            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>    
+            <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
             <control-messages *ngIf="amendReasonChkFormArray.invalid"
               [showError]="showFieldErrors"
               [control]="amendReasonChkFormArray | formControl"
