@@ -41,7 +41,8 @@ export class ValidationService implements IValidationService {
       'error.msg.endDate':'error.msg.endDate',
       'error.msg.amount.limit':'error.msg.amount.limit',
       'error.msg.business':'error.msg.business',
-      'error.mgs.6.numeric.leading.zeroes': 'error.mgs.6.numeric.leading.zeroes'
+      'error.mgs.6.numeric.leading.zeroes': 'error.mgs.6.numeric.leading.zeroes',
+      'error.mgs.1.to.6.numeric': 'error.mgs.1.to.6.numeric'
     };
 
     return config[validatorName];
@@ -384,4 +385,17 @@ export class ValidationService implements IValidationService {
       return null;
     }
   }
+
+
+  static numberBetween1To6Validator(control) {
+    if (!control.value) {
+      return null;
+    }
+    if (control.value.match(/^\d{1,6}$/)) {
+      return null;
+    } else {
+      return {'error.mgs.1.to.6.numeric': true};
+    }
+  }
+
 }
