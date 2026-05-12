@@ -11,137 +11,82 @@
   },
   {
     "id": "3",
-    "en": "Bison",
-    "fr": "Bison"
-  },
-  {
-    "id": "4",
-    "en": "Bovine",
-    "fr": "Bovine"
-  },
-  {
-    "id": "5",
-    "en": "Buffalo",
-    "fr": "Buffle"
-  },
-  {
-    "id": "6",
     "en": "Cats",
     "fr": "Chats"
   },
   {
-    "id": "7",
+    "id": "4",
     "en": "Cattle",
     "fr": "Bétail"
   },
   {
-    "id": "8",
+    "id": "5",
     "en": "Crustaceans",
     "fr": "Crustacés"
   },
   {
-    "id": "9",
+    "id": "6",
     "en": "Dogs",
     "fr": "Chiens"
   },
   {
-    "id": "10",
+    "id": "7",
     "en": "Equidae (non-horses)",
     "fr": "Équidés (non-chevaux)"
   },
   {
-    "id": "11",
+    "id": "8",
     "en": "Finfish",
-    "fr": "Poissons"
+    "fr": "Poissons à nageoires"
   },
   {
-    "id": "12",
+    "id": "9",
     "en": "Goats",
     "fr": "Chèvres"
   },
   {
-    "id": "13",
+    "id": "10",
     "en": "Horses",
     "fr": "Chevaux"
   },
   {
-    "id": "14",
-    "en": "Human",
-    "fr": "Humain"
+    "id": "11",
+    "en": "Humans",
+    "fr": "Humains"
   },
   {
-    "id": "15",
+    "id": "12",
     "en": "Insect",
     "fr": "Insecte"
   },
   {
-    "id": "16",
-    "en": "Laboratory animals",
-    "fr": "Animaux de laboratoire"
-  },
-  {
-    "id": "17",
-    "en": "Lambs",
-    "fr": "Agneaux"
-  },
-  {
-    "id": "18",
+    "id": "13",
     "en": "Mammals (miscellaneous)",
     "fr": "Mammifères (divers)"
   },
   {
-    "id": "19",
+    "id": "14",
     "en": "Mink",
     "fr": "Vison"
   },
   {
-    "id": "20",
-    "en": "Mollusc",
-    "fr": "Mollusques"
-  },
-  {
-    "id": "21",
+    "id": "15",
     "en": "Poultry",
     "fr": "Volaille"
   },
   {
-    "id": "22",
-    "en": "Rabbits",
-    "fr": "Lapins"
-  },
-  {
-    "id": "23",
-    "en": "Reptile",
-    "fr": "Reptile"
-  },
-  {
-    "id": "24",
+    "id": "16",
     "en": "Sheep",
     "fr": "Mouton"
   },
   {
-    "id": "25",
-    "en": "Silk worm",
-    "fr": "Ver de soie"
-  },
-  {
-    "id": "26",
+    "id": "17",
     "en": "Swine (pigs)",
     "fr": "Porcs"
   },
   {
-    "id": "27",
-    "en": "Unspecified",
-    "fr": "Non spécifiés"
-  },
-  {
-    "id": "28",
-    "en": "Wasp",
-    "fr": "Guêpe (sauvages divers)"
-  },
-  {
-    "id": "29",
+    "id": "18",
     "en": "Wild/miscellaneous",
-    "fr": "Sauvages/divers (exotique-zoo, singes, primates)"
+    "fr": "Sauvages/divers"
   }
 ]

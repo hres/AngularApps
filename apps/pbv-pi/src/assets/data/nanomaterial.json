@@ -12,7 +12,7 @@
   {
     "id": "7",
     "en": "Metal colloids",
-    "fr": "Colloïdes métalliques"
+    "fr": "Métaux colloïdaux"
   },
   {
     "id": "4",
@@ -35,8 +35,18 @@
     "fr": "Nanoparticule"
   },
   {
+    "id": "10",
+    "en": "Nanotubes",
+    "fr": "Nanotubes"
+  },
+  {
+    "id": "9",
+    "en": "Other",
+    "fr": "Autre"
+  },
+  {
     "id": "8",
-    "en": "Not Unassigned",
+    "en": "Unassigned",
     "fr": "Non attribuée"
   }
 ]

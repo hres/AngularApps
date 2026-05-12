@@ -32,7 +32,7 @@
   {
     "id": "7",
     "en": "Bitches",
-    "fr": "Oper"
+    "fr": "Lice"
   },
   {
     "id": "8",
@@ -127,7 +127,7 @@
   {
     "id": "27",
     "en": "Cows (lactating)",
-    "fr": "Vaches laitières"
+    "fr": "Vache allaitantes"
   },
   {
     "id": "28",
@@ -207,22 +207,22 @@
   {
     "id": "43",
     "en": "Feedlot calves",
-    "fr": "Veaux en parc d'engraissement"
+    "fr": "Veaux de boucherie en parc d'engraissement"
   },
   {
     "id": "44",
     "en": "Feedlot cattle",
-    "fr": "Bovins en parc d'engraissement"
+    "fr": "Bovins de boucherie en parc d'engraissement"
   },
   {
     "id": "45",
     "en": "Feedlot heifers",
-    "fr": "Génisses en parc d'engraissement"
+    "fr": "Taures de boucherie en parc d'engraissement"
   },
   {
     "id": "46",
     "en": "Feedlot steers",
-    "fr": "Bouvillons en parc d'engraissement"
+    "fr": "Bouvillons de boucherie en parc d'engraissement"
   },
   {
     "id": "47",
@@ -267,22 +267,22 @@
   {
     "id": "55",
     "en": "Grizzly bears",
-    "fr": "Ours grizzlis"
+    "fr": "Ours grizzly"
   },
   {
     "id": "56",
     "en": "Grower swine",
-    "fr": "Porcs en croissance"
+    "fr": "Porcin en croissance"
   },
   {
     "id": "57",
     "en": "Growing turkeys",
-    "fr": "Dindes de chair"
+    "fr": "Dindons en croissance"
   },
   {
     "id": "58",
     "en": "Guinea pigs",
-    "fr": "Cochons d'Inde"
+    "fr": "Cochons d'inde"
   },
   {
     "id": "59",
@@ -307,7 +307,7 @@
   {
     "id": "63",
     "en": "Lactating goats",
-    "fr": "Chèvres laitières"
+    "fr": "Chèvres allaitantes"
   },
   {
     "id": "64",
@@ -327,7 +327,7 @@
   {
     "id": "67",
     "en": "Market goats",
-    "fr": "Chèvres"
+    "fr": "Chèvres de boucherie"
   },
   {
     "id": "68",
@@ -482,7 +482,7 @@
   {
     "id": "98",
     "en": "Veal calves",
-    "fr": "Veaux de veau"
+    "fr": "Veaux de boucherie"
   },
   {
     "id": "99",
@@ -492,7 +492,7 @@
   {
     "id": "100",
     "en": "Wild/game birds",
-    "fr": "Sauvage / divers"
+    "fr": "Sauvage/gibier à plumes"
   },
   {
     "id": "101",
