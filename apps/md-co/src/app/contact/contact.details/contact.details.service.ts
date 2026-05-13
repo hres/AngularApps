@@ -19,11 +19,11 @@ export class ContactDetailsService {
    */
   public getReactiveModel(fb: FormBuilder, isInternal) {
     if (!fb) {return null; }
-    const contactIdValidators = isInternal ? [Validators.required, ValidationService.dossierContactIdValidator] : [];
+    const contactIdValidators = isInternal ? [Validators.required] : [];
     // const recordProcessedValidator = isInternal ? [Validators.required] : [];
     const statusValidator = isInternal ? [this.contactStatusValidator] : [];
     return fb.group({
-      contactId: [null,Validators.required],
+      contactId: [null,contactIdValidators],
       status: [ContactStatus.New,statusValidator],
       statusText: ['',statusValidator], // for UI display purpose only
       // hcStatus: [null, Validators.required],
