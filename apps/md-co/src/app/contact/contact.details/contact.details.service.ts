@@ -23,7 +23,7 @@ export class ContactDetailsService {
     // const recordProcessedValidator = isInternal ? [Validators.required] : [];
     const statusValidator = isInternal ? [this.contactStatusValidator] : [];
     return fb.group({
-      contactId: [null],
+      contactId: [null,Validators.required],
       status: [ContactStatus.New,statusValidator],
       statusText: ['',statusValidator], // for UI display purpose only
       // hcStatus: [null, Validators.required],
