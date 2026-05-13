@@ -14,7 +14,7 @@ export class TransactionFeeService {
     return fb.group({
       hasFees: [null, Validators.required],
       billCompanyId: [null, [Validators.required, ValidationService.numeric6Validator]],
-      billContactId: [null, [Validators.required, ValidationService.numeric5Validator]]
+      billContactId: [null, [Validators.required]]
     });
   }
 
