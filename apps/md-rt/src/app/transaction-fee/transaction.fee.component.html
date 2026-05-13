@@ -36,12 +36,12 @@
       </div>
       <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <label for="billContactId" class="required full-width">
-          <span class="field-name">{{'billing.contact.id'|translate}} {{ 'minNumber5'|translate }}</span>
+          <span class="field-name">{{'billing.contact.id'|translate}} </span>
           <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
           <control-messages *ngIf="transFeeForm.controls['billContactId'].invalid" [showError]="showFieldErrors"
             [control]="transFeeForm.controls['billContactId'] | formControl" controlId="billContactId"
             label="billing.contact.id" parentId="transFees"></control-messages>
-          <input id="billContactId" class="form-control" name="billContactId" data-only-digits [maxLength]="5"
+          <input id="billContactId" class="form-control" name="billContactId" data-only-digits [maxLength]="6"
             required="required" [formControl]="transFeeForm.controls['billContactId'] | formControl" />
         </label>
       </div>
