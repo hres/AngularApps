@@ -65,7 +65,7 @@
           <control-messages *ngIf="transDetailsForm.controls['reguContactId'].invalid" [showError]="showFieldErrors"
             [control]="transDetailsForm.controls['reguContactId'] | formControl" controlId="reguContactId"
             label="regulatory.contact.id" parentId="transDetails"></control-messages>
-          <input id="reguContactId" name="reguContactId" class="form-control" data-only-digits [maxLength]="5"  required="required"
+          <input id="reguContactId" name="reguContactId" class="form-control" data-only-digits [maxLength]="6"  required="required"
             [formControl]="transDetailsForm.controls['reguContactId'] | formControl" />
         </label>
       </div>
