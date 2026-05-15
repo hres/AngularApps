@@ -1,12 +1,12 @@
 [
   {
     "id": "1",
-    "en": "Medicinal Ingredient",
-    "fr": "Ingrédient medicinal actif"
+    "en": "Medicinal ingredient",
+    "fr": "Ingrédient medicinal"
   },
   {
     "id": "2",
-    "en": "Non-medicinal Ingredient",
-    "fr": "Ingrédient non-medicinal actif"
+    "en": "Non-medicinal ingredient",
+    "fr": "Ingrédient non-medicinal"
   }
 ]

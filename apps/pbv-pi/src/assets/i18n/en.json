@@ -72,11 +72,18 @@
     "copy.ingredient":"Copy ingredient record",
     "bio.used": "Was animal or human sourced material (other than the ingredient listed in the formulation above) used at any stage in the manufacturing of the drug?",
     "container.type": "Container type",
+    "present.final.container": "Present in final container",
+    "material.name":"Material name",
     "pack.size": "Package size",
     "shelf.life": "Shelf life",
     "countries": "Countries of manufacture for this product",
     "heading.company.address":"Address details {{seqnumber}}",
     "company.name":"Company name (full legal name)",
+    "importer.company.name":"Importer company name (full legal name)",
+    "importer.phone.number": "Phone number (including area code)",
+    "importer.phone.extension": "Phone extension",
+    "importer.fax.number": "Fax number (including area code)",
+    "importer.email.address": "Email address",
     "addressDetails.street": "Street address",
     "addressDetails.city": "City",
     "addressDetails.country": "Country",
@@ -96,6 +103,9 @@
 
     "save.ingredient.record":"Save ingredient record",
     "discard.changes":"Discard changes",
+
+    "save.material.record":"Save animal and/or human sourced material record",
+    "add.material":"Add animal or human sourced material",
 
     "bio.source.ingre": "Human or animal sourced ingredient or material",
     "bio.source.material": "Animal or human sourced materials used at any stage in the manufacturing of the drug",
