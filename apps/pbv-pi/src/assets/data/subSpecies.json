@@ -1,501 +1,506 @@
 [
   {
-    "id": "1",
-    "en": "Not applicable",
-    "fr": "Sans objet"
-  },
-  {
-    "id": "2",
+    "id": "340",
     "en": "Aquarium fish",
     "fr": "Poissons d'aquarium"
   },
   {
-    "id": "3",
+    "id": "276",
     "en": "Beef cattle",
     "fr": "Bovins de boucherie"
   },
   {
-    "id": "4",
+    "id": "275",
     "en": "Beef heifers",
     "fr": "Taures de boucherie"
   },
   {
-    "id": "5",
+    "id": "277",
     "en": "Beef steers",
-    "fr": "Bœufs de boucherie"
+    "fr": "Boeuf de boucherie"
   },
   {
-    "id": "6",
+    "id": "371",
     "en": "Bison",
     "fr": "Bison"
   },
   {
-    "id": "7",
+    "id": "345",
     "en": "Bitches",
     "fr": "Lice"
   },
   {
-    "id": "8",
+    "id": "320",
     "en": "Black bears",
     "fr": "Ours noirs"
   },
   {
-    "id": "9",
+    "id": "308",
     "en": "Boars",
     "fr": "Sangliers"
   },
   {
-    "id": "10",
+    "id": "296",
     "en": "Breeder chickens",
     "fr": "Poulets reproducteurs"
   },
   {
-    "id": "11",
+    "id": "304",
     "en": "Breeder turkeys",
     "fr": "Dindes reproductrices"
   },
   {
-    "id": "12",
+    "id": "290",
     "en": "Breeding horses",
     "fr": "Chevaux d'élevage"
   },
   {
-    "id": "13",
+    "id": "297",
     "en": "Broiler chickens",
-    "fr": "Poulets à griller"
+    "fr": "Poulet à griller"
   },
   {
-    "id": "14",
+    "id": "305",
     "en": "Broiler turkeys",
     "fr": "Dindes à griller"
   },
   {
-    "id": "15",
+    "id": "278",
     "en": "Bulls",
     "fr": "Taureaux"
   },
   {
-    "id": "16",
+    "id": "279",
     "en": "Calves",
     "fr": "Veaux"
   },
   {
-    "id": "17",
+    "id": "321",
     "en": "Caribou",
     "fr": "Caribou"
   },
   {
-    "id": "18",
+    "id": "295",
     "en": "Chickens",
     "fr": "Poulets"
   },
   {
-    "id": "19",
+    "id": "347",
     "en": "Chicks",
     "fr": "Poussins"
   },
   {
-    "id": "20",
+    "id": "322",
     "en": "Chinchilla",
     "fr": "Chinchilla"
   },
   {
-    "id": "21",
+    "id": "383",
     "en": "Clam",
     "fr": "Palourdes"
   },
   {
-    "id": "22",
+    "id": "377",
     "en": "Codfish",
     "fr": "Morue"
   },
   {
-    "id": "23",
+    "id": "298",
     "en": "Commercial layer hens",
     "fr": "Poules pondeuses commerciales"
   },
   {
-    "id": "24",
+    "id": "360",
     "en": "Companion birds",
     "fr": "Oiseaux de compagnie"
   },
   {
-    "id": "25",
+    "id": "344",
     "en": "Cows",
     "fr": "Vaches"
   },
   {
-    "id": "27",
-    "en": "Cows (lactating)",
-    "fr": "Vache allaitantes"
+    "id": "281",
+    "en": "Cows-lactating",
+    "fr": "Vaches allaitantes"
   },
   {
-    "id": "28",
-    "en": "Cows (non-lactating)",
+    "id": "351",
+    "en": "Cows-non lactating",
     "fr": "Vaches non allaitantes"
   },
   {
-    "id": "29",
+    "id": "381",
     "en": "Crab",
     "fr": "Crabe"
   },
   {
-    "id": "30",
+    "id": "406",
     "en": "Crab exoskeleton",
     "fr": "Exosquelette de crabe"
   },
   {
-    "id": "31",
+    "id": "282",
     "en": "Dairy cattle",
-    "fr": "Bovins laitiers"
+    "fr": "Bovins laitières"
   },
   {
-    "id": "32",
+    "id": "410",
     "en": "Dairy heifers",
     "fr": "Taures laitières"
   },
   {
-    "id": "33",
+    "id": "358",
     "en": "Deer",
     "fr": "Cerf"
   },
   {
-    "id": "34",
+    "id": "364",
     "en": "Donkeys",
     "fr": "Ânes"
   },
   {
-    "id": "35",
+    "id": "367",
     "en": "Draft horses",
     "fr": "Chevaux de trait"
   },
   {
-    "id": "36",
+    "id": "301",
     "en": "Ducks",
     "fr": "Canards"
   },
   {
-    "id": "37",
+    "id": "307",
+    "en": "Eggs",
+    "fr": "Oeufs"
+  },
+  {
+    "id": "323",
     "en": "Elephants",
     "fr": "Éléphants"
   },
   {
-    "id": "38",
+    "id": "324",
     "en": "Elk",
     "fr": "Wapiti"
   },
   {
-    "id": "39",
+    "id": "407",
     "en": "Emu",
     "fr": "Émeu"
   },
   {
-    "id": "40",
+    "id": "316",
     "en": "Ewes",
     "fr": "Brebis"
   },
   {
-    "id": "41",
+    "id": "366",
     "en": "Farmed fish",
-    "fr": "Poissons d'élevage"
+    "fr": "Poisson d'élevage"
   },
   {
-    "id": "42",
+    "id": "309",
     "en": "Feeder swine",
     "fr": "Porcs d'engraissement"
   },
   {
-    "id": "43",
+    "id": "283",
     "en": "Feedlot calves",
     "fr": "Veaux de boucherie en parc d'engraissement"
   },
   {
-    "id": "44",
+    "id": "390",
     "en": "Feedlot cattle",
     "fr": "Bovins de boucherie en parc d'engraissement"
   },
   {
-    "id": "45",
+    "id": "284",
     "en": "Feedlot heifers",
     "fr": "Taures de boucherie en parc d'engraissement"
   },
   {
-    "id": "46",
+    "id": "350",
     "en": "Feedlot steers",
     "fr": "Bouvillons de boucherie en parc d'engraissement"
   },
   {
-    "id": "47",
+    "id": "408",
     "en": "Ferrets",
     "fr": "Furets"
   },
   {
-    "id": "48",
+    "id": "310",
     "en": "Finisher swine",
-    "fr": "Porcs finisseurs"
+    "fr": "Porc de finition"
   },
   {
-    "id": "49",
+    "id": "378",
     "en": "Flounder",
     "fr": "Sole"
   },
   {
-    "id": "50",
+    "id": "292",
     "en": "Foals",
     "fr": "Poulains"
   },
   {
-    "id": "51",
+    "id": "325",
     "en": "Foxes",
-    "fr": "Renards"
+    "fr": "Renard"
   },
   {
-    "id": "52",
+    "id": "302",
     "en": "Geese",
     "fr": "Oies"
   },
   {
-    "id": "53",
+    "id": "326",
     "en": "Gerbils",
     "fr": "Gerbilles"
   },
   {
-    "id": "54",
+    "id": "311",
     "en": "Gilts",
     "fr": "Cochettes"
   },
   {
-    "id": "55",
+    "id": "372",
     "en": "Grizzly bears",
     "fr": "Ours grizzly"
   },
   {
-    "id": "56",
+    "id": "312",
     "en": "Grower swine",
-    "fr": "Porcin en croissance"
+    "fr": "Porc en croissance"
   },
   {
-    "id": "57",
+    "id": "355",
     "en": "Growing turkeys",
     "fr": "Dindons en croissance"
   },
   {
-    "id": "58",
+    "id": "327",
     "en": "Guinea pigs",
-    "fr": "Cochons d'inde"
+    "fr": "Cochon d'inde"
   },
   {
-    "id": "59",
+    "id": "328",
     "en": "Hamsters",
     "fr": "Hamsters"
   },
   {
-    "id": "60",
+    "id": "359",
     "en": "Honey bees",
     "fr": "Abeilles"
   },
   {
-    "id": "61",
+    "id": "287",
     "en": "Kids",
-    "fr": "Chevreaux"
+    "fr": "Chevreau"
   },
   {
-    "id": "62",
+    "id": "353",
     "en": "Kittens",
     "fr": "Chatons"
   },
   {
-    "id": "63",
+    "id": "288",
     "en": "Lactating goats",
     "fr": "Chèvres allaitantes"
   },
   {
-    "id": "64",
-    "en": "Lambs",
+    "id": "317",
+    "en": "Lamb",
     "fr": "Agneaux"
   },
   {
-    "id": "65",
+    "id": "319",
     "en": "Lobsters",
     "fr": "Homards"
   },
   {
-    "id": "66",
+    "id": "343",
     "en": "Mares",
-    "fr": "Juments"
+    "fr": "Jument"
   },
   {
-    "id": "67",
+    "id": "289",
     "en": "Market goats",
     "fr": "Chèvres de boucherie"
   },
   {
-    "id": "68",
+    "id": "329",
     "en": "Mice",
     "fr": "Souris"
   },
   {
-    "id": "69",
+    "id": "330",
     "en": "Mink",
     "fr": "Vison"
   },
   {
-    "id": "70",
+    "id": "331",
     "en": "Moose",
     "fr": "Élan"
   },
   {
-    "id": "71",
+    "id": "365",
     "en": "Mules",
     "fr": "Mules"
   },
   {
-    "id": "72",
+    "id": "392",
     "en": "Mussel",
     "fr": "Moule"
   },
   {
-    "id": "73",
+    "id": "1",
+    "en": "Not Applicable",
+    "fr": "Sans objet"
+  },
+  {
+    "id": "382",
     "en": "Oyster",
     "fr": "Huître"
   },
   {
-    "id": "74",
+    "id": "391",
     "en": "Pasture cattle (non-lactating)",
-    "fr": "Bovins de pâturage (non lactants)"
+    "fr": "Bovins de pâturage (non lactant)"
   },
   {
-    "id": "75",
+    "id": "388",
     "en": "Pasture heifers",
     "fr": "Génisses de pâturage"
   },
   {
-    "id": "76",
+    "id": "356",
     "en": "Pasture steers",
     "fr": "Bouvillons de pâturage"
   },
   {
-    "id": "77",
+    "id": "313",
     "en": "Piglets",
     "fr": "Porcelets"
   },
   {
-    "id": "78",
+    "id": "334",
     "en": "Polar bears",
     "fr": "Ours polaires"
   },
   {
-    "id": "79",
+    "id": "346",
     "en": "Ponies",
     "fr": "Poneys"
   },
   {
-    "id": "80",
+    "id": "335",
     "en": "Primates (non-human)",
-    "fr": "Primates (non humains)"
+    "fr": "Primates (non humain)"
   },
   {
-    "id": "81",
+    "id": "299",
     "en": "Pullets",
     "fr": "Poulettes"
   },
   {
-    "id": "82",
+    "id": "352",
     "en": "Puppies",
     "fr": "Chiots"
   },
   {
-    "id": "83",
+    "id": "363",
     "en": "Queen (female)",
-    "fr": "Reine (abeille)"
+    "fr": "Reine chat (femelle)"
   },
   {
-    "id": "84",
+    "id": "337",
     "en": "Rabbits",
     "fr": "Lapins"
   },
   {
-    "id": "85",
+    "id": "374",
     "en": "Rats",
     "fr": "Rats"
   },
   {
-    "id": "86",
+    "id": "300",
     "en": "Replacement chickens",
     "fr": "Poulets de remplacement"
   },
   {
-    "id": "87",
+    "id": "285",
     "en": "Replacement heifers",
     "fr": "Génisses de remplacement"
   },
   {
-    "id": "88",
+    "id": "389",
     "en": "Rooster",
     "fr": "Coq"
   },
   {
-    "id": "89",
+    "id": "341",
     "en": "Salmonid (eggs)",
-    "fr": "Œufs de salmonidés"
+    "fr": "Oeufs de salmonides"
   },
   {
-    "id": "90",
+    "id": "342",
     "en": "Salmonids",
-    "fr": "Salmonidés"
+    "fr": "Salmonides"
   },
   {
-    "id": "91",
+    "id": "386",
     "en": "Shark",
     "fr": "Requin"
   },
   {
-    "id": "92",
+    "id": "369",
     "en": "Shrimp",
     "fr": "Crevette"
   },
   {
-    "id": "93",
+    "id": "314",
     "en": "Sows",
     "fr": "Truies"
   },
   {
-    "id": "94",
+    "id": "294",
     "en": "Stallions",
     "fr": "Étalons"
   },
   {
-    "id": "95",
+    "id": "394",
     "en": "Steers",
     "fr": "Bouvillons"
   },
   {
-    "id": "96",
+    "id": "348",
     "en": "Turkey poults",
     "fr": "Dindonneaux"
   },
   {
-    "id": "97",
+    "id": "303",
     "en": "Turkeys",
     "fr": "Dindes"
   },
   {
-    "id": "98",
+    "id": "286",
     "en": "Veal calves",
     "fr": "Veaux de boucherie"
   },
   {
-    "id": "99",
+    "id": "315",
     "en": "Weanlings",
-    "fr": "Sevrés"
+    "fr": "Les sevrés"
   },
   {
-    "id": "100",
+    "id": "362",
     "en": "Wild/game birds",
     "fr": "Sauvage/gibier à plumes"
   },
   {
-    "id": "101",
+    "id": "339",
     "en": "Zebra",
     "fr": "Zèbre"
   }

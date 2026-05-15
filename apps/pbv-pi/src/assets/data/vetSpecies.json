@@ -1,92 +1,92 @@
 [
   {
-    "id": "1",
+    "id": "52",
     "en": "Bees",
     "fr": "Abeilles"
   },
   {
-    "id": "2",
+    "id": "55",
     "en": "Birds",
     "fr": "Oiseaux"
   },
   {
-    "id": "3",
+    "id": "60",
     "en": "Cats",
     "fr": "Chats"
   },
   {
-    "id": "4",
+    "id": "44",
     "en": "Cattle",
-    "fr": "Bétail"
+    "fr": "Bétails"
   },
   {
-    "id": "5",
+    "id": "62",
     "en": "Crustaceans",
     "fr": "Crustacés"
   },
   {
-    "id": "6",
+    "id": "64",
     "en": "Dogs",
     "fr": "Chiens"
   },
   {
-    "id": "7",
+    "id": "67",
     "en": "Equidae (non-horses)",
-    "fr": "Équidés (non-chevaux)"
+    "fr": "Équidés (excluant les chevaux)"
   },
   {
-    "id": "8",
+    "id": "65",
     "en": "Finfish",
-    "fr": "Poissons à nageoires"
+    "fr": "Poisson à nageoires"
   },
   {
-    "id": "9",
+    "id": "47",
     "en": "Goats",
     "fr": "Chèvres"
   },
   {
-    "id": "10",
+    "id": "51",
     "en": "Horses",
     "fr": "Chevaux"
   },
   {
-    "id": "11",
+    "id": "43",
     "en": "Humans",
     "fr": "Humains"
   },
   {
-    "id": "12",
+    "id": "75",
     "en": "Insect",
     "fr": "Insecte"
   },
   {
-    "id": "13",
+    "id": "73",
     "en": "Mammals (miscellaneous)",
     "fr": "Mammifères (divers)"
   },
   {
-    "id": "14",
+    "id": "78",
     "en": "Mink",
     "fr": "Vison"
   },
   {
-    "id": "15",
+    "id": "48",
     "en": "Poultry",
     "fr": "Volaille"
   },
   {
-    "id": "16",
+    "id": "61",
     "en": "Sheep",
     "fr": "Mouton"
   },
   {
-    "id": "17",
+    "id": "45",
     "en": "Swine (pigs)",
     "fr": "Porcs"
   },
   {
-    "id": "18",
+    "id": "63",
     "en": "Wild/miscellaneous",
-    "fr": "Sauvages/divers"
+    "fr": "Sauvage/divers"
   }
 ]
