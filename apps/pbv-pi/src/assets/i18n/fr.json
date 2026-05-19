@@ -273,4 +273,5 @@
    "specy.withdrawal.time.hours": "Heures ",
    "specy.subtype.title": "Species and subtypes recommended for use",
    "heading.specyInfo": "Species and subtypes recommended for use",
-   "heading.specyDetails": "Species and subtypes {{seqnumber}}"
+   "heading.specyDetails": "Species and subtypes {{seqnumber}}",
+   "error.msg.contact.one.record": "Au moins un représentant de l’entreprise ayant un statut nouveau, actif ou révisé doit être inscrit."

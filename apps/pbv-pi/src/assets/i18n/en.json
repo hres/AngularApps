@@ -280,7 +280,7 @@
    "specy.withdrawal.time.hours": "Hours",
    "specy.subtype.title": "Species and subtypes recommended for use",
    "heading.specyInfo": "Species and subtypes recommended for use",
-   "heading.specyDetails": "Species and subtypes {{seqnumber}}"
-
+   "heading.specyDetails": "Species and subtypes {{seqnumber}}",
+   "error.msg.contact.one.record": "At least one company representative with new, active, revise status must be listed"
 
 }
