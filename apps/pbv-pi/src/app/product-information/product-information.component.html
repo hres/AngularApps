@@ -1,5 +1,22 @@
 <div [formGroup]="productInfoForm">
 
+ <div class="row">
+    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <label for="companyId" class="required">
+        <span class="field-name">{{'company.id'|translate }} {{'5digits.only'|translate }}</span>
+        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+        <sup [id]="helpIndex['compIdIndx'][2]">
+          <a class="fn-lnk" [href]="'#' + helpIndex['compIdIndx'][1]"><span
+              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['compIdIndx'][0]}}</a>
+        </sup>
+        <control-messages *ngIf="productInfoForm.controls['companyId'].invalid" [showError]="showFieldErrors"
+          [control]="productInfoForm.controls['companyId'] | formControl" controlId="companyId" label="company.id"
+          parentId="productInfo"></control-messages>
+      </label>
+      <input id="companyId" name="companyId" class="form-control" data-only-digits [formControlName]="'companyId'"
+        minlength="5" maxlength="5" size="5" />
+    </div>
+  </div>
   <div class="row">
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <label for="dossierType" class="required">
@@ -19,30 +36,15 @@
       </select>
     </div>
   </div>
-
-
-  <div class="row">
-    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <label for="companyId" class="required">
-        <span class="field-name">{{'company.id'|translate }} {{'5digits.only'|translate }}</span>
-        <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-        <sup [id]="helpIndex['compIdIndx'][2]">
-          <a class="fn-lnk" [href]="'#' + helpIndex['compIdIndx'][1]"><span
-              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['compIdIndx'][0]}}</a>
-        </sup>
-        <control-messages *ngIf="productInfoForm.controls['companyId'].invalid" [showError]="showFieldErrors"
-          [control]="productInfoForm.controls['companyId'] | formControl" controlId="companyId" label="company.id"
-          parentId="productInfo"></control-messages>
-      </label>
-      <input id="companyId" name="companyId" class="form-control" data-only-digits [formControlName]="'companyId'"
-        minlength="5" maxlength="5" size="5" />
-    </div>
-  </div>
   <div class="row">
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <label for="dossierId" class="required">
         <span class="field-name">{{ 'dossier.id'|translate }} {{ 'dossier.id.format'|translate }}</span>
         <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+        <sup [id]="helpIndex['dossierIdIndx'][2]">
+          <a class="fn-lnk" [href]="'#' + helpIndex['dossierIdIndx'][1]"><span
+              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['dossierIdIndx'][0]}}</a>
+        </sup>
         <control-messages *ngIf="productInfoForm.controls['dossierId'].invalid" [showError]="showFieldErrors"
           [control]="productInfoForm.controls['dossierId'] | formControl" controlId="dossierId" label="dossier.id"
           parentId="productInfo"></control-messages>
@@ -86,7 +88,38 @@
         maxlength="400"></textarea>
     </div>
   </div>
-
+  <div class="row">
+    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <fieldset class="col-xs-12 form-inline">
+      <legend>
+        {{'pediatric.pilot.question.text2' |translate}}
+        <sup [id]="helpIndex['clinPediIndx'][2]">
+          <a class="fn-lnk" [href]="'#' + helpIndex['clinPediIndx'][1]"><span
+              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['clinPediIndx'][0]}}</a>
+        </sup>
+      </legend>
+    </fieldset>
+  </div></div>
+  <div class="alert alert-info" [innerHTML]="'pediatric.pilot.question.text1' | translate "></div>
+  <div class="row">
+    <fieldset class="col-md-12 chkbxrdio-grp">
+      <label>
+        {{'admin.comp'|translate}}
+        <strong *ngIf="isAdminSub()" class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
+      </label>
+      <sup [id]="helpIndex['adminCompIndx'][2]">
+        <a class="fn-lnk" [href]="'#' + helpIndex['adminCompIndx'][1]"><span
+            class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['adminCompIndx'][0]}}</a>
+      </sup>
+      <ng-container *ngFor="let yesno of yesNoList; let i = index">
+        <label for="isAdminSub" class="radio-inline">
+          <input type="radio" id="isAdminSub" name="isAdminSub" [value]="yesno.id"
+          aria-required="true" [formControlName]="'isAdminSub'"/>
+          {{yesno | textTransform: lang }}
+        </label>
+      </ng-container>
+    </fieldset>
+  </div>
   <ng-container *ngIf="isAdminSub()">
     <div class="row">
       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -155,9 +188,9 @@
       <label for="drugUse" class="required">
         <span class="field-name">{{ 'drug.use'|translate }}</span>
         <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-        <sup [id]="helpIndex['drugUseIndx'][2]">
-          <a class="fn-lnk" [href]="'#' + helpIndex['drugUseIndx'][1]"><span
-              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['drugUseIndx'][0]}}</a>
+        <sup [id]="helpIndex['drugIndx'][2]">
+          <a class="fn-lnk" [href]="'#' + helpIndex['drugIndx'][1]"><span
+              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['drugIndx'][0]}}</a>
         </sup>
         <control-messages *ngIf="productInfoForm.controls['drugUse'].invalid" [showError]="showFieldErrors"
           [control]="productInfoForm.controls['drugUse'] | formControl" controlId="drugUse" label="drug.use"
@@ -220,6 +253,7 @@
               [disableForm]="disableForm"
               (enableForm)="enableForm($event)"
                [yesNoList]="yesNoList"
+               (saveSpecyRecord)="saveSpecyRecord($event)"
               </app-species-subtypes-list-component>
           </div>
         </section>
@@ -343,7 +377,28 @@
                 [control]="scheduleClaimChkFormArray | formControl" controlId="scheduleClaims"
                 label="schedule.claim.applied" parentId="appInfoDetails"></control-messages>
             </legend>
+            <div class="row">
+              <div class="form-group col-md-12 ">
+                <label for="proposedIndicationOfUseDosage" class="required">
+                  <span class="field-name">{{'proposed.indication.use.dosage.daily.dose' | translate}}</span>
+                  <strong aria-hidden="true" class="required">{{'commmon.required.bracket'|translate}}</strong>
+                  <sup [id]="helpIndex['purposeIndx'][2]">
+                    <a class="fn-lnk" [href]="'#' + helpIndex['purposeIndx'][1]"><span
+                        class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['purposeIndx'][0]}}</a>
+                  </sup>
 
+                  <control-messages *ngIf="productInfoForm.controls['proposedIndicationOfUseDosage'].invalid"
+                    [showError]="showFieldErrors"
+                    [control]="productInfoForm.controls['proposedIndicationOfUseDosage'] | formControl"
+                    controlId="proposedIndicationOfUseDosage" label="proposed.indication.use.dosage.daily.dose"
+                    parentId="productInfo"></control-messages></label>
+
+                <textarea id="proposedIndicationOfUseDosage" name="proposedIndicationOfUseDosage" rows="3" maxlength="400"
+                  style="width: 100%;" class="form-control full-width"
+                  [formControlName]="'proposedIndicationOfUseDosage'"></textarea>
+
+              </div>
+            </div>
 
             <div class="checkbox col-md-4" [formArrayName]="'scheduleClaims'"
               *ngFor="let reason of scheduleClaimChkFormArray.controls; let i = index" style="margin:0;">
@@ -358,7 +413,7 @@
               <div class="required  col-md-12 form-group full-width">
                 <label for="scheduleClaimAndIndicationAssociatedOfProduct" class="required">
                   <span class="field-name">{{'schedule.a.claim.and.indication' | translate}}</span>
-                  <strong aria-hidden="true" class="required"> (required)</strong>
+                  <strong aria-hidden="true" class="required">{{'commmon.required.bracket'|translate}}</strong>
                   <control-messages
                     *ngIf="productInfoForm.controls['scheduleClaimAndIndicationAssociatedOfProduct'].invalid"
                     [showError]="showFieldErrors"

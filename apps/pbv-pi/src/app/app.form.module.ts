@@ -22,13 +22,11 @@ import { SpeciesSubtypesListService } from './speciesSubtypes/species-subtypes-l
 import { SpecySubtypeBaseService } from './speciesSubtypes/specis-subtypes-base.service';
 import { SpeciesSubtypesRecordService } from './speciesSubtypes/species-subtypes-record-comonent/species-subtypes-record-service';
 
-
+import { IngredientFormulationModule } from './ingredient-formulation/ingredient-formulation.module';
+import { FormulationModule } from './formulation/formulation.module';
 @NgModule({
   declarations: [
     ProductInformationComponent,
-      // SpeciesSubtypesDetailComponent,
-      //   SpeciesSubtypesRecordComonent,
-      //   SpeciesSubtypesListComponent
   ],
   imports: [
     CommonModule,
@@ -43,21 +41,26 @@ import { SpeciesSubtypesRecordService } from './speciesSubtypes/species-subtypes
     NumbersOnlyDirective,
     HelpTextModuleModule,
     SpeciesSubtypesModule,
- ],
+    IngredientFormulationModule,
+    FormulationModule
+],
+
   providers: [
     AppSignalService,
     ProductInformationComponent,
     ProductInformationService,
-     SpeciesSubtypesDetailsService,
-        SpeciesSubtypesListService,
-        SpeciesSubtypesRecordService,
-        SpecySubtypeBaseService
+    SpeciesSubtypesDetailsService,
+    SpeciesSubtypesListService,
+    SpeciesSubtypesRecordService,
+    SpecySubtypeBaseService
   ],
   exports: [CommonUiFeatureModule,
     ProductInformationComponent,
     SpeciesSubtypesDetailComponent,
-        SpeciesSubtypesRecordComonent,
-        SpeciesSubtypesListComponent
+    SpeciesSubtypesRecordComonent,
+    SpeciesSubtypesListComponent,
+    IngredientFormulationModule,
+    FormulationModule
    ],
    bootstrap:[ProductInformationComponent]
 })

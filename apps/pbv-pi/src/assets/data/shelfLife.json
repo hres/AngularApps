@@ -1,0 +1,22 @@
+[
+{
+"id": "1",	
+"en": "Years",	
+"fr": "Années"
+},
+{
+"id": "2",
+"en": "Months",
+"fr": "Mois"
+},
+{
+"id": "3",
+"en": "Days",
+"fr": "Jours"
+},
+{
+"id": "4",
+"en": "Hours",
+"fr": "Heures"
+}
+]

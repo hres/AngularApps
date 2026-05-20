@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "en": "Milk or milk products",
+    "fr": "Lait ou produits laitiers"
+  },
+  {
+    "id": "2",
+    "en": "Kidney",
+    "fr": "Reins"
+  },
+  {
+    "id": "3",
+    "en": "Colostrum",
+    "fr": "Colostrum"
+  },
+  {
+    "id": "4",
+    "en": "Mammary glands",
+    "fr": "Glandes mammaires"
+  },
+  {
+    "id": "5",
+    "en": "Ovaries",
+    "fr": "Ovaires"
+  },
+  {
+    "id": "6",
+    "en": "Placenta",
+    "fr": "Placenta"
+  },
+  {
+    "id": "7",
+    "en": "Placental fluid",
+    "fr": "Fluide du placenta"
+  },
+  {
+    "id": "8",
+    "en": "Semen",
+    "fr": "Sperme"
+  },
+  {
+    "id": "9",
+    "en": "Testes",
+    "fr": "Testicules"
+  },
+  {
+    "id": "10",
+    "en": "Urine",
+    "fr": "Sang"
+  },
+  {
+    "id": "11",
+    "en": "Other reproductive and urinary system",
+    "fr": "Autre système réproductif et urinaire"
+  }
+]

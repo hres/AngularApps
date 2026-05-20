@@ -4,6 +4,7 @@ import { IContact } from '../../models/transaction';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ContactDetailsService } from './contact-details.service';
 import { GlobalService } from '../../global/global.service';
+import { ADDR_CONT_TYPE } from '../../app.constants';
 
 @Component({
   selector: 'app-contact-details',
@@ -24,6 +25,8 @@ export class ContactDetailsComponent extends BaseComponent implements OnInit{
   @Output() errorList = new EventEmitter(true);
   @Input() contactType;
   @Input() contactGroupLabelKey;
+
+  ADDR_CONT_TYPE = ADDR_CONT_TYPE;
 
   constructor(private _contactDetailsService: ContactDetailsService, private _fb: FormBuilder, private _utilsService: UtilsService,
     private _globalService: GlobalService) {

@@ -53,9 +53,23 @@
                     <li>{{'ht.dossier.type.3' | translate}}</li>
                     <li>{{'ht.dossier.type.4' | translate}}</li>
                 </ul>
-
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['dossierTypeIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences.dossierTypeIndx[0]}}
-                        </a></p>
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['dossierTypeIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences.dossierTypeIndx[0]}}</a></p>
+            </div>
+        </dd>    
+        
+        <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['dossierIdIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['dossierIdIndx'][1]">
+            <div class="fn-rep">
+                <p>{{'dossier.id' |translate}}</p>
+                <ul>
+                    <li>{{'ht.dossier.id.0' | translate}}</li>
+                    <li>{{'ht.dossier.id.1' | translate}}</li>
+                    <li>{{'ht.dossier.id.2' | translate}}</li>
+                    <li>{{'ht.dossier.id.3' | translate}}</li>
+                    <li>{{'ht.dossier.id.5' | translate}}</li>
+                </ul>
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['dossierIdIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>
+                        {{helpTextSequences.dossierIdIndx[0]}}</a></p>
             </div>
         </dd>
 
@@ -91,8 +105,8 @@
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['adminCompInx'][0]}}</dt>
-        <dd [id]="helpTextSequences['adminCompInx'][1]">
+        <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['adminCompIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['adminCompIndx'][1]">
             <div class="fn-rep">
                 <p>{{'is.admin.submission' |translate}}</p>
                 <p>{{'ht.is.admin.submission.2'|translate}}
@@ -102,7 +116,7 @@
                     <a href="{{'ht.is.admin.submission.url.5'|translate}}" target="_blank">{{'ht.is.admin.submission.5'|translate}}</a>
                 </p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['adminCompInx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences.adminCompInx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['adminCompIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences.adminCompIndx[0]}}
                         </a></p>
             </div>
         </dd>
@@ -155,13 +169,13 @@
             </div>
         </dd>
 
-        <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['drugUseIndx'][0]}}</dt>
-        <dd [id]="helpTextSequences['drugUseIndx'][1]">
+        <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['drugIndx'][0]}}</dt>
+        <dd [id]="helpTextSequences['drugIndx'][1]">
             <div class="fn-rep">
                 <p>{{'drug.use' |translate}}</p>
                 <p>{{'ht.drug.use.2'|translate}}</p>
 
-                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['drugUseIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences.drugUseIndx[0]}}
+                <p class="fn-rtn"><a [href]="'#' + helpTextSequences['drugIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>{{helpTextSequences.drugIndx[0]}}
                         </a></p>
             </div>
         </dd>
@@ -196,7 +210,7 @@
         <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['formIndex'][0]}}</dt>
         <dd [id]="helpTextSequences['formIndex'][1]">
             <div class="fn-rep">
-                <p>{{'formulation' |translate}}</p>
+                <p>{{'formulation.heading' |translate}}</p>
                 <ul>
                     <li>{{'ht.formulation.2'|translate}}</li>
                     <li>{{'ht.formulation.3'|translate}}</li>
@@ -214,7 +228,7 @@
         <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['formNumIndx'][0]}}</dt>
         <dd [id]="helpTextSequences['formNumIndx'][1]">
             <div class="fn-rep">
-                <p>{{'form.num' |translate}}</p>
+                <p>{{'form.id' |translate}}</p>
                 <ul>
                     <li>{{'ht.form.num.2'|translate}}</li>
                     <li>{{'ht.form.num.3'|translate}}</li>
@@ -228,7 +242,7 @@
        <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['ingrIndx'][0]}}</dt>
        <dd [id]="helpTextSequences['ingrIndx'][1]">
             <div class="fn-rep">
-                <p>{{'ingredients' |translate}}</p>
+                <p>{{'ingredients.heading' |translate}}</p>
                 <ul>
                     <li>{{'ht.ingredients.2'|translate}}</li>
                     <li>{{'ht.ingredients.3'|translate}}</li>
@@ -245,7 +259,7 @@
         <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['unknownIndx'][0]}}</dt>
         <dd [id]="helpTextSequences['unknownIndx'][1]">
             <div class="fn-rep">
-                <p>{{'section.show.option' |translate}}{{'prop.unknown' |translate}}</p>
+                <p>{{'section.show.option' |translate}}{{'attest.details' |translate}}</p>
                 <p>{{'ht.prop.unknown.2'|translate}}</p>
                 <p>{{'ht.prop.unknown.3'|translate}}
                     <a href="{{'ht.prop.unknown.url.4'|translate}}" target="_blank">{{'ht.prop.unknown.4'|translate}}</a>
@@ -259,7 +273,7 @@
         <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['knownIndx'][0]}}</dt>
         <dd [id]="helpTextSequences['knownIndx'][1]">
             <div class="fn-rep">
-                <p>{{'section.show.option' |translate}}{{'prop.known' |translate}}</p>
+                <p>{{'section.show.option' |translate}}{{'pro.information' |translate}}</p>
                 <p style="margin:0px; padding-bottom: 0px;">{{'ht.prop.known.2'|translate}}</p>
                 <p style="margin:0px; padding-bottom: 0px;">{{'ht.prop.known.3'|translate}}</p>
                 <p>{{'ht.prop.known.4'|translate}}</p>

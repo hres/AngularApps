@@ -1,0 +1,62 @@
+[
+  {
+    "id": "2",
+    "en": "Avian such as chicken, turkey and duck",
+    "fr": "Volaille (p. ex. poulet, dinde, canard)"
+  },
+  {
+    "id": "3",
+    "en": "Bovine such as cattle, bison",
+    "fr": "Bovine (p. ex. bétail, bison)"
+  },
+  {
+    "id": "4",
+    "en": "Canine",
+    "fr": "Canine"
+  },
+  {
+    "id": "5",
+    "en": "Caprine such as goat",
+    "fr": "Caprine (p. ex. chèvre)"
+  },
+  {
+    "id": "6",
+    "en": "Cervidae such as deer, elk (wapiti) and moose",
+    "fr": "Cervidés (p. ex. cerf, élan (wapiti), orignal)"
+  },
+  {
+    "id": "7",
+    "en": "Equine such as horse",
+    "fr": "Chevaline (p. ex. cheval)"
+  },
+  {
+    "id": "8",
+    "en": "Feline such as cat",
+    "fr": "Féline (p. ex. chat)"
+  },
+  {
+    "id": "9",
+    "en": "Non-human primates",
+    "fr": "Primates non humains"
+  },
+  {
+    "id": "10",
+    "en": "Ovine",
+    "fr": "Ovine"
+  },
+  {
+    "id": "11",
+    "en": "Porcine such as pig",
+    "fr": "Porcine (p. ex. cochon)"
+  },
+  {
+    "id": "12",
+    "en": "Rodents such as mouse, hamster, rat and rabbit",
+    "fr": "Rongeurs (p. ex. souris, hamster, rat, lapin)"
+  },
+  {
+    "id": "13",
+    "en": "Other",
+    "fr": "Autre"
+  }
+]

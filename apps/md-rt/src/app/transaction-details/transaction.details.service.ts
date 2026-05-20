@@ -20,9 +20,9 @@ export class TransactionDetailsService {
     return fb.group({
       dossierId: ['', [Validators.required, ValidationService.dossierIdValidator]],
       manuCompanyId: ['', [Validators.required, ValidationService.numeric6Validator]],
-      manuContactId: ['', [Validators.required, ValidationService.numeric5Validator]],
+      manuContactId: ['', [Validators.required]],
       reguCompanyId: ['', [Validators.required, ValidationService.numeric6Validator]],
-      reguContactId: ['', [Validators.required, ValidationService.numeric5Validator]],
+      reguContactId: ['', [Validators.required]],
       activityType: ['', Validators.required],
       descriptionType: ['', Validators.required],
       deviceClass: ['', Validators.required],
@@ -78,8 +78,8 @@ export class TransactionDetailsService {
       transactionInfoModel.description_type = null;
       transactionInfoModel.transaction_description = null;
     }
-    
-    transactionInfoModel.device_class = formValue.deviceClass? 
+
+    transactionInfoModel.device_class = formValue.deviceClass?
       this._converterService.findAndConverCodeToIdTextLabel(deviceClassList, formValue.deviceClass, lang) : null;
 
     if (formValue.selectedAmendReasonCodes) {
@@ -94,7 +94,7 @@ export class TransactionDetailsService {
 
     transactionInfoModel.rationale = formValue.rationale? formValue.rationale : null;
     transactionInfoModel.proposed_indication = formValue.proposedPurpose? formValue.proposedPurpose : null;
-    
+
 
     transactionInfoModel.licence_number = formValue.licenceNum;
     if (this.isMandatoryAppNumRequired(txDescriptionControlValue)) {
@@ -168,11 +168,11 @@ export class TransactionDetailsService {
         const loadedAmendReasonCodes: string[] = this._utilsService.getIdsFromIdTextLabels(transactionInfoModel.amend_reasons.amend_reason);
         if (loadedAmendReasonCodes.length > 0) {
           this._converterService.checkCheckboxes(loadedAmendReasonCodes, amendReasonOptionList, amendReasonFormArray);
-        }  
+        }
         formRecord.controls['selectedAmendReasonCodes'].setValue(loadedAmendReasonCodes);
-      }  
+      }
     }
-  
+
     formRecord.controls['licenceNum'].setValue(transactionInfoModel.licence_number);
     formRecord.controls['appNumOpt'].setValue(transactionInfoModel.application_number);
     formRecord.controls['appNum'].setValue(transactionInfoModel.application_number);
@@ -231,14 +231,14 @@ export class TransactionDetailsService {
         concatText = enConcatText;
       }
       labelObj.__text = concatText;
-      
+
       return labelObj;
     }
   }
 
   getAmendReasonCheckboxFormArray(formRecord: FormGroup) {
     return formRecord.controls['amendReasons'] as FormArray;
-  }  
+  }
 
   getSelectedAmendReasonCodes (amendReasonOptionList: CheckboxOption[], amendReasonCheckboxFormArray: FormArray) : string[]{
     return this._converterService.getCheckedCheckboxValues(amendReasonOptionList, amendReasonCheckboxFormArray)
@@ -273,7 +273,7 @@ export class TransactionDetailsService {
   }
 
   isRequestDateRequired(txDescription: TransactionDesc): boolean{
-    const txDescRequireDate = [TransactionDesc.IRSR, TransactionDesc.PSI, TransactionDesc.RAIL, TransactionDesc.RER, 
+    const txDescRequireDate = [TransactionDesc.IRSR, TransactionDesc.PSI, TransactionDesc.RAIL, TransactionDesc.RER,
       TransactionDesc.RS36L, TransactionDesc.RS39L, TransactionDesc.RS];
 
      return txDescRequireDate.includes(txDescription) ? true : false;

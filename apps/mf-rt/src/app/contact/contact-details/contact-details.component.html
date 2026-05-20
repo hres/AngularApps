@@ -1,5 +1,11 @@
 <div>
     <div [formGroup]="contactDetailsForm">
+      <fieldset>
+        <legend class="sr-only">
+          {{ contactType === ADDR_CONT_TYPE.HOLDER
+              ? ('heading.holder.contact' | translate)
+              : ('heading.agent.contact' | translate) }}
+        </legend>
        <div class="row">
         <div class="form-group col-sm-6" >
           <label for="{{contactType}}FirstName" class="required full-width">
@@ -84,8 +90,8 @@
               translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
           </label>
           <input name="faxNumber" id="{{contactType}}FaxNumber" class="form-control full-width" data-only-digits maxlength="25"
-                   [formControlName]="'faxNumber'" aria-describedby="nofaxNum"/>
-          <strong class="field-name small" id="nofaxNum">{{'fax.number.nofaxnum' |translate }}</strong>
+                   [formControlName]="'faxNumber'" [attr.aria-describedby]="contactType + 'nofaxNum'"/>
+          <strong class="field-name small" id="{{contactType}}nofaxNum">{{'fax.number.nofaxnum' |translate }}</strong>
         </div>
       </div>
       <div class="row">
@@ -103,5 +109,6 @@
         </div>
 
       </div>
+    </fieldset>
     </div>
   </div>

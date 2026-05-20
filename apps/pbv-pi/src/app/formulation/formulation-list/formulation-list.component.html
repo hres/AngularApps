@@ -1,0 +1,39 @@
+<div id="formulationListTable" [formGroup]="recordFormGroup">
+    <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.formulation.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
+    <lib-confirmation-popup [id]="discardPopupId" [title]="'popup.warning' | translate" [message]="'msg.discard.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="discardHeading" (confirmed)="revertRecord($event)" ></lib-confirmation-popup>
+    <lib-confirmation-popup [id]="deletePopupId" [title]="'popup.warning' | translate" [message]="'msg.delete.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="deleteHeading" (confirmed)="deleteRecord($event)" ></lib-confirmation-popup>  
+      <div [formArrayName]="'formulations'">
+  
+        <lib-accordion [rowsFormArray]="recordFormArray" [accordionHeadingMsgKey]="'heading.formulation'" [accordionHeadingSupp]="['', '']" 
+        (rowClicked)="handleRowClick($event)">
+      
+        <ng-template #tmpl let-recordRow let-idx="i">
+          <!-- ==={{recordRow.get('id').value}}===
+          === index = {{idx}} ,  === -->
+          <app-formulation-item
+          [cRRow]="recordRow"
+          [j]="idx"
+          [showErrors]="showErrors"
+          [ingredFormModelList]="ingredientFormModelList"
+          (saveRecord)="saveRecord($event)"
+          (deleteRecord)="deleteRecordConfirmation($event)"
+          (revertRecord)="discardRecordConfirmation($event)"
+          (deleteHandled)="onDeleteHandled($event)"
+          (processIngredListErrors)="processIngredListErrors($event)"></app-formulation-item>
+        </ng-template>
+      
+      </lib-accordion>
+    
+      <div class="row mrgn-tp-md mrgn-bttm-lg">
+        <div class="btn-group-sm col-md-12 text-left">
+          <button class="btn btn-primary" (click)="addRecord()" id="addFormulationBtn" [disabled]="disableAddButton()"> <!--[disabled]="disableAddButton()"-->
+            {{'add.formulation'|translate}}
+          </button>
+        </div>
+      </div>
+      <div class="sr-only" id="piFormulationStatus" aria-live="polite" role="status">{{ statusMessage }}</div>
+      
+      <!-- <button (click)="coaddNewContact(comp.get('projects'))">Add new Project</button> -->
+      <!-- <pre>{{companyContactListForm.value | json}}</pre> -->
+      </div>
+</div>

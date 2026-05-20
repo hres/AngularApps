@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "en": "Brain",
+    "fr": "Cerveau"
+  },
+  {
+    "id": "2",
+    "en": "Brain stem",
+    "fr": "Tronc cérébral"
+  },
+  {
+    "id": "3",
+    "en": "Cerebellum",
+    "fr": "Cervelet"
+  },
+  {
+    "id": "4",
+    "en": "Cerebrospinal fluid",
+    "fr": "Liquide céphalorachidien"
+  },
+  {
+    "id": "5",
+    "en": "Dorsal root ganglia",
+    "fr": "Ganglion de la racine dorsale"
+  },
+  {
+    "id": "6",
+    "en": "Dura mater",
+    "fr": "Dure-mère"
+  },
+  {
+    "id": "7",
+    "en": "Hypothalamus",
+    "fr": "Hypothalamus"
+  },
+  {
+    "id": "8",
+    "en": "Retina or optic nerve",
+    "fr": "Moelle épinière"
+  },
+  {
+    "id": "9",
+    "en": "Spinal cord",
+    "fr": "Moelle épinière"
+  },
+  {
+    "id": "10",
+    "en": "Trigerminal ganglia",
+    "fr": "Ganglion de gasser"
+  },
+  {
+    "id": "11",
+    "en": "Other nervous system",
+    "fr": "Autre système nerveux"
+  }
+]

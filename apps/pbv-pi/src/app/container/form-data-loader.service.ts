@@ -15,7 +15,15 @@ export class FormDataLoaderService {
   private disinfectantTypeJsonPath = DATA_PATH + 'disinfectantTypes.json';
   private vetSpeciesJsonPath = DATA_PATH + 'vetSpecies.json';
   private specySubTypesJsonPath = DATA_PATH + 'subSpecies.json';
-
+  private nanomaterialsJsonPath = DATA_PATH + 'nanomaterial.json';
+  private operatorsJsonPath = DATA_PATH + 'operator.json';
+  private perJsonPath = DATA_PATH + 'per.json';
+  private rolesJsonPath = DATA_PATH + 'roles.json';
+  private unitsJsonPath = DATA_PATH + 'units.json';
+  private calculatedBaseJsonPath = DATA_PATH + 'calculatedBase.json';
+  private unitMeasureJsonPath = DATA_PATH + 'unitMeasure.json';
+  private unitPresentationJsonPath = DATA_PATH + 'unitPresentation.json';
+  private dosageFormJsonPath = DATA_PATH + 'dosageForm.json';
   cachedYesNo$:Observable<ICode[]>;
   dossierTypes$: Observable<ICodeDefinition[]>;
   cachedCountries$:Observable<ICode[]>;
@@ -25,6 +33,16 @@ export class FormDataLoaderService {
   disinfectantTypes$: Observable<ICodeDefinition[]>;
   vetSpecies$: Observable<ICodeDefinition[]>;
   subSpecies$: Observable<ICodeDefinition[]>;
+  nanomaterials$: Observable<ICode[]>;
+  operators$: Observable<ICode[]>;
+  per$: Observable<ICode[]>;
+  roles$: Observable<ICode[]>;
+  units$: Observable<ICode[]>;
+  calculatedBase$: Observable<ICode[]>;
+  unitMeasure$: Observable<ICode[]>;
+  unitPresentation$: Observable<ICode[]>;
+  dosageForm$: Observable<ICode[]>;
+
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -81,6 +99,79 @@ export class FormDataLoaderService {
 
     }
 
+  getNanomaterials(): Observable<ICode[]> {
+    return this.nanomaterials$ = this._dataService
+      .getData<ICodeAria>(this.nanomaterialsJsonPath)
+      .pipe(
+        shareReplay(1)
+      );
+
+  }
+
+  getOperators(): Observable<ICode[]> {
+    return this.operators$ = this._dataService
+      .getData<ICodeAria>(this.operatorsJsonPath)
+      .pipe(
+        shareReplay(1)
+      );
+
+  }
+
+
+  getPer(): Observable<ICode[]> {
+    return this.per$ = this._dataService
+      .getData<ICodeAria>(this.perJsonPath)
+      .pipe(
+        shareReplay(1)
+      );
+
+  }
+
+  getRoles(): Observable<ICode[]> {
+    return this.roles$ = this._dataService
+      .getData<ICodeAria>(this.rolesJsonPath)
+      .pipe(
+        shareReplay(1)
+      );
+
+  }
+
+  getUnits(): Observable<ICode[]> {
+    return this.units$ = this._dataService
+      .getData<ICodeAria>(this.unitsJsonPath)
+      .pipe(
+        shareReplay(1)
+      );
+
+  }
+
+  getCalculatedBase(): Observable<ICode[]> {
+    return this.calculatedBase$ = this._dataService
+      .getData<ICodeAria>(this.calculatedBaseJsonPath)
+      .pipe(
+        shareReplay(1)
+      );
+
+  }
+
+  getUnitMeasure(): Observable<ICode[]> {
+    return this.unitMeasure$ = this._dataService
+      .getData<ICodeAria>(this.unitMeasureJsonPath)
+      .pipe(
+        shareReplay(1)
+      );
+
+  }
+
+  getUnitPresentation(): Observable<ICode[]> {
+    return this.unitPresentation$ = this._dataService
+      .getData<ICodeAria>(this.unitPresentationJsonPath)
+      .pipe(
+        shareReplay(1)
+      );
+
+  }
+
 
 
   getScheduleClaims(): Observable<ICodeDefinition[]> {
@@ -103,9 +194,17 @@ export class FormDataLoaderService {
     return this.vetSpecies$ = this._dataService
      .getData<ICodeAria>(this.vetSpeciesJsonPath)
      .pipe(
-       shareReplay(1)
-     );
-   }
+      shareReplay(1)
+    );
+  }
+
+   getDosageForms(): Observable<ICode[]> {
+    return this.dosageForm$ = this._dataService
+     .getData<ICodeAria>(this.dosageFormJsonPath)
+     .pipe(
+      shareReplay(1)
+    );
+  }
 
    getSubTypesSpecy(): Observable<ICodeDefinition[]> {
     return this.subSpecies$ = this._dataService
@@ -115,4 +214,7 @@ export class FormDataLoaderService {
      );
    }
 
-  }
+
+
+}
+

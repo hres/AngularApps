@@ -413,7 +413,7 @@ span.normalWeight {
 
 	<!-- Company Enrolment -->
 	<xsl:template name="DEVICE_COMPANY_ENROL">
-		<h1>Company template: Regulatory enrolment process (REP) for medical devices (version 5.0.0)</h1>
+		<h1>Company template: Regulatory enrolment process (REP) for medical devices (version <xsl:value-of select="/descendant-or-self::software_version"/>)</h1>
 		<section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -568,7 +568,7 @@ span.normalWeight {
 						or @id = 'ADDR_CHANGE'
 						or @id = 'FACILITY_CHANGE'
 					]
-					or general_information/are_licenses_transfered = 'yes'">			
+					or general_information/are_licenses_transfered = 'yes'">
 					<section class="panel panel-default" >
 						<div class="panel-heading">
 							<h2 class="panel-title">Company administrative changes</h2>

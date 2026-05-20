@@ -19,11 +19,11 @@ export class ContactDetailsService {
    */
   public getReactiveModel(fb: FormBuilder, isInternal) {
     if (!fb) {return null; }
-    const contactIdValidators = isInternal ? [Validators.required, ValidationService.dossierContactIdValidator] : [];
+    const contactIdValidators = isInternal ? [Validators.required] : [];
     // const recordProcessedValidator = isInternal ? [Validators.required] : [];
     const statusValidator = isInternal ? [this.contactStatusValidator] : [];
     return fb.group({
-      contactId: [null, contactIdValidators],
+      contactId: [null,contactIdValidators],
       status: [ContactStatus.New,statusValidator],
       statusText: ['',statusValidator], // for UI display purpose only
       // hcStatus: [null, Validators.required],
@@ -105,7 +105,7 @@ export class ContactDetailsService {
   setFormContactStatus(contactDetailFormRecord: FormGroup, statusId:string, contactStatusList: ICode[], lang: string, setStatusAlso: boolean){
 
     if (setStatusAlso) {
-      contactDetailFormRecord.controls['status'].setValue(statusId);  
+      contactDetailFormRecord.controls['status'].setValue(statusId);
     }
     contactDetailFormRecord.controls['statusText'].setValue(this._utilsService.findAndTranslateCode(contactStatusList, lang, statusId));
   }
