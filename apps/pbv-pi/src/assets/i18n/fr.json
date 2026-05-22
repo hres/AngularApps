@@ -18,7 +18,7 @@
     "proper.name": "Nom propre, nom usuel ou nom générique",
     "is.admin.submission": "Cette activité réglementaire contient-elle une composante administrative ?",
     "address.to.send": "Adresse où le formulaire de déclaration de médicament (FDM)/l’avis de conformité (AC) doivent être envoyés (lorsque nécessaire):",
-    "importer": "Importateur",
+    "importer": "Importateur canadien",
     "route.id": "Identificateur d'acheminement",
     "drug.use": "Usage du médicament",
     "schedule.and.prescription.status": "Statut sur l'annexe et prescription (sélectionner tout ce qui s’applique): le produit est",
