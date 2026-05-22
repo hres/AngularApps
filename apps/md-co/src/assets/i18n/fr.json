@@ -48,7 +48,7 @@
   "error.msg.contactDetails": "Il y a des erreurs dans les détails du représentant de la compagnie.",
   "error.msg.remove.contact": "Représentant de la compagnie doivent être supprimés.",
   "error.msg.revise.contact": "Représentant de la compagnie doivent être actif.",
-  "error.mgs.contact.id": "Entrée non valide - doit être 5 chiffres",
+  "error.mgs.contact.id": "Entrée non valide - doit être 1 à 6 chiffres",
   "error.msg.contact.one.record": "Au moins un représentant de l’entreprise ayant un statut nouveau, actif ou révisé doit être inscrit.",
   "postal.canada": "Code postal",
   "postal.usa": "Code ZIP",
