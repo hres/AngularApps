@@ -1,29 +1,22 @@
 [
   {
-      "id":"HUMAN",
-      "en": "Human",
-      "fr": "Humain"
-  },
-
-  {
-      "id":"VET",
-      "en": "Veterinary",
-      "fr": "Vétérinaire"
+    "id":"HUMAN",
+    "en": "Human",
+    "fr": "Humain"
   },
   {
     "id":"RADIO",
     "en": "Radiopharmaceutical",
     "fr": "Radiopharmaceutique"
-},
-
-{
+  },
+  {
+    "id":"VET",
+    "en": "Veterinary",
+    "fr": "Vétérinaire"
+  },
+  {
     "id":"DISINFECT",
     "en": "Disinfectant",
     "fr": "Désinfectant"
-},
-{
-  "id":"Drug and Medical Device",
-  "en": "Drug and medical device",
-  "fr": "Drogue et instrument médicale"
-}
+  }
 ]

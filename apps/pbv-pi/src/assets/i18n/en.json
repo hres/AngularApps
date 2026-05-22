@@ -18,7 +18,7 @@
     "proper.name": "Proper, common or non-proprietary name",
     "is.admin.submission": "Does this regulatory activity contain an administrative component ?",
     "address.to.send": "Address to which the drug notification form (DNF)/notice of compliance (NOC) are to be sent (when required):",
-    "importer": "Importer",
+    "importer": "Canadian importer",
     "route.id": "Routing identifier",
     "drug.use": "Drug use",
     "schedule.and.prescription.status": "Schedule and prescription status (check all that apply): the product is",
