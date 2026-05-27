@@ -13,33 +13,27 @@ import { SpecyAndSubType } from '../../models/ProductInformation';
 @Injectable()
 export class SpeciesSubtypesListService implements RecordListServiceInterface {
 
-  /***
-   *  The data list of contact records
-   * @type {{id: number; contact: string; city: string; country: {id: string; text: string}}[]}
-   */
-  private contactList = [];
 
-  // to facilitate to subscribe to contactModel's changes
-  private contactModelSubject: Subject<any> = new Subject<any>();
-  contactModelChanges$: Observable<any> = this.contactModelSubject.asObservable();
+  private specyList = [];
 
-  // whenever contactList changes, notify subscribers
+  // to facilitate to subscribe to specyModel's changes
+  private specyModelSubject: Subject<any> = new Subject<any>();
+  specyModelChanges$: Observable<any> = this.specyModelSubject.asObservable();
+
+  // whenever specyList changes, notify subscribers
   notifyContactModelChanges(changes: any) {
-    this.contactModelSubject.next(changes);
+    this.specyModelSubject.next(changes);
   }
 
   constructor(private _recordService: SpeciesSubtypesRecordService, private _companyBaseService: SpecySubtypeBaseService, private _utilsService: UtilsService,
     private _detailsService: SpeciesSubtypesDetailsService) {
-    this.contactList = [];
-    this.initIndex(this.contactList);
+    this.specyList = [];
+    this.initIndex(this.specyList);
   }
 
-  /**
-   * Gets the array of  model records
-   * @returns {{id: number; contact: string; city: string; country: {id: string; text: string}}[]}
-   */
+
   public getModelRecordList() {
-    return this.contactList;
+    return this.specyList;
   }
 
   /**
@@ -47,18 +41,10 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
    * @param value
    */
   public setModelRecordList(value) {
-    this.contactList = value;
-    this.notifyContactModelChanges({...this.contactList});
+    this.specyList = value;
+    this.notifyContactModelChanges({...this.specyList});
   }
 
-  // /**
-  //  * Adds
-  //  * @param record
-  //  */
-  // addContact(record) {
-  //   // TODO error checking
-  //   this.contactList.push(record);
-  // }
 
   getEmptyContactModel(): SpecyAndSubType {
     let specyAndSubType: SpecyAndSubType = this._companyBaseService.getEmptySpecySubtypeModel();
@@ -79,8 +65,8 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
   }
 
 
-  private contactFormToData(record: FormGroup, contactModel: SpecyAndSubType, lang: string, languageList: ICode[], contactSatusList: ICode[]) {
-    this._recordService.mapFormModelToDataModel(record, contactModel, lang, languageList, contactSatusList );
+  private contactFormToData(record: FormGroup, contactModel: SpecyAndSubType, lang: string, languageList: ICode[]) {
+    this._recordService.mapFormModelToDataModel(record, contactModel, lang, languageList );
   }
 
   public createFormRecordList(modelDataList: SpecyAndSubType[], fb: FormBuilder, formRecordList, isInternal) {
@@ -106,14 +92,14 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
       formRecord.controls['isNew'].setValue(false);
       contactModel = this.getEmptyContactModel();
       modelList.push(contactModel);
-      this.contactFormToData(formRecord, contactModel, lang, languageList, contactSatusList);
+      this.contactFormToData(formRecord, contactModel, lang, languageList);
     } else {
       contactModel = this.getModelRecord(formRecord.controls['id'].value);
       if (!contactModel) {
         contactModel = this.getEmptyContactModel();
         modelList.push(contactModel);
       }
-      this.contactFormToData(formRecord, contactModel, lang, languageList, contactSatusList);
+      this.contactFormToData(formRecord, contactModel, lang, languageList);
     }
 
     this.notifyContactModelChanges({ ...modelList });
@@ -245,5 +231,30 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
        }
      });
    }
+
+  public getModelRecordListFromForm(formArray: FormArray): SpecyAndSubType[] {
+
+    if (!formArray || formArray.length === 0) {
+      return [];
+    }
+
+    return formArray.controls.map((ctrl) => {
+      const fg = ctrl as FormGroup;
+
+      return {
+        id: fg.get('id')?.value ?? null,
+        specy: fg.get('speciesSubtypeDetail.specy')?.value ?? null,
+        subtype: fg.get('speciesSubtypeDetail.subtype')?.value ?? null,
+        isUsedForTreatmentOfFoodProducingAnimals:
+          fg.get('speciesSubtypeDetail.isUsedForTreatmentOfFoodProducingAnimals')?.value ?? null,
+
+        withdrawal_time: {
+          days: fg.get('speciesSubtypeDetail.days')?.value ?? null,
+          hours: fg.get('speciesSubtypeDetail.hours')?.value ?? null
+        }
+      };
+    });
+  }
+
 
 }

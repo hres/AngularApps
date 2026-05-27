@@ -38,10 +38,7 @@ export class SpeciesSubtypesDetailComponent implements OnInit, OnChanges, AfterV
     this.showErrors = false;
   }
 
-  ngOnInit() {
-    // // for external site, disable editing if the Contact Status is REMOVE
-    // this.disableEdit = (true )
-  }
+  ngOnInit() {  }
 
   ngAfterViewInit() {
     this.msgList.changes.subscribe(errorObjs => {
@@ -72,7 +69,6 @@ export class SpeciesSubtypesDetailComponent implements OnInit, OnChanges, AfterV
       if (this.msgList) {
         this.msgList.forEach(item => {
           temp.push(item);
-          // console.log(item);
         });
       }
       this.errorList.emit(temp);

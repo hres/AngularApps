@@ -2,7 +2,6 @@ import {inject, Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ICode } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
-import { lastValueFrom } from "rxjs";
 import { SpeciesSubtypesDetailsService } from '../species-subtypes-detail-component/species-subtypes-detail-service';
 import { SpecyAndSubType } from '../../models/ProductInformation';
 
@@ -29,12 +28,9 @@ export class SpeciesSubtypesRecordService {
     );
   }
 
-  public mapFormModelToDataModel(formRecord: FormGroup, contactRecordModel: SpecyAndSubType, lang: string, languageList: ICode[], contactSatusList: ICode[]) {
-    // console.log(contactRecordModel);
-    // console.log(formRecord);
-    contactRecordModel.id = formRecord.controls['id'].value;
-    // contactRecordModel.company = formRecord.controls.companyName.value;
-    this._detailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['speciesSubtypeDetail']), contactRecordModel, lang, languageList);
+  public mapFormModelToDataModel(formRecord: FormGroup, specyRecordModel: SpecyAndSubType, lang: string, languageList: ICode[]) {
+    specyRecordModel.id = formRecord.controls['id'].value;
+    this._detailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['speciesSubtypeDetail']), specyRecordModel, lang, languageList);
 
   }
 
@@ -42,12 +38,11 @@ export class SpeciesSubtypesRecordService {
   public mapDataModelFormModel(contactRecordModel: SpecyAndSubType, formRecord: FormGroup) {
     formRecord.controls['id'].setValue(Number(contactRecordModel.id));
     formRecord.controls['isNew'].setValue(false);
-    // formRecord.controls.companyName.setValue(contactRecordModel.company);
     this._detailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls['speciesSubtypeDetail']);
   }
 
    public  getHeading(index : number): string {
-      return this._translateService.instant('heading.company.contact', { seqnumber: index + 1})
+      return this._translateService.instant('heading.product.specy', { seqnumber: index + 1})
    }
 
 }

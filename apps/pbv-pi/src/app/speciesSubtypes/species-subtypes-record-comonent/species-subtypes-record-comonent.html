@@ -1,13 +1,13 @@
-<div class="container-fluid" [formGroup]="contactRecordModel" *ngIf="contactRecordModel">
-  <div id="contactErrorSummary{{contactRecordModel.get('id').value}}">
+<div class="container-fluid" [formGroup]="specyRecordModel" *ngIf="specyRecordModel">
+  <div id="contactErrorSummary{{specyRecordModel.get('id').value}}">
   <lib-error-summary *ngIf="showErrorSummary()"
                  [hiddenSummary]="showErrorSummary()"
                  [errorList]="errorList" headingPreamble="{{headingPreamble}}" headingPreambleParams="{{headingPreambleParams}}"
-                 [headingLevel]="headingLevel" label="error.msg.contactDetails" compId="contactListTable"></lib-error-summary>
+                 [headingLevel]="headingLevel" label="error.msg.specyDetails" compId="specyListTable"></lib-error-summary>
   </div>
   <app-species-subtypes-detail-component [showErrors]="showErrors"
                    [lang]="lang"
-                   [recordId]="contactRecordModel.get('id').value"
+                   [recordId]="specyRecordModel.get('id').value"
                     [group]="speciesSubtypesDetailsForm"
                    [helpTextSequences]="helpTextSequences"
                    [translatedParentLabel]="translatedParentLabel"
@@ -25,19 +25,19 @@
 
                         <ng-container >
                           <li >
-                            <button id="saveRecord{{contactRecordModel.get('id').value}}"
+                            <button id="saveRecord{{specyRecordModel.get('id').value}}"
                                 attr.aria-label="{{'save.record' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                                class="btn btn-primary" (click)="saveContactRecord()" [disabled]="disableForm">{{'save.record'|translate}}</button>
+                                class="btn btn-primary" (click)="saveSpecyRecord()" [disabled]="disableForm">{{'save.record'|translate}}</button>
                           </li>
                           <li>
-                            <button id="internalDeleteRecord{{contactRecordModel.get('id').value}}"
+                            <button id="internalDeleteRecord{{specyRecordModel.get('id').value}}"
                             attr.aria-label="{{'delete.record' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                            class="btn btn-danger" (click)="deleteContactRecord($event, j)" [disabled]="disableForm">{{'delete.record'|translate}}</button>
+                            class="btn btn-danger" (click)="deleteSpecyRecord($event, j)" [disabled]="disableForm">{{'delete.record'|translate}}</button>
                           </li>
                           <li >
-                            <button id="internalRevertRecord{{contactRecordModel.get('id').value}}"
+                            <button id="internalRevertRecord{{specyRecordModel.get('id').value}}"
                             attr.aria-label="{{'discard.changes' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                            class="btn btn-default"  [disabled]="disabledDiscardButton() || disableForm" (click)="revertContactRecord($event, j)" >{{'discard.changes'|translate}}</button>
+                            class="btn btn-default"  [disabled]="disabledDiscardButton() || disableForm" (click)="revertSpecyRecord($event, j)" >{{'discard.changes'|translate}}</button>
                           </li>
                         </ng-container>
 

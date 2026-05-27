@@ -1,5 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
-import { SpeciesSubtypesDetailComponent } from '../species-subtypes-detail-component/species-subtypes-detail-component';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ControlMessagesComponent, ErrorNotificationService, ErrorSummaryComponent, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { SpeciesSubtypesDetailsService } from '../species-subtypes-detail-component/species-subtypes-detail-service';
@@ -18,7 +17,7 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
   @Input() cRRow: FormGroup;
 
 
-  public contactRecordModel: FormGroup;
+  public specyRecordModel: FormGroup;
   @Input('group') public speciesSubtypeRecord: FormGroup;
   @Input() showErrors: boolean;
   @Input() lang;
@@ -42,31 +41,9 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
     heading: string;
     buttonTrigger: HTMLElement;
   }>();
-  // @Output() setRemoveStatusEvent = new EventEmitter<{
-  //   id: number;
-  //   heading: string;
-  //   recModel: FormGroup;
-  //   tempContactDetailsForm: FormGroup;
-  //   buttonTrigger: HTMLElement;
-  // }>();
-  // @Output() setReviseStatusEvent = new EventEmitter<{
-  //   id: number;
-  //   heading: string;
-  //   recModel: FormGroup;
-  //   tempContactDetailsForm: FormGroup;
-  //   buttonTrigger: HTMLElement;
-  // }>();
-  // @Output() setActiveStatusEvent = new EventEmitter<{
-  //   id: number;
-  //   heading: string;
-  //   recModel: FormGroup;
-  //   tempContactDetailsForm: FormGroup;
-  //   buttonTrigger: HTMLElement;
-  // }>();
+
 
   @Output() errors = new EventEmitter();
-
-  @ViewChild(SpeciesSubtypesDetailComponent, { static: true }) contactDetailsChild;
   @ViewChildren(ErrorSummaryComponent)
   errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChildren(ControlMessagesComponent)
@@ -77,20 +54,17 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
   public errorList = [];
   private childErrorList: Array<any> = [];
   private parentErrorList: Array<any> = [];
-  public isNew: boolean;
   public showErrSummary: boolean;
   private errorSummaryChild: ErrorSummaryComponent = null;
 
   public headingLevel = 'h4';
-  headingPreamble: string = 'heading.contactDetails';
+  headingPreamble: string = 'heading.specyDetails';
   headingPreambleParams: any;
   translatedParentLabel: string;
   disableDiscardBtn: boolean;
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private _utilsService: UtilsService,
-    private _detailsService: SpeciesSubtypesDetailsService,
     private _translateService: TranslateService,
     private _errorNotificationService: ErrorNotificationService,
     private _companyRecordService: SpeciesSubtypesRecordService
@@ -105,7 +79,7 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
       this.headingPreamble,
       { seqnumber: this.headingPreambleParams }
     );
-    this.contactRecordModel = this.cRRow;
+    this.specyRecordModel = this.cRRow;
     const speciesSubtypeForm = <FormGroup>this.cRRow.controls['speciesSubtypeDetail'];
     if (speciesSubtypeForm.controls['specy'].value) {
       this.disableDiscardBtn = true
@@ -128,12 +102,12 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
 
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
     if (list.length > 1) {
-      console.warn('Contact List found >1 Error Summary ' + list.length);
+      console.warn('Specy List found >1 Error Summary ' + list.length);
     }
     this.errorSummaryChild = list.first;
     // notify subscriber(s) that contact records' error summaries are changed
     this._errorNotificationService.updateErrorSummary(
-      this.contactRecordModel.controls['id'].value,
+      this.specyRecordModel.controls['id'].value,
       this.errorSummaryChild
     );
 
@@ -154,7 +128,6 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
     // console.log(this._utilsService.checkComponentChanges(changes));
     if (changes['showErrors']) {
-      // console.log("contact.record", "onchange", "showErrors", changes['showErrors'].currentValue)
       this.showErrSummary = changes['showErrors'].currentValue;
       this._emitErrors();
     }
@@ -194,14 +167,14 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Changes the local model back to the last saved version of the contact
+   * Changes the local model back to the last saved version of the specy
    */
-  public revertContactRecord(event: Event, index: number): void {
+  public revertSpecyRecord(event: Event, index: number): void {
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
 
     this.discardChangeEvent.emit({
-      id: this.contactRecordModel.value.id,
+      id: this.specyRecordModel.value.id,
       heading: heading,
       buttonTrigger: trigger,
       tempContactDetailsForm: this.speciesSubtypesDetailsForm,
@@ -210,73 +183,44 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
   }
 
   /***
-   * Deletes the contact reocord with the selected id from both the model and the form
+   * Deletes the specy reocord with the selected id from both the model and the form
    */
-  public deleteContactRecord(event: Event, index: number): void {
+  public deleteSpecyRecord(event: Event, index: number): void {
     this.errorSummaryChild = null;
     const heading = this._companyRecordService.getHeading(index); // Await here
     const trigger = event.target as HTMLElement;
 
     this.discardRecordEvent.emit({
-      id: this.contactRecordModel.value.id,
+      id: this.specyRecordModel.value.id,
       heading: heading,
       buttonTrigger: trigger
     });
     //this._emitErrors();
    }
 
-//   public setStatusToRevise(event: Event, index: number): void {
-//     const heading = this._companyRecordService.getHeading(index); // Await here
-//     const trigger = event.target as HTMLElement;
-//  //   this.saveContactRecord(index, heading, ContactStatus.Revise, trigger);
-//    }
 
-//   public setStatusToRemove(event: Event, index: number): void {
-//     const heading = this._companyRecordService.getHeading(index); // Await here
-//     const trigger = event.target as HTMLElement;
-//    // this.saveContactRecord(index, heading, ContactStatus.Remove, trigger);
-//   }
 
-//   public activeContactRecord(event: Event, index: number): void {
-//     const heading = this._companyRecordService.getHeading(index); // Await here
-//     const trigger = event.target as HTMLElement;
-// //    this.saveContactRecord(index, heading, ContactStatus.Active, trigger);
-//   }
+  public saveSpecyRecord(id?: number, heading?: string,  trigger?: HTMLElement): void {
 
-  public saveContactRecord(id?: number, heading?: string,  trigger?: HTMLElement): void {
-    //console.log("====>saveContactRecord ", this.contactStatusList);
     this.disableDiscardBtn = true;
-    if (this.contactRecordModel.valid ) {
-      // if (!contactStatus) {
-        this.saveRecord.emit({ recModel: this.contactRecordModel});
-    //  }
-      this.contactRecordModel.markAsPristine();
-      // switch (contactStatus) {
-      //   case ContactStatus.Active:
-      //     this.setActiveStatusEvent.emit({ id, heading, recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger });
-      //     break;
-      //   case ContactStatus.Remove:
-      //     this.setRemoveStatusEvent.emit({ id, heading, recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger });
-      //     break;
-      //   case ContactStatus.Revise:
-      //     this.contactRecordModel.markAsDirty();
-      //     this.setReviseStatusEvent.emit({ id, heading, recModel: this.contactRecordModel, status: contactStatus, tempContactDetailsForm: this.contactDetailsForm, buttonTrigger: trigger });
-      //     break;
-      // }
+    if (this.specyRecordModel.valid ) {
+         this.saveRecord.emit({ recModel: this.specyRecordModel});
+       this.specyRecordModel.markAsPristine();
+
 
     } else {
       // id is used for an error to ensure the record gets saved
-      let temp = this.contactRecordModel.value.id;
-      this.contactRecordModel.controls['id'].setValue(1);
-      if (this.contactRecordModel.valid) {
-        this.contactRecordModel.controls['id'].setValue(temp);
+      let temp = this.specyRecordModel.value.id;
+      this.specyRecordModel.controls['id'].setValue(1);
+      if (this.specyRecordModel.valid) {
+        this.specyRecordModel.controls['id'].setValue(temp);
         this.saveRecord.emit({
-          recModel: this.contactRecordModel,
+          recModel: this.specyRecordModel,
 
         });
 
       } else {
-        this.contactRecordModel.controls['id'].setValue(temp);
+        this.specyRecordModel.controls['id'].setValue(temp);
         this.showErrSummary = true;
         this.showErrors = true;
         document.location.href = '#contactErrorSummary' + temp;
@@ -284,86 +228,27 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
     }
   }
 
-  // when user clicks the "Acitve Contact" button, if the current Contact Status is "REVISE",
-  // it will show the "error.msg.revise.contact" error
-  // if that is the only error on the record, we will allow user to continue to "Active Contact"
-  // private _recordInvalidExcemption(contactStatus?: ContactStatus) {
-  //   let returnValue: boolean = false;
-  //   if (contactStatus) {
-  //     if (
-  //       contactStatus === ContactStatus.Active &&
-  //       this.errorList.length === 1 &&
-  //       this.errorList[0].currentError === 'error.msg.revise.contact'
-  //     )
-  //       returnValue = true;
-  //   }
-  //   return returnValue;
-  // }
 
-  /**
-   * Changes the local model back to the last saved version of the contact
-   */
+
   public showErrorSummary(): boolean {
     return this.showErrSummary && this.errorList.length > 0;
   }
 
-  /**
-   * show revise and remove contact button
-   */
-  // public isExternalNotNewContact(): boolean {
-  //   return !this.isInternal && !this.isContactStatus(ContactStatus.New);
-  // }
 
-  // /**
-  //  * internal site show active contact button
-  //  */
-  // public isInternalActiveContact(): boolean {
-  //   return this.isInternal && !this.isContactStatus(ContactStatus.Remove);
-  // }
-
-  // /**
-  //  * External site show save contact button
-  //  */
-  // public isExternalNewContact(): boolean {
-  //   return !this.isInternal && this.isContactStatus(ContactStatus.New);
-  // }
-
-  // /**
-  //  * Internal/External site show discard record button
-  //  */
-  // public isNewContact(): boolean {
-  //   return this.isContactStatus(ContactStatus.New);
-  // }
-
-  // /**
-  //  * Internal site show delete contact button
-  //  */
-  // public isInternalDeleteContact(): boolean {
-  //   return this.isInternal && this.isContactStatus(ContactStatus.Remove);
-  // }
-
-  // public isContactSetToRemove(): boolean {
-  //   return this.isContactStatus(ContactStatus.Remove);
-  // }
 
   get speciesSubtypesDetailsForm() {
-    return this.contactRecordModel.get('speciesSubtypeDetail') as FormGroup;
+    return this.specyRecordModel.get('speciesSubtypeDetail') as FormGroup;
   }
 
-  // private isContactStatus(status: ContactStatus) {
-  //   const contStatusValue = this.contactDetailsForm.controls['status'].value;
-  //   return contStatusValue === status;
-  // }
-
   disableFormGroup() {
-    if (this.contactRecordModel) {
-      this.contactRecordModel.disable();
+    if (this.specyRecordModel) {
+      this.specyRecordModel.disable();
     }
   }
 
   enableFormGroup() {
-    if (this.contactRecordModel) {
-      this.contactRecordModel.enable();
+    if (this.specyRecordModel) {
+      this.specyRecordModel.enable();
     }
   }
 
@@ -376,13 +261,5 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
     }
   }
 
-  // public disabledReviseAndSaveButton() {
-  //   if ( this.contactDetailsForm.dirty) {
-  //     return false
-  //   }
-  //   else {
-  //     return true;
-  //   }
-  // }
 }
 

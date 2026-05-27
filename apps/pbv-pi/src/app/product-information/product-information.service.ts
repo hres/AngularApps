@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { CheckboxOption, ConverterService, UtilsService, ValidationService} from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
-import {  DrugProductEnrol, ScheduleClaim } from '../models/ProductInformation';
+import {  DrugProductEnrol, ScheduleClaim, SpecyAndSubType } from '../models/ProductInformation';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SpeciesSubtypesListService } from '../speciesSubtypes/species-subtypes-list-component/species-subtypes-list-service';
 
 
 @Injectable()
 export class ProductInformationService {
 
-  constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService) {}
+  constructor(private _globalService: GlobalService, private _converterService: ConverterService, private _utilsService: UtilsService,   private specylistService : SpeciesSubtypesListService ) {}
 
   public static getProductInfoForm(fb:FormBuilder) {
     if (!fb) {
@@ -83,7 +84,7 @@ export class ProductInformationService {
     dataModel.drug_use = this._converterService.findAndConverCodeToIdTextLabel(this._globalService.drugUse, formValue['drugUse'], lang);
   }
 
-  public mapDataModelToFormModel(dataModel: DrugProductEnrol, formRecord: FormGroup,   scheduleClaimOptionList: CheckboxOption[] ): void {
+  public mapDataModelToFormModel(fb: FormBuilder,dataModel: DrugProductEnrol, formRecord: FormGroup,   scheduleClaimOptionList: CheckboxOption[] ): void {
     if(dataModel.dossier_type?._id){
       const id = this._utilsService.getIdFromIdTextLabel(dataModel.dossier_type);
       formRecord.controls['dossierType'].setValue(id? id : null);
@@ -121,23 +122,10 @@ export class ProductInformationService {
     } else {
       formRecord.controls['drugUse'].setValue(null);
     }
-
-
-    if (  formRecord.controls['isNonPrescriptioScheduleApplied'].value==true) {
-      if (dataModel.is_schedule_claim) {
-          const loadedScheduleClaimCodes: string[] = this._utilsService.getIdsFromIdTextLabels(dataModel.is_schedule_claim.schedule_claim_applied);
-          if (loadedScheduleClaimCodes.length > 0) {
-          const scheduleClaimFormArray = this.getScheduleClaimChkboxFormArray(formRecord);
-          this.loadScheduleClaimOptions(this._globalService.scheduleClaims,  scheduleClaimOptionList, scheduleClaimFormArray, this._globalService.lang())
-          this._converterService.checkCheckboxes(loadedScheduleClaimCodes, scheduleClaimOptionList, scheduleClaimFormArray);
-          }
-          formRecord.controls['selectedScheduleClaimCodes'].setValue(loadedScheduleClaimCodes);
-
-          formRecord.controls['din'].setValue(dataModel.is_schedule_claim.din);
-          formRecord.controls['scheduleClaimAndIndicationAssociatedOfProduct'].setValue(dataModel.is_schedule_claim.schedule_claim_indication);
-      }
   }
-  }
+
+
+
   getScheduleClaimChkboxFormArray(formRecord: FormGroup) {
     return formRecord.controls['scheduleClaims'] as FormArray;
   }
@@ -154,4 +142,5 @@ export class ProductInformationService {
       scheduleClaimChkFormArray.push(new FormControl(false));
     });
   }
+
 }
