@@ -17,7 +17,7 @@
           </h2>
         </header>
         <div class="panel-body">
-          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath" 
+          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath"
             [startCheckSumVersion]="startCheckSumVersionNum" [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
             <app-filereader-instruction fileUploadInstruction [lang]="lang"></app-filereader-instruction>
           </lib-file-reader>
@@ -38,8 +38,9 @@
           </h2>
           </header>
           <div class="panel-body">
-            <app-product-information [showErrors]="showErrors" [dataModel]="productEnrollModel"
-            (errorList)="processProductInfoErrors($event)"></app-product-information>
+            <app-product-information [showErrors]="showErrors"   [dataModel]="productEnrollModel"
+           (errorList)="processProductInfoErrors($event)"  (specyErrors)="updateSpecyErrors($event)"    (speciesArrayChange)="latestSpeciesArrayupdate($event)"
+           ></app-product-information>
           </div>
       </section>
     </div>
@@ -51,9 +52,9 @@
           </header>
           <div class="panel-body">
             <app-formulation-list
-            [lang]="lang" 
-            [recordList]="formulationListModel" 
-            [showErrors]="showErrors" 
+            [lang]="lang"
+            [recordList]="formulationListModel"
+            [showErrors]="showErrors"
             (errorEmit)="processFormulationListErrors($event)"></app-formulation-list>
           </div>
       </section>

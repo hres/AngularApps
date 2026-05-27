@@ -5,8 +5,10 @@ import { EntityBaseService, UtilsService } from '@hpfb/sdk/ui';
 import { ROOT_TAG } from '../app.constants';
 import { DrugProductEnrol, Formulation, Ingredient, ProductInformation } from '../models/ProductInformation';
 import { ProductInformationService } from '../product-information/product-information.service';
+
 import { IngredientFormulationItemService } from '../ingredient-formulation/ingredient-formulation-item/ingredient-formulation-item.service';
 import { FormulationItemService } from '../formulation/formulation-item/formulation-item.service';
+
 @Injectable()
 export class FormBaseService {
 
@@ -69,8 +71,10 @@ export class FormBaseService {
       is_schedule_claim: undefined,
       disinfectant_types:undefined,
       proposedIndicationOfUseDosage:'',
+      species_subtypes: { species_subtypes: []},
       formulation_details: undefined,
       ingredients_testing: undefined
+
       };
 
     return drugProductEnrol;
@@ -119,11 +123,13 @@ export class FormBaseService {
 
     return formulation;
   }
-  
+
+
 
   public mapProductInfoFormToOutput(outputDrugProductEnrol: DrugProductEnrol, productInfoFormGroupValue: any): void{
     this._productInfoService.mapFormModelToDataModel(productInfoFormGroupValue, outputDrugProductEnrol);
   }
+
 
   public mapIngredientFormulationFormToOutput(drugProductEnrol : DrugProductEnrol, ingredFormValue : any) : void {
     const lang = this._globalService.currLanguage;
@@ -144,59 +150,60 @@ export class FormBaseService {
     drugProductEnrol: DrugProductEnrol,
     formulationFormValue: any
   ): void {
-  
+
     const formulationModelList: Formulation[] = [];
-  
+
     if (formulationFormValue?.length) {
-  
+
       for (const formItem of formulationFormValue) {
-  
+
         const formModel = this.mapSingleFormulation(formItem);
         formulationModelList.push(formModel);
-  
+
       }
     }
-  
+
     drugProductEnrol.formulation_details = formulationModelList;
   }
 
   private mapSingleFormulation(formItem: any): Formulation {
 
     const formModel: Formulation = this.getEmptyFormulationRecord();
-  
+
     this._formItemService.mapFormModelToDataModel(
       formItem,
       formModel
     );
-  
+
     const ingredients =
       formItem?.formulation?.ingredientsFormGroup?.ingredients ?? [];
-  
+
     formModel.ingredient_section = this.mapIngredients(ingredients);
-  
+
     return formModel;
   }
 
   private mapIngredients(ingredients: any[]): Ingredient[] {
 
     const ingredientModelList: Ingredient[] = [];
-  
+
     if (!ingredients?.length) {
       return ingredientModelList;
     }
-  
+
     for (const ingredient of ingredients) {
-  
+
       const ingredModel: Ingredient = this.getEmptyIngredientRecord();
-  
+
       this._ingredFormItemService.mapFormModelToDataModel(
         ingredient,
         ingredModel
       );
-  
+
       ingredientModelList.push(ingredModel);
     }
-  
+
     return ingredientModelList;
   }
+
 }

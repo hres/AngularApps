@@ -1,6 +1,6 @@
 <div [formGroup]="productInfoForm">
 
- <div class="row">
+  <div class="row">
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <label for="companyId" class="required">
         <span class="field-name">{{'company.id'|translate }} {{'5digits.only'|translate }}</span>
@@ -90,22 +90,24 @@
   </div>
   <div class="row">
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <fieldset class="col-xs-12 form-inline">
-      <legend>
-        {{'pediatric.pilot.question.text2' |translate}}
-        <sup [id]="helpIndex['clinPediIndx'][2]">
-          <a class="fn-lnk" [href]="'#' + helpIndex['clinPediIndx'][1]"><span
-              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['clinPediIndx'][0]}}</a>
-        </sup>
-      </legend>
-    </fieldset>
-  </div></div>
+      <fieldset class="col-xs-12 form-inline">
+        <legend>
+          {{'pediatric.pilot.question.text2' |translate}}
+          <sup [id]="helpIndex['clinPediIndx'][2]">
+            <a class="fn-lnk" [href]="'#' + helpIndex['clinPediIndx'][1]"><span
+                class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['clinPediIndx'][0]}}</a>
+          </sup>
+        </legend>
+      </fieldset>
+    </div>
+  </div>
   <div class="alert alert-info" [innerHTML]="'pediatric.pilot.question.text1' | translate "></div>
   <div class="row">
     <fieldset class="col-md-12 chkbxrdio-grp">
       <label>
         {{'admin.comp'|translate}}
-        <strong *ngIf="isAdminSub()" class="required" aria-hidden="true"> {{'commmon.required.bracket' |translate}}</strong>
+        <strong *ngIf="isAdminSub()" class="required" aria-hidden="true"> {{'commmon.required.bracket'
+          |translate}}</strong>
       </label>
       <sup [id]="helpIndex['adminCompIndx'][2]">
         <a class="fn-lnk" [href]="'#' + helpIndex['adminCompIndx'][1]"><span
@@ -113,8 +115,8 @@
       </sup>
       <ng-container *ngFor="let yesno of yesNoList; let i = index">
         <label for="isAdminSub" class="radio-inline">
-          <input type="radio" id="isAdminSub" name="isAdminSub" [value]="yesno.id"
-          aria-required="true" [formControlName]="'isAdminSub'"/>
+          <input type="radio" id="isAdminSub" name="isAdminSub" [value]="yesno.id" aria-required="true"
+            [formControlName]="'isAdminSub'" />
           {{yesno | textTransform: lang }}
         </label>
       </ng-container>
@@ -204,7 +206,7 @@
     </div>
 
 
-    <div *ngIf="showDisinfectantTypes()" class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div *ngIf="showDisinfectantType" class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
       <fieldset class="chkbxrdio-grp" id="disinfectantTypes">
 
@@ -230,6 +232,27 @@
         </div>
       </fieldset>
     </div>
+
+
+
+
+    <div *ngIf="showSpeciesForVerterinary" class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+      <div>
+        <section class="panel  panel-default">
+          <header class="panel-heading clearfix">
+            <h3 class="panel-title">{{'heading.specyInfo'|translate}}</h3>
+          </header>
+          <div id="specyRecords" class="panel-body">
+            <app-species-subtypes-list-component [specyModel]="dataModel.species_subtypes?.species_subtypes"
+              (specyErrors)="onSpecyErrors($event)" [lang]="lang" [helpTextSequences]="helpIndex"
+              [showErrors]="showErrors" [yesNoList]="yesNoList" (speciesChanged)="onSpeciesChange($event)"
+              [showSpeciesForVerterinary]="showSpeciesForVerterinary"></app-species-subtypes-list-component>
+          </div>
+        </section>
+      </div>
+
+    </div>
   </div>
 
 
@@ -251,17 +274,12 @@
             </div>
           </div>
 
-
-
-
-
           <div class="col-md-12">
             <div class="checkbox label-inline">
               <input type="checkbox" id="isInclude" [formControlName]="'isInclude'" />
               <label for="isInclude">{{'isInclude'|translate}}</label>
             </div>
           </div>
-
 
           <div class="col-md-12">
             <div class="checkbox label-inline">
@@ -277,8 +295,6 @@
               <label for="isRegulated">{{'isRegulated'|translate}}</label>
             </div>
           </div>
-
-
 
           <div class="col-md-12 ">
             <div class="checkbox label-inline">
@@ -305,7 +321,6 @@
 
         </div>
       </div>
-
 
       <ng-container *ngIf="showScheduleClaimApplied()" class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <br><br>
@@ -356,17 +371,17 @@
                     <a class="fn-lnk" [href]="'#' + helpIndex['purposeIndx'][1]"><span
                         class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['purposeIndx'][0]}}</a>
                   </sup>
-                  
+
                   <control-messages *ngIf="productInfoForm.controls['proposedIndicationOfUseDosage'].invalid"
                     [showError]="showFieldErrors"
                     [control]="productInfoForm.controls['proposedIndicationOfUseDosage'] | formControl"
                     controlId="proposedIndicationOfUseDosage" label="proposed.indication.use.dosage.daily.dose"
                     parentId="productInfo"></control-messages></label>
-          
-                <textarea id="proposedIndicationOfUseDosage" name="proposedIndicationOfUseDosage" rows="3" maxlength="400"
-                  style="width: 100%;" class="form-control full-width"
+
+                <textarea id="proposedIndicationOfUseDosage" name="proposedIndicationOfUseDosage" rows="3"
+                  maxlength="400" style="width: 100%;" class="form-control full-width"
                   [formControlName]="'proposedIndicationOfUseDosage'"></textarea>
-          
+
               </div>
             </div>
 
@@ -405,7 +420,35 @@
 
     </fieldset>
   </div>
- 
-  
-  
+
+  <div class="row">
+    <div class="form-group col-md-12 ">
+      <label for="proposedIndicationOfUseDosage" class="required">
+        <span class="field-name">{{'proposed.indication.use.dosage.daily.dose' | translate}}</span>
+        <strong aria-hidden="true" class="required"> (required)</strong>
+        <sup [id]="helpIndex['purposeIndx'][2]">
+          <a class="fn-lnk" [href]="'#' + helpIndex['purposeIndx'][1]"><span
+              class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['purposeIndx'][0]}}</a>
+        </sup>
+        <control-messages *ngIf="productInfoForm.controls['proposedIndicationOfUseDosage'].invalid"
+          [showError]="showFieldErrors"
+          [control]="productInfoForm.controls['proposedIndicationOfUseDosage'] | formControl"
+          controlId="proposedIndicationOfUseDosage" label="proposed.indication.use.dosage.daily.dose"
+          parentId="productInfo"></control-messages></label>
+
+      <textarea id="proposedIndicationOfUseDosage" name="proposedIndicationOfUseDosage" rows="3" maxlength="400"
+        style="width: 100%;" class="form-control full-width"
+        [formControlName]="'proposedIndicationOfUseDosage'"></textarea>
+
+    </div>
+  </div>
+  <div class="row form-group">
+    <fieldset class="col-xs-12 form-inline">
+      <legend>
+        {{'pediatric.pilot.question.text2' |translate}}
+      </legend>
+    </fieldset>
+  </div>
+  <div class="alert alert-info" [innerHTML]="'pediatric.pilot.question.text1' | translate "></div>
+
 </div>

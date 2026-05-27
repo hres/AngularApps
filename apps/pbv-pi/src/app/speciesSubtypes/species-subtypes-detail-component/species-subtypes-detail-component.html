@@ -1,0 +1,88 @@
+<div>
+  <div [formGroup]="speciesSubtypesDetailForm">
+
+      <div class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-6">
+          <label for="specy" class="required">
+            <span class="field-name">{{ 'product.specy'|translate }}</span>
+            <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+             <control-messages *ngIf="speciesSubtypesDetailForm.controls['specy'].invalid" [showError]="showFieldErrors"
+              [control]="speciesSubtypesDetailForm.controls['specy'] | formControl" controlId="specy" label="product.specy"
+              parentId="productInfo"></control-messages>
+          </label>
+          <select id="specy" name="specy" required class="form-control" [formControlName]="'specy'">
+            <option label=" " value=""></option>
+            <option *ngFor="let item of vetSpecies" [value]="item.id"> {{ item | textTransform: lang }}</option>
+          </select>
+        </div>
+
+          <div class="col-md-6">
+            <label for="subType" class="required">
+              <span class="field-name">{{ 'specy.subType'|translate }}</span>
+              <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
+               <control-messages *ngIf="speciesSubtypesDetailForm.controls['subtype'].invalid" [showError]="showFieldErrors"
+                [control]="speciesSubtypesDetailForm.controls['subtype'] | formControl" controlId="subtype" label="specy.subtype"
+                parentId="productInfo"></control-messages>
+            </label>
+            <select id="subtype" name="subtype" required class="form-control" [formControlName]="'subtype'">
+              <option label=" " value=""></option>
+              <option *ngFor="let item of specySubTypes" [value]="item.id"> {{ item | textTransform: lang }}</option>
+            </select>
+          </div>
+      </div>
+
+
+
+
+
+    <div class="row">
+      <fieldset class="col-md-12 chkbxrdio-grp">
+        <legend >
+           {{'is.this.used.for.the.treatment.of.food.producing.animal' |translate}}
+
+        </legend>
+        <ng-container *ngFor="let yesno of yesNoList; let i = index">
+          <label for="isUsedForTreatmentOfFoodProducingAnimals{{i}}" class="radio-inline">
+            <input type="radio"
+              id="isUsedForTreatmentOfFoodProducingAnimals{{i}}" name="isUsedForTreatmentOfFoodProducingAnimals" [value]="yesno.id"
+              [formControlName]="'isUsedForTreatmentOfFoodProducingAnimals'" required/>
+            {{yesno | textTransform: lang }}
+            </label>
+         </ng-container>
+      </fieldset>
+  </div>
+
+
+    <div class="row" *ngIf="IsEnterWithdrawTime()">
+
+      <div class="form-group col-sm-4">
+        <label for="withdrawalTimeDays{{recordId}}" class="required full-width">
+          <span class="field-name">{{'specy.withdrawal.time.days'|translate}}</span>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="speciesSubtypesDetailForm.controls['days'].invalid" [showError]="showFieldErrors"
+            [control]="speciesSubtypesDetailForm.controls['days'] | formControl" controlId="days{{recordId}}"
+            label="withdrawal.time.days" parentId="contactDetails"
+            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
+          <input name="days" id="days{{recordId}}" class="form-control full-width" [maxLength]="45"
+            required="required" [formControl]="speciesSubtypesDetailForm.controls['days'] | formControl"
+           />
+        </label>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <label for="hours{{recordId}}" class="required full-width">
+          <span class="field-name">{{'specy.withdrawal.time.hours'|translate}}</span>
+          <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
+          <control-messages *ngIf="speciesSubtypesDetailForm.controls['hours'].invalid" [showError]="showFieldErrors"
+            [control]="speciesSubtypesDetailForm.controls['hours'] | formControl" controlId="hours{{recordId}}"
+            label="withdrawal.time.hours" parentId="contactDetails"
+            translatedParentLabel="{{translatedParentLabel}}"></control-messages>
+          <input name="hours" id="hours{{recordId}}" class="form-control full-width" [maxLength]="45"
+            required="required" [formControl]="speciesSubtypesDetailForm.controls['hours'] | formControl"
+           />
+        </label>
+      </div>
+ </div>
+
+</div>
+</div>

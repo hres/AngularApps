@@ -13,6 +13,8 @@ export class FormDataLoaderService {
   private drugUsedsJsonPath = DATA_PATH + 'drugUses.json';
   private scheduleClaimsJsonPath = DATA_PATH + 'scheduleClaims.json';
   private disinfectantTypeJsonPath = DATA_PATH + 'disinfectantTypes.json';
+  private vetSpeciesJsonPath = DATA_PATH + 'vetSpecies.json';
+  private specySubTypesJsonPath = DATA_PATH + 'subSpecies.json';
   private nanomaterialsJsonPath = DATA_PATH + 'nanomaterial.json';
   private operatorsJsonPath = DATA_PATH + 'operator.json';
   private perJsonPath = DATA_PATH + 'per.json';
@@ -29,6 +31,8 @@ export class FormDataLoaderService {
   drugUse$: Observable<ICodeDefinition[]>;
   scheduleClaims$: Observable<ICodeDefinition[]>;
   disinfectantTypes$: Observable<ICodeDefinition[]>;
+  vetSpecies$: Observable<ICodeDefinition[]>;
+  subSpecies$: Observable<ICodeDefinition[]>;
   nanomaterials$: Observable<ICode[]>;
   operators$: Observable<ICode[]>;
   per$: Observable<ICode[]>;
@@ -38,6 +42,7 @@ export class FormDataLoaderService {
   unitMeasure$: Observable<ICode[]>;
   unitPresentation$: Observable<ICode[]>;
   dosageForm$: Observable<ICode[]>;
+
 
   constructor(private _dataService: DataLoaderService, private _utilsService: UtilsService) {}
 
@@ -112,7 +117,7 @@ export class FormDataLoaderService {
 
   }
 
-  
+
   getPer(): Observable<ICode[]> {
     return this.per$ = this._dataService
       .getData<ICodeAria>(this.perJsonPath)
@@ -185,11 +190,31 @@ export class FormDataLoaderService {
      );
    }
 
+   getVetSpecies(): Observable<ICodeDefinition[]> {
+    return this.vetSpecies$ = this._dataService
+     .getData<ICodeAria>(this.vetSpeciesJsonPath)
+     .pipe(
+      shareReplay(1)
+    );
+  }
+
    getDosageForms(): Observable<ICode[]> {
     return this.dosageForm$ = this._dataService
      .getData<ICodeAria>(this.dosageFormJsonPath)
      .pipe(
+      shareReplay(1)
+    );
+  }
+
+   getSubTypesSpecy(): Observable<ICodeDefinition[]> {
+    return this.subSpecies$ = this._dataService
+     .getData<ICodeAria>(this.specySubTypesJsonPath)
+     .pipe(
        shareReplay(1)
      );
    }
+
+
+
 }
+

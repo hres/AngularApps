@@ -33,6 +33,7 @@ export interface DrugProductEnrol {
   is_schedule_claim:     ScheduleClaim,
   disinfectant_types:    DisinfectantTypes;
   proposedIndicationOfUseDosage: string;
+  species_subtypes: SpeciesAndSubtypes;
   formulation_details: Formulation[];
   ingredients_testing : Ingredient[] // TODO: Remove this, it will be under formulation_details
 }
@@ -47,6 +48,25 @@ export interface DisinfectantTypes {
   disinfectant_type : IIdTextLabel[];
 
 }
+
+
+export interface SpecyAndSubType {
+  id: number;
+  specy: string;
+  subtype: string;
+  isUsedForTreatmentOfFoodProducingAnimals: string;
+  withdrawal_time: WithdrawalTime
+
+}
+export interface WithdrawalTime {
+  days: number;
+  hours: number;
+}
+
+export interface SpeciesAndSubtypes {
+  species_subtypes: SpecyAndSubType[]
+}
+
 
 export interface Formulation {
   id : number;
@@ -82,4 +102,5 @@ export interface Ingredient {
   nanomaterial : IIdTextLabel;
   nanomaterial_details : string;
   is_animal_human_material : string;
+
 }

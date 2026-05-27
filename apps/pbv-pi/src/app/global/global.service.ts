@@ -29,6 +29,22 @@ export class GlobalService {
   private _drugUse: ICodeDefinition[] = [];
   private _scheduleClaims: ICode[] = [];
   private _disinfectTypes: ICode[] = [];
+  private _vetSpecies: ICode[] = [];
+  private _specySubTypes: ICode[] = [];
+
+  public get vetSpecies(): ICode[] {
+    return this._vetSpecies;
+  }
+  public set vetSpecies(value: ICode[]) {
+    this._vetSpecies = value;
+  }
+  public get specySubTypes(): ICode[] {
+    return this._specySubTypes;
+  }
+  public set specySubTypes(value: ICode[]) {
+    this._specySubTypes = value;
+  }
+
   public get disinfectTypes(): ICode[] {
     return this._disinfectTypes;
   }
@@ -47,8 +63,7 @@ export class GlobalService {
   private _unitMeasure: ICode[] = [];
   private _dosageForm: ICode[] = [];
 
-
-  setCurrLanguage(language : string): void {
+  setCurrLanguage(language: string): void {
     this.lang.set(language);
   }
 
@@ -179,7 +194,7 @@ export class GlobalService {
     this._subTypeList = value;
   }
 
-  
+
   public get nanomaterialList(): ICode[] {
     return this._nanomaterials;
   }
@@ -251,4 +266,5 @@ export class GlobalService {
   public set dosageFormList(value: ICode[]) {
     this._dosageForm = value;
   }
+
 }

@@ -1,0 +1,44 @@
+<div [formGroup]="specyListForm">
+
+  <lib-popup [id]="popupId" [title]="'popup.warning' | translate" [message]="'msg.save.data.popup' | translate"
+    [close]="'popup.close' | translate" (closed)="handleClosedPopupAccordion()"></lib-popup>
+  <lib-confirmation-popup [id]="saveRecordPopupID" [title]="'popup.warning' | translate" [message]="'msg.discard.popup'"
+    [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="specyHeading"
+    (confirmed)="saveSpecyRecord($event)" (closed)="handleClosedPopup()"></lib-confirmation-popup>
+
+    <lib-confirmation-popup [id]="discardRecordPopupID" [title]="'popup.warning' | translate"
+    [message]="'msg.delete.specy.record.popup'" [cancel]="'popup.cancel' | translate"
+    [confirm]="'popup.confirm' | translate" [heading]="discardRecordHeading" (confirmed)="deleteSpecy($event)"
+    (closed)="handleClosedPopup()"></lib-confirmation-popup>
+  <lib-confirmation-popup [id]="discardChangePopupID" [title]="'popup.warning' | translate"
+    [message]="'msg.delete.specy.change.popup'" [cancel]="'popup.cancel' | translate"
+    [confirm]="'popup.confirm' | translate" [heading]="discardChangeHeading" (confirmed)="revertSpecy($event)"
+    (closed)="handleClosedPopup()"></lib-confirmation-popup>
+
+  <lib-accordion [rowsFormArray]="specyList" [accordionHeadingMsgKey]="'heading.specyDetails'"
+    [accordionHeadingSupp]="['specyDetails', 'fullName']" (rowClicked)="handleRowClick($event)">
+
+    <ng-template #tmpl let-recordRow let-idx="i">
+      <!-- ==={{recordRow.get('id').value}}=== -->
+      <!-- === index = {{idx}} ,  === -->
+      <!-- === discardChange is revise. discardRecord is to delete record  === -->
+      <!-- === index = {{idx}} ,  === -->
+      <app-species-subtypes-record-comonent [j]="idx" [cRRow]="recordRow" [showErrors]="showErrors" [lang]="lang"
+        [helpTextSequences]="helpTextSequences" (saveRecord)="saveSpecyRecord($event)"
+        (errorList)="updateErrorList($event)" (discardChangeEvent)="discarChangeSpecyConfirmation($event)"
+        (discardRecordEvent)="discarRecordeSpecyConfirmation($event)" [disableForm]="disableForm"
+        [vetSpecies]="vetSpecies" [specySubTypes]="specySubTypes"
+        [yesNoList]="yesNoList"></app-species-subtypes-record-comonent>
+    </ng-template>
+
+  </lib-accordion>
+
+  <div class="row mrgn-tp-md mrgn-bttm-lg">
+    <div class="btn-group-sm col-md-12 text-left">
+      <button class="btn btn-primary" (click)="addSpecy()" id="addSpecyBtn" [disabled]="disableAddButton()">
+        {{'add.species' | translate}}
+      </button>
+    </div>
+  </div>
+
+</div>
