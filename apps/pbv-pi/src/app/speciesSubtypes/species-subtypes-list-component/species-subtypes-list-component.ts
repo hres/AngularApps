@@ -119,12 +119,13 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
     if (changes['saveSpecy']) {
       this.saveSpecyRecord(changes['saveContact'].currentValue);
    }
-    if (changes['specyModel'] && !changes['specyModel'].firstChange) {
-
+    if (changes['specyModel'] ) {
       // when importing a file,  initing the contact list form with loaded contacts is triggered here
       this.initWithData();
     }
-
+    if (changes['specyModel']) {
+      this.hydrateSpeciesFromInput();
+    }
 
     if (changes['disableForm']) {
       const prev = changes['disableForm'].previousValue;
@@ -145,26 +146,32 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
   }
 
   private initWithData() {
-    if ( this.specyModel) {
+    const normalized = Array.isArray(this.specyModel)
+      ? this.specyModel
+      : this.specyModel
+        ? [this.specyModel]
+        : [];
 
-      this._listService.setModelRecordList(this.specyModel);
-      this._listService.initIndex(this.specyModel);
 
-      if (!this.specyModel || this.specyModel.length === 0) {
-        this._createFormContact();
-      } else {
-        this._listService.createFormRecordList(this.specyModel, this._fb, this.specyList, false);
-               // expand the first record
-          const firstFormRecord = this.specyList.at(0) as FormGroup;
-          firstFormRecord.controls['expandFlag'].setValue(true);
-      }
+    this._listService.setModelRecordList(normalized);
+    this._listService.initIndex(normalized);
 
-      this._listService.updateUIDisplayValues(this.specyList);
+    if (normalized.length === 0) {
+      this._createFormContact();
+    } else {
+      this._listService.createFormRecordList(
+        normalized,
+        this._fb,
+        this.specyList,
+        false
+      );
     }
+
+    this._listService.updateUIDisplayValues(this.specyList);
   }
 
   get specyList(): FormArray {
-    return <FormArray>(this.specyListForm.controls['contacts']);
+    return <FormArray>(this.specyListForm.controls['species_subtypes']);
   }
 
   /**
@@ -484,6 +491,39 @@ this.syncSpecies();
 private syncSpecies() {
   const list = this._listService.getModelRecordListFromForm(this.specyList);
   this.speciesChanged.emit(list);
+}
+
+
+private hydrateSpeciesFromInput(): void {
+  const raw = this.specyModel;
+
+  const list = Array.isArray(raw) ? raw : (raw ? [raw] : []);
+
+  // IMPORTANT: UI reset only, NOT model change
+  this.specyList.clear();
+
+  this._listService.setModelRecordList(list);
+  this._listService.initIndex(list);
+
+  if (list.length > 0) {
+    this._listService.createFormRecordList(
+      list,
+      this._fb,
+      this.specyList,
+      false
+    );
+
+    (this.specyList.at(0) as FormGroup)
+      .get('expandFlag')
+      ?.setValue(true);
+  } else {
+    this._createFormContact();
+  }
+
+  this._listService.updateUIDisplayValues(this.specyList);
+
+  // keep parent in sync but DOES NOT affect XML
+  this.syncSpecies();
 }
 
 }

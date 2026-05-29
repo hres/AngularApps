@@ -52,7 +52,7 @@ export class ProductInformationComponent
   @Output() specyErrors = new EventEmitter(true);
   @Output() specyRecord = new EventEmitter(true);
   @Output() speciesArrayChange = new EventEmitter<any>();
-
+  @Output() loadedproductEnrollModel = new EventEmitter<any>();
 
   public specyModel: SpecyAndSubType[];
   public showFieldErrors: boolean = false;
@@ -95,10 +95,14 @@ export class ProductInformationComponent
       this.productInfoForm = ProductInformationService.getProductInfoForm(
         this._fb
       );
-      const tContacts = this.dataModel.species_subtypes['species_subtype'];
-      this.specyModel = Array.isArray(tContacts) ? tContacts : [tContacts];
-      if ( this._utilsService.isEmpty(this.specyModel) ) {
 
+      const tContacts = this.dataModel?.species_subtypes?.species_subtypes;
+      this.specyModel = Array.isArray(tContacts)
+  ? tContacts
+  : tContacts
+    ? [tContacts]
+    : [];
+      if ( this._utilsService.isEmpty(this.specyModel) ) {
         this.specyModel = [];
       }
 
@@ -115,7 +119,7 @@ export class ProductInformationComponent
   ngOnChanges(changes: SimpleChanges) {
     const isFirstChange = this._utilsService.isFirstChange(changes);
     // Ignore first trigger of ngOnChanges
-    if (!isFirstChange) {
+      if (!isFirstChange) {
       if (changes['showErrors']) {
         this.showFieldErrors = changes['showErrors'].currentValue;
       }
@@ -130,6 +134,7 @@ export class ProductInformationComponent
           this.scheduleClaimOptionList
         );
 
+        this.showDisinfectantTypesOrSpecies();
 
         // this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value);
         this.onAdminSubSelected(

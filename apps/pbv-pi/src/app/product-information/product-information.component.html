@@ -244,7 +244,7 @@
             <h3 class="panel-title">{{'heading.specyInfo'|translate}}</h3>
           </header>
           <div id="specyRecords" class="panel-body">
-            <app-species-subtypes-list-component [specyModel]="dataModel.species_subtypes?.species_subtypes"
+            <app-species-subtypes-list-component [specyModel]="dataModel?.species_subtypes?.species_subtypes ?? []"
               (specyErrors)="onSpecyErrors($event)" [lang]="lang" [helpTextSequences]="helpIndex"
               [showErrors]="showErrors" [yesNoList]="yesNoList" (speciesChanged)="onSpeciesChange($event)"
               [showSpeciesForVerterinary]="showSpeciesForVerterinary"></app-species-subtypes-list-component>
