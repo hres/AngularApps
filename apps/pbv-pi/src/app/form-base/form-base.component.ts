@@ -94,7 +94,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(FormulationListComponent)
   formulationListComponent: FormulationListComponent;
 
-
   private _consertPrivacyError = [];
 
   public piForm: FormGroup;
@@ -186,7 +185,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if(this.latestSpeciesArray && this.latestSpeciesArray.length >0){
       this.specyerrors = undefined;
       const labelsToRemove = [
-        'error.msg.contact.one.record',
+        'error.msg.specy.one.record',
         'error.msg.specy.required',
       ];
 
@@ -254,7 +253,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   _saveXML() {
-    if (this.errorList && this.errorList.length < 1) {
+    if (this.errorList && this.errorList.length < 1 ) {
       const result: ProductInformation = this._prepareForSaving(true);
 
       const fileName = this._generateFileName(result[ROOT_TAG]);
@@ -339,6 +338,5 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public latestSpeciesArrayupdate(event){
     this.latestSpeciesArray = event;
   }
-
 
 }

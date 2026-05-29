@@ -53,7 +53,7 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
 
   public getReactiveModel(fb: FormBuilder): FormGroup {
     return fb.group({
-      contacts: fb.array([])
+      species_subtypes: fb.array([])
     });
   }
 
@@ -142,7 +142,7 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
     this.updateFormRecordListSeqNumber(formRecordList);
 
     formRecordList.controls.forEach( (element: FormGroup) => {
-      const contactDetailFormRecord = element.controls['contactDetails'] as FormGroup;
+      const specyDetailFormRecord = element.controls['speciesSubtypeDetail'] as FormGroup;
     });
   }
 
