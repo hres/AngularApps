@@ -11,7 +11,7 @@
               parentId="productInfo"></control-messages>
           </label>
           <select id="specy" name="specy" required class="form-control" [formControlName]="'specy'">
-            <option label=" " value=""></option>
+            <option [ngValue]="null"> {{ 'select.option' | translate }}</option>
             <option *ngFor="let item of vetSpecies" [value]="item.id"> {{ item | textTransform: lang }}</option>
           </select>
         </div>
@@ -25,7 +25,7 @@
                 parentId="productInfo"></control-messages>
             </label>
             <select id="subtype" name="subtype" required class="form-control" [formControlName]="'subtype'">
-              <option label=" " value=""></option>
+              <option [ngValue]="null"> {{ 'select.option' | translate }}</option>
               <option *ngFor="let item of specySubTypes" [value]="item.id"> {{ item | textTransform: lang }}</option>
             </select>
           </div>
