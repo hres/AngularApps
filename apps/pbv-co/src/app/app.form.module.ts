@@ -4,7 +4,8 @@ import {
   PipesModule,
   ExpanderModule,
   CommonUiFeatureModule,
-  NumbersOnlyDirective
+  NumbersOnlyDirective,
+  ConfirmationPopupComponent
 } from '@hpfb/sdk/ui';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -40,7 +41,8 @@ import { MailtoHelpComponent } from './mailto-help/mailto.help.component'
     HelpTextModuleModule,
     CompanyAddressModule,
     CompanyContactModule,
-    CommonPbvModule
+    CommonPbvModule,
+    ConfirmationPopupComponent
 ],
   providers: [
     AppSignalService,
