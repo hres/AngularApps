@@ -31,6 +31,13 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   public disableAmendButton: boolean = true;
   public showAmendButton: boolean = false;
   public showAmendNote: boolean = false;
+  @Output() saveRecord = new EventEmitter<{
+    recModel: FormGroup;
+    status: string;
+  }>();
+  amendRecordPopupID: string = "amendRecordPopupID";
+  popupTrigger: HTMLElement = null;
+  amendHeading: string = '';
 
   constructor(private _companyEnrolmentService: CompanyEnrolmentService,
               private _fb: FormBuilder,
@@ -143,4 +150,29 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       this._utilsService.resetControlsValues(this.companyEnrolmentForm.controls[controlNames[i]]);
     }
   }
+
+
+
+  openConfirmationPopup(popupId: string) {
+    const popupSelector = "#" + popupId;
+    jQuery(popupSelector).trigger("open.wb-overlay");
+
+    // Wait for overlay to render to focus on Close button once it is shown on the UI
+    setTimeout(() => {
+      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
+      if (btn) {
+        btn.focus();
+      }
+    }, 100);
+  }
+
+
+  handleClosedPopup() {
+    setTimeout(() => {
+      this.popupTrigger.focus();
+    })
+  }
+
+
+
 }

@@ -111,7 +111,7 @@
     "msg.save.xml.popup": "Veuillez sauvegarder les données d'entrée non enregistrées avant d’enregistrer le brouillon XML.",
     "msg.save.addressInfo.popup": "Veuillez sauvegarder les données d'entrée non enregistrées pour l’information d’adresse.",
     "msg.save.compRepInfo.popup": "Veuillez sauvegarder les données d'entrée non enregistrées pour l’information sur les représentants de la compagnie.",
-    "msg.discard.popup": "Êtes-vous sûr de vouloir annuler la modification pour {{heading}}?",
+    "msg.amend.confirmation.popup": "Cette action effacera certains champs. Veuillez examiner l’ensemble du modèle attentivement et fournir les informations requises lorsqu’elles sont manquantes.",
     "msg.delete.popup": "Êtes-vous sûr de vouloir supprimer {{heading}}?",
     "msg.discard.role.popup": "Un rôle ne peut pas être éliminé, car il est assigné à un autre enregistrement.",
     "popup.title":"Avertissement",
