@@ -62,7 +62,7 @@
     "billing.address": "Billing address",
     "error.msg.addressRolesMissing": "For address information, selection of all roles: manufacturer, mailing, and billing",
     "error.msg.companyAddress": "There are errors in the address details",
-    
+
     "heading.company.contact":"Company representative details {{seqnumber}}",
     "first.name":"First name",
     "initials":"Initials",
@@ -99,7 +99,7 @@
     "mailto.06": "Subject: Draft CO XML - [insert your company name] [insert your company ID, if available]",
     "mailto.07": "Body:  The draft CO XML file is attached.",
     "mailto.08": "Attachment: The draft CO XML.",
-    
+
     "consent.privacy": "By submitting your personal information, you are consenting to its collection, use and disclosure in accordance with the privacy notice statement.",
 
     "email.subject": "Client information",
@@ -121,5 +121,6 @@
     "popup.confirm": "OK",
     "popup.warning": "Warning!",
 
-    "error.mgs.5.numeric": "Invalid entry - must be five digits"
+    "error.mgs.5.numeric": "Invalid entry - must be five digits",
+    "select.option": "Select an option"
 }
