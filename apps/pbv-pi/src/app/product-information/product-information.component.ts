@@ -114,6 +114,9 @@ export class ProductInformationComponent
     this.drugUseOptions = this._globalService.drugUse;
     this.scheduleClaimCodeList = this._globalService.scheduleClaims;
     this.disinfectantTypeCodeList = this._globalService.disinfectTypes;
+
+    this._updateScheduleClaimArray();
+    this._updateDisinfectantTypeClaimArray();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -124,10 +127,10 @@ export class ProductInformationComponent
         this.showFieldErrors = changes['showErrors'].currentValue;
       }
       if (changes['dataModel']) {
+
         const dataModelCurrentValue = changes['dataModel']
           .currentValue as DrugProductEnrol;
-        this._updateScheduleClaimArray();
-        this._updateDisinfectantTypeClaimArray();
+
         this._productInfoService.mapDataModelToFormModel(this._fb,
           dataModelCurrentValue,
           <FormGroup>this.productInfoForm,
@@ -135,8 +138,6 @@ export class ProductInformationComponent
         );
 
         this.showDisinfectantTypesOrSpecies();
-
-        // this.onDossierTypeSelected(this.regulartoryInfoForm.controls['dossierType'].value);
         this.onAdminSubSelected(
           this.productInfoForm.controls['isAdminSub'].value,
           true
@@ -316,16 +317,9 @@ export class ProductInformationComponent
     );
   }
 
+
   drugUseChangeRequestedOnChange() {
     this.showDisinfectantTypesOrSpecies();
-    if (this.showDisinfectantType) {
-      this._updateDisinfectantTypeClaimArray();
-    } else {
-      this._utilsService.resetControlsValues(
-        this.scheduleClaimChkFormArray,
-        this.productInfoForm.controls['selectedDisinfectantTypeCodes']
-      );
-    }
   }
 
   nonPrescriptioScheduleAppliedRequestedOnChange() {
