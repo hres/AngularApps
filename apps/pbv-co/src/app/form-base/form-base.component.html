@@ -1,4 +1,4 @@
-<lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.xml.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
+<lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="popupMessage" [close]="'popup.close' | translate"></lib-popup>
 
 <div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
   <form name="coForm" [formGroup]="coForm" novalidate>
@@ -19,7 +19,7 @@
           </h2>
         </header>
         <div class="panel-body">
-          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath" 
+          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath"
             [startCheckSumVersion]="startCheckSumVersionNum" [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
             <app-filereader-instruction fileUploadInstruction [lang]="lang" [isInternal]="isInternal" [isStatusFinal]="isStatusFinal"></app-filereader-instruction>
           </lib-file-reader>
@@ -44,7 +44,7 @@
 
             <section class="panel  panel-default">
               <header class="panel-heading clearfix">
-                <h3 class="panel-title">{{'address.rep'|translate}}                
+                <h3 class="panel-title">{{'address.rep'|translate}}
                   <sup [id]="helpIndex['addressInfoIndx'][2]">
                     <a class="fn-lnk" [href]="'#' + helpIndex['addressInfoIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['addressInfoIndx'][0]}}</a>
                   </sup>
