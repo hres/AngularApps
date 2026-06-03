@@ -243,7 +243,7 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
 
       return {
         id: fg.get('id')?.value ?? null,
-        specy: fg.get('speciesSubtypeDetail.specy')?.value ?? null,
+        species: fg.get('speciesSubtypeDetail.species')?.value ?? null,
         subtype: fg.get('speciesSubtypeDetail.subtype')?.value ?? null,
         isUsedForTreatmentOfFoodProducingAnimals:
           fg.get('speciesSubtypeDetail.isUsedForTreatmentOfFoodProducingAnimals')?.value ?? null,

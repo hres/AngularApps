@@ -71,7 +71,7 @@ export class FormBaseService {
       is_schedule_claim: undefined,
       disinfectant_types:undefined,
       proposedIndicationOfUseDosage:'',
-      species_subtypes: { species_subtypes: []},
+      species_subtypes: { species_subtype: []},
       formulation_details: undefined,
       ingredients_testing: undefined
 
