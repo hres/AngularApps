@@ -81,7 +81,7 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
     );
     this.specyRecordModel = this.cRRow;
     const speciesSubtypeForm = <FormGroup>this.cRRow.controls['speciesSubtypeDetail'];
-    if (speciesSubtypeForm.controls['specy'].value) {
+    if (speciesSubtypeForm.controls['species'].value) {
       this.disableDiscardBtn = true
     } else {
       this.disableDiscardBtn = false;

@@ -96,7 +96,7 @@ export class ProductInformationComponent
         this._fb
       );
 
-      const tContacts = this.dataModel?.species_subtypes?.species_subtypes;
+      const tContacts = this.dataModel?.species_subtypes?.species_subtype;
       this.specyModel = Array.isArray(tContacts)
   ? tContacts
   : tContacts
