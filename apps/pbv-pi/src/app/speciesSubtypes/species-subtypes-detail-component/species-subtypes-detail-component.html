@@ -3,14 +3,14 @@
 
       <div class="row form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="col-md-6">
-          <label for="specy" class="required">
+          <label for="species" class="required">
             <span class="field-name">{{ 'product.specy'|translate }}</span>
             <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
-             <control-messages *ngIf="speciesSubtypesDetailForm.controls['specy'].invalid" [showError]="showFieldErrors"
-              [control]="speciesSubtypesDetailForm.controls['specy'] | formControl" controlId="specy" label="product.specy"
+             <control-messages *ngIf="speciesSubtypesDetailForm.controls['species'].invalid" [showError]="showFieldErrors"
+              [control]="speciesSubtypesDetailForm.controls['species'] | formControl" controlId="specy" label="product.specy"
               parentId="productInfo"></control-messages>
           </label>
-          <select id="specy" name="specy" required class="form-control" [formControlName]="'specy'">
+          <select id="species" name="species" required class="form-control" [formControlName]="'species'">
             <option [ngValue]="null"> {{ 'select.option' | translate }}</option>
             <option *ngFor="let item of vetSpecies" [value]="item.id"> {{ item | textTransform: lang }}</option>
           </select>

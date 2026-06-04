@@ -188,9 +188,9 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
 
 
     if (this.specyList.length >= 1) {
-      specyFocus = "specy" + newIndex;
+      specyFocus = "species" + newIndex;
         } else {
-          specyFocus = "specy" + 0;
+          specyFocus = "species" + 0;
         }
     setTimeout(() => {
     //  document.getElementById(contactFocus).focus()
@@ -329,9 +329,6 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
     let rec = this.getRecord(this.specytId, this.specyList);
     if (rec) {
       this._recordService.mapDataModelFormModel(modelRecord, rec);
-    } else {
-      // should never happen, there should always be a UI record
-      console.warn('ContactList:rec is null');
     }
     if (this.lang == "en") {
       discardMsg = "Contact record " + rec.controls['seqNumber'].value + "  changes have been discarded."

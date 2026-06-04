@@ -303,7 +303,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       DRUG_PRODUCT_ENROL: newDrugProductEnrol,
     };
     if(this.latestSpeciesArray){
-      output.DRUG_PRODUCT_ENROL.species_subtypes.species_subtypes = this.latestSpeciesArray
+      output.DRUG_PRODUCT_ENROL.species_subtypes.species_subtype = this.latestSpeciesArray
     }
 
     if (xmlFile) {
