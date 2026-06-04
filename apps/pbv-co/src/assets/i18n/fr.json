@@ -99,8 +99,8 @@
     "mailto.06": "Objet : Ébauche de fichier CO XML – [insérer le nom de votre compagnie] [insérer votre Identifiant de la compagnie, le cas échéant]",
     "mailto.07": "Corps : L’ébauche de fichier CO XML est jointe.",
     "mailto.08": "Pièce jointe : Ébauche de fichier CO XML.",
-    "consent.privacy": "En soumettant vos renseignements personnels, vous consentez à sa collecte, à son utilisation et à sa divulgation conformément à l'énoncé de confidentialité.",
-
+    "consent.privacy": "En fournissant vos renseignements personnels, vous consentez à leur collecte, utilisation et divulgation conformément à l'énoncé de confidentialité.",
+    "consent.privacy.onEmail": "En fournissant les adresses courriel dans ce fichier CO XML, vous comprenez et reconnaissez que cette compagnie sera inscrite au système de facturation électronique (e-Billing) de Santé Canada. Santé Canada décline toute responsabilité pour toute erreur ou omission dans les adresses courriel fournies par la compagnie. Santé Canada n’accepte aucune responsabilité pour les renseignements non-reçues ou qui ont été livrés à ou interceptés par une tierce partie involontairement. ",
     "email.subject": "Unité des renseignements sur le client",
     "email.to": "(client.information@hc-sc.gc.ca)",
     "email.draft": "Ébauche de fichier CO XML - ",
