@@ -52,7 +52,7 @@ export interface DisinfectantTypes {
 
 export interface SpecyAndSubType {
   id: number;
-  specy: string;
+  species: string;
   subtype: string;
   isUsedForTreatmentOfFoodProducingAnimals: string;
   withdrawal_time: WithdrawalTime
@@ -64,7 +64,7 @@ export interface WithdrawalTime {
 }
 
 export interface SpeciesAndSubtypes {
-  species_subtypes: SpecyAndSubType[]
+  species_subtype: SpecyAndSubType[]
 }
 
 

@@ -18,7 +18,7 @@ export class SpeciesSubtypesDetailsService {
     if (!fb) {return null; }
 
     return fb.group({
-        specy: [null, Validators.required],
+        species: [null, Validators.required],
         subtype: [null, Validators.required],
         isUsedForTreatmentOfFoodProducingAnimals: [null, Validators.required],
         days: [null],
@@ -28,7 +28,7 @@ export class SpeciesSubtypesDetailsService {
 
    public mapFormModelToDataModel(formRecord: FormGroup, specySubTypeModel: SpecyAndSubType, lang: string, languageList: ICode[]) {
      specySubTypeModel.subtype = formRecord.controls['subtype'].value;
-     specySubTypeModel.specy = formRecord.controls['specy'].value;
+     specySubTypeModel.species = formRecord.controls['species'].value;
      specySubTypeModel.isUsedForTreatmentOfFoodProducingAnimals = formRecord.controls['isUsedForTreatmentOfFoodProducingAnimals'].value;
      specySubTypeModel.withdrawal_time.days = formRecord.controls['days'].value;
      specySubTypeModel.withdrawal_time.hours = formRecord.controls['hours'].value;
@@ -36,7 +36,7 @@ export class SpeciesSubtypesDetailsService {
 
   public mapDataModelToFormModel(specySubTypeModel: SpecyAndSubType, formRecord: FormGroup) {
        formRecord.controls['subtype'].setValue(specySubTypeModel.subtype);
-       formRecord.controls['specy'].setValue(specySubTypeModel.specy);
+       formRecord.controls['species'].setValue(specySubTypeModel.species);
        formRecord.controls['isUsedForTreatmentOfFoodProducingAnimals'].setValue(specySubTypeModel.isUsedForTreatmentOfFoodProducingAnimals);
        formRecord.controls['days'].setValue(specySubTypeModel.withdrawal_time.days);
        formRecord.controls['hours'].setValue(specySubTypeModel.withdrawal_time.hours);

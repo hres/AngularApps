@@ -1,4 +1,8 @@
 <div [formGroup]="companyEnrolmentForm">
+  <lib-confirmation-popup [id]="amendRecordPopupID" [title]="'popup.warning' | translate" [message]="'msg.amend.confirmation.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="amendHeading" (confirmed)="setAmendState()" (closed)="handleClosedPopup()" ></lib-confirmation-popup>
+
+
+
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
             <label for="enrolmentStatusText" class="full-width">
@@ -31,14 +35,14 @@
                                 [showError]="showFieldErrors" [attr.aria-live]="showFieldErrors? null: 'assertive'"
                                 [control]="companyEnrolmentForm.controls['companyId'] | formControl"
                                 controlId="companyId" label="company.id" parentId="companyEnrolment"></control-messages>
-            <input name="companyId" id="companyId" class="form-control" 
+            <input name="companyId" id="companyId" class="form-control"
                     [readonly]="!isInternal" [formControl]="companyEnrolmentForm.controls['companyId'] | formControl" [maxLength]="5" required data-only-digits/>
             </label>
         </div>
     </div>
     <div class="row" *ngIf="!isInternal && showAmendButton" >
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-          <button class="btn btn-primary" (click)="setAmendState()" [disabled]="disableAmendButton">
+          <button class="btn btn-primary" (click)="openConfirmationPopup(amendRecordPopupID)" [disabled]="disableAmendButton">
             {{'amend.enrol'|translate}}</button>
         </div>
     </div>
@@ -63,7 +67,7 @@
                     [control]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" controlId="filingReason"
                     label="reason.filing" parentId="companyEnrolment"></control-messages>
             </label>
-            <textarea id="filingReason" name="filingReason" class="form-control full-width" 
+            <textarea id="filingReason" name="filingReason" class="form-control full-width"
                         [formControl]="companyEnrolmentForm.controls['reasonForFiling'] | formControl" maxlength="1000" required></textarea>
         </div>
     </div>

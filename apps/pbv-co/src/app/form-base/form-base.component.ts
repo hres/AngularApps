@@ -44,7 +44,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(CompanyAddressListComponent) companyAddressListComponent: CompanyAddressListComponent;
   @ViewChild(ProductLineComponent) productLineComponent: ProductLineComponent;
 
-  
+
   private _companyEnrolmentErrors = [];
   private _contactListErrors = [];
   private _contactCompanyRoleErrors = [];
@@ -53,7 +53,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   private _productLineErrors = [];
   private _consentPrivacyError = [];
 
-  public coForm: FormGroup; 
+  public coForm: FormGroup;
   public errorList = [];
   public showErrors: boolean;
 
@@ -81,6 +81,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public submitToSubject: string = '';
 
   popupId = 'saveXmlPopup';
+  popupMessage: string = '';
+  popupTitle: string = '';
 
   private _signalService = inject(AppSignalService)
 
@@ -101,7 +103,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     effect(() => {
       this.processContactCompanyRolesErrors();
     })
- 
+
   }
 
   ngOnInit() {
@@ -161,14 +163,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   processErrors() {
     this.errorList = [].concat(
       this._companyEnrolmentErrors,
-      this._addressListErrors, 
-      this._addressCompanyRoleErrors, 
+      this._addressListErrors,
+      this._addressCompanyRoleErrors,
       this._contactListErrors,
-      this._contactCompanyRoleErrors, 
+      this._contactCompanyRoleErrors,
       this._productLineErrors,
       this._consentPrivacyError
     );
-    
+
     this.disableMailto = this.errorList.length > 0 || this.isInternal; // Add final condition
     this.showMailToHelpText = false;
     this.cdr.detectChanges(); // doing our own change detection
@@ -200,7 +202,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.isRolesMissing(this.selectedContactCompanyRoles())) {
       errorList.push(this._companyContactService.makeMissingRoleError());
     }
-    
+
     this._contactCompanyRoleErrors = errorList;
     this.processErrors();
   }
@@ -210,7 +212,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     if (this.isRolesMissing(this.selectedAddressCompanyRoles())) {
       errorList.push(this._companyAddressService.makeMissingRoleError());
-    } 
+    }
 
     this._addressCompanyRoleErrors = errorList;
     this.processErrors();
@@ -221,7 +223,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
     return companyRolesList.some(role => !cleanSelectedRoles.includes(role));
   }
-  
+
   public hideErrorSummary() {
     return this.showErrors && this.errorList && this.errorList.length > 0;
   }
@@ -232,18 +234,18 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummaryId';
     } else {
-      // console.log(!this.companyAddressListComponent.hasNoRolesSelected())
-      // console.log(!this.companyContactListComponent.hasNoRolesSelected()) 
-      // console.log(this.companyAddressListComponent.recordFormGroup.pristine)
-      // console.log(this.companyContactListComponent.recordFormGroup.pristine)
-      // console.log(this.companyAddressListComponent.recordFormArray.valid)
-      // console.log(this.companyContactListComponent.recordFormArray.valid)
-      if (!this.companyAddressListComponent.hasNoRolesSelected() && !this.companyContactListComponent.hasNoRolesSelected() && this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine
+        if (!this.companyAddressListComponent.hasNoRolesSelected() && !this.companyContactListComponent.hasNoRolesSelected() && this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine
         && this.companyAddressListComponent.recordFormArray.valid && this.companyContactListComponent.recordFormArray.valid) {
         this._saveXML();
       } else {
         this.companyAddressListComponent.expandAllInvalidRecords();
         this.companyContactListComponent.expandAllInvalidRecords();
+            // set popup text based on context
+            const actionKey = this.isInternal
+            ? 'msg.generating.xml.popup'
+            : 'msg.saving.xml.popup' ;
+
+       this.popupMessage = this._translateService.instant(actionKey);
         this.openPopup();
       }
     }
@@ -290,7 +292,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.coForm.enable();
     }
   }
-  
+
   private _initModels(companyEnrol: CompanyEnrol) {
     // this.ectdModel = trans.ectd;
     // // if (trans.contact_info != null) {
@@ -348,21 +350,22 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       return;
     }
     document.location.href = '#topErrorSummaryId';
+
   }
 
-  public isAmend() {    
+  public isAmend() {
     if (this.companyEnrolModel.application_type._id === ENROLMENT_STATUS.FINAL) {
       return (!this.isInternal && this.isStatusFinal);
     } else if (this.companyEnrolModel.software_version < this._globalService.appVersion) {
       const appType = String(this.companyEnrolModel.application_type);
       if (appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED) {
         return (!this.isInternal && this.isStatusFinal);
-      } 
+      }
       return false;
     }
     return false;
   }
-  
+
 
   private _prepareForSaving(xmlFile: boolean): Company {
     let contactsFormArrayValue = null;
@@ -376,7 +379,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const companyEnrolmentFormGroupValue = this.companyEnrolmentComponent.getFormValue();
     const productLineValue = this.productLineComponent.getFormValue();
-    
+
     if (this.companyAddressListComponent.recordFormArray) {
       addressFormArrayValue = this.companyAddressListComponent.recordFormArray.value;
     }
@@ -413,8 +416,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
     const prefix = this.isInternal ? INTERNAL_OUTPUT_PREFIX : EXTERNAL_OUTPUT_PREFIX;
 
-    return companyId 
-    ? `${prefix}-${companyId}-${formattedVersion}` 
+    return companyId
+    ? `${prefix}-${companyId}-${formattedVersion}`
     : `${prefix}-${formattedVersion}`;
   }
 
@@ -422,7 +425,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.showMailToHelpText = true;
 
     let emailSubject = '';
-    let body = ''; 
+    let body = '';
 
     let addressFormArrayValue = null;
     if (this.companyAddressListComponent.recordFormArray) {
@@ -437,7 +440,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     let email = this.submitToEmail.replace(/[()]/g, '').trim();
 
     emailSubject = emailDraft + ((companyName === null || companyName === '') ? '[company name]' : companyName) + ' ' + ((this.companyEnrolModel.company_id === '') ? ' ' : ' - ' + this.companyEnrolModel.company_id); body = body;
- 
+
     this.mailToLink = `mailto:${email}?subject=${emailSubject}&body=${body}`;
     window.location.href=this.mailToLink;
   }
@@ -452,7 +455,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const manufacturerRecord = addressFormArray.find(
         (record) => record.addressInfo.selectedAddressCompanyRoles.includes(ROLE_CODES.MFR)
     );
-      
+
     return manufacturerRecord ? manufacturerRecord.addressInfo.companyName : null;
   }
 
