@@ -16,8 +16,8 @@ import { ProductLineService } from '../product-line/product-line.service';
 export class FormBaseService {
 
   constructor(
-    private _entityBaseService: EntityBaseService, 
-    private _utilsService: UtilsService, 
+    private _entityBaseService: EntityBaseService,
+    private _utilsService: UtilsService,
     private _globalService: GlobalService,
     private _companyEnrolmentService: CompanyEnrolmentService,
     private _productLineService: ProductLineService,
@@ -39,6 +39,7 @@ export class FormBaseService {
     }
     return fb.group({
       certifyPrivacy: [false, Validators.required],
+      certifyPrivacyOnEmail: [false, Validators.required],
     });
   }
 
@@ -46,7 +47,7 @@ export class FormBaseService {
     const enrollment:  Company = {
       COMPANY_ENROL: this.getEmptyCompanyEnrol()
     };
-    
+
     return enrollment;
   }
 
@@ -65,7 +66,7 @@ export class FormBaseService {
       contact_record: this.getEmptyContactRecordList(),
       product_line_checkbox: this.getEmptyProductLine()
     };
-    
+
     return companyEnrol;
   }
 
@@ -83,7 +84,7 @@ export class FormBaseService {
   public getEmptyContactRecordList(): ContactRecord[] {
     return [];
   }
-  
+
   public getEmptyContactRecord(): ContactRecord {
     const contactRecord : ContactRecord = {
       manufacturer: '',
@@ -123,7 +124,7 @@ export class FormBaseService {
 
 
     let addressModelList = [];
-    
+
     if (addressFormArray) {
       for (let i = 0; i < addressFormArray.length; i++) {
         let addressModel: AddressRecord = this.getEmptyAddressRecord();
@@ -136,13 +137,13 @@ export class FormBaseService {
 
     companyEnrol.address_record = addressModelList;
   }
-  
+
   public mapContactsFormToOutput(companyEnrol: CompanyEnrol, contactsFormArray) {
     const lang = this._globalService.currLanguage;
     const languageList = this._globalService.languageList;
 
     let contactModelList = [];
-    
+
     if (contactsFormArray) {
       for (let i = 0; i < contactsFormArray.length; i++) {
         let contactModel: ContactRecord = this.getEmptyContactRecord();

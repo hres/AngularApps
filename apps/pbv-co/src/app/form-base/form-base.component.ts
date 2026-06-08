@@ -146,18 +146,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   private _updateErrorList(errorObjs) {
-    let consentPrivacyTempError = [];
-    if (errorObjs) {
-      errorObjs.forEach(
-        error => {
-          if (error.label === 'consent.privacy') {
-            consentPrivacyTempError.push(error);
-          }
-        }
-      );
-    }
-
-    this._consentPrivacyError = consentPrivacyTempError;
+       this._consentPrivacyError = errorObjs
+  .filter(e =>
+    e.controlId === 'certifyPrivacy' ||
+    e.controlId === 'certifyPrivacyOnEmail'
+  );
   }
 
   processErrors() {
