@@ -13,7 +13,7 @@
     "index_file_name": {
         "external":{
             "en": "company.html",
-            "fr": "entreprise.html"
+            "fr": "compagnie.html"
         },
         "internal":{
             "en": "companyINT-en.html",
