@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 import { ICode, ICodeDefinition, IParentChildren, SortOn } from '../data-loader/data';
 import { IIdTextLabel } from '../model/entity-base';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UtilsService {
 
   isCanadaOrUSA(countryValue): boolean {
@@ -56,8 +56,8 @@ export class UtilsService {
 
   /**
    * find a code by its id in a code array
-   * @param codeArray 
-   * @param id 
+   * @param codeArray
+   * @param id
    * @returns either a code or undefined
    */
   findCodeById(codeArray: ICode[], id: string): ICode | undefined {
@@ -65,7 +65,7 @@ export class UtilsService {
   }
 
   /*
-  * takes an array of ids, 
+  * takes an array of ids,
   * uses the filter method to iterate through the codeArray and includes only those objects whose id is present in the idsToFilter array
   * the filtered array is then returned
   */
@@ -75,8 +75,8 @@ export class UtilsService {
 
   /**
    * find a codeDefinition by its id in a codeDefinition array
-   * @param codeDefinitionArray 
-   * @param id 
+   * @param codeDefinitionArray
+   * @param id
    * @returns either a code or undefined
    */
     findCodeDefinitionById(codeDefinitionArray: ICodeDefinition[], id: string): ICodeDefinition | undefined {
@@ -85,11 +85,11 @@ export class UtilsService {
 
   /**
    * get the id value from an IdTextLabel object
-   * @param idTextLabelObj 
+   * @param idTextLabelObj
    * @returns either id or undefined
    */
   getIdFromIdTextLabel(idTextLabelObj: IIdTextLabel): string {
-    return !this.isEmpty(idTextLabelObj) ? idTextLabelObj._id : undefined; 
+    return !this.isEmpty(idTextLabelObj) ? idTextLabelObj._id : undefined;
   }
 
   getIdsFromIdTextLabels(idTextLabelObjs: any): string[] {
@@ -109,7 +109,7 @@ export class UtilsService {
   }
 
   getLabelFromIdTextLabelByLang(idTextLabelObj: IIdTextLabel, lang: string): string {
-    return !this.isEmpty(idTextLabelObj) ? (this.isFrench(lang) ? idTextLabelObj._label_fr : idTextLabelObj._label_en) : undefined; 
+    return !this.isEmpty(idTextLabelObj) ? (this.isFrench(lang) ? idTextLabelObj._label_fr : idTextLabelObj._label_en) : undefined;
   }
 
   isArrayOfIIdTextLabel(arr: any[]): arr is IIdTextLabel[] {
@@ -145,7 +145,7 @@ export class UtilsService {
 
     // If no match found, return an empty array
     return [];
-  }    
+  }
 
   // return a concatated string, delimited by a space
   concat(...param: string[]): string{
@@ -180,7 +180,7 @@ export class UtilsService {
     } else {
       return null;
     }
-  }  
+  }
 
   // Function to find a match by id and return the appropriate definition based on lang
  getCodeDefinitionByIdByLang(id: string, list: ICodeDefinition[], lang: string): string {
@@ -193,10 +193,10 @@ export class UtilsService {
     }
 
     return this.getCodeDefinitionByLang(codeDefinition, lang);
-  }    
+  }
 
   // return true if the value is in the array of valid values
-  toBoolean = (value: string | number | boolean): boolean => 
+  toBoolean = (value: string | number | boolean): boolean =>
     [true, 'TRUE', 'T', '1', 1].includes(typeof value === 'string' ? value.toUpperCase() : value);
 
   isEmpty(value: any): boolean {
@@ -213,7 +213,7 @@ export class UtilsService {
       const found = array2.find(x => x === item1);
       if (found) {
         return true;
-      } 
+      }
     }
     return false;
   }
@@ -226,19 +226,19 @@ export class UtilsService {
       }
     });
   }
-  
+
   getControlName (control: AbstractControl) {
     var controlName = null;
     var parent = control["_parent"];
 
-    // only such parent, which is FormGroup, has a dictionary 
+    // only such parent, which is FormGroup, has a dictionary
     // with control-names as a key and a form-control as a value
     if (parent instanceof FormGroup)
     {
         // now we will iterate those keys (i.e. names of controls)
         Object.keys(parent.controls).forEach((name) =>
         {
-            // and compare the passed control and 
+            // and compare the passed control and
             // a child control of a parent - with provided name (we iterate them all)
             if (control === parent.controls[name])
             {
@@ -287,7 +287,7 @@ export class UtilsService {
       control.updateValueAndValidity();
     }
     // logFormControlState(control);
-  }  
+  }
 
   checkComponentChanges(changes: SimpleChanges): any[] {
     let changesArray = [];
