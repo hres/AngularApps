@@ -4,7 +4,7 @@ import { ContactDetailsComponent } from './contact.details/contact.details.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { BrowserModule } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective, PopupComponent } from '@hpfb/sdk/ui';
+import { ErrorModule, PipesModule, ExpanderModule, NumbersOnlyDirective, PopupComponent, UtilsService, ConverterService } from '@hpfb/sdk/ui';
 import { ContactDetailsService } from './contact.details/contact.details.service';
 
 @NgModule({
@@ -28,6 +28,8 @@ import { ContactDetailsService } from './contact.details/contact.details.service
   ],
   providers: [
     ContactDetailsService,
+    UtilsService,
+    ConverterService
   ],
 })
 export class ContactModule {}

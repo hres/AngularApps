@@ -5,7 +5,7 @@ import { UtilsService } from '../utils/utils.service';
 import { CheckboxOption } from '../model/form-model';
 import { FormArray, FormGroup } from '@angular/forms';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 /**
  * form data/output data converter/mapper
  */
@@ -46,7 +46,7 @@ export class ConverterService {
     return codeVal? this.convertCodeToIdTextLabel(codeVal, lang) : null;
   }
 
-  // loop through the controlVals and find it's each and every value in a ICodeList and convert it to an IdTextLabel object 
+  // loop through the controlVals and find it's each and every value in a ICodeList and convert it to an IdTextLabel object
   // return an IdTextLabel[]
   findAndConverCodesToIdTextLabels(codeList: ICode[], controlVals: string[], lang: string): IIdTextLabel[] {
     let idTextLabels: IIdTextLabel[] = [];
@@ -58,11 +58,11 @@ export class ConverterService {
         console.error("ConverterService", "findAndConverCodesToIdTextLabels", `couldn't find '${controlVal}' in codeList`);
         return null;
       }
-    } 
+    }
     return idTextLabels;
   }
 
-  // takes an array of codes and iterates through it, 
+  // takes an array of codes and iterates through it,
   // for each codes, finds the index of the corresponding option in optionList,
   // it the option is found, sets the values of the corresponding checkbox in checkboxFormArray to true
   checkCheckboxes(loadedCodes: string[], optionList: CheckboxOption[], checkboxFormArray: FormArray) : void {

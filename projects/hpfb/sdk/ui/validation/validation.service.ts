@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { IValidationService } from './validation-service.interface';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ValidationService implements IValidationService {
 
   constructor() {
