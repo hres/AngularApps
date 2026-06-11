@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { EntityBasePbvService } from './model/entity-base.service';
 import { VALIDATION_SERVICES } from '@hpfb/sdk/ui';
+import { PbvValidationService } from './validation/pbv.validation.service';
 // import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
@@ -18,11 +19,12 @@ import { VALIDATION_SERVICES } from '@hpfb/sdk/ui';
   ],
   providers: [
     EntityBasePbvService,
-    {
-      provide: VALIDATION_SERVICES,
-      useValue: [],
-      multi: true
-    }
+  PbvValidationService,
+  {
+    provide: VALIDATION_SERVICES,
+    useExisting: PbvValidationService,
+    multi: true
+  }
   ],
   exports: [
 
