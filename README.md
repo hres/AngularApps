@@ -17,6 +17,7 @@ This repository follows a monorepo architecture that contains multiple applicati
     │   └── pbv-rt          # PharmaBio/Vet - Regulatory Transaction
     ├── libs/               # Built tarball files of libraries
     ├── projects/           # Libraries
+    │   ├── md/             # Medical Devices library
     │   ├── pbv/            # PharmaBio/Vet library
     │   └── sdk/            # General library
     ├── python/             # Scripts for building apps
@@ -49,9 +50,10 @@ Head over to the project root's package.json. Run the specified app using the sc
 - Go to root's package.json
 - Build scripts for each application start with "build-(app)"
 - Once the application is built, the built files will be located in /dist/
-- First delete the en and fr folder that is currently in the branch so only the new files will exist and then copy the new en and fr folders to [development or production repos](https://github.com/hres/REP-Form/tree/rep_dev)
+- First delete the en and fr folder that is currently in the branch so only the new files will exist and then copy the new en and fr folders to [development or production repos] (Dev: https://github.com/hres/REP-Form/tree/rep_dev)
 - Push to GitHub and make sure to add a comment with the form name and version # (i.e. Masterfile Form - v1.0.2)
-- Dev will deploy automatically but for Production, The IT HRE team must be contacted once the code has been pushed to the production branch.
+- Dev will deploy automatically within 5 mins. 
+- Production can be deployed by logging into to Jenkins account (http://jenkins.hres.ca/login?from=%2Fjob%2FData-Science%2Fjob%2Frep-deploy-prod_pilot%2F) and running the pipeline. If you don't have access to the Jenkins pipeline, then contact the IT HRE team for access or to run it for you. 
 
 ## Library Structure and Usage
 
@@ -59,6 +61,8 @@ Head over to the project root's package.json. Run the specified app using the sc
 > [!IMPORTANT]
 > Whenever a new library build is merged, make sure to pull the latest changes from the main branch and run pnpm install. This ensures your setup stays up to date with the latest library updates.
 
+### md/
+Contains shared components, models, and utility functions used across all Medical Devices applications.
 
 ### pbv/
 Contains shared components, models, and utility functions used across all PharmaBio/Vet applications. Library is also used in CSP app.
