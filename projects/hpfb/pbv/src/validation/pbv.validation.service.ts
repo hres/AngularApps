@@ -14,7 +14,7 @@ export class PbvValidationService {
       'error.msg.business':'error.msg.business',
     };
 
-    return config[validatorName];
+    return config[validatorName] ?? validatorName;
   }
 
   static pharmabioDossierIdValidator(control) {
