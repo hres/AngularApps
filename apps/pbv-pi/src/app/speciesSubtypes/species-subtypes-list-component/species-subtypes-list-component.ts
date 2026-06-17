@@ -157,17 +157,17 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
     this._listService.initIndex(normalized);
 
     if (normalized.length === 0) {
-      this._createFormContact();
+      this._createFormSpecy();
     } else {
       this._listService.createFormRecordList(
         normalized,
         this._fb,
         this.specyList,
-        false
+        false,this.lang, this.vetSpecies, this.specySubTypes
       );
     }
 
-    this._listService.updateUIDisplayValues(this.specyList);
+    this._listService.updateUIDisplayValues(this.specyList, this.vetSpecies, this.lang);
   }
 
   get specyList(): FormArray {
@@ -181,9 +181,9 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
     const newIndex = this.specyList.length;
     let specyFocus = "";
 
-    this._createFormContact();
+    this._createFormSpecy();
 
-    this._listService.updateUIDisplayValues(this.specyList);
+    this._listService.updateUIDisplayValues(this.specyList, this.vetSpecies, this.lang);
 
 
 
@@ -198,8 +198,8 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
     this.showErrors = false;
   }
 
-  private _createFormContact() {
-    const formContact = this._listService.createContactFormRecord(this._fb);
+  private _createFormSpecy() {
+    const formContact = this._listService.createSpecyFormRecord(this._fb);
     this.recModel = formContact;
     this.addRecord(formContact, this.specyList);
     this._listService.collapseFormRecordList(this._utilsService, this.specyList, formContact.controls['id'].value);
@@ -217,7 +217,9 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
       record = specyRecord.recModel;
     }
 
-    const recordId = this.saveRecord(record, this._listService, this.lang);
+    const recordId = this.saveRecord(record, this._listService, this.lang, this.vetSpecies, this.specySubTypes);
+
+
 
     // console.log(`recordId ${recordId} was saved`)
 
@@ -237,7 +239,8 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
     this._expandNextInvalidRecord(false);
 
     this.showErrors = true;
-
+    // ✅ ADD THIS HERE
+    this._listService.updateUIDisplayValues( this.specyList, this.vetSpecies, this.lang);
 
     //update specy list
     this.syncSpecies();
@@ -323,12 +326,12 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
 
     let modelRecord = this._listService.getModelRecord(this.specytId);
     if (!modelRecord) {
-      modelRecord = this._listService.getEmptyContactModel();
+      modelRecord = this._listService.getEmptySpecyModel();
       modelRecord.id = this.specytId;
     }
     let rec = this.getRecord(this.specytId, this.specyList);
     if (rec) {
-      this._recordService.mapDataModelFormModel(modelRecord, rec);
+      this._recordService.mapDataModelFormModel(modelRecord, rec,  this.lang, this.vetSpecies, this.specySubTypes);
     }
     if (this.lang == "en") {
       discardMsg = "Contact record " + rec.controls['seqNumber'].value + "  changes have been discarded."
@@ -353,7 +356,7 @@ this.syncSpecies();
     this.specyListForm.markAsPristine();
     // since the specy record is deleted, we should also remove its ErrorSummary if there is any
     this._errorNotificationService.removeErrorSummary(this.specytId.toString());
-    this._listService.updateUIDisplayValues(this.specyList);
+    this._listService.updateUIDisplayValues(this.specyList, this.vetSpecies, this.lang);
     this._expandNextInvalidRecord(false);
 
         //update specy list
@@ -485,10 +488,11 @@ this.syncSpecies();
 
 
 
-private syncSpecies() {
-  const list = this._listService.getModelRecordListFromForm(this.specyList);
-  this.speciesChanged.emit(list);
-}
+  private syncSpecies() {
+    const list = this._listService.getModelRecordListFromForm(this.specyList, this.lang, this.vetSpecies, this.specySubTypes);
+    this.speciesChanged.emit(list);
+  }
+
 
 
 private hydrateSpeciesFromInput(): void {
@@ -507,17 +511,17 @@ private hydrateSpeciesFromInput(): void {
       list,
       this._fb,
       this.specyList,
-      false
+      false, this.lang, this.vetSpecies, this.specySubTypes
     );
 
     (this.specyList.at(0) as FormGroup)
       .get('expandFlag')
       ?.setValue(true);
   } else {
-    this._createFormContact();
+    this._createFormSpecy();
   }
 
-  this._listService.updateUIDisplayValues(this.specyList);
+  this._listService.updateUIDisplayValues(this.specyList, this.vetSpecies, this.lang);
 
   // keep parent in sync but DOES NOT affect XML
   this.syncSpecies();

@@ -28,19 +28,18 @@ export class SpeciesSubtypesRecordService {
     );
   }
 
-  public mapFormModelToDataModel(formRecord: FormGroup, specyRecordModel: SpecyAndSubType, lang: string, languageList: ICode[]) {
+  public mapFormModelToDataModel(formRecord: FormGroup, specyRecordModel: SpecyAndSubType, lang: string, species: ICode[],  subtypes: ICode[]) {
     specyRecordModel.id = formRecord.controls['id'].value;
-    this._detailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['speciesSubtypeDetail']), specyRecordModel, lang, languageList);
+    this._detailsService.mapFormModelToDataModel((<FormGroup>formRecord.controls['speciesSubtypeDetail']), specyRecordModel, lang, species, subtypes);
 
   }
 
 
-  public mapDataModelFormModel(contactRecordModel: SpecyAndSubType, formRecord: FormGroup) {
+  public mapDataModelFormModel(contactRecordModel: SpecyAndSubType, formRecord: FormGroup, lang: string, species: ICode[],  subtypes: ICode[]) {
     formRecord.controls['id'].setValue(Number(contactRecordModel.id));
     formRecord.controls['isNew'].setValue(false);
-    this._detailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls['speciesSubtypeDetail']);
+    this._detailsService.mapDataModelToFormModel(contactRecordModel, <FormGroup>formRecord.controls['speciesSubtypeDetail'], lang, species, subtypes);
   }
-
    public  getHeading(index : number): string {
       return this._translateService.instant('heading.product.specy', { seqnumber: index + 1})
    }

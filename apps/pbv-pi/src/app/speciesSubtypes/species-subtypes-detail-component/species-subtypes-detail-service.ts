@@ -22,25 +22,33 @@ export class SpeciesSubtypesDetailsService {
         subtype: [null, Validators.required],
         isUsedForTreatmentOfFoodProducingAnimals: [null, Validators.required],
         days: [null],
-        hours:[null]
+        hours:[null],
+              // UI ONLY (DO NOT MAP TO XML)
+        speciesDisplay: [''],
     });
   }
 
-   public mapFormModelToDataModel(formRecord: FormGroup, specySubTypeModel: SpecyAndSubType, lang: string, languageList: ICode[]) {
-     specySubTypeModel.subtype = formRecord.controls['subtype'].value;
-     specySubTypeModel.species = formRecord.controls['species'].value;
-     specySubTypeModel.isUsedForTreatmentOfFoodProducingAnimals = formRecord.controls['isUsedForTreatmentOfFoodProducingAnimals'].value;
-     specySubTypeModel.withdrawal_time.days = formRecord.controls['days'].value;
-     specySubTypeModel.withdrawal_time.hours = formRecord.controls['hours'].value;
-  }
+  public mapFormModelToDataModel(formRecord: FormGroup, specySubTypeModel: SpecyAndSubType, lang: string, species: ICode[], subtypes:ICode[]) {
+    specySubTypeModel.subtype =  this._converterService.findAndConverCodeToIdTextLabel(subtypes, formRecord.controls['subtype'].value, lang);
+    specySubTypeModel.species = this._converterService.findAndConverCodeToIdTextLabel(species, formRecord.controls['species'].value, lang);
+    specySubTypeModel.isUsedForTreatmentOfFoodProducingAnimals = formRecord.controls['isUsedForTreatmentOfFoodProducingAnimals'].value;
+    specySubTypeModel.withdrawal_time.days = formRecord.controls['days'].value;
+    specySubTypeModel.withdrawal_time.hours = formRecord.controls['hours'].value;
+ }
 
-  public mapDataModelToFormModel(specySubTypeModel: SpecyAndSubType, formRecord: FormGroup) {
-       formRecord.controls['subtype'].setValue(specySubTypeModel.subtype);
-       formRecord.controls['species'].setValue(specySubTypeModel.species);
-       formRecord.controls['isUsedForTreatmentOfFoodProducingAnimals'].setValue(specySubTypeModel.isUsedForTreatmentOfFoodProducingAnimals);
-       formRecord.controls['days'].setValue(specySubTypeModel.withdrawal_time.days);
-       formRecord.controls['hours'].setValue(specySubTypeModel.withdrawal_time.hours);
+ public mapDataModelToFormModel(specySubTypeModel: SpecyAndSubType, formRecord: FormGroup, lang: string, species: ICode[], subtypes:ICode[] ) {
 
-  }
+      if(specySubTypeModel.subtype){
+      formRecord.controls['subtype'].setValue( this._utilsService.getIdFromIdTextLabel(specySubTypeModel.subtype));
+      }else{
+       formRecord.controls['subtype'].setValue(null);
+      }
+      if(specySubTypeModel.species){
+      formRecord.controls['species'].setValue( this._utilsService.getIdFromIdTextLabel(specySubTypeModel.species));
+      }
+      formRecord.controls['isUsedForTreatmentOfFoodProducingAnimals'].setValue(specySubTypeModel.isUsedForTreatmentOfFoodProducingAnimals);
+      formRecord.controls['days'].setValue(specySubTypeModel.withdrawal_time.days);
+      formRecord.controls['hours'].setValue(specySubTypeModel.withdrawal_time.hours);
+ }
 
 }

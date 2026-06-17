@@ -21,8 +21,8 @@ export class SpecySubtypeBaseService {
   getEmptySpecySubtypeModel(): SpecyAndSubType {
     return {
       id: null,
-      species: '',
-      subtype: '',
+      species: null,
+      subtype: null,
       isUsedForTreatmentOfFoodProducingAnimals:'',
       withdrawal_time:this.getEmptyWithdrawalTime()
     };

@@ -19,7 +19,7 @@ import { SpeciesSubtypesRecordComonent } from './speciesSubtypes/species-subtype
 import { SpeciesSubtypesListComponent } from './speciesSubtypes/species-subtypes-list-component/species-subtypes-list-component';
 import { SpeciesSubtypesDetailsService } from './speciesSubtypes/species-subtypes-detail-component/species-subtypes-detail-service';
 import { SpeciesSubtypesListService } from './speciesSubtypes/species-subtypes-list-component/species-subtypes-list-service';
-import { SpecySubtypeBaseService } from './speciesSubtypes/specis-subtypes-base.service';
+import { SpecySubtypeBaseService } from './speciesSubtypes/species-subtypes-base.service';
 import { SpeciesSubtypesRecordService } from './speciesSubtypes/species-subtypes-record-comonent/species-subtypes-record-service';
 
 import { IngredientFormulationModule } from './ingredient-formulation/ingredient-formulation.module';

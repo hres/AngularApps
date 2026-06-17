@@ -26,8 +26,8 @@
                         <ng-container >
                           <li >
                             <button id="saveRecord{{specyRecordModel.get('id').value}}"
-                                attr.aria-label="{{'save.record' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
-                                class="btn btn-primary" (click)="saveSpecyRecord()" [disabled]="disableForm">{{'save.record'|translate}}</button>
+                                attr.aria-label="{{'save.species.record' | translate}} {{'heading.contactDetails' | translate: {seqnumber: j + 1} }}"
+                                class="btn btn-primary" (click)="saveSpecyRecord()" [disabled]="disableForm">{{'save.species.record'|translate}}</button>
                           </li>
                           <li>
                             <button id="internalDeleteRecord{{specyRecordModel.get('id').value}}"
