@@ -90,7 +90,7 @@
     "save.address":"Enregistrer l'enregistrement de l'importateur",
     "delete.address":"Supprimer l'enregistrement de l'importateur",
 
-    "save.record":"Enregistrer l'enregistrement",
+    "save.species.record":"Enregistrer l'enregistrement de l'espèce",
     "delete.record":"Supprimer l'enregistrement",
 
     "save.ingredient.record":"Enregistrer l'enregistrement de l'ingrédient",
@@ -329,7 +329,7 @@
   "error.msg.species.one.record": "Au moins un espèce doit être inscrit",
   "error.msg.ingredient.one.record": "Au moins un ingrédient medicinal ou non medicinal doit être inscrit "
 ,
-  "error.msg.ingredientFormulation": "fr_There are errors in ingredient formulation"
-
+  "error.msg.ingredientFormulation": "fr_There are errors in ingredient formulation",
+   "specy.withdrawal.time.subtitle":"Délai d'attente"
 
 }

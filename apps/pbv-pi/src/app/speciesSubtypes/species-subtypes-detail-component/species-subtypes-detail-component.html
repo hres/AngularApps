@@ -57,7 +57,11 @@
 
 
     <div class="row" *ngIf="IsEnterWithdrawTime()">
-
+      <div class="col-sm-12">
+        <h4 class="withdrawal-subtitle">
+          {{ 'specy.withdrawal.time.subtitle' | translate }}
+        </h4>
+      </div>
       <div class="form-group col-sm-4">
         <label for="withdrawalTimeDays{{recordId}}" class="required full-width">
           <span class="field-name">{{'specy.withdrawal.time.days'|translate}}</span>

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import { ICode, UtilsService } from '@hpfb/sdk/ui';
+import { ConverterService, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { RecordListServiceInterface } from './specy-subtype.list.service.interface';
 import { SpeciesSubtypesRecordService } from '../species-subtypes-record-comonent/species-subtypes-record-service';
 import { SpecySubtypeBaseService } from '../specis-subtypes-base.service';
@@ -26,7 +26,7 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
   }
 
   constructor(private _recordService: SpeciesSubtypesRecordService, private _companyBaseService: SpecySubtypeBaseService, private _utilsService: UtilsService,
-    private _detailsService: SpeciesSubtypesDetailsService) {
+    private _detailsService: SpeciesSubtypesDetailsService, private _converterService: ConverterService) {
     this.specyList = [];
     this.initIndex(this.specyList);
   }
@@ -46,7 +46,7 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
   }
 
 
-  getEmptyContactModel(): SpecyAndSubType {
+  getEmptySpecyModel(): SpecyAndSubType {
     let specyAndSubType: SpecyAndSubType = this._companyBaseService.getEmptySpecySubtypeModel();
     return specyAndSubType;
   }
@@ -57,7 +57,7 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
     });
   }
 
-  createContactFormRecord(fb: FormBuilder) {
+  createSpecyFormRecord(fb: FormBuilder) {
     const formRecord = this._recordService.getReactiveModel(fb);
     const nextId = this.getNextIndex();
     formRecord.controls['id'].setValue(nextId);
@@ -65,24 +65,24 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
   }
 
 
-  private contactFormToData(record: FormGroup, contactModel: SpecyAndSubType, lang: string, languageList: ICode[]) {
-    this._recordService.mapFormModelToDataModel(record, contactModel, lang, languageList );
+  private specyFormToData(record: FormGroup, contactModel: SpecyAndSubType, lang: string, species: ICode[], subtypes: ICode[]) {
+    this._recordService.mapFormModelToDataModel(record, contactModel, lang, species, subtypes );
   }
 
-  public createFormRecordList(modelDataList: SpecyAndSubType[], fb: FormBuilder, formRecordList, isInternal) {
+  public createFormRecordList(modelDataList: SpecyAndSubType[], fb: FormBuilder, formRecordList, isInternal, lang: string, species: ICode[],  subtypes: ICode[]) {
     for (let i = 0; i < modelDataList.length; i++) {
       const formRecord = this._recordService.getReactiveModel(fb);
-      this.contactDataToForm(modelDataList[i], formRecord);
+      this.specyDataToForm(modelDataList[i], formRecord, lang, species, subtypes);
       formRecordList.push(formRecord);
     }
   }
 
-  private contactDataToForm(contactModel: SpecyAndSubType, record: FormGroup) {
-    this._recordService.mapDataModelFormModel(contactModel, record);
+  private specyDataToForm(contactModel: SpecyAndSubType, record: FormGroup, lang: string, species: ICode[],  subtypes: ICode[]) {
+    this._recordService.mapDataModelFormModel(contactModel, record, lang, species, subtypes);
     return (record);
   }
 
-  public saveRecord(formRecord: FormGroup, lang:string, languageList: ICode[], contactSatusList: ICode[]) {
+  public saveRecord(formRecord: FormGroup, lang:string,  species: ICode[], subtypes:ICode[]) {
     let modelList = this.getModelRecordList();
     let id:number;
     let contactModel: SpecyAndSubType = null;
@@ -90,16 +90,16 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
     if (formRecord.controls['isNew'].value) {
       // this.setRecordId(formRecord, this.getNextIndex());
       formRecord.controls['isNew'].setValue(false);
-      contactModel = this.getEmptyContactModel();
+      contactModel = this.getEmptySpecyModel();
       modelList.push(contactModel);
-      this.contactFormToData(formRecord, contactModel, lang, languageList);
+      this.specyFormToData(formRecord, contactModel, lang, species, subtypes);
     } else {
       contactModel = this.getModelRecord(formRecord.controls['id'].value);
       if (!contactModel) {
-        contactModel = this.getEmptyContactModel();
+        contactModel = this.getEmptySpecyModel();
         modelList.push(contactModel);
       }
-      this.contactFormToData(formRecord, contactModel, lang, languageList);
+      this.specyFormToData(formRecord, contactModel, lang, species, subtypes);
     }
 
     this.notifyContactModelChanges({ ...modelList });
@@ -137,15 +137,32 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
     return false;
   }
 
-  updateUIDisplayValues(formRecordList: FormArray){
-    // update Contact Record seqNumber
+  public updateUIDisplayValues(
+    formRecordList: FormArray,
+    species: ICode[],
+    lang: string
+  ) {
     this.updateFormRecordListSeqNumber(formRecordList);
+    formRecordList.controls.forEach((ctrl: FormGroup) => {
 
-    formRecordList.controls.forEach( (element: FormGroup) => {
-      const specyDetailFormRecord = element.controls['speciesSubtypeDetail'] as FormGroup;
-    });
-  }
+      const detail = ctrl.get('speciesSubtypeDetail') as FormGroup;
+      if (!detail) return;
+      const speciesId = detail.get('species')?.value;
+      const speciesDisplayObj = this._converterService.findAndConverCodeToIdTextLabel(
+        species,
+        speciesId,
+        lang
+      );
 
+      if(lang='en'){
+      // IMPORTANT: overwrite safely (not addControl)
+      detail.setControl('speciesDisplay', new FormControl(speciesDisplayObj?._label_en ?? ''));
+
+    }else if(lang=='fr'){
+      detail.setControl('speciesDisplay', new FormControl(speciesDisplayObj?._label_fr ?? ''));
+    };
+  })
+}
    /**
    * Used to create record ids
    * @type {number}
@@ -232,7 +249,7 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
      });
    }
 
-  public getModelRecordListFromForm(formArray: FormArray): SpecyAndSubType[] {
+   public getModelRecordListFromForm(formArray: FormArray, lang: string, species: ICode[], subtypes:ICode[]): SpecyAndSubType[] {
 
     if (!formArray || formArray.length === 0) {
       return [];
@@ -241,10 +258,27 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
     return formArray.controls.map((ctrl) => {
       const fg = ctrl as FormGroup;
 
+      const speciesValue =
+        fg.get('speciesSubtypeDetail.species')?.value;
+
+      const subtypeValue =
+        fg.get('speciesSubtypeDetail.subtype')?.value;
+
       return {
         id: fg.get('id')?.value ?? null,
-        species: fg.get('speciesSubtypeDetail.species')?.value ?? null,
-        subtype: fg.get('speciesSubtypeDetail.subtype')?.value ?? null,
+
+        species: this._converterService.findAndConverCodeToIdTextLabel(
+          species,
+          speciesValue,
+          lang
+        ),
+
+        subtype: this._converterService.findAndConverCodeToIdTextLabel(
+          subtypes,
+          subtypeValue,
+          lang
+        ),
+
         isUsedForTreatmentOfFoodProducingAnimals:
           fg.get('speciesSubtypeDetail.isUsedForTreatmentOfFoodProducingAnimals')?.value ?? null,
 
@@ -255,6 +289,7 @@ export class SpeciesSubtypesListService implements RecordListServiceInterface {
       };
     });
   }
+
 
 
 }

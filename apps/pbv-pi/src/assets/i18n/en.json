@@ -98,7 +98,7 @@
     "save.address":"Save record",
     "delete.address":"Delete record",
 
-    "save.record":"Save record",
+    "save.species.record":"Save species record",
     "delete.record":"Delete record",
 
     "save.ingredient.record":"Save ingredient record",
@@ -345,7 +345,7 @@
     "error.msg.ingredientFormulation": "There are errors in ingredient formulation",
     "error.msg.formulation.one.record": "At least one formulation is required",
     "error.msg.species.one.record": "At least one species should be entered",
-    "error.msg.ingredient.one.record": "At least one medicinal or non medicinal ingredient should be entered "
-
+    "error.msg.ingredient.one.record": "At least one medicinal or non medicinal ingredient should be entered ",
+     "specy.withdrawal.time.subtitle":"Withdrawal time"
 
 }
