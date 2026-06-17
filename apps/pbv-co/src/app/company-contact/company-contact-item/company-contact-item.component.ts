@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, computed, effect, QueryList, SimpleChange, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { GlobalService } from '../../global/global.service';
-import { ICode, CheckboxOption, ErrorNotificationService, BaseComponent, ControlMessagesComponent, ConverterService, UtilsService, ErrorSummaryComponent, RecordDiscardService, RecordDeleteService } from '@hpfb/sdk/ui';
+import { ICode, CheckboxOption, ErrorNotificationService, BaseComponent, ControlMessagesComponent, ConverterService, UtilsService, ErrorSummaryComponent, RecordDiscardService, RecordDeleteService, HelpSequence } from '@hpfb/sdk/ui';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CONTACT_ERROR_PREFIX, ROLE_INDEX_MAPPING } from '../../app.constants';
@@ -55,7 +55,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   private _deleteIndex : number;
 
   private _previouslyDisabled : boolean;
-
+  helpIndex: HelpSequence;
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
@@ -81,7 +81,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     this.lang = this._globalService.currLanguage;
     this.languageList = this._globalService.languageList;
     this.representativeRolesCodeList = this._globalService.representativeRolesList;
-
+    this.helpIndex = this._globalService.helpIndex;
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
 
