@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { ConverterService, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { RecordListServiceInterface } from './specy-subtype.list.service.interface';
 import { SpeciesSubtypesRecordService } from '../species-subtypes-record-comonent/species-subtypes-record-service';
-import { SpecySubtypeBaseService } from '../specis-subtypes-base.service';
+import { SpecySubtypeBaseService } from '../species-subtypes-base.service';
 import { SpeciesSubtypesDetailsService } from '../species-subtypes-detail-component/species-subtypes-detail-service';
 import { SpecyAndSubType } from '../../models/ProductInformation';
 
