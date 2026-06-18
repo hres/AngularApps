@@ -1,7 +1,7 @@
 
 import {FormArray, FormGroup} from '@angular/forms';
 import { Directive, ViewChild} from '@angular/core';
-import { ExpanderComponent } from '@hpfb/sdk/ui';
+import { ExpanderComponent, ICode } from '@hpfb/sdk/ui';
 import { RecordListServiceInterface } from './specy-subtype.list.service.interface';
 
 
@@ -83,18 +83,18 @@ export abstract class SpeciesSubtypesListBaseComponent  {
    * @param service
    * @returns {number}
    */
-  public saveRecord(record: FormGroup, service: RecordListServiceInterface, lang:string): number {
+  public saveRecord(record: FormGroup, service: RecordListServiceInterface, lang:string, species: ICode[], subtypes: ICode[]): number {
     //  Case 1 no record, just show error summary, shoud never happen
     if (!record) {
       this.showErrorSummary = true;
       return -1;
     }
     // console.log(record);
-    let recordId = service.saveRecord(record, lang);
+    let recordId = service.saveRecord(record, lang, species, subtypes);
     this.showErrorSummary = false;
     this.newRecordIndicator = false; // in case this was a new record
     // this.collapseExpanderRows();
-    return recordId;
+   return recordId;
   }
 
   /**

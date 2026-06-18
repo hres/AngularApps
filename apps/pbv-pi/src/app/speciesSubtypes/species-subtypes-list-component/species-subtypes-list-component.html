@@ -18,7 +18,7 @@
     <div [formArrayName]="'species_subtypes'">
 
   <lib-accordion [rowsFormArray]="specyList" [accordionHeadingMsgKey]="'heading.specyDetails'"
-    [accordionHeadingSupp]="['specyDetails', 'fullName']" (rowClicked)="handleRowClick($event)">
+    [accordionHeadingSupp]="['speciesSubtypeDetail', 'speciesDisplay']" (rowClicked)="handleRowClick($event)">
 
     <ng-template #tmpl let-recordRow let-idx="i">
       <!-- ==={{recordRow.get('id').value}}=== -->

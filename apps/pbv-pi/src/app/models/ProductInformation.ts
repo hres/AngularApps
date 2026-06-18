@@ -52,8 +52,8 @@ export interface DisinfectantTypes {
 
 export interface SpecyAndSubType {
   id: number;
-  species: string;
-  subtype: string;
+  species: IIdTextLabel;
+  subtype: IIdTextLabel;
   isUsedForTreatmentOfFoodProducingAnimals: string;
   withdrawal_time: WithdrawalTime
 
