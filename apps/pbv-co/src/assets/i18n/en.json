@@ -75,6 +75,7 @@
     "fax.number":"Fax number (including area code)",
     "fax.number.nofaxnum": "(Use 0000000000 if not available)",
     "contact.email":"Email address",
+    "email.text":"Email addresses for the manufacturer/sponsor and billing representatives are automatically enrolled in electronic billing (e-Billing).",
     "error.mgs.zip":"Invalid entry - must be 5 digits",
     "error.msg.minlength": "Invalid entry - must be minimum {{ requiredLength }} digits",
     "error.msg.postal":"Invalid format - must be X1X1X1",
