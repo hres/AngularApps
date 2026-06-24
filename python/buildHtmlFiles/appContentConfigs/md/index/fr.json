@@ -10,7 +10,7 @@
             "groups": [
                 {
                     "bullets": [
-                        "<a href=\"{{ base_url }}mds-historique_révisions.html\">Historique des révisions du modèle (2026-03-25)</a>"
+                        "<a href=\"{{ base_url }}mds-historique_révisions.html\">Historique des révisions du modèle (2026-05-22)</a>"
                     ]
                 }
             ]
@@ -19,7 +19,7 @@
             "header": "En dehors du processus de transaction réglementaire",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.fr }}\">Modèle de la compagnie (2026-01-28)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.fr }}\">Modèle de la compagnie (2026-05-22)</a>",
                     "bullets": [
                         "Obligatoire pour obtenir un identifiant de la compagnie et/ou fournir des informations à jour sur la compagnie à Santé Canada.",
                         "Envoyé par courriel.<ul><li>Joignez l’ébauche de fichier CO XML avant l’envoi.</li></ul>",
@@ -38,7 +38,7 @@
             "header": "Dans le cadre du processus de transaction réglementaire",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.fr }}\">Modèle de transaction réglementaire (TR) pour les instruments médicaux (2026-01-28)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.fr }}\">Modèle de transaction réglementaire (TR) pour les instruments médicaux (2026-05-22)</a>",
                     "bullets": [
                         "Obligatoire avec chaque transaction réglementaire déposée auprès de Santé Canada.",
                         "Reportez-vous à la section « Processus de demande » de la ligne directrice PIR pour les instruments médicaux."
@@ -73,7 +73,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"{{ template_paths.co_internal.fr }}\">Modèle de compagnie – version interne 5.0.0</a>"
+                        "<a href=\"{{ template_paths.co_internal.fr }}\">Modèle de compagnie – interne (2026-05-22)</a>"
                     ]
                 }
             ]

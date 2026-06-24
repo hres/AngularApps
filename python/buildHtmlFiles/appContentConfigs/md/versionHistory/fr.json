@@ -7,6 +7,17 @@
     ],
     "releases": [
         {
+            "header": "Publication du 22 mai 2026",
+            "details": [
+                {
+                    "template": "Modèle de compagnie (CO)<br>version 5.0.1<br><br>Modèle de transaction réglementaire (TR)<br>version 4.0.1",
+                    "changes": [
+                        "Mise à jour des champs d’identifiant de contact de 5 chiffres à une plage de 1 à 6 chiffres"
+                    ]
+                }
+            ]
+        },
+        {
             "header": "Publication du 25 mars 2026",
             "details": [
                 {

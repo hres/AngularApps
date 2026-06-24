@@ -10,7 +10,7 @@
             "groups": [
                 {
                     "bullets": [
-                        "<a href=\"{{ base_url }}mds-version_history.html\">Template revision history (2026-03-25)</a>"
+                        "<a href=\"{{ base_url }}mds-version_history.html\">Template revision history (2026-05-22)</a>"
                     ]
                 }
             ]
@@ -19,7 +19,7 @@
             "header": "Outside the regulatory transaction process",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company (CO) template (2026-01-28)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.co.en }}\">Company (CO) template (2026-05-22)</a>",
                     "bullets": [
                         "Required to obtain a company ID and/or provide updated company information to Health Canada.",
                         "Sent by email.<ul><li>Attach draft CO XML file to email prior to sending.</li></ul>",
@@ -39,7 +39,7 @@
             "header": "Within the regulatory transaction process",
             "groups": [
                 {
-                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory transaction template (2026-01-28)</a>",
+                    "header": "<a href=\"{{ base_url }}{{ template_paths.rt.en }}\">Regulatory transaction template (2026-05-22)</a>",
                     "bullets": [
                         "Required with each regulatory transaction filed to Health Canada.",
                         "Refer to section “Application process” of the REP guidance document for medical devices."
@@ -74,7 +74,7 @@
                 {
                     "header": "",
                     "bullets": [
-                        "<a href=\"{{ template_paths.co_internal.en }}\">Company enrolment - internal version 5.0.0</a>"
+                        "<a href=\"{{ template_paths.co_internal.en }}\">Company enrolment - internal (2026-05-22)</a>"
                     ]
                 }
             ]

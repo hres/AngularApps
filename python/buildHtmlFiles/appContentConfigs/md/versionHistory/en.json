@@ -7,6 +7,17 @@
     ],
     "releases": [
         {
+            "header": "May 22, 2026 release",
+            "details": [
+                {
+                    "template": "Company (CO)<br>template<br>version 5.0.1<br><br>Regulatory transaction (RT)<br>template<br>version 4.0.1",
+                    "changes": [
+                        "Updated contact identifier fields from 5 digits to a 1–6 digit range"
+                    ]
+                }
+            ]
+        },
+        {
             "header": "March 25, 2026 release",
             "details": [
                 {
