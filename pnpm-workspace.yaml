@@ -3,3 +3,9 @@ packages:
   - 'apps/*'
   # all packages in subdirs of packages/ and components/
   - 'projects/hpfb/*'
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
