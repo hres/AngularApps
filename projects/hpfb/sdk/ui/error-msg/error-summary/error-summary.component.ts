@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges, ViewEncapsulation, inject} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges, ViewEncapsulation, inject, ChangeDetectionStrategy} from '@angular/core';
 import { ExpanderComponent } from '../../expander/expander.component';
 import {ErrorSummaryObject, ERR_TYPE_COMPONENT, ERR_TYPE_LEAST_ONE_REC, getEmptyErrorSummaryObj} from './error-summary-object';
 import { ErrMessageService } from '../err.message.service';
@@ -8,6 +8,7 @@ import { ErrMessageService } from '../err.message.service';
     templateUrl: './error-summary.component.html',
     styleUrls: ['./error-summary.component.css'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ErrorSummaryComponent implements AfterViewInit {

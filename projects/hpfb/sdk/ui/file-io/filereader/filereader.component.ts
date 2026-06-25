@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, Input, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input, SimpleChanges, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
 import { DRAFT_FILE_TYPE, FILE_TYPE_ERROR, FINAL_FILE_TYPE, FORM_TYPE_ERROR, IMPORT_SUCCESS, CHECK_SUM_ERROR} from '../file-io-constants';
 import {TranslateService} from '@ngx-translate/core';
 import { ConvertResults } from '../convert-results';
@@ -11,6 +11,7 @@ import { CHECK_SUM_CONST } from '../../check-sum/check-sum-constants';
     templateUrl: './filereader.component.html',
     styleUrls: ['./filereader.component.css'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 

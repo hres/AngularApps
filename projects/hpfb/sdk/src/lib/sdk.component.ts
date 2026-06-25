@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'lib-sdk',
@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
       sdk works!
     </p>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class SdkComponent {
