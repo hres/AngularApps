@@ -143,13 +143,13 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
             "buildTarget": "md-rt:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "polyfills": [
               "zone.js",
