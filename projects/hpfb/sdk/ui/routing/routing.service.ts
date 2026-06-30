@@ -17,7 +17,7 @@ export class RoutingService {
   }
 
   getStateData<T>(propertyKey: string): T {
-    const currentNavigation: Navigation | null = this.router.getCurrentNavigation();
+    const currentNavigation: Navigation | null = this.router.currentNavigation();
     if (currentNavigation && currentNavigation.extras.state) {
       return currentNavigation.extras.state[propertyKey] as T;
     }

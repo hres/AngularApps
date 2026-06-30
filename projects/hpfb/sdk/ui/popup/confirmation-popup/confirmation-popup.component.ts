@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import $ from 'jquery';
 
@@ -7,6 +7,7 @@ import $ from 'jquery';
     imports: [TranslateModule],
     templateUrl: './confirmation-popup.component.html',
     styleUrl: './confirmation-popup.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class ConfirmationPopupComponent {
