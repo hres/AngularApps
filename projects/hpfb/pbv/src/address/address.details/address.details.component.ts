@@ -11,6 +11,7 @@ import { INameAddress } from '../../model/entity-base';
     selector: 'pbv-address-details',
     templateUrl: 'address.details.component.html',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 

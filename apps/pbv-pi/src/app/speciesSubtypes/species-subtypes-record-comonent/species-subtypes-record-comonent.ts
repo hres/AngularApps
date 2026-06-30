@@ -126,7 +126,16 @@ export class SpeciesSubtypesRecordComonent implements OnInit, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log(this._utilsService.checkComponentChanges(changes));
+      // ✅ NEW: Handle cRRow changes
+      if (changes['cRRow'] && changes['cRRow'].currentValue) {
+        this.specyRecordModel = changes['cRRow'].currentValue;
+        this.headingPreambleParams = this.specyRecordModel.get('seqNumber')?.value || this.j + 1;
+        this.translatedParentLabel = this._translateService.instant(
+          this.headingPreamble,
+          { seqnumber: this.headingPreambleParams }
+        );
+
+      }
     if (changes['showErrors']) {
       this.showErrSummary = changes['showErrors'].currentValue;
       this._emitErrors();

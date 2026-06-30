@@ -3,3 +3,19 @@ packages:
   - 'apps/*'
   # all packages in subdirs of packages/ and components/
   - 'projects/hpfb/*'
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
+minimumReleaseAgeExclude:
+  - '@angular/animations@22.0.3'
+  - '@angular/common@22.0.3'
+  - '@angular/compiler-cli@22.0.3'
+  - '@angular/compiler@22.0.3'
+  - '@angular/core@22.0.3'
+  - '@angular/forms@22.0.3'
+  - '@angular/platform-browser-dynamic@22.0.3'
+  - '@angular/platform-browser@22.0.3'
+  - '@angular/router@22.0.3'

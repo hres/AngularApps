@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges,ViewEncapsulation, inject} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges, ViewEncapsulation, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { ValidationService } from '../../validation/validation.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -9,6 +9,7 @@ import { ErrMessageService } from '../err.message.service';
     templateUrl: './control-messages.component.html',
     styleUrls: ['./control-messages.component.css'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 

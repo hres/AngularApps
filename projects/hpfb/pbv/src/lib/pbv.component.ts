@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'pb-lib-pbv',
@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
       pbv works!
     </p>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class PbvComponent {

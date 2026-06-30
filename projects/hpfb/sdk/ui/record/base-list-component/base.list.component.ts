@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, inject, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, inject, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ChangeDetectionStrategy } from "@angular/core";
 import { IBaseList } from "./base.list.interface";
 import { FormGroup, FormArray, FormBuilder } from "@angular/forms";
 import { IRecordService } from "../record-service/record.service.interface";
@@ -13,6 +13,7 @@ import { RecordDeleteService } from "../record-action-service/record-delete.serv
 
 @Component({
     template: '',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export abstract class BaseListComponent<T extends OutputRecord> extends BaseComponent implements IBaseList<T>, AfterViewInit {

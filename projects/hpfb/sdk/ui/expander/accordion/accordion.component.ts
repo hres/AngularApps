@@ -1,4 +1,4 @@
-import { Component, ContentChild, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewEncapsulation, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewEncapsulation, ViewChildren, QueryList, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormGroup} from '@angular/forms';
 
 @Component({
@@ -6,6 +6,7 @@ import { FormArray, FormGroup} from '@angular/forms';
     templateUrl: './accordion.component.html',
     styleUrls: ['./accordion.component.css'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AccordionComponent {

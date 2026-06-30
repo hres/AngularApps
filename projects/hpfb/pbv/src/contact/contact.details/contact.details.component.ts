@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent, HelpIndex, ICode, UtilsService } from '@hpfb/sdk/ui';
 import { IContact } from '../../model/entity-base';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -9,6 +9,7 @@ import { ContactDetailsService } from './contact.details.service';
     templateUrl: './contact.details.component.html',
     //styleUrl: './contact-details.component.css',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ContactDetailsComponent extends BaseComponent implements OnInit{

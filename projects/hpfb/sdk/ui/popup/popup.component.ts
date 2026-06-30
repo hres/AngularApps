@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ViewEncapsulation, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import $ from 'jquery';
 
 @Component({
@@ -6,6 +6,7 @@ import $ from 'jquery';
     imports: [],
     templateUrl: './popup.component.html',
     styleUrl: './popup.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class PopupComponent {
