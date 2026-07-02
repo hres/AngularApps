@@ -126,5 +126,6 @@
     "popup.warning": "Warning!",
 
     "error.mgs.5.numeric": "Invalid entry - must be five digits",
-    "select.option": "Select an option"
+    "select.option": "Select an option",
+    "minlength": "Invalid entry - must be {{ requiredLength }} digits"
 }
