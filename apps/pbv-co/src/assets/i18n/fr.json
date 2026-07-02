@@ -125,6 +125,7 @@
 
 
     "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres",
-    "select.option": "Sélectionnez une option"
+    "select.option": "Sélectionnez une option",
+    "minlength": "Minimum de {{ requiredLength }} chiffres"
 
 }
