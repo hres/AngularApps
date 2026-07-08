@@ -59,16 +59,40 @@ export class FormulationItemComponent extends BaseComponent {
 
   async ngOnInit() : Promise<void> {
     this.dosageFormList = this._globalService.dosageFormList;
-    
+
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
 
     this._initSubscriptions();
   }
 
-  ngOnChanges(changes : SimpleChanges) : void {
+//   ngOnChanges(changes: SimpleChanges): void {
+//     console.log('FormulationItem ngOnChanges', changes);
 
+//     if (changes['ingredFormModelList']) {
+//         console.log(
+//             'ingredient list:',
+//             changes['ingredFormModelList'].currentValue
+//         );
+
+//         this.cdRef.detectChanges();
+//     }
+// }
+
+ngOnChanges(changes: SimpleChanges): void {
+  console.log('=== FormulationItem changes ===');
+  console.log(
+    'isArray =',
+    Array.isArray(this.ingredFormModelList)
+);
+  if (changes['ingredFormModelList']) {
+      console.log('ingredFormModelList:', changes['ingredFormModelList'].currentValue);
   }
+
+  if (changes['cRRow']) {
+      console.log('cRRow:', changes['cRRow'].currentValue);
+  }
+}
 
   private _initSubscriptions(): void {
     this._recordDeleteService.deleteConfirmed$.subscribe(index => {
