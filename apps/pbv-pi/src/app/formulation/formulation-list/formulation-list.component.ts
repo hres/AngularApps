@@ -35,7 +35,7 @@ export class FormulationListComponent extends BaseListComponent<Formulation>{
   focusField : string = '';
   addButton : string = 'addFormulationBtn';
 
-  @Input() ingredientFormModelList; 
+  @Input() ingredientFormModelList;
   @Output() errorEmit = new EventEmitter(true);
   @Output() ingredientFormErrors = new EventEmitter();
 
@@ -91,9 +91,9 @@ export class FormulationListComponent extends BaseListComponent<Formulation>{
   protected _patchRecordInfoValue(form, outputModel: Formulation) {
 
     this._formulationItemService.mapDataModelToFormModel(outputModel, form.controls['formulation']);
-      
+
     console.log(outputModel, form.controls['formulation']);
-    
+
     // Map formulation's ingredient list - pass ingredient list to form-item and it will past the list
     // to ingred form list -> mapping will happen in the ingred list component
     this.ingredientFormModelList = outputModel?.ingredient_section;

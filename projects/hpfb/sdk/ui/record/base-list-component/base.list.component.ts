@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, inject, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ChangeDetectionStrategy } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, inject, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { IBaseList } from "./base.list.interface";
 import { FormGroup, FormArray, FormBuilder } from "@angular/forms";
 import { IRecordService } from "../record-service/record.service.interface";
@@ -46,30 +46,37 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     abstract discardPopupId: string;
     abstract deletePopupId: string;
     abstract errorList: [];
+    private cdr = inject(ChangeDetectorRef);
 
-    constructor(private _fb: FormBuilder, 
+    constructor(private _fb: FormBuilder,
         @Inject(BaseListService) protected listService: BaseListService,
         private _recordDiscardService: RecordDiscardService,
-        private _recordDeleteService: RecordDeleteService) {
+        private _recordDeleteService: RecordDeleteService,
+      ) {
         super();
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['recordList']) {
-            this._init(changes['recordList'].currentValue);
-        }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const list = changes['recordList']?.currentValue;
+
+    if (!Array.isArray(list)) {
+        return;
     }
+
+    void this._init(list);
+}
 
     private async _init(recordData: T[]): Promise<void> {
         // Clear existing controls
         this.recordFormArray.clear();
         let maxId = -1;
-    
+
         if (recordData && recordData.length !== 0) {
             this.recordFormGroup.markAsPristine();
             for (const [index, record] of recordData.entries()) {
                 const group = this.recordService.createRecordFormGroup(this._fb);
-    
+
                 // Set values after defining the form controls
                 group.patchValue({
                     id: record.id,
@@ -77,22 +84,21 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
                     isNew: false,
                     expandFlag: false,
                 });
-    
                 this._patchRecordInfoValue(group, record);
                 this._patchLastSavedStateValue(group.controls['lastSavedState'], record);
-    
+
                 const heading = await this.recordService.getHeading(index, group);
                 group.get('heading').setValue(heading);
-    
-                this.recordFormArray.push(group);    
+
+                this.recordFormArray.push(group);
                 // Parse the ID as a number and update maxId if necessary
                 maxId = Math.max(Number(record.id), maxId);
                 this.listService.setMaxId(maxId);
             }
-    
+
             // Now it's safe to expand the first invalid record
             this._expandInvalidRecordUponLoading();
-    
+
         } else {
             if (!this.isInternal) {
                 const group = this.recordService.createRecordFormGroup(this._fb);
@@ -104,12 +110,17 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
                 firstFormRecord.controls['expandFlag'].setValue(true);
             }
         }
-    
+
         this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
-    
+
         // Set the list of form groups
         this.listService.setList(this.recordFormArray.controls as FormGroup[]);
-    }    
+
+           // Refresh view after async initialization completes
+       this.cdr.detectChanges();
+
+
+    }
 
     protected abstract _expandInvalidRecordUponLoading();
     abstract expandAllInvalidRecords();
@@ -124,7 +135,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         group.patchValue({
             recordId: this.listService.getId()
         })
-        this.recordFormArray.push(group);    
+        this.recordFormArray.push(group);
 
         if (this.recordFormArray.length >= 1) {
             recordFocus = this.focusField + newIndex;
@@ -133,7 +144,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         }
 
         setTimeout(() => {
-            document.getElementById(recordFocus).focus()  
+            document.getElementById(recordFocus).focus()
         }, 0);
     }
 
@@ -142,7 +153,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         const group = this.recordFormArray.at(index) as RecordFormGroup;
         // if this is a new record, assign next available id, otherwise, use it's existing id
         const id = group.get('isNew').value? this.listService.getNextId(): group.get('id').value
-        group.patchValue({ 
+        group.patchValue({
         id: id,
         isNew: false,
         expandFlag: false,    // collapse this record
@@ -154,9 +165,9 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
 
         this._setStatusMessage(RECORD_ACTIONS.SAVE, id);
-         
+
         setTimeout(() => {
-            document.getElementById(this.addButton).focus(); 
+            document.getElementById(this.addButton).focus();
         }, 0);
     }
 
@@ -168,8 +179,8 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
           group.controls['expandFlag'].setValue(true);
           this.recordFormGroup.markAsDirty();
             break;
-         } 
-       }     
+         }
+       }
     }
 
     deleteRecord(event:any): void {
@@ -179,7 +190,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         const recordInfo = this.getRecordInfo(group);
         recordInfo.reset();
         this.recordFormArray.removeAt(index);
-    
+
         this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
 
         this._setStatusMessage(RECORD_ACTIONS.DELETE, id);
@@ -198,12 +209,12 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         const recordInfo = this.getRecordInfo(group);
         // Revert to the last saved state
         const lastSavedState = group.get('lastSavedState').value;
-        recordInfo.patchValue(lastSavedState); 
+        recordInfo.patchValue(lastSavedState);
 
         this._setStatusMessage(RECORD_ACTIONS.DISCARD, id);
- 
+
          const discardMsg = this.statusMessage;
-         
+
          setTimeout(() => {
              this.statusMessage = ''; // Temporarily clear the message
              setTimeout(() => {
@@ -270,7 +281,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
             this.showErrors = false;
         }
     }
-    
+
     disableAddButton(): boolean {
         return ( this.recordFormGroup.dirty || !this.recordFormGroup.valid  || this.errorList?.length > 0);
     }
@@ -294,7 +305,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
               fr: `Les modification apportées ${this.statusMessageDiscard} ${id} ont été annulées.`
             }
           };
-        
+
         this.statusMessage = actionMessages[action][this.lang];
     }
 
@@ -309,5 +320,5 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     getRecordFormArrValues() {
         return this.recordFormArray.value;
     }
-    
+
 }

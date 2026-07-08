@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GlobalService } from '../global/global.service';
 import { HelpSequence, LayoutComponent, SecurityDisclaimerComponent } from '@hpfb/sdk/ui';
 import { PrivacyStatementComponent } from '@hpfb/pbv';
@@ -47,7 +47,7 @@ export class ContainerComponent implements OnInit {
     this._formDataLoader.getDosageForms()
   ];
 
-  constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService) {}
+  constructor(private _globalService: GlobalService, private _formDataLoader: FormDataLoaderService, private _cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.language = this._globalService.currLanguage;
@@ -75,6 +75,7 @@ export class ContainerComponent implements OnInit {
       this._globalService.unitPresentationList = data[15];
       this._globalService.dosageFormList = data[16];
       this.loadFormBaseComponent = true;
+      this._cdr.detectChanges();
     });
   }
 

@@ -121,6 +121,13 @@ export class SpeciesSubtypesListComponent extends SpeciesSubtypesListBaseCompone
    }
     if (changes['specyModel'] ) {
       // when importing a file,  initing the contact list form with loaded contacts is triggered here
+      const vetSpecies = this._globalService.vetSpecies;
+      const specySubTypes = this._globalService.specySubTypes;
+
+      if (!vetSpecies || !specySubTypes) return;
+
+      this.vetSpecies = vetSpecies;
+      this.specySubTypes = specySubTypes;
       this.initWithData();
     }
     if (changes['specyModel']) {
