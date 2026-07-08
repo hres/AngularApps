@@ -56,25 +56,6 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         super();
     }
 
-    // ngOnChanges(changes: SimpleChanges): void {
-    //     if (changes['recordList']) {
-    //         this._init(changes['recordList'].currentValue);
-    //     }
-
-
-    // }
-
-  //   ngOnChanges(changes: SimpleChanges): void {
-  //     const list = changes['recordList']?.currentValue;
-
-  //     if (!Array.isArray(list)) {
-  //         return;
-  //     }
-
-  //     this._init(list).then(() => {
-  //         this.cdr.detectChanges();
-  //     });
-  // }
 
   ngOnChanges(changes: SimpleChanges): void {
     const list = changes['recordList']?.currentValue;
@@ -103,10 +84,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
                     isNew: false,
                     expandFlag: false,
                 });
-                console.log('PATCH START', this.constructor.name, record);
                 this._patchRecordInfoValue(group, record);
-
-                console.log('PATCH END', this.constructor.name);
                 this._patchLastSavedStateValue(group.controls['lastSavedState'], record);
 
                 const heading = await this.recordService.getHeading(index, group);
@@ -139,7 +117,7 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
         this.listService.setList(this.recordFormArray.controls as FormGroup[]);
 
            // Refresh view after async initialization completes
-    this.cdr.detectChanges();
+       this.cdr.detectChanges();
 
 
     }
