@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, effect, EventEmitter, Input, Output, Quer
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent, CheckboxOption, ConverterService, ErrorNotificationService, ErrorSummaryComponent, HelpSequence, ICode, RecordDiscardService, RecordDeleteService } from '@hpfb/sdk/ui';
 import { TranslateService } from '@ngx-translate/core';
-import { lastValueFrom } from 'rxjs';
 import { ADDRESS_ERROR_PREFIX, ROLE_INDEX_MAPPING } from '../../app.constants';
 import { GlobalService } from '../../global/global.service';
 import { AppSignalService } from '../../signal/app-signal.service';
@@ -16,7 +15,7 @@ import { CompanyAddressItemService } from './company-address-item.service';
   encapsulation: ViewEncapsulation.None,
   standalone: false
 })
-export class CompanyAddressItemComponent extends BaseComponent{
+export class CompanyAddressItemComponent extends BaseComponent {
   @Input() cRRow: FormGroup;
   @Input() j: number;
   @Input() showErrors: boolean;
@@ -120,7 +119,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
       this._appendErrorsFromChild();
     });
     this.msgList.notifyOnChanges();
-    /** this is processsing the errorSummary that is a child in  Contact record **/
     this.errorSummaryChildList.changes.subscribe(list => {
       setTimeout(() => {
         this.processSummaries(list);
@@ -129,15 +127,12 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.cdRef.detectChanges();
   }
 
-
   private processSummaries(list: QueryList<ErrorSummaryComponent>): void {
     if (list.length >= 1) {
       console.warn('Contact List found >1 Error Summary ' + list.length);
     }
     const errorSummaryChild = list.first;
-    // notify subscriber(s) that contact records' error summaries are changed
     this._errNotifService.updateErrorSummary(ADDRESS_ERROR_PREFIX + this.cRRow.get('id').value, errorSummaryChild);
-
   }
 
   public saveAddressRecord(index: number): void {
@@ -146,17 +141,18 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   private async _save(index: number) {
     if (this.cRRow.valid && !this.isNoRoleSelected()) {
-      const heading = await this._addressService.getHeading(index, this.cRRow); // Await here
+      const heading = await this._addressService.getHeading(index, this.cRRow);
       this.cRRow.get('heading').setValue(heading);
       this.saveRecord.emit({ index: index });
       this.cRRow.markAsPristine();
       this.cRRow.get('addressInfo.rolesTouched').setValue(false);
     } else {
       this.showErrors = true;
-      document.location.href = '#coAddressErrorSummary' + this.j;
+      setTimeout(() => {
+        document.location.href = '#coAddressErrorSummary' + this.j;
+      }, 100);
     }
   }
-
 
   public revertAddressRecord(index: number, recordId: number): void {
     this._discardIndex = index;
@@ -173,20 +169,13 @@ export class CompanyAddressItemComponent extends BaseComponent{
     const validKeys = selectedRoles.map(role => `${recordId}${role}`);
     const current = this.selectedCompanyRoles();
 
-    // Keep the roles that belong to other records and this record. This unchecks the roles that has been checked
     const updated = current.filter(entry => {
-      const entryRecordId = entry.match(/^\d+/)?.[0]; // Extract prefix digits
+      const entryRecordId = entry.match(/^\d+/)?.[0];
       return entryRecordId !== String(recordId) || validKeys.includes(entry);
     });
 
-    // Add in the role that was unchecked from last saved state. This checks the role that has been unchecked
-
-    // First, check if they are disabled. i.e: selected by other records.
-    // If so, say a role could not be discard because it's been selected and do not re-check
-    // Check the other role thats not disabled, if any
     const missing = validKeys.filter(key => !updated.includes(key));
 
-    // Split missing into those selected by others and those not
     const alreadySelectedByOthers: string[] = [];
     const notSelectedByOthers: string[] = [];
 
@@ -209,13 +198,11 @@ export class CompanyAddressItemComponent extends BaseComponent{
       this.openPopup();
     }
 
-    // Update roles signal array
     if (notSelectedByOthers.length > 0) {
       this.cRRow.get('addressInfo.isRoleSelected').setValue(true);
       const final = [...updated, ...notSelectedByOthers];
       this._signalService.setAddressCompanyRoles(final);
     } else {
-      // None can be re-added because they're selected by other records
       this._signalService.setAddressCompanyRoles(updated);
     }
   }
@@ -228,7 +215,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
       const control = this.companyRolesChkFormArray.at(index);
       const isRoleSelected = selectedRoles.includes(role);
 
-      // Only check the box if the role was selected and the control is not disabled
       const shouldCheck = isRoleSelected && !control.disabled;
       control.setValue(shouldCheck);
 
@@ -237,10 +223,8 @@ export class CompanyAddressItemComponent extends BaseComponent{
       }
     });
 
-    // Update the selected roles in the form group to reflect only enabled and checked roles
     this.cRRow.get('addressInfo.selectedAddressCompanyRoles')?.setValue(enabledAndCheckedRoles);
   }
-
 
   public disabledDiscardButton() {
     if (this.cRRow.get('isNew').value) {
@@ -251,21 +235,18 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   public async deleteAddressRecord(index: number): Promise<void> {
     this._deleteIndex = index;
-    const heading = await this._addressService.getHeading(index, this.cRRow); // Set heading here for when the record isn't saved yet
+    const heading = await this._addressService.getHeading(index, this.cRRow);
     this.cRRow.get('heading').setValue(heading);
     this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
   }
 
   private _handleRecordDeletion() {
     this._errNotifService.updateErrorSummary(ADDRESS_ERROR_PREFIX + this.cRRow.get('id').value, null);
-    // Find roles that need to be removed
     const prefixToDelete = this.cRRow.get('recordId').value.toString();
     const rolesToRemove = this.selectedCompanyRoles().filter(role => role.startsWith(prefixToDelete));
-    // Remove each matching role
-    rolesToRemove.forEach(role =>
-      {
-        this._signalService.removeAddressCompanyRole(role)
-      });
+    rolesToRemove.forEach(role => {
+      this._signalService.removeAddressCompanyRole(role)
+    });
     this.cRRow.markAsPristine();
   }
 
@@ -274,46 +255,21 @@ export class CompanyAddressItemComponent extends BaseComponent{
     this.cRRow.get('addressInfo.selectedAddressCompanyRoles').setValue(this.selectedCompanyRolesCodes);
     const isChecked = (e.target as HTMLInputElement).checked;
 
-    // Get the specific form control using index
     const roleControl = this.companyRolesChkFormArray.at(index);
     const uniqueRole = this.cRRow.get('recordId').value + selectedRole;
-    // Update signal array
+
     if (isChecked) {
       this._signalService.updateAddressCompanyRoles(uniqueRole);
       this.cRRow.get('addressInfo.isRoleSelected').setValue(true);
-      // if (this.isRoleAlreadySelected(selectedRole)) {
-      //   roleControl.setErrors({ 'error.msg.roleSelected': true });
-      // }
     } else {
       this._signalService.removeAddressCompanyRole(uniqueRole);
-      // this.removeRoleError.emit({ id: this.cRRow.get('recordId').value, role: selectedRole, roleIndex: index});
-      // roleControl.setErrors(null); // Remove error if valid
     }
     if (this.isNoRoleSelected()) {
       this.cRRow.get('addressInfo.isRoleSelected').setValue(false);
     }
 
-    // Attach validation to the specific role
-    // if (this.isRoleAlreadySelected(selectedRole)) {
-    //   console.log("selected");
-    //   roleControl.setErrors({ 'error.msg.roleSelected': true });
-    // } else {
-    //   console.log("remove error")
-    //   roleControl.setErrors(null); // Remove error if valid
-    // }
-
-    //console.log(this._signalService.getSelectedAddressCompanyRoles()());
     this.cdRef.detectChanges();
-    //this._appendErrorsFromChild(); // Update errors for company roles here
   }
-
-  /**
-   * Deprecated
-   */
-  // isRoleAlreadySelected = (role: string): boolean => {
-  //   const roles = this.selectedCompanyRoles().map(r => r.replace(/^\d+/, '')); // Remove the numeric prefix
-  //   return roles.filter(r => r === role).length > 1; // Check if role appears more than once
-  // };
 
   private _updateCompanyRolesArray() {
     const companyRolesList = this._globalService.companyRolesList;
@@ -322,7 +278,6 @@ export class CompanyAddressItemComponent extends BaseComponent{
     });
 
     if (this.companyRolesChkFormArray.length === 0) {
-      // Create new form controls for the company roles
       this.companyRolesOptionList.forEach(() => {
         this.companyRolesChkFormArray.push(new FormControl(false));
       });
@@ -333,19 +288,15 @@ export class CompanyAddressItemComponent extends BaseComponent{
 
   isNoRoleSelected(): boolean {
     const formArray = this.companyRolesChkFormArray;
-    // Check if none of the roles are selected
     const noRoles = formArray.controls.every(control => !control.value);
-
     return noRoles;
   }
 
   isNoRoleSelectedAndAllDisabled(): boolean {
     const formArray = this.companyRolesChkFormArray;
-    // Check if none of the roles are selected
     const noRoles = formArray.controls.every(control => !control.value);
     const allDisabled = formArray.controls.every(control => control.disabled);
     if (noRoles && allDisabled){
-      // If no roles selected, manually set the errors
       this.companyRolesChkFormArray.setErrors({ 'required': true });
     }
     return noRoles && allDisabled;
@@ -367,41 +318,99 @@ export class CompanyAddressItemComponent extends BaseComponent{
     return this.cRRow.get('addressInfo.rolesTouched').value as boolean;
   }
 
-  processAddressErrors(childErrors:any[]) {
-    this._addressErrorList = childErrors;
+  // ==================== THE FIX when using angular 22====================
+
+  private getFieldLabel(translationKey: string): string {
+    if (!translationKey) return 'This field';
+
+    // Use the translation service to get the actual label
+    const translated = this._translateService.instant(translationKey);
+
+    // If translation returns the key itself, it means translation is not available
+    if (translated === translationKey) {
+        // Fallback: extract from key
+        let cleanLabel = translationKey;
+        if (cleanLabel.includes('.')) {
+            const parts = cleanLabel.split('.');
+            let lastPart = parts[parts.length - 1];
+            lastPart = lastPart.replace(/([A-Z])/g, ' $1').trim();
+            cleanLabel = lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
+        }
+        return cleanLabel || 'This field';
+    }
+
+    return translated;
+}
+
+  /**
+   * Process errors from child component (pbv-address-details)
+   */
+  processAddressErrors(childErrors: any[]) {
+    this._addressErrorList = (childErrors || []).map(error => {
+        const translationKey = error?.label || '';
+        const fieldLabel = this.getFieldLabel(translationKey);
+
+        // Set both label and currentError
+        error.label = fieldLabel;
+        error.currentError = 'This field is required';
+
+        return error;
+    });
     this._appendErrorsFromChild();
   }
 
+  /**
+   * Override _appendErrorsFromChild to ensure all errors have messages
+   */
   protected override _appendErrorsFromChild() {
-    // Method is overriden to place company roles error last, since it is the last field in the record.
-    this._coRolesErrors = this.msgList.toArray(); // Includes: Company name and company roles
+    this._coRolesErrors = this.msgList.toArray();
 
-    // Extract all companyRoles errors
     const roleErrors = this._coRolesErrors.filter(error => error.parentId === "coAddress");
-
-    // Remove them from the original list
     this._coRolesErrors = this._coRolesErrors.filter(error => error.parentId !== "coAddress");
 
-    const combinedErrors = [...this._coRolesErrors, ...this._addressErrorList, ...roleErrors];
-    this.emitErrors(combinedErrors);
-  }
+    const allErrors = [
+        ...this._coRolesErrors,
+        ...this._addressErrorList,
+        ...roleErrors
+    ].map(error => {
+        const translationKey = error?.label || '';
+        const fieldLabel = this.getFieldLabel(translationKey);
+        error.label = fieldLabel;
+        error.currentError = 'This field is required';
+        return error;
+    });
 
+    this.emitErrors(allErrors);
+  }
 
   public showErrorSummary(): boolean {
     return (this.showErrors && this.errors.length > 0);
   }
 
+  /**
+   * Emit errors to parent and ensure every error has a message
+   */
   protected emitErrors(errors: any[]): void {
-    // Not emitting any errors to parent, just setting the list of errors in contact-item
-    this.errors = [...errors];
+    const fixedErrors = errors.map(error => {
+        if (error) {
+            const translationKey = error?.label || '';
+            const fieldLabel = this.getFieldLabel(translationKey);
+            error.label = fieldLabel;
+            error.currentError = 'This field is required';
+        }
+        return error;
+    });
 
-    // Process error summary component for when error summary list is shown and 1+ records are created
+    this.errors = fixedErrors;
+
     if (this.showErrors) {
-      this.processSummaries(this.errorSummaryChildList)
+        this.processSummaries(this.errorSummaryChildList);
     }
 
-    this.cdRef.detectChanges(); // Do change detection here to reactively update error summary
+    this.cdRef.detectChanges();
   }
+
+  // ==================== END OF FIX ====================
 
   private _disableFormGroup() {
     this.cRRow.disable();
@@ -410,8 +419,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   private _enableFormGroup() {
     this.cRRow.enable();
     if (this.cRRow.get('expandFlag').value) {
-      this.cRRow.get('expandFlag').setValue(false); // Collapse records
-      // Expand record again if it has an error/empty field
+      this.cRRow.get('expandFlag').setValue(false);
       if (this.cRRow.invalid) {
         this._handleFormInvalidity();
       }
@@ -419,7 +427,7 @@ export class CompanyAddressItemComponent extends BaseComponent{
   }
 
   private _handleFormInvalidity() {
-    this.cRRow.get('expandFlag').setValue(true); // Collapse records
+    this.cRRow.get('expandFlag').setValue(true);
     this.cRRow.markAsDirty();
     this._disableRoles();
   }
@@ -466,5 +474,4 @@ export class CompanyAddressItemComponent extends BaseComponent{
   openPopup(): void {
     jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
   }
-
 }
