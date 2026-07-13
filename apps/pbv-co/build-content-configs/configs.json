@@ -26,8 +26,10 @@
             "fr": "/rep-dev/accessibility/accessibility-fr.html"
         },
         "prod": {
-            "en": "https://health-products.canada.ca/rep-pir/accessibility/accessibility-en.html",
-            "fr": "https://health-products.canada.ca/rep-pir/accessibility/accessibility-fr.html"
+            //"en": "https://health-products.canada.ca/rep-pir/accessibility/accessibility-en.html",
+            //"fr": "https://health-products.canada.ca/rep-pir/accessibility/accessibility-fr.html"
+            "en": "/rep-dev/accessibility/accessibility-en.html",
+            "fr": "/rep-dev/accessibility/accessibility-fr.html"
         }
     }
 }
