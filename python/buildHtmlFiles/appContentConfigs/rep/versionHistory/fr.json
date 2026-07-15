@@ -7,6 +7,25 @@
     ],
     "releases": [
         {
+            "header": "Publication du 9 septembre 2026",
+            "details": [
+                {
+                    "template": "Modèle de compagnie (CO)<br>Version 5.1.0<br><br><br>Ensemble de feuilles de style*",
+                    "changes": [
+                        "Ajout d’une  bulle d’information en haut de la page",
+                        "Ajout d’avertissements contextuels pour divers boutons",
+                        "Mise à jour des instructions",
+                        "Suppression du texte du champ « Numéro de télécopieur »",
+                        "Ajout de texte au champ « Adresse de courriel »",
+                        "Ajout d’un lien vers les instructions à côté de « Sélectionner un ou plusieurs rôles pour ce représentant de la compagnie »",
+                        "Ajout d’une case à cocher supplémentaire relative au courriel à la fin du formulaire",
+                        "Correction de petites erreurs grammaticales<br><br><br>",
+                        "*Nouvelle feuille de style CO pour correspondre aux modifications apportées à ce modèle"
+                    ]
+                }
+            ]
+        },
+        {
             "header": "Publication du 10 septembre 2025",
             "details": [
                 {
