@@ -7,6 +7,7 @@ import { GlobalService } from '../global/global.service';
 import { AppSignalService } from '../signal/app-signal.service';
 import { TransactionDetailsComponent } from '../transaction-details/transaction-details.component';
 import { PbvValidationService } from '@hpfb/pbv';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-regulatory-information',
@@ -58,7 +59,7 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
   selectedAdminSubTypeDefinition: string = '';
 
   constructor(private _regulatoryInfoService: RegulatoryInformationService, private _fb: FormBuilder,
-    private _utilsService: UtilsService, private _globalService: GlobalService) {
+    private _utilsService: UtilsService, private _globalService: GlobalService, private _translateService : TranslateService) {
     super();
     this.showFieldErrors = false;
   }
@@ -81,13 +82,35 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
     // console.log('Combined Errors List: ', errors);
     errors = this.msgList.toArray();
     errors = errors.concat(this.transactionDetailsErrors)
-    this.errorList.emit(errors);
+    const fixedErrors = errors.map(error => {
+      if (error) {
+          const translationKey = error?.label || '';
+          const fieldLabel = this.getFieldLabel(translationKey);
+          error.label = fieldLabel;
+          error.currentError = 'This field is required';
+      }
+      return error;
+  });
+  errors = fixedErrors;
+  this.errorList.emit(errors);
   }
 
   processTransactionDetailsErrors(childErrors) {
-    this.transactionDetailsErrors = childErrors;
-    this._appendErrorsFromChild(childErrors);
+       // this._addressErrorList = childErrors;
+        this.transactionDetailsErrors = (childErrors || []).map(error => {
+          const translationKey = error?.label || '';
+          const fieldLabel = this.getFieldLabel(translationKey);
+
+          // Set both label and currentError
+          error.label = fieldLabel;
+          error.currentError = 'This field is required';
+
+          return error;
+      });
+    this._appendErrorsFromChild(this.transactionDetailsErrors);
   }
+
+
 
   ngOnChanges(changes: SimpleChanges) {
     const isFirstChange = this._utilsService.isFirstChange(changes);
@@ -165,4 +188,43 @@ export class RegulatoryInformationComponent extends BaseComponent implements OnI
       this._utilsService.resetControlsValues(this.regulartoryInfoForm.controls[controlNames[i]]);
     }
   }
+
+  private getFieldLabel(translationKey: string): string {
+    if (!translationKey) return 'This field';
+
+    // Use the translation service to get the actual label
+    const translated = this._translateService.instant(translationKey);
+
+    // If translation returns the key itself, it means translation is not available
+    if (translated === translationKey) {
+        // Fallback: extract from key
+        let cleanLabel = translationKey;
+        if (cleanLabel.includes('.')) {
+            const parts = cleanLabel.split('.');
+            let lastPart = parts[parts.length - 1];
+            lastPart = lastPart.replace(/([A-Z])/g, ' $1').trim();
+            cleanLabel = lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
+        }
+        return cleanLabel || 'This field';
+    }
+
+    return translated;
+}
+
+
+  /**
+   * Override _appendErrorsFromChild to ensure all errors have messages
+   */
+  protected override _appendErrorsFromChild(errorList: any[]) {
+    const allErrors = errorList.map(error => {
+        const translationKey = error?.label || '';
+        const fieldLabel = this.getFieldLabel(translationKey);
+        error.label = fieldLabel;
+        error.currentError = 'This field is required';
+        return error;
+    });
+
+    this.emitErrors(allErrors);
+  }
+
 }

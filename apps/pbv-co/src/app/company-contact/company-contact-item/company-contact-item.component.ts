@@ -57,6 +57,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   private _previouslyDisabled : boolean;
   helpIndex: HelpSequence;
 
+
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
 
@@ -140,7 +141,28 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   }
 
+  // ==================== ADD THIS METHOD when using Angular 22====================
+ private getFieldLabel(translationKey: string): string {
+    if (!translationKey) return 'This field';
 
+    // Use the translation service to get the actual label
+    const translated = this._translateService.instant(translationKey);
+
+    // If translation returns the key itself, it means translation is not available
+    if (translated === translationKey) {
+        // Fallback: extract from key
+        let cleanLabel = translationKey;
+        if (cleanLabel.includes('.')) {
+            const parts = cleanLabel.split('.');
+            let lastPart = parts[parts.length - 1];
+            lastPart = lastPart.replace(/([A-Z])/g, ' $1').trim();
+            cleanLabel = lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
+        }
+        return cleanLabel || 'This field';
+    }
+
+    return translated;
+}
   public revertContactRecord(index: number, recordId: number): void {
     this._discardIndex = index;
     this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
@@ -325,16 +347,42 @@ export class CompanyContactItemComponent extends BaseComponent{
   //   return roles.filter(r => r === role).length > 1; // Check if role appears more than once
   // };
 
-  processContactErrors(childErrors:any[]) {
-    this._contactErrorList = childErrors;
+  // ==================== REPLACE THESE METHODS ====================
+
+  /**
+   * Process errors from child component
+   */
+  processContactErrors(childErrors: any[]) {
+    this._contactErrorList = (childErrors || []).map(error => {
+        const translationKey = error?.label || '';
+        const fieldLabel = this.getFieldLabel(translationKey);
+
+        error.label = fieldLabel;
+        error.currentError = 'This field is required';
+
+        return error;
+    });
     this._appendErrorsFromChild();
   }
 
+  /**
+   * Override _appendErrorsFromChild to ensure all errors have messages
+   */
   protected override _appendErrorsFromChild() {
-    // Method is overriden to place company roles error last, since it is the last field in the record.
     this._coRolesErrors = this.msgList.toArray();
-    const combinedErrors = [...this._contactErrorList, ...this._coRolesErrors];
-    this.emitErrors(combinedErrors);
+
+    const allErrors = [
+        ...this._contactErrorList,
+        ...this._coRolesErrors
+    ].map(error => {
+        const translationKey = error?.label || '';
+        const fieldLabel = this.getFieldLabel(translationKey);
+        error.label = fieldLabel;
+        error.currentError = 'This field is required';
+        return error;
+    });
+
+    this.emitErrors(allErrors);
   }
 
   public showErrorSummary(): boolean {
@@ -377,17 +425,30 @@ export class CompanyContactItemComponent extends BaseComponent{
     this.rolesUpdated.emit(this.representativeRolesOptionList);
   }
 
+  /**
+   * Emit errors to parent and ensure every error has a message
+   */
   protected emitErrors(errors: any[]): void {
-    // Not emitting any errors to parent, just setting the list of errors in contact-item
-    this.errors = [...errors];
+    const fixedErrors = errors.map(error => {
+        if (error) {
+            const translationKey = error?.label || '';
+            const fieldLabel = this.getFieldLabel(translationKey);
+            error.label = fieldLabel;
+            error.currentError = 'This field is required';
+        }
+        return error;
+    });
 
-    // Process error summary component for when error summary list is shown and 1+ records are created
+    this.errors = fixedErrors;
+
     if (this.showErrors) {
-      this.processSummaries(this.errorSummaryChildList)
+        this.processSummaries(this.errorSummaryChildList);
     }
 
-    this.cdRef.detectChanges(); // Do change detection here to reactively update error summary
+    this.cdRef.detectChanges();
   }
+
+  // ==================== END OF REPLACED METHODS ====================
 
   private _disableFormGroup() {
     this.cRRow.disable();
