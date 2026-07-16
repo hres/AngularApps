@@ -22,7 +22,7 @@ export class ConfirmationPopupComponent {
   @Output() closed = new EventEmitter();
 
   closePopup() {
-    jQuery( ".wb-overlay").trigger( "close.wb-overlay" );
+    jQuery("#" + this.id).trigger("close.wb-overlay");
     this.closed.emit();
   }
 

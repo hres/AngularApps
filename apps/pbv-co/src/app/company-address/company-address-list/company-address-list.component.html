@@ -1,12 +1,12 @@
 <div id="addressListTable" [formGroup]="recordFormGroup">
     <lib-popup [id]="popupId" [title]="'popup.title' | translate" [message]="'msg.save.addressInfo.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
-    <lib-confirmation-popup [id]="discardPopupId" [title]="'popup.warning' | translate" [message]="'msg.discard.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="discardHeading" (confirmed)="revertRecord($event)" ></lib-confirmation-popup>
-    <lib-confirmation-popup [id]="deletePopupId" [title]="'popup.warning' | translate" [message]="'msg.delete.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="deleteHeading" (confirmed)="deleteRecord($event)" ></lib-confirmation-popup>  
+    <lib-confirmation-popup [id]="discardPopupId" [title]="'popup.warning' | translate" [message]="'msg.discard.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="discardHeading" (confirmed)="revertRecord($event)" (closed)="restoreDiscardFocus()"></lib-confirmation-popup>
+    <lib-confirmation-popup [id]="deletePopupId" [title]="'popup.warning' | translate" [message]="'msg.delete.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="deleteHeading" (confirmed)="deleteRecord($event)"    (closed)="restoreDeleteFocus()"></lib-confirmation-popup>
       <div [formArrayName]="'addresses'">
-  
-        <lib-accordion [rowsFormArray]="recordFormArray" [accordionHeadingMsgKey]="'heading.company.address'" [accordionHeadingSupp]="['addressInfo', 'companyName']" 
+
+        <lib-accordion [rowsFormArray]="recordFormArray" [accordionHeadingMsgKey]="'heading.company.address'" [accordionHeadingSupp]="['addressInfo', 'companyName']"
         (rowClicked)="handleRowClick($event)">
-      
+
         <ng-template #tmpl let-recordRow let-idx="i">
           <!-- ==={{recordRow.get('id').value}}===
           === index = {{idx}} ,  === -->
@@ -22,9 +22,9 @@
           (discardHandled)="onDiscardHandled($event)"
           (deleteHandled)="onDeleteHandled($event)"></app-company-address-item>
         </ng-template>
-      
+
       </lib-accordion>
-    
+
       <div class="row mrgn-tp-md mrgn-bttm-lg">
         <div class="btn-group-sm col-md-12 text-left">
           <button class="btn btn-primary" (click)="addRecord()" id="addAddressBtn" [disabled]="disableAddButton() || disableForm || allRolesSelected()"> <!--[disabled]="disableAddButton()"-->
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="sr-only" id="coAddressStatus" aria-live="polite" role="status">{{ statusMessage }}</div>
-      
+
       <!-- <button (click)="coaddNewContact(comp.get('projects'))">Add new Project</button> -->
       <!-- <pre>{{companyContactListForm.value | json}}</pre> -->
       </div>

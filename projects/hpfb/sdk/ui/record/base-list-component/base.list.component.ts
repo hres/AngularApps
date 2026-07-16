@@ -47,6 +47,8 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     abstract deletePopupId: string;
     abstract errorList: [];
     private cdr = inject(ChangeDetectorRef);
+    private deleteTriggerElement: HTMLElement | null = null;
+    private discardTriggerElement: HTMLElement | null = null;
 
     constructor(private _fb: FormBuilder,
         @Inject(BaseListService) protected listService: BaseListService,
@@ -236,12 +238,14 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     discardRecordConfirmation(event:any) {
         this.discardIndex = event.index;
         this.discardHeading = event.heading;
+        this.discardTriggerElement = document.activeElement as HTMLElement;
         jQuery( "#" + this.discardPopupId ).trigger( "open.wb-overlay" );
     }
 
     deleteRecordConfirmation(event:any) {
         this.deleteIndex = event.index;
         this.deleteHeading = event.heading;
+        this.deleteTriggerElement = document.activeElement as HTMLElement;
         jQuery( "#" + this.deletePopupId ).trigger( "open.wb-overlay" );
     }
 
@@ -320,5 +324,23 @@ export abstract class BaseListComponent<T extends OutputRecord> extends BaseComp
     getRecordFormArrValues() {
         return this.recordFormArray.value;
     }
+
+    restoreDeleteFocus(): void {
+      setTimeout(() => {
+          this.deleteTriggerElement?.focus();
+      }, 300);
+    }
+
+    restoreDiscardFocus(): void {
+      setTimeout(() => {
+          this.discardTriggerElement?.focus();
+      }, 300);
+    }
+
+  //   restoreFocus(element: HTMLElement | null): void {
+  //     setTimeout(() => {
+  //         element?.focus();
+  //     }, 0);
+  // }
 
 }
