@@ -532,19 +532,14 @@ span.mouseHover:hover {
 	</xsl:template>
 
 	<xsl:template name="hp-checkbox">
-		<xsl:param name="value" select="/.."/>
+		<xsl:param name="value" select="/.." />
 		<span class="c-checkbox">
-		<xsl:choose>
-			<xsl:when test="$value = 'Y'">
-				X
-			</xsl:when>
-			<xsl:otherwise>
-				&#160;&#160;
-			</xsl:otherwise>
-		</xsl:choose>
+			<xsl:choose>
+				<xsl:when test="$value = 'true' or $value = 'Y'"> X </xsl:when>
+				<xsl:otherwise> </xsl:otherwise>
+			</xsl:choose>
 		</span>
 	</xsl:template>
-
     <xsl:template name="addressRoles">
 		<dl>
 		<xsl:if test="manufacturer = 'Y'">
