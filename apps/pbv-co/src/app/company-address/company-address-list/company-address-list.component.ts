@@ -38,7 +38,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   private selectedAddressCompanyRoles : Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
   allRolesSelected = computed(() => {return this.isRolesComplete(this.selectedAddressCompanyRoles());})
 
-  companyRolesOptionList: CheckboxOption[] = []; // Store received data
+  companyRolesOptionList: CheckboxOption[] = [];
 
   @Input() earlyVersion;
   @Input() disableForm : boolean;
@@ -46,6 +46,9 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   @ViewChildren(CompanyAddressItemComponent) itemComponents: QueryList<CompanyAddressItemComponent>;
 
   provinceList: ICode[] = [];
+
+  // Flag to track if we've already initialized
+  private _initialized: boolean = false;
 
   constructor(private fb: FormBuilder,
     private _addressService: CompanyAddressService,
@@ -78,7 +81,15 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   override ngAfterViewInit(): void {
     this._errorNotifService.errorSummaryChanged$.subscribe((errors => {
       this._processErrorSummaries(errors);
-    }))
+    }));
+
+    // --- CHANGE: Only create empty record on initial load ---
+    setTimeout(() => {
+      if (!this._initialized) {
+        this.ensureAtLeastOneRecord();
+        this._initialized = true;
+      }
+    }, 0);
   }
 
   protected _expandInvalidRecordUponLoading() {
@@ -96,6 +107,41 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     }
   }
 
+  // Ensure at least one record exists (only called on initialization)
+  private ensureAtLeastOneRecord(): void {
+    if (this.recordFormArray.length === 0) {
+      this.addEmptyRecord();
+    }
+  }
+
+  // Create an empty record
+  private addEmptyRecord(): void {
+    const group = this.recordService.createRecordFormGroup(this.fb);
+    group.patchValue({
+      recordId: this.listService.getId()
+    });
+    this.recordFormArray.push(group);
+    const firstFormRecord = this.recordFormArray.at(0) as FormGroup;
+    firstFormRecord.controls['expandFlag'].setValue(true);
+
+    this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
+    this.listService.setList(this.recordFormArray.controls as FormGroup[]);
+  }
+
+  // --- CHANGE: deleteRecord - allow deleting the last record ---
+  override deleteRecord(event: any): void {
+    // Call parent delete (this removes the record)
+    super.deleteRecord(event);
+
+    // Do NOT auto-create - allow the list to be empty
+  }
+
+  // --- CHANGE: deleteRecordConfirmation - always allow deletion ---
+  override deleteRecordConfirmation(event: any): void {
+    // Always allow deletion - parent will handle the popup
+    super.deleteRecordConfirmation(event);
+  }
+
   protected _patchRecordInfoValue(form, outputModel: AddressRecord) {
     if (this.companyRolesOptionList) {
       this._companyAddressItemService.mapDataModelToFormModel(outputModel, form.controls['addressInfo'], this.companyRolesOptionList, form.controls['id'].value)
@@ -108,7 +154,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   protected _patchLastSavedStateValue(lastSavedStateFormControl: any, outputModel: AddressRecord) {
     const [selectedRoles, companyRoles] = this._companyAddressItemService.getSelectedCompanyRolesFromOutputModel(outputModel);
     lastSavedStateFormControl.patchValue({
-      manufacturer: null, // Patch companyRoles (array of booleans, indeces corresponds to order of roles) and selectedCompanyRoles (array of selected roles' ids)
+      manufacturer: null,
       billing: null,
       mailing: null,
       selectedAddressCompanyRoles: selectedRoles,
@@ -129,52 +175,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     this.companyRolesOptionList = updatedRoles;
   }
 
-  /**
-   * Deprecated
-   * @param event
-   */
-  // handleRemoveRoleError(event : any) {
-  //   // event: unchecked role
-  //   const recordId = event.id;
-  //   const role = event.role;
-  //   const roleIndex = event.roleIndex;
-  //   let id = null;
-
-  //   // Check if there are any other records with the same role that's been unchecked,
-  //   // If so, clear the errors
-
-  //   // Look for other records that has the same role as the role that has been unchecked
-  //   const currentRolesArray = this._signalService.getSelectedAddressCompanyRoles()();
-  //   for (const item of currentRolesArray) {
-  //     const idMatch = item.match(/^(\d+)/); // Extract the number (prefix)
-  //     const itemRole = item.replace(/^\d+/, ''); // Extract role type
-
-  //     if (itemRole === role && idMatch !== recordId) {
-  //       id = Number(idMatch?.[1]); // Return the number as a number type
-  //       break;
-  //     }
-  //   }
-
-  //   // If id has been found, find FormGroup with matching recordId. Set role's errors to null
-  //   if (id) {
-  //     const formGroupWithId = this.recordFormArray.controls.find(
-  //       (group) => group.get('recordId')?.value === id
-  //     ) as FormGroup | undefined;
-
-  //     if (formGroupWithId) {
-  //       let addressRoles = formGroupWithId.get('addressInfo.addressCompanyRoles') as FormArray;
-  //       const roleControl = addressRoles.at(roleIndex);
-  //       if (roleControl.errors) {
-  //         roleControl.setErrors(null);
-  //       }
-  //     }
-  //   }
-  // }
-
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
-    // console.log('...._processErrorSummaries:', errSummaryEntries);
-    // get the first entry where the errSummaryMessage property is not empty
-    // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
     const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId.startsWith("addressListTable"));
     if (filteredErrSummaryEntry) {
       this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
@@ -211,7 +212,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   }
 
   private _mapProvinceAndCountryNoIdValue(addressModel: INameAddress) {
-    if (this.earlyVersion && addressModel.country._id === undefined) { // Early version that doesn't have country id - take value as ID
+    if (this.earlyVersion && addressModel.country._id === undefined) {
       if (addressModel.country._id === undefined) {
         let newCountry = this._globalService.countryIdMappingList.find(
           (item) => item.id === addressModel.country.__text);
@@ -233,7 +234,6 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   private _mapPostalCode(addressModel: INameAddress) {
     if (this.earlyVersion && addressModel.postal_code) {
       let postalCode = addressModel.postal_code;
-      // Check if postal code matches X#X #X# (space in between)
       if (postalCode.match(/^(?!.*[DFIOQU])[A-VXYa-vxy][0-9][A-Za-z] [0-9][A-Za-z][0-9]$/)) {
         postalCode = postalCode.replace(' ', '');
         addressModel.postal_code = postalCode;
@@ -242,8 +242,8 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
   }
 
   private isRolesComplete(selectedRoles : string[]) {
-    const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // Required roles
-    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
+    const companyRolesList = this._globalService.companyRolesList.map(role => role.id);
+    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, ''));
     return companyRolesList.every(role => cleanSelectedRoles.includes(role));
   }
 
@@ -252,19 +252,12 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
       return false;
     }
 
-    // Check if a role has been selected
     return this.recordFormArray.controls.some((group: FormGroup) => {
       const isRoleSelectedControl = group.get('addressInfo.isRoleSelected');
       return !isRoleSelectedControl?.value;
     });
   }
 
-  /**
-   * Override onDeleteHandled to check if there is no role selected for record -> expand the record
-   *                                      record has been touched -> expand the record
-   * TODO: Remove "group.get('addressInfo.isRoleSelected').value" from (group.get('addressInfo.isRoleSelected').value && !group.pristine)
-   * @param event
-   */
   override onDeleteHandled(event: any): void {
     if (event) {
       for (let index = 0; index < this.recordFormArray.controls.length; index++) {
@@ -296,4 +289,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     }
   }
 
+  override addRecord(): void {
+    super.addRecord();
+  }
 }
