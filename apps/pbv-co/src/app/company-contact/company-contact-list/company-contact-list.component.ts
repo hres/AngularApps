@@ -48,6 +48,9 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
 
   languageList: ICode[] = [];
 
+    // Flag to track if we've already initialized
+  private _initialized: boolean = false;
+
   @Input() disableForm : boolean;
   @Input() earlyVersion;
   @Output() errorEmit = new EventEmitter(true);
@@ -85,6 +88,14 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   override ngAfterViewInit(): void {
     this._errorNotifService.errorSummaryChanged$.subscribe((errors => {
       this._processErrorSummaries(errors);
+
+       // --- CHANGE: Only create empty record on initial load ---
+    setTimeout(() => {
+      if (!this._initialized) {
+        this.ensureAtLeastOneRecord();
+        this._initialized = true;
+      }
+    }, 0);
     }))
   }
 
@@ -267,5 +278,47 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     })} else {
       this.openPopup();
     }
+  }
+
+
+
+
+  // Ensure at least one record exists (only called on initialization)
+  private ensureAtLeastOneRecord(): void {
+    if (this.recordFormArray.length === 0) {
+      this.addEmptyRecord();
+    }
+  }
+
+  // Create an empty record
+  private addEmptyRecord(): void {
+    const group = this.recordService.createRecordFormGroup(this.fb);
+    group.patchValue({
+      recordId: this.listService.getId()
+    });
+    this.recordFormArray.push(group);
+    const firstFormRecord = this.recordFormArray.at(0) as FormGroup;
+    firstFormRecord.controls['expandFlag'].setValue(true);
+
+    this.recordService.setRecordsFormArrValue(this.getRecordFormArrValues());
+    this.listService.setList(this.recordFormArray.controls as FormGroup[]);
+  }
+
+  // --- CHANGE: deleteRecord - allow deleting the last record ---
+  override deleteRecord(event: any): void {
+    // Call parent delete (this removes the record)
+    super.deleteRecord(event);
+
+    // Do NOT auto-create - allow the list to be empty
+  }
+
+  // --- CHANGE: deleteRecordConfirmation - always allow deletion ---
+  override deleteRecordConfirmation(event: any): void {
+    // Always allow deletion - parent will handle the popup
+    super.deleteRecordConfirmation(event);
+  }
+
+   override addRecord(): void {
+    super.addRecord();
   }
 }

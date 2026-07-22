@@ -1,0 +1,13 @@
+{
+  "files.watcherExclude": {
+    "**/dist/**": true,
+    "**/coverage/**": true,
+    "**/.angular/**": true,
+    "**/.libs/**": true,
+  },
+  "search.exclude": {
+    "**/dist": true,
+    "**/coverage": true,
+    "**/libs": true
+  }
+}
