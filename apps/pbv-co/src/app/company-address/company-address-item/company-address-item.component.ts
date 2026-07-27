@@ -352,8 +352,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
 
         // Set both label and currentError
         error.label = fieldLabel;
-        error.currentError = 'This field is required';
-
+        error.currentError = this.lang==='en'?'This field is required.':'Ce champ est obligatoire.';
         return error;
     });
     this._appendErrorsFromChild();
@@ -376,7 +375,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
         const translationKey = error?.label || '';
         const fieldLabel = this.getFieldLabel(translationKey);
         error.label = fieldLabel;
-        error.currentError = 'This field is required';
+        error.currentError = this.lang==='en'?'This field is required.':'Ce champ est obligatoire.';
         return error;
     });
 
@@ -396,7 +395,8 @@ export class CompanyAddressItemComponent extends BaseComponent {
             const translationKey = error?.label || '';
             const fieldLabel = this.getFieldLabel(translationKey);
             error.label = fieldLabel;
-            error.currentError = 'This field is required';
+            error.currentError = this.lang==='en'?'This field is required.':'Ce champ est obligatoire.';
+
         }
         return error;
     });

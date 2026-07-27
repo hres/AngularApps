@@ -358,7 +358,7 @@ export class CompanyContactItemComponent extends BaseComponent{
         const fieldLabel = this.getFieldLabel(translationKey);
 
         error.label = fieldLabel;
-        error.currentError = 'This field is required';
+        error.currentError = 'This field is required.';
 
         return error;
     });
@@ -378,7 +378,7 @@ export class CompanyContactItemComponent extends BaseComponent{
         const translationKey = error?.label || '';
         const fieldLabel = this.getFieldLabel(translationKey);
         error.label = fieldLabel;
-        error.currentError = 'This field is required';
+        error.currentError = 'This field is required.';
         return error;
     });
 
@@ -434,7 +434,7 @@ export class CompanyContactItemComponent extends BaseComponent{
             const translationKey = error?.label || '';
             const fieldLabel = this.getFieldLabel(translationKey);
             error.label = fieldLabel;
-            error.currentError = 'This field is required';
+            error.currentError = 'This field is required.';
         }
         return error;
     });
