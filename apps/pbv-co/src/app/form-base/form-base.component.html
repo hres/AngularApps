@@ -71,7 +71,7 @@
             <app-product-line [showErrors]="showErrors" [dataModel]="companyEnrolModel" [disableForm]="disableForm" (errorList)="processProductLineErrors($event)"></app-product-line>
           </div>
       </section>
-      <div *ngIf="!isInternal" class="row">
+      <div *ngIf="!isInternal" class="product-line-consent-wrapper">
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <label for="certifyPrivacyOnEmail" class="required">
             <input type="checkbox" id="certifyPrivacyOnEmail" [formControlName]="'certifyPrivacyOnEmail'" (blur)="processErrors()" required/>
