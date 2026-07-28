@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, Input, SimpleChanges, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input, SimpleChanges, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import { DRAFT_FILE_TYPE, FILE_TYPE_ERROR, FINAL_FILE_TYPE, FORM_TYPE_ERROR, IMPORT_SUCCESS, CHECK_SUM_ERROR} from '../file-io-constants';
 import {TranslateService} from '@ngx-translate/core';
 import { ConvertResults } from '../convert-results';
@@ -30,8 +30,8 @@ export class FilereaderComponent implements OnInit {
   public importedFileName = "";
   public displayAlert = false;   // reloads the role=alert each message
   private rootId = '';
-  
-  constructor(private translate: TranslateService) {
+
+  constructor(private translate: TranslateService,  private _cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -63,38 +63,36 @@ export class FilereaderComponent implements OnInit {
     let file: File = inputValue.files[0];
     let myReader: FileReader = new FileReader();
     let self = this;
-    myReader.onloadend = function (e) {
-      // you can perform an action with data here callback for asynch load
+    myReader.onloadend = (e) => {
       let convertResult = new ConvertResults();
-      FilereaderComponent._readFile(file.name, myReader.result, self.rootId, convertResult, self.versionTagPath, self.startCheckSumVersion, self.devEnv, self.byPassCheckSum);
-      if (convertResult.messages && convertResult.messages.length > 0) {
-        self.status = convertResult.messages[0];
-      } else {
-        self.status = IMPORT_SUCCESS;
-      }
 
-      if(self.status === IMPORT_SUCCESS){
-        self.importSuccess = true;
-      }
-      self.importedFileName = file.name;
+      FilereaderComponent._readFile(
+        file.name,
+        myReader.result,
+        this.rootId,
+        convertResult,
+        this.versionTagPath,
+        this.startCheckSumVersion,
+        this.devEnv,
+        this.byPassCheckSum
+      );
 
-      self.displayAlert = false;
-      setTimeout(() => { // this reloads the message
-        self.displayAlert = true;
-      }, 10);
+      this.status = convertResult.messages?.length
+          ? convertResult.messages[0]
+          : IMPORT_SUCCESS;
 
-      setTimeout(() => {
+      this.importSuccess = this.status === IMPORT_SUCCESS;
+      this.importedFileName = file.name;
 
-      }, 100);
+      this.displayAlert = true;
+      this._cdr.detectChanges();
 
-
-      self.complete.emit(convertResult);
+      this.complete.emit(convertResult);
     };
     if (file && file.name) {
       myReader.readAsText(file);
     }
   }
-
   /***
    * Processes the file data. Determines the type of file based on the filename suffix
    * @param name - the name of the file. Can include the path
@@ -116,7 +114,7 @@ export class FilereaderComponent implements OnInit {
       }
       // console.log(convertResult.data);
       FilereaderComponent.checkRootTagMatch(convertResult, rootId);
-      
+
       if(fileType.toLowerCase() === FINAL_FILE_TYPE && convertResult.messages.length === 0){
         if (this.doCheckSumCheck(convertResult, versionTagPath, startCheckSumVersion, devEnv, byPass))
           if (versionTagPath ==null && startCheckSumVersion == null) {
@@ -144,7 +142,7 @@ export class FilereaderComponent implements OnInit {
     location.reload();
   }
 
-  private static checkSumCheck(convertResult:ConvertResults, rootName:string) {  
+  private static checkSumCheck(convertResult:ConvertResults, rootName:string) {
     const checkSum: CheckSumService = new CheckSumService();
 
     if (!convertResult.data[rootName][CHECK_SUM_CONST]) {return;}
@@ -176,7 +174,7 @@ export class FilereaderComponent implements OnInit {
       if (version < startCheckSumVersion) {
         return false;
       }
-    } 
+    }
     if (devEnv && byPass) {
       console.warn("Bypassing Checksum Verification in Dev Mode!")
       return false;
