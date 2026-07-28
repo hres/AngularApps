@@ -71,12 +71,14 @@
             <app-product-line [showErrors]="showErrors" [dataModel]="companyEnrolModel" [disableForm]="disableForm" (errorList)="processProductLineErrors($event)"></app-product-line>
           </div>
       </section>
-      <div *ngIf="!isInternal" class="product-line-consent-wrapper">
+      <div *ngIf="!isInternal" class="row">
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <label for="certifyPrivacyOnEmail" class="required">
+          <label for="certifyPrivacyOnEmail" class="required consent-checkbox">
             <input type="checkbox" id="certifyPrivacyOnEmail" [formControlName]="'certifyPrivacyOnEmail'" (blur)="processErrors()" required/>
+            <span class="checkbox-text">
             <strong> {{'consent.privacy.onEmail'|translate}}</strong>
-            <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+            <strong class="required required-inline">{{ 'commmon.required.bracket'|translate }}</strong>
+          </span>
             <control-messages *ngIf="coForm.controls['certifyPrivacyOnEmail'].invalid" [showError]="showErrors" [attr.aria-live]="showErrors? null: 'assertive'"
                 parentId="coForm" [control]="coForm.controls['certifyPrivacyOnEmail'] | formControl"
                 controlId="certifyPrivacyOnEmail" label="consent.privacy.onEmail"></control-messages>
@@ -84,10 +86,12 @@
         </div>
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <label for="certifyPrivacy" class="required">
+          <label for="certifyPrivacy" class="required consent-checkbox">
             <input type="checkbox" id="certifyPrivacy" [formControlName]="'certifyPrivacy'" (blur)="processErrors()" required/>
+            <span class="checkbox-text">
             <strong> {{'consent.privacy'|translate}}</strong>
-            <strong class="required">{{ 'commmon.required.bracket'|translate }}</strong>
+            <strong class="required  required-inline">{{ 'commmon.required.bracket'|translate }}</strong>
+            </span>
             <control-messages *ngIf="coForm.controls['certifyPrivacy'].invalid" [showError]="showErrors" [attr.aria-live]="showErrors? null: 'assertive'"
                 parentId="coForm" [control]="coForm.controls['certifyPrivacy'] | formControl"
                 controlId="certifyPrivacy" label="consent.privacy"></control-messages>
