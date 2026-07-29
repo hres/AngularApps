@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, inject, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, EventEmitter, inject, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, ControlMessagesComponent, ICode, CheckboxOption, ICodeDefinition, UtilsService, HelpSequence, ConverterService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
@@ -38,12 +38,14 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   amendRecordPopupID: string = "amendRecordPopupID";
   popupTrigger: HTMLElement = null;
   amendHeading: string = '';
+  private _initialized: boolean = false;;
 
   constructor(private _companyEnrolmentService: CompanyEnrolmentService,
               private _fb: FormBuilder,
               private _utilsService: UtilsService,
               private _globalService: GlobalService,
-              private _converterService : ConverterService) {
+              private _converterService : ConverterService,
+              private _cdr: ChangeDetectorRef) {
     super();
     this.showFieldErrors = false;
   }
@@ -55,6 +57,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
     this._getCompanyEnrolmentForm();
     this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, this.companyEnrolmentForm.controls['enrolmentStatus'].value, enrolmentStatusesList, this.lang, false);
+    this._initialized = true;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -78,7 +81,23 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       this.disableFormGroup();
     } else {
       this.enableFormGroup();
-    }
+        // ✅ ADD THIS BLOCK (5 lines)
+        if (this._initialized) {
+          setTimeout(() => {
+            this.showFieldErrors = true;
+            const reasonControl = this.companyEnrolmentForm.get('reasonForFiling');
+            if (reasonControl?.invalid) {
+              reasonControl.markAsTouched();
+              reasonControl.updateValueAndValidity();
+            }
+            this._cdr.detectChanges();
+          }, 0);
+        }
+      }
+
+
+
+
   }
 
   private setDisableAmendButtonFlag(dataModel: CompanyEnrol, isInternal: boolean) : void{
