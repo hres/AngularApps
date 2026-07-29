@@ -1,32 +1,24 @@
-/* Align consent checkboxes with product line checkboxes */
-.consent-checkboxes {
-  padding-top: 2.2rem; /* Align with first product line checkbox */
-}
-
-.consent-checkboxes .form-group {
-  margin-bottom: 0.15rem;
-}
-
-.consent-checkboxes label {
+.consent-checkbox {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0.15rem 0;
-  font-weight: normal;
+  align-items: flex-start;
 }
 
-.consent-checkboxes input[type="checkbox"] {
-  width: 1.2rem;
-  height: 1.2rem;
-  margin: 0;
+.consent-checkbox::before {
+  margin-right: 8px;
+}
+
+.consent-checkbox input {
+  margin-top: 3px;
+  margin-right: 8px;
   flex-shrink: 0;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .consent-checkboxes {
-    padding-top: 0;
-    margin-top: 1rem;
-  }
+.checkbox-text {
+  flex: 1;
+}
+
+.required-inline {
+  color: #d3080c;
+  white-space: nowrap;
+  margin-left: 4px;
 }
