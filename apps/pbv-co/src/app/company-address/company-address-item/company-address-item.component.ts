@@ -54,6 +54,8 @@ export class CompanyAddressItemComponent extends BaseComponent {
 
   private _previouslyDisabled : boolean;
 
+  private _isInitialized: boolean = false;
+
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
 
@@ -112,6 +114,19 @@ export class CompanyAddressItemComponent extends BaseComponent {
         this._enableFormGroup();
       }
     }
+
+    if(!this._isInitialized) return;
+    if (changes['disableForm']) {
+      console.log('disableForm changed to:', this.disableForm);
+
+      if (this.disableForm) {
+        this._disableFormGroup();
+      } else {
+        this._enableFormGroup();
+      }
+      this.cdRef.detectChanges();
+    }
+
   }
 
   override ngAfterViewInit(): void {
@@ -424,6 +439,8 @@ export class CompanyAddressItemComponent extends BaseComponent {
         this._handleFormInvalidity();
       }
     }
+
+    this.showErrors = true;
   }
 
   private _handleFormInvalidity() {
