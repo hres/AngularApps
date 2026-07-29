@@ -74,7 +74,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   disableForm: boolean = false;
 
   public mailToLabel = 'mailto.label';
-  public disableMailto: boolean = false;
   public showMailToHelpText: boolean = false;;
   public mailToLink = '';
   public submitToEmail: string = '';
@@ -164,7 +163,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this._consentPrivacyError
     );
 
-    this.disableMailto = this.errorList.length > 0 || this.isInternal; // Add final condition
     this.showMailToHelpText = false;
     this.cdr.detectChanges(); // doing our own change detection
   }
@@ -359,6 +357,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return false;
   }
 
+  public isDisableSubmitToHC() {
+    if(this.companyEnrolModel.application_type._id === '' && this.errorList.length > 0){
+     return true;
+    }
+    return this.isAmend();
+  }
 
   private _prepareForSaving(xmlFile: boolean): Company {
     let contactsFormArrayValue = null;

@@ -100,13 +100,13 @@
 
     <div class="row btn-group-sm">
       <div *ngIf="!isInternal" class="form-group col-md-4">
-        <button type="button" class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
-          {{'save.working.copy'|translate}}
+        <button type="button" class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()"  [disabled]="isAmend()">
+           {{'save.working.copy'|translate}}
         </button>
       </div>
       <div *ngIf="isInternal" class="form-group col-md-4">
         <button type="button" class="btn btn-primary btn-lg" (click)="saveXmlFile()" [disabled]="disableForm">
-          {{'generate.final'|translate}}
+            {{'generate.final'|translate}}
         </button>
       </div>
       <div *ngIf="!isInternal" class="form-group col-md-4">
@@ -117,7 +117,7 @@
       </div>
       <div class="form-group col-md-4" *ngIf="!isInternal">
         <button class="btn btn-primary btn-lg" (click)="mailto()"
-           [disabled]="disableMailto" >
+           [disabled]="isDisableSubmitToHC()" >
           {{'mailto.label'|translate}}
       </button>
       </div>
