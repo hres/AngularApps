@@ -14,9 +14,13 @@
     "build-prod-internal": "npm run build-prod-internal-en & npm run build-prod-internal-fr",
     "build-prod-internal-en": "ng build --configuration=production-internal-en && npm run post-build -- --template=csp --env=prod --language=en  --type=internal",
     "build-prod-internal-fr": "ng build --configuration=production-internal-fr && npm run post-build -- --template=csp --env=prod --language=fr --type=internal",
-    "build-dev": "npm run build-dev-en & npm run build-dev-fr",
-    "build-dev-en": "ng build --configuration=development-en && npm run post-build -- --template=csp --env=dev --language=en --type=external",
-    "build-dev-fr": "ng build --configuration=development-fr && npm run post-build -- --template=csp --env=dev --language=fr --type=external",
+    "build-dev": "npm run build-dev-external & npm run build-dev-internal",
+    "build-dev-external": "npm run build-dev-external-en & npm run build-dev-external-fr",
+    "build-dev-external-en": "ng build --configuration=development-external-en && npm run post-build -- --template=csp --env=dev --language=en --type=external",
+    "build-dev-external-fr": "ng build --configuration=development-external-fr && npm run post-build -- --template=csp --env=dev --language=fr --type=external",
+    "build-dev-internal": "npm run build-dev-internal-en & npm run build-dev-internal-fr",
+    "build-dev-internal-en": "ng build --configuration=development-internal-en && npm run post-build -- --template=csp --env=dev --language=en --type=internal",
+    "build-dev-internal-fr": "ng build --configuration=development-internal-fr && npm run post-build -- --template=csp --env=dev --language=fr --type=internal",
     "post-build": "python ../../python/post-app-build/post-build.py"
   },
   "dependencies": {

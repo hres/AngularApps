@@ -108,7 +108,7 @@
                 }
               ]
             },
-            "development-en": {
+            "development-external-en": {
               "outputPath": "../../dist/csp/dev/external/en",
               "index": "node_modules/@hpfb/sdk/src/index-en.j2",
               "optimization": true,
@@ -124,8 +124,40 @@
                 }
               ]
             },
-            "development-fr": {
+            "development-external-fr": {
               "outputPath": "../../dist/csp/dev/external/fr",
+              "index": "node_modules/@hpfb/sdk/src/index-fr.j2",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev-fr.ts"
+                }
+              ]
+            },
+            "development-internal-en": {
+              "outputPath": "../../dist/csp/dev/internal/en",
+              "index": "node_modules/@hpfb/sdk/src/index-en.j2",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev-en.ts"
+                }
+              ]
+            },
+            "development-internal-fr": {
+              "outputPath": "../../dist/csp/dev/internal/fr",
               "index": "node_modules/@hpfb/sdk/src/index-fr.j2",
               "optimization": true,
               "outputHashing": "all",
