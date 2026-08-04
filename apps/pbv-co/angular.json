@@ -119,7 +119,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.dev-en.ts"
+                  "with": "src/environments/environment.dev-internal-en.ts"
                 }
               ]
             },
@@ -135,7 +135,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.dev-fr.ts"
+                  "with": "src/environments/environment.dev-internal-fr.ts"
                 }
               ]
             },

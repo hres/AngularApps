@@ -10,5 +10,5 @@ export const environment = {
   production: false,
   lang: 'en',
   byPassCheckSum: false,
-  isInternal: false
+  internal: true
 }

@@ -20,8 +20,8 @@ import { ContainerComponent } from './container/container.component';
 
 export class AppComponent {
   language :string = ENGLISH;
-  appVersion: string = '0.0.0'; 
-  
+  appVersion: string = '0.0.0';
+
   constructor(
     private translate: TranslateService,
     private _versionService: VersionService,
@@ -37,12 +37,12 @@ export class AppComponent {
     this._globalService.appVersion = this._versionService.getApplicationVersion(environment);
     this._globalService.devEnv = !environment.production;
     this._globalService.byPassChecksum = environment.byPassCheckSum;
-    this._globalService.isInternal = environment.isInternal;
+    this._globalService.isInternal = environment.internal;
 
     this.translate.get('form.title').subscribe((res) => {
       this.setTitle(res);
     });
-    this.appVersion = this._globalService.appVersion;  
+    this.appVersion = this._globalService.appVersion;
   }
 
   public setTitle(newTitle: string) {
