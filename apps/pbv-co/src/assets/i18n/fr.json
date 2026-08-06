@@ -64,7 +64,7 @@
     "mailing.address": "Contact pour l'adresse courrier réglementaire / adresse pour l'annuelle",
     "billing.address": "Adresse de facturation",
     "error.msg.addressRolesMissing": "Pour l'information d'adresse, sélection des rôles: fabricant, de l'envoi et de la facturation",
-    "error.msg.companyAddress": "Il y a des erreurs dans les détails de l'adresse",
+    "error.msg.companyAddress": "Il y a des erreurs dans les détails de l'adresse.",
 
     "heading.company.contact":"Détails du représentant de la compagnie {{seqnumber}}",
     "first.name":"Prénom",
@@ -93,7 +93,7 @@
     "billing.contact": "Personne-ressource de facturation",
     "error.msg.roleSelected":  "Ce rôle a déjà été sélectionné.",
     "error.msg.contactRolesMissing": "Pour le représentant de la compagnie, sélection des rôles: fabricant, de l'envoi et de la facturation",
-    "error.msg.companyContacts": "Il y a des erreurs dans les détails du représentant de la compagnie",
+    "error.msg.companyContacts": "Il y a des erreurs dans les détails du représentant de la compagnie.",
 
     "mailto.01": "L’ébauche du fichier CO XML doit être envoyé par courriel.",
     "mailto.02": "En cliquant sur le bouton « Soumettre à Santé Canada » vous générerez automatiquement un modèle de message électronique à l’aide de votre programme de messagerie par défaut.",

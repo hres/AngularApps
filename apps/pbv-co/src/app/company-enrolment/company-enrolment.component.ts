@@ -82,17 +82,17 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     } else {
       this.enableFormGroup();
         // ✅ ADD THIS BLOCK (5 lines)
-        if (this._initialized) {
-          setTimeout(() => {
-            this.showFieldErrors = true;
-            const reasonControl = this.companyEnrolmentForm.get('reasonForFiling');
-            if (reasonControl?.invalid) {
-              reasonControl.markAsTouched();
-              reasonControl.updateValueAndValidity();
-            }
-            this._cdr.detectChanges();
-          }, 0);
-        }
+        // if (this._initialized) {
+        //   setTimeout(() => {
+        //     this.showFieldErrors = true;
+        //     const reasonControl = this.companyEnrolmentForm.get('reasonForFiling');
+        //     if (reasonControl?.invalid) {
+        //       reasonControl.markAsTouched();
+        //       reasonControl.updateValueAndValidity();
+        //     }
+        //   //  this._cdr.detectChanges();
+        //   }, 0);
+        // }
       }
 
 
@@ -102,7 +102,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
   private setDisableAmendButtonFlag(dataModel: CompanyEnrol, isInternal: boolean) : void{
     if (dataModel.software_version < this._globalService.appVersion) {
-      const appType = String(this.dataModel.application_type);
+      const appType = String(this.dataModel.application_type)?.toUpperCase();
       if (appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED){
         this.showAmendButton = !isInternal;
       }
@@ -130,7 +130,7 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       } else if (dataModel.application_type._id === ENROLMENT_STATUS.NEW) {
         this.disableAmendButton = true;
       } else if (dataModel.software_version < this._globalService.appVersion) {
-        const appType = String(this.dataModel.application_type);
+        const appType = String(this.dataModel.application_type)?.toUpperCase();
           if (appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED) {
             this.disableAmendButton = false;
           }
