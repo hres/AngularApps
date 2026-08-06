@@ -2,12 +2,12 @@
     "title": "Regulatory enrolment process (REP) template revision history",
     "h1_header": "Regulatory enrolment process (REP) template revision history",
     "paragraphs": [
-        "This page outlines changes related to the Regulatory enrolment process (REP) templates. Should you have any questions regarding the content of this page, please contact <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"en\">ereview@hc-sc.gc.ca</a>.",
+        "This page outlines changes related to the regulatory enrolment process (REP) templates. Should you have any questions regarding the content of this page, please contact <a href=\"mailto:ereview@hc-sc.gc.ca\" lang=\"en\">ereview@hc-sc.gc.ca</a>.",
         "<div class=\"alert alert-info\"><p>In order to access the most up-to-date version of the template, please be reminded to delete your cache frequently and “refresh” the template links on your web browser prior to each use.</p></div>"
     ],
     "releases": [
         {
-            "header": "September 09, 2026 Release",
+            "header": "September 9, 2026 Release",
             "details": [
                 {
                     "template": "Company (CO) template<br>Version 5.1.0<br><br><br>Stylesheet package*",
@@ -15,7 +15,7 @@
                         "Added info bubble at the top of the page",
                         "Added pop-up warnings for various buttons",
                         "Updated the instructions",
-                        "Removed text from \"Fax Number\"",
+                        "Removed text from \"Fax number\"",
                         "Added text to \"Email address\"",
                         "Created instruction link next to \"Select one or more roles for this company representative\"",
                         "Added an additional email-related checkbox at the end of the form ",
