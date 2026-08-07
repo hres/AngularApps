@@ -49,7 +49,7 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
       this.addressForm = this._detailsService.getReactiveModel(this._fb);
     }
     if (this.canadaDefault) {
-      this.addressForm.controls['country'].setValue('CAN');
+      this.addressForm.controls['country'].setValue(CANADA);
       this.addressForm.controls['country'].disable(); // Method to grey out/disable the country dropdown
       this.onCountryChange(null); // Call onCountryChange to change Postal/ZIP code -> Postal Code, Province or state -> Province
     }
