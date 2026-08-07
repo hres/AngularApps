@@ -4,7 +4,7 @@
     <lib-confirmation-popup [id]="deletePopupId" [title]="'popup.warning' | translate" [message]="'msg.delete.popup'" [cancel]="'popup.cancel' | translate" [confirm]="'popup.confirm' | translate" [heading]="deleteHeading" (confirmed)="deleteRecord($event)" (closed)="restoreDeleteFocus()" ></lib-confirmation-popup>
       <div [formArrayName]="'contacts'">
 
-        <lib-accordion [rowsFormArray]="recordFormArray" [accordionHeadingMsgKey]="'heading.company.contact'" [accordionHeadingSupp]="['companyInfo', 'contactDetails', 'fullName']"
+        <lib-accordion [rowsFormArray]="recordFormArray" recordListName="companyContact" [accordionHeadingMsgKey]="'heading.company.contact'" [accordionHeadingSupp]="['companyInfo', 'contactDetails', 'fullName']"
         (rowClicked)="handleRowClick($event)">
 
         <ng-template #tmpl let-recordRow let-idx="i">
