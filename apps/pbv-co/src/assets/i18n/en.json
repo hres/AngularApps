@@ -96,7 +96,7 @@
     "error.msg.companyContacts": "There are errors in the company representative details.",
 
     "mailto.01": "The draft CO XML must be sent via email.",
-    "mailto.02": "By clicking the \"Submit to Health Canada\" a templated email message should be auto-created using your default email program.",
+    "mailto.02": "By clicking the \"Submit to Health Canada\" button a templated email message should be auto-created using your default email program.",
     "mailto.03": "Before submitting, please attach your draft CO XML file.",
     "mailto.04": "If an email template was not automatically generated, create an email with the following details:",
     "mailto.05": "To: {{subject}}  {{email}}",
