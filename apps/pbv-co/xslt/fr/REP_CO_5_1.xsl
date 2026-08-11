@@ -261,7 +261,7 @@ span.mouseHover:hover {
 	
 	<!-- Company Enrolment -->
 	<xsl:template match="COMPANY_ENROL">
-		<h1>Modéle de compagnie : Processus d'Inscription Réglementaire (PIR) pour les produits pharmaceutiques humain et vétérinaire et biocides <xsl:if test="software_version != ''">(version <xsl:value-of select="software_version"/>)</xsl:if></h1>
+		<h1>Modéle de compagnie : Processus d'inscription réglementaire (PIR) pour les produits pharmaceutiques humain et vétérinaire et biocides <xsl:if test="software_version != ''">(version <xsl:value-of select="software_version"/>)</xsl:if></h1>
         <section>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
