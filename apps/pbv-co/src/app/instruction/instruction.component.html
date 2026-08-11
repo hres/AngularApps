@@ -62,8 +62,7 @@
         <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['businessNumIndx'][0]}}</dt>
         <dd [id]="helpTextSequences['businessNumIndx'][1]">
             <div class="fn-rep">
-                <p>{{'section.show.option'|translate}}</p>
-                <p>{{'business.number' |translate}}</p>
+                <p>{{'section.show.option'|translate}}{{'business.number' |translate}}</p>
                 <p [innerHTML]="'ht.business.number' | translate"></p>
 
                 <p class="fn-rtn"><a [href]="'#' + helpTextSequences['businessNumIndx'][2]"><span class="wb-inv">{{'return.instruction'|translate}}&#160;</span>
@@ -73,7 +72,7 @@
         <dt>{{'Instruction'|translate}}&#160;{{helpTextSequences['selectRolesIndx'][0]}}</dt>
         <dd [id]="helpTextSequences['selectRolesIndx'][1]">
             <div class="fn-rep">
-                <p>{{'select.roles.comp.instruction' |translate}}</p>
+                <p>{{'section.show.option'|translate}}{{'select.roles.comp.instruction' |translate}}</p>
                 <ul>
                     <li>{{'ht.select.roles.1' | translate}}</li>
                     <li>{{'ht.select.roles.2' | translate}}</li>
