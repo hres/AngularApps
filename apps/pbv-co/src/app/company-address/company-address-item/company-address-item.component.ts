@@ -50,7 +50,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
   private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
 
   private _discardIndex : number;
-  private _deleteIndex : number;
+  private readonly _deleteIndex : number = 1;
 
   private _previouslyDisabled : boolean;
 
@@ -249,7 +249,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
   }
 
   public async deleteAddressRecord(index: number): Promise<void> {
-    this._deleteIndex = index;
+   // this._deleteIndex = index;
     const heading = await this._addressService.getHeading(index, this.cRRow);
     this.cRRow.get('heading').setValue(heading);
     this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
