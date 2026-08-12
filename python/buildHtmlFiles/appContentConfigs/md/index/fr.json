@@ -51,7 +51,7 @@
                     ]
                 },
                 {
-                    "header": "Détails de l’instrument (2026-03-25)",
+                    "header": "Détails de l’instrument (2026-08-19)",
                     "bullets": [
                         "Obligatoire pour toutes les nouvelles demandes d’homologation, ainsi que pour toute demande de modification susceptible d’avoir des répercussions sur le répertoire des fabricants.",
                         "<a href=\"{{ base_url }}{{ template_paths.dd.fr }}\" download=\"\">Télécharger détails de l’instrument xlsx fichier</a>"
