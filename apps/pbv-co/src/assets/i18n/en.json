@@ -105,7 +105,7 @@
     "mailto.08": "Attachment: The draft CO XML.",
 
     "consent.privacy": "By providing your personal information, you consent to its collection, use, and disclosure in accordance with the privacy notice statement.",
-    "consent.privacy.onEmail": "By providing the email addresses in this CO XML, you understand and acknowledge that this company will be enrolled in Health Canda’s electronic billing (e-Billing) system. Health Canada does not accept any liability for any errors or omissions in the email addresses provided by the company. Health Canada does not accept any liability for information not delivered or delivered to or intercepted by a third party unintended recipient.",
+    "consent.privacy.onEmail": "By providing the email addresses in this CO XML file, you understand and acknowledge that this company will be enrolled in Health Canada’s electronic billing (e-Billing) system. Health Canada does not accept any liability for any errors or omissions in the email addresses provided by the company. Health Canada does not accept any liability for information not delivered or delivered to or intercepted by an unintended third party recipient.",
 
     "email.subject": "Client information",
     "email.to": "(client.information@hc-sc.gc.ca)",
@@ -117,6 +117,7 @@
     "msg.err.file.type": "An invalid file type was selected.",
     "msg.err.form.type": "The wrong form type was selected for this form.",
     "msg.err.checksum": "Error: there was an error parsing the file.",
+    "msg.err.parse.fail": "Error: there was an error parsing the file.",
     "section.show.option": "[ This section may not be visible. ] ",
     "msg.saving.xml.popup": "Please save the unsaved input data before saving draft XML file.",
     "msg.generating.xml.popup": "Please save the unsaved input data before generating XML file.",
