@@ -84,7 +84,7 @@ export class ApplicantComponent
     this.helpIndex = this._globalService.helpIndex;
     this.languageList = this._globalService.languageList;
     this.provinceList = this._globalService.provinceList;
-    this.countryList = this._globalService.countryList;
+    this.countryList = this._globalService.allCountryList;
     this.stateList = this._globalService.stateList;
 
     if (!this.applicantInformationForm) {

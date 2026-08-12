@@ -34,6 +34,7 @@ export class GlobalService {
   private _attestationAsApplicant: ICodeAria[] = [];
   private _attestationAsSubmission: ICodeAria[] = [];
   private _countryIdMappingList: any[] = [];
+  private _allCountryList: ICode[];
 
 
   constructor(private instructionService: InstructionService) {}
@@ -108,6 +109,14 @@ export class GlobalService {
 
   public set countryList(value: ICode[]) {
     this._countryList = value;
+  }
+
+  public get allCountryList(): ICode[] {
+    return this._allCountryList;
+  }
+
+  public set allCountryList(value: ICode[]) {
+    this._allCountryList = value;
   }
 
   public get provinceList(): ICode[] {

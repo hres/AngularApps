@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, map, shareReplay } from 'rxjs';
+import { Observable, map, shareReplay, tap } from 'rxjs';
 import { DATA_PATH } from '../app.constants';
 import {
   DataLoaderService,
@@ -11,6 +11,7 @@ import {
 
 @Injectable()
 export class FormDataLoaderService {
+  
   private countriesJsonPath = DATA_PATH + 'csp_eucountries.json';
   private provincesJsonPath = DATA_PATH + 'provinces.json';
   private statesJsonPath = DATA_PATH + 'states.json';
@@ -22,11 +23,13 @@ export class FormDataLoaderService {
   private AttestationForSubmissionJsonPath =
     DATA_PATH + 'attestationASSubmission.json';
   private countryMappingJsonPath = DATA_PATH + 'countryIdMapping.json';
+  private allCountriesJsonPath = DATA_PATH + 'csp_all_countries.json';
 
   cachedLanguageList$: Observable<ICode[]>;
   cachedYesNo$: Observable<ICode[]>;
   cachedWhoResponsible$: Observable<ICode[]>;
   cachedCountries$: Observable<ICode[]>;
+  cachedAllCountries$: Observable<ICode[]>;
   cachedProvinces$: Observable<ICode[]>;
   cachedStates$: Observable<ICode[]>;
   drugUseOptions$: Observable<ICode[]>;
@@ -42,6 +45,7 @@ export class FormDataLoaderService {
   ) {}
 
   getCountryList(lang: string): Observable<ICode[]> {
+
     if (!this.cachedCountries$) {
       this.cachedCountries$ = this._dataService
         .getSortedDataAccents<ICode>(
@@ -49,11 +53,27 @@ export class FormDataLoaderService {
           this._utilsService.getCompareFields(false, lang)
         )
         .pipe(
-          // tap(()=>console.log('getCountryList() is called')),
+           tap(()=>console.log('getCountryList() is called')),
           shareReplay(1)
         );
     }
     return this.cachedCountries$;
+  }
+
+  getAllCountryList(lang: string): Observable<ICode[]> {
+
+    if (!this.cachedAllCountries$) {
+      this.cachedAllCountries$ = this._dataService
+        .getSortedDataAccents<ICode>(
+          this.allCountriesJsonPath,
+          this._utilsService.getCompareFields(false, lang)
+        )
+        .pipe(
+           tap(()=>console.log('getAllCountryList() is called')),
+          shareReplay(1)
+        );
+    }
+    return this.cachedAllCountries$;
   }
 
   getProvinceList(lang: string): Observable<ICode[]> {

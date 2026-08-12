@@ -50,7 +50,7 @@ export class ApplicantService {
   ) {
     const lang = this._globalService.currLanguage;
     const languageList: ICode[] = this._globalService.languageList;
-    const countryList: ICode[] = this._globalService.countryList;
+    const countryList: ICode[] = this._globalService.allCountryList;
     const combinedProvStatList: ICode[] =
       this._globalService.provinceList.concat(this._globalService.stateList);
     let applicants = [];
