@@ -115,17 +115,17 @@ export class CompanyAddressItemComponent extends BaseComponent {
       }
     }
 
-    if(!this._isInitialized) return;
-    if (changes['disableForm']) {
-      console.log('disableForm changed to:', this.disableForm);
+    // if(!this._isInitialized) return;
+    // if (changes['disableForm']) {
+    //   console.log('disableForm changed to:', this.disableForm);
 
-      if (this.disableForm) {
-        this._disableFormGroup();
-      } else {
-        this._enableFormGroup();
-      }
-      this.cdRef.detectChanges();
-    }
+    //   if (this.disableForm) {
+    //     this._disableFormGroup();
+    //   } else {
+    //     this._enableFormGroup();
+    //   }
+    //   this.cdRef.detectChanges();
+    // }
 
   }
 
