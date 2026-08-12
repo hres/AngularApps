@@ -133,7 +133,9 @@
 
     "error.mgs.5.numeric": "Entrée non valide - doit contenir 5 chiffres",
     "select.option": "Sélectionnez une option",
+
     "minlength": "Entrée non valide - doit contenir {{ requiredLength }} chiffres",
     "msg.discard.popup": "Êtes-vous sûr de vouloir annuler la modification pour {{heading}} ?"
+    "section.accordion": "Section"
 
 }
