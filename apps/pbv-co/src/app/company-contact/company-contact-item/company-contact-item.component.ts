@@ -52,7 +52,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedContactCompanyRoles();
 
   private _discardIndex : number;
-  private _deleteIndex : number;
+  private readonly _deleteIndex : number = 2;
 
   private _previouslyDisabled : boolean;
   helpIndex: HelpSequence;
@@ -249,7 +249,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   }
 
   public async deleteContactRecord(index: number): Promise<void> {
-    this._deleteIndex = index;
+   // this._deleteIndex = index;
     const heading = await this._contactService.getHeading(index, this.cRRow); // Await here
     this.cRRow.get('heading').setValue(heading);
     this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
