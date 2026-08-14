@@ -83,7 +83,7 @@
           <div class="row">
             <div class="form-group col-sm-6" >
               <label for="{{contactType}}phoneNumber{{recordId}}" class="required full-width">
-                <span class="field-name">{{'phone.number'|translate}}
+                <span class="field-name">{{'phone.number'|translate}} {{'phone.number.info'|translate}}
                   <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                 </span>
                 @if (contactDetailsForm.controls['phoneNumber'].invalid) {
@@ -109,7 +109,7 @@
               <div class="row">
                 <div class="form-group col-sm-6">
                   <label class="required full-width" for="{{contactType}}faxNumber{{recordId}}">
-                    <span class="field-name">{{'fax.number' |translate }}
+                    <span class="field-name">{{'fax.number' |translate }} {{'fax.number.info' |translate }}
                       <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                     </span>
                     @if (contactDetailsForm.controls['faxNumber'].invalid) {

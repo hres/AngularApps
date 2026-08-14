@@ -183,6 +183,20 @@ export class AddressDetailsComponent extends BaseComponent implements OnInit, On
     }
   }
 
+  /**
+   * Reactive function to return postal code label if country is Canada/USA/neither
+   * @returns Postal zip code info
+   */
+  postalLabelInfo(): string {
+    if (this.isCanada()) {
+      return null
+    } else if (this.isUsa()) {
+      return null
+    } else {
+      return 'addressDetails.postalZipCode.info';
+    }
+  }
+
   private _resetFormGroup() : void {
     this.addressForm.reset();
   }

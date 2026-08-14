@@ -105,7 +105,7 @@
         }
         <div class="form-group col-sm-6 col-xs-12">
           <label for="{{addrType}}postal{{recordId}}" class="required">
-            <span class="field-name">{{ postalLabel() |translate}}
+            <span class="field-name">{{ postalLabel() |translate}} {{ postalLabelInfo() |translate}}
               <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
             </span><br/>
             @if (addressForm.controls['postal'].invalid) {

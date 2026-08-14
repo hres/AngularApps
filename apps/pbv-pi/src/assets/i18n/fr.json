@@ -80,10 +80,10 @@
     "addressDetails.city": "Ville",
     "addressDetails.country": "Pays",
     "addressDetails.province": "Province",
-    "addressDetails.state": "State",
-    "addressDetails.postalZipCode":"Postal/ZIP code (use \"not applicable\" if not available)",
+    "addressDetails.state": "État",
+    "addressDetails.postalZipCode":"Code postal/ZIP (si pas disponible, utilisez « sans objet »)",
     "addressDetails.postalCode": "Code postal",
-    "addressDetails.zipCode": "ZIP code",
+    "addressDetails.zipCode": "Code ZIP",
     "addressDetails.provState": "Province ou state",
 
     "add.address":"Add address detail record",

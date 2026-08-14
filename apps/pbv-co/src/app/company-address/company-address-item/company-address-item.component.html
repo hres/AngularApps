@@ -9,7 +9,7 @@
         <div class="row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="companyName{{j}}" class="required full-width">
-                    <span class="field-name">{{ 'company.name'|translate }}</span>
+                    <span class="field-name">{{ 'company.name'|translate }} {{ 'company.name.info'|translate }}</span>
                     <strong class="required" aria-hidden="true">{{ 'commmon.required.bracket'|translate }}</strong>
                     <control-messages *ngIf="cRRow.get('addressInfo.companyName').invalid" [attr.aria-live]="showErrors? null: 'assertive'"
                         [showError]="showErrors"
