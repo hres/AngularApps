@@ -52,7 +52,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   private selectedCompanyRoles : Signal<string[]> = this._signalService.getSelectedContactCompanyRoles();
 
   private _discardIndex : number;
-  private readonly _deleteIndex : number = 2;
+  private _deleteIndex : number;
 
   private _previouslyDisabled : boolean;
   helpIndex: HelpSequence;
@@ -163,8 +163,11 @@ export class CompanyContactItemComponent extends BaseComponent{
 
     return translated;
 }
-  public revertContactRecord(index: number, recordId: number): void {
+
+  public async revertContactRecord(index: number, recordId: number):  Promise<void> {
     this._discardIndex = index;
+    const heading = await this._contactService.getHeading(index, this.cRRow);
+    this.cRRow.get('heading').setValue(heading);
     this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
     this.cRRow.markAsPristine();
   }
@@ -249,7 +252,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   }
 
   public async deleteContactRecord(index: number): Promise<void> {
-   // this._deleteIndex = index;
+    this._deleteIndex = index;
     const heading = await this._contactService.getHeading(index, this.cRRow); // Await here
     this.cRRow.get('heading').setValue(heading);
     this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
@@ -358,7 +361,7 @@ export class CompanyContactItemComponent extends BaseComponent{
         const fieldLabel = this.getFieldLabel(translationKey);
 
         error.label = fieldLabel;
-        error.currentError = 'This field is required.';
+        error.currentError = this.lang==='en'?'This field is required.':'Ce champ est obligatoire.';
 
         return error;
     });
@@ -378,7 +381,7 @@ export class CompanyContactItemComponent extends BaseComponent{
         const translationKey = error?.label || '';
         const fieldLabel = this.getFieldLabel(translationKey);
         error.label = fieldLabel;
-        error.currentError = 'This field is required.';
+        error.currentError = this.lang==='en'?'This field is required.':'Ce champ est obligatoire.';
         return error;
     });
 
@@ -434,7 +437,7 @@ export class CompanyContactItemComponent extends BaseComponent{
             const translationKey = error?.label || '';
             const fieldLabel = this.getFieldLabel(translationKey);
             error.label = fieldLabel;
-            error.currentError = 'This field is required.';
+            error.currentError = this.lang==='en'?'This field is required.':'Ce champ est obligatoire.';
         }
         return error;
     });

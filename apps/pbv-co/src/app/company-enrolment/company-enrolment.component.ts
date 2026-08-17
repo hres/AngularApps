@@ -7,6 +7,7 @@ import { CompanyEnrolmentService } from './company-enrolment.service';
 import { CompanyEnrol } from '../models/Company';
 import { ENROLMENT_STATUS } from '../app.constants';
 import { data } from 'jquery';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-company-enrolment',
@@ -45,7 +46,8 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
               private _utilsService: UtilsService,
               private _globalService: GlobalService,
               private _converterService : ConverterService,
-              private _cdr: ChangeDetectorRef) {
+              private _cdr: ChangeDetectorRef,
+              private _translateService : TranslateService) {
     super();
     this.showFieldErrors = false;
   }
@@ -82,17 +84,17 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     } else {
       this.enableFormGroup();
         // ✅ ADD THIS BLOCK (5 lines)
-        if (this._initialized) {
-          setTimeout(() => {
-            this.showFieldErrors = true;
-            const reasonControl = this.companyEnrolmentForm.get('reasonForFiling');
-            if (reasonControl?.invalid) {
-              reasonControl.markAsTouched();
-              reasonControl.updateValueAndValidity();
-            }
-            this._cdr.detectChanges();
-          }, 0);
-        }
+        // if (this._initialized) {
+        //   setTimeout(() => {
+        //     this.showFieldErrors = true;
+        //     const reasonControl = this.companyEnrolmentForm.get('reasonForFiling');
+        //     if (reasonControl?.invalid) {
+        //       reasonControl.markAsTouched();
+        //       reasonControl.updateValueAndValidity();
+        //     }
+        //     this._cdr.detectChanges();
+        //   }, 0);
+        // }
       }
 
 
@@ -120,7 +122,18 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
   }
 
   protected override emitErrors(errors: ControlMessagesComponent[]): void {
-    this.errorList.emit(errors);
+
+    const fixedErrors = errors.map(error => {
+      if (error) {
+          const translationKey = error?.label || '';
+          const fieldLabel = this.getFieldLabel(translationKey);
+          error.label = fieldLabel;
+          error.currentError = this.lang==='en'?'This field is required.':'Ce champ est obligatoire.';
+      }
+      return error;
+  });
+
+   this.errorList.emit(fixedErrors);
   }
 
   activateAmendButton(dataModel: CompanyEnrol) {
@@ -192,6 +205,28 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     })
   }
 
+ // ==================== THE FIX when using angular 22====================
 
+ private getFieldLabel(translationKey: string): string {
+  if (!translationKey) return 'This field';
+
+  // Use the translation service to get the actual label
+  const translated = this._translateService.instant(translationKey);
+
+  // If translation returns the key itself, it means translation is not available
+  if (translated === translationKey) {
+      // Fallback: extract from key
+      let cleanLabel = translationKey;
+      if (cleanLabel.includes('.')) {
+          const parts = cleanLabel.split('.');
+          let lastPart = parts[parts.length - 1];
+          lastPart = lastPart.replace(/([A-Z])/g, ' $1').trim();
+          cleanLabel = lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
+      }
+      return cleanLabel || 'This field';
+  }
+
+  return translated;
+}
 
 }
