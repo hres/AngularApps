@@ -54,7 +54,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
 
   private _previouslyDisabled : boolean;
 
-  private _isInitialized: boolean = false;
+  protected disableDiscardBtn : boolean ;
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
@@ -77,6 +77,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
   }
 
   async ngOnInit(): Promise<void> {
+
     this.countryList = this._globalService.countryList;
     this.provinceList = this._globalService.provinceList;
     this.stateList = this._globalService.stateList;
@@ -90,6 +91,8 @@ export class CompanyAddressItemComponent extends BaseComponent {
       if (index === this._discardIndex) {
         this._handleDiscard();
         this._patchAndCheckLastSavedRoles();
+         this.disableDiscardBtn = true;
+        this.cRRow.markAsPristine();
       }
     });
 
@@ -99,9 +102,17 @@ export class CompanyAddressItemComponent extends BaseComponent {
         this.deleteHandled.emit(true)
       }
     });
+    const addressInfoForm = <FormGroup>this.cRRow.controls['addressInfo'];
+    if (addressInfoForm.controls['companyName'].value) {
+      this.disableDiscardBtn = true
+    } else {
+      this.disableDiscardBtn = false;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) : void{
+
+
     if (changes['cRRow']) {
       this._updateCompanyRolesArray();
     }
@@ -114,18 +125,6 @@ export class CompanyAddressItemComponent extends BaseComponent {
         this._enableFormGroup();
       }
     }
-
-    // if(!this._isInitialized) return;
-    // if (changes['disableForm']) {
-    //   console.log('disableForm changed to:', this.disableForm);
-
-    //   if (this.disableForm) {
-    //     this._disableFormGroup();
-    //   } else {
-    //     this._enableFormGroup();
-    //   }
-    //   this.cdRef.detectChanges();
-    // }
 
   }
 
@@ -174,7 +173,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
     const heading = await this._addressService.getHeading(index, this.cRRow);
     this.cRRow.get('heading').setValue(heading);
     this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
-    this.cRRow.markAsPristine();
+    this.disableDiscardBtn = true;
   }
 
 
@@ -246,11 +245,13 @@ export class CompanyAddressItemComponent extends BaseComponent {
   }
 
   public disabledDiscardButton() {
-    if (this.cRRow.get('isNew').value) {
-      return true;
+    if (this.disableDiscardBtn && this.cRRow.get("addressInfo").dirty) {
+        return false
+      }
+      else {
+        return true;
+      }
     }
-    return false;
-  }
 
   public async deleteAddressRecord(index: number): Promise<void> {
     this._deleteIndex = index;

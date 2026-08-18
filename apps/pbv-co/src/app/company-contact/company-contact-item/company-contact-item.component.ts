@@ -56,7 +56,7 @@ export class CompanyContactItemComponent extends BaseComponent{
 
   private _previouslyDisabled : boolean;
   helpIndex: HelpSequence;
-
+  protected disableDiscardBtn : boolean ;
 
   @ViewChildren(ErrorSummaryComponent) errorSummaryChildList: QueryList<ErrorSummaryComponent>;
   @ViewChild(ErrorSummaryComponent) errorSummaryChild: ErrorSummaryComponent;
@@ -79,6 +79,7 @@ export class CompanyContactItemComponent extends BaseComponent{
   }
 
   async ngOnInit() : Promise<void> {
+
     this.lang = this._globalService.currLanguage;
     this.languageList = this._globalService.languageList;
     this.representativeRolesCodeList = this._globalService.representativeRolesList;
@@ -91,6 +92,8 @@ export class CompanyContactItemComponent extends BaseComponent{
         this._handleDiscard();
         this._patchAndCheckLastSavedRoles();
         this.discardHandled.emit();
+        this.disableDiscardBtn = true;
+        this.cRRow.markAsPristine();
       }
     });
 
@@ -100,6 +103,15 @@ export class CompanyContactItemComponent extends BaseComponent{
         this.deleteHandled.emit(true)
       }
     });
+
+    const companyInfoForm = <FormGroup>this.cRRow.controls['companyInfo'];
+    const contactInfoForm = <FormGroup> companyInfoForm.controls['contactDetails'];
+
+    if (contactInfoForm.controls['firstName'].value) {
+      this.disableDiscardBtn = true
+    } else {
+      this.disableDiscardBtn = false;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) : void{
@@ -169,7 +181,6 @@ export class CompanyContactItemComponent extends BaseComponent{
     const heading = await this._contactService.getHeading(index, this.cRRow);
     this.cRRow.get('heading').setValue(heading);
     this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
-    this.cRRow.markAsPristine();
   }
 
   private _handleDiscard() {
@@ -245,11 +256,12 @@ export class CompanyContactItemComponent extends BaseComponent{
   }
 
   public disabledDiscardButton() {
-    if (this.cRRow.get('isNew').value) {
-      return true;
+    if (this.disableDiscardBtn && this.cRRow.get("companyInfo").dirty) {
+        return false
+      } else {
+        return true;
+      }
     }
-    return false;
-  }
 
   public async deleteContactRecord(index: number): Promise<void> {
     this._deleteIndex = index;
