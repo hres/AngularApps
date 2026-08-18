@@ -18,7 +18,7 @@
         "dev": {
             "co": {
                 "en": "company/en/company.html",
-                "fr": "company/fr/entreprise.html"
+                "fr": "company/fr/compagnie.html"
             },
             "co_internal": {
                 "en": "company/internal/en/companyINT-en.html ",
@@ -40,7 +40,7 @@
         "prod": {
             "co": {
                 "en": "company/en/company.html",
-                "fr": "company/fr/entreprise.html"
+                "fr": "company/fr/compagnie.html"
             },
             "co_internal": {
                 "en": "company/internal/en/companyINT-en.html ",
