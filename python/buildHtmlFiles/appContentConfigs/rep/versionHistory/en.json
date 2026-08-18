@@ -7,7 +7,7 @@
     ],
     "releases": [
         {
-            "header": "September 9, 2026 Release",
+            "header": "September 9, 2026 release",
             "details": [
                 {
                     "template": "Company (CO) template<br>Version 5.1.0<br><br><br>Stylesheet package*",
@@ -17,7 +17,7 @@
                         "Updated the instructions",
                         "Removed text from \"Fax number\"",
                         "Added text to \"Email address\"",
-                        "Created instruction link next to \"Select one or more roles for this company representative\"",
+                        "Created instruction link beside \"Select one or more roles for this company representative\"",
                         "Added an additional email-related checkbox at the end of the form ",
                         "Corrected minor grammatical errors <br><br><br>",
                         "*New CO stylesheet to match changes on this template"
