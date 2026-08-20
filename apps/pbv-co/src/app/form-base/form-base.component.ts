@@ -255,6 +255,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   public processFile(fileData: ConvertResults) {
     // console.log(fileData);
     if (fileData.data !== null) {
+      this.coForm.controls['certifyPrivacyOnEmail'].setValue(false);
+      this.coForm.controls['certifyPrivacy'].setValue(false);
       this.companyEnrolModel = fileData.data.COMPANY_ENROL;
       this._initModels(this.companyEnrolModel);
       if(this.companyEnrolModel.software_version < this._globalService.appVersion){
