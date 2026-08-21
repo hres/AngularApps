@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FormArray, FormGroup, FormControl } from '@angular/forms';
 import { CheckboxOption, ConverterService, ICode, UtilsService, ValidationService } from "@hpfb/sdk/ui";
-import { YES, NO, FALSE, TRUE } from "../../app.constants";
+import { YES, NO,  TRUE } from "../../app.constants";
 import { GlobalService } from "../../global/global.service";
 import { ContactRecord } from "../../models/Company";
 import { ROLE_MAPPING, REVERSE_ROLE_MAPPING } from "../../app.constants";
@@ -51,9 +51,9 @@ export class CompanyContactItemService {
     {
       const companyInfoFormGroup = contactFormGroup['companyInfo'];
       contactOutput.id = contactFormGroup['id'];
-      contactOutput.billing = FALSE;
-      contactOutput.mailing = FALSE;
-      contactOutput.manufacturer = FALSE;
+      contactOutput.billing = null;
+      contactOutput.mailing = null;
+      contactOutput.manufacturer = null;
       if (companyInfoFormGroup['selectedCompanyRoles']) {
         companyInfoFormGroup['selectedCompanyRoles'].forEach((role: string) => {
           const mappedProperty = ROLE_MAPPING[role];
@@ -97,7 +97,7 @@ export class CompanyContactItemService {
 
     getSelectedContactCompanyRoles(companyInfo : ContactRecord) {
       const selectedRoles: string[] = Object.keys(REVERSE_ROLE_MAPPING)
-        .filter((key) => companyInfo[key] === TRUE) // Check for "Y"
+        .filter((key) => companyInfo[key] === (TRUE || YES)) // Check for "Y"
         .map((key) => REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
 
       return selectedRoles;
