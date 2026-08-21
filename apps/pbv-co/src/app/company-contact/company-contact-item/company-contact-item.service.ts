@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FormArray, FormGroup, FormControl } from '@angular/forms';
 import { CheckboxOption, ConverterService, ICode, UtilsService, ValidationService } from "@hpfb/sdk/ui";
-import { YES, NO } from "../../app.constants";
+import { YES, NO,  TRUE } from "../../app.constants";
 import { GlobalService } from "../../global/global.service";
 import { ContactRecord } from "../../models/Company";
 import { ROLE_MAPPING, REVERSE_ROLE_MAPPING } from "../../app.constants";
@@ -23,20 +23,17 @@ export class CompanyContactItemService {
 
     getCompanyRolesChkboxFormArray(formRecord: FormGroup) {
         return formRecord.controls['companyRoles'] as FormArray;
-    }  
+    }
 
     loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesChkFormArray, lang) {
         companyRolesOptionList.length = 0;
         companyRolesChkFormArray.clear();
-    
-       
         // Populate the array with new items
         companyRolesList.forEach((item) => {
           const checkboxOption = this._converterService.convertCodeToCheckboxOption(item, lang);
           companyRolesOptionList.push(checkboxOption);
           companyRolesChkFormArray.push(new FormControl(false));
         });
-        
     }
 
     getSelectedCompanyRolesFromOutputModel(outputModel : ContactRecord) {
@@ -50,23 +47,24 @@ export class CompanyContactItemService {
       return [selectedRoles, rolesArray];
     }
 
-    public mapFormModelToDataModel(contactFormGroup : FormGroup, contactOutput : ContactRecord)  
-    { 
+    public mapFormModelToDataModel(contactFormGroup : FormGroup, contactOutput : ContactRecord)
+    {
       const companyInfoFormGroup = contactFormGroup['companyInfo'];
       contactOutput.id = contactFormGroup['id'];
+      contactOutput.billing = null;
+      contactOutput.mailing = null;
+      contactOutput.manufacturer = null;
       if (companyInfoFormGroup['selectedCompanyRoles']) {
         companyInfoFormGroup['selectedCompanyRoles'].forEach((role: string) => {
           const mappedProperty = ROLE_MAPPING[role];
           if (mappedProperty) {
-            contactOutput[mappedProperty] = YES; // Assign a value as needed, assigns to "Y"
-          } else {
-            contactOutput[mappedProperty] = NO;
+            contactOutput[mappedProperty] = TRUE; // Assign a value as needed, assigns to "Y"
           }
         });
       }
     }
-    
-  
+
+
     public mapDataModelToFormModel(companyContact : ContactRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[], id) {
       const companyRolesList = this._globalService.companyRolesList;
       const lang = this._globalService.currLanguage;
@@ -82,7 +80,7 @@ export class CompanyContactItemService {
 
           this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang)
           this._converterService.checkCheckboxes(selectedRoles, companyRolesOptionList, companyRolesFormArray);
-        } 
+        }
       }
     }
 
@@ -93,13 +91,13 @@ export class CompanyContactItemService {
 
       selectedCompanyRoles.forEach(role => {
         this._signalService.updateContactCompanyRoles(`${id}${role}`);
-      });    
+      });
     }
 
-    
+
     getSelectedContactCompanyRoles(companyInfo : ContactRecord) {
       const selectedRoles: string[] = Object.keys(REVERSE_ROLE_MAPPING)
-        .filter((key) => companyInfo[key] === YES) // Check for "Y"
+        .filter((key) => companyInfo[key] === (TRUE || YES)) // Check for "Y"
         .map((key) => REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
 
       return selectedRoles;

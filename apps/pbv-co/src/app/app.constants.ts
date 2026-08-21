@@ -19,6 +19,7 @@ export const ADDRESS_ERROR_PREFIX = 'a';
 
 export const YES = "Y";
 export const NO = "N";
+export const TRUE = "true";
 
 export const HELP_TEXT_SEQUENCE = [
     'loadFileIndx',
