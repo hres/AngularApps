@@ -212,7 +212,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   isRolesMissing(selectedRoles : string[]) {
     const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // Required roles
     const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
-    return cleanSelectedRoles .some(role => ! companyRolesList.includes(role));
+    return companyRolesList.some(role => ! cleanSelectedRoles.includes(role));
   }
 
   public hideErrorSummary() {

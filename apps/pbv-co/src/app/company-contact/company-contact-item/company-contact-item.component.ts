@@ -87,7 +87,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
 
-    this._recordDiscardService.discardConfirmed$.subscribe(index => {
+    this._recordDiscardService.discardContactConfirmed$.subscribe(index => {
       if (index === this._discardIndex) {
         this._handleDiscard();
         this._patchAndCheckLastSavedRoles();
@@ -97,7 +97,7 @@ export class CompanyContactItemComponent extends BaseComponent{
       }
     });
 
-    this._recordDeleteService.deleteConfirmed$.subscribe(index => {
+    this._recordDeleteService.deleteContactConfirmed$.subscribe(index => {
       if (index === this._deleteIndex) {
         this._handleRecordDeletion();
         this.deleteHandled.emit(true)
@@ -180,7 +180,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     this._discardIndex = index;
     const heading = await this._contactService.getHeading(index, this.cRRow);
     this.cRRow.get('heading').setValue(heading);
-    this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
+    this.revertRecord.emit({ name:'contact', index: index, id: recordId, heading: this.cRRow.get('heading').value });
   }
 
   private _handleDiscard() {
@@ -267,7 +267,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     this._deleteIndex = index;
     const heading = await this._contactService.getHeading(index, this.cRRow); // Await here
     this.cRRow.get('heading').setValue(heading);
-    this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
+    this.deleteRecord.emit({name:'contact', index: index, heading: this.cRRow.get('heading').value});
     this.cRRow.markAsPristine();
   }
 
