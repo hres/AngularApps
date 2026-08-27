@@ -288,7 +288,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
         this.companyAddressListComponent.enableAddressesForAmend();
       }
 
-      if(this.companyAddressListComponent){
+      if(this.companyContactListComponent){
         this.companyContactListComponent.enableContactsForAmend();
       }
     }
