@@ -2,11 +2,11 @@
     "date_issued": "2019-01-01",
     "server_base_url": {
         "external": {
-            "dev": "https://lam-dev.hres.ca/rep-dev",
+            "dev": "https://lam-dev.hres.ca/rep-dev/external",
             "prod": "https://health-products.canada.ca/rep-pir"
         },
         "internal": {
-            "dev": "https://lam-dev.hres.ca/rep-dev",
+            "dev": "https://lam-dev.hres.ca/rep-dev/internal",
             "prod": "https://lam-dev.hres.ca/rep-dev"
         }
     },
