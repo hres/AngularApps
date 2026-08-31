@@ -87,7 +87,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
     this.headingPreambleParams = this.j+1;
     this.translatedParentLabel = this._translateService.instant(this.headingPreamble, {seqnumber: this.headingPreambleParams});
 
-    this._recordDiscardService.discardConfirmed$.subscribe(index => {
+    this._recordDiscardService.discardAddressConfirmed$.subscribe(index => {
       if (index === this._discardIndex) {
         this._handleDiscard();
         this._patchAndCheckLastSavedRoles();
@@ -96,7 +96,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
       }
     });
 
-    this._recordDeleteService.deleteConfirmed$.subscribe(index => {
+    this._recordDeleteService.deleteAddressConfirmed$.subscribe(index => {
       if (index === this._deleteIndex) {
         this._handleRecordDeletion();
         this.deleteHandled.emit(true)
@@ -172,7 +172,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
     this._discardIndex = index;
     const heading = await this._addressService.getHeading(index, this.cRRow);
     this.cRRow.get('heading').setValue(heading);
-    this.revertRecord.emit({ index: index, id: recordId, heading: this.cRRow.get('heading').value });
+    this.revertRecord.emit({ name:'address', index: index, id: recordId, heading: this.cRRow.get('heading').value });
     this.disableDiscardBtn = true;
   }
 
@@ -257,7 +257,7 @@ export class CompanyAddressItemComponent extends BaseComponent {
     this._deleteIndex = index;
     const heading = await this._addressService.getHeading(index, this.cRRow);
     this.cRRow.get('heading').setValue(heading);
-    this.deleteRecord.emit({index: index, heading: this.cRRow.get('heading').value});
+    this.deleteRecord.emit({name:'address',index: index, heading: this.cRRow.get('heading').value});
   }
 
   private _handleRecordDeletion() {

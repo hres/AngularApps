@@ -250,4 +250,19 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     }
   }
 
+
+  // ✅ ADD THIS METHOD
+  public enableAddressesForAmend(): void {
+    this.recordFormArray.controls.forEach((group: FormGroup) => {
+      const hasId = group.get('id')?.value;
+      if (hasId) {  // Only existing addresses (from XML)
+        group.enable();
+        group.controls['expandFlag'].setValue(false);
+      }
+    });
+    this.disableForm = false;
+  }
 }
+
+
+
