@@ -105,7 +105,7 @@ export class CompanyAddressItemService {
 
     getSelectedAddressCompanyRoles(companyAddress : AddressRecord) {
       const selectedRoles: string[] = Object.keys(REVERSE_ROLE_MAPPING)
-        .filter((key) => companyAddress[key] === (TRUE || YES)) // Check for "Y"
+        .filter((key) => companyAddress[key] === TRUE || companyAddress[key] === YES) // Check for "Y"
         .map((key) => REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
 
       return selectedRoles;

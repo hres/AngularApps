@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ProductLineService } from './product-line.service';
 import { CompanyEnrol } from '../models/Company';
 import { FormArray } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-line',
@@ -33,7 +34,8 @@ export class ProductLineComponent extends BaseComponent implements OnInit{
               private _fb: FormBuilder,
               private _utilsService: UtilsService,
               private _globalService: GlobalService,
-              private _converterService : ConverterService) {
+              private _converterService : ConverterService,
+                private _translateService : TranslateService,) {
     super();
     this.showFieldErrors = false;
   }
@@ -78,9 +80,43 @@ export class ProductLineComponent extends BaseComponent implements OnInit{
   }
 
   protected override emitErrors(errors: ControlMessagesComponent[]): void {
-    this.errorList.emit(errors);
+    const fixedErrors = errors.map(error => {
+      if (error) {
+          const translationKey = error?.label || '';
+          const fieldLabel = this.getFieldLabel(translationKey);
+          error.label = fieldLabel;
+          error.currentError = this.lang==='en'?'This field is required.':'Ce champ est obligatoire.';
+      }
+      return error;
+  });
+
+   this.errorList.emit(fixedErrors);
   }
 
+
+    // ==================== THE FIX when using angular 22====================
+
+    private getFieldLabel(translationKey: string): string {
+      if (!translationKey) return 'This field';
+
+      // Use the translation service to get the actual label
+      const translated = this._translateService.instant(translationKey);
+
+      // If translation returns the key itself, it means translation is not available
+      if (translated === translationKey) {
+          // Fallback: extract from key
+          let cleanLabel = translationKey;
+          if (cleanLabel.includes('.')) {
+              const parts = cleanLabel.split('.');
+              let lastPart = parts[parts.length - 1];
+              lastPart = lastPart.replace(/([A-Z])/g, ' $1').trim();
+              cleanLabel = lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
+          }
+          return cleanLabel || 'This field';
+      }
+
+      return translated;
+  }
   getFormValue() {
     return this.productLineForm.value;
   }

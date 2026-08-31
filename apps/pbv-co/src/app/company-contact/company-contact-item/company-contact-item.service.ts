@@ -97,7 +97,7 @@ export class CompanyContactItemService {
 
     getSelectedContactCompanyRoles(companyInfo : ContactRecord) {
       const selectedRoles: string[] = Object.keys(REVERSE_ROLE_MAPPING)
-        .filter((key) => companyInfo[key] === (TRUE || YES)) // Check for "Y"
+        .filter((key) => companyInfo[key] === TRUE ||companyInfo[key] ===  YES) // Check for "Y"
         .map((key) => REVERSE_ROLE_MAPPING[key]); // Convert back to role IDs
 
       return selectedRoles;

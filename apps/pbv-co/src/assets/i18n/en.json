@@ -140,7 +140,7 @@
 
     "error.mgs.5.numeric": "Invalid entry - must be five digits",
     "select.option": "Select an option",
-    "minlength": "Invalid entry - must be {{ requiredLength }} digits",
+    "minlength": "Invalid entry - must be minimum {{ requiredLength }} digits",
     "msg.discard.popup": "Are you sure you want to discard change for {{heading}}?",
     "section.accordion": "Section"
 
