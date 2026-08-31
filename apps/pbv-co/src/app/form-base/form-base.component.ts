@@ -283,6 +283,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (e) {
       this.disableForm = false;
       this.coForm.enable();
+
+      if(this.companyAddressListComponent){
+        this.companyAddressListComponent.enableAddressesForAmend();
+      }
+
+      if(this.companyContactListComponent){
+        this.companyContactListComponent.enableContactsForAmend();
+      }
     }
   }
 

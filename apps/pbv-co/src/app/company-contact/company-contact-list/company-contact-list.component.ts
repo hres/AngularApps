@@ -268,4 +268,18 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
       this.openPopup();
     }
   }
+
+
+
+  // ✅ ADD THIS METHOD
+  public enableContactsForAmend(): void {
+    this.recordFormArray.controls.forEach((group: FormGroup) => {
+      const hasId = group.get('id')?.value;
+      if (hasId) {  // Only existing contacts (from XML)
+        group.enable();
+        group.controls['expandFlag'].setValue(false);
+      }
+    });
+    this.disableForm = false;
+  }
 }
