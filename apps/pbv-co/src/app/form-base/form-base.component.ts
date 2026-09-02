@@ -355,9 +355,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public isAmend() {
+
     if (this.companyEnrolModel.application_type._id === ENROLMENT_STATUS.FINAL) {
       return (!this.isInternal && this.isStatusFinal);
-    } else if (this.companyEnrolModel.software_version < this._globalService.appVersion) {
+    } else if (this.companyEnrolModel.software_version <= this._globalService.appVersion) {
       const appType = String(this.companyEnrolModel.application_type)?.toUpperCase();
       if (appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED) {
         return (!this.isInternal && this.isStatusFinal);
@@ -368,11 +369,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public isDisableSubmitToHC() {
-    if(this.companyEnrolModel.application_type._id === '' || this.errorList.length > 0){
-     return true;
+    if(this.errorList.length > 0 ){
+      return true;
+    }else{
+      return this.isAmend();
     }
-    return this.isAmend();
-  }
+}
 
   private _prepareForSaving(xmlFile: boolean): Company {
     let contactsFormArrayValue = null;
