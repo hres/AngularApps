@@ -235,7 +235,7 @@ td, th {
     width: 100%;
 }
 span.mouseHover:hover {
-	border: 1px solid black;
+	border: none;
 }
 .c-checkbox {
 	border-style: solid;
