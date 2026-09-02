@@ -535,7 +535,7 @@ span.mouseHover:hover {
 		<xsl:param name="value" select="/.."/>
 		<span class="c-checkbox">
 		<xsl:choose>
-			<xsl:when test="$value = 'Y'">
+			<xsl:when  test="$value = 'Y' or $value = 'true'">
 				X
 			</xsl:when>
 			<xsl:otherwise>
