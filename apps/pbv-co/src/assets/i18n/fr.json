@@ -55,7 +55,7 @@
     "addressDetails.country": "Pays",
     "addressDetails.province": "Province",
     "addressDetails.state": "État",
-    "addressDetails.postalZipCode":"Code postal/ZIP",
+    "addressDetails.postalZipCode":"Code postal / ZIP",
     "addressDetails.postalZipCode.info":"(si pas disponible, utilisez « sans objet »)",
     "addressDetails.postalCode": "Code postal",
     "addressDetails.zipCode": "Code ZIP",
