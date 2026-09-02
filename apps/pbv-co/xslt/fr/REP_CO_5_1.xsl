@@ -391,7 +391,7 @@ span.mouseHover:hover {
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <strong>Code postal/ZIP : </strong>
+                                                        <strong>Code postal / ZIP : </strong>
                                                         <span class="mouseHover">
                                                             <xsl:value-of select="company_address_details/postal_code" />
                                                         </span>
@@ -535,7 +535,7 @@ span.mouseHover:hover {
 		<xsl:param name="value" select="/.."/>
 		<span class="c-checkbox">
 		<xsl:choose>
-			<xsl:when test="$value = 'Y'">
+			<xsl:when  test="$value = 'Y' or $value = 'true'">
 				X
 			</xsl:when>
 			<xsl:otherwise>
