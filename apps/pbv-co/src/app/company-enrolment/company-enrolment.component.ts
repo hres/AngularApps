@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, computed, EventEmitter, inject, Input, OnInit, Output, signal, Signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, ControlMessagesComponent, ICode, CheckboxOption, ICodeDefinition, UtilsService, HelpSequence, ConverterService } from '@hpfb/sdk/ui';
+import { BaseComponent, ControlMessagesComponent, ICode, CheckboxOption, ICodeDefinition, UtilsService, HelpSequence, ConverterService, ValidationService } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppSignalService } from '../signal/app-signal.service';
 import { CompanyEnrolmentService } from './company-enrolment.service';
 import { CompanyEnrol } from '../models/Company';
@@ -59,8 +59,15 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
 
     this._getCompanyEnrolmentForm();
     this._companyEnrolmentService.setEnrolmentStatus(this.companyEnrolmentForm, this.companyEnrolmentForm.controls['enrolmentStatus'].value, enrolmentStatusesList, this.lang, false);
+
+    this.companyEnrolmentForm.valueChanges.subscribe(()=> {
+    this.emitErrors(this.msgList?.toArray() || []);
+  });
+
     this._initialized = true;
   }
+
+
 
   ngOnChanges(changes: SimpleChanges) {
     const isFirstChange = this._utilsService.isFirstChange(changes);
