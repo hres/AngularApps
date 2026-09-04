@@ -239,7 +239,7 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     if (this.recordFormGroup.pristine) {
       this.recordFormArray.controls.forEach( (element: FormGroup, index: number) => {
         if (clickedIndex===index) {
-          if (element.get('addressInfo.isRoleSelected').value) {
+          if (element.get('addressInfo.isRoleSelected').value || this.earlyVersion ) {
             element.controls['expandFlag'].setValue(!clickedRecordState)
           } else {
             this.openPopup();
