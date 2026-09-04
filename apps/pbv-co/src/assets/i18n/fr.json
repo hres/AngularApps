@@ -21,7 +21,7 @@
     "reason.filing": "Motif du dépôt",
     "example": "Exemple :",
     "ht.reason.filing.1": "Nouvel enregistrement de compagnie pour obtenir l'identifiant de la compagnie pour la première fois.",
-    "ht.reason.filing.2": "Modification des informations sur la compagnie : énumérez toutes modifications apportées à la compagnie ou aux coordonnées dans le fichier xml, telles que le changement de nom de la compagnie / la fusion / le rachat / la mise à jour des coordonnées du rôle du fabricant, etc.",
+    "ht.reason.filing.2": "Modification des informations sur la compagnie : énumérez toutes modifications apportées à la compagnie ou aux coordonnées dans le fichier XML, telles que le changement de nom de la compagnie / la fusion / le rachat / la mise à jour des coordonnées du rôle du fabricant, etc.",
     "address.info": "Information d'adresse",
     "ht.address.info.1": "Le modèle de compagnie doit contenir au moins une adresse.",
     "ht.address.info.2": "Les rôles suivants doivent être associés : « Adresse postale du fabricant / promoteur », « Adresse de facturation » et « Contact pour l'adresse courrier réglementaire / adresse pour l'annuelle ».",
