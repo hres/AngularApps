@@ -105,12 +105,14 @@ export class CompanyContactItemComponent extends BaseComponent{
     });
 
 
-      // ============ THE FIX ============
-    // Same as companyEnrolment - subscribe to form changes and re-emit errors
+    // ============ REPLACE YOUR EXISTING SUBSCRIPTION WITH THIS ============
     this.cRRow.valueChanges.subscribe(() => {
-      this._appendErrorsFromChild();
-      this.cdRef.detectChanges();
+      setTimeout(() => {
+          this._appendErrorsFromChild();
+          this.cdRef.detectChanges();
+      }, 10); // need set up 10 or bigger.
   });
+
     const companyInfoForm = <FormGroup>this.cRRow.controls['companyInfo'];
     const contactInfoForm = <FormGroup> companyInfoForm.controls['contactDetails'];
 
