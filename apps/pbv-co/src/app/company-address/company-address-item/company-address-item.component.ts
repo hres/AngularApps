@@ -102,6 +102,14 @@ export class CompanyAddressItemComponent extends BaseComponent {
         this.deleteHandled.emit(true)
       }
     });
+
+       // ============ THE FIX ============
+    // Same as companyEnrolment - subscribe to form changes and re-emit errors
+    this.cRRow.valueChanges.subscribe(() => {
+      this._appendErrorsFromChild();
+      this.cdRef.detectChanges();
+  });
+
     const addressInfoForm = <FormGroup>this.cRRow.controls['addressInfo'];
     if (addressInfoForm.controls['companyName'].value) {
       this.disableDiscardBtn = true
