@@ -258,7 +258,7 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
     if (this.recordFormGroup.pristine) {
       this.recordFormArray.controls.forEach( (element: FormGroup, index: number) => {
         if (clickedIndex===index) {
-          if (element.get('companyInfo.isRoleSelected').value) {
+          if (element.get('companyInfo.isRoleSelected').value || this.earlyVersion ) {
             element.controls['expandFlag'].setValue(!clickedRecordState)
           } else {
             this.openPopup();
