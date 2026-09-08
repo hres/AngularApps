@@ -547,19 +547,19 @@ span.mouseHover:hover {
     
     <xsl:template name="addressRoles">
 		<dl>
-		<xsl:if test="manufacturer = 'Y'">
+		<xsl:if test="manufacturer = 'Y' or manufacturer = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="manufacturer"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Manufacturer / sponsor mailing address</span>
 		</dt>
 		</xsl:if>
-		<xsl:if test="mailing = 'Y'">
+		<xsl:if test="mailing = 'Y' or mailing = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="mailing"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Regulatory mailing / annual contact address</span>
 		</dt>
 		</xsl:if>
-		<xsl:if test="billing = 'Y'">
+		<xsl:if test="billing = 'Y'or billing = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="billing"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Billing address</span>
@@ -570,19 +570,19 @@ span.mouseHover:hover {
 
     <xsl:template name="contactRoles">
 		<dl>
-		<xsl:if test="manufacturer = 'Y'">
+		<xsl:if test="manufacturer = 'Y'or manufacturer = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="manufacturer"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Manufacturer / sponsor contact</span>
 		</dt>
 		</xsl:if>
-		<xsl:if test="mailing = 'Y'">
+		<xsl:if test="mailing = 'Y'or mailing = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="mailing"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Regulatory mailing / annual contact</span>
 		</dt>
 		</xsl:if>
-		<xsl:if test="billing = 'Y'">
+		<xsl:if test="billing = 'Y'or billing = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="billing"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Billing contact</span>
