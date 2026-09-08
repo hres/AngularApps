@@ -545,21 +545,21 @@ span.mouseHover:hover {
 		</span>
 	</xsl:template>
 
-    <xsl:template name="addressRoles">
+     <xsl:template name="addressRoles">
 		<dl>
-		<xsl:if test="manufacturer = 'Y'">
+		<xsl:if test="manufacturer = 'Y' or manufacturer = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="manufacturer"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Adresse postale du fabricant / promoteur</span>
 		</dt>
 		</xsl:if>
-		<xsl:if test="mailing = 'Y'">
+		<xsl:if test="mailing = 'Y' or mailing = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="mailing"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Contact pour l'adresse courrier réglementaire / adresse pour l'annuelle</span>
 		</dt>
 		</xsl:if>
-		<xsl:if test="billing = 'Y'">
+		<xsl:if test="billing = 'Y'or billing = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="billing"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Adresse de facturation</span>
@@ -568,21 +568,21 @@ span.mouseHover:hover {
 		</dl>
 	</xsl:template>
 
-    <xsl:template name="contactRoles">
+     <xsl:template name="contactRoles">
 		<dl>
-		<xsl:if test="manufacturer = 'Y'">
+		<xsl:if test="manufacturer = 'Y'or manufacturer = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="manufacturer"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Personne-ressource du fabricant / promoteur</span>
 		</dt>
 		</xsl:if>
-		<xsl:if test="mailing = 'Y'">
+		<xsl:if test="mailing = 'Y'or mailing = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="mailing"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Courrier réglementaire / adresse de personne-ressource pour l'annuelle</span>
 		</dt>
 		</xsl:if>
-		<xsl:if test="billing = 'Y'">
+		<xsl:if test="billing = 'Y'or billing = 'true'">
 		<dt class="mgtTop2">
 			<xsl:call-template name="hp-checkbox"><xsl:with-param name="value" select="billing"/></xsl:call-template>
 			<span class="normalWeight mouseHover" style="font-weight:100;">Personne-ressource de facturation</span>
