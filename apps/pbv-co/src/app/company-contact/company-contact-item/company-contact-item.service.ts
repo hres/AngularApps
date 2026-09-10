@@ -65,25 +65,55 @@ export class CompanyContactItemService {
     }
 
 
-    public mapDataModelToFormModel(companyContact : ContactRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[], id) {
+    // public mapDataModelToFormModel(companyContact : ContactRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[], id) {
+    //   const companyRolesList = this._globalService.companyRolesList;
+    //   const lang = this._globalService.currLanguage;
+    //   if (companyContact) {
+
+    //     const selectedRoles = this.getSelectedContactCompanyRoles(companyContact);
+    //     this._mapCompanyRolesToSignal(selectedRoles, id);
+    //     // Update form model
+    //     formRecord.controls['selectedCompanyRoles'].setValue(selectedRoles);
+    //     if (selectedRoles.length > 0) {
+    //       formRecord.controls['isRoleSelected'].setValue(true);
+    //       const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
+
+    //       this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang)
+    //       this._converterService.checkCheckboxes(selectedRoles, companyRolesOptionList, companyRolesFormArray);
+    //     }
+    //   }
+    // }
+    public mapDataModelToFormModel(companyContact: ContactRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[], id) {
       const companyRolesList = this._globalService.companyRolesList;
       const lang = this._globalService.currLanguage;
       if (companyContact) {
 
         const selectedRoles = this.getSelectedContactCompanyRoles(companyContact);
-        this._mapCompanyRolesToSignal(selectedRoles, id);
+
         // Update form model
         formRecord.controls['selectedCompanyRoles'].setValue(selectedRoles);
+
+        // 1. FIRST: Load and initialize the form controls
+        const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
+        this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang);
+
         if (selectedRoles.length > 0) {
           formRecord.controls['isRoleSelected'].setValue(true);
-          const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
-
-          this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang)
+          // Check the checkboxes based on selected roles
           this._converterService.checkCheckboxes(selectedRoles, companyRolesOptionList, companyRolesFormArray);
+        } else {
+          formRecord.controls['isRoleSelected'].setValue(false);
         }
+
+        // 2. THEN: Update the signal AFTER form is ready
+        this._mapCompanyRolesToSignal(selectedRoles, id);  // Keep this!
+
+        setTimeout(() => {
+
+          formRecord.markAsPristine();
+                },0)
       }
     }
-
     private _mapCompanyRolesToSignal(selectedCompanyRoles : string[], id) {
       if (this._signalService.getSelectedContactCompanyRoles().length > 0) {
         this._signalService.resetContactCompanyRoles();

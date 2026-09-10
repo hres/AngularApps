@@ -156,7 +156,7 @@ export class CompanyContactItemComponent extends BaseComponent{
     if (list.length >= 1) {
       console.warn('Contact List found >1 Error Summary ' + list.length);
     }
-    const errorSummaryChild = list.first;
+    const errorSummaryChild = list.first?? null;
     // notify subscriber(s) that contact records' error summaries are changed
     this._errNotifService.updateErrorSummary(CONTACT_ERROR_PREFIX + this.cRRow.get('id').value, errorSummaryChild);
 
@@ -465,9 +465,9 @@ export class CompanyContactItemComponent extends BaseComponent{
 
     this.errors = fixedErrors;
 
-    if (this.showErrors) {
+    //if (this.showErrors) {
         this.processSummaries(this.errorSummaryChildList);
-    }
+   // }
 
     this.cdRef.detectChanges();
   }
