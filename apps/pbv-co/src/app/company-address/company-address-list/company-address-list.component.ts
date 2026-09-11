@@ -9,6 +9,7 @@ import { CompanyAddressItemComponent } from '../company-address-item/company-add
 import { CompanyAddressItemService } from '../company-address-item/company-address-item.service';
 import { CompanyAddressService } from '../company-address.service';
 import { CompanyAddressListService } from './company-address-list.service';
+import { ADDRESS_ERROR_PREFIX } from '../../app.constants';
 
 @Component({
   selector: 'app-company-address-list',
@@ -128,15 +129,32 @@ export class CompanyAddressListComponent extends BaseListComponent<AddressRecord
     this.companyRolesOptionList = updatedRoles;
   }
 
-  private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
-    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId.startsWith("addressListTable"));
-    if (filteredErrSummaryEntry) {
-      this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
-    } else {
-      this.errorSummaryChild = null;
+  // private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
+  //   const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId.startsWith("addressListTable"));
+  //   if (filteredErrSummaryEntry) {
+  //     this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
+  //   } else {
+  //     this.errorSummaryChild = null;
+  //   }
+  //   this.emitErrors();
+  // }
+
+    private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
+      // Build set of live record IDs from the FormArray (source of truth)
+      const liveRecordIds = new Set<string>(
+        this.recordFormArray.controls.map(g => String(g.get('id')?.value))
+      );
+
+      const filteredErrSummaryEntry = errSummaryEntries.find(summary => {
+        if (!summary.errSummaryMessage) return false;
+        if (!summary.errSummaryMessage.componentId.startsWith("contactListTable")) return false;
+        const keyRecordId = summary.key.replace(ADDRESS_ERROR_PREFIX, '');
+        return liveRecordIds.has(keyRecordId);
+      });
+
+      this.errorSummaryChild = filteredErrSummaryEntry?.errSummaryMessage ?? null;
+      this.emitErrors();
     }
-    this.emitErrors();
-  }
 
   protected emitErrors(): void {
     let errorsToEmit = [];

@@ -14,6 +14,7 @@ import { CompanyContactItemService } from '../company-contact-item/company-conta
 import { CompanyContactListService } from './company-contact-list.service';
 import { CompanyContactItemComponent } from '../company-contact-item/company-contact-item.component';
 import { RecordFormGroup } from '../../../../../../projects/hpfb/sdk/ui';
+import { CONTACT_ERROR_PREFIX } from '../../app.constants';
 
 @Component({
   selector: 'app-company-contact-list',
@@ -181,19 +182,36 @@ export class CompanyContactListComponent extends BaseListComponent<ContactRecord
   //   }
   // }
 
+  // private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
+  //   // console.log('...._processErrorSummaries:', errSummaryEntries);
+  //   // get the first entry where the errSummaryMessage property is not empty
+  //   // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
+  //   const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId.startsWith("contactListTable"));
+  //   if (filteredErrSummaryEntry) {
+  //     this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
+  //   } else {
+  //     this.errorSummaryChild = null;
+  //   }
+  //   this.emitErrors();
+  // }
+
+
   private _processErrorSummaries(errSummaryEntries: { key: string, errSummaryMessage: ErrorSummaryComponent }[]): void {
-    // console.log('...._processErrorSummaries:', errSummaryEntries);
-    // get the first entry where the errSummaryMessage property is not empty
-    // as we only need one summary entry of this list section if there is any to be bubbled up to the top level error summary section
-    const filteredErrSummaryEntry = errSummaryEntries.find(summary => summary.errSummaryMessage && summary.errSummaryMessage.componentId.startsWith("contactListTable"));
-    if (filteredErrSummaryEntry) {
-      this.errorSummaryChild = filteredErrSummaryEntry.errSummaryMessage;
-    } else {
-      this.errorSummaryChild = null;
-    }
+    // Build set of live record IDs from the FormArray (source of truth)
+    const liveRecordIds = new Set<string>(
+      this.recordFormArray.controls.map(g => String(g.get('id')?.value))
+    );
+
+    const filteredErrSummaryEntry = errSummaryEntries.find(summary => {
+      if (!summary.errSummaryMessage) return false;
+      if (!summary.errSummaryMessage.componentId.startsWith("contactListTable")) return false;
+      const keyRecordId = summary.key.replace(CONTACT_ERROR_PREFIX, '');
+      return liveRecordIds.has(keyRecordId);
+    });
+
+    this.errorSummaryChild = filteredErrSummaryEntry?.errSummaryMessage ?? null;
     this.emitErrors();
   }
-
 
   protected emitErrors(): void {
     let errorsToEmit = [];

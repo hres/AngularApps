@@ -71,27 +71,65 @@ export class CompanyAddressItemService {
     }
 
 
-    public mapDataModelToFormModel(companyAddress : AddressRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[], id) {
-      formRecord.controls['companyName'].setValue(companyAddress.company_name);
-      formRecord.controls['businessNum'].setValue(companyAddress.business_number);
+    // public mapDataModelToFormModel(companyAddress : AddressRecord, formRecord: FormGroup, companyRolesOptionList: CheckboxOption[], id) {
+    //   formRecord.controls['companyName'].setValue(companyAddress.company_name);
+    //   formRecord.controls['businessNum'].setValue(companyAddress.business_number);
 
-      const companyRolesList = this._globalService.companyRolesList;
-      const lang = this._globalService.currLanguage;
-      if (companyAddress) {
+    //   const companyRolesList = this._globalService.companyRolesList;
+    //   const lang = this._globalService.currLanguage;
+    //   if (companyAddress) {
 
-        // Update form model
-        const selectedRoles = this.getSelectedAddressCompanyRoles(companyAddress);
-        this._mapCompanyRolesToSignal(selectedRoles, id);
-        formRecord.controls['selectedAddressCompanyRoles'].setValue(selectedRoles);
-        if (selectedRoles.length > 0) {
-          formRecord.controls['isRoleSelected'].setValue(true);
-          const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
+    //     // Update form model
+    //     const selectedRoles = this.getSelectedAddressCompanyRoles(companyAddress);
+    //     this._mapCompanyRolesToSignal(selectedRoles, id);
+    //     formRecord.controls['selectedAddressCompanyRoles'].setValue(selectedRoles);
+    //     if (selectedRoles.length > 0) {
+    //       formRecord.controls['isRoleSelected'].setValue(true);
+    //       const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
 
-          this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang)
-          this._converterService.checkCheckboxes(selectedRoles, companyRolesOptionList, companyRolesFormArray);
+    //       this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang)
+    //       this._converterService.checkCheckboxes(selectedRoles, companyRolesOptionList, companyRolesFormArray);
+    //     }
+    //   }
+    // }
+
+
+        public mapDataModelToFormModel(companyAddress : AddressRecord,  formRecord: FormGroup, companyRolesOptionList: CheckboxOption[], id) {
+
+          formRecord.controls['companyName'].setValue(companyAddress.company_name);
+          formRecord.controls['businessNum'].setValue(companyAddress.business_number);
+
+          const companyRolesList = this._globalService.companyRolesList;
+          const lang = this._globalService.currLanguage;
+          if (companyAddress) {
+
+
+           const selectedRoles = this.getSelectedAddressCompanyRoles(companyAddress);
+
+            // Update form model
+            formRecord.controls['selectedAddressCompanyRoles'].setValue(selectedRoles);
+
+            // 1. FIRST: Load and initialize the form controls
+            const companyRolesFormArray = this.getCompanyRolesChkboxFormArray(formRecord);
+            this.loadCompanyRoleOptions(companyRolesList, companyRolesOptionList, companyRolesFormArray, lang);
+
+            if (selectedRoles.length > 0) {
+              formRecord.controls['isRoleSelected'].setValue(true);
+              // Check the checkboxes based on selected roles
+              this._converterService.checkCheckboxes(selectedRoles, companyRolesOptionList, companyRolesFormArray);
+            } else {
+              formRecord.controls['isRoleSelected'].setValue(false);
+            }
+
+            // 2. THEN: Update the signal AFTER form is ready
+            this._mapCompanyRolesToSignal(selectedRoles, id);  // Keep this!
+
+            setTimeout(() => {
+
+              formRecord.markAsPristine();
+                    },0)
+          }
         }
-      }
-    }
 
     private _mapCompanyRolesToSignal(selectedCompanyRoles : string[], id) {
       if (this._signalService.getSelectedAddressCompanyRoles().length > 0) {
