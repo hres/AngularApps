@@ -259,8 +259,14 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.coForm.controls['certifyPrivacy'].setValue(false);
       this.companyEnrolModel = fileData.data.COMPANY_ENROL;
       this._initModels(this.companyEnrolModel);
+      let appType: string = null;
       if(this.companyEnrolModel.software_version < this._globalService.appVersion){
-        const appType = String(this.companyEnrolModel.application_type)?.toUpperCase();
+
+        if(this.companyEnrolModel.application_type._id !== null && this.companyEnrolModel.application_type._id !== undefined ){
+          appType = String(this.companyEnrolModel.application_type._id)?.toUpperCase();
+       }else{
+         appType = String(this.companyEnrolModel.application_type)?.toUpperCase();
+       }
         this.isStatusFinal = appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED;
       } else {
         this.isStatusFinal = this.companyEnrolModel.application_type._id == ENROLMENT_STATUS.FINAL;
