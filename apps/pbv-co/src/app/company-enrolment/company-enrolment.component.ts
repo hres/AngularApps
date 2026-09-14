@@ -90,28 +90,21 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
       this.disableFormGroup();
     } else {
       this.enableFormGroup();
-        // ✅ ADD THIS BLOCK (5 lines)
-        // if (this._initialized) {
-        //   setTimeout(() => {
-        //     this.showFieldErrors = true;
-        //     const reasonControl = this.companyEnrolmentForm.get('reasonForFiling');
-        //     if (reasonControl?.invalid) {
-        //       reasonControl.markAsTouched();
-        //       reasonControl.updateValueAndValidity();
-        //     }
-        //     this._cdr.detectChanges();
-        //   }, 0);
-        // }
       }
-
 
 
 
   }
 
   private setDisableAmendButtonFlag(dataModel: CompanyEnrol, isInternal: boolean) : void{
+    let appType: string = null;
     if (dataModel.software_version < this._globalService.appVersion) {
-      const appType = String(dataModel.application_type)?.toUpperCase();
+      if(dataModel.application_type._id !== null && dataModel.application_type._id !== undefined ){
+         appType = String(dataModel.application_type._id)?.toUpperCase();
+      }else{
+        appType = String(dataModel.application_type)?.toUpperCase();
+      }
+
       if (appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED){
         this.showAmendButton = !isInternal;
       }
