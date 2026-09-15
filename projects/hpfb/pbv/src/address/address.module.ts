@@ -19,7 +19,8 @@ import { AddressDetailsService } from './address.details/address.details.service
     PipesModule,
     TranslateModule,
     NumbersOnlyDirective,
-    NumbersLettersDirective
+    NumbersLettersDirective,
+    ReactiveFormsModule
   ],
   declarations: [AddressDetailsComponent],
   exports: [AddressDetailsComponent],
