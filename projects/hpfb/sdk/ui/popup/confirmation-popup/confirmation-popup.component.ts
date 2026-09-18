@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation, ChangeDetectionStrategy, viewChild, ElementRef, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import $ from 'jquery';
 
@@ -20,6 +20,18 @@ export class ConfirmationPopupComponent {
 
   @Output() confirmed = new EventEmitter();
   @Output() closed = new EventEmitter();
+
+
+  @ViewChild('dialogHeading') dialogHeading: ElementRef<HTMLElement>;
+  @ViewChild('dialogBody') dialogBody: ElementRef<HTMLElement>;
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    jQuery('#' + this.id).on('wb-overlay-open',()=> {
+      this.dialogHeading?.nativeElement.focus();
+    })
+  }
 
   closePopup() {
     jQuery("#" + this.id).trigger("close.wb-overlay");

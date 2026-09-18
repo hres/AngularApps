@@ -189,13 +189,6 @@ export class CompanyEnrolmentComponent extends BaseComponent implements OnInit{
     const popupSelector = "#" + popupId;
     jQuery(popupSelector).trigger("open.wb-overlay");
 
-    // Wait for overlay to render to focus on Close button once it is shown on the UI
-    setTimeout(() => {
-      const btn = document.querySelector(`${popupSelector} button.overlay-close`) as HTMLButtonElement;
-      if (btn) {
-        btn.focus();
-      }
-    }, 100);
   }
 
 
