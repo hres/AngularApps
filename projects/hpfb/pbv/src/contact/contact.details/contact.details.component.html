@@ -57,7 +57,7 @@
                   translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
                 }
                 <select id="{{contactType}}language{{recordId}}" required class="form-control" [formControlName]="'language'">
-                  <option label="{{ 'select.option'|translate }}"></option>
+                  <option [ngValue]="null">{{ 'select.option'|translate }}</option>
                   @for (langOption of languageList; track langOption) {
                     <option [value]="langOption.id">{{langOption | textTransform: lang }}</option>
                   }
