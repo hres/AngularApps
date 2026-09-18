@@ -61,7 +61,7 @@
           }
           <select id="{{addrType}}country{{recordId}}" required [formControlName]="'country'" class="required form-control"
             (change)="onCountryChange($event)">
-            <option label="{{ 'select.option'|translate }}"></option>
+            <option [ngValue]="null">{{ 'select.option'|translate }}</option>
             @for (ctry of countryList; track ctry) {
               <option [value]="ctry.id">{{ ctry| textTransform: lang }}</option>
             }

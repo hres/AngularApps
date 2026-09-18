@@ -22,7 +22,7 @@ export class ContactDetailsService {
         initials: [null],
         lastName: [null, Validators.required],
         fullName: [{ value: '', disabled: true }],
-        language: ['', Validators.required],
+        language: [null, Validators.required],
         jobTitle: [null, Validators.required],
         faxNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.faxNumberValidator]],
         phoneNumber: ['', [Validators.required, Validators.minLength(10), ValidationService.phoneNumberValidator]],
