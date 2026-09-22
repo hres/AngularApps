@@ -22,3 +22,17 @@
   white-space: nowrap;
   margin-left: 4px;
 }
+
+#anchor-productLine {
+  scroll-margin-top: 40px;
+}
+
+#anchor-productLine,
+#anchor-certifyPrivacyOnEmail,
+#anchor-certifyPrivacy {
+  scroll-margin-top: 0px;
+}
+
+form[name="coForm"] {
+  padding-bottom: 60vh;
+}
