@@ -1,5 +1,7 @@
-<lib-popup   *ngIf="isInternal" [id]="popupId" [title]="'popup.title' | translate"    [message]="'msg.generating.xml.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
-<lib-popup   *ngIf="!isInternal" [id]="popupId" [title]="'popup.title' | translate"    [message]="'msg.saving.xml.popup'| translate" [close]="'popup.close' | translate"></lib-popup>
+<lib-popup *ngIf="isInternal" [id]="popupId" [title]="'popup.title' | translate"
+  [message]="'msg.generating.xml.popup' | translate" [close]="'popup.close' | translate"></lib-popup>
+<lib-popup *ngIf="!isInternal" [id]="popupId" [title]="'popup.title' | translate"
+  [message]="'msg.saving.xml.popup'| translate" [close]="'popup.close' | translate"></lib-popup>
 
 <div class="container-fluid wb-frmvld wb-init wb-frmvld-inited">
   <form name="coForm" [formGroup]="coForm" novalidate>
@@ -15,14 +17,17 @@
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'load.file'|translate}}
             <sup [id]="helpIndex['loadFileIndx'][2]">
-              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['loadFileIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileIndx'][0]}}</a>
+              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['loadFileIndx'][1]"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['loadFileIndx'][0]}}</a>
             </sup>
           </h2>
         </header>
         <div class="panel-body">
-          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang" [versionTagPath]="versionTagPath"
-            [startCheckSumVersion]="startCheckSumVersionNum" [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
-            <app-filereader-instruction fileUploadInstruction [lang]="lang" [isInternal]="isInternal" [isStatusFinal]="isStatusFinal"></app-filereader-instruction>
+          <lib-file-reader (complete)="processFile($event)" [rootTag]="rootTagText" [lang]="lang"
+            [versionTagPath]="versionTagPath" [startCheckSumVersion]="startCheckSumVersionNum"
+            [byPassCheckSum]="byPassCheckSum" [devEnv]="devEnv">
+            <app-filereader-instruction fileUploadInstruction [lang]="lang" [isInternal]="isInternal"
+              [isStatusFinal]="isStatusFinal"></app-filereader-instruction>
           </lib-file-reader>
         </div>
       </section>
@@ -36,67 +41,85 @@
         <header class="panel-heading clearfix">
           <h2 class="panel-title">{{'company.enrolment'|translate}}
             <sup [id]="helpIndex['companyEnrolmentIndx'][2]">
-              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['companyEnrolmentIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['companyEnrolmentIndx'][0]}}</a>
+              <a class="fn-lnk mrgn-tp-md" [href]="'#' + helpIndex['companyEnrolmentIndx'][1]"><span
+                  class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['companyEnrolmentIndx'][0]}}</a>
             </sup>
           </h2>
-          </header>
-          <div class="panel-body">
-            <app-company-enrolment [showErrors]="showErrors" [dataModel]="companyEnrolModel" [disableForm]="disableForm"  (errorList)="processCompanyEnrolmentErrors($event)" (enableForm)="enableForm($event)" [isInternal]="isInternal"></app-company-enrolment>
+        </header>
+        <div class="panel-body">
+          <app-company-enrolment [showErrors]="showErrors" [dataModel]="companyEnrolModel" [disableForm]="disableForm"
+            (errorList)="processCompanyEnrolmentErrors($event)" (enableForm)="enableForm($event)"
+            [isInternal]="isInternal"></app-company-enrolment>
 
-            <section class="panel  panel-default">
-              <header class="panel-heading clearfix">
-                <h3 class="panel-title">{{'address.rep'|translate}}
-                  <sup [id]="helpIndex['addressInfoIndx'][2]">
-                    <a class="fn-lnk" [href]="'#' + helpIndex['addressInfoIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['addressInfoIndx'][0]}}</a>
-                  </sup>
-                </h3>
-              </header>
-              <div class="panel-body">
-                <app-company-address-list [lang]="lang" [recordList]="addressListModel" [showErrors]="showErrors" [isInternal]="isInternal" [earlyVersion]="isEarlyVersion()" [disableForm]="disableForm" (errorEmit)="processAddressListErrors($event)"></app-company-address-list>
-              </div>
-            </section>
+          <section class="panel  panel-default">
+            <header class="panel-heading clearfix">
+              <h3 class="panel-title">{{'address.rep'|translate}}
+                <sup [id]="helpIndex['addressInfoIndx'][2]">
+                  <a class="fn-lnk" [href]="'#' + helpIndex['addressInfoIndx'][1]"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['addressInfoIndx'][0]}}</a>
+                </sup>
+              </h3>
+            </header>
+            <div class="panel-body">
+              <app-company-address-list [lang]="lang" [recordList]="addressListModel" [showErrors]="showErrors"
+                [isInternal]="isInternal" [earlyVersion]="isEarlyVersion()" [disableForm]="disableForm"
+                (errorEmit)="processAddressListErrors($event)"></app-company-address-list>
+            </div>
+          </section>
 
-            <section class="panel  panel-default">
-              <header class="panel-heading clearfix">
-                <h3 class="panel-title">{{'company.rep'|translate}}
-                  <sup [id]="helpIndex['companyRepIndx'][2]">
-                    <a class="fn-lnk" [href]="'#' + helpIndex['companyRepIndx'][1]"><span class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['companyRepIndx'][0]}}</a>
-                  </sup>
-                </h3>
-              </header>
-              <div class="panel-body">
-                <app-company-contact-list [lang]="lang" [recordList]="contactListModel" [showErrors]="showErrors" [isInternal]="isInternal" [disableForm]="disableForm" [earlyVersion]="isEarlyVersion()" (errorEmit)="processContactListErrors($event)"></app-company-contact-list>
-              </div>
-            </section>
-            <app-product-line [showErrors]="showErrors" [dataModel]="companyEnrolModel" [disableForm]="disableForm" (errorList)="processProductLineErrors($event)"></app-product-line>
+          <section class="panel  panel-default">
+            <header class="panel-heading clearfix">
+              <h3 class="panel-title">{{'company.rep'|translate}}
+                <sup [id]="helpIndex['companyRepIndx'][2]">
+                  <a class="fn-lnk" [href]="'#' + helpIndex['companyRepIndx'][1]"><span
+                      class="wb-inv">{{'instruction'|translate}}</span>{{helpIndex['companyRepIndx'][0]}}</a>
+                </sup>
+              </h3>
+            </header>
+            <div class="panel-body">
+              <app-company-contact-list [lang]="lang" [recordList]="contactListModel" [showErrors]="showErrors"
+                [isInternal]="isInternal" [disableForm]="disableForm" [earlyVersion]="isEarlyVersion()"
+                (errorEmit)="processContactListErrors($event)"></app-company-contact-list>
+            </div>
+          </section>
+          <div id="anchor-productLine">
+            <app-product-line [showErrors]="showErrors" [dataModel]="companyEnrolModel" [disableForm]="disableForm"
+              (errorList)="processProductLineErrors($event)">
+
+            </app-product-line>
           </div>
+        </div>
       </section>
       <div *ngIf="!isInternal" class="row">
-         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <label for="certifyPrivacyOnEmail" class="required consent-checkbox">
-            <input type="checkbox" id="certifyPrivacyOnEmail" [formControlName]="'certifyPrivacyOnEmail'" (blur)="processErrors()" required/>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <label for="certifyPrivacyOnEmail" class="required consent-checkbox" id="anchor-certifyPrivacyOnEmail">
+            <input type="checkbox" id="certifyPrivacyOnEmail" [formControlName]="'certifyPrivacyOnEmail'"
+              (blur)="processErrors()" required />
             <span class="checkbox-text">
-            <strong> {{'consent.privacy.onEmail'|translate}}</strong>
-            <strong class="required required-inline">{{ 'commmon.required.bracket'|translate }}</strong>
-          </span>
-        </label>
-        <control-messages *ngIf="coForm.controls['certifyPrivacyOnEmail'].invalid" [showError]="showErrors" [attr.aria-live]="showErrors? null: 'assertive'"
-                parentId="coForm" [control]="coForm.controls['certifyPrivacyOnEmail'] | formControl"
-                controlId="certifyPrivacyOnEmail" label="consent.privacy.onEmail"></control-messages>
+              <strong> {{'consent.privacy.onEmail'|translate}}</strong>
+              <strong class="required required-inline">{{ 'commmon.required.bracket'|translate }}</strong>
+            </span>
+          </label>
+          <control-messages *ngIf="coForm.controls['certifyPrivacyOnEmail'].invalid" [showError]="showErrors"
+            [attr.aria-live]="showErrors? null: 'assertive'" parentId="coForm"
+            [control]="coForm.controls['certifyPrivacyOnEmail'] | formControl" controlId="certifyPrivacyOnEmail"
+            label="consent.privacy.onEmail"></control-messages>
         </div>
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <label for="certifyPrivacy" class="required consent-checkbox">
-            <input type="checkbox" id="certifyPrivacy" [formControlName]="'certifyPrivacy'" (blur)="processErrors()" required/>
+          <label for="certifyPrivacy" class="required consent-checkbox" id="anchor-certifyPrivacy">
+            <input type="checkbox" id="certifyPrivacy" [formControlName]="'certifyPrivacy'" (blur)="processErrors()"
+              required />
             <span class="checkbox-text">
-            <strong> {{'consent.privacy'|translate}}</strong>
-            <strong class="required  required-inline">{{ 'commmon.required.bracket'|translate }}</strong>
+              <strong> {{'consent.privacy'|translate}}</strong>
+              <strong class="required  required-inline">{{ 'commmon.required.bracket'|translate }}</strong>
             </span>
           </label>
-            <control-messages *ngIf="coForm.controls['certifyPrivacy'].invalid" [showError]="showErrors" [attr.aria-live]="showErrors? null: 'assertive'"
-                parentId="coForm" [control]="coForm.controls['certifyPrivacy'] | formControl"
-                controlId="certifyPrivacy" label="consent.privacy"></control-messages>
-           </div>
+          <control-messages *ngIf="coForm.controls['certifyPrivacy'].invalid" [showError]="showErrors"
+            [attr.aria-live]="showErrors? null: 'assertive'" parentId="coForm"
+            [control]="coForm.controls['certifyPrivacy'] | formControl" controlId="certifyPrivacy"
+            label="consent.privacy"></control-messages>
+        </div>
 
 
       </div>
@@ -104,30 +127,28 @@
 
     <div class="row btn-group-sm">
       <div *ngIf="!isInternal" class="form-group col-md-4">
-        <button type="button" class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()" >
-           {{'save.working.copy'|translate}}
+        <button type="button" class="btn btn-default btn-lg active" (click)="saveWorkingCopyFile()">
+          {{'save.working.copy'|translate}}
         </button>
       </div>
       <div *ngIf="isInternal" class="form-group col-md-4">
         <button type="button" class="btn btn-primary btn-lg" (click)="saveXmlFile()" [disabled]="disableForm">
-            {{'generate.final'|translate}}
+          {{'generate.final'|translate}}
         </button>
       </div>
       <div *ngIf="!isInternal" class="form-group col-md-4">
-        <button type="button" class="btn btn-primary btn-lg" (click)="saveXmlFile()"
-        [disabled]="isAmend()">
+        <button type="button" class="btn btn-primary btn-lg" (click)="saveXmlFile()" [disabled]="isAmend()">
           {{'draft.xml'|translate}}
         </button>
       </div>
       <div class="form-group col-md-4" *ngIf="!isInternal">
-        <button class="btn btn-primary btn-lg" (click)="mailto()"
-           [disabled]="isDisableSubmitToHC()" >
+        <button class="btn btn-primary btn-lg" (click)="mailto()" [disabled]="isDisableSubmitToHC()">
           {{'mailto.label'|translate}}
-      </button>
+        </button>
       </div>
     </div>
     <div class="row" *ngIf="showMailToHelpText">
-      <app-mailto-help [email]="submitToEmail" [subject]="submitToSubject" [lang]="lang" ></app-mailto-help>
+      <app-mailto-help [email]="submitToEmail" [subject]="submitToSubject" [lang]="lang"></app-mailto-help>
     </div>
   </form>
 </div>
