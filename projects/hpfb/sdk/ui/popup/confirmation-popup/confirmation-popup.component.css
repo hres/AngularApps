@@ -14,7 +14,7 @@
 @media (max-width: 480px) {
     .custom-footer {
         flex-direction: column; /*Changes layout from horizontal to vertical*/
-        align-items: stretch; /* Stretch buttons to the containers width */ 
+        align-items: stretch; /* Stretch buttons to the containers width */
     }
 
     .custom-footer > div {
@@ -25,18 +25,18 @@
         width: 100%;
     }
 }
-  
-  
+
+
 .left-button,
 .right-button {
     flex: 0 0 auto;
 }
 
 .custom-footer .btn.close-btn {
-    background-color: #949494;
+    background-color: #595959;
     color: #ffffff
 }
 
 .custom-footer .btn.close-btn:focus {
-    background-color: #6f6f6f;
+    background-color: #404040;
 }

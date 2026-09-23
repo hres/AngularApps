@@ -57,7 +57,7 @@
                   translatedParentLabel="{{contactGroupLabelKey|translate}}"></control-messages>
                 }
                 <select id="{{contactType}}language{{recordId}}" required class="form-control" [formControlName]="'language'">
-                  <option label="{{ 'select.option'|translate }}"></option>
+                  <option [ngValue]="null">{{ 'select.option'|translate }}</option>
                   @for (langOption of languageList; track langOption) {
                     <option [value]="langOption.id">{{langOption | textTransform: lang }}</option>
                   }
@@ -83,7 +83,7 @@
           <div class="row">
             <div class="form-group col-sm-6" >
               <label for="{{contactType}}phoneNumber{{recordId}}" class="required full-width">
-                <span class="field-name">{{'phone.number'|translate}} {{'phone.number.info'|translate}}
+                <span class="field-name">{{'phone.number'|translate}}
                   <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                 </span>
                 @if (contactDetailsForm.controls['phoneNumber'].invalid) {
@@ -109,7 +109,7 @@
               <div class="row">
                 <div class="form-group col-sm-6">
                   <label class="required full-width" for="{{contactType}}faxNumber{{recordId}}">
-                    <span class="field-name">{{'fax.number' |translate }} {{'fax.number.info' |translate }}
+                    <span class="field-name">{{'fax.number' |translate }}
                       <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
                     </span>
                     @if (contactDetailsForm.controls['faxNumber'].invalid) {

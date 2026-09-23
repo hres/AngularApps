@@ -61,7 +61,7 @@
           }
           <select id="{{addrType}}country{{recordId}}" required [formControlName]="'country'" class="required form-control"
             (change)="onCountryChange($event)">
-            <option label="{{ 'select.option'|translate }}"></option>
+            <option [ngValue]="null">{{ 'select.option'|translate }}</option>
             @for (ctry of countryList; track ctry) {
               <option [value]="ctry.id">{{ ctry| textTransform: lang }}</option>
             }
@@ -105,7 +105,7 @@
         }
         <div class="form-group col-sm-6 col-xs-12">
           <label for="{{addrType}}postal{{recordId}}" class="required">
-            <span class="field-name">{{ postalLabel() |translate}} {{ postalLabelInfo() |translate}}
+            <span class="field-name">{{ postalLabel() |translate}}
               <strong class="required" aria-hidden="true">{{'commmon.required.bracket'|translate}}</strong>
             </span><br/>
             @if (addressForm.controls['postal'].invalid) {

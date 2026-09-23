@@ -7,7 +7,7 @@ import { INameAddress } from '../../model/entity-base';
 export class AddressDetailsService {
 
   constructor(private _utilsService: UtilsService, private _converterService: ConverterService) { }
-  
+
   /**
    * Gets the reactive forms Model for address details
    * @param {FormBuilder} fb
@@ -20,7 +20,7 @@ export class AddressDetailsService {
       provText: '',
       provState: '',
       city: ['', [Validators.required]],
-      country: ['', [Validators.required]],
+      country: [null, [Validators.required]],
       postal: ['', [Validators.required]]
     });
   }
@@ -30,18 +30,18 @@ export class AddressDetailsService {
       addressModel.street_address = formValue['address'];
       addressModel.city = formValue['city'];
 
-      addressModel.country = formValue['country'] ? 
+      addressModel.country = formValue['country'] ?
           this._converterService.findAndConverCodeToIdTextLabel(countryList, formValue['country'], lang) : null;
 
       if (addressModel.country) {
         if (this._utilsService.isCanadaOrUSA(addressModel.country._id)) {
           addressModel.province_text = '';
-          addressModel.province_lov = formValue['provState'] ? 
+          addressModel.province_lov = formValue['provState'] ?
             this._converterService.findAndConverCodeToIdTextLabel(combinedProvStatList, formValue['provState'], lang) : null;
           }else {
             addressModel.province_text = formValue['provText'];
             addressModel.province_lov = null;
-          } 
+          }
       } else {
         addressModel.province_text = formValue['provText'];
       }
@@ -56,7 +56,7 @@ export class AddressDetailsService {
 
       addressModel.country = this._converterService.findAndConverCodeToIdTextLabel(countryList, CANADA, lang);
       addressModel.province_text = '';
-      addressModel.province_lov = formValue['provState'] ? 
+      addressModel.province_lov = formValue['provState'] ?
       this._converterService.findAndConverCodeToIdTextLabel(combinedProvStatList, formValue['provState'], lang) : null;
       addressModel.postal_code = formValue['postal'];
     }
@@ -110,5 +110,5 @@ export class AddressDetailsService {
 
     return listToReturn;
   }
-  
+
 }

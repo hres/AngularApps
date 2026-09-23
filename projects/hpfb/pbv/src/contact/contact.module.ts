@@ -18,7 +18,8 @@ import { ContactDetailsService } from './contact.details/contact.details.service
     PipesModule,
     ExpanderModule,
     NumbersOnlyDirective,
-    PopupComponent
+    PopupComponent,
+    ReactiveFormsModule
   ],
   declarations: [
     ContactDetailsComponent
