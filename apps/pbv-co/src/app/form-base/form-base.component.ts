@@ -144,13 +144,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.msgList.notifyOnChanges();
   }
 
-  private _updateErrorList(errorObjs) {
-       this._consentPrivacyError = errorObjs
-  .filter(e =>
-    e.controlId === 'certifyPrivacy' ||
-    e.controlId === 'certifyPrivacyOnEmail'
-  );
-  }
+
 
   processErrors() {
     this.errorList = [].concat(
@@ -172,10 +166,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  processProductLineErrors(errorList) {
-    this._productLineErrors = errorList;
-    this.processErrors();
-  }
 
   processContactListErrors(errorList) {
     this._contactListErrors = errorList;
@@ -478,4 +468,33 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     return this._versionService.getMajorVersion(this.companyEnrolModel.software_version) < START_CHECKSUM_VERSION
   }
 
+
+
+  processProductLineErrors(errorList) {
+  this._productLineErrors = (errorList || []).map((e: any) => {
+    if (!e) return e;
+    const clone: any = Object.create(Object.getPrototypeOf(e));
+    Object.assign(clone, e);
+    clone.controlId = 'anchor-productLine';
+    return clone;
+  });
+  this.processErrors();
+}
+
+
+private _updateErrorList(errorObjs: ControlMessagesComponent[]) {
+  const map: { [k: string]: string } = {
+    certifyPrivacyOnEmail: 'anchor-certifyPrivacyOnEmail',
+    certifyPrivacy:        'anchor-certifyPrivacy'
+  };
+
+  this._consentPrivacyError = errorObjs
+    .filter(e => map[e.controlId] && e.control?.invalid)
+    .map(e => {
+      const clone: any = Object.create(Object.getPrototypeOf(e));
+      Object.assign(clone, e);
+      clone.controlId = map[e.controlId];
+      return clone;
+    });
+}
 }
