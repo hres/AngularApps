@@ -64,8 +64,7 @@
             <div class="fn-rep">
                 <p>{{'section.show.option'|translate}}{{'business.number' |translate}}</p>
                 <p [innerHTML]="'ht.business.number' | translate"></p>
-
-                <span id="openNewWindowInstr" class="wb-inv"></span>
+               <span aria-hidden='true'><span id="openNewWindowInstr">{{'open.new.window'|translate}}</span></span>
 
                 <p class="fn-rtn">
                   <a [href]="'#' + helpTextSequences['businessNumIndx'][2]">
