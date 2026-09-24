@@ -67,7 +67,7 @@
     "mailing.address": "Regulatory / annual contact address",
     "billing.address": "Billing address",
     "error.msg.addressRolesMissing": "For address information, selection of all roles: manufacturer, mailing, and billing",
-    "error.msg.companyAddress": "There are errors in the address details.",
+    "error.msg.companyAddress": "There are errors in the address details.",
 
     "heading.company.contact":"Company representative details {{seqnumber}}",
     "first.name":"First name",
