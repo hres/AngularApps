@@ -63,9 +63,7 @@
         <dd [id]="helpTextSequences['businessNumIndx'][1]">
             <div class="fn-rep">
                 <p>{{'section.show.option'|translate}}{{'business.number' |translate}}</p>
-                <p [innerHTML]="'ht.business.number' | translate"></p>
-               <span aria-hidden='true'><span id="openNewWindowInstr">{{'open.new.window'|translate}}</span></span>
-
+				<p>{{'ht.business.number' | translate}} <a [href]="'ht.business.number.link'|translate" target='_blank' aria-describedby='openNewWindowInstr'>{{'ht.business.number.linktext'|translate}}</a> <span aria-hidden='true'><span id="openNewWindowInstr">{{'open.new.window'|translate}}</span></span>{{'ht.business.number2' | translate}}</p>		
                 <p class="fn-rtn">
                   <a [href]="'#' + helpTextSequences['businessNumIndx'][2]">
                       <span class="wb-inv">
