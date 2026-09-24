@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild, signal, Signal, computed, effect, viewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, HostListener, ViewChildren, QueryList, inject, ViewChild, signal, Signal, computed, effect, viewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FileConversionService, CheckSumService, UtilsService, ConverterService, VersionService, FileIoModule, ErrorModule, PipesModule, EntityBaseService, ControlMessagesComponent, ConvertResults, HelpSequence, CHECK_SUM_CONST, PopupComponent } from '@hpfb/sdk/ui';
 import { GlobalService } from '../global/global.service';
@@ -7,7 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AppFormModule } from '../app.form.module';
 import { FILE_OUTPUT_PREFIX, ENROLMENT_STATUS, ROOT_TAG, START_CHECKSUM_VERSION, VERSION_TAG_PATH, XSLT_PREFIX, YES, REVERSE_ROLE_MAPPING, ROLE_CODES, EXTERNAL_OUTPUT_PREFIX, INTERNAL_OUTPUT_PREFIX } from '../app.constants';
 import { FormBaseService } from './form-base.service';
-import { CompanyEnrol, Company, ContactRecord, AddressRecord} from '../models/Company';
+import { CompanyEnrol, Company, ContactRecord, AddressRecord } from '../models/Company';
 import { AppSignalService } from '../signal/app-signal.service';
 import { FilereaderInstructionComponent } from "../filereader-instruction/filereader-instruction.component";
 import { CompanyEnrolmentComponent } from '../company-enrolment/company-enrolment.component';
@@ -44,7 +44,6 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(CompanyAddressListComponent) companyAddressListComponent: CompanyAddressListComponent;
   @ViewChild(ProductLineComponent) productLineComponent: ProductLineComponent;
 
-
   private _companyEnrolmentErrors = [];
   private _contactListErrors = [];
   private _contactCompanyRoleErrors = [];
@@ -74,7 +73,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   disableForm: boolean = false;
 
   public mailToLabel = 'mailto.label';
-  public showMailToHelpText: boolean = false;;
+  public showMailToHelpText: boolean = false;
   public mailToLink = '';
   public submitToEmail: string = '';
   public submitToSubject: string = '';
@@ -83,17 +82,23 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   popupMessage: string = '';
   popupTitle: string = '';
 
-  private _signalService = inject(AppSignalService)
+  private _signalService = inject(AppSignalService);
 
-  private selectedContactCompanyRoles : Signal<string[]> = this._signalService.getSelectedContactCompanyRoles();
-  private selectedAddressCompanyRoles : Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
+  private selectedContactCompanyRoles: Signal<string[]> = this._signalService.getSelectedContactCompanyRoles();
+  private selectedAddressCompanyRoles: Signal<string[]> = this._signalService.getSelectedAddressCompanyRoles();
 
   constructor(
     private _fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private  _baseService: FormBaseService, private _globalService: GlobalService, private _utilsService: UtilsService,
-    private fileServices: FileConversionService, private _versionService: VersionService, private _checkSumService: CheckSumService,
-    private _companyContactService: CompanyContactService, private _companyAddressService: CompanyAddressService, private _translateService: TranslateService
+    private _baseService: FormBaseService,
+    private _globalService: GlobalService,
+    private _utilsService: UtilsService,
+    private fileServices: FileConversionService,
+    private _versionService: VersionService,
+    private _checkSumService: CheckSumService,
+    private _companyContactService: CompanyContactService,
+    private _companyAddressService: CompanyAddressService,
+    private _translateService: TranslateService
   ) {
     this.showErrors = false;
     effect(() => {
@@ -101,8 +106,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     });
     effect(() => {
       this.processContactCompanyRolesErrors();
-    })
-
+    });
   }
 
   ngOnInit() {
@@ -110,9 +114,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
       this.coForm = this._baseService.getReactiveModel(this._fb);
     }
     try {
-
       if (!this._globalService.enrollment) {
-        // console.log("onInit", "enrollement doesn't exist, create a new one");
         this.enrollModel = this._baseService.getEmptyEnrol();
         this._globalService.enrollment = this.enrollModel;
       } else {
@@ -137,14 +139,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     document.location.href = '#def-top';
 
     this.msgList.changes.subscribe(errorObjs => {
-      let temp = [];
       this._updateErrorList(errorObjs);
       this.processErrors();
     });
     this.msgList.notifyOnChanges();
   }
-
-
 
   processErrors() {
     this.errorList = [].concat(
@@ -158,14 +157,13 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     );
 
     this.showMailToHelpText = false;
-    this.cdr.detectChanges(); // doing our own change detection
+    this.cdr.detectChanges();
   }
 
   processCompanyEnrolmentErrors(errorList) {
     this._companyEnrolmentErrors = errorList;
     this.processErrors();
   }
-
 
   processContactListErrors(errorList) {
     this._contactListErrors = errorList;
@@ -199,10 +197,10 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this.processErrors();
   }
 
-  isRolesMissing(selectedRoles : string[]) {
-    const companyRolesList = this._globalService.companyRolesList.map(role => role.id); // Required roles
-    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, '')); // Remove number prefixes
-    return companyRolesList.some(role => ! cleanSelectedRoles.includes(role));
+  isRolesMissing(selectedRoles: string[]) {
+    const companyRolesList = this._globalService.companyRolesList.map(role => role.id);
+    const cleanSelectedRoles = selectedRoles.map(role => role.replace(/^\d+/, ''));
+    return companyRolesList.some(role => !cleanSelectedRoles.includes(role));
   }
 
   public hideErrorSummary() {
@@ -215,25 +213,25 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length > 0) {
       document.location.href = '#topErrorSummaryId';
     } else {
-        if (!this.companyAddressListComponent.hasNoRolesSelected() && !this.companyContactListComponent.hasNoRolesSelected() && this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine
+      if (!this.companyAddressListComponent.hasNoRolesSelected() && !this.companyContactListComponent.hasNoRolesSelected() && this.companyAddressListComponent.recordFormGroup.pristine && this.companyContactListComponent.recordFormGroup.pristine
         && this.companyAddressListComponent.recordFormArray.valid && this.companyContactListComponent.recordFormArray.valid) {
         this._saveXML();
       } else {
         this.companyAddressListComponent.expandAllInvalidRecords();
         this.companyContactListComponent.expandAllInvalidRecords();
-            // set popup text based on context
-            const actionKey = this.isInternal
-            ? 'msg.generating.xml.popup'
-            : 'msg.saving.xml.popup' ;
 
-       this.popupMessage = this._translateService.instant(actionKey);
+        const actionKey = this.isInternal
+          ? 'msg.generating.xml.popup'
+          : 'msg.saving.xml.popup';
+
+        this.popupMessage = this._translateService.instant(actionKey);
         this.openPopup();
       }
     }
   }
 
-  openPopup(){
-    jQuery( "#" + this.popupId ).trigger( "open.wb-overlay" );
+  openPopup() {
+    jQuery("#" + this.popupId).trigger("open.wb-overlay");
   }
 
   public saveWorkingCopyFile() {
@@ -243,28 +241,23 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public processFile(fileData: ConvertResults) {
-    // console.log(fileData);
     if (fileData.data !== null) {
       this.coForm.controls['certifyPrivacyOnEmail'].setValue(false);
       this.coForm.controls['certifyPrivacy'].setValue(false);
       this.companyEnrolModel = fileData.data.COMPANY_ENROL;
       this._initModels(this.companyEnrolModel);
       let appType: string = null;
-      if(this.companyEnrolModel.software_version < this._globalService.appVersion){
-
-        if(this.companyEnrolModel.application_type._id !== null && this.companyEnrolModel.application_type._id !== undefined ){
+      if (this.companyEnrolModel.software_version < this._globalService.appVersion) {
+        if (this.companyEnrolModel.application_type._id !== null && this.companyEnrolModel.application_type._id !== undefined) {
           appType = String(this.companyEnrolModel.application_type._id)?.toUpperCase();
-       }else{
-         appType = String(this.companyEnrolModel.application_type)?.toUpperCase();
-       }
+        } else {
+          appType = String(this.companyEnrolModel.application_type)?.toUpperCase();
+        }
         this.isStatusFinal = appType === ENROLMENT_STATUS.FINAL || appType === ENROLMENT_STATUS.APPROVED;
       } else {
         this.isStatusFinal = this.companyEnrolModel.application_type._id == ENROLMENT_STATUS.FINAL;
       }
       this._disableForm();
-      // this.setSelectedTxnDesc(this.ectdModel.lifecycle_record?.sequence_description_value?._id);
-      // this._baseService.mapDataModelToFormModel(this.transactionEnrollModel.contact_info, this.rtForm);
-      // this.agentInfoOnChange();
     }
   }
 
@@ -275,43 +268,31 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  enableForm(e : any) {
+  enableForm(e: any) {
     if (e) {
       this.disableForm = false;
       this.coForm.enable();
 
-      if(this.companyAddressListComponent){
+      if (this.companyAddressListComponent) {
         this.companyAddressListComponent.enableAddressesForAmend();
       }
 
-      if(this.companyContactListComponent){
+      if (this.companyContactListComponent) {
         this.companyContactListComponent.enableContactsForAmend();
       }
     }
   }
 
   private _initModels(companyEnrol: CompanyEnrol) {
-    // this.ectdModel = trans.ectd;
-    // // if (trans.contact_info != null) {
-    // //   this.holderAddressModel = trans.contact_info.holder_name_address;
-    // //   this.holderContactModel = trans.contact_info.holder_contact;
-    // //   this.agentAddressModel = trans.contact_info.agent_name_address;
-    // //   this.agentContactModel = trans.contact_info.agent_contact;
-    // // }
-    // if (trans.fee_details != null) {
-    //   this.feesModel = trans.fee_details;
-    // }
-    // this.addressModel = trans.regulatory_activity_address;
-    // this.contactModel = trans.regulatory_activity_contact;
     const tAddresses = companyEnrol.address_record;
     const tAddressesArray = Array.isArray(tAddresses) ? tAddresses : [tAddresses];
-    this.addressListModel = companyEnrol.software_version < this._globalService.appVersion? this._mapAddressIdToId(tAddressesArray) : tAddressesArray;
+    this.addressListModel = companyEnrol.software_version < this._globalService.appVersion ? this._mapAddressIdToId(tAddressesArray) : tAddressesArray;
     if (this._utilsService.isEmpty(tAddresses)) {
       this.addressListModel = [];
     }
     const tContacts = companyEnrol.contact_record;
     const tContactsArray = Array.isArray(tContacts) ? tContacts : [tContacts];
-    this.contactListModel = companyEnrol.software_version < this._globalService.appVersion? this._mapContactIdToId(tContactsArray) : tContactsArray;
+    this.contactListModel = companyEnrol.software_version < this._globalService.appVersion ? this._mapContactIdToId(tContactsArray) : tContactsArray;
     if (this._utilsService.isEmpty(tContacts)) {
       this.contactListModel = [];
     }
@@ -319,15 +300,15 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   _mapAddressIdToId(addressArray: any): AddressRecord[] {
     return addressArray.map(({ address_id, ...rest }) => ({
-      id: address_id,  // Rename address_id to id
-      ...rest          // Keep the remaining properties
+      id: address_id,
+      ...rest
     }));
   }
 
-  _mapContactIdToId(contactArray : any): ContactRecord[] {
+  _mapContactIdToId(contactArray: any): ContactRecord[] {
     return contactArray.map(({ contact_id, ...rest }) => ({
-      id: contact_id,  // Rename contact_id to id
-      ...rest          // Keep the remaining properties
+      id: contact_id,
+      ...rest
     }));
   }
 
@@ -340,18 +321,16 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     if (this.errorList && this.errorList.length < 1) {
       const result: Company = this._prepareForSaving(true);
       const fileName = this._generateFileName(result[ROOT_TAG]);
-      const xsltVersion = this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.appVersion)
+      const xsltVersion = this._versionService.getApplicationMajorVersionWithUnderscore(this._globalService.appVersion);
       const xslName = XSLT_PREFIX.toUpperCase() + '_CO_' + xsltVersion + '.xsl';
 
       this.fileServices.saveXmlToFile(result, fileName, true, xslName);
       return;
     }
     document.location.href = '#topErrorSummaryId';
-
   }
 
   public isAmend() {
-
     if (this.companyEnrolModel.application_type._id === ENROLMENT_STATUS.FINAL) {
       return (!this.isInternal && this.isStatusFinal);
     } else if (this.companyEnrolModel.software_version <= this._globalService.appVersion) {
@@ -365,12 +344,12 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
   }
 
   public isDisableSubmitToHC() {
-    if(this.errorList.length > 0 ){
+    if (this.errorList.length > 0) {
       return true;
-    }else{
+    } else {
       return this.isAmend();
     }
-}
+  }
 
   private _prepareForSaving(xmlFile: boolean): Company {
     let contactsFormArrayValue = null;
@@ -396,7 +375,7 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     this._baseService.mapCompanyEnrolmentToOutput(newcompanyEnrol, companyEnrolmentFormGroupValue, this.isInternal, xmlFile);
     this._baseService.mapProductLineToOutput(newcompanyEnrol, productLineValue);
     this._baseService.mapContactsFormToOutput(newcompanyEnrol, contactsFormArrayValue);
-    this._baseService.mapAddressesFormToOutput(newcompanyEnrol, addressFormArrayValue)
+    this._baseService.mapAddressesFormToOutput(newcompanyEnrol, addressFormArrayValue);
 
     this.outputModel = newcompanyEnrol;
 
@@ -405,12 +384,9 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     };
 
     if (xmlFile) {
-      // add and calculate check_sum if it is xml
-      output.COMPANY_ENROL[CHECK_SUM_CONST]  = "";   // this is needed for generating the checksum value
-      output.COMPANY_ENROL[CHECK_SUM_CONST]  = this._checkSumService.createHash(output);
+      output.COMPANY_ENROL[CHECK_SUM_CONST] = "";
+      output.COMPANY_ENROL[CHECK_SUM_CONST] = this._checkSumService.createHash(output);
     }
-
-    //console.log('_prepareForSaving ~ output', JSON.stringify(output, null, 2));
 
     return output;
   }
@@ -422,8 +398,8 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     const prefix = this.isInternal ? INTERNAL_OUTPUT_PREFIX : EXTERNAL_OUTPUT_PREFIX;
 
     return companyId
-    ? `${prefix}-${companyId}-${formattedVersion}`
-    : `${prefix}-${formattedVersion}`;
+      ? `${prefix}-${companyId}-${formattedVersion}`
+      : `${prefix}-${formattedVersion}`;
   }
 
   public async mailto() {
@@ -444,10 +420,11 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
     body = await lastValueFrom(this._translateService.get('email.body'));
     let email = this.submitToEmail.replace(/[()]/g, '').trim();
 
-    emailSubject = emailDraft + ((companyName === null || companyName === '') ? '[company name]' : companyName) + ' ' + ((this.companyEnrolModel.company_id === '') ? ' ' : ' - ' + this.companyEnrolModel.company_id); body = body;
+    emailSubject = emailDraft + ((companyName === null || companyName === '') ? '[company name]' : companyName) + ' ' + ((this.companyEnrolModel.company_id === '') ? ' ' : ' - ' + this.companyEnrolModel.company_id);
+    body = body;
 
     this.mailToLink = `mailto:${email}?subject=${emailSubject}&body=${body}`;
-    window.location.href=this.mailToLink;
+    window.location.href = this.mailToLink;
   }
 
   public onChanged(e, controlName) {
@@ -458,78 +435,30 @@ export class FormBaseComponent implements OnInit, AfterViewInit {
 
   private _findCompanyNameMFRrole(addressFormArray) {
     const manufacturerRecord = addressFormArray.find(
-        (record) => record.addressInfo.selectedAddressCompanyRoles.includes(ROLE_CODES.MFR)
+      (record) => record.addressInfo.selectedAddressCompanyRoles.includes(ROLE_CODES.MFR)
     );
 
     return manufacturerRecord ? manufacturerRecord.addressInfo.companyName : null;
   }
 
-  isEarlyVersion() : boolean{
-    return this._versionService.getMajorVersion(this.companyEnrolModel.software_version) < START_CHECKSUM_VERSION
+  isEarlyVersion(): boolean {
+    return this._versionService.getMajorVersion(this.companyEnrolModel.software_version) < START_CHECKSUM_VERSION;
   }
-
-
 
   processProductLineErrors(errorList) {
-  this._productLineErrors = (errorList || []).map((e: any) => {
-    if (!e) return e;
-    const clone: any = Object.create(Object.getPrototypeOf(e));
-    Object.assign(clone, e);
-    clone.controlId = 'anchor-productLine';
-    return clone;
+    (errorList || []).forEach((e: any) => {
+    if (e) {
+      e.controlId = 'anchor-productLine';
+    }
   });
-  this.processErrors();
-}
-
-
-private _updateErrorList(errorObjs: ControlMessagesComponent[]) {
-  const map: { [k: string]: string } = {
-    certifyPrivacyOnEmail: 'anchor-certifyPrivacyOnEmail',
-    certifyPrivacy:        'anchor-certifyPrivacy'
-  };
-
-  const fixedErrors  = errorObjs
-    .filter(e => map[e.controlId] && e.control?.invalid)
-    .map(e => {
-      const clone: any = Object.create(Object.getPrototypeOf(e));
-      Object.assign(clone, e);
-      clone.controlId = map[e.controlId];
-      return clone;
-    });
-
-    this._consentPrivacyError  = fixedErrors.map(error => {
-      if (error) {
-          const translationKey = error?.label || '';
-          const fieldLabel = this.getFieldLabel(translationKey);
-          error.label = fieldLabel;
-          error.currentError = this.lang==='en'?'This field is required.':'Ce champ est obligatoire.';
-      }
-      return error;
-  });
-}
-
-
-// ==================== THE FIX when using angular 22====================
-
-private getFieldLabel(translationKey: string): string {
-  if (!translationKey) return 'This field';
-
-  // Use the translation service to get the actual label
-  const translated = this._translateService.instant(translationKey);
-
-  // If translation returns the key itself, it means translation is not available
-  if (translated === translationKey) {
-      // Fallback: extract from key
-      let cleanLabel = translationKey;
-      if (cleanLabel.includes('.')) {
-          const parts = cleanLabel.split('.');
-          let lastPart = parts[parts.length - 1];
-          lastPart = lastPart.replace(/([A-Z])/g, ' $1').trim();
-          cleanLabel = lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
-      }
-      return cleanLabel || 'This field';
+  this._productLineErrors = errorList || [];
+    this.processErrors();
   }
 
-  return translated;
-}
+  private _updateErrorList(errorObjs: ControlMessagesComponent[]) {
+    this._consentPrivacyError = errorObjs.filter(e =>
+      e.controlId === 'certifyPrivacy' ||
+      e.controlId === 'certifyPrivacyOnEmail'
+    );
+  }
 }
