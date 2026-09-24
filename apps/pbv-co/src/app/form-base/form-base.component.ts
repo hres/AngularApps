@@ -488,7 +488,7 @@ private _updateErrorList(errorObjs: ControlMessagesComponent[]) {
     certifyPrivacy:        'anchor-certifyPrivacy'
   };
 
-  this._consentPrivacyError = errorObjs
+  const fixedErrors  = errorObjs
     .filter(e => map[e.controlId] && e.control?.invalid)
     .map(e => {
       const clone: any = Object.create(Object.getPrototypeOf(e));
@@ -496,5 +496,40 @@ private _updateErrorList(errorObjs: ControlMessagesComponent[]) {
       clone.controlId = map[e.controlId];
       return clone;
     });
+
+    this._consentPrivacyError  = fixedErrors.map(error => {
+      if (error) {
+          const translationKey = error?.label || '';
+          const fieldLabel = this.getFieldLabel(translationKey);
+          error.label = fieldLabel;
+          error.currentError = this.lang==='en'?'This field is required.':'Ce champ est obligatoire.';
+      }
+      return error;
+  });
+}
+
+
+// ==================== THE FIX when using angular 22====================
+
+private getFieldLabel(translationKey: string): string {
+  if (!translationKey) return 'This field';
+
+  // Use the translation service to get the actual label
+  const translated = this._translateService.instant(translationKey);
+
+  // If translation returns the key itself, it means translation is not available
+  if (translated === translationKey) {
+      // Fallback: extract from key
+      let cleanLabel = translationKey;
+      if (cleanLabel.includes('.')) {
+          const parts = cleanLabel.split('.');
+          let lastPart = parts[parts.length - 1];
+          lastPart = lastPart.replace(/([A-Z])/g, ' $1').trim();
+          cleanLabel = lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
+      }
+      return cleanLabel || 'This field';
+  }
+
+  return translated;
 }
 }
