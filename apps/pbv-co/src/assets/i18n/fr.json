@@ -51,8 +51,7 @@
     "mailto.label": "Soumettre à Santé Canada",
 
     "heading.company.address":"Détails d'adresse {{seqnumber}}",
-    "company.name":"Nom de la compagnie",
-    "company.name.info":"(nom légal complet)",
+    "company.name":"Nom de la compagnie (nom légal complet)",
     "addressDetails.street": "Rue",
     "addressDetails.city": "Ville",
     "addressDetails.country": "Pays",

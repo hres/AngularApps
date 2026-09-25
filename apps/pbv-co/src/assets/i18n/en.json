@@ -51,8 +51,8 @@
     "mailto.label": "Submit to Health Canada",
 
     "heading.company.address":"Address details {{seqnumber}}",
-    "company.name":"Company name",
-    "company.name.info":"(full legal name)",
+    "company.name":"Company name (full legal name)",
+   
     "addressDetails.street": "Street address",
     "addressDetails.city": "City",
     "addressDetails.country": "Country",

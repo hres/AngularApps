@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewEncapsulation, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges, ViewEncapsulation, inject, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { ValidationService } from '../../validation/validation.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -85,7 +85,7 @@ export class ControlMessagesComponent implements OnChanges {
    */
   private _errorVisible: boolean;
   
-  constructor(private _errMessageService: ErrMessageService) {
+  constructor(private _errMessageService: ErrMessageService,  private cdr: ChangeDetectorRef) {
     // this.tabSet = null;
     this.tabId = null;
     this._errorVisible = false;
@@ -147,6 +147,10 @@ export class ControlMessagesComponent implements OnChanges {
     const labelText = this.label?.toLowerCase() || '';
     return controlName.includes('postal') && labelText.includes('postal') && this.control?.errors?.['pattern'];
   }
+
+  public refreshErrorNumber(): void {
+  this.cdr.detectChanges();
+}
   
 
 }

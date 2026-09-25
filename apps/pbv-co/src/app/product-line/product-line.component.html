@@ -10,6 +10,14 @@
                     </sup>
 
                 </legend>
+
+
+                    <control-messages *ngIf="productLineChkFormArray.invalid" [attr.aria-live]="showErrors? null: 'assertive'"
+                [showError]="showErrors"
+                [control]="productLineChkFormArray | formControl"
+                controlId="productLine{{productLineOptionList[0].value}}" label="prod.line"
+                parentId="productLineForm"></control-messages>
+                
                 <ul class="form-group list-unstyled">
                     <li class="checkbox" [formArrayName]="'productLine'" *ngFor="let product of productLineChkFormArray.controls; let i = index">
                         <label [attr.id]="'label-productLine-' + i" for="productLine{{productLineOptionList[i].value}}">
@@ -18,11 +26,7 @@
                         </label>
                     </li>
                 </ul>
-                <control-messages *ngIf="productLineChkFormArray.invalid" [attr.aria-live]="showErrors? null: 'assertive'"
-                [showError]="showErrors"
-                [control]="productLineChkFormArray | formControl"
-                controlId="productLine{{productLineOptionList[0].value}}" label="prod.line"
-                parentId="productLineForm"></control-messages>
+            
             </fieldset>
         </div>
     </div>
