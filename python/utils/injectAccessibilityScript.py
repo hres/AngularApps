@@ -15,7 +15,7 @@ def inject_accessibility_script(final_file_path: str, accessibility_link: str, l
     # Replace placeholders
     accessibility_script = accessibility_script.replace("{{ACCESSIBILITY_URL}}", accessibility_link)
     accessibility_script = accessibility_script.replace(
-        "{{ACCESSIBILITY_TEXT}}", "Accessibility statement" if language == "en" else "Déclaration d'accessibilité"
+        "{{ACCESSIBILITY_TEXT}}", "Accessibility Statement" if language == "en" else "Déclaration d'accessibilité"
     )
 
     # Wrap in <script> tag
