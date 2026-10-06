@@ -7,7 +7,7 @@ def inject_accessibility_script(final_file_path: str, accessibility_link: str, l
     """
     # Path to the JS file
     accessibility_js_file = os.path.join(os.path.dirname(__file__), '..', 'buildHtmlFiles', 'javascript', 'accessibilityLink.js')
-    
+
     # Read the JS content
     with open(accessibility_js_file, "r", encoding="utf-8") as f:
         accessibility_script = f.read()
@@ -15,7 +15,7 @@ def inject_accessibility_script(final_file_path: str, accessibility_link: str, l
     # Replace placeholders
     accessibility_script = accessibility_script.replace("{{ACCESSIBILITY_URL}}", accessibility_link)
     accessibility_script = accessibility_script.replace(
-        "{{ACCESSIBILITY_TEXT}}", "Accessibility statement" if language == "en" else "Déclaration d’accessibilité"
+        "{{ACCESSIBILITY_TEXT}}", "Accessibility statement" if language == "en" else "Déclaration d'accessibilité"
     )
 
     # Wrap in <script> tag
