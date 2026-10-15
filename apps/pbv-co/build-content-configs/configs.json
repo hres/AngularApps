@@ -26,8 +26,8 @@
             "fr": "/rep-dev/accessibility/accessibility-fr.html"
         },
         "prod": {
-            "en": "/rep-dev/accessibility/accessibility-en.html",
-            "fr": "/rep-dev/accessibility/accessibility-fr.html"
+            "en": "/rep-pir/accessibility/accessibility-en.html",
+            "fr": "/rep-pir/accessibility/accessibility-fr.html"
         }
     }
 }
