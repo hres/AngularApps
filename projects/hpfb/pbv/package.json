@@ -1,7 +1,7 @@
 {
   "name": "@hpfb/pbv",
   "version": "1.6.0",
-  "buildNumber": 9,
+  "buildNumber": 1,
   "peerDependencies": {
     "@angular/common": "^22.0.3",
     "@angular/core": "^22.0.3"
