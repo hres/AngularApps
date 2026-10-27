@@ -1,7 +1,7 @@
 {
   "name": "@hpfb/sdk",
-  "version": "1.9.0",
-  "buildNumber": 20,
+  "version": "2.0.0",
+  "buildNumber": 1,
   "peerDependencies": {
     "@angular/common": "^22.0.3",
     "@angular/core": "^22.0.3"
